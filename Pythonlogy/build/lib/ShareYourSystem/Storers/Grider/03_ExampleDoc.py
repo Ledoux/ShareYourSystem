@@ -1,12 +1,12 @@
 #ImportModules
 import ShareYourSystem as SYS
 from ShareYourSystem.Classors import Classer
-from ShareYourSystem.Storers import Storer
+from ShareYourSystem.Storers import Grider
 import numpy as np
 
 #Define a Sumer class
 @Classer.ClasserClass()
-class SumerClass(Storer.StorerClass):
+class SumerClass(Grider.GriderClass):
 
 	#Definition
 	RepresentingKeyStrsList=[
@@ -31,7 +31,7 @@ class SumerClass(Storer.StorerClass):
 
 #Define a Factorizer class
 @Classer.ClasserClass()
-class FactorizerClass(Storer.StorerClass):
+class FactorizerClass(Grider.GriderClass):
 
 	#Definition
 	RepresentingKeyStrsList=[
@@ -74,35 +74,32 @@ class FactorizerClass(Storer.StorerClass):
 		)
 
 #Definition of a Factorizer 
-MyFactorizer=FactorizerClass()
-
-#Update transmit the do method and flush in the results
-MyFactorizer.__setitem__(
+MyFactorizer=FactorizerClass().__setitem__(
 	"Dis_<Component>",
 	[
 		[
-			('SumingFirstInt',1),
-			('SumingSecondInt',2)
+			(
+				'GridingScanTuplesList',
+				[
+					('SumingFirstInt',[1]),
+					('SumingSecondInt',[2,4])
+				]
+			),
 		],
 		[
-			('SumingFirstInt',1),
-			('SumingSecondInt',3)
-		]
+			(
+				'GridingScanTuplesList',
+				[
+					('SumingFirstInt',[0,1]),
+					('SumingSecondInt',[3])
+				]
+			),
+		],
 	]
-).store()
+)
 
-#Update and flush in the results
-MyFactorizer.__setitem__(
-	"Dis_<Component>",
-	[
-		[
-			('SumingFirstInt',2)
-		],
-		[
-			('SumingSecondInt',4)
-		]
-	]
-).store()
+#grid
+MyFactorizer.grid([('FactorizingPowerFloat',[1,2])])
 
 #Definition the AttestedStr
 SYS._attest(
@@ -119,4 +116,3 @@ SYS._attest(
 ) 
 
 #Print
-

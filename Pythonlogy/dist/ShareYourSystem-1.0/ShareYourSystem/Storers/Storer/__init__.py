@@ -39,14 +39,12 @@ class StorerClass(BaseClass):
 
 	def default_init(self,
 						_StoringOrganizeIsBool=False,
+						_StoringFlushIsBool=True,
 						**_KwargVariablesDict
 					):
 
 		#Call the parent init method
 		BaseClass.__init__(self,**_KwargVariablesDict)
-
-		#debug
-		self.debug('First we organize')
 
 	def do_store(self):
 
@@ -90,23 +88,26 @@ class StorerClass(BaseClass):
 			#set
 			self.StoringOrganizeIsBool=True
 
-		#Walk
-		self.walk(
-			{
-				'AfterUpdateList':[
-					('callDo',{'LiargVariablesList':[]})
-				],
-				'GatherVariablesList':[self.OrganizedComponentGetStr]
-			}
-		)
+		#Check
+		if self.StoringFlushIsBool:
 
-		#debug
-		'''
-		self.debug(('self.',self,['OrganizedTopDeriveDatabaserVariable']))
-		'''
+			#Walk
+			self.walk(
+				{
+					'AfterUpdateList':[
+						('callDo',{'LiargVariablesList':[]})
+					],
+					'GatherVariablesList':[self.OrganizedComponentGetStr]
+				}
+			)
 
-		#flush
-		self.OrganizedTopDeriveDatabaserVariable.flush()	
+			#debug
+			'''
+			self.debug(('self.',self,['OrganizedTopDeriveDatabaserVariable']))
+			'''
+
+			#flush
+			self.OrganizedTopDeriveDatabaserVariable.flush()	
 		
 #</DefineClass>
 

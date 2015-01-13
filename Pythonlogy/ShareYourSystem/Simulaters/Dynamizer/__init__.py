@@ -20,12 +20,7 @@ SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
-from ShareYourSystem.Functers import Imitater
 #</ImportSpecificModules>
-
-#<DefineDoStrsList>
-DoStrsList=["Dynamizer","Dynamize","Dynamizing","Dynamized"]
-#<DefineDoStrsList>
 
 #<DefineClass>
 @DecorationClass()
@@ -42,7 +37,6 @@ class DynamizerClass(BaseClass):
 									'DynamizedPostStr'
 								]
 
-	#@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.__init__}]})
 	def default_init(self,
 						_DynamizingTraceStr="v",
 						_DynamizingExternalCurrentStr='mu',
@@ -58,16 +52,16 @@ class DynamizerClass(BaseClass):
 		#Call the parent __init__ method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
-	#@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingMethodStr':'hdformat'}]})
-	#@Argumenter.ArgumenterClass()
 	def do_dynamize(
 				self,
 			):	
 
 		#debug
+		'''
 		self.debug(('self.',self,[
 
 					]))
+		'''
 
 		#set
 		self.DynamizedPostStr='d'+self.DynamizingTraceStr+'/dt='
@@ -84,11 +78,7 @@ class DynamizerClass(BaseClass):
 			#Add in DynamizedPostStr
 			self.DynamizedPreStr+=self.DynamizingExternalCurrentStr
 
-		#Return self
-		#return self
-
-	@Imitater.ImitaterClass()
-	def populate(self):
+	def mimic_populate(self):
 
 		#dynamize first
 		self.dynamize()

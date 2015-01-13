@@ -20,10 +20,6 @@ SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
-from scipy import integrate
-import numpy
-import collections
-from pydelay import dde23
 #</ImportSpecificModules>
 
 #<DefineClass>

@@ -29,7 +29,6 @@ class PopulaterClass(BaseClass):
 									'PopulatingEquationStr'
 								]
 
-	#@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.__init__}]})
 	def default_init(self,
 						_PopulatingUnitsInt=0,
 						_PopulatingEquationStr="",
@@ -39,8 +38,6 @@ class PopulaterClass(BaseClass):
 		#Call the parent __init__ method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
-	#@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingMethodStr':'hdformat'}]})
-	#@Argumenter.ArgumenterClass()
 	def do_populate(self):	
 
 		#debug

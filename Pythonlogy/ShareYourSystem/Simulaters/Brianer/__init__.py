@@ -14,14 +14,12 @@ A Brianer
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Simulaters.Runner"
+BaseModuleStr="ShareYourSystem.Simulaters.Rater"
 DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
-import brian
-
 from ShareYourSystem.Noders import Noder
 #</ImportSpecificModules>
 
@@ -31,15 +29,14 @@ class BrianerClass(BaseClass):
 	
 	#Definition
 	RepresentingKeyStrsList=[
-									'BrianedNetworkVariable',
-									'BrianedClocksList',
-									'BrianedNeuronGroupsList',
-									'BrianedConnectionsList'
-								]
+							'BrianedNetworkVariable',
+							'BrianedClocksList',
+							'BrianedNeuronGroupsList',
+							'BrianedConnectionsList'
+						]
 
-	#@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.__init__}]})
 	def default_init(self,
-						_BrianingTimeDimensionVariable=brian.ms,
+						_BrianingTimeDimensionVariable=None,
 						_BrianedNetworkVariable=None,
 						_BrianedClocksList=None,
 						_BrianedNeuronGroupsList=None,
@@ -50,7 +47,6 @@ class BrianerClass(BaseClass):
 		#Call the parent __init__ method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
-	#@Imitater.ImitaterClass()
 	def mimic_run(self):
 
 		#brian first
@@ -64,8 +60,6 @@ class BrianerClass(BaseClass):
 			self.RunningTimeFloat*self.BrianingTimeDimensionVariable
 		)
 
-	#@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingMethodStr':'hdformat'}]})
-	#@Argumenter.ArgumenterClass()
 	def do_brian(self):	
 
 		#network first
@@ -73,6 +67,10 @@ class BrianerClass(BaseClass):
 
 		#import 
 		import brian
+
+		#Check
+		if self.BrianingTimeDimensionVariable==None:
+			self.BrianingTimeDimensionVariable=brian.ms
 
 		#init
 		self.BrianedNetworkVariable=brian.MagicNetwork()
@@ -95,6 +93,11 @@ class BrianerClass(BaseClass):
 			)
 		)
 
+		#debug
+		'''
+		self.debug(('self.',self,['BrianedStepTimeFloatsList']))
+		'''
+
 		#set the clocks
 		self.BrianedClocksDict=dict(
 			map(
@@ -114,6 +117,11 @@ class BrianerClass(BaseClass):
 			}
 		)
 
+		#debug
+		'''
+		self.debug(('self.',self,['BrianedClocksDict']))
+		'''
+
 		#set neuron groups
 		self.BrianedNeuronGroupsList=map(
 				lambda __BrianingDerivePopulater:
@@ -128,21 +136,6 @@ class BrianerClass(BaseClass):
 				).NeuronGroupVariable,
 				self.NetworkedDeriveConnectersList
 			)
-
-
-		
-
-		#debug
-		'''
-		self.debug(('self.',self,['BrianedStepTimeFloatsList']))
-		'''
-
-		
-
-		#debug
-		'''
-		self.debug(('self.',self,['BrianedClocksDict']))
-		'''
 
 		#set the clocks and monitors
 		self.BrianedMonitorsList=SYS.flat(
@@ -215,8 +208,5 @@ class BrianerClass(BaseClass):
 				BrianedNetworkVariable.add(__BrianingVariable),
 				self.BrianedNeuronGroupsList+self.BrianedConnectionsList+self.BrianedMonitorsList
 			)
-
-		#Return self
-		#return self
 
 #</DefineClass>

@@ -86,7 +86,7 @@ MyFactorizer=FactorizerClass().walk(
 					'AfterUpdateList':[
 						('organize',{'LiargVariablesList':[]})
 					],
-					'GatherVariablesList':[self.OrganizedComponentGetStr]
+					'GatherVariablesList':['<Component>']
 				}
 			).structure(
 				['Component']

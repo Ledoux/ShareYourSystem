@@ -29,7 +29,6 @@ class RaterClass(BaseClass):
 									'RatedPreStr'
 								]
 
-	#@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.__init__}]})
 	def default_init(self,
 						_RatingMatrixStr='J',
 						_RatingConstantTimeStr='tau',
@@ -40,8 +39,6 @@ class RaterClass(BaseClass):
 		#Call the parent __init__ method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
-	#@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingMethodStr':'hdformat'}]})
-	#@Argumenter.ArgumenterClass()
 	def do_rate(
 				self,
 			):	
@@ -59,9 +56,6 @@ class RaterClass(BaseClass):
 		#add the constant time
 		#self.RatedPreStr+=')/('+self.RatingConstantTimeStr+'*'+self.DynamizingTimeDimensionStr+')'
 		self.RatedPreStr+=')/('+self.RatingConstantTimeStr+')'
-
-		#Return self
-		#return self
 		
 	def mimic_dynamize(self):
 

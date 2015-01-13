@@ -957,6 +957,7 @@ ShareYourSystem/Noders/Noder/__pycache__/Initiater.cpython-34.pyc
 ShareYourSystem/Noders/Organizer/.DS_Store
 ShareYourSystem/Noders/Organizer/00_ExampleDoc.md
 ShareYourSystem/Noders/Organizer/01_ExampleDoc.py
+ShareYourSystem/Noders/Organizer/Factorizes.hdf5
 ShareYourSystem/Noders/Organizer/__init__.py
 ShareYourSystem/Noders/Parenter/001_GithubDoc.md
 ShareYourSystem/Noders/Parenter/00_ExampleDoc.md
@@ -1158,7 +1159,12 @@ ShareYourSystem/Storers/Controller/Test.py
 ShareYourSystem/Storers/Controller/__init__.py
 ShareYourSystem/Storers/Controller/Tests/attest_path.txt
 ShareYourSystem/Storers/Controller/__pycache__/Initiater.cpython-34.pyc
+ShareYourSystem/Storers/Grider/00_ExampleDoc.md
 ShareYourSystem/Storers/Grider/01_ExampleDoc.py
+ShareYourSystem/Storers/Grider/02_ExampleDoc.md
+ShareYourSystem/Storers/Grider/03_ExampleDoc.py
+ShareYourSystem/Storers/Grider/Factorizes.hdf5
+ShareYourSystem/Storers/Grider/Multiplys.hdf5
 ShareYourSystem/Storers/Grider/__init__.py
 ShareYourSystem/Storers/Storer/.DS_Store
 ShareYourSystem/Storers/Storer/00_ExampleDoc.md

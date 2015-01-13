@@ -29,7 +29,9 @@ import operator
 #</DefineLocals>
 
 #<DefineClass>
-@DecorationClass()
+@DecorationClass(**{
+	'ClassingSwitchMethodStrsList':['organize']
+})
 class OrganizerClass(BaseClass):
 	
 	#Definition
@@ -63,6 +65,7 @@ class OrganizerClass(BaseClass):
 						_OrganizedComponentGetStr="",
 						_OrganizedInConnectAttentionGetStrsList=None,
 						_OrganizedOutConnectAttentionGetStrsList=None,
+						_OrganizedComponentCollectionOrderedDict=None,
 						**_KwargVariablesDict
 					):
 
@@ -80,13 +83,19 @@ class OrganizerClass(BaseClass):
 		#set
 		self.OrganizedDataGetStr=Noder.NodingPrefixGetStr+self.OrganizingDataCollectionStr+Noder.NodingSuffixGetStr
 		self.OrganizedComponentGetStr=Noder.NodingPrefixGetStr+self.OrganizingComponentCollectionStr+Noder.NodingSuffixGetStr
-		
+
 		#Make the hierarchical joins for the ins 
 		self.OrganizedInConnectAttentionGetStrsList=map(
 				lambda __DeriveNoder:
 				'/NodePointDeriveNoder/'+self.OrganizedComponentGetStr+__DeriveNoder.NodeKeyStr+'/'+self.OrganizedDataGetStr+self.OrganizingInStr+'Hierarchizer',
 				self[self.OrganizedComponentGetStr]
 			)
+
+		#Set
+		self.OrganizedComponentCollectionOrderedDict=getattr(
+			self,
+			self.OrganizingComponentCollectionStr+'CollectionOrderedDict'
+		)
 
 		#map
 		self.OrganizedOutConnectAttentionGetStrsList=[

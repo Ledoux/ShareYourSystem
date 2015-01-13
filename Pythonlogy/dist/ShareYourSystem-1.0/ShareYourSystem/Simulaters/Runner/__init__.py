@@ -31,7 +31,6 @@ class RunnerClass(BaseClass):
 									'RunningTimeFloat'
 								]
 
-	#@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.__init__}]})
 	def default_init(self,
 						_RunningTimeFloat=0.,
 						**_KwargVariablesDict
@@ -40,8 +39,6 @@ class RunnerClass(BaseClass):
 		#Call the parent __init__ method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
-	#@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingMethodStr':'hdformat'}]})
-	#@Argumenter.ArgumenterClass()
 	def do_run(
 				self
 			):	

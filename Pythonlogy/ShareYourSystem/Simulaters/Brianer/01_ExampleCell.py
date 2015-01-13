@@ -3,9 +3,6 @@
 import ShareYourSystem as SYS
 from ShareYourSystem.Simulaters import Rater,Brianer
 
-
-#_print(Rater.RaterClass.__mro__)
-
 #Definition of a brian structure
 MyBrianer=Brianer.BrianerClass(
 	).push(

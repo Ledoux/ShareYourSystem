@@ -26,11 +26,6 @@ class SumerClass(Storer.StorerClass):
 		
 	def do_sum(self):
 		
-		#debug
-		'''
-		self.debug(('self.',self,['SumingFirstInt','SumingSecondInt']))
-		'''
-
 		#set the SumedTotalInt
 		self.SumedTotalInt=self.SumingFirstInt+self.SumingSecondInt
 
@@ -51,9 +46,6 @@ class FactorizerClass(Storer.StorerClass):
 
 		#Call the parent init method
 		self.__class__.__bases__[0].__init__(self)
-
-		#debug
-		self.debug(('self.',self,['OrganizingComponentCollectionStr']))
 
 		#Build the output hierarchy
 		self.produce(
