@@ -220,6 +220,7 @@ class JoinerClass(BaseClass):
 		#</NotHook>
 
 		#debug
+		'''
 		self.debug(
 					[
 						'First setSwitch and make flush the catched databases',
@@ -229,7 +230,8 @@ class JoinerClass(BaseClass):
 									])
 					]
 				)
-
+		'''
+		
 		#Flush the post joined databases
 		self.JoinedFlushIndexIntsList=map(
 			lambda __JoinedCatchDeriveJoinerPointer:

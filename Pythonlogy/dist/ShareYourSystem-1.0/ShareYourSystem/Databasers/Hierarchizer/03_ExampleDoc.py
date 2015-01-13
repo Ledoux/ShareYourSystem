@@ -197,17 +197,13 @@ MyFactorizer.__setitem__(
 	]
 ).walk(
 	{
-		'BeforeUpdateList':[
+		'AfterUpdateList':[
 			('callDo',{'LiargVariablesList':[]})
 		],
 		'GatherVariablesList':['<Component>']
 	}
-)
+)['<Datome>ResultsHierarchizer'].flush()
 
-
-#['<Datome>ResultsHierarchizer'].flush()
-
-"""
 #Update and flush in the results
 MyFactorizer.__setitem__(
 	"Dis_<Component>",
@@ -219,8 +215,14 @@ MyFactorizer.__setitem__(
 			('SumingSecondInt',4)
 		]
 	]
-)['<Datome>ParametersHierarchizer'].flush()
-"""
+).walk(
+	{
+		'AfterUpdateList':[
+			('callDo',{'LiargVariablesList':[]})
+		],
+		'GatherVariablesList':['<Component>']
+	}
+)['<Datome>ResultsHierarchizer'].flush()
 
 #Definition the AttestedStr
 SYS._attest(

@@ -1,24 +1,26 @@
 #ImportModules
 import ShareYourSystem as SYS
 from ShareYourSystem.Classors import Classer
-from ShareYourSystem.Storers import Storer
+from ShareYourSystem.Databasers import Hierarchizer
+from ShareYourSystem.Noders import Organizer
 import numpy as np
+import operator
 
 #Define a Sumer class
 @Classer.ClasserClass()
-class SumerClass(Storer.StorerClass):
+class SumerClass(Organizer.OrganizerClass):
 
 	#Definition
 	RepresentingKeyStrsList=[
-								'SumingFirstInt',
-								'SumingSecondInt',
-								'SumedTotalInt'
-							]
+							'SumingFirstInt',
+							'SumingSecondInt',
+							'SumedTotalInt'
+						]
 								
 	def default_init(self,
 						_SumingFirstInt=0,
 						_SumingSecondInt=0,
-						_SumedTotalInt=0
+						_SumedTotalInt=0,
 					):
 
 		#Call the parent init method
@@ -26,12 +28,17 @@ class SumerClass(Storer.StorerClass):
 		
 	def do_sum(self):
 		
+		#debug
+		'''
+		self.debug(('self.',self,['SumingFirstInt','SumingSecondInt']))
+		'''
+
 		#set the SumedTotalInt
 		self.SumedTotalInt=self.SumingFirstInt+self.SumingSecondInt
 
 #Define a Factorizer class
 @Classer.ClasserClass()
-class FactorizerClass(Storer.StorerClass):
+class FactorizerClass(Organizer.OrganizerClass):
 
 	#Definition
 	RepresentingKeyStrsList=[
@@ -67,14 +74,35 @@ class FactorizerClass(Storer.StorerClass):
 				map(
 					lambda __DeriveSumer:
 					__DeriveSumer.SumedTotalInt,
-					self[self.OrganizedComponentGetStr]
+					self['<Component>']
 				)
 			),
 			self.FactorizingPowerFloat
 		)
 
-#Definition of a Factorizer 
-MyFactorizer=FactorizerClass()
+#Definition of a Factorizer instance, organize structure and network
+MyFactorizer=FactorizerClass().walk(
+				{
+					'AfterUpdateList':[
+						('organize',{'LiargVariablesList':[]})
+					],
+					'GatherVariablesList':['<Component>']
+				}
+			).structure(
+				['Component']
+			).network(
+				**{
+					'VisitingCollectionStrsList':[
+						'Data','Component'
+					],
+					'RecruitingConcludeConditionTuplesList':[
+						(
+							'__class__.__mro__',
+							operator.contains,Hierarchizer.HierarchizerClass
+						)
+					]
+				}
+			)
 
 #Update transmit the do method and flush in the results
 MyFactorizer.__setitem__(
@@ -89,7 +117,14 @@ MyFactorizer.__setitem__(
 			('SumingSecondInt',3)
 		]
 	]
-).store()
+).walk(
+	{
+		'AfterUpdateList':[
+			('callDo',{'LiargVariablesList':[]})
+		],
+		'GatherVariablesList':['<Component>']
+	}
+)['<Data>ResultsHierarchizer'].flush()
 
 #Update and flush in the results
 MyFactorizer.__setitem__(
@@ -102,7 +137,14 @@ MyFactorizer.__setitem__(
 			('SumingSecondInt',4)
 		]
 	]
-).store()
+).walk(
+	{
+		'AfterUpdateList':[
+			('callDo',{'LiargVariablesList':[]})
+		],
+		'GatherVariablesList':['<Component>']
+	}
+)['<Data>ResultsHierarchizer'].flush()
 
 #Definition the AttestedStr
 SYS._attest(

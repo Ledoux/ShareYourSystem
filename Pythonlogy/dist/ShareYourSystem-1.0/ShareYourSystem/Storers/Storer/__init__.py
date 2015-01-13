@@ -14,12 +14,15 @@ Storer instances
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Noders.Structurer"
+BaseModuleStr="ShareYourSystem.Noders.Organizer"
 DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
+from ShareYourSystem.Databasers import Hierarchizer
+from ShareYourSystem.Noders import Noder
+import operator
 #</ImportSpecificModules>
 
 #<DefineLocals>
@@ -31,33 +34,79 @@ class StorerClass(BaseClass):
 	
 	#Definition
 	RepresentingKeyStrsList=[
-								'StoringCollectionStr',
-								'StoringTopDeriveDatabaserVariable'
+								'StoringOrganizeIsBool'
 							]
 
 	def default_init(self,
-						_StoringCollectionStr="",
-						_StoringTopDeriveDatabaserVariable=None,
+						_StoringOrganizeIsBool=False,
 						**_KwargVariablesDict
 					):
 
 		#Call the parent init method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
+		#debug
+		self.debug('First we organize')
+
 	def do_store(self):
 
-		#check
-		if self.StoringCollectionStr=="":
-			self.StoringCollectionStr=self.NodingCollectionStr
-			self.StoringTopDeriveDatabaserVariable=getattr(
-				self,
-				self.NodingCollectionStr+'CollectionOrderedDict'
-			).values()[-1]
+		#Check
+		if self.StoringOrganizeIsBool==False:
+
+			#organize
+			self.organize()
+
+			#Walk
+			self.walk(
+				{
+					'AfterUpdateList':[
+						('organize',{'LiargVariablesList':[]})
+					],
+					'GatherVariablesList':[self.OrganizedComponentGetStr]
+				}
+			)
+
+			#structure
+			self.structure(
+					[self.OrganizingComponentCollectionStr]
+				)
+
+			#network
+			self.network(
+					**{
+						'VisitingCollectionStrsList':[
+							self.OrganizingDataCollectionStr,
+							self.OrganizingComponentCollectionStr
+						],
+						'RecruitingConcludeConditionTuplesList':[
+							(
+								'__class__.__mro__',
+								operator.contains,Hierarchizer.HierarchizerClass
+							)
+						]
+					}
+				)
+
+			#set
+			self.StoringOrganizeIsBool=True
+
+		#Walk
+		self.walk(
+			{
+				'AfterUpdateList':[
+					('callDo',{'LiargVariablesList':[]})
+				],
+				'GatherVariablesList':[self.OrganizedComponentGetStr]
+			}
+		)
+
+		#debug
+		'''
+		self.debug(('self.',self,['OrganizedTopDeriveDatabaserVariable']))
+		'''
 
 		#flush
-		self.StoringTopDeriveDatabaserVariable.flush()
-
-
+		self.OrganizedTopDeriveDatabaserVariable.flush()	
 		
 #</DefineClass>
 

@@ -52,6 +52,7 @@ class HierarchizerClass(BaseClass):
 	def mimic_flush(self):
 
 		#debug
+		'''
 		self.debug(	
 					[
 						'we setSwitch first and flush',
@@ -61,7 +62,8 @@ class HierarchizerClass(BaseClass):
 									])
 					]
 				)
-
+		'''
+		
 		#<NotHook>
 		#flush then
 		BaseClass.flush(self)

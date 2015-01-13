@@ -122,6 +122,7 @@ class GrouperClass(BaseClass):
 		if self.HdformatedFileVariable!=None:
 
 			#debug
+			'''
 			self.debug(
 						[
 							'UppestGroupedParentVariable.GroupedPathStr is '+UppestGroupedParentVariable.GroupedPathStr,
@@ -131,6 +132,7 @@ class GrouperClass(BaseClass):
 									])
 						]
 					)
+			'''
 
 			#set the GroupedPathStr
 			if UppestParentPointer==self:
@@ -145,8 +147,10 @@ class GrouperClass(BaseClass):
 				)
 
 			#debug
+			'''
 			self.debug(('self.',self,['GroupedPathStr']))
-
+			'''
+			
 			#Check if the Path exists
 			if self.GroupedPathStr not in self.HdformatedFileVariable:
 

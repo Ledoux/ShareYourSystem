@@ -100,9 +100,6 @@ MySumer.update(
 	)['<Datome>ParametersHierarchizer'].flush(
 )
 
-
-print('JJJJJJ\n\n\n\n')
-
 #Update and store
 MySumer.update(
 		[

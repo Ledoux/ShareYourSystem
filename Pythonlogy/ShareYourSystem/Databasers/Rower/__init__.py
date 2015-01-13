@@ -55,14 +55,14 @@ class RowerClass(
 	
 	#Definition
 	RepresentingKeyStrsList=[
-									'RowingGetStrsList',
-									'RowedGetStrToColumnStrOrderedDict',
-									'RowedColumnStrsList',																										
-									'RowedPickOrderedDict',
-									'RowedIsBoolsList',
-									'RowedIsBool',
-									'RowedIndexInt'
-								]
+								'RowingGetStrsList',
+								'RowedGetStrToColumnStrOrderedDict',
+								'RowedColumnStrsList',																										
+								'RowedPickOrderedDict',
+								'RowedIsBoolsList',
+								'RowedIsBool',
+								'RowedIndexInt'
+							]
 
 	def default_init(
 					self,

@@ -62,9 +62,14 @@ class CatcherClass(BaseClass):
 		
 		#debug
 		'''
-		self.debug(('self.',self,['CollectingCollectionStr']))
+		self.debug(
+					('self.',self,[
+									'CollectingCollectionStr',
+									'CatchingGetVariable'
+								])
+				)
 		'''
-
+		
 		#get by checking if it is already getted
 		if type(self.CatchingGetVariable) in SYS.StrTypesList:
 			self.CatchedGetVariable=self[self.CatchingGetVariable]

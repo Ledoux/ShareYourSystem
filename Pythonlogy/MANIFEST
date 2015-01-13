@@ -954,6 +954,10 @@ ShareYourSystem/Noders/Noder/Drafts/__init__ copy 2.py
 ShareYourSystem/Noders/Noder/Drafts/__init__ copy 3.py
 ShareYourSystem/Noders/Noder/Drafts/__init__ copy.py
 ShareYourSystem/Noders/Noder/__pycache__/Initiater.cpython-34.pyc
+ShareYourSystem/Noders/Organizer/.DS_Store
+ShareYourSystem/Noders/Organizer/00_ExampleDoc.md
+ShareYourSystem/Noders/Organizer/01_ExampleDoc.py
+ShareYourSystem/Noders/Organizer/__init__.py
 ShareYourSystem/Noders/Parenter/001_GithubDoc.md
 ShareYourSystem/Noders/Parenter/00_ExampleDoc.md
 ShareYourSystem/Noders/Parenter/01_ExampleDoc.py
@@ -1144,13 +1148,8 @@ ShareYourSystem/Simulaters/Runner/01_ExampleCell.py
 ShareYourSystem/Simulaters/Runner/__init__.py
 ShareYourSystem/Simulaters/Simulater/01_ExampleCell.py
 ShareYourSystem/Simulaters/Simulater/__init__.py
+ShareYourSystem/Storers/.DS_Store
 ShareYourSystem/Storers/__init__.py
-ShareYourSystem/Storers/Analyzer/00_ExampleDoc.md
-ShareYourSystem/Storers/Analyzer/01_ExampleDoc.py
-ShareYourSystem/Storers/Analyzer/Modulizes.hdf5
-ShareYourSystem/Storers/Analyzer/Multiplys.hdf5
-ShareYourSystem/Storers/Analyzer/Sums.hdf5
-ShareYourSystem/Storers/Analyzer/__init__.py
 ShareYourSystem/Storers/Controller/00_ExampleDoc.md
 ShareYourSystem/Storers/Controller/01_ExampleDoc.py
 ShareYourSystem/Storers/Controller/Readme.ipynb
@@ -1161,8 +1160,10 @@ ShareYourSystem/Storers/Controller/Tests/attest_path.txt
 ShareYourSystem/Storers/Controller/__pycache__/Initiater.cpython-34.pyc
 ShareYourSystem/Storers/Grider/01_ExampleDoc.py
 ShareYourSystem/Storers/Grider/__init__.py
+ShareYourSystem/Storers/Storer/.DS_Store
 ShareYourSystem/Storers/Storer/00_ExampleDoc.md
 ShareYourSystem/Storers/Storer/01_ExampleDoc.py
+ShareYourSystem/Storers/Storer/Factorizes.hdf5
 ShareYourSystem/Storers/Storer/__init__.py
 ShareYourSystem/Tutorials/.DS_Store
 ShareYourSystem/Tutorials/Readme.md
