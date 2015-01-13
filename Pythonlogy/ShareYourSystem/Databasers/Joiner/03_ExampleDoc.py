@@ -5,7 +5,7 @@ import tables
 import operator
 from ShareYourSystem.Classors import Classer
 from ShareYourSystem.Noders import Structurer
-from ShareYourSystem.Databasers import Flusher,Hierarchizer
+from ShareYourSystem.Databasers import Flusher,Joiner
 
 #Define a Sumer class
 @Classer.ClasserClass()
@@ -43,7 +43,7 @@ MySumer=SumerClass().push(
 	[
 		(
 			"Parameters",
-			Hierarchizer.HierarchizerClass().update(
+			Joiner.JoinerClass().update(
 				[
 					(
 						'Attr_ModelingSealTuplesList',
@@ -58,7 +58,7 @@ MySumer=SumerClass().push(
 		),
 		(
 			"Results",
-			Hierarchizer.HierarchizerClass().update(
+			Joiner.JoinerClass().update(
 				[
 					(
 						'Attr_ModelingSealTuplesList',
@@ -68,7 +68,7 @@ MySumer=SumerClass().push(
 					),
 					('ConnectingAttentionGetStrsList',
 						[
-							'/NodePointDeriveNoder/<Datome>ParametersHierarchizer'
+							'/NodePointDeriveNoder/<Datome>ParametersJoiner'
 						]
 					),
 					('TagStr','Networked')
@@ -84,11 +84,11 @@ MySumer=SumerClass().push(
 		'RecruitingConcludeConditionTuplesList':[
 			(
 				'__class__.__mro__',
-				operator.contains,Hierarchizer.HierarchizerClass
+				operator.contains,Joiner.JoinerClass
 			)
 		]
 	}
-)
+).__setitem__('HdformatingFileKeyStr','Sums_2.hdf5')
 
 #Update and store
 MySumer.update(
@@ -97,12 +97,10 @@ MySumer.update(
 			('SumingSecondInt',3)
 		]
 	).sum(
-	)['<Datome>ParametersHierarchizer'].flush(
+	)['<Datome>ParametersJoiner'].flush(
 )
 
-
-print('JJJJJJ\n\n\n\n')
-
+"""
 #Update and store
 MySumer.update(
 		[
@@ -110,9 +108,27 @@ MySumer.update(
 			('SumingSecondInt',4)
 		]
 	).sum(
-	)[
-	'<Datome>ParametersHierarchizer'
+	)['<Datome>ParametersJoiner'
+	#].transmit(
+	#	[
+	#		('setSwitch',{'LiargVariablesList':[],'KwargVariablesDict':{'_DoStrsList':['Flush']}})
+	#	],
+	#	['PostConnectome']
 	].flush()
+"""
+
+#Update and store
+"""
+MySumer.update(
+		[
+			('SumingFirstInt',5),
+			('SumingSecondInt',6)
+		]
+	).sum(
+	)['<Datome>ParametersJoiner'].setSwitch(
+		_DoStrsList=['Flush']
+	).flush()
+"""
 
 #Definition the AttestedStr
 SYS._attest(

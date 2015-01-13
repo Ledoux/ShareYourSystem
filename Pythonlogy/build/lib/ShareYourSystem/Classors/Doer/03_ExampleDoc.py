@@ -32,6 +32,7 @@ AttestingStrsList=[
 	'MakerClass.do_make is '+str(MakerClass.do_make),
 	'MakerClass.doWithmake is '+str(MakerClass.superDo_make),
 	'MakerClass.make is '+str(MakerClass.make),
+	'MakerClass.callDo is '+str(MakerClass.callDo),
 ]
 
 #Print

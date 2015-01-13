@@ -41,6 +41,14 @@ DoingDecorationSuffixStr="_"
 #</DefineLocals>
 
 #<DefineFunctions>
+def callDo(_InstanceVariable):
+
+	#Call the .DoMethodStr
+	return getattr(
+		_InstanceVariable,
+		_InstanceVariable.__class__.DoMethodStr
+	)()
+
 def setDoing(_InstanceVariable,_DoClassVariable=None,**_KwargVariablesDict):
 
 	#check
@@ -494,6 +502,7 @@ class DoerClass(BaseClass):
 						locals()[DoDecorationMethodStr]
 					)
 
+
 			#Set maybe if not already
 			if hasattr(DoClass,'setDo')==False:
 
@@ -506,7 +515,7 @@ class DoerClass(BaseClass):
 								__SetUnboundMethod.__name__,
 								__SetUnboundMethod
 							),
-					[setDo,setDoing,setDone]
+					[setDo,setDoing,setDone,callDo]
 				)
 
 		#Add to the KeyStrsList
@@ -671,7 +680,8 @@ DoStrsTuplesList=[
 	('Informer','Inform','Informing','Informed'),
 	('Packager','Package','Packaging','Packaged'),
 	('Deployer','Deploy','Deploying','Deployed'),
-	('Transmitter','Transmit','Transmitting','Transmitted')
+	('Transmitter','Transmit','Transmitting','Transmitted'),
+	('Factorizer','Factorize','Factorizing','Factorized')
 ]
 
 DoerStrToDoStrOrderedDict=SYS.dictify(DoStrsTuplesList,0,1)

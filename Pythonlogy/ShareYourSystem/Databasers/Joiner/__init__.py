@@ -220,23 +220,37 @@ class JoinerClass(BaseClass):
 		#</NotHook>
 
 		#debug
-		'''
-		self.debug('First make flush the down joined databases')
-		'''
-
-		#switch first
-		self.transmit(
-			[
-				('setSwitch',{'LiargVariablesList':[],'KwargVariablesDict':{'_DoStrsList':['Flush']}})
-			],
-			['PostConnectome']
-		)
+		self.debug(
+					[
+						'First setSwitch and make flush the catched databases',
+						('self.',self,[
+											'JoiningCatchStr',
+											'JoiningCollectionStr'
+									])
+					]
+				)
 
 		#Flush the post joined databases
 		self.JoinedFlushIndexIntsList=map(
 			lambda __JoinedCatchDeriveJoinerPointer:
 			__JoinedCatchDeriveJoinerPointer.PointVariable.flush(),
 			self.JoinedCatchCollectionOrderedDict.values(),
+		)
+
+		#switch first
+		self.transmit(
+			[
+				('setSwitch',{
+						'LiargVariablesList':[],
+						'KwargVariablesDict':
+						{
+							'_ClassVariable':"Joiner",
+							'_DoStrsList':['Flush']
+						}
+					}
+				)
+			],
+			[self.JoiningCatchStr+self.JoiningCollectionStr]
 		)
 
 		#debug
@@ -248,20 +262,6 @@ class JoinerClass(BaseClass):
 		#flush then
 		BaseClass.flush(self)
 		#</NotHook>
-
-		#debug
-		'''
-		self.debug('flush then in the joined up databasers')
-		'''
-
-		'''
-		#map
-		map(
-				lambda __JoinedAttentionCollectionDeriveJoinerPointer:
-				__JoinedAttentionCollectionDeriveJoinerPointer.PointVariable.flush(),
-				self.JoinedAttentionCollectionOrderedDict.values()
-			)
-		'''
 		
 	def mimic_retrieve(self):
 

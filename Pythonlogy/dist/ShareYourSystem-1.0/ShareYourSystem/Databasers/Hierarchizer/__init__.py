@@ -22,84 +22,95 @@ SYS.setSubModule(globals())
 #<ImportSpecificModules>
 import collections
 import tables
-
 from ShareYourSystem.Noders import Noder
+Joiner=BaseModule
 #</ImportSpecificModules>
 
 #<DefineClass>
-@DecorationClass()
+@DecorationClass(**{
+	'ClassingSwitchMethodStrsList':[
+		'model',
+		'tabular',
+		'join',
+		'flush'
+	]
+})
 class HierarchizerClass(BaseClass):
 	
 	#Definition
 	RepresentingKeyStrsList=[
-									'HierarchizingNodeStr'
-								]
+							]
 
 	#@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.__init__}]})
 	def default_init(self,
-						_HierarchizingNodeStr="Component",
 						**_KwargVariablesDict
 					):
 
 		#Call the parent init method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
+	def mimic_flush(self):
 
-	#@Switcher.SwitcherClass()
-	#@Argumenter.ArgumenterClass()
-	#@Imitater.ImitaterClass()
-	def mimic_table(self):
+		#debug
+		self.debug(	
+					[
+						'we setSwitch first and flush',
+						('self.',self,[
+										'JoiningAttentionStr',
+										'JoiningCollectionStr'
+									])
+					]
+				)
+
+		#<NotHook>
+		#flush then
+		BaseClass.flush(self)
+		#</NotHook>
 
 		#debug
 		'''
-		self.debug(('self.',self,[
-									'HierarchizingNodeStr',
-								]))
+		self.debug('we hierarchize now, self.hierarchize is '+str(self.hierarchize))
 		'''
 
-		#<NotHook>
-		#database firstand hierarchy first
-		self.database()
-		#/<NotHook>
+		#call
+		self.hierarchize()
 
-		#Check
-		if self.HierarchizingNodeStr!="":
+		#switch first
+		self.transmit(
+			[
+				('setSwitch',{
+								'LiargVariablesList':[],
+								'KwargVariablesDict':
+								{
+									'_ClassVariable':'Hierarchizer',
+									'_DoStrsList':['Flush']
+								}
+							})
+			],
+			[self.JoiningAttentionStr+self.JoiningCollectionStr],
+			#Self is not switched (if not it is circular !)
+			#False
+		)
 
-			#structure first in the parent pointer and then table
-			if self.NodePointDeriveNoder!=None:
+	def do_hierarchize(self):
 
-				#Check
-				if self.HdformatedFileVariable==None:
+		#debug
+		'''
+		self.debug(
+					[
+						'flush then in the joined attention databasers',
+						('self.',self,['JoinedAttentionCollectionOrderedDict'])
+					]
+				)
+		'''
 
-					#debug
-					'''
-					self.debug(
-							[
-								'We have to structure first'
-							]
-						)
-					self.NodePointDeriveNoder.debug(
-							[
-								'Storer speaking...'
-							]
-						)
-					'''
-
-					#structure by also tabling at the same time
-					self.NodePointDeriveNoder.structure(
-						**{
-							'ParentingNodeStr':self.HierarchizingNodeStr
-						}
-					)
+		#map
+		map(
+				lambda __JoinedAttentionCollectionDeriveJoinerPointer:
+				__JoinedAttentionCollectionDeriveJoinerPointer.PointVariable.flush(),
+				self.JoinedAttentionCollectionOrderedDict.values()
+			)
 		
-		#<NotHook>
-		BaseClass.table(self)
-		#</NotHook>
-
-		#<NotHook>
-		#Return self
-		#return self
-		#</NotHook>
 
 #</DefineClass>
 

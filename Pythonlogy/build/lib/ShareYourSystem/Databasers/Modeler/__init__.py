@@ -99,7 +99,9 @@ class ModelerClass(BaseClass):
 		""" """
 
 		#debug
+		'''
 		self.debug(('self.',self,['ModelingSealTuplesList']))
+		'''
 		
 		#<NotHook>
 		#database first

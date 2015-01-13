@@ -1,147 +1,129 @@
+
 #ImportModules
-import operator
+import ShareYourSystem as SYS
 import tables
-import numpy as np
-import ShareYourSystem as SYS,Classer
-from ShareYourSystem.Noders import Storer
-from ShareYourSystem.Databasers import Hierarchizer
+import operator
+from ShareYourSystem.Classors import Classer
+from ShareYourSystem.Noders import Structurer
+from ShareYourSystem.Databasers import Flusher,Hierarchizer
 
-#Define a Multiplier class
+#Define a Sumer class
 @Classer.ClasserClass()
-class MultiplierClass(Storer.StorerClass):
+class SumerClass(Structurer.StructurerClass):
 
 	#Definition
 	RepresentingKeyStrsList=[
-									'MultiplyingFirstInt',
-									'MultiplyingSecondInt'
-								]
+							'SumingFirstInt',
+							'SumingSecondInt',
+							'SumedTotalInt'
+						]
 								
 	def default_init(self,
-						_MultiplyingFirstInt=0,
-						_MultiplyingSecondInt=0,
+						_SumingFirstInt=0,
+						_SumingSecondInt=0,
+						_SumedTotalInt=0,
 						**_KwargVariablesDict
 					):
 
 		#Call the parent init method
 		self.__class__.__bases__[0].__init__(self,**_KwargVariablesDict)
-
-		#Set a parameters database
-		self.collect(
-						"Data",
-						"Parameters",
-						Hierarchizer.HierarchizerClass().update(
-							[
-								(
-									'Attr_ModelingSealTuplesList',
-									[
-										('MultiplyingFirstInt','MultiplyingFirstInt',tables.Int64Col()),
-										('MultiplyingSecondInt','MultiplyingSecondInt',tables.Int64Col())
-									]
-								),
-								('Attr_RowingGetStrsList',['MultiplyingFirstInt','MultiplyingSecondInt'])
-							]
-						)
-				)
+						
+	def do_sum(self):
 		
-#Define a Modulizer class
-@Classer.ClasserClass()
-class ModulizerClass(Storer.StorerClass):
+		#debug
+		'''
+		self.debug(('self.',self,['SumingFirstInt','SumingSecondInt']))
+		'''
 
-	#Definition
-	RepresentingKeyStrsList=[
-									'ModulizingPowerFloat',
-									'ModulizedTotalFloat'
-								]
-								
-	def default_init(self,
-						_ModulizingPowerFloat=1.,
-						_ModulizedTotalFloat=0.,
-						**_KwargVariablesDict
-					):
+		#set the SumedTotalInt
+		self.SumedTotalInt=self.SumingFirstInt+self.SumingSecondInt
 
-		#Call the parent init method
-		self.__class__.__bases__[0].__init__(self,**_KwargVariablesDict)
-
-		#Build the output hierarchy
-		self.update(
+#Definition of a Storer instance with a noded data
+MySumer=SumerClass().push(
+	[
+		(
+			"Parameters",
+			Hierarchizer.HierarchizerClass().update(
+				[
+					(
+						'Attr_ModelingSealTuplesList',
 						[
-							('<Component>RealMultiplier',MultiplierClass()),
-							('<Component>ImageMultiplier',MultiplierClass())
+							('SumingFirstInt','SumingFirstInt',tables.Int64Col()),
+							('SumingSecondInt','SumingSecondInt',tables.Int64Col())
 						]
-					)
-
-		#Set a parameters database
-		self.collect(
-					"Data",
-					"Parameters",
-					Hierarchizer.HierarchizerClass().update(
+					),
+					('Attr_RowingGetStrsList',['SumingFirstInt','SumingSecondInt'])
+				]
+			)
+		),
+		(
+			"Results",
+			Hierarchizer.HierarchizerClass().update(
+				[
+					(
+						'Attr_ModelingSealTuplesList',
 						[
-							(
-								'Attr_ModelingSealTuplesList',
-								[
-									('ModulizingPowerFloat','ModulizingPowerFloat',tables.Float64Col())
-								]
-							),
-							('Attr_RowingGetStrsList',['ModulizingPowerFloat']),
-							('JoiningDownTuplesList',[
-									(
-										'RealMultiplier',
-										'/NodePointDeriveNoder/<Component>RealMultiplier/<Data>ParametersHierarchizer'
-									),
-									(
-										'ImageMultiplier',
-										'/NodePointDeriveNoder/<Component>ImageMultiplier/<Data>ParametersHierarchizer'
-									)
-								]
-							)
+							('SumedTotalInt','SumedTotalInt',tables.Int64Col())
 						]
-					)
-				)
-
-#Definition of a Modulizer instance
-MyModulizer=ModulizerClass()
+					),
+					('ConnectingAttentionGetStrsList',
+						[
+							'/NodePointDeriveNoder/<Datome>ParametersHierarchizer'
+						]
+					),
+					('TagStr','Networked')
+				]
+			)
+		)
+	],
+	**{
+		'CollectingCollectionStr':'Datome'
+	}
+).network(
+	**{
+		'RecruitingConcludeConditionTuplesList':[
+			(
+				'__class__.__mro__',
+				operator.contains,Hierarchizer.HierarchizerClass
+			)
+		]
+	}
+)
 
 #Update and store
-
-MyModulizer.__setitem__(
-	"Dis_<Component>",
-	[
+MySumer.update(
 		[
-			('MultiplyingFirstInt',1),
-			('MultiplyingSecondInt',2)
-		],
-		[
-			('MultiplyingFirstInt',1),
-			('MultiplyingSecondInt',3)
+			('SumingFirstInt',1),
+			('SumingSecondInt',3)
 		]
-	]
-)['<Data>ParametersHierarchizer'].flush()
+	).sum(
+	)['<Datome>ParametersHierarchizer'].flush(
+)
 
-MyModulizer.__setitem__(
-	"Dis_<Component>",
-	[
+
+print('JJJJJJ\n\n\n\n')
+
+#Update and store
+MySumer.update(
 		[
-			('MultiplyingFirstInt',2)
-		],
-		[
-			('MultiplyingSecondInt',4)
+			('SumingFirstInt',2),
+			('SumingSecondInt',4)
 		]
-	]
-)['<Data>ParametersHierarchizer'].flush()
+	).sum(
+	)[
+	'<Datome>ParametersHierarchizer'
+	].flush()
 
 #Definition the AttestedStr
 SYS._attest(
 	[
-		'MyModulizer is '+SYS._str(
-		MyModulizer,
+		'MySumer is '+SYS._str(
+		MySumer,
 		**{
 			'RepresentingBaseKeyStrsListBool':False,
 			'RepresentingAlineaIsBool':False
 		}
 		),
-		'hdf5 file is : '+MyModulizer.hdfview().hdfclose().HdformatedStr
+		'hdf5 file is : '+MySumer.hdfview().hdfclose().HdformatedStr
 	]
 ) 
-
-#Print
-

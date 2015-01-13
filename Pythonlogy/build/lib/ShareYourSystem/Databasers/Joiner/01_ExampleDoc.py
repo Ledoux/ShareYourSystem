@@ -88,7 +88,10 @@ MySumer=SumerClass().push(
 			)
 		]
 	}
-)
+).__setitem__('HdformatingFileKeyStr','Sums_1.hdf5')
+
+#
+print('JJJJ\n\n\n')
 
 #Update and store
 MySumer.update(
@@ -99,6 +102,7 @@ MySumer.update(
 	).sum(
 	)['<Datome>ResultsJoiner'].flush(
 )
+
 
 #Update and store
 MySumer.update(
@@ -114,20 +118,6 @@ MySumer.update(
 	#	],
 	#	['PostConnectome']
 	].flush()
-
-
-#Update and store
-"""
-MySumer.update(
-		[
-			('SumingFirstInt',5),
-			('SumingSecondInt',6)
-		]
-	).sum(
-	)['<Datome>ParametersJoiner'].setSwitch(
-		_DoStrsList=['Flush']
-	).flush()
-"""
 
 #Definition the AttestedStr
 SYS._attest(

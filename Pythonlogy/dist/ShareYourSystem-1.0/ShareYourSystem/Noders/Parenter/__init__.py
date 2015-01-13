@@ -87,8 +87,10 @@ class ParenterClass(BaseClass):
 			ParentedPathStrsList.reverse()
 			
 			#Debug
+			'''
 			self.debug('ParentedPathStrsList is '+str(ParentedPathStrsList))
-
+			'''
+			
 			#set
 			self.ParentedPathStr=Pather.PathingPrefixStr.join(ParentedPathStrsList)
 

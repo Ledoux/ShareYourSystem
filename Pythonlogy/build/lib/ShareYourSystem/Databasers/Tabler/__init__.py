@@ -53,7 +53,9 @@ class TablerClass(
 	def do_table(self):
 
 		#debug
+		'''
 		self.debug(('self.',self,['ModelingSealTuplesList']))
+		'''
 
 		#<NotHook>
 		#tabular first
@@ -61,6 +63,7 @@ class TablerClass(
 		#</NotHook>
 
 		#debug
+		'''
 		self.debug(
 					[
 						'We are going to look if this is a new table or not...In order to index it',
@@ -73,6 +76,7 @@ class TablerClass(
 										])
 					]
 				)
+		'''
 		
 		#Get the suffix Strs of all the tables and their index
 		TabledList=SYS.unzip(map(

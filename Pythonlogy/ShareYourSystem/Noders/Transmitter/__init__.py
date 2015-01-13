@@ -32,12 +32,14 @@ class TransmitterClass(BaseClass):
 	RepresentingKeyStrsList=[
 								'TransmittingUpdateList',
 								'TransmittingCollectionStrsList',
-								'TransmittedVariablesList'
+								'TransmittedVariablesList',
+								'TransmittingSelfIsBool'
 							]
 
 	def default_init(self,
 			_TransmittingUpdateList=None,
 			_TransmittingCollectionStrsList=None,
+			_TransmittingSelfIsBool=True,
 			_TransmittedVariablesList=None,
 			**_KwargVariablesDict
 		):	
@@ -47,8 +49,16 @@ class TransmitterClass(BaseClass):
 
 	def do_transmit(self):
 
-		#update
-		self.update(self.TransmittingUpdateList)
+		#debug
+		'''
+		self.debug(('self.',self,['TransmittingSelfIsBool']))
+		'''
+		
+		#Check
+		if self.TransmittingSelfIsBool:
+
+			#update
+			self.update(self.TransmittingUpdateList)
 
 		#map
 		self.TransmittedVariablesList=SYS.flat(

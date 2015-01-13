@@ -57,6 +57,7 @@ class TabularerClass(
 		""" """
 
 		#debug
+		'''
 		self.debug(
 				[
 					('self.',self,[
@@ -68,7 +69,8 @@ class TabularerClass(
 					'self.model is '+SYS._str(self.model)
 				]
 			)
-
+		'''
+		
 		#<NotHook>
 		#model first
 		self.model()

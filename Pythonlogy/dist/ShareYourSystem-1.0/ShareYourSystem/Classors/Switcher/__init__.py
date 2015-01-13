@@ -28,10 +28,12 @@ from ShareYourSystem.Classors import Doer,Observer
 def setSwitch(_InstanceVariable,_ClassVariable=None,_DoStrsList=None):
 
 	#Debug
+	'''
 	print('l 31 setSwitch')
 	print('_DoStrsList is ',_DoStrsList)
 	print('_InstanceVariable.__class__.NameStr is ',_InstanceVariable.__class__.NameStr)
 	print('')
+	'''
 
 	#get
 	SwitchClass=_InstanceVariable.getClass(_ClassVariable)
@@ -56,11 +58,13 @@ def setSwitch(_InstanceVariable,_ClassVariable=None,_DoStrsList=None):
 def switch(_InstanceVariable,*_LiargVariablesList,**_KwargVariablesDict):
 
 	#Debug
+	'''
 	print('l 51')
 	print('In the switch function ')
 	print('_KwargVariablesDict is ')
 	print(_KwargVariablesDict)
 	print('')
+	'''
 	
 	"""
 	#alias
