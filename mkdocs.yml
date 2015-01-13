@@ -1,0 +1,12 @@
+pages:
+- [index.md, Home]
+- [About/Manifest.md, About, Manifest]
+- [About/StateArt.md, About, State of the art]
+- [About/FAQs.md, About, FAQs]
+- [GettingStarted/Install.md, GettingStarted, Install ShareYourSystem]
+- [GettingStarted/FirstToyObject.md, GettingStarted, Build a first hierarching Python
+    object]
+- [GettingStarted/UseMeteorApi.md, GettingStarted, Use the Meteror API]
+- [LibraryReference/Interfacers.md, Library Reference, Interfacers]
+site_name: ShareYourSystem
+theme: readthedocs

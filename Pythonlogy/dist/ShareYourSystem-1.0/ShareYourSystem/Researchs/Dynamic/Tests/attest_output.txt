@@ -1,0 +1,16 @@
+< (DynamicClass) >
+{ 
+   /'<New>ConnectionsArray' : <numpy.ndarray shape (1, 1)>
+   /'<New>DegreeSymmetryFloat' : 0.0
+   /'<New>DelayTimeFloat' : 0.001
+   /'<New>DeviationWeigthFloat' : 0.0
+   /'<New>IsOutputingBool' : True
+   /'<New>RateTimeFloat' : 0.001
+   /'<New>SymmetrizingFloat' : 0.0
+   /'<New>UnitsInt' : 1
+   /'<Spe>AutaptingMeanWeigthFloat' : -18.0
+   /'<Spe>LateralingMeanWeigthFloat' : 0.0
+   /'<Spe>SlopeFloat' : 1.0
+   /'<Spe>StaticTransferFunction' : <function <lambda> at 0x10041c2a8>
+   /'<Spe>StaticTransferFunctionStr' : Tanh
+ }

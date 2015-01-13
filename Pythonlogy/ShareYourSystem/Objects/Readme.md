@@ -1,0 +1,29 @@
+
+
+<!--
+FrozenIsBool False
+-->
+
+#Objects
+
+----------------------- ------------------------------------
+
+
+
+@Date : Fri Nov 14 13:20:38 2014
+
+@Author : Erwan Ledoux
+
+
+
+The Installer directs a readme call in a ShareYourSystem directory.
+
+
+
+----------------------------------------------------------------
+
+
+View the Objects sources on [Github](https://github.com/Ledoux/ShareYourSystem/t
+ree/master/ShareYourSystem.Guiders.Informer)
+
+

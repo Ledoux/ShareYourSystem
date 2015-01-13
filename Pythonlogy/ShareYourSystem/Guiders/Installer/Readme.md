@@ -1,0 +1,288 @@
+
+
+<!--
+FrozenIsBool False
+-->
+
+#Installer
+
+----------------------- ------------------------------------
+
+
+
+@Date : Fri Nov 14 13:20:38 2014
+
+@Author : Erwan Ledoux
+
+
+
+The Installer directs a readme call in a ShareYourSystem directory.
+
+
+
+----------------------------------------------------------------
+
+
+View the Installer sources on [Github](https://github.com/Ledoux/ShareYourSystem
+/tree/master/ShareYourSystem.Guiders.Informer)
+
+
+
+
+<!---
+FrozenIsBool True
+-->
+
+##Example
+
+Let's create an empty class, which will automatically receive
+special attributes from the decorating ClassorClass,
+specially the NameStr, that should be the ClassStr
+without the TypeStr in the end.
+
+```python
+
+#ImportModules
+import ShareYourSystem as SYS
+
+from ShareYourSystem.Guiders import Installer
+
+#Definition a Installer instance
+MyInstaller=Installer.InstallerClass().install(_AllBool=True)
+
+
+#Definition the AttestedStr
+SYS._attest(
+    [
+        'MyInstaller is '+SYS._str(
+        MyInstaller,
+        **{
+            'RepresentingBaseKeyStrsListBool':False
+        }
+        )
+    ]
+)
+
+#Print
+
+
+
+
+
+
+
+
+```
+
+
+```console
+>>>
+
+
+*****Start of the Attest *****
+
+MyInstaller is < (InstallerClass), 4466402512>
+   /{
+   /  '<New><Instance>IdStr' : 4466402512
+   /  '<New><Instance>InstalledModulePathStrsList' : ['ShareYourSystem',
+'ShareYourSystem/Tools/Tool', 'ShareYourSystem/Objects/Object',
+'ShareYourSystem/Objects/Initiator', 'ShareYourSystem/Classors/Classor',
+'ShareYourSystem/Classors/Defaultor', 'ShareYourSystem/Classors/Doer',
+'ShareYourSystem/Classors/Deriver', 'ShareYourSystem/Classors/Propertiser',
+'ShareYourSystem/Classors/Inspecter', 'ShareYourSystem/Classors/Representer',
+'ShareYourSystem/Objects/Printer', 'ShareYourSystem/Objects/Debugger',
+'ShareYourSystem/Functers/Functer', 'ShareYourSystem/Objects/Packager',
+'ShareYourSystem/Classors/Attester', 'ShareYourSystem/Classors/Tester',
+'ShareYourSystem/Functers/Functer', 'ShareYourSystem/Functers/Hooker',
+'ShareYourSystem/Functers/Triggerer', 'ShareYourSystem/Objects/Conditioner',
+'ShareYourSystem/Objects/Concluder', 'ShareYourSystem/Classors/Observer',
+'ShareYourSystem/Classors/Binder', 'ShareYourSystem/Classors/Watcher',
+'ShareYourSystem/Classors/Resetter', 'ShareYourSystem/Classors/Switcher',
+'ShareYourSystem/Classors/Mimicker', 'ShareYourSystem/Objects/Caller',
+'ShareYourSystem/Objects/Cloner', 'ShareYourSystem/Classors/Classer',
+'ShareYourSystem/Objects/Rebooter', 'ShareYourSystem/Functers/Argumenter',
+'ShareYourSystem/Functers/Imitater', 'ShareYourSystem/Functers/Alerter',
+'ShareYourSystem/Interfacers/Interfacer',
+'ShareYourSystem/Interfacers/Folderer', 'ShareYourSystem/Interfacers/Filer',
+'ShareYourSystem/Interfacers/Closer', 'ShareYourSystem/Interfacers/Loader',
+'ShareYourSystem/Interfacers/Writer', 'ShareYourSystem/Interfacers/Deployer',
+'ShareYourSystem/Interfacers/Hdformater',
+'ShareYourSystem/Interfacers/Capturer', 'ShareYourSystem/Interfacers/Processer',
+'ShareYourSystem/Interfacers/Statuser', 'ShareYourSystem/Interfacers/Killer',
+'ShareYourSystem/Interfacers/Directer', 'ShareYourSystem/Guiders/Guider',
+'ShareYourSystem/Guiders/Scriptbooker', 'ShareYourSystem/Guiders/Celler',
+'ShareYourSystem/Guiders/Notebooker', 'ShareYourSystem/Guiders/Nbconverter',
+'ShareYourSystem/Guiders/Installer', 'ShareYourSystem/Guiders/Informer',
+'ShareYourSystem/Guiders/Documenter', 'ShareYourSystem/Itemizers/Itemizer',
+'ShareYourSystem/Itemizers/Getter', 'ShareYourSystem/Itemizers/Setter',
+'ShareYourSystem/Itemizers/Deleter', 'ShareYourSystem/Itemizers/Attributer',
+'ShareYourSystem/Itemizers/Restricter', 'ShareYourSystem/Itemizers/Pather',
+'ShareYourSystem/Itemizers/Sharer', 'ShareYourSystem/Itemizers/Executer',
+'ShareYourSystem/Itemizers/Pointer', 'ShareYourSystem/Applyiers/Applyier',
+'ShareYourSystem/Applyiers/Mapper', 'ShareYourSystem/Applyiers/Picker',
+'ShareYourSystem/Applyiers/Gatherer', 'ShareYourSystem/Applyiers/Updater',
+'ShareYourSystem/Applyiers/Linker', 'ShareYourSystem/Applyiers/Weaver',
+'ShareYourSystem/Applyiers/Filterer', 'ShareYourSystem/Noders/Noder',
+'ShareYourSystem/Functers/Outputer', 'ShareYourSystem/Noders/Appender',
+'ShareYourSystem/Noders/Instancer', 'ShareYourSystem/Noders/Adder',
+'ShareYourSystem/Noders/Distinguisher', 'ShareYourSystem/Noders/Parenter',
+'ShareYourSystem/Noders/Storer', 'ShareYourSystem/Applyiers/Pusher',
+'ShareYourSystem/Applyiers/Producer', 'ShareYourSystem/Noders/Catcher',
+'ShareYourSystem/Noders/Attentioner', 'ShareYourSystem/Noders/Coupler',
+'ShareYourSystem/Noders/Settler', 'ShareYourSystem/Applyiers/Commander',
+'ShareYourSystem/Walkers/Walker', 'ShareYourSystem/Walkers/Cumulater',
+'ShareYourSystem/Walkers/Visiter', 'ShareYourSystem/Walkers/Recruiter',
+'ShareYourSystem/Walkers/Mobilizer', 'ShareYourSystem/Walkers/Router',
+'ShareYourSystem/Walkers/Grabber', 'ShareYourSystem/Applyiers/Poker',
+'ShareYourSystem/Noders/Connecter', 'ShareYourSystem/Noders/Networker',
+'ShareYourSystem/Noders/Grouper', 'ShareYourSystem/Noders/Structurer',
+'ShareYourSystem/Savers/Saver', 'ShareYourSystem/Databasers',
+'ShareYourSystem/Databasers/Databaser', 'ShareYourSystem/Databasers/Modeler',
+'ShareYourSystem/Databasers/Tabularer', 'ShareYourSystem/Databasers/Tabler',
+'ShareYourSystem/Databasers/Rower', 'ShareYourSystem/Databasers/Flusher',
+'ShareYourSystem/Databasers/Retriever', 'ShareYourSystem/Databasers/Findoer',
+'ShareYourSystem/Databasers/Recoverer', 'ShareYourSystem/Databasers/Shaper',
+'ShareYourSystem/Databasers/Merger', 'ShareYourSystem/Databasers/Scanner',
+'ShareYourSystem/Databasers/Joiner', 'ShareYourSystem/Databasers/Hierarchizer',
+'ShareYourSystem/Savers/Analyzer', 'ShareYourSystem/Savers/Grider',
+'ShareYourSystem/Savers/Controller', 'ShareYourSystem/Databasers/Featurer',
+'ShareYourSystem/Databasers/Recuperater', 'ShareYourSystem/Ploters/Ploter',
+'ShareYourSystem/Ploters/Axer', 'ShareYourSystem/Ploters/Paneler',
+'ShareYourSystem/Ploters/Figurer', 'ShareYourSystem/Ploters/Pyploter',
+'ShareYourSystem/Tutorials/Incrementer',
+'ShareYourSystem/Tutorials/Decrementer', 'ShareYourSystem/Tutorials/Multiplier',
+'ShareYourSystem/Tutorials/Sumer', 'ShareYourSystem/Tutorials/Modulizer',
+'ShareYourSystem/Simulaters/Simulater', 'ShareYourSystem/Simulaters/Runner',
+'ShareYourSystem/Simulaters/Moniter', 'ShareYourSystem/Simulaters/Populater',
+'ShareYourSystem/Simulaters/Dynamizer', 'ShareYourSystem/Simulaters/Rater',
+'ShareYourSystem/Simulaters/Brianer', 'ShareYourSystem/Simulaters/Pydelayer',
+'ShareYourSystem/Muzikers/Muziker', 'ShareYourSystem/Muzikers/Vexflower',
+'ShareYourSystem/Muzikers/Permuter', 'ShareYourSystem/Muzikers/Differenciater',
+'ShareYourSystem/Muzikers/Pooler', 'ShareYourSystem/Muzikers/Harmonizer',
+'ShareYourSystem/Tools', 'ShareYourSystem/Objects', 'ShareYourSystem/Classors',
+'ShareYourSystem/Functers', 'ShareYourSystem/Interfacers',
+'ShareYourSystem/Guiders', 'ShareYourSystem/Itemizers',
+'ShareYourSystem/Applyiers', 'ShareYourSystem/Walkers',
+'ShareYourSystem/Noders', 'ShareYourSystem/Savers',
+'ShareYourSystem/Databasers', 'ShareYourSystem/Ploters',
+'ShareYourSystem/Tutorials', 'ShareYourSystem/Simulaters',
+"ShareYourSystem/Muzikers'", "ShareYourSystem':["]
+   /  '<New><Instance>InstalledNameStrsList' : ['ShareYourSystem', 'Tool',
+'Object', 'Initiator', 'Classor', 'Defaultor', 'Doer', 'Deriver', 'Propertiser',
+'Inspecter', 'Representer', 'Printer', 'Debugger', 'Functer', 'Packager',
+'Attester', 'Tester', 'Functer', 'Hooker', 'Triggerer', 'Conditioner',
+'Concluder', 'Observer', 'Binder', 'Watcher', 'Resetter', 'Switcher',
+'Mimicker', 'Caller', 'Cloner', 'Classer', 'Rebooter', 'Argumenter', 'Imitater',
+'Alerter', 'Interfacer', 'Folderer', 'Filer', 'Closer', 'Loader', 'Writer',
+'Deployer', 'Hdformater', 'Capturer', 'Processer', 'Statuser', 'Killer',
+'Directer', 'Guider', 'Scriptbooker', 'Celler', 'Notebooker', 'Nbconverter',
+'Installer', 'Informer', 'Documenter', 'Itemizer', 'Getter', 'Setter',
+'Deleter', 'Attributer', 'Restricter', 'Pather', 'Sharer', 'Executer',
+'Pointer', 'Applyier', 'Mapper', 'Picker', 'Gatherer', 'Updater', 'Linker',
+'Weaver', 'Filterer', 'Noder', 'Outputer', 'Appender', 'Instancer', 'Adder',
+'Distinguisher', 'Parenter', 'Storer', 'Pusher', 'Producer', 'Catcher',
+'Attentioner', 'Coupler', 'Settler', 'Commander', 'Walker', 'Cumulater',
+'Visiter', 'Recruiter', 'Mobilizer', 'Router', 'Grabber', 'Poker', 'Connecter',
+'Networker', 'Grouper', 'Structurer', 'Saver', 'Databasers', 'Databaser',
+'Modeler', 'Tabularer', 'Tabler', 'Rower', 'Flusher', 'Retriever', 'Findoer',
+'Recoverer', 'Shaper', 'Merger', 'Scanner', 'Joiner', 'Hierarchizer',
+'Analyzer', 'Grider', 'Controller', 'Featurer', 'Recuperater', 'Ploter', 'Axer',
+'Paneler', 'Figurer', 'Pyploter', 'Incrementer', 'Decrementer', 'Multiplier',
+'Sumer', 'Modulizer', 'Simulater', 'Runner', 'Moniter', 'Populater',
+'Dynamizer', 'Rater', 'Brianer', 'Pydelayer', 'Muziker', 'Vexflower',
+'Permuter', 'Differenciater', 'Pooler', 'Harmonizer', 'Tools', 'Objects',
+'Classors', 'Functers', 'Interfacers', 'Guiders', 'Itemizers', 'Applyiers',
+'Walkers', 'Noders', 'Savers', 'Databasers', 'Ploters', 'Tutorials',
+'Simulaters', "Muzikers'", "ShareYourSystem':["]
+   /  '<Spe><Instance>InstallingAllBool' : True
+   /  '<Spe><Instance>InstallingModuleStrsList' : ['ShareYourSystem',
+'ShareYourSystem.Tools.Tool', 'ShareYourSystem.Objects.Object',
+'ShareYourSystem.Objects.Initiator', 'ShareYourSystem.Classors.Classor',
+'ShareYourSystem.Classors.Defaultor', 'ShareYourSystem.Classors.Doer',
+'ShareYourSystem.Classors.Deriver', 'ShareYourSystem.Classors.Propertiser',
+'ShareYourSystem.Classors.Inspecter', 'ShareYourSystem.Classors.Representer',
+'ShareYourSystem.Objects.Printer', 'ShareYourSystem.Objects.Debugger',
+'ShareYourSystem.Functers.Functer', 'ShareYourSystem.Objects.Packager',
+'ShareYourSystem.Classors.Attester', 'ShareYourSystem.Classors.Tester',
+'ShareYourSystem.Functers.Functer', 'ShareYourSystem.Functers.Hooker',
+'ShareYourSystem.Functers.Triggerer', 'ShareYourSystem.Objects.Conditioner',
+'ShareYourSystem.Objects.Concluder', 'ShareYourSystem.Classors.Observer',
+'ShareYourSystem.Classors.Binder', 'ShareYourSystem.Classors.Watcher',
+'ShareYourSystem.Classors.Resetter', 'ShareYourSystem.Classors.Switcher',
+'ShareYourSystem.Classors.Mimicker', 'ShareYourSystem.Objects.Caller',
+'ShareYourSystem.Objects.Cloner', 'ShareYourSystem.Classors.Classer',
+'ShareYourSystem.Objects.Rebooter', 'ShareYourSystem.Functers.Argumenter',
+'ShareYourSystem.Functers.Imitater', 'ShareYourSystem.Functers.Alerter',
+'ShareYourSystem.Interfacers.Interfacer',
+'ShareYourSystem.Interfacers.Folderer', 'ShareYourSystem.Interfacers.Filer',
+'ShareYourSystem.Interfacers.Closer', 'ShareYourSystem.Interfacers.Loader',
+'ShareYourSystem.Interfacers.Writer', 'ShareYourSystem.Interfacers.Deployer',
+'ShareYourSystem.Interfacers.Hdformater',
+'ShareYourSystem.Interfacers.Capturer', 'ShareYourSystem.Interfacers.Processer',
+'ShareYourSystem.Interfacers.Statuser', 'ShareYourSystem.Interfacers.Killer',
+'ShareYourSystem.Interfacers.Directer', 'ShareYourSystem.Guiders.Guider',
+'ShareYourSystem.Guiders.Scriptbooker', 'ShareYourSystem.Guiders.Celler',
+'ShareYourSystem.Guiders.Notebooker', 'ShareYourSystem.Guiders.Nbconverter',
+'ShareYourSystem.Guiders.Installer', 'ShareYourSystem.Guiders.Informer',
+'ShareYourSystem.Guiders.Documenter', 'ShareYourSystem.Itemizers.Itemizer',
+'ShareYourSystem.Itemizers.Getter', 'ShareYourSystem.Itemizers.Setter',
+'ShareYourSystem.Itemizers.Deleter', 'ShareYourSystem.Itemizers.Attributer',
+'ShareYourSystem.Itemizers.Restricter', 'ShareYourSystem.Itemizers.Pather',
+'ShareYourSystem.Itemizers.Sharer', 'ShareYourSystem.Itemizers.Executer',
+'ShareYourSystem.Itemizers.Pointer', 'ShareYourSystem.Applyiers.Applyier',
+'ShareYourSystem.Applyiers.Mapper', 'ShareYourSystem.Applyiers.Picker',
+'ShareYourSystem.Applyiers.Gatherer', 'ShareYourSystem.Applyiers.Updater',
+'ShareYourSystem.Applyiers.Linker', 'ShareYourSystem.Applyiers.Weaver',
+'ShareYourSystem.Applyiers.Filterer', 'ShareYourSystem.Noders.Noder',
+'ShareYourSystem.Functers.Outputer', 'ShareYourSystem.Noders.Appender',
+'ShareYourSystem.Noders.Instancer', 'ShareYourSystem.Noders.Adder',
+'ShareYourSystem.Noders.Distinguisher', 'ShareYourSystem.Noders.Parenter',
+'ShareYourSystem.Noders.Storer', 'ShareYourSystem.Applyiers.Pusher',
+'ShareYourSystem.Applyiers.Producer', 'ShareYourSystem.Noders.Catcher',
+'ShareYourSystem.Noders.Attentioner', 'ShareYourSystem.Noders.Coupler',
+'ShareYourSystem.Noders.Settler', 'ShareYourSystem.Applyiers.Commander',
+'ShareYourSystem.Walkers.Walker', 'ShareYourSystem.Walkers.Cumulater',
+'ShareYourSystem.Walkers.Visiter', 'ShareYourSystem.Walkers.Recruiter',
+'ShareYourSystem.Walkers.Mobilizer', 'ShareYourSystem.Walkers.Router',
+'ShareYourSystem.Walkers.Grabber', 'ShareYourSystem.Applyiers.Poker',
+'ShareYourSystem.Noders.Connecter', 'ShareYourSystem.Noders.Networker',
+'ShareYourSystem.Noders.Grouper', 'ShareYourSystem.Noders.Structurer',
+'ShareYourSystem.Storers.Saver', 'ShareYourSystem.Databasers',
+'ShareYourSystem.Databasers.Databaser', 'ShareYourSystem.Databasers.Modeler',
+'ShareYourSystem.Databasers.Tabularer', 'ShareYourSystem.Databasers.Tabler',
+'ShareYourSystem.Databasers.Rower', 'ShareYourSystem.Databasers.Flusher',
+'ShareYourSystem.Databasers.Retriever', 'ShareYourSystem.Databasers.Findoer',
+'ShareYourSystem.Databasers.Recoverer', 'ShareYourSystem.Databasers.Shaper',
+'ShareYourSystem.Databasers.Merger', 'ShareYourSystem.Databasers.Scanner',
+'ShareYourSystem.Databasers.Joiner', 'ShareYourSystem.Databasers.Hierarchizer',
+'ShareYourSystem.Storers.Analyzer', 'ShareYourSystem.Storers.Grider',
+'ShareYourSystem.Storers.Controller', 'ShareYourSystem.Databasers.Featurer',
+'ShareYourSystem.Databasers.Recuperater', 'ShareYourSystem.Ploters.Ploter',
+'ShareYourSystem.Ploters.Axer', 'ShareYourSystem.Ploters.Paneler',
+'ShareYourSystem.Ploters.Figurer', 'ShareYourSystem.Ploters.Pyploter',
+'ShareYourSystem.Tutorials.Incrementer',
+'ShareYourSystem.Tutorials.Decrementer', 'ShareYourSystem.Tutorials.Multiplier',
+'ShareYourSystem.Tutorials.Sumer', 'ShareYourSystem.Tutorials.Modulizer',
+'ShareYourSystem.Simulaters.Simulater', 'ShareYourSystem.Simulaters.Runner',
+'ShareYourSystem.Simulaters.Moniter', 'ShareYourSystem.Simulaters.Populater',
+'ShareYourSystem.Simulaters.Dynamizer', 'ShareYourSystem.Simulaters.Rater',
+'ShareYourSystem.Simulaters.Brianer', 'ShareYourSystem.Simulaters.Pydelayer',
+'ShareYourSystem.Muzikers.Muziker', 'ShareYourSystem.Muzikers.Vexflower',
+'ShareYourSystem.Muzikers.Permuter', 'ShareYourSystem.Muzikers.Differenciater',
+'ShareYourSystem.Muzikers.Pooler', 'ShareYourSystem.Muzikers.Harmonizer',
+'ShareYourSystem.Tools', 'ShareYourSystem.Objects', 'ShareYourSystem.Classors',
+'ShareYourSystem.Functers', 'ShareYourSystem.Interfacers',
+'ShareYourSystem.Guiders', 'ShareYourSystem.Itemizers',
+'ShareYourSystem.Applyiers', 'ShareYourSystem.Walkers',
+'ShareYourSystem.Noders', 'ShareYourSystem.Storers',
+'ShareYourSystem.Databasers', 'ShareYourSystem.Ploters',
+'ShareYourSystem.Tutorials', 'ShareYourSystem.Simulaters',
+"ShareYourSystem.Muzikers'", "ShareYourSystem':["]
+   /}
+
+*****End of the Attest *****
+
+
+
+```
+
