@@ -272,13 +272,15 @@ class DoerClass(BaseClass):
 		LocalVariablesDict=vars()
 
 		#debug
-		print('Doer l.132 : DoerStr is '+DoerStr)
+		'''
+		print('Doer l.275 : DoerStr is '+DoerStr)
 		print('DoStr is '+DoStr)
 		print('DoMethodStr is '+DoMethodStr)
 		print('DoingStr is '+DoingStr)
 		print('DoneStr is '+DoneStr)
 		print('')
-
+		'''
+		
 		#set 
 		map(
 				lambda __KeyStr:
@@ -682,7 +684,8 @@ DoStrsTuplesList=[
 	('Deployer','Deploy','Deploying','Deployed'),
 	('Transmitter','Transmit','Transmitting','Transmitted'),
 	('Factorizer','Factorize','Factorizing','Factorized'),
-	('Organizer','Organize','Organizing','Organized')
+	('Organizer','Organize','Organizing','Organized'),
+	('Lifer','Lif','Lifing','Lifed')
 ]
 
 DoerStrToDoStrOrderedDict=SYS.dictify(DoStrsTuplesList,0,1)

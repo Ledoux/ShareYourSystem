@@ -43,8 +43,8 @@ class WeaverClass(BaseClass):
 
 		#debug
 		'''
-		self.debug("self.UpdatingItemTuplesList is "+Representer.represent(
-			self.UpdatingItemTuplesList,**{'RepresentingAlineaIsBool':False}))
+		self.debug("self.UpdatingItemVariable is "+Representer.represent(
+			self.UpdatingItemVariable,**{'RepresentingAlineaIsBool':False}))
 		'''
 
 		#Apply

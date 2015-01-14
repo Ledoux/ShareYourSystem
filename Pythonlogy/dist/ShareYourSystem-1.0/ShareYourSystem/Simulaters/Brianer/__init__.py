@@ -14,17 +14,21 @@ A Brianer
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Simulaters.Rater"
+BaseModuleStr="ShareYourSystem.Simulaters.Runner"
 DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
 from ShareYourSystem.Noders import Noder
+from ShareYourSystem.Simulaters import Populater
+import operator
 #</ImportSpecificModules>
 
 #<DefineClass>
-@DecorationClass()
+@DecorationClass(**{
+	'ClassingSwitchMethodStrsList':['brian']
+})
 class BrianerClass(BaseClass):
 	
 	#Definition
@@ -35,11 +39,12 @@ class BrianerClass(BaseClass):
 							'BrianedConnectionsList'
 						]
 
-	#@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.__init__}]})
 	def default_init(self,
 						_BrianingTimeDimensionVariable=None,
+						_BrianingPrintRunIsBool=True,
 						_BrianedNetworkVariable=None,
 						_BrianedClocksList=None,
+						_BrianedSimulationClock=None,
 						_BrianedNeuronGroupsList=None,
 						_BrianedConnectionsList=None,
 						**_KwargVariablesDict
@@ -56,16 +61,39 @@ class BrianerClass(BaseClass):
 		#parent method
 		BaseClass.run(self)
 
+		#debug
+		self.debug('We start running in brian')
+
 		#run with the brian method
 		self.BrianedNetworkVariable.run(
 			self.RunningTimeFloat*self.BrianingTimeDimensionVariable
 		)
 
+		#debug
+		self.debug('We stop running in brian')
+
 	def do_brian(self):	
 
 		#network first
-		self.network()
+		self.network(
+			**{
+				'RecruitingConcludeConditionTuplesList':[
+					(
+						'__class__.__mro__',
+						operator.contains,Populater.PopulaterClass
+					)
+				]
+			}
+		)
 
+		#populate
+		map(
+				lambda __NetworkedDeriveConnecter:
+				__NetworkedDeriveConnecter.populate(),
+				self.NetworkedDeriveConnectersList
+			)
+		
+		"""
 		#import 
 		import brian
 
@@ -75,6 +103,13 @@ class BrianerClass(BaseClass):
 
 		#init
 		self.BrianedNetworkVariable=brian.MagicNetwork()
+
+		#populate
+		map(
+				lambda __NetworkedDeriveConnecter:
+				__NetworkedDeriveConnecter.populate(),
+				self.NetworkedDeriveConnectersList
+			)
 
 		#set the different times
 		self.BrianedStepTimeFloatsList=list(
@@ -86,7 +121,7 @@ class BrianerClass(BaseClass):
 							__BrianingDerivePopulater.MoniteringTrackTuplesList,
 							[3]
 						) if len(
-							__BrianingDerivePopulater.populate().MoniteringTrackTuplesList
+							__BrianingDerivePopulater.MoniteringTrackTuplesList
 						)>0 else [],
 						self.NetworkedDeriveConnectersList
 					)
@@ -100,6 +135,9 @@ class BrianerClass(BaseClass):
 		'''
 
 		#set the clocks
+		self.BrianedSimulationClock=brian.Clock(
+								dt=self.SimulatingStepTimeFloat*self.BrianingTimeDimensionVariable
+							)
 		self.BrianedClocksDict=dict(
 			map(
 				lambda __BrianedStepTimeFloat:
@@ -111,11 +149,11 @@ class BrianerClass(BaseClass):
 				),
 				self.BrianedStepTimeFloatsList
 			)
-		,**{
-				str(self.SimulatingStepTimeFloat):brian.Clock(
-							dt=self.SimulatingStepTimeFloat*self.BrianingTimeDimensionVariable
-						)
-			}
+			,**{
+					str(
+						self.SimulatingStepTimeFloat
+						):self.BrianedSimulationClock
+				}
 		)
 
 		#debug
@@ -123,18 +161,17 @@ class BrianerClass(BaseClass):
 		self.debug(('self.',self,['BrianedClocksDict']))
 		'''
 
-		#set neuron groups
+		#set clock to the neuron groups
 		self.BrianedNeuronGroupsList=map(
 				lambda __BrianingDerivePopulater:
-				__BrianingDerivePopulater.point(
+				__BrianingDerivePopulater.__setitem__(
+					'NeuronGroup',
 					brian.NeuronGroup(
-							__BrianingDerivePopulater.PopulatingUnitsInt,
-							__BrianingDerivePopulater.PopulatingEquationStr,
-							clock=self.BrianedClocksDict[str(self.SimulatingStepTimeFloat)]
-					),
-					'NeuronGroupVariable',
-					False
-				).NeuronGroupVariable,
+						__BrianingDerivePopulater.PopulatingUnitsInt,
+						__BrianingDerivePopulater.PopulatingEquationStr,
+						clock=self.BrianedClocksDict[str(self.SimulatingStepTimeFloat)]
+					)
+				).NeuronGroup,
 				self.NetworkedDeriveConnectersList
 			)
 
@@ -144,19 +181,18 @@ class BrianerClass(BaseClass):
 				lambda __BrianingDerivePopulater:
 					map(
 							lambda __MoniteringTrackTuple:
-							__BrianingDerivePopulater.populate().point(
+							__BrianingDerivePopulater.__setitem__(
+								str(__MoniteringTrackTuple)+'Monitor',
 								getattr(
 									brian,
 									__MoniteringTrackTuple[0]+'Monitor'
 								)(
-									__BrianingDerivePopulater.NeuronGroupVariable,
+									__BrianingDerivePopulater.NeuronGroup,
 									__MoniteringTrackTuple[1],
 									record=__MoniteringTrackTuple[2],
 									clock=self.BrianedClocksDict[str(__MoniteringTrackTuple[3])]
-								),
-								'MonitorVariable',
-								False
-							).MonitorVariable,
+								)
+							).SettingValueVariable,
 							__BrianingDerivePopulater.MoniteringTrackTuplesList
 					),
 					self.NetworkedDeriveConnectersList
@@ -173,28 +209,38 @@ class BrianerClass(BaseClass):
 				lambda __ConnectionTuple:
 				map(
 						lambda __ListedVariable:
-						__ConnectionTuple[0].point(
+						__ConnectionTuple[0].__setitem__(
+							str(
+								(
+									__ConnectionTuple[0].NodeKeyStr,
+									__ListedVariable.NodeKeyStr
+								)
+							)+'Connection',
 							brian.Connection(
-								__ConnectionTuple[0].NeuronGroupVariable,
-								__ListedVariable.NeuronGroupVariable
-							),
-							'ConnectionVariable'
-						).ConnectionVariable,
+								__ConnectionTuple[0].NeuronGroup,
+								__ListedVariable.NeuronGroup
+							)
+						).SettingValueVariable,
 						__ConnectionTuple[1][0]
 					)+map(
 						lambda __ListedVariable:
-						__ListedVariable.point(
+						__ListedVariable.__setitem__(
+							str(
+								(
+									__ListedVariable.NodeKeyStr,
+									__ConnectionTuple[0].NodeKeyStr
+								)
+							)+'Connection',
 							brian.Connection(
-								__ListedVariable.NeuronGroupVariable,
-								__ConnectionTuple[0].NeuronGroupVariable
-							),
-							'ConnectionVariable'
-						).ConnectionVariable,
+								__ListedVariable.NeuronGroup,
+								__ConnectionTuple[0].NeuronGroup
+							)
+						).SettingValueVariable,
 						__ConnectionTuple[1][1]
 					),
 				self.NetworkedConnectionTuplesList	
 			)
-		
+
 		#debug
 		'''
 		self.debug(('self.',self,['BrianedNeuronGroupsList']))
@@ -205,9 +251,42 @@ class BrianerClass(BaseClass):
 
 		#add
 		map(
-				lambda __BrianingVariable:
-				BrianedNetworkVariable.add(__BrianingVariable),
+				lambda __BrianedVariable:
+				BrianedNetworkVariable.add(__BrianedVariable),
 				self.BrianedNeuronGroupsList+self.BrianedConnectionsList+self.BrianedMonitorsList
 			)
 
+		#Check
+		if self.BrianingPrintRunIsBool:
+
+			#debug
+			self.debug(('self.',self,[
+								'BrianedSimulationClock'
+								]))
+
+
+			#define
+			@brian.network_operation(
+				self.BrianedSimulationClock
+			)
+			def printControl():
+
+				#Print Time
+				print(
+					"time is "+str(
+						self.BrianedSimulationClock.t*self.BrianingTimeDimensionVariable
+					)
+				)
+
+				'''
+				#Print NeuronGroup
+				print(
+					"variables are"+str(
+					self.BrianedNeuronGroupsList[0]
+					)
+				)
+				'''
+				
+			self.BrianedNetworkVariable.add(printControl);
+		"""
 #</DefineClass>

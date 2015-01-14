@@ -14,7 +14,7 @@ A Filterer pick and
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Applyiers.Updater"
+BaseModuleStr="ShareYourSystem.Itemizers.Pointer"
 DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>

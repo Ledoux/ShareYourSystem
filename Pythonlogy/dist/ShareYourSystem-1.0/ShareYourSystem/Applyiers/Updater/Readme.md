@@ -77,7 +77,7 @@ MyUpdater is < (UpdaterClass), 4365085904>
    /  '<New><Instance>IdString' : 4365085904
    /  '<New><Instance>MyFloat' : 0.2
    /  '<New><Instance>MyInt' : 0
-   /  '<Spe><Instance>UpdatingItemTuplesList' :
+   /  '<Spe><Instance>UpdatingItemVariable' :
    /   /[
    /   /  0 : ('MyInt', 0)
    /   /  1 : ('MyFloat', 0.2)

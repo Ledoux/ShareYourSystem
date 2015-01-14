@@ -48,7 +48,7 @@ class CommanderClass(BaseClass):
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
 	def do_command(self):
-		"""Collect with _GatheringKeyVariablesList and do a all sets for each with _UpdatingItemTuplesList"""
+		"""Collect with _GatheringKeyVariablesList and do a all sets for each with _UpdatingItemVariable"""
 
 		#Check
 		if self.CommandingGatherIsBool:
@@ -82,7 +82,7 @@ class CommanderClass(BaseClass):
 		#Check for the order
 		if self.CommandingOrderStr=="AllSetsForEach":
 
-			#For each __GatheredVariable it is updating with _UpdatingItemTuplesList
+			#For each __GatheredVariable it is updating with _UpdatingItemVariable
 			map(
 					lambda __CommandedVariable:
 					__CommandedVariable.update(self.CommandingUpdateList),

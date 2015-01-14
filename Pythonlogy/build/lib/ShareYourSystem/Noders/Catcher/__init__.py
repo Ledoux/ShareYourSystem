@@ -32,6 +32,7 @@ class CatcherClass(BaseClass):
 	RepresentingKeyStrsList=[
 									'CatchingGetVariable',
 									'CatchingCollectionStr',
+									'CatchingUpdateVariable',
 									'CatchingNodeKeyStr',
 									'CatchingDefaultNodeKeyStrBool',
 									'CatchingNodeClass',
@@ -45,6 +46,7 @@ class CatcherClass(BaseClass):
 	def default_init(self,
 						_CatchingGetVariable="",
 						_CatchingCollectionStr="",
+						_CatchingUpdateVariable=None,
 						_CatchingNodeKeyStr="",
 						_CatchingDefaultNodeKeyStrBool=True,
 						_CatchingNodeClass=Pointer.PointerClass,
@@ -182,12 +184,15 @@ class CatcherClass(BaseClass):
 					)
 		'''
 		
-		#store
+		#collect and update
 		self.collect(
 					self.CatchingCollectionStr,
 					self.CatchedNodeKeyStr,
 					self.CatchedPointVariable
 				)
+
+		#set
+		self.CatchedPointVariable.update(self.CatchingUpdateVariable)
 
 #</DefineClass>
 

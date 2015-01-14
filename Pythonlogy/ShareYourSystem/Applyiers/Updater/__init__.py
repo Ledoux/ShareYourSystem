@@ -27,11 +27,11 @@ class UpdaterClass(BaseClass):
 	
 	#Definition
 	RepresentingKeyStrsList=[
-								'UpdatingItemTuplesList'
+								'UpdatingItemVariable'
 							]
 
 	def default_init(self,
-				_UpdatingItemTuplesList=None,
+				_UpdatingItemVariable=None,
 				**_KwargVariablesDict):
 
 		#Call the parent __init__ method
@@ -42,15 +42,20 @@ class UpdaterClass(BaseClass):
 
 		#debug
 		'''
-		self.debug("self.UpdatingItemTuplesList is "+Representer.represent(
-			self.UpdatingItemTuplesList,**{'RepresentingAlineaIsBool':False}))
+		self.debug("self.UpdatingItemVariable is "+Representer.represent(
+			self.UpdatingItemVariable,**{'RepresentingAlineaIsBool':False}))
 		'''
-
+		
 		#Apply
 		self.map('__setitem__',map(
 									lambda __UpdatingItemTuple:
 									{'LiargVariablesList':__UpdatingItemTuple},
-									self.UpdatingItemTuplesList
+									self.UpdatingItemVariable.items()
+									if hasattr(self.UpdatingItemVariable,'items')
+									else (self.UpdatingItemVariable 
+										if self.UpdatingItemVariable !=None
+										else []
+									)
 								)
 		)
 

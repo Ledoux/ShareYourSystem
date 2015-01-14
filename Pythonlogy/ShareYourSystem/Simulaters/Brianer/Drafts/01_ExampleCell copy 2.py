@@ -1,7 +1,7 @@
 
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Simulaters import Rater,Brianer
+from ShareYourSystem.Simulaters import Populater,Brianer
 
 #Definition of a brian structure
 MyBrianer=Brianer.BrianerClass(
@@ -9,9 +9,16 @@ MyBrianer=Brianer.BrianerClass(
 	[
 		(
 			'First',
-			Rater.RaterClass().update(
+			Populater.PopulaterClass().update(
 				[
 					('PopulatingUnitsInt',3),
+					(
+						'PopulatingEquationStr',
+						'''
+							dv/dt = (10-(v+50))/(20*ms) : volt
+
+						'''
+					)
 					('MoniteringTrackTuplesList',
 						[
 							('State','v',[0,1],1.)
@@ -56,6 +63,15 @@ SYS._attest(
 		),
 	]
 ) 
+
+#SYS._print(MyBrianer.BrianedMonitorsList[0].__dict__)
+
+SYS._print(
+	MyBrianer.BrianedNeuronGroupsList[0].__dict__
+)
+
+#import matplotlib
+#plot(MyBrianer['<Connectome>FirstRater'].)
 
 #Print
 

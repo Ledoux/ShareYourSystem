@@ -8,7 +8,7 @@
 </DefineSource>
 
 
-A Rater
+A Lifer
 
 """
 
@@ -21,16 +21,16 @@ SYS.setSubModule(globals())
 
 #<DefineClass>
 @DecorationClass()
-class RaterClass(BaseClass):
+class LiferClass(BaseClass):
 	
 	#Definition
 	RepresentingKeyStrsList=[
-									'RatingMatrixStr',
-									'RatedPreStr'
-								]
+								'RatingMatrixStr',
+								'RatedPreStr'
+							]
 
 	def default_init(self,
-						_RatingMatrixStr='J',
+						_LifingVoltage='J',
 						_RatingConstantTimeFloat='tau',
 						_RatedPreStr="",
 						**_KwargVariablesDict

@@ -28,14 +28,14 @@ class DynamizerClass(BaseClass):
 	
 	#Definition
 	RepresentingKeyStrsList=[
-									'DynamizingTraceStr',
-									'DynamizingExternalCurrentStr',
-									'DynamizingTraceDimensionStr',
-									'DynamizedParamStr',
-									'DynamizedParamStr',
-									'DynamizedPreStr',
-									'DynamizedPostStr'
-								]
+								'DynamizingTraceStr',
+								'DynamizingExternalCurrentStr',
+								'DynamizingTraceDimensionStr',
+								'DynamizedParamStr',
+								'DynamizedParamStr',
+								'DynamizedPreStr',
+								'DynamizedPostStr'
+							]
 
 	def default_init(self,
 						_DynamizingTraceStr="v",

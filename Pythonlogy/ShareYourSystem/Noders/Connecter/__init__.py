@@ -28,15 +28,15 @@ class ConnecterClass(BaseClass):
 	
 	#Definition
 	RepresentingKeyStrsList=[
-								'ConnectingAttentionGetStrsList',
-								'ConnectingCatchGetStrsList',
+								'ConnectingCatchVariablesList',
+								'ConnectingAttentionVariablesList',
 								'ConnectedAttentionDeriveConnectersList',
 								'ConnectedCatchDeriveConnectersList'
 							]
 
 	def default_init(self,
-						_ConnectingAttentionGetStrsList=None,
-						_ConnectingCatchGetStrsList=None,
+						_ConnectingCatchVariablesList=None,
+						_ConnectingAttentionVariablesList=None,
 						_ConnectedAttentionDeriveConnectersList=None,
 						_ConnectedCatchDeriveConnectersList=None,
 						**_KwargVariablesDict

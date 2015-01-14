@@ -86,14 +86,6 @@ class BrianerClass(BaseClass):
 			}
 		)
 
-		#populate
-		map(
-				lambda __NetworkedDeriveConnecter:
-				__NetworkedDeriveConnecter.populate(),
-				self.NetworkedDeriveConnectersList
-			)
-		
-		"""
 		#import 
 		import brian
 
@@ -288,5 +280,5 @@ class BrianerClass(BaseClass):
 				'''
 				
 			self.BrianedNetworkVariable.add(printControl);
-		"""
+
 #</DefineClass>

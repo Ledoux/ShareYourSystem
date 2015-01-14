@@ -14,13 +14,15 @@ MyProducer=Producer.ProducerClass().produce(
 #Catch with a relative path 
 MyProducer['<Pointome>FirstCatcher'].catch(
 	'/NodePointDeriveNoder/<Pointome>SecondCatcher',
-	'Relatome'	
+	'Relatome',
+	{'MyStr':"hello"}
 )
 
 #Catch with an absolute path 
 MyProducer['<Pointome>FirstCatcher'].catch(
 	MyProducer['<Pointome>ThirdCatcher'],
-	'Relatome'	
+	'Relatome',
+	{'MyInt':"hello"}
 )
 
 #Definition the AttestedStr

@@ -4,7 +4,7 @@ import ShareYourSystem as SYS
 from ShareYourSystem.Simulaters import Dynamizer
 
 #Definition an instance
-MyDynamizer=Dynamizer.DynamizerClass()
+MyDynamizer=Dynamizer.DynamizerClass().dynamize()
 		
 #Definition the AttestedStr
 SYS._attest(

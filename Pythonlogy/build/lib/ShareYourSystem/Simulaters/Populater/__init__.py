@@ -25,13 +25,23 @@ class PopulaterClass(BaseClass):
 	
 	#Definition
 	RepresentingKeyStrsList=[
-									'PopulatingUnitsInt',
-									'PopulatingEquationStr'
-								]
+								'PopulatingUnitsInt',
+								'PopulatingEquationStr',
+								'PopulatingThresholdStr',
+								'PopulatingResetStr',
+								'PopulatingCommunicationDictsList'
+							]
 
 	def default_init(self,
 						_PopulatingUnitsInt=0,
-						_PopulatingEquationStr="",
+						_PopulatingEquationStr='''
+							dv/dt = (ge+gi-(v+49*mV))/(20*ms) : volt
+							dge/dt = -ge/(5*ms) : volt
+							dgi/dt = -gi/(10*ms) : volt
+						''',
+						_PopulatingThresholdStr='v>-50*mV',
+						_PopulatingResetStr='v=-60*mV',
+						_PopulatingCommunicationDictsList=None,
 						**_KwargVariablesDict
 					):
 

@@ -31,7 +31,7 @@ class RaterClass(BaseClass):
 
 	def default_init(self,
 						_RatingMatrixStr='J',
-						_RatingConstantTimeStr='tau',
+						_RatingConstantTimeFloat='tau',
 						_RatedPreStr="",
 						**_KwargVariablesDict
 					):
@@ -43,12 +43,13 @@ class RaterClass(BaseClass):
 				self,
 			):	
 
-		
-
+	
 		#debug
+		'''
 		self.debug(('self.',self,[
 
 					]))
+		'''
 
 		#add the connection variable		
 		self.RatedPreStr+=self.RatingMatrixStr+self.DynamizingTraceStr
