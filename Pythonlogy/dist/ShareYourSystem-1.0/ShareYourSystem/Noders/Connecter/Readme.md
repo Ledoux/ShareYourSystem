@@ -260,7 +260,7 @@ MyProducer is < (ProducerClass), 4557090384>
 (ConnecterClass), 4557092816>
    /   /   /   /   /   /   /   /  '<Spe><Class>PointedBackSetStr' :
    /   /   /   /   /   /   /   /  '<Spe><Class>PointedPathBackVariable' :
-   /   /   /   /   /   /   /   /  '<Spe><Class>PointingBackSetKeyStr' :
+   /   /   /   /   /   /   /   /  '<Spe><Class>PointingBackSetStr' :
    /   /   /   /   /   /   /   /  '<Spe><Instance>PointedGetVariable' : {...}<
 (ConnecterClass), 4557092816>
    /   /   /   /   /   /   /   /  '<Spe><Instance>PointedLocalSetStr' :
@@ -273,14 +273,14 @@ PointVariable
    /   /   /   /   /   /   /}
    /   /   /   /   /   /  '<Spe><Class>ConnectedAttentionDeriveConnectersList' :
 None
-   /   /   /   /   /   /  '<Spe><Class>ConnectedCatchDeriveConnectersList' :
+   /   /   /   /   /   /  '<Spe><Class>ConnectedDerivePointersList' :
 None
    /   /   /   /   /   /  '<Spe><Class>ConnectingAttentionGetStrsList' : None
    /   /   /   /   /   /  '<Spe><Class>ConnectingCatchGetStrsList' : None
    /   /   /   /   /   /}
    /   /   /   /   /  '<Spe><Class>PointedBackSetStr' :
    /   /   /   /   /  '<Spe><Class>PointedPathBackVariable' :
-   /   /   /   /   /  '<Spe><Class>PointingBackSetKeyStr' :
+   /   /   /   /   /  '<Spe><Class>PointingBackSetStr' :
    /   /   /   /   /  '<Spe><Instance>PointedGetVariable' : {...}<
 (ConnecterClass), 4557093264>
    /   /   /   /   /  '<Spe><Instance>PointedLocalSetStr' : PointVariable
@@ -293,7 +293,7 @@ None
    /   /   /   /[
    /   /   /   /  0 : {...}< (ConnecterClass), 4557092816>
    /   /   /   /]
-   /   /   /  '<Spe><Instance>ConnectedCatchDeriveConnectersList' :
+   /   /   /  '<Spe><Instance>ConnectedDerivePointersList' :
    /   /   /   /[
    /   /   /   /  0 : {...}< (ConnecterClass), 4557092816>
    /   /   /   /]

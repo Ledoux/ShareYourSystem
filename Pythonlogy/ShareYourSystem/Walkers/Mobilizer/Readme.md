@@ -227,7 +227,7 @@ MyMobilizer is < (MobilizerClass), 4558050512>
 4558050512>
    /   /   /  '<Spe><Class>PointedBackSetStr' :
    /   /   /  '<Spe><Class>PointedPathBackVariable' :
-   /   /   /  '<Spe><Class>PointingBackSetKeyStr' :
+   /   /   /  '<Spe><Class>PointingBackSetStr' :
    /   /   /  '<Spe><Instance>PointedGetVariable' : {...}< (MobilizerClass),
 4558050512>
    /   /   /  '<Spe><Instance>PointedLocalSetStr' : PointVariable
@@ -343,7 +343,7 @@ None
    /   /   /   /}
    /   /   /  '<Spe><Class>PointedBackSetStr' :
    /   /   /  '<Spe><Class>PointedPathBackVariable' :
-   /   /   /  '<Spe><Class>PointingBackSetKeyStr' :
+   /   /   /  '<Spe><Class>PointingBackSetStr' :
    /   /   /  '<Spe><Instance>PointedGetVariable' : {...}< (MobilizerClass),
 4558890064>
    /   /   /  '<Spe><Instance>PointedLocalSetStr' : PointVariable
@@ -358,7 +358,7 @@ None
 4559067856>
    /   /   /  '<Spe><Class>PointedBackSetStr' :
    /   /   /  '<Spe><Class>PointedPathBackVariable' :
-   /   /   /  '<Spe><Class>PointingBackSetKeyStr' :
+   /   /   /  '<Spe><Class>PointingBackSetStr' :
    /   /   /  '<Spe><Instance>PointedGetVariable' : {...}< (MobilizerClass),
 4559067856>
    /   /   /  '<Spe><Instance>PointedLocalSetStr' : PointVariable
@@ -383,7 +383,7 @@ None
 4559179536>
    /   /   /  '<Spe><Class>PointedBackSetStr' :
    /   /   /  '<Spe><Class>PointedPathBackVariable' :
-   /   /   /  '<Spe><Class>PointingBackSetKeyStr' :
+   /   /   /  '<Spe><Class>PointingBackSetStr' :
    /   /   /  '<Spe><Instance>PointedGetVariable' : {...}< (RecruiterClass),
 4559179536>
    /   /   /  '<Spe><Instance>PointedLocalSetStr' : PointVariable

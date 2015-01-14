@@ -115,7 +115,7 @@ MyWeaver is < (WeaverClass), 4365118928>
    /   /  '<Spe><Class>PointedGetVariable' : None
    /   /  '<Spe><Class>PointedLocalSetStr' :
    /   /  '<Spe><Class>PointedPathBackVariable' :
-   /   /  '<Spe><Class>PointingBackSetKeyStr' :
+   /   /  '<Spe><Class>PointingBackSetStr' :
    /   /  '<Spe><Class>PointingGetVariable' : None
    /   /  '<Spe><Class>PointingSetPathStr' :
    /   /}
@@ -126,7 +126,7 @@ MyWeaver is < (WeaverClass), 4365118928>
    /   /  '<Spe><Class>PointedGetVariable' : None
    /   /  '<Spe><Class>PointedLocalSetStr' :
    /   /  '<Spe><Class>PointedPathBackVariable' :
-   /   /  '<Spe><Class>PointingBackSetKeyStr' :
+   /   /  '<Spe><Class>PointingBackSetStr' :
    /   /  '<Spe><Class>PointingGetVariable' : None
    /   /  '<Spe><Class>PointingSetPathStr' :
    /   /}
@@ -137,7 +137,7 @@ MyWeaver is < (WeaverClass), 4365118928>
    /   /  '<Spe><Class>PointedGetVariable' : None
    /   /  '<Spe><Class>PointedLocalSetStr' :
    /   /  '<Spe><Class>PointedPathBackVariable' :
-   /   /  '<Spe><Class>PointingBackSetKeyStr' :
+   /   /  '<Spe><Class>PointingBackSetStr' :
    /   /  '<Spe><Class>PointingGetVariable' : None
    /   /  '<Spe><Class>PointingSetPathStr' :
    /   /}
@@ -156,7 +156,7 @@ MyWeaver is < (WeaverClass), 4365118928>
    /   /   /   /  '<Spe><Class>PointedGetVariable' : None
    /   /   /   /  '<Spe><Class>PointedLocalSetStr' :
    /   /   /   /  '<Spe><Class>PointedPathBackVariable' :
-   /   /   /   /  '<Spe><Class>PointingBackSetKeyStr' :
+   /   /   /   /  '<Spe><Class>PointingBackSetStr' :
    /   /   /   /  '<Spe><Class>PointingGetVariable' : None
    /   /   /   /  '<Spe><Class>PointingSetPathStr' :
    /   /   /   /}
@@ -172,7 +172,7 @@ MyWeaver is < (WeaverClass), 4365118928>
    /   /   /   /  '<Spe><Class>PointedGetVariable' : None
    /   /   /   /  '<Spe><Class>PointedLocalSetStr' :
    /   /   /   /  '<Spe><Class>PointedPathBackVariable' :
-   /   /   /   /  '<Spe><Class>PointingBackSetKeyStr' :
+   /   /   /   /  '<Spe><Class>PointingBackSetStr' :
    /   /   /   /  '<Spe><Class>PointingGetVariable' : None
    /   /   /   /  '<Spe><Class>PointingSetPathStr' :
    /   /   /   /}
@@ -188,7 +188,7 @@ MyWeaver is < (WeaverClass), 4365118928>
    /   /   /   /  '<Spe><Class>PointedGetVariable' : None
    /   /   /   /  '<Spe><Class>PointedLocalSetStr' :
    /   /   /   /  '<Spe><Class>PointedPathBackVariable' :
-   /   /   /   /  '<Spe><Class>PointingBackSetKeyStr' :
+   /   /   /   /  '<Spe><Class>PointingBackSetStr' :
    /   /   /   /  '<Spe><Class>PointingGetVariable' : None
    /   /   /   /  '<Spe><Class>PointingSetPathStr' :
    /   /   /   /}

@@ -8,7 +8,8 @@
 </DefineSource>
 
 
-Attentioner instances
+Attentioner instances grasp a Variable and make inside a catch to the original
+instance
 
 """
 
@@ -48,9 +49,6 @@ class AttentionerClass(BaseClass):
 		self.debug(('self.',self,['CatchingCollectionStr']))
 		'''
 		
-		#catch first
-		self.catch()
-
 		#set
 		if self.AttentioningCollectionStr=="":
 			self.AttentioningCollectionStr=self.CollectingCollectionStr
@@ -66,12 +64,13 @@ class AttentionerClass(BaseClass):
 		'''
 		
 		#poitn in the other way
-		self.CatchedGetVariable.catch(
-			self,
-			**{
-				'CatchingCollectionStr':self.AttentioningCollectionStr
-			}
-		)	
+		self.GraspedAnswerVariable.grasp(
+				self
+			).catch(
+				self.AttentioningCollectionStr
+			)
+
+		
 
 #</DefineClass>
 

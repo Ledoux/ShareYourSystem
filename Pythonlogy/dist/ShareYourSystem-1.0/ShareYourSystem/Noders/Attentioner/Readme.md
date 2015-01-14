@@ -218,7 +218,7 @@ MyProducer is < (ProducerClass), 4556931728>
 (AttentionerClass), 4557045392>
    /   /   /   /   /   /   /   /  '<Spe><Class>PointedBackSetStr' :
    /   /   /   /   /   /   /   /  '<Spe><Class>PointedPathBackVariable' :
-   /   /   /   /   /   /   /   /  '<Spe><Class>PointingBackSetKeyStr' :
+   /   /   /   /   /   /   /   /  '<Spe><Class>PointingBackSetStr' :
    /   /   /   /   /   /   /   /  '<Spe><Instance>PointedGetVariable' : {...}<
 (AttentionerClass), 4557045392>
    /   /   /   /   /   /   /   /  '<Spe><Instance>PointedLocalSetStr' :
@@ -241,7 +241,7 @@ PointVariable
    /   /   /   /   /   /}
    /   /   /   /   /  '<Spe><Class>PointedBackSetStr' :
    /   /   /   /   /  '<Spe><Class>PointedPathBackVariable' :
-   /   /   /   /   /  '<Spe><Class>PointingBackSetKeyStr' :
+   /   /   /   /   /  '<Spe><Class>PointingBackSetStr' :
    /   /   /   /   /  '<Spe><Instance>PointedGetVariable' : {...}<
 (AttentionerClass), 4557087888>
    /   /   /   /   /  '<Spe><Instance>PointedLocalSetStr' : PointVariable

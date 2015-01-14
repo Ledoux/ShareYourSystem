@@ -12,12 +12,10 @@ MyProducer=Producer.ProducerClass().produce(
 		)
 
 #attention
-MyProducer['<Pointome>FirstAttentioner'].attention(
-		'BackRelatome',
-		**{
-				'CatchingGetVariable':'/NodePointDeriveNoder/<Pointome>SecondAttentioner',
-				'CatchingCollectionStr':'Relatome'
-		}	
+MyProducer['<Pointome>FirstAttentioner'].grasp(
+		'/NodePointDeriveNoder/<Pointome>SecondAttentioner'
+	).attention(
+		'BackRelatome'
 	)
 
 #Definition the AttestedStr

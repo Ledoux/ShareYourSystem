@@ -145,14 +145,14 @@ MyProducer is < (ProducerClass), 4557088592>
    /   /   /   /   /   /  '<Spe><Class>CatchingCollectionStr' :
    /   /   /   /   /   /  '<Spe><Class>CatchingDefaultNodeKeyStrBool' : True
    /   /   /   /   /   /  '<Spe><Class>CatchingGetVariable' :
-   /   /   /   /   /   /  '<Spe><Class>CatchingNodeClass' : <class
+   /   /   /   /   /   /  '<Spe><Class>CatchingDerivePointerClass' : <class
 'ShareYourSystem.Itemizers.Pointer.PointerClass'>
    /   /   /   /   /   /  '<Spe><Class>CatchingNodeKeyStr' :
    /   /   /   /   /   /  '<Spe><Class>CatchingPointBackBool' : False
    /   /   /   /   /   /}
    /   /   /   /   /  '<Spe><Class>PointedBackSetStr' :
    /   /   /   /   /  '<Spe><Class>PointedPathBackVariable' :
-   /   /   /   /   /  '<Spe><Class>PointingBackSetKeyStr' :
+   /   /   /   /   /  '<Spe><Class>PointingBackSetStr' :
    /   /   /   /   /  '<Spe><Instance>PointedGetVariable' : {...}<
 (CatcherClass), 4557133520>
    /   /   /   /   /  '<Spe><Instance>PointedLocalSetStr' : PointVariable
@@ -162,7 +162,7 @@ MyProducer is < (ProducerClass), 4557088592>
    /   /   /   /   /}
    /   /   /   /}
    /   /   /  '<Spe><Class>CatchingDefaultNodeKeyStrBool' : True
-   /   /   /  '<Spe><Class>CatchingNodeClass' : {...}< (type), 140533540739184>
+   /   /   /  '<Spe><Class>CatchingDerivePointerClass' : {...}< (type), 140533540739184>
    /   /   /  '<Spe><Class>CatchingNodeKeyStr' :
    /   /   /  '<Spe><Class>CatchingPointBackBool' : False
    /   /   /  '<Spe><Instance>CatchedGetVariable' : {...}< (CatcherClass),

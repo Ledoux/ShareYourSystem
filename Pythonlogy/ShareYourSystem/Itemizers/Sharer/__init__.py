@@ -14,7 +14,7 @@ A Sharer can set attributes at the level of the class
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Itemizers.Pather"
+BaseModuleStr="ShareYourSystem.Itemizers.Grasper"
 DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>

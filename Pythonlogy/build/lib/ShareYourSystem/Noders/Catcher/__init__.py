@@ -7,8 +7,7 @@
 @Author : Erwan Ledoux \n\n
 </DefineSource>
 
-
-Catcher instances
+Catcher instances grasps a Variable, sets a Pointer on it that will be then collected 
 
 """
 
@@ -22,6 +21,7 @@ SYS.setSubModule(globals())
 #<ImportSpecificModules>
 from ShareYourSystem.Itemizers import Pointer
 from ShareYourSystem.Noders import Noder
+import collections
 #</ImportSpecificModules>
 
 #<DefineClass>
@@ -30,30 +30,27 @@ class CatcherClass(BaseClass):
 	
 	#Definition
 	RepresentingKeyStrsList=[
-									'CatchingGetVariable',
-									'CatchingCollectionStr',
-									'CatchingUpdateVariable',
-									'CatchingNodeKeyStr',
-									'CatchingDefaultNodeKeyStrBool',
-									'CatchingNodeClass',
-									'CatchingPointBackBool',
-									'CatchedGetVariable',
-									'CatchedNodeKeyStr',
-									'CatchedPointVariable'
-								]
+								'CatchingCollectionStr',
+								'CatchingUpdateVariable',
+								'CatchingNodeKeyStr',
+								'CatchingDefaultNodeKeyStrBool',
+								'CatchingDerivePointerClass',
+								'CatchingPointBackSetStr',
+								'CatchedGraspVariable',
+								'CatchedNodeKeyStr',
+								'CatchedDerivePointer'
+							]
 
-	#@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.__init__}]})
 	def default_init(self,
-						_CatchingGetVariable="",
 						_CatchingCollectionStr="",
 						_CatchingUpdateVariable=None,
 						_CatchingNodeKeyStr="",
 						_CatchingDefaultNodeKeyStrBool=True,
-						_CatchingNodeClass=Pointer.PointerClass,
-						_CatchingPointBackBool=False,
-						_CatchedGetVariable=None,
+						_CatchingDerivePointerClass=Pointer.PointerClass,
+						_CatchingPointBackSetStr="",
+						_CatchedGraspVariable=None,
 						_CatchedNodeKeyStr="",
-						_CatchedPointVariable=None,
+						_CatchedDerivePointer=None,
 						**_KwargVariablesDict
 					):
 
@@ -67,25 +64,31 @@ class CatcherClass(BaseClass):
 		self.debug(
 					('self.',self,[
 									'CollectingCollectionStr',
-									'CatchingGetVariable'
+									'GraspingClueVariable'
 								])
 				)
 		'''
 		
-		#get by checking if it is already getted
-		if type(self.CatchingGetVariable) in SYS.StrTypesList:
-			self.CatchedGetVariable=self[self.CatchingGetVariable]
-		else:
-			self.CatchedGetVariable=self.CatchingGetVariable
+		#grasp
+		'''
+		self.grasp(
+			self.GraspingClueVariable
+		)
+		'''
+
+		#link
+		if type(self.GraspingClueVariable)==SYS.GraspDictClass:
+			self.CatchingUpdateVariable=self.GraspingClueVariable
 
 		#Defaut set for the collection keyStr
 		if self.CatchingDefaultNodeKeyStrBool:
 
 			#Check
 			CatchedGetStr=">UnknowPath<"
-			if type(self.CatchingGetVariable) in SYS.StrTypesList:
-				CatchedGetStr=self.CatchingGetVariable
-			else:
+			if type(self.GraspingClueVariable) in SYS.StrTypesList:
+				CatchedGetStr=self.GraspingClueVariable
+
+			elif hasattr(self.GraspedAnswerVariable,'parent'):
 
 				#Get the up
 				CatchedUpNodeKeyStrsList=(self.parent(
@@ -94,8 +97,8 @@ class CatcherClass(BaseClass):
 				CatchedUpPathStr='/'.join(CatchedUpNodeKeyStrsList[:-1])
 
 				#Get the down
-				CatchedDownNodeKeyStrsList=(self.CatchingGetVariable.parent(
-					).ParentedPathStr+'/'+self.CatchingGetVariable.NodeKeyStr).split('/')
+				CatchedDownNodeKeyStrsList=(self.GraspedAnswerVariable.parent(
+					).ParentedPathStr+'/'+self.GraspedAnswerVariable.NodeKeyStr).split('/')
 				CatchedDownPathStr='/'.join(CatchedDownNodeKeyStrsList[1:])
 
 				#Get the top
@@ -106,41 +109,7 @@ class CatcherClass(BaseClass):
 					#set
 					CatchedGetStr=CatchedUpPathStr+'>'+CatchedTopStr+'<'+CatchedDownPathStr					
 
-
-			#debug
-			'''
-			self.debug('CatchedGetStr is '+CatchedGetStr)
-			'''
-
 			#set
-			'''
-			self.CollectingNodeKeyStr=self.CatchedGetVariable.__class__.NameStr.join(
-				NodeKeyStr.split(
-					Noder.NodingSuffixGetStr)[-1].split(self.CatchedGetVariable.__class__.NameStr
-					)[:-1]
-				)
-			'''
-
-			'''
-			CatchedNodeKeyStr=CatchedGetStr.split(
-					Noder.NodingSuffixGetStr
-			)[-1]
-			'''
-
-			'''
-			#Check
-			if self.CatchedGetVariable.NodePointDeriveNoder!=None:
-				if self.CatchedGetVariable.NodePointDeriveNoder.NodeKeyStr=="":
-					CatchedPrefixStr='Top'+self.CatchedGetVariable.NodePointDeriveNoder.__class__.NameStr
-				else:
-					CatchedPrefixStr=self.CatchedGetVariable.NodePointDeriveNoder.NodeKeyStr
-			else:
-				CatchedPrefixStr=""
-
-			#set
-			self.CatchedNodeKeyStr=CatchedPrefixStr+'_'+CatchedGetStr
-			'''
-
 			self.CatchedNodeKeyStr=CatchedGetStr
 
 		else:
@@ -166,12 +135,12 @@ class CatcherClass(BaseClass):
 			self.CatchingCollectionStr=self.CollectingCollectionStr
 
 		#init
-		self.CatchedPointVariable=self.CatchingNodeClass(
+		self.CatchedDerivePointer=self.CatchingDerivePointerClass(
 			**{
-				'PointingBackBool':self.CatchingPointBackBool
+				'PointingBackSetStr':self.CatchingPointBackSetStr
 			}
 		).point(
-			self.CatchedGetVariable,
+			self.GraspedAnswerVariable,
 			'PointVariable'
 		)
 
@@ -179,7 +148,7 @@ class CatcherClass(BaseClass):
 		'''
 		self.debug(
 					('self.',self,[
-									'CatchedPointVariable'
+									'CatchedDerivePointer'
 								])
 					)
 		'''
@@ -188,11 +157,13 @@ class CatcherClass(BaseClass):
 		self.collect(
 					self.CatchingCollectionStr,
 					self.CatchedNodeKeyStr,
-					self.CatchedPointVariable
+					self.CatchedDerivePointer
 				)
 
 		#set
-		self.CatchedPointVariable.update(self.CatchingUpdateVariable)
+		self.CatchedDerivePointer.update(
+			self.CatchingUpdateVariable
+		)
 
 #</DefineClass>
 

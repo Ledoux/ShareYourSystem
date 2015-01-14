@@ -7,8 +7,7 @@
 @Author : Erwan Ledoux \n\n
 </DefineSource>
 
-
-Connecters...
+Connecter instances catch grasped variables and makes an attention also on it.
 
 """
 
@@ -28,17 +27,13 @@ class ConnecterClass(BaseClass):
 	
 	#Definition
 	RepresentingKeyStrsList=[
-								'ConnectingCatchVariablesList',
-								'ConnectingAttentionVariablesList',
-								'ConnectedAttentionDeriveConnectersList',
-								'ConnectedCatchDeriveConnectersList'
+								'ConnectingGraspVariablesList',
+								'ConnectedDerivePointersList'
 							]
 
 	def default_init(self,
-						_ConnectingCatchVariablesList=None,
-						_ConnectingAttentionVariablesList=None,
-						_ConnectedAttentionDeriveConnectersList=None,
-						_ConnectedCatchDeriveConnectersList=None,
+						_ConnectingGraspVariablesList=None,
+						_ConnectedDerivePointersList=None,
 						**_KwargVariablesDict
 					):
 
@@ -47,21 +42,15 @@ class ConnecterClass(BaseClass):
 
 	def do_connect(self):	
 
-		#attention
-		self.ConnectedCatchDeriveConnectersList=map(
-				lambda __ConnectingAttentionGetStr:
-				self.attention(**{
-						'CatchingGetVariable':__ConnectingAttentionGetStr
-					}
-				).CatchedGetVariable,
-				self.ConnectingAttentionGetStrsList
-			)
-
 		#catch
-		self.ConnectedAttentionDeriveConnectersList=map(
-				lambda __ConnectingCatchGetStr:
-				self.catch(_GetVariable=__ConnectingCatchGetStr).CatchedGetVariable,
-				self.ConnectingCatchGetStrsList
+		self.ConnectedDerivePointersList=map(
+				lambda __ConnectingGraspVariable:
+				self.grasp(
+						__ConnectingGraspVariable
+					).catch(
+					).attention(
+					).GraspedAnswerVariable,
+				self.ConnectingGraspVariablesList
 			)
 
 #</DefineClass>

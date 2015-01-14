@@ -265,7 +265,7 @@ MyNetworker is < (NetworkerClass), 4567892048>
 (ConnecterClass), 4567776144>
    /   /   /   /   /   /   /   /  '<Spe><Class>PointedBackSetStr' :
    /   /   /   /   /   /   /   /  '<Spe><Class>PointedPathBackVariable' :
-   /   /   /   /   /   /   /   /  '<Spe><Class>PointingBackSetKeyStr' :
+   /   /   /   /   /   /   /   /  '<Spe><Class>PointingBackSetStr' :
    /   /   /   /   /   /   /   /  '<Spe><Instance>PointedGetVariable' : {...}<
 (ConnecterClass), 4567776144>
    /   /   /   /   /   /   /   /  '<Spe><Instance>PointedLocalSetStr' :
@@ -279,14 +279,14 @@ PointVariable
    /   /   /   /   /   /  '<New><Instance>TagStr' : Networked
    /   /   /   /   /   /  '<Spe><Instance>ConnectedAttentionDeriveConnectersList' :
 []
-   /   /   /   /   /   /  '<Spe><Instance>ConnectedCatchDeriveConnectersList' :
+   /   /   /   /   /   /  '<Spe><Instance>ConnectedDerivePointersList' :
 []
    /   /   /   /   /   /  '<Spe><Instance>ConnectingAttentionGetStrsList' : []
    /   /   /   /   /   /  '<Spe><Instance>ConnectingCatchGetStrsList' : []
    /   /   /   /   /   /}
    /   /   /   /   /  '<Spe><Class>PointedBackSetStr' :
    /   /   /   /   /  '<Spe><Class>PointedPathBackVariable' :
-   /   /   /   /   /  '<Spe><Class>PointingBackSetKeyStr' :
+   /   /   /   /   /  '<Spe><Class>PointingBackSetStr' :
    /   /   /   /   /  '<Spe><Instance>PointedGetVariable' : {...}<
 (ConnecterClass), 4567776208>
    /   /   /   /   /  '<Spe><Instance>PointedLocalSetStr' : PointVariable
@@ -300,7 +300,7 @@ PointVariable
    /   /   /   /[
    /   /   /   /  0 : {...}< (ConnecterClass), 4567776144>
    /   /   /   /]
-   /   /   /  '<Spe><Instance>ConnectedCatchDeriveConnectersList' :
+   /   /   /  '<Spe><Instance>ConnectedDerivePointersList' :
    /   /   /   /[
    /   /   /   /  0 : {...}< (ConnecterClass), 4567776144>
    /   /   /   /]

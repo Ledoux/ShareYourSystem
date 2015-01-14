@@ -99,7 +99,7 @@ class NetworkerClass(BaseClass):
 					).pick(
 						[
 							'ConnectedAttentionDeriveConnectersList',
-							'ConnectedCatchDeriveConnectersList'
+							'ConnectedDerivePointersList'
 						]
 					)
 				),

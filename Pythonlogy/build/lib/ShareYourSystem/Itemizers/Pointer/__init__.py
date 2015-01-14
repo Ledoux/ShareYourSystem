@@ -35,20 +35,20 @@ class PointerClass(BaseClass):
 
 	#Definition
 	RepresentingKeyStrsList=[
-									'PointingGetVariable',
-									'PointingSetPathStr',
-									'PointingBackSetKeyStr',
-									'PointedGetVariable',
-									'PointedPathBackVariable',
-									'PointedLocalSetStr',
-									'PointedBackSetStr'
-								]
+								'PointingGetVariable',
+								'PointingSetPathStr',
+								'PointingBackSetStr',
+								'PointedGetVariable',
+								'PointedPathBackVariable',
+								'PointedLocalSetStr',
+								'PointedBackSetStr'
+							]
 
 	def default_init(
 					self,		
 					_PointingGetVariable=None,
 					_PointingSetPathStr="",
-					_PointingBackSetKeyStr="",
+					_PointingBackSetStr="",
 					_PointedGetVariable=None,
 					_PointedPathBackVariable="",
 					_PointedPathBackStr="",
@@ -120,7 +120,7 @@ class PointerClass(BaseClass):
 			]=self.PointedGetVariable
 
 		#set a back pointer
-		if self.PointingBackSetKeyStr!="":
+		if self.PointingBackSetStr!="":
 
 			#debug
 			'''
@@ -134,7 +134,7 @@ class PointerClass(BaseClass):
 						]
 					)
 			'''
-
+			
 			#Get
 			self.PointedPathBackVariable=Pather.getPathedBackVariableWithVariableAndGetStr(
 				self,
@@ -146,12 +146,13 @@ class PointerClass(BaseClass):
 			self.debug(('self.',self,[
 										'PointedGetVariable',
 										'PointedPathBackVariable',
+										'PointingBackSetStr'
 									]))
 			'''
 
 			#link
 			self.PointedGetVariable[
-				self.PointingBackSetKeyStr
+				self.PointingBackSetStr
 			]=self.PointedPathBackVariable
 
 

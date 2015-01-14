@@ -6,24 +6,38 @@ from ShareYourSystem.Noders import Catcher
 
 #Definition of an instance
 MyProducer=Producer.ProducerClass().produce(
-	['First','Second','Third'],
+	['First','Second','Third','Four'],
 	Catcher.CatcherClass,
 	**{'CollectingCollectionStr':"Pointome"}
 )
 
 #Catch with a relative path 
-MyProducer['<Pointome>FirstCatcher'].catch(
-	'/NodePointDeriveNoder/<Pointome>SecondCatcher',
-	'Relatome',
-	{'MyStr':"hello"}
+MyProducer['<Pointome>FirstCatcher'].grasp(
+		'/NodePointDeriveNoder/<Pointome>SecondCatcher'
+	).catch(
+		'Relatome',
+		{'MyStr':"hello"}
+	)
+
+#Catch with a direct catch
+MyProducer['<Pointome>FirstCatcher'].grasp(
+		MyProducer['<Pointome>ThirdCatcher']
+	).catch(
+		'Relatome',
+		{'MyInt':3}
 )
 
-#Catch with an absolute path 
-MyProducer['<Pointome>FirstCatcher'].catch(
-	MyProducer['<Pointome>ThirdCatcher'],
-	'Relatome',
-	{'MyInt':"hello"}
-)
+#Catch with a CatchDict
+MyProducer['<Pointome>FirstCatcher'].grasp(
+	SYS.GraspDictClass(
+		**{
+		'HintVariable':'/NodePointDeriveNoder/<Pointome>FourCatcher',
+		'MyFloat':5.5
+		}
+	)
+	).catch(
+		'Relatome'
+	)
 
 #Definition the AttestedStr
 SYS._attest(

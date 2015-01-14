@@ -13,15 +13,12 @@ MyProducer=Producer.ProducerClass().produce(
 
 #connect
 MyProducer['<Connectome>FirstConnecter'].connect(
+	[
+		'/NodePointDeriveNoder/<Connectome>SecondConnecter'
+	],
 	**{
 		'CatchingCollectionStr':"PostRelatome",
 		'AttentioningCollectionStr':"PreRelatome",
-		'ConnectingAttentionGetStrsList':[
-			'/NodePointDeriveNoder/<Connectome>SecondConnecter'
-		],
-		'ConnectingCatchGetStrsList':[
-			'/NodePointDeriveNoder/<Connectome>SecondConnecter'
-		],
 	}
 )
 

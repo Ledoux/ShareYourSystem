@@ -70,6 +70,7 @@ setup(
 			 		'ShareYourSystem.Itemizers.Attributer',
 			 		'ShareYourSystem.Itemizers.Restricter',
 			 		'ShareYourSystem.Itemizers.Pather',
+			 		'ShareYourSystem.Itemizers.Grasper',
 			 		'ShareYourSystem.Itemizers.Sharer',
 			 		'ShareYourSystem.Itemizers.Executer',
 			 		'ShareYourSystem.Applyiers.Applyier',

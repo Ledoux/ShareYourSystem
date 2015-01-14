@@ -106,7 +106,7 @@ MyPointer is < (PointerClass), 4465425168>
    /  '<New><Instance>IdString' : 4465425168
    /  '<Spe><Class>PointedBackSetStr' :
    /  '<Spe><Class>PointedPathBackVariable' :
-   /  '<Spe><Class>PointingBackSetKeyStr' :
+   /  '<Spe><Class>PointingBackSetStr' :
    /  '<Spe><Instance>PointedGetVariable' : {...}< (PointerClass), 4465425168>
    /  '<Spe><Instance>PointedLocalSetStr' : GrandParentPointer
    /  '<Spe><Instance>PointingGetVariable' : /

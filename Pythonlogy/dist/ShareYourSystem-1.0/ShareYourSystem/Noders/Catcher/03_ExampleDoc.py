@@ -12,12 +12,13 @@ MyProducer=Producer.ProducerClass().produce(
 		)
 
 #point
-MyProducer['<Pointome>FirstCatcher'].catch(
-		'/NodePointDeriveNoder/<Pointome>SecondCatcher',
-		_PointBackBool=True,
-		**{
-			'CollectingCollectionStr':'Relatome',
-		}	
+MyProducer['<Pointome>FirstCatcher'].grasp(
+			'/NodePointDeriveNoder/<Pointome>SecondCatcher'
+		).catch(
+			_PointBackSetStr='MyBackVariable',
+			**{
+				'CollectingCollectionStr':'Relatome',
+			}	
 	)
 
 #Definition the AttestedStr
