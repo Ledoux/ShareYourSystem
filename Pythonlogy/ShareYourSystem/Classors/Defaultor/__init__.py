@@ -42,6 +42,13 @@ DefaultDecorationMethodStr="superDefault_init"
 #</DefineLocals>
 
 #<DefineFunctions>
+def DefaultInitFunction(
+	_InstanceVariable,
+	*_LiargVariablesList,
+	**_KwargVariablesDict
+):
+	pass
+
 def getDefaultedValueVariableWithSetVariable(_SetVariable):
 
 	#Return the instanciation of the type
@@ -263,7 +270,7 @@ class DefaultorClass(BaseClass):
 			'''
 
 			#get
-			InitWrapUnboundMethod=getattr(_Class,DefaultWrapMethodStr)
+			InitWrapUnboundMethod=getattr(_Class,DefaultWrapMethodStr) if hasattr(_Class,DefaultWrapMethodStr) else DefaultInitFunction
 
 			#set the DefaultDict
 			_Class.InitArgumentDict=SYS.getArgumentDictWithFunction(InitWrapUnboundMethod)

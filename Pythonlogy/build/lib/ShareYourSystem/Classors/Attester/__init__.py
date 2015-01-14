@@ -200,6 +200,6 @@ class AttesterClass(BaseClass):
 SYS._attest=lambda _StrsList:SYS._print(getAttestedStrWithStrsList(_StrsList))
 
 #Set
-AttesterClass.DeriveClassor.AttestingFolderPathStr=SYS.LocalShareYourSystemFolderPathStr+AttesterClass.__module__.replace(
+AttesterClass.DeriveClassor.AttestingFolderPathStr=SYS.LocalPythonlogyFolderPathStr+AttesterClass.__module__.replace(
 '.','/')+'/Attests/'
 

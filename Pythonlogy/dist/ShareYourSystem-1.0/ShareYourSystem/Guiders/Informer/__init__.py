@@ -123,7 +123,10 @@ class InformerClass(BaseClass):
 
 		#debug
 		'''
-		self.debug(('self.',self,['FolderedDirKeyStrsList']))
+		self.debug(('self.',self,[
+									'FolderedModuleStr',
+									'FolderedDirKeyStrsList'
+								]))
 		'''
 
 		#filter
@@ -170,9 +173,13 @@ class InformerClass(BaseClass):
 
 		#check
 		if self.InformedConceptNameStr in SYS.PluralStrToSingularStrOrderedDict.keys():
+			
+			#package
 			self.InformedConceptModule=self.package(
 				self.FolderedModuleStr
 			).PackagedModuleVariable
+
+		#join
 		self.InformedConceptModuleFolderPathStr='/'.join(
 			self.InformedConceptModule.__file__.split(
 			'/'
@@ -311,7 +318,7 @@ class InformerClass(BaseClass):
 			#map
 			self.InformedSubModuleLocalFolderPathStrsList=map(
 					lambda __InformedSubModuleStr:
-					SYS.LocalShareYourSystemFolderPathStr+__InformedSubModuleStr.replace(
+					SYS.LocalPythonlogyFolderPathStr+__InformedSubModuleStr.replace(
 						'.','/'
 					),
 					self.InformedSubModuleStrsList

@@ -1,16 +1,4 @@
 
-#Picker
- @Date : Fri Nov 14 13:20:38 2014
-
-@Author : Erwan Ledoux
-
-
-
-A Picker maps a __getitem__
-
-
-
-
 
 <!--
 FrozenIsBool False
@@ -92,9 +80,9 @@ SYS._attest(
 PickedVariablesList is
    /[
    /  0 : 0
-   /  1 : < (PickerClass), 4365177680>
+   /  1 : < (PickerClass), 4549771856>
    /   /{
-   /   /  '<New><Instance>IdString' : 4365177680
+   /   /  '<New><Instance>IdInt' : 4549771856
    /   /  '<New><Instance>MyStr' : hello
    /   /}
    /  2 : hello

@@ -16,14 +16,13 @@ map(
 	MyInformer.inform,
 	map(
 		lambda __ConceptStr:
-		SYS.LocalShareYourSystemFolderPathStr+'ShareYourSystem/'+__ConceptStr,
+		SYS.LocalPythonlogyFolderPathStr+'ShareYourSystem/'+__ConceptStr,
 		[
 			#'Objects',
 			#'Classors',
-			'Interfacers',
-			#'Guiders',
+			#'Interfacers',
 			#'Itemizers',
-			#'Applyiers',
+			'Applyiers',
 			#'Walkers',
 			#'Noders',
 			#'Savers',
@@ -32,6 +31,7 @@ map(
 			#'Tutorials',
 			#'Simulaters',
 			#'Muzikers',
+			#'Guiders',
 		]
 	)
 )

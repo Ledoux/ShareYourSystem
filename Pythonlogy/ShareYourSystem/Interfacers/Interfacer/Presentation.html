@@ -1777,7 +1777,6 @@ import ShareYourSystem as SYS
 BaseModuleStr="ShareYourSystem.Objects.Rebooter"
 DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
-
 #&lt;/DefineAugmentation&gt;
 
 #&lt;ImportSpecificModules&gt;
@@ -1796,7 +1795,6 @@ class InterfacerClass(BaseClass):
                                 ]
 
 
-    #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.init}]})
     def default_init(self,
                         **_KwargVariablesDict
                     ):
@@ -1805,7 +1803,6 @@ class InterfacerClass(BaseClass):
         BaseClass.__init__(self,**_KwargVariablesDict)
 
     #@Argumenter.ArgumenterClass()
-    #&lt;DefineDoMethod&gt;
     def do_interface(self,**_KwargVariablesDict):
 
         pass
@@ -1882,9 +1879,9 @@ In&nbsp;[3]:
 
 *****Start of the Attest *****
 
-MyInterfacer is &lt; (InterfacerClass), 4444622224&gt;
+MyInterfacer is &lt; (InterfacerClass), 4404027728&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdStr&apos; : 4444622224
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4404027728
    /}
 
 *****End of the Attest *****

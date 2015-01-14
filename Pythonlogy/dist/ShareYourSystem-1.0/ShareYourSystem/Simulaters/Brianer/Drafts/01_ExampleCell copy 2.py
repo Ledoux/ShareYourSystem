@@ -29,7 +29,7 @@ MyBrianer=Brianer.BrianerClass(
 							'/NodePointDeriveNoder/<Connectome>SecondRater'
 						]
 					),
-					('ConnectingAttentionGetStrsList',
+					('ConnectingGraspClueVariablesList',
 						[
 							'/NodePointDeriveNoder/<Connectome>SecondRater'
 						]

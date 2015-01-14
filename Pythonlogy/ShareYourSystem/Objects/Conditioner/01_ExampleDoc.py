@@ -1,5 +1,6 @@
 #ImportModules
 import ShareYourSystem as SYS
+from ShareYourSystem.Classors import Attester
 from ShareYourSystem.Objects import Conditioner
 
 #Definition of an instance Conditioner and make it print hello

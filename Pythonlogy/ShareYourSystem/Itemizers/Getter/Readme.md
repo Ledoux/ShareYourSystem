@@ -1,18 +1,4 @@
 
-#Getter
- @Date : Fri Nov 14 13:20:38 2014
-
-@Author : Erwan Ledoux
-
-
-
-A Getter helps for getting attributes safely in an instance. Through the
-__getitem__ method, It looks first in the \_\_dict\_\_ to check if there is the
-corresponding GettingKeyStr.
-
-
-
-
 
 <!--
 FrozenIsBool False

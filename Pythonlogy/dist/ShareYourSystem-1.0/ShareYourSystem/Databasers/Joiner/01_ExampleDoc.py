@@ -66,7 +66,7 @@ MySumer=SumerClass().push(
 							('SumedTotalInt','SumedTotalInt',tables.Int64Col())
 						]
 					),
-					('ConnectingAttentionGetStrsList',
+					('ConnectingGraspClueVariablesList',
 						[
 							'/NodePointDeriveNoder/<Datome>ParametersJoiner'
 						]
@@ -90,8 +90,6 @@ MySumer=SumerClass().push(
 	}
 ).__setitem__('HdformatingFileKeyStr','Sums_1.hdf5')
 
-#
-print('JJJJ\n\n\n')
 
 #Update and store
 MySumer.update(

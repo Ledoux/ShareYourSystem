@@ -75,8 +75,6 @@ class KillerClass(BaseClass):
         RepresentingKeyStrsList=[
                                                         ]
 
-        #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':
-BaseClass.init}]})
         def default_init(self,
                                                 **_KwargVariablesDict
                                         ):
@@ -84,7 +82,6 @@ BaseClass.init}]})
                 #Call the parent __init__ method
                 BaseClass.__init__(self,**_KwargVariablesDict)
 
-        #<DefineDoMethod>
         def do_kill(self):
 
                 #first status
@@ -154,9 +151,9 @@ SYS._attest(
 
 *****Start of the Attest *****
 
-MyKiller is < (KillerClass), 4444537232>
+MyKiller is < (KillerClass), 4403853904>
    /{
-   /  '<New><Instance>IdStr' : 4444537232
+   /  '<New><Instance>IdInt' : 4403853904
    /}
 
 *****End of the Attest *****

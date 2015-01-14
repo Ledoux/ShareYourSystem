@@ -1,15 +1,26 @@
 
-#Moduler
+
+<!--
+FrozenIsBool False
+-->
+
+#Packager
+
+##Doc
+----
 
 
-@Date : Fri Nov 14 13:20:38 2014
+>
+> The Packager is an Object that helps to get a module in the SYS framework
+>
+>
 
-@Author : Erwan Ledoux
+----
 
-
-
-The Moduler is an Object that helps to get a module in the SYS framework
-
+<small>
+View the Packager notebook on [NbViewer](http://nbviewer.ipython.org/url/shareyo
+ursystem.ouvaton.org/Packager.ipynb)
+</small>
 
 
 
@@ -18,8 +29,133 @@ The Moduler is an Object that helps to get a module in the SYS framework
 FrozenIsBool False
 -->
 
-View the Moduler sources on [Github](https://github.com/Ledoux/ShareYourSystem/t
-ree/master/ShareYourSystem/Objects/Installer)
+##Code
+
+----
+
+<ClassDocStr>
+
+----
+
+```python
+# -*- coding: utf-8 -*-
+"""
+
+
+<DefineSource>
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+</DefineSource>
+
+
+The Packager is an Object that helps to get a module in the SYS framework
+
+"""
+
+#<DefineAugmentation>
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Interfacers.Folderer"
+DecorationModuleStr="ShareYourSystem.Classors.Tester"
+SYS.setSubModule(globals())
+#</DefineAugmentation>
+
+#<ImportSpecificModules>
+import sys
+import importlib
+#</ImportSpecificModules>
+
+#<DefineClass>
+@DecorationClass()
+class PackagerClass(BaseClass):
+
+        #Definition
+        RepresentingKeyStrsList=[
+'PackagingModuleVariable',
+'PackagedModuleStr',
+'PackagedModuleVariable',
+'PackagedInstallFolderPathStr',
+'PackagedLocalFolderPathStr'
+                                                        ]
+
+        def default_init(self,
+                                                _PackagingModuleVariable=None,
+                                                _PackagedModuleStr="",
+                                                _PackagedModuleVariable=None,
+_PackagedInstallFolderPathStr="",
+                                                _PackagedLocalFolderPathStr="",
+                                                **_KwargVariablesDict
+                                        ):
+
+                #Call the parent init method
+                BaseClass.__init__(self,**_KwargVariablesDict)
+
+        def do_package(self):
+
+                #debug
+                '''
+                self.debug(('self.',self,
+                                                [
+'PackagingModuleVariable'
+                                                ]))
+                '''
+
+                #Check
+                if type(self.PackagingModuleVariable) in SYS.StrTypesList:
+                        self.PackagedModuleStr=self.PackagingModuleVariable
+                else:
+                        self.PackagedModuleVariable=self.PackagingModuleVariable
+self.PackagedModuleStr=self.PackagingModuleVariable.__name__
+
+                #Check for a module
+                if self.PackagedModuleVariable==None or
+self.PackagedModuleStr!=self.PackagedModuleVariable.__name__:
+
+                        #Check
+                        if self.PackagedModuleStr!="":
+
+                                #Import the module if not already
+                                if self.PackagedModuleStr not in sys.modules:
+importlib.import_module(self.PackagedModuleStr)
+
+                                #set with sys
+self.PackagedModuleVariable=sys.modules[self.PackagedModuleStr]
+
+                #set
+                if self.PackagedModuleVariable!=None:
+
+                        #set
+                        self.PackagedInstallFolderPathStr='/'.join(
+self.PackagedModuleVariable.__file__.split('/')[:-1]
+                        )+'/'
+
+                        #set
+                        self.PackagedLocalFolderPathStr=SYS.LocalPythonlogyFolde
+rPathStr+self.PackagedModuleVariable.__name__.replace(
+                                '.','/')+'/'
+
+                        #debug
+                        '''
+                        self.debug(('self.',self,[
+                                'PackagedInstallFolderPathStr',
+                                'PackagedLocalFolderPathStr'
+                                ]))
+                        '''
+
+                        #Hook
+                        self.folder(self.PackagedLocalFolderPathStr)
+
+                #Return
+                #return self
+
+#</DefineClass>
+
+
+```
+
+<small>
+View the Packager sources on [Github](https://github.com/Ledoux/ShareYourSystem/
+tree/master/ShareYourSystem/Objects/Packager)
+</small>
 
 
 
@@ -38,15 +174,17 @@ without the TypeStr in the end.
 ```python
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Objects import Moduler
+from ShareYourSystem.Objects import Packager
 
-#Definition of a Moduler instance and module
-MyModuler=Moduler.ModulerClass().module('ShareYourSystem.Objects.Printer')
+#Definition of a Packager instance and module
+MyPackager=Packager.PackagerClass().package(
+    'ShareYourSystem.Objects.Printer'
+)
 
 #Definition the AttestedStr
 SYS._attest(
     [
-        'MyModuler'+SYS._str(MyModuler)
+        'MyPackager'+SYS._str(MyPackager)
     ]
 )
 
@@ -63,13 +201,18 @@ SYS._attest(
 
 *****Start of the Attest *****
 
-MyModuler< (ModulerClass), 4556059280>
+MyPackager< (PackagerClass), 4457658896>
    /{
-   /  '<New><Instance>IdString' : 4556059280
-   /  '<Spe><Instance>PackagingModuleVariable' : <module
-'ShareYourSystem.Objects.Printer' from '/Users/ledoux/Documents/ShareYourSystem/
-ShareYourSystem/Objects/Printer/__init__.pyc'>
-   /  '<Spe><Instance>PackagingModuleVariableStr' : ShareYourSystem.Objects.Printer
+   /  '<New><Instance>IdInt' : 4457658896
+   /  '<Spe><Instance>PackagedInstallFolderPathStr' : /usr/local/lib/python2.7
+/site-packages/ShareYourSystem/Objects/Printer/
+   /  '<Spe><Instance>PackagedLocalFolderPathStr' : /Users/ledoux/Documents/Shar
+eYourSystem/Pythonlogy/ShareYourSystem/Objects/Printer/
+   /  '<Spe><Instance>PackagedModuleStr' : ShareYourSystem.Objects.Printer
+   /  '<Spe><Instance>PackagedModuleVariable' : <module
+'ShareYourSystem.Objects.Printer' from '/usr/local/lib/python2.7/site-
+packages/ShareYourSystem/Objects/Printer/__init__.pyc'>
+   /  '<Spe><Instance>PackagingModuleVariable' : ShareYourSystem.Objects.Printer
    /}
 
 *****End of the Attest *****

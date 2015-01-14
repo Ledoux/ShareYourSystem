@@ -14,14 +14,14 @@ MyProducer=Producer.ProducerClass().produce(
 #connect
 MyProducer['<Connectome>FirstConnecter'].connect(
 	[
-		'/NodePointDeriveNoder/<Connectome>SecondConnecter'
+		'/NodePointDeriveNoder/<Connectome>SecondConnecter',
+		SYS.GraspDictClass(**{'MyInt':0,'HintVariable':MyProducer['<Connectome>FirstConnecter']})
 	],
 	**{
 		'CatchingCollectionStr':"PostRelatome",
 		'AttentioningCollectionStr':"PreRelatome",
 	}
 )
-
 
 #Definition the AttestedStr
 SYS._attest(

@@ -1795,7 +1795,6 @@ class StatuserClass(BaseClass):
                                     'StatusedIdStrsList'
                                 ]
 
-    #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.init}]})
     def default_init(self,
                         _StatusingProcessStr="",
                         _StatusedSnapshotStr="",
@@ -1807,7 +1806,6 @@ class StatuserClass(BaseClass):
         #Call the parent __init__ method
         BaseClass.__init__(self,**_KwargVariablesDict)
 
-    #&lt;DefineDoMethod&gt;
     def do_status(self):
 
         #Check
@@ -1904,13 +1902,13 @@ In&nbsp;[2]:
 
 *****Start of the Attest *****
 
-MyStatuser is &lt; (StatuserClass), 4444621648&gt;
+MyStatuser is &lt; (StatuserClass), 4403921040&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdStr&apos; : 4444621648
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;StatusedIdStrsList&apos; : [&apos;22966&apos;]
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;StatusedLineStrsList&apos; : [&apos;  501 22966  4722   0 12:22AM ttys000    0:00.58 /usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Versions/2.7/Resources/Python.app/Contents/MacOS/Python inform.py&apos;]
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;StatusedSnapshotStr&apos; :   501 22966  4722   0 12:22AM ttys000    0:00.58 /usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Versions/2.7/Resources/Python.app/Contents/MacOS/Python inform.py
-  501 23171 23169   0 12:22AM ttys000    0:00.00 grep Python
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4403921040
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;StatusedIdStrsList&apos; : [&apos;1467&apos;]
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;StatusedLineStrsList&apos; : [&apos;  501  1467   334   0  6:18PM ttys000    0:00.43 /usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Versions/2.7/Resources/Python.app/Contents/MacOS/Python inform.py&apos;]
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;StatusedSnapshotStr&apos; :   501  1467   334   0  6:18PM ttys000    0:00.43 /usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Versions/2.7/Resources/Python.app/Contents/MacOS/Python inform.py
+  501  1599  1597   0  6:18PM ttys000    0:00.00 grep Python
 
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;StatusingProcessStr&apos; : Python
    /}

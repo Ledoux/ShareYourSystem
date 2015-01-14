@@ -15,7 +15,7 @@ The Conditioner
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Objects.Packager"
+BaseModuleStr="ShareYourSystem.Objects.Debugger"
 DecorationModuleStr="ShareYourSystem.Classors.Representer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>

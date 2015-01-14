@@ -7,7 +7,7 @@ from ShareYourSystem.Interfacers import Hdformater
 MyHdformater=Hdformater.HdformaterClass().hdformat(
 	_FileKeyStr='Hdformats.hdf5',
 	**{
-	'FolderingPathStr':'/'.join(Hdformater.__file__.split('/')[:-1])
+	'FolderingPathStr':Hdformater.LocalFolderPathStr
 }
 ).hdfview().hdfclose()
 

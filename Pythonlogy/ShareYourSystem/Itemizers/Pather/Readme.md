@@ -1,17 +1,4 @@
 
-#Pather
- @Date : Fri Nov 14 13:20:38 2014
-
-@Author : Erwan Ledoux
-
-
-
-A Pather use its __setitem__ method for setting attributes in deeper levels
-thanks to the PathingPrefixStr
-
-
-
-
 
 <!--
 FrozenIsBool False
@@ -115,37 +102,37 @@ SYS._attest(
 
 *****Start of the Attest *****
 
-MyPather is < (PatherClass), 4465426320>
+MyPather is < (PatherClass), 4348105488>
    /{
-   /  '<New><Instance>ChildPather' : < (PatherClass), 4465425872>
+   /  '<New><Instance>ChildPather' : < (PatherClass), 4348191824>
    /   /{
-   /   /  '<New><Instance>GrandChildPather' : < (PatherClass), 4465424784>
+   /   /  '<New><Instance>GrandChildPather' : < (PatherClass), 4348191888>
    /   /   /{
-   /   /   /  '<New><Instance>IdString' : 4465424784
+   /   /   /  '<New><Instance>IdInt' : 4348191888
    /   /   /  '<Spe><Class>PathedChildKeyStr' :
    /   /   /  '<Spe><Class>PathedGetKeyStr' :
    /   /   /  '<Spe><Class>PathedKeyStrsList' : None
    /   /   /  '<Spe><Class>PathingKeyStr' :
    /   /   /}
-   /   /  '<New><Instance>IdString' : 4465425872
+   /   /  '<New><Instance>IdInt' : 4348191824
    /   /  '<New><Instance>MyStr' : I am the child
    /   /  '<Spe><Class>PathedChildKeyStr' :
    /   /  '<Spe><Class>PathedGetKeyStr' :
    /   /  '<Spe><Class>PathedKeyStrsList' : None
    /   /  '<Spe><Class>PathingKeyStr' :
    /   /}
-   /  '<New><Instance>IdString' : 4465426320
+   /  '<New><Instance>IdInt' : 4348105488
    /  '<New><Instance>MyStr' : I am the parent
-   /  '<New><Instance>OtherChildPather' : < (PatherClass), 4465425936>
+   /  '<New><Instance>OtherChildPather' : < (PatherClass), 4348192016>
    /   /{
-   /   /  '<New><Instance>IdString' : 4465425936
+   /   /  '<New><Instance>IdInt' : 4348192016
    /   /  '<New><Instance>MyInt' : 4
    /   /  '<Spe><Class>PathedChildKeyStr' :
    /   /  '<Spe><Class>PathedGetKeyStr' :
    /   /  '<Spe><Class>PathedKeyStrsList' : None
    /   /  '<Spe><Class>PathingKeyStr' :
    /   /}
-   /  '<New><Instance>SelfPather' : {...}< (PatherClass), 4465426320>
+   /  '<New><Instance>SelfPather' : {...}< (PatherClass), 4348105488>
    /  '<Spe><Instance>PathedChildKeyStr' : /GrandChildPather
    /  '<Spe><Instance>PathedGetKeyStr' : SelfPather
    /  '<Spe><Instance>PathedKeyStrsList' : ['', 'SelfPather']
@@ -154,17 +141,17 @@ MyPather is < (PatherClass), 4465426320>
 
 ------
 
-MyPather['/ChildPather'] is < (PatherClass), 4465425872>
+MyPather['/ChildPather'] is < (PatherClass), 4348191824>
    /{
-   /  '<New><Instance>GrandChildPather' : < (PatherClass), 4465424784>
+   /  '<New><Instance>GrandChildPather' : < (PatherClass), 4348191888>
    /   /{
-   /   /  '<New><Instance>IdString' : 4465424784
+   /   /  '<New><Instance>IdInt' : 4348191888
    /   /  '<Spe><Class>PathedChildKeyStr' :
    /   /  '<Spe><Class>PathedGetKeyStr' :
    /   /  '<Spe><Class>PathedKeyStrsList' : None
    /   /  '<Spe><Class>PathingKeyStr' :
    /   /}
-   /  '<New><Instance>IdString' : 4465425872
+   /  '<New><Instance>IdInt' : 4348191824
    /  '<New><Instance>MyStr' : I am the child
    /  '<Spe><Class>PathedChildKeyStr' :
    /  '<Spe><Class>PathedGetKeyStr' :
@@ -174,9 +161,9 @@ MyPather['/ChildPather'] is < (PatherClass), 4465425872>
 
 ------
 
-MyPather['/ChildPather/GrandChildPather'] is < (PatherClass), 4465424784>
+MyPather['/ChildPather/GrandChildPather'] is < (PatherClass), 4348191888>
    /{
-   /  '<New><Instance>IdString' : 4465424784
+   /  '<New><Instance>IdInt' : 4348191888
    /  '<Spe><Class>PathedChildKeyStr' :
    /  '<Spe><Class>PathedGetKeyStr' :
    /  '<Spe><Class>PathedKeyStrsList' : None

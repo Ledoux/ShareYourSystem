@@ -58,7 +58,7 @@ class SumerClass(Structurer.StructurerClass):
 							('SumedTotalInt','SumedTotalInt',tables.Int64Col())
 						]
 					),
-					('ConnectingAttentionGetStrsList',
+					('ConnectingGraspClueVariablesList',
 						[
 							'/NodePointDeriveNoder/<Datome>ParametersHierarchizer'
 						]
@@ -118,7 +118,7 @@ class FactorizerClass(Structurer.StructurerClass):
 								]
 							),
 							('Attr_RowingGetStrsList',['FactorizingPowerFloat']),
-							('ConnectingAttentionGetStrsList',
+							('ConnectingGraspClueVariablesList',
 								[
 									'/NodePointDeriveNoder/<Component>XSumer/<Datome>ParametersHierarchizer',
 									'/NodePointDeriveNoder/<Component>YSumer/<Datome>ParametersHierarchizer'
@@ -140,7 +140,7 @@ class FactorizerClass(Structurer.StructurerClass):
 							('FactorizedTotalFloat','FactorizedTotalFloat',tables.Float64Col())
 						]
 					),
-					('ConnectingAttentionGetStrsList',
+					('ConnectingGraspClueVariablesList',
 						[
 							'/NodePointDeriveNoder/<Datome>ParametersHierarchizer'
 						]

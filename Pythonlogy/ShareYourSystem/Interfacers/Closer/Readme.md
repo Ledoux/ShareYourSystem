@@ -72,8 +72,6 @@ class CloserClass(BaseClass):
         RepresentingKeyStrsList=[
                                                                 ]
 
-        #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':
-BaseClass.init}]})
         def default_init(self,
                                                 **_KwargVariablesDict
                                         ):
@@ -81,7 +79,6 @@ BaseClass.init}]})
                 #Call the parent __init__ method
                 BaseClass.__init__(self,**_KwargVariablesDict)
 
-        #<DefineDoMethod>
         def do_close(self):
 
                 #close
@@ -147,9 +144,9 @@ SYS._attest(
 
 *****Start of the Attest *****
 
-MyCloser is < (CloserClass), 4431806608>
+MyCloser is < (CloserClass), 4391203408>
    /{
-   /  '<New><Instance>IdStr' : 4431806608
+   /  '<New><Instance>IdInt' : 4391203408
    /}
 
 *****End of the Attest *****

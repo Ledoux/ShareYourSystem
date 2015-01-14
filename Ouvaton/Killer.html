@@ -1777,7 +1777,6 @@ import ShareYourSystem as SYS
 BaseModuleStr="ShareYourSystem.Interfacers.Statuser"
 DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
-
 #&lt;/DefineAugmentation&gt;
 
 #&lt;ImportSpecificModules&gt;
@@ -1796,7 +1795,6 @@ class KillerClass(BaseClass):
     RepresentingKeyStrsList=[
                             ]
 
-    #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.init}]})
     def default_init(self,
                         **_KwargVariablesDict
                     ):
@@ -1804,7 +1802,6 @@ class KillerClass(BaseClass):
         #Call the parent __init__ method
         BaseClass.__init__(self,**_KwargVariablesDict)
 
-    #&lt;DefineDoMethod&gt;
     def do_kill(self):
 
         #first status
@@ -1880,9 +1877,9 @@ In&nbsp;[2]:
 
 *****Start of the Attest *****
 
-MyKiller is &lt; (KillerClass), 4444621520&gt;
+MyKiller is &lt; (KillerClass), 4404027984&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdStr&apos; : 4444621520
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4404027984
    /}
 
 *****End of the Attest *****

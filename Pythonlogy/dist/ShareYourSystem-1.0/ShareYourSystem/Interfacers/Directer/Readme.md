@@ -77,8 +77,6 @@ class DirecterClass(BaseClass):
 'DirectingFilterFunctionPointer'
                                                                 ]
 
-        #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':
-BaseClass.init}]})
         def default_init(self,
                                                 _DirectingCallbackFunction=None,
 _DirectingLiargVariablesList=None,
@@ -90,7 +88,6 @@ _DirectingFilterFunctionPointer=None,
                 BaseClass.__init__(self,**_KwargVariablesDict)
 
         #@Argumenter.ArgumenterClass()
-        #<DefineDoMethod>
         def do_direct(self):
 
                 #Call the folder method before
@@ -299,12 +296,12 @@ SYS._attest(
 
 *****Start of the Attest *****
 
-MyDirecter is < (DirecterClass), 4444621392>
+MyDirecter is < (DirecterClass), 4404027536>
    /{
-   /  '<New><Instance>IdStr' : 4444621392
+   /  '<New><Instance>IdInt' : 4404027536
    /  '<Spe><Class>DirectingFilterFunctionPointer' : None
    /  '<Spe><Instance>DirectingCallbackFunction' : <function delete at
-0x1082880c8>
+0x1065aec80>
    /  '<Spe><Instance>DirectingLiargVariablesList' : []
    /}
 

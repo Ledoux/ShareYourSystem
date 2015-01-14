@@ -1,14 +1,4 @@
 
-#Executer
- @Date : Fri Nov 14 13:20:38 2014
-
-@Author : Erwan Ledoux
-
-
-
-An Executer can exec commands with the six.exec_ function
-
-
 
 <!--
 FrozenIsBool False
@@ -67,30 +57,6 @@ SYS._attest(
 
 ```console
 >>>
-Doer l.132 : DoerStr is Restricter
-DoStr is Restrict
-DoMethodStr is restrict
-DoingStr is Restricting
-DoneStr is Restricted
-
-Doer l.132 : DoerStr is Pather
-DoStr is Path
-DoMethodStr is path
-DoingStr is Pathing
-DoneStr is Pathed
-
-Doer l.132 : DoerStr is Sharer
-DoStr is Share
-DoMethodStr is share
-DoingStr is Sharing
-DoneStr is Shared
-
-Doer l.132 : DoerStr is Executer
-DoStr is Execute
-DoMethodStr is execute
-DoingStr is Executing
-DoneStr is Executed
-
 
 
 *****Start of the Attest *****

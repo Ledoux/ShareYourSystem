@@ -58,7 +58,7 @@ it depending on the FiledModeStr.
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Interfacers.Folderer"
+BaseModuleStr="ShareYourSystem.Objects.Packager"
 DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -77,15 +77,13 @@ class FilerClass(BaseClass):
 
         #Definition
         RepresentingKeyStrsList=[
-'FilingKeyStr',
-'FilingModeStr',
-'FiledPathStr',
+                                                                'FilingKeyStr',
+                                                                'FilingModeStr',
+                                                                'FiledPathStr',
 'FiledFileVariable'
-                                                                ]
+                                                        ]
 
 
-        #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':
-BaseClass.init}]})
         def default_init(self,
                                                 _FilingKeyStr="",
                                                 _FilingModeStr='r',
@@ -98,7 +96,6 @@ BaseClass.init}]})
                 BaseClass.__init__(self,**_KwargVariablesDict)
 
         #@Argumenter.ArgumenterClass()
-        #<DefineDoMethod>
         def do_file(self,**_KwargVariablesDict):
 
                 #Call the folder method before
@@ -231,14 +228,14 @@ SYS._attest(
 
 *****Start of the Attest *****
 
-MyFiler is < (FilerClass), 4431720272>
+MyFiler is < (FilerClass), 4391091920>
    /{
-   /  '<New><Instance>IdStr' : 4431720272
+   /  '<New><Instance>IdInt' : 4391091920
    /  '<Spe><Instance>FiledFileVariable' : <closed file '/Users/ledoux/Documents
-/ShareYourSystem/ShareYourSystem/Interfacers/Filer/MyFile.txt', mode 'w' at
-0x1082064b0>
-   /  '<Spe><Instance>FiledPathStr' : /Users/ledoux/Documents/ShareYourSystem/Sh
-areYourSystem/Interfacers/Filer/MyFile.txt
+/ShareYourSystem/Pythonlogy/ShareYourSystem/Interfacers/Filer/MyFile.txt', mode
+'w' at 0x105b7b150>
+   /  '<Spe><Instance>FiledPathStr' : /Users/ledoux/Documents/ShareYourSystem/Py
+thonlogy/ShareYourSystem/Interfacers/Filer/MyFile.txt
    /  '<Spe><Instance>FilingKeyStr' : MyFile.txt
    /  '<Spe><Instance>FilingModeStr' : w
    /}

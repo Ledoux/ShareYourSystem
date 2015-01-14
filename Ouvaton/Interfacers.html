@@ -1777,7 +1777,6 @@ import ShareYourSystem as SYS
 BaseModuleStr="ShareYourSystem.Objects.Rebooter"
 DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
-
 #&lt;/DefineAugmentation&gt;
 
 #&lt;ImportSpecificModules&gt;
@@ -1796,7 +1795,6 @@ class InterfacerClass(BaseClass):
                                 ]
 
 
-    #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.init}]})
     def default_init(self,
                         **_KwargVariablesDict
                     ):
@@ -1805,7 +1803,6 @@ class InterfacerClass(BaseClass):
         BaseClass.__init__(self,**_KwargVariablesDict)
 
     #@Argumenter.ArgumenterClass()
-    #&lt;DefineDoMethod&gt;
     def do_interface(self,**_KwargVariablesDict):
 
         pass
@@ -1882,9 +1879,9 @@ In&nbsp;[3]:
 
 *****Start of the Attest *****
 
-MyInterfacer is &lt; (InterfacerClass), 4444622224&gt;
+MyInterfacer is &lt; (InterfacerClass), 4404027728&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdStr&apos; : 4444622224
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4404027728
    /}
 
 *****End of the Attest *****
@@ -1987,7 +1984,6 @@ class FoldererClass(BaseClass):
                                     'FolderedNameStr'
                                 ]
 
-    #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.init}]})
     def default_init(self,
                         _FolderingPathStr="",
                         _FolderingMkdirBool=False,
@@ -2001,7 +1997,6 @@ class FoldererClass(BaseClass):
         #Call the parent __init__ method
         BaseClass.__init__(self,**_KwargVariablesDict)
 
-    #&lt;DefineDoMethod&gt;
     def do_folder(self,**_KwargVariablesDict):
 
         #Get the current
@@ -2186,15 +2181,15 @@ In&nbsp;[7]:
 
 *****Start of the Attest *****
 
-MyFolderer is &lt; (FoldererClass), 4444676432&gt;
+MyFolderer is &lt; (FoldererClass), 4404028112&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdStr&apos; : 4444676432
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4404028112
    /  &apos;&lt;Spe&gt;&lt;Class&gt;FolderedNameStr&apos; : 
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;FolderedDirKeyStrsList&apos; : []
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;FolderedModuleStr&apos; : 
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;FolderedParentModuleStr&apos; : 
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;FolderingMkdirBool&apos; : True
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;FolderingPathStr&apos; : /Users/ledoux/Documents/ShareYourSystem/ShareYourSystem/Interfacers/Folderer/TestFolder1/TestFolder2/
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;FolderingPathStr&apos; : /Users/ledoux/Documents/ShareYourSystem/Pythonlogy/ShareYourSystem/Interfacers/Folderer/TestFolder1/TestFolder2/
    /}
 
 *****End of the Attest *****
@@ -2267,10 +2262,9 @@ it depending on the FiledModeStr.
 
 #&lt;DefineAugmentation&gt;
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Interfacers.Folderer"
+BaseModuleStr="ShareYourSystem.Objects.Packager"
 DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
-
 #&lt;/DefineAugmentation&gt;
 
 #&lt;ImportSpecificModules&gt;
@@ -2287,14 +2281,13 @@ class FilerClass(BaseClass):
 
     #Definition
     RepresentingKeyStrsList=[
-                                    'FilingKeyStr',
-                                    'FilingModeStr',
-                                    'FiledPathStr',
-                                    'FiledFileVariable'
-                                ]
+                                'FilingKeyStr',
+                                'FilingModeStr',
+                                'FiledPathStr',
+                                'FiledFileVariable'
+                            ]
 
 
-    #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.init}]})
     def default_init(self,
                         _FilingKeyStr="",
                         _FilingModeStr='r',
@@ -2307,7 +2300,6 @@ class FilerClass(BaseClass):
         BaseClass.__init__(self,**_KwargVariablesDict)
 
     #@Argumenter.ArgumenterClass()
-    #&lt;DefineDoMethod&gt;
     def do_file(self,**_KwargVariablesDict):
 
         #Call the folder method before
@@ -2449,11 +2441,11 @@ In&nbsp;[11]:
 
 *****Start of the Attest *****
 
-MyFiler is &lt; (FilerClass), 4444619472&gt;
+MyFiler is &lt; (FilerClass), 4404028304&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdStr&apos; : 4444619472
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;FiledFileVariable&apos; : &lt;closed file &apos;/Users/ledoux/Documents/ShareYourSystem/ShareYourSystem/Interfacers/Filer/MyFile.txt&apos;, mode &apos;w&apos; at 0x108bd5810&gt;
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;FiledPathStr&apos; : /Users/ledoux/Documents/ShareYourSystem/ShareYourSystem/Interfacers/Filer/MyFile.txt
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4404028304
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;FiledFileVariable&apos; : &lt;closed file &apos;/Users/ledoux/Documents/ShareYourSystem/Pythonlogy/ShareYourSystem/Interfacers/Filer/MyFile.txt&apos;, mode &apos;w&apos; at 0x105b7b0c0&gt;
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;FiledPathStr&apos; : /Users/ledoux/Documents/ShareYourSystem/Pythonlogy/ShareYourSystem/Interfacers/Filer/MyFile.txt
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;FilingKeyStr&apos; : MyFile.txt
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;FilingModeStr&apos; : w
    /}
@@ -2528,7 +2520,6 @@ import ShareYourSystem as SYS
 BaseModuleStr="ShareYourSystem.Interfacers.Filer"
 DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
-
 #&lt;/DefineAugmentation&gt;
 
 #&lt;ImportSpecificModules&gt;
@@ -2546,7 +2537,6 @@ class CloserClass(BaseClass):
     RepresentingKeyStrsList=[
                                 ]
 
-    #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.init}]})
     def default_init(self,
                         **_KwargVariablesDict
                     ):
@@ -2554,7 +2544,6 @@ class CloserClass(BaseClass):
         #Call the parent __init__ method
         BaseClass.__init__(self,**_KwargVariablesDict)
 
-    #&lt;DefineDoMethod&gt;
     def do_close(self):
 
         #close
@@ -2633,9 +2622,9 @@ In&nbsp;[15]:
 
 *****Start of the Attest *****
 
-MyCloser is &lt; (CloserClass), 4444622544&gt;
+MyCloser is &lt; (CloserClass), 4404028048&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdStr&apos; : 4444622544
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4404028048
    /}
 
 *****End of the Attest *****
@@ -2709,7 +2698,6 @@ import ShareYourSystem as SYS
 BaseModuleStr="ShareYourSystem.Interfacers.Closer"
 DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
-
 #&lt;/DefineAugmentation&gt;
 
 #&lt;ImportSpecificModules&gt;
@@ -2728,7 +2716,6 @@ class LoaderClass(BaseClass):
                                     'FiledFileVariable'
                                 ]
 
-    #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.init}]})
     def default_init(self,
                         _LoadingFormatStr='txt',
                         _LoadedReadVariable=None,
@@ -2739,7 +2726,6 @@ class LoaderClass(BaseClass):
         #Call the parent __init__ method
         BaseClass.__init__(self,**_KwargVariablesDict)
 
-    #&lt;DefineDoMethod&gt;
     def do_load(self,**_KwargVariablesDict):
 
         #debug
@@ -2839,9 +2825,9 @@ In&nbsp;[19]:
 
 *****Start of the Attest *****
 
-MyLoader is &lt; (LoaderClass), 4444677008&gt;
+MyLoader is &lt; (LoaderClass), 4404028240&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdStr&apos; : 4444677008
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4404028240
    /  &apos;&lt;Spe&gt;&lt;Class&gt;LoadingFormatStr&apos; : txt
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;LoadedReadVariable&apos; : hello
    /}
@@ -2917,7 +2903,6 @@ import ShareYourSystem as SYS
 BaseModuleStr="ShareYourSystem.Interfacers.Loader"
 DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
-
 #&lt;/DefineAugmentation&gt;
 
 #&lt;ImportSpecificModules&gt;
@@ -2935,7 +2920,6 @@ class WriterClass(BaseClass):
                                     'WritingLoadBool'
                                 ]
 
-    #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.init}]})
     def default_init(self,
                         _WritingStoreVariable=None,
                         _WritingLoadBool=False,
@@ -2945,7 +2929,6 @@ class WriterClass(BaseClass):
         #Call the parent __init__ method
         BaseClass.__init__(self,**_KwargVariablesDict)
 
-    #&lt;DefineDoMethod&gt;
     def do_write(self):
 
         #debug
@@ -3097,9 +3080,9 @@ In&nbsp;[23]:
 
 *****Start of the Attest *****
 
-MyWriter is &lt; (WriterClass), 4444677136&gt;
+MyWriter is &lt; (WriterClass), 4404028752&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdStr&apos; : 4444677136
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4404028752
    /  &apos;&lt;Spe&gt;&lt;Class&gt;WritingLoadBool&apos; : False
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;WritingStoreVariable&apos; : hello
    /}
@@ -3196,7 +3179,6 @@ class DeployerClass(BaseClass):
                         'DeployedDirKeyStrsList'
                     ]
 
-    #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.init}]})
     def default_init(self,
                         _DeployingUrlStr="ftp.ouvaton.coop",
                         _DeployingLoginStr="shareyoursystemhz",
@@ -3210,7 +3192,6 @@ class DeployerClass(BaseClass):
         #Call the parent __init__ method
         BaseClass.__init__(self,**_KwargVariablesDict)
 
-    #&lt;DefineDoMethod&gt;
     def do_deploy(self):
 
         #open and login
@@ -3318,35 +3299,35 @@ In&nbsp;[26]:
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
-                                                                            
-                                                                            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                                                                            ////////////////////////////////
-                                                                            Deployer/__init__.py do_deploy
-                                                                            From Deployer/__init__.py do_deploy | &lt;string&gt; superDo_deploy | Watcher/__init__.py watch | &lt;string&gt; watch_superDo_deploy | &lt;string&gt; &lt;module&gt; | &lt;string&gt; &lt;module&gt; | site-packages/six.py exec_ | Celler/__init__.py do_cell | &lt;string&gt; superDo_cell | Watcher/__init__.py watch | &lt;string&gt; watch_superDo_cell | Notebooker/__init__.py do_notebook | &lt;string&gt; superDo_notebook | Watcher/__init__.py watch | &lt;string&gt; watch_superDo_notebook | Informer/__init__.py do_inform | &lt;string&gt; superDo_inform | Watcher/__init__.py watch | &lt;string&gt; watch_superDo_inform | inform.py &lt;module&gt;
-                                                                            ////////////////////////////////
-                                                                            
-                                                                            l.84 : 
-                                                                            *****
-                                                                            I am with []
-                                                                            *****
-                                                                            self.DeployingClientFilePathStrToServerFilePathStrOrderedDict is 
-                                                                               /{ 
-                                                                               /}
-                                                                            
-                                                                            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                                                                                                                                                        
+                    
+                    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                    ////////////////////////////////
+                    Deployer/__init__.py do_deploy
+                    From Deployer/__init__.py do_deploy | site-packages/six.py exec_ | Celler/__init__.py do_cell | Notebooker/__init__.py do_notebook | Informer/__init__.py do_inform | inform.py &lt;module&gt;
+                    ////////////////////////////////
+                    
+                    l.82 : 
+                    *****
+                    I am with []
+                    *****
+                    self.DeployingClientFilePathStrToServerFilePathStrOrderedDict is 
+                       /{ 
+                       /}
+                    
+                    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                                        
 
 
 *****Start of the Attest *****
 
-MyDeployer is &lt; (DeployerClass), 4444621648&gt;
+MyDeployer is &lt; (DeployerClass), 4404027856&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdStr&apos; : 4444621648
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4404027856
    /  &apos;&lt;Spe&gt;&lt;Class&gt;DeployingLoginStr&apos; : shareyoursystemhz
    /  &apos;&lt;Spe&gt;&lt;Class&gt;DeployingPwdStr&apos; : share
    /  &apos;&lt;Spe&gt;&lt;Class&gt;DeployingUrlStr&apos; : ftp.ouvaton.coop
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;DeployedDirKeyStrsList&apos; : []
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;DeployedFtplibVariable&apos; : &lt;ftplib.FTP instance at 0x108ec8248&gt;
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;DeployedFtplibVariable&apos; : &lt;ftplib.FTP instance at 0x1067ff638&gt;
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;DeployingClientFilePathStrToServerFilePathStrOrderedDict&apos; : 
    /   /{ 
    /   /}
@@ -3425,7 +3406,6 @@ import ShareYourSystem as SYS
 BaseModuleStr="ShareYourSystem.Interfacers.Writer"
 DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
-
 #&lt;/DefineAugmentation&gt;
 
 #&lt;ImportSpecificModules&gt;
@@ -3463,7 +3443,6 @@ class HdformaterClass(BaseClass):
 
     #@Alerter.AlerterClass()        
     #@Switcher.SwitcherClass()
-    #&lt;DefineDoMethod&gt;
     def do_hdformat(self):
 
         #debug
@@ -3594,7 +3573,7 @@ In&nbsp;[30]:
 <span class="n">MyHdformater</span><span class="o">=</span><span class="n">Hdformater</span><span class="o">.</span><span class="n">HdformaterClass</span><span class="p">()</span><span class="o">.</span><span class="n">hdformat</span><span class="p">(</span>
     <span class="n">_FileKeyStr</span><span class="o">=</span><span class="s">&#39;Hdformats.hdf5&#39;</span><span class="p">,</span>
     <span class="o">**</span><span class="p">{</span>
-    <span class="s">&#39;FolderingPathStr&#39;</span><span class="p">:</span><span class="s">&#39;/&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">Hdformater</span><span class="o">.</span><span class="n">__file__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="s">&#39;FolderingPathStr&#39;</span><span class="p">:</span><span class="n">Hdformater</span><span class="o">.</span><span class="n">LocalFolderPathStr</span>
 <span class="p">}</span>
 <span class="p">)</span><span class="o">.</span><span class="n">hdfview</span><span class="p">()</span><span class="o">.</span><span class="n">hdfclose</span><span class="p">()</span>
 
@@ -3698,7 +3677,6 @@ import ShareYourSystem as SYS
 BaseModuleStr="ShareYourSystem.Interfacers.Hdformater"
 DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
-
 #&lt;/DefineAugmentation&gt;
 
 #&lt;ImportSpecificModules&gt;
@@ -3718,7 +3696,6 @@ class CapturerClass(BaseClass):
                                 'CapturedPrintStrsList'
                             ]
 
-    #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.init}]})
     def default_init(self,
                         _CapturingStopBool={
                                 'DefaultingSetType':property,
@@ -3754,7 +3731,6 @@ class CapturerClass(BaseClass):
             #reset
                sys.stdout = self.CapturedStdoutVariable
 
-    #&lt;DefineDoMethod&gt;
     def do_capture(self):
 
         #debug
@@ -3846,13 +3822,13 @@ Y a quelqu un?
 
 *****Start of the Attest *****
 
-MyCapturer is &lt; (CapturerClass), 4444538128&gt;
+MyCapturer is &lt; (CapturerClass), 4403921040&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdStr&apos; : 4444538128
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4403921040
    /  &apos;&lt;New&gt;&lt;Instance&gt;_CapturingStopBool&apos; : True
    /  &apos;&lt;Spe&gt;&lt;Class&gt;CapturingStopBool&apos; : True
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;CapturedPrintStrsList&apos; : [&apos;Hello !&apos;, &apos;Bonjour !&apos;]
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;CapturedStdoutVariable&apos; : &lt;cStringIO.StringO object at 0x108eb38b8&gt;
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;CapturedStdoutVariable&apos; : &lt;cStringIO.StringO object at 0x1068059d0&gt;
    /}
 
 *****End of the Attest *****
@@ -3926,7 +3902,6 @@ import ShareYourSystem as SYS
 BaseModuleStr="ShareYourSystem.Interfacers.Capturer"
 DecorationModuleStr="ShareYourSystem.Classors.Representer"
 SYS.setSubModule(globals())
-
 #&lt;/DefineAugmentation&gt;
 
 #&lt;ImportSpecificModules&gt;
@@ -4062,9 +4037,9 @@ In&nbsp;[38]:
 
 *****Start of the Attest *****
 
-MyProcesser is &lt; (ProcesserClass), 4444621520&gt;
+MyProcesser is &lt; (ProcesserClass), 4403923600&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdStr&apos; : 4444621520
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4403923600
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;ProcessedBashStr&apos; : /usr/local/bin/python
 
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;ProcessingBashStr&apos; : which python 
@@ -4159,7 +4134,6 @@ class StatuserClass(BaseClass):
                                     'StatusedIdStrsList'
                                 ]
 
-    #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.init}]})
     def default_init(self,
                         _StatusingProcessStr="",
                         _StatusedSnapshotStr="",
@@ -4171,7 +4145,6 @@ class StatuserClass(BaseClass):
         #Call the parent __init__ method
         BaseClass.__init__(self,**_KwargVariablesDict)
 
-    #&lt;DefineDoMethod&gt;
     def do_status(self):
 
         #Check
@@ -4268,13 +4241,13 @@ In&nbsp;[41]:
 
 *****Start of the Attest *****
 
-MyStatuser is &lt; (StatuserClass), 4444621648&gt;
+MyStatuser is &lt; (StatuserClass), 4403921040&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdStr&apos; : 4444621648
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;StatusedIdStrsList&apos; : [&apos;22966&apos;]
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;StatusedLineStrsList&apos; : [&apos;  501 22966  4722   0 12:22AM ttys000    0:00.58 /usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Versions/2.7/Resources/Python.app/Contents/MacOS/Python inform.py&apos;]
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;StatusedSnapshotStr&apos; :   501 22966  4722   0 12:22AM ttys000    0:00.58 /usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Versions/2.7/Resources/Python.app/Contents/MacOS/Python inform.py
-  501 23171 23169   0 12:22AM ttys000    0:00.00 grep Python
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4403921040
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;StatusedIdStrsList&apos; : [&apos;1467&apos;]
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;StatusedLineStrsList&apos; : [&apos;  501  1467   334   0  6:18PM ttys000    0:00.43 /usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Versions/2.7/Resources/Python.app/Contents/MacOS/Python inform.py&apos;]
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;StatusedSnapshotStr&apos; :   501  1467   334   0  6:18PM ttys000    0:00.43 /usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Versions/2.7/Resources/Python.app/Contents/MacOS/Python inform.py
+  501  1599  1597   0  6:18PM ttys000    0:00.00 grep Python
 
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;StatusingProcessStr&apos; : Python
    /}
@@ -4350,7 +4323,6 @@ import ShareYourSystem as SYS
 BaseModuleStr="ShareYourSystem.Interfacers.Statuser"
 DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
-
 #&lt;/DefineAugmentation&gt;
 
 #&lt;ImportSpecificModules&gt;
@@ -4369,7 +4341,6 @@ class KillerClass(BaseClass):
     RepresentingKeyStrsList=[
                             ]
 
-    #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.init}]})
     def default_init(self,
                         **_KwargVariablesDict
                     ):
@@ -4377,7 +4348,6 @@ class KillerClass(BaseClass):
         #Call the parent __init__ method
         BaseClass.__init__(self,**_KwargVariablesDict)
 
-    #&lt;DefineDoMethod&gt;
     def do_kill(self):
 
         #first status
@@ -4453,9 +4423,9 @@ In&nbsp;[44]:
 
 *****Start of the Attest *****
 
-MyKiller is &lt; (KillerClass), 4444621520&gt;
+MyKiller is &lt; (KillerClass), 4404027984&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdStr&apos; : 4444621520
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4404027984
    /}
 
 *****End of the Attest *****
@@ -4531,7 +4501,6 @@ import ShareYourSystem as SYS
 BaseModuleStr="ShareYourSystem.Interfacers.Killer"
 DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
-
 #&lt;/DefineAugmentation&gt;
 
 #&lt;ImportSpecificModules&gt;
@@ -4550,7 +4519,6 @@ class DirecterClass(BaseClass):
                                     'DirectingFilterFunctionPointer'
                                 ]
 
-    #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.init}]})
     def default_init(self,
                         _DirectingCallbackFunction=None,
                         _DirectingLiargVariablesList=None,
@@ -4562,7 +4530,6 @@ class DirecterClass(BaseClass):
         BaseClass.__init__(self,**_KwargVariablesDict)
 
     #@Argumenter.ArgumenterClass()
-    #&lt;DefineDoMethod&gt;
     def do_direct(self):
 
         #Call the folder method before
@@ -4778,11 +4745,11 @@ In&nbsp;[48]:
 
 *****Start of the Attest *****
 
-MyDirecter is &lt; (DirecterClass), 4444621904&gt;
+MyDirecter is &lt; (DirecterClass), 4404028240&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdStr&apos; : 4444621904
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4404028240
    /  &apos;&lt;Spe&gt;&lt;Class&gt;DirectingFilterFunctionPointer&apos; : None
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;DirectingCallbackFunction&apos; : &lt;function delete at 0x108ec57d0&gt;
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;DirectingCallbackFunction&apos; : &lt;function delete at 0x106800c80&gt;
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;DirectingLiargVariablesList&apos; : []
    /}
 

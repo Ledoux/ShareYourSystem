@@ -31,6 +31,7 @@ import sys
 import unittest
 import ShareYourSystem as SYS
 from ShareYourSystem.Classors import Representer
+Attester=BaseModule
 #</ImportSpecificModules>
 
 #<DefineLocals>
@@ -196,3 +197,5 @@ class TesterClass(BaseClass):
 		self.DerivedModule.test=test
 #</DefineClass>
 
+#Set
+TesterClass.DeriveClassor.AttestingFolderPathStr=Attester.AttesterClass.DeriveClassor.AttestingFolderPathStr

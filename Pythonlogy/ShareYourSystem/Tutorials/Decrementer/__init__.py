@@ -54,6 +54,6 @@ class DecrementerClass(BaseClass):
 	def attest_decrement(self):
 
 		#return
-		return self.decrement().DecrementedInt
+		return self.decrement().DecrementedNextInt
 #</DefineClass>
 

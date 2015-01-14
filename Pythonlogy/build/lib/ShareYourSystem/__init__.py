@@ -26,6 +26,7 @@ import sys
 
 #<DefineLocals>
 LocalShareYourSystemFolderPathStr='/Users/ledoux/Documents/ShareYourSystem/'
+LocalPythonlogyFolderPathStr=LocalShareYourSystemFolderPathStr+'Pythonlogy/'
 
 h5lsPathStr="/usr/local/bin/h5ls"
 

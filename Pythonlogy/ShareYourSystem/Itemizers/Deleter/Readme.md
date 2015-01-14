@@ -1,17 +1,4 @@
 
-#Deleter
- @Date : Fri Nov 14 13:20:38 2014
-
-@Author : Erwan Ledoux
-
-
-
-A Deleter has a __delitem__ method for deleting things in the
-<InstanceVariable>.__dict__
-
-
-
-
 
 <!--
 FrozenIsBool False
@@ -69,9 +56,9 @@ SYS._attest(
 
 *****Start of the Attest *****
 
-MyDeleter is < (DeleterClass), 4465249680>
+MyDeleter is < (DeleterClass), 4348010896>
    /{
-   /  '<New><Instance>IdString' : 4465249680
+   /  '<New><Instance>IdInt' : 4348010896
    /}
 
 *****End of the Attest *****

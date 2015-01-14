@@ -15,7 +15,7 @@ it depending on the FiledModeStr.
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Interfacers.Folderer"
+BaseModuleStr="ShareYourSystem.Objects.Packager"
 DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -34,11 +34,11 @@ class FilerClass(BaseClass):
 	
 	#Definition
 	RepresentingKeyStrsList=[
-									'FilingKeyStr',
-									'FilingModeStr',
-									'FiledPathStr',
-									'FiledFileVariable'
-								]
+								'FilingKeyStr',
+								'FilingModeStr',
+								'FiledPathStr',
+								'FiledFileVariable'
+							]
 
 
 	def default_init(self,

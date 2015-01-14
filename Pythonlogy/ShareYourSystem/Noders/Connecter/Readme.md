@@ -39,7 +39,7 @@ MyProducer=Producer.ProducerClass().produce(
 MyProducer['<Connectome>FirstConnecter'].connect(**{
         'CatchingCollectionStr':"PostRelatome",
         'AttentioningCollectionStr':"PreRelatome",
-        'ConnectingAttentionGetStrsList':[
+        'ConnectingGraspClueVariablesList':[
             '/NodePointDeriveNoder/<Connectome>SecondConnecter'
         ],
         'ConnectingCatchGetStrsList':[
@@ -275,7 +275,7 @@ PointVariable
 None
    /   /   /   /   /   /  '<Spe><Class>ConnectedDerivePointersList' :
 None
-   /   /   /   /   /   /  '<Spe><Class>ConnectingAttentionGetStrsList' : None
+   /   /   /   /   /   /  '<Spe><Class>ConnectingGraspClueVariablesList' : None
    /   /   /   /   /   /  '<Spe><Class>ConnectingCatchGetStrsList' : None
    /   /   /   /   /   /}
    /   /   /   /   /  '<Spe><Class>PointedBackSetStr' :
@@ -297,7 +297,7 @@ None
    /   /   /   /[
    /   /   /   /  0 : {...}< (ConnecterClass), 4557092816>
    /   /   /   /]
-   /   /   /  '<Spe><Instance>ConnectingAttentionGetStrsList' :
+   /   /   /  '<Spe><Instance>ConnectingGraspClueVariablesList' :
 ['/NodePointDeriveNoder/<Connectome>SecondConnecter']
    /   /   /  '<Spe><Instance>ConnectingCatchGetStrsList' :
 ['/NodePointDeriveNoder/<Connectome>SecondConnecter']
@@ -324,7 +324,7 @@ None
    /   /   /]
    /   /]
    /  '<Spe><Instance>ProducingCollectionKeyStrsList' : ['First', 'Second']
-   /  '<Spe><Instance>ProducingInitiateDict' :
+   /  '<Spe><Instance>ProducingUpdateVariable' :
    /   /{
    /   /}
    /  '<Spe><Instance>ProducingPushClass' : <class

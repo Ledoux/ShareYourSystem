@@ -1777,7 +1777,6 @@ import ShareYourSystem as SYS
 BaseModuleStr="ShareYourSystem.Interfacers.Closer"
 DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
-
 #&lt;/DefineAugmentation&gt;
 
 #&lt;ImportSpecificModules&gt;
@@ -1796,7 +1795,6 @@ class LoaderClass(BaseClass):
                                     'FiledFileVariable'
                                 ]
 
-    #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.init}]})
     def default_init(self,
                         _LoadingFormatStr='txt',
                         _LoadedReadVariable=None,
@@ -1807,7 +1805,6 @@ class LoaderClass(BaseClass):
         #Call the parent __init__ method
         BaseClass.__init__(self,**_KwargVariablesDict)
 
-    #&lt;DefineDoMethod&gt;
     def do_load(self,**_KwargVariablesDict):
 
         #debug
@@ -1907,9 +1904,9 @@ In&nbsp;[3]:
 
 *****Start of the Attest *****
 
-MyLoader is &lt; (LoaderClass), 4444677008&gt;
+MyLoader is &lt; (LoaderClass), 4404028240&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdStr&apos; : 4444677008
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4404028240
    /  &apos;&lt;Spe&gt;&lt;Class&gt;LoadingFormatStr&apos; : txt
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;LoadedReadVariable&apos; : hello
    /}

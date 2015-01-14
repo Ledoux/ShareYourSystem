@@ -1777,7 +1777,6 @@ import ShareYourSystem as SYS
 BaseModuleStr="ShareYourSystem.Interfacers.Hdformater"
 DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
-
 #&lt;/DefineAugmentation&gt;
 
 #&lt;ImportSpecificModules&gt;
@@ -1797,7 +1796,6 @@ class CapturerClass(BaseClass):
                                 'CapturedPrintStrsList'
                             ]
 
-    #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.init}]})
     def default_init(self,
                         _CapturingStopBool={
                                 'DefaultingSetType':property,
@@ -1833,7 +1831,6 @@ class CapturerClass(BaseClass):
             #reset
                sys.stdout = self.CapturedStdoutVariable
 
-    #&lt;DefineDoMethod&gt;
     def do_capture(self):
 
         #debug
@@ -1925,13 +1922,13 @@ Y a quelqu un?
 
 *****Start of the Attest *****
 
-MyCapturer is &lt; (CapturerClass), 4444538128&gt;
+MyCapturer is &lt; (CapturerClass), 4403921040&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdStr&apos; : 4444538128
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4403921040
    /  &apos;&lt;New&gt;&lt;Instance&gt;_CapturingStopBool&apos; : True
    /  &apos;&lt;Spe&gt;&lt;Class&gt;CapturingStopBool&apos; : True
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;CapturedPrintStrsList&apos; : [&apos;Hello !&apos;, &apos;Bonjour !&apos;]
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;CapturedStdoutVariable&apos; : &lt;cStringIO.StringO object at 0x108eb38b8&gt;
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;CapturedStdoutVariable&apos; : &lt;cStringIO.StringO object at 0x1068059d0&gt;
    /}
 
 *****End of the Attest *****

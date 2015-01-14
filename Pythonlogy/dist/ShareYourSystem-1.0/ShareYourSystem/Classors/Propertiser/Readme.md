@@ -1,17 +1,30 @@
 
+
+<!--
+FrozenIsBool False
+-->
+
 #Propertiser
 
-
-@Date : Fri Nov 14 13:20:38 2014
-
-@Author : Erwan Ledoux
+##Doc
+----
 
 
+>
+> The Propertiser is an augmented Defaultor because it will set defaults
+attributes
+> possibly in properties for the new-style decorated classes. This can set
+objects
+> with high controlling features thanks to the binding
+>
+>
 
-The Propertiser is an augmented Defaultor because it will set defaults
-attributes possibly in properties for the new-style decorated classes. This can
-set objects with high controlling features thanks to the binding
+----
 
+<small>
+View the Propertiser notebook on [NbViewer](http://nbviewer.ipython.org/url/shar
+eyoursystem.ouvaton.org/Propertiser.ipynb)
+</small>
 
 
 
@@ -30,7 +43,7 @@ that will be linked to the fset attribute of the property object.
 ```python
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Classors import Propertiser
+from ShareYourSystem.Classors import Propertiser,Attester
 from ShareYourSystem.Objects import Initiator
 
 #Definition a MakerClass decorated by the PropertiserClass
@@ -43,7 +56,11 @@ class MakerClass(Initiator.InitiatorClass):
                             'PropertizingInitVariable':3.,
                             'PropertizingDocStr':'I am doing the thing here'
                             },
-            _MakingMyList=[],
+            _MakingMyList={
+                            'DefaultingSetType':property,
+                            'PropertizingInitVariable':[],
+                            'PropertizingDocStr':'I am doing the thing here'
+                            },
             _MakingMyInt={'DefaultingSetType':int},
             _MadeMyInt=0
         ):
@@ -61,24 +78,33 @@ class MakerClass(Initiator.InitiatorClass):
         #Bind with MadeInt setting
         self.MadeMyInt=int(self._MakingMyFloat)
 
+    #Definition a binding function
+    def setMakingMyList(self,_SettingValueVariable):
+
+        #set the value of the "hidden" property variable
+        self._MakingMyList=_SettingValueVariable+['Hellllllo']
+
+
 #Definition a default instance
 DefaultMaker=MakerClass()
 
 #Definition a special instance
-SpecialMaker=MakerClass(_MakingMyFloat=5)
+SpecialMaker=MakerClass(_MakingMyFloat=5,_MakingMyList=[4])
 
 #Definition the AttestedStr
 SYS._attest(
     [
-        'MakerClass.PropertizedDefaultTuplesList is
-'+Representer.represent(MakerClass.PropertizedDefaultTuplesList),
+        'MakerClass.PropertizedDefaultTuplesList is '+SYS._str(
+            MakerClass.PropertizedDefaultTuplesList),
         'What are you saying DefaultMaker ?',
         'DefaultMaker.__dict__ is '+str(DefaultMaker.__dict__),
         'DefaultMaker.MakingMyFloat is '+str(DefaultMaker.MakingMyFloat),
+        'DefaultMaker.MakingMyList is '+str(DefaultMaker.MakingMyList),
         'DefaultMaker.MadeMyInt is '+str(DefaultMaker.MadeMyInt),
         'What are you saying SpecialMaker ?',
         'SpecialMaker.__dict__ is '+str(SpecialMaker.__dict__),
         'SpecialMaker.MakingMyFloat is '+str(SpecialMaker.MakingMyFloat),
+        'SpecialMaker.MakingMyList is '+str(SpecialMaker.MakingMyList),
         'SpecialMaker.MadeMyInt is '+str(SpecialMaker.MadeMyInt),
     ]
 )
@@ -100,7 +126,12 @@ MakerClass.PropertizedDefaultTuplesList is
    /  0 :
    /   /(
    /   /  0 : MakingMyFloat
-   /   /  1 : <property object at 0x105fa8c58>
+   /   /  1 : <property object at 0x104319730>
+   /   /)
+   /  1 :
+   /   /(
+   /   /  0 : MakingMyList
+   /   /  1 : <property object at 0x104319788>
    /   /)
    /]
 
@@ -110,11 +141,15 @@ What are you saying DefaultMaker ?
 
 ------
 
-DefaultMaker.__dict__ is {}
+DefaultMaker.__dict__ is {'IdInt': 4365305040}
 
 ------
 
 DefaultMaker.MakingMyFloat is 3.0
+
+------
+
+DefaultMaker.MakingMyList is []
 
 ------
 
@@ -126,7 +161,8 @@ What are you saying SpecialMaker ?
 
 ------
 
-SpecialMaker.__dict__ is {'MadeMyInt': 5, '_MakingMyFloat': 5}
+SpecialMaker.__dict__ is {'IdInt': 4365305232, 'MadeMyInt': 5, '_MakingMyFloat':
+5, '_MakingMyList': [4, 'Hellllllo']}
 
 ------
 
@@ -134,110 +170,13 @@ SpecialMaker.MakingMyFloat is 5
 
 ------
 
+SpecialMaker.MakingMyList is [4, 'Hellllllo']
+
+------
+
 SpecialMaker.MadeMyInt is 5
 
 *****End of the Attest *****
-
-
-
-
-```
-
-
-
-<!--
-FrozenIsBool False
--->
-
-##More Descriptions at the level of the class
-
-Special attributes of the PropertiserClass are :
-
-
-```python
-
-
-
-#ImportModules
-import ShareYourSystem as SYS
-from ShareYourSystem.Classors import Propertiser
-
-#Definition the AttestedStr
-SYS._attest(
-    [
-        'DefaultAttributeItemTuplesList is '+SYS._str(
-            Propertiser.PropertiserClass.DefaultAttributeItemTuplesList,
-            **{'RepresentingAlineaIsBool':False}
-        )
-    ]
-)
-
-#Print
-
-
-
-```
-
-
-```console
->>>
-
-
-*****Start of the Attest *****
-
-DefaultAttributeItemTuplesList is []
-
-*****End of the Attest *****
-
-
-
-
-```
-
-
-
-<!--
-FrozenIsBool False
--->
-
-##More Descriptions at the level of the instances
-
-A default call of an instance gives :
-
-
-```python
-
-
-
-#ImportModules
-from ShareYourSystem.Classors import Attester
-from ShareYourSystem.Classors import Propertiser
-
-#Definition the AttestedStr
-SYS._attest(
-    [
-        Propertiser.PropertiserClass()
-    ]
-)
-
-#Print
-
-
-
-
-```
-
-
-```console
->>>
-
-
-*****Start of the Attest *****
-
-<ShareYourSystem.Classors.Propertiser.PropertiserClass object at 0x106417750>
-
-*****End of the Attest *****
-
 
 
 

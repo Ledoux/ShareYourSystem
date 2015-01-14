@@ -6,25 +6,122 @@ FrozenIsBool False
 
 #Concluder
 
+##Doc
 ----
 
 
 >
-> @Date : Fri Nov 14 13:20:38 2014
->
-> @Author : Erwan Ledoux
->
->
->
-> The Nbconverter
+> A Concluder
 >
 >
 
 ----
 
+<small>
+View the Concluder notebook on [NbViewer](http://nbviewer.ipython.org/url/sharey
+oursystem.ouvaton.org/Concluder.ipynb)
+</small>
 
+
+
+
+<!--
+FrozenIsBool False
+-->
+
+##Code
+
+----
+
+<ClassDocStr>
+
+----
+
+```python
+# -*- coding: utf-8 -*-
+"""
+
+
+<DefineSource>
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+</DefineSource>
+
+
+A Concluder
+
+"""
+
+#<DefineAugmentation>
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Objects.Conditioner"
+DecorationModuleStr="ShareYourSystem.Classors.Tester"
+SYS.setSubModule(globals())
+#</DefineAugmentation>
+
+#<ImportSpecificModules>
+#</ImportSpecificModules>
+
+#<DefineClass>
+@DecorationClass()
+class ConcluderClass(BaseClass):
+
+        #Definition
+        RepresentingKeyStrsList=[
+'ConcludingTestVariable',
+'ConcludingConditionTuplesList',
+'ConcludedConditionIsBoolsList',
+'ConcludedIsBool'
+                                                                ]
+
+        def default_init(self,
+                                _ConcludingTestVariable=None,
+                                _ConcludingConditionTuplesList=None,
+                                _ConcludedConditionIsBoolsList=None,
+                                _ConcludedIsBool=True,
+                                **_KwargVariablesDict
+                                ):
+
+                #Call the parent init method
+                BaseClass.__init__(self,**_KwargVariablesDict)
+
+        def do_conclude(self):
+                """ """
+
+                #debug
+                '''
+                self.debug(('self.',self,['ConcludingConditionTuplesList']))
+                '''
+
+                #Apply __getitem__
+                self.ConcludedConditionIsBoolsList=map(
+                                lambda __ConcludingConditionTuple:
+                                self.condition(
+                                                self.ConcludingTestVariable[
+__ConcludingConditionTuple[0]
+                                                ] if type(
+__ConcludingConditionTuple[0])
+                                                in SYS.StrTypesList else
+__ConcludingConditionTuple[0],
+                                                __ConcludingConditionTuple[1],
+                                                __ConcludingConditionTuple[2]
+                                        ).ConditionedIsBool,
+                                self.ConcludingConditionTuplesList
+                        )
+
+                #all
+                self.ConcludedIsBool=all(self.ConcludedConditionIsBoolsList)
+
+                #Return self
+                #return self
+#</DefineClass>
+
+```
+
+<small>
 View the Concluder sources on [Github](https://github.com/Ledoux/ShareYourSystem
-/tree/master/ShareYourSystem.Guiders.Nbconverter)
+/tree/master/ShareYourSystem/Objects/Concluder)
+</small>
 
 
 
@@ -83,9 +180,9 @@ SYS._attest(
 
 *****Start of the Attest *****
 
-MyConcluder is < (ConcluderClass), 4570347216>
+MyConcluder is < (ConcluderClass), 4457587856>
    /{
-   /  '<New><Instance>IdStr' : 4570347216
+   /  '<New><Instance>IdInt' : 4457587856
    /  '<Spe><Instance>ConcludedConditionIsBoolsList' :
    /   /[
    /   /  0 : True
@@ -110,7 +207,7 @@ MyConcluder is < (ConcluderClass), 4570347216>
    /   /  2 :
    /   /   /(
    /   /   /  0 : 1
-   /   /   /  1 : {...}< (builtin_function_or_method), 4556741088>
+   /   /   /  1 : {...}< (builtin_function_or_method), 4443314656>
    /   /   /  2 : 1
    /   /   /)
    /   /]

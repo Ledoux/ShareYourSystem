@@ -16,7 +16,7 @@ MyTransmitter=Transmitter.TransmitterClass(
 						'/NodePointDeriveNoder/<Transmitome>SecondTransmitter'
 					]
 				),
-				('ConnectingAttentionGetStrsList',
+				('ConnectingGraspClueVariablesList',
 					[
 						'/NodePointDeriveNoder/<Transmitome>SecondTransmitter'
 					]

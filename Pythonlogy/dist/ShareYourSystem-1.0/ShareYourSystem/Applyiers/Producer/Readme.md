@@ -124,7 +124,7 @@ MyProducer is < (ProducerClass), 4365385552>
    /   /   /]
    /   /]
    /  '<Spe><Instance>ProducingCollectionKeyStrsList' : ['First', 'Second']
-   /  '<Spe><Instance>ProducingInitiateDict' :
+   /  '<Spe><Instance>ProducingUpdateVariable' :
    /   /{
    /   /  'MyInt' : 0
    /   /}

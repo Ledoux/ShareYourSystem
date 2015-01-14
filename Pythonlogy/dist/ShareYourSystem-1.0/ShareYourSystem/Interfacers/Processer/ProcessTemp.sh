@@ -1,2 +1,2 @@
 OUTPUT="$(which python )"
-echo "${OUTPUT}" > /Users/ledoux/Documents/ShareYourSystem/ShareYourSystem/Interfacers/Processer/ProcessTemp.txt
+echo "${OUTPUT}" > /Users/ledoux/Documents/ShareYourSystem/Pythonlogy/ShareYourSystem/Interfacers/Processer/ProcessTemp.txt

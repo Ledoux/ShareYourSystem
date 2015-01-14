@@ -77,8 +77,6 @@ class LoaderClass(BaseClass):
 'FiledFileVariable'
                                                                 ]
 
-        #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':
-BaseClass.init}]})
         def default_init(self,
                                                 _LoadingFormatStr='txt',
                                                 _LoadedReadVariable=None,
@@ -89,7 +87,6 @@ BaseClass.init}]})
                 #Call the parent __init__ method
                 BaseClass.__init__(self,**_KwargVariablesDict)
 
-        #<DefineDoMethod>
         def do_load(self,**_KwargVariablesDict):
 
                 #debug
@@ -176,9 +173,9 @@ SYS._attest(
 
 *****Start of the Attest *****
 
-MyLoader is < (LoaderClass), 4431807632>
+MyLoader is < (LoaderClass), 4391203536>
    /{
-   /  '<New><Instance>IdStr' : 4431807632
+   /  '<New><Instance>IdInt' : 4391203536
    /  '<Spe><Class>LoadingFormatStr' : txt
    /  '<Spe><Instance>LoadedReadVariable' : hello
    /}

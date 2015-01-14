@@ -1,16 +1,4 @@
 
-#Filterer
- @Date : Fri Nov 14 13:20:38 2014
-
-@Author : Erwan Ledoux
-
-
-
-A Filterer pick and
-
-
-
-
 
 <!--
 FrozenIsBool False
@@ -75,13 +63,12 @@ SYS._attest(
 
 *****Start of the Attest *****
 
-MyFilterer is < (FiltererClass), 4364535504>
+MyFilterer is < (FiltererClass), 4549920656>
    /{
-   /  '<New><Instance>ApplyingIsBool' : True
-   /  '<New><Instance>IdString' : 4364535504
+   /  '<New><Instance>IdInt' : 4549920656
    /  '<New><Instance>NodeIndexInt' : 1
    /  '<New><Instance>NodeKeyStr' : MyFilterer
-   /  '<Spe><Instance>FilteredGetVariable' : {...}< (FiltererClass), 4364535504>
+   /  '<Spe><Instance>FilteredGetVariable' : {...}< (FiltererClass), 4549920656>
    /  '<Spe><Instance>FilteredVariablesList' : ['MyFilterer']
    /  '<Spe><Instance>FilteringGetVariable' : /
    /}

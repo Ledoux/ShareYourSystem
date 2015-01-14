@@ -1779,7 +1779,6 @@ import ShareYourSystem as SYS
 BaseModuleStr="ShareYourSystem.Interfacers.Killer"
 DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
-
 #&lt;/DefineAugmentation&gt;
 
 #&lt;ImportSpecificModules&gt;
@@ -1798,7 +1797,6 @@ class DirecterClass(BaseClass):
                                     'DirectingFilterFunctionPointer'
                                 ]
 
-    #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.init}]})
     def default_init(self,
                         _DirectingCallbackFunction=None,
                         _DirectingLiargVariablesList=None,
@@ -1810,7 +1808,6 @@ class DirecterClass(BaseClass):
         BaseClass.__init__(self,**_KwargVariablesDict)
 
     #@Argumenter.ArgumenterClass()
-    #&lt;DefineDoMethod&gt;
     def do_direct(self):
 
         #Call the folder method before
@@ -2026,11 +2023,11 @@ In&nbsp;[3]:
 
 *****Start of the Attest *****
 
-MyDirecter is &lt; (DirecterClass), 4444621904&gt;
+MyDirecter is &lt; (DirecterClass), 4404028240&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdStr&apos; : 4444621904
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4404028240
    /  &apos;&lt;Spe&gt;&lt;Class&gt;DirectingFilterFunctionPointer&apos; : None
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;DirectingCallbackFunction&apos; : &lt;function delete at 0x108ec57d0&gt;
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;DirectingCallbackFunction&apos; : &lt;function delete at 0x106800c80&gt;
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;DirectingLiargVariablesList&apos; : []
    /}
 

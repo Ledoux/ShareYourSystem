@@ -1806,7 +1806,6 @@ class FoldererClass(BaseClass):
                                     'FolderedNameStr'
                                 ]
 
-    #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.init}]})
     def default_init(self,
                         _FolderingPathStr="",
                         _FolderingMkdirBool=False,
@@ -1820,7 +1819,6 @@ class FoldererClass(BaseClass):
         #Call the parent __init__ method
         BaseClass.__init__(self,**_KwargVariablesDict)
 
-    #&lt;DefineDoMethod&gt;
     def do_folder(self,**_KwargVariablesDict):
 
         #Get the current
@@ -2005,15 +2003,15 @@ In&nbsp;[3]:
 
 *****Start of the Attest *****
 
-MyFolderer is &lt; (FoldererClass), 4444676432&gt;
+MyFolderer is &lt; (FoldererClass), 4404028112&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdStr&apos; : 4444676432
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4404028112
    /  &apos;&lt;Spe&gt;&lt;Class&gt;FolderedNameStr&apos; : 
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;FolderedDirKeyStrsList&apos; : []
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;FolderedModuleStr&apos; : 
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;FolderedParentModuleStr&apos; : 
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;FolderingMkdirBool&apos; : True
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;FolderingPathStr&apos; : /Users/ledoux/Documents/ShareYourSystem/ShareYourSystem/Interfacers/Folderer/TestFolder1/TestFolder2/
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;FolderingPathStr&apos; : /Users/ledoux/Documents/ShareYourSystem/Pythonlogy/ShareYourSystem/Interfacers/Folderer/TestFolder1/TestFolder2/
    /}
 
 *****End of the Attest *****

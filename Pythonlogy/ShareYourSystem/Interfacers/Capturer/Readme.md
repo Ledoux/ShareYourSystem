@@ -76,8 +76,6 @@ class CapturerClass(BaseClass):
 'CapturedPrintStrsList'
                                                         ]
 
-        #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':
-BaseClass.init}]})
         def default_init(self,
                                                 _CapturingStopBool={
 'DefaultingSetType':property,
@@ -113,7 +111,6 @@ sys.stdout.getvalue().splitlines()
                         #reset
                 sys.stdout = self.CapturedStdoutVariable
 
-        #<DefineDoMethod>
         def do_capture(self):
 
                 #debug
@@ -193,14 +190,14 @@ Y a quelqu un?
 
 *****Start of the Attest *****
 
-MyCapturer is < (CapturerClass), 4442213136>
+MyCapturer is < (CapturerClass), 4401591696>
    /{
-   /  '<New><Instance>IdStr' : 4442213136
+   /  '<New><Instance>IdInt' : 4401591696
    /  '<New><Instance>_CapturingStopBool' : True
    /  '<Spe><Class>CapturingStopBool' : True
    /  '<Spe><Instance>CapturedPrintStrsList' : ['Hello !', 'Bonjour !']
    /  '<Spe><Instance>CapturedStdoutVariable' : <cStringIO.StringO object at
-0x108c71ce0>
+0x1065a3960>
    /}
 
 *****End of the Attest *****

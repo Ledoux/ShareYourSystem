@@ -78,8 +78,6 @@ class DeployerClass(BaseClass):
                                                 'DeployedDirKeyStrsList'
                                         ]
 
-        #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':
-BaseClass.init}]})
         def default_init(self,
 _DeployingUrlStr="ftp.ouvaton.coop",
 _DeployingLoginStr="shareyoursystemhz",
@@ -93,7 +91,6 @@ _DeployingClientFilePathStrToServerFilePathStrOrderedDict=None,
                 #Call the parent __init__ method
                 BaseClass.__init__(self,**_KwargVariablesDict)
 
-        #<DefineDoMethod>
         def do_deploy(self):
 
                 #open and login
@@ -198,49 +195,39 @@ SYS._attest(
 ```console
 >>>
 
-                                                                            xxxx
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-xxxxxxxx
-////////////////////////////////
-Deployer/__init__.py do_deploy
-                                                                            From
-Deployer/__init__.py do_deploy | <string> superDo_deploy | Watcher/__init__.py
-watch | <string> watch_superDo_deploy | <string> <module> | <string> <module> |
-site-packages/six.py exec_ | Celler/__init__.py do_cell | <string> superDo_cell
-| Watcher/__init__.py watch | <string> watch_superDo_cell |
-Notebooker/__init__.py do_notebook | <string> superDo_notebook |
-Watcher/__init__.py watch | <string> watch_superDo_notebook |
-Informer/__init__.py do_inform | <string> superDo_inform | Watcher/__init__.py
-watch | <string> watch_superDo_inform | inform.py <module>
-////////////////////////////////
+                    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                    ////////////////////////////////
+                    Deployer/__init__.py do_deploy
+                    From Deployer/__init__.py do_deploy | site-packages/six.py
+exec_ | Celler/__init__.py do_cell | Notebooker/__init__.py do_notebook |
+Informer/__init__.py do_inform | inform.py <module>
+                    ////////////////////////////////
 
-                                                                            l.84
-:
-*****
-                                                                            I am
-with []
-*****
+                    l.82 :
+                    *****
+                    I am with []
+                    *****
 self.DeployingClientFilePathStrToServerFilePathStrOrderedDict is
-/{
-/}
+                       /{
+                       /}
 
-                                                                            xxxx
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-xxxxxxxx
+                    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 
 
 *****Start of the Attest *****
 
-MyDeployer is < (DeployerClass), 4431852176>
+MyDeployer is < (DeployerClass), 4391206480>
    /{
-   /  '<New><Instance>IdStr' : 4431852176
+   /  '<New><Instance>IdInt' : 4391206480
    /  '<Spe><Class>DeployingLoginStr' : shareyoursystemhz
    /  '<Spe><Class>DeployingPwdStr' : share
    /  '<Spe><Class>DeployingUrlStr' : ftp.ouvaton.coop
    /  '<Spe><Instance>DeployedDirKeyStrsList' : []
    /  '<Spe><Instance>DeployedFtplibVariable' : <ftplib.FTP instance at
-0x10825d248>
+0x105bb1050>
    /  '<Spe><Instance>DeployingClientFilePathStrToServerFilePathStrOrderedDict'
 :
    /   /{

@@ -14,7 +14,7 @@ The Packager is an Object that helps to get a module in the SYS framework
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Objects.Debugger"
+BaseModuleStr="ShareYourSystem.Interfacers.Folderer"
 DecorationModuleStr="ShareYourSystem.Classors.Tester"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -53,9 +53,12 @@ class PackagerClass(BaseClass):
 
 		#debug
 		'''
-		self.debug(('self.',self,['PackagingModuleVariable']))
+		self.debug(('self.',self,
+						[
+							'PackagingModuleVariable'
+						]))
 		'''
-		
+
 		#Check
 		if type(self.PackagingModuleVariable) in SYS.StrTypesList:
 			self.PackagedModuleStr=self.PackagingModuleVariable
@@ -85,7 +88,7 @@ class PackagerClass(BaseClass):
 			)+'/'
 
 			#set
-			self.PackagedLocalFolderPathStr=SYS.LocalShareYourSystemFolderPathStr+self.PackagedModuleVariable.__name__.replace(
+			self.PackagedLocalFolderPathStr=SYS.LocalPythonlogyFolderPathStr+self.PackagedModuleVariable.__name__.replace(
 				'.','/')+'/'
 
 			#debug

@@ -1,17 +1,4 @@
 
-#Restricter
- @Date : Fri Nov 14 13:20:38 2014
-
-@Author : Erwan Ledoux
-
-
-
-A Restricter object sets only in the __dict__ only if
-hasattr(self,self.SettingKeyVariable) returns True before.
-
-
-
-
 
 <!--
 FrozenIsBool False
@@ -72,9 +59,9 @@ SYS._attest(
 
 *****Start of the Attest *****
 
-MyRestricter is < (RestricterClass), 4465426128>
+MyRestricter is < (RestricterClass), 4347887312>
    /{
-   /  '<New><Instance>IdString' : 4465426128
+   /  '<New><Instance>IdInt' : 4347887312
    /  '<New><Instance>ResettedStr' : Bonjour
    /  '<Spe><Instance>RestrictedSetIsBool' : True
    /  '<Spe><Instance>RestrictingIsBool' : True

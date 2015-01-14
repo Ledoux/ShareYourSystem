@@ -115,7 +115,7 @@ class ClassorClass(BaseClass):
 		#get the module
 		Module=sys.modules[_Class.__module__]
 		_Class.Module=Module
-		_Class.Module.LocalFolderPathStr=SYS.LocalShareYourSystemFolderPathStr+Module.__name__.replace(
+		_Class.Module.LocalFolderPathStr=SYS.LocalPythonlogyFolderPathStr+Module.__name__.replace(
 			'.','/')+'/'
 		
 		#Check
@@ -150,7 +150,7 @@ class ClassorClass(BaseClass):
 			#append
 			LocalModuleFolderPathStrAndModuleStrTuplesList.append(
 					(
-						SYS.LocalShareYourSystemFolderPathStr+ConceptModuleStr.replace('.','/')+'/',
+						SYS.LocalPythonlogyFolderPathStr+ConceptModuleStr.replace('.','/')+'/',
 						ConceptModuleStr
 					)
 				)

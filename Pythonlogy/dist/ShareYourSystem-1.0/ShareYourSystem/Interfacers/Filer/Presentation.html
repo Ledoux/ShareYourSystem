@@ -1776,10 +1776,9 @@ it depending on the FiledModeStr.
 
 #&lt;DefineAugmentation&gt;
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Interfacers.Folderer"
+BaseModuleStr="ShareYourSystem.Objects.Packager"
 DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
-
 #&lt;/DefineAugmentation&gt;
 
 #&lt;ImportSpecificModules&gt;
@@ -1796,14 +1795,13 @@ class FilerClass(BaseClass):
 
     #Definition
     RepresentingKeyStrsList=[
-                                    'FilingKeyStr',
-                                    'FilingModeStr',
-                                    'FiledPathStr',
-                                    'FiledFileVariable'
-                                ]
+                                'FilingKeyStr',
+                                'FilingModeStr',
+                                'FiledPathStr',
+                                'FiledFileVariable'
+                            ]
 
 
-    #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.init}]})
     def default_init(self,
                         _FilingKeyStr="",
                         _FilingModeStr='r',
@@ -1816,7 +1814,6 @@ class FilerClass(BaseClass):
         BaseClass.__init__(self,**_KwargVariablesDict)
 
     #@Argumenter.ArgumenterClass()
-    #&lt;DefineDoMethod&gt;
     def do_file(self,**_KwargVariablesDict):
 
         #Call the folder method before
@@ -1958,11 +1955,11 @@ In&nbsp;[3]:
 
 *****Start of the Attest *****
 
-MyFiler is &lt; (FilerClass), 4444619472&gt;
+MyFiler is &lt; (FilerClass), 4404028304&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdStr&apos; : 4444619472
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;FiledFileVariable&apos; : &lt;closed file &apos;/Users/ledoux/Documents/ShareYourSystem/ShareYourSystem/Interfacers/Filer/MyFile.txt&apos;, mode &apos;w&apos; at 0x108bd5810&gt;
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;FiledPathStr&apos; : /Users/ledoux/Documents/ShareYourSystem/ShareYourSystem/Interfacers/Filer/MyFile.txt
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4404028304
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;FiledFileVariable&apos; : &lt;closed file &apos;/Users/ledoux/Documents/ShareYourSystem/Pythonlogy/ShareYourSystem/Interfacers/Filer/MyFile.txt&apos;, mode &apos;w&apos; at 0x105b7b0c0&gt;
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;FiledPathStr&apos; : /Users/ledoux/Documents/ShareYourSystem/Pythonlogy/ShareYourSystem/Interfacers/Filer/MyFile.txt
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;FilingKeyStr&apos; : MyFile.txt
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;FilingModeStr&apos; : w
    /}

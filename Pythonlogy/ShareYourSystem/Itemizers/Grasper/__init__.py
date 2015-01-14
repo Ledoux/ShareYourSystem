@@ -59,7 +59,6 @@ class GrasperClass(BaseClass):
 		'''
 		self.debug(
 					[
-						'GraspedClueVariableType is '+str(GraspedClueVariableType),
 						('self.',self,[
 										'GraspedClueVariableType',
 										'GraspingClueVariable'
@@ -67,7 +66,7 @@ class GrasperClass(BaseClass):
 					]
 				)
 		'''
-
+		
 		#Check
 		if self.GraspedClueVariableType in SYS.StrTypesList:
 

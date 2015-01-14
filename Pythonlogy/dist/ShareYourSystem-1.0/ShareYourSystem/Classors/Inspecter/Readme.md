@@ -1,15 +1,27 @@
 
+
+<!--
+FrozenIsBool False
+-->
+
 #Inspecter
 
-
-@Date : Fri Nov 14 13:20:38 2014
-
-@Author : Erwan Ledoux
+##Doc
+----
 
 
+>
+> An Inspecter decorates a class by giving it an InspectedArgumentDict that is
+> an inspection of all defined methods.
+>
 
-An Inspecter decorates a class by giving it an InspectedArgumentDict that is an
-inspection of all defined methods.
+----
+
+<small>
+View the Inspecter notebook on [NbViewer](http://nbviewer.ipython.org/url/sharey
+oursystem.ouvaton.org/Inspecter.ipynb)
+</small>
+
 
 
 
@@ -26,24 +38,29 @@ ClassStr without the TypeStr in the end.
 ```python
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Classors import Inspecter
+from ShareYourSystem.Classors import Inspecter,Attester
+from ShareYourSystem.Objects import Initiator
 
 #Definition a FooClass decorated by the ClassorClass
 @Inspecter.InspecterClass()
-class MakerClass():
-    def make(self,_MakingStr,_MakingInt=0,*_LiargVariablesList,**_KwargVariab
-lesDict):
-        pass
+class MakerClass(Initiator.InitiatorClass):
+    def make(self,
+            _MakingStr,
+            _MakingInt=0,
+            **_KwargVariablesDict
+        ):
+        self.__class__.__bases__[0].__init__(self,**_KwargVariablesDict)
 
 #Definition the AttestedStr
 SYS._attest(
     [
         'MakerClass.InspectedArgumentDict is
-'+Representer.represent(MakerClass.InspectedArgumentDict)
+'+SYS._str(MakerClass.InspectedArgumentDict)
     ]
 )
 
 #Print
+
 
 
 ```
@@ -57,14 +74,111 @@ SYS._attest(
 
 MakerClass.InspectedArgumentDict is
    /{
-   /  'make' :
+   /  'callAllMro' :
    /   /{
    /   /  'DefaultIndexInt' : 2
    /   /  'DefaultOrderedDict' :
    /   /   /{
-   /   /   /  '_MakingInt' : 0
    /   /   /}
-   /   /  'InputKeyStrsList' : ['self', '_MakingStr', '_MakingInt']
+   /   /  'InputKeyStrsList' : ['_InstanceVariable', '_MethodStr']
+   /   /  'KwargVariablesDictKeyStr' : _KwargVariablesDict
+   /   /  'LiargVariablesListKeyStr' : _LiargVariablesList
+   /   /}
+   /  'callDo' :
+   /   /{
+   /   /  'DefaultIndexInt' : 1
+   /   /  'DefaultOrderedDict' :
+   /   /   /{
+   /   /   /}
+   /   /  'InputKeyStrsList' : ['_InstanceVariable']
+   /   /  'KwargVariablesDictKeyStr' :
+   /   /  'LiargVariablesListKeyStr' :
+   /   /}
+   /  'getClass' :
+   /   /{
+   /   /  'DefaultIndexInt' : 1
+   /   /  'DefaultOrderedDict' :
+   /   /   /{
+   /   /   /  '_ClassVariable' : None
+   /   /   /}
+   /   /  'InputKeyStrsList' : ['_InstanceVariable', '_ClassVariable']
+   /   /  'KwargVariablesDictKeyStr' :
+   /   /  'LiargVariablesListKeyStr' :
+   /   /}
+   /  'setDefault' :
+   /   /{
+   /   /  'DefaultIndexInt' : 2
+   /   /  'DefaultOrderedDict' :
+   /   /   /{
+   /   /   /  '_AttributeKeyStrsList' : None
+   /   /   /}
+   /   /  'InputKeyStrsList' : ['_InstanceVariable', '_ClassVariable',
+'_AttributeKeyStrsList']
+   /   /  'KwargVariablesDictKeyStr' : _KwargVariablesDict
+   /   /  'LiargVariablesListKeyStr' :
+   /   /}
+   /  'setDefaultMutable' :
+   /   /{
+   /   /  'DefaultIndexInt' : 2
+   /   /  'DefaultOrderedDict' :
+   /   /   /{
+   /   /   /  '_AttributeKeyStrsList' : None
+   /   /   /}
+   /   /  'InputKeyStrsList' : ['_InstanceVariable', '_ClassVariable',
+'_AttributeKeyStrsList']
+   /   /  'KwargVariablesDictKeyStr' : _KwargVariablesDict
+   /   /  'LiargVariablesListKeyStr' :
+   /   /}
+   /  'setDo' :
+   /   /{
+   /   /  'DefaultIndexInt' : 1
+   /   /  'DefaultOrderedDict' :
+   /   /   /{
+   /   /   /  '_DoClassVariable' : None
+   /   /   /}
+   /   /  'InputKeyStrsList' : ['_InstanceVariable', '_DoClassVariable']
+   /   /  'KwargVariablesDictKeyStr' : _KwargVariablesDict
+   /   /  'LiargVariablesListKeyStr' :
+   /   /}
+   /  'setDoing' :
+   /   /{
+   /   /  'DefaultIndexInt' : 1
+   /   /  'DefaultOrderedDict' :
+   /   /   /{
+   /   /   /  '_DoClassVariable' : None
+   /   /   /}
+   /   /  'InputKeyStrsList' : ['_InstanceVariable', '_DoClassVariable']
+   /   /  'KwargVariablesDictKeyStr' : _KwargVariablesDict
+   /   /  'LiargVariablesListKeyStr' :
+   /   /}
+   /  'setDone' :
+   /   /{
+   /   /  'DefaultIndexInt' : 1
+   /   /  'DefaultOrderedDict' :
+   /   /   /{
+   /   /   /  '_DoClassVariable' : None
+   /   /   /}
+   /   /  'InputKeyStrsList' : ['_InstanceVariable', '_DoClassVariable']
+   /   /  'KwargVariablesDictKeyStr' : _KwargVariablesDict
+   /   /  'LiargVariablesListKeyStr' :
+   /   /}
+   /  'superDefault_init' :
+   /   /{
+   /   /  'DefaultIndexInt' : 1
+   /   /  'DefaultOrderedDict' :
+   /   /   /{
+   /   /   /}
+   /   /  'InputKeyStrsList' : ['_InstanceVariable']
+   /   /  'KwargVariablesDictKeyStr' : _KwargVariablesDict
+   /   /  'LiargVariablesListKeyStr' : _LiargVariablesList
+   /   /}
+   /  'superDo_make' :
+   /   /{
+   /   /  'DefaultIndexInt' : 1
+   /   /  'DefaultOrderedDict' :
+   /   /   /{
+   /   /   /}
+   /   /  'InputKeyStrsList' : ['_InstanceVariable']
    /   /  'KwargVariablesDictKeyStr' : _KwargVariablesDict
    /   /  'LiargVariablesListKeyStr' : _LiargVariablesList
    /   /}
@@ -72,97 +186,6 @@ MakerClass.InspectedArgumentDict is
 
 *****End of the Attest *****
 
-
-
-
-```
-
-
-
-<!--
-FrozenIsBool False
--->
-
-##More Descriptions at the level of the class
-
-Special attributes of the InspecterClass are :
-
-
-```python
-
-
-
-#ImportModules
-import ShareYourSystem as SYS
-from ShareYourSystem.Classors import Inspecter
-
-#Definition the AttestedStr
-SYS._attest(
-    [
-        'DefaultAttributeItemTuplesList is '+SYS._str(
-            Inspecter.InspecterClass.DefaultAttributeItemTuplesList,
-            **{'RepresentingAlineaIsBool':False}
-        )
-    ]
-)
-
-#Print
-
-
-
-```
-
-
-```console
->>>
-
-
-*****Start of the Attest *****
-
-DefaultAttributeItemTuplesList is []
-
-*****End of the Attest *****
-
-
-
-
-```
-
-
-
-<!--
-FrozenIsBool False
--->
-
-##More Descriptions at the level of the instances
-
-A default call of an instance gives :
-
-
-```python
-
-
-#ImportModules
-from ShareYourSystem.Classors import Attester
-from ShareYourSystem import Classors
-
-#Definition the AttestedStr
-SYS._attest(
-    [
-        Classors.ClassorsClass()
-    ]
-)
-
-#Print
-
-
-
-
-```
-
-
-```console
->>>
 
 
 ```

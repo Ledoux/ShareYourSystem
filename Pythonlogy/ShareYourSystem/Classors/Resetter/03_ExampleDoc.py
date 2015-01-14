@@ -54,7 +54,7 @@ MyBuilder=BuilderClass()
 
 #Print
 print('Before make, MyBuilder is ')
-_print(MyBuilder,**{
+SYS._print(MyBuilder,**{
 	'RepresentingKeyStrsList':['MakingMyFloat','MadeMyInt']
 })
 
@@ -63,7 +63,7 @@ MyBuilder.make(3.)
 
 #Print
 print('After the first make, MyBuilder is ')
-_print(MyBuilder,**{
+SYS._print(MyBuilder,**{
 	'RepresentingKeyStrsList':['MakingMyFloat','MadeMyInt']
 })
 
@@ -72,7 +72,7 @@ MyBuilder.make(5.)
 
 #Print
 print('After the second make, MyBuilder is ')
-_print(MyBuilder,**{
+SYS._print(MyBuilder,**{
 	'RepresentingKeyStrsList':['MakingMyFloat','MadeMyInt']
 })
 
@@ -82,7 +82,7 @@ MyBuilder.WatchMakeWithMakerBool=False
 
 #Print
 print('After the reset MyBuilder is ')
-_print(MyBuilder,**{
+SYS._print(MyBuilder,**{
 	'RepresentingKeyStrsList':['MakingMyFloat','MadeMyInt']
 })
 
@@ -91,7 +91,7 @@ MyBuilder.make(7.)
 
 #Print
 print('After the third make, MyBuilder is ')
-_print(MyBuilder,**{
+SYS._print(MyBuilder,**{
 	'RepresentingKeyStrsList':['MakingMyFloat','MadeMyInt']
 })
 

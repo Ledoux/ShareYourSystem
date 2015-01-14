@@ -1,131 +1,39 @@
 
-#Representer
 
-
-@Date : Fri Nov 14 13:20:38 2014
-
-@Author : Erwan Ledoux
-
-
-
-The Representer is an important module for beginning to visualize the structures
-of the instanced variables in the environnment. The idea is to use the indenting
-representation like in the json.dump function but with a more suitable (but
-maybe dirty) access to the AlineaStr of each lines of the output, depending
-on the state of the variables. Instances that are created from the decorated
-class have a __repr__ method, helping for mentionning for the represented
-attributes where do they come from : <Spe> (resp. <Base>) is they were defined
-at the level of the \_\_class\_\_ and <Instance> (resp. <Class>) if they are
-getted from the <InstanceVariable>.__dict__ (resp.
-<InstanceVariable>.__class__.__dict__)
-
-
-
-
-
-<!---
-FrozenIsBool True
+<!--
+FrozenIsBool False
 -->
 
-##Example
+#Representer
 
-First is presented the global functions _print or represent that helps for
-printing
-in the console any kind of variables.
-
-```python
-#ImportModules
-from ShareYourSystem.Classors import Attester
-from ShareYourSystem.Classors import Representer
-
-#Represent a dict
-Dict={
-    'ParentDict':
-        {
-        'ChildDict':
-            {
-                'MyInt':0
-            },
-        'MyStr':'hello'
-        }
-    }
-
-#Represent a TuplesList
-TuplesList=[
-                (
-                    'ParentTuplesList',
-                    [
-                        (
-                            'ChildDict',
-                            {
-                                'MyInt':0
-                            }
-                        )
-                    ]
-                ),
-                ('MyStr','hello')
-            ]
-
-#Definition the AttestedStr
-SYS._attest(
-    [
-        'Dict is'+Representer.represent(Dict),
-        'TuplesList is'+Representer.represent(TuplesList)
-    ]
-)
-
-#Print
+##Doc
+----
 
 
-```
+>
+> The Representer is an important module for beginning to visualize
+> the structures of the instanced variables in the environnment.
+> The idea is to use the indenting representation like in the json.dump
+> function but with a more suitable (but maybe dirty) access to the
+> AlineaStr of each lines of the output, depending on the state
+> of the variables. Instances that are created from the decorated class have
+> a __repr__ method, helping for mentionning for the represented attributes
+where
+> do they come from : <Spe> (resp. <Base>) is they were defined at the level of
+the \_\_class\_\_
+> and <Instance> (resp. <Class>) if they are getted from the
+<InstanceVariable>.__dict__
+> (resp. <InstanceVariable>.__class__.__dict__)
+>
+>
 
+----
 
-```console
->>>
+<small>
+View the Representer notebook on [NbViewer](http://nbviewer.ipython.org/url/shar
+eyoursystem.ouvaton.org/Representer.ipynb)
+</small>
 
-
-*****Start of the Attest *****
-
-Dict is
-   /{
-   /  'ParentDict' :
-   /   /{
-   /   /  'ChildDict' :
-   /   /   /{
-   /   /   /  'MyInt' : 0
-   /   /   /}
-   /   /  'MyStr' : hello
-   /   /}
-   /}
-
-------
-
-TuplesList is
-   /[
-   /  0 :
-   /   /(
-   /   /  0 : ParentTuplesList
-   /   /  1 :
-   /   /   /[
-   /   /   /  0 :
-   /   /   /   /(
-   /   /   /   /  0 : ChildDict
-   /   /   /   /  1 :
-   /   /   /   /   /{
-   /   /   /   /   /  'MyInt' : 0
-   /   /   /   /   /}
-   /   /   /   /)
-   /   /   /]
-   /   /)
-   /  1 : ('MyStr', 'hello')
-   /]
-
-*****End of the Attest *****
-
-
-
-
-```
 
 
 
@@ -140,8 +48,8 @@ method.
 
 ```python
 #ImportModules
-from ShareYourSystem.Classors import Attester
-from ShareYourSystem.Classors import Representer
+import ShareYourSystem as SYS
+from ShareYourSystem.Classors import Representer,Attester
 from ShareYourSystem.Objects import Initiator
 
 #Represent a simple object
@@ -161,7 +69,10 @@ SimpleMaker=MakerClass(_MakingMyFloat=2.)
 
 #Represent a structured instance
 ParentMaker=MakerClass()
-ParentMaker.ChildMaker=MakerClass()
+ParentMaker.FirstChildMaker=MakerClass()
+ParentMaker.CircularChildMaker=MakerClass()
+ParentMaker.CircularChildMaker.ParentMaker=ParentMaker
+ParentMaker.CircularChildMaker.SelfMaker=ParentMaker.CircularChildMaker
 
 #Definition a derived class from the MakerClass
 @Representer.RepresenterClass()
@@ -181,13 +92,14 @@ SimpleBuilder=BuilderClass(_MakingMyFloat=2.)
 #Definition the AttestedStr
 SYS._attest(
     [
-        'SimpleMaker is '+SimpleMaker.__repr__(),
-        'ParentMaker is '+ParentMaker.__repr__(),
-        'ParentBuilder is '+SimpleBuilder.__repr__()
+        'SimpleMaker is '+SYS._str(SimpleMaker),
+        'ParentMaker is '+SYS._str(ParentMaker),
+        'SimpleBuilder is '+SYS._str(SimpleBuilder)
     ]
 )
 
 #Print
+
 
 
 ```
@@ -199,86 +111,42 @@ SYS._attest(
 
 *****Start of the Attest *****
 
-SimpleMaker is < (MakerClass), 4478454096>
+SimpleMaker is < (MakerClass), 4365304144>
    /{
-   /  '<Class>MadeMyInt' : 0
-   /  '<Spe><Instance>MakingMyFloat' : 2.0
+   /  '<New><Instance>IdInt' : 4365304144
+   /  '<Spe><Class>MadeMyInt' : 0
    /}
 
 ------
 
-ParentMaker is < (MakerClass), 4478454160>
+ParentMaker is < (MakerClass), 4365304336>
    /{
-   /  '<Class>MadeMyInt' : 0
-   /  '<New><Instance>ChildMaker' : < (MakerClass), 4478454224>
+   /  '<New><Instance>CircularChildMaker' : < (MakerClass), 4365305168>
    /   /{
-   /   /  '<Class>MadeMyInt' : 0
+   /   /  '<New><Instance>IdInt' : 4365305168
+   /   /  '<New><Instance>ParentMaker' : {...}< (MakerClass), 4365304336>
+   /   /  '<New><Instance>SelfMaker' : {...}< (MakerClass), 4365305168>
+   /   /  '<Spe><Class>MadeMyInt' : 0
    /   /}
+   /  '<New><Instance>FirstChildMaker' : < (MakerClass), 4365306320>
+   /   /{
+   /   /  '<New><Instance>IdInt' : 4365306320
+   /   /  '<Spe><Class>MadeMyInt' : 0
+   /   /}
+   /  '<New><Instance>IdInt' : 4365304336
+   /  '<Spe><Class>MadeMyInt' : 0
    /}
 
 ------
 
-ParentBuilder is < (BuilderClass), 4478454544>
+SimpleBuilder is < (BuilderClass), 4365306384>
    /{
-   /  '<Base><Class>MadeMyInt' : 0
-   /  '<Class>BuiltMyStr' : None
-   /  '<Spe><Instance>MakingMyFloat' : 2.0
+   /  '<New><Instance>IdInt' : 4365306384
+   /  '<Spe><Class>BuiltMyStr' : None
    /}
 
 *****End of the Attest *****
 
-
-
-
-```
-
-
-
-<!--
-FrozenIsBool False
--->
-
-##More Descriptions at the level of the class
-
-Special attributes of the RepresenterClass are :
-
-
-```python
-
-
-
-
-```
-
-
-```console
->>>
-
-
-```
-
-
-
-<!--
-FrozenIsBool False
--->
-
-##More Descriptions at the level of the instances
-
-A default call of an instance gives :
-
-
-```python
-
-
-
-
-
-```
-
-
-```console
->>>
 
 
 ```

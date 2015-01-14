@@ -1777,7 +1777,6 @@ import ShareYourSystem as SYS
 BaseModuleStr="ShareYourSystem.Interfacers.Capturer"
 DecorationModuleStr="ShareYourSystem.Classors.Representer"
 SYS.setSubModule(globals())
-
 #&lt;/DefineAugmentation&gt;
 
 #&lt;ImportSpecificModules&gt;
@@ -1913,9 +1912,9 @@ In&nbsp;[3]:
 
 *****Start of the Attest *****
 
-MyProcesser is &lt; (ProcesserClass), 4444621520&gt;
+MyProcesser is &lt; (ProcesserClass), 4403923600&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdStr&apos; : 4444621520
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4403923600
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;ProcessedBashStr&apos; : /usr/local/bin/python
 
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;ProcessingBashStr&apos; : which python 

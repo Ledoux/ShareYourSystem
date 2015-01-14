@@ -86,6 +86,7 @@ class BrianerClass(BaseClass):
 			}
 		)
 
+		"""
 		#populate
 		map(
 				lambda __NetworkedDeriveConnecter:
@@ -93,7 +94,7 @@ class BrianerClass(BaseClass):
 				self.NetworkedDeriveConnectersList
 			)
 		
-		"""
+		
 		#import 
 		import brian
 

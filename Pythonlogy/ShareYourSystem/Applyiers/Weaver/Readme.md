@@ -1,16 +1,4 @@
 
-#Weaver
- @Date : Fri Nov 14 13:20:38 2014
-
-@Author : Erwan Ledoux
-
-
-
-A Weaver
-
-
-
-
 
 <!--
 FrozenIsBool False
@@ -96,21 +84,15 @@ SYS._attest(
 
 ```console
 >>>
-Doer l.132 : DoerStr is Weaver
-DoStr is Weave
-DoMethodStr is weave
-DoingStr is Weaving
-DoneStr is Weaved
-
 
 
 *****Start of the Attest *****
 
-MyWeaver is < (WeaverClass), 4365118928>
+MyWeaver is < (WeaverClass), 4549774928>
    /{
-   /  '<New><Instance>0Pointer' : < (PointerClass), 4365085328>
+   /  '<New><Instance>0Pointer' : < (PointerClass), 4549919504>
    /   /{
-   /   /  '<New><Instance>IdString' : 4365085328
+   /   /  '<New><Instance>IdInt' : 4549919504
    /   /  '<Spe><Class>PointedBackSetStr' :
    /   /  '<Spe><Class>PointedGetVariable' : None
    /   /  '<Spe><Class>PointedLocalSetStr' :
@@ -119,9 +101,9 @@ MyWeaver is < (WeaverClass), 4365118928>
    /   /  '<Spe><Class>PointingGetVariable' : None
    /   /  '<Spe><Class>PointingSetPathStr' :
    /   /}
-   /  '<New><Instance>1Pointer' : < (PointerClass), 4365485648>
+   /  '<New><Instance>1Pointer' : < (PointerClass), 4549919568>
    /   /{
-   /   /  '<New><Instance>IdString' : 4365485648
+   /   /  '<New><Instance>IdInt' : 4549919568
    /   /  '<Spe><Class>PointedBackSetStr' :
    /   /  '<Spe><Class>PointedGetVariable' : None
    /   /  '<Spe><Class>PointedLocalSetStr' :
@@ -130,9 +112,9 @@ MyWeaver is < (WeaverClass), 4365118928>
    /   /  '<Spe><Class>PointingGetVariable' : None
    /   /  '<Spe><Class>PointingSetPathStr' :
    /   /}
-   /  '<New><Instance>2Pointer' : < (PointerClass), 4365488016>
+   /  '<New><Instance>2Pointer' : < (PointerClass), 4549919632>
    /   /{
-   /   /  '<New><Instance>IdString' : 4365488016
+   /   /  '<New><Instance>IdInt' : 4549919632
    /   /  '<Spe><Class>PointedBackSetStr' :
    /   /  '<Spe><Class>PointedGetVariable' : None
    /   /  '<Spe><Class>PointedLocalSetStr' :
@@ -141,17 +123,16 @@ MyWeaver is < (WeaverClass), 4365118928>
    /   /  '<Spe><Class>PointingGetVariable' : None
    /   /  '<Spe><Class>PointingSetPathStr' :
    /   /}
-   /  '<New><Instance>ApplyingIsBool' : True
-   /  '<New><Instance>IdString' : 4365118928
+   /  '<New><Instance>IdInt' : 4549774928
    /  '<Spe><Instance>WeavingInteractTuplesList' :
    /   /[
    /   /  0 :
    /   /   /(
    /   /   /  0 : ['0Pointer', '2Pointer']
    /   /   /  1 : 0-2Pointer
-   /   /   /  2 : < (PointerClass), 4364535632>
+   /   /   /  2 : < (PointerClass), 4549919696>
    /   /   /   /{
-   /   /   /   /  '<New><Instance>IdString' : 4364535632
+   /   /   /   /  '<New><Instance>IdInt' : 4549919696
    /   /   /   /  '<Spe><Class>PointedBackSetStr' :
    /   /   /   /  '<Spe><Class>PointedGetVariable' : None
    /   /   /   /  '<Spe><Class>PointedLocalSetStr' :
@@ -165,9 +146,9 @@ MyWeaver is < (WeaverClass), 4365118928>
    /   /   /(
    /   /   /  0 : ['1Pointer', '0Pointer']
    /   /   /  1 : 1-0Pointer
-   /   /   /  2 : < (PointerClass), 4365115472>
+   /   /   /  2 : < (PointerClass), 4549919824>
    /   /   /   /{
-   /   /   /   /  '<New><Instance>IdString' : 4365115472
+   /   /   /   /  '<New><Instance>IdInt' : 4549919824
    /   /   /   /  '<Spe><Class>PointedBackSetStr' :
    /   /   /   /  '<Spe><Class>PointedGetVariable' : None
    /   /   /   /  '<Spe><Class>PointedLocalSetStr' :
@@ -181,9 +162,9 @@ MyWeaver is < (WeaverClass), 4365118928>
    /   /   /(
    /   /   /  0 : ['2Pointer', '1Pointer']
    /   /   /  1 : 2-1Pointer
-   /   /   /  2 : < (PointerClass), 4365492880>
+   /   /   /  2 : < (PointerClass), 4549919760>
    /   /   /   /{
-   /   /   /   /  '<New><Instance>IdString' : 4365492880
+   /   /   /   /  '<New><Instance>IdInt' : 4549919760
    /   /   /   /  '<Spe><Class>PointedBackSetStr' :
    /   /   /   /  '<Spe><Class>PointedGetVariable' : None
    /   /   /   /  '<Spe><Class>PointedLocalSetStr' :

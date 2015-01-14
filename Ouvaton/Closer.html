@@ -1776,7 +1776,6 @@ import ShareYourSystem as SYS
 BaseModuleStr="ShareYourSystem.Interfacers.Filer"
 DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
-
 #&lt;/DefineAugmentation&gt;
 
 #&lt;ImportSpecificModules&gt;
@@ -1794,7 +1793,6 @@ class CloserClass(BaseClass):
     RepresentingKeyStrsList=[
                                 ]
 
-    #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.init}]})
     def default_init(self,
                         **_KwargVariablesDict
                     ):
@@ -1802,7 +1800,6 @@ class CloserClass(BaseClass):
         #Call the parent __init__ method
         BaseClass.__init__(self,**_KwargVariablesDict)
 
-    #&lt;DefineDoMethod&gt;
     def do_close(self):
 
         #close
@@ -1881,9 +1878,9 @@ In&nbsp;[3]:
 
 *****Start of the Attest *****
 
-MyCloser is &lt; (CloserClass), 4444622544&gt;
+MyCloser is &lt; (CloserClass), 4404028048&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdStr&apos; : 4444622544
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4404028048
    /}
 
 *****End of the Attest *****

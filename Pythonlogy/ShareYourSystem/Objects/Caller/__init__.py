@@ -14,7 +14,7 @@ The Caller is an Object that helps to get an make call a function/method.
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Objects.Concluder"
+BaseModuleStr="ShareYourSystem.Objects.Packager"
 DecorationModuleStr="ShareYourSystem.Classors.Tester"
 SYS.setSubModule(globals())
 #</DefineAugmentation>

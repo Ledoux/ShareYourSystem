@@ -75,8 +75,6 @@ class InterfacerClass(BaseClass):
                                                                 ]
 
 
-        #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':
-BaseClass.init}]})
         def default_init(self,
                                                 **_KwargVariablesDict
                                         ):
@@ -85,7 +83,6 @@ BaseClass.init}]})
                 BaseClass.__init__(self,**_KwargVariablesDict)
 
         #@Argumenter.ArgumenterClass()
-        #<DefineDoMethod>
         def do_interface(self,**_KwargVariablesDict):
 
                 pass
@@ -149,9 +146,9 @@ SYS._attest(
 
 *****Start of the Attest *****
 
-MyInterfacer is < (InterfacerClass), 4431634192>
+MyInterfacer is < (InterfacerClass), 4391009680>
    /{
-   /  '<New><Instance>IdStr' : 4431634192
+   /  '<New><Instance>IdInt' : 4391009680
    /}
 
 *****End of the Attest *****

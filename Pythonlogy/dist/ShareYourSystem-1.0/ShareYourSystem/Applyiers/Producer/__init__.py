@@ -30,14 +30,14 @@ class ProducerClass(BaseClass):
 	RepresentingKeyStrsList=[	
 									'ProducingCollectionKeyStrsList',
 									'ProducingPushClass',
-									'ProducingInitiateDict',
+									'ProducingUpdateVariable',
 									'ProducedPushList'
 								]
 
 	def default_init(self,
 						_ProducingCollectionKeyStrsList=None,
 						_ProducingPushClass=Noder.NoderClass,
-						_ProducingInitiateDict=None,
+						_ProducingUpdateVariable=None,
 						_ProducedPushList=None,
 						**_KwargVariablesDict
 					):
@@ -53,7 +53,7 @@ class ProducerClass(BaseClass):
 									[
 										__ProducingCollectionKeyStr,
 										self.ProducingPushClass().update(
-											self.ProducingInitiateDict.items()
+											self.ProducingUpdateVariable
 										)
 									],
 									self.ProducingCollectionKeyStrsList

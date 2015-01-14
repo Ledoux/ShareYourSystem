@@ -27,12 +27,12 @@ class ConnecterClass(BaseClass):
 	
 	#Definition
 	RepresentingKeyStrsList=[
-								'ConnectingGraspVariablesList',
+								'ConnectingGraspClueVariablesList',
 								'ConnectedDerivePointersList'
 							]
 
 	def default_init(self,
-						_ConnectingGraspVariablesList=None,
+						_ConnectingGraspClueVariablesList=None,
 						_ConnectedDerivePointersList=None,
 						**_KwargVariablesDict
 					):
@@ -42,6 +42,11 @@ class ConnecterClass(BaseClass):
 
 	def do_connect(self):	
 
+		#debug
+		'''
+		self.debug(('self.',self,['ConnectingGraspClueVariablesList']))
+		'''
+		
 		#catch
 		self.ConnectedDerivePointersList=map(
 				lambda __ConnectingGraspVariable:
@@ -50,7 +55,7 @@ class ConnecterClass(BaseClass):
 					).catch(
 					).attention(
 					).GraspedAnswerVariable,
-				self.ConnectingGraspVariablesList
+				self.ConnectingGraspClueVariablesList
 			)
 
 #</DefineClass>

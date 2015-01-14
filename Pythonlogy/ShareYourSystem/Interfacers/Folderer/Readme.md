@@ -86,8 +86,6 @@ class FoldererClass(BaseClass):
 'FolderedNameStr'
                                                                 ]
 
-        #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':
-BaseClass.init}]})
         def default_init(self,
                                                 _FolderingPathStr="",
                                                 _FolderingMkdirBool=False,
@@ -101,7 +99,6 @@ BaseClass.init}]})
                 #Call the parent __init__ method
                 BaseClass.__init__(self,**_KwargVariablesDict)
 
-        #<DefineDoMethod>
         def do_folder(self,**_KwargVariablesDict):
 
                 #Get the current
@@ -283,16 +280,16 @@ SYS._attest(
 
 *****Start of the Attest *****
 
-MyFolderer is < (FoldererClass), 4431719248>
+MyFolderer is < (FoldererClass), 4391089040>
    /{
-   /  '<New><Instance>IdStr' : 4431719248
+   /  '<New><Instance>IdInt' : 4391089040
    /  '<Spe><Class>FolderedNameStr' :
    /  '<Spe><Instance>FolderedDirKeyStrsList' : []
    /  '<Spe><Instance>FolderedModuleStr' :
    /  '<Spe><Instance>FolderedParentModuleStr' :
    /  '<Spe><Instance>FolderingMkdirBool' : True
    /  '<Spe><Instance>FolderingPathStr' : /Users/ledoux/Documents/ShareYourSyste
-m/ShareYourSystem/Interfacers/Folderer/TestFolder1/TestFolder2/
+m/Pythonlogy/ShareYourSystem/Interfacers/Folderer/TestFolder1/TestFolder2/
    /}
 
 *****End of the Attest *****

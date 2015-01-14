@@ -22,12 +22,11 @@ SYS.setSubModule(globals())
 #<ImportSpecificModules>
 import os
 import copy
-
 from ShareYourSystem.Interfacers import Loader,Writer
 #</ImportSpecificModules>
 
 #<DefineLocals>
-InstallingSysFolderPathStr=SYS.LocalShareYourSystemFolderPathStr
+InstallingSysFolderPathStr=SYS.LocalPythonlogyFolderPathStr
 InstallingLibraryFolderPathStr=InstallingSysFolderPathStr+'/docs/LibraryReference/'
 #</DefineLocals>
 

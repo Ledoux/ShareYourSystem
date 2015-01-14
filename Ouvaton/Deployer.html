@@ -1798,7 +1798,6 @@ class DeployerClass(BaseClass):
                         'DeployedDirKeyStrsList'
                     ]
 
-    #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.init}]})
     def default_init(self,
                         _DeployingUrlStr="ftp.ouvaton.coop",
                         _DeployingLoginStr="shareyoursystemhz",
@@ -1812,7 +1811,6 @@ class DeployerClass(BaseClass):
         #Call the parent __init__ method
         BaseClass.__init__(self,**_KwargVariablesDict)
 
-    #&lt;DefineDoMethod&gt;
     def do_deploy(self):
 
         #open and login
@@ -1920,35 +1918,35 @@ In&nbsp;[2]:
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
-                                                                            
-                                                                            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                                                                            ////////////////////////////////
-                                                                            Deployer/__init__.py do_deploy
-                                                                            From Deployer/__init__.py do_deploy | &lt;string&gt; superDo_deploy | Watcher/__init__.py watch | &lt;string&gt; watch_superDo_deploy | &lt;string&gt; &lt;module&gt; | &lt;string&gt; &lt;module&gt; | site-packages/six.py exec_ | Celler/__init__.py do_cell | &lt;string&gt; superDo_cell | Watcher/__init__.py watch | &lt;string&gt; watch_superDo_cell | Notebooker/__init__.py do_notebook | &lt;string&gt; superDo_notebook | Watcher/__init__.py watch | &lt;string&gt; watch_superDo_notebook | Informer/__init__.py do_inform | &lt;string&gt; superDo_inform | Watcher/__init__.py watch | &lt;string&gt; watch_superDo_inform | inform.py &lt;module&gt;
-                                                                            ////////////////////////////////
-                                                                            
-                                                                            l.84 : 
-                                                                            *****
-                                                                            I am with []
-                                                                            *****
-                                                                            self.DeployingClientFilePathStrToServerFilePathStrOrderedDict is 
-                                                                               /{ 
-                                                                               /}
-                                                                            
-                                                                            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                                                                                                                                                        
+                    
+                    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                    ////////////////////////////////
+                    Deployer/__init__.py do_deploy
+                    From Deployer/__init__.py do_deploy | site-packages/six.py exec_ | Celler/__init__.py do_cell | Notebooker/__init__.py do_notebook | Informer/__init__.py do_inform | inform.py &lt;module&gt;
+                    ////////////////////////////////
+                    
+                    l.82 : 
+                    *****
+                    I am with []
+                    *****
+                    self.DeployingClientFilePathStrToServerFilePathStrOrderedDict is 
+                       /{ 
+                       /}
+                    
+                    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                                        
 
 
 *****Start of the Attest *****
 
-MyDeployer is &lt; (DeployerClass), 4444621648&gt;
+MyDeployer is &lt; (DeployerClass), 4404027856&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdStr&apos; : 4444621648
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4404027856
    /  &apos;&lt;Spe&gt;&lt;Class&gt;DeployingLoginStr&apos; : shareyoursystemhz
    /  &apos;&lt;Spe&gt;&lt;Class&gt;DeployingPwdStr&apos; : share
    /  &apos;&lt;Spe&gt;&lt;Class&gt;DeployingUrlStr&apos; : ftp.ouvaton.coop
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;DeployedDirKeyStrsList&apos; : []
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;DeployedFtplibVariable&apos; : &lt;ftplib.FTP instance at 0x108ec8248&gt;
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;DeployedFtplibVariable&apos; : &lt;ftplib.FTP instance at 0x1067ff638&gt;
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;DeployingClientFilePathStrToServerFilePathStrOrderedDict&apos; : 
    /   /{ 
    /   /}

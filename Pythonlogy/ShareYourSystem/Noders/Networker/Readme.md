@@ -41,7 +41,7 @@ MyNetworker=Networker.NetworkerClass(
                         '/NodePointDeriveNoder/<Connectome>SecondConnecter'
                     ]
                 ),
-                ('ConnectingAttentionGetStrsList',
+                ('ConnectingGraspClueVariablesList',
                     [
                         '/NodePointDeriveNoder/<Connectome>SecondConnecter'
                     ]
@@ -281,7 +281,7 @@ PointVariable
 []
    /   /   /   /   /   /  '<Spe><Instance>ConnectedDerivePointersList' :
 []
-   /   /   /   /   /   /  '<Spe><Instance>ConnectingAttentionGetStrsList' : []
+   /   /   /   /   /   /  '<Spe><Instance>ConnectingGraspClueVariablesList' : []
    /   /   /   /   /   /  '<Spe><Instance>ConnectingCatchGetStrsList' : []
    /   /   /   /   /   /}
    /   /   /   /   /  '<Spe><Class>PointedBackSetStr' :
@@ -304,7 +304,7 @@ PointVariable
    /   /   /   /[
    /   /   /   /  0 : {...}< (ConnecterClass), 4567776144>
    /   /   /   /]
-   /   /   /  '<Spe><Instance>ConnectingAttentionGetStrsList' :
+   /   /   /  '<Spe><Instance>ConnectingGraspClueVariablesList' :
 ['/NodePointDeriveNoder/<Connectome>SecondConnecter']
    /   /   /  '<Spe><Instance>ConnectingCatchGetStrsList' :
 ['/NodePointDeriveNoder/<Connectome>SecondConnecter']

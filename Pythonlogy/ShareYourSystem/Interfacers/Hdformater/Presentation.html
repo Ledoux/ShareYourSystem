@@ -1779,7 +1779,6 @@ import ShareYourSystem as SYS
 BaseModuleStr="ShareYourSystem.Interfacers.Writer"
 DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
-
 #&lt;/DefineAugmentation&gt;
 
 #&lt;ImportSpecificModules&gt;
@@ -1817,7 +1816,6 @@ class HdformaterClass(BaseClass):
 
     #@Alerter.AlerterClass()        
     #@Switcher.SwitcherClass()
-    #&lt;DefineDoMethod&gt;
     def do_hdformat(self):
 
         #debug
@@ -1948,7 +1946,7 @@ In&nbsp;[3]:
 <span class="n">MyHdformater</span><span class="o">=</span><span class="n">Hdformater</span><span class="o">.</span><span class="n">HdformaterClass</span><span class="p">()</span><span class="o">.</span><span class="n">hdformat</span><span class="p">(</span>
     <span class="n">_FileKeyStr</span><span class="o">=</span><span class="s">&#39;Hdformats.hdf5&#39;</span><span class="p">,</span>
     <span class="o">**</span><span class="p">{</span>
-    <span class="s">&#39;FolderingPathStr&#39;</span><span class="p">:</span><span class="s">&#39;/&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">Hdformater</span><span class="o">.</span><span class="n">__file__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="s">&#39;FolderingPathStr&#39;</span><span class="p">:</span><span class="n">Hdformater</span><span class="o">.</span><span class="n">LocalFolderPathStr</span>
 <span class="p">}</span>
 <span class="p">)</span><span class="o">.</span><span class="n">hdfview</span><span class="p">()</span><span class="o">.</span><span class="n">hdfclose</span><span class="p">()</span>
 

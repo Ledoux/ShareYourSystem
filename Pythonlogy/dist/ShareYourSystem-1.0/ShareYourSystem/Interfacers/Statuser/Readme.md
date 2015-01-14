@@ -75,8 +75,6 @@ class StatuserClass(BaseClass):
 'StatusedIdStrsList'
                                                                 ]
 
-        #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':
-BaseClass.init}]})
         def default_init(self,
                                                 _StatusingProcessStr="",
                                                 _StatusedSnapshotStr="",
@@ -88,7 +86,6 @@ BaseClass.init}]})
                 #Call the parent __init__ method
                 BaseClass.__init__(self,**_KwargVariablesDict)
 
-        #<DefineDoMethod>
         def do_status(self):
 
                 #Check
@@ -177,17 +174,17 @@ SYS._attest(
 
 *****Start of the Attest *****
 
-MyStatuser is < (StatuserClass), 4444454352>
+MyStatuser is < (StatuserClass), 4403852688>
    /{
-   /  '<New><Instance>IdStr' : 4444454352
-   /  '<Spe><Instance>StatusedIdStrsList' : ['22966']
-   /  '<Spe><Instance>StatusedLineStrsList' : ['  501 22966  4722   0 12:22AM
-ttys000    0:00.41 /usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Ve
+   /  '<New><Instance>IdInt' : 4403852688
+   /  '<Spe><Instance>StatusedIdStrsList' : ['1467']
+   /  '<Spe><Instance>StatusedLineStrsList' : ['  501  1467   334   0  6:18PM
+ttys000    0:00.30 /usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Ve
 rsions/2.7/Resources/Python.app/Contents/MacOS/Python inform.py']
-   /  '<Spe><Instance>StatusedSnapshotStr' :   501 22966  4722   0 12:22AM
-ttys000    0:00.41 /usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Ve
+   /  '<Spe><Instance>StatusedSnapshotStr' :   501  1467   334   0  6:18PM
+ttys000    0:00.30 /usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Ve
 rsions/2.7/Resources/Python.app/Contents/MacOS/Python inform.py
-  501 22995 22993   0 12:22AM ttys000    0:00.00 grep Python
+  501  1496  1494   0  6:18PM ttys000    0:00.00 grep Python
 
    /  '<Spe><Instance>StatusingProcessStr' : Python
    /}

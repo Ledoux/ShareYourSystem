@@ -84,7 +84,7 @@ class ModulizerClass(Structurer.StructurerClass):
 								]
 							),
 							('Attr_RowingGetStrsList',['ModulizingPowerFloat']),
-							('ConnectingAttentionGetStrsList',
+							('ConnectingGraspClueVariablesList',
 								[
 									'/NodePointDeriveNoder/<Component>RealMultiplier/<Datome>ParametersJoiner',
 									'/NodePointDeriveNoder/<Component>ImageMultiplier/<Datome>ParametersJoiner'

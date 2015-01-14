@@ -13,12 +13,7 @@ MyNetworker=Networker.NetworkerClass(
 		'First',
 		Connecter.ConnecterClass().update(
 			[
-				('ConnectingCatchGetStrsList',
-					[
-						'/NodePointDeriveNoder/<Connectome>SecondConnecter'
-					]
-				),
-				('ConnectingAttentionGetStrsList',
+				('ConnectingGraspClueVariablesList',
 					[
 						'/NodePointDeriveNoder/<Connectome>SecondConnecter'
 					]

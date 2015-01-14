@@ -1777,7 +1777,6 @@ import ShareYourSystem as SYS
 BaseModuleStr="ShareYourSystem.Interfacers.Loader"
 DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
-
 #&lt;/DefineAugmentation&gt;
 
 #&lt;ImportSpecificModules&gt;
@@ -1795,7 +1794,6 @@ class WriterClass(BaseClass):
                                     'WritingLoadBool'
                                 ]
 
-    #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.init}]})
     def default_init(self,
                         _WritingStoreVariable=None,
                         _WritingLoadBool=False,
@@ -1805,7 +1803,6 @@ class WriterClass(BaseClass):
         #Call the parent __init__ method
         BaseClass.__init__(self,**_KwargVariablesDict)
 
-    #&lt;DefineDoMethod&gt;
     def do_write(self):
 
         #debug
@@ -1957,9 +1954,9 @@ In&nbsp;[3]:
 
 *****Start of the Attest *****
 
-MyWriter is &lt; (WriterClass), 4444677136&gt;
+MyWriter is &lt; (WriterClass), 4404028752&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdStr&apos; : 4444677136
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4404028752
    /  &apos;&lt;Spe&gt;&lt;Class&gt;WritingLoadBool&apos; : False
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;WritingStoreVariable&apos; : hello
    /}

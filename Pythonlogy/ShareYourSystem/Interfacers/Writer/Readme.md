@@ -74,8 +74,6 @@ class WriterClass(BaseClass):
 'WritingLoadBool'
                                                                 ]
 
-        #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':
-BaseClass.init}]})
         def default_init(self,
                                                 _WritingStoreVariable=None,
                                                 _WritingLoadBool=False,
@@ -85,7 +83,6 @@ BaseClass.init}]})
                 #Call the parent __init__ method
                 BaseClass.__init__(self,**_KwargVariablesDict)
 
-        #<DefineDoMethod>
         def do_write(self):
 
                 #debug
@@ -227,9 +224,9 @@ SYS._attest(
 
 *****Start of the Attest *****
 
-MyWriter is < (WriterClass), 4431809680>
+MyWriter is < (WriterClass), 4391205328>
    /{
-   /  '<New><Instance>IdStr' : 4431809680
+   /  '<New><Instance>IdInt' : 4391205328
    /  '<Spe><Class>WritingLoadBool' : False
    /  '<Spe><Instance>WritingStoreVariable' : hello
    /}

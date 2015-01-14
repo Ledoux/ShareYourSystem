@@ -134,7 +134,7 @@ class OrganizerClass(BaseClass):
 									self.__class__.DoingAttributeVariablesOrderedDict.keys()
 								),
 								(
-									'ConnectingAttentionGetStrsList',
+									'ConnectingGraspClueVariablesList',
 									self.OrganizedInConnectAttentionGetStrsList
 								)
 							]
@@ -152,7 +152,7 @@ class OrganizerClass(BaseClass):
 									)
 								),
 								(
-									'ConnectingAttentionGetStrsList',
+									'ConnectingGraspClueVariablesList',
 									self.OrganizedOutConnectAttentionGetStrsList
 								),
 								('TagStr','Networked')

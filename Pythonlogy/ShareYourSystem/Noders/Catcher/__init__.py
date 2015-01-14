@@ -86,7 +86,15 @@ class CatcherClass(BaseClass):
 			#Check
 			CatchedGetStr=">UnknowPath<"
 			if type(self.GraspingClueVariable) in SYS.StrTypesList:
+				
+				#set
 				CatchedGetStr=self.GraspingClueVariable
+
+			elif type(self.GraspingClueVariable)==SYS.GraspDictClass and type(
+				self.GraspingClueVariable['HintVariable']) in SYS.StrTypesList:
+
+				#set
+				CatchedGetStr=self.GraspingClueVariable['HintVariable']
 
 			elif hasattr(self.GraspedAnswerVariable,'parent'):
 
@@ -155,10 +163,10 @@ class CatcherClass(BaseClass):
 		
 		#collect and update
 		self.collect(
-					self.CatchingCollectionStr,
-					self.CatchedNodeKeyStr,
-					self.CatchedDerivePointer
-				)
+			self.CatchingCollectionStr,
+			self.CatchedNodeKeyStr,
+			self.CatchedDerivePointer
+		)
 
 		#set
 		self.CatchedDerivePointer.update(

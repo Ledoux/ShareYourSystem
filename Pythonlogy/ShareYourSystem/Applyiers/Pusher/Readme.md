@@ -1,16 +1,4 @@
 
-#Pusher
- @Date : Fri Nov 14 13:20:38 2014
-
-@Author : Erwan Ledoux
-
-
-
-Pusher instances
-
-
-
-
 
 <!--
 FrozenIsBool False
@@ -66,40 +54,39 @@ SYS._attest(
 
 *****Start of the Attest *****
 
-MyPusher is < (PusherClass), 4365177616>
+MyPusher is < (PusherClass), 4549922128>
    /{
-   /  '<New><Instance>ApplyingIsBool' : True
-   /  '<New><Instance>IdString' : 4365177616
-   /  '<New><Instance>NodeCollectionStr' : Global
+   /  '<New><Instance>IdInt' : 4549922128
+   /  '<New><Instance>NodeCollectionStr' : Globals
    /  '<New><Instance>NodeIndexInt' : -1
-   /  '<New><Instance>NodeKeyStr' :
+   /  '<New><Instance>NodeKeyStr' : TopPusher
    /  '<New><Instance>NodePointDeriveNoder' : None
    /  '<New><Instance>NodePointOrderedDict' : None
    /  '<New><Instance>PushomeCollectionOrderedDict' :
    /   /{
-   /   /  'FirstChildPusher' : < (PusherClass), 4365116880>
+   /   /  'FirstChildPusher' : < (PusherClass), 4550182608>
    /   /   /{
-   /   /   /  '<New><Instance>IdString' : 4365116880
+   /   /   /  '<New><Instance>IdInt' : 4550182608
    /   /   /  '<New><Instance>MyInt' : 0
    /   /   /  '<New><Instance>NodeCollectionStr' : Pushome
    /   /   /  '<New><Instance>NodeIndexInt' : 0
    /   /   /  '<New><Instance>NodeKeyStr' : FirstChildPusher
    /   /   /  '<New><Instance>NodePointDeriveNoder' : {...}< (PusherClass),
-4365177616>
+4549922128>
    /   /   /  '<New><Instance>NodePointOrderedDict' : {...}< (OrderedDict),
-4365456624>
+4550146744>
    /   /   /  '<Spe><Class>PushingStoreListsList' : None
    /   /   /}
-   /   /  'SecondChildPusher' : < (PusherClass), 4365116240>
+   /   /  'SecondChildPusher' : < (PusherClass), 4550182736>
    /   /   /{
-   /   /   /  '<New><Instance>IdString' : 4365116240
+   /   /   /  '<New><Instance>IdInt' : 4550182736
    /   /   /  '<New><Instance>NodeCollectionStr' : Pushome
    /   /   /  '<New><Instance>NodeIndexInt' : 1
    /   /   /  '<New><Instance>NodeKeyStr' : SecondChildPusher
    /   /   /  '<New><Instance>NodePointDeriveNoder' : {...}< (PusherClass),
-4365177616>
+4549922128>
    /   /   /  '<New><Instance>NodePointOrderedDict' : {...}< (OrderedDict),
-4365456624>
+4550146744>
    /   /   /  '<Spe><Class>PushingStoreListsList' : None
    /   /   /}
    /   /}
@@ -108,12 +95,12 @@ MyPusher is < (PusherClass), 4365177616>
    /   /  0 :
    /   /   /[
    /   /   /  0 : FirstChild
-   /   /   /  1 : {...}< (PusherClass), 4365116880>
+   /   /   /  1 : {...}< (PusherClass), 4550182608>
    /   /   /]
    /   /  1 :
    /   /   /[
    /   /   /  0 : SecondChild
-   /   /   /  1 : {...}< (PusherClass), 4365116240>
+   /   /   /  1 : {...}< (PusherClass), 4550182736>
    /   /   /]
    /   /]
    /}

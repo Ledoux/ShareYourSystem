@@ -66,7 +66,7 @@ MySumer=SumerClass().push(
 							('SumedTotalInt','SumedTotalInt',tables.Int64Col())
 						]
 					),
-					('ConnectingAttentionGetStrsList',
+					('ConnectingGraspClueVariablesList',
 						[
 							'/NodePointDeriveNoder/<Datome>ParametersHierarchizer'
 						]

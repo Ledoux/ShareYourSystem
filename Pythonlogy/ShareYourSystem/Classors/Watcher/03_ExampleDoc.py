@@ -59,14 +59,14 @@ MyBuilder=MakerClass()
 
 #Print
 print('Before make, MyBuilder is ')
-_print(MyBuilder)
+SYS._print(MyBuilder)
 
 #make once
 MyBuilder.make(3.)
 
 #Print
 print('After the first make, MyBuilder is ')
-_print(MyBuilder)
+SYS._print(MyBuilder)
 
 #Definition the AttestedStr
 SYS._attest(

@@ -34,14 +34,14 @@ MyMaker=MakerClass()
 
 #Print
 print('Before make, MyMaker is ')
-_print(MyMaker)
+SYS._print(MyMaker)
 
 #make once
 MyMaker.make(3.)
 
 #Print
 print('After the first make, MyMaker is ')
-_print(MyMaker)
+SYS._print(MyMaker)
 
 #Reset
 print('Now we reset')
@@ -49,7 +49,7 @@ MyMaker.WatchMakeWithMakerBool=False
 
 #Print
 print('After the reset, MyMaker is ')
-_print(MyMaker)
+SYS._print(MyMaker)
 
 #Definition the AttestedStr
 SYS._attest(

@@ -1,0 +1,2 @@
+  501  1467   334   0  6:18PM ttys000    0:00.43 /usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Versions/2.7/Resources/Python.app/Contents/MacOS/Python inform.py
+  501  1611  1609   0  6:18PM ttys000    0:00.00 grep Python
