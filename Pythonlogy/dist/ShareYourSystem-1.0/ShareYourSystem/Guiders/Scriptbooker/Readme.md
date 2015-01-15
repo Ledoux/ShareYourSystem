@@ -50,12 +50,12 @@ from ShareYourSystem.Guiders import Scriptbooker
 MyScriptbooker=Scriptbooker.ScriptbookerClass().scriptbook(
         **{
             'FolderingPathStr':
-            SYS.LocalShareYourSystemFolderPathStr+'/ShareYourSystem/Objects/Object',
+            SYS.ShareYourSystemLocalFolderPathStr+'/ShareYourSystem/Objects/Object',
             'GuidingBookStr':'Doc'
         }
 ).scriptbook(**{
             'FolderingPathStr':
-SYS.LocalShareYourSystemFolderPathStr+'/ShareYourSystem/Interfacers/Filer',
+SYS.ShareYourSystemLocalFolderPathStr+'/ShareYourSystem/Interfacers/Filer',
         }
 )
 

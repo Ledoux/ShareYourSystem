@@ -50,14 +50,14 @@ MyNotebooker=Notebooker.NotebookerClass().notebook(
     'Presentation.ipynb',
     **{
         'FolderingPathStr':
-        SYS.LocalShareYourSystemFolderPathStr+'/ShareYourSystem/Objects/Concluder',
-        #SYS.LocalShareYourSystemFolderPathStr+'/ShareYourSystem/Objects',
+        SYS.ShareYourSystemLocalFolderPathStr+'/ShareYourSystem/Objects/Concluder',
+        #SYS.ShareYourSystemLocalFolderPathStr+'/ShareYourSystem/Objects',
         'GuidingBookStr':'Doc'
     }
 ).notebook(
     **{
         'FolderingPathStr':
-        SYS.LocalShareYourSystemFolderPathStr+'/ShareYourSystem/Interfacers/Filer',
+        SYS.ShareYourSystemLocalFolderPathStr+'/ShareYourSystem/Interfacers/Filer',
     }
 )
 

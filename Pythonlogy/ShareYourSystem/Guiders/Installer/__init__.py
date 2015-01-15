@@ -26,7 +26,7 @@ from ShareYourSystem.Interfacers import Loader,Writer
 #</ImportSpecificModules>
 
 #<DefineLocals>
-InstallingSysFolderPathStr=SYS.LocalPythonlogyFolderPathStr
+InstallingSysFolderPathStr=SYS.PythonlogyLocalFolderPathStr
 InstallingLibraryFolderPathStr=InstallingSysFolderPathStr+'/docs/LibraryReference/'
 #</DefineLocals>
 

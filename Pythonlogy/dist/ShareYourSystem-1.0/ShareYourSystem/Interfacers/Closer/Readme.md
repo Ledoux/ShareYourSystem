@@ -94,7 +94,7 @@ class CloserClass(BaseClass):
 
 <small>
 View the Closer sources on [Github](https://github.com/Ledoux/ShareYourSystem/tr
-ee/master/ShareYourSystem/Interfacers/Closer)
+ee/master/Pythonlogy/ShareYourSystem/Interfacers/Closer)
 </small>
 
 
@@ -144,9 +144,9 @@ SYS._attest(
 
 *****Start of the Attest *****
 
-MyCloser is < (CloserClass), 4391203408>
+MyCloser is < (CloserClass), 4511539472>
    /{
-   /  '<New><Instance>IdInt' : 4391203408
+   /  '<New><Instance>IdInt' : 4511539472
    /}
 
 *****End of the Attest *****

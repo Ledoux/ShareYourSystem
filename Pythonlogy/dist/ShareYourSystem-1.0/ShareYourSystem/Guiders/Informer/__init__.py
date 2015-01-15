@@ -30,9 +30,9 @@ Readmer=BaseModule
 #</ImportSpecificModules>
 
 #<DefineLocals>
-InformingOntologyLocalFolderPathStr=SYS.LocalShareYourSystemFolderPathStr+'Ouvaton/'
-InformingNbviewerLocalFolderPathStr=SYS.LocalShareYourSystemFolderPathStr+'Ouvaton/'
-InformingDocumentLocalFolderPathStr=SYS.LocalShareYourSystemFolderPathStr+'docs/LibraryReference/'
+InformingOntologyLocalFolderPathStr=SYS.ShareYourSystemLocalFolderPathStr+'Ouvaton/'
+InformingNbviewerLocalFolderPathStr=SYS.ShareYourSystemLocalFolderPathStr+'Ouvaton/'
+InformingDocumentLocalFolderPathStr=SYS.ShareYourSystemLocalFolderPathStr+'docs/LibraryReference/'
 InformingOntologyOuvatonFolderPathStr='/httpdocs/reveal/'
 InformingNbviewerOuvatonFolderPathStr='/httpdocs/ipython/'
 #</DefineLocals>
@@ -318,7 +318,7 @@ class InformerClass(BaseClass):
 			#map
 			self.InformedSubModuleLocalFolderPathStrsList=map(
 					lambda __InformedSubModuleStr:
-					SYS.LocalPythonlogyFolderPathStr+__InformedSubModuleStr.replace(
+					SYS.PythonlogyLocalFolderPathStr+__InformedSubModuleStr.replace(
 						'.','/'
 					),
 					self.InformedSubModuleStrsList
@@ -421,18 +421,21 @@ class InformerClass(BaseClass):
 				)
 
 			#deploy
-			self.deploy(
-				_ClientFilePathStrToServerFilePathStrOrderedDict=collections.OrderedDict(
-					[
-						(
-							self.InformedSlideLocalFilePathStr,
-							InformingOntologyOuvatonFolderPathStr+self.InformedConceptModule.__name__.split('.'
-								)[-1]+'.php'
-						)
-					]
+			try:
+				self.deploy(
+					_ClientFilePathStrToServerFilePathStrOrderedDict=collections.OrderedDict(
+						[
+							(
+								self.InformedSlideLocalFilePathStr,
+								InformingOntologyOuvatonFolderPathStr+self.InformedConceptModule.__name__.split('.'
+									)[-1]+'.php'
+							)
+						]
+					)
 				)
-			)
-
+			except:
+				print('There is NO Internet !')
+				
 		#Check
 		if self.InformingConceptReadmeIsBool:
 

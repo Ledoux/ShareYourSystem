@@ -196,7 +196,7 @@ SYS.h5lsPathStr+' -dlr '+self.HdformatedFilePathStr
 
 <small>
 View the Hdformater sources on [Github](https://github.com/Ledoux/ShareYourSyste
-m/tree/master/ShareYourSystem/Interfacers/Hdformater)
+m/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Hdformater)
 </small>
 
 

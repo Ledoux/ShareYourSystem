@@ -111,37 +111,37 @@ SYS._attest(
 
 *****Start of the Attest *****
 
-SimpleMaker is < (MakerClass), 4365304144>
+SimpleMaker is < (MakerClass), 4347994448>
    /{
-   /  '<New><Instance>IdInt' : 4365304144
+   /  '<New><Instance>IdInt' : 4347994448
    /  '<Spe><Class>MadeMyInt' : 0
    /}
 
 ------
 
-ParentMaker is < (MakerClass), 4365304336>
+ParentMaker is < (MakerClass), 4347994640>
    /{
-   /  '<New><Instance>CircularChildMaker' : < (MakerClass), 4365305168>
+   /  '<New><Instance>CircularChildMaker' : < (MakerClass), 4347995472>
    /   /{
-   /   /  '<New><Instance>IdInt' : 4365305168
-   /   /  '<New><Instance>ParentMaker' : {...}< (MakerClass), 4365304336>
-   /   /  '<New><Instance>SelfMaker' : {...}< (MakerClass), 4365305168>
+   /   /  '<New><Instance>IdInt' : 4347995472
+   /   /  '<New><Instance>ParentMaker' : {...}< (MakerClass), 4347994640>
+   /   /  '<New><Instance>SelfMaker' : {...}< (MakerClass), 4347995472>
    /   /  '<Spe><Class>MadeMyInt' : 0
    /   /}
-   /  '<New><Instance>FirstChildMaker' : < (MakerClass), 4365306320>
+   /  '<New><Instance>FirstChildMaker' : < (MakerClass), 4347996624>
    /   /{
-   /   /  '<New><Instance>IdInt' : 4365306320
+   /   /  '<New><Instance>IdInt' : 4347996624
    /   /  '<Spe><Class>MadeMyInt' : 0
    /   /}
-   /  '<New><Instance>IdInt' : 4365304336
+   /  '<New><Instance>IdInt' : 4347994640
    /  '<Spe><Class>MadeMyInt' : 0
    /}
 
 ------
 
-SimpleBuilder is < (BuilderClass), 4365306384>
+SimpleBuilder is < (BuilderClass), 4347996688>
    /{
-   /  '<New><Instance>IdInt' : 4365306384
+   /  '<New><Instance>IdInt' : 4347996688
    /  '<Spe><Class>BuiltMyStr' : None
    /}
 

@@ -133,7 +133,7 @@ sys.stdout.getvalue().splitlines()
 
 <small>
 View the Capturer sources on [Github](https://github.com/Ledoux/ShareYourSystem/
-tree/master/ShareYourSystem/Interfacers/Capturer)
+tree/master/Pythonlogy/ShareYourSystem/Interfacers/Capturer)
 </small>
 
 
@@ -190,14 +190,14 @@ Y a quelqu un?
 
 *****Start of the Attest *****
 
-MyCapturer is < (CapturerClass), 4401591696>
+MyCapturer is < (CapturerClass), 4521940560>
    /{
-   /  '<New><Instance>IdInt' : 4401591696
+   /  '<New><Instance>IdInt' : 4521940560
    /  '<New><Instance>_CapturingStopBool' : True
    /  '<Spe><Class>CapturingStopBool' : True
    /  '<Spe><Instance>CapturedPrintStrsList' : ['Hello !', 'Bonjour !']
    /  '<Spe><Instance>CapturedStdoutVariable' : <cStringIO.StringO object at
-0x1065a3960>
+0x10ce8d420>
    /}
 
 *****End of the Attest *****

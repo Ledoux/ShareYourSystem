@@ -1,16 +1,4 @@
 
-#Pointer
- @Date : Fri Nov 14 13:20:38 2014
-
-@Author : Erwan Ledoux
-
-
-
-A Pointer
-
-
-
-
 
 <!--
 FrozenIsBool False
@@ -73,41 +61,35 @@ SYS._attest(
 
 ```console
 >>>
-Doer l.132 : DoerStr is Pointer
-DoStr is Point
-DoMethodStr is point
-DoingStr is Pointing
-DoneStr is Pointed
-
 
 
 *****Start of the Attest *****
 
-MyPointer is < (PointerClass), 4465425168>
+MyPointer is < (PointerClass), 4348453840>
    /{
-   /  '<New><Instance>ChildPather' : < (PatherClass), 4465287632>
+   /  '<New><Instance>ChildPather' : < (PatherClass), 4348481808>
    /   /{
-   /   /  '<New><Instance>GrandChildPather' : < (PatherClass), 4465476176>
+   /   /  '<New><Instance>GrandChildPather' : < (PatherClass), 4348481872>
    /   /   /{
-   /   /   /  '<New><Instance>IdString' : 4465476176
+   /   /   /  '<New><Instance>IdInt' : 4348481872
    /   /   /  '<Spe><Class>PathedChildKeyStr' :
    /   /   /  '<Spe><Class>PathedGetKeyStr' :
    /   /   /  '<Spe><Class>PathedKeyStrsList' : None
    /   /   /  '<Spe><Class>PathingKeyStr' :
    /   /   /}
    /   /  '<New><Instance>GrandChildPather/GrandParentPointer' : {...}<
-(PointerClass), 4465425168>
-   /   /  '<New><Instance>IdString' : 4465287632
+(PointerClass), 4348453840>
+   /   /  '<New><Instance>IdInt' : 4348481808
    /   /  '<Spe><Class>PathedChildKeyStr' :
    /   /  '<Spe><Class>PathedGetKeyStr' :
    /   /  '<Spe><Class>PathedKeyStrsList' : None
    /   /  '<Spe><Class>PathingKeyStr' :
    /   /}
-   /  '<New><Instance>IdString' : 4465425168
+   /  '<New><Instance>IdInt' : 4348453840
    /  '<Spe><Class>PointedBackSetStr' :
    /  '<Spe><Class>PointedPathBackVariable' :
    /  '<Spe><Class>PointingBackSetStr' :
-   /  '<Spe><Instance>PointedGetVariable' : {...}< (PointerClass), 4465425168>
+   /  '<Spe><Instance>PointedGetVariable' : {...}< (PointerClass), 4348453840>
    /  '<Spe><Instance>PointedLocalSetStr' : GrandParentPointer
    /  '<Spe><Instance>PointingGetVariable' : /
    /  '<Spe><Instance>PointingSetPathStr' :

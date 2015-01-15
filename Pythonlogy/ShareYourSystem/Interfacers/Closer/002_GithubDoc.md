@@ -68,6 +68,6 @@ class CloserClass(BaseClass):
 ```
 
 <small>
-View the Closer sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Interfacers/Closer)
+View the Closer sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Closer)
 </small>
 

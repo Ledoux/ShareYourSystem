@@ -1,16 +1,4 @@
 
-#Linker
- @Date : Fri Nov 14 13:20:38 2014
-
-@Author : Erwan Ledoux
-
-
-
-An Linker maps a point
-
-
-
-
 
 <!--
 FrozenIsBool False
@@ -82,47 +70,37 @@ SYS._attest(
 
 ```console
 >>>
-Doer l.132 : DoerStr is Linker
-DoStr is Link
-DoMethodStr is link
-DoingStr is Linking
-DoneStr is Linked
-
 
 
 *****Start of the Attest *****
 
-MyLinker is < (LinkerClass), 4365180176>
+MyLinker is < (LinkerClass), 4549829456>
    /{
-   /  '<New><Instance>0Pather' : < (PatherClass), 4365180048>
+   /  '<New><Instance>0Pather' : < (PatherClass), 4549831248>
    /   /{
-   /   /  '<New><Instance>1Pather' : < (PatherClass), 4365179664>
-   /   /   /{
-   /   /   /  '<New><Instance>2Pather' : < (PatherClass), 4365180688>
-   /   /   /   /{
-   /   /   /   /  '<New><Instance>0Pather' : {...}< (PatherClass), 4365180048>
-   /   /   /   /  '<New><Instance>IdString' : 4365180688
-   /   /   /   /  '<Spe><Class>PathedChildKeyStr' :
-   /   /   /   /  '<Spe><Class>PathedGetKeyStr' :
-   /   /   /   /  '<Spe><Class>PathedKeyStrsList' : None
-   /   /   /   /  '<Spe><Class>PathingKeyStr' :
-   /   /   /   /}
-   /   /   /  '<New><Instance>IdString' : 4365179664
-   /   /   /  '<Spe><Class>PathedChildKeyStr' :
-   /   /   /  '<Spe><Class>PathedGetKeyStr' :
-   /   /   /  '<Spe><Class>PathedKeyStrsList' : None
-   /   /   /  '<Spe><Class>PathingKeyStr' :
-   /   /   /}
-   /   /  '<New><Instance>IdString' : 4365180048
+   /   /  '<New><Instance>IdInt' : 4549831248
    /   /  '<Spe><Class>PathedChildKeyStr' :
    /   /  '<Spe><Class>PathedGetKeyStr' :
    /   /  '<Spe><Class>PathedKeyStrsList' : None
    /   /  '<Spe><Class>PathingKeyStr' :
    /   /}
-   /  '<New><Instance>1Pather' : {...}< (PatherClass), 4365179664>
-   /  '<New><Instance>2Pather' : {...}< (PatherClass), 4365180688>
-   /  '<New><Instance>ApplyingIsBool' : True
-   /  '<New><Instance>IdString' : 4365180176
+   /  '<New><Instance>1Pather' : < (PatherClass), 4549831312>
+   /   /{
+   /   /  '<New><Instance>IdInt' : 4549831312
+   /   /  '<Spe><Class>PathedChildKeyStr' :
+   /   /  '<Spe><Class>PathedGetKeyStr' :
+   /   /  '<Spe><Class>PathedKeyStrsList' : None
+   /   /  '<Spe><Class>PathingKeyStr' :
+   /   /}
+   /  '<New><Instance>2Pather' : < (PatherClass), 4549831376>
+   /   /{
+   /   /  '<New><Instance>IdInt' : 4549831376
+   /   /  '<Spe><Class>PathedChildKeyStr' :
+   /   /  '<Spe><Class>PathedGetKeyStr' :
+   /   /  '<Spe><Class>PathedKeyStrsList' : None
+   /   /  '<Spe><Class>PathingKeyStr' :
+   /   /}
+   /  '<New><Instance>IdInt' : 4549829456
    /  '<Spe><Instance>LinkingPointListsList' :
    /   /[
    /   /  0 : ('0Pather', '/2Pather/0Pather')

@@ -126,12 +126,12 @@ MakerClass.PropertizedDefaultTuplesList is
    /  0 :
    /   /(
    /   /  0 : MakingMyFloat
-   /   /  1 : <property object at 0x104319730>
+   /   /  1 : <property object at 0x103297730>
    /   /)
    /  1 :
    /   /(
    /   /  0 : MakingMyList
-   /   /  1 : <property object at 0x104319788>
+   /   /  1 : <property object at 0x103297788>
    /   /)
    /]
 
@@ -141,7 +141,7 @@ What are you saying DefaultMaker ?
 
 ------
 
-DefaultMaker.__dict__ is {'IdInt': 4365305040}
+DefaultMaker.__dict__ is {'IdInt': 4347995344}
 
 ------
 
@@ -161,7 +161,7 @@ What are you saying SpecialMaker ?
 
 ------
 
-SpecialMaker.__dict__ is {'IdInt': 4365305232, 'MadeMyInt': 5, '_MakingMyFloat':
+SpecialMaker.__dict__ is {'IdInt': 4347995536, 'MadeMyInt': 5, '_MakingMyFloat':
 5, '_MakingMyList': [4, 'Hellllllo']}
 
 ------

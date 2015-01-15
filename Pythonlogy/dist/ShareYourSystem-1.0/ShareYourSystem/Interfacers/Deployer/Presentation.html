@@ -1870,7 +1870,7 @@ class DeployerClass(BaseClass):
 #&lt;/DefineClass&gt;
 </code></pre>
 <p><small>
-View the Deployer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Interfacers/Deployer">Github</a>
+View the Deployer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Deployer">Github</a>
 </small></p>
 </div>
 </div>
@@ -1889,7 +1889,10 @@ In&nbsp;[2]:
 <span class="kn">from</span> <span class="nn">ShareYourSystem.Interfacers</span> <span class="kn">import</span> <span class="n">Folderer</span><span class="p">,</span><span class="n">Deployer</span>
 
 <span class="c">#Definition a Deployer</span>
-<span class="n">MyDeployer</span><span class="o">=</span><span class="n">Deployer</span><span class="o">.</span><span class="n">DeployerClass</span><span class="p">()</span><span class="o">.</span><span class="n">deploy</span><span class="p">()</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">MyDeployer</span><span class="o">=</span><span class="n">Deployer</span><span class="o">.</span><span class="n">DeployerClass</span><span class="p">()</span><span class="o">.</span><span class="n">deploy</span><span class="p">()</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="n">MyDeployer</span><span class="o">=</span><span class="n">Deployer</span><span class="o">.</span><span class="n">DeployerClass</span><span class="p">()</span>
 
 <span class="c">#Definition the AttestedStr</span>
 <span class="n">SYS</span><span class="o">.</span><span class="n">_attest</span><span class="p">(</span>
@@ -1939,14 +1942,14 @@ In&nbsp;[2]:
 
 *****Start of the Attest *****
 
-MyDeployer is &lt; (DeployerClass), 4404027856&gt;
+MyDeployer is &lt; (DeployerClass), 4524376720&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4404027856
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4524376720
    /  &apos;&lt;Spe&gt;&lt;Class&gt;DeployingLoginStr&apos; : shareyoursystemhz
    /  &apos;&lt;Spe&gt;&lt;Class&gt;DeployingPwdStr&apos; : share
    /  &apos;&lt;Spe&gt;&lt;Class&gt;DeployingUrlStr&apos; : ftp.ouvaton.coop
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;DeployedDirKeyStrsList&apos; : []
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;DeployedFtplibVariable&apos; : &lt;ftplib.FTP instance at 0x1067ff638&gt;
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;DeployedFtplibVariable&apos; : &lt;ftplib.FTP instance at 0x10dac3cf8&gt;
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;DeployingClientFilePathStrToServerFilePathStrOrderedDict&apos; : 
    /   /{ 
    /   /}

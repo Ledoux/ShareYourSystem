@@ -74,7 +74,7 @@ FrozenIsBool False
 ```
 
 <small>
-View the <NameStr> sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/<GithubPathStr>)
+View the <NameStr> sources on [Github]('''+SYS.GithubMasterUrlStr+'''/Pythonlogy/<GithubPathStr>)
 </small>
 
 '''
@@ -86,12 +86,34 @@ FrozenIsBool False
 
 ##Concept
 
-<iframe width="650" height="300" src="https://shareyoursystem.ouvaton.org/<NameStr>.php">
-  Fallback text here for unsupporting browsers, of which there are scant few.
-</iframe>
+<script type="text/javascript">
+
+	var HrefStr=window.location.href;
+	//alert(window.location.href)
+
+	if(HrefStr == "'''+SYS.OuvatonUrlStr+'''/<NameStr>/"){
+
+	    //alert('Ouvaton')
+	    document.write("from ")
+	    document.write("'''+SYS.OuvatonUrlStr+''' ")
+	    document.write("<iframe width=\\"725\\" height=\\"300\\" src=\\"")
+	    document.write("'''+SYS.OuvatonUrlStr+'''")
+	    document.write("/<NameStr>.php\\"></iframe>")
+	}
+	else{
+
+	    //alert('Local')
+	    document.write("from ")
+	    document.write("'''+SYS.OuvatonLocalFolderPathStr+''' ")
+	    document.write("<iframe width=\\"725\\" height=\\"300\\" src=\\"")
+	    document.write("'''+SYS.OuvatonLocalFolderPathStr+'''")
+	    document.write("<NameStr>.html\\"></iframe>")
+	}
+
+</script>
 
 <small>
-View the <NameStr> concept on [Ouvaton](https://shareyoursystem.ouvaton.org/<NameStr>.php)
+View the <NameStr> concept on [ Ouvaton ]('''+SYS.OuvatonUrlStr+'''/<NameStr>.php)
 </small>
 
 '''

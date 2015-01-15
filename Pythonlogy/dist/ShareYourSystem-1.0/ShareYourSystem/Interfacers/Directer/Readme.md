@@ -212,7 +212,7 @@ self.FolderingPathStr+__DirectedFolderKeyStr+'/'
 
 <small>
 View the Directer sources on [Github](https://github.com/Ledoux/ShareYourSystem/
-tree/master/ShareYourSystem/Interfacers/Directer)
+tree/master/Pythonlogy/ShareYourSystem/Interfacers/Directer)
 </small>
 
 
@@ -267,7 +267,7 @@ MyDirecter=Directer.DirecterClass().direct(
             [],
             **{
                 'FolderingPathStr':
-SYS.LocalShareYourSystemFolderPathStr+'/ShareYourSystem/Guiders/'
+SYS.ShareYourSystemLocalFolderPathStr+'/ShareYourSystem/Guiders/'
             }
         )
 
@@ -296,12 +296,12 @@ SYS._attest(
 
 *****Start of the Attest *****
 
-MyDirecter is < (DirecterClass), 4404027536>
+MyDirecter is < (DirecterClass), 4524376400>
    /{
-   /  '<New><Instance>IdInt' : 4404027536
+   /  '<New><Instance>IdInt' : 4524376400
    /  '<Spe><Class>DirectingFilterFunctionPointer' : None
    /  '<Spe><Instance>DirectingCallbackFunction' : <function delete at
-0x1065aec80>
+0x10d874cf8>
    /  '<Spe><Instance>DirectingLiargVariablesList' : []
    /}
 

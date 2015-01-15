@@ -27,7 +27,7 @@ from ShareYourSystem.Interfacers import Loader,Writer
 #</ImportSpecificModules>
 
 #<DefineLocals>
-DocumentingSysFolderPathStr=SYS.LocalShareYourSystemFolderPathStr
+DocumentingSysFolderPathStr=SYS.ShareYourSystemLocalFolderPathStr
 DocumentingLibraryFolderPathStr=DocumentingSysFolderPathStr+'/docs/LibraryReference/'
 #</DefineLocals>
 
@@ -106,7 +106,7 @@ class DocumenterClass(BaseClass):
 		#Definition
 		self.load(
 			**{
-				'FolderingPathStr':SYS.LocalShareYourSystemFolderPathStr+self.__class__.__module__.replace(
+				'FolderingPathStr':SYS.ShareYourSystemLocalFolderPathStr+self.__class__.__module__.replace(
 					'.','/')
 				if self.DocumentingNewIsBool
 				else DocumentingSysFolderPathStr,

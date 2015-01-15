@@ -30,7 +30,7 @@ Readmer=BaseModule
 #</ImportSpecificModules>
 
 #<DefineLocals>
-InformingOntologyFolderPathStr=SYS.LocalShareYourSystemFolderPathStr+'/reveal/'
+InformingOntologyFolderPathStr=SYS.ShareYourSystemLocalFolderPathStr+'/reveal/'
 #</DefineLocals>
 
 #<DefineClass>

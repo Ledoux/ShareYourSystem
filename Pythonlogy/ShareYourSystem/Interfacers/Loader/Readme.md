@@ -123,7 +123,7 @@ self.LoadedReadVariable=yaml.load(self.FiledFileVariable)
 
 <small>
 View the Loader sources on [Github](https://github.com/Ledoux/ShareYourSystem/tr
-ee/master/ShareYourSystem/Interfacers/Loader)
+ee/master/Pythonlogy/ShareYourSystem/Interfacers/Loader)
 </small>
 
 
@@ -173,9 +173,9 @@ SYS._attest(
 
 *****Start of the Attest *****
 
-MyLoader is < (LoaderClass), 4391203536>
+MyLoader is < (LoaderClass), 4542161872>
    /{
-   /  '<New><Instance>IdInt' : 4391203536
+   /  '<New><Instance>IdInt' : 4542161872
    /  '<Spe><Class>LoadingFormatStr' : txt
    /  '<Spe><Instance>LoadedReadVariable' : hello
    /}

@@ -1813,7 +1813,7 @@ class InterfacerClass(BaseClass):
 #&lt;/DefineClass&gt;
 </code></pre>
 <p><small>
-View the Interfacer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Interfacers/Interfacer">Github</a>
+View the Interfacer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Interfacer">Github</a>
 </small></p>
 </div>
 </div>
@@ -1879,9 +1879,9 @@ In&nbsp;[3]:
 
 *****Start of the Attest *****
 
-MyInterfacer is &lt; (InterfacerClass), 4404027728&gt;
+MyInterfacer is &lt; (InterfacerClass), 4554998288&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4404027728
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4554998288
    /}
 
 *****End of the Attest *****
@@ -2108,7 +2108,7 @@ class FoldererClass(BaseClass):
 #&lt;/DefineClass&gt;
 </code></pre>
 <p><small>
-View the Folderer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Interfacers/Folderer">Github</a>
+View the Folderer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Folderer">Github</a>
 </small></p>
 </div>
 </div>
@@ -2181,9 +2181,9 @@ In&nbsp;[7]:
 
 *****Start of the Attest *****
 
-MyFolderer is &lt; (FoldererClass), 4404028112&gt;
+MyFolderer is &lt; (FoldererClass), 4554998672&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4404028112
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4554998672
    /  &apos;&lt;Spe&gt;&lt;Class&gt;FolderedNameStr&apos; : 
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;FolderedDirKeyStrsList&apos; : []
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;FolderedModuleStr&apos; : 
@@ -2370,7 +2370,7 @@ class FilerClass(BaseClass):
 #&lt;/DefineClass&gt;
 </code></pre>
 <p><small>
-View the Filer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Interfacers/Filer">Github</a>
+View the Filer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Filer">Github</a>
 </small></p>
 </div>
 </div>
@@ -2441,10 +2441,10 @@ In&nbsp;[11]:
 
 *****Start of the Attest *****
 
-MyFiler is &lt; (FilerClass), 4404028304&gt;
+MyFiler is &lt; (FilerClass), 4554998864&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4404028304
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;FiledFileVariable&apos; : &lt;closed file &apos;/Users/ledoux/Documents/ShareYourSystem/Pythonlogy/ShareYourSystem/Interfacers/Filer/MyFile.txt&apos;, mode &apos;w&apos; at 0x105b7b0c0&gt;
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4554998864
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;FiledFileVariable&apos; : &lt;closed file &apos;/Users/ledoux/Documents/ShareYourSystem/Pythonlogy/ShareYourSystem/Interfacers/Filer/MyFile.txt&apos;, mode &apos;w&apos; at 0x10eba8030&gt;
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;FiledPathStr&apos; : /Users/ledoux/Documents/ShareYourSystem/Pythonlogy/ShareYourSystem/Interfacers/Filer/MyFile.txt
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;FilingKeyStr&apos; : MyFile.txt
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;FilingModeStr&apos; : w
@@ -2555,7 +2555,7 @@ class CloserClass(BaseClass):
 #&lt;/DefineClass&gt;
 </code></pre>
 <p><small>
-View the Closer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Interfacers/Closer">Github</a>
+View the Closer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Closer">Github</a>
 </small></p>
 </div>
 </div>
@@ -2622,9 +2622,9 @@ In&nbsp;[15]:
 
 *****Start of the Attest *****
 
-MyCloser is &lt; (CloserClass), 4404028048&gt;
+MyCloser is &lt; (CloserClass), 4554998608&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4404028048
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4554998608
    /}
 
 *****End of the Attest *****
@@ -2758,7 +2758,7 @@ class LoaderClass(BaseClass):
 #&lt;/DefineClass&gt;
 </code></pre>
 <p><small>
-View the Loader sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Interfacers/Loader">Github</a>
+View the Loader sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Loader">Github</a>
 </small></p>
 </div>
 </div>
@@ -2825,9 +2825,9 @@ In&nbsp;[19]:
 
 *****Start of the Attest *****
 
-MyLoader is &lt; (LoaderClass), 4404028240&gt;
+MyLoader is &lt; (LoaderClass), 4554998800&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4404028240
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4554998800
    /  &apos;&lt;Spe&gt;&lt;Class&gt;LoadingFormatStr&apos; : txt
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;LoadedReadVariable&apos; : hello
    /}
@@ -3013,7 +3013,7 @@ class WriterClass(BaseClass):
 #&lt;/DefineClass&gt;
 </code></pre>
 <p><small>
-View the Writer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Interfacers/Writer">Github</a>
+View the Writer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Writer">Github</a>
 </small></p>
 </div>
 </div>
@@ -3080,9 +3080,9 @@ In&nbsp;[23]:
 
 *****Start of the Attest *****
 
-MyWriter is &lt; (WriterClass), 4404028752&gt;
+MyWriter is &lt; (WriterClass), 4554999312&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4404028752
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4554999312
    /  &apos;&lt;Spe&gt;&lt;Class&gt;WritingLoadBool&apos; : False
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;WritingStoreVariable&apos; : hello
    /}
@@ -3251,7 +3251,7 @@ class DeployerClass(BaseClass):
 #&lt;/DefineClass&gt;
 </code></pre>
 <p><small>
-View the Deployer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Interfacers/Deployer">Github</a>
+View the Deployer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Deployer">Github</a>
 </small></p>
 </div>
 </div>
@@ -3270,7 +3270,10 @@ In&nbsp;[26]:
 <span class="kn">from</span> <span class="nn">ShareYourSystem.Interfacers</span> <span class="kn">import</span> <span class="n">Folderer</span><span class="p">,</span><span class="n">Deployer</span>
 
 <span class="c">#Definition a Deployer</span>
-<span class="n">MyDeployer</span><span class="o">=</span><span class="n">Deployer</span><span class="o">.</span><span class="n">DeployerClass</span><span class="p">()</span><span class="o">.</span><span class="n">deploy</span><span class="p">()</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">MyDeployer</span><span class="o">=</span><span class="n">Deployer</span><span class="o">.</span><span class="n">DeployerClass</span><span class="p">()</span><span class="o">.</span><span class="n">deploy</span><span class="p">()</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="n">MyDeployer</span><span class="o">=</span><span class="n">Deployer</span><span class="o">.</span><span class="n">DeployerClass</span><span class="p">()</span>
 
 <span class="c">#Definition the AttestedStr</span>
 <span class="n">SYS</span><span class="o">.</span><span class="n">_attest</span><span class="p">(</span>
@@ -3320,14 +3323,14 @@ In&nbsp;[26]:
 
 *****Start of the Attest *****
 
-MyDeployer is &lt; (DeployerClass), 4404027856&gt;
+MyDeployer is &lt; (DeployerClass), 4554998416&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4404027856
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4554998416
    /  &apos;&lt;Spe&gt;&lt;Class&gt;DeployingLoginStr&apos; : shareyoursystemhz
    /  &apos;&lt;Spe&gt;&lt;Class&gt;DeployingPwdStr&apos; : share
    /  &apos;&lt;Spe&gt;&lt;Class&gt;DeployingUrlStr&apos; : ftp.ouvaton.coop
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;DeployedDirKeyStrsList&apos; : []
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;DeployedFtplibVariable&apos; : &lt;ftplib.FTP instance at 0x1067ff638&gt;
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;DeployedFtplibVariable&apos; : &lt;ftplib.FTP instance at 0x10f7f7cf8&gt;
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;DeployingClientFilePathStrToServerFilePathStrOrderedDict&apos; : 
    /   /{ 
    /   /}
@@ -3535,7 +3538,7 @@ class HdformaterClass(BaseClass):
 #&lt;/DefineClass&gt;
 </code></pre>
 <p><small>
-View the Hdformater sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Interfacers/Hdformater">Github</a>
+View the Hdformater sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Hdformater">Github</a>
 </small></p>
 </div>
 </div>
@@ -3750,7 +3753,7 @@ class CapturerClass(BaseClass):
 #&lt;/DefineClass&gt;
 </code></pre>
 <p><small>
-View the Capturer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Interfacers/Capturer">Github</a>
+View the Capturer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Capturer">Github</a>
 </small></p>
 </div>
 </div>
@@ -3822,13 +3825,13 @@ Y a quelqu un?
 
 *****Start of the Attest *****
 
-MyCapturer is &lt; (CapturerClass), 4403921040&gt;
+MyCapturer is &lt; (CapturerClass), 4554871120&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4403921040
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4554871120
    /  &apos;&lt;New&gt;&lt;Instance&gt;_CapturingStopBool&apos; : True
    /  &apos;&lt;Spe&gt;&lt;Class&gt;CapturingStopBool&apos; : True
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;CapturedPrintStrsList&apos; : [&apos;Hello !&apos;, &apos;Bonjour !&apos;]
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;CapturedStdoutVariable&apos; : &lt;cStringIO.StringO object at 0x1068059d0&gt;
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;CapturedStdoutVariable&apos; : &lt;cStringIO.StringO object at 0x10f803a08&gt;
    /}
 
 *****End of the Attest *****
@@ -3971,7 +3974,7 @@ class ProcesserClass(BaseClass):
 #&lt;/DefineClass&gt;
 </code></pre>
 <p><small>
-View the Processer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Interfacers/Processer">Github</a>
+View the Processer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Processer">Github</a>
 </small></p>
 </div>
 </div>
@@ -4037,9 +4040,9 @@ In&nbsp;[38]:
 
 *****Start of the Attest *****
 
-MyProcesser is &lt; (ProcesserClass), 4403923600&gt;
+MyProcesser is &lt; (ProcesserClass), 4554873680&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4403923600
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4554873680
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;ProcessedBashStr&apos; : /usr/local/bin/python
 
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;ProcessingBashStr&apos; : which python 
@@ -4190,7 +4193,7 @@ class StatuserClass(BaseClass):
 #&lt;/DefineClass&gt;
 </code></pre>
 <p><small>
-View the Statuser sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Interfacers/Statuser">Github</a>
+View the Statuser sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Statuser">Github</a>
 </small></p>
 </div>
 </div>
@@ -4241,13 +4244,13 @@ In&nbsp;[41]:
 
 *****Start of the Attest *****
 
-MyStatuser is &lt; (StatuserClass), 4403921040&gt;
+MyStatuser is &lt; (StatuserClass), 4554871120&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4403921040
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;StatusedIdStrsList&apos; : [&apos;1467&apos;]
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;StatusedLineStrsList&apos; : [&apos;  501  1467   334   0  6:18PM ttys000    0:00.43 /usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Versions/2.7/Resources/Python.app/Contents/MacOS/Python inform.py&apos;]
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;StatusedSnapshotStr&apos; :   501  1467   334   0  6:18PM ttys000    0:00.43 /usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Versions/2.7/Resources/Python.app/Contents/MacOS/Python inform.py
-  501  1599  1597   0  6:18PM ttys000    0:00.00 grep Python
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4554871120
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;StatusedIdStrsList&apos; : [&apos;4489&apos;]
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;StatusedLineStrsList&apos; : [&apos;  501  4489   344   0  3:02PM ttys000    0:00.45 /usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Versions/2.7/Resources/Python.app/Contents/MacOS/Python inform.py&apos;]
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;StatusedSnapshotStr&apos; :   501  4489   344   0  3:02PM ttys000    0:00.45 /usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Versions/2.7/Resources/Python.app/Contents/MacOS/Python inform.py
+  501  4621  4619   0  3:02PM ttys000    0:00.00 grep Python
 
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;StatusingProcessStr&apos; : Python
    /}
@@ -4372,7 +4375,7 @@ class KillerClass(BaseClass):
 #&lt;/DefineClass&gt;
 </code></pre>
 <p><small>
-View the Killer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Interfacers/Killer">Github</a>
+View the Killer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Killer">Github</a>
 </small></p>
 </div>
 </div>
@@ -4423,9 +4426,9 @@ In&nbsp;[44]:
 
 *****Start of the Attest *****
 
-MyKiller is &lt; (KillerClass), 4404027984&gt;
+MyKiller is &lt; (KillerClass), 4554998544&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4404027984
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4554998544
    /}
 
 *****End of the Attest *****
@@ -4647,7 +4650,7 @@ class DirecterClass(BaseClass):
 #&lt;/DefineClass&gt;
 </code></pre>
 <p><small>
-View the Directer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Interfacers/Directer">Github</a>
+View the Directer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Directer">Github</a>
 </small></p>
 </div>
 </div>
@@ -4711,7 +4714,7 @@ In&nbsp;[48]:
             <span class="p">[],</span>
             <span class="o">**</span><span class="p">{</span>
                 <span class="s">&#39;FolderingPathStr&#39;</span><span class="p">:</span>
-                <span class="n">SYS</span><span class="o">.</span><span class="n">LocalShareYourSystemFolderPathStr</span><span class="o">+</span><span class="s">&#39;/ShareYourSystem/Guiders/&#39;</span>
+                <span class="n">SYS</span><span class="o">.</span><span class="n">ShareYourSystemLocalFolderPathStr</span><span class="o">+</span><span class="s">&#39;/ShareYourSystem/Guiders/&#39;</span>
             <span class="p">}</span>
         <span class="p">)</span>
 
@@ -4745,11 +4748,11 @@ In&nbsp;[48]:
 
 *****Start of the Attest *****
 
-MyDirecter is &lt; (DirecterClass), 4404028240&gt;
+MyDirecter is &lt; (DirecterClass), 4554999184&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4404028240
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4554999184
    /  &apos;&lt;Spe&gt;&lt;Class&gt;DirectingFilterFunctionPointer&apos; : None
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;DirectingCallbackFunction&apos; : &lt;function delete at 0x106800c80&gt;
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;DirectingCallbackFunction&apos; : &lt;function delete at 0x10f800d70&gt;
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;DirectingLiargVariablesList&apos; : []
    /}
 

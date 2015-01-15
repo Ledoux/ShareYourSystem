@@ -25,22 +25,22 @@ map(
 	MyInformer.inform,
 	[
 		#os.getcwd()
-		#SYS.LocalShareYourSystemFolderPathStr+'/ShareYourSystem/Objects/Object',
-		#SYS.LocalShareYourSystemFolderPathStr+'/ShareYourSystem/Objects/Caller'
-		#SYS.LocalShareYourSystemFolderPathStr+'/ShareYourSystem/Objects',
-		#SYS.LocalShareYourSystemFolderPathStr+'/ShareYourSystem/Classors',
-		SYS.LocalShareYourSystemFolderPathStr+'/ShareYourSystem/Interfacers',
-		#SYS.LocalShareYourSystemFolderPathStr+'/ShareYourSystem/Guiders',
-		#SYS.LocalShareYourSystemFolderPathStr+'/ShareYourSystem/Itemizers',
-		#SYS.LocalShareYourSystemFolderPathStr+'/ShareYourSystem/Applyiers',
-		#SYS.LocalShareYourSystemFolderPathStr+'/ShareYourSystem/Walkers',
-		#SYS.LocalShareYourSystemFolderPathStr+'/ShareYourSystem/Noders',
-		#SYS.LocalShareYourSystemFolderPathStr+'/ShareYourSystem/Savers',
-		#SYS.LocalShareYourSystemFolderPathStr+'/ShareYourSystem/Databasers',
-		#SYS.LocalShareYourSystemFolderPathStr+'/ShareYourSystem/Ploters',
-		#SYS.LocalShareYourSystemFolderPathStr+'/ShareYourSystem/Tutorials',
-		#SYS.LocalShareYourSystemFolderPathStr+'/ShareYourSystem/Simulaters',
-		#SYS.LocalShareYourSystemFolderPathStr+'/ShareYourSystem/Muzikers',
+		#SYS.ShareYourSystemLocalFolderPathStr+'/ShareYourSystem/Objects/Object',
+		#SYS.ShareYourSystemLocalFolderPathStr+'/ShareYourSystem/Objects/Caller'
+		#SYS.ShareYourSystemLocalFolderPathStr+'/ShareYourSystem/Objects',
+		#SYS.ShareYourSystemLocalFolderPathStr+'/ShareYourSystem/Classors',
+		SYS.ShareYourSystemLocalFolderPathStr+'/ShareYourSystem/Interfacers',
+		#SYS.ShareYourSystemLocalFolderPathStr+'/ShareYourSystem/Guiders',
+		#SYS.ShareYourSystemLocalFolderPathStr+'/ShareYourSystem/Itemizers',
+		#SYS.ShareYourSystemLocalFolderPathStr+'/ShareYourSystem/Applyiers',
+		#SYS.ShareYourSystemLocalFolderPathStr+'/ShareYourSystem/Walkers',
+		#SYS.ShareYourSystemLocalFolderPathStr+'/ShareYourSystem/Noders',
+		#SYS.ShareYourSystemLocalFolderPathStr+'/ShareYourSystem/Savers',
+		#SYS.ShareYourSystemLocalFolderPathStr+'/ShareYourSystem/Databasers',
+		#SYS.ShareYourSystemLocalFolderPathStr+'/ShareYourSystem/Ploters',
+		#SYS.ShareYourSystemLocalFolderPathStr+'/ShareYourSystem/Tutorials',
+		#SYS.ShareYourSystemLocalFolderPathStr+'/ShareYourSystem/Simulaters',
+		#SYS.ShareYourSystemLocalFolderPathStr+'/ShareYourSystem/Muzikers',
 	]
 )
 

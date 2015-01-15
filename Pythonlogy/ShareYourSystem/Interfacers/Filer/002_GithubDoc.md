@@ -140,6 +140,6 @@ class FilerClass(BaseClass):
 ```
 
 <small>
-View the Filer sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Interfacers/Filer)
+View the Filer sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Filer)
 </small>
 

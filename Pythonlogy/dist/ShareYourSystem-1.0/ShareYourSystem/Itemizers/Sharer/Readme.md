@@ -1,16 +1,4 @@
 
-#Sharer
- @Date : Fri Nov 14 13:20:38 2014
-
-@Author : Erwan Ledoux
-
-
-
-A Sharer can set attributes at the level of the class
-
-
-
-
 
 <!--
 FrozenIsBool False
@@ -73,10 +61,10 @@ SYS._attest(
 
 *****Start of the Attest *****
 
-MySharer is < (SharerClass), 4465477264>
+MySharer is < (SharerClass), 4348193744>
    /{
    /  '<New><Class>MyStr' : I am setted at the level of the class
-   /  '<New><Instance>IdString' : 4465477264
+   /  '<New><Instance>IdInt' : 4348193744
    /  '<Spe><Instance>SharedClassDict' :
    /   /{
    /   /}

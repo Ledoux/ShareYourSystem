@@ -156,7 +156,7 @@ self.DeployingClientFilePathStrToServerFilePathStrOrderedDict.items()
 
 <small>
 View the Deployer sources on [Github](https://github.com/Ledoux/ShareYourSystem/
-tree/master/ShareYourSystem/Interfacers/Deployer)
+tree/master/Pythonlogy/ShareYourSystem/Interfacers/Deployer)
 </small>
 
 
@@ -168,7 +168,10 @@ import ShareYourSystem as SYS
 from ShareYourSystem.Interfacers import Folderer,Deployer
 
 #Definition a Deployer
-MyDeployer=Deployer.DeployerClass().deploy()
+try:
+    MyDeployer=Deployer.DeployerClass().deploy()
+except:
+    MyDeployer=Deployer.DeployerClass()
 
 #Definition the AttestedStr
 SYS._attest(
@@ -219,15 +222,15 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 *****Start of the Attest *****
 
-MyDeployer is < (DeployerClass), 4391206480>
+MyDeployer is < (DeployerClass), 4542164752>
    /{
-   /  '<New><Instance>IdInt' : 4391206480
+   /  '<New><Instance>IdInt' : 4542164752
    /  '<Spe><Class>DeployingLoginStr' : shareyoursystemhz
    /  '<Spe><Class>DeployingPwdStr' : share
    /  '<Spe><Class>DeployingUrlStr' : ftp.ouvaton.coop
    /  '<Spe><Instance>DeployedDirKeyStrsList' : []
    /  '<Spe><Instance>DeployedFtplibVariable' : <ftplib.FTP instance at
-0x105bb1050>
+0x10ebab320>
    /  '<Spe><Instance>DeployingClientFilePathStrToServerFilePathStrOrderedDict'
 :
    /   /{

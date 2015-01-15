@@ -94,6 +94,6 @@ class LoaderClass(BaseClass):
 ```
 
 <small>
-View the Loader sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Interfacers/Loader)
+View the Loader sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Loader)
 </small>
 

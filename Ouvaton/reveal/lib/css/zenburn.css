@@ -65,7 +65,8 @@ pre .apache .tag,
 pre .nginx .built_in,
 pre .tex .command,
 pre .prompt {
-    color: #efef8f;
+    color: #0000ff;
+    font-weight: bold;
 }
 
 pre .dos .winutils,

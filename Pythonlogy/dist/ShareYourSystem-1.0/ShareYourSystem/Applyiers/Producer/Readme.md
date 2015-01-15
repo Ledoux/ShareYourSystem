@@ -1,16 +1,4 @@
 
-#Producer
- @Date : Fri Nov 14 13:20:38 2014
-
-@Author : Erwan Ledoux
-
-
-
-Producer instances
-
-
-
-
 
 <!--
 FrozenIsBool False
@@ -25,13 +13,13 @@ tree/master/ShareYourSystem/Applyiers/Installer)
 
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Noders import Storer
+from ShareYourSystem.Noders import Noder
 from ShareYourSystem.Applyiers import Producer
 
 #produce
 MyProducer=Producer.ProducerClass().produce(
         ['First','Second'],
-        Storer.StorerClass,
+        Noder.NoderClass,
         {'MyInt':0},
         **{'CollectingCollectionStr':'Nodome'}
     )
@@ -62,52 +50,49 @@ SYS._attest(
 
 *****Start of the Attest *****
 
-MyProducer is < (ProducerClass), 4365385552>
+MyProducer is < (ProducerClass), 4550184336>
    /{
-   /  '<New><Instance>ApplyingIsBool' : True
-   /  '<New><Instance>IdString' : 4365385552
-   /  '<New><Instance>NodeCollectionStr' : Global
+   /  '<New><Instance>IdInt' : 4550184336
+   /  '<New><Instance>NodeCollectionStr' : Globals
    /  '<New><Instance>NodeIndexInt' : -1
-   /  '<New><Instance>NodeKeyStr' :
+   /  '<New><Instance>NodeKeyStr' : TopProducer
    /  '<New><Instance>NodePointDeriveNoder' : None
    /  '<New><Instance>NodePointOrderedDict' : None
    /  '<New><Instance>NodomeCollectionOrderedDict' :
    /   /{
-   /   /  'FirstStorer' : < (StorerClass), 4364535504>
+   /   /  'FirstNoder' : < (NoderClass), 4550226448>
    /   /   /{
-   /   /   /  '<New><Instance>ApplyingIsBool' : True
-   /   /   /  '<New><Instance>IdString' : 4364535504
+   /   /   /  '<New><Instance>IdInt' : 4550226448
    /   /   /  '<New><Instance>MyInt' : 0
    /   /   /  '<New><Instance>NodeCollectionStr' : Nodome
    /   /   /  '<New><Instance>NodeIndexInt' : 0
-   /   /   /  '<New><Instance>NodeKeyStr' : FirstStorer
+   /   /   /  '<New><Instance>NodeKeyStr' : FirstNoder
    /   /   /  '<New><Instance>NodePointDeriveNoder' : {...}< (ProducerClass),
-4365385552>
+4550184336>
    /   /   /  '<New><Instance>NodePointOrderedDict' : {...}< (OrderedDict),
-4365152336>
-   /   /   /  '<Spe><Class>StoredGetStr' :
-   /   /   /  '<Spe><Class>StoredSuffixStr' :
-   /   /   /  '<Spe><Class>CollectingCollectionStr' :
-   /   /   /  '<Spe><Class>CollectingNodeKeyStr' :
-   /   /   /  '<Spe><Class>CollectingNodeVariable' : None
+4550019472>
+   /   /   /  '<Spe><Class>NodedCollectionIndexInt' : -1
+   /   /   /  '<Spe><Class>NodedCollectionOrderedDict' : None
+   /   /   /  '<Spe><Class>NodedCollectionStr' :
+   /   /   /  '<Spe><Class>NodedKeyStr' :
+   /   /   /  '<Spe><Class>NodingCollectionStr' :
    /   /   /}
-   /   /  'SecondStorer' : < (StorerClass), 4364535440>
+   /   /  'SecondNoder' : < (NoderClass), 4550226640>
    /   /   /{
-   /   /   /  '<New><Instance>ApplyingIsBool' : True
-   /   /   /  '<New><Instance>IdString' : 4364535440
+   /   /   /  '<New><Instance>IdInt' : 4550226640
    /   /   /  '<New><Instance>MyInt' : 0
    /   /   /  '<New><Instance>NodeCollectionStr' : Nodome
    /   /   /  '<New><Instance>NodeIndexInt' : 1
-   /   /   /  '<New><Instance>NodeKeyStr' : SecondStorer
+   /   /   /  '<New><Instance>NodeKeyStr' : SecondNoder
    /   /   /  '<New><Instance>NodePointDeriveNoder' : {...}< (ProducerClass),
-4365385552>
+4550184336>
    /   /   /  '<New><Instance>NodePointOrderedDict' : {...}< (OrderedDict),
-4365152336>
-   /   /   /  '<Spe><Class>StoredGetStr' :
-   /   /   /  '<Spe><Class>StoredSuffixStr' :
-   /   /   /  '<Spe><Class>CollectingCollectionStr' :
-   /   /   /  '<Spe><Class>CollectingNodeKeyStr' :
-   /   /   /  '<Spe><Class>CollectingNodeVariable' : None
+4550019472>
+   /   /   /  '<Spe><Class>NodedCollectionIndexInt' : -1
+   /   /   /  '<Spe><Class>NodedCollectionOrderedDict' : None
+   /   /   /  '<Spe><Class>NodedCollectionStr' :
+   /   /   /  '<Spe><Class>NodedKeyStr' :
+   /   /   /  '<Spe><Class>NodingCollectionStr' :
    /   /   /}
    /   /}
    /  '<Spe><Instance>ProducedPushList' :
@@ -115,21 +100,21 @@ MyProducer is < (ProducerClass), 4365385552>
    /   /  0 :
    /   /   /[
    /   /   /  0 : First
-   /   /   /  1 : {...}< (StorerClass), 4364535504>
+   /   /   /  1 : {...}< (NoderClass), 4550226448>
    /   /   /]
    /   /  1 :
    /   /   /[
    /   /   /  0 : Second
-   /   /   /  1 : {...}< (StorerClass), 4364535440>
+   /   /   /  1 : {...}< (NoderClass), 4550226640>
    /   /   /]
    /   /]
    /  '<Spe><Instance>ProducingCollectionKeyStrsList' : ['First', 'Second']
+   /  '<Spe><Instance>ProducingPushClass' : <class
+'ShareYourSystem.Noders.Noder.NoderClass'>
    /  '<Spe><Instance>ProducingUpdateVariable' :
    /   /{
    /   /  'MyInt' : 0
    /   /}
-   /  '<Spe><Instance>ProducingPushClass' : <class
-'ShareYourSystem.Noders.Storer.StorerClass'>
    /}
 
 *****End of the Attest *****

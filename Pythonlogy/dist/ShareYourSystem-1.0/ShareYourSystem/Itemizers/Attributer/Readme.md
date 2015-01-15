@@ -1,18 +1,4 @@
 
-#Attributer
- @Date : Fri Nov 14 13:20:38 2014
-
-@Author : Erwan Ledoux
-
-
-
-An Attributer instance has a __setitem__ method for setting things in the
-<InstanceVariable>.__dict__ This is helpful for setting mutable variables in the
-instance different from the one setted at the level of the class
-
-
-
-
 
 <!--
 FrozenIsBool False
@@ -55,43 +41,13 @@ SYS._attest(
 
 ```console
 >>>
-Doer l.132 : DoerStr is Itemizer
-DoStr is Itemize
-DoMethodStr is itemize
-DoingStr is Itemizing
-DoneStr is Itemized
-
-Doer l.132 : DoerStr is Getter
-DoStr is Get
-DoMethodStr is get
-DoingStr is Getting
-DoneStr is Getted
-
-Doer l.132 : DoerStr is Setter
-DoStr is Set
-DoMethodStr is set
-DoingStr is Setting
-DoneStr is Setted
-
-Doer l.132 : DoerStr is Deleter
-DoStr is Delete
-DoMethodStr is delete
-DoingStr is Deleting
-DoneStr is Deleted
-
-Doer l.132 : DoerStr is Attributer
-DoStr is Attribute
-DoMethodStr is attribute
-DoingStr is Attributing
-DoneStr is Attributed
-
 
 
 *****Start of the Attest *****
 
-MyAttributer is < (AttributerClass), 4465141392>
+MyAttributer is < (AttributerClass), 4348011856>
    /{
-   /  '<New><Instance>IdString' : 4465141392
+   /  '<New><Instance>IdInt' : 4348011856
    /  '<New><Instance>MyInt' : 0
    /  '<Spe><Instance>AttributedSetKeyStr' : MyInt
    /  '<Spe><Instance>AttributingKeyStr' : Attr_MyInt

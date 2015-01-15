@@ -1,17 +1,4 @@
 
-#Setter
- @Date : Fri Nov 14 13:20:38 2014
-
-@Author : Erwan Ledoux
-
-
-
-A Setter has a __setitem__ method for setting things in the
-<InstanceVariable>.__dict__
-
-
-
-
 
 <!--
 FrozenIsBool False
@@ -69,9 +56,9 @@ SYS._attest(
 
 *****Start of the Attest *****
 
-MySetter is < (SetterClass), 4465479056>
+MySetter is < (SetterClass), 4347770064>
    /{
-   /  '<New><Instance>IdString' : 4465479056
+   /  '<New><Instance>IdInt' : 4347770064
    /  '<New><Instance>MyInt' : 0
    /  '<Spe><Instance>SettingKeyVariable' : MyInt
    /  '<Spe><Instance>SettingValueVariable' : 0

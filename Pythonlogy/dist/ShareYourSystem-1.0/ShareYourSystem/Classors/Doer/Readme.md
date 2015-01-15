@@ -115,17 +115,17 @@ Maker : I am going to make
 ('self.MakingMyFloat is ', 3.0)
 
 MyMaker is
-<MakerClass object at 0x10430b990>
+<MakerClass object at 0x103288990>
 we reset doing
 MyMaker after set doing is
-<MakerClass object at 0x10430b990>
+<MakerClass object at 0x103288990>
 
 
 *****Start of the Attest *****
 
 MyMaker.__dict__ is
    /{
-   /  'IdInt' : 4365269392
+   /  'IdInt' : 4347955600
    /  'MadeMyInt' : 3
    /  'MadeMyList' : []
    /  'MakingFirstInt' : 0

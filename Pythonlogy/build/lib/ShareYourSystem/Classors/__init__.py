@@ -7,8 +7,13 @@
 @Author : Erwan Ledoux \n\n
 </DefineSource>
 
-
-The Objects helps ...
+The Classors help for decorating a Class. 
+Here are defined the important derived Objects that
+facilitates the manners to set a new defined Class in the 
+SYS scope and set automatically into it new 'boilerplates'
+methods like the 'default_init' (cf. Defaultor),'do_<DoMethodStr>'
+ (cf. Doer), 'mimic_<DoMethodStr>' (cf. Mimicker), also
+ decorates methods for making it switch or resetting.
 
 """
 

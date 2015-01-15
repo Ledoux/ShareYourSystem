@@ -102,7 +102,7 @@ class PackagerClass(BaseClass):
 			)+'/'
 
 			#set
-			self.PackagedLocalFolderPathStr=SYS.LocalPythonlogyFolderPathStr+self.PackagedModuleVariable.__name__.replace(
+			self.PackagedLocalFolderPathStr=SYS.PythonlogyLocalFolderPathStr+self.PackagedModuleVariable.__name__.replace(
 				'.','/')+'/'
 
 			#debug

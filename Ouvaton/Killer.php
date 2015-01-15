@@ -1826,7 +1826,7 @@ class KillerClass(BaseClass):
 #&lt;/DefineClass&gt;
 </code></pre>
 <p><small>
-View the Killer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Interfacers/Killer">Github</a>
+View the Killer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Killer">Github</a>
 </small></p>
 </div>
 </div>
@@ -1877,9 +1877,9 @@ In&nbsp;[2]:
 
 *****Start of the Attest *****
 
-MyKiller is &lt; (KillerClass), 4404027984&gt;
+MyKiller is &lt; (KillerClass), 4554998544&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4404027984
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4554998544
    /}
 
 *****End of the Attest *****

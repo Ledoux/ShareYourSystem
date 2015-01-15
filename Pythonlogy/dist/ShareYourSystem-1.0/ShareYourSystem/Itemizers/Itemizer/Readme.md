@@ -1,16 +1,4 @@
 
-#Itemizer
- @Date : Fri Nov 14 13:20:38 2014
-
-@Author : Erwan Ledoux
-
-
-
-An Itemizer...
-
-
-
-
 
 <!--
 FrozenIsBool False
@@ -85,9 +73,9 @@ SYS._attest(
 
 *****Start of the Attest *****
 
-MyMaker is< (MakerClass), 4465250256>
+MyMaker is< (MakerClass), 4347769552>
    /{
-   /  '<New><Instance>IdString' : 4465250256
+   /  '<New><Instance>IdInt' : 4347769552
    /  '<New><Instance>My1Int' : 1
    /}
 

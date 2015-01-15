@@ -185,6 +185,6 @@ class FoldererClass(BaseClass):
 ```
 
 <small>
-View the Folderer sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Interfacers/Folderer)
+View the Folderer sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Folderer)
 </small>
 

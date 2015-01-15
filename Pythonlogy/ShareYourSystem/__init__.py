@@ -25,14 +25,15 @@ import sys
 #</ImportSpecificModules>
 
 #<DefineLocals>
-LocalShareYourSystemFolderPathStr='/Users/ledoux/Documents/ShareYourSystem/'
-LocalPythonlogyFolderPathStr=LocalShareYourSystemFolderPathStr+'Pythonlogy/'
+OuvatonUrlStr="https://shareyoursystem.ouvaton.org"
+ShareYourSystemLocalFolderPathStr='/Users/ledoux/Documents/ShareYourSystem/'
+OuvatonLocalFolderPathStr=ShareYourSystemLocalFolderPathStr+"Ouvaton/"
+PythonlogyLocalFolderPathStr=ShareYourSystemLocalFolderPathStr+'Pythonlogy/'
+GithubMasterUrlStr="https://github.com/Ledoux/ShareYourSystem/tree/master"
 
 h5lsPathStr="/usr/local/bin/h5ls"
-
 #PythonPathStr=os.popen('which python'+str(sys.version[0])).read()[:-2]
 PythonPathStr="/usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Versions/2.7/Resources/Python.app/Contents/MacOS/Python"
-
 IPythonPathStr=os.popen('which ipython'+str(sys.version[0])).read()[:-2]
 if IPythonPathStr=="":
 	IPythonPathStr="/usr/local/bin/ipython" if sys.version[0
@@ -460,7 +461,7 @@ def getIsNoneBool(_Variable):
 		return False
 
 def getLocalFolderPathStr(_ModuleVariable):
-	return LocalShareYourSystemFolderPathStr+_ModuleVariable
+	return ShareYourSystemLocalFolderPathStr+_ModuleVariable
 
 def _filter(_Function,_List):
 	if sys.version[0]==2:

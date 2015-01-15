@@ -181,6 +181,6 @@ class DirecterClass(BaseClass):
 ```
 
 <small>
-View the Directer sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Interfacers/Directer)
+View the Directer sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Directer)
 </small>
 

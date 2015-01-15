@@ -8,7 +8,9 @@
 </DefineSource>
 
 
-Binder...
+Binder helps for setting a method in a Class,
+taking inspiration (like a decoration) from another one.
+
 
 """
 

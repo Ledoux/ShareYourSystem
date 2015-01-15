@@ -4,8 +4,11 @@ import ShareYourSystem as SYS
 from ShareYourSystem.Interfacers import Folderer,Deployer
 
 #Definition a Deployer
-MyDeployer=Deployer.DeployerClass().deploy()
-
+try:
+	MyDeployer=Deployer.DeployerClass().deploy()
+except:
+	MyDeployer=Deployer.DeployerClass()
+	
 #Definition the AttestedStr
 SYS._attest(
 	[

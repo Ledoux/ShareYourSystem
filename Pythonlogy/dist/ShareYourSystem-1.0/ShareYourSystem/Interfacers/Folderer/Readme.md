@@ -224,7 +224,7 @@ self.FolderedModuleStr=self.FolderedModuleStr
 
 <small>
 View the Folderer sources on [Github](https://github.com/Ledoux/ShareYourSystem/
-tree/master/ShareYourSystem/Interfacers/Folderer)
+tree/master/Pythonlogy/ShareYourSystem/Interfacers/Folderer)
 </small>
 
 
@@ -240,6 +240,7 @@ Let's create an empty class, which will automatically receive
 special attributes from the decorating ClassorClass,
 specially the NameStr, that should be the ClassStr
 without the TypeStr in the end.
+
 
 ```python
 #ImportModules
@@ -270,7 +271,6 @@ SYS._attest(
 #Print
 
 
-
 ```
 
 
@@ -280,9 +280,9 @@ SYS._attest(
 
 *****Start of the Attest *****
 
-MyFolderer is < (FoldererClass), 4391089040>
+MyFolderer is < (FoldererClass), 4511429712>
    /{
-   /  '<New><Instance>IdInt' : 4391089040
+   /  '<New><Instance>IdInt' : 4511429712
    /  '<Spe><Class>FolderedNameStr' :
    /  '<Spe><Instance>FolderedDirKeyStrsList' : []
    /  '<Spe><Instance>FolderedModuleStr' :

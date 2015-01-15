@@ -1837,7 +1837,7 @@ class LoaderClass(BaseClass):
 #&lt;/DefineClass&gt;
 </code></pre>
 <p><small>
-View the Loader sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Interfacers/Loader">Github</a>
+View the Loader sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Loader">Github</a>
 </small></p>
 </div>
 </div>
@@ -1904,9 +1904,9 @@ In&nbsp;[3]:
 
 *****Start of the Attest *****
 
-MyLoader is &lt; (LoaderClass), 4404028240&gt;
+MyLoader is &lt; (LoaderClass), 4554998800&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4404028240
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4554998800
    /  &apos;&lt;Spe&gt;&lt;Class&gt;LoadingFormatStr&apos; : txt
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;LoadedReadVariable&apos; : hello
    /}

@@ -1,17 +1,4 @@
 
-#Mapper
- @Date : Fri Nov 14 13:20:38 2014
-
-@Author : Erwan Ledoux
-
-
-
-A Mapper instance maps an apply and so "grinds" a MappingArgDictsList to a
-method.
-
-
-
-
 
 <!--
 FrozenIsBool False
@@ -94,10 +81,9 @@ SYS._attest(
 
 *****Start of the Attest *****
 
-MyMapper is < (MapperClass), 4365116752>
+MyMapper is < (MapperClass), 4549669392>
    /{
-   /  '<New><Instance>ApplyingIsBool' : True
-   /  '<New><Instance>IdString' : 4365116752
+   /  '<New><Instance>IdInt' : 4549669392
    /  '<New><Instance>MyFloat' : 0.1
    /  '<New><Instance>MyInt' : 0
    /  '<New><Instance>MyNotLostStr' : ben he
@@ -105,10 +91,10 @@ MyMapper is < (MapperClass), 4365116752>
    /  '<New><Instance>MyThirdStr' : GutenTag
    /  '<Spe><Instance>MappedVariablesList' :
    /   /[
-   /   /  0 : {...}< (MapperClass), 4365116752>
-   /   /  1 : {...}< (MapperClass), 4365116752>
-   /   /  2 : {...}< (MapperClass), 4365116752>
-   /   /  3 : {...}< (MapperClass), 4365116752>
+   /   /  0 : {...}< (MapperClass), 4549669392>
+   /   /  1 : {...}< (MapperClass), 4549669392>
+   /   /  2 : {...}< (MapperClass), 4549669392>
+   /   /  3 : {...}< (MapperClass), 4549669392>
    /   /]
    /  '<Spe><Instance>MappingApplyMethodStr' : __setitem__
    /  '<Spe><Instance>MappingArgDictsList' :

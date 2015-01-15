@@ -1851,7 +1851,7 @@ class StatuserClass(BaseClass):
 #&lt;/DefineClass&gt;
 </code></pre>
 <p><small>
-View the Statuser sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Interfacers/Statuser">Github</a>
+View the Statuser sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Statuser">Github</a>
 </small></p>
 </div>
 </div>
@@ -1902,13 +1902,13 @@ In&nbsp;[2]:
 
 *****Start of the Attest *****
 
-MyStatuser is &lt; (StatuserClass), 4403921040&gt;
+MyStatuser is &lt; (StatuserClass), 4554871120&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4403921040
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;StatusedIdStrsList&apos; : [&apos;1467&apos;]
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;StatusedLineStrsList&apos; : [&apos;  501  1467   334   0  6:18PM ttys000    0:00.43 /usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Versions/2.7/Resources/Python.app/Contents/MacOS/Python inform.py&apos;]
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;StatusedSnapshotStr&apos; :   501  1467   334   0  6:18PM ttys000    0:00.43 /usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Versions/2.7/Resources/Python.app/Contents/MacOS/Python inform.py
-  501  1599  1597   0  6:18PM ttys000    0:00.00 grep Python
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4554871120
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;StatusedIdStrsList&apos; : [&apos;4489&apos;]
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;StatusedLineStrsList&apos; : [&apos;  501  4489   344   0  3:02PM ttys000    0:00.45 /usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Versions/2.7/Resources/Python.app/Contents/MacOS/Python inform.py&apos;]
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;StatusedSnapshotStr&apos; :   501  4489   344   0  3:02PM ttys000    0:00.45 /usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Versions/2.7/Resources/Python.app/Contents/MacOS/Python inform.py
+  501  4621  4619   0  3:02PM ttys000    0:00.00 grep Python
 
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;StatusingProcessStr&apos; : Python
    /}

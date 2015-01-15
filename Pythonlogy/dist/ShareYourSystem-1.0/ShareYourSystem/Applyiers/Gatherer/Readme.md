@@ -1,17 +1,4 @@
 
-#Gatherer
- @Date : Fri Nov 14 13:20:38 2014
-
-@Author : Erwan Ledoux
-
-
-
-A Gatherer is able to pick several times and flat all the results in a one
-dimension of ItemTuplesList
-
-
-
-
 
 <!--
 FrozenIsBool False

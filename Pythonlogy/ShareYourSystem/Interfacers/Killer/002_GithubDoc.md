@@ -82,6 +82,6 @@ class KillerClass(BaseClass):
 ```
 
 <small>
-View the Killer sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Interfacers/Killer)
+View the Killer sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Killer)
 </small>
 

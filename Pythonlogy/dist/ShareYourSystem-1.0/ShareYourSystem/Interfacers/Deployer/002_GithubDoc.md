@@ -126,6 +126,6 @@ class DeployerClass(BaseClass):
 ```
 
 <small>
-View the Deployer sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Interfacers/Deployer)
+View the Deployer sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Deployer)
 </small>
 

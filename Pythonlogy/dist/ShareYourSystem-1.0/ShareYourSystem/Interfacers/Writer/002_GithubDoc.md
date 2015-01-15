@@ -144,6 +144,6 @@ class WriterClass(BaseClass):
 ```
 
 <small>
-View the Writer sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Interfacers/Writer)
+View the Writer sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Writer)
 </small>
 
