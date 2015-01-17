@@ -1,14 +1,27 @@
 
+
+<!--
+FrozenIsBool False
+-->
+
 #Appender
- @Date : Fri Nov 14 13:20:38 2014
 
-@Author : Erwan Ledoux
+##Doc
+----
 
 
-
-An Appender append by doing a set in a NodedOrderedDict thanks to the
+>
+> An Appender append by doing a set in a NodedOrderedDict thanks to the
 <AppendedNodeCollectionStr><AppendedNodeKeyStr>
+>
+>
 
+----
+
+<small>
+View the Appender notebook on [NbViewer](http://nbviewer.ipython.org/url/shareyo
+ursystem.ouvaton.org/Appender.ipynb)
+</small>
 
 
 
@@ -17,8 +30,182 @@ An Appender append by doing a set in a NodedOrderedDict thanks to the
 FrozenIsBool False
 -->
 
-View the Appender sources on [Github](https://github.com/Ledoux/ShareYourSystem/
-tree/master/ShareYourSystem/Noders/Installer)
+##Code
+
+----
+
+<ClassDocStr>
+
+----
+
+```python
+# -*- coding: utf-8 -*-
+"""
+
+
+<DefineSource>
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+</DefineSource>
+
+
+An Appender append by doing a set in a NodedOrderedDict thanks to the
+<AppendedNodeCollectionStr><AppendedNodeKeyStr>
+
+"""
+
+
+#<DefineAugmentation>
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Noders.Noder"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#</DefineAugmentation>
+
+#<ImportSpecificModules>
+import collections
+
+from ShareYourSystem.Applyiers import Updater
+Noder=BaseModule
+#</ImportSpecificModules>
+
+#<DefineClass>
+@DecorationClass()
+class AppenderClass(BaseClass):
+
+        #Definition
+        RepresentingKeyStrsList=[
+'AppendingCollectionVariable',
+'AppendedNodeCollectionStr',
+'AppendedNodeKeyStr'
+                                                                ]
+
+        def default_init(self,
+_AppendingCollectionVariable=None,
+                                                _AppendedNodeCollectionStr="",
+                                                _AppendedNodeKeyStr="",
+                                                **_KwargVariablesDict
+                                        ):
+
+                #Call the parent __init__ method
+                BaseClass.__init__(self,**_KwargVariablesDict)
+
+        def do_append(self):
+                """ """
+
+                #debug
+                '''
+                self.debug('self.AppendingCollectionVariable is
+'+str(self.AppendingCollectionVariable))
+                '''
+
+                #TuplesList Case
+                if SYS.getIsTuplesListBool(self.AppendingCollectionVariable):
+
+                        #debug
+                        '''
+                        self.debug('This is a tuples list')
+                        '''
+
+                        #Definition the KeyStrsList
+AppendedKeyStrsList=SYS.unzip(self.AppendingCollectionVariable,[0])
+
+                        #Look for an AppendingNodeCollectionStr
+                        try:
+NodeCollectionStrIndexInt=AppendedKeyStrsList.index(
+                                        "NodeCollectionStr"
+                                )
+self.AppendedNodeCollectionStr=self.AppendingCollectionVariable[
+                                        NodeCollectionStrIndexInt
+                                ][1]
+
+                                '''
+#self.AppendedKeyStrKeyStr='Noded'+self.AppendedNodeCollectionStr+'KeyStr'
+                                try:
+AppendedKeyStrIndexInt=AppendedKeyStrsList.index(
+                                                self.AppendedKeyStrKeyStr
+                                        )
+self.AppendedKeyStr=self.AppendingCollectionVariable[KeyStrIndexInt][1]
+                                except:
+                                        pass
+                                '''
+                                NodeKeyStrIndexInt=AppendedKeyStrsList.index(
+                                        "NodeKeyStr"
+                                )
+self.AppendedNodeKeyStr=self.AppendingCollectionVariable[
+                                        NodeKeyStrIndexInt
+                                ][1]
+
+                        except:
+                                pass
+
+                else:
+
+                        #Objects Case
+                        if "AppenderClass" in map(
+                                                        lambda __Class:
+                                                        __Class.__name__,
+type(self.AppendingCollectionVariable).__mro__
+                                                        ):
+
+                                #debug
+                                '''
+                                self.debug('This is a derived object from an
+Appender')
+                                '''
+
+                                #set
+AppendedDict=self.AppendingCollectionVariable.__dict__
+
+                        #dict Case
+                        elif type(self.AppendingCollectionVariable) in
+[dict,collections.OrderedDict]:
+                                AppendedDict=self.AppendingCollectionVariable
+
+                        try:
+
+                                #set
+self.AppendedNodeCollectionStr=AppendedDict["NodeCollectionStr"]
+                                self.AppendedNodeKeyStr=AppendedDict[
+                                                'NodeKeyStr'
+                                ]
+
+                        except:
+                                pass
+
+                #Init the SettingVariable and Add the NodifyingStr
+                AppendedSettingKeyVariable=Noder.NodingPrefixGetStr+self.Appende
+dNodeCollectionStr+Noder.NodingSuffixGetStr+self.AppendedNodeKeyStr
+
+                #debug
+                self.debug([
+                                                ('self.',self,[
+        'AppendedNodeCollectionStr',
+        'AppendedNodeKeyStr'
+])
+                                        ]
+                                )
+
+                #Then set
+                if
+AppendedSettingKeyVariable!=Noder.NodingPrefixGetStr+Noder.NodingSuffixGetStr:
+                        self.__setitem__(
+AppendedSettingKeyVariable,
+self.AppendingCollectionVariable
+                                                        )
+
+                #Return self
+                #return self
+
+#</DefineClass>
+
+```
+
+<small>
+View the Appender sources on <a href="https://github.com/Ledoux/ShareYourSystem/
+tree/master/Pythonlogy/ShareYourSystem/Noders/Appender"
+target="_blank">Github</a>
+</small>
 
 
 
@@ -88,114 +275,75 @@ SYS._attest(
 ```console
 >>>
 
-                                                                    xxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-////////////////////////////////
-Doer/__init__.py do
-                                                                    From
-<string> superDo_debug | Appender/__init__.py do_append | Doer/__init__.py do |
-<string> superDo_append | Watcher/__init__.py watch | <string>
-watch_superDo_append | <string> <module> | <string> <module> | site-
-packages/six.py exec_ | Celler/__init__.py do_cell | Doer/__init__.py do |
-<string> superDo_cell | Watcher/__init__.py watch | <string> watch_superDo_cell
-| Notebooker/__init__.py do_notebook | Doer/__init__.py do | <string>
-superDo_notebook | Watcher/__init__.py watch | <string> watch_superDo_notebook |
-Readmer/__init__.py do_readme | Doer/__init__.py do | <string> superDo_readme |
-Watcher/__init__.py watch | <string> watch_superDo_readme |
-python2.7/posixpath.py walk | python2.7/posixpath.py walk | Directer/__init__.py
-do_direct | Doer/__init__.py do | <string> superDo_direct | Watcher/__init__.py
-watch | <string> watch_superDo_direct | Installer/__init__.py do_install |
-Doer/__init__.py do | <string> superDo_install | Watcher/__init__.py watch |
-<string> watch_superDo_install | ShareYourSystem/Install.py <module>
-////////////////////////////////
+                    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                    ////////////////////////////////
+                    Appender/__init__.py do_append
+                    From Appender/__init__.py do_append | site-packages/six.py
+exec_ | Celler/__init__.py do_cell | Notebooker/__init__.py do_notebook |
+Informer/__init__.py do_inform | inform.py <module>
+                    ////////////////////////////////
 
-                                                                    l.180 :
-                                                                    *****
-                                                                    I am with
-[('NodeKeyStr', '')]
-                                                                    *****
-self.AppendedNodeCollectionStr is Tree
-self.AppendedNodeKeyStr is MyTuplesList
+                    l.138 :
+                    *****
+                    I am with [('NodeKeyStr', 'TopAppender')]
+                    *****
+                    self.AppendedNodeCollectionStr is Tree
+                    self.AppendedNodeKeyStr is MyTuplesList
 
-                                                                    xxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 
-                                                                    xxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-////////////////////////////////
-Doer/__init__.py do
-                                                                    From
-<string> superDo_debug | Appender/__init__.py do_append | Doer/__init__.py do |
-<string> superDo_append | Watcher/__init__.py watch | <string>
-watch_superDo_append | <string> <module> | <string> <module> | site-
-packages/six.py exec_ | Celler/__init__.py do_cell | Doer/__init__.py do |
-<string> superDo_cell | Watcher/__init__.py watch | <string> watch_superDo_cell
-| Notebooker/__init__.py do_notebook | Doer/__init__.py do | <string>
-superDo_notebook | Watcher/__init__.py watch | <string> watch_superDo_notebook |
-Readmer/__init__.py do_readme | Doer/__init__.py do | <string> superDo_readme |
-Watcher/__init__.py watch | <string> watch_superDo_readme |
-python2.7/posixpath.py walk | python2.7/posixpath.py walk | Directer/__init__.py
-do_direct | Doer/__init__.py do | <string> superDo_direct | Watcher/__init__.py
-watch | <string> watch_superDo_direct | Installer/__init__.py do_install |
-Doer/__init__.py do | <string> superDo_install | Watcher/__init__.py watch |
-<string> watch_superDo_install | ShareYourSystem/Install.py <module>
-////////////////////////////////
+                    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                    ////////////////////////////////
+                    Appender/__init__.py do_append
+                    From Appender/__init__.py do_append | site-packages/six.py
+exec_ | Celler/__init__.py do_cell | Notebooker/__init__.py do_notebook |
+Informer/__init__.py do_inform | inform.py <module>
+                    ////////////////////////////////
 
-                                                                    l.180 :
-                                                                    *****
-                                                                    I am with
-[('NodeKeyStr', '')]
-                                                                    *****
-self.AppendedNodeCollectionStr is Tree
-self.AppendedNodeKeyStr is MyDict
+                    l.138 :
+                    *****
+                    I am with [('NodeKeyStr', 'TopAppender')]
+                    *****
+                    self.AppendedNodeCollectionStr is Tree
+                    self.AppendedNodeKeyStr is MyDict
 
-                                                                    xxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 
-                                                                    xxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-////////////////////////////////
-Doer/__init__.py do
-                                                                    From
-<string> superDo_debug | Appender/__init__.py do_append | Doer/__init__.py do |
-<string> superDo_append | Watcher/__init__.py watch | <string>
-watch_superDo_append | <string> <module> | <string> <module> | site-
-packages/six.py exec_ | Celler/__init__.py do_cell | Doer/__init__.py do |
-<string> superDo_cell | Watcher/__init__.py watch | <string> watch_superDo_cell
-| Notebooker/__init__.py do_notebook | Doer/__init__.py do | <string>
-superDo_notebook | Watcher/__init__.py watch | <string> watch_superDo_notebook |
-Readmer/__init__.py do_readme | Doer/__init__.py do | <string> superDo_readme |
-Watcher/__init__.py watch | <string> watch_superDo_readme |
-python2.7/posixpath.py walk | python2.7/posixpath.py walk | Directer/__init__.py
-do_direct | Doer/__init__.py do | <string> superDo_direct | Watcher/__init__.py
-watch | <string> watch_superDo_direct | Installer/__init__.py do_install |
-Doer/__init__.py do | <string> superDo_install | Watcher/__init__.py watch |
-<string> watch_superDo_install | ShareYourSystem/Install.py <module>
-////////////////////////////////
+                    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                    ////////////////////////////////
+                    Appender/__init__.py do_append
+                    From Appender/__init__.py do_append | site-packages/six.py
+exec_ | Celler/__init__.py do_cell | Notebooker/__init__.py do_notebook |
+Informer/__init__.py do_inform | inform.py <module>
+                    ////////////////////////////////
 
-                                                                    l.180 :
-                                                                    *****
-                                                                    I am with
-[('NodeKeyStr', '')]
-                                                                    *****
-self.AppendedNodeCollectionStr is Tree
-self.AppendedNodeKeyStr is MyAppender
+                    l.138 :
+                    *****
+                    I am with [('NodeKeyStr', 'TopAppender')]
+                    *****
+                    self.AppendedNodeCollectionStr is Tree
+                    self.AppendedNodeKeyStr is MyAppender
 
-                                                                    xxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 
 
 *****Start of the Attest *****
 
-MyAppender is < (AppenderClass), 4556812112>
+MyAppender is < (AppenderClass), 4556357392>
    /{
-   /  '<New><Instance>IdStr' : 4556812112
-   /  '<New><Instance>NodeCollectionStr' : Global
+   /  '<New><Instance>IdInt' : 4556357392
+   /  '<New><Instance>NodeCollectionStr' : Globals
    /  '<New><Instance>NodeIndexInt' : -1
-   /  '<New><Instance>NodeKeyStr' :
+   /  '<New><Instance>NodeKeyStr' : TopAppender
    /  '<New><Instance>NodePointDeriveNoder' : None
    /  '<New><Instance>NodePointOrderedDict' : None
    /  '<New><Instance>TreeCollectionOrderedDict' :
@@ -212,17 +360,16 @@ MyAppender is < (AppenderClass), 4556812112>
    /   /   /  'NodeCollectionStr' : Tree
    /   /   /  'NodeKeyStr' : MyDict
    /   /   /}
-   /   /  'MyAppender' : < (AppenderClass), 4556811024>
+   /   /  'MyAppender' : < (AppenderClass), 4556355536>
    /   /   /{
-   /   /   /  '<New><Instance>ApplyingIsBool' : True
-   /   /   /  '<New><Instance>IdStr' : 4556811024
+   /   /   /  '<New><Instance>IdInt' : 4556355536
    /   /   /  '<New><Instance>NodeCollectionStr' : Tree
    /   /   /  '<New><Instance>NodeIndexInt' : 2
    /   /   /  '<New><Instance>NodeKeyStr' : MyAppender
    /   /   /  '<New><Instance>NodePointDeriveNoder' : {...}< (AppenderClass),
-4556812112>
+4556357392>
    /   /   /  '<New><Instance>NodePointOrderedDict' : {...}< (OrderedDict),
-4556800968>
+4556379080>
    /   /   /  '<Spe><Class>AppendedNodeCollectionStr' :
    /   /   /  '<Spe><Class>AppendedNodeKeyStr' :
    /   /   /  '<Spe><Class>AppendingCollectionVariable' : None
@@ -231,7 +378,7 @@ MyAppender is < (AppenderClass), 4556812112>
    /  '<Spe><Instance>AppendedNodeCollectionStr' : Tree
    /  '<Spe><Instance>AppendedNodeKeyStr' : MyAppender
    /  '<Spe><Instance>AppendingCollectionVariable' : {...}< (AppenderClass),
-4556811024>
+4556355536>
    /}
 
 *****End of the Attest *****

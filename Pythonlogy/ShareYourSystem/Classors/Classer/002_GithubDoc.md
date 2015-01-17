@@ -138,6 +138,6 @@ class ClasserClass(BaseClass):
 ```
 
 <small>
-View the Classer sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Classors/Classer)
+View the Classer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Classors/Classer" target="_blank">Github</a>
 </small>
 

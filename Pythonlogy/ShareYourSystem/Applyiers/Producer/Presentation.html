@@ -1753,7 +1753,90 @@ View the Producer notebook on <a href="http://nbviewer.ipython.org/url/shareyour
 FrozenIsBool False
 -->
 
-<p>View the Producer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Applyiers/Installer">Github</a></p>
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+Producer instances
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Applyiers.Pusher"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+from ShareYourSystem.Noders import Noder
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class ProducerClass(BaseClass):
+
+    #Definition
+    RepresentingKeyStrsList=[    
+                                    'ProducingCollectionKeyStrsList',
+                                    'ProducingPushClass',
+                                    'ProducingUpdateVariable',
+                                    'ProducedPushList'
+                                ]
+
+    def default_init(self,
+                        _ProducingCollectionKeyStrsList=None,
+                        _ProducingPushClass=Noder.NoderClass,
+                        _ProducingUpdateVariable=None,
+                        _ProducedPushList=None,
+                        **_KwargVariablesDict
+                    ):
+
+        #Call the parent init method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def do_produce(self):
+
+        #set
+        self.ProducedPushList=map(
+                                    lambda __ProducingCollectionKeyStr:
+                                    [
+                                        __ProducingCollectionKeyStr,
+                                        self.ProducingPushClass().update(
+                                            self.ProducingUpdateVariable
+                                        )
+                                    ],
+                                    self.ProducingCollectionKeyStrsList
+                                )
+
+        #debug
+        '''
+        self.debug(('self.',self,['ProducedPushList']))
+        '''
+
+        #push
+        self.push(
+                    _StoreListsList=self.ProducedPushList
+                )
+
+        #Return self
+        #return self
+
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Producer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Applyiers/Producer" target="_blank">Github</a>
+</small></p>
 </div>
 </div>
 </div></section><section>
@@ -1809,9 +1892,9 @@ In&nbsp;[2]:
 
 *****Start of the Attest *****
 
-MyProducer is &lt; (ProducerClass), 4550566288&gt;
+MyProducer is &lt; (ProducerClass), 4556356944&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550566288
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4556356944
    /  &apos;&lt;New&gt;&lt;Instance&gt;NodeCollectionStr&apos; : Globals
    /  &apos;&lt;New&gt;&lt;Instance&gt;NodeIndexInt&apos; : -1
    /  &apos;&lt;New&gt;&lt;Instance&gt;NodeKeyStr&apos; : TopProducer
@@ -1819,30 +1902,30 @@ MyProducer is &lt; (ProducerClass), 4550566288&gt;
    /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : None
    /  &apos;&lt;New&gt;&lt;Instance&gt;NodomeCollectionOrderedDict&apos; : 
    /   /{ 
-   /   /  &apos;FirstNoder&apos; : &lt; (NoderClass), 4550566032&gt;
+   /   /  &apos;FirstNoder&apos; : &lt; (NoderClass), 4556355664&gt;
    /   /   /{ 
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550566032
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4556355664
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;MyInt&apos; : 0
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeCollectionStr&apos; : Nodome
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeIndexInt&apos; : 0
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeKeyStr&apos; : FirstNoder
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (ProducerClass), 4550566288&gt;
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4550549880&gt;
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (ProducerClass), 4556356944&gt;
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4556378784&gt;
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;NodedCollectionIndexInt&apos; : -1
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;NodedCollectionOrderedDict&apos; : None
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;NodedCollectionStr&apos; : 
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;NodedKeyStr&apos; : 
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;NodingCollectionStr&apos; : 
    /   /   /}
-   /   /  &apos;SecondNoder&apos; : &lt; (NoderClass), 4550567376&gt;
+   /   /  &apos;SecondNoder&apos; : &lt; (NoderClass), 4556356880&gt;
    /   /   /{ 
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550567376
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4556356880
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;MyInt&apos; : 0
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeCollectionStr&apos; : Nodome
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeIndexInt&apos; : 1
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeKeyStr&apos; : SecondNoder
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (ProducerClass), 4550566288&gt;
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4550549880&gt;
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (ProducerClass), 4556356944&gt;
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4556378784&gt;
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;NodedCollectionIndexInt&apos; : -1
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;NodedCollectionOrderedDict&apos; : None
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;NodedCollectionStr&apos; : 
@@ -1855,12 +1938,12 @@ MyProducer is &lt; (ProducerClass), 4550566288&gt;
    /   /  0 : 
    /   /   /[
    /   /   /  0 : First
-   /   /   /  1 : {...}&lt; (NoderClass), 4550566032&gt;
+   /   /   /  1 : {...}&lt; (NoderClass), 4556355664&gt;
    /   /   /]
    /   /  1 : 
    /   /   /[
    /   /   /  0 : Second
-   /   /   /  1 : {...}&lt; (NoderClass), 4550567376&gt;
+   /   /   /  1 : {...}&lt; (NoderClass), 4556356880&gt;
    /   /   /]
    /   /]
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;ProducingCollectionKeyStrsList&apos; : [&apos;First&apos;, &apos;Second&apos;]

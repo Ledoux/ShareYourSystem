@@ -1753,7 +1753,75 @@ View the Weaver notebook on <a href="http://nbviewer.ipython.org/url/shareyoursy
 FrozenIsBool False
 -->
 
-<p>View the Weaver sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Applyiers/Installer">Github</a></p>
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+A Weaver
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Applyiers.Linker"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class WeaverClass(BaseClass):
+
+    #Definition
+    RepresentingKeyStrsList=[
+                                    'WeavingInteractTuplesList'
+                                ]
+
+    def default_init(self,
+                _WeavingInteractTuplesList=None,
+                **_KwargVariablesDict):
+
+        #Call the parent __init__ method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def do_weave(self):
+        """ """
+
+        #debug
+        '''
+        self.debug("self.UpdatingItemVariable is "+Representer.represent(
+            self.UpdatingItemVariable,**{'RepresentingAlineaIsBool':False}))
+        '''
+
+        #Apply
+        self.map('interact',map(
+                                    lambda __WeavingInteractTuple:
+                                    {'LiargVariablesList':__WeavingInteractTuple},
+                                    self.WeavingInteractTuplesList
+                                )
+        )
+
+        #Return
+        #return self
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Weaver sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Applyiers/Weaver" target="_blank">Github</a>
+</small></p>
 </div>
 </div>
 </div></section><section>
@@ -1853,11 +1921,11 @@ In&nbsp;[3]:
 
 *****Start of the Attest *****
 
-MyWeaver is &lt; (WeaverClass), 4550545360&gt;
+MyWeaver is &lt; (WeaverClass), 4556355920&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;0Pointer&apos; : &lt; (PointerClass), 4550544976&gt;
+   /  &apos;&lt;New&gt;&lt;Instance&gt;0Pointer&apos; : &lt; (PointerClass), 4556365264&gt;
    /   /{ 
-   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550544976
+   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4556365264
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointedBackSetStr&apos; : 
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointedGetVariable&apos; : None
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointedLocalSetStr&apos; : 
@@ -1866,9 +1934,9 @@ MyWeaver is &lt; (WeaverClass), 4550545360&gt;
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointingGetVariable&apos; : None
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointingSetPathStr&apos; : 
    /   /}
-   /  &apos;&lt;New&gt;&lt;Instance&gt;1Pointer&apos; : &lt; (PointerClass), 4550544912&gt;
+   /  &apos;&lt;New&gt;&lt;Instance&gt;1Pointer&apos; : &lt; (PointerClass), 4555019024&gt;
    /   /{ 
-   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550544912
+   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4555019024
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointedBackSetStr&apos; : 
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointedGetVariable&apos; : None
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointedLocalSetStr&apos; : 
@@ -1877,9 +1945,9 @@ MyWeaver is &lt; (WeaverClass), 4550545360&gt;
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointingGetVariable&apos; : None
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointingSetPathStr&apos; : 
    /   /}
-   /  &apos;&lt;New&gt;&lt;Instance&gt;2Pointer&apos; : &lt; (PointerClass), 4550542224&gt;
+   /  &apos;&lt;New&gt;&lt;Instance&gt;2Pointer&apos; : &lt; (PointerClass), 4555019536&gt;
    /   /{ 
-   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550542224
+   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4555019536
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointedBackSetStr&apos; : 
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointedGetVariable&apos; : None
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointedLocalSetStr&apos; : 
@@ -1888,16 +1956,16 @@ MyWeaver is &lt; (WeaverClass), 4550545360&gt;
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointingGetVariable&apos; : None
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointingSetPathStr&apos; : 
    /   /}
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550545360
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4556355920
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;WeavingInteractTuplesList&apos; : 
    /   /[
    /   /  0 : 
    /   /   /(
    /   /   /  0 : [&apos;0Pointer&apos;, &apos;2Pointer&apos;]
    /   /   /  1 : 0-2Pointer
-   /   /   /  2 : &lt; (PointerClass), 4550545296&gt;
+   /   /   /  2 : &lt; (PointerClass), 4556222416&gt;
    /   /   /   /{ 
-   /   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550545296
+   /   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4556222416
    /   /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointedBackSetStr&apos; : 
    /   /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointedGetVariable&apos; : None
    /   /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointedLocalSetStr&apos; : 
@@ -1911,9 +1979,9 @@ MyWeaver is &lt; (WeaverClass), 4550545360&gt;
    /   /   /(
    /   /   /  0 : [&apos;1Pointer&apos;, &apos;0Pointer&apos;]
    /   /   /  1 : 1-0Pointer
-   /   /   /  2 : &lt; (PointerClass), 4550543184&gt;
+   /   /   /  2 : &lt; (PointerClass), 4556221648&gt;
    /   /   /   /{ 
-   /   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550543184
+   /   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4556221648
    /   /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointedBackSetStr&apos; : 
    /   /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointedGetVariable&apos; : None
    /   /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointedLocalSetStr&apos; : 
@@ -1927,9 +1995,9 @@ MyWeaver is &lt; (WeaverClass), 4550545360&gt;
    /   /   /(
    /   /   /  0 : [&apos;2Pointer&apos;, &apos;1Pointer&apos;]
    /   /   /  1 : 2-1Pointer
-   /   /   /  2 : &lt; (PointerClass), 4550545232&gt;
+   /   /   /  2 : &lt; (PointerClass), 4556355024&gt;
    /   /   /   /{ 
-   /   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550545232
+   /   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4556355024
    /   /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointedBackSetStr&apos; : 
    /   /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointedGetVariable&apos; : None
    /   /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointedLocalSetStr&apos; : 

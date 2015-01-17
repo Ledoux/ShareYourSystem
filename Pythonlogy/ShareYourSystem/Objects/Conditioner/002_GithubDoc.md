@@ -88,6 +88,6 @@ class ConditionerClass(BaseClass):
 ```
 
 <small>
-View the Conditioner sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Objects/Conditioner)
+View the Conditioner sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Objects/Conditioner" target="_blank">Github</a>
 </small>
 

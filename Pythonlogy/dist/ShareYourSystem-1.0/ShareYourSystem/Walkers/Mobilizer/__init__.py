@@ -20,7 +20,6 @@ SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
-
 from ShareYourSystem.Classors import Deriver
 from ShareYourSystem.Noders import Noder
 #</ImportSpecificModules>
@@ -115,10 +114,11 @@ class MobilizerClass(BaseClass):
 		#Split the different names into different collections
 		map(
 				lambda __RecruitedFlatCollectVariable:
-				self.catch(
-					__RecruitedFlatCollectVariable,
-					__RecruitedFlatCollectVariable.__class__.NameStr+self.MobilizingCollectionSuffixStr,
-				),
+				self.grasp(
+						__RecruitedFlatCollectVariable
+					).catch(
+						__RecruitedFlatCollectVariable.__class__.NameStr+self.MobilizingCollectionSuffixStr,
+					),
 				self.RecruitedFlatCumulateVariablesList
 			)
 #</DefineClass>

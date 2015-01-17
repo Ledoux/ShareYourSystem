@@ -109,8 +109,9 @@ len(self.StatusedIdStrsList)>1:
 ```
 
 <small>
-View the Killer sources on [Github](https://github.com/Ledoux/ShareYourSystem/tr
-ee/master/Pythonlogy/ShareYourSystem/Interfacers/Killer)
+View the Killer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tr
+ee/master/Pythonlogy/ShareYourSystem/Interfacers/Killer"
+target="_blank">Github</a>
 </small>
 
 
@@ -151,9 +152,9 @@ SYS._attest(
 
 *****Start of the Attest *****
 
-MyKiller is < (KillerClass), 4524157712>
+MyKiller is < (KillerClass), 4554095568>
    /{
-   /  '<New><Instance>IdInt' : 4524157712
+   /  '<New><Instance>IdInt' : 4554095568
    /}
 
 *****End of the Attest *****

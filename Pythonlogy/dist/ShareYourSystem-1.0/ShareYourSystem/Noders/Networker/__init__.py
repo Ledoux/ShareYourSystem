@@ -30,7 +30,7 @@ class NetworkerClass(BaseClass):
 	#Definition
 	RepresentingKeyStrsList=[
 									'NetworkedDeriveConnectersList',
-									'NetworkedConnectionTuplesList'
+									'NetworkedGraphTuplesList'
 								]
 
 	#@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.__init__}]})
@@ -39,7 +39,7 @@ class NetworkerClass(BaseClass):
 						_NetworkingCatchStr="Post",
 						_NetworkingAttentionStr="Pre",
 						_NetworkedDeriveConnectersList=None,
-						_NetworkedConnectionTuplesList=None,
+						_NetworkedGraphTuplesList=None,
 						**_KwargVariablesDict
 					):
 
@@ -81,7 +81,7 @@ class NetworkerClass(BaseClass):
 		'''
 		
 		#map a connect
-		self.NetworkedConnectionTuplesList=map(
+		self.NetworkedGraphTuplesList=map(
 				lambda __NodedDeriveConnecter:
 				(
 					__NodedDeriveConnecter,
@@ -96,12 +96,7 @@ class NetworkerClass(BaseClass):
 							('NetworkCatchStr',self.NetworkingCatchStr),
 							('NetworkAttentionStr',self.NetworkingAttentionStr)
 						]
-					).pick(
-						[
-							'ConnectedAttentionDeriveConnectersList',
-							'ConnectedDerivePointersList'
-						]
-					)
+					).ConnectedDerivePointersList
 				),
 				self.NetworkedDeriveConnectersList
 		)

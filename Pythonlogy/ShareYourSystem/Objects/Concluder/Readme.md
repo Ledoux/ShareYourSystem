@@ -119,8 +119,9 @@ __ConcludingConditionTuple[0],
 ```
 
 <small>
-View the Concluder sources on [Github](https://github.com/Ledoux/ShareYourSystem
-/tree/master/ShareYourSystem/Objects/Concluder)
+View the Concluder sources on <a href="https://github.com/Ledoux/ShareYourSystem
+/tree/master/Pythonlogy/ShareYourSystem/Objects/Concluder"
+target="_blank">Github</a>
 </small>
 
 
@@ -180,9 +181,9 @@ SYS._attest(
 
 *****Start of the Attest *****
 
-MyConcluder is < (ConcluderClass), 4457587856>
+MyConcluder is < (ConcluderClass), 4537034448>
    /{
-   /  '<New><Instance>IdInt' : 4457587856
+   /  '<New><Instance>IdInt' : 4537034448
    /  '<Spe><Instance>ConcludedConditionIsBoolsList' :
    /   /[
    /   /  0 : True
@@ -207,7 +208,7 @@ MyConcluder is < (ConcluderClass), 4457587856>
    /   /  2 :
    /   /   /(
    /   /   /  0 : 1
-   /   /   /  1 : {...}< (builtin_function_or_method), 4443314656>
+   /   /   /  1 : {...}< (builtin_function_or_method), 4522748384>
    /   /   /  2 : 1
    /   /   /)
    /   /]

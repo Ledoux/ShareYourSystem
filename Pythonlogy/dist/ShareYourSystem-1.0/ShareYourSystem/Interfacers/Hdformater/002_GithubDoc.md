@@ -164,6 +164,6 @@ class HdformaterClass(BaseClass):
 ```
 
 <small>
-View the Hdformater sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Hdformater)
+View the Hdformater sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Hdformater" target="_blank">Github</a>
 </small>
 

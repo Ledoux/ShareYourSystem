@@ -215,6 +215,6 @@ class SharerClass(BaseClass):
 ```
 
 <small>
-View the Sharer sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Itemizers/Sharer)
+View the Sharer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Itemizers/Sharer" target="_blank">Github</a>
 </small>
 

@@ -1824,7 +1824,7 @@ class PrinterClass(BaseClass):
 #&lt;/DefineClass&gt;
 </code></pre>
 <p><small>
-View the Printer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Objects/Printer">Github</a>
+View the Printer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Objects/Printer" target="_blank">Github</a>
 </small></p>
 </div>
 </div>
@@ -1888,9 +1888,9 @@ hello
 
 *****Start of the Attest *****
 
-MyPrinter is &lt; (PrinterClass), 4457658960&gt;
+MyPrinter is &lt; (PrinterClass), 4537218384&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4457658960
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4537218384
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;PrintingVariable&apos; : hello
    /}
 

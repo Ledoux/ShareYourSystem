@@ -1755,7 +1755,179 @@ View the Applyier notebook on <a href="http://nbviewer.ipython.org/url/shareyour
 FrozenIsBool False
 -->
 
-<p>View the Applyier sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Applyiers/Installer">Github</a></p>
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+An Applyier apply a function thanks to a ApplyingMethodStr and an ApplyingArgDict.
+This property is going to be useful to begin to establish mappping methods and 
+commanding calls in deep structures.
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Itemizers.Executer"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+import copy
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class ApplyierClass(BaseClass):
+
+    #Definition
+    RepresentingKeyStrsList=[
+                                    #'ApplyingMethodStr',
+                                    #'ApplyingArgDict',
+                                    #'ApplyingIsBool',
+                                    #'AppliedMethod',
+                                    #'AppliedOutputVariable'
+                                ]
+
+    def default_init(self,
+                _ApplyingMethodStr="",
+                _ApplyingArgDict=None,
+                _ApplyingIsBool=False,
+                _AppliedMethod=None,
+                _AppliedOutputVariable=None,
+                **_KwargVariablesDict
+            ):
+
+        #Call the parent __init__ method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def do_apply(self):
+        """ """
+
+        #debug
+        '''
+        self.debug(
+                    ('self.',self,[
+                                    'ApplyingMethodStr',
+                                    'ApplyingArgDict'
+                                ])
+        )
+        '''
+
+        #set
+        self.AppliedMethod=getattr(self,self.ApplyingMethodStr)
+
+        #debug
+        ''''
+        self.debug(
+                    ('self.',self,[
+                                    'AppliedMethod'
+                                ])
+            )
+        '''
+
+        #Check
+        if self.AppliedMethod!=None:
+
+            #debug
+            '''
+            self.debug(
+                        [
+                            'AppliedMethod is good, We are going to apply',
+                            ('self.',self,['AppliedMethod','ApplyingArgDict'])
+                        ]
+                    )
+            '''
+
+            if 'KwargVariablesDict' in self.ApplyingArgDict:
+
+                #debug
+                '''
+                self.debug('We apply with a KwargVariablesDict')
+                '''
+
+                #Call the AppliedMethod
+                self.AppliedOutputVariable=self.AppliedMethod(
+                                *self.ApplyingArgDict['LiargVariablesList'],
+                                **self.ApplyingArgDict['KwargVariablesDict']
+                                ) 
+            else:
+
+                #debug
+                '''
+                self.debug('We apply without a KwargVariablesDict')
+                '''
+
+
+
+                #Call
+                self.AppliedOutputVariable=self.AppliedMethod(
+                    *self.ApplyingArgDict['LiargVariablesList']
+                    )
+
+        #Return self
+        #return self
+
+    def mimic_set(self):
+
+        #debug
+        '''
+        self.debug(('self.',self,['SettingKeyVariable','SettingValueVariable']))
+        '''
+
+        #Definition
+        OutputDict={'HookingIsBool':True}
+
+        #Check
+        if self.SettingKeyVariable!="":
+
+            #Call for a hook
+            if (self.SettingKeyVariable[0].isalpha() or self.SettingKeyVariable[:2]=="__"
+                ) and self.SettingKeyVariable[0].lower()==self.SettingKeyVariable[0]:
+
+                #debug
+                '''
+                self.debug(
+                            [
+                                ('This is a set that calls a method so this is an apply...'),
+                                ('self.',self,[
+                                                'SettingKeyVariable',
+                                                'SettingValueVariable'
+                                                ]
+                                )
+                            ]
+                        )
+                '''
+
+                #Apply
+                self.ApplyingIsBool=False
+                self.apply(
+                                self.SettingKeyVariable,
+                                self.SettingValueVariable
+                            )
+
+                #Return
+                OutputDict['HookingIsBool']=False
+                #&lt;Hook&gt;return OutputDict
+
+        if OutputDict['HookingIsBool']:
+            BaseClass.set(self)
+
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Applyier sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Applyiers/Applyier" target="_blank">Github</a>
+</small></p>
 </div>
 </div>
 </div></section><section>
@@ -1841,9 +2013,9 @@ In&nbsp;[3]:
 
 *****Start of the Attest *****
 
-MyApplyier is &lt; (ApplyierClass), 4550543888&gt;
+MyApplyier is &lt; (ApplyierClass), 4556354128&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550543888
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4556354128
    /  &apos;&lt;New&gt;&lt;Instance&gt;MyNotLostStr&apos; : ben he
    /  &apos;&lt;New&gt;&lt;Instance&gt;MyStr&apos; : Hello
    /}
@@ -1896,7 +2068,108 @@ View the Mapper notebook on <a href="http://nbviewer.ipython.org/url/shareyoursy
 FrozenIsBool False
 -->
 
-<p>View the Mapper sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Applyiers/Installer">Github</a></p>
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+A Mapper instance maps an apply and so "grinds" a MappingArgDictsList 
+to a method.
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Applyiers.Applyier"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+import copy
+from ShareYourSystem.Functers import Argumenter
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class MapperClass(BaseClass):
+
+    #Definition
+    RepresentingKeyStrsList=[
+                                    'MappingApplyMethodStr',
+                                    'MappingArgDictsList',
+                                    'MappedVariablesList'
+                                ]
+
+    def default_init(self,
+                _MappingApplyMethodStr="",         
+                _MappingArgDictsList=None,         
+                _MappedVariablesList=None,         
+                **_KwargVariablesDict
+                ):
+
+        #Call the parent __init__ method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    #&lt;DefineDoMethods&gt;
+    def do_map(self):
+        """ """
+
+        #debug
+        '''
+        self.debug(
+                    ('self.',self,[
+                                    'MappingMethodStr',
+                                    'MappingArgDictsList'
+                                ])
+            )
+        '''
+
+        #Link to the apply features
+        if hasattr(self,self.MappingApplyMethodStr):
+
+            #set the AppliedMethod
+            self.AppliedMethod=getattr(self,self.MappingApplyMethodStr)
+
+            #set that it is ok
+            self.ApplyingIsBool=True
+
+            #debug
+            '''
+            self.debug(
+                        ('self.',self,[
+                                        'AppliedMethod'
+                                    ])
+                )
+            '''
+
+            #Map the apply
+            self.MappedVariablesList=map(
+                    lambda __MappingArgDict:
+                    self.apply(
+                                self.MappingApplyMethodStr,
+                                __MappingArgDict
+                            ).AppliedOutputVariable,
+                    self.MappingArgDictsList
+                )
+
+        #Return self
+        #return self
+
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Mapper sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Applyiers/Mapper" target="_blank">Github</a>
+</small></p>
 </div>
 </div>
 </div></section><section>
@@ -1988,9 +2261,9 @@ In&nbsp;[7]:
 
 *****Start of the Attest *****
 
-MyMapper is &lt; (MapperClass), 4550544272&gt;
+MyMapper is &lt; (MapperClass), 4556355152&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550544272
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4556355152
    /  &apos;&lt;New&gt;&lt;Instance&gt;MyFloat&apos; : 0.1
    /  &apos;&lt;New&gt;&lt;Instance&gt;MyInt&apos; : 0
    /  &apos;&lt;New&gt;&lt;Instance&gt;MyNotLostStr&apos; : ben he
@@ -1998,10 +2271,10 @@ MyMapper is &lt; (MapperClass), 4550544272&gt;
    /  &apos;&lt;New&gt;&lt;Instance&gt;MyThirdStr&apos; : GutenTag
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MappedVariablesList&apos; : 
    /   /[
-   /   /  0 : {...}&lt; (MapperClass), 4550544272&gt;
-   /   /  1 : {...}&lt; (MapperClass), 4550544272&gt;
-   /   /  2 : {...}&lt; (MapperClass), 4550544272&gt;
-   /   /  3 : {...}&lt; (MapperClass), 4550544272&gt;
+   /   /  0 : {...}&lt; (MapperClass), 4556355152&gt;
+   /   /  1 : {...}&lt; (MapperClass), 4556355152&gt;
+   /   /  2 : {...}&lt; (MapperClass), 4556355152&gt;
+   /   /  3 : {...}&lt; (MapperClass), 4556355152&gt;
    /   /]
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MappingApplyMethodStr&apos; : __setitem__
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MappingArgDictsList&apos; : 
@@ -2064,7 +2337,79 @@ View the Picker notebook on <a href="http://nbviewer.ipython.org/url/shareyoursy
 FrozenIsBool False
 -->
 
-<p>View the Picker sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Applyiers/Installer">Github</a></p>
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+A Picker maps a __getitem__
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Applyiers.Mapper"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass(**{'DoingGetBool':True})
+class PickerClass(BaseClass):
+
+    def default_init(self,
+                _PickingGetKeyVariablesList=None,
+                _PickedGetValueVariablesList=None,
+                **_KwargVariablesDict
+                ):
+
+        #Call the parent init method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def do_pick(self):
+        """Map the __getitem__ to the &lt;_GettingVariablesList&gt;"""
+
+        #debug
+        '''
+        self.debug(('self.',self,['PickingGetKeyVariablesList']))
+        '''
+
+        #Apply __getitem__
+        self.map('__getitem__',map(
+                                    lambda __PickingKeyVariable:
+                                    {'LiargVariablesList':[__PickingKeyVariable]},
+                                    self.PickingGetKeyVariablesList
+                                )
+                    )
+
+        #link with AppliedMappedVariablesList
+        self.PickedGetValueVariablesList=self.MappedVariablesList
+
+        #debug
+        '''
+        self.debug(('self.',self,['PickedGetValueVariablesList']))
+        '''
+
+        #Return AppliedVariablesList
+        return self.PickedGetValueVariablesList
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Picker sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Applyiers/Picker" target="_blank">Github</a>
+</small></p>
 </div>
 </div>
 </div></section><section>
@@ -2155,9 +2500,9 @@ In&nbsp;[11]:
 PickedVariablesList is 
    /[
    /  0 : 0
-   /  1 : &lt; (PickerClass), 4550544528&gt;
+   /  1 : &lt; (PickerClass), 4556355472&gt;
    /   /{ 
-   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550544528
+   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4556355472
    /   /  &apos;&lt;New&gt;&lt;Instance&gt;MyStr&apos; : hello
    /   /}
    /  2 : hello
@@ -2210,7 +2555,136 @@ View the Gatherer notebook on <a href="http://nbviewer.ipython.org/url/shareyour
 FrozenIsBool False
 -->
 
-<p>View the Gatherer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Applyiers/Installer">Github</a></p>
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+A Gatherer is able to pick several times and flat all the results in a one dimension of ItemTuplesList
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Applyiers.Picker"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+import operator
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass(**{'DoingGetBool':True})
+class GathererClass(BaseClass):
+
+    def default_init(self,
+                _GatheringVariablesList=None,
+                _GatheredVariablesList=None,
+                **_KwargVariablesDict
+            ):
+
+        #Call the parent __init__ method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def do_gather(self):
+        """Reduce a map of pick for GatheringVariable being a List or __getitem__ for GatheringVariable being a GettingVariable"""
+
+        #debug
+        '''
+        self.debug("self.GatheringVariablesList is "+str(self.GatheringVariablesList))
+        '''
+
+        #Debug
+        '''
+        for __GatheringVariable in self.GatheringVariablesList:
+
+            if type(__GatheringVariable)==list:
+
+                #Debug 
+                print('This is a list')
+                print('')
+
+                Variable=zip(
+                            __GatheringVariable,
+                            self.pick(__GatheringVariable)
+                        )
+
+
+            else:
+
+                #Debug 
+                print('This is not a list')
+                print('')
+
+                Variable=[
+                    (
+                        __GatheringVariable,
+                        self[__GatheringVariable]
+                    )
+                ]
+
+            #Debug
+            print('l.63 Gatherer')
+            print('Variable is ',Variable)
+            print('')
+        '''
+
+
+        #Definition the PickedOrGettedVariablesList
+        PickedOrGettedVariablesList=map(
+                        lambda __GatheringVariable:
+                        zip(
+                            __GatheringVariable,
+                            self.pick(__GatheringVariable)
+                        )
+                        if type(__GatheringVariable)==list
+                        else [
+                                (
+                                    __GatheringVariable,
+                                    self[__GatheringVariable]
+                                )
+                            ],
+                        self.GatheringVariablesList
+        )
+
+        #debug
+        '''
+        self.debug(('vars ',vars(),['PickedOrGettedVariablesList']))
+        '''
+
+        #Reduce
+        if len(PickedOrGettedVariablesList)&gt;0:
+            self.GatheredVariablesList=reduce(
+                        operator.__add__,
+                        PickedOrGettedVariablesList
+                    )
+        else:
+            self.GatheredVariablesList=[]
+
+        #debug
+        '''
+        self.debug('End of the method')
+        '''
+
+        #Return the reduce
+        return self.GatheredVariablesList
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Gatherer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Applyiers/Gatherer" target="_blank">Github</a>
+</small></p>
 </div>
 </div>
 </div></section><section>
@@ -2356,7 +2830,79 @@ View the Updater notebook on <a href="http://nbviewer.ipython.org/url/shareyours
 FrozenIsBool False
 -->
 
-<p>View the Updater sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Applyiers/Installer">Github</a></p>
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+An Updater maps a __setitem__
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Applyiers.Gatherer"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class UpdaterClass(BaseClass):
+
+    #Definition
+    RepresentingKeyStrsList=[
+                                'UpdatingItemVariable'
+                            ]
+
+    def default_init(self,
+                _UpdatingItemVariable=None,
+                **_KwargVariablesDict):
+
+        #Call the parent __init__ method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def do_update(self):
+        """ """
+
+        #debug
+        '''
+        self.debug("self.UpdatingItemVariable is "+Representer.represent(
+            self.UpdatingItemVariable,**{'RepresentingAlineaIsBool':False}))
+        '''
+
+        #Apply
+        self.map('__setitem__',map(
+                                    lambda __UpdatingItemTuple:
+                                    {'LiargVariablesList':__UpdatingItemTuple},
+                                    self.UpdatingItemVariable.items()
+                                    if hasattr(self.UpdatingItemVariable,'items')
+                                    else (self.UpdatingItemVariable 
+                                        if self.UpdatingItemVariable !=None
+                                        else []
+                                    )
+                                )
+        )
+
+        #Return
+        #return self
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Updater sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Applyiers/Updater" target="_blank">Github</a>
+</small></p>
 </div>
 </div>
 </div></section><section>
@@ -2430,9 +2976,9 @@ In&nbsp;[19]:
 
 *****Start of the Attest *****
 
-MyUpdater is &lt; (UpdaterClass), 4550544592&gt;
+MyUpdater is &lt; (UpdaterClass), 4556354768&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550544592
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4556354768
    /  &apos;&lt;New&gt;&lt;Instance&gt;MyFloat&apos; : 0.2
    /  &apos;&lt;New&gt;&lt;Instance&gt;MyInt&apos; : 0
    /  &apos;&lt;New&gt;&lt;Instance&gt;MyStr&apos; : hello
@@ -2489,7 +3035,75 @@ View the Linker notebook on <a href="http://nbviewer.ipython.org/url/shareyoursy
 FrozenIsBool False
 -->
 
-<p>View the Linker sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Applyiers/Installer">Github</a></p>
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+An Linker maps a point
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Applyiers.Updater"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class LinkerClass(BaseClass):
+
+    #Definition
+    RepresentingKeyStrsList=[
+                                'LinkingPointListsList'
+                            ]
+
+    def default_init(self,
+                _LinkingPointListsList=None,
+                **_KwargVariablesDict):
+
+        #Call the parent __init__ method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def do_link(self):
+        """ """
+
+        #debug
+        '''
+        self.debug(('self.',self,['LinkingPointListsList']))
+        '''
+
+        #Apply
+        self.map('point',map(
+                                lambda __LinkingPointList:
+                                {'LiargVariablesList':__LinkingPointList},
+                                self.LinkingPointListsList
+                            )
+        )
+
+        #Return
+        #return self
+
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Linker sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Applyiers/Linker" target="_blank">Github</a>
+</small></p>
 </div>
 </div>
 </div></section><section>
@@ -2575,33 +3189,33 @@ In&nbsp;[23]:
 
 *****Start of the Attest *****
 
-MyLinker is &lt; (LinkerClass), 4550544272&gt;
+MyLinker is &lt; (LinkerClass), 4556354896&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;0Pather&apos; : &lt; (PatherClass), 4550545040&gt;
+   /  &apos;&lt;New&gt;&lt;Instance&gt;0Pather&apos; : &lt; (PatherClass), 4556355216&gt;
    /   /{ 
-   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550545040
+   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4556355216
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedChildKeyStr&apos; : 
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedGetKeyStr&apos; : 
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedKeyStrsList&apos; : None
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathingKeyStr&apos; : 
    /   /}
-   /  &apos;&lt;New&gt;&lt;Instance&gt;1Pather&apos; : &lt; (PatherClass), 4550544848&gt;
+   /  &apos;&lt;New&gt;&lt;Instance&gt;1Pather&apos; : &lt; (PatherClass), 4556355408&gt;
    /   /{ 
-   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550544848
+   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4556355408
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedChildKeyStr&apos; : 
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedGetKeyStr&apos; : 
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedKeyStrsList&apos; : None
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathingKeyStr&apos; : 
    /   /}
-   /  &apos;&lt;New&gt;&lt;Instance&gt;2Pather&apos; : &lt; (PatherClass), 4550542800&gt;
+   /  &apos;&lt;New&gt;&lt;Instance&gt;2Pather&apos; : &lt; (PatherClass), 4556356048&gt;
    /   /{ 
-   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550542800
+   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4556356048
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedChildKeyStr&apos; : 
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedGetKeyStr&apos; : 
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedKeyStrsList&apos; : None
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathingKeyStr&apos; : 
    /   /}
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550544272
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4556354896
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;LinkingPointListsList&apos; : 
    /   /[
    /   /  0 : (&apos;0Pather&apos;, &apos;/2Pather/0Pather&apos;)
@@ -2657,7 +3271,75 @@ View the Weaver notebook on <a href="http://nbviewer.ipython.org/url/shareyoursy
 FrozenIsBool False
 -->
 
-<p>View the Weaver sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Applyiers/Installer">Github</a></p>
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+A Weaver
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Applyiers.Linker"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class WeaverClass(BaseClass):
+
+    #Definition
+    RepresentingKeyStrsList=[
+                                    'WeavingInteractTuplesList'
+                                ]
+
+    def default_init(self,
+                _WeavingInteractTuplesList=None,
+                **_KwargVariablesDict):
+
+        #Call the parent __init__ method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def do_weave(self):
+        """ """
+
+        #debug
+        '''
+        self.debug("self.UpdatingItemVariable is "+Representer.represent(
+            self.UpdatingItemVariable,**{'RepresentingAlineaIsBool':False}))
+        '''
+
+        #Apply
+        self.map('interact',map(
+                                    lambda __WeavingInteractTuple:
+                                    {'LiargVariablesList':__WeavingInteractTuple},
+                                    self.WeavingInteractTuplesList
+                                )
+        )
+
+        #Return
+        #return self
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Weaver sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Applyiers/Weaver" target="_blank">Github</a>
+</small></p>
 </div>
 </div>
 </div></section><section>
@@ -2757,11 +3439,11 @@ In&nbsp;[27]:
 
 *****Start of the Attest *****
 
-MyWeaver is &lt; (WeaverClass), 4550545360&gt;
+MyWeaver is &lt; (WeaverClass), 4556355920&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;0Pointer&apos; : &lt; (PointerClass), 4550544976&gt;
+   /  &apos;&lt;New&gt;&lt;Instance&gt;0Pointer&apos; : &lt; (PointerClass), 4556365264&gt;
    /   /{ 
-   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550544976
+   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4556365264
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointedBackSetStr&apos; : 
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointedGetVariable&apos; : None
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointedLocalSetStr&apos; : 
@@ -2770,9 +3452,9 @@ MyWeaver is &lt; (WeaverClass), 4550545360&gt;
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointingGetVariable&apos; : None
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointingSetPathStr&apos; : 
    /   /}
-   /  &apos;&lt;New&gt;&lt;Instance&gt;1Pointer&apos; : &lt; (PointerClass), 4550544912&gt;
+   /  &apos;&lt;New&gt;&lt;Instance&gt;1Pointer&apos; : &lt; (PointerClass), 4555019024&gt;
    /   /{ 
-   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550544912
+   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4555019024
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointedBackSetStr&apos; : 
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointedGetVariable&apos; : None
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointedLocalSetStr&apos; : 
@@ -2781,9 +3463,9 @@ MyWeaver is &lt; (WeaverClass), 4550545360&gt;
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointingGetVariable&apos; : None
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointingSetPathStr&apos; : 
    /   /}
-   /  &apos;&lt;New&gt;&lt;Instance&gt;2Pointer&apos; : &lt; (PointerClass), 4550542224&gt;
+   /  &apos;&lt;New&gt;&lt;Instance&gt;2Pointer&apos; : &lt; (PointerClass), 4555019536&gt;
    /   /{ 
-   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550542224
+   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4555019536
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointedBackSetStr&apos; : 
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointedGetVariable&apos; : None
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointedLocalSetStr&apos; : 
@@ -2792,16 +3474,16 @@ MyWeaver is &lt; (WeaverClass), 4550545360&gt;
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointingGetVariable&apos; : None
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointingSetPathStr&apos; : 
    /   /}
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550545360
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4556355920
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;WeavingInteractTuplesList&apos; : 
    /   /[
    /   /  0 : 
    /   /   /(
    /   /   /  0 : [&apos;0Pointer&apos;, &apos;2Pointer&apos;]
    /   /   /  1 : 0-2Pointer
-   /   /   /  2 : &lt; (PointerClass), 4550545296&gt;
+   /   /   /  2 : &lt; (PointerClass), 4556222416&gt;
    /   /   /   /{ 
-   /   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550545296
+   /   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4556222416
    /   /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointedBackSetStr&apos; : 
    /   /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointedGetVariable&apos; : None
    /   /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointedLocalSetStr&apos; : 
@@ -2815,9 +3497,9 @@ MyWeaver is &lt; (WeaverClass), 4550545360&gt;
    /   /   /(
    /   /   /  0 : [&apos;1Pointer&apos;, &apos;0Pointer&apos;]
    /   /   /  1 : 1-0Pointer
-   /   /   /  2 : &lt; (PointerClass), 4550543184&gt;
+   /   /   /  2 : &lt; (PointerClass), 4556221648&gt;
    /   /   /   /{ 
-   /   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550543184
+   /   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4556221648
    /   /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointedBackSetStr&apos; : 
    /   /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointedGetVariable&apos; : None
    /   /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointedLocalSetStr&apos; : 
@@ -2831,9 +3513,9 @@ MyWeaver is &lt; (WeaverClass), 4550545360&gt;
    /   /   /(
    /   /   /  0 : [&apos;2Pointer&apos;, &apos;1Pointer&apos;]
    /   /   /  1 : 2-1Pointer
-   /   /   /  2 : &lt; (PointerClass), 4550545232&gt;
+   /   /   /  2 : &lt; (PointerClass), 4556355024&gt;
    /   /   /   /{ 
-   /   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550545232
+   /   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4556355024
    /   /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointedBackSetStr&apos; : 
    /   /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointedGetVariable&apos; : None
    /   /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointedLocalSetStr&apos; : 
@@ -2893,7 +3575,101 @@ View the Filterer notebook on <a href="http://nbviewer.ipython.org/url/shareyour
 FrozenIsBool False
 -->
 
-<p>View the Filterer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Applyiers/Installer">Github</a></p>
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+A Filterer pick and 
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Itemizers.Pointer"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+import copy
+import collections
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class FiltererClass(BaseClass):
+
+    #Definition
+    RepresentingKeyStrsList=[
+                                    'FilteringGetVariable',
+                                    'FilteredGetVariable',
+                                    'FilteredVariablesList'
+                                ]
+
+    def default_init(self,
+                _FilteringGetVariable=None,
+                _FilteredGetVariable=None,
+                _FilteredVariablesList=None,
+                **_KwargVariablesDict):
+
+        #Call the parent __init__ method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def do_filter(self):
+
+        #debug
+        '''
+        self.debug(('self.',self,[
+                                    'PickingGetKeyVariablesList',
+                                    'ConcludingConditionTuplesList',
+                                    'FilteringGetVariable'
+                                ])
+                )
+        '''
+
+        #Get
+        if type(self.FilteringGetVariable) in SYS.StrTypesList:
+            self.FilteredGetVariable=self[self.FilteringGetVariable]
+        else:
+            self.FilteredGetVariable=self.FilteringGetVariable
+
+        #Check
+        if self.conclude(self.FilteredGetVariable).ConcludedIsBool:
+
+            #debug
+            '''
+            self.debug(
+                    (
+                        'self.',self,[
+                                        'PickingGetKeyVariablesList',
+                                        'ConcludedConditionIsBoolsList',
+                                    ]+SYS.unzip(
+                                        self.ConcludingConditionTuplesList,[0]
+                                    )
+                    )
+                )
+            '''
+
+            #Pick
+            self.FilteredVariablesList=self.pick()
+
+
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Filterer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Applyiers/Filterer" target="_blank">Github</a>
+</small></p>
 </div>
 </div>
 </div></section><section>
@@ -2962,12 +3738,12 @@ In&nbsp;[30]:
 
 *****Start of the Attest *****
 
-MyFilterer is &lt; (FiltererClass), 4550544464&gt;
+MyFilterer is &lt; (FiltererClass), 4556354960&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550544464
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4556354960
    /  &apos;&lt;New&gt;&lt;Instance&gt;NodeIndexInt&apos; : 1
    /  &apos;&lt;New&gt;&lt;Instance&gt;NodeKeyStr&apos; : MyFilterer
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;FilteredGetVariable&apos; : {...}&lt; (FiltererClass), 4550544464&gt;
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;FilteredGetVariable&apos; : {...}&lt; (FiltererClass), 4556354960&gt;
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;FilteredVariablesList&apos; : [&apos;MyFilterer&apos;]
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;FilteringGetVariable&apos; : /
    /}
@@ -3019,7 +3795,79 @@ View the Pusher notebook on <a href="http://nbviewer.ipython.org/url/shareyoursy
 FrozenIsBool False
 -->
 
-<p>View the Pusher sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Applyiers/Installer">Github</a></p>
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+Pusher instances
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Noders.Collecter"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class PusherClass(BaseClass):
+
+    #Definition
+    RepresentingKeyStrsList=[    
+                                    'PushingStoreListsList'
+                                ]
+
+    #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.__init__}]})
+    def default_init(self,
+                        _PushingStoreListsList=None,
+                        **_KwargVariablesDict
+                    ):
+
+        #Call the parent init method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def do_push(self):
+
+        #debug
+        '''
+        self.debug(('self.',self,['PushingStoreListsList']))
+        '''
+
+        #Apply __getitem__
+        self.map('collect',map(
+                                    lambda __PushingStoreList:
+                                    {
+                                        'LiargVariablesList':[],
+                                        'KwargVariablesDict':
+                                        {
+                                            'CollectingNodeKeyStr':__PushingStoreList[0],
+                                            'CollectingNodeVariable':__PushingStoreList[1],
+                                        }
+                                    },
+                                    self.PushingStoreListsList
+                                )
+                    )
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Pusher sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Applyiers/Pusher" target="_blank">Github</a>
+</small></p>
 </div>
 </div>
 </div></section><section>
@@ -3079,9 +3927,9 @@ In&nbsp;[33]:
 
 *****Start of the Attest *****
 
-MyPusher is &lt; (PusherClass), 4550544720&gt;
+MyPusher is &lt; (PusherClass), 4556355856&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550544720
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4556355856
    /  &apos;&lt;New&gt;&lt;Instance&gt;NodeCollectionStr&apos; : Globals
    /  &apos;&lt;New&gt;&lt;Instance&gt;NodeIndexInt&apos; : -1
    /  &apos;&lt;New&gt;&lt;Instance&gt;NodeKeyStr&apos; : TopPusher
@@ -3089,25 +3937,25 @@ MyPusher is &lt; (PusherClass), 4550544720&gt;
    /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : None
    /  &apos;&lt;New&gt;&lt;Instance&gt;PushomeCollectionOrderedDict&apos; : 
    /   /{ 
-   /   /  &apos;FirstChildPusher&apos; : &lt; (PusherClass), 4550543760&gt;
+   /   /  &apos;FirstChildPusher&apos; : &lt; (PusherClass), 4556354896&gt;
    /   /   /{ 
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550543760
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4556354896
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;MyInt&apos; : 0
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeCollectionStr&apos; : Pushome
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeIndexInt&apos; : 0
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeKeyStr&apos; : FirstChildPusher
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (PusherClass), 4550544720&gt;
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4550549584&gt;
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (PusherClass), 4556355856&gt;
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4556378488&gt;
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PushingStoreListsList&apos; : None
    /   /   /}
-   /   /  &apos;SecondChildPusher&apos; : &lt; (PusherClass), 4550565968&gt;
+   /   /  &apos;SecondChildPusher&apos; : &lt; (PusherClass), 4556355472&gt;
    /   /   /{ 
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550565968
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4556355472
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeCollectionStr&apos; : Pushome
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeIndexInt&apos; : 1
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeKeyStr&apos; : SecondChildPusher
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (PusherClass), 4550544720&gt;
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4550549584&gt;
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (PusherClass), 4556355856&gt;
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4556378488&gt;
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PushingStoreListsList&apos; : None
    /   /   /}
    /   /}
@@ -3116,12 +3964,12 @@ MyPusher is &lt; (PusherClass), 4550544720&gt;
    /   /  0 : 
    /   /   /[
    /   /   /  0 : FirstChild
-   /   /   /  1 : {...}&lt; (PusherClass), 4550543760&gt;
+   /   /   /  1 : {...}&lt; (PusherClass), 4556354896&gt;
    /   /   /]
    /   /  1 : 
    /   /   /[
    /   /   /  0 : SecondChild
-   /   /   /  1 : {...}&lt; (PusherClass), 4550565968&gt;
+   /   /   /  1 : {...}&lt; (PusherClass), 4556355472&gt;
    /   /   /]
    /   /]
    /}
@@ -3173,7 +4021,90 @@ View the Producer notebook on <a href="http://nbviewer.ipython.org/url/shareyour
 FrozenIsBool False
 -->
 
-<p>View the Producer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Applyiers/Installer">Github</a></p>
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+Producer instances
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Applyiers.Pusher"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+from ShareYourSystem.Noders import Noder
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class ProducerClass(BaseClass):
+
+    #Definition
+    RepresentingKeyStrsList=[    
+                                    'ProducingCollectionKeyStrsList',
+                                    'ProducingPushClass',
+                                    'ProducingUpdateVariable',
+                                    'ProducedPushList'
+                                ]
+
+    def default_init(self,
+                        _ProducingCollectionKeyStrsList=None,
+                        _ProducingPushClass=Noder.NoderClass,
+                        _ProducingUpdateVariable=None,
+                        _ProducedPushList=None,
+                        **_KwargVariablesDict
+                    ):
+
+        #Call the parent init method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def do_produce(self):
+
+        #set
+        self.ProducedPushList=map(
+                                    lambda __ProducingCollectionKeyStr:
+                                    [
+                                        __ProducingCollectionKeyStr,
+                                        self.ProducingPushClass().update(
+                                            self.ProducingUpdateVariable
+                                        )
+                                    ],
+                                    self.ProducingCollectionKeyStrsList
+                                )
+
+        #debug
+        '''
+        self.debug(('self.',self,['ProducedPushList']))
+        '''
+
+        #push
+        self.push(
+                    _StoreListsList=self.ProducedPushList
+                )
+
+        #Return self
+        #return self
+
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Producer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Applyiers/Producer" target="_blank">Github</a>
+</small></p>
 </div>
 </div>
 </div></section><section>
@@ -3229,9 +4160,9 @@ In&nbsp;[36]:
 
 *****Start of the Attest *****
 
-MyProducer is &lt; (ProducerClass), 4550566288&gt;
+MyProducer is &lt; (ProducerClass), 4556356944&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550566288
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4556356944
    /  &apos;&lt;New&gt;&lt;Instance&gt;NodeCollectionStr&apos; : Globals
    /  &apos;&lt;New&gt;&lt;Instance&gt;NodeIndexInt&apos; : -1
    /  &apos;&lt;New&gt;&lt;Instance&gt;NodeKeyStr&apos; : TopProducer
@@ -3239,30 +4170,30 @@ MyProducer is &lt; (ProducerClass), 4550566288&gt;
    /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : None
    /  &apos;&lt;New&gt;&lt;Instance&gt;NodomeCollectionOrderedDict&apos; : 
    /   /{ 
-   /   /  &apos;FirstNoder&apos; : &lt; (NoderClass), 4550566032&gt;
+   /   /  &apos;FirstNoder&apos; : &lt; (NoderClass), 4556355664&gt;
    /   /   /{ 
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550566032
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4556355664
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;MyInt&apos; : 0
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeCollectionStr&apos; : Nodome
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeIndexInt&apos; : 0
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeKeyStr&apos; : FirstNoder
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (ProducerClass), 4550566288&gt;
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4550549880&gt;
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (ProducerClass), 4556356944&gt;
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4556378784&gt;
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;NodedCollectionIndexInt&apos; : -1
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;NodedCollectionOrderedDict&apos; : None
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;NodedCollectionStr&apos; : 
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;NodedKeyStr&apos; : 
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;NodingCollectionStr&apos; : 
    /   /   /}
-   /   /  &apos;SecondNoder&apos; : &lt; (NoderClass), 4550567376&gt;
+   /   /  &apos;SecondNoder&apos; : &lt; (NoderClass), 4556356880&gt;
    /   /   /{ 
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550567376
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4556356880
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;MyInt&apos; : 0
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeCollectionStr&apos; : Nodome
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeIndexInt&apos; : 1
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeKeyStr&apos; : SecondNoder
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (ProducerClass), 4550566288&gt;
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4550549880&gt;
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (ProducerClass), 4556356944&gt;
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4556378784&gt;
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;NodedCollectionIndexInt&apos; : -1
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;NodedCollectionOrderedDict&apos; : None
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;NodedCollectionStr&apos; : 
@@ -3275,12 +4206,12 @@ MyProducer is &lt; (ProducerClass), 4550566288&gt;
    /   /  0 : 
    /   /   /[
    /   /   /  0 : First
-   /   /   /  1 : {...}&lt; (NoderClass), 4550566032&gt;
+   /   /   /  1 : {...}&lt; (NoderClass), 4556355664&gt;
    /   /   /]
    /   /  1 : 
    /   /   /[
    /   /   /  0 : Second
-   /   /   /  1 : {...}&lt; (NoderClass), 4550567376&gt;
+   /   /   /  1 : {...}&lt; (NoderClass), 4556356880&gt;
    /   /   /]
    /   /]
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;ProducingCollectionKeyStrsList&apos; : [&apos;First&apos;, &apos;Second&apos;]
@@ -3340,7 +4271,124 @@ View the Commander notebook on <a href="http://nbviewer.ipython.org/url/shareyou
 FrozenIsBool False
 -->
 
-<p>View the Commander sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Applyiers/Installer">Github</a></p>
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+A Commander gather Variables to set them with an UpdateList.
+The command process can be AllSetsForEach (ie a map of the update succesively for each)
+or a EachSetForAll (ie each set is a map of each).
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Noders.Attentioner"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class CommanderClass(BaseClass):
+
+    #Definition 
+    RepresentingKeyStrsList=[
+                            #'CommandingUpdateList',
+                            #'CommandingVariablesList',
+                            'CommandingOrderStr',
+                            'CommandingGatherIsBool'
+                        ]
+
+    def default_init(self,
+                _CommandingUpdateList=None,    
+                _CommandingVariablesList=None, 
+                _CommandingOrderStr="AllSetsForEach",                
+                _CommandingGatherIsBool=True,
+                **_KwargVariablesDict
+                ):
+
+        #Call the parent __init__ method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def do_command(self):
+        """Collect with _GatheringKeyVariablesList and do a all sets for each with _UpdatingItemVariable"""
+
+        #Check
+        if self.CommandingGatherIsBool:
+
+            #Get the GatheredVariablesList
+            self.gather()
+
+            #debug
+            '''
+            self.debug(
+                            ('self.',self,[
+                                    'CommandingUpdateList',
+                                    'GatheringVariablesList',
+                                    'GatheredVariablesList'
+                                    ]
+                            )
+                        )
+            '''
+
+            #Check
+            if len(self.GatheredVariablesList)&gt;0:
+
+                #Just keep the values
+                self.CommandingVariablesList=SYS.flat(SYS.unzip(self.GatheredVariablesList,[1]))
+
+        #debug
+        '''
+        self.debug(("self.",self,['CommandingVariablesList']))
+        '''
+
+        #Check for the order
+        if self.CommandingOrderStr=="AllSetsForEach":
+
+            #For each __GatheredVariable it is updating with _UpdatingItemVariable
+            map(
+                    lambda __CommandedVariable:
+                    __CommandedVariable.update(self.CommandingUpdateList),
+                    self.CommandingVariablesList
+                )
+
+        elif self.CommandingOrderStr=="EachSetForAll":
+
+            #For each SettingTuple it is setted in _GatheredVariablesList
+            map(
+                    lambda __SettingVariableTuple:
+                    map(
+                        lambda __CommandedVariable:
+                        __CommandedVariable.__setitem__(*__SettingVariableTuple),
+                        self.CommandingVariablesList
+                        ),
+                    self.CommandingUpdateList.items() 
+                    if hasattr(self.CommandingUpdateList,'items')
+                    else self.CommandingUpdateList
+                )
+
+        #Return self
+        #return self 
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Commander sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Applyiers/Commander" target="_blank">Github</a>
+</small></p>
 </div>
 </div>
 </div></section><section>
@@ -3538,36 +4586,36 @@ In&nbsp;[40]:
 
 *****Start of the Attest *****
 
-MyFirstCommander is &lt; (CommanderClass), 4550544016&gt;
+MyFirstCommander is &lt; (CommanderClass), 4556355984&gt;
    /{ 
    /  &apos;&lt;New&gt;&lt;Instance&gt;CommandomeCollectionOrderedDict&apos; : 
    /   /{ 
-   /   /  &apos;0&apos; : &lt; (CommanderClass), 4550566800&gt;
+   /   /  &apos;0&apos; : &lt; (CommanderClass), 4556355088&gt;
    /   /   /{ 
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550566800
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4556355088
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;MyCountingInt&apos; : 3
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeCollectionStr&apos; : Commandome
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeIndexInt&apos; : 0
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeKeyStr&apos; : 0
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (CommanderClass), 4550544016&gt;
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4550550176&gt;
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (CommanderClass), 4556355984&gt;
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4556379080&gt;
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;CommandingGatherIsBool&apos; : True
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;CommandingOrderStr&apos; : AllSetsForEach
    /   /   /}
-   /   /  &apos;1&apos; : &lt; (CommanderClass), 4550568656&gt;
+   /   /  &apos;1&apos; : &lt; (CommanderClass), 4555534736&gt;
    /   /   /{ 
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550568656
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4555534736
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;MyCountingInt&apos; : 5
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeCollectionStr&apos; : Commandome
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeIndexInt&apos; : 1
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeKeyStr&apos; : 1
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (CommanderClass), 4550544016&gt;
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4550550176&gt;
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (CommanderClass), 4556355984&gt;
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4556379080&gt;
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;CommandingGatherIsBool&apos; : True
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;CommandingOrderStr&apos; : AllSetsForEach
    /   /   /}
    /   /}
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550544016
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4556355984
    /  &apos;&lt;New&gt;&lt;Instance&gt;MyCountingInt&apos; : 1
    /  &apos;&lt;New&gt;&lt;Instance&gt;NodeCollectionStr&apos; : Globals
    /  &apos;&lt;New&gt;&lt;Instance&gt;NodeIndexInt&apos; : -1
@@ -3580,36 +4628,36 @@ MyFirstCommander is &lt; (CommanderClass), 4550544016&gt;
 
 ------
 
-MySecondCommander is &lt; (CommanderClass), 4550569296&gt;
+MySecondCommander is &lt; (CommanderClass), 4555535056&gt;
    /{ 
    /  &apos;&lt;New&gt;&lt;Instance&gt;CommandomeCollectionOrderedDict&apos; : 
    /   /{ 
-   /   /  &apos;0&apos; : &lt; (CommanderClass), 4550568464&gt;
+   /   /  &apos;0&apos; : &lt; (CommanderClass), 4555535824&gt;
    /   /   /{ 
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550568464
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4555535824
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;MyCountingInt&apos; : 4
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeCollectionStr&apos; : Commandome
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeIndexInt&apos; : 0
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeKeyStr&apos; : 0
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (CommanderClass), 4550569296&gt;
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4550550472&gt;
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (CommanderClass), 4555535056&gt;
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4556379376&gt;
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;CommandingGatherIsBool&apos; : True
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;CommandingOrderStr&apos; : AllSetsForEach
    /   /   /}
-   /   /  &apos;1&apos; : &lt; (CommanderClass), 4551405648&gt;
+   /   /  &apos;1&apos; : &lt; (CommanderClass), 4555535568&gt;
    /   /   /{ 
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4551405648
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4555535568
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;MyCountingInt&apos; : 5
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeCollectionStr&apos; : Commandome
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeIndexInt&apos; : 1
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeKeyStr&apos; : 1
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (CommanderClass), 4550569296&gt;
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4550550472&gt;
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (CommanderClass), 4555535056&gt;
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4556379376&gt;
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;CommandingGatherIsBool&apos; : True
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;CommandingOrderStr&apos; : AllSetsForEach
    /   /   /}
    /   /}
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550569296
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4555535056
    /  &apos;&lt;New&gt;&lt;Instance&gt;MyCountingInt&apos; : 3
    /  &apos;&lt;New&gt;&lt;Instance&gt;NodeCollectionStr&apos; : Globals
    /  &apos;&lt;New&gt;&lt;Instance&gt;NodeIndexInt&apos; : -1
@@ -3667,7 +4715,85 @@ View the Poker notebook on <a href="http://nbviewer.ipython.org/url/shareyoursys
 FrozenIsBool False
 -->
 
-<p>View the Poker sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Applyiers/Installer">Github</a></p>
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+Poker instances
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Walkers.Grabber"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class PokerClass(BaseClass):
+
+    #Definition
+    RepresentingKeyStrsList=[    
+                                    'PokingNodeStr',
+                                    'PokingGetStrsList'
+                                ]
+
+    #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.__init__}]})
+    def default_init(self,
+                        _PokingNodeStr="",
+                        _PokingGetStrsList=None,
+                        **_KwargVariablesDict
+                    ):
+
+        #Call the parent init method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':Joiner.JoinerClass.model}]})
+    #@Argumenter.ArgumenterClass()
+    def do_poke(self):
+
+        #debug
+        '''
+        self.debug(('self.',self,['PokingNodeStr','PokingGetStrsList']))
+        '''
+
+        #Apply __getitem__
+        self.map('couple',map(
+                                    lambda __PokingGetStr:
+                                    {
+                                        'LiargVariablesList':
+                                        [
+                                            self.PokingNodeStr,
+                                            __PokingGetStr
+                                        ]
+                                    },
+                                    self.PokingGetStrsList
+                                )
+                    )
+
+        #Return self
+        #return self
+
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Poker sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Applyiers/Poker" target="_blank">Github</a>
+</small></p>
 </div>
 </div>
 </div></section><section>
@@ -3742,9 +4868,9 @@ In&nbsp;[43]:
 
 *****Start of the Attest *****
 
-MyPoker is &lt; (PokerClass), 4550567952&gt;
+MyPoker is &lt; (PokerClass), 4555537552&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550567952
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4555537552
    /  &apos;&lt;New&gt;&lt;Instance&gt;NodeCollectionStr&apos; : Globals
    /  &apos;&lt;New&gt;&lt;Instance&gt;NodeIndexInt&apos; : -1
    /  &apos;&lt;New&gt;&lt;Instance&gt;NodeKeyStr&apos; : TopPoker
@@ -3752,36 +4878,36 @@ MyPoker is &lt; (PokerClass), 4550567952&gt;
    /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : None
    /  &apos;&lt;New&gt;&lt;Instance&gt;PokomeCollectionOrderedDict&apos; : 
    /   /{ 
-   /   /  &apos;FirstChildPoker&apos; : &lt; (PokerClass), 4550568784&gt;
+   /   /  &apos;FirstChildPoker&apos; : &lt; (PokerClass), 4555536528&gt;
    /   /   /{ 
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550568784
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4555536528
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeCollectionStr&apos; : Pokome
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeIndexInt&apos; : 0
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeKeyStr&apos; : FirstChildPoker
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (PokerClass), 4550567952&gt;
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4550550472&gt;
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (PokerClass), 4555537552&gt;
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4556379672&gt;
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PokingGetStrsList&apos; : None
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PokingNodeStr&apos; : 
    /   /   /}
-   /   /  &apos;SecondChildPoker&apos; : &lt; (PokerClass), 4550568464&gt;
+   /   /  &apos;SecondChildPoker&apos; : &lt; (PokerClass), 4555534608&gt;
    /   /   /{ 
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550568464
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4555534608
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeCollectionStr&apos; : Pokome
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeIndexInt&apos; : 1
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeKeyStr&apos; : SecondChildPoker
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (PokerClass), 4550567952&gt;
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4550550472&gt;
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (PokerClass), 4555537552&gt;
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4556379672&gt;
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PokingGetStrsList&apos; : None
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PokingNodeStr&apos; : 
    /   /   /}
-   /   /  &apos;ThirdChildPoker&apos; : &lt; (PokerClass), 4550568656&gt;
+   /   /  &apos;ThirdChildPoker&apos; : &lt; (PokerClass), 4555536400&gt;
    /   /   /{ 
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550568656
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4555536400
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeCollectionStr&apos; : Pokome
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeIndexInt&apos; : 2
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeKeyStr&apos; : ThirdChildPoker
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (PokerClass), 4550567952&gt;
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4550550472&gt;
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (PokerClass), 4555537552&gt;
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4556379672&gt;
    /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;PokingGetStrsList&apos; : [&apos;/NodePointDeriveNoder/&lt;Pokome&gt;FirstChildPoker&apos;, &apos;/NodePointDeriveNoder/&lt;Pokome&gt;SecondChildPoker&apos;]
    /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;PokingNodeStr&apos; : Relatome
    /   /   /}

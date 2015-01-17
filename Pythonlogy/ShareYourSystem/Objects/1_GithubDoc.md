@@ -34,6 +34,6 @@ SYS.setConceptModule(globals())
 ```
 
 <small>
-View the Objects sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Objects)
+View the Objects sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Objects" target="_blank">Github</a>
 </small>
 

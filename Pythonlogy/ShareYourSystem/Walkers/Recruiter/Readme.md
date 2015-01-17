@@ -1,13 +1,123 @@
 
+
+<!--
+FrozenIsBool False
+-->
+
 #Recruiter
- @Date : Fri Nov 14 13:20:38 2014
 
-@Author : Erwan Ledoux
+##Doc
+----
 
+
+>
+> A Recruiter
+>
+>
+
+----
+
+<small>
+View the Recruiter notebook on [NbViewer](http://nbviewer.ipython.org/url/sharey
+oursystem.ouvaton.org/Recruiter.ipynb)
+</small>
+
+
+
+
+<!--
+FrozenIsBool False
+-->
+
+##Code
+
+----
+
+<ClassDocStr>
+
+----
+
+```python
+# -*- coding: utf-8 -*-
+"""
+
+
+<DefineSource>
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+</DefineSource>
 
 
 A Recruiter
 
+"""
+
+#<DefineAugmentation>
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Walkers.Visiter"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#</DefineAugmentation>
+
+#<ImportSpecificModules>
+
+from ShareYourSystem.Noders import Noder
+#</ImportSpecificModules>
+
+#<DefineClass>
+@DecorationClass()
+class RecruiterClass(BaseClass):
+
+        #Definition
+        RepresentingKeyStrsList=[
+'RecruitingConcludeConditionTuplesList',
+'RecruitedFlatCumulateVariablesList'
+                                                                ]
+
+        def default_init(self,
+                                _RecruitingConcludeConditionTuplesList=None,
+                                _RecruitedFlatCumulateVariablesList=None,
+                                **_KwargVariablesDict
+                        ):
+
+                #Call the parent __init__ method
+                BaseClass.__init__(self,**_KwargVariablesDict)
+
+        def do_recruit(self):
+
+                #Check
+                if type(self.VisitingBeforeUpdateList)!=list:
+                        self.VisitingBeforeUpdateList=[]
+
+                #add
+                self.VisitingBeforeUpdateList+=[
+                        (
+                                'PickingGetKeyVariablesList',['/']
+                        ),
+                        (
+                                'ConcludingConditionTuplesList',
+                                self.RecruitingConcludeConditionTuplesList
+                        ),
+                        ('cumulate',{'LiargVariablesList':[]})
+                ]
+
+                #visit
+                self.visit()
+
+                #flat
+                self.RecruitedFlatCumulateVariablesList=SYS.filterNone(SYS.flat(
+                        self.CumulatedVariablesList
+                        )
+                )
+#</DefineClass>
+
+```
+
+<small>
+View the Recruiter sources on <a href="https://github.com/Ledoux/ShareYourSystem
+/tree/master/Pythonlogy/ShareYourSystem/Walkers/Recruiter"
+target="_blank">Github</a>
+</small>
 
 
 
@@ -83,93 +193,88 @@ SYS._attest(
 
 *****Start of the Attest *****
 
-MyRecruiter is < (RecruiterClass), 4559068880>
+MyRecruiter is < (RecruiterClass), 4555498384>
    /{
-   /  '<New><Instance>ApplyingIsBool' : True
    /  '<New><Instance>CollectomeCollectionOrderedDict' :
    /   /{
    /   /}
-   /  '<New><Instance>IdString' : 4559068880
-   /  '<New><Instance>NodeCollectionStr' : Global
+   /  '<New><Instance>IdInt' : 4555498384
+   /  '<New><Instance>NodeCollectionStr' : Globals
    /  '<New><Instance>NodeIndexInt' : -1
-   /  '<New><Instance>NodeKeyStr' :
+   /  '<New><Instance>NodeKeyStr' : TopRecruiter
    /  '<New><Instance>NodePointDeriveNoder' : None
    /  '<New><Instance>NodePointOrderedDict' : None
    /  '<New><Instance>VisitomeCollectionOrderedDict' :
    /   /{
-   /   /  'FirstChildRecruiter' : < (RecruiterClass), 4559177040>
+   /   /  'FirstChildRecruiter' : < (RecruiterClass), 4556356176>
    /   /   /{
-   /   /   /  '<New><Instance>ApplyingIsBool' : True
    /   /   /  '<New><Instance>CollectomeCollectionOrderedDict' :
    /   /   /   /{
-   /   /   /   /  'GrandChildCumulater' : < (CumulaterClass), 4559179664>
+   /   /   /   /  'GrandChildCumulater' : < (CumulaterClass), 4557708048>
    /   /   /   /   /{
-   /   /   /   /   /  '<New><Instance>ApplyingIsBool' : True
    /   /   /   /   /  '<New><Instance>CollectomeCollectionOrderedDict' :
    /   /   /   /   /   /{
    /   /   /   /   /   /}
-   /   /   /   /   /  '<New><Instance>IdString' : 4559179664
+   /   /   /   /   /  '<New><Instance>IdInt' : 4557708048
    /   /   /   /   /  '<New><Instance>NodeCollectionStr' : Collectome
    /   /   /   /   /  '<New><Instance>NodeIndexInt' : 0
    /   /   /   /   /  '<New><Instance>NodeKeyStr' : GrandChildCumulater
    /   /   /   /   /  '<New><Instance>NodePointDeriveNoder' : {...}<
-(RecruiterClass), 4559177040>
+(RecruiterClass), 4556356176>
    /   /   /   /   /  '<New><Instance>NodePointOrderedDict' : {...}<
-(OrderedDict), 4559126064>
+(OrderedDict), 4537423384>
    /   /   /   /   /  '<New><Instance>VisitomeCollectionOrderedDict' :
    /   /   /   /   /   /{
    /   /   /   /   /   /}
    /   /   /   /   /  '<Spe><Instance>CumulatedVariablesList' : []
    /   /   /   /   /}
    /   /   /   /}
-   /   /   /  '<New><Instance>IdString' : 4559177040
+   /   /   /  '<New><Instance>IdInt' : 4556356176
    /   /   /  '<New><Instance>NodeCollectionStr' : Visitome
    /   /   /  '<New><Instance>NodeIndexInt' : 0
    /   /   /  '<New><Instance>NodeKeyStr' : FirstChildRecruiter
    /   /   /  '<New><Instance>NodePointDeriveNoder' : {...}< (RecruiterClass),
-4559068880>
+4555498384>
    /   /   /  '<New><Instance>NodePointOrderedDict' : {...}< (OrderedDict),
-4559125768>
+4537424272>
    /   /   /  '<New><Instance>VisitomeCollectionOrderedDict' :
    /   /   /   /{
    /   /   /   /}
    /   /   /  '<Spe><Class>RecruitedFlatCumulateVariablesList' : None
    /   /   /  '<Spe><Class>RecruitingConcludeConditionTuplesList' : None
    /   /   /}
-   /   /  'SecondChildRecruiter' : < (RecruiterClass), 4559176336>
+   /   /  'SecondChildRecruiter' : < (RecruiterClass), 4556968016>
    /   /   /{
-   /   /   /  '<New><Instance>ApplyingIsBool' : True
    /   /   /  '<New><Instance>CollectomeCollectionOrderedDict' :
    /   /   /   /{
    /   /   /   /}
-   /   /   /  '<New><Instance>IdString' : 4559176336
+   /   /   /  '<New><Instance>IdInt' : 4556968016
    /   /   /  '<New><Instance>NodeCollectionStr' : Visitome
    /   /   /  '<New><Instance>NodeIndexInt' : 1
    /   /   /  '<New><Instance>NodeKeyStr' : SecondChildRecruiter
    /   /   /  '<New><Instance>NodePointDeriveNoder' : {...}< (RecruiterClass),
-4559068880>
+4555498384>
    /   /   /  '<New><Instance>NodePointOrderedDict' : {...}< (OrderedDict),
-4559125768>
+4537424272>
    /   /   /  '<New><Instance>VisitomeCollectionOrderedDict' :
    /   /   /   /{
    /   /   /   /}
    /   /   /  '<Spe><Class>RecruitedFlatCumulateVariablesList' : None
    /   /   /  '<Spe><Class>RecruitingConcludeConditionTuplesList' : None
    /   /   /}
-   /   /  'ThirdChildRecruiter' : < (RecruiterClass), 4559176144>
+   /   /  'ThirdChildRecruiter' : < (RecruiterClass), 4556968208>
    /   /   /{
-   /   /   /  '<New><Instance>ApplyingIsBool' : True
    /   /   /  '<New><Instance>CollectomeCollectionOrderedDict' :
    /   /   /   /{
    /   /   /   /}
-   /   /   /  '<New><Instance>IdString' : 4559176144
+   /   /   /  '<New><Instance>IdInt' : 4556968208
    /   /   /  '<New><Instance>NodeCollectionStr' : Visitome
    /   /   /  '<New><Instance>NodeIndexInt' : 2
    /   /   /  '<New><Instance>NodeKeyStr' : ThirdChildRecruiter
    /   /   /  '<New><Instance>NodePointDeriveNoder' : {...}< (RecruiterClass),
-4559068880>
+4555498384>
    /   /   /  '<New><Instance>NodePointOrderedDict' : {...}< (OrderedDict),
-4559125768>
+4537424272>
    /   /   /  '<New><Instance>VisitomeCollectionOrderedDict' :
    /   /   /   /{
    /   /   /   /}
@@ -179,17 +284,17 @@ MyRecruiter is < (RecruiterClass), 4559068880>
    /   /}
    /  '<Spe><Instance>RecruitedFlatCumulateVariablesList' :
    /   /[
-   /   /  0 : {...}< (RecruiterClass), 4559068880>
-   /   /  1 : {...}< (RecruiterClass), 4559177040>
-   /   /  2 : {...}< (CumulaterClass), 4559179664>
-   /   /  3 : {...}< (RecruiterClass), 4559176336>
+   /   /  0 : {...}< (RecruiterClass), 4555498384>
+   /   /  1 : {...}< (RecruiterClass), 4556356176>
+   /   /  2 : {...}< (CumulaterClass), 4557708048>
+   /   /  3 : {...}< (RecruiterClass), 4556968016>
    /   /]
    /  '<Spe><Instance>RecruitingConcludeConditionTuplesList' :
    /   /[
    /   /  0 :
    /   /   /(
    /   /   /  0 : NodeIndexInt
-   /   /   /  1 : <function <lambda> at 0x10fad7578>
+   /   /   /  1 : <function <lambda> at 0x10e8a5b90>
    /   /   /  2 : 2
    /   /   /)
    /   /]

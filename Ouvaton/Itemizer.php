@@ -1753,7 +1753,109 @@ View the Itemizer notebook on <a href="http://nbviewer.ipython.org/url/shareyour
 FrozenIsBool False
 -->
 
-<p>View the Itemizer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Itemizers/Installer">Github</a></p>
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+An Itemizer...
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Interfacers.Hdformater"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineLocals&gt;
+ItemizingPrefixStr="Item_"
+#&lt;/DefineLocals&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class ItemizerClass(BaseClass):
+
+    pass
+
+    """
+    #Definition
+    RepresentingKeyStrsList=[
+                                    'ItemizingKeyVariable',
+                                    'ItemizedKeyVariable'
+                                ]
+
+    #@SYS.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.init}]})
+    def default_init(self,
+                        _ItemizingKeyVariable=None,
+                        _ItemizedKeyVariable=None,
+                        **_KwargVariablesDict
+                    ):
+        """ """        
+
+        #Call the parent init method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def do_itemize(self):
+
+        #Check
+        if self.ItemizingKeyVariable.startswith(ItemizingPrefixStr):
+
+            #split
+            self.ItemizedKeyVariable=ItemizingPrefixStr.join(
+                self.ItemizingKeyVariable.split(
+                ItemizingPrefixStr)[1:]
+            )
+
+            #debug
+            self.debug(
+                        [
+                            'go to a getitem get',
+                            ('self.',self,['ItemizingKeyVariable','ItemizedKeyVariable'])
+                        ]
+                    )
+
+            #return    __getitem__
+            return self.__getitem__(self.ItemizedKeyVariable)
+
+        else:
+
+            #debug
+            self.debug(
+                        [
+                            'classic object getattr...',
+                            ('self.',self,['ItemizingKeyVariable'])
+                        ]
+                    )
+
+            #Return default getattr
+            return object.__getattribute__(self,self.ItemizingKeyVariable)
+
+    def __getattribute__(self,_KeyVariable):
+
+        #Itemize
+        return self.itemize(_KeyVariable)
+    """
+
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Itemizer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Itemizers/Itemizer" target="_blank">Github</a>
+</small></p>
 </div>
 </div>
 </div></section><section>
@@ -1837,9 +1939,9 @@ In&nbsp;[3]:
 
 *****Start of the Attest *****
 
-MyMaker is&lt; (MakerClass), 4348482192&gt;
+MyMaker is&lt; (MakerClass), 4555206928&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4348482192
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4555206928
    /  &apos;&lt;New&gt;&lt;Instance&gt;My1Int&apos; : 1
    /}
 

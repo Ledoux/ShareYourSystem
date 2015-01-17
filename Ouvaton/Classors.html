@@ -1755,6 +1755,725 @@ View the Doer notebook on <a href="http://nbviewer.ipython.org/url/shareyoursyst
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<!--
+FrozenIsBool False
+-->
+
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+The Doer defines instances that are going to decorate a big family of classes in this framework. 
+Staying on the idea, that one module should associate
+one class, now a decorated class by a Doer should have a NameStr that is 
+a DoStr and express also method a method with the name &lt;DoStr&gt;[0].lower()+&lt;DoStr&gt;[1:]
+All the attributes that are controlling this method process are &lt;DoingStr&gt;&lt;MiddleStr&gt;&lt;TypeStr&gt;
+and all the ones resetted during the method are &lt;DoneStr&gt;&lt;MiddleStr&gt;&lt;TypeStr&gt;.
+This helps a lot for defining a fisrt level of objects that are acting like input-output controllers.
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Classors.Defaultor"
+DecorationModuleStr=BaseModuleStr
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+import collections
+import inspect
+import six
+Defaultor=BaseModule
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineLocals&gt;
+DoingAttributePrefixStr='_'
+DoingWrapPrefixStr='do_'
+DoingDecorationPrefixStr=""
+DoingDecorationTagStr="superDo"
+DoingDecorationSuffixStr="_"
+#&lt;/DefineLocals&gt;
+
+#&lt;DefineFunctions&gt;
+def callDo(_InstanceVariable):
+
+    #Call the .DoMethodStr
+    return getattr(
+        _InstanceVariable,
+        _InstanceVariable.__class__.DoMethodStr
+    )()
+
+def setDoing(_InstanceVariable,_DoClassVariable=None,**_KwargVariablesDict):
+
+    #check
+    if _DoClassVariable in SYS.StrTypesList:
+        _DoClassVariable=getattr(
+            SYS,
+            SYS.getClassStrWithNameStr(_DoClassVariable)
+        )
+
+
+
+    #call
+    _InstanceVariable.setDefault(
+        _DoClassVariable,
+        _DoClassVariable.DoingAttributeVariablesOrderedDict.keys(),
+        **_KwargVariablesDict
+    )
+
+    #return
+    return _InstanceVariable
+
+def setDone(_InstanceVariable,_DoClassVariable=None,**_KwargVariablesDict):
+
+    #check
+    if _DoClassVariable in SYS.StrTypesList:
+        _DoClassVariable=getattr(
+            SYS,
+            SYS.getClassStrWithNameStr(_DoClassVariable)
+    )
+
+    #Debug
+    """
+    print('l 74 Doer')
+    print('_DoClassVariable is ',_DoClassVariable)
+    print('')
+    """
+
+    #call
+    _InstanceVariable.setDefault(
+        _DoClassVariable,
+        _DoClassVariable.DoneAttributeVariablesOrderedDict.keys(),
+        **_KwargVariablesDict
+    )
+
+    #return 
+    return _InstanceVariable
+
+def setDo(_InstanceVariable,_DoClassVariable=None,**_KwargVariablesDict):
+
+    #set
+    _InstanceVariable.setDoing(_DoClassVariable,**_KwargVariablesDict)
+    _InstanceVariable.setDone(_DoClassVariable,**_KwargVariablesDict)
+
+    #return
+    return _InstanceVariable
+
+def DefaultDoFunction(
+    _InstanceVariable,
+    *_LiargVariablesList,
+    **_KwargVariablesDict
+):
+
+    #return
+    return _InstanceVariable
+
+def do(
+        _InstanceVariable,
+        *_LiargVariablesList,
+        **_KwargVariablesDict
+    ):
+
+    #Define
+    DoDecorationMethodStr=_KwargVariablesDict['DoDecorationMethodStr']
+    DoMethodStr=DoDecorationMethodStr.split(
+        DoingDecorationPrefixStr+DoingDecorationTagStr+DoingDecorationSuffixStr
+    )[-1] if DoingDecorationSuffixStr in DoDecorationMethodStr else DoDecorationMethodStr
+    DoStr=DoMethodStr[0].upper()+DoMethodStr[1:] if DoMethodStr[0]!="_" else DoMethodStr[0]+DoMethodStr[1].upper()+DoMethodStr[2:]
+    DoingStr=DoStrToDoingStrOrderedDict[DoStr]
+    DoClassStr=_KwargVariablesDict['DoClassStr']
+    DoClass=getattr(SYS,DoClassStr)
+    DoWrapMethodStr=DoingWrapPrefixStr+DoMethodStr
+    DoWrapUnboundMethod=getattr(
+                                DoClass,
+                                DoWrapMethodStr
+                            )
+    del _KwargVariablesDict['DoDecorationMethodStr']
+    del _KwargVariablesDict['DoClassStr']
+
+    #debug
+    '''
+    print('Doer l.112 inside of the function DoFunction')
+    print('InstanceVariable is ',_InstanceVariable)
+    print('_LiargVariablesList is ',_LiargVariablesList)
+    print('_KwargVariablesDict is ',_KwargVariablesDict)
+    print('')
+    '''
+
+    #Definition of the DoKwargTuplesList
+    DoKwargTuplesList=map(
+        lambda __KwargTuple:
+        (
+            DoingStr+DoingAttributePrefixStr.join(
+            __KwargTuple[0].split(DoingAttributePrefixStr)[1:]),
+            __KwargTuple[1]
+        ) if __KwargTuple[0].startswith(DoingAttributePrefixStr)
+        else __KwargTuple,
+        _KwargVariablesDict.items()
+    )
+
+    #Check
+    if len(DoKwargTuplesList)&gt;0:
+
+        #group by
+        [
+            DoClass.DoTempAttributeItemTuplesList,
+            DoClass.DoTempNotAttributeItemTupleItemsList
+        ]=SYS.groupby(
+            lambda __DoKwargTuple:
+            hasattr(_InstanceVariable,__DoKwargTuple[0]),
+            DoKwargTuplesList
+        )
+
+        #set in the instance the corresponding kwarged arguments
+        map(    
+                lambda __DoTempAttributeItemTuple:
+                #set direct explicit attributes
+                _InstanceVariable.__setattr__(*__DoTempAttributeItemTuple),
+                DoClass.DoTempAttributeItemTuplesList
+            )
+
+        #Define
+        DoneKwargDict=dict(DoClass.DoTempNotAttributeItemTupleItemsList)
+
+    else:
+
+        #Define
+        DoneKwargDict={}
+
+    #set
+    _InstanceVariable.setDefaultMutable(DoClass)
+
+    #debug
+    '''
+    print('Doer l.274 we are going to call the DoWrapMethod')
+    print('DoWrapMethod is ',DoWrapMethod)
+    print('')
+    '''
+
+    #Return the call of the defined do method
+    if len(DoneKwargDict)&gt;0:
+        return DoWrapUnboundMethod(
+            _InstanceVariable,
+            *_LiargVariablesList,
+            **DoneKwargDict
+        )
+    else:
+        return DoWrapUnboundMethod(
+            _InstanceVariable,
+            *_LiargVariablesList
+        )
+#&lt;/DefineFunctions&gt;
+
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class DoerClass(BaseClass):
+
+    def default_init(self,
+                        _DoClass=None,
+                        _DoingGetBool=False,
+                        **_KwargVariablesDict
+                    ):
+
+        #Call the parent init method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def __call__(self,_Class):
+
+        #debug
+        '''
+        print('Doer l.247 __call__ method')
+        print('_Class is ',_Class)
+        print('')
+        '''
+
+        #Call the parent init method
+        BaseClass.__call__(self,_Class)
+
+        #Do
+        self.do(_Class)
+
+        #Debug
+        '''
+        print('do is done')
+        print('')
+        '''
+
+        #Return 
+        return _Class
+
+    def do(self,_Class):
+
+        #set
+        self.DoClass=_Class
+
+        #debug
+        '''
+        print("Doer l.337 : self.DoClass is ",self.DoClass)
+        print('')
+        '''
+
+        #alias
+        DoClass=self.DoClass
+
+        #Definition
+        DoerStr=DoClass.NameStr
+        DoStr=DoerStrToDoStrOrderedDict[DoerStr]
+        DoMethodStr=DoStr[0].lower()+DoStr[1:] if DoStr[0]!='_' else '_'+DoStr[1].lower()+DoStr[2:]
+        DoneStr=DoStrToDoneStrOrderedDict[DoStr]
+        DoingStr=DoneStrToDoingStrOrderedDict[DoneStr]
+        LocalVariablesDict=vars()
+
+        #debug
+        '''
+        print('Doer l.275 : DoerStr is '+DoerStr)
+        print('DoStr is '+DoStr)
+        print('DoMethodStr is '+DoMethodStr)
+        print('DoingStr is '+DoingStr)
+        print('DoneStr is '+DoneStr)
+        print('')
+        '''
+
+        #set 
+        map(
+                lambda __KeyStr:
+                setattr(DoClass,__KeyStr,LocalVariablesDict[__KeyStr]),
+                ['DoerStr','DoStr','DoneStr','DoingStr','DoMethodStr']
+            )
+
+        #set a lists that will contain the tempory setting items during a call of the &lt;do&gt; method in the instance
+        DoClass.DoHistoryOrderedDict=collections.OrderedDict()
+
+        #Check
+        if hasattr(DoClass,'DefaultAttributeVariablesOrderedDict'):
+
+            #Debug
+            '''
+            print('Doer l.383')
+            print('DoClass.DefaultAttributesVariablesOrderedDict is ',_Class.DefaultAttributesVariablesOrderedDict)
+            print('')
+            '''
+
+            #Check for doing and done keyStrs
+            DoClass.DoneAttributeVariablesOrderedDict=collections.OrderedDict(
+                SYS._filter(
+                lambda __DefaultAttributeItemTuple:
+                __DefaultAttributeItemTuple[0].startswith(DoneStr),
+                DoClass.DefaultAttributeVariablesOrderedDict.items()
+                )
+            )
+            DoClass.DoingAttributeVariablesOrderedDict=collections.OrderedDict(
+                SYS._filter(
+                lambda __DefaultAttributeItemTuple:
+                __DefaultAttributeItemTuple[0].startswith(DoingStr),
+                DoClass.DefaultAttributeVariablesOrderedDict.items()
+                )
+            )
+
+            #Definition
+            DoWrapMethodStr=DoingWrapPrefixStr+DoMethodStr
+
+            #Debug
+            '''
+            print('Doer l.401')
+            print('DoClass.DoneAttributeVariablesOrderedDict is ',DoClass.DoneAttributeVariablesOrderedDict)
+            print('DoClass.DoingAttributeVariablesOrderedDict is ',DoClass.DoingAttributeVariablesOrderedDict)
+            print('DoWrapMethodStr is ',DoWrapMethodStr)
+            print('')
+            '''
+
+            #Check 
+            if hasattr(DoClass,DoWrapMethodStr):
+
+                #Debug
+                '''
+                print('There is a DoWrapMethod here already')
+                print('')
+                '''
+
+                #Get
+                DoWrapMethod=getattr(
+                        DoClass,
+                        DoWrapMethodStr
+                    )
+            else:
+
+                #Debug
+                '''
+                print('There is no DoWrapMethod here')
+                print('')
+                '''
+
+                #Definition of a default function
+                DoWrapMethod=DefaultDoFunction
+
+
+            #debug
+            '''
+            print('DoWrapMethod is '+str(DoWrapMethod))
+            print('')
+            '''
+
+            #Link
+            """
+            DoingMethodKeyStr='init'+DoClass.NameStr
+            setattr(
+                    DoClass,
+                    DoingMethodKeyStr,
+                    initDo
+                )
+            """
+
+            #Definition of the ExecStr that will define the function
+            DoDecorationMethodStr=DoingDecorationPrefixStr+DoingDecorationTagStr+DoingDecorationSuffixStr+DoMethodStr
+            DoExecStr="def "+DoDecorationMethodStr+"(_InstanceVariable,"
+            DoExecStr+=",".join(
+                map(
+                    lambda __KeyStr:
+                    DoingAttributePrefixStr+__KeyStr+"=None",
+                    DoClass.DoingAttributeVariablesOrderedDict.keys()
+                )
+            )
+            DoExecStr+="," if DoExecStr[-1]!="," else ""
+            DoExecStr+="*_LiargVariablesList,"
+            DoExecStr+="**_KwargVariablesDict):\n\t"
+
+            #Debug part
+            #DoExecStr+='\n\tprint("In '+DoDecorationMethodStr+' with '+DoWrapMethod.__name__+' ") '
+            '''
+            DoExecStr+="\n\t#Debug"
+            DoExecStr+=('\n\t'+';\n\t'.join(
+                                    map(
+                                        lambda __KeyStr:
+                                        'print("In DoerFunction, '+DoingAttributePrefixStr+__KeyStr+' is ",'+DoingAttributePrefixStr+__KeyStr+')',
+                                        _Class.DoingAttributeVariablesOrderedDict.keys()
+                                    )
+                                )+";") if len(_Class.DoingAttributeVariablesOrderedDict.keys())&gt;0 else ''
+            DoExecStr+='\n\tprint("_LiargVariablesList is ",_LiargVariablesList);'
+            DoExecStr+='\n\tprint("_KwargVariablesDict is ",_KwargVariablesDict);\n\t'
+            '''
+
+            #Set the doing variables
+            """
+            DoExecStr+="\n\t#set the doing variables"
+            DoExecStr+="\n\tDoHistoryOrderedDict=_InstanceVariable.__class__.DoHistoryOrderedDict"
+            DoExecStr+="\n\tif '"+DoDecorationMethodStr+"' not in DoHistoryOrderedDict:DoHistoryOrderedDict['"+DoDecorationMethodStr+"']=SYS.collections.OrderedDict()"
+            DoExecStr+="\n\tDoneSpecificAttributesOrderedDict=DoHistoryOrderedDict['"+DoDecorationMethodStr+"']"
+            DoExecStr+=("\n"+";\n".join(
+            map(
+                lambda __KeyStr:
+                "\n".join(
+                    [
+                        "\tif "+DoingAttributePrefixStr+__KeyStr+"!=None:",
+                        "\t\t_InstanceVariable."+__KeyStr+"="+DoingAttributePrefixStr+__KeyStr,
+                        "\t\tDoneSpecificAttributesOrderedDict['"+__KeyStr+"']="+DoingAttributePrefixStr+__KeyStr,
+                        "\telse:",
+                        "\t\tDoneSpecificAttributesOrderedDict['"+__KeyStr+"']=None"
+                    ]
+                ),
+                DoClass.DoingAttributeVariablesOrderedDict.keys()
+                )
+            )+";\n") if len(
+                DoClass.DoingAttributeVariablesOrderedDict.keys()
+            )&gt;0 else ''
+            """
+
+            DoExecStr+=("\n"+";\n".join(
+            map(
+                lambda __KeyStr:
+                "\n".join(
+                    [
+                        "\tif "+DoingAttributePrefixStr+__KeyStr+"!=None:",
+                        "\t\t_InstanceVariable."+__KeyStr+"="+DoingAttributePrefixStr+__KeyStr,
+                    ]
+                ),
+                DoClass.DoingAttributeVariablesOrderedDict.keys()
+                )
+            )+";\n") if len(
+                DoClass.DoingAttributeVariablesOrderedDict.keys()
+            )&gt;0 else ''
+
+            #Give to the class this part (it can serve after for imitating methods...)
+            DoExecStrKeyStr='Do'+DoClass.NameStr+'ExecStr'
+            setattr(DoClass,DoExecStrKeyStr,DoExecStr)
+
+            #Call the initDo method
+            DoExecStr+="\n" if DoExecStr[-1]!="\n" else ""
+            DoExecStr+="\n\t#return\n\t"
+
+            #Check
+            setattr(DoClass,'DoingGetBool',self.DoingGetBool)
+            if self.DoingGetBool==False:
+
+                #Return the _InstanceVariable if it is not a getter object
+                DoExecStr+="do(_InstanceVariable,"
+                DoExecStr+="*_LiargVariablesList,"
+                DoExecStr+="**dict(_KwargVariablesDict,**{'DoDecorationMethodStr':'"+DoDecorationMethodStr+"','DoClassStr':'"+DoClass.__name__+"'}))\n\t"
+                DoExecStr+="return _InstanceVariable\n"
+            else:
+
+                #Return the output of the do method
+                DoExecStr+="return do(_InstanceVariable,"
+                DoExecStr+="*_LiargVariablesList,"
+                DoExecStr+="**dict(_KwargVariablesDict,**{'DoDecorationMethodStr':'"+DoDecorationMethodStr+"','DoClassStr':'"+DoClass.__name__+"'}))\n"
+
+            #Debug
+            '''
+            print('Doer l 438')
+            print('DoExecStr is ')
+            print(DoExecStr)
+            print('')
+            '''
+
+            #exec
+            six.exec_(DoExecStr)
+
+            #set
+            #locals(
+            #    )[DoDecorationMethodStr].DoWrapMethod=DoWrapMethod
+
+
+            #Debug
+            '''
+            print('l. 907 Doer')
+            print('DoClass is ',DoClass)
+            print('DoDecorationMethodStr is ',DoDecorationMethodStr)
+            print('DoWrapMethod is ',DoWrapMethod)
+            print("locals()[DoDecorationMethodStr] is ",locals()[DoDecorationMethodStr])
+            print('')
+            '''
+
+            #set with the specific name
+            setattr(
+                        DoClass,
+                        DoDecorationMethodStr,
+                        locals()[DoDecorationMethodStr]
+                    )
+
+            #set with the DoMethodStr shortcut
+            setattr(
+                        DoClass,
+                        DoMethodStr,
+                        locals()[DoDecorationMethodStr]
+                    )
+
+
+            #Set maybe if not already
+            if hasattr(DoClass,'setDo')==False:
+
+                #map
+                map(
+                    lambda __SetUnboundMethod:
+                    #set with the DoMethodStr shortcut
+                    setattr(
+                                DoClass,
+                                __SetUnboundMethod.__name__,
+                                __SetUnboundMethod
+                            ),
+                    [setDo,setDoing,setDone,callDo]
+                )
+
+        #Add to the KeyStrsList
+        DoClass.KeyStrsList+=[
+                                'DoerStr',
+                                'DoStr',
+                                'DoneStr',
+                                'DoingStr',
+                                'DoneAttributeVariablesOrderedDict',
+                                'DoingAttributeVariablesOrderedDict',
+                                DoExecStrKeyStr,
+                                'DoingGetBool',
+                                'DoTempAttributeItemTuplesList',
+                                'DoTempNotAttributeItemTupleItemsList'
+                        ]            
+#&lt;/DefineClass&gt;
+
+
+#&lt;DefineLocals&gt;
+DoStrsTuplesList=[
+    ('Doer','Do','Doing','Done'),
+    ('Deriver','Derive','Deriving','Derived'),
+    ('Propertiser','Propertize','Propertizing','Propertized'),
+    ('Inspecter','Inspect','Inspecting','Inspected'),
+    ('Representer','Represent','Representing','Represented'),
+    ('Printer','_Print','Printing','Printed'),
+    ('Debugger','Debug','Debugging','Debugged'),
+    ('Functer','Funct','Functing','Functed'),
+    ('Moduler','Module','Moduling','Moduled'),
+    ('Attester','Attest','Attesting','Attested'),
+    ('Tester','Test','Testing','Tested'),
+    ('Hooker','Hook','Hooking','Hooked'),
+    ('Conditioner','Condition','Conditioning','Conditioned'),
+    ('Concluder','Conclude','Concluding','Concluded'),
+    ('Observer','Observe','Observing','Observed'),
+    ('Binder','Bind','Binding','Binded'),
+    ('Switcher','Switch','Switching','Switched'),
+    ('Resetter','Reset','Resetting','Resetted'),
+    ('Caller','Call','Calling','Called'),
+    ('Cloner','Clone','Cloning','Cloned'),
+    ('Watcher','Watch','Watching','Watched'),
+    ('Classer','_Class','Classing','Classed'),
+    ('Argumenter','Argument','Argumenting','Argumented'),
+    ('Imitater','Imitate','Imitating','Imitated'),
+    ('Alerter','Alert','Alerting','Alerted'),
+    ('Interfacer','Interface','Interfacing','Interfaced'),
+    ('Folderer','Folder','Foldering','Foldered'),
+    ('Filer','File','Filing','Filed'),
+    ('Closer','Close','Closing','Closed'),
+    ('Loader','Load','Loading','Loaded'),
+    ('Writer','Write','Writing','Writed'),
+    ('Capturer','Capture','Capturing','Captured'),
+    ('Processer','Process','Processing','Processed'),
+    ('Statuser','Status','Statusing','Statused'),
+    ('Killer','Kill','Killing','Killed'),
+    ('Directer','Direct','Directing','Directed'),
+    ('Hdformater','Hdformat','Hdformating','Hdformated'),
+    ('Guider','Guide','Guiding','Guided'),
+    ('Scriptbooker','Scriptbook','Scriptbooking','Scriptbooked'),
+    ('Celler','Cell','Celling','Celled'),
+    ('Notebooker','Notebook','Notebooking','Notebooked'),
+    ('Markdowner','Markdown','Markdowning','Markdowned'),
+    ('Readmer','Readme','Readming','Readmed'),
+    ('Installer','Install','Installing','Installed'),
+    ('Documenter','Document','Documenting','Documented'),
+    ('Itemizer','Itemize','Itemizing','Itemized'),
+    ('Getter','Get','Getting','Getted'),
+    ('Setter','Set','Setting','Setted'),
+    ('Deleter','Delete','Deleting','Deleted'),
+    ('Attributer','Attribute','Attributing','Attributed'),
+    ('Restricter','Restrict','Restricting','Restricted'),
+    ('Pather','Path','Pathing','Pathed'),
+    ('Sharer','Share','Sharing','Shared'),
+    ('Executer','Execute','Executing','Executed'),
+    ('Pointer','Point','Pointing','Pointed'),
+    ('Applyier','Apply','Applying','Applied'),
+    ('Mapper','Map','Mapping','Mapped'),
+    ('Picker','Pick','Picking','Pick'),
+    ('Gatherer','Gather','Gathering','Gathered'),
+    ('Updater','Update','Updating','Updated'),
+    ('Linker','Link','Linking','Linked'),
+    ('Weaver','Weave','Weaving','Weaved'),
+    ('Filterer','Filter','Filtering','Filterer'),
+    ('Noder','Node','Noding','Noded'),
+    ('Outputer','Output','Outputing','Outputed'),
+    ('Appender','Append','Appending','Appended'),
+    ('Instancer','Instance','Instancing','Instanced'),
+    ('Adder','Add','Adding','Added'),
+    ('Distinguisher','Distinguish','Distinguishing','Distinguished'),
+    ('Parenter','Parent','Parenting','Parented'),
+    ('Storer','Store','Storing','Stored'),
+    ('Pusher','Push','Pushing','Pushed'),
+    ('Producer','Produce','Producing','Produced'),
+    ('Catcher','Catch','Catching','Catched'),
+    ('Attentioner','Attention','Attentioning','Attentioned'),
+    ('Coupler','Couple','Coupling','Coupled'),
+    ('Settler','Settle','Settling','Settled'),
+    ('Commander','Command','Commanding','Commanded'),
+    ('Walker','Walk','Walking','Walked'),
+    ('Collecter','Collect','Collecting','Collected'),
+    ('Visiter','Visit','Visiting','Visited'),
+    ('Recruiter','Recruit','Recruiting','Recruit'),
+    ('Mobilizer','Mobilize','Mobilizing','Mobilized'),
+    ('Router','Route','Routing','Routed'),
+    ('Grabber','Grab','Grabbing','Grabbed'),
+    ('Poker','Poke','Poking','Poked'),
+    ('Connecter','Connect','Connecting','Connected'),
+    ('Networker','Network','Networking','Networked'),
+    ('Grouper','Group','Grouping','Grouped'),
+    ('Structurer','Structure','Structuring','Structured'),
+    ('Saver','Save','Saving','Saved'),
+    ('Databaser','Database','Databasing','Databased'),
+    ('Modeler','Model','Modeling','Modeled'),
+    ('Tabularer','Tabular','Tabularing','Tabulared'),
+    ('Tabler','Table','Tabling','Tabled'),
+    ('Rower','Row','Rowing','Rowed'),
+    ('Flusher','Flush','Flushing','Flushed'),
+    ('Retriever','Retrieve','Retrieving','Retrieved'),
+    ('Findoer','Find','Finding','Found'),
+    ('Recoverer','Recover','Recovering','Recovered'),
+    ('Shaper','Shape','Shaping','Shaped'),
+    ('Merger','Merge','Merging','Merged'),
+    ('Scanner','Scan','Scanning','Scanned'),
+    ('Joiner','Join','Joining','Joined'),
+    ('Hierarchizer','Hierarchize','Hierarchizing','Hierarchized'),
+    ('Analyzer','Analyze','Analyzing','Analyzed'),
+    ('Grider','Grid','Griding','Grided'),
+    ('Controller','Control','Controlling','Controlled'),
+    ('Featurer','Feature','Featuring','Featured'),
+    ('Recuperater','Recuperate','Recuperating','Recuperated'),
+    ('Ploter','Plot','Ploting','Ploted'),
+    ('Axer','Axe','Axing','Axed'),
+    ('Paneler','Panel','Paneling','Paneled'),
+    ('Figurer','Figure','Figuring','Figured'),
+    ('Pyploter','Pyplot','Pyploting','Pyploted'),
+    ('Multiplier','Multiply','Multiplying','Multiplied'),
+    ('Sumer','Sum','Suming','Sumed'),
+    ('Modulizer','Modulize','Modulizing','Modulized'),
+    ('Simulater','Simulate','Simulating','Simulated'),
+    ('Runner','Run','Running','Runned'),
+    ('Moniter','Monit','Monitering','Monitered'),
+    ('Populater','Populate','Populating','Populated'),
+    ('Dynamizer','Dynamize','Dynamizing','Dynamized'),
+    ('Rater','Rate','Rating','Rated'),
+    ('Brianer','Brian','Brianing','Brianed'),
+    ('Muziker','Muzik','Muziking','Muziked'),
+    ('Vexflower','Vexflow','Vexflowing','Vexflowed'),
+    ('Permuter','Permute','Permuting','Permuted'),
+    ('Differenciater','Differenciate','Differenciating','Differenciated'),
+    ('Pooler','Pool','Pooling','Pooled'),
+    ('Harmonizer','Harmonize','Harmozing','Harmonized'),
+    ('Maker','Make','Making','Made'),
+    ('Builder','Build','Building','Built'),
+    ('Incrementer','Increment','Incrementing','Incremented'),
+    ('Mimicker','Mimic','Mimicking','Mimicked'),
+    ('Blocker','Block','Blocking','Blocked'),
+    ('Cumulater','Cumulate','Cumulating','Cumulated'),
+    ('Rebooter','Reboot','Rebooting','Rebooted'),
+    ('Triggerer','Trigger','Triggering','Triggered'),
+    ('Decrementer','Decrement','Decrementing','Decremented'),
+    ('Nbconverter','Nbconvert','Nbconverting','Nbconverted'),
+    ('Informer','Inform','Informing','Informed'),
+    ('Packager','Package','Packaging','Packaged'),
+    ('Deployer','Deploy','Deploying','Deployed'),
+    ('Transmitter','Transmit','Transmitting','Transmitted'),
+    ('Factorizer','Factorize','Factorizing','Factorized'),
+    ('Organizer','Organize','Organizing','Organized'),
+    ('Lifer','Lif','Lifing','Lifed'),
+    ('Grasper','Grasp','Grasping','Grasped')
+]
+
+DoerStrToDoStrOrderedDict=SYS.dictify(DoStrsTuplesList,0,1)
+DoStrToDoerStrOrderedDict=SYS.dictify(DoStrsTuplesList,1,0)
+DoStrToDoingStrOrderedDict=SYS.dictify(DoStrsTuplesList,1,2)
+DoStrToDoneStrOrderedDict=SYS.dictify(DoStrsTuplesList,1,3)
+DoneStrToDoingStrOrderedDict=SYS.dictify(DoStrsTuplesList,3,2)
+#&lt;/DefineLocals&gt;
+</code></pre>
+<p><small>
+View the Doer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Classors/Doer" target="_blank">Github</a>
+</small></p>
+</div>
+</div>
+</div></section><section>
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <!---
 FrozenIsBool True
 -->
@@ -1767,7 +2486,7 @@ FrozenIsBool True
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[2]:
+In&nbsp;[3]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -1848,17 +2567,17 @@ Maker : I am going to make
 (&apos;self.MakingMyFloat is &apos;, 3.0)
 
 MyMaker is 
-&lt;MakerClass object at 0x103327310&gt;
+&lt;MakerClass object at 0x10e6da490&gt;
 we reset doing
 MyMaker after set doing is 
-&lt;MakerClass object at 0x103327310&gt;
+&lt;MakerClass object at 0x10e6da490&gt;
 
 
 *****Start of the Attest *****
 
 MyMaker.__dict__ is 
    /{ 
-   /  &apos;IdInt&apos; : 4348605200
+   /  &apos;IdInt&apos; : 4537033872
    /  &apos;MadeMyInt&apos; : 3
    /  &apos;MadeMyList&apos; : []
    /  &apos;MakingFirstInt&apos; : 0
@@ -1916,6 +2635,152 @@ View the Deriver notebook on <a href="http://nbviewer.ipython.org/url/shareyours
 FrozenIsBool False
 -->
 
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+The Deriver helps for building a base-derive relationships between the classes.
+Once a &lt;Class&gt; with based classes is defined, a decorating DeriverClass instance
+append to these corresponding BaseClasses the &lt;Class&gt; as a derived class.
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Classors.Doer"
+DecorationModuleStr=BaseModuleStr
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+import sys
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineFunctions&gt;
+def getIsDerivedBoolWithParentClassAndDeriveClass(_ParentClass,_DeriveClass):
+
+    #Debug
+    '''
+    print('Deriver l.37')
+    print('_ParentClass is ',_ParentClass)
+    print('_DeriveClass is ',_DeriveClass)
+    print('')
+    '''
+
+    #Return
+    return _DeriveClass in _ParentClass.__mro__
+#&lt;/DefineFunctions&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class DeriverClass(BaseClass):
+
+    def default_init(self,
+                        _DerivedModule=None,
+                        **_KwargVariablesDict
+                    ):
+
+
+        #Call the parent init method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def __call__(self,_Class):
+
+        #debug
+        '''
+        print('Deriver l.30 __call__ method')
+        print('_Class is ',_Class)
+        print('')
+        '''
+
+        #Call the parent __call__ method
+        BaseClass.__call__(self,_Class)
+
+        #Debug
+        '''
+        print('Deriver l.54 We are going to derive')
+        print('self.derive is ',self.derive)
+        print('')
+        '''
+
+        #Derive
+        self.derive()
+
+        #Debug
+        '''
+        print('derive is done')
+        print('')
+        '''
+
+        #Return 
+        return _Class
+
+    def do_derive(self):
+
+        #Debug
+        '''
+        print('self.DoClass is ',self.DoClass)
+        print('')
+        '''
+
+        #alias
+        DoClass=self.DoClass
+
+        #Link
+        self.DerivedModule=sys.modules[DoClass.__module__]
+
+        #set
+        if len(DoClass.__bases__)&gt;0:
+
+            #set the DerivedBaseClas
+            DerivedBaseClass=DoClass.__bases__[0]
+
+            #Debug
+            '''
+            print('l. 83 Deriver')
+            print('We can set derived bases for the parent')
+            print('DerivedBaseClass is ',DerivedBaseClass)
+            print('')
+            '''
+
+            #Append to the parent class 
+            if hasattr(DerivedBaseClass,'DerivedClassesList'):
+                DerivedBaseClass.DerivedClassesList.append(DoClass)
+            else:
+                DerivedBaseClass.DerivedClassesList=[DoClass]
+
+            #Add to the KeyStrsList
+            DoClass.KeyStrsList+=SYS.getKeyStrsListWithClass(DoClass)
+
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Deriver sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Classors/Deriver" target="_blank">Github</a>
+</small></p>
+</div>
+</div>
+</div></section><section>
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<!--
+FrozenIsBool False
+-->
+
 <h2 id="more-descriptions-at-the-level-of-the-class">More Descriptions at the level of the class</h2>
 <p>Special attributes of the ClassorsClass are :</p>
 </div>
@@ -1924,7 +2789,7 @@ FrozenIsBool False
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[5]:
+In&nbsp;[7]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -1971,7 +2836,7 @@ In&nbsp;[5]:
 
 *****Start of the Attest *****
 
-MakerClass.DerivedClassesList is [&lt;class &apos;ShareYourSystem.Objects.Printer.PrinterClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Objects.Debugger.DebuggerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Objects.Conditioner.ConditionerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Objects.Concluder.ConcluderClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Objects.Rebooter.RebooterClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Interfacers.Interfacer.InterfacerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Interfacers.Folderer.FoldererClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Objects.Packager.PackagerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Interfacers.Filer.FilerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Interfacers.Closer.CloserClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Interfacers.Loader.LoaderClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Interfacers.Writer.WriterClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Interfacers.Hdformater.HdformaterClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Interfacers.Capturer.CapturerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Interfacers.Deployer.DeployerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Guiders.Guider.GuiderClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Guiders.Scriptbooker.ScriptbookerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Guiders.Celler.CellerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Guiders.Notebooker.NotebookerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Guiders.Nbconverter.NbconverterClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Guiders.Installer.InstallerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Guiders.Documenter.DocumenterClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Guiders.Informer.InformerClass&apos;&gt;, &lt;class &apos;BuilderClass&apos;&gt;, &lt;class &apos;MakerClass&apos;&gt;, &lt;class &apos;MakerClass&apos;&gt;, &lt;class &apos;MakerClass&apos;&gt;, &lt;class &apos;BuilderClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Tutorials.Incrementer.IncrementerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Tutorials.Decrementer.DecrementerClass&apos;&gt;, &lt;class &apos;MakerClass&apos;&gt;, &lt;class &apos;MakerClass&apos;&gt;, &lt;class &apos;MakerClass&apos;&gt;, &lt;class &apos;BuilderClass&apos;&gt;, &lt;class &apos;MakerClass&apos;&gt;, &lt;class &apos;BuilderClass&apos;&gt;, &lt;class &apos;MakerClass&apos;&gt;, &lt;class &apos;MakerClass&apos;&gt;, &lt;class &apos;BuilderClass&apos;&gt;, &lt;class &apos;MakerClass&apos;&gt;, &lt;class &apos;BuilderClass&apos;&gt;, &lt;class &apos;BuilderClass&apos;&gt;]
+MakerClass.DerivedClassesList is [&lt;class &apos;ShareYourSystem.Objects.Printer.PrinterClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Objects.Debugger.DebuggerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Objects.Conditioner.ConditionerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Objects.Concluder.ConcluderClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Objects.Rebooter.RebooterClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Interfacers.Interfacer.InterfacerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Interfacers.Folderer.FoldererClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Objects.Packager.PackagerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Interfacers.Filer.FilerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Interfacers.Closer.CloserClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Interfacers.Loader.LoaderClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Interfacers.Writer.WriterClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Interfacers.Hdformater.HdformaterClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Interfacers.Capturer.CapturerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Interfacers.Deployer.DeployerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Guiders.Guider.GuiderClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Guiders.Scriptbooker.ScriptbookerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Guiders.Celler.CellerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Guiders.Notebooker.NotebookerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Guiders.Nbconverter.NbconverterClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Guiders.Installer.InstallerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Guiders.Documenter.DocumenterClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Guiders.Informer.InformerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Objects.Caller.CallerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Objects.Cloner.ClonerClass&apos;&gt;, &lt;class &apos;MakerClass&apos;&gt;, &lt;class &apos;BuilderClass&apos;&gt;, &lt;class &apos;MakerClass&apos;&gt;, &lt;class &apos;BuilderClass&apos;&gt;, &lt;class &apos;BuilderClass&apos;&gt;, &lt;class &apos;MakerClass&apos;&gt;, &lt;class &apos;MakerClass&apos;&gt;, &lt;class &apos;MakerClass&apos;&gt;, &lt;class &apos;BuilderClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Tutorials.Incrementer.IncrementerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Tutorials.Decrementer.DecrementerClass&apos;&gt;, &lt;class &apos;MakerClass&apos;&gt;, &lt;class &apos;MakerClass&apos;&gt;, &lt;class &apos;MakerClass&apos;&gt;, &lt;class &apos;BuilderClass&apos;&gt;, &lt;class &apos;MakerClass&apos;&gt;, &lt;class &apos;BuilderClass&apos;&gt;, &lt;class &apos;MakerClass&apos;&gt;, &lt;class &apos;MakerClass&apos;&gt;, &lt;class &apos;BuilderClass&apos;&gt;, &lt;class &apos;MakerClass&apos;&gt;, &lt;class &apos;BuilderClass&apos;&gt;, &lt;class &apos;BuilderClass&apos;&gt;]
 
 *****End of the Attest *****
 
@@ -2018,6 +2883,283 @@ View the Propertiser notebook on <a href="http://nbviewer.ipython.org/url/sharey
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<!--
+FrozenIsBool False
+-->
+
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+The Propertiser is an augmented Defaultor because it will set defaults attributes
+possibly in properties for the new-style decorated classes. This can set objects
+with high controlling features thanks to the binding 
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Classors.Deriver"
+DecorationModuleStr=BaseModuleStr
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+import inspect
+import collections
+
+from ShareYourSystem.Objects import Initiator
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineLocals&gt;
+PropertizingGetStr="_"
+PropertizingRepresentationStr="p:"
+#&lt;/DefineLocals&gt;
+
+#&lt;DefineFunctions&gt;
+def getPropertizedTupleWithItemTupleAndClass(_ItemTuple,_Class):
+
+    #Get the KeyStr, and the ValueVariable that should be a dict
+    PropertizedKeyStr=_ItemTuple[0]
+    PropertizedValueVariable=_ItemTuple[1]
+    PropertizedHideKeyStr=PropertizingGetStr+PropertizedKeyStr
+
+    #Check that this is a property yet or not
+    if type(PropertizedValueVariable)!=property:
+
+        #Init
+        PropertizedValueVariable=property()
+
+        #Definition the get function
+        PropertizedGetFunctionStr='get'+PropertizedKeyStr
+        if hasattr(_Class,PropertizedGetFunctionStr):
+
+            #Check for an already defined method
+            PropertizedGetFunction=getattr(_Class,PropertizedGetFunctionStr)
+
+        else:
+
+            #Definition a default one
+            def PropertizedGetFunction(self):
+                return getattr(self,PropertizedHideKeyStr)
+            PropertizedGetFunction.__name__=PropertizedGetFunctionStr
+
+        #Definition the set function
+        PropertizedSetFunctionStr='set'+PropertizedKeyStr
+
+        #Check
+        if hasattr(_Class,PropertizedSetFunctionStr):
+
+            #Check for an already defined method
+            PropertizedSetFunction=getattr(_Class,PropertizedSetFunctionStr)
+        else:
+
+            #Definition a default one
+            def PropertizedSetFunction(self,_SettingValueVariable):
+                self.__setattr__(PropertizedHideKeyStr,_SettingValueVariable)
+            PropertizedSetFunction.__name__='set'+PropertizedKeyStr
+
+
+        #Definition the del function
+        PropertizedDelFunctionStr='del'+PropertizedKeyStr
+        if hasattr(_Class,PropertizedDelFunctionStr):
+
+            #Check for an already defined method
+            PropertizedDelFunction=getattr(_Class,PropertizedDelFunctionStr)
+
+        else:
+
+            #Definition a default one
+            def PropertizedDelFunction(self):
+                self.__delattr__(PropertizedHideKeyStr)
+            PropertizedDelFunction.__name__='del'+PropertizedKeyStr
+
+        #Redefine
+        PropertizedValueVariable=property(
+                            PropertizedGetFunction,
+                            PropertizedSetFunction,
+                            PropertizedDelFunction,
+                            _ItemTuple[1]['PropertizingDocStr'
+                            ]if 'PropertizingDocStr' in _ItemTuple[1]
+                            else "This is here a property but with no more details..."
+                        )
+
+    #Definition the property
+    return (
+                PropertizedKeyStr,
+                PropertizedValueVariable
+            )
+
+def getPropertizedVariableWithItemTuple(_ItemTuple):
+
+    #Maybe it is already defined
+    if 'PropertizingInitVariable' in _ItemTuple[1]:
+        return _ItemTuple[1]['PropertizingInitVariable']
+    else:
+
+        #Return the default one associated with the type
+        return SYS.getTypeClassWithTypeStr(SYS.getWordStrsListWithStr(_ItemTuple[0])[-1])
+
+#&lt;/DefineFunctions&gt;
+
+#&lt;Define_Class&gt;
+@DecorationClass()
+class PropertiserClass(BaseClass):
+
+    def default_init(self,
+                        **_KwargVariablesDict
+                    ):
+
+        #Call the parent init method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def __call__(self,_Class):
+
+        #debug
+        '''
+        print('Defaultor l.31 __call__ method')
+        print('_Class is ',_Class)
+        print('')
+        '''
+
+        #Call the parent init method
+        BaseClass.__call__(self,_Class)
+
+        #Debug
+        '''
+        print('l.146 : We are going to propertize')
+        print('')
+        '''
+
+        #propertize
+        self.propertize()
+
+        #Debug
+        '''
+        print('l.153 : propertize is done')
+        print('')
+        '''
+
+        #Return 
+        return _Class
+
+    def do_propertize(self):
+
+        #Alias
+        PropertizedClass=self.DoClass
+
+        #Debug
+        '''
+        print('PropertizedClass is ',PropertizedClass)
+        print('')
+        '''
+
+        #debug
+        '''
+        print('Propertiser l.47 default method')
+        print('Class is ',Class)
+        print('')
+        '''
+
+        #Check
+        if hasattr(PropertizedClass,"DefaultAttributeVariablesOrderedDict"):
+
+            #debug
+            '''
+            print('PropertizedClass.DefaultAttributeVariablesOrderedDict is',PropertizedClass.DefaultAttributeVariablesOrderedDict)
+            print('')
+            '''
+
+            #set the PropertizedDefaultTuplesList
+            PropertizedClass.PropertizedDefaultTuplesList=SYS._filter(
+                lambda __DefaultSetTuple:
+                type(__DefaultSetTuple[1]
+                    )==property or (
+                    hasattr(__DefaultSetTuple[1],'items'
+                        ) and 'DefaultingSetType' in __DefaultSetTuple[1
+                    ] and __DefaultSetTuple[1
+                    ]['DefaultingSetType']==property),
+                PropertizedClass.DefaultAttributeVariablesOrderedDict.items()
+            )
+
+            #debug
+            '''
+            print('Before set PropertizedClass.PropertizedDefaultTuplesList is ',PropertizedClass.PropertizedDefaultTuplesList)
+            print('')
+            '''
+
+            #set at the level of the class the PropertizingGetStr+KeyStr
+            map(    
+                    lambda __PropertizedDefaultTuple:
+                    setattr(
+                                PropertizedClass,
+                                PropertizingGetStr+__PropertizedDefaultTuple[0],
+                                getPropertizedVariableWithItemTuple(__PropertizedDefaultTuple)
+                            ),
+                    PropertizedClass.PropertizedDefaultTuplesList
+                )
+
+            #set the PropertizedTuple for each at the level of the class
+            PropertizedClass.PropertizedDefaultTuplesList=map(
+                    lambda __PropertizedDefaultTuple:
+                    getPropertizedTupleWithItemTupleAndClass(
+                        __PropertizedDefaultTuple,
+                        PropertizedClass
+                    ),
+                    PropertizedClass.PropertizedDefaultTuplesList
+                )
+
+            #debug
+            '''
+            print('After set PropertizedClass.PropertizedDefaultTuplesList is ',PropertizedClass.PropertizedDefaultTuplesList)
+            print('')
+            '''
+
+            #Reset at the level of the class the properties
+            map(    
+                    lambda __PropertizedDefaultTuple:
+                    setattr(
+                                PropertizedClass,
+                                *__PropertizedDefaultTuple
+                            ),
+                    PropertizedClass.PropertizedDefaultTuplesList
+                )
+
+
+
+            #Add to the KeyStrsList
+            PropertizedClass.KeyStrsList+=[
+                                        "PropertizedDefaultTuplesList"
+                                    ]
+
+
+
+
+#&lt;/Define_Class&gt;
+</code></pre>
+<p><small>
+View the Propertiser sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Classors/Propertiser" target="_blank">Github</a>
+</small></p>
+</div>
+</div>
+</div></section><section>
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <!---
 FrozenIsBool True
 -->
@@ -2033,7 +3175,7 @@ that will be linked to the fset attribute of the property object. </p>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[8]:
+In&nbsp;[11]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -2128,12 +3270,12 @@ MakerClass.PropertizedDefaultTuplesList is
    /  0 : 
    /   /(
    /   /  0 : MakingMyFloat
-   /   /  1 : &lt;property object at 0x103314f70&gt;
+   /   /  1 : &lt;property object at 0x10e884100&gt;
    /   /)
    /  1 : 
    /   /(
    /   /  0 : MakingMyList
-   /   /  1 : &lt;property object at 0x103314e68&gt;
+   /   /  1 : &lt;property object at 0x10e884158&gt;
    /   /)
    /]
 
@@ -2143,7 +3285,7 @@ What are you saying DefaultMaker ?
 
 ------
 
-DefaultMaker.__dict__ is {&apos;IdInt&apos;: 4348604944}
+DefaultMaker.__dict__ is {&apos;IdInt&apos;: 4538653072}
 
 ------
 
@@ -2163,7 +3305,7 @@ What are you saying SpecialMaker ?
 
 ------
 
-SpecialMaker.__dict__ is {&apos;IdInt&apos;: 4348606416, &apos;MadeMyInt&apos;: 5, &apos;_MakingMyFloat&apos;: 5, &apos;_MakingMyList&apos;: [4, &apos;Hellllllo&apos;]}
+SpecialMaker.__dict__ is {&apos;IdInt&apos;: 4538653200, &apos;MadeMyInt&apos;: 5, &apos;_MakingMyFloat&apos;: 5, &apos;_MakingMyList&apos;: [4, &apos;Hellllllo&apos;]}
 
 ------
 
@@ -2221,6 +3363,112 @@ View the Inspecter notebook on <a href="http://nbviewer.ipython.org/url/shareyou
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<!--
+FrozenIsBool False
+-->
+
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+An Inspecter decorates a class by giving it an InspectedArgumentDict that is 
+an inspection of all defined methods.
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Classors.Propertiser"
+DecorationModuleStr=BaseModuleStr
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+import collections
+import inspect
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineFunction&gt;
+def getInspectedUnboundMethodsListWithClass(_Class):
+    return SYS._filter(
+            lambda __AttributeVariable:
+            type(__AttributeVariable).__name__=="function",
+            _Class.__dict__.values()
+            )
+#&lt;DefineFunction&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class InspecterClass(BaseClass):
+
+    def default_init(self,**_KwargVariablesDict):
+
+        #Call the parent init method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def __call__(self,_Class):
+
+        #Call the parent init method
+        BaseClass.__call__(self,_Class)
+
+        #Inspect
+        self.inspect()
+
+        #Return _Class
+        return _Class
+
+    def do_inspect(self):
+
+        #Alias
+        InspectedClass=self.DoClass
+
+        #Debug
+        '''
+        print('InspectedClass is ',InspectedClass)
+        print('')
+        '''
+
+        #Get the Args
+        InspectedClass.InspectedArgumentDict=dict(
+                                map(    
+                                    lambda __Function:
+                                    (
+                                        __Function.__name__,
+                                        SYS.getArgumentDictWithFunction(__Function)
+                                    ),
+                                    getInspectedUnboundMethodsListWithClass(InspectedClass)
+                                )
+                            )
+
+        #Add to the KeyStrsList
+        InspectedClass.KeyStrsList+=[
+                                    'InspectedArgumentDict',
+                                ]
+
+#&lt;/Define_Class&gt;
+</code></pre>
+<p><small>
+View the Inspecter sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Classors/Inspecter" target="_blank">Github</a>
+</small></p>
+</div>
+</div>
+</div></section><section>
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <!---
 FrozenIsBool True
 -->
@@ -2233,7 +3481,7 @@ FrozenIsBool True
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[11]:
+In&nbsp;[15]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -2439,6 +3687,887 @@ View the Representer notebook on <a href="http://nbviewer.ipython.org/url/sharey
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<!--
+FrozenIsBool False
+-->
+
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+The Representer is an important module for beginning to visualize 
+the structures of the instanced variables in the environnment.
+The idea is to use the indenting representation like in the json.dump
+function but with a more suitable (but maybe dirty) access to the 
+AlineaStr of each lines of the output, depending on the state 
+of the variables. Instances that are created from the decorated class have
+a __repr__ method, helping for mentionning for the represented attributes where
+do they come from : &lt;Spe&gt; (resp. &lt;Base&gt;) is they were defined at the level of the \_\_class\_\_ 
+and &lt;Instance&gt; (resp. &lt;Class&gt;) if they are getted from the &lt;InstanceVariable&gt;.__dict__ 
+(resp. &lt;InstanceVariable&gt;.__class__.__dict__)
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Classors.Inspecter"
+DecorationModuleStr=BaseModuleStr
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+import collections
+import copy
+import inspect
+import numpy
+import sys
+
+from ShareYourSystem.Objects import Initiator
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineLocals&gt;
+RepresentingDictIndentStr="  "
+RepresentingListIndentStr="  "
+RepresentingIndentStr="   /"
+RepresentingEofStr="\n"
+RepresentingIdBool=True
+RepresentingCircularStr="{...}"
+RepresentedAlineaStr=""
+RepresentedAlreadyIdIntsList=[]
+#&lt;/DefineLocals&gt;
+
+#&lt;DefineFunctions&gt;
+def getRepresentedNumpyArray(_NumpyArray):
+
+    #Definition the ShapeList
+    ShapeList=list(numpy.shape(_NumpyArray))
+
+    #debug
+    '''
+    print('Representer l.25 : getRepresentedNumpyArray')
+    print('ShapeList is',ShapeList)
+    print('')
+    '''
+
+    #Return the array directly if it is small or either a short represented version of it
+    if (len(ShapeList)==1 and ShapeList[0]&lt;3) or (len(ShapeList)&gt;1 and ShapeList[1]&lt;3):
+        return str(_NumpyArray)
+    return "&lt;numpy.ndarray shape "+str(ShapeList)+"&gt;" 
+
+def getRepresentedPointerStrWithVariable(_Variable,**_KwargVariablesDict):
+
+    #debug
+    '''
+    print('Representer l.39 : getRepresentedPointerStrWithVariable')
+    print('')
+    '''
+
+    #set in the _KwargVariablesDict
+    if 'RepresentedDeepInt' not in _KwargVariablesDict:
+        _KwargVariablesDict['RepresentedDeepInt']=0
+
+    #Definition the Local alinea
+    RepresentedLocalAlineaStr=RepresentedAlineaStr if _KwargVariablesDict['RepresentedDeepInt']==0 else ""
+
+    if RepresentingIdBool:
+        return RepresentedLocalAlineaStr+"&lt;"+(
+            _Variable.__name__ if hasattr(_Variable,__name__) else ""
+            )+" ("+_Variable.__class__.__name__+"), "+str(id(_Variable))+"&gt;"
+    else:
+        return RepresentedLocalAlineaStr+"&lt;"+(
+            _Variable.__name__ if hasattr(_Variable,__name__) else ""
+            )+" ("+_Variable.__class__.__name__+")"+" &gt;"
+
+def getRepresentedStrWithDictatedVariable(
+    _DictatedVariable,**_KwargVariablesDict
+    ):
+
+    #set in the _KwargVariablesDict
+    if 'RepresentedDeepInt' not in _KwargVariablesDict:
+        _KwargVariablesDict['RepresentedDeepInt']=0
+
+    #debug
+    '''
+    print('Representer l.59 : getRepresentedStrWithDictatedVariable')
+    print('_KwargVariablesDict is ',str(_KwargVariablesDict))
+    print('')
+    '''
+
+    #Global
+    global RepresentedAlineaStr
+
+    #Definition the LocalRepresentedAlineaStr
+    LocalRepresentedAlineaStr=RepresentedAlineaStr+"".join(
+        [RepresentingIndentStr]*(_KwargVariablesDict['RepresentedDeepInt']))
+
+    #Init the RepresentedDictStr
+    RepresentedDictStr="\n"+LocalRepresentedAlineaStr+"{ "
+
+    #Scan the Items (integrativ loop)
+    if type(_DictatedVariable)==collections.OrderedDict:
+        RepresentedTuplesList=_DictatedVariable.items()
+    else:
+        RepresentedTuplesList=sorted(
+            _DictatedVariable.iteritems(), key=lambda key_value: key_value[0])
+
+    #Integrativ loop for seriaizing the items
+    for __RepresentedKeyStr,__RepresentedValueVariable in RepresentedTuplesList:
+
+        #debug
+        '''
+        print('Representer l.127')
+        print('__RepresentedKeyStr is',__RepresentedKeyStr)
+        print('')
+        '''
+
+        #set the begin of the line
+        RepresentedDictStr+="\n"+LocalRepresentedAlineaStr+RepresentingDictIndentStr
+
+        #Force the cast into Str
+        if type(__RepresentedKeyStr) not in [unicode,str]:
+            __RepresentedKeyStr=str(__RepresentedKeyStr)
+
+        #Get the WordStrsList
+        WordStrsList=SYS.getWordStrsListWithStr(__RepresentedKeyStr)
+
+        #Init the RepresentedValueVariableStr
+        RepresentedValueVariableStr="None"
+
+        #Split the case if it is a pointing variable or not
+        if len(WordStrsList)&gt;0:
+
+            #Value is displayed
+            """
+            if SYS.getWordStrsListWithStr(__RepresentedKeyStr)[-1]=="Pointer":
+
+                #Pointer Case
+                RepresentedValueVariableStr=getRepresentedPointerStrWithVariable(
+                                                __RepresentedValueVariable,
+                                                **_KwargVariablesDict
+                                            )
+            """
+            """                        
+            elif ''.join(SYS.getWordStrsListWithStr(__RepresentedKeyStr)[-2:])=="PointersList":
+
+                #debug
+                '''
+                print('__RepresentedValueVariable is ',__RepresentedValueVariable)
+                print('')
+                '''
+
+                #Pointer Case
+                RepresentedValueVariableStr=str(
+                        map(
+                                lambda ListedVariable:
+                                getRepresentedPointerStrWithVariable(
+                                    ListedVariable,
+                                    **_KwargVariablesDict),
+                                __RepresentedValueVariable
+                            )
+                        )  if type(__RepresentedValueVariable)==list else "None"
+            """
+
+        #Special Suffix Cases
+        if RepresentedValueVariableStr=="None":
+
+            #debug
+            '''
+            print('go to represent')
+            print('__RepresentedKeyStr is ',__RepresentedKeyStr)
+            print('id(__RepresentedValueVariable) is ',id(__RepresentedValueVariable))
+            print('')
+            '''
+
+            #Other Cases
+            RepresentedValueVariableStr=getRepresentedStrWithVariable(
+                __RepresentedValueVariable,
+                **_KwargVariablesDict
+                )
+
+        #Key and Value Case
+        RepresentedDictStr+="'"+__RepresentedKeyStr+"' : "+RepresentedValueVariableStr
+
+    #Add a last line
+    RepresentedDictStr+="\n"+LocalRepresentedAlineaStr+"}"
+
+    #debug
+    '''
+    print('RepresentedDictStr is ',RepresentedDictStr)
+    print('')
+    '''
+
+    #return the DictStr
+    return RepresentedDictStr
+
+def getRepresentedStrWithListedVariable(_ListedVariable,**_KwargVariablesDict):    
+
+    #Global
+    global RepresentedAlineaStr
+
+    #set in the _KwargVariablesDict
+    if 'RepresentedDeepInt' not in _KwargVariablesDict:
+        _KwargVariablesDict['RepresentedDeepInt']=0
+
+    #debug
+    '''
+    print('Representer l.166 : getRepresentedStrWithListedVariable')
+    print('_KwargVariablesDict is ',str(_KwargVariablesDict))
+    print('_ListedVariable is '+str(_ListedVariable))
+    print('')
+    '''
+
+    #Init the RepresentedDictStr
+    if type(_ListedVariable)==list:
+        BeginBracketStr='['
+        EndBracketStr=']'
+    else:
+        BeginBracketStr='('
+        EndBracketStr=')'
+
+    #Definition the LocalRepresentedAlineaStr
+    LocalRepresentedAlineaStr=RepresentedAlineaStr+"".join(
+        [RepresentingIndentStr]*(_KwargVariablesDict['RepresentedDeepInt']))
+
+    #Do the first Jump
+    RepresentedListStr="\n"+LocalRepresentedAlineaStr+BeginBracketStr
+
+    #Scan the Items (integrativ loop)
+    for ListedVariableInt,ListedVariable in enumerate(_ListedVariable):
+
+        #set the begin of the line
+        RepresentedListStr+="\n"+LocalRepresentedAlineaStr+RepresentingListIndentStr
+
+        #Get the represented version
+        RepresentedValueVariableStr=getRepresentedStrWithVariable(
+                ListedVariable,**dict(_KwargVariablesDict,**{'RepresentingAlineaIsBool':False})
+                )
+
+        #Key and Value Case
+        RepresentedListStr+=str(ListedVariableInt)+" : "+RepresentedValueVariableStr
+
+    #Add a last line
+    RepresentedListStr+="\n"+LocalRepresentedAlineaStr+EndBracketStr
+
+    #return the DictStr
+    return RepresentedListStr
+
+def getRepresentedStrWithVariable(_Variable,**_KwargVariablesDict):
+
+    #Define global
+    global RepresentedAlreadyIdIntsList
+
+    #set in the _KwargVariablesDict
+    if 'RepresentedDeepInt' not in _KwargVariablesDict:
+        _KwargVariablesDict['RepresentedDeepInt']=0
+
+    #debug
+    '''
+    print('Representer l.213 : getRepresentedStrWithVariable')
+    #print('_KwargVariablesDict is ',str(_KwargVariablesDict))
+    #print('_Variable is '+str(_Variable))    
+    print('type(_Variable) is '+str(type(_Variable)))
+    #print("hasattr(_Variable,'__repr__') is "+str(hasattr(_Variable,"__repr__")))
+    ##if hasattr(_Variable,"__repr__"):
+    #    print('hasattr(_Variable.__class__,"InspectedOrderedDict") is '+str(
+    #        hasattr(_Variable.__class__,"InspectedOrderedDict")))
+    #    if hasattr(_Variable.__class__,"InspectedOrderedDict"):
+    #        print("_Variable.__class__.InspectedOrderedDict['__repr__']['KwargVariablesDictKeyStr'] is "+str(
+    #            _Variable.__class__.InspectedOrderedDict['__repr__']['KwargVariablesDictKeyStr']))    
+    #        print(_Variable.__class__.InspectedOrderedDict['__repr__']['KwargVariablesDictKeyStr'])
+    print('')
+    '''
+
+    #None type
+    if _Variable==None:
+        return "None"
+
+    #Dict types print
+    if type(_Variable) in [dict,collections.OrderedDict]:
+
+        #Increment the deep
+        _KwargVariablesDict['RepresentedDeepInt']+=1
+
+        #debug
+        '''
+        print('This is a dictated type so get a represent like a dict')
+        print('')
+        '''
+
+        #id
+        RepresentedIdInt=id(_Variable)
+
+        #debug
+        '''
+        print('RepresentedIdInt is ',RepresentedIdInt)
+        print('RepresentedAlreadyIdIntsList is ',RepresentedAlreadyIdIntsList)
+        print('')
+        '''
+
+        #Check if it was already represented
+        if RepresentedIdInt not in RepresentedAlreadyIdIntsList:
+
+            #Debug
+            '''
+            print('RepresentedAlreadyIdIntsList is ',RepresentedAlreadyIdIntsList)
+            print('')
+            '''
+
+            #append
+            RepresentedAlreadyIdIntsList.append(RepresentedIdInt)
+
+            #Return the repr of the _Variable but shifted with the RepresentedAlineaStr
+            RepresentedStr=getRepresentedStrWithDictatedVariable(
+                        _Variable,
+                        **_KwargVariablesDict
+            )
+
+
+
+        else:
+
+            #Return the circular Str
+            RepresentedStr=RepresentingCircularStr+getRepresentedPointerStrWithVariable(_Variable)
+
+        #Debug
+        '''
+        print('RepresentedIdInt is ',RepresentedIdInt)
+        print('RepresentedStr is ',RepresentedStr)
+        print('')
+        '''
+
+        #return 
+        return RepresentedStr
+
+    #List types print
+    elif type(_Variable) in [list,tuple]:
+
+        #id
+        RepresentedIdInt=id(_Variable)
+
+        #Check if it was already represented
+        if RepresentedIdInt not in RepresentedAlreadyIdIntsList:
+
+            #debug
+            '''
+            print('This is a listed type so get a represent like a list')
+            print('')
+            '''
+
+            #append
+            RepresentedAlreadyIdIntsList.append(RepresentedIdInt)
+
+            #Check if it is a List of Objects or Python Types
+            if all(
+                    map(
+                        lambda ListedVariable:
+                        type(ListedVariable) in [float,int,str,unicode,numpy.float64] or ListedVariable==None,
+                        _Variable
+                        )
+                )==False:
+
+                #Increment the deep
+                _KwargVariablesDict['RepresentedDeepInt']+=1
+
+                #debug
+                '''
+                print('Print a represented version of the list')
+                print('')
+                '''
+
+                #Return 
+                RepresentedStr=getRepresentedStrWithListedVariable(_Variable,**_KwargVariablesDict)
+
+            else:
+
+                #debug
+                '''
+                print('Here just print the list directly')
+                print('')
+                '''
+
+                #Definition the Local alinea
+                RepresentedLocalAlineaStr=RepresentedAlineaStr if _KwargVariablesDict['RepresentedDeepInt']==0 else ""
+
+                #Return 
+                RepresentedStr=RepresentedLocalAlineaStr+repr(
+                    _Variable).replace("\n","\n"+RepresentedLocalAlineaStr)
+
+
+            #return 
+            return RepresentedStr
+
+        else:
+
+            #Return the circular Str
+            return RepresentingCircularStr+getRepresentedPointerStrWithVariable(_Variable)
+
+    #Instance print
+    elif type(_Variable).__name__ in ["instancemethod"]:
+
+        #Definition the Local alinea
+        RepresentedLocalAlineaStr=RepresentedAlineaStr if _KwargVariablesDict['RepresentedDeepInt']==0 else ""
+
+        #return RepresentedAlineaStr+"instancemethod"
+        return RepresentedLocalAlineaStr+_Variable.__repr__().split('of')[0]+"&gt;"
+
+    #Str types
+    elif type(_Variable) in SYS.StrTypesList:
+
+        #debug
+        '''
+        print('This is a Str type so get a represent like a Str')
+        print('')
+        '''
+
+        #Definition the Local alinea
+        RepresentedLocalAlineaStr=RepresentedAlineaStr if _KwargVariablesDict['RepresentedDeepInt']==0 else ""
+
+        #Return
+        return RepresentedLocalAlineaStr+_Variable.replace("\n","\n"+RepresentedLocalAlineaStr)
+
+    #Other
+    elif hasattr(_Variable,"__repr__") and hasattr(
+        _Variable.__class__,"InspectedArgumentDict"
+        ) and '__repr__' in _Variable.__class__.InspectedArgumentDict and _Variable.__class__.InspectedArgumentDict[
+        '__repr__']['KwargVariablesDictKeyStr']!="":
+
+        #debug
+        '''
+        print('This is a representer so call the repr of it with the _KwargVariablesDict')
+        print('type(_Variable) is ',type(_Variable))
+        print('id(_Variable) is ',id(_Variable))
+        print('')
+        '''
+
+        #id
+        RepresentedIdInt=id(_Variable)
+
+        #Check if it was already represented
+        if RepresentedIdInt not in RepresentedAlreadyIdIntsList:
+
+            #append
+            RepresentedAlreadyIdIntsList.append(RepresentedIdInt)
+
+            #Return the repr of the _Variable but shifted with the RepresentedAlineaStr
+            RepresentedStr=_Variable.__repr__(**_KwargVariablesDict)
+
+            #return 
+            return RepresentedStr
+
+        else:
+
+            #Return the circular Str
+            return RepresentingCircularStr+getRepresentedPointerStrWithVariable(_Variable)
+
+    else:
+
+        #Debug
+        '''
+        print('This is not identified so call the repr of it')
+        print('')
+        '''
+
+        #Definition the Local alinea
+        RepresentedLocalAlineaStr=RepresentedAlineaStr if _KwargVariablesDict[
+            'RepresentedDeepInt']==0 else ""
+
+        #Define 
+        RepresentedIdInt=id(_Variable)
+
+        #Debug
+        '''
+        print('RepresentedIdInt is ',RepresentedIdInt)
+        print('RepresentedAlreadyIdIntsList is ',RepresentedAlreadyIdIntsList)
+        print('')
+        '''
+
+        #Check if it was already represented
+        if RepresentedIdInt not in RepresentedAlreadyIdIntsList:
+
+            #debug
+            '''
+            print('type(_Variable) is ',type(_Variable))
+            print('')
+            '''
+
+            #Append but only for mutables variable
+            if type(_Variable) not in [bool,str,int,float]:
+                RepresentedAlreadyIdIntsList.append(RepresentedIdInt)
+
+            else:
+
+                #debug
+                '''
+                print('_Variable is ',_Variable)
+                print('')
+                '''
+                pass
+
+            #Return a repr of the _Variable but shifted with the RepresentedAlineaStr
+            RepresentedStr=RepresentedLocalAlineaStr+repr(_Variable).replace(
+                                        "\n",
+                                        "\n"+RepresentedLocalAlineaStr
+                                    )
+
+            #return 
+            return RepresentedStr
+
+
+        else:
+
+            #Return the circular Str
+            return RepresentedLocalAlineaStr+RepresentingCircularStr+getRepresentedPointerStrWithVariable(
+                _Variable)
+
+def _print(_Variable,**_KwargVariablesDict):
+    print(represent(_Variable,**_KwargVariablesDict))
+
+def represent(_Variable,**_KwargVariablesDict):
+
+    #Definition the global
+    global RepresentedAlineaStr,RepresentedAlreadyIdIntsList
+
+    #Debug
+    '''
+    print('Representer l.545')
+    print('Reinit the RepresentedAlreadyIdIntsList')
+    print('')
+    '''
+
+    #Reinit
+    RepresentedAlreadyIdIntsList=[]
+
+    #Debug
+    '''
+    print('Representer l.554')
+    print('_KwargVariablesDict is ',_KwargVariablesDict)
+    print('')
+    '''
+
+    #Represent without shifting the Strs or not
+    if 'RepresentingAlineaIsBool' not in _KwargVariablesDict or _KwargVariablesDict['RepresentingAlineaIsBool']:
+        return getRepresentedStrWithVariable(_Variable,**_KwargVariablesDict)
+    else:
+        RepresentedOldAlineaStr=RepresentedAlineaStr
+        RepresentedAlineaStr=""
+        RepresentedStr=getRepresentedStrWithVariable(_Variable,**_KwargVariablesDict)
+        RepresentedAlineaStr=RepresentedOldAlineaStr
+        return RepresentedStr
+
+#&lt;/DefineFunctions&gt;
+
+#Link
+def __main__represent(_RepresentingStr,**_KwargVariablesDict):
+    return represent(
+        _RepresentingStr,
+        **dict(_KwargVariablesDict,**{'RepresentingAlineaIsBool':False})
+    )
+def __main__print(_RepresentingStr,**_KwargVariablesDict):
+    return _print(
+        _RepresentingStr,
+        **dict(_KwargVariablesDict,**{'RepresentingAlineaIsBool':False})
+    )
+SYS._str = __main__represent
+SYS._print = __main__print
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class RepresenterClass(BaseClass):
+
+    def default_init(self,**_KwargVariablesDict):
+
+        #Call the parent init method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def __call__(self,_Class):
+
+        #debug
+        '''
+        print('Representer l.478 : _Class is ',_Class)
+        print('')
+        '''
+
+        #Call the parent init method
+        BaseClass.__call__(self,_Class)
+
+        #debug
+        '''
+        print('Representer l.485 : self.DoClass is ',self.DoClass)
+        print('')
+        '''
+
+        #Represent
+        self.represent()
+
+        #Return
+        return _Class
+
+    def do_represent(self):
+
+        #alias
+        RepresentedClass=self.DoClass
+
+        #debug
+        '''
+        print('Representer l.352 : RepresentedClass is ',RepresentedClass)
+        print('')
+        '''
+
+        if hasattr(RepresentedClass,'RepresentingKeyStrsList')==False or (
+            len(RepresentedClass.__bases__)&gt;0 and hasattr(RepresentedClass.__bases__[0
+            ],'RepresentingKeyStrsList') and RepresentedClass.__bases__[0
+            ].RepresentingKeyStrsList==RepresentedClass.RepresentingKeyStrsList):
+            RepresentedClass.RepresentingKeyStrsList=[]
+
+        #set the BaseKeyStrsList
+        KeyStrsSet=set(
+            SYS.collect(
+                    RepresentedClass,
+                    '__bases__',
+                    'RepresentingKeyStrsList'
+                    )
+            )
+        #KeyStrsSet.difference_update(set(RepresentedClass.RepresentingKeyStrsList))
+        RepresentedClass.RepresentedBaseKeyStrsList=list(KeyStrsSet)
+
+        #Split between the one from the class or not
+        [
+            RepresentedClass.RepresentedSpecificKeyStrsList,
+            RepresentedClass.RepresentedNotSpecificKeyStrsList
+        ]=SYS.groupby(
+            lambda __KeyStr:
+            __KeyStr not in RepresentedClass.RepresentedBaseKeyStrsList,
+            RepresentedClass.RepresentingKeyStrsList
+        )
+
+        #debug
+        '''
+        print(
+                RepresentedClass.__name__,
+                #Class.__mro__,
+                #Class.RepresentedNotGettingStrsList,
+                list(RepresentedClass.RepresentedBasedKeyStrsList)
+                )
+        '''    
+
+        #Add to the KeyStrsList
+        RepresentedClass.KeyStrsList+=[
+                                    'RepresentingKeyStrsList',
+                                    'RepresentedBaseKeyStrsList',
+                                    'RepresentedSpecificKeyStrsList',
+                                    'RepresentedNotSpecificKeyStrsList'
+                                ]
+
+        #Definition the representing methods
+        def represent(_InstanceVariable,**_KwargVariablesDict):
+
+            #debug
+            '''
+            _InstanceVariable.debug(('RepresentedClass',RepresentedClass,[
+                                            'RepresentingKeyStrsList',
+                                            'RepresentedBaseKeyStrsList',
+                                            'RepresentedSpecificKeyStrsList',
+                                            'RepresentedNotSpecificKeyStrsList'
+                                            ]))
+            '''
+
+            #Represent the Specific KeyStrs
+            RepresentedTuplesList=map(
+                                        lambda __RepresentingSpecificKeyStr:
+                                        (
+                                            "&lt;Spe&gt;"+("&lt;Instance&gt;"
+                                            if __RepresentingSpecificKeyStr in _InstanceVariable.__dict__
+                                            else "&lt;Class&gt;"
+                                            )+__RepresentingSpecificKeyStr
+                                            ,
+                                            getattr(_InstanceVariable,__RepresentingSpecificKeyStr)
+                                        ),
+                                        RepresentedClass.RepresentedSpecificKeyStrsList
+                                    )
+
+            #Represent the BaseKeyStrs
+            if 'RepresentingBaseKeyStrsListBool' in _KwargVariablesDict and _KwargVariablesDict['RepresentingBaseKeyStrsListBool']:
+
+                RepresentedTuplesList+=map(
+                                        lambda __NotSpecificKeyStrsList:
+                                        (
+                                            "&lt;Base&gt;"+("&lt;Instance&gt;"
+                                            if __NotSpecificKeyStrsList in _InstanceVariable.__dict__
+                                            else "&lt;Class&gt;"
+                                            )+__NotSpecificKeyStrsList
+                                            ,
+                                            getattr(_InstanceVariable,__NotSpecificKeyStrsList)
+                                        ),
+                                        RepresentedClass.RepresentedNotSpecificKeyStrsList
+                                    )
+
+                RepresentedTuplesList+=map(
+                                        lambda __RepresentedBaseKeyStr:
+                                        (
+                                            "&lt;Base&gt;"+("&lt;Instance&gt;"
+                                            if __RepresentedBaseKeyStr in _InstanceVariable.__dict__
+                                            else "&lt;Class&gt;"
+                                            )+__RepresentedBaseKeyStr
+                                            ,
+                                            getattr(_InstanceVariable,__RepresentedBaseKeyStr)
+                                        ),
+                                        RepresentedClass.RepresentedBaseKeyStrsList
+                                    )
+
+            """
+            RepresentedTuplesList+=map(
+                                        lambda __NewItemTuple:
+                                        (
+                                            ("&lt;Spe&gt;&lt;Instance&gt;"
+                                            if __NewItemTuple[0] in RepresentedClass.DefaultSetKeyStrsList+RepresentedClass.DefaultBaseSetKeyStrsList
+                                            else "&lt;New&gt;&lt;Instance&gt;")+__NewItemTuple[0],
+                                            __NewItemTuple[1]
+                                        ),
+                                        _InstanceVariable.__dict__.items()
+                                    )
+            """
+
+            #Represent the NewInstanceKeyStrs in the __dict__
+            if 'RepresentingNewInstanceKeyStrsListBool' not in _KwargVariablesDict or _KwargVariablesDict[
+            'RepresentingNewInstanceKeyStrsListBool']:
+
+                RepresentedNewInstanceKeyStrsList=SYS._filter(
+                                            lambda __NewItemTuple:
+                                            __NewItemTuple[0] not in RepresentedClass.DefaultSetKeyStrsList+RepresentedClass.DefaultBaseSetKeyStrsList,
+                                            _InstanceVariable.__dict__.items()
+                                        )
+
+                RepresentedTuplesList+=map(
+                                            lambda __NewItemTuple:
+                                            (
+                                                "&lt;New&gt;&lt;Instance&gt;"+__NewItemTuple[0],
+                                                __NewItemTuple[1]
+                                            ),
+                                            RepresentedNewInstanceKeyStrsList
+                                        )
+
+            #Represent the NewClassKeyStrs in the _RepresentedClass__.__dict__
+            if 'RepresentingNewClassKeyStrsListBool' not in _KwargVariablesDict or _KwargVariablesDict[
+            'RepresentingNewClassKeyStrsListBool']:
+
+                RepresentedTuplesList+=map(
+                                            lambda __NewKeyStr:
+                                            (
+                                                "&lt;New&gt;&lt;Class&gt;"+__NewKeyStr,
+                                                _InstanceVariable.__class__.__dict__[__NewKeyStr]
+                                            ),
+                                            SYS._filter(
+                                                            lambda __KeyStr:
+                                                            __KeyStr not in RepresentedClass.KeyStrsList and __KeyStr not in _InstanceVariable.__dict__,
+                                                            SYS.getKeyStrsListWithClass(
+                                                                _InstanceVariable.__class__
+                                                            )
+                                                        )
+                                        )
+
+            if 'RepresentingNotConcludeTuplesList' in _KwargVariablesDict:
+
+                #Debug
+                '''
+                print('l 792 Representer')
+                print('RepresentedTuplesList is ')
+                print(RepresentedTuplesList)
+                print('')
+                '''
+
+                #filter
+                RepresentedTuplesList=SYS._filter(
+                    lambda __RepresentedTuple:
+                    any(
+                        map(
+                            lambda __RepresentingNotConcludeTuple:
+                            __RepresentingNotConcludeTuple[0](
+                                __RepresentedTuple,
+                                __RepresentingNotConcludeTuple[1]
+                            ),
+                        _KwargVariablesDict['RepresentingNotConcludeTuplesList']
+                        )
+                    )==False,
+                    RepresentedTuplesList
+                )
+
+                #Debug
+                '''
+                print('l 815 Representer')
+                print('RepresentedTuplesList is ')
+                print(RepresentedTuplesList)
+                print('')
+                '''
+
+            if 'RepresentingKeyStrsList' in _KwargVariablesDict:
+
+                RepresentedTuplesList+=map(
+                        lambda __RepresentingKeyStr:
+                        (
+                            "&lt;Spe&gt;&lt;Instance&gt;"+__RepresentingKeyStr,
+                            _InstanceVariable.__dict__[__RepresentingKeyStr]
+                        ) if __RepresentingKeyStr in _InstanceVariable.__dict__
+                        else (
+                            "&lt;Base&gt;&lt;Class&gt;"+__RepresentingKeyStr,
+                            getattr(_InstanceVariable,__RepresentingKeyStr)
+                        ),
+                        _KwargVariablesDict['RepresentingKeyStrsList']
+                    )
+
+            #Append
+            global RepresentedAlreadyIdIntsList
+
+            #debug
+            '''
+            print('Represener l.629')
+            print('id(_InstanceVariable) is ',id(_InstanceVariable))
+            print('_InstanceVariable not in RepresentedAlreadyIdIntsList is ',str(
+                _InstanceVariable not in RepresentedAlreadyIdIntsList))
+            print('')
+            '''
+
+            #define the RepresentedStr
+            return getRepresentedPointerStrWithVariable(
+                _InstanceVariable
+                    )+getRepresentedStrWithVariable(
+                            dict(RepresentedTuplesList),
+                            **_KwargVariablesDict
+                        )
+
+        #Bound and set in the InspectedOrderedDict
+        RepresentedClass.__repr__=represent
+        RepresentedClass.InspectedArgumentDict['__repr__']=SYS.getArgumentDictWithFunction(
+            RepresentedClass.__repr__)
+
+#&lt;/DefineClass&gt;
+
+#set in the InitiatorClass
+Initiator.InitiatorClass.RepresentedNotGettingStrsList=['InitiatingUpdateBool']
+Initiator.InitiatorClass.RepresentedSpecificKeyStrsList=['InitiatingUpdateBool']
+</code></pre>
+<p><small>
+View the Representer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Classors/Representer" target="_blank">Github</a>
+</small></p>
+</div>
+</div>
+</div></section><section>
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <!---
 FrozenIsBool True
 -->
@@ -2451,7 +4580,7 @@ FrozenIsBool True
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[14]:
+In&nbsp;[19]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -2524,37 +4653,37 @@ In&nbsp;[14]:
 
 *****Start of the Attest *****
 
-SimpleMaker is &lt; (MakerClass), 4348664144&gt;
+SimpleMaker is &lt; (MakerClass), 4538548944&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4348664144
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4538548944
    /  &apos;&lt;Spe&gt;&lt;Class&gt;MadeMyInt&apos; : 0
    /}
 
 ------
 
-ParentMaker is &lt; (MakerClass), 4348664272&gt;
+ParentMaker is &lt; (MakerClass), 4538548880&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;CircularChildMaker&apos; : &lt; (MakerClass), 4348664528&gt;
+   /  &apos;&lt;New&gt;&lt;Instance&gt;CircularChildMaker&apos; : &lt; (MakerClass), 4538653904&gt;
    /   /{ 
-   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4348664528
-   /   /  &apos;&lt;New&gt;&lt;Instance&gt;ParentMaker&apos; : {...}&lt; (MakerClass), 4348664272&gt;
-   /   /  &apos;&lt;New&gt;&lt;Instance&gt;SelfMaker&apos; : {...}&lt; (MakerClass), 4348664528&gt;
+   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4538653904
+   /   /  &apos;&lt;New&gt;&lt;Instance&gt;ParentMaker&apos; : {...}&lt; (MakerClass), 4538548880&gt;
+   /   /  &apos;&lt;New&gt;&lt;Instance&gt;SelfMaker&apos; : {...}&lt; (MakerClass), 4538653904&gt;
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;MadeMyInt&apos; : 0
    /   /}
-   /  &apos;&lt;New&gt;&lt;Instance&gt;FirstChildMaker&apos; : &lt; (MakerClass), 4348665808&gt;
+   /  &apos;&lt;New&gt;&lt;Instance&gt;FirstChildMaker&apos; : &lt; (MakerClass), 4537033744&gt;
    /   /{ 
-   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4348665808
+   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4537033744
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;MadeMyInt&apos; : 0
    /   /}
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4348664272
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4538548880
    /  &apos;&lt;Spe&gt;&lt;Class&gt;MadeMyInt&apos; : 0
    /}
 
 ------
 
-SimpleBuilder is &lt; (BuilderClass), 4348664464&gt;
+SimpleBuilder is &lt; (BuilderClass), 4538552208&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4348664464
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4538552208
    /  &apos;&lt;Spe&gt;&lt;Class&gt;BuiltMyStr&apos; : None
    /}
 
@@ -2606,6 +4735,232 @@ View the Attester notebook on <a href="http://nbviewer.ipython.org/url/shareyour
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<!--
+FrozenIsBool False
+-->
+
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+The Attester helps for outputing and writing
+AttestingPrefixStrs that are a succession of well-shaped
+prints in the console from an defined attesting function.
+This environment helps for displaying nicer exampling 
+python codes in Readme and also contributing to unittests
+of the modules.
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Classors.Representer"
+DecorationModuleStr=BaseModuleStr
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+import os
+import sys
+Representer=DecorationModule
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineLocals&gt;
+AttestingPrefixStr='attest_'
+AttestingBeginStr='\n\n*****Start of the Attest *****\n\n'
+AttestingJumpStr='\n\n------\n\n'
+AttestingEndStr='\n\n*****End of the Attest *****\n\n'
+#&lt;/DefineLocals&gt;
+
+#&lt;DefineFunctions&gt;
+def writeAttestedStrWithFolderPathStrAndMethodStrAndAttestVariable(
+    _FolderPathStr,_MethodStr,_AttestVariable):
+
+    #Bind with TestedStr setting
+    Representer.RepresentingIdBool=False
+    AttestedStr=Representer.getRepresentedStrWithVariable(_AttestVariable)
+    Representer.RepresentingIdBool=True
+
+    #Debug
+    '''
+    print('l 52 Attester')
+    print('_FolderPathStr is ',_FolderPathStr)
+    print('')
+    '''
+
+    #Check that there is a Folder Tests
+    if os.path.isdir(_FolderPathStr)==False:
+        os.popen('mkdir '+_FolderPathStr)
+    elif os.popen("ls "+_FolderPathStr).read()!="":
+        os.popen("cd "+_FolderPathStr+";rm *")
+
+    #Write the TestedStr
+    File=open(_FolderPathStr+_MethodStr+'.txt','w')
+    File.write(AttestedStr)
+    File.close()
+
+def getAttestedStrWithStrsList(_StrsList):
+
+    #Definition globals
+    global AttestingBeginStr,AttestingJumpStr,AttestingEndStr
+
+    #Reinit the alinea
+    Representer.RepresentedAlineaStr=""
+    Representer.RepresentedAlreadyVariablesList=[]
+
+    #Init AttestedStr
+    AttestedStr=AttestingBeginStr
+
+    #Add attested Strs
+    AttestedStr+=AttestingJumpStr.join(
+        map(
+            lambda __Str:
+            Representer.represent(__Str,**{'RepresentingAlineaIsBool':False}),
+            _StrsList
+        )
+    )
+
+    #End the AttestedStr
+    AttestedStr+=AttestingEndStr
+
+    #Return
+    return AttestedStr
+
+#Definition an attest function for the classing class
+def setAttest(_InstanceVariable,_AttestFolderPathStr="",**_KwargVariablesDict):
+
+    #Set
+    if _AttestFolderPathStr=="":     
+        _AttestFolderPathStr=_InstanceVariable.__class__.DeriveClassor.AttestingFolderPathStr
+    _InstanceVariable.__class__.DeriveClassor.AttestingFolderPathStr=_AttestFolderPathStr
+
+    #Debug
+    '''
+    print('l 92 Attester')
+    print('AttestedFolderPathStr is ',AttestedFolderPathStr)
+    print('')
+    '''
+
+    #Write the TestedStr made by each function and append an equivalent test method into the test ordered dict
+    map(
+            lambda __AttestedUnboundMethod:
+            writeAttestedStrWithFolderPathStrAndMethodStrAndAttestVariable(
+                _AttestFolderPathStr,
+                __AttestedUnboundMethod.__name__,
+                __AttestedUnboundMethod(_InstanceVariable)
+            ),
+            _InstanceVariable.__class__.DeriveClassor.AttestedUnboundMethodsList
+        )
+#&lt;/DefineFunctions&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class AttesterClass(BaseClass):
+
+    #Definition
+    RepresentingKeyStrsList=[
+                            'AttestingFolderPathStr',
+                            'AttestedMethodStrsList'
+                        ]
+
+    def default_init(self,
+                        _AttestingFolderPathStr="",
+                        _AttestedMethodStrsList=None,
+                        **_KwargVariablesDict
+                    ):
+
+        #Call the parent init method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def __call__(self,_Class):
+
+        #Call the parent init method
+        BaseClass.__call__(self,_Class)
+
+        #Represent
+        self.attest()
+
+        #Return
+        return _Class
+
+    def do_attest(self):
+
+        #set the TestedFolderPathStr
+        if self.AttestingFolderPathStr=="":
+
+            #In the gl
+            self.AttestingFolderPathStr=SYS.ShareYourSystemLocalFolderPathStr+self.DoClass.__module__.replace(
+                '.','/')+'/Attests/'
+
+        #debug
+        '''
+        print('self.ClassedModule is ',self.ClassedModule)
+        print('')
+        '''
+
+        #set the AttestedMethodStrsList
+        self.AttestedMethodStrsList=SYS._filter(
+                lambda __AttributeKeyStr:
+                __AttributeKeyStr.startswith(AttestingPrefixStr),
+                dir(self.DoClass)
+            )
+
+        #set
+        self.AttestedUnboundMethodsList=map(
+            lambda __AttestedMethodStr:
+            getattr(self.DoClass,__AttestedMethodStr),
+            self.AttestedMethodStrsList
+        )
+
+        #debug
+        '''
+        print('self.AttestedMethodStrsList is '+str(self.AttestedMethodStrsList))
+        print('')
+        '''
+
+        #set
+        if hasattr(self.DoClass,'setAttest')==False:
+            setattr(
+                self.DoClass,
+                setAttest.__name__,
+                setAttest
+            )
+
+        #Return self
+        #return self
+
+#&lt;/DefineClass&gt;
+
+#link
+SYS._attest=lambda _StrsList:SYS._print(getAttestedStrWithStrsList(_StrsList))
+
+#Set
+AttesterClass.DeriveClassor.AttestingFolderPathStr=SYS.PythonlogyLocalFolderPathStr+AttesterClass.__module__.replace(
+'.','/')+'/Attests/'
+</code></pre>
+<p><small>
+View the Attester sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Classors/Attester" target="_blank">Github</a>
+</small></p>
+</div>
+</div>
+</div></section><section>
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <!---
 FrozenIsBool True
 -->
@@ -2620,7 +4975,7 @@ Attests/</p>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[17]:
+In&nbsp;[23]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -2710,6 +5065,229 @@ View the Tester notebook on <a href="http://nbviewer.ipython.org/url/shareyoursy
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<!--
+FrozenIsBool False
+-->
+
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+The Tester helps for defining asserts between 
+attested Strs stored in the Attests Folder and
+new calls of the attest functions. Thanks here 
+to a wrap of the unitest python module :
+https://docs.python.org/2/library/unittest.html
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Classors.Attester"
+DecorationModuleStr=BaseModuleStr
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+import collections
+import copy
+import os
+import sys
+import unittest
+import ShareYourSystem as SYS
+from ShareYourSystem.Classors import Representer
+Attester=BaseModule
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineLocals&gt;
+AttestingStr='attest'
+#&lt;/DefineLocals&gt;
+
+#&lt;DefineFunctions&gt;
+def setTestFunctionWithFolderPathStrAndAttestUnboundMethod(
+    _FolderPathStr,_AttestUnboundMethod):
+
+    #Definition
+    AttestUnboundMethodStr=_AttestUnboundMethod.__name__
+    TestUnboundMethodStr='at'.join(AttestUnboundMethodStr.split('at')[1:])
+    TestModule=sys.modules[_AttestUnboundMethod.__module__]
+
+    #Debug
+    '''
+    print('l 50 Tester')
+    print('_AttestUnboundMethod is ',_AttestUnboundMethod)
+    print('_AttestUnboundMethod.__module__ is ',_AttestUnboundMethod.__module__)
+    print('')
+    '''
+
+    #Define
+    def test(_InstanceVariable):
+
+        #Get the AssertedStr
+        File=open(_FolderPathStr+AttestUnboundMethodStr+'.txt','r')
+        AttestStr=File.read()
+        File.close()
+
+        #Call the attest function to get the TestVariable
+        TestVariable=_AttestUnboundMethod(
+                        getattr(
+                            SYS,
+                            SYS.getClassStrWithNameStr(
+                                TestModule.__name__.split('.')[-1]
+                                if '.' in TestModule.__name__ else TestModule
+                            )
+                        )()
+                    )
+
+        #Bind with TestStr setting
+        Representer.RepresentingIdBool=False
+        TestStr=Representer.getRepresentedStrWithVariable(TestVariable)
+        Representer.RepresentingIdBool=True
+
+        #Represent maybe
+        if TestModule.TestingPrintIsBool:
+
+            #debug
+            print("\n###########################################")
+            print("")
+            print('AttestStr is :')
+            print(AttestStr)
+            print("")
+
+            #debug
+            print('TestStr is :')
+            print(TestStr)
+            print("")
+
+        #Assert
+        #print("a",AssertingStr)
+        #print("b",_InstanceVariable.TestedPointer.TestStr)
+
+        #assert
+        _InstanceVariable.assertEqual(
+                #1,1
+                AttestStr,
+                TestStr
+        )
+
+    #Copy a form of the test function and name it differently
+    test.__name__=TestUnboundMethodStr
+
+    #Debug
+    '''
+    print('l 96 Tester')
+    print('TestModule is',TestModule)
+    print('')
+    '''
+
+    #Append in the Test OrderedDict
+    TestModule.TestedOrderedDict[test.__name__]=test
+#&lt;/DefineFunctions&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class TesterClass(BaseClass):
+
+    #Definition
+    RepresentingKeyStrsList=[
+                            ]
+
+    def default_init(self,**_KwargVariablesDict):
+
+        #Call the parent init method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def __call__(self,_Class):
+
+        #Call the parent init method
+        BaseClass.__call__(self,_Class)
+
+        #Represent
+        self.test()
+
+        #Return
+        return _Class
+
+    def do_test(self):
+
+        #Init in the classed Module
+        if hasattr(self.DerivedModule,'TestingPrintIsBool')==False:
+            self.DerivedModule.TestingPrintIsBool=True
+        self.DerivedModule.TestedOrderedDict=collections.OrderedDict()
+
+        #set the tests for each asserting function
+        map(
+                lambda __AttestedUnboundMethod:
+                setTestFunctionWithFolderPathStrAndAttestUnboundMethod(
+                    self.AttestingFolderPathStr,
+                    __AttestedUnboundMethod
+                ),
+                self.AttestedUnboundMethodsList
+            )
+
+        #Definition the TestClass
+        class TestClass(unittest.TestCase):                
+
+            #Bind with the Tested object
+            TestedPointer=self
+
+            #Bound the setUp function
+            #locals().__setitem__(setUp.__name__,setUp)
+
+            #Bound each testing function
+            for __InstanceVariableedKeyStr,__InstanceVariableedMethod in self.DerivedModule.TestedOrderedDict.items():
+                locals().__setitem__(__InstanceVariableedKeyStr,__InstanceVariableedMethod)
+
+            try:
+                del TestedKeyStr,TestedMethod
+            except:
+                pass
+
+        #Give a name
+        TestClass.__name__=SYS.getClassStrWithNameStr(self.NameStr+'Test')
+
+        #set to the module of the classing class
+        self.DerivedModule.TestedClass=TestClass
+
+        #Definition
+        def test():
+
+            #Call to the unittest runner
+            TestLoader=unittest.TestLoader().loadTestsFromTestCase(
+                self.DerivedModule.TestedClass
+            )
+            unittest.TextTestRunner(verbosity=2).run(TestLoader)
+
+        #Link to the module of the classing class
+        self.DerivedModule.test=test
+#&lt;/DefineClass&gt;
+
+#Set
+TesterClass.DeriveClassor.AttestingFolderPathStr=Attester.AttesterClass.DeriveClassor.AttestingFolderPathStr
+</code></pre>
+<p><small>
+View the Tester sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Classors/Tester" target="_blank">Github</a>
+</small></p>
+</div>
+</div>
+</div></section><section>
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <!---
 FrozenIsBool True
 -->
@@ -2724,7 +5302,7 @@ the test method, a unittest.run is done.</p>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[20]:
+In&nbsp;[27]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -2794,6 +5372,138 @@ View the Observer notebook on <a href="http://nbviewer.ipython.org/url/shareyour
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<!--
+FrozenIsBool False
+-->
+
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+Observer...
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Classors.Tester"
+DecorationModuleStr="ShareYourSystem.Classors.Tester"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+import collections
+import copy
+import inspect
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineFunctions&gt;
+def observe(_InstanceVariable,**_KwargVariablesDict):
+    return _InstanceVariable
+#&lt;/DefineFunctions&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class ObserverClass(BaseClass):
+
+    #Definition 
+    RepresentingKeyStrsList=[
+                        'ObservingIsBool',
+                        'ObservingWrapMethodStr',
+                        'ObservedWrapUnboundMethod',
+                        'ObservedWrapMethodStr'
+    ]
+
+    def default_init(self,
+                    _ObservingIsBool=False,
+                    _ObservingWrapMethodStr="",    
+                    _ObservedWrapUnboundMethod=None,        
+                    _ObservedWrapMethodStr="",                   
+                    **_KwargVariablesDict
+                ):
+
+        #Call the init parent method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def __call__(self,_Class):
+
+        #Call the parent init method
+        BaseClass.__call__(self,_Class)
+
+        #observe
+        self.observe()
+
+        #Return
+        return _Class
+
+    def do_observe(self):
+
+        #Check
+        if self.ObservingIsBool:
+
+            #Debug
+            '''
+            print('Observer l.75')
+            print('self.ObservingWrapMethodStr is')
+            print(self.ObservingWrapMethodStr)
+            print('')
+            '''
+
+            #Get
+            self.ObservedWrapUnboundMethod=getattr(
+                self.DoClass,
+                self.ObservingWrapMethodStr
+            ) if self.ObservingWrapMethodStr!="" else observe
+
+            #Debug
+            '''
+            print('Observer l 86')
+            print('self.ObservedWrapUnboundMethod is ',self.ObservedWrapUnboundMethod)
+            print('')
+            '''
+
+            #Define Check for not pointing a circular function...
+            if self.ObservingWrapMethodStr!=self.ObservedWrapUnboundMethod.__name__:
+                self.ObservedWrapMethodStr=self.ObservedWrapUnboundMethod.__name__
+            else:
+                self.ObservedWrapMethodStr=self.ObservingWrapMethodStr
+
+            #Debug
+            '''
+            print('Observer l.85')
+            print('self.ObservingWrapMethodStr is')
+            print(self.ObservingWrapMethodStr)
+            print('')
+            '''
+
+            #Return self
+            #return self
+
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Observer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Classors/Observer" target="_blank">Github</a>
+</small></p>
+</div>
+</div>
+</div></section><section>
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <!---
 FrozenIsBool True
 -->
@@ -2807,7 +5517,7 @@ for which the Functer decoration by default call the decorated method...</p>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[23]:
+In&nbsp;[31]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -2909,11 +5619,251 @@ FrozenIsBool False
 <h2 id="doc">Doc</h2>
 <hr>
 <blockquote>
-<p>Binder...</p>
+<p>Binder helps for setting a method in a Class,
+taking inspiration (like a decoration) from another one.</p>
 </blockquote>
 <hr>
 <p><small>
 View the Binder notebook on <a href="http://nbviewer.ipython.org/url/shareyoursystem.ouvaton.org/Binder.ipynb">NbViewer</a>
+</small></p>
+</div>
+</div>
+</div></section><section>
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<!--
+FrozenIsBool False
+-->
+
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+Binder helps for setting a method in a Class,
+taking inspiration (like a decoration) from another one.
+
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Classors.Observer"
+DecorationModuleStr="ShareYourSystem.Classors.Tester"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+Observer=BaseModule
+import six
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineLocals&gt;
+BindingDecorationPrefixStr=""
+BindingDecorationSuffixStr="_"
+#&lt;/DefineLocals&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class BinderClass(BaseClass):
+
+    #Definition 
+    RepresentingKeyStrsList=[
+                            'BindingIsBool',
+                            'BindingDecorationUnboundMethod',
+                            'BindingDecorationMethodStr',
+                            'BindingDecorationTagStr',
+                            'BindingItemTuplesList',
+                            'BindedDecorationMethodStr',
+                            'BindedDecorationUnboundMethod'
+                        ]
+
+    def default_init(self,
+                    _BindingIsBool=False,
+                    _BindingDecorationUnboundMethod=None,
+                    _BindingDecorationMethodStr='',
+                    _BindingDecorationTagStr="",
+                    _BindingItemTuplesList=None,
+                    _BindedDecorationMethodStr="",    
+                    _BindedDecorationUnboundMethod=None,                               
+                    **_KwargVariablesDict
+                ):
+
+        #Call the init parent method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def __call__(self,_Class):
+
+        #Call the parent method
+        Observer.ObserverClass.__bases__[0].__call__(self,_Class)
+
+        #bind
+        self.bind()
+
+        #Return
+        return _Class
+
+    def do_bind(self):
+
+        #Check
+        if self.BindingIsBool:
+
+            #Debug
+            '''
+            print('l 77 Binder')
+            print('self.BindingDecorationUnboundMethod is ',self.BindingDecorationUnboundMethod)
+            print('self.BindingDecorationMethodStr is ',self.BindingDecorationMethodStr)
+            print('')
+            '''
+
+            #Check
+            if self.BindingDecorationUnboundMethod!=None or self.BindingDecorationMethodStr!="":
+
+                #Debug
+                '''
+                print('l 73 Binder')
+                print('we observe first')
+                print('')
+                '''
+
+                #observe without linking
+                self.observe(True)
+
+                #Debug
+                '''
+                print('l 81 Binder')
+                print('self.ObservingWrapMethodStr is ',self.ObservingWrapMethodStr)
+                print('self.ObservedWrapMethodStr is ',self.ObservedWrapMethodStr)
+                print('')
+                '''
+
+                #Check
+                if self.BindingDecorationUnboundMethod==None:
+
+                    #Get
+                    self.BindingDecorationUnboundMethod=getattr(
+                        self.DoClass,
+                        self.BindingDecorationMethodStr
+                    )
+
+                else:
+
+                    #set
+                    self.BindingDecorationMethodStr=self.BindingDecorationUnboundMethod.__name__
+
+                #Debug
+                '''
+                print('Binder l.119')
+                print('self.BindingDecorationUnboundMethod is')
+                print(self.BindingDecorationUnboundMethod)
+                print('')
+                '''
+
+                #Check
+                if self.BindingDecorationTagStr=="":
+                    self.BindingDecorationTagStr=self.BindingDecorationMethodStr
+
+                #set the new
+                self.BindedDecorationMethodStr=BindingDecorationPrefixStr+self.BindingDecorationTagStr+BindingDecorationSuffixStr
+                self.BindedDecorationMethodStr+=self.ObservingWrapMethodStr
+
+                #Debug
+                '''
+                print('Binder l.102')
+                print('self.BindedDecorationMethodStr is')
+                print(self.BindedDecorationMethodStr)
+                print('')
+                '''
+
+                #set to the class the BindingDecorationMethod
+                setattr(
+                        self.DoClass,
+                        self.BindingDecorationMethodStr,
+                        self.BindingDecorationUnboundMethod
+                    )
+
+                #Define
+                BindedExecStr='def '+self.BindedDecorationMethodStr+'(_InstanceVariable,*_LiargVariablesList'
+                BindedExecStr+=',**_KwargVariablesDict):'
+                BindedExecStr+='\n\treturn _InstanceVariable.__class__.'+self.BindingDecorationMethodStr
+                BindedExecStr+='(_InstanceVariable,*_LiargVariablesList'
+
+                #Debug
+                '''
+                print('Binder l 159')
+                print('self.BindingItemTuplesList is ')
+                print(self.BindingItemTuplesList)
+                print('')
+                '''
+
+                #Add
+                self.BindingItemTuplesList+=[
+                    ('BindObserveWrapMethodStr',self.ObservingWrapMethodStr),
+                    ('BindDoClassStr',self.DoClass.__name__),
+                ]
+                self.BindedItemTuplesList=','.join(
+                    map(
+                        lambda __BindingItemTuple:
+                        "'"+__BindingItemTuple[0]+"':'"+str(__BindingItemTuple[1])+"'",
+                        self.BindingItemTuplesList
+                    )
+                )
+                BindedExecStr+=',**dict({'
+                BindedExecStr+=self.BindedItemTuplesList
+                BindedExecStr+='},**_KwargVariablesDict))\n' 
+
+                #Debug
+                '''
+                print('Binder l 176')
+                print('BindedExecStr is ')
+                print(BindedExecStr)
+                print('')
+                '''
+
+                #exec
+                six.exec_(BindedExecStr)
+
+                #set
+                self.BindedDecorationUnboundMethod=locals()[self.BindedDecorationMethodStr]
+
+                #set to the class the BindingDecorationMethod
+                setattr(
+                        self.DoClass,
+                        self.BindedDecorationMethodStr,
+                        self.BindedDecorationUnboundMethod
+                    )
+
+                #Debug
+                '''
+                print('l 175 Binder')
+                print('self.BindedDecorationMethodStr is ')
+                print(self.BindedDecorationMethodStr)
+                print('self.BindedDecorationUnboundMethod is ')
+                print(self.BindedDecorationUnboundMethod)
+                print('')
+                '''
+
+                #Return self
+                #return self
+
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Binder sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Classors/Binder" target="_blank">Github</a>
 </small></p>
 </div>
 </div>
@@ -2938,7 +5888,7 @@ just lets it as the first version. </p>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[26]:
+In&nbsp;[35]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -3053,9 +6003,9 @@ MakerClass.foo_make is &lt;unbound method MakerClass.foo_make&gt;
 
 ------
 
-MyMaker is &lt; (MakerClass), 4348872080&gt;
+MyMaker is &lt; (MakerClass), 4538654224&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4348872080
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4538654224
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 30
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MakingMyFloat&apos; : 30.0
    /}
@@ -3103,6 +6053,273 @@ View the Watcher notebook on <a href="http://nbviewer.ipython.org/url/shareyours
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<!--
+FrozenIsBool False
+-->
+
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+The Watcher 
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Classors.Binder"
+DecorationModuleStr="ShareYourSystem.Classors.Tester"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+import operator
+import copy
+from ShareYourSystem.Classors import Doer,Observer,Representer
+Binder=BaseModule
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineLocals&gt;
+WatchingPrefixKeyStr="Watch"
+#&lt;/DefineLocals&gt;
+
+#&lt;SetRepresent&gt;
+def getIsBoolWithItemTupleAndPrefixStr(_ItemTuple,_PrefixStr):
+
+    #Debug
+    '''
+    print('Watcher l 35')
+    print('_ItemTuple is ',_ItemTuple)
+    print('_PrefixStr is ',_PrefixStr)
+    print('')
+    '''
+
+    #Return
+    return _ItemTuple[0].split('&gt;')[-1].startswith(_PrefixStr)
+OldRepresentFunction=copy.copy(Representer.represent)
+def represent(_Variable,**_KwargVariablesDict):
+    return OldRepresentFunction(
+        _Variable,
+        **dict(
+            _KwargVariablesDict,
+            **{
+                'RepresentingNotConcludeTuplesList':
+                [
+                    (getIsBoolWithItemTupleAndPrefixStr,'_Watch'),
+                    (getIsBoolWithItemTupleAndPrefixStr,'Watch')
+                ]
+            }
+        )
+    )
+represent.__name__="Watcher@represent"
+Representer.represent=represent
+#&lt;/SetRepresent&gt;
+
+#&lt;DefineFunctions&gt;
+def watch(_InstanceVariable,*_LiargVariablesList,**_KwargVariablesDict):
+
+    #Debug
+    '''
+    print('l 67')
+    print('In the watch function ')
+    print('_KwargVariablesDict is ')
+    print(_KwargVariablesDict)
+    print('')
+    '''
+
+    """
+    #alias
+    FuncDict=_InstanceVariable.__class__.watch.__dict__
+
+    #Debug
+    '''
+    print('l 79')
+    print('In the watch function ')
+    print('FuncDict is ')
+    print(FuncDict)
+    print('')
+    '''
+    """
+
+    #Set in the _InstanceVariable
+    _InstanceVariable.__setattr__(
+            _KwargVariablesDict['WatchDoBoolKeyStr'],
+            True
+        )
+
+    #get the wrapped method
+    WrapUnboundMethod=getattr(
+        getattr(
+            SYS,
+            _KwargVariablesDict['BindDoClassStr']
+        ),
+        _KwargVariablesDict['BindObserveWrapMethodStr']
+    )
+
+    #del
+    map(
+            lambda __KeyStr:
+            _KwargVariablesDict.__delitem__(__KeyStr),
+            ['BindObserveWrapMethodStr','BindDoClassStr','WatchDoBoolKeyStr']
+        )
+
+    #Call
+    return WrapUnboundMethod(
+        _InstanceVariable,
+        *_LiargVariablesList,
+        **_KwargVariablesDict
+    )
+
+#&lt;/DefineFunctions&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class WatcherClass(BaseClass):
+
+    #Definition 
+    RepresentingKeyStrsList=[    
+        'WatchingIsBool',    
+        'WatchedDoBoolKeyStr',
+        'WatchedDecorationMethodStr'
+    ]
+
+    def default_init(self,        
+                        _WatchingIsBool=False,
+                        _WatchedDoBoolKeyStr="",
+                        _WatchedDecorationMethodStr="",
+                        **_KwargVariablesDict
+                ):
+
+        #Call the parent init method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def __call__(self,_Class):
+
+        #Call the parent method
+        Observer.ObserverClass.__bases__[0].__call__(self,_Class)
+
+        #Watch
+        self.watch()
+
+        #Return
+        return _Class
+
+    def do_watch(self):
+
+        #Check
+        if self.WatchingIsBool:
+
+            #Debug
+            '''
+            print('l 133 Watcher')
+            print('self.ObservingWrapMethodStr is '+self.ObservingWrapMethodStr)
+            print('')
+            '''
+
+            #Keep the old value
+            self.WatchedWrapMethodStr=self.ObservingWrapMethodStr
+
+            #observe first
+            self.observe(
+                            True
+                        )
+
+            #Debug
+            '''
+            print('l 171 Watcher')
+            print('self.ObservedWrapMethodStr is ',self.ObservedWrapMethodStr)
+            '''
+
+            #Check
+            if self.ObservedWrapMethodStr.startswith(
+                watch.__name__+Binder.BindingDecorationSuffixStr
+            )==False:
+
+                #Debug
+                '''
+                print('l 173 this is a new watch method')
+                print('')
+                '''
+
+                #Define
+                WatchedDoMethodStr=self.WatchedWrapMethodStr
+                WatchedDoStr=WatchedDoMethodStr[0].upper()+WatchedDoMethodStr[1:]
+                self.WatchedDoBoolKeyStr=WatchingPrefixKeyStr+WatchedDoStr
+                self.WatchedDoBoolKeyStr+='With'+self.DoClass.NameStr
+                self.WatchedDoBoolKeyStr+='Bool'
+
+                WatchedIsInitBool=True
+                if hasattr(self.DoClass,'ResetDoBoolKeyStr'):
+                    if self.WatchedDoBoolKeyStr!=self.DoClass.ResetDoBoolKeyStr:
+                        WatchedIsInitBool=False
+                if WatchedIsInitBool:
+                    #WARNING this cancels the reset property binding before
+                    #Set already in the class
+                    setattr(
+                            self.DoClass,
+                            self.WatchedDoBoolKeyStr,
+                            False
+                        )
+
+                #Debug
+                '''
+                print('l 145 Watcher')
+                print('WatchedDoMethodStr is ',WatchedDoMethodStr)
+                print('WatchedDoStr is ',WatchedDoStr)
+                print('self.WatchedDoBoolKeyStr is ',self.WatchedDoBoolKeyStr)
+                print('')
+                '''
+
+                #first bind
+                self.bind(
+                            True,
+                            watch,
+                            "",
+                            watch.__name__,
+                            [('WatchDoBoolKeyStr',self.WatchedDoBoolKeyStr)],
+                            **{'ObservingWrapMethodStr':self.ObservedWrapMethodStr}
+                        )
+
+                #set
+                self.WatchedDecorationMethodStr=self.BindedDecorationMethodStr
+
+                #Now make the amalgam
+                setattr(
+                        self.DoClass,
+                        WatchedDoMethodStr,
+                        self.BindedDecorationUnboundMethod
+                    )
+
+            else:
+
+                #set
+                self.WatchedDecorationMethodStr=self.ObservedWrapMethodStr
+
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Watcher sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Classors/Watcher" target="_blank">Github</a>
+</small></p>
+</div>
+</div>
+</div></section><section>
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <!---
 FrozenIsBool True
 -->
@@ -3115,7 +6332,7 @@ FrozenIsBool True
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[29]:
+In&nbsp;[39]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -3214,9 +6431,9 @@ In&nbsp;[29]:
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
 Before make, MyBuilder is 
-&lt; (MakerClass), 4348873808&gt;
+&lt; (MakerClass), 4539196240&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4348873808
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4539196240
    /  &apos;&lt;Spe&gt;&lt;Class&gt;MadeMyInt&apos; : 0
    /  &apos;&lt;Spe&gt;&lt;Class&gt;MakingMyFloat&apos; : 1.0
    /}
@@ -3224,9 +6441,9 @@ self.MakingMyFloat is 3.0
 self.MadeMyInt is 0
 
 After the first make, MyBuilder is 
-&lt; (MakerClass), 4348873808&gt;
+&lt; (MakerClass), 4539196240&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4348873808
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4539196240
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 3
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MakingMyFloat&apos; : 3.0
    /}
@@ -3238,9 +6455,9 @@ BuilderClass.make is &lt;unbound method BuilderClass.watch_superDo_make&gt;
 
 ------
 
-MyBuilder is &lt; (MakerClass), 4348873808&gt;
+MyBuilder is &lt; (MakerClass), 4539196240&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4348873808
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4539196240
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 3
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MakingMyFloat&apos; : 3.0
    /}
@@ -3283,10 +6500,210 @@ View the Resetter notebook on <a href="http://nbviewer.ipython.org/url/shareyour
 </div>
 </div></section><section>
     
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<!--
+FrozenIsBool False
+-->
+
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+The Resetter
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Classors.Watcher"
+DecorationModuleStr="ShareYourSystem.Classors.Tester"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+import operator
+from ShareYourSystem.Classors import Doer,Observer
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineFunctions&gt;
+def getResetBool(_InstanceVariable,**_KwargVariablesDict):
+
+    #get and return
+    return getattr(_InstanceVariable,'_'+_KwargVariablesDict['ResetDoBoolKeyStr'])
+
+def setResetBool(_InstanceVariable,_ValueVariable,**_KwargVariablesDict):
+
+    #Debug
+    '''
+    print('l 37 Resetter')
+    print('We are in the setResetBool')
+    print('_KwargVariablesDict is ')
+    print(_KwargVariablesDict)
+    print('')
+    '''
+
+    #Alias
+    HideResetDoBoolKeyStr='_'+_KwargVariablesDict['ResetDoBoolKeyStr']
+
+    #Check
+    if hasattr(
+            _InstanceVariable,
+            HideResetDoBoolKeyStr
+            )==False:
+        _InstanceVariable.__setattr__(HideResetDoBoolKeyStr,False)
+
+    #get
+    ResetDoBool=getattr(
+            _InstanceVariable,
+            _KwargVariablesDict['ResetDoBoolKeyStr']
+            )
+
+    #Debug
+    '''
+    print('l 58 Resetter')
+    print("_KwargVariablesDict['ResetDoBoolKeyStr'] is ",_KwargVariablesDict['ResetDoBoolKeyStr'])
+    print('ResetDoBool is ',ResetDoBool)
+    print('')
+    '''
+
+    #check
+    if ResetDoBool==True and _ValueVariable==False:
+
+        #Debug
+        '''
+        print('l 69 Resetter')
+        print('Yes we reset')
+        print('')
+        '''
+
+        #map
+        map(
+                lambda __DefaultSetTuple:
+                _InstanceVariable.__setattr__(
+                        __DefaultSetTuple[0],
+                        __DefaultSetTuple[1]
+                ),
+                #self.DoClass.DefaultAttributeItemTuplesList
+                getattr(
+                    SYS,
+                    _KwargVariablesDict['BindDoClassStr']
+                ).DoneAttributeVariablesOrderedDict.items()
+            )
+
+    #set
+    _InstanceVariable.__setattr__(
+        HideResetDoBoolKeyStr,
+        _ValueVariable
+        )
+
+def delResetBool(_InstanceVariable,**_KwargVariablesDict):
+
+    #delete
+    _InstanceVariable.__delattr__('_'+_KwargVariablesDict['ResetDoBoolKeyStr'])
+#&lt;/DefineFunctions&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class ResetterClass(BaseClass):
+
+    #Definition 
+    RepresentingKeyStrsList=[                 
+    ]
+
+    def default_init(self,                    
+                        **_KwargVariablesDict
+                ):
+
+        #Call the parent init method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def __call__(self,_Class):
+
+        #Call the parent method
+        Observer.ObserverClass.__bases__[0].__call__(self,_Class)
+
+        #reset
+        self.reset()
+
+        #Return
+        return _Class
+
+    def do_reset(self):
+
+        #watch first
+        self.watch(True,**{'ObservingWrapMethodStr':self.DoClass.DoMethodStr})
+
+        #set to the class
+        """
+        self.DoClass.ResetDoBoolKeyStr='Reset'+'Watch'.join(
+            self.WatchedDoBoolKeyStr.split('Watch')[1:])
+        """
+        self.DoClass.ResetDoBoolKeyStr=self.WatchedDoBoolKeyStr
+
+        #Debug
+        '''
+        print('Resetter l 125')
+        print('self.WatchedDoBoolKeyStr is ',self.WatchedDoBoolKeyStr)
+        print('self.DoClass.ResetDoBoolKeyStr is ',self.DoClass.ResetDoBoolKeyStr)
+        print('Now we bind')
+        '''
+
+        #map binds
+        ResettedBindDecorationUnboundMethodsList=map(
+                lambda __Function:
+                self.bind(
+                            True,
+                            __Function,
+                            "",
+                            __Function.__name__+'With'+self.DoClass.NameStr,
+                            [('ResetDoBoolKeyStr',self.DoClass.ResetDoBoolKeyStr)],
+                            **{'ObservingWrapMethodStr':""}
+                    ).BindedDecorationUnboundMethod,
+                [getResetBool,setResetBool,delResetBool]
+            )
+
+        #Set
+        setattr(
+                    self.DoClass,
+                    self.DoClass.ResetDoBoolKeyStr,
+                    property(
+                        *ResettedBindDecorationUnboundMethodsList
+                    )
+                )
+
+        #Add to the KeyStrsList
+        self.DoClass.KeyStrsList+=[
+                                    self.DoClass.ResetDoBoolKeyStr,
+                                    'ResetDoBoolKeyStr'
+                                ]
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Resetter sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Classors/Resetter" target="_blank">Github</a>
+</small></p>
+</div>
+</div>
+</div></section><section>
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[31]:
+In&nbsp;[42]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -3419,11 +6836,11 @@ In&nbsp;[31]:
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
 Before make, MyBuilder is 
-&lt; (BuilderClass), 4349608464&gt;
+&lt; (BuilderClass), 4538886224&gt;
    /{ 
    /  &apos;&lt;Base&gt;&lt;Class&gt;MadeMyInt&apos; : 0
    /  &apos;&lt;Base&gt;&lt;Class&gt;MakingMyFloat&apos; : 0.0
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4349608464
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4538886224
    /  &apos;&lt;Spe&gt;&lt;Class&gt;BuildingMyStr&apos; : 
    /  &apos;&lt;Spe&gt;&lt;Class&gt;BuiltMyStr&apos; : 
    /}
@@ -3431,9 +6848,9 @@ self.MakingMyFloat is 3.0
 self.MadeMyInt is 0
 
 After the first make, MyBuilder is 
-&lt; (BuilderClass), 4349608464&gt;
+&lt; (BuilderClass), 4538886224&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4349608464
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4538886224
    /  &apos;&lt;Spe&gt;&lt;Class&gt;BuildingMyStr&apos; : 
    /  &apos;&lt;Spe&gt;&lt;Class&gt;BuiltMyStr&apos; : 
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 3
@@ -3443,9 +6860,9 @@ self.MakingMyFloat is 5.0
 self.MadeMyInt is 3
 
 After the second make, MyBuilder is 
-&lt; (BuilderClass), 4349608464&gt;
+&lt; (BuilderClass), 4538886224&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4349608464
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4538886224
    /  &apos;&lt;Spe&gt;&lt;Class&gt;BuildingMyStr&apos; : 
    /  &apos;&lt;Spe&gt;&lt;Class&gt;BuiltMyStr&apos; : 
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 5
@@ -3453,9 +6870,9 @@ After the second make, MyBuilder is
    /}
 Now we reset
 After the reset MyBuilder is 
-&lt; (BuilderClass), 4349608464&gt;
+&lt; (BuilderClass), 4538886224&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4349608464
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4538886224
    /  &apos;&lt;Spe&gt;&lt;Class&gt;BuildingMyStr&apos; : 
    /  &apos;&lt;Spe&gt;&lt;Class&gt;BuiltMyStr&apos; : 
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 0
@@ -3465,9 +6882,9 @@ self.MakingMyFloat is 7.0
 self.MadeMyInt is 0
 
 After the third make, MyBuilder is 
-&lt; (BuilderClass), 4349608464&gt;
+&lt; (BuilderClass), 4538886224&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4349608464
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4538886224
    /  &apos;&lt;Spe&gt;&lt;Class&gt;BuildingMyStr&apos; : 
    /  &apos;&lt;Spe&gt;&lt;Class&gt;BuiltMyStr&apos; : 
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 7
@@ -3477,7 +6894,7 @@ After the third make, MyBuilder is
 
 *****Start of the Attest *****
 
-BuilderClass.WatchMakeWithMakerBool is &lt;property object at 0x103367e68&gt;
+BuilderClass.WatchMakeWithMakerBool is &lt;property object at 0x10e884310&gt;
 
 ------
 
@@ -3489,9 +6906,9 @@ BuilderClass.make is &lt;unbound method BuilderClass.watch_superDo_make&gt;
 
 ------
 
-MyBuilder is &lt; (BuilderClass), 4349608464&gt;
+MyBuilder is &lt; (BuilderClass), 4538886224&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4349608464
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4538886224
    /  &apos;&lt;Spe&gt;&lt;Class&gt;BuildingMyStr&apos; : 
    /  &apos;&lt;Spe&gt;&lt;Class&gt;BuiltMyStr&apos; : 
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 7
@@ -3541,6 +6958,230 @@ View the Switcher notebook on <a href="http://nbviewer.ipython.org/url/shareyour
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<!--
+FrozenIsBool False
+-->
+
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+The Switcher
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Classors.Watcher"
+DecorationModuleStr="ShareYourSystem.Classors.Tester"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+import operator
+from ShareYourSystem.Classors import Doer,Observer
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineFunctions&gt;
+def setSwitch(_InstanceVariable,_ClassVariable=None,_DoStrsList=None):
+
+    #Debug
+    '''
+    print('l 31 setSwitch')
+    print('_DoStrsList is ',_DoStrsList)
+    print('_InstanceVariable.__class__.NameStr is ',_InstanceVariable.__class__.NameStr)
+    print('')
+    '''
+
+    #get
+    SwitchClass=_InstanceVariable.getClass(_ClassVariable)
+
+    #check
+    if _DoStrsList==None:
+        _DoStrsList=[SwitchClass.DoStr]
+
+    #map
+    map(
+            lambda __MethodStr:
+            _InstanceVariable.__setattr__(
+                'Watch'+__MethodStr+'With'+SwitchClass.NameStr+'Bool',
+                False
+            ),
+            _DoStrsList,
+        )
+
+    #return 
+    return _InstanceVariable
+
+def switch(_InstanceVariable,*_LiargVariablesList,**_KwargVariablesDict):
+
+    #Debug
+    '''
+    print('l 51')
+    print('In the switch function ')
+    print('_KwargVariablesDict is ')
+    print(_KwargVariablesDict)
+    print('')
+    '''
+
+    """
+    #alias
+    FuncDict=switch.__dict__
+
+    #Debug
+    '''
+    print('l 52')
+    print('In the switch function ')
+    print('FuncDict is ')
+    print(FuncDict)
+    print('')
+    '''
+    """
+
+    #Check
+    if hasattr(_InstanceVariable,_KwargVariablesDict['WatchDoBoolKeyStr']):
+
+        #get
+        WatchDoBool=getattr(
+                _InstanceVariable,
+                _KwargVariablesDict['WatchDoBoolKeyStr']
+                )
+
+        #Switch
+        if WatchDoBool:
+            return _InstanceVariable
+
+    #get the wrapped method
+    WrapUnboundMethod=getattr(
+        getattr(
+            SYS,
+            _KwargVariablesDict['BindDoClassStr']
+        ),
+        _KwargVariablesDict['BindObserveWrapMethodStr']
+    )
+
+    #del
+    map(
+            lambda __KeyStr:
+            _KwargVariablesDict.__delitem__(__KeyStr),
+            ['BindObserveWrapMethodStr','BindDoClassStr','WatchDoBoolKeyStr']
+        )
+
+    #Call
+    return WrapUnboundMethod(
+        _InstanceVariable,
+        *_LiargVariablesList,
+        **_KwargVariablesDict
+    )
+#&lt;/DefineFunctions&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class SwitcherClass(BaseClass):
+
+    #Definition 
+    RepresentingKeyStrsList=[ 
+        'SwitchingIsBool',
+        'SwitchingWrapMethodStr'                
+    ]
+
+    def default_init(self,
+                        _SwitchingIsBool=False,
+                        _SwitchingWrapMethodStr="",                    
+                        **_KwargVariablesDict
+                ):
+
+        #Call the parent init method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def __call__(self,_Class):
+
+        #Call the parent method
+        Observer.ObserverClass.__bases__[0].__call__(self,_Class)
+
+        #reset
+        self.switch()
+
+        #Return
+        return _Class
+
+    def do_switch(self):
+
+        #Check
+        if self.SwitchingIsBool:
+
+            #Debug
+            '''
+            print('l 195 Switcher')
+            print('self.SwitchingWrapMethodStr is '+self.SwitchingWrapMethodStr)
+            print('')
+            '''
+
+            #watch first
+            self.watch(
+                        True,
+                        **{'ObservingWrapMethodStr':self.SwitchingWrapMethodStr}
+                    )
+
+            #Debug
+            '''
+            print('l 204 Switcher')
+            print('self.WatchedDecorationMethodStr is ',self.WatchedDecorationMethodStr)
+            print('')
+            '''
+
+            #first bind
+            self.bind(
+                        True,
+                        switch,
+                        "",
+                        switch.__name__,
+                        [('WatchDoBoolKeyStr',self.WatchedDoBoolKeyStr)],
+                        **{'ObservingWrapMethodStr':self.WatchedDecorationMethodStr}
+                    )
+
+            #Now make the amalgam
+            setattr(
+                    self.DoClass,
+                    self.SwitchingWrapMethodStr,
+                    getattr(
+                        self.DoClass,
+                        self.BindedDecorationMethodStr
+                    )
+                )
+
+            #Check
+            if hasattr(self.DoClass,'setSwitch')==False:
+                setattr(
+                        self.DoClass,
+                        setSwitch.__name__,
+                        setSwitch
+                    )
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Switcher sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Classors/Switcher" target="_blank">Github</a>
+</small></p>
+</div>
+</div>
+</div></section><section>
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <!---
 FrozenIsBool True
 -->
@@ -3554,7 +7195,7 @@ for which the Functer decoration by default call the decorated method...</p>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[34]:
+In&nbsp;[46]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -3655,9 +7296,9 @@ In&nbsp;[34]:
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
 Before make, MyMaker is 
-&lt; (MakerClass), 4349609936&gt;
+&lt; (MakerClass), 4538887696&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4349609936
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4538887696
    /  &apos;&lt;Spe&gt;&lt;Class&gt;MadeMyInt&apos; : 0
    /  &apos;&lt;Spe&gt;&lt;Class&gt;MakingMyFloat&apos; : 1.0
    /}
@@ -3665,24 +7306,24 @@ self.MakingMyFloat is 3.0
 self.MadeMyInt is 0
 
 After the first make, MyMaker is 
-&lt; (MakerClass), 4349609936&gt;
+&lt; (MakerClass), 4538887696&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4349609936
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4538887696
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 3
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MakingMyFloat&apos; : 3.0
    /}
 After the second make, MyMaker is 
-&lt; (MakerClass), 4349609936&gt;
+&lt; (MakerClass), 4538887696&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4349609936
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4538887696
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 3
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MakingMyFloat&apos; : 3.0
    /}
 Now we switch
 After the switch MyMaker is 
-&lt; (MakerClass), 4349609936&gt;
+&lt; (MakerClass), 4538887696&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4349609936
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4538887696
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 3
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MakingMyFloat&apos; : 3.0
    /}
@@ -3690,9 +7331,9 @@ self.MakingMyFloat is 7.0
 self.MadeMyInt is 3
 
 After the third make, MyMaker is 
-&lt; (MakerClass), 4349609936&gt;
+&lt; (MakerClass), 4538887696&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4349609936
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4538887696
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 7
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MakingMyFloat&apos; : 7.0
    /}
@@ -3704,9 +7345,9 @@ MakerClass.make is &lt;unbound method MakerClass.switch_watch_superDo_make&gt;
 
 ------
 
-MyMaker is &lt; (MakerClass), 4349609936&gt;
+MyMaker is &lt; (MakerClass), 4538887696&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4349609936
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4538887696
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 7
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MakingMyFloat&apos; : 7.0
    /}
@@ -3754,6 +7395,317 @@ View the Mimicker notebook on <a href="http://nbviewer.ipython.org/url/shareyour
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<!--
+FrozenIsBool False
+-->
+
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+Mimicker...
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Classors.Switcher"
+DecorationModuleStr="ShareYourSystem.Classors.Tester"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+from ShareYourSystem.Classors import Doer
+import six
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineLocals&gt;
+MimickingWrapPrefixStr="mimic_"
+MimickingDecorationPrefixStr=""
+MimickingDecorationTagStr="superMimic"
+MimickingDecorationSuffixStr="_"
+#&lt;/DefineLocals&gt;
+
+#&lt;DefineFunctions&gt;
+def mimic(_InstanceVariable,*_LiargVariablesList,**_KwargVariablesDict):
+
+    #Set
+    MimicMethodStr=_KwargVariablesDict['MimicMethodStr']
+    MimicClassStr=_KwargVariablesDict['MimicClassStr']
+    MimicClass=getattr(SYS,MimicClassStr)
+    MimicUnBoundMethod=getattr(
+        MimicClass,
+        MimicMethodStr
+    )
+    BaseClassStr=_KwargVariablesDict['BaseClassStr']
+    BaseClass=getattr(SYS,BaseClassStr)
+    del _KwargVariablesDict['MimicMethodStr']
+    del _KwargVariablesDict['MimicClassStr']
+    del _KwargVariablesDict['BaseClassStr']
+
+    #Debug
+    '''
+    print('Mimicker l.48 inside of the function mimic')
+    #print('_InstanceVariable is ',_InstanceVariable)
+    print('_LiargVariablesList is ',_LiargVariablesList)
+    print('_KwargVariablesDict is ',_KwargVariablesDict)
+    print('')
+    '''
+
+    if len(_KwargVariablesDict)&gt;0:
+
+        #group by
+        [
+            MimicTempAttributeItemTuplesList,
+            MimicTempNotAttributeItemTuplesList
+        ]=SYS.groupby(
+            lambda __KwargItemTuple:
+            hasattr(_InstanceVariable,__KwargItemTuple[0]),
+            _KwargVariablesDict.items()
+        )
+
+        #Debug
+        '''
+        print('MimicTempAttributeItemTuplesList is ',MimicTempAttributeItemTuplesList)
+        print('MimicTempNotItemTuplesList is ',MimicTempNotItemTuplesList)
+        print('')
+        '''
+
+        #set in the instance the corresponding kwarged arguments
+        map(    
+                lambda __MimicTempAttributeItemTuple:
+                #set direct explicit attributes
+                _InstanceVariable.__setattr__(*__MimicTempAttributeItemTuple),
+                MimicTempAttributeItemTuplesList
+            )
+
+        #Define
+        MimicKwargDict=dict(MimicTempNotAttributeItemTuplesList)
+
+    else:
+
+        #Define
+        MimicKwargDict={}
+
+    #Init
+    MimicOutputVariable=None
+
+    #Debug
+    '''
+    print('Mimicker l.96 inside of the function mimic')
+    print('MimicClass is ',MimicClass)
+    print('MimicMethodStr is ',MimicMethodStr)
+    print('MimicUnBoundMethod is ',MimicUnBoundMethod)
+    print('')
+    '''
+
+    #call the Mimicked function
+    if len(MimicKwargDict)&gt;0:
+        MimicOutputVariable=MimicUnBoundMethod(
+                            _InstanceVariable,
+                            *_LiargVariablesList,
+                            **MimicKwargDict
+                        )
+    else:
+        MimicOutputVariable=MimicUnBoundMethod(
+                _InstanceVariable,
+                *_LiargVariablesList
+            )
+
+    #Debug
+    '''
+    print('Mimicker l.117 inside of the function mimic')
+    print('MimicOutputVariable is ',MimicOutputVariable)
+    print('')
+    '''
+
+    #Check
+    if BaseClass.DoingGetBool==False:
+
+        #Return 
+        return _InstanceVariable
+
+    else:
+
+        #Return the 
+        return MimicOutputVariable
+#&lt;/DefineFunctions&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class MimickerClass(BaseClass):
+
+    #Definition 
+    RepresentingKeyStrsList=[
+                    'MimickingDoMethodStr',
+                    'MimickedWrapMethodStr'
+    ]
+
+    def default_init(self,    
+                    _MimickingDoMethodStr="",
+                    _MimickedWrapMethodStr="",                   
+                    **_KwargVariablesDict
+                ):
+
+        #Call the init parent method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def __call__(self,_Class):
+
+        #Call the parent init method
+        BaseClass.__call__(self,_Class)
+
+        #mimic
+        self.mimic()
+
+        #Return
+        return _Class
+
+    def do_mimic(self):
+
+        #Debug
+        '''
+        print('l 174 Mimicker')
+        print('self.MimickingDoMethodStr is ',self.MimickingDoMethodStr)
+        print('')
+        '''
+
+        #Check
+        if self.MimickingDoMethodStr!="":
+
+            #observ
+            self.observe(True,self.MimickingDoMethodStr)
+
+            #set
+            self.MimickedWrapMethodStr=MimickingWrapPrefixStr+self.MimickingDoMethodStr
+
+            #Debug
+            '''
+            print('l 75 Mimicker ')
+            print('self.MimickedWrapMethodStr is ',self.MimickedWrapMethodStr)
+            print('')
+            '''
+
+            #Define
+            MimickedDoStr=self.MimickingDoMethodStr[0].upper()+self.MimickingDoMethodStr[1:]
+            MimickedDoerStr=Doer.DoStrToDoerStrOrderedDict[MimickedDoStr]
+
+            #Debug
+            '''
+            print('l 84 Mimicker ')
+            print('MimickedDoStr is ',MimickedDoStr)
+            print('MimickedDoerStr is ',MimickedDoerStr)
+            print('MimickedBaseModule is ',MimickedBaseModule)
+            print('')
+            '''
+
+            #Definitions
+            MimickedBaseClass=getattr(
+                SYS,
+                SYS.getClassStrWithNameStr(MimickedDoerStr)
+            )
+
+            #get
+            MimickedDoExecStr=getattr(
+                MimickedBaseClass,
+                'Do'+MimickedBaseClass.NameStr+'ExecStr'
+            )
+
+            #debug
+            '''
+            print('l 206 Mimicker')
+            print('MimickedDoExecStr is ')
+            print(MimickedDoExecStr)
+            print('')
+            '''
+
+            #replace
+            MimickedDecorationMethodStr=MimickingDecorationPrefixStr+MimickingDecorationTagStr+MimickingDecorationSuffixStr
+            MimickedDecorationMethodStr+=self.ObservedWrapMethodStr
+
+            #Debug
+            '''
+            print('l 232 Mimicker')
+            print('MimickedDecorationMethodStr is '+MimickedDecorationMethodStr)
+            print('')
+            '''
+
+            #replace
+            MimickedExecStr='def '+MimickedDecorationMethodStr+'('+'('.join(
+                MimickedDoExecStr.split('(')[1:]
+            )
+
+            #Debug
+            '''
+            print('l 208 Mimicker')
+            print('MimickedExecStr is ')
+            print(MimickedExecStr)
+            print('')
+            '''
+
+            #Add to the ImitatedDoneExecStr
+            MimickedExecStr+='\n\treturn mimic(_InstanceVariable,*_LiargVariablesList,'
+            MimickedExecStr+='**dict({\'MimicMethodStr\':\''+self.MimickedWrapMethodStr+'\','
+            MimickedExecStr+='\'MimicClassStr\':\''+self.DoClass.__name__+'\','
+            MimickedExecStr+='\'BaseClassStr\':\''+MimickedBaseClass.__name__+'\''
+            MimickedExecStr+='},**_KwargVariablesDict))'
+
+            #Debug
+            '''
+            print('l 223 Mimicker')
+            print('MimickedExecStr is ')
+            print(MimickedExecStr)
+            print('')
+            '''
+
+            #exec
+            six.exec_(MimickedExecStr)
+
+            #set
+            self.MimickedDecorationUnboundMethod=locals()[MimickedDecorationMethodStr]
+
+            #set in the __class__
+            setattr(
+                        self.DoClass,
+                        MimickedDecorationMethodStr,
+                        self.MimickedDecorationUnboundMethod
+                    )
+
+            #make the amalgam
+            setattr(
+                        self.DoClass,
+                        self.MimickingDoMethodStr,
+                        self.MimickedDecorationUnboundMethod
+                    )
+
+            #Return self
+            #return self
+
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Mimicker sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Classors/Mimicker" target="_blank">Github</a>
+</small></p>
+</div>
+</div>
+</div></section><section>
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <!---
 FrozenIsBool True
 -->
@@ -3768,7 +7720,7 @@ mimic_make continue to work after the first call of make.</p>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[37]:
+In&nbsp;[50]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -3928,36 +7880,36 @@ In&nbsp;[37]:
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
 Before make, MyBuilder is 
-&lt; (BuilderClass), 4349611664&gt;
+&lt; (BuilderClass), 4540174672&gt;
    /{ 
    /  &apos;&lt;Base&gt;&lt;Class&gt;MadeMyInt&apos; : 0
    /  &apos;&lt;Base&gt;&lt;Class&gt;MakingMyFloat&apos; : 1.0
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4349611664
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4540174672
    /}
 I am in the mimic_make of the Builder
 self.MakingMyFloat is 3.0
 self.MadeMyInt is 0
 
 After the first make, MyBuilder is 
-&lt; (BuilderClass), 4349611664&gt;
+&lt; (BuilderClass), 4540174672&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4349611664
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4540174672
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 13
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MakingMyFloat&apos; : 3.0
    /}
 I am in the mimic_make of the Builder
 After the second make, MyBuilder is 
-&lt; (BuilderClass), 4349611664&gt;
+&lt; (BuilderClass), 4540174672&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4349611664
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4540174672
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 23
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MakingMyFloat&apos; : 5.0
    /}
 Now we switch
 After the switch MyBuilder is 
-&lt; (BuilderClass), 4349611664&gt;
+&lt; (BuilderClass), 4540174672&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4349611664
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4540174672
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 23
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MakingMyFloat&apos; : 5.0
    /}
@@ -3966,9 +7918,9 @@ self.MakingMyFloat is 7.0
 self.MadeMyInt is 23
 
 After the third make, MyBuilder is 
-&lt; (BuilderClass), 4349611664&gt;
+&lt; (BuilderClass), 4540174672&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4349611664
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4540174672
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 17
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MakingMyFloat&apos; : 7.0
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;WatchMakeWithMakerBool&apos; : True
@@ -3985,9 +7937,9 @@ BuilderClass.make is &lt;unbound method BuilderClass.superMimic_switch_watch_sup
 
 ------
 
-MyBuilder is &lt; (BuilderClass), 4349611664&gt;
+MyBuilder is &lt; (BuilderClass), 4540174672&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4349611664
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4540174672
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 17
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MakingMyFloat&apos; : 7.0
    /}
@@ -4035,6 +7987,149 @@ View the Classer notebook on <a href="http://nbviewer.ipython.org/url/shareyours
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<!--
+FrozenIsBool False
+-->
+
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+The Classer
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Classors.Mimicker"
+DecorationModuleStr="ShareYourSystem.Classors.Tester"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+Mimicker=BaseModule
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;Define_Class&gt;
+@DecorationClass()
+class ClasserClass(BaseClass):
+
+    #Definition 
+    RepresentingKeyStrsList=[
+                        'ClassingSwitchMethodStrsList'
+                    ]
+
+    def default_init(self,    
+                        _ClassingSwitchMethodStrsList=None,    
+                        **_KwargVariablesDict
+                ):
+
+        #Call the parent init method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def __call__(self,_Class):
+
+        #Call the parent method
+        Mimicker.MimickerClass.__bases__[0].__call__(self,_Class)
+
+        #class
+        self._class()
+
+        #Return
+        return _Class
+
+    def do__class(self):
+
+        #Definition the MethodsList
+        ClassedFunctionsList=SYS._filter(
+            lambda __ListedVariable:
+                type(__ListedVariable).__name__=="function"
+                if hasattr(__ListedVariable,'__name__')
+                else False,
+                self.DoClass.__dict__.values()
+        )
+
+        #debug
+        '''
+        print('l 66 Classer')
+        print("ClassedFunctionsList is ",WatchedFunctionsList)
+        print('Set all the mimick methods')
+        print('')
+        '''
+
+        #Get all the hooking methods
+        ClassedMimickFunctionsList=SYS._filter(
+            lambda __ListedVariable:
+            __ListedVariable.__name__.startswith(
+                    Mimicker.MimickingWrapPrefixStr
+            )
+            if hasattr(__ListedVariable,'__name__')
+            else False,
+            ClassedFunctionsList
+        )
+
+        #debug
+        '''
+        print('l 82 Classer')
+        print("ClassedMimickFunctionsList is ",ClassedMimickFunctionsList)
+        print('')
+        '''
+
+        #map
+        map(    
+                lambda __ClassedMimickFunction:
+                self.mimic(
+                    Mimicker.MimickingWrapPrefixStr.join(
+                        __ClassedMimickFunction.__name__.split(
+                            Mimicker.MimickingWrapPrefixStr)[1:]
+                        )
+                ),
+                ClassedMimickFunctionsList
+            )
+
+        #debug
+        '''
+        print('l 104 Classer')
+        print('set the switch functions')
+        print('self.ClassingSwitchMethodStrsList is ',self.ClassingSwitchMethodStrsList)
+        print('self.DoClass.DoMethodStr is ',self.DoClass.DoMethodStr)
+        print('')
+        '''
+
+        #map
+        map(    
+                lambda __ClassingSwitchUnboundMethodStr:
+                self.switch(
+                    True,
+                    __ClassingSwitchUnboundMethodStr
+                ),
+                self.ClassingSwitchMethodStrsList
+            )
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Classer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Classors/Classer" target="_blank">Github</a>
+</small></p>
+</div>
+</div>
+</div></section><section>
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <!---
 FrozenIsBool True
 -->
@@ -4048,7 +8143,7 @@ for which the Functer decoration by default call the decorated method...</p>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[40]:
+In&nbsp;[54]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -4217,42 +8312,42 @@ In&nbsp;[40]:
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
 Before make, MyBuilder is 
-&lt; (BuilderClass), 4348605328&gt;
+&lt; (BuilderClass), 4540174736&gt;
    /{ 
    /  &apos;&lt;Base&gt;&lt;Class&gt;MadeMyInt&apos; : 0
    /  &apos;&lt;Base&gt;&lt;Class&gt;MakingMyFloat&apos; : 0.0
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4348605328
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4540174736
    /}
 I am in the mimic_make of the Builder
 I am in the do_make of the Maker
 After the first make, MyBuilder is 
-&lt; (BuilderClass), 4348605328&gt;
+&lt; (BuilderClass), 4540174736&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4348605328
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4540174736
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 13
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MakingMyFloat&apos; : 3.0
    /}
 After the second make, MyBuilder is 
-&lt; (BuilderClass), 4348605328&gt;
+&lt; (BuilderClass), 4540174736&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4348605328
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4540174736
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 13
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MakingMyFloat&apos; : 3.0
    /}
 Now we switch
 After the switch MyBuilder is 
-&lt; (BuilderClass), 4348605328&gt;
+&lt; (BuilderClass), 4540174736&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4348605328
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4540174736
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 13
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MakingMyFloat&apos; : 3.0
    /}
 I am in the mimic_make of the Builder
 I am in the do_make of the Maker
 After the third make, MyBuilder is 
-&lt; (BuilderClass), 4348605328&gt;
+&lt; (BuilderClass), 4540174736&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4348605328
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4540174736
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 17
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MakingMyFloat&apos; : 7.0
    /}
@@ -4272,9 +8367,9 @@ BuilderClass.build is &lt;unbound method BuilderClass.superDo_build&gt;
 
 ------
 
-MyBuilder is &lt; (BuilderClass), 4348605328&gt;
+MyBuilder is &lt; (BuilderClass), 4540174736&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4348605328
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4540174736
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 17
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MakingMyFloat&apos; : 7.0
    /}

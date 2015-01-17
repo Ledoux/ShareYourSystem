@@ -35,7 +35,7 @@ class DatabaserClass(
 								'DatabasedSuffixStr',
 								'DatabasedCollectionStr',
 								'DatabasedSuffixStr',
-								'DatabasedDeriveStorerVariable'
+								'DatabasedPointDeriveStorerVariable'
 							]
 
 	def default_init(self,

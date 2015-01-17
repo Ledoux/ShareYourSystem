@@ -1755,7 +1755,124 @@ View the Commander notebook on <a href="http://nbviewer.ipython.org/url/shareyou
 FrozenIsBool False
 -->
 
-<p>View the Commander sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Applyiers/Installer">Github</a></p>
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+A Commander gather Variables to set them with an UpdateList.
+The command process can be AllSetsForEach (ie a map of the update succesively for each)
+or a EachSetForAll (ie each set is a map of each).
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Noders.Attentioner"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class CommanderClass(BaseClass):
+
+    #Definition 
+    RepresentingKeyStrsList=[
+                            #'CommandingUpdateList',
+                            #'CommandingVariablesList',
+                            'CommandingOrderStr',
+                            'CommandingGatherIsBool'
+                        ]
+
+    def default_init(self,
+                _CommandingUpdateList=None,    
+                _CommandingVariablesList=None, 
+                _CommandingOrderStr="AllSetsForEach",                
+                _CommandingGatherIsBool=True,
+                **_KwargVariablesDict
+                ):
+
+        #Call the parent __init__ method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def do_command(self):
+        """Collect with _GatheringKeyVariablesList and do a all sets for each with _UpdatingItemVariable"""
+
+        #Check
+        if self.CommandingGatherIsBool:
+
+            #Get the GatheredVariablesList
+            self.gather()
+
+            #debug
+            '''
+            self.debug(
+                            ('self.',self,[
+                                    'CommandingUpdateList',
+                                    'GatheringVariablesList',
+                                    'GatheredVariablesList'
+                                    ]
+                            )
+                        )
+            '''
+
+            #Check
+            if len(self.GatheredVariablesList)&gt;0:
+
+                #Just keep the values
+                self.CommandingVariablesList=SYS.flat(SYS.unzip(self.GatheredVariablesList,[1]))
+
+        #debug
+        '''
+        self.debug(("self.",self,['CommandingVariablesList']))
+        '''
+
+        #Check for the order
+        if self.CommandingOrderStr=="AllSetsForEach":
+
+            #For each __GatheredVariable it is updating with _UpdatingItemVariable
+            map(
+                    lambda __CommandedVariable:
+                    __CommandedVariable.update(self.CommandingUpdateList),
+                    self.CommandingVariablesList
+                )
+
+        elif self.CommandingOrderStr=="EachSetForAll":
+
+            #For each SettingTuple it is setted in _GatheredVariablesList
+            map(
+                    lambda __SettingVariableTuple:
+                    map(
+                        lambda __CommandedVariable:
+                        __CommandedVariable.__setitem__(*__SettingVariableTuple),
+                        self.CommandingVariablesList
+                        ),
+                    self.CommandingUpdateList.items() 
+                    if hasattr(self.CommandingUpdateList,'items')
+                    else self.CommandingUpdateList
+                )
+
+        #Return self
+        #return self 
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Commander sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Applyiers/Commander" target="_blank">Github</a>
+</small></p>
 </div>
 </div>
 </div></section><section>
@@ -1953,36 +2070,36 @@ In&nbsp;[3]:
 
 *****Start of the Attest *****
 
-MyFirstCommander is &lt; (CommanderClass), 4550544016&gt;
+MyFirstCommander is &lt; (CommanderClass), 4556355984&gt;
    /{ 
    /  &apos;&lt;New&gt;&lt;Instance&gt;CommandomeCollectionOrderedDict&apos; : 
    /   /{ 
-   /   /  &apos;0&apos; : &lt; (CommanderClass), 4550566800&gt;
+   /   /  &apos;0&apos; : &lt; (CommanderClass), 4556355088&gt;
    /   /   /{ 
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550566800
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4556355088
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;MyCountingInt&apos; : 3
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeCollectionStr&apos; : Commandome
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeIndexInt&apos; : 0
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeKeyStr&apos; : 0
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (CommanderClass), 4550544016&gt;
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4550550176&gt;
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (CommanderClass), 4556355984&gt;
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4556379080&gt;
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;CommandingGatherIsBool&apos; : True
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;CommandingOrderStr&apos; : AllSetsForEach
    /   /   /}
-   /   /  &apos;1&apos; : &lt; (CommanderClass), 4550568656&gt;
+   /   /  &apos;1&apos; : &lt; (CommanderClass), 4555534736&gt;
    /   /   /{ 
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550568656
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4555534736
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;MyCountingInt&apos; : 5
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeCollectionStr&apos; : Commandome
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeIndexInt&apos; : 1
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeKeyStr&apos; : 1
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (CommanderClass), 4550544016&gt;
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4550550176&gt;
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (CommanderClass), 4556355984&gt;
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4556379080&gt;
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;CommandingGatherIsBool&apos; : True
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;CommandingOrderStr&apos; : AllSetsForEach
    /   /   /}
    /   /}
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550544016
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4556355984
    /  &apos;&lt;New&gt;&lt;Instance&gt;MyCountingInt&apos; : 1
    /  &apos;&lt;New&gt;&lt;Instance&gt;NodeCollectionStr&apos; : Globals
    /  &apos;&lt;New&gt;&lt;Instance&gt;NodeIndexInt&apos; : -1
@@ -1995,36 +2112,36 @@ MyFirstCommander is &lt; (CommanderClass), 4550544016&gt;
 
 ------
 
-MySecondCommander is &lt; (CommanderClass), 4550569296&gt;
+MySecondCommander is &lt; (CommanderClass), 4555535056&gt;
    /{ 
    /  &apos;&lt;New&gt;&lt;Instance&gt;CommandomeCollectionOrderedDict&apos; : 
    /   /{ 
-   /   /  &apos;0&apos; : &lt; (CommanderClass), 4550568464&gt;
+   /   /  &apos;0&apos; : &lt; (CommanderClass), 4555535824&gt;
    /   /   /{ 
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550568464
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4555535824
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;MyCountingInt&apos; : 4
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeCollectionStr&apos; : Commandome
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeIndexInt&apos; : 0
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeKeyStr&apos; : 0
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (CommanderClass), 4550569296&gt;
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4550550472&gt;
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (CommanderClass), 4555535056&gt;
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4556379376&gt;
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;CommandingGatherIsBool&apos; : True
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;CommandingOrderStr&apos; : AllSetsForEach
    /   /   /}
-   /   /  &apos;1&apos; : &lt; (CommanderClass), 4551405648&gt;
+   /   /  &apos;1&apos; : &lt; (CommanderClass), 4555535568&gt;
    /   /   /{ 
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4551405648
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4555535568
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;MyCountingInt&apos; : 5
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeCollectionStr&apos; : Commandome
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeIndexInt&apos; : 1
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeKeyStr&apos; : 1
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (CommanderClass), 4550569296&gt;
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4550550472&gt;
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (CommanderClass), 4555535056&gt;
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4556379376&gt;
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;CommandingGatherIsBool&apos; : True
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;CommandingOrderStr&apos; : AllSetsForEach
    /   /   /}
    /   /}
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550569296
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4555535056
    /  &apos;&lt;New&gt;&lt;Instance&gt;MyCountingInt&apos; : 3
    /  &apos;&lt;New&gt;&lt;Instance&gt;NodeCollectionStr&apos; : Globals
    /  &apos;&lt;New&gt;&lt;Instance&gt;NodeIndexInt&apos; : -1

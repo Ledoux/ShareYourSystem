@@ -1753,7 +1753,101 @@ View the Setter notebook on <a href="http://nbviewer.ipython.org/url/shareyoursy
 FrozenIsBool False
 -->
 
-<p>View the Setter sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Itemizers/Installer">Github</a></p>
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+A Setter has a __setitem__ method for setting things in the &lt;InstanceVariable&gt;.__dict__
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Itemizers.Getter"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass(**{'DoingGetBool':True})
+class SetterClass(BaseClass):
+
+    #Definition
+    RepresentingKeyStrsList=[
+                                    'SettingKeyVariable',
+                                    'SettingValueVariable'
+                                ]
+
+    def default_init(self,
+                        _SettingKeyVariable=None, 
+                        _SettingValueVariable=None,              
+                        **_KwargVariablesDict
+                    ):
+        """ """        
+
+        #Call the parent init method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    #@Argumenter.ArgumenterClass(**{'ArgumentingDoStr':'Set'})
+    def __setitem__(self,_KeyVariable,_ValueVariable):
+        """ """
+
+        #debug
+        '''
+        self.debug(
+                    [
+                        ('locals()[\'',locals(),[
+                                        '_KeyVariable',
+                                        '_ValueVariable']
+                                        ,'\']'),
+                        ('self.',self,[
+                                    'SettingKeyVariable',
+                                    #'SettingValueVariable'
+                                    ])
+                    ])
+        '''
+
+        #set (and set before argument to facilitate switch triggers (see later...)
+        self.SettingKeyVariable=_KeyVariable
+        self.SettingValueVariable=_ValueVariable
+        self.set()        
+
+        #set
+        return self
+
+    def do_set(self):
+        """ """
+
+        #debug
+        '''
+        self.debug(("self.",self,['SettingKeyVariable','SettingValueVariable']))
+        '''
+
+        #__setitem__ in the __dict__, this is an utility set
+        self.__dict__[self.SettingKeyVariable]=self.SettingValueVariable
+
+        #Return
+        return {'HookingIsBool':False}
+
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Setter sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Itemizers/Setter" target="_blank">Github</a>
+</small></p>
 </div>
 </div>
 </div></section><section>
@@ -1820,9 +1914,9 @@ In&nbsp;[3]:
 
 *****Start of the Attest *****
 
-MySetter is &lt; (SetterClass), 4348482576&gt;
+MySetter is &lt; (SetterClass), 4555207312&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4348482576
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4555207312
    /  &apos;&lt;New&gt;&lt;Instance&gt;MyInt&apos; : 0
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;SettingKeyVariable&apos; : MyInt
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;SettingValueVariable&apos; : 0

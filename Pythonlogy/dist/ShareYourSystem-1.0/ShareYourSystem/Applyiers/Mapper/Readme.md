@@ -4,8 +4,141 @@
 FrozenIsBool False
 -->
 
-View the Mapper sources on [Github](https://github.com/Ledoux/ShareYourSystem/tr
-ee/master/ShareYourSystem/Applyiers/Installer)
+#Mapper
+
+##Doc
+----
+
+
+> A Mapper instance maps an apply and so "grinds" a MappingArgDictsList
+> to a method.
+>
+>
+
+----
+
+<small>
+View the Mapper notebook on [NbViewer](http://nbviewer.ipython.org/url/shareyour
+system.ouvaton.org/Mapper.ipynb)
+</small>
+
+
+
+
+<!--
+FrozenIsBool False
+-->
+
+##Code
+
+----
+
+<ClassDocStr>
+
+----
+
+```python
+# -*- coding: utf-8 -*-
+"""
+
+
+<DefineSource>
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+</DefineSource>
+
+A Mapper instance maps an apply and so "grinds" a MappingArgDictsList
+to a method.
+
+"""
+
+#<DefineAugmentation>
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Applyiers.Applyier"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#</DefineAugmentation>
+
+#<ImportSpecificModules>
+import copy
+from ShareYourSystem.Functers import Argumenter
+#</ImportSpecificModules>
+
+#<DefineClass>
+@DecorationClass()
+class MapperClass(BaseClass):
+
+        #Definition
+        RepresentingKeyStrsList=[
+'MappingApplyMethodStr',
+'MappingArgDictsList',
+'MappedVariablesList'
+                                                                ]
+
+        def default_init(self,
+                                _MappingApplyMethodStr="",
+                                _MappingArgDictsList=None,
+                                _MappedVariablesList=None,
+                                **_KwargVariablesDict
+                                ):
+
+                #Call the parent __init__ method
+                BaseClass.__init__(self,**_KwargVariablesDict)
+
+        #<DefineDoMethods>
+        def do_map(self):
+                """ """
+
+                #debug
+                '''
+                self.debug(
+                                        ('self.',self,[
+'MappingMethodStr',
+'MappingArgDictsList'
+                                                                ])
+                        )
+                '''
+
+                #Link to the apply features
+                if hasattr(self,self.MappingApplyMethodStr):
+
+                        #set the AppliedMethod
+self.AppliedMethod=getattr(self,self.MappingApplyMethodStr)
+
+                        #set that it is ok
+                        self.ApplyingIsBool=True
+
+                        #debug
+                        '''
+                        self.debug(
+                                                ('self.',self,[
+'AppliedMethod'
+                                                                        ])
+                                )
+                        '''
+
+                        #Map the apply
+                        self.MappedVariablesList=map(
+                                        lambda __MappingArgDict:
+                                        self.apply(
+self.MappingApplyMethodStr,
+                                                                __MappingArgDict
+                                                        ).AppliedOutputVariable,
+                                        self.MappingArgDictsList
+                                )
+
+                #Return self
+                #return self
+
+#</DefineClass>
+
+```
+
+<small>
+View the Mapper sources on <a href="https://github.com/Ledoux/ShareYourSystem/tr
+ee/master/Pythonlogy/ShareYourSystem/Applyiers/Mapper"
+target="_blank">Github</a>
+</small>
 
 
 
@@ -81,9 +214,9 @@ SYS._attest(
 
 *****Start of the Attest *****
 
-MyMapper is < (MapperClass), 4549669392>
+MyMapper is < (MapperClass), 4554250512>
    /{
-   /  '<New><Instance>IdInt' : 4549669392
+   /  '<New><Instance>IdInt' : 4554250512
    /  '<New><Instance>MyFloat' : 0.1
    /  '<New><Instance>MyInt' : 0
    /  '<New><Instance>MyNotLostStr' : ben he
@@ -91,10 +224,10 @@ MyMapper is < (MapperClass), 4549669392>
    /  '<New><Instance>MyThirdStr' : GutenTag
    /  '<Spe><Instance>MappedVariablesList' :
    /   /[
-   /   /  0 : {...}< (MapperClass), 4549669392>
-   /   /  1 : {...}< (MapperClass), 4549669392>
-   /   /  2 : {...}< (MapperClass), 4549669392>
-   /   /  3 : {...}< (MapperClass), 4549669392>
+   /   /  0 : {...}< (MapperClass), 4554250512>
+   /   /  1 : {...}< (MapperClass), 4554250512>
+   /   /  2 : {...}< (MapperClass), 4554250512>
+   /   /  3 : {...}< (MapperClass), 4554250512>
    /   /]
    /  '<Spe><Instance>MappingApplyMethodStr' : __setitem__
    /  '<Spe><Instance>MappingArgDictsList' :

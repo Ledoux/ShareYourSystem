@@ -211,8 +211,9 @@ self.FolderingPathStr+__DirectedFolderKeyStr+'/'
 ```
 
 <small>
-View the Directer sources on [Github](https://github.com/Ledoux/ShareYourSystem/
-tree/master/Pythonlogy/ShareYourSystem/Interfacers/Directer)
+View the Directer sources on <a href="https://github.com/Ledoux/ShareYourSystem/
+tree/master/Pythonlogy/ShareYourSystem/Interfacers/Directer"
+target="_blank">Github</a>
 </small>
 
 
@@ -296,12 +297,12 @@ SYS._attest(
 
 *****Start of the Attest *****
 
-MyDirecter is < (DirecterClass), 4524376400>
+MyDirecter is < (DirecterClass), 4554248848>
    /{
-   /  '<New><Instance>IdInt' : 4524376400
+   /  '<New><Instance>IdInt' : 4554248848
    /  '<Spe><Class>DirectingFilterFunctionPointer' : None
    /  '<Spe><Instance>DirectingCallbackFunction' : <function delete at
-0x10d874cf8>
+0x10f733c08>
    /  '<Spe><Instance>DirectingLiargVariablesList' : []
    /}
 

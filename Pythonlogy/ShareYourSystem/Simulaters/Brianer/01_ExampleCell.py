@@ -5,26 +5,33 @@ from ShareYourSystem.Simulaters import Populater,Brianer
 
 #Definition
 MyBrianer=Brianer.BrianerClass(
+	).update(
+		{
+			'StimulatingStepTimeFloat':0.1
+		}
 	).produce(
 		['E','I'],
 		Populater.PopulaterClass,
 		{
-			'PopulatingEquationStr':
-			'''
-				dv/dt = (ge+gi-(v+49*mV))/(20*ms) : volt
-				dge/dt = -ge/(5*ms) : volt
-				dgi/dt = -gi/(10*ms) : volt
-			''',
-		
-			'PopulatingThresholdStr':'v>-50*mV',
-
-			'PopulatingResetStr':'v=-60*mV',
-		
-			'MoniteringTrackTuplesList':
+			'NeuronGroupArgumentVariable':{
+				'LiargVariablesList':[
+					3200,
+					'''
+						dv/dt = (ge+gi-(v+49*mV))/(20*ms) : volt
+						dge/dt = -ge/(5*ms) : volt
+						dgi/dt = -gi/(10*ms) : volt
+					'''
+				],
+				'KwargVariablesDict':
+				{
+					'threshold':'v>-50*mV'
+					'reset':'v=-60*mV'
+				}
+			},
+			'MonitorSpikeArgumentVariablesList':
 			[
-				('Spike')
+				[]
 			],
-
 			'PopulatingInitDict':
 			{
 				'v':-60.
@@ -41,8 +48,11 @@ MyBrianer=Brianer.BrianerClass(
 					SYS.GraspDictClass(
 						{
 							'HintVariable':'/NodePointDeriveNoder/<Populatome>IPopulater',
-							'SynapsePreStr':'ge+=1.62*mV',
-							'SynapseProbabilityFloat':0.02
+							'SynapseArgumentVariable':
+							{
+								'pre':'ge+=1.62*mV'
+								'connect':{'p':0.02}
+							}
 						}
 					)
 				]
@@ -54,8 +64,11 @@ MyBrianer=Brianer.BrianerClass(
 					SYS.GraspDictClass(
 						{
 							'HintVariable':'/NodePointDeriveNoder/<Populatome>EPopulater',
-							'SynapsePreStr':'gi-=9*mV',
-							'SynapseProbabilityFloat':0.02
+							'SynapseArgumentVariable':
+							{
+								'pre':'gi-=9*mV'
+								'connect':{'p':0.02}
+							}
 						}
 					)
 				]

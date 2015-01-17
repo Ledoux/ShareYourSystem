@@ -1,12 +1,26 @@
 
+
+<!--
+FrozenIsBool False
+-->
+
 #Adder
- @Date : Fri Nov 14 13:20:38 2014
 
-@Author : Erwan Ledoux
+##Doc
+----
 
 
+>
+> An Adder maps an append
+>
 
-An Adder maps an append
+----
+
+<small>
+View the Adder notebook on [NbViewer](http://nbviewer.ipython.org/url/shareyours
+ystem.ouvaton.org/Adder.ipynb)
+</small>
+
 
 
 
@@ -14,8 +28,90 @@ An Adder maps an append
 FrozenIsBool False
 -->
 
-View the Adder sources on [Github](https://github.com/Ledoux/ShareYourSystem/tre
-e/master/ShareYourSystem/Noders/Installer)
+##Code
+
+----
+
+<ClassDocStr>
+
+----
+
+```python
+# -*- coding: utf-8 -*-
+"""
+
+
+<DefineSource>
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+</DefineSource>
+
+
+An Adder maps an append
+"""
+
+#<DefineAugmentation>
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Noders.Instancer"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#</DefineAugmentation>
+
+#<ImportSpecificModules>
+#</ImportSpecificModules>
+
+#<DefineClass>
+@DecorationClass()
+class AdderClass(BaseClass):
+
+        #Definition
+        RepresentingKeyStrsList=[
+#'AddingVariablesList'
+                                                                ]
+
+        def default_init(self,
+                                                _AddingVariablesList=None,
+                                                **_KwargVariablesDict
+                                ):
+
+                #Call the parent __init__ method
+                BaseClass.__init__(self,**_KwargVariablesDict)
+
+        #@Argumenter.ArgumenterClass(**{'ArgumentingDoStr':'Add'})
+        def __add__(self,_VariablesList):
+                """Apply the append to the <_AddingVariablesList>"""
+
+                #Call the add method
+                self.add(_VariablesList)
+
+                #Return
+                return self
+
+        def do_add(self):
+                """Apply the append to the <_AddingVariablesList>"""
+
+                #debug
+                '''
+                self.debug(('self.',self,['AddingVariablesList']))
+                '''
+
+                #Apply
+                self.map('append',map(
+                                                                        lambda
+__AddingVariable:
+{'LiargVariablesList':[__AddingVariable]},
+self.AddingVariablesList
+                                                                )
+                                )
+
+#</DefineClass>
+
+```
+
+<small>
+View the Adder sources on <a href="https://github.com/Ledoux/ShareYourSystem/tre
+e/master/Pythonlogy/ShareYourSystem/Noders/Adder" target="_blank">Github</a>
+</small>
 
 
 
@@ -79,260 +175,93 @@ SYS._attest(
 
 ```console
 >>>
-Doer l.132 : DoerStr is Itemizer
-DoStr is Itemize
-DoMethodStr is itemize
-DoingStr is Itemizing
-DoneStr is Itemized
 
-Doer l.132 : DoerStr is Getter
-DoStr is Get
-DoMethodStr is get
-DoingStr is Getting
-DoneStr is Getted
+                                            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                                            ////////////////////////////////
+                                            Appender/__init__.py do_append
+                                            From Appender/__init__.py do_append
+| Instancer/__init__.py mimic_append | Mimicker/__init__.py mimic |
+Applyier/__init__.py do_apply | Mapper/__init__.py do_map | Adder/__init__.py
+do_add | Adder/__init__.py __add__ | site-packages/six.py exec_ |
+Celler/__init__.py do_cell | Notebooker/__init__.py do_notebook |
+Informer/__init__.py do_inform | inform.py <module>
+                                            ////////////////////////////////
 
-Doer l.132 : DoerStr is Setter
-DoStr is Set
-DoMethodStr is set
-DoingStr is Setting
-DoneStr is Setted
+                                            l.138 :
+                                            *****
+                                            I am with [('NodeKeyStr',
+'TopAdder')]
+                                            *****
+                                            self.AppendedNodeCollectionStr is
+Tree
+                                            self.AppendedNodeKeyStr is
+MyTuplesList
 
-Doer l.132 : DoerStr is Deleter
-DoStr is Delete
-DoMethodStr is delete
-DoingStr is Deleting
-DoneStr is Deleted
-
-Doer l.132 : DoerStr is Attributer
-DoStr is Attribute
-DoMethodStr is attribute
-DoingStr is Attributing
-DoneStr is Attributed
-
-Doer l.132 : DoerStr is Restricter
-DoStr is Restrict
-DoMethodStr is restrict
-DoingStr is Restricting
-DoneStr is Restricted
-
-Doer l.132 : DoerStr is Pather
-DoStr is Path
-DoMethodStr is path
-DoingStr is Pathing
-DoneStr is Pathed
-
-Doer l.132 : DoerStr is Sharer
-DoStr is Share
-DoMethodStr is share
-DoingStr is Sharing
-DoneStr is Shared
-
-Doer l.132 : DoerStr is Executer
-DoStr is Execute
-DoMethodStr is execute
-DoingStr is Executing
-DoneStr is Executed
-
-Doer l.132 : DoerStr is Pointer
-DoStr is Point
-DoMethodStr is point
-DoingStr is Pointing
-DoneStr is Pointed
-
-Doer l.132 : DoerStr is Applyier
-DoStr is Apply
-DoMethodStr is apply
-DoingStr is Applying
-DoneStr is Applied
-
-Doer l.132 : DoerStr is Mapper
-DoStr is Map
-DoMethodStr is map
-DoingStr is Mapping
-DoneStr is Mapped
-
-Doer l.132 : DoerStr is Picker
-DoStr is Pick
-DoMethodStr is pick
-DoingStr is Picking
-DoneStr is Pick
-
-Doer l.132 : DoerStr is Gatherer
-DoStr is Gather
-DoMethodStr is gather
-DoingStr is Gathering
-DoneStr is Gathered
-
-Doer l.132 : DoerStr is Updater
-DoStr is Update
-DoMethodStr is update
-DoingStr is Updating
-DoneStr is Updated
-
-Doer l.132 : DoerStr is Filterer
-DoStr is Filter
-DoMethodStr is filter
-DoingStr is Filtering
-DoneStr is Filterer
-
-Doer l.132 : DoerStr is Noder
-DoStr is Node
-DoMethodStr is node
-DoingStr is Noding
-DoneStr is Noded
-
-Doer l.132 : DoerStr is Appender
-DoStr is Append
-DoMethodStr is append
-DoingStr is Appending
-DoneStr is Appended
-
-Doer l.132 : DoerStr is Instancer
-DoStr is Instance
-DoMethodStr is instance
-DoingStr is Instancing
-DoneStr is Instanced
-
-Doer l.132 : DoerStr is Adder
-DoStr is Add
-DoMethodStr is add
-DoingStr is Adding
-DoneStr is Added
+                                            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 
-                                                                xxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-////////////////////////////////
-                                                                Doer/__init__.py
-do
-                                                                From <string>
-superDo_debug | Appender/__init__.py do_append | Doer/__init__.py do | <string>
-superDo_append | Watcher/__init__.py watch | <string> watch_superDo_append |
-Instancer/__init__.py mimic_append | Mimicker/__init__.py mimic | <string>
-superMimic_watch_superDo_append | Applyier/__init__.py do_apply |
-Doer/__init__.py do | <string> superDo_apply | Watcher/__init__.py watch |
-<string> watch_superDo_apply | Mapper/__init__.py do_map | Doer/__init__.py do |
-<string> superDo_map | Watcher/__init__.py watch | <string> watch_superDo_map |
-Adder/__init__.py do_add | Doer/__init__.py do | <string> superDo_add |
-Watcher/__init__.py watch | <string> watch_superDo_add | Adder/__init__.py
-__add__ | <string> <module> | <string> <module> | site-packages/six.py exec_ |
-Celler/__init__.py do_cell | Doer/__init__.py do | <string> superDo_cell |
-Watcher/__init__.py watch | <string> watch_superDo_cell | Notebooker/__init__.py
-do_notebook | Doer/__init__.py do | <string> superDo_notebook |
-Watcher/__init__.py watch | <string> watch_superDo_notebook |
-Readmer/__init__.py do_readme | Doer/__init__.py do | <string> superDo_readme |
-Watcher/__init__.py watch | <string> watch_superDo_readme |
-python2.7/posixpath.py walk | python2.7/posixpath.py walk | Directer/__init__.py
-do_direct | Doer/__init__.py do | <string> superDo_direct | Watcher/__init__.py
-watch | <string> watch_superDo_direct | Installer/__init__.py do_install |
-Doer/__init__.py do | <string> superDo_install | Watcher/__init__.py watch |
-<string> watch_superDo_install | ShareYourSystem/Install.py <module>
-////////////////////////////////
+                                            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                                            ////////////////////////////////
+                                            Appender/__init__.py do_append
+                                            From Appender/__init__.py do_append
+| Instancer/__init__.py mimic_append | Mimicker/__init__.py mimic |
+Applyier/__init__.py do_apply | Mapper/__init__.py do_map | Adder/__init__.py
+do_add | Adder/__init__.py __add__ | site-packages/six.py exec_ |
+Celler/__init__.py do_cell | Notebooker/__init__.py do_notebook |
+Informer/__init__.py do_inform | inform.py <module>
+                                            ////////////////////////////////
 
-                                                                l.180 :
-                                                                *****
-                                                                I am with
-[('NodeKeyStr', '')]
-                                                                *****
-self.AppendedNodeCollectionStr is Tree
-self.AppendedNodeKeyStr is MyTuplesList
+                                            l.138 :
+                                            *****
+                                            I am with [('NodeKeyStr',
+'TopAdder')]
+                                            *****
+                                            self.AppendedNodeCollectionStr is
+Tree
+                                            self.AppendedNodeKeyStr is MyDict
 
-                                                                xxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                                            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 
-                                                                xxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-////////////////////////////////
-                                                                Doer/__init__.py
-do
-                                                                From <string>
-superDo_debug | Appender/__init__.py do_append | Doer/__init__.py do | <string>
-superDo_append | Watcher/__init__.py watch | <string> watch_superDo_append |
-Instancer/__init__.py mimic_append | Mimicker/__init__.py mimic | <string>
-superMimic_watch_superDo_append | Applyier/__init__.py do_apply |
-Doer/__init__.py do | <string> superDo_apply | Watcher/__init__.py watch |
-<string> watch_superDo_apply | Mapper/__init__.py do_map | Doer/__init__.py do |
-<string> superDo_map | Watcher/__init__.py watch | <string> watch_superDo_map |
-Adder/__init__.py do_add | Doer/__init__.py do | <string> superDo_add |
-Watcher/__init__.py watch | <string> watch_superDo_add | Adder/__init__.py
-__add__ | <string> <module> | <string> <module> | site-packages/six.py exec_ |
-Celler/__init__.py do_cell | Doer/__init__.py do | <string> superDo_cell |
-Watcher/__init__.py watch | <string> watch_superDo_cell | Notebooker/__init__.py
-do_notebook | Doer/__init__.py do | <string> superDo_notebook |
-Watcher/__init__.py watch | <string> watch_superDo_notebook |
-Readmer/__init__.py do_readme | Doer/__init__.py do | <string> superDo_readme |
-Watcher/__init__.py watch | <string> watch_superDo_readme |
-python2.7/posixpath.py walk | python2.7/posixpath.py walk | Directer/__init__.py
-do_direct | Doer/__init__.py do | <string> superDo_direct | Watcher/__init__.py
-watch | <string> watch_superDo_direct | Installer/__init__.py do_install |
-Doer/__init__.py do | <string> superDo_install | Watcher/__init__.py watch |
-<string> watch_superDo_install | ShareYourSystem/Install.py <module>
-////////////////////////////////
+                                            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                                            ////////////////////////////////
+                                            Appender/__init__.py do_append
+                                            From Appender/__init__.py do_append
+| Instancer/__init__.py mimic_append | Mimicker/__init__.py mimic |
+Applyier/__init__.py do_apply | Mapper/__init__.py do_map | Adder/__init__.py
+do_add | Adder/__init__.py __add__ | site-packages/six.py exec_ |
+Celler/__init__.py do_cell | Notebooker/__init__.py do_notebook |
+Informer/__init__.py do_inform | inform.py <module>
+                                            ////////////////////////////////
 
-                                                                l.180 :
-                                                                *****
-                                                                I am with
-[('NodeKeyStr', '')]
-                                                                *****
-self.AppendedNodeCollectionStr is Tree
-self.AppendedNodeKeyStr is MyDict
+                                            l.138 :
+                                            *****
+                                            I am with [('NodeKeyStr',
+'TopAdder')]
+                                            *****
+                                            self.AppendedNodeCollectionStr is
+Tree
+                                            self.AppendedNodeKeyStr is
+MyChildAppender
 
-                                                                xxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-
-
-                                                                xxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-////////////////////////////////
-                                                                Doer/__init__.py
-do
-                                                                From <string>
-superDo_debug | Appender/__init__.py do_append | Doer/__init__.py do | <string>
-superDo_append | Watcher/__init__.py watch | <string> watch_superDo_append |
-Instancer/__init__.py mimic_append | Mimicker/__init__.py mimic | <string>
-superMimic_watch_superDo_append | Applyier/__init__.py do_apply |
-Doer/__init__.py do | <string> superDo_apply | Watcher/__init__.py watch |
-<string> watch_superDo_apply | Mapper/__init__.py do_map | Doer/__init__.py do |
-<string> superDo_map | Watcher/__init__.py watch | <string> watch_superDo_map |
-Adder/__init__.py do_add | Doer/__init__.py do | <string> superDo_add |
-Watcher/__init__.py watch | <string> watch_superDo_add | Adder/__init__.py
-__add__ | <string> <module> | <string> <module> | site-packages/six.py exec_ |
-Celler/__init__.py do_cell | Doer/__init__.py do | <string> superDo_cell |
-Watcher/__init__.py watch | <string> watch_superDo_cell | Notebooker/__init__.py
-do_notebook | Doer/__init__.py do | <string> superDo_notebook |
-Watcher/__init__.py watch | <string> watch_superDo_notebook |
-Readmer/__init__.py do_readme | Doer/__init__.py do | <string> superDo_readme |
-Watcher/__init__.py watch | <string> watch_superDo_readme |
-python2.7/posixpath.py walk | python2.7/posixpath.py walk | Directer/__init__.py
-do_direct | Doer/__init__.py do | <string> superDo_direct | Watcher/__init__.py
-watch | <string> watch_superDo_direct | Installer/__init__.py do_install |
-Doer/__init__.py do | <string> superDo_install | Watcher/__init__.py watch |
-<string> watch_superDo_install | ShareYourSystem/Install.py <module>
-////////////////////////////////
-
-                                                                l.180 :
-                                                                *****
-                                                                I am with
-[('NodeKeyStr', '')]
-                                                                *****
-self.AppendedNodeCollectionStr is Tree
-self.AppendedNodeKeyStr is MyChildAppender
-
-                                                                xxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                                            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 
 
 *****Start of the Attest *****
 
-MyAdder is < (AdderClass), 4556130896>
+MyAdder is < (AdderClass), 4555575760>
    /{
-   /  '<New><Instance>ApplyingIsBool' : True
-   /  '<New><Instance>IdStr' : 4556130896
-   /  '<New><Instance>NodeCollectionStr' : Global
+   /  '<New><Instance>IdInt' : 4555575760
+   /  '<New><Instance>NodeCollectionStr' : Globals
    /  '<New><Instance>NodeIndexInt' : -1
-   /  '<New><Instance>NodeKeyStr' :
+   /  '<New><Instance>NodeKeyStr' : TopAdder
    /  '<New><Instance>NodePointDeriveNoder' : None
    /  '<New><Instance>NodePointOrderedDict' : None
    /  '<New><Instance>TreeCollectionOrderedDict' :
@@ -349,17 +278,16 @@ MyAdder is < (AdderClass), 4556130896>
    /   /   /  'NodeCollectionStr' : Tree
    /   /   /  'NodeKeyStr' : MyDict
    /   /   /}
-   /   /  'MyChildAppender' : < (AdderClass), 4556808528>
+   /   /  'MyChildAppender' : < (AdderClass), 4555209680>
    /   /   /{
-   /   /   /  '<New><Instance>ApplyingIsBool' : True
-   /   /   /  '<New><Instance>IdStr' : 4556808528
+   /   /   /  '<New><Instance>IdInt' : 4555209680
    /   /   /  '<New><Instance>NodeCollectionStr' : Tree
    /   /   /  '<New><Instance>NodeIndexInt' : 2
    /   /   /  '<New><Instance>NodeKeyStr' : MyChildAppender
    /   /   /  '<New><Instance>NodePointDeriveNoder' : {...}< (AdderClass),
-4556130896>
+4555575760>
    /   /   /  '<New><Instance>NodePointOrderedDict' : {...}< (OrderedDict),
-4556800672>
+4556378784>
    /   /   /}
    /   /}
    /}

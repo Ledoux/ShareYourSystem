@@ -875,6 +875,6 @@ Initiator.InitiatorClass.RepresentedSpecificKeyStrsList=['InitiatingUpdateBool']
 ```
 
 <small>
-View the Representer sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Classors/Representer)
+View the Representer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Classors/Representer" target="_blank">Github</a>
 </small>
 

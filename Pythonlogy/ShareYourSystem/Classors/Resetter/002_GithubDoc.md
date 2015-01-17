@@ -195,6 +195,6 @@ class ResetterClass(BaseClass):
 ```
 
 <small>
-View the Resetter sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Classors/Resetter)
+View the Resetter sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Classors/Resetter" target="_blank">Github</a>
 </small>
 

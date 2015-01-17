@@ -3,21 +3,17 @@ import ShareYourSystem as SYS
 from ShareYourSystem.Guiders import Nbconverter
 
 #Definition a Nbconverter
-MyNbconverter=Nbconverter.NbconverterClass().nbconvert(
-			'Presentation.html',
-			'Slide',
-			**{
-				'FolderingPathStr':
-				SYS.ShareYourSystemLocalFolderPathStr+'/ShareYourSystem/Objects/Concluder',
-				#SYS.ShareYourSystemLocalFolderPathStr+'/ShareYourSystem/Objects',
-				'GuidingBookStr':'Doc',
-				'NotebookingFileKeyStr':'Presentation.ipynb'
-			}
-).nbconvert(
-			**{
-			'FolderingPathStr':
-			SYS.ShareYourSystemLocalFolderPathStr+'/ShareYourSystem/Interfacers/Filer',
+MyNbconverter=Nbconverter.NbconverterClass().package(
+		'ShareYourSystem.Objects.Concluder'
+	).scriptbook(
+		**{
+			'GuidingBookStr':'Doc'
 		}
+	).notebook(
+		'Presentation.ipynb'
+	).nbconvert(
+		'Readme.md',
+		'Slide'
 )
 		
 #Definition the AttestedStr

@@ -1753,7 +1753,101 @@ View the Filterer notebook on <a href="http://nbviewer.ipython.org/url/shareyour
 FrozenIsBool False
 -->
 
-<p>View the Filterer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Applyiers/Installer">Github</a></p>
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+A Filterer pick and 
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Itemizers.Pointer"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+import copy
+import collections
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class FiltererClass(BaseClass):
+
+    #Definition
+    RepresentingKeyStrsList=[
+                                    'FilteringGetVariable',
+                                    'FilteredGetVariable',
+                                    'FilteredVariablesList'
+                                ]
+
+    def default_init(self,
+                _FilteringGetVariable=None,
+                _FilteredGetVariable=None,
+                _FilteredVariablesList=None,
+                **_KwargVariablesDict):
+
+        #Call the parent __init__ method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def do_filter(self):
+
+        #debug
+        '''
+        self.debug(('self.',self,[
+                                    'PickingGetKeyVariablesList',
+                                    'ConcludingConditionTuplesList',
+                                    'FilteringGetVariable'
+                                ])
+                )
+        '''
+
+        #Get
+        if type(self.FilteringGetVariable) in SYS.StrTypesList:
+            self.FilteredGetVariable=self[self.FilteringGetVariable]
+        else:
+            self.FilteredGetVariable=self.FilteringGetVariable
+
+        #Check
+        if self.conclude(self.FilteredGetVariable).ConcludedIsBool:
+
+            #debug
+            '''
+            self.debug(
+                    (
+                        'self.',self,[
+                                        'PickingGetKeyVariablesList',
+                                        'ConcludedConditionIsBoolsList',
+                                    ]+SYS.unzip(
+                                        self.ConcludingConditionTuplesList,[0]
+                                    )
+                    )
+                )
+            '''
+
+            #Pick
+            self.FilteredVariablesList=self.pick()
+
+
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Filterer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Applyiers/Filterer" target="_blank">Github</a>
+</small></p>
 </div>
 </div>
 </div></section><section>
@@ -1822,12 +1916,12 @@ In&nbsp;[2]:
 
 *****Start of the Attest *****
 
-MyFilterer is &lt; (FiltererClass), 4550544464&gt;
+MyFilterer is &lt; (FiltererClass), 4556354960&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550544464
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4556354960
    /  &apos;&lt;New&gt;&lt;Instance&gt;NodeIndexInt&apos; : 1
    /  &apos;&lt;New&gt;&lt;Instance&gt;NodeKeyStr&apos; : MyFilterer
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;FilteredGetVariable&apos; : {...}&lt; (FiltererClass), 4550544464&gt;
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;FilteredGetVariable&apos; : {...}&lt; (FiltererClass), 4556354960&gt;
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;FilteredVariablesList&apos; : [&apos;MyFilterer&apos;]
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;FilteringGetVariable&apos; : /
    /}

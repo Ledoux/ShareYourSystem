@@ -1,0 +1,16 @@
+<template name="welcome">
+  <p>
+    Welcome to the example chat app!
+  </p>
+</template>
+
+<template name="messages">
+	Messages are :
+  {{#each messages}}
+    <strong>{{name}}:</strong> {{message}}<br>
+  {{/each}}
+</template>
+
+<template name="input">
+  <p>Message: <input type="text" id="message"></p>
+</template>

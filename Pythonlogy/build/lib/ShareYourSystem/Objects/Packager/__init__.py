@@ -58,7 +58,7 @@ class PackagerClass(BaseClass):
 							'PackagingModuleVariable'
 						]))
 		'''
-
+		
 		#Check
 		if type(self.PackagingModuleVariable) in SYS.StrTypesList:
 			self.PackagedModuleStr=self.PackagingModuleVariable

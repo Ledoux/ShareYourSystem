@@ -137,6 +137,6 @@ class GathererClass(BaseClass):
 ```
 
 <small>
-View the Gatherer sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Applyiers/Gatherer)
+View the Gatherer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Applyiers/Gatherer" target="_blank">Github</a>
 </small>
 

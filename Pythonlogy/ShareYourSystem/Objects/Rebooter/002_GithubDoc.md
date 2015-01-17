@@ -97,12 +97,14 @@ class RebooterClass(BaseClass):
 			)
 		
 		#debug
+		'''
 		self.debug(
 					('self.',self,[
 						'RebootingDoStrsList',
 						'RebootingNameStrsList'
 						])
 				)
+		'''
 		
 		#map
 		map(
@@ -150,6 +152,6 @@ class RebooterClass(BaseClass):
 ```
 
 <small>
-View the Rebooter sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Objects/Rebooter)
+View the Rebooter sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Objects/Rebooter" target="_blank">Github</a>
 </small>
 

@@ -1753,7 +1753,125 @@ View the Executer notebook on <a href="http://nbviewer.ipython.org/url/shareyour
 FrozenIsBool False
 -->
 
-<p>View the Executer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Itemizers/Installer">Github</a></p>
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+An Executer can exec commands with the six.exec_ function
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Itemizers.Sharer"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+import six
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineLocals&gt;
+ExecutingPrefixStr="Exec_"
+#&lt;/DefineLocals&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class ExecuterClass(BaseClass):
+
+    #Definition
+    RepresentingKeyStrsList=[
+                                    'ExecutingPrefixStr'
+                                ]
+
+    def default_init(self,
+                _ExecutingPrefixStr="" ,
+                **_KwargVariablesDict):
+
+        #Call the parent __init__ method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    #&lt;Hook&gt;@Hooker.HookerClass(**{'HookingBeforeCallingDictsList':[BaseClass.get]})
+    #@Imitater.ImitaterClass()
+    def mimic_get(self):
+
+        #Check
+        if self.GettingKeyVariable.startswith(ExecutingPrefixStr):
+
+            #Definition the ExecStr
+            self.ExecutingPrefixStr=ExecutingPrefixStr.join(
+                self.GettingKeyVariable.split(ExecutingPrefixStr)[1:])
+
+            #debug
+            '''
+            self.debug(('self.',self,['ExecutingPrefixStr']))
+            '''
+
+            #Put the output in a local Local Variable
+            self.execute()
+
+        #debug
+        '''
+        self.debug('BaseClass.get is '+str(BaseClass.get))
+        '''
+
+        #Call the parent get method
+        return BaseClass.get(self)
+
+    #&lt;Hook&gt;@Hooker.HookerClass(**{'HookingBeforeCallingDictsList':[BaseClass.set]})
+    #@Imitater.ImitaterClass()
+    def mimic_set(self):
+
+        #Check
+        if type(self.SettingValueVariable
+            ) in SYS.StrTypesList and self.SettingValueVariable.startswith(
+            ExecutingPrefixStr):
+
+            #Definition the ExecStr
+            self.ExecutingPrefixStr=ExecutingPrefixStr.join(
+                self.SettingValueVariable.split(ExecutingPrefixStr)[1:])
+
+            #debug
+            '''
+            self.debug(('self.',self,['ExecutingPrefixStr',"SettingValueVariable"]))
+            '''
+
+            #Put the output in a local Local Variable
+            self.execute()
+
+            #debug
+            '''
+            self.debug(('self.',self,['ExecutingPrefixStr',"SettingValueVariable"]))
+            '''
+
+        #Call the parent get method
+        BaseClass.set(self)
+
+
+    def do_execute(self):
+
+        #Execute
+        six.exec_(self.ExecutingPrefixStr,locals())
+
+        #Return self
+        #return self
+
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Executer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Itemizers/Executer" target="_blank">Github</a>
+</small></p>
 </div>
 </div>
 </div></section><section>

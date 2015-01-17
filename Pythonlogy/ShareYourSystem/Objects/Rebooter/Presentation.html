@@ -1843,12 +1843,14 @@ class RebooterClass(BaseClass):
             )
 
         #debug
+        '''
         self.debug(
                     ('self.',self,[
                         'RebootingDoStrsList',
                         'RebootingNameStrsList'
                         ])
                 )
+        '''
 
         #map
         map(
@@ -1893,7 +1895,7 @@ class RebooterClass(BaseClass):
 #&lt;/DefineClass&gt;
 </code></pre>
 <p><small>
-View the Rebooter sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Objects/Rebooter">Github</a>
+View the Rebooter sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Objects/Rebooter" target="_blank">Github</a>
 </small></p>
 </div>
 </div>
@@ -2073,49 +2075,33 @@ In&nbsp;[3]:
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
 Before make, MyBuilder is 
-&lt; (BuilderClass), 4457770832&gt;
+&lt; (BuilderClass), 4537218832&gt;
    /{ 
    /  &apos;&lt;Base&gt;&lt;Class&gt;MadeMyInt&apos; : 0
    /  &apos;&lt;Base&gt;&lt;Class&gt;MakingMyFloat&apos; : 0.0
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4457770832
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4537218832
    /}
 I am in the mimic_make of the Builder
 I am in the do_make of the Maker
 After the first make, MyBuilder is 
-&lt; (BuilderClass), 4457770832&gt;
+&lt; (BuilderClass), 4537218832&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4457770832
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4537218832
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 13
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MakingMyFloat&apos; : 3.0
    /}
 After the second make, MyBuilder is 
-&lt; (BuilderClass), 4457770832&gt;
+&lt; (BuilderClass), 4537218832&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4457770832
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4537218832
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 13
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MakingMyFloat&apos; : 3.0
    /}
 Now we reboot
-                    
-                    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                    ////////////////////////////////
-                    Rebooter/__init__.py do_reboot
-                    From Rebooter/__init__.py do_reboot | site-packages/six.py exec_ | Celler/__init__.py do_cell | Notebooker/__init__.py do_notebook | Informer/__init__.py do_inform | inform.py &lt;module&gt;
-                    ////////////////////////////////
-                    
-                    l.89 : 
-                    *****
-                    I am with []
-                    *****
-                    self.RebootingDoStrsList is [&apos;Build&apos;, &apos;Make&apos;, &apos;Reboot&apos;, &apos;Conclude&apos;, &apos;Condition&apos;, &apos;Debug&apos;, &apos;_Print&apos;]
-                    self.RebootingNameStrsList is [&apos;Builder&apos;, &apos;Maker&apos;, &apos;Rebooter&apos;, &apos;Concluder&apos;, &apos;Conditioner&apos;, &apos;Debugger&apos;, &apos;Printer&apos;]
-                    
-                    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                                        
 After the reboot, MyBuilder is 
-&lt; (BuilderClass), 4457770832&gt;
+&lt; (BuilderClass), 4537218832&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4457770832
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4537218832
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 0
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MakingMyFloat&apos; : 3.0
    /}
@@ -2125,9 +2111,9 @@ I am in the do_make of the Maker
 
 *****Start of the Attest *****
 
-MyBuilder is &lt; (BuilderClass), 4457770832&gt;
+MyBuilder is &lt; (BuilderClass), 4537218832&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4457770832
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4537218832
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 18
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MakingMyFloat&apos; : 8.0
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;RebootedWatchBoolKeyStrsList&apos; : []

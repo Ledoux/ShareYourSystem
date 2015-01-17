@@ -83,12 +83,14 @@ class RebooterClass(BaseClass):
 			)
 		
 		#debug
+		'''
 		self.debug(
 					('self.',self,[
 						'RebootingDoStrsList',
 						'RebootingNameStrsList'
 						])
 				)
+		'''
 		
 		#map
 		map(

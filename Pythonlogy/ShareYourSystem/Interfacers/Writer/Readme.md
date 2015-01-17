@@ -173,8 +173,9 @@ class WriterClass(BaseClass):
 ```
 
 <small>
-View the Writer sources on [Github](https://github.com/Ledoux/ShareYourSystem/tr
-ee/master/Pythonlogy/ShareYourSystem/Interfacers/Writer)
+View the Writer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tr
+ee/master/Pythonlogy/ShareYourSystem/Interfacers/Writer"
+target="_blank">Github</a>
 </small>
 
 
@@ -224,9 +225,9 @@ SYS._attest(
 
 *****Start of the Attest *****
 
-MyWriter is < (WriterClass), 4542163600>
+MyWriter is < (WriterClass), 4540432528>
    /{
-   /  '<New><Instance>IdInt' : 4542163600
+   /  '<New><Instance>IdInt' : 4540432528
    /  '<Spe><Class>WritingLoadBool' : False
    /  '<Spe><Instance>WritingStoreVariable' : hello
    /}

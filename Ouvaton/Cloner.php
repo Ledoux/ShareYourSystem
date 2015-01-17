@@ -2014,7 +2014,7 @@ class ClonerClass(BaseClass):
 #&lt;/DefineClass&gt;
 </code></pre>
 <p><small>
-View the Cloner sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Objects/Cloner">Github</a>
+View the Cloner sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Objects/Cloner" target="_blank">Github</a>
 </small></p>
 </div>
 </div>
@@ -2082,19 +2082,19 @@ In&nbsp;[3]:
 (&apos;MyInt&apos;, 1)
 (&apos;ClonedItemTuplesList&apos;, [])
 (&apos;CloningIdsDict&apos;, {})
-(&apos;IdInt&apos;, 4457658832)
+(&apos;IdInt&apos;, 4537218832)
 
 
 *****Start of the Attest *****
 
-MyCloner is &lt; (ClonerClass), 4457658832&gt;
+MyCloner is &lt; (ClonerClass), 4537218832&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4457658832
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4537218832
    /  &apos;&lt;New&gt;&lt;Instance&gt;MyInt&apos; : 1
    /  &apos;&lt;Spe&gt;&lt;Class&gt;CloningResetBool&apos; : False
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;ClonedCopyVariable&apos; : &lt; (ClonerClass), 4457768912&gt;
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;ClonedCopyVariable&apos; : &lt; (ClonerClass), 4537217936&gt;
    /   /{ 
-   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4457658832
+   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4537218832
    /   /  &apos;&lt;New&gt;&lt;Instance&gt;MyInt&apos; : 2
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;ClonedCopyVariable&apos; : None
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;CloningResetBool&apos; : False
@@ -2118,10 +2118,10 @@ MyCloner is &lt; (ClonerClass), 4457658832&gt;
    /   /   /   /   /{ 
    /   /   /   /   /}
    /   /   /   /)
-   /   /   /  4 : (&apos;IdInt&apos;, 4457658832)
+   /   /   /  4 : (&apos;IdInt&apos;, 4537218832)
    /   /   /]
-   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;CloningIdsDict&apos; : {...}&lt; (dict), 4458034352&gt;
-   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;CloningNotCopyKeyStringsList&apos; : {...}&lt; (list), 4457755712&gt;
+   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;CloningIdsDict&apos; : {...}&lt; (dict), 4537304800&gt;
+   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;CloningNotCopyKeyStringsList&apos; : {...}&lt; (list), 4537070656&gt;
    /   /}
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;ClonedItemTuplesList&apos; : 
    /   /[
@@ -2130,7 +2130,7 @@ MyCloner is &lt; (ClonerClass), 4457658832&gt;
    /   /   /  0 : CloningNotCopyKeyStringsList
    /   /   /  1 : []
    /   /   /)
-   /   /  1 : {...}&lt; (tuple), 4457758592&gt;
+   /   /  1 : {...}&lt; (tuple), 4536798816&gt;
    /   /  2 : 
    /   /   /(
    /   /   /  0 : ClonedItemTuplesList
@@ -2143,17 +2143,17 @@ MyCloner is &lt; (ClonerClass), 4457658832&gt;
    /   /   /   /{ 
    /   /   /   /}
    /   /   /)
-   /   /  4 : {...}&lt; (tuple), 4457771448&gt;
+   /   /  4 : {...}&lt; (tuple), 4537214232&gt;
    /   /]
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;CloningIdsDict&apos; : {...}&lt; (dict), 4457571224&gt;
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;CloningNotCopyKeyStringsList&apos; : {...}&lt; (list), 4457755352&gt;
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;CloningIdsDict&apos; : {...}&lt; (dict), 4537065552&gt;
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;CloningNotCopyKeyStringsList&apos; : {...}&lt; (list), 4537073464&gt;
    /}
 
 ------
 
-MyFirstCloner is &lt; (ClonerClass), 4457768912&gt;
+MyFirstCloner is &lt; (ClonerClass), 4537217936&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4457658832
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4537218832
    /  &apos;&lt;New&gt;&lt;Instance&gt;MyInt&apos; : 2
    /  &apos;&lt;Spe&gt;&lt;Class&gt;ClonedCopyVariable&apos; : None
    /  &apos;&lt;Spe&gt;&lt;Class&gt;CloningResetBool&apos; : False
@@ -2177,10 +2177,10 @@ MyFirstCloner is &lt; (ClonerClass), 4457768912&gt;
    /   /   /   /{ 
    /   /   /   /}
    /   /   /)
-   /   /  4 : (&apos;IdInt&apos;, 4457658832)
+   /   /  4 : (&apos;IdInt&apos;, 4537218832)
    /   /]
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;CloningIdsDict&apos; : {...}&lt; (dict), 4458034352&gt;
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;CloningNotCopyKeyStringsList&apos; : {...}&lt; (list), 4457755712&gt;
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;CloningIdsDict&apos; : {...}&lt; (dict), 4537304800&gt;
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;CloningNotCopyKeyStringsList&apos; : {...}&lt; (list), 4537070656&gt;
    /}
 
 *****End of the Attest *****

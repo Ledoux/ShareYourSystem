@@ -1749,6 +1749,317 @@ View the Mimicker notebook on <a href="http://nbviewer.ipython.org/url/shareyour
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<!--
+FrozenIsBool False
+-->
+
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+Mimicker...
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Classors.Switcher"
+DecorationModuleStr="ShareYourSystem.Classors.Tester"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+from ShareYourSystem.Classors import Doer
+import six
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineLocals&gt;
+MimickingWrapPrefixStr="mimic_"
+MimickingDecorationPrefixStr=""
+MimickingDecorationTagStr="superMimic"
+MimickingDecorationSuffixStr="_"
+#&lt;/DefineLocals&gt;
+
+#&lt;DefineFunctions&gt;
+def mimic(_InstanceVariable,*_LiargVariablesList,**_KwargVariablesDict):
+
+    #Set
+    MimicMethodStr=_KwargVariablesDict['MimicMethodStr']
+    MimicClassStr=_KwargVariablesDict['MimicClassStr']
+    MimicClass=getattr(SYS,MimicClassStr)
+    MimicUnBoundMethod=getattr(
+        MimicClass,
+        MimicMethodStr
+    )
+    BaseClassStr=_KwargVariablesDict['BaseClassStr']
+    BaseClass=getattr(SYS,BaseClassStr)
+    del _KwargVariablesDict['MimicMethodStr']
+    del _KwargVariablesDict['MimicClassStr']
+    del _KwargVariablesDict['BaseClassStr']
+
+    #Debug
+    '''
+    print('Mimicker l.48 inside of the function mimic')
+    #print('_InstanceVariable is ',_InstanceVariable)
+    print('_LiargVariablesList is ',_LiargVariablesList)
+    print('_KwargVariablesDict is ',_KwargVariablesDict)
+    print('')
+    '''
+
+    if len(_KwargVariablesDict)&gt;0:
+
+        #group by
+        [
+            MimicTempAttributeItemTuplesList,
+            MimicTempNotAttributeItemTuplesList
+        ]=SYS.groupby(
+            lambda __KwargItemTuple:
+            hasattr(_InstanceVariable,__KwargItemTuple[0]),
+            _KwargVariablesDict.items()
+        )
+
+        #Debug
+        '''
+        print('MimicTempAttributeItemTuplesList is ',MimicTempAttributeItemTuplesList)
+        print('MimicTempNotItemTuplesList is ',MimicTempNotItemTuplesList)
+        print('')
+        '''
+
+        #set in the instance the corresponding kwarged arguments
+        map(    
+                lambda __MimicTempAttributeItemTuple:
+                #set direct explicit attributes
+                _InstanceVariable.__setattr__(*__MimicTempAttributeItemTuple),
+                MimicTempAttributeItemTuplesList
+            )
+
+        #Define
+        MimicKwargDict=dict(MimicTempNotAttributeItemTuplesList)
+
+    else:
+
+        #Define
+        MimicKwargDict={}
+
+    #Init
+    MimicOutputVariable=None
+
+    #Debug
+    '''
+    print('Mimicker l.96 inside of the function mimic')
+    print('MimicClass is ',MimicClass)
+    print('MimicMethodStr is ',MimicMethodStr)
+    print('MimicUnBoundMethod is ',MimicUnBoundMethod)
+    print('')
+    '''
+
+    #call the Mimicked function
+    if len(MimicKwargDict)&gt;0:
+        MimicOutputVariable=MimicUnBoundMethod(
+                            _InstanceVariable,
+                            *_LiargVariablesList,
+                            **MimicKwargDict
+                        )
+    else:
+        MimicOutputVariable=MimicUnBoundMethod(
+                _InstanceVariable,
+                *_LiargVariablesList
+            )
+
+    #Debug
+    '''
+    print('Mimicker l.117 inside of the function mimic')
+    print('MimicOutputVariable is ',MimicOutputVariable)
+    print('')
+    '''
+
+    #Check
+    if BaseClass.DoingGetBool==False:
+
+        #Return 
+        return _InstanceVariable
+
+    else:
+
+        #Return the 
+        return MimicOutputVariable
+#&lt;/DefineFunctions&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class MimickerClass(BaseClass):
+
+    #Definition 
+    RepresentingKeyStrsList=[
+                    'MimickingDoMethodStr',
+                    'MimickedWrapMethodStr'
+    ]
+
+    def default_init(self,    
+                    _MimickingDoMethodStr="",
+                    _MimickedWrapMethodStr="",                   
+                    **_KwargVariablesDict
+                ):
+
+        #Call the init parent method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def __call__(self,_Class):
+
+        #Call the parent init method
+        BaseClass.__call__(self,_Class)
+
+        #mimic
+        self.mimic()
+
+        #Return
+        return _Class
+
+    def do_mimic(self):
+
+        #Debug
+        '''
+        print('l 174 Mimicker')
+        print('self.MimickingDoMethodStr is ',self.MimickingDoMethodStr)
+        print('')
+        '''
+
+        #Check
+        if self.MimickingDoMethodStr!="":
+
+            #observ
+            self.observe(True,self.MimickingDoMethodStr)
+
+            #set
+            self.MimickedWrapMethodStr=MimickingWrapPrefixStr+self.MimickingDoMethodStr
+
+            #Debug
+            '''
+            print('l 75 Mimicker ')
+            print('self.MimickedWrapMethodStr is ',self.MimickedWrapMethodStr)
+            print('')
+            '''
+
+            #Define
+            MimickedDoStr=self.MimickingDoMethodStr[0].upper()+self.MimickingDoMethodStr[1:]
+            MimickedDoerStr=Doer.DoStrToDoerStrOrderedDict[MimickedDoStr]
+
+            #Debug
+            '''
+            print('l 84 Mimicker ')
+            print('MimickedDoStr is ',MimickedDoStr)
+            print('MimickedDoerStr is ',MimickedDoerStr)
+            print('MimickedBaseModule is ',MimickedBaseModule)
+            print('')
+            '''
+
+            #Definitions
+            MimickedBaseClass=getattr(
+                SYS,
+                SYS.getClassStrWithNameStr(MimickedDoerStr)
+            )
+
+            #get
+            MimickedDoExecStr=getattr(
+                MimickedBaseClass,
+                'Do'+MimickedBaseClass.NameStr+'ExecStr'
+            )
+
+            #debug
+            '''
+            print('l 206 Mimicker')
+            print('MimickedDoExecStr is ')
+            print(MimickedDoExecStr)
+            print('')
+            '''
+
+            #replace
+            MimickedDecorationMethodStr=MimickingDecorationPrefixStr+MimickingDecorationTagStr+MimickingDecorationSuffixStr
+            MimickedDecorationMethodStr+=self.ObservedWrapMethodStr
+
+            #Debug
+            '''
+            print('l 232 Mimicker')
+            print('MimickedDecorationMethodStr is '+MimickedDecorationMethodStr)
+            print('')
+            '''
+
+            #replace
+            MimickedExecStr='def '+MimickedDecorationMethodStr+'('+'('.join(
+                MimickedDoExecStr.split('(')[1:]
+            )
+
+            #Debug
+            '''
+            print('l 208 Mimicker')
+            print('MimickedExecStr is ')
+            print(MimickedExecStr)
+            print('')
+            '''
+
+            #Add to the ImitatedDoneExecStr
+            MimickedExecStr+='\n\treturn mimic(_InstanceVariable,*_LiargVariablesList,'
+            MimickedExecStr+='**dict({\'MimicMethodStr\':\''+self.MimickedWrapMethodStr+'\','
+            MimickedExecStr+='\'MimicClassStr\':\''+self.DoClass.__name__+'\','
+            MimickedExecStr+='\'BaseClassStr\':\''+MimickedBaseClass.__name__+'\''
+            MimickedExecStr+='},**_KwargVariablesDict))'
+
+            #Debug
+            '''
+            print('l 223 Mimicker')
+            print('MimickedExecStr is ')
+            print(MimickedExecStr)
+            print('')
+            '''
+
+            #exec
+            six.exec_(MimickedExecStr)
+
+            #set
+            self.MimickedDecorationUnboundMethod=locals()[MimickedDecorationMethodStr]
+
+            #set in the __class__
+            setattr(
+                        self.DoClass,
+                        MimickedDecorationMethodStr,
+                        self.MimickedDecorationUnboundMethod
+                    )
+
+            #make the amalgam
+            setattr(
+                        self.DoClass,
+                        self.MimickingDoMethodStr,
+                        self.MimickedDecorationUnboundMethod
+                    )
+
+            #Return self
+            #return self
+
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Mimicker sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Classors/Mimicker" target="_blank">Github</a>
+</small></p>
+</div>
+</div>
+</div></section><section>
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <!---
 FrozenIsBool True
 -->
@@ -1763,7 +2074,7 @@ mimic_make continue to work after the first call of make.</p>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[2]:
+In&nbsp;[3]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -1923,36 +2234,36 @@ In&nbsp;[2]:
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
 Before make, MyBuilder is 
-&lt; (BuilderClass), 4349611664&gt;
+&lt; (BuilderClass), 4540174672&gt;
    /{ 
    /  &apos;&lt;Base&gt;&lt;Class&gt;MadeMyInt&apos; : 0
    /  &apos;&lt;Base&gt;&lt;Class&gt;MakingMyFloat&apos; : 1.0
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4349611664
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4540174672
    /}
 I am in the mimic_make of the Builder
 self.MakingMyFloat is 3.0
 self.MadeMyInt is 0
 
 After the first make, MyBuilder is 
-&lt; (BuilderClass), 4349611664&gt;
+&lt; (BuilderClass), 4540174672&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4349611664
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4540174672
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 13
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MakingMyFloat&apos; : 3.0
    /}
 I am in the mimic_make of the Builder
 After the second make, MyBuilder is 
-&lt; (BuilderClass), 4349611664&gt;
+&lt; (BuilderClass), 4540174672&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4349611664
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4540174672
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 23
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MakingMyFloat&apos; : 5.0
    /}
 Now we switch
 After the switch MyBuilder is 
-&lt; (BuilderClass), 4349611664&gt;
+&lt; (BuilderClass), 4540174672&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4349611664
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4540174672
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 23
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MakingMyFloat&apos; : 5.0
    /}
@@ -1961,9 +2272,9 @@ self.MakingMyFloat is 7.0
 self.MadeMyInt is 23
 
 After the third make, MyBuilder is 
-&lt; (BuilderClass), 4349611664&gt;
+&lt; (BuilderClass), 4540174672&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4349611664
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4540174672
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 17
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MakingMyFloat&apos; : 7.0
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;WatchMakeWithMakerBool&apos; : True
@@ -1980,9 +2291,9 @@ BuilderClass.make is &lt;unbound method BuilderClass.superMimic_switch_watch_sup
 
 ------
 
-MyBuilder is &lt; (BuilderClass), 4349611664&gt;
+MyBuilder is &lt; (BuilderClass), 4540174672&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4349611664
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4540174672
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 17
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MakingMyFloat&apos; : 7.0
    /}

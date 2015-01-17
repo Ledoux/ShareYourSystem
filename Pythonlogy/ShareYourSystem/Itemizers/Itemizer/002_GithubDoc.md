@@ -112,6 +112,6 @@ class ItemizerClass(BaseClass):
 ```
 
 <small>
-View the Itemizer sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Itemizers/Itemizer)
+View the Itemizer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Itemizers/Itemizer" target="_blank">Github</a>
 </small>
 

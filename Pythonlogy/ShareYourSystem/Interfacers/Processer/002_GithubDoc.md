@@ -103,6 +103,6 @@ class ProcesserClass(BaseClass):
 ```
 
 <small>
-View the Processer sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Processer)
+View the Processer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Processer" target="_blank">Github</a>
 </small>
 

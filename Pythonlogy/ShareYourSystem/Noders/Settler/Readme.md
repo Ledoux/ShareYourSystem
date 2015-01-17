@@ -1,13 +1,26 @@
 
+
+<!--
+FrozenIsBool False
+-->
+
 #Settler
- @Date : Fri Nov 14 13:20:38 2014
 
-@Author : Erwan Ledoux
+##Doc
+----
 
 
+>
+> A Settler
+>
+>
 
-A Settler
+----
 
+<small>
+View the Settler notebook on [NbViewer](http://nbviewer.ipython.org/url/shareyou
+rsystem.ouvaton.org/Settler.ipynb)
+</small>
 
 
 
@@ -16,8 +29,137 @@ A Settler
 FrozenIsBool False
 -->
 
-View the Settler sources on [Github](https://github.com/Ledoux/ShareYourSystem/t
-ree/master/ShareYourSystem/Noders/Installer)
+##Code
+
+----
+
+<ClassDocStr>
+
+----
+
+```python
+# -*- coding: utf-8 -*-
+"""
+
+
+<DefineSource>
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+</DefineSource>
+
+
+A Settler
+
+"""
+
+#<DefineAugmentation>
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Noders.Coupler"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#</DefineAugmentation>
+
+#<ImportSpecificModules>
+import copy
+from ShareYourSystem.Itemizers import Pather
+from ShareYourSystem.Applyiers import Linker
+#</ImportSpecificModules>
+
+#<DefineClass>
+@DecorationClass(**{'ClassingSwitchMethodStrsList':['settle']})
+class SettlerClass(
+                                        BaseClass,
+                                        Linker.LinkerClass
+                                        ):
+
+        #Definition
+        RepresentingKeyStrsList=[
+'SettlingParentBool',
+'SettlingLinkBool'
+                                                        ]
+
+        def default_init(self,
+                                _SettlingParentBool=False,
+                                _SettlingLinkBool=False,
+                                **_KwargVariablesDict):
+
+                #Call the parent init method
+                BaseClass.__init__(self,**_KwargVariablesDict)
+
+        #@Switcher.SwitcherClass()
+        def do_settle(self):
+
+                #debug
+                '''
+                self.debug('We settle here')
+                '''
+
+                #Parent first
+                if self.SettlingParentBool:
+
+                        #debug
+                        '''
+                        self.debug('We parent here')
+                        '''
+
+                        #parent
+                        self.parent()
+
+                #link
+                if self.SettlingLinkBool:
+
+                        #debug
+                        '''
+                        self.debug('We link here')
+                        '''
+
+                        #link
+                        self.link()
+
+                #Return self
+                #return self
+
+        #@Imitater.ImitaterClass()
+        def mimic_set(self):
+
+                #debug
+
+
+                #Call the parent method
+                OutputDict=BaseClass.set(self)
+
+                #debug
+                '''
+                self.debug(('self.',self,[
+'SettingKeyVariable',
+'SettingValueVariable'
+                                                                ]))
+                '''
+
+                #Check
+                if self.SettingKeyVariable=='NodePointDeriveNoder' and
+self.SettingValueVariable!=None:
+
+                        #debug
+                        '''
+                        self.debug(('self.',self,['NodePointDeriveNoder']))
+                        '''
+
+                        #settle
+                        self.settle()
+
+                #return
+                #return OutputDict
+
+#</DefineClass>
+
+
+```
+
+<small>
+View the Settler sources on <a href="https://github.com/Ledoux/ShareYourSystem/t
+ree/master/Pythonlogy/ShareYourSystem/Noders/Settler" target="_blank">Github</a>
+</small>
 
 
 
@@ -88,114 +230,58 @@ SYS._attest(
 
 ```console
 >>>
-Doer l.132 : DoerStr is Linker
-DoStr is Link
-DoMethodStr is link
-DoingStr is Linking
-DoneStr is Linked
-
-Doer l.132 : DoerStr is Settler
-DoStr is Settle
-DoMethodStr is settle
-DoingStr is Settling
-DoneStr is Settled
-
-l 35
-In the switch function
-_KwargVariablesDict is
-{'BindObserveWrapMethodStr': 'watch_superDo_settle', 'WatchDoBoolKeyStr':
-'WatchSettleWithSettlerBool', 'BindDoClassStr': 'SettlerClass'}
-
-l 35
-In the switch function
-_KwargVariablesDict is
-{'BindObserveWrapMethodStr': 'watch_superDo_settle', 'WatchDoBoolKeyStr':
-'WatchSettleWithSettlerBool', 'BindDoClassStr': 'SettlerClass'}
-
-l 35
-In the switch function
-_KwargVariablesDict is
-{'BindObserveWrapMethodStr': 'watch_superDo_settle', 'WatchDoBoolKeyStr':
-'WatchSettleWithSettlerBool', 'BindDoClassStr': 'SettlerClass'}
-
-l 35
-In the switch function
-_KwargVariablesDict is
-{'BindObserveWrapMethodStr': 'watch_superDo_settle', 'WatchDoBoolKeyStr':
-'WatchSettleWithSettlerBool', 'BindDoClassStr': 'SettlerClass'}
-
-l 35
-In the switch function
-_KwargVariablesDict is
-{'BindObserveWrapMethodStr': 'watch_superDo_settle', 'WatchDoBoolKeyStr':
-'WatchSettleWithSettlerBool', 'BindDoClassStr': 'SettlerClass'}
-
-l 35
-In the switch function
-_KwargVariablesDict is
-{'BindObserveWrapMethodStr': 'watch_superDo_parent', 'WatchDoBoolKeyStr':
-'WatchParentWithParenterBool', 'BindDoClassStr': 'ParenterClass'}
-
-l 35
-In the switch function
-_KwargVariablesDict is
-{'BindObserveWrapMethodStr': 'watch_superDo_parent', 'WatchDoBoolKeyStr':
-'WatchParentWithParenterBool', 'BindDoClassStr': 'ParenterClass'}
-
 
 
 *****Start of the Attest *****
 
-MySettler is < (SettlerClass), 4570209680>
+MySettler is < (SettlerClass), 4555534992>
    /{
-   /  '<New><Instance>ApplyingIsBool' : True
-   /  '<New><Instance>IdStr' : 4570209680
-   /  '<New><Instance>NodeCollectionStr' : Global
+   /  '<New><Instance>IdInt' : 4555534992
+   /  '<New><Instance>NodeCollectionStr' : Globals
    /  '<New><Instance>NodeIndexInt' : -1
-   /  '<New><Instance>NodeKeyStr' :
+   /  '<New><Instance>NodeKeyStr' : TopSettler
    /  '<New><Instance>NodePointDeriveNoder' : None
    /  '<New><Instance>NodePointOrderedDict' : None
    /  '<New><Instance>SettlomeCollectionOrderedDict' :
    /   /{
-   /   /  'ChildSettler' : < (SettlerClass), 4570209232>
+   /   /  'ChildSettler' : < (SettlerClass), 4555578640>
    /   /   /{
-   /   /   /  '<New><Instance>IdStr' : 4570209232
+   /   /   /  '<New><Instance>IdInt' : 4555578640
    /   /   /  '<New><Instance>NodeCollectionStr' : Settlome
    /   /   /  '<New><Instance>NodeIndexInt' : 0
    /   /   /  '<New><Instance>NodeKeyStr' : ChildSettler
    /   /   /  '<New><Instance>NodePointDeriveNoder' : {...}< (SettlerClass),
-4570209680>
+4555534992>
    /   /   /  '<New><Instance>NodePointOrderedDict' : {...}< (OrderedDict),
-4570225632>
+4555699440>
    /   /   /  '<Spe><Class>SettlingLinkBool' : False
    /   /   /  '<Spe><Class>SettlingParentBool' : False
    /   /   /}
-   /   /  'GrandFirstChildSettler' : < (SettlerClass), 4567895056>
+   /   /  'GrandFirstChildSettler' : < (SettlerClass), 4555497808>
    /   /   /{
-   /   /   /  '<New><Instance>IdStr' : 4567895056
+   /   /   /  '<New><Instance>IdInt' : 4555497808
    /   /   /  '<New><Instance>NodeCollectionStr' : Settlome
    /   /   /  '<New><Instance>NodeIndexInt' : 1
    /   /   /  '<New><Instance>NodeKeyStr' : GrandFirstChildSettler
    /   /   /  '<New><Instance>NodePointDeriveNoder' : {...}< (SettlerClass),
-4570209680>
+4555534992>
    /   /   /  '<New><Instance>NodePointOrderedDict' : {...}< (OrderedDict),
-4570225632>
+4555699440>
    /   /   /  '<Spe><Class>SettlingLinkBool' : False
    /   /   /  '<Spe><Class>SettlingParentBool' : False
    /   /   /}
-   /   /  'GrandSecondChildSettler' : < (SettlerClass), 4570208016>
+   /   /  'GrandSecondChildSettler' : < (SettlerClass), 4555497936>
    /   /   /{
-   /   /   /  '<New><Instance>ApplyingIsBool' : True
    /   /   /  '<New><Instance>GrandFirstChildSettler' : {...}< (SettlerClass),
-4567895056>
-   /   /   /  '<New><Instance>IdStr' : 4570208016
+4555497808>
+   /   /   /  '<New><Instance>IdInt' : 4555497936
    /   /   /  '<New><Instance>NodeCollectionStr' : Settlome
    /   /   /  '<New><Instance>NodeIndexInt' : 2
    /   /   /  '<New><Instance>NodeKeyStr' : GrandSecondChildSettler
    /   /   /  '<New><Instance>NodePointDeriveNoder' : {...}< (SettlerClass),
-4570209680>
+4555534992>
    /   /   /  '<New><Instance>NodePointOrderedDict' : {...}< (OrderedDict),
-4570225632>
+4555699440>
    /   /   /  '<Spe><Instance>SettlingLinkBool' : True
    /   /   /  '<Spe><Instance>SettlingParentBool' : True
    /   /   /}

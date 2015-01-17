@@ -6,25 +6,196 @@ FrozenIsBool False
 
 #Documenter
 
------------------------ ------------------------------------
+##Doc
+----
+
+
+>
+> The Documenter export in the mkdoc the readme of a Module
+>
+>
+
+----
+
+<small>
+View the Documenter notebook on [NbViewer](http://nbviewer.ipython.org/url/share
+yoursystem.ouvaton.org/Documenter.ipynb)
+</small>
 
 
 
-@Date : Fri Nov 14 13:20:38 2014
 
-@Author : Erwan Ledoux
+<!--
+FrozenIsBool False
+-->
+
+##Code
+
+----
+
+<ClassDocStr>
+
+----
+
+```python
+# -*- coding: utf-8 -*-
+"""
 
 
-
-The Installer directs a readme call in a ShareYourSystem directory.
-
-
-
-----------------------------------------------------------------
+<DefineSource>
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+</DefineSource>
 
 
-View the Documenter sources on [Github](https://github.com/Ledoux/ShareYourSyste
-m/tree/master/ShareYourSystem.Guiders.Informer)
+The Documenter export in the mkdoc the readme of a Module
+
+"""
+
+#<DefineAugmentation>
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Guiders.Installer"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#</DefineAugmentation>
+
+#<ImportSpecificModules>
+import os
+import copy
+
+from ShareYourSystem.Interfacers import Loader,Writer
+#</ImportSpecificModules>
+
+#<DefineLocals>
+DocumentingSysFolderPathStr=SYS.ShareYourSystemLocalFolderPathStr
+DocumentingLibraryFolderPathStr=DocumentingSysFolderPathStr+'/docs/LibraryRefere
+nce/'
+#</DefineLocals>
+
+#<DefineClass>
+@DecorationClass()
+class DocumenterClass(BaseClass):
+
+        #Definition
+        RepresentingKeyStrsList=[
+'DocumentedModulePathStr',
+'DocumentedMkdocsList',
+'DocumentedModulePathStr'
+                                                        ]
+
+        def default_init(self,
+                                                _DocumentingNewIsBool=False,
+_DocumentingMkdocWriteIsBool=False,
+                                                _DocumentedMkdocsList=None,
+                                                _DocumentedMkdocsDict=None,
+                                                **_KwargVariablesDict
+                                        ):
+
+                #Call the parent __init__ method
+                BaseClass.__init__(self,**_KwargVariablesDict)
+
+
+        def do_document(self):
+
+                #first package
+                self.package()
+
+                #map
+self.DocumentedModulePathStr=self.PackagedModuleStr.replace('.','/')
+self.DocumentedNameStr=self.DocumentedModulePathStr.split('/')[-1]
+
+                #debug
+                '''
+                self.debug(('self.',self,[
+'DocumentedModulePathStr',
+                                                        'DocumentedNameStr'
+                                                        ]))
+                '''
+
+                #Load the readmes and write them into the docs Library reference
+folder
+                self.load(
+                        **{
+                                'FolderingPathStr':SYS.PythonlogyLocalFolderPath
+Str+'/'+self.DocumentedModulePathStr,
+                                'FilingKeyStr':'Readme.md',
+                                'LoadingFormatStr':'txt'
+                        }
+                ).write(
+                        **{
+'FolderingPathStr':DocumentingLibraryFolderPathStr,
+'FilingKeyStr':self.DocumentedNameStr+'.md',
+                                        'WritingLoadBool':True
+                                }
+                )
+
+                #Definition in the future yaml config mkdocs
+                self.DocumentedMkdocsList=[
+                                'docs'.join(
+DocumentingLibraryFolderPathStr.split('docs/')[1:]
+                                )+self.DocumentedNameStr+'.md',
+                                'Library Reference',
+                                self.DocumentedNameStr
+                        ]
+
+                #debug
+                '''
+                self.debug(('self.',self,[
+'DocumentedMkdocsList'
+                                                                ]))
+                '''
+
+
+                #Definition
+                self.load(
+                        **{
+                                'FolderingPathStr':SYS.PythonlogyLocalFolderPath
+Str+self.__class__.__module__.replace(
+                                        '.','/')
+                                if self.DocumentingNewIsBool
+                                else DocumentingSysFolderPathStr,
+                                'FilingKeyStr':'mkdocs.yml',
+                                'LoadingFormatStr':'yaml'
+                        }
+                )
+
+                #Add to the pages
+self.LoadedReadVariable['pages'].append(self.DocumentedMkdocsList)
+
+                #Copy
+                self.DocumentedMkdocsDict=copy.copy(
+                        self.LoadedReadVariable
+                )
+
+                #debug
+                '''
+                self.debug(('self.',self,[
+'DocumentedMkdocsDict'
+                                                                ]))
+                '''
+
+                if self.DocumentingMkdocWriteIsBool:
+
+                        #Close and write now in the top root folder
+                        self.write(
+                                self.DocumentedMkdocsDict,
+                                **{
+'FolderingPathStr':DocumentingSysFolderPathStr,
+                                }
+                        ).FiledFileVariable.close()
+
+                #Return self
+                #return self
+
+#</DefineClass>
+
+```
+
+<small>
+View the Documenter sources on <a href="https://github.com/Ledoux/ShareYourSyste
+m/tree/master/Pythonlogy/ShareYourSystem/Guiders/Documenter"
+target="_blank">Github</a>
+</small>
 
 
 
@@ -44,17 +215,14 @@ without the TypeStr in the end.
 
 #ImportModules
 import ShareYourSystem as SYS
-
 from ShareYourSystem.Guiders import Documenter
 
 #Definition a Documenter instance
 MyDocumenter=Documenter.DocumenterClass().document(
-    map(
-            lambda __BaseClass:
-            __BaseClass.__module__.replace('.','/'),
-            SYS.reverse(SYS.FilerClass.__mro__)[1:]
-        )
-    #_AllBool=True
+    True,
+    **{
+        'PackagingModuleVariable':'ShareYourSystem.Objects'
+    }
 )
 
 #Definition the AttestedStr
@@ -64,7 +232,7 @@ SYS._attest(
         MyDocumenter,
         **{
             'RepresentingBaseKeyStrsListBool':False
-        }
+            }
         )
     ]
 )
@@ -83,183 +251,18 @@ SYS._attest(
 
 ```console
 >>>
-Doer l.132 : DoerStr is Documenter
-DoStr is Document
-DoMethodStr is document
-DoingStr is Documenting
-DoneStr is Documented
-
 
 
 *****Start of the Attest *****
 
-MyDocumenter is < (DocumenterClass), 4558748560>
+MyDocumenter is < (DocumenterClass), 4540655184>
    /{
-   /  '<New><Instance>DocumentedMkdocsDict' :
-   /   /{
-   /   /  'pages' :
-   /   /   /[
-   /   /   /  0 : ['index.md', 'Home']
-   /   /   /  1 : ['Introduction.md', 'Introduction']
-   /   /   /  2 : ['About/Manifest.md', 'About', 'Manifest']
-   /   /   /  3 : ['About/StateArt.md', 'About', 'State of the art']
-   /   /   /  4 : ['About/FAQs.md', 'About', 'FAQs']
-   /   /   /  5 : ['GettingStarted/Install.md', 'GettingStarted', 'Install
-ShareYourSystem']
-   /   /   /  6 : ['GettingStarted/FirstToyObject.md', 'GettingStarted', 'Build
-a first hierarching Python object']
-   /   /   /  7 : ['GettingStarted/UseMeteorApi.md', 'GettingStarted', 'Use the
-Meteror API']
-   /   /   /  8 : ['GettingStarted/VisitLibrary.md', 'GettingStarted', 'Visit
-the Library of specialized Modules']
-   /   /   /  9 : ['CookBook/Classors.md', 'CookBook', 'Classors']
-   /   /   /  10 : ['CookBook/Functers.md', 'CookBook', 'Functers']
-   /   /   /  11 : ['CookBook/Objects.md', 'CookBook', 'Objects']
-   /   /   /  12 : ['CookBook/TestAndShare.md', 'CookBook', 'Debug Attest Test
-Notebook Document Github framework in SYS']
-   /   /   /  13 : ['LibraryReference/Object.md', 'Library Reference', 'Object']
-   /   /   /  14 : ['LibraryReference/Initiator.md', 'Library Reference',
-'Initiator']
-   /   /   /  15 : ['LibraryReference/Printer.md', 'Library Reference',
-'Printer']
-   /   /   /  16 : ['LibraryReference/Debugger.md', 'Library Reference',
-'Debugger']
-   /   /   /  17 : ['LibraryReference/Moduler.md', 'Library Reference',
-'Moduler']
-   /   /   /  18 : ['LibraryReference/Conditioner.md', 'Library Reference',
-'Conditioner']
-   /   /   /  19 : ['LibraryReference/Concluder.md', 'Library Reference',
-'Concluder']
-   /   /   /  20 : ['LibraryReference/Rebooter.md', 'Library Reference',
-'Rebooter']
-   /   /   /  21 : ['LibraryReference/Interfacer.md', 'Library Reference',
-'Interfacer']
-   /   /   /  22 : ['LibraryReference/Folderer.md', 'Library Reference',
-'Folderer']
-   /   /   /  23 : ['LibraryReference/Filer.md', 'Library Reference', 'Filer']
-   /   /   /  24 : ['LibraryReference/Object.md', 'Library Reference', 'Object']
-   /   /   /  25 : ['LibraryReference/Initiator.md', 'Library Reference',
-'Initiator']
-   /   /   /  26 : ['LibraryReference/Printer.md', 'Library Reference',
-'Printer']
-   /   /   /  27 : ['LibraryReference/Debugger.md', 'Library Reference',
-'Debugger']
-   /   /   /  28 : ['LibraryReference/Packager.md', 'Library Reference',
-'Packager']
-   /   /   /  29 : ['LibraryReference/Conditioner.md', 'Library Reference',
-'Conditioner']
-   /   /   /  30 : ['LibraryReference/Concluder.md', 'Library Reference',
-'Concluder']
-   /   /   /  31 : ['LibraryReference/Rebooter.md', 'Library Reference',
-'Rebooter']
-   /   /   /  32 : ['LibraryReference/Interfacer.md', 'Library Reference',
-'Interfacer']
-   /   /   /  33 : ['LibraryReference/Folderer.md', 'Library Reference',
-'Folderer']
-   /   /   /  34 : ['LibraryReference/Filer.md', 'Library Reference', 'Filer']
-   /   /   /  35 : ['LibraryReference/Object.md', 'Library Reference', 'Object']
-   /   /   /  36 : ['LibraryReference/Initiator.md', 'Library Reference',
-'Initiator']
-   /   /   /  37 : ['LibraryReference/Printer.md', 'Library Reference',
-'Printer']
-   /   /   /  38 : ['LibraryReference/Debugger.md', 'Library Reference',
-'Debugger']
-   /   /   /  39 : ['LibraryReference/Packager.md', 'Library Reference',
-'Packager']
-   /   /   /  40 : ['LibraryReference/Conditioner.md', 'Library Reference',
-'Conditioner']
-   /   /   /  41 : ['LibraryReference/Concluder.md', 'Library Reference',
-'Concluder']
-   /   /   /  42 : ['LibraryReference/Rebooter.md', 'Library Reference',
-'Rebooter']
-   /   /   /  43 : ['LibraryReference/Interfacer.md', 'Library Reference',
-'Interfacer']
-   /   /   /  44 : ['LibraryReference/Folderer.md', 'Library Reference',
-'Folderer']
-   /   /   /  45 : ['LibraryReference/Filer.md', 'Library Reference', 'Filer']
-   /   /   /  46 : ['LibraryReference/Object.md', 'Library Reference', 'Object']
-   /   /   /  47 : ['LibraryReference/Initiator.md', 'Library Reference',
-'Initiator']
-   /   /   /  48 : ['LibraryReference/Printer.md', 'Library Reference',
-'Printer']
-   /   /   /  49 : ['LibraryReference/Debugger.md', 'Library Reference',
-'Debugger']
-   /   /   /  50 : ['LibraryReference/Packager.md', 'Library Reference',
-'Packager']
-   /   /   /  51 : ['LibraryReference/Conditioner.md', 'Library Reference',
-'Conditioner']
-   /   /   /  52 : ['LibraryReference/Concluder.md', 'Library Reference',
-'Concluder']
-   /   /   /  53 : ['LibraryReference/Rebooter.md', 'Library Reference',
-'Rebooter']
-   /   /   /  54 : ['LibraryReference/Interfacer.md', 'Library Reference',
-'Interfacer']
-   /   /   /  55 : ['LibraryReference/Folderer.md', 'Library Reference',
-'Folderer']
-   /   /   /  56 : ['LibraryReference/Filer.md', 'Library Reference', 'Filer']
-   /   /   /  57 : ['LibraryReference/Object.md', 'Library Reference', 'Object']
-   /   /   /  58 : ['LibraryReference/Initiator.md', 'Library Reference',
-'Initiator']
-   /   /   /  59 : ['LibraryReference/Printer.md', 'Library Reference',
-'Printer']
-   /   /   /  60 : ['LibraryReference/Debugger.md', 'Library Reference',
-'Debugger']
-   /   /   /  61 : ['LibraryReference/Packager.md', 'Library Reference',
-'Packager']
-   /   /   /  62 : ['LibraryReference/Conditioner.md', 'Library Reference',
-'Conditioner']
-   /   /   /  63 : ['LibraryReference/Concluder.md', 'Library Reference',
-'Concluder']
-   /   /   /  64 : ['LibraryReference/Rebooter.md', 'Library Reference',
-'Rebooter']
-   /   /   /  65 : ['LibraryReference/Interfacer.md', 'Library Reference',
-'Interfacer']
-   /   /   /  66 : ['LibraryReference/Folderer.md', 'Library Reference',
-'Folderer']
-   /   /   /  67 : ['LibraryReference/Filer.md', 'Library Reference', 'Filer']
-   /   /   /  68 : ['LibraryReference/Object.md', 'Library Reference', 'Object']
-   /   /   /  69 : ['LibraryReference/Initiator.md', 'Library Reference',
-'Initiator']
-   /   /   /  70 : ['LibraryReference/Printer.md', 'Library Reference',
-'Printer']
-   /   /   /  71 : ['LibraryReference/Debugger.md', 'Library Reference',
-'Debugger']
-   /   /   /  72 : ['LibraryReference/Packager.md', 'Library Reference',
-'Packager']
-   /   /   /  73 : ['LibraryReference/Conditioner.md', 'Library Reference',
-'Conditioner']
-   /   /   /  74 : ['LibraryReference/Concluder.md', 'Library Reference',
-'Concluder']
-   /   /   /  75 : ['LibraryReference/Rebooter.md', 'Library Reference',
-'Rebooter']
-   /   /   /  76 : ['LibraryReference/Interfacer.md', 'Library Reference',
-'Interfacer']
-   /   /   /  77 : ['LibraryReference/Folderer.md', 'Library Reference',
-'Folderer']
-   /   /   /  78 : ['LibraryReference/Filer.md', 'Library Reference', 'Filer']
-   /   /   /]
-   /   /  'site_name' : ShareYourSystem
-   /   /  'theme' : readthedocs
-   /   /}
-   /  '<New><Instance>DocumentedModulePathStrsList' :
-['ShareYourSystem/Objects/Object', 'ShareYourSystem/Objects/Initiator',
-'ShareYourSystem/Objects/Printer', 'ShareYourSystem/Objects/Debugger',
-'ShareYourSystem/Objects/Packager', 'ShareYourSystem/Objects/Conditioner',
-'ShareYourSystem/Objects/Concluder', 'ShareYourSystem/Objects/Rebooter',
-'ShareYourSystem/Interfacers/Interfacer',
-'ShareYourSystem/Interfacers/Folderer', 'ShareYourSystem/Interfacers/Filer']
-   /  '<New><Instance>DocumentedNameStrsList' : ['Object', 'Initiator',
-'Printer', 'Debugger', 'Packager', 'Conditioner', 'Concluder', 'Rebooter',
-'Interfacer', 'Folderer', 'Filer']
-   /  '<New><Instance>IdStr' : 4558748560
-   /  '<Spe><Class>DocumentingAllBool' : False
-   /  '<Spe><Instance>DocumentingModuleStrsList' :
-['ShareYourSystem/Objects/Object', 'ShareYourSystem/Objects/Initiator',
-'ShareYourSystem/Objects/Printer', 'ShareYourSystem/Objects/Debugger',
-'ShareYourSystem/Objects/Packager', 'ShareYourSystem/Objects/Conditioner',
-'ShareYourSystem/Objects/Concluder', 'ShareYourSystem/Objects/Rebooter',
-'ShareYourSystem/Interfacers/Interfacer',
-'ShareYourSystem/Interfacers/Folderer', 'ShareYourSystem/Interfacers/Filer']
+   /  '<New><Instance>DocumentedModulePathStr' : ShareYourSystem/Objects
+   /  '<New><Instance>DocumentedNameStr' : Objects
+   /  '<New><Instance>IdInt' : 4540655184
+   /  '<Spe><Instance>DocumentedMkdocsList' : ['LibraryReference/Objects.md',
+'Library Reference', 'Objects']
+   /  '<Spe><Instance>DocumentedModulePathStr' : ShareYourSystem/Objects
    /}
 
 *****End of the Attest *****

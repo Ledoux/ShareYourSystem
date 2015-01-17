@@ -173,8 +173,9 @@ self.FiledFileVariable=open(self.FiledPathStr,self.FilingModeStr)
 ```
 
 <small>
-View the Filer sources on [Github](https://github.com/Ledoux/ShareYourSystem/tre
-e/master/Pythonlogy/ShareYourSystem/Interfacers/Filer)
+View the Filer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tre
+e/master/Pythonlogy/ShareYourSystem/Interfacers/Filer"
+target="_blank">Github</a>
 </small>
 
 
@@ -228,12 +229,12 @@ SYS._attest(
 
 *****Start of the Attest *****
 
-MyFiler is < (FilerClass), 4511432592>
+MyFiler is < (FilerClass), 4540265936>
    /{
-   /  '<New><Instance>IdInt' : 4511432592
+   /  '<New><Instance>IdInt' : 4540265936
    /  '<Spe><Instance>FiledFileVariable' : <closed file '/Users/ledoux/Documents
 /ShareYourSystem/Pythonlogy/ShareYourSystem/Interfacers/Filer/MyFile.txt', mode
-'w' at 0x10ce740c0>
+'w' at 0x10e66bed0>
    /  '<Spe><Instance>FiledPathStr' : /Users/ledoux/Documents/ShareYourSystem/Py
 thonlogy/ShareYourSystem/Interfacers/Filer/MyFile.txt
    /  '<Spe><Instance>FilingKeyStr' : MyFile.txt

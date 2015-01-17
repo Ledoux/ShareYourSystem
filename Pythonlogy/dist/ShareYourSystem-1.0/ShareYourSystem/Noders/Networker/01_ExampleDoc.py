@@ -1,5 +1,10 @@
+import brian
 
 
+help(brian.Synapses)
+
+
+"""
 #ImportModules
 import ShareYourSystem as SYS
 from ShareYourSystem.Noders import Connecter,Networker
@@ -55,4 +60,4 @@ SYS._attest(
 ) 
 
 #Print
-
+"""

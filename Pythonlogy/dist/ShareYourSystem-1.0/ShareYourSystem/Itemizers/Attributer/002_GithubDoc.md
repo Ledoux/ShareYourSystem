@@ -136,6 +136,6 @@ class AttributerClass(BaseClass):
 ```
 
 <small>
-View the Attributer sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Itemizers/Attributer)
+View the Attributer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Itemizers/Attributer" target="_blank">Github</a>
 </small>
 

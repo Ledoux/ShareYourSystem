@@ -22,9 +22,6 @@ SYS.setSubModule(globals())
 #<ImportSpecificModules>
 #</ImportSpecificModules>
 
-#<DefineDoStrsList>
-DoStrsList=["Recuperater","Recuperate","Recuperating","Recuperated"]
-#<DefineDoStrsList>
 
 #<DefineClass>
 @DecorationClass()

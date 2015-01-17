@@ -74,7 +74,7 @@ FrozenIsBool False
 ```
 
 <small>
-View the <NameStr> sources on [Github]('''+SYS.GithubMasterUrlStr+'''/Pythonlogy/<GithubPathStr>)
+View the <NameStr> sources on <a href="'''+SYS.GithubMasterUrlStr+'''/Pythonlogy/<GithubPathStr>" target="_blank">Github</a>
 </small>
 
 '''
@@ -91,29 +91,40 @@ FrozenIsBool False
 	var HrefStr=window.location.href;
 	//alert(window.location.href)
 
-	if(HrefStr == "'''+SYS.OuvatonUrlStr+'''/<NameStr>/"){
+	if(HrefStr == "'''+SYS.OuvatonUrlStr+'''/site/LibraryReference/<NameStr>/"){
 
 	    //alert('Ouvaton')
 	    document.write("from ")
-	    document.write("'''+SYS.OuvatonUrlStr+''' ")
+	    document.write("'''+SYS.OuvatonUrlStr+'''/slides/ ")
 	    document.write("<iframe width=\\"725\\" height=\\"300\\" src=\\"")
 	    document.write("'''+SYS.OuvatonUrlStr+'''")
-	    document.write("/<NameStr>.php\\"></iframe>")
+	    document.write("/slides/<NameStr>.php\\"></iframe>")
 	}
-	else{
+	else if(HrefStr == "http://127.0.0.1:8000/LibraryReference/<NameStr>/"){
 
-	    //alert('Local')
+        //alert('Localhost')
+        document.write("from ")
+        document.write("localhost mkdocs but direct to ouvaton")
+        document.write("<iframe width=\\"725\\" height=\\"300\\" src=\\"")
+        document.write("'''+SYS.OuvatonUrlStr+'''")
+        document.write("/slides/<NameStr>.php\\"></iframe>")
+    }
+    else
+    {
+
+        //alert('Local')
 	    document.write("from ")
 	    document.write("'''+SYS.OuvatonLocalFolderPathStr+''' ")
 	    document.write("<iframe width=\\"725\\" height=\\"300\\" src=\\"")
 	    document.write("'''+SYS.OuvatonLocalFolderPathStr+'''")
 	    document.write("<NameStr>.html\\"></iframe>")
-	}
+
+    }
 
 </script>
 
 <small>
-View the <NameStr> concept on [ Ouvaton ]('''+SYS.OuvatonUrlStr+'''/<NameStr>.php)
+View the <NameStr> concept on <a href="'''+SYS.OuvatonUrlStr+'''/slides/<NameStr>.php" target="_blank">Ouvaton</a>
 </small>
 
 '''

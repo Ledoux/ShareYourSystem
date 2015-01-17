@@ -1,13 +1,27 @@
 
+
+<!--
+FrozenIsBool False
+-->
+
 #Attentioner
- @Date : Fri Nov 14 13:20:38 2014
 
-@Author : Erwan Ledoux
+##Doc
+----
 
 
+>
+> Attentioner instances grasp a Variable and make inside a catch to the original
+> instance
+>
+>
 
-Attentioner instances
+----
 
+<small>
+View the Attentioner notebook on [NbViewer](http://nbviewer.ipython.org/url/shar
+eyoursystem.ouvaton.org/Attentioner.ipynb)
+</small>
 
 
 
@@ -16,8 +30,97 @@ Attentioner instances
 FrozenIsBool False
 -->
 
-View the Attentioner sources on [Github](https://github.com/Ledoux/ShareYourSyst
-em/tree/master/ShareYourSystem/Noders/Installer)
+##Code
+
+----
+
+<ClassDocStr>
+
+----
+
+```python
+# -*- coding: utf-8 -*-
+"""
+
+
+<DefineSource>
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+</DefineSource>
+
+
+Attentioner instances grasp a Variable and make inside a catch to the original
+instance
+
+"""
+
+#<DefineAugmentation>
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Noders.Catcher"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#</DefineAugmentation>
+
+#<ImportSpecificModules>
+from ShareYourSystem.Classors import Doer
+from ShareYourSystem.Noders import Noder
+#</ImportSpecificModules>
+
+#<DefineClass>
+@DecorationClass()
+class AttentionerClass(BaseClass):
+
+        #Definition
+        RepresentingKeyStrsList=[
+'AttentioningCollectionStr'
+                                                        ]
+
+        def default_init(self,
+                                                _AttentioningCollectionStr="",
+                                                **_KwargVariablesDict
+                                        ):
+
+                #Call the parent init method
+                BaseClass.__init__(self,**_KwargVariablesDict)
+
+        def do_attention(self):
+
+                #debug
+                '''
+                self.debug(('self.',self,['CatchingCollectionStr']))
+                '''
+
+                #set
+                if self.AttentioningCollectionStr=="":
+self.AttentioningCollectionStr=self.CollectingCollectionStr
+
+                #debug
+                self.debug(
+                                        ('self.',self,[
+'AttentioningCollectionStr',
+                                                        'GraspingClueVariable'
+                                                        ])
+                                )
+
+                #poitn in the other way
+                self.GraspedAnswerVariable.grasp(
+                                self
+                        ).catch(
+                                self.AttentioningCollectionStr
+                        )
+
+
+
+#</DefineClass>
+
+
+```
+
+<small>
+View the Attentioner sources on <a href="https://github.com/Ledoux/ShareYourSyst
+em/tree/master/Pythonlogy/ShareYourSystem/Noders/Attentioner"
+target="_blank">Github</a>
+</small>
 
 
 
@@ -25,7 +128,6 @@ em/tree/master/ShareYourSystem/Noders/Installer)
 
 #ImportModules
 import ShareYourSystem as SYS
-
 from ShareYourSystem.Applyiers import Producer
 from ShareYourSystem.Noders import Attentioner
 
@@ -37,12 +139,10 @@ MyProducer=Producer.ProducerClass().produce(
         )
 
 #attention
-MyProducer['<Pointome>FirstAttentioner'].attention(
-        'BackRelatome',
-        **{
-'CatchingGetVariable':'/NodePointDeriveNoder/<Pointome>SecondAttentioner',
-                'CatchingCollectionStr':'Relatome'
-        }
+MyProducer['<Pointome>FirstAttentioner'].grasp(
+        '/NodePointDeriveNoder/<Pointome>SecondAttentioner'
+    ).attention(
+        'BackRelatome'
     )
 
 #Definition the AttestedStr
@@ -67,210 +167,100 @@ SYS._attest(
 
 ```console
 >>>
-Doer l.132 : DoerStr is Distinguisher
-DoStr is Distinguish
-DoMethodStr is distinguish
-DoingStr is Distinguishing
-DoneStr is Distinguished
 
-Doer l.132 : DoerStr is Parenter
-DoStr is Parent
-DoMethodStr is parent
-DoingStr is Parenting
-DoneStr is Parented
+                    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                    ////////////////////////////////
+                    Attentioner/__init__.py do_attention
+                    From Attentioner/__init__.py do_attention | site-
+packages/six.py exec_ | Celler/__init__.py do_cell | Notebooker/__init__.py
+do_notebook | Informer/__init__.py do_inform | inform.py <module>
+                    ////////////////////////////////
 
-Doer l.132 : DoerStr is Storer
-DoStr is Store
-DoMethodStr is store
-DoingStr is Storing
-DoneStr is Stored
+                    l.60 :
+                    *****
+                    I am with [('NodeKeyStr', 'FirstAttentioner')]
+                    *****
+                    self.AttentioningCollectionStr is BackRelatome
+                    self.GraspingClueVariable is
+/NodePointDeriveNoder/<Pointome>SecondAttentioner
 
-Doer l.132 : DoerStr is Pusher
-DoStr is Push
-DoMethodStr is push
-DoingStr is Pushing
-DoneStr is Pushed
-
-Doer l.132 : DoerStr is Producer
-DoStr is Produce
-DoMethodStr is produce
-DoingStr is Producing
-DoneStr is Produced
-
-Doer l.132 : DoerStr is Catcher
-DoStr is Catch
-DoMethodStr is catch
-DoingStr is Catching
-DoneStr is Catched
-
-Doer l.132 : DoerStr is Attentioner
-DoStr is Attention
-DoMethodStr is attention
-DoingStr is Attentioning
-DoneStr is Attentioned
-
-
-        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxx
-        ////////////////////////////////
-        Doer/__init__.py do
-        From <string> superDo_debug | Catcher/__init__.py do_catch |
-Doer/__init__.py do | <string> superDo_catch | Watcher/__init__.py watch |
-<string> watch_superDo_catch | Attentioner/__init__.py do_attention |
-Doer/__init__.py do | <string> superDo_attention | Watcher/__init__.py watch |
-<string> watch_superDo_attention | <string> <module> | <string> <module> | site-
-packages/six.py exec_ | Celler/__init__.py do_cell | Doer/__init__.py do |
-<string> superDo_cell | Watcher/__init__.py watch | <string> watch_superDo_cell
-| Notebooker/__init__.py do_notebook | Doer/__init__.py do | <string>
-superDo_notebook | Watcher/__init__.py watch | <string> watch_superDo_notebook |
-Readmer/__init__.py do_readme | Doer/__init__.py do | <string> superDo_readme |
-Watcher/__init__.py watch | <string> watch_superDo_readme |
-python2.7/posixpath.py walk | python2.7/posixpath.py walk | Directer/__init__.py
-do_direct | Doer/__init__.py do | <string> superDo_direct | Watcher/__init__.py
-watch | <string> watch_superDo_direct | Installer/__init__.py do_install |
-Doer/__init__.py do | <string> superDo_install | Watcher/__init__.py watch |
-<string> watch_superDo_install | ShareYourSystem/Install.py <module>
-        ////////////////////////////////
-
-        l.180 :
-        *****
-        I am with [('NodeKeyStr', 'FirstAttentioner')]
-        *****
-        self.CollectingCollectionStr is
-
-        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxx
-
-
-        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxx
-        ////////////////////////////////
-        Doer/__init__.py do
-        From <string> superDo_debug | Catcher/__init__.py do_catch |
-Doer/__init__.py do | <string> superDo_catch | Watcher/__init__.py watch |
-<string> watch_superDo_catch | Attentioner/__init__.py do_attention |
-Doer/__init__.py do | <string> superDo_attention | Watcher/__init__.py watch |
-<string> watch_superDo_attention | <string> <module> | <string> <module> | site-
-packages/six.py exec_ | Celler/__init__.py do_cell | Doer/__init__.py do |
-<string> superDo_cell | Watcher/__init__.py watch | <string> watch_superDo_cell
-| Notebooker/__init__.py do_notebook | Doer/__init__.py do | <string>
-superDo_notebook | Watcher/__init__.py watch | <string> watch_superDo_notebook |
-Readmer/__init__.py do_readme | Doer/__init__.py do | <string> superDo_readme |
-Watcher/__init__.py watch | <string> watch_superDo_readme |
-python2.7/posixpath.py walk | python2.7/posixpath.py walk | Directer/__init__.py
-do_direct | Doer/__init__.py do | <string> superDo_direct | Watcher/__init__.py
-watch | <string> watch_superDo_direct | Installer/__init__.py do_install |
-Doer/__init__.py do | <string> superDo_install | Watcher/__init__.py watch |
-<string> watch_superDo_install | ShareYourSystem/Install.py <module>
-        ////////////////////////////////
-
-        l.180 :
-        *****
-        I am with [('NodeKeyStr', 'SecondAttentioner')]
-        *****
-        self.CollectingCollectionStr is BackRelatome
-
-        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxx
+                    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 
 
 *****Start of the Attest *****
 
-MyProducer is < (ProducerClass), 4556931728>
+MyProducer is < (ProducerClass), 4555536272>
    /{
-   /  '<New><Instance>ApplyingIsBool' : True
-   /  '<New><Instance>IdStr' : 4556931728
-   /  '<New><Instance>NodeCollectionStr' : Global
+   /  '<New><Instance>IdInt' : 4555536272
+   /  '<New><Instance>NodeCollectionStr' : Globals
    /  '<New><Instance>NodeIndexInt' : -1
-   /  '<New><Instance>NodeKeyStr' :
+   /  '<New><Instance>NodeKeyStr' : TopProducer
    /  '<New><Instance>NodePointDeriveNoder' : None
    /  '<New><Instance>NodePointOrderedDict' : None
    /  '<New><Instance>PointomeCollectionOrderedDict' :
    /   /{
-   /   /  'FirstAttentioner' : < (AttentionerClass), 4557045392>
+   /   /  'FirstAttentioner' : < (AttentionerClass), 4555633872>
    /   /   /{
-   /   /   /  '<New><Instance>ApplyingIsBool' : True
-   /   /   /  '<New><Instance>IdStr' : 4557045392
+   /   /   /  '<New><Instance>IdInt' : 4555633872
    /   /   /  '<New><Instance>NodeCollectionStr' : Pointome
    /   /   /  '<New><Instance>NodeIndexInt' : 0
    /   /   /  '<New><Instance>NodeKeyStr' : FirstAttentioner
    /   /   /  '<New><Instance>NodePointDeriveNoder' : {...}< (ProducerClass),
-4556931728>
+4555536272>
    /   /   /  '<New><Instance>NodePointOrderedDict' : {...}< (OrderedDict),
-4557083592>
-   /   /   /  '<New><Instance>RelatomeCollectionOrderedDict' :
+4556380560>
+   /   /   /  '<Spe><Instance>AttentioningCollectionStr' : BackRelatome
+   /   /   /}
+   /   /  'SecondAttentioner' : < (AttentionerClass), 4555634960>
+   /   /   /{
+   /   /   /  '<New><Instance>BackRelatomeCollectionOrderedDict' :
    /   /   /   /{
-   /   /   /   /  'SecondAttentionerPointer' : < (PointerClass), 4557088528>
+   /   /   /   /  'SecondAttentioner>TopProducer<FirstAttentionerPointer' : <
+(PointerClass), 4555635216>
    /   /   /   /   /{
-   /   /   /   /   /  '<New><Instance>IdStr' : 4557088528
-   /   /   /   /   /  '<New><Instance>PointVariable' : < (AttentionerClass),
-4557087888>
-   /   /   /   /   /   /{
-   /   /   /   /   /   /  '<New><Instance>ApplyingIsBool' : True
-   /   /   /   /   /   /  '<New><Instance>BackRelatomeCollectionOrderedDict' :
-   /   /   /   /   /   /   /{
-   /   /   /   /   /   /   /  'FirstAttentionerPointer' : < (PointerClass),
-4556882128>
-   /   /   /   /   /   /   /   /{
-   /   /   /   /   /   /   /   /  '<New><Instance>IdStr' : 4556882128
-   /   /   /   /   /   /   /   /  '<New><Instance>PointVariable' : {...}<
-(AttentionerClass), 4557045392>
-   /   /   /   /   /   /   /   /  '<Spe><Class>PointedBackSetStr' :
-   /   /   /   /   /   /   /   /  '<Spe><Class>PointedPathBackVariable' :
-   /   /   /   /   /   /   /   /  '<Spe><Class>PointingBackSetStr' :
-   /   /   /   /   /   /   /   /  '<Spe><Instance>PointedGetVariable' : {...}<
-(AttentionerClass), 4557045392>
-   /   /   /   /   /   /   /   /  '<Spe><Instance>PointedLocalSetStr' :
-PointVariable
-   /   /   /   /   /   /   /   /  '<Spe><Instance>PointingGetVariable' : {...}<
-(AttentionerClass), 4557045392>
-   /   /   /   /   /   /   /   /  '<Spe><Instance>PointingSetPathStr' :
-PointVariable
-   /   /   /   /   /   /   /   /}
-   /   /   /   /   /   /   /}
-   /   /   /   /   /   /  '<New><Instance>IdStr' : 4557087888
-   /   /   /   /   /   /  '<New><Instance>NodeCollectionStr' : Pointome
-   /   /   /   /   /   /  '<New><Instance>NodeIndexInt' : 1
-   /   /   /   /   /   /  '<New><Instance>NodeKeyStr' : SecondAttentioner
-   /   /   /   /   /   /  '<New><Instance>NodePointDeriveNoder' : {...}<
-(ProducerClass), 4556931728>
-   /   /   /   /   /   /  '<New><Instance>NodePointOrderedDict' : {...}<
-(OrderedDict), 4557083592>
-   /   /   /   /   /   /  '<Spe><Class>AttentioningCollectionStr' :
-   /   /   /   /   /   /}
+   /   /   /   /   /  '<New><Instance>IdInt' : 4555635216
+   /   /   /   /   /  '<New><Instance>PointVariable' : {...}<
+(AttentionerClass), 4555633872>
    /   /   /   /   /  '<Spe><Class>PointedBackSetStr' :
    /   /   /   /   /  '<Spe><Class>PointedPathBackVariable' :
-   /   /   /   /   /  '<Spe><Class>PointingBackSetStr' :
    /   /   /   /   /  '<Spe><Instance>PointedGetVariable' : {...}<
-(AttentionerClass), 4557087888>
+(AttentionerClass), 4555633872>
    /   /   /   /   /  '<Spe><Instance>PointedLocalSetStr' : PointVariable
+   /   /   /   /   /  '<Spe><Instance>PointingBackSetStr' :
    /   /   /   /   /  '<Spe><Instance>PointingGetVariable' : {...}<
-(AttentionerClass), 4557087888>
+(AttentionerClass), 4555633872>
    /   /   /   /   /  '<Spe><Instance>PointingSetPathStr' : PointVariable
    /   /   /   /   /}
    /   /   /   /}
-   /   /   /  '<Spe><Instance>AttentioningCollectionStr' : BackRelatome
+   /   /   /  '<New><Instance>IdInt' : 4555634960
+   /   /   /  '<New><Instance>NodeCollectionStr' : Pointome
+   /   /   /  '<New><Instance>NodeIndexInt' : 1
+   /   /   /  '<New><Instance>NodeKeyStr' : SecondAttentioner
+   /   /   /  '<New><Instance>NodePointDeriveNoder' : {...}< (ProducerClass),
+4555536272>
+   /   /   /  '<New><Instance>NodePointOrderedDict' : {...}< (OrderedDict),
+4556380560>
+   /   /   /  '<Spe><Class>AttentioningCollectionStr' :
    /   /   /}
-   /   /  'SecondAttentioner' : {...}< (AttentionerClass), 4557087888>
    /   /}
+   /  '<Spe><Class>ProducingUpdateVariable' : None
    /  '<Spe><Instance>ProducedPushList' :
    /   /[
    /   /  0 :
    /   /   /[
    /   /   /  0 : First
-   /   /   /  1 : {...}< (AttentionerClass), 4557045392>
+   /   /   /  1 : {...}< (AttentionerClass), 4555633872>
    /   /   /]
    /   /  1 :
    /   /   /[
    /   /   /  0 : Second
-   /   /   /  1 : {...}< (AttentionerClass), 4557087888>
+   /   /   /  1 : {...}< (AttentionerClass), 4555634960>
    /   /   /]
    /   /]
    /  '<Spe><Instance>ProducingCollectionKeyStrsList' : ['First', 'Second']
-   /  '<Spe><Instance>ProducingUpdateVariable' :
-   /   /{
-   /   /}
    /  '<Spe><Instance>ProducingPushClass' : <class
 'ShareYourSystem.Noders.Attentioner.AttentionerClass'>
    /}

@@ -8,7 +8,8 @@
 </DefineSource>
 
 
-The Objects helps ...
+The Storers are the derived Noders that build the standard "Controller"
+part of the MVC architecture.
 
 """
 

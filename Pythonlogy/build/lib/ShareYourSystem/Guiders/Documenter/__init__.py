@@ -44,7 +44,7 @@ class DocumenterClass(BaseClass):
 
 	def default_init(self,
 						_DocumentingNewIsBool=False,
-						_DocumentingMkdocWriteIsBool=True,
+						_DocumentingMkdocWriteIsBool=False,
 						_DocumentedMkdocsList=None,
 						_DocumentedMkdocsDict=None,
 						**_KwargVariablesDict
@@ -74,7 +74,7 @@ class DocumenterClass(BaseClass):
 		#Load the readmes and write them into the docs Library reference folder
 		self.load(
 			**{
-				'FolderingPathStr':DocumentingSysFolderPathStr+'/'+self.DocumentedModulePathStr,
+				'FolderingPathStr':SYS.PythonlogyLocalFolderPathStr+'/'+self.DocumentedModulePathStr,
 				'FilingKeyStr':'Readme.md',
 				'LoadingFormatStr':'txt'
 			}
@@ -106,7 +106,7 @@ class DocumenterClass(BaseClass):
 		#Definition
 		self.load(
 			**{
-				'FolderingPathStr':SYS.ShareYourSystemLocalFolderPathStr+self.__class__.__module__.replace(
+				'FolderingPathStr':SYS.PythonlogyLocalFolderPathStr+self.__class__.__module__.replace(
 					'.','/')
 				if self.DocumentingNewIsBool
 				else DocumentingSysFolderPathStr,

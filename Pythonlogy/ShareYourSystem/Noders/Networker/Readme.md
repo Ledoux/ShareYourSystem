@@ -1,13 +1,26 @@
 
+
+<!--
+FrozenIsBool False
+-->
+
 #Networker
- @Date : Fri Nov 14 13:20:38 2014
 
-@Author : Erwan Ledoux
+##Doc
+----
 
 
+>
+> A Networker
+>
+>
 
-A Networker
+----
 
+<small>
+View the Networker notebook on [NbViewer](http://nbviewer.ipython.org/url/sharey
+oursystem.ouvaton.org/Networker.ipynb)
+</small>
 
 
 
@@ -16,12 +29,137 @@ A Networker
 FrozenIsBool False
 -->
 
-View the Networker sources on [Github](https://github.com/Ledoux/ShareYourSystem
-/tree/master/ShareYourSystem/Noders/Installer)
+##Code
+
+----
+
+<ClassDocStr>
+
+----
+
+```python
+# -*- coding: utf-8 -*-
+"""
+
+
+<DefineSource>
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+</DefineSource>
+
+
+A Networker
+
+"""
+
+#<DefineAugmentation>
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Noders.Connecter"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#</DefineAugmentation>
+
+#<ImportSpecificModules>
+from ShareYourSystem.Noders import Noder
+#</ImportSpecificModules>
+
+#<DefineClass>
+@DecorationClass(**{'ClassingSwitchMethodStrsList':["network"]})
+class NetworkerClass(BaseClass):
+
+        #Definition
+        RepresentingKeyStrsList=[
+'NetworkedDeriveConnectersList',
+'NetworkedConnectionTuplesList'
+                                                                ]
+
+        #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':
+BaseClass.__init__}]})
+        def default_init(self,
+_NetworkingSuffixStr="Connectome",
+                                                _NetworkingCatchStr="Post",
+                                                _NetworkingAttentionStr="Pre",
+_NetworkedDeriveConnectersList=None,
+_NetworkedConnectionTuplesList=None,
+                                                **_KwargVariablesDict
+                                        ):
+
+                #Call the parent __init__ method
+                BaseClass.__init__(self,**_KwargVariablesDict)
+
+                #map
+                map(
+                                lambda __KeyStr:
+                                self.__setattr__(
+                                                __KeyStr,
+                                                ""
+                                        ),
+                                map(
+                                                lambda __TagStr:
+                                                'Newtork'+__TagStr+'Str',
+['Collection','Catch','Attention']
+                                        )
+                        )
+
+        def do_network(self):
+
+                #recruit first
+                if self.VisitingCollectionStrsList==None:
+self.VisitingCollectionStrsList=[self.CollectingCollectionStr]
+
+                #debug
+                '''
+                self.debug(('self.',self,['VisitingCollectionStrsList']))
+                '''
+
+                #recruit
+                self.recruit()
+self.NetworkedDeriveConnectersList=self.RecruitedFlatCumulateVariablesList
+
+                #debug
+                '''
+                self.debug(('self.',self,['NetworkedDeriveConnectersList']))
+                '''
+
+                #map a connect
+                self.NetworkedConnectionTuplesList=map(
+                                lambda __NodedDeriveConnecter:
+                                (
+                                        __NodedDeriveConnecter,
+                                        __NodedDeriveConnecter.connect(
+                                                **{
+'CatchingCollectionStr':self.NetworkingCatchStr+self.NetworkingSuffixStr,
+'AttentioningCollectionStr':self.NetworkingAttentionStr+self.NetworkingSuffixStr
+                                                }
+                                        ).update(
+                                                [
+('NetworkCollectionStr',self.NetworkingSuffixStr),
+('NetworkCatchStr',self.NetworkingCatchStr),
+('NetworkAttentionStr',self.NetworkingAttentionStr)
+                                                ]
+                                        ).pick(
+                                                [
+'ConnectedAttentionDeriveConnectersList',
+'ConnectedDerivePointersList'
+                                                ]
+                                        )
+                                ),
+                                self.NetworkedDeriveConnectersList
+                )
+#</DefineClass>
+
+```
+
+<small>
+View the Networker sources on <a href="https://github.com/Ledoux/ShareYourSystem
+/tree/master/Pythonlogy/ShareYourSystem/Noders/Networker"
+target="_blank">Github</a>
+</small>
 
 
 
 ```python
+
 
 #ImportModules
 import ShareYourSystem as SYS
@@ -36,11 +174,6 @@ MyNetworker=Networker.NetworkerClass(
         'First',
         Connecter.ConnecterClass().update(
             [
-                ('ConnectingCatchGetStrsList',
-                    [
-                        '/NodePointDeriveNoder/<Connectome>SecondConnecter'
-                    ]
-                ),
                 ('ConnectingGraspClueVariablesList',
                     [
                         '/NodePointDeriveNoder/<Connectome>SecondConnecter'
@@ -61,12 +194,13 @@ MyNetworker=Networker.NetworkerClass(
     **{
         'CollectingCollectionStr':'Connectome'
     }
-).network(**{
+).network(
+    **{
                 'RecruitingConcludeConditionTuplesList':[
                     ('__class__.NameStr',operator.eq,'Connecter')
                 ]
-            }
-        )
+        }
+    )
 
 #Definition the AttestedStr
 SYS._attest(
@@ -90,258 +224,156 @@ SYS._attest(
 
 ```console
 >>>
-l 35
-In the switch function
-_KwargVariablesDict is
-{'RecruitingConcludeConditionTuplesList': [('__class__.NameStr', <built-in
-function eq>, 'Connecter')], 'BindObserveWrapMethodStr':
-'watch_superDo_network', 'WatchDoBoolKeyStr': 'WatchNetworkWithNetworkerBool',
-'BindDoClassStr': 'NetworkerClass'}
 
+                            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                            ////////////////////////////////
+                            Attentioner/__init__.py do_attention
+                            From Attentioner/__init__.py do_attention |
+Connecter/__init__.py do_connect | Networker/__init__.py do_network | site-
+packages/six.py exec_ | Celler/__init__.py do_cell | Notebooker/__init__.py
+do_notebook | Informer/__init__.py do_inform | inform.py <module>
+                            ////////////////////////////////
 
-                                                        xxxxxxxxxxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-////////////////////////////////
-                                                        Doer/__init__.py do
-                                                        From <string>
-superDo_debug | Catcher/__init__.py do_catch | Doer/__init__.py do | <string>
-superDo_catch | Watcher/__init__.py watch | <string> watch_superDo_catch |
-Attentioner/__init__.py do_attention | Doer/__init__.py do | <string>
-superDo_attention | Watcher/__init__.py watch | <string> watch_superDo_attention
-| Connecter/__init__.py do_connect | Doer/__init__.py do | <string>
-superDo_connect | Watcher/__init__.py watch | <string> watch_superDo_connect |
-Networker/__init__.py do_network | Doer/__init__.py do | <string>
-superDo_network | Watcher/__init__.py watch | <string> watch_superDo_network |
-Switcher/__init__.py switch | <string> switch_watch_superDo_network | <string>
-<module> | <string> <module> | site-packages/six.py exec_ | Celler/__init__.py
-do_cell | Doer/__init__.py do | <string> superDo_cell | Watcher/__init__.py
-watch | <string> watch_superDo_cell | Notebooker/__init__.py do_notebook |
-Doer/__init__.py do | <string> superDo_notebook | Watcher/__init__.py watch |
-<string> watch_superDo_notebook | Readmer/__init__.py do_readme |
-Doer/__init__.py do | <string> superDo_readme | Watcher/__init__.py watch |
-<string> watch_superDo_readme | python2.7/posixpath.py walk |
-python2.7/posixpath.py walk | Directer/__init__.py do_direct | Doer/__init__.py
-do | <string> superDo_direct | Watcher/__init__.py watch | <string>
-watch_superDo_direct | Installer/__init__.py do_install | Doer/__init__.py do |
-<string> superDo_install | Watcher/__init__.py watch | <string>
-watch_superDo_install | ShareYourSystem/Install.py <module>
-////////////////////////////////
+                            l.60 :
+                            *****
+                            I am with [('NodeKeyStr', 'FirstConnecter')]
+                            *****
+                            self.AttentioningCollectionStr is PreConnectome
+                            self.GraspingClueVariable is
+/NodePointDeriveNoder/<Connectome>SecondConnecter
 
-                                                        l.180 :
-                                                        *****
-                                                        I am with
-[('NodeKeyStr', 'FirstConnecter')]
-                                                        *****
-self.CollectingCollectionStr is
-
-                                                        xxxxxxxxxxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-
-
-                                                        xxxxxxxxxxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-////////////////////////////////
-                                                        Doer/__init__.py do
-                                                        From <string>
-superDo_debug | Catcher/__init__.py do_catch | Doer/__init__.py do | <string>
-superDo_catch | Watcher/__init__.py watch | <string> watch_superDo_catch |
-Attentioner/__init__.py do_attention | Doer/__init__.py do | <string>
-superDo_attention | Watcher/__init__.py watch | <string> watch_superDo_attention
-| Connecter/__init__.py do_connect | Doer/__init__.py do | <string>
-superDo_connect | Watcher/__init__.py watch | <string> watch_superDo_connect |
-Networker/__init__.py do_network | Doer/__init__.py do | <string>
-superDo_network | Watcher/__init__.py watch | <string> watch_superDo_network |
-Switcher/__init__.py switch | <string> switch_watch_superDo_network | <string>
-<module> | <string> <module> | site-packages/six.py exec_ | Celler/__init__.py
-do_cell | Doer/__init__.py do | <string> superDo_cell | Watcher/__init__.py
-watch | <string> watch_superDo_cell | Notebooker/__init__.py do_notebook |
-Doer/__init__.py do | <string> superDo_notebook | Watcher/__init__.py watch |
-<string> watch_superDo_notebook | Readmer/__init__.py do_readme |
-Doer/__init__.py do | <string> superDo_readme | Watcher/__init__.py watch |
-<string> watch_superDo_readme | python2.7/posixpath.py walk |
-python2.7/posixpath.py walk | Directer/__init__.py do_direct | Doer/__init__.py
-do | <string> superDo_direct | Watcher/__init__.py watch | <string>
-watch_superDo_direct | Installer/__init__.py do_install | Doer/__init__.py do |
-<string> superDo_install | Watcher/__init__.py watch | <string>
-watch_superDo_install | ShareYourSystem/Install.py <module>
-////////////////////////////////
-
-                                                        l.180 :
-                                                        *****
-                                                        I am with
-[('NodeKeyStr', 'SecondConnecter')]
-                                                        *****
-self.CollectingCollectionStr is PostConnectome
-
-                                                        xxxxxxxxxxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-
-
-                                    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                                    ////////////////////////////////
-                                    Doer/__init__.py do
-                                    From <string> superDo_debug |
-Catcher/__init__.py do_catch | Doer/__init__.py do | <string> superDo_catch |
-Watcher/__init__.py watch | <string> watch_superDo_catch | Connecter/__init__.py
-do_connect | Doer/__init__.py do | <string> superDo_connect |
-Watcher/__init__.py watch | <string> watch_superDo_connect |
-Networker/__init__.py do_network | Doer/__init__.py do | <string>
-superDo_network | Watcher/__init__.py watch | <string> watch_superDo_network |
-Switcher/__init__.py switch | <string> switch_watch_superDo_network | <string>
-<module> | <string> <module> | site-packages/six.py exec_ | Celler/__init__.py
-do_cell | Doer/__init__.py do | <string> superDo_cell | Watcher/__init__.py
-watch | <string> watch_superDo_cell | Notebooker/__init__.py do_notebook |
-Doer/__init__.py do | <string> superDo_notebook | Watcher/__init__.py watch |
-<string> watch_superDo_notebook | Readmer/__init__.py do_readme |
-Doer/__init__.py do | <string> superDo_readme | Watcher/__init__.py watch |
-<string> watch_superDo_readme | python2.7/posixpath.py walk |
-python2.7/posixpath.py walk | Directer/__init__.py do_direct | Doer/__init__.py
-do | <string> superDo_direct | Watcher/__init__.py watch | <string>
-watch_superDo_direct | Installer/__init__.py do_install | Doer/__init__.py do |
-<string> superDo_install | Watcher/__init__.py watch | <string>
-watch_superDo_install | ShareYourSystem/Install.py <module>
-                                    ////////////////////////////////
-
-                                    l.180 :
-                                    *****
-                                    I am with [('NodeKeyStr', 'FirstConnecter')]
-                                    *****
-                                    self.CollectingCollectionStr is PreConnectome
-
-                                    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 
 
 *****Start of the Attest *****
 
-MyNetworker is < (NetworkerClass), 4567892048>
+MyNetworker is < (NetworkerClass), 4555534992>
    /{
-   /  '<New><Instance>ApplyingIsBool' : True
    /  '<New><Instance>ConnectomeCollectionOrderedDict' :
    /   /{
-   /   /  'FirstConnecter' : < (ConnecterClass), 4567776144>
+   /   /  'FirstConnecter' : < (ConnecterClass), 4555682512>
    /   /   /{
-   /   /   /  '<New><Instance>ApplyingIsBool' : True
    /   /   /  '<New><Instance>ConnectomeCollectionOrderedDict' :
    /   /   /   /{
    /   /   /   /}
-   /   /   /  '<New><Instance>IdStr' : 4567776144
+   /   /   /  '<New><Instance>IdInt' : 4555682512
+   /   /   /  '<New><Instance>NetworkAttentionStr' : Pre
+   /   /   /  '<New><Instance>NetworkCatchStr' : Post
+   /   /   /  '<New><Instance>NetworkCollectionStr' : Connectome
    /   /   /  '<New><Instance>NodeCollectionStr' : Connectome
    /   /   /  '<New><Instance>NodeIndexInt' : 0
    /   /   /  '<New><Instance>NodeKeyStr' : FirstConnecter
    /   /   /  '<New><Instance>NodePointDeriveNoder' : {...}< (NetworkerClass),
-4567892048>
+4555534992>
    /   /   /  '<New><Instance>NodePointOrderedDict' : {...}< (OrderedDict),
-4567800208>
-   /   /   /  '<New><Instance>PreConnectomeCollectionOrderedDict' :
+4555945200>
+   /   /   /  '<New><Instance>PostConnectomeCollectionOrderedDict' :
    /   /   /   /{
-   /   /   /   /  'SecondConnecterPointer' : < (PointerClass), 4567893776>
+   /   /   /   /  '_NodePointDeriveNoder_<Connectome>SecondConnecterPointer' : <
+(PointerClass), 4555899792>
    /   /   /   /   /{
-   /   /   /   /   /  '<New><Instance>IdStr' : 4567893776
+   /   /   /   /   /  '<New><Instance>IdInt' : 4555899792
    /   /   /   /   /  '<New><Instance>PointVariable' : < (ConnecterClass),
-4567776208>
+4555899088>
    /   /   /   /   /   /{
-   /   /   /   /   /   /  '<New><Instance>ApplyingIsBool' : True
    /   /   /   /   /   /  '<New><Instance>ConnectomeCollectionOrderedDict' :
    /   /   /   /   /   /   /{
    /   /   /   /   /   /   /}
-   /   /   /   /   /   /  '<New><Instance>IdStr' : 4567776208
+   /   /   /   /   /   /  '<New><Instance>IdInt' : 4555899088
+   /   /   /   /   /   /  '<New><Instance>NetworkAttentionStr' : Pre
+   /   /   /   /   /   /  '<New><Instance>NetworkCatchStr' : Post
+   /   /   /   /   /   /  '<New><Instance>NetworkCollectionStr' : Connectome
    /   /   /   /   /   /  '<New><Instance>NodeCollectionStr' : Connectome
    /   /   /   /   /   /  '<New><Instance>NodeIndexInt' : 1
    /   /   /   /   /   /  '<New><Instance>NodeKeyStr' : SecondConnecter
    /   /   /   /   /   /  '<New><Instance>NodePointDeriveNoder' : {...}<
-(NetworkerClass), 4567892048>
+(NetworkerClass), 4555534992>
    /   /   /   /   /   /  '<New><Instance>NodePointOrderedDict' : {...}<
-(OrderedDict), 4567800208>
-   /   /   /   /   /   /  '<New><Instance>PostConnectomeCollectionOrderedDict' :
+(OrderedDict), 4555945200>
+   /   /   /   /   /   /  '<New><Instance>PreConnectomeCollectionOrderedDict' :
    /   /   /   /   /   /   /{
-   /   /   /   /   /   /   /  'FirstConnecterPointer' : < (PointerClass),
-4567893264>
+   /   /   /   /   /   /   /
+'SecondConnecter>TopNetworker<FirstConnecterPointer' : < (PointerClass),
+4555901072>
    /   /   /   /   /   /   /   /{
-   /   /   /   /   /   /   /   /  '<New><Instance>IdStr' : 4567893264
+   /   /   /   /   /   /   /   /  '<New><Instance>IdInt' : 4555901072
    /   /   /   /   /   /   /   /  '<New><Instance>PointVariable' : {...}<
-(ConnecterClass), 4567776144>
+(ConnecterClass), 4555682512>
    /   /   /   /   /   /   /   /  '<Spe><Class>PointedBackSetStr' :
    /   /   /   /   /   /   /   /  '<Spe><Class>PointedPathBackVariable' :
-   /   /   /   /   /   /   /   /  '<Spe><Class>PointingBackSetStr' :
    /   /   /   /   /   /   /   /  '<Spe><Instance>PointedGetVariable' : {...}<
-(ConnecterClass), 4567776144>
+(ConnecterClass), 4555682512>
    /   /   /   /   /   /   /   /  '<Spe><Instance>PointedLocalSetStr' :
 PointVariable
+   /   /   /   /   /   /   /   /  '<Spe><Instance>PointingBackSetStr' :
    /   /   /   /   /   /   /   /  '<Spe><Instance>PointingGetVariable' : {...}<
-(ConnecterClass), 4567776144>
+(ConnecterClass), 4555682512>
    /   /   /   /   /   /   /   /  '<Spe><Instance>PointingSetPathStr' :
 PointVariable
    /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /}
    /   /   /   /   /   /  '<New><Instance>TagStr' : Networked
-   /   /   /   /   /   /  '<Spe><Instance>ConnectedAttentionDeriveConnectersList' :
-[]
-   /   /   /   /   /   /  '<Spe><Instance>ConnectedDerivePointersList' :
-[]
+   /   /   /   /   /   /  '<Spe><Instance>ConnectedDerivePointersList' : []
    /   /   /   /   /   /  '<Spe><Instance>ConnectingGraspClueVariablesList' : []
-   /   /   /   /   /   /  '<Spe><Instance>ConnectingCatchGetStrsList' : []
    /   /   /   /   /   /}
    /   /   /   /   /  '<Spe><Class>PointedBackSetStr' :
    /   /   /   /   /  '<Spe><Class>PointedPathBackVariable' :
-   /   /   /   /   /  '<Spe><Class>PointingBackSetStr' :
    /   /   /   /   /  '<Spe><Instance>PointedGetVariable' : {...}<
-(ConnecterClass), 4567776208>
+(ConnecterClass), 4555899088>
    /   /   /   /   /  '<Spe><Instance>PointedLocalSetStr' : PointVariable
+   /   /   /   /   /  '<Spe><Instance>PointingBackSetStr' :
    /   /   /   /   /  '<Spe><Instance>PointingGetVariable' : {...}<
-(ConnecterClass), 4567776208>
+(ConnecterClass), 4555899088>
    /   /   /   /   /  '<Spe><Instance>PointingSetPathStr' : PointVariable
    /   /   /   /   /}
    /   /   /   /}
    /   /   /  '<New><Instance>TagStr' : Networked
-   /   /   /  '<Spe><Instance>ConnectedAttentionDeriveConnectersList' :
-   /   /   /   /[
-   /   /   /   /  0 : {...}< (ConnecterClass), 4567776144>
-   /   /   /   /]
    /   /   /  '<Spe><Instance>ConnectedDerivePointersList' :
    /   /   /   /[
-   /   /   /   /  0 : {...}< (ConnecterClass), 4567776144>
+   /   /   /   /  0 : {...}< (ConnecterClass), 4555899088>
    /   /   /   /]
    /   /   /  '<Spe><Instance>ConnectingGraspClueVariablesList' :
 ['/NodePointDeriveNoder/<Connectome>SecondConnecter']
-   /   /   /  '<Spe><Instance>ConnectingCatchGetStrsList' :
-['/NodePointDeriveNoder/<Connectome>SecondConnecter']
    /   /   /}
-   /   /  'SecondConnecter' : {...}< (ConnecterClass), 4567776208>
+   /   /  'SecondConnecter' : {...}< (ConnecterClass), 4555899088>
    /   /}
-   /  '<New><Instance>IdStr' : 4567892048
-   /  '<New><Instance>NodeCollectionStr' : Global
+   /  '<New><Instance>IdInt' : 4555534992
+   /  '<New><Instance>NewtorkAttentionStr' :
+   /  '<New><Instance>NewtorkCatchStr' :
+   /  '<New><Instance>NewtorkCollectionStr' :
+   /  '<New><Instance>NodeCollectionStr' : Globals
    /  '<New><Instance>NodeIndexInt' : -1
-   /  '<New><Instance>NodeKeyStr' :
+   /  '<New><Instance>NodeKeyStr' : TopNetworker
    /  '<New><Instance>NodePointDeriveNoder' : None
    /  '<New><Instance>NodePointOrderedDict' : None
    /  '<Spe><Instance>NetworkedConnectionTuplesList' :
    /   /[
    /   /  0 :
    /   /   /(
-   /   /   /  0 : {...}< (ConnecterClass), 4567776144>
+   /   /   /  0 : {...}< (ConnecterClass), 4555682512>
    /   /   /  1 :
    /   /   /   /[
-   /   /   /   /  0 : {...}< (list), 4567866328>
-   /   /   /   /  1 : {...}< (list), 4567898880>
+   /   /   /   /  0 : None
+   /   /   /   /  1 : {...}< (list), 4555922248>
    /   /   /   /]
    /   /   /)
    /   /  1 :
    /   /   /(
-   /   /   /  0 : {...}< (ConnecterClass), 4567776208>
+   /   /   /  0 : {...}< (ConnecterClass), 4555899088>
    /   /   /  1 :
    /   /   /   /[
-   /   /   /   /  0 : {...}< (list), 4567867192>
-   /   /   /   /  1 : {...}< (list), 4567833344>
+   /   /   /   /  0 : None
+   /   /   /   /  1 : {...}< (list), 4555696536>
    /   /   /   /]
    /   /   /)
    /   /]
    /  '<Spe><Instance>NetworkedDeriveConnectersList' :
    /   /[
-   /   /  0 : {...}< (ConnecterClass), 4567776144>
-   /   /  1 : {...}< (ConnecterClass), 4567776208>
+   /   /  0 : {...}< (ConnecterClass), 4555682512>
+   /   /  1 : {...}< (ConnecterClass), 4555899088>
    /   /]
    /}
 

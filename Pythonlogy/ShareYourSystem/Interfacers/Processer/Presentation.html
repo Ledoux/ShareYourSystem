@@ -1846,7 +1846,7 @@ class ProcesserClass(BaseClass):
 #&lt;/DefineClass&gt;
 </code></pre>
 <p><small>
-View the Processer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Processer">Github</a>
+View the Processer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Processer" target="_blank">Github</a>
 </small></p>
 </div>
 </div>
@@ -1912,9 +1912,9 @@ In&nbsp;[3]:
 
 *****Start of the Attest *****
 
-MyProcesser is &lt; (ProcesserClass), 4554873680&gt;
+MyProcesser is &lt; (ProcesserClass), 4554250704&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4554873680
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4554250704
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;ProcessedBashStr&apos; : /usr/local/bin/python
 
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;ProcessingBashStr&apos; : which python 

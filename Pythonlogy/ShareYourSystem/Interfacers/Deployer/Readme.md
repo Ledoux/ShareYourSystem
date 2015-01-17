@@ -155,8 +155,9 @@ self.DeployingClientFilePathStrToServerFilePathStrOrderedDict.items()
 ```
 
 <small>
-View the Deployer sources on [Github](https://github.com/Ledoux/ShareYourSystem/
-tree/master/Pythonlogy/ShareYourSystem/Interfacers/Deployer)
+View the Deployer sources on <a href="https://github.com/Ledoux/ShareYourSystem/
+tree/master/Pythonlogy/ShareYourSystem/Interfacers/Deployer"
+target="_blank">Github</a>
 </small>
 
 
@@ -222,15 +223,15 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 *****Start of the Attest *****
 
-MyDeployer is < (DeployerClass), 4542164752>
+MyDeployer is < (DeployerClass), 4540433488>
    /{
-   /  '<New><Instance>IdInt' : 4542164752
+   /  '<New><Instance>IdInt' : 4540433488
    /  '<Spe><Class>DeployingLoginStr' : shareyoursystemhz
    /  '<Spe><Class>DeployingPwdStr' : share
    /  '<Spe><Class>DeployingUrlStr' : ftp.ouvaton.coop
    /  '<Spe><Instance>DeployedDirKeyStrsList' : []
    /  '<Spe><Instance>DeployedFtplibVariable' : <ftplib.FTP instance at
-0x10ebab320>
+0x10e9e94d0>
    /  '<Spe><Instance>DeployingClientFilePathStrToServerFilePathStrOrderedDict'
 :
    /   /{

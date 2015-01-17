@@ -271,6 +271,6 @@ class ClonerClass(BaseClass):
 ```
 
 <small>
-View the Cloner sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Objects/Cloner)
+View the Cloner sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Objects/Cloner" target="_blank">Github</a>
 </small>
 

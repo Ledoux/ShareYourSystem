@@ -1908,7 +1908,7 @@ class HdformaterClass(BaseClass):
 #&lt;/DefineClass&gt;
 </code></pre>
 <p><small>
-View the Hdformater sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Hdformater">Github</a>
+View the Hdformater sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Hdformater" target="_blank">Github</a>
 </small></p>
 </div>
 </div>

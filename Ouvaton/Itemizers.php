@@ -1753,7 +1753,109 @@ View the Itemizer notebook on <a href="http://nbviewer.ipython.org/url/shareyour
 FrozenIsBool False
 -->
 
-<p>View the Itemizer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Itemizers/Installer">Github</a></p>
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+An Itemizer...
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Interfacers.Hdformater"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineLocals&gt;
+ItemizingPrefixStr="Item_"
+#&lt;/DefineLocals&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class ItemizerClass(BaseClass):
+
+    pass
+
+    """
+    #Definition
+    RepresentingKeyStrsList=[
+                                    'ItemizingKeyVariable',
+                                    'ItemizedKeyVariable'
+                                ]
+
+    #@SYS.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.init}]})
+    def default_init(self,
+                        _ItemizingKeyVariable=None,
+                        _ItemizedKeyVariable=None,
+                        **_KwargVariablesDict
+                    ):
+        """ """        
+
+        #Call the parent init method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def do_itemize(self):
+
+        #Check
+        if self.ItemizingKeyVariable.startswith(ItemizingPrefixStr):
+
+            #split
+            self.ItemizedKeyVariable=ItemizingPrefixStr.join(
+                self.ItemizingKeyVariable.split(
+                ItemizingPrefixStr)[1:]
+            )
+
+            #debug
+            self.debug(
+                        [
+                            'go to a getitem get',
+                            ('self.',self,['ItemizingKeyVariable','ItemizedKeyVariable'])
+                        ]
+                    )
+
+            #return    __getitem__
+            return self.__getitem__(self.ItemizedKeyVariable)
+
+        else:
+
+            #debug
+            self.debug(
+                        [
+                            'classic object getattr...',
+                            ('self.',self,['ItemizingKeyVariable'])
+                        ]
+                    )
+
+            #Return default getattr
+            return object.__getattribute__(self,self.ItemizingKeyVariable)
+
+    def __getattribute__(self,_KeyVariable):
+
+        #Itemize
+        return self.itemize(_KeyVariable)
+    """
+
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Itemizer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Itemizers/Itemizer" target="_blank">Github</a>
+</small></p>
 </div>
 </div>
 </div></section><section>
@@ -1837,9 +1939,9 @@ In&nbsp;[3]:
 
 *****Start of the Attest *****
 
-MyMaker is&lt; (MakerClass), 4348482192&gt;
+MyMaker is&lt; (MakerClass), 4555206928&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4348482192
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4555206928
    /  &apos;&lt;New&gt;&lt;Instance&gt;My1Int&apos; : 1
    /}
 
@@ -1896,7 +1998,150 @@ View the Getter notebook on <a href="http://nbviewer.ipython.org/url/shareyoursy
 FrozenIsBool False
 -->
 
-<p>View the Getter sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Itemizers/Installer">Github</a></p>
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+A Getter helps for getting attributes safely in 
+an instance. Through the __getitem__ method, It looks first in the \_\_dict\_\_ to 
+check if there is the corresponding GettingKeyStr.
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Itemizers.Itemizer"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+from ShareYourSystem.Functers import Argumenter
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass(**{'DoingGetBool':True})
+class GetterClass(BaseClass):
+
+    #Definition
+    RepresentingKeyStrsList=[
+                                    'GettingKeyVariable',
+                                    'GettedValueVariable'
+                                ]
+
+    #@SYS.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.init}]})
+    def default_init(self,
+                        _GettingKeyVariable=None,
+                        _GettedValueVariable=None,
+                        **_KwargVariablesDict
+                    ):
+        """ """        
+
+        #Call the parent init method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    #@Argumenter.ArgumenterClass(**{'ArgumentingDoStr':'Get'})
+    def __getitem__(self,_KeyVariable):
+        """ """
+
+        #Debug
+        '''
+        print('l.53 __getitem__ Getter')
+        print('self.get is ',self.get.im_func)
+        print('_KeyVariables is ',_KeyVariable)
+        print('')
+        '''
+
+        #get
+        self.get(_KeyVariable)
+
+        #Debug
+        '''
+        self.debug(('self.',self,['GettedValueVariable']))
+        '''
+
+        #return
+        return self.GettedValueVariable
+
+    def do_get(self):
+        """ """
+
+        #debug
+        '''
+        self.debug(("self.",self,['GettingKeyVariable']))
+        '''
+
+        #Check
+        if type(self.GettingKeyVariable) in [str,unicode]:
+
+            #Get safely the Value
+            if self.GettingKeyVariable in self.__dict__:
+
+                #__getitem__ in the __dict__
+                self.GettedValueVariable=self.__dict__[self.GettingKeyVariable]
+
+                #debug
+                '''
+                self.debug(
+                            [
+                                'This is a Spe in Instance',
+                                ('self.',self,['GettedValueVariable'])
+                            ]
+                        )
+                '''
+
+                #Stop the getting
+                return {"HookingIsBool":False}
+
+            elif self.GettingKeyVariable in self.__class__.__dict__:
+
+                #__getitem__ in the __class__
+                self.GettedValueVariable=self.__class__.__dict__[self.GettingKeyVariable]
+
+                #debug
+                '''
+                self.debug(
+                            [
+                                'This is in the __class__',
+                                ('self.',self,['GettedValueVariable'])
+                            ]
+                        )
+                '''
+
+                #Stop the getting
+                return {"HookingIsBool":False}
+
+        #set
+        self.GettedValueVariable=None
+
+        #debug
+        '''
+        self.debug(
+                    [
+                        'Not found here so set it to None',
+                        ('self.',self,['GettedValueVariable'])
+                    ]
+                )
+        '''
+        #Return an output dict
+        return {"HookingIsBool":True}
+
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Getter sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Itemizers/Getter" target="_blank">Github</a>
+</small></p>
 </div>
 </div>
 </div></section><section>
@@ -2012,7 +2257,101 @@ View the Setter notebook on <a href="http://nbviewer.ipython.org/url/shareyoursy
 FrozenIsBool False
 -->
 
-<p>View the Setter sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Itemizers/Installer">Github</a></p>
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+A Setter has a __setitem__ method for setting things in the &lt;InstanceVariable&gt;.__dict__
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Itemizers.Getter"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass(**{'DoingGetBool':True})
+class SetterClass(BaseClass):
+
+    #Definition
+    RepresentingKeyStrsList=[
+                                    'SettingKeyVariable',
+                                    'SettingValueVariable'
+                                ]
+
+    def default_init(self,
+                        _SettingKeyVariable=None, 
+                        _SettingValueVariable=None,              
+                        **_KwargVariablesDict
+                    ):
+        """ """        
+
+        #Call the parent init method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    #@Argumenter.ArgumenterClass(**{'ArgumentingDoStr':'Set'})
+    def __setitem__(self,_KeyVariable,_ValueVariable):
+        """ """
+
+        #debug
+        '''
+        self.debug(
+                    [
+                        ('locals()[\'',locals(),[
+                                        '_KeyVariable',
+                                        '_ValueVariable']
+                                        ,'\']'),
+                        ('self.',self,[
+                                    'SettingKeyVariable',
+                                    #'SettingValueVariable'
+                                    ])
+                    ])
+        '''
+
+        #set (and set before argument to facilitate switch triggers (see later...)
+        self.SettingKeyVariable=_KeyVariable
+        self.SettingValueVariable=_ValueVariable
+        self.set()        
+
+        #set
+        return self
+
+    def do_set(self):
+        """ """
+
+        #debug
+        '''
+        self.debug(("self.",self,['SettingKeyVariable','SettingValueVariable']))
+        '''
+
+        #__setitem__ in the __dict__, this is an utility set
+        self.__dict__[self.SettingKeyVariable]=self.SettingValueVariable
+
+        #Return
+        return {'HookingIsBool':False}
+
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Setter sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Itemizers/Setter" target="_blank">Github</a>
+</small></p>
 </div>
 </div>
 </div></section><section>
@@ -2079,9 +2418,9 @@ In&nbsp;[11]:
 
 *****Start of the Attest *****
 
-MySetter is &lt; (SetterClass), 4348482576&gt;
+MySetter is &lt; (SetterClass), 4555207312&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4348482576
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4555207312
    /  &apos;&lt;New&gt;&lt;Instance&gt;MyInt&apos; : 0
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;SettingKeyVariable&apos; : MyInt
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;SettingValueVariable&apos; : 0
@@ -2134,7 +2473,78 @@ View the Deleter notebook on <a href="http://nbviewer.ipython.org/url/shareyours
 FrozenIsBool False
 -->
 
-<p>View the Deleter sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Itemizers/Installer">Github</a></p>
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+A Deleter has a __delitem__ method for deleting things in the &lt;InstanceVariable&gt;.__dict__
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Itemizers.Setter"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class DeleterClass(BaseClass):
+
+    def default_init(self,
+                        _DeletingKeyVariable=None,
+                        **_KwargVariablesDict
+                    ):
+        """ """        
+
+        #Call the parent init method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    #@Argumenter.ArgumenterClass(**{'ArgumentingDoStr':"Delete"})
+    def __delitem__(self,_KeyVariable,**_KwargVariablesDict):
+        """ """
+
+        #debug
+        '''
+        self.debug(('self.',self,['DeletingKeyVariable']))
+        '''
+
+        #Delete
+        self.delete(_KeyVariable)
+
+        #set
+        return self
+
+    def do_delete(self):
+        """ """
+
+        #Do the minimal delitem
+        if type(self.DeletingKeyVariable) in [str,unicode]:
+
+            #Del Safely the Value
+            if self.DeletingKeyVariable in self.__dict__:
+                del self.__dict__[self.DeletingKeyVariable]
+
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Deleter sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Itemizers/Deleter" target="_blank">Github</a>
+</small></p>
 </div>
 </div>
 </div></section><section>
@@ -2201,9 +2611,9 @@ In&nbsp;[15]:
 
 *****Start of the Attest *****
 
-MyDeleter is &lt; (DeleterClass), 4348482896&gt;
+MyDeleter is &lt; (DeleterClass), 4555206736&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4348482896
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4555206736
    /}
 
 *****End of the Attest *****
@@ -2255,7 +2665,135 @@ View the Attributer notebook on <a href="http://nbviewer.ipython.org/url/shareyo
 FrozenIsBool False
 -->
 
-<p>View the Attributer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Itemizers/Installer">Github</a></p>
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+An Attributer instance has a __setitem__ method for setting things in the &lt;InstanceVariable&gt;.__dict__
+This is helpful for setting Propertized mutable variables in the instance different 
+from the propertized value setted at the level of the class
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Itemizers.Deleter"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineLocals&gt;
+AttributingStartStr='Attr_'
+#&lt;/DefineLocals&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class AttributerClass(BaseClass):
+
+    #Definition
+    RepresentingKeyStrsList=[
+                                    'AttributingKeyStr',
+                                    'AttributingValueVariable',
+                                    'AttributedSetKeyStr'
+                                ]
+
+    def default_init(self,  
+                        _AttributingKeyStr="",
+                        _AttributingValueVariable=None,    
+                        _AttributedSetKeyStr="",        
+                        **_KwargVariablesDict
+                    ):
+        """ """        
+
+        #Call the parent init method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+
+    def do_attribute(self):
+
+        #set
+        self.AttributedSetKeyStr=AttributingStartStr.join(
+            self.AttributingKeyStr.split(AttributingStartStr)[1:])
+
+        #Call the __setattr__ method
+        self.__setattr__(self.AttributedSetKeyStr,self.AttributingValueVariable)
+
+    #@Imitater.ImitaterClass()
+    def mimic_set(self):
+        """ """
+
+        #debug
+        '''
+        self.debug(('self.',self,['SettingKeyVariable','SettingValueVariable']))
+        '''
+
+        #Definition
+        OutputDict={'HookingIsBool':True}
+
+        #Deep set
+        if self.SettingKeyVariable.startswith(AttributingStartStr):
+
+            #debug
+            '''
+            self.debug('We are going to share')
+            '''
+
+            #Path
+            self.attribute(self.SettingKeyVariable,self.SettingValueVariable)
+
+            #debug
+            '''
+            self.debug(('self.',self,[
+                                        "SharedKeyStr",
+                                        "SharedChildKeyStr",
+                                        "SharedValueVariable"
+                                    ]
+                                ))
+            '''
+
+            #Stop the setting
+            OutputDict["HookingIsBool"]=False
+            #&lt;Hook&gt;return OutputDict
+
+        #Call the parent get method
+        if OutputDict['HookingIsBool']:
+
+            #debug
+            '''
+            self.debug(
+                        [
+                            'BaseClass is '+str(BaseClass),
+                            'BaseClass.set is '+str(BaseClass.set)
+                        ]
+                )
+            '''
+
+            #Set and return 
+            return BaseClass.set(self)
+
+        else:
+
+            #return
+            return OutputDict
+
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Attributer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Itemizers/Attributer" target="_blank">Github</a>
+</small></p>
 </div>
 </div>
 </div></section><section>
@@ -2306,9 +2844,9 @@ In&nbsp;[18]:
 
 *****Start of the Attest *****
 
-MyAttributer is &lt; (AttributerClass), 4348483408&gt;
+MyAttributer is &lt; (AttributerClass), 4555207120&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4348483408
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4555207120
    /  &apos;&lt;New&gt;&lt;Instance&gt;MyInt&apos; : 0
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;AttributedSetKeyStr&apos; : MyInt
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;AttributingKeyStr&apos; : Attr_MyInt
@@ -2363,7 +2901,125 @@ View the Restricter notebook on <a href="http://nbviewer.ipython.org/url/shareyo
 FrozenIsBool False
 -->
 
-<p>View the Restricter sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Itemizers/Installer">Github</a></p>
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+A Restricter object sets only in the __dict__ only if hasattr(self,self.SettingKeyVariable)
+returns True before.
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Itemizers.Attributer"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class RestricterClass(BaseClass):
+
+    #Definition
+    RepresentingKeyStrsList=[
+                                'RestrictingIsBool',
+                                'RestrictingKeyStr',
+                                'RestrictedSetIsBool'
+                            ]
+
+    def default_init(self,
+                _RestrictingIsBool=False, 
+                _RestrictingKeyStr=None,                    
+                _RestrictedSetIsBool=True,            
+                **_KwargVariablesDict
+                ):
+
+        #Call the parent init method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def do_restrict(self):
+
+        #Init
+        self.RestrictedSetIsBool=True
+
+        #debug
+        '''
+        self.debug(('self.',self,['RestrictingIsBool','RestrictingKeyStr']))
+        '''
+
+        #Check
+        if self.RestrictingIsBool:
+
+            #Check
+            if hasattr(self,self.RestrictingKeyStr):
+                self.RestrictedSetIsBool=False
+
+        else:
+
+            #set to False
+            self.RestrictedSetIsBool=False
+
+    #&lt;Hook&gt;@Hooker.HookerClass(**{'HookingAfterVariablesList':[BaseClass.set]})
+    #@Imitater.ImitaterClass()
+    def mimic_set(self):
+        """ """
+
+        #debug
+        '''
+        self.debug(('self.',self,['SettingKeyVariable','SettingValueVariable']))
+        '''
+
+        #Definition
+        OutputDict={'HookingIsBool':True}
+
+        #debug
+        '''
+        self.debug('We are going to restrict')
+        '''
+
+        #restrict
+        self.restrict(_KeyStr=self.SettingKeyVariable)
+
+        #&lt;Hook&gt;
+        #Stop the setting
+        if self.RestrictedSetIsBool:
+            OutputDict["HookingIsBool"]=False
+            return OutputDict
+        #&lt;/Hook&gt;
+
+        #Debug
+        '''
+        self.debug(
+                    [
+                        'BaseClass is '+str(BaseClass),
+                        'BaseClass.set is '+str(BaseClass.set),
+                    ]
+                )
+        '''
+
+        #Call the parent set method
+        return BaseClass.set(self)
+
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Restricter sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Itemizers/Restricter" target="_blank">Github</a>
+</small></p>
 </div>
 </div>
 </div></section><section>
@@ -2433,9 +3089,9 @@ In&nbsp;[22]:
 
 *****Start of the Attest *****
 
-MyRestricter is &lt; (RestricterClass), 4348483088&gt;
+MyRestricter is &lt; (RestricterClass), 4555208144&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4348483088
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4555208144
    /  &apos;&lt;New&gt;&lt;Instance&gt;ResettedStr&apos; : Bonjour
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;RestrictedSetIsBool&apos; : True
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;RestrictingIsBool&apos; : True
@@ -2490,7 +3146,618 @@ View the Pather notebook on <a href="http://nbviewer.ipython.org/url/shareyoursy
 FrozenIsBool False
 -->
 
-<p>View the Pather sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Itemizers/Installer">Github</a></p>
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+A Pather use its __setitem__ method for setting attributes in deeper levels thanks to 
+the PathingPrefixStr 
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Itemizers.Restricter"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+import collections
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineLocals&gt;
+PathingPrefixStr="/"
+#&lt;/DefineLocals&gt;
+
+#&lt;DefineFunctions&gt;
+def getVariableWithPathVariableAndKeyList(_DictatedVariable,_KeyList):
+    ''''''
+    if type(_KeyList)==list:
+
+        #Empty list case : return the Objects
+        if len(_KeyList)==0:
+            return _DictatedVariable;
+        elif len(_KeyList)==1:
+
+            #One Variable List case : return the associated Value at the Int
+            if type(_DictatedVariable) in [list,tuple]:
+                if type(_KeyList[0])==int:
+                    if _KeyList[0]&lt;len(_DictatedVariable):
+                        return _DictatedVariable[_KeyList[0]]
+
+            elif _KeyList[0] in _DictatedVariable:
+
+                #One Variable Dict case : return the associated Value at the KeyStr
+                return _DictatedVariable[_KeyList[0]]
+        else:
+
+            #Multi Variables case : recursive call with the reduced list
+            if _KeyList[0] in _DictatedVariable:
+                return getVariableWithPathVariableAndKeyList(_DictatedVariable[_KeyList[0]],_KeyList[1:])
+
+    #Return by default "NotFound"
+    return "NotFound"
+
+def getVariableWithDictatedVariableAndKeyVariable(_DictatedVariable,_KeyVariable):
+    if type(_KeyVariable)==list:
+        return getVariableWithPathVariableAndKeyList(_DictatedVariable,_KeyVariable)
+    elif type(_KeyVariable) in SYS.StrTypesList:
+        return _DictatedVariable[_KeyVariable] if _KeyVariable in _DictatedVariable else None
+
+def getPathedBackGetStrWithGetStr(_GetStr):
+
+    #Check
+    if PathingPrefixStr in _GetStr:
+
+        #Get the path just before
+        return PathingPrefixStr.join(
+            _GetStr.split(PathingPrefixStr)[:-1]
+            )
+
+    else:
+
+        return ""
+
+def getPathedBackVariableWithVariableAndGetStr(_Variable,_GetStr):
+
+    #get
+    PathedBackGetStr=getPathedBackGetStrWithGetStr(_GetStr)
+
+    #Check
+    if PathedBackGetStr!="":
+
+        #Get the path just before
+        PointedBackVariable=_Variable[PathedBackGetStr]
+
+    else:
+
+        #Return the variable directly
+        PointedBackVariable=_Variable
+
+    #Return 
+    return PointedBackVariable
+
+#&lt;/DefineFunctions&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class PatherClass(BaseClass):
+
+    #Definition
+    RepresentingKeyStrsList=[
+                                    'PathingKeyStr',
+                                    'PathedKeyStrsList',
+                                    'PathedGetKeyStr',
+                                    'PathedChildKeyStr',
+                                    #'PathedGetValueVariable'
+                                ]
+
+    def default_init(self,
+                _PathingKeyStr="",                 
+                _PathedKeyStrsList=None,         
+                _PathedGetKeyStr="",                         
+                _PathedGetValueVariable=None,  
+                _PathedChildKeyStr="",            
+                **_KwargVariablesDict
+                ):
+
+        #Call the parent init method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def do_path(self):
+
+        #debug
+        '''
+        self.debug(('self.',self,['PathingKeyStr']))
+        '''
+
+        #Split
+        self.PathedKeyStrsList=self.PathingKeyStr.split(PathingPrefixStr)
+
+        #set
+        #self.PathedGetKeyStr=PathingPrefixStr.join(self.PathedKeyStrsList[1:])
+        self.PathedGetKeyStr=self.PathedKeyStrsList[1]
+
+        #debug
+        '''
+        self.debug(
+                    ('self.',self,[
+                                    'PathingKeyStr',
+                                    'PathedKeyStrsList',
+                                    'PathedGetKeyStr',
+                                ])
+                )
+        '''
+
+        #set the PathedGetValueVariable
+        if self.PathedGetKeyStr=="":
+
+            #debug
+            '''
+            self.debug('self.PathedGetKeyStr is ""')
+            '''
+
+            #set
+            self.PathedGetValueVariable=self
+
+        else:
+
+            #debug
+            '''
+            self.debug('This is recursive path set so get the pathedvalue')
+            '''
+
+            #Set
+            if len(self.PathedKeyStrsList)&gt;2:
+                self.PathedChildKeyStr=PathingPrefixStr+PathingPrefixStr.join(
+                    self.PathedKeyStrsList[2:])
+
+            #getitem
+            self.PathedGetValueVariable=self[self.PathedGetKeyStr]
+
+        #debug
+        '''
+        self.debug(
+                    ('self.',self,[
+                                    'PathedGetValueVariable'
+                                ])
+                )
+        '''
+
+    #&lt;Hook&gt;@Hooker.HookerClass(**{'HookingAfterVariablesList':[BaseClass.get]})
+    #@Imitater.ImitaterClass()
+    def mimic_get(self):
+
+        #debug
+        '''
+        self.debug(("self.",self,['GettingKeyVariable']))
+        '''
+
+        #Definition
+        OutputDict={'HookingIsBool':True}
+
+        #Check
+        if self.GettingKeyVariable.startswith(PathingPrefixStr):
+
+            #debug
+            '''
+            self.debug('We path here')
+            '''
+
+            #Path
+            self.path(self.GettingKeyVariable)
+
+            #debug
+            '''
+            self.debug(('self.',self,[
+                                        "PathedKeyStrsList",
+                                        "PathedGetKeyStr",
+                                        "PathedGetValueVariable"
+                                    ]
+                                ))
+            '''
+
+            #Check
+            if self.PathedGetKeyStr=="":
+
+                #debug
+                '''
+                self.debug('This is a local already self get ')
+                '''
+
+                #Direct get
+                self.GettedValueVariable=self.PathedGetValueVariable
+
+            elif self.PathedGetKeyStr!="" and len(self.PathedKeyStrsList)==2:
+
+                #debug
+                '''
+                self.debug('This is a local already get ')
+                '''
+
+                #Return the first level
+                self.GettedValueVariable=self.PathedGetValueVariable
+
+            else:
+
+                #debug
+                '''
+                self.debug(
+                            [
+                                'This is recursive get with ',
+                                ('self.',self,[
+                                                'PathedGetValueVariable',
+                                                'PathedChildKeyStr'
+                                            ]
+                                )
+                            ]
+                        )
+                '''
+
+                #Get with the PathedChildKeyStr
+                self.GettedValueVariable=self.PathedGetValueVariable[self.PathedChildKeyStr]
+
+            #Stop the getting
+            OutputDict['HookingIsBool']=False
+            #&lt;Hook&gt;return OutputDict
+
+            #Return
+            return OutputDict
+
+        #Call the parent get method
+        if OutputDict['HookingIsBool']:
+
+            #debug
+            '''
+            self.debug(
+                        [
+                            'BaseClass.get is '+str(BaseClass.get),
+                            ('self.',self,['GettingKeyVariable'])
+                        ]
+                    )
+            '''
+
+            #Call
+            return BaseClass.get(self)
+
+        else:
+
+            #return 
+            return OutputDict
+
+    #&lt;Hook&gt;@Hooker.HookerClass(**{'HookingAfterVariablesList':[BaseClass.set]})
+    #@Imitater.ImitaterClass()
+    def mimic_set(self):
+        """ """
+
+        #debug
+        '''
+        self.debug(('self.',self,['SettingKeyVariable','SettingValueVariable']))
+        '''
+
+        #Definition
+        OutputDict={'HookingIsBool':True}
+
+        #Deep set
+        if self.SettingKeyVariable.startswith(PathingPrefixStr):
+
+            #debug
+            '''
+            self.debug('We are going to path')
+            '''
+
+            #Path
+            self.path(self.SettingKeyVariable)
+
+            #debug
+            '''
+            self.debug(('self.',self,[
+                                        "PathedGetKeyStr",
+                                        "PathedChildKeyStr",
+                                        "PathedGetValueVariable"
+                                    ]
+                                ))
+            '''
+
+            #set
+            #Direct update in the Child or go deeper with the ChildPathStr
+            if self.SettingKeyVariable[-1]==PathingPrefixStr: 
+
+                #debug
+                '''
+                self.debug('this is a special set inside the pathed variable')
+                '''
+
+                #Check
+                if self.PathedGetValueVariable!=None:
+
+                    #Case where it is an object to set inside
+                    if 'PatherClass' in map(
+                                        lambda __Class:
+                                        __Class.__name__,
+                                        type(self.PathedGetValueVariable).__mro__
+                                        ):
+
+                        #debug
+                        '''
+                        self.debug(('self.',self,[
+                                                    'PathedGetKeyStr',
+                                                    'SettingKeyVariable',
+                                                    'SettingValueVariable',
+                                                    'PathedGetValueVariable'
+                                                ]))
+                        '''
+
+                        #Modify directly the PathedGetValueVariable with self.SettingValueVariable
+                        self.PathedGetValueVariable.__setitem__(
+                                                                self.SettingValueVariable[0],
+                                                                self.SettingValueVariable[1]
+                                                            )
+
+
+                    #Case where it is a set at the level of self of an already setted thing
+                    else:
+
+                        #set to the corresponding point
+                        self[self.PathedGetKeyStr]=self.SettingValueVariable
+
+                else:
+
+                    #debug
+                    '''
+                    self.debug(
+                            [
+                                'set with setWithPathVariableAndKeyVariable',
+                                ("self.",self,[
+                                                'SettingValueVariable',
+                                                'PathedChildKeyStr'])
+                            ]
+                    )
+                    '''
+
+                    #Call the setWithPathVariableAndKeyVariable
+                    setWithPathVariableAndKeyVariable(
+                        self.PathedGetValueVariable,
+                        self.PathedChildKeyStr,
+                        self.SettingValueVariable
+                    )
+
+            #Case where it is a set at the level of self of new setted thing
+            else:
+
+                #debug
+                '''
+                self.debug('we setitem here')
+                '''
+
+                #Check
+                if self.PathedGetKeyStr!="" and len(self.PathedKeyStrsList)==2:
+
+                    #debug
+                    '''
+                    self.debug('we setitem at this level')
+                    '''
+
+                    #set
+                    self[self.PathedGetKeyStr]=self.SettingValueVariable
+                else:
+
+                    #debug
+                    '''
+                    self.debug('we setitem further')
+                    '''
+
+                    #set
+                    self.PathedGetValueVariable[
+                        PathingPrefixStr.join(self.PathedKeyStrsList[2:])
+                    ]=self.SettingValueVariable
+
+            #Stop the setting
+            OutputDict["HookingIsBool"]=False
+            #&lt;Hook&gt;return OutputDict
+
+        #Call the parent get method
+        if OutputDict['HookingIsBool']:
+            return BaseClass.set(self)
+        else:
+            return OutputDict
+
+#&lt;/DefineClass&gt;
+
+#&lt;DefineFunctions&gt;
+def setWithPathVariableAndKeyVariable(_DictatedVariable,_KeyVariable,_ValueVariable,**_KwargsDict):
+    '''    '''
+
+    #Get the type
+    Type=type(_DictatedVariable)
+
+    #debug
+    '''
+    print('Pather l.286 ')
+    print('Type is ',Type)
+    print('_KeyVariable is ',_KeyVariable)
+    print('')
+    '''
+
+    #Special dict case for also handling SluggerNamesList Key
+    if Type in [dict,collections.OrderedDict] or PatherClass in Type.__mro__:
+
+        #debug
+        '''
+        print('_DictatedVariable has items')
+        print('')
+        '''
+
+        #set with a list
+        if type(_KeyVariable)==list:
+            if len(_KeyVariable)&gt;0:
+                if _KeyVariable[0]==PathingPrefixStr:
+                    if len(_KeyVariable)==1:
+
+                        #debug
+                        '''
+                        print('_KeyVariable==[PathingPrefixStr]')
+                        print('So just update')
+                        print('')
+                        '''
+
+                        #Update
+                        _DictatedVariable.update(_ValueVariable)
+                        return
+
+                    else:
+                        _KeyVariable=_KeyVariable[1:]
+
+                #debug
+                '''
+                print('_KeyVariable is a list')
+                print('_KeyVariable is '+str(_KeyVariable))
+                print('')
+                '''
+
+                #Get the next "path"
+                GettedVariable=getVariableWithDictatedVariableAndKeyVariable(_DictatedVariable,_KeyVariable[:-1])
+
+                #debug
+                '''
+                print('GettedVariable is '+str(GettedVariable))
+                print('')
+                '''
+
+                #set
+                setWithPathVariableAndKeyVariable(GettedVariable,_KeyVariable[-1],_ValueVariable)
+
+                #Return 
+                return
+        else:
+
+            #debug
+            '''
+            print('_KeyVariable is not a list')
+            print('_KeyVariable is '+str(_KeyVariable))
+            print('')
+            '''
+
+            #Escape
+            if len(_KeyVariable)==0:
+
+                #debug
+                '''
+                print('Pather l.330')
+                print('This is an empty _KeyVariable here')
+                print('_ValueVariable is '+str(_ValueVariable))
+                print('')
+                '''
+
+                pass
+
+            #Call a method of the dict
+            elif  (_KeyVariable[0].isalpha() or _KeyVariable[0:2]=="__") and  _KeyVariable[0].lower()==_KeyVariable[0]:
+
+                #debug
+                '''
+                print('Pather l.342')
+                print('_DictatedVariable is ',_DictatedVariable)
+                print('_KeyVariable is ',_KeyVariable)
+                print('_ValueVariable is ',_ValueVariable)
+                print('')
+                '''
+
+                #Get
+                Function=getattr(_DictatedVariable,_KeyVariable)
+
+                #Call
+                try:
+                    Function(
+                                *_ValueVariable['LiargVariablesList'],
+                                **_ValueVariable['KwargVariablesDict']
+                            )
+                except:
+                    Function(*_ValueVariable['LiargVariablesList'])
+
+                #Return 
+                return
+
+            #set deeply in the dict
+            elif _KeyVariable.startswith(PathingPrefixStr):
+
+                #Case of the dict or OrderedDict we have to convert in list to make the key been understood
+                if Type in [dict,collections.OrderedDict]:
+
+                    #Split
+                    _KeyVariable=_KeyVariable.split(PathingPrefixStr)[1:]
+
+                    #debug
+                    '''
+                    print('_KeyVariable has PathingPrefixStrs so convert the _KeyVariable into a list')
+                    print(_KeyVariable)
+                    print('')
+                    '''
+
+                    #set in the dict
+                    setWithPathVariableAndKeyVariable(
+                            _DictatedVariable,
+                            _KeyVariable,
+                            _ValueVariable
+                        )
+
+                    #Return 
+                    return
+
+                else:
+
+                    #debug
+                    '''
+                    print('_KeyVariable has PathingPrefixStrs bu the _DictatedVariable knows how to deal with that')
+                    '''
+
+                    #This is an object that understandsa already how to do
+                    _DictatedVariable[_KeyVariable]=_ValueVariable
+
+                    #Return 
+                    return
+
+            else:
+
+                #debug
+                '''
+                print('_KeyVariable has no PathingPrefixStr so set direclty')
+                print(_KeyVariable)
+                print('')
+                '''
+
+                #set 
+                _DictatedVariable[_KeyVariable]=_ValueVariable
+
+                #Return 
+                return
+
+    #List Case
+    if type(_DictatedVariable)==list:
+        if type(_KeyVariable)==list():
+            NextSlugger=getVariableWithDictatedVariableAndKeyVariable(_DictatedVariable,_KeyVariable[0])
+            setWithPathVariableAndKeyVariable(NextSlugger,_KeyVariable[1:],_ValueVariable)
+            return
+        else:
+            _DictatedVariable[_KeyVariable]=_ValueVariable
+            return    
+#&lt;/DefineFunctions&gt;
+</code></pre>
+<p><small>
+View the Pather sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Itemizers/Pather" target="_blank">Github</a>
+</small></p>
 </div>
 </div>
 </div></section><section>
@@ -2603,37 +3870,37 @@ In&nbsp;[26]:
 
 *****Start of the Attest *****
 
-MyPather is &lt; (PatherClass), 4348482000&gt;
+MyPather is &lt; (PatherClass), 4555208080&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;ChildPather&apos; : &lt; (PatherClass), 4348482640&gt;
+   /  &apos;&lt;New&gt;&lt;Instance&gt;ChildPather&apos; : &lt; (PatherClass), 4555207376&gt;
    /   /{ 
-   /   /  &apos;&lt;New&gt;&lt;Instance&gt;GrandChildPather&apos; : &lt; (PatherClass), 4348482448&gt;
+   /   /  &apos;&lt;New&gt;&lt;Instance&gt;GrandChildPather&apos; : &lt; (PatherClass), 4555208208&gt;
    /   /   /{ 
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4348482448
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4555208208
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedChildKeyStr&apos; : 
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedGetKeyStr&apos; : 
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedKeyStrsList&apos; : None
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathingKeyStr&apos; : 
    /   /   /}
-   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4348482640
+   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4555207376
    /   /  &apos;&lt;New&gt;&lt;Instance&gt;MyStr&apos; : I am the child
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedChildKeyStr&apos; : 
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedGetKeyStr&apos; : 
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedKeyStrsList&apos; : None
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathingKeyStr&apos; : 
    /   /}
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4348482000
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4555208080
    /  &apos;&lt;New&gt;&lt;Instance&gt;MyStr&apos; : I am the parent
-   /  &apos;&lt;New&gt;&lt;Instance&gt;OtherChildPather&apos; : &lt; (PatherClass), 4348483408&gt;
+   /  &apos;&lt;New&gt;&lt;Instance&gt;OtherChildPather&apos; : &lt; (PatherClass), 4555206800&gt;
    /   /{ 
-   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4348483408
+   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4555206800
    /   /  &apos;&lt;New&gt;&lt;Instance&gt;MyInt&apos; : 4
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedChildKeyStr&apos; : 
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedGetKeyStr&apos; : 
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedKeyStrsList&apos; : None
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathingKeyStr&apos; : 
    /   /}
-   /  &apos;&lt;New&gt;&lt;Instance&gt;SelfPather&apos; : {...}&lt; (PatherClass), 4348482000&gt;
+   /  &apos;&lt;New&gt;&lt;Instance&gt;SelfPather&apos; : {...}&lt; (PatherClass), 4555208080&gt;
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;PathedChildKeyStr&apos; : /GrandChildPather
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;PathedGetKeyStr&apos; : SelfPather
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;PathedKeyStrsList&apos; : [&apos;&apos;, &apos;SelfPather&apos;]
@@ -2642,17 +3909,17 @@ MyPather is &lt; (PatherClass), 4348482000&gt;
 
 ------
 
-MyPather[&apos;/ChildPather&apos;] is &lt; (PatherClass), 4348482640&gt;
+MyPather[&apos;/ChildPather&apos;] is &lt; (PatherClass), 4555207376&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;GrandChildPather&apos; : &lt; (PatherClass), 4348482448&gt;
+   /  &apos;&lt;New&gt;&lt;Instance&gt;GrandChildPather&apos; : &lt; (PatherClass), 4555208208&gt;
    /   /{ 
-   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4348482448
+   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4555208208
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedChildKeyStr&apos; : 
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedGetKeyStr&apos; : 
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedKeyStrsList&apos; : None
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathingKeyStr&apos; : 
    /   /}
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4348482640
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4555207376
    /  &apos;&lt;New&gt;&lt;Instance&gt;MyStr&apos; : I am the child
    /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedChildKeyStr&apos; : 
    /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedGetKeyStr&apos; : 
@@ -2662,9 +3929,9 @@ MyPather[&apos;/ChildPather&apos;] is &lt; (PatherClass), 4348482640&gt;
 
 ------
 
-MyPather[&apos;/ChildPather/GrandChildPather&apos;] is &lt; (PatherClass), 4348482448&gt;
+MyPather[&apos;/ChildPather/GrandChildPather&apos;] is &lt; (PatherClass), 4555208208&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4348482448
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4555208208
    /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedChildKeyStr&apos; : 
    /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedGetKeyStr&apos; : 
    /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedKeyStrsList&apos; : None
@@ -2715,6 +3982,148 @@ View the Grasper notebook on <a href="http://nbviewer.ipython.org/url/shareyours
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<!--
+FrozenIsBool False
+-->
+
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+A Grasper can get a GraspedGetVariable depending if the GraspingGetVariable
+is a PathStr, a GraspDict or directly the Variable itself.
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Itemizers.Pather"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+import collections
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineLocals&gt;
+class GraspDictClass(collections.OrderedDict):pass
+SYS.GraspDictClass=GraspDictClass
+#&lt;/DefineLocals&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class GrasperClass(BaseClass):
+
+    #Definition
+    RepresentingKeyStrsList=[
+                                'GraspingClueVariable',
+                                'GraspedAnswerVariable',    
+                                'GraspedClueVariableType'
+                            ]
+
+    def default_init(self,    
+                _GraspingClueVariable=None,
+                _GraspedAnswerVariable=None,    
+                _GraspedClueVariableType=None,    
+                **_KwargVariablesDict
+                ):
+
+        #Call the parent init method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def do_grasp(self):
+
+        #type
+        self.GraspedClueVariableType=type(self.GraspingClueVariable)
+
+        #debug
+        '''
+        self.debug(
+                    [
+                        ('self.',self,[
+                                        'GraspedClueVariableType',
+                                        'GraspingClueVariable'
+                                    ])
+                    ]
+                )
+        '''
+
+        #Check
+        if self.GraspedClueVariableType in SYS.StrTypesList:
+
+            #debug
+            '''
+            self.debug('We get with a pathstr')
+            '''
+
+            #It is a get through a PathStr
+            self.GraspedAnswerVariable=self[self.GraspingClueVariable]
+
+        elif self.GraspedClueVariableType==GraspDictClass:
+
+            #debug
+            '''
+            self.debug('We get with a GraspDict')
+            '''
+
+            #Check
+            if type(self.GraspingClueVariable['HintVariable']) in SYS.StrTypesList:
+
+                #debug
+                '''
+                self.debug(
+                            [
+                                'We get with a pathstr in the GraspDict',
+                                "self.GraspingClueVariable['HintVariable'] is "+self.GraspingClueVariable['HintVariable']
+                            ]
+                        )
+                '''
+
+                #The GraspDict has maybe a path str to get the thing
+                self.GraspedAnswerVariable=self[self.GraspingClueVariable['HintVariable']]
+
+            else:
+
+                #debug
+                '''
+                self.debug('We get direct in the GraspDict')
+                '''
+
+                #The GraspDict has maybe a path str to get the thing
+                self.GraspedAnswerVariable=self.GraspingClueVariable['HintVariable']
+
+        else:
+
+            #It is already getted
+            self.GraspedAnswerVariable=self.GraspingClueVariable
+
+
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Grasper sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Itemizers/Grasper" target="_blank">Github</a>
+</small></p>
+</div>
+</div>
+</div></section><section>
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <!---
 FrozenIsBool True
 -->
@@ -2730,7 +4139,7 @@ without the TypeStr in the end.</p>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[29]:
+In&nbsp;[30]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -2784,9 +4193,9 @@ MyGrasper.grasp(&apos;/ChildGrasper/MyStr&apos;).GraspedAnswerVariable is hello
 
 ------
 
-MyGrasper.grasp(MyGrasper.ChildGrasper).GraspedAnswerVariable is &lt; (GrasperClass), 4348483856&gt;
+MyGrasper.grasp(MyGrasper.ChildGrasper).GraspedAnswerVariable is &lt; (GrasperClass), 4555208400&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4348483856
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4555208400
    /  &apos;&lt;New&gt;&lt;Instance&gt;MyStr&apos; : hello
    /  &apos;&lt;Spe&gt;&lt;Class&gt;GraspedAnswerVariable&apos; : None
    /  &apos;&lt;Spe&gt;&lt;Class&gt;GraspedClueVariableType&apos; : None
@@ -2844,7 +4253,213 @@ View the Sharer notebook on <a href="http://nbviewer.ipython.org/url/shareyoursy
 FrozenIsBool False
 -->
 
-<p>View the Sharer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Itemizers/Installer">Github</a></p>
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+A Sharer can set attributes at the level of the class
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Itemizers.Grasper"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+from ShareYourSystem.Itemizers import Pather
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineLocals&gt;
+SharingStartStr="__class__."
+#&lt;/DefineLocals&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class SharerClass(BaseClass):
+
+    #Definition
+    RepresentingKeyStrsList=[
+                                    'SharingKeyStr',
+                                    'SharingValueVariable',
+                                    'SharedSetKeyStr',
+                                    'SharedClassDict'
+                                ]
+
+    def default_init(self,
+                _SharingKeyStr="",                     
+                _SharingValueVariable=None,                 
+                _SharedSetKeyStr="" ,
+                _SharedClassDict=None,                
+                **_KwargVariablesDict
+                ):
+
+        #Call the parent init method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def do_share(self):
+
+        #set
+        self.SharedSetKeyStr=SharingStartStr.join(self.SharingKeyStr.split(SharingStartStr)[1:])
+
+        #set at the level of the class
+        setattr(self.__class__,self.SharedSetKeyStr,self.SharingValueVariable)
+
+        #debug
+        '''
+        self.debug(
+                    ('self.',self,[
+                                    'SharedSetKeyStr',
+                                ])
+                )
+        '''
+
+    #&lt;Hook&gt;@Hooker.HookerClass(**{'HookingAfterVariablesList':[BaseClass.get]})
+    #@Imitater.ImitaterClass()
+    def mimic_get(self):
+
+        #debug
+        '''
+        self.debug(('self.',self,['GettingKeyVariable']))
+        '''
+
+        #Deep get
+        if self.GettingKeyVariable=='__class__':
+
+            #set
+            self.GettedValueVariable=self.__class__
+
+            #Return
+            return {'HookingIsBool':False}
+
+        elif self.GettingKeyVariable.startswith(SharingStartStr):
+
+            #Define
+            SharedGetString=SharingStartStr.join(
+                    self.GettingKeyVariable.split(SharingStartStr)[1:]
+                )
+
+            #debug
+            '''
+            self.debug('SharedGetString is '+SharedGetString)
+            '''
+
+            #Define
+            self.SharedClassDict=dict(
+                    map(
+                        lambda __KeyString:
+                        (
+                            __KeyString,
+                            getattr(
+                                self.__class__,
+                                __KeyString
+                            )
+                        ),
+                        dir(self.__class__)
+                    )+[('__mro__',self.__class__.__mro__)]
+                )
+
+            #debug
+            '''
+            self.debug(('self.',self,['SharedClassDict']))
+            '''
+
+            #get in the __class__
+            self.GettedValueVariable=Pather.getVariableWithDictatedVariableAndKeyVariable(
+                self.SharedClassDict,
+                SharedGetString
+            )
+
+            #Return
+            return {'HookingIsBool':False}
+
+
+        else:
+
+            #debug
+            '''
+            self.debug('BaseClass.get is '+str(BaseClass.get))
+            '''
+
+            #Get before with the parent method
+            OutputDict=BaseClass.get(self)
+
+            #Check that we have still to hook
+            if OutputDict==None or OutputDict["HookingIsBool"]:
+
+                #Check
+                if self.GettingKeyVariable in self.__class__.__dict__:
+
+                    #Get from the class
+                    self.GettedValueVariable=self.__class__.__dict__[self.GettingKeyVariable]
+
+                    #Return
+                    return {'HookingIsBool':False}
+
+            #Return
+            return {'HookingIsBool':True}
+
+    #&lt;Hook&gt;@Hooker.HookerClass(**{'HookingAfterVariablesList':[BaseClass.set]})
+    #@Imitater.ImitaterClass()
+    def mimic_set(self):
+        """ """
+
+        #debug
+        '''
+        self.debug(('self.',self,['SettingKeyVariable','SettingValueVariable']))
+        '''
+
+        #Definition
+        OutputDict={'HookingIsBool':True}
+
+        #Deep set
+        if self.SettingKeyVariable.startswith(SharingStartStr):
+
+            #debug
+            '''
+            self.debug('We are going to share')
+            '''
+
+            #Path
+            self.share(self.SettingKeyVariable,self.SettingValueVariable)
+
+            #debug
+            '''
+            self.debug(('self.',self,[
+                                        "SharedKeyStr",
+                                        "SharedChildKeyStr",
+                                        "SharedValueVariable"
+                                    ]
+                                ))
+            '''
+
+            #Stop the setting
+            OutputDict["HookingIsBool"]=False
+            #&lt;Hook&gt;return OutputDict
+
+        #Call the parent get method
+        if OutputDict['HookingIsBool']:
+            BaseClass.set(self)
+
+
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Sharer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Itemizers/Sharer" target="_blank">Github</a>
+</small></p>
 </div>
 </div>
 </div></section><section>
@@ -2869,7 +4484,7 @@ without the TypeStr in the end.</p>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[33]:
+In&nbsp;[34]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -2916,10 +4531,10 @@ In&nbsp;[33]:
 
 *****Start of the Attest *****
 
-MySharer is &lt; (SharerClass), 4348484112&gt;
+MySharer is &lt; (SharerClass), 4555208912&gt;
    /{ 
    /  &apos;&lt;New&gt;&lt;Class&gt;MyStr&apos; : I am setted at the level of the class
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4348484112
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4555208912
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;SharedClassDict&apos; : 
    /   /{ 
    /   /}
@@ -2983,7 +4598,125 @@ View the Executer notebook on <a href="http://nbviewer.ipython.org/url/shareyour
 FrozenIsBool False
 -->
 
-<p>View the Executer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Itemizers/Installer">Github</a></p>
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+An Executer can exec commands with the six.exec_ function
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Itemizers.Sharer"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+import six
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineLocals&gt;
+ExecutingPrefixStr="Exec_"
+#&lt;/DefineLocals&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class ExecuterClass(BaseClass):
+
+    #Definition
+    RepresentingKeyStrsList=[
+                                    'ExecutingPrefixStr'
+                                ]
+
+    def default_init(self,
+                _ExecutingPrefixStr="" ,
+                **_KwargVariablesDict):
+
+        #Call the parent __init__ method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    #&lt;Hook&gt;@Hooker.HookerClass(**{'HookingBeforeCallingDictsList':[BaseClass.get]})
+    #@Imitater.ImitaterClass()
+    def mimic_get(self):
+
+        #Check
+        if self.GettingKeyVariable.startswith(ExecutingPrefixStr):
+
+            #Definition the ExecStr
+            self.ExecutingPrefixStr=ExecutingPrefixStr.join(
+                self.GettingKeyVariable.split(ExecutingPrefixStr)[1:])
+
+            #debug
+            '''
+            self.debug(('self.',self,['ExecutingPrefixStr']))
+            '''
+
+            #Put the output in a local Local Variable
+            self.execute()
+
+        #debug
+        '''
+        self.debug('BaseClass.get is '+str(BaseClass.get))
+        '''
+
+        #Call the parent get method
+        return BaseClass.get(self)
+
+    #&lt;Hook&gt;@Hooker.HookerClass(**{'HookingBeforeCallingDictsList':[BaseClass.set]})
+    #@Imitater.ImitaterClass()
+    def mimic_set(self):
+
+        #Check
+        if type(self.SettingValueVariable
+            ) in SYS.StrTypesList and self.SettingValueVariable.startswith(
+            ExecutingPrefixStr):
+
+            #Definition the ExecStr
+            self.ExecutingPrefixStr=ExecutingPrefixStr.join(
+                self.SettingValueVariable.split(ExecutingPrefixStr)[1:])
+
+            #debug
+            '''
+            self.debug(('self.',self,['ExecutingPrefixStr',"SettingValueVariable"]))
+            '''
+
+            #Put the output in a local Local Variable
+            self.execute()
+
+            #debug
+            '''
+            self.debug(('self.',self,['ExecutingPrefixStr',"SettingValueVariable"]))
+            '''
+
+        #Call the parent get method
+        BaseClass.set(self)
+
+
+    def do_execute(self):
+
+        #Execute
+        six.exec_(self.ExecutingPrefixStr,locals())
+
+        #Return self
+        #return self
+
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Executer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Itemizers/Executer" target="_blank">Github</a>
+</small></p>
 </div>
 </div>
 </div></section><section>
@@ -3008,7 +4741,7 @@ without the TypeStr in the end.</p>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[37]:
+In&nbsp;[38]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -3107,7 +4840,174 @@ View the Pointer notebook on <a href="http://nbviewer.ipython.org/url/shareyours
 FrozenIsBool False
 -->
 
-<p>View the Pointer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Itemizers/Installer">Github</a></p>
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+A Pointer 
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Applyiers.Updater"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+from ShareYourSystem.Itemizers import Pather
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineLocals&gt;
+PointingPrefixStr=""
+PointingSuffixStr=""
+PointingBackStr="Back"
+#&lt;/DefineLocals&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class PointerClass(BaseClass):
+
+    #Definition
+    RepresentingKeyStrsList=[
+                                'PointingGetVariable',
+                                'PointingSetPathStr',
+                                'PointingBackSetStr',
+                                'PointedGetVariable',
+                                'PointedPathBackVariable',
+                                'PointedLocalSetStr',
+                                'PointedBackSetStr'
+                            ]
+
+    def default_init(
+                    self,        
+                    _PointingGetVariable=None,
+                    _PointingSetPathStr="",
+                    _PointingBackSetStr="",
+                    _PointedGetVariable=None,
+                    _PointedPathBackVariable="",
+                    _PointedPathBackStr="",
+                    _PointedLocalSetStr="",
+                    _PointedBackSetStr="",
+                    **_KwargVariablesDict
+                ):
+
+        #Call the parent init method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def do_point(self):
+
+        #debug
+        '''
+        self.debug(('self.',self,[
+                                    'PointingGetVariable',
+                                    'PointingSetPathStr'
+                                ]))
+        '''
+
+        #get
+        if type(self.PointingGetVariable) in SYS.StrTypesList:
+            self.PointedGetVariable=self[self.PointingGetVariable]
+        else:
+            self.PointedGetVariable=self.PointingGetVariable
+
+        #debug
+        '''
+        self.debug(
+                    [
+                        'After getting',
+                        ('self.',self,[
+                                        'PointingGetVariable',
+                                        'PointedGetVariable'
+                                        ]
+                                    )
+                    ]
+                )
+        '''
+
+        #set
+        self.PointedPathBackStr=Pather.getPathedBackGetStrWithGetStr(self.PointingSetPathStr)
+
+        #set
+        self.PointedLocalSetStr=self.PointingSetPathStr.split(
+            self.PointedPathBackStr+Pather.PathingPrefixStr)[-1]
+
+        #debug
+        '''
+        self.debug(('self.',self,[
+                                    'PointingSetPathStr',
+                                    'PointedPathBackStr',
+                                    'PointedLocalSetStr'
+                                ]))
+        '''
+
+        #set
+        self.SettingKeyVariable=self.PointedPathBackStr+Pather.PathingPrefixStr+PointingPrefixStr+self.PointedLocalSetStr+PointingSuffixStr
+
+        #debug
+        '''
+        self.debug(('self.',self,['SettingKeyVariable']))
+        '''
+
+        #set the point variable
+        self[
+                self.SettingKeyVariable
+            ]=self.PointedGetVariable
+
+        #set a back pointer
+        if self.PointingBackSetStr!="":
+
+            #debug
+            '''
+            self.debug(
+                        [
+                            'We point back here',
+                            ('self.',self,[
+                                                'PointingSetPathStr',
+                                                'PointingBackSetStr'
+                                        ])
+                        ]
+                    )
+            '''
+
+            #Get
+            self.PointedPathBackVariable=Pather.getPathedBackVariableWithVariableAndGetStr(
+                self,
+                self.PointingSetPathStr
+            )
+
+            #debug
+            '''
+            self.debug(('self.',self,[
+                                        'PointedGetVariable',
+                                        'PointedPathBackVariable',
+                                        'PointingBackSetStr'
+                                    ]))
+            '''
+
+            #link
+            self.PointedGetVariable[
+                self.PointingBackSetStr
+            ]=self.PointedPathBackVariable
+
+
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Pointer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Itemizers/Pointer" target="_blank">Github</a>
+</small></p>
 </div>
 </div>
 </div></section><section>
@@ -3132,7 +5032,7 @@ without the TypeStr in the end.</p>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[41]:
+In&nbsp;[42]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -3183,30 +5083,30 @@ In&nbsp;[41]:
 
 *****Start of the Attest *****
 
-MyPointer is &lt; (PointerClass), 4348484496&gt;
+MyPointer is &lt; (PointerClass), 4555209360&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;ChildPather&apos; : &lt; (PatherClass), 4348233936&gt;
+   /  &apos;&lt;New&gt;&lt;Instance&gt;ChildPather&apos; : &lt; (PatherClass), 4554627024&gt;
    /   /{ 
-   /   /  &apos;&lt;New&gt;&lt;Instance&gt;GrandChildPather&apos; : &lt; (PatherClass), 4348306064&gt;
+   /   /  &apos;&lt;New&gt;&lt;Instance&gt;GrandChildPather&apos; : &lt; (PatherClass), 4554690832&gt;
    /   /   /{ 
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4348306064
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4554690832
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedChildKeyStr&apos; : 
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedGetKeyStr&apos; : 
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedKeyStrsList&apos; : None
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathingKeyStr&apos; : 
    /   /   /}
-   /   /  &apos;&lt;New&gt;&lt;Instance&gt;GrandChildPather/GrandParentPointer&apos; : {...}&lt; (PointerClass), 4348484496&gt;
-   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4348233936
+   /   /  &apos;&lt;New&gt;&lt;Instance&gt;GrandChildPather/GrandParentPointer&apos; : {...}&lt; (PointerClass), 4555209360&gt;
+   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4554627024
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedChildKeyStr&apos; : 
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedGetKeyStr&apos; : 
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedKeyStrsList&apos; : None
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathingKeyStr&apos; : 
    /   /}
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4348484496
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4555209360
    /  &apos;&lt;Spe&gt;&lt;Class&gt;PointedBackSetStr&apos; : 
    /  &apos;&lt;Spe&gt;&lt;Class&gt;PointedPathBackVariable&apos; : 
    /  &apos;&lt;Spe&gt;&lt;Class&gt;PointingBackSetStr&apos; : 
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;PointedGetVariable&apos; : {...}&lt; (PointerClass), 4348484496&gt;
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;PointedGetVariable&apos; : {...}&lt; (PointerClass), 4555209360&gt;
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;PointedLocalSetStr&apos; : GrandParentPointer
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;PointingGetVariable&apos; : /
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;PointingSetPathStr&apos; : /ChildPather/GrandChildPather/GrandParentPointer

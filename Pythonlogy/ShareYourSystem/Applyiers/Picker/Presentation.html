@@ -1753,7 +1753,79 @@ View the Picker notebook on <a href="http://nbviewer.ipython.org/url/shareyoursy
 FrozenIsBool False
 -->
 
-<p>View the Picker sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Applyiers/Installer">Github</a></p>
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+A Picker maps a __getitem__
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Applyiers.Mapper"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass(**{'DoingGetBool':True})
+class PickerClass(BaseClass):
+
+    def default_init(self,
+                _PickingGetKeyVariablesList=None,
+                _PickedGetValueVariablesList=None,
+                **_KwargVariablesDict
+                ):
+
+        #Call the parent init method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def do_pick(self):
+        """Map the __getitem__ to the &lt;_GettingVariablesList&gt;"""
+
+        #debug
+        '''
+        self.debug(('self.',self,['PickingGetKeyVariablesList']))
+        '''
+
+        #Apply __getitem__
+        self.map('__getitem__',map(
+                                    lambda __PickingKeyVariable:
+                                    {'LiargVariablesList':[__PickingKeyVariable]},
+                                    self.PickingGetKeyVariablesList
+                                )
+                    )
+
+        #link with AppliedMappedVariablesList
+        self.PickedGetValueVariablesList=self.MappedVariablesList
+
+        #debug
+        '''
+        self.debug(('self.',self,['PickedGetValueVariablesList']))
+        '''
+
+        #Return AppliedVariablesList
+        return self.PickedGetValueVariablesList
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Picker sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Applyiers/Picker" target="_blank">Github</a>
+</small></p>
 </div>
 </div>
 </div></section><section>
@@ -1844,9 +1916,9 @@ In&nbsp;[3]:
 PickedVariablesList is 
    /[
    /  0 : 0
-   /  1 : &lt; (PickerClass), 4550544528&gt;
+   /  1 : &lt; (PickerClass), 4556355472&gt;
    /   /{ 
-   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550544528
+   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4556355472
    /   /  &apos;&lt;New&gt;&lt;Instance&gt;MyStr&apos; : hello
    /   /}
    /  2 : hello

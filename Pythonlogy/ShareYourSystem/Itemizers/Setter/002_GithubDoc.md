@@ -102,6 +102,6 @@ class SetterClass(BaseClass):
 ```
 
 <small>
-View the Setter sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Itemizers/Setter)
+View the Setter sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Itemizers/Setter" target="_blank">Github</a>
 </small>
 

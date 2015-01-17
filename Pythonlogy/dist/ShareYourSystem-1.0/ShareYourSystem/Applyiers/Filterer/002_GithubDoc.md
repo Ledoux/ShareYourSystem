@@ -102,6 +102,6 @@ class FiltererClass(BaseClass):
 ```
 
 <small>
-View the Filterer sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Applyiers/Filterer)
+View the Filterer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Applyiers/Filterer" target="_blank">Github</a>
 </small>
 

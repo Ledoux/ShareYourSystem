@@ -5,7 +5,6 @@ from ShareYourSystem.Ploters import Ploter
 from numpy import random
 
 #Define
-
 MyPloter=Ploter.PloterClass().plot(
 		random.rand(100),
 		random.rand(100)

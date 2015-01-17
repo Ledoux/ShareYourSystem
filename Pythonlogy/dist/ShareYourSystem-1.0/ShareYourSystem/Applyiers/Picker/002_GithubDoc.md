@@ -80,6 +80,6 @@ class PickerClass(BaseClass):
 ```
 
 <small>
-View the Picker sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Applyiers/Picker)
+View the Picker sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Applyiers/Picker" target="_blank">Github</a>
 </small>
 

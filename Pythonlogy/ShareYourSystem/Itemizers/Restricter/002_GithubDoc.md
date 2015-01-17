@@ -127,6 +127,6 @@ class RestricterClass(BaseClass):
 ```
 
 <small>
-View the Restricter sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Itemizers/Restricter)
+View the Restricter sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Itemizers/Restricter" target="_blank">Github</a>
 </small>
 

@@ -1,15 +1,28 @@
 
+
+<!--
+FrozenIsBool False
+-->
+
 #Structurer
- @Date : Fri Nov 14 13:20:38 2014
 
-@Author : Erwan Ledoux
+##Doc
+----
 
 
+>
+> A Structurer is the last level of class that helps for building
+> hierarchic structures. For a certain <StructuringNodeStr> it walks to group
+> everybody in the hfd5.
+>
+>
 
-A Structurer is the last level of class that helps for building hierarchic
-structures. For a certain <StructuringNodeStr> it walks to group everybody in
-the hfd5.
+----
 
+<small>
+View the Structurer notebook on [NbViewer](http://nbviewer.ipython.org/url/share
+yoursystem.ouvaton.org/Structurer.ipynb)
+</small>
 
 
 
@@ -18,8 +31,114 @@ the hfd5.
 FrozenIsBool False
 -->
 
-View the Structurer sources on [Github](https://github.com/Ledoux/ShareYourSyste
-m/tree/master/ShareYourSystem/Noders/Installer)
+##Code
+
+----
+
+<ClassDocStr>
+
+----
+
+```python
+# -*- coding: utf-8 -*-
+"""
+
+
+<DefineSource>
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+</DefineSource>
+
+
+A Structurer is the last level of class that helps for building
+hierarchic structures. For a certain <StructuringNodeStr> it walks to group
+everybody in the hfd5.
+
+"""
+
+#<DefineAugmentation>
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Noders.Grouper"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#</DefineAugmentation>
+
+#<ImportSpecificModules>
+from ShareYourSystem.Noders import Noder
+#</ImportSpecificModules>
+
+#<DefineClass>
+@DecorationClass()
+class StructurerClass(BaseClass):
+
+        #Definition
+        RepresentingKeyStrsList=[
+'StructuringNodeCollectionStrsList',
+'StructuringBeforeUpdateList'
+                                                                ]
+
+        #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':
+BaseClass.__init__}]})
+        def default_init(self,
+_StructuringNodeCollectionStrsList=[],
+_StructuringBeforeUpdateList=None,
+                                                **_KwargVariablesDict
+                                        ):
+
+                #Call the parent __init__ method
+                BaseClass.__init__(self,**_KwargVariablesDict)
+
+        #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingMethodStr'
+:'hdformat'}]})
+        def do_structure(self):
+
+                #debug
+                '''
+                self.debug(('self.',self,['ParentingNodeStr']))
+                '''
+
+                #<NotHook>
+                #hdformat first
+                self.hdformat()
+                #</NotHook>
+
+                """
+                print([
+('parent',{'LiargVariablesList':[self.ParentingNodeStr]}),
+('group',{'LiargVariablesList':[]})
+]+self.StructuringBeforeUpdateList)
+                """
+
+                #Walk while parentizing and grouping
+                self.walk(
+                                        {
+                                                'BeforeUpdateList':
+                                                [
+('parent',{'LiargVariablesList':[]}),
+('group',{'LiargVariablesList':[]})
+]+self.StructuringBeforeUpdateList,
+                                                'GatherVariablesList':map(
+                                                                lambda
+__StructuringNodeCollectionStr:
+                                                                Noder.NodingPref
+ixGetStr+__StructuringNodeCollectionStr+Noder.NodingSuffixGetStr,
+self.StructuringNodeCollectionStrsList
+                                                        )
+                                        }
+                                )
+
+                #Return self
+                #return self
+
+#</DefineClass>
+
+```
+
+<small>
+View the Structurer sources on <a href="https://github.com/Ledoux/ShareYourSyste
+m/tree/master/Pythonlogy/ShareYourSystem/Noders/Structurer"
+target="_blank">Github</a>
+</small>
 
 
 
@@ -87,124 +206,34 @@ SYS._attest(
 
 ```console
 >>>
-Doer l.132 : DoerStr is Structurer
-DoStr is Structure
-DoMethodStr is structure
-DoingStr is Structuring
-DoneStr is Structured
-
-l 35
-In the switch function
-_KwargVariablesDict is
-{'BindObserveWrapMethodStr': 'watch_superDo_parent', 'WatchDoBoolKeyStr':
-'WatchParentWithParenterBool', 'BindDoClassStr': 'ParenterClass'}
-
-l 35
-In the switch function
-_KwargVariablesDict is
-{'BindObserveWrapMethodStr': 'watch_superDo_parent', 'WatchDoBoolKeyStr':
-'WatchParentWithParenterBool', 'BindDoClassStr': 'ParenterClass'}
-
-l 35
-In the switch function
-_KwargVariablesDict is
-{'BindObserveWrapMethodStr': 'watch_superDo_parent', 'WatchDoBoolKeyStr':
-'WatchParentWithParenterBool', 'BindDoClassStr': 'ParenterClass'}
-
-l 35
-In the switch function
-_KwargVariablesDict is
-{'BindObserveWrapMethodStr': 'watch_superDo_parent', 'WatchDoBoolKeyStr':
-'WatchParentWithParenterBool', 'BindDoClassStr': 'ParenterClass'}
-
-l 35
-In the switch function
-_KwargVariablesDict is
-{'BindObserveWrapMethodStr': 'watch_superDo_parent', 'WatchDoBoolKeyStr':
-'WatchParentWithParenterBool', 'BindDoClassStr': 'ParenterClass'}
-
-l 35
-In the switch function
-_KwargVariablesDict is
-{'BindObserveWrapMethodStr': 'watch_superDo_parent', 'WatchDoBoolKeyStr':
-'WatchParentWithParenterBool', 'BindDoClassStr': 'ParenterClass'}
-
-l 35
-In the switch function
-_KwargVariablesDict is
-{'BindObserveWrapMethodStr': 'watch_superDo_parent', 'WatchDoBoolKeyStr':
-'WatchParentWithParenterBool', 'BindDoClassStr': 'ParenterClass'}
-
-l 35
-In the switch function
-_KwargVariablesDict is
-{'BindObserveWrapMethodStr': 'watch_superDo_parent', 'WatchDoBoolKeyStr':
-'WatchParentWithParenterBool', 'BindDoClassStr': 'ParenterClass'}
-
-l 35
-In the switch function
-_KwargVariablesDict is
-{'BindObserveWrapMethodStr': 'watch_superDo_parent', 'WatchDoBoolKeyStr':
-'WatchParentWithParenterBool', 'BindDoClassStr': 'ParenterClass'}
-
-l 35
-In the switch function
-_KwargVariablesDict is
-{'BindObserveWrapMethodStr': 'watch_superDo_parent', 'WatchDoBoolKeyStr':
-'WatchParentWithParenterBool', 'BindDoClassStr': 'ParenterClass'}
-
-l 35
-In the switch function
-_KwargVariablesDict is
-{'BindObserveWrapMethodStr': 'watch_superDo_parent', 'WatchDoBoolKeyStr':
-'WatchParentWithParenterBool', 'BindDoClassStr': 'ParenterClass'}
-
-l 35
-In the switch function
-_KwargVariablesDict is
-{'BindObserveWrapMethodStr': 'watch_superDo_parent', 'WatchDoBoolKeyStr':
-'WatchParentWithParenterBool', 'BindDoClassStr': 'ParenterClass'}
-
-l 35
-In the switch function
-_KwargVariablesDict is
-{'BindObserveWrapMethodStr': 'watch_superDo_parent', 'WatchDoBoolKeyStr':
-'WatchParentWithParenterBool', 'BindDoClassStr': 'ParenterClass'}
-
-l 35
-In the switch function
-_KwargVariablesDict is
-{'BindObserveWrapMethodStr': 'watch_superDo_parent', 'WatchDoBoolKeyStr':
-'WatchParentWithParenterBool', 'BindDoClassStr': 'ParenterClass'}
-
 
 
 *****Start of the Attest *****
 
-MyStructurer is < (StructurerClass), 4570208400>
+MyStructurer is < (StructurerClass), 4555635664>
    /{
-   /  '<New><Instance>ApplyingIsBool' : False
    /  '<New><Instance>GraphCollectionOrderedDict' :
    /   /{
-   /   /  'FirstChildStructurer' : < (StructurerClass), 4570318544>
+   /   /  'FirstChildStructurer' : < (StructurerClass), 4555535184>
    /   /   /{
-   /   /   /  '<New><Instance>ApplyingIsBool' : False
    /   /   /  '<New><Instance>GraphCollectionOrderedDict' :
    /   /   /   /{
-   /   /   /   /  'GrandChildStructurer' : < (StructurerClass), 4570317840>
+   /   /   /   /  'GrandChildStructurer' : < (StructurerClass), 4555535440>
    /   /   /   /   /{
-   /   /   /   /   /  '<New><Instance>ApplyingIsBool' : False
    /   /   /   /   /  '<New><Instance>GraphCollectionOrderedDict' :
    /   /   /   /   /   /{
    /   /   /   /   /   /}
-   /   /   /   /   /  '<New><Instance>IdStr' : 4570317840
+   /   /   /   /   /  '<New><Instance>IdInt' : 4555535440
+   /   /   /   /   /  '<New><Instance>NewtorkAttentionStr' :
+   /   /   /   /   /  '<New><Instance>NewtorkCatchStr' :
+   /   /   /   /   /  '<New><Instance>NewtorkCollectionStr' :
    /   /   /   /   /  '<New><Instance>NodeCollectionStr' : Graph
    /   /   /   /   /  '<New><Instance>NodeIndexInt' : 0
    /   /   /   /   /  '<New><Instance>NodeKeyStr' : GrandChildStructurer
    /   /   /   /   /  '<New><Instance>NodePointDeriveNoder' : {...}<
-(StructurerClass), 4570318544>
+(StructurerClass), 4555535184>
    /   /   /   /   /  '<New><Instance>NodePointOrderedDict' : {...}<
-(OrderedDict), 4570323344>
+(OrderedDict), 4557178688>
    /   /   /   /   /  '<New><Instance>TreeCollectionOrderedDict' :
    /   /   /   /   /   /{
    /   /   /   /   /   /}
@@ -212,68 +241,78 @@ MyStructurer is < (StructurerClass), 4570208400>
    /   /   /   /   /  '<Spe><Class>StructuringNodeCollectionStrsList' : []
    /   /   /   /   /}
    /   /   /   /}
-   /   /   /  '<New><Instance>IdStr' : 4570318544
+   /   /   /  '<New><Instance>IdInt' : 4555535184
+   /   /   /  '<New><Instance>NewtorkAttentionStr' :
+   /   /   /  '<New><Instance>NewtorkCatchStr' :
+   /   /   /  '<New><Instance>NewtorkCollectionStr' :
    /   /   /  '<New><Instance>NodeCollectionStr' : Graph
    /   /   /  '<New><Instance>NodeIndexInt' : 0
    /   /   /  '<New><Instance>NodeKeyStr' : FirstChildStructurer
    /   /   /  '<New><Instance>NodePointDeriveNoder' : {...}< (StructurerClass),
-4570208400>
+4555635664>
    /   /   /  '<New><Instance>NodePointOrderedDict' : {...}< (OrderedDict),
-4570323936>
+4557179280>
    /   /   /  '<New><Instance>TreeCollectionOrderedDict' :
    /   /   /   /{
    /   /   /   /}
    /   /   /  '<Spe><Class>StructuringBeforeUpdateList' : None
    /   /   /  '<Spe><Class>StructuringNodeCollectionStrsList' : {...}< (list),
-4570202408>
+4556259696>
    /   /   /}
-   /   /  'SecondChildStructurer' : < (StructurerClass), 4570210256>
+   /   /  'SecondChildStructurer' : < (StructurerClass), 4555537808>
    /   /   /{
-   /   /   /  '<New><Instance>ApplyingIsBool' : False
    /   /   /  '<New><Instance>GraphCollectionOrderedDict' :
    /   /   /   /{
    /   /   /   /}
-   /   /   /  '<New><Instance>IdStr' : 4570210256
+   /   /   /  '<New><Instance>IdInt' : 4555537808
+   /   /   /  '<New><Instance>NewtorkAttentionStr' :
+   /   /   /  '<New><Instance>NewtorkCatchStr' :
+   /   /   /  '<New><Instance>NewtorkCollectionStr' :
    /   /   /  '<New><Instance>NodeCollectionStr' : Graph
    /   /   /  '<New><Instance>NodeIndexInt' : 1
    /   /   /  '<New><Instance>NodeKeyStr' : SecondChildStructurer
    /   /   /  '<New><Instance>NodePointDeriveNoder' : {...}< (StructurerClass),
-4570208400>
+4555635664>
    /   /   /  '<New><Instance>NodePointOrderedDict' : {...}< (OrderedDict),
-4570323936>
+4557179280>
    /   /   /  '<New><Instance>TreeCollectionOrderedDict' :
    /   /   /   /{
-   /   /   /   /  'OtherGrandChildStructurer' : < (StructurerClass), 4570320016>
+   /   /   /   /  'OtherGrandChildStructurer' : < (StructurerClass), 4555538000>
    /   /   /   /   /{
-   /   /   /   /   /  '<New><Instance>ApplyingIsBool' : False
    /   /   /   /   /  '<New><Instance>GraphCollectionOrderedDict' :
    /   /   /   /   /   /{
    /   /   /   /   /   /}
-   /   /   /   /   /  '<New><Instance>IdStr' : 4570320016
+   /   /   /   /   /  '<New><Instance>IdInt' : 4555538000
+   /   /   /   /   /  '<New><Instance>NewtorkAttentionStr' :
+   /   /   /   /   /  '<New><Instance>NewtorkCatchStr' :
+   /   /   /   /   /  '<New><Instance>NewtorkCollectionStr' :
    /   /   /   /   /  '<New><Instance>NodeCollectionStr' : Tree
    /   /   /   /   /  '<New><Instance>NodeIndexInt' : 0
    /   /   /   /   /  '<New><Instance>NodeKeyStr' : OtherGrandChildStructurer
    /   /   /   /   /  '<New><Instance>NodePointDeriveNoder' : {...}<
-(StructurerClass), 4570210256>
+(StructurerClass), 4555537808>
    /   /   /   /   /  '<New><Instance>NodePointOrderedDict' : {...}<
-(OrderedDict), 4570323640>
+(OrderedDict), 4557178984>
    /   /   /   /   /  '<New><Instance>TreeCollectionOrderedDict' :
    /   /   /   /   /   /{
    /   /   /   /   /   /}
    /   /   /   /   /  '<Spe><Class>StructuringBeforeUpdateList' : None
    /   /   /   /   /  '<Spe><Class>StructuringNodeCollectionStrsList' : {...}<
-(list), 4570202408>
+(list), 4556259696>
    /   /   /   /   /}
    /   /   /   /}
    /   /   /  '<Spe><Class>StructuringBeforeUpdateList' : None
    /   /   /  '<Spe><Class>StructuringNodeCollectionStrsList' : {...}< (list),
-4570202408>
+4556259696>
    /   /   /}
    /   /}
-   /  '<New><Instance>IdStr' : 4570208400
-   /  '<New><Instance>NodeCollectionStr' : Global
+   /  '<New><Instance>IdInt' : 4555635664
+   /  '<New><Instance>NewtorkAttentionStr' :
+   /  '<New><Instance>NewtorkCatchStr' :
+   /  '<New><Instance>NewtorkCollectionStr' :
+   /  '<New><Instance>NodeCollectionStr' : Globals
    /  '<New><Instance>NodeIndexInt' : -1
-   /  '<New><Instance>NodeKeyStr' :
+   /  '<New><Instance>NodeKeyStr' : TopStructurer
    /  '<New><Instance>NodePointDeriveNoder' : None
    /  '<New><Instance>NodePointOrderedDict' : None
    /  '<New><Instance>TreeCollectionOrderedDict' :
@@ -286,10 +325,49 @@ MyStructurer is < (StructurerClass), 4570208400>
 ------
 
 MyStructurer.hdfview().HdformatedStr is /                        Group
-/FirstChildStructurer    Group
-/FirstChildStructurer/GrandChildStructurer Group
-/SecondChildStructurer   Group
-/SecondChildStructurer/OtherGrandChildStructurer Group
+/TopStructurer           Group
+/TopStructurer/FirstChildStructurer Group
+/TopStructurer/FirstChildStructurer/GrandChildStructurer Group
+/TopStructurer/SecondChildStructurer Group
+/TopStructurer/SecondChildStructurer/OtherGrandChildStructurer Group
+/xx0xxThingsFindoerTable Dataset {3/Inf}
+    Data:
+        (0) {ModeledInt=0, MyInt=1, MyIntsList=[0,0,1], MyStr="bonjour"},
+        (1) {ModeledInt=1, MyInt=0, MyIntsList=[0,0,1], MyStr="guten tag"},
+        (2) {ModeledInt=2, MyInt=1, MyIntsList=[0,0,0], MyStr="bonjour"}
+/xx0xxThingsFlusherTable Dataset {2/Inf}
+    Data:
+        (0) {ModeledInt=0, MyInt=1, MyIntsList=[2,4,6], MyStr="bonjour"},
+        (1) {ModeledInt=1, MyInt=0, MyIntsList=[0,0,0], MyStr="hello"}
+/xx0xxThingsRecovererTable Dataset {3/Inf}
+    Data:
+        (0) {ModeledInt=0, MyInt=1, MyIntsList=[0,0,1], MyStr="bonjour"},
+        (1) {ModeledInt=1, MyInt=0, MyIntsList=[0,0,1], MyStr="guten tag"},
+        (2) {ModeledInt=2, MyInt=1, MyIntsList=[0,0,0], MyStr="bonjour"}
+/xx0xxThingsRetrieverTable Dataset {2/Inf}
+    Data:
+        (0) {ModeledInt=0, MyInt=1, MyIntsList=[2,4,6], MyStr="bonjour"},
+        (1) {ModeledInt=1, MyInt=0, MyIntsList=[0,0,0], MyStr="guten tag"}
+/xx0xxThingsRowerTable   Dataset {0/Inf}
+    Data:
+
+/xx0xxThingsTablerTable  Dataset {0/Inf}
+    Data:
+
+/xx0xx__UnitsInt_3__ThingsMergerTable Dataset {2/Inf}
+    Data:
+        (0) {ModeledInt=0, MyInt=0, MyIntsList=[0,0,1], MyStr="hello"},
+        (1) {ModeledInt=1, MyInt=1, MyIntsList=[0,0,1], MyStr="bonjour"}
+/xx0xx__UnitsInt_3__ThingsShaperTable Dataset {2/Inf}
+    Data:
+        (0) {ModeledInt=0, MyInt=0, MyIntsList=[0,0,1], MyStr="hello"},
+        (1) {ModeledInt=1, MyInt=1, MyIntsList=[0,0,1], MyStr="bonjour"}
+/xx1xx__UnitsInt_2__ThingsMergerTable Dataset {1/Inf}
+    Data:
+        (0) {ModeledInt=0, MyInt=0, MyIntsList=[0,0], MyStr=""}
+/xx1xx__UnitsInt_2__ThingsShaperTable Dataset {1/Inf}
+    Data:
+        (0) {ModeledInt=0, MyInt=0, MyIntsList=[0,0], MyStr=""}
 
 
 *****End of the Attest *****

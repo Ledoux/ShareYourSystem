@@ -31,7 +31,9 @@ InstallingLibraryFolderPathStr=InstallingSysFolderPathStr+'/docs/LibraryReferenc
 #</DefineLocals>
 
 #<DefineClass>
-@DecorationClass()
+@DecorationClass(**{
+	'ClassingSwitchMethodStrsList':['install']
+})
 class InstallerClass(BaseClass):
 	
 	#Definition

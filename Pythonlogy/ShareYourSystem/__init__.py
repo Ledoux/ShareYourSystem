@@ -25,7 +25,7 @@ import sys
 #</ImportSpecificModules>
 
 #<DefineLocals>
-OuvatonUrlStr="https://shareyoursystem.ouvaton.org"
+OuvatonUrlStr="http://shareyoursystem.ouvaton.org"
 ShareYourSystemLocalFolderPathStr='/Users/ledoux/Documents/ShareYourSystem/'
 OuvatonLocalFolderPathStr=ShareYourSystemLocalFolderPathStr+"Ouvaton/"
 PythonlogyLocalFolderPathStr=ShareYourSystemLocalFolderPathStr+'Pythonlogy/'
@@ -60,7 +60,7 @@ ConceptStrsTuplesList=[
 	('Applyier','Applyiers'),
 	('Walker','Walkers'),
 	('Noder','Noders'),
-	('Saver','Savers'),
+	('Storer','Storers'),
 	('Databaser','Databasers'),
 	('Ploter','Ploters'),
 	('Tutorials','Tutorials'),
@@ -804,6 +804,8 @@ def getProcessIdStrsListWithProcessNameStr(_ProcessNameStr):
 					).read().split('\n')
 				)
 			)
+
+
 #</DefineFunctions>
 
 #<DefineLocals>

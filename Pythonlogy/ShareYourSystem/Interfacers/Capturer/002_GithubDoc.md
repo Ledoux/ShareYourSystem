@@ -106,6 +106,6 @@ class CapturerClass(BaseClass):
 ```
 
 <small>
-View the Capturer sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Capturer)
+View the Capturer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Capturer" target="_blank">Github</a>
 </small>
 

@@ -1851,7 +1851,7 @@ class StatuserClass(BaseClass):
 #&lt;/DefineClass&gt;
 </code></pre>
 <p><small>
-View the Statuser sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Statuser">Github</a>
+View the Statuser sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Statuser" target="_blank">Github</a>
 </small></p>
 </div>
 </div>
@@ -1902,13 +1902,13 @@ In&nbsp;[2]:
 
 *****Start of the Attest *****
 
-MyStatuser is &lt; (StatuserClass), 4554871120&gt;
+MyStatuser is &lt; (StatuserClass), 4554248976&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4554871120
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;StatusedIdStrsList&apos; : [&apos;4489&apos;]
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;StatusedLineStrsList&apos; : [&apos;  501  4489   344   0  3:02PM ttys000    0:00.45 /usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Versions/2.7/Resources/Python.app/Contents/MacOS/Python inform.py&apos;]
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;StatusedSnapshotStr&apos; :   501  4489   344   0  3:02PM ttys000    0:00.45 /usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Versions/2.7/Resources/Python.app/Contents/MacOS/Python inform.py
-  501  4621  4619   0  3:02PM ttys000    0:00.00 grep Python
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4554248976
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;StatusedIdStrsList&apos; : [&apos;15410&apos;]
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;StatusedLineStrsList&apos; : [&apos;  501 15410 12535   0  5:55PM ttys000    0:01.18 /usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Versions/2.7/Resources/Python.app/Contents/MacOS/Python inform.py&apos;]
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;StatusedSnapshotStr&apos; :   501 15410 12535   0  5:55PM ttys000    0:01.18 /usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Versions/2.7/Resources/Python.app/Contents/MacOS/Python inform.py
+  501 16092 16090   0  5:56PM ttys000    0:00.00 grep Python
 
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;StatusingProcessStr&apos; : Python
    /}

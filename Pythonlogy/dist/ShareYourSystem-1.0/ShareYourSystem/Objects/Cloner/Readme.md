@@ -308,8 +308,8 @@ self.ClonedValueTuplesList
 ```
 
 <small>
-View the Cloner sources on [Github](https://github.com/Ledoux/ShareYourSystem/tr
-ee/master/ShareYourSystem/Objects/Cloner)
+View the Cloner sources on <a href="https://github.com/Ledoux/ShareYourSystem/tr
+ee/master/Pythonlogy/ShareYourSystem/Objects/Cloner" target="_blank">Github</a>
 </small>
 
 
@@ -360,19 +360,19 @@ SYS._attest(
 ('MyInt', 1)
 ('ClonedItemTuplesList', [])
 ('CloningIdsDict', {})
-('IdInt', 4457658576)
+('IdInt', 4537117328)
 
 
 *****Start of the Attest *****
 
-MyCloner is < (ClonerClass), 4457658576>
+MyCloner is < (ClonerClass), 4537117328>
    /{
-   /  '<New><Instance>IdInt' : 4457658576
+   /  '<New><Instance>IdInt' : 4537117328
    /  '<New><Instance>MyInt' : 1
    /  '<Spe><Class>CloningResetBool' : False
-   /  '<Spe><Instance>ClonedCopyVariable' : < (ClonerClass), 4457658768>
+   /  '<Spe><Instance>ClonedCopyVariable' : < (ClonerClass), 4537117520>
    /   /{
-   /   /  '<New><Instance>IdInt' : 4457658576
+   /   /  '<New><Instance>IdInt' : 4537117328
    /   /  '<New><Instance>MyInt' : 2
    /   /  '<Spe><Class>ClonedCopyVariable' : None
    /   /  '<Spe><Class>CloningResetBool' : False
@@ -396,11 +396,11 @@ MyCloner is < (ClonerClass), 4457658576>
    /   /   /   /   /{
    /   /   /   /   /}
    /   /   /   /)
-   /   /   /  4 : ('IdInt', 4457658576)
+   /   /   /  4 : ('IdInt', 4537117328)
    /   /   /]
-   /   /  '<Spe><Instance>CloningIdsDict' : {...}< (dict), 4457645792>
+   /   /  '<Spe><Instance>CloningIdsDict' : {...}< (dict), 4537108752>
    /   /  '<Spe><Instance>CloningNotCopyKeyStringsList' : {...}< (list),
-4457690968>
+4537089200>
    /   /}
    /  '<Spe><Instance>ClonedItemTuplesList' :
    /   /[
@@ -409,7 +409,7 @@ MyCloner is < (ClonerClass), 4457658576>
    /   /   /  0 : CloningNotCopyKeyStringsList
    /   /   /  1 : []
    /   /   /)
-   /   /  1 : {...}< (tuple), 4457177312>
+   /   /  1 : {...}< (tuple), 4536798816>
    /   /  2 :
    /   /   /(
    /   /   /  0 : ClonedItemTuplesList
@@ -422,17 +422,17 @@ MyCloner is < (ClonerClass), 4457658576>
    /   /   /   /{
    /   /   /   /}
    /   /   /)
-   /   /  4 : {...}< (tuple), 4457174152>
+   /   /  4 : {...}< (tuple), 4536619304>
    /   /]
-   /  '<Spe><Instance>CloningIdsDict' : {...}< (dict), 4457434760>
-   /  '<Spe><Instance>CloningNotCopyKeyStringsList' : {...}< (list), 4457691040>
+   /  '<Spe><Instance>CloningIdsDict' : {...}< (dict), 4537090408>
+   /  '<Spe><Instance>CloningNotCopyKeyStringsList' : {...}< (list), 4537089272>
    /}
 
 ------
 
-MyFirstCloner is < (ClonerClass), 4457658768>
+MyFirstCloner is < (ClonerClass), 4537117520>
    /{
-   /  '<New><Instance>IdInt' : 4457658576
+   /  '<New><Instance>IdInt' : 4537117328
    /  '<New><Instance>MyInt' : 2
    /  '<Spe><Class>ClonedCopyVariable' : None
    /  '<Spe><Class>CloningResetBool' : False
@@ -456,10 +456,10 @@ MyFirstCloner is < (ClonerClass), 4457658768>
    /   /   /   /{
    /   /   /   /}
    /   /   /)
-   /   /  4 : ('IdInt', 4457658576)
+   /   /  4 : ('IdInt', 4537117328)
    /   /]
-   /  '<Spe><Instance>CloningIdsDict' : {...}< (dict), 4457645792>
-   /  '<Spe><Instance>CloningNotCopyKeyStringsList' : {...}< (list), 4457690968>
+   /  '<Spe><Instance>CloningIdsDict' : {...}< (dict), 4537108752>
+   /  '<Spe><Instance>CloningNotCopyKeyStringsList' : {...}< (list), 4537089200>
    /}
 
 *****End of the Attest *****

@@ -127,6 +127,6 @@ class ObserverClass(BaseClass):
 ```
 
 <small>
-View the Observer sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Classors/Observer)
+View the Observer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Classors/Observer" target="_blank">Github</a>
 </small>
 

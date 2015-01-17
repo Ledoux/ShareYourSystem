@@ -1836,7 +1836,7 @@ class ConcluderClass(BaseClass):
 #&lt;/DefineClass&gt;
 </code></pre>
 <p><small>
-View the Concluder sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Objects/Concluder">Github</a>
+View the Concluder sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Objects/Concluder" target="_blank">Github</a>
 </small></p>
 </div>
 </div>
@@ -1909,9 +1909,9 @@ In&nbsp;[3]:
 
 *****Start of the Attest *****
 
-MyConcluder is &lt; (ConcluderClass), 4457658832&gt;
+MyConcluder is &lt; (ConcluderClass), 4537219024&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4457658832
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4537219024
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;ConcludedConditionIsBoolsList&apos; : 
    /   /[
    /   /  0 : True
@@ -1936,7 +1936,7 @@ MyConcluder is &lt; (ConcluderClass), 4457658832&gt;
    /   /  2 : 
    /   /   /(
    /   /   /  0 : 1
-   /   /   /  1 : {...}&lt; (builtin_function_or_method), 4443314656&gt;
+   /   /   /  1 : {...}&lt; (builtin_function_or_method), 4522748384&gt;
    /   /   /  2 : 1
    /   /   /)
    /   /]

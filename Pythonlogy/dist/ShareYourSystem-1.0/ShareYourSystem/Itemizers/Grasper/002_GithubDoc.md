@@ -137,6 +137,6 @@ class GrasperClass(BaseClass):
 ```
 
 <small>
-View the Grasper sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Itemizers/Grasper)
+View the Grasper sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Itemizers/Grasper" target="_blank">Github</a>
 </small>
 

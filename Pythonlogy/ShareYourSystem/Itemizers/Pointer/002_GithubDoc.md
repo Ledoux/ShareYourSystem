@@ -176,6 +176,6 @@ class PointerClass(BaseClass):
 ```
 
 <small>
-View the Pointer sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Itemizers/Pointer)
+View the Pointer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Itemizers/Pointer" target="_blank">Github</a>
 </small>
 

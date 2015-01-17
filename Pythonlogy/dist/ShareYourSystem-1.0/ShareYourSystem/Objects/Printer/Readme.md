@@ -107,8 +107,9 @@ class PrinterClass(BaseClass):
 ```
 
 <small>
-View the Printer sources on [Github](https://github.com/Ledoux/ShareYourSystem/t
-ree/master/ShareYourSystem/Objects/Printer)
+View the Printer sources on <a href="https://github.com/Ledoux/ShareYourSystem/t
+ree/master/Pythonlogy/ShareYourSystem/Objects/Printer"
+target="_blank">Github</a>
 </small>
 
 
@@ -155,9 +156,9 @@ hello
 
 *****Start of the Attest *****
 
-MyPrinter is < (PrinterClass), 4457414288>
+MyPrinter is < (PrinterClass), 4536927888>
    /{
-   /  '<New><Instance>IdInt' : 4457414288
+   /  '<New><Instance>IdInt' : 4536927888
    /  '<Spe><Instance>PrintingVariable' : hello
    /}
 

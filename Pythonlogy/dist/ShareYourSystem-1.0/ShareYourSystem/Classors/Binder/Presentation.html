@@ -1734,11 +1734,251 @@ FrozenIsBool False
 <h2 id="doc">Doc</h2>
 <hr>
 <blockquote>
-<p>Binder...</p>
+<p>Binder helps for setting a method in a Class,
+taking inspiration (like a decoration) from another one.</p>
 </blockquote>
 <hr>
 <p><small>
 View the Binder notebook on <a href="http://nbviewer.ipython.org/url/shareyoursystem.ouvaton.org/Binder.ipynb">NbViewer</a>
+</small></p>
+</div>
+</div>
+</div></section><section>
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<!--
+FrozenIsBool False
+-->
+
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+Binder helps for setting a method in a Class,
+taking inspiration (like a decoration) from another one.
+
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Classors.Observer"
+DecorationModuleStr="ShareYourSystem.Classors.Tester"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+Observer=BaseModule
+import six
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineLocals&gt;
+BindingDecorationPrefixStr=""
+BindingDecorationSuffixStr="_"
+#&lt;/DefineLocals&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class BinderClass(BaseClass):
+
+    #Definition 
+    RepresentingKeyStrsList=[
+                            'BindingIsBool',
+                            'BindingDecorationUnboundMethod',
+                            'BindingDecorationMethodStr',
+                            'BindingDecorationTagStr',
+                            'BindingItemTuplesList',
+                            'BindedDecorationMethodStr',
+                            'BindedDecorationUnboundMethod'
+                        ]
+
+    def default_init(self,
+                    _BindingIsBool=False,
+                    _BindingDecorationUnboundMethod=None,
+                    _BindingDecorationMethodStr='',
+                    _BindingDecorationTagStr="",
+                    _BindingItemTuplesList=None,
+                    _BindedDecorationMethodStr="",    
+                    _BindedDecorationUnboundMethod=None,                               
+                    **_KwargVariablesDict
+                ):
+
+        #Call the init parent method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def __call__(self,_Class):
+
+        #Call the parent method
+        Observer.ObserverClass.__bases__[0].__call__(self,_Class)
+
+        #bind
+        self.bind()
+
+        #Return
+        return _Class
+
+    def do_bind(self):
+
+        #Check
+        if self.BindingIsBool:
+
+            #Debug
+            '''
+            print('l 77 Binder')
+            print('self.BindingDecorationUnboundMethod is ',self.BindingDecorationUnboundMethod)
+            print('self.BindingDecorationMethodStr is ',self.BindingDecorationMethodStr)
+            print('')
+            '''
+
+            #Check
+            if self.BindingDecorationUnboundMethod!=None or self.BindingDecorationMethodStr!="":
+
+                #Debug
+                '''
+                print('l 73 Binder')
+                print('we observe first')
+                print('')
+                '''
+
+                #observe without linking
+                self.observe(True)
+
+                #Debug
+                '''
+                print('l 81 Binder')
+                print('self.ObservingWrapMethodStr is ',self.ObservingWrapMethodStr)
+                print('self.ObservedWrapMethodStr is ',self.ObservedWrapMethodStr)
+                print('')
+                '''
+
+                #Check
+                if self.BindingDecorationUnboundMethod==None:
+
+                    #Get
+                    self.BindingDecorationUnboundMethod=getattr(
+                        self.DoClass,
+                        self.BindingDecorationMethodStr
+                    )
+
+                else:
+
+                    #set
+                    self.BindingDecorationMethodStr=self.BindingDecorationUnboundMethod.__name__
+
+                #Debug
+                '''
+                print('Binder l.119')
+                print('self.BindingDecorationUnboundMethod is')
+                print(self.BindingDecorationUnboundMethod)
+                print('')
+                '''
+
+                #Check
+                if self.BindingDecorationTagStr=="":
+                    self.BindingDecorationTagStr=self.BindingDecorationMethodStr
+
+                #set the new
+                self.BindedDecorationMethodStr=BindingDecorationPrefixStr+self.BindingDecorationTagStr+BindingDecorationSuffixStr
+                self.BindedDecorationMethodStr+=self.ObservingWrapMethodStr
+
+                #Debug
+                '''
+                print('Binder l.102')
+                print('self.BindedDecorationMethodStr is')
+                print(self.BindedDecorationMethodStr)
+                print('')
+                '''
+
+                #set to the class the BindingDecorationMethod
+                setattr(
+                        self.DoClass,
+                        self.BindingDecorationMethodStr,
+                        self.BindingDecorationUnboundMethod
+                    )
+
+                #Define
+                BindedExecStr='def '+self.BindedDecorationMethodStr+'(_InstanceVariable,*_LiargVariablesList'
+                BindedExecStr+=',**_KwargVariablesDict):'
+                BindedExecStr+='\n\treturn _InstanceVariable.__class__.'+self.BindingDecorationMethodStr
+                BindedExecStr+='(_InstanceVariable,*_LiargVariablesList'
+
+                #Debug
+                '''
+                print('Binder l 159')
+                print('self.BindingItemTuplesList is ')
+                print(self.BindingItemTuplesList)
+                print('')
+                '''
+
+                #Add
+                self.BindingItemTuplesList+=[
+                    ('BindObserveWrapMethodStr',self.ObservingWrapMethodStr),
+                    ('BindDoClassStr',self.DoClass.__name__),
+                ]
+                self.BindedItemTuplesList=','.join(
+                    map(
+                        lambda __BindingItemTuple:
+                        "'"+__BindingItemTuple[0]+"':'"+str(__BindingItemTuple[1])+"'",
+                        self.BindingItemTuplesList
+                    )
+                )
+                BindedExecStr+=',**dict({'
+                BindedExecStr+=self.BindedItemTuplesList
+                BindedExecStr+='},**_KwargVariablesDict))\n' 
+
+                #Debug
+                '''
+                print('Binder l 176')
+                print('BindedExecStr is ')
+                print(BindedExecStr)
+                print('')
+                '''
+
+                #exec
+                six.exec_(BindedExecStr)
+
+                #set
+                self.BindedDecorationUnboundMethod=locals()[self.BindedDecorationMethodStr]
+
+                #set to the class the BindingDecorationMethod
+                setattr(
+                        self.DoClass,
+                        self.BindedDecorationMethodStr,
+                        self.BindedDecorationUnboundMethod
+                    )
+
+                #Debug
+                '''
+                print('l 175 Binder')
+                print('self.BindedDecorationMethodStr is ')
+                print(self.BindedDecorationMethodStr)
+                print('self.BindedDecorationUnboundMethod is ')
+                print(self.BindedDecorationUnboundMethod)
+                print('')
+                '''
+
+                #Return self
+                #return self
+
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Binder sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Classors/Binder" target="_blank">Github</a>
 </small></p>
 </div>
 </div>
@@ -1763,7 +2003,7 @@ just lets it as the first version. </p>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[2]:
+In&nbsp;[3]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -1878,9 +2118,9 @@ MakerClass.foo_make is &lt;unbound method MakerClass.foo_make&gt;
 
 ------
 
-MyMaker is &lt; (MakerClass), 4348872080&gt;
+MyMaker is &lt; (MakerClass), 4538654224&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4348872080
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4538654224
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 30
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MakingMyFloat&apos; : 30.0
    /}

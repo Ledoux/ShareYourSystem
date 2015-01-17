@@ -1753,7 +1753,75 @@ View the Linker notebook on <a href="http://nbviewer.ipython.org/url/shareyoursy
 FrozenIsBool False
 -->
 
-<p>View the Linker sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Applyiers/Installer">Github</a></p>
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+An Linker maps a point
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Applyiers.Updater"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class LinkerClass(BaseClass):
+
+    #Definition
+    RepresentingKeyStrsList=[
+                                'LinkingPointListsList'
+                            ]
+
+    def default_init(self,
+                _LinkingPointListsList=None,
+                **_KwargVariablesDict):
+
+        #Call the parent __init__ method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def do_link(self):
+        """ """
+
+        #debug
+        '''
+        self.debug(('self.',self,['LinkingPointListsList']))
+        '''
+
+        #Apply
+        self.map('point',map(
+                                lambda __LinkingPointList:
+                                {'LiargVariablesList':__LinkingPointList},
+                                self.LinkingPointListsList
+                            )
+        )
+
+        #Return
+        #return self
+
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Linker sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Applyiers/Linker" target="_blank">Github</a>
+</small></p>
 </div>
 </div>
 </div></section><section>
@@ -1839,33 +1907,33 @@ In&nbsp;[3]:
 
 *****Start of the Attest *****
 
-MyLinker is &lt; (LinkerClass), 4550544272&gt;
+MyLinker is &lt; (LinkerClass), 4556354896&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;0Pather&apos; : &lt; (PatherClass), 4550545040&gt;
+   /  &apos;&lt;New&gt;&lt;Instance&gt;0Pather&apos; : &lt; (PatherClass), 4556355216&gt;
    /   /{ 
-   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550545040
+   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4556355216
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedChildKeyStr&apos; : 
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedGetKeyStr&apos; : 
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedKeyStrsList&apos; : None
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathingKeyStr&apos; : 
    /   /}
-   /  &apos;&lt;New&gt;&lt;Instance&gt;1Pather&apos; : &lt; (PatherClass), 4550544848&gt;
+   /  &apos;&lt;New&gt;&lt;Instance&gt;1Pather&apos; : &lt; (PatherClass), 4556355408&gt;
    /   /{ 
-   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550544848
+   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4556355408
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedChildKeyStr&apos; : 
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedGetKeyStr&apos; : 
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedKeyStrsList&apos; : None
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathingKeyStr&apos; : 
    /   /}
-   /  &apos;&lt;New&gt;&lt;Instance&gt;2Pather&apos; : &lt; (PatherClass), 4550542800&gt;
+   /  &apos;&lt;New&gt;&lt;Instance&gt;2Pather&apos; : &lt; (PatherClass), 4556356048&gt;
    /   /{ 
-   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550542800
+   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4556356048
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedChildKeyStr&apos; : 
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedGetKeyStr&apos; : 
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedKeyStrsList&apos; : None
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathingKeyStr&apos; : 
    /   /}
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550544272
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4556354896
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;LinkingPointListsList&apos; : 
    /   /[
    /   /  0 : (&apos;0Pather&apos;, &apos;/2Pather/0Pather&apos;)

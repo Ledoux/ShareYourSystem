@@ -1,13 +1,26 @@
 
+
+<!--
+FrozenIsBool False
+-->
+
 #Catcher
- @Date : Fri Nov 14 13:20:38 2014
 
-@Author : Erwan Ledoux
+##Doc
+----
 
 
+> Catcher instances grasps a Variable, sets a Pointer on it that will be then
+collected
+>
+>
 
-Catcher instances
+----
 
+<small>
+View the Catcher notebook on [NbViewer](http://nbviewer.ipython.org/url/shareyou
+rsystem.ouvaton.org/Catcher.ipynb)
+</small>
 
 
 
@@ -16,16 +29,214 @@ Catcher instances
 FrozenIsBool False
 -->
 
-View the Catcher sources on [Github](https://github.com/Ledoux/ShareYourSystem/t
-ree/master/ShareYourSystem/Noders/Installer)
+##Code
+
+----
+
+<ClassDocStr>
+
+----
+
+```python
+# -*- coding: utf-8 -*-
+"""
 
 
+<DefineSource>
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+</DefineSource>
+
+Catcher instances grasps a Variable, sets a Pointer on it that will be then
+collected
+
+"""
+
+#<DefineAugmentation>
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Applyiers.Producer"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#</DefineAugmentation>
+
+#<ImportSpecificModules>
+from ShareYourSystem.Itemizers import Pointer
+from ShareYourSystem.Noders import Noder
+import collections
+#</ImportSpecificModules>
+
+#<DefineClass>
+@DecorationClass()
+class CatcherClass(BaseClass):
+
+        #Definition
+        RepresentingKeyStrsList=[
+'CatchingCollectionStr',
+'CatchingUpdateVariable',
+'CatchingNodeKeyStr',
+'CatchingDefaultNodeKeyStrBool',
+'CatchingDerivePointerClass',
+'CatchingPointBackSetStr',
+'CatchedGraspVariable',
+'CatchedNodeKeyStr',
+'CatchedDerivePointer'
+                                                        ]
+
+        def default_init(self,
+                                                _CatchingCollectionStr="",
+                                                _CatchingUpdateVariable=None,
+                                                _CatchingNodeKeyStr="",
+_CatchingDefaultNodeKeyStrBool=True,
+_CatchingDerivePointerClass=Pointer.PointerClass,
+                                                _CatchingPointBackSetStr="",
+                                                _CatchedGraspVariable=None,
+                                                _CatchedNodeKeyStr="",
+                                                _CatchedDerivePointer=None,
+                                                **_KwargVariablesDict
+                                        ):
+
+                #Call the parent init method
+                BaseClass.__init__(self,**_KwargVariablesDict)
+
+        def do_catch(self):
+
+                #debug
+                '''
+                self.debug(
+                                        ('self.',self,[
+'CollectingCollectionStr',
+'GraspingClueVariable'
+                                                                ])
+                                )
+                '''
+
+                #grasp
+                '''
+                self.grasp(
+                        self.GraspingClueVariable
+                )
+                '''
+
+                #link
+                if type(self.GraspingClueVariable)==SYS.GraspDictClass:
+                        self.CatchingUpdateVariable=self.GraspingClueVariable
+
+                #Defaut set for the collection keyStr
+                if self.CatchingDefaultNodeKeyStrBool:
+
+                        #Check
+                        CatchedGetStr=">UnknowPath<"
+                        if type(self.GraspingClueVariable) in SYS.StrTypesList:
+
+                                #set
+                                CatchedGetStr=self.GraspingClueVariable
+
+                        elif type(self.GraspingClueVariable)==SYS.GraspDictClass
+and type(
+                                self.GraspingClueVariable['HintVariable']) in
+SYS.StrTypesList:
+
+                                #set
+CatchedGetStr=self.GraspingClueVariable['HintVariable']
+
+                        elif hasattr(self.GraspedAnswerVariable,'parent'):
+
+                                #Get the up
+                                CatchedUpNodeKeyStrsList=(self.parent(
+).ParentedPathStr+'/'+self.NodeKeyStr).split('/')
+                                CatchedUpNodeKeyStrsList.reverse()
+CatchedUpPathStr='/'.join(CatchedUpNodeKeyStrsList[:-1])
+
+                                #Get the down
+CatchedDownNodeKeyStrsList=(self.GraspedAnswerVariable.parent(
+).ParentedPathStr+'/'+self.GraspedAnswerVariable.NodeKeyStr).split('/')
+CatchedDownPathStr='/'.join(CatchedDownNodeKeyStrsList[1:])
+
+                                #Get the top
+                                CatchedTopStr=CatchedUpNodeKeyStrsList[-1]
+
+                                if
+CatchedUpNodeKeyStrsList[-1]==CatchedDownNodeKeyStrsList[0]:
+
+                                        #set
+CatchedGetStr=CatchedUpPathStr+'>'+CatchedTopStr+'<'+CatchedDownPathStr
+
+                        #set
+                        self.CatchedNodeKeyStr=CatchedGetStr
+
+                else:
+
+                        #Look for one
+                        self.CatchedNodeKeyStr=self.CatchingNodeKeyStr
+
+                #adapt the
+                self.CatchedNodeKeyStr=self.CatchedNodeKeyStr.replace('/','_')
+
+                #debug
+                '''
+                self.debug(
+                                        ('self.',self,[
+'CatchingCollectionStr',
+'CatchedNodeKeyStr'
+                                                                ])
+                                        )
+                '''
+
+                #Check
+                if self.CatchingCollectionStr=="":
+                        self.CatchingCollectionStr=self.CollectingCollectionStr
+
+                #init
+                self.CatchedDerivePointer=self.CatchingDerivePointerClass(
+                        **{
+'PointingBackSetStr':self.CatchingPointBackSetStr
+                        }
+                ).point(
+                        self.GraspedAnswerVariable,
+                        'PointVariable'
+                )
+
+                #debug
+                '''
+                self.debug(
+                                        ('self.',self,[
+'CatchedDerivePointer'
+                                                                ])
+                                        )
+                '''
+
+                #collect and update
+                self.collect(
+                        self.CatchingCollectionStr,
+                        self.CatchedNodeKeyStr,
+                        self.CatchedDerivePointer
+                )
+
+                #set
+                self.CatchedDerivePointer.update(
+                        self.CatchingUpdateVariable
+                )
+
+#</DefineClass>
+
+
+```
+
+<small>
+View the Catcher sources on <a href="https://github.com/Ledoux/ShareYourSystem/t
+ree/master/Pythonlogy/ShareYourSystem/Noders/Catcher" target="_blank">Github</a>
+</small>
+
+
+
+##Example
+
+With a point back
 
 ```python
 
 #ImportModules
 import ShareYourSystem as SYS
-
 from ShareYourSystem.Applyiers import Producer
 from ShareYourSystem.Noders import Catcher
 
@@ -37,11 +248,13 @@ MyProducer=Producer.ProducerClass().produce(
         )
 
 #point
-MyProducer['<Pointome>FirstCatcher'].catch(
-        '/NodePointDeriveNoder/<Pointome>SecondCatcher',
-        **{
-            'CollectingCollectionStr':'Relatome',
-        }
+MyProducer['<Pointome>FirstCatcher'].grasp(
+            '/NodePointDeriveNoder/<Pointome>SecondCatcher'
+        ).catch(
+            _PointBackSetStr='MyBackVariable',
+            **{
+                'CollectingCollectionStr':'Relatome',
+            }
     )
 
 #Definition the AttestedStr
@@ -67,129 +280,101 @@ SYS._attest(
 ```console
 >>>
 
-                                                                    xxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-////////////////////////////////
-Doer/__init__.py do
-                                                                    From
-<string> superDo_debug | Catcher/__init__.py do_catch | Doer/__init__.py do |
-<string> superDo_catch | Watcher/__init__.py watch | <string>
-watch_superDo_catch | <string> <module> | <string> <module> | site-
-packages/six.py exec_ | Celler/__init__.py do_cell | Doer/__init__.py do |
-<string> superDo_cell | Watcher/__init__.py watch | <string> watch_superDo_cell
-| Notebooker/__init__.py do_notebook | Doer/__init__.py do | <string>
-superDo_notebook | Watcher/__init__.py watch | <string> watch_superDo_notebook |
-Readmer/__init__.py do_readme | Doer/__init__.py do | <string> superDo_readme |
-Watcher/__init__.py watch | <string> watch_superDo_readme |
-python2.7/posixpath.py walk | python2.7/posixpath.py walk | Directer/__init__.py
-do_direct | Doer/__init__.py do | <string> superDo_direct | Watcher/__init__.py
-watch | <string> watch_superDo_direct | Installer/__init__.py do_install |
-Doer/__init__.py do | <string> superDo_install | Watcher/__init__.py watch |
-<string> watch_superDo_install | ShareYourSystem/Install.py <module>
-////////////////////////////////
-
-                                                                    l.180 :
-                                                                    *****
-                                                                    I am with
-[('NodeKeyStr', 'FirstCatcher')]
-                                                                    *****
-self.CollectingCollectionStr is Relatome
-
-                                                                    xxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-
-
 
 *****Start of the Attest *****
 
-MyProducer is < (ProducerClass), 4557088592>
+MyProducer is < (ProducerClass), 4555633296>
    /{
-   /  '<New><Instance>ApplyingIsBool' : True
-   /  '<New><Instance>IdStr' : 4557088592
-   /  '<New><Instance>NodeCollectionStr' : Global
+   /  '<New><Instance>IdInt' : 4555633296
+   /  '<New><Instance>NodeCollectionStr' : Globals
    /  '<New><Instance>NodeIndexInt' : -1
-   /  '<New><Instance>NodeKeyStr' :
+   /  '<New><Instance>NodeKeyStr' : TopProducer
    /  '<New><Instance>NodePointDeriveNoder' : None
    /  '<New><Instance>NodePointOrderedDict' : None
    /  '<New><Instance>PointomeCollectionOrderedDict' :
    /   /{
-   /   /  'FirstCatcher' : < (CatcherClass), 4557132112>
+   /   /  'FirstCatcher' : < (CatcherClass), 4555633168>
    /   /   /{
-   /   /   /  '<New><Instance>ApplyingIsBool' : True
-   /   /   /  '<New><Instance>IdStr' : 4557132112
+   /   /   /  '<New><Instance>IdInt' : 4555633168
    /   /   /  '<New><Instance>NodeCollectionStr' : Pointome
    /   /   /  '<New><Instance>NodeIndexInt' : 0
    /   /   /  '<New><Instance>NodeKeyStr' : FirstCatcher
    /   /   /  '<New><Instance>NodePointDeriveNoder' : {...}< (ProducerClass),
-4557088592>
+4555633296>
    /   /   /  '<New><Instance>NodePointOrderedDict' : {...}< (OrderedDict),
-4557084480>
+4556379968>
    /   /   /  '<New><Instance>RelatomeCollectionOrderedDict' :
    /   /   /   /{
-   /   /   /   /  'SecondCatcherPointer' : < (PointerClass), 4557089808>
+   /   /   /   /  '_NodePointDeriveNoder_<Pointome>SecondCatcherPointer' : <
+(PointerClass), 4555634512>
    /   /   /   /   /{
-   /   /   /   /   /  '<New><Instance>IdStr' : 4557089808
+   /   /   /   /   /  '<New><Instance>IdInt' : 4555634512
    /   /   /   /   /  '<New><Instance>PointVariable' : < (CatcherClass),
-4557133520>
+4555633488>
    /   /   /   /   /   /{
-   /   /   /   /   /   /  '<New><Instance>ApplyingIsBool' : True
-   /   /   /   /   /   /  '<New><Instance>IdStr' : 4557133520
+   /   /   /   /   /   /  '<New><Instance>IdInt' : 4555633488
+   /   /   /   /   /   /  '<New><Instance>MyBackVariable' : {...}<
+(PointerClass), 4555634512>
    /   /   /   /   /   /  '<New><Instance>NodeCollectionStr' : Pointome
    /   /   /   /   /   /  '<New><Instance>NodeIndexInt' : 1
    /   /   /   /   /   /  '<New><Instance>NodeKeyStr' : SecondCatcher
    /   /   /   /   /   /  '<New><Instance>NodePointDeriveNoder' : {...}<
-(ProducerClass), 4557088592>
+(ProducerClass), 4555633296>
    /   /   /   /   /   /  '<New><Instance>NodePointOrderedDict' : {...}<
-(OrderedDict), 4557084480>
-   /   /   /   /   /   /  '<Spe><Class>CatchedGetVariable' : None
+(OrderedDict), 4556379968>
+   /   /   /   /   /   /  '<Spe><Class>CatchedDerivePointer' : None
+   /   /   /   /   /   /  '<Spe><Class>CatchedGraspVariable' : None
+   /   /   /   /   /   /  '<Spe><Class>CatchedNodeKeyStr' :
    /   /   /   /   /   /  '<Spe><Class>CatchingCollectionStr' :
    /   /   /   /   /   /  '<Spe><Class>CatchingDefaultNodeKeyStrBool' : True
-   /   /   /   /   /   /  '<Spe><Class>CatchingGetVariable' :
    /   /   /   /   /   /  '<Spe><Class>CatchingDerivePointerClass' : <class
 'ShareYourSystem.Itemizers.Pointer.PointerClass'>
    /   /   /   /   /   /  '<Spe><Class>CatchingNodeKeyStr' :
-   /   /   /   /   /   /  '<Spe><Class>CatchingPointBackBool' : False
+   /   /   /   /   /   /  '<Spe><Class>CatchingPointBackSetStr' :
+   /   /   /   /   /   /  '<Spe><Class>CatchingUpdateVariable' : None
    /   /   /   /   /   /}
    /   /   /   /   /  '<Spe><Class>PointedBackSetStr' :
-   /   /   /   /   /  '<Spe><Class>PointedPathBackVariable' :
-   /   /   /   /   /  '<Spe><Class>PointingBackSetStr' :
    /   /   /   /   /  '<Spe><Instance>PointedGetVariable' : {...}<
-(CatcherClass), 4557133520>
+(CatcherClass), 4555633488>
    /   /   /   /   /  '<Spe><Instance>PointedLocalSetStr' : PointVariable
+   /   /   /   /   /  '<Spe><Instance>PointedPathBackVariable' : {...}<
+(PointerClass), 4555634512>
+   /   /   /   /   /  '<Spe><Instance>PointingBackSetStr' : MyBackVariable
    /   /   /   /   /  '<Spe><Instance>PointingGetVariable' : {...}<
-(CatcherClass), 4557133520>
+(CatcherClass), 4555633488>
    /   /   /   /   /  '<Spe><Instance>PointingSetPathStr' : PointVariable
    /   /   /   /   /}
    /   /   /   /}
+   /   /   /  '<Spe><Class>CatchedGraspVariable' : None
    /   /   /  '<Spe><Class>CatchingDefaultNodeKeyStrBool' : True
-   /   /   /  '<Spe><Class>CatchingDerivePointerClass' : {...}< (type), 140533540739184>
+   /   /   /  '<Spe><Class>CatchingDerivePointerClass' : {...}< (type),
+140476488083952>
    /   /   /  '<Spe><Class>CatchingNodeKeyStr' :
-   /   /   /  '<Spe><Class>CatchingPointBackBool' : False
-   /   /   /  '<Spe><Instance>CatchedGetVariable' : {...}< (CatcherClass),
-4557133520>
+   /   /   /  '<Spe><Class>CatchingUpdateVariable' : None
+   /   /   /  '<Spe><Instance>CatchedDerivePointer' : {...}< (PointerClass),
+4555634512>
+   /   /   /  '<Spe><Instance>CatchedNodeKeyStr' :
+_NodePointDeriveNoder_<Pointome>SecondCatcher
    /   /   /  '<Spe><Instance>CatchingCollectionStr' : Relatome
-   /   /   /  '<Spe><Instance>CatchingGetVariable' :
-/NodePointDeriveNoder/<Pointome>SecondCatcher
+   /   /   /  '<Spe><Instance>CatchingPointBackSetStr' : MyBackVariable
    /   /   /}
-   /   /  'SecondCatcher' : {...}< (CatcherClass), 4557133520>
+   /   /  'SecondCatcher' : {...}< (CatcherClass), 4555633488>
    /   /}
+   /  '<Spe><Class>ProducingUpdateVariable' : None
    /  '<Spe><Instance>ProducedPushList' :
    /   /[
    /   /  0 :
    /   /   /[
    /   /   /  0 : First
-   /   /   /  1 : {...}< (CatcherClass), 4557132112>
+   /   /   /  1 : {...}< (CatcherClass), 4555633168>
    /   /   /]
    /   /  1 :
    /   /   /[
    /   /   /  0 : Second
-   /   /   /  1 : {...}< (CatcherClass), 4557133520>
+   /   /   /  1 : {...}< (CatcherClass), 4555633488>
    /   /   /]
    /   /]
    /  '<Spe><Instance>ProducingCollectionKeyStrsList' : ['First', 'Second']
-   /  '<Spe><Instance>ProducingUpdateVariable' :
-   /   /{
-   /   /}
    /  '<Spe><Instance>ProducingPushClass' : <class
 'ShareYourSystem.Noders.Catcher.CatcherClass'>
    /}

@@ -380,8 +380,9 @@ DebuggedStr+Representer.RepresentedAlineaStr,
 ```
 
 <small>
-View the Debugger sources on [Github](https://github.com/Ledoux/ShareYourSystem/
-tree/master/ShareYourSystem/Objects/Debugger)
+View the Debugger sources on <a href="https://github.com/Ledoux/ShareYourSystem/
+tree/master/Pythonlogy/ShareYourSystem/Objects/Debugger"
+target="_blank">Github</a>
 </small>
 
 

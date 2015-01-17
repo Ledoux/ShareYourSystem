@@ -1,0 +1,20 @@
+< (LifTransferFunctorClass) >
+{ 
+   /'<New>LifFunctionTypeString' : CurrentToRate
+   /'<NotSpe>AppendedKeyStringsList' : []
+   /'<NotSpe>AppendedValueVariablesList' : []
+   /'<NotSpe>FeaturedModelClass' : None
+   /'<NotSpe>GroupedFilePointer' : < (NoneType) >
+   /'<NotSpe>GroupedGrandParentPointersList' : []
+   /'<NotSpe>GroupedKeyString' : 
+   /'<NotSpe>GroupedPathString' : /
+   /'<NotSpe>StructuredGrandParentPointersList' : []
+   /'<NotSpe>StructuredInt' : -1
+   /'<NotSpe>StructuredKeyString' : 
+   /'<Spe>MembraneConstantTime' : 0.02
+   /'<Spe>RefractoryPeriod' : 0.0
+   /'<Spe>TotalStationaryCurrent' : -55.0
+   /'<Spe>VoltageNoise' : 5.0
+   /'<Spe>VoltageReset' : -70.0
+   /'<Spe>VoltageThreshold' : -50.0
+ }

@@ -1,13 +1,134 @@
 
+
+<!--
+FrozenIsBool False
+-->
+
 #Grabber
- @Date : Fri Nov 14 13:20:38 2014
 
-@Author : Erwan Ledoux
+##Doc
+----
 
+
+>
+> A Grabber
+>
+>
+
+----
+
+<small>
+View the Grabber notebook on [NbViewer](http://nbviewer.ipython.org/url/shareyou
+rsystem.ouvaton.org/Grabber.ipynb)
+</small>
+
+
+
+
+<!--
+FrozenIsBool False
+-->
+
+##Code
+
+----
+
+<ClassDocStr>
+
+----
+
+```python
+# -*- coding: utf-8 -*-
+"""
+
+
+<DefineSource>
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+</DefineSource>
 
 
 A Grabber
 
+"""
+
+#<DefineAugmentation>
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Walkers.Router"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#</DefineAugmentation>
+
+#<ImportSpecificModules>
+import copy
+import collections
+from ShareYourSystem.Functers import Argumenter
+from ShareYourSystem.Noders import Noder
+#</ImportSpecificModules>
+
+#<DefineLocals>
+#</DefineLocals>
+
+#<DefineClass>
+@DecorationClass()
+class GrabberClass(BaseClass):
+
+        #Definition
+        RepresentingKeyStrsList=[
+'GrabbingNodeStr',
+'GrabbingPickVariablesList',
+'GrabbedVariablesOrderedDict'
+                                                                ]
+
+        def default_init(self,
+                                _GrabbingNodeStr=None,
+                                _GrabbingPickVariablesList=None,
+                                _GrabbedVariablesOrderedDict=None,
+                                **_KwargVariablesDict):
+
+                #Call the parent __init__ method
+                BaseClass.__init__(self,**_KwargVariablesDict)
+
+        #@Argumenter.ArgumenterClass()
+        def do_grab(self):
+
+                #Init
+                if self.GrabbedVariablesOrderedDict==None:
+self.GrabbedVariablesOrderedDict=collections.OrderedDict()
+
+                #debug
+                '''
+self.debug(('self.',self,['GrabbingNodeStr','GrabbingPickVariablesList']))
+                '''
+
+                #Walk inside the Tree in order to parent
+                self.walk(
+                                        {
+                                                'BeforeUpdateList':
+                                                [
+('route',{'LiargVariablesList':[
+                                                self.GrabbingPickVariablesList
+                                        ]
+})
+                                                ],
+                                                'GatherVariablesList':[
+Noder.NodingPrefixGetStr+self.GrabbingNodeStr+Noder.NodingSuffixGetStr]
+                                        }
+                                )
+
+                #Link
+                self.GrabbedVariablesOrderedDict=self.RoutedVariablesOrderedDict
+
+
+#</DefineClass>
+
+```
+
+<small>
+View the Grabber sources on <a href="https://github.com/Ledoux/ShareYourSystem/t
+ree/master/Pythonlogy/ShareYourSystem/Walkers/Grabber"
+target="_blank">Github</a>
+</small>
 
 
 
@@ -64,75 +185,42 @@ SYS._attest(
 
 ```console
 >>>
-Doer l.132 : DoerStr is Visiter
-DoStr is Visit
-DoMethodStr is visit
-DoingStr is Visiting
-DoneStr is Visited
-
-Doer l.132 : DoerStr is Recruiter
-DoStr is Recruit
-DoMethodStr is recruit
-DoingStr is Recruiting
-DoneStr is Recruit
-
-Doer l.132 : DoerStr is Mobilizer
-DoStr is Mobilize
-DoMethodStr is mobilize
-DoingStr is Mobilizing
-DoneStr is Mobilized
-
-Doer l.132 : DoerStr is Router
-DoStr is Route
-DoMethodStr is route
-DoingStr is Routing
-DoneStr is Routed
-
-Doer l.132 : DoerStr is Grabber
-DoStr is Grab
-DoMethodStr is grab
-DoingStr is Grabbing
-DoneStr is Grabbed
-
 
 
 *****Start of the Attest *****
 
-MyGrabber is < (GrabberClass), 4559025168>
+MyGrabber is < (GrabberClass), 4559654352>
    /{
-   /  '<New><Instance>ApplyingIsBool' : True
-   /  '<New><Instance>IdString' : 4559025168
-   /  '<New><Instance>NodeCollectionStr' : Global
+   /  '<New><Instance>IdInt' : 4559654352
+   /  '<New><Instance>NodeCollectionStr' : Globals
    /  '<New><Instance>NodeIndexInt' : -1
-   /  '<New><Instance>NodeKeyStr' :
+   /  '<New><Instance>NodeKeyStr' : TopGrabber
    /  '<New><Instance>NodePointDeriveNoder' : None
    /  '<New><Instance>NodePointOrderedDict' : None
    /  '<New><Instance>TreeCollectionOrderedDict' :
    /   /{
-   /   /  'FirstChildGrabber' : < (GrabberClass), 4559027088>
+   /   /  'FirstChildGrabber' : < (GrabberClass), 4559653264>
    /   /   /{
-   /   /   /  '<New><Instance>ApplyingIsBool' : True
-   /   /   /  '<New><Instance>IdString' : 4559027088
+   /   /   /  '<New><Instance>IdInt' : 4559653264
    /   /   /  '<New><Instance>NodeCollectionStr' : Tree
    /   /   /  '<New><Instance>NodeIndexInt' : 0
    /   /   /  '<New><Instance>NodeKeyStr' : FirstChildGrabber
    /   /   /  '<New><Instance>NodePointDeriveNoder' : {...}< (GrabberClass),
-4559025168>
+4559654352>
    /   /   /  '<New><Instance>NodePointOrderedDict' : {...}< (OrderedDict),
-4559125176>
+4559710904>
    /   /   /  '<New><Instance>TreeCollectionOrderedDict' :
    /   /   /   /{
-   /   /   /   /  'GrandChildGrabber' : < (GrabberClass), 4559028048>
+   /   /   /   /  'GrandChildGrabber' : < (GrabberClass), 4559706256>
    /   /   /   /   /{
-   /   /   /   /   /  '<New><Instance>ApplyingIsBool' : True
-   /   /   /   /   /  '<New><Instance>IdString' : 4559028048
+   /   /   /   /   /  '<New><Instance>IdInt' : 4559706256
    /   /   /   /   /  '<New><Instance>NodeCollectionStr' : Tree
    /   /   /   /   /  '<New><Instance>NodeIndexInt' : 0
    /   /   /   /   /  '<New><Instance>NodeKeyStr' : GrandChildGrabber
    /   /   /   /   /  '<New><Instance>NodePointDeriveNoder' : {...}<
-(GrabberClass), 4559027088>
+(GrabberClass), 4559653264>
    /   /   /   /   /  '<New><Instance>NodePointOrderedDict' : {...}<
-(OrderedDict), 4559124880>
+(OrderedDict), 4559710312>
    /   /   /   /   /  '<New><Instance>TreeCollectionOrderedDict' :
    /   /   /   /   /   /{
    /   /   /   /   /   /}
@@ -145,17 +233,16 @@ MyGrabber is < (GrabberClass), 4559025168>
    /   /   /  '<Spe><Class>GrabbingNodeStr' : None
    /   /   /  '<Spe><Class>GrabbingPickVariablesList' : None
    /   /   /}
-   /   /  'SecondChildGrabber' : < (GrabberClass), 4559075088>
+   /   /  'SecondChildGrabber' : < (GrabberClass), 4559706576>
    /   /   /{
-   /   /   /  '<New><Instance>ApplyingIsBool' : True
-   /   /   /  '<New><Instance>IdString' : 4559075088
+   /   /   /  '<New><Instance>IdInt' : 4559706576
    /   /   /  '<New><Instance>NodeCollectionStr' : Tree
    /   /   /  '<New><Instance>NodeIndexInt' : 1
    /   /   /  '<New><Instance>NodeKeyStr' : SecondChildGrabber
    /   /   /  '<New><Instance>NodePointDeriveNoder' : {...}< (GrabberClass),
-4559025168>
+4559654352>
    /   /   /  '<New><Instance>NodePointOrderedDict' : {...}< (OrderedDict),
-4559125176>
+4559710904>
    /   /   /  '<New><Instance>TreeCollectionOrderedDict' :
    /   /   /   /{
    /   /   /   /}

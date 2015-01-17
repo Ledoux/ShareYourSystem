@@ -1749,6 +1749,230 @@ View the Switcher notebook on <a href="http://nbviewer.ipython.org/url/shareyour
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<!--
+FrozenIsBool False
+-->
+
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+The Switcher
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Classors.Watcher"
+DecorationModuleStr="ShareYourSystem.Classors.Tester"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+import operator
+from ShareYourSystem.Classors import Doer,Observer
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineFunctions&gt;
+def setSwitch(_InstanceVariable,_ClassVariable=None,_DoStrsList=None):
+
+    #Debug
+    '''
+    print('l 31 setSwitch')
+    print('_DoStrsList is ',_DoStrsList)
+    print('_InstanceVariable.__class__.NameStr is ',_InstanceVariable.__class__.NameStr)
+    print('')
+    '''
+
+    #get
+    SwitchClass=_InstanceVariable.getClass(_ClassVariable)
+
+    #check
+    if _DoStrsList==None:
+        _DoStrsList=[SwitchClass.DoStr]
+
+    #map
+    map(
+            lambda __MethodStr:
+            _InstanceVariable.__setattr__(
+                'Watch'+__MethodStr+'With'+SwitchClass.NameStr+'Bool',
+                False
+            ),
+            _DoStrsList,
+        )
+
+    #return 
+    return _InstanceVariable
+
+def switch(_InstanceVariable,*_LiargVariablesList,**_KwargVariablesDict):
+
+    #Debug
+    '''
+    print('l 51')
+    print('In the switch function ')
+    print('_KwargVariablesDict is ')
+    print(_KwargVariablesDict)
+    print('')
+    '''
+
+    """
+    #alias
+    FuncDict=switch.__dict__
+
+    #Debug
+    '''
+    print('l 52')
+    print('In the switch function ')
+    print('FuncDict is ')
+    print(FuncDict)
+    print('')
+    '''
+    """
+
+    #Check
+    if hasattr(_InstanceVariable,_KwargVariablesDict['WatchDoBoolKeyStr']):
+
+        #get
+        WatchDoBool=getattr(
+                _InstanceVariable,
+                _KwargVariablesDict['WatchDoBoolKeyStr']
+                )
+
+        #Switch
+        if WatchDoBool:
+            return _InstanceVariable
+
+    #get the wrapped method
+    WrapUnboundMethod=getattr(
+        getattr(
+            SYS,
+            _KwargVariablesDict['BindDoClassStr']
+        ),
+        _KwargVariablesDict['BindObserveWrapMethodStr']
+    )
+
+    #del
+    map(
+            lambda __KeyStr:
+            _KwargVariablesDict.__delitem__(__KeyStr),
+            ['BindObserveWrapMethodStr','BindDoClassStr','WatchDoBoolKeyStr']
+        )
+
+    #Call
+    return WrapUnboundMethod(
+        _InstanceVariable,
+        *_LiargVariablesList,
+        **_KwargVariablesDict
+    )
+#&lt;/DefineFunctions&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class SwitcherClass(BaseClass):
+
+    #Definition 
+    RepresentingKeyStrsList=[ 
+        'SwitchingIsBool',
+        'SwitchingWrapMethodStr'                
+    ]
+
+    def default_init(self,
+                        _SwitchingIsBool=False,
+                        _SwitchingWrapMethodStr="",                    
+                        **_KwargVariablesDict
+                ):
+
+        #Call the parent init method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def __call__(self,_Class):
+
+        #Call the parent method
+        Observer.ObserverClass.__bases__[0].__call__(self,_Class)
+
+        #reset
+        self.switch()
+
+        #Return
+        return _Class
+
+    def do_switch(self):
+
+        #Check
+        if self.SwitchingIsBool:
+
+            #Debug
+            '''
+            print('l 195 Switcher')
+            print('self.SwitchingWrapMethodStr is '+self.SwitchingWrapMethodStr)
+            print('')
+            '''
+
+            #watch first
+            self.watch(
+                        True,
+                        **{'ObservingWrapMethodStr':self.SwitchingWrapMethodStr}
+                    )
+
+            #Debug
+            '''
+            print('l 204 Switcher')
+            print('self.WatchedDecorationMethodStr is ',self.WatchedDecorationMethodStr)
+            print('')
+            '''
+
+            #first bind
+            self.bind(
+                        True,
+                        switch,
+                        "",
+                        switch.__name__,
+                        [('WatchDoBoolKeyStr',self.WatchedDoBoolKeyStr)],
+                        **{'ObservingWrapMethodStr':self.WatchedDecorationMethodStr}
+                    )
+
+            #Now make the amalgam
+            setattr(
+                    self.DoClass,
+                    self.SwitchingWrapMethodStr,
+                    getattr(
+                        self.DoClass,
+                        self.BindedDecorationMethodStr
+                    )
+                )
+
+            #Check
+            if hasattr(self.DoClass,'setSwitch')==False:
+                setattr(
+                        self.DoClass,
+                        setSwitch.__name__,
+                        setSwitch
+                    )
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Switcher sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Classors/Switcher" target="_blank">Github</a>
+</small></p>
+</div>
+</div>
+</div></section><section>
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <!---
 FrozenIsBool True
 -->
@@ -1762,7 +1986,7 @@ for which the Functer decoration by default call the decorated method...</p>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[2]:
+In&nbsp;[3]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -1863,9 +2087,9 @@ In&nbsp;[2]:
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
 Before make, MyMaker is 
-&lt; (MakerClass), 4349609936&gt;
+&lt; (MakerClass), 4538887696&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4349609936
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4538887696
    /  &apos;&lt;Spe&gt;&lt;Class&gt;MadeMyInt&apos; : 0
    /  &apos;&lt;Spe&gt;&lt;Class&gt;MakingMyFloat&apos; : 1.0
    /}
@@ -1873,24 +2097,24 @@ self.MakingMyFloat is 3.0
 self.MadeMyInt is 0
 
 After the first make, MyMaker is 
-&lt; (MakerClass), 4349609936&gt;
+&lt; (MakerClass), 4538887696&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4349609936
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4538887696
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 3
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MakingMyFloat&apos; : 3.0
    /}
 After the second make, MyMaker is 
-&lt; (MakerClass), 4349609936&gt;
+&lt; (MakerClass), 4538887696&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4349609936
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4538887696
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 3
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MakingMyFloat&apos; : 3.0
    /}
 Now we switch
 After the switch MyMaker is 
-&lt; (MakerClass), 4349609936&gt;
+&lt; (MakerClass), 4538887696&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4349609936
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4538887696
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 3
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MakingMyFloat&apos; : 3.0
    /}
@@ -1898,9 +2122,9 @@ self.MakingMyFloat is 7.0
 self.MadeMyInt is 3
 
 After the third make, MyMaker is 
-&lt; (MakerClass), 4349609936&gt;
+&lt; (MakerClass), 4538887696&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4349609936
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4538887696
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 7
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MakingMyFloat&apos; : 7.0
    /}
@@ -1912,9 +2136,9 @@ MakerClass.make is &lt;unbound method MakerClass.switch_watch_superDo_make&gt;
 
 ------
 
-MyMaker is &lt; (MakerClass), 4349609936&gt;
+MyMaker is &lt; (MakerClass), 4538887696&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4349609936
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4538887696
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 7
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MakingMyFloat&apos; : 7.0
    /}

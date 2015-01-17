@@ -1754,7 +1754,125 @@ View the Restricter notebook on <a href="http://nbviewer.ipython.org/url/shareyo
 FrozenIsBool False
 -->
 
-<p>View the Restricter sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Itemizers/Installer">Github</a></p>
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+A Restricter object sets only in the __dict__ only if hasattr(self,self.SettingKeyVariable)
+returns True before.
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Itemizers.Attributer"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class RestricterClass(BaseClass):
+
+    #Definition
+    RepresentingKeyStrsList=[
+                                'RestrictingIsBool',
+                                'RestrictingKeyStr',
+                                'RestrictedSetIsBool'
+                            ]
+
+    def default_init(self,
+                _RestrictingIsBool=False, 
+                _RestrictingKeyStr=None,                    
+                _RestrictedSetIsBool=True,            
+                **_KwargVariablesDict
+                ):
+
+        #Call the parent init method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def do_restrict(self):
+
+        #Init
+        self.RestrictedSetIsBool=True
+
+        #debug
+        '''
+        self.debug(('self.',self,['RestrictingIsBool','RestrictingKeyStr']))
+        '''
+
+        #Check
+        if self.RestrictingIsBool:
+
+            #Check
+            if hasattr(self,self.RestrictingKeyStr):
+                self.RestrictedSetIsBool=False
+
+        else:
+
+            #set to False
+            self.RestrictedSetIsBool=False
+
+    #&lt;Hook&gt;@Hooker.HookerClass(**{'HookingAfterVariablesList':[BaseClass.set]})
+    #@Imitater.ImitaterClass()
+    def mimic_set(self):
+        """ """
+
+        #debug
+        '''
+        self.debug(('self.',self,['SettingKeyVariable','SettingValueVariable']))
+        '''
+
+        #Definition
+        OutputDict={'HookingIsBool':True}
+
+        #debug
+        '''
+        self.debug('We are going to restrict')
+        '''
+
+        #restrict
+        self.restrict(_KeyStr=self.SettingKeyVariable)
+
+        #&lt;Hook&gt;
+        #Stop the setting
+        if self.RestrictedSetIsBool:
+            OutputDict["HookingIsBool"]=False
+            return OutputDict
+        #&lt;/Hook&gt;
+
+        #Debug
+        '''
+        self.debug(
+                    [
+                        'BaseClass is '+str(BaseClass),
+                        'BaseClass.set is '+str(BaseClass.set),
+                    ]
+                )
+        '''
+
+        #Call the parent set method
+        return BaseClass.set(self)
+
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Restricter sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Itemizers/Restricter" target="_blank">Github</a>
+</small></p>
 </div>
 </div>
 </div></section><section>
@@ -1824,9 +1942,9 @@ In&nbsp;[3]:
 
 *****Start of the Attest *****
 
-MyRestricter is &lt; (RestricterClass), 4348483088&gt;
+MyRestricter is &lt; (RestricterClass), 4555208144&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4348483088
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4555208144
    /  &apos;&lt;New&gt;&lt;Instance&gt;ResettedStr&apos; : Bonjour
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;RestrictedSetIsBool&apos; : True
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;RestrictingIsBool&apos; : True

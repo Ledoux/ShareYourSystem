@@ -1,13 +1,25 @@
 
+
+<!--
+FrozenIsBool False
+-->
+
 #Connecter
- @Date : Fri Nov 14 13:20:38 2014
 
-@Author : Erwan Ledoux
+##Doc
+----
 
 
+> Connecter instances catch grasped variables and makes an attention also on it.
+>
+>
 
-Connecters...
+----
 
+<small>
+View the Connecter notebook on [NbViewer](http://nbviewer.ipython.org/url/sharey
+oursystem.ouvaton.org/Connecter.ipynb)
+</small>
 
 
 
@@ -16,8 +28,86 @@ Connecters...
 FrozenIsBool False
 -->
 
-View the Connecter sources on [Github](https://github.com/Ledoux/ShareYourSystem
-/tree/master/ShareYourSystem/Noders/Installer)
+##Code
+
+----
+
+<ClassDocStr>
+
+----
+
+```python
+# -*- coding: utf-8 -*-
+"""
+
+
+<DefineSource>
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+</DefineSource>
+
+Connecter instances catch grasped variables and makes an attention also on it.
+
+"""
+
+#<DefineAugmentation>
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Walkers.Mobilizer"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#</DefineAugmentation>
+
+#<ImportSpecificModules>
+#</ImportSpecificModules>
+
+#<DefineClass>
+@DecorationClass()
+class ConnecterClass(BaseClass):
+
+        #Definition
+        RepresentingKeyStrsList=[
+'ConnectingGraspClueVariablesList',
+'ConnectedDerivePointersList'
+                                                        ]
+
+        def default_init(self,
+_ConnectingGraspClueVariablesList=None,
+_ConnectedDerivePointersList=None,
+                                                **_KwargVariablesDict
+                                        ):
+
+                #Call the parent __init__ method
+                BaseClass.__init__(self,**_KwargVariablesDict)
+
+        def do_connect(self):
+
+                #debug
+                '''
+                self.debug(('self.',self,['ConnectingGraspClueVariablesList']))
+                '''
+
+                #catch
+                self.ConnectedDerivePointersList=map(
+                                lambda __ConnectingGraspVariable:
+                                self.grasp(
+                                                __ConnectingGraspVariable
+                                        ).catch(
+                                        ).attention(
+                                        ).GraspedAnswerVariable,
+                                self.ConnectingGraspClueVariablesList
+                        )
+
+#</DefineClass>
+
+```
+
+<small>
+View the Connecter sources on <a href="https://github.com/Ledoux/ShareYourSystem
+/tree/master/Pythonlogy/ShareYourSystem/Noders/Connecter"
+target="_blank">Github</a>
+</small>
+
+
 
 
 
@@ -36,18 +126,17 @@ MyProducer=Producer.ProducerClass().produce(
         )
 
 #connect
-MyProducer['<Connectome>FirstConnecter'].connect(**{
+MyProducer['<Connectome>FirstConnecter'].connect(
+    [
+        '/NodePointDeriveNoder/<Connectome>SecondConnecter',
+        SYS.GraspDictClass(**{'MyInt':0,'HintVariable':MyProducer['<Connectome>F
+irstConnecter']})
+    ],
+    **{
         'CatchingCollectionStr':"PostRelatome",
         'AttentioningCollectionStr':"PreRelatome",
-        'ConnectingGraspClueVariablesList':[
-            '/NodePointDeriveNoder/<Connectome>SecondConnecter'
-        ],
-        'ConnectingCatchGetStrsList':[
-            '/NodePointDeriveNoder/<Connectome>SecondConnecter'
-        ],
     }
 )
-
 
 #Definition the AttestedStr
 SYS._attest(
@@ -71,262 +160,394 @@ SYS._attest(
 
 ```console
 >>>
-Doer l.132 : DoerStr is Commander
-DoStr is Command
-DoMethodStr is command
-DoingStr is Commanding
-DoneStr is Commanded
 
-Doer l.132 : DoerStr is Walker
-DoStr is Walk
-DoMethodStr is walk
-DoingStr is Walking
-DoneStr is Walked
+                        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                        ////////////////////////////////
+                        Attentioner/__init__.py do_attention
+                        From Attentioner/__init__.py do_attention |
+Connecter/__init__.py do_connect | site-packages/six.py exec_ |
+Celler/__init__.py do_cell | Notebooker/__init__.py do_notebook |
+Informer/__init__.py do_inform | inform.py <module>
+                        ////////////////////////////////
 
-Doer l.132 : DoerStr is Cumulater
-DoStr is Cumulate
-DoMethodStr is cumulate
-DoingStr is Cumulating
-DoneStr is Cumulated
+                        l.60 :
+                        *****
+                        I am with [('NodeKeyStr', 'FirstConnecter')]
+                        *****
+                        self.AttentioningCollectionStr is PreRelatome
+                        self.GraspingClueVariable is
+/NodePointDeriveNoder/<Connectome>SecondConnecter
 
-Doer l.132 : DoerStr is Visiter
-DoStr is Visit
-DoMethodStr is visit
-DoingStr is Visiting
-DoneStr is Visited
-
-Doer l.132 : DoerStr is Recruiter
-DoStr is Recruit
-DoMethodStr is recruit
-DoingStr is Recruiting
-DoneStr is Recruit
-
-Doer l.132 : DoerStr is Mobilizer
-DoStr is Mobilize
-DoMethodStr is mobilize
-DoingStr is Mobilizing
-DoneStr is Mobilized
-
-Doer l.132 : DoerStr is Connecter
-DoStr is Connect
-DoMethodStr is connect
-DoingStr is Connecting
-DoneStr is Connected
+                        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 
-                            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                            ////////////////////////////////
-                            Doer/__init__.py do
-                            From <string> superDo_debug | Catcher/__init__.py
-do_catch | Doer/__init__.py do | <string> superDo_catch | Watcher/__init__.py
-watch | <string> watch_superDo_catch | Attentioner/__init__.py do_attention |
-Doer/__init__.py do | <string> superDo_attention | Watcher/__init__.py watch |
-<string> watch_superDo_attention | Connecter/__init__.py do_connect |
-Doer/__init__.py do | <string> superDo_connect | Watcher/__init__.py watch |
-<string> watch_superDo_connect | <string> <module> | <string> <module> | site-
-packages/six.py exec_ | Celler/__init__.py do_cell | Doer/__init__.py do |
-<string> superDo_cell | Watcher/__init__.py watch | <string> watch_superDo_cell
-| Notebooker/__init__.py do_notebook | Doer/__init__.py do | <string>
-superDo_notebook | Watcher/__init__.py watch | <string> watch_superDo_notebook |
-Readmer/__init__.py do_readme | Doer/__init__.py do | <string> superDo_readme |
-Watcher/__init__.py watch | <string> watch_superDo_readme |
-python2.7/posixpath.py walk | python2.7/posixpath.py walk | Directer/__init__.py
-do_direct | Doer/__init__.py do | <string> superDo_direct | Watcher/__init__.py
-watch | <string> watch_superDo_direct | Installer/__init__.py do_install |
-Doer/__init__.py do | <string> superDo_install | Watcher/__init__.py watch |
-<string> watch_superDo_install | ShareYourSystem/Install.py <module>
-                            ////////////////////////////////
+                        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                        ////////////////////////////////
+                        Attentioner/__init__.py do_attention
+                        From Attentioner/__init__.py do_attention |
+Connecter/__init__.py do_connect | site-packages/six.py exec_ |
+Celler/__init__.py do_cell | Notebooker/__init__.py do_notebook |
+Informer/__init__.py do_inform | inform.py <module>
+                        ////////////////////////////////
 
-                            l.180 :
-                            *****
-                            I am with [('NodeKeyStr', 'FirstConnecter')]
-                            *****
-                            self.CollectingCollectionStr is
+                        l.60 :
+                        *****
+                        I am with [('NodeKeyStr', 'FirstConnecter')]
+                        *****
+                        self.AttentioningCollectionStr is PreRelatome
+                        self.GraspingClueVariable is GraspDictClass([('MyInt',
+0), ('HintVariable', < (ConnecterClass), 4555535376>
+                           /{
+                           /  '<New><Instance>IdInt' : 4555535376
+                           /  '<New><Instance>NodeCollectionStr' : Connectome
+                           /  '<New><Instance>NodeIndexInt' : 0
+                           /  '<New><Instance>NodeKeyStr' : FirstConnecter
+                           /  '<New><Instance>NodePointDeriveNoder' : <
+(ProducerClass), 4555535312>
+                           /   /{
+                           /   /
+'<New><Instance>ConnectomeCollectionOrderedDict' :
+                           /   /   /{
+                           /   /   /  'FirstConnecter' : < (ConnecterClass),
+4555535376>
+                           /   /   /   /{
+                           /   /   /   /  '<New><Instance>IdInt' : 4555535376
+                           /   /   /   /  '<New><Instance>NodeCollectionStr' :
+Connectome
+                           /   /   /   /  '<New><Instance>NodeIndexInt' : 0
+                           /   /   /   /  '<New><Instance>NodeKeyStr' :
+FirstConnecter
+                           /   /   /   /  '<New><Instance>NodePointDeriveNoder'
+: {...}< (ProducerClass), 4555535312>
+                           /   /   /   /  '<New><Instance>NodePointOrderedDict'
+: {...}< (OrderedDict), 4555735416>
+                           /   /   /   /
+'<New><Instance>PostRelatomeCollectionOrderedDict' :
+                           /   /   /   /   /{
+                           /   /   /   /   /
+'_NodePointDeriveNoder_<Connectome>SecondConnecterPointer' : < (PointerClass),
+4555684304>
+                           /   /   /   /   /   /{
+                           /   /   /   /   /   /  '<New><Instance>IdInt' :
+4555684304
+                           /   /   /   /   /   /  '<New><Instance>PointVariable'
+: < (ConnecterClass), 4555683216>
+                           /   /   /   /   /   /   /{
+                           /   /   /   /   /   /   /  '<New><Instance>IdInt' :
+4555683216
+                           /   /   /   /   /   /   /
+'<New><Instance>NodeCollectionStr' : Connectome
+                           /   /   /   /   /   /   /
+'<New><Instance>NodeIndexInt' : 1
+                           /   /   /   /   /   /   /
+'<New><Instance>NodeKeyStr' : SecondConnecter
+                           /   /   /   /   /   /   /
+'<New><Instance>NodePointDeriveNoder' : {...}< (ProducerClass), 4555535312>
+                           /   /   /   /   /   /   /
+'<New><Instance>NodePointOrderedDict' : {...}< (OrderedDict), 4555735416>
+                           /   /   /   /   /   /   /
+'<New><Instance>PreRelatomeCollectionOrderedDict' :
+                           /   /   /   /   /   /   /   /{
+                           /   /   /   /   /   /   /   /
+'SecondConnecter>TopProducer<FirstConnecterPointer' : < (PointerClass),
+4555685072>
+                           /   /   /   /   /   /   /   /   /{
+                           /   /   /   /   /   /   /   /   /
+'<New><Instance>IdInt' : 4555685072
+                           /   /   /   /   /   /   /   /   /
+'<New><Instance>PointVariable' : {...}< (ConnecterClass), 4555535376>
+                           /   /   /   /   /   /   /   /   /
+'<Spe><Class>PointedBackSetStr' :
+                           /   /   /   /   /   /   /   /   /
+'<Spe><Class>PointedPathBackVariable' :
+                           /   /   /   /   /   /   /   /   /
+'<Spe><Instance>PointedGetVariable' : {...}< (ConnecterClass), 4555535376>
+                           /   /   /   /   /   /   /   /   /
+'<Spe><Instance>PointedLocalSetStr' : PointVariable
+                           /   /   /   /   /   /   /   /   /
+'<Spe><Instance>PointingBackSetStr' :
+                           /   /   /   /   /   /   /   /   /
+'<Spe><Instance>PointingGetVariable' : {...}< (ConnecterClass), 4555535376>
+                           /   /   /   /   /   /   /   /   /
+'<Spe><Instance>PointingSetPathStr' : PointVariable
+                           /   /   /   /   /   /   /   /   /}
+                           /   /   /   /   /   /   /   /}
+                           /   /   /   /   /   /   /
+'<New><Instance>WatchParentWithParenterBool' : True
+                           /   /   /   /   /   /   /
+'<Spe><Class>ConnectedDerivePointersList' : None
+                           /   /   /   /   /   /   /
+'<Spe><Class>ConnectingGraspClueVariablesList' : None
+                           /   /   /   /   /   /   /}
+                           /   /   /   /   /   /
+'<Spe><Class>PointedBackSetStr' :
+                           /   /   /   /   /   /
+'<Spe><Class>PointedPathBackVariable' :
+                           /   /   /   /   /   /
+'<Spe><Instance>PointedGetVariable' : {...}< (ConnecterClass), 4555683216>
+                           /   /   /   /   /   /
+'<Spe><Instance>PointedLocalSetStr' : PointVariable
+                           /   /   /   /   /   /
+'<Spe><Instance>PointingBackSetStr' :
+                           /   /   /   /   /   /
+'<Spe><Instance>PointingGetVariable' : {...}< (ConnecterClass), 4555683216>
+                           /   /   /   /   /   /
+'<Spe><Instance>PointingSetPathStr' : PointVariable
+                           /   /   /   /   /   /}
+                           /   /   /   /   /
+'FirstConnecter>TopProducer<FirstConnecterPointer' : < (PointerClass),
+4555684560>
+                           /   /   /   /   /   /{
+                           /   /   /   /   /   /  '<New><Instance>HintVariable'
+: {...}< (ConnecterClass), 4555535376>
+                           /   /   /   /   /   /  '<New><Instance>IdInt' :
+4555684560
+                           /   /   /   /   /   /  '<New><Instance>MyInt' : 0
+                           /   /   /   /   /   /  '<New><Instance>PointVariable'
+: {...}< (ConnecterClass), 4555535376>
+                           /   /   /   /   /   /
+'<Spe><Class>PointedBackSetStr' :
+                           /   /   /   /   /   /
+'<Spe><Class>PointedPathBackVariable' :
+                           /   /   /   /   /   /
+'<Spe><Instance>PointedGetVariable' : {...}< (ConnecterClass), 4555535376>
+                           /   /   /   /   /   /
+'<Spe><Instance>PointedLocalSetStr' : PointVariable
+                           /   /   /   /   /   /
+'<Spe><Instance>PointingBackSetStr' :
+                           /   /   /   /   /   /
+'<Spe><Instance>PointingGetVariable' : {...}< (ConnecterClass), 4555535376>
+                           /   /   /   /   /   /
+'<Spe><Instance>PointingSetPathStr' : PointVariable
+                           /   /   /   /   /   /}
+                           /   /   /   /   /}
+                           /   /   /   /
+'<New><Instance>WatchParentWithParenterBool' : True
+                           /   /   /   /
+'<Spe><Instance>ConnectedDerivePointersList' : []
+                           /   /   /   /
+'<Spe><Instance>ConnectingGraspClueVariablesList' :
+                           /   /   /   /   /[
+                           /   /   /   /   /  0 :
+/NodePointDeriveNoder/<Connectome>SecondConnecter
+                           /   /   /   /   /  1 : {...}< (GraspDictClass),
+4555735120>
+                           /   /   /   /   /]
+                           /   /   /   /}
+                           /   /   /  'SecondConnecter' : {...}<
+(ConnecterClass), 4555683216>
+                           /   /   /}
+                           /   /  '<New><Instance>IdInt' : 4555535312
+                           /   /  '<New><Instance>NodeCollectionStr' : Globals
+                           /   /  '<New><Instance>NodeIndexInt' : -1
+                           /   /  '<New><Instance>NodeKeyStr' : TopProducer
+                           /   /  '<New><Instance>NodePointDeriveNoder' : None
+                           /   /  '<New><Instance>NodePointOrderedDict' : None
+                           /   /  '<New><Instance>WatchParentWithParenterBool' :
+True
+                           /   /  '<Spe><Class>ProducingUpdateVariable' : None
+                           /   /  '<Spe><Instance>ProducedPushList' :
+                           /   /   /[
+                           /   /   /  0 :
+                           /   /   /   /[
+                           /   /   /   /  0 : First
+                           /   /   /   /  1 : {...}< (ConnecterClass),
+4555535376>
+                           /   /   /   /]
+                           /   /   /  1 :
+                           /   /   /   /[
+                           /   /   /   /  0 : Second
+                           /   /   /   /  1 : {...}< (ConnecterClass),
+4555683216>
+                           /   /   /   /]
+                           /   /   /]
+                           /   /
+'<Spe><Instance>ProducingCollectionKeyStrsList' : ['First', 'Second']
+                           /   /  '<Spe><Instance>ProducingPushClass' : <class
+'ShareYourSystem.Noders.Connecter.ConnecterClass'>
+                           /   /}
+                           /  '<New><Instance>NodePointOrderedDict' : {...}<
+(OrderedDict), 4555735416>
+                           /  '<New><Instance>PostRelatomeCollectionOrderedDict'
+: {...}< (OrderedDict), 4555736008>
+                           /  '<New><Instance>WatchParentWithParenterBool' :
+True
+                           /  '<Spe><Instance>ConnectedDerivePointersList' :
+{...}< (list), 4555696536>
+                           /  '<Spe><Instance>ConnectingGraspClueVariablesList'
+: {...}< (list), 4555751936>
+                           /})])
 
-                            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-
-
-                            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                            ////////////////////////////////
-                            Doer/__init__.py do
-                            From <string> superDo_debug | Catcher/__init__.py
-do_catch | Doer/__init__.py do | <string> superDo_catch | Watcher/__init__.py
-watch | <string> watch_superDo_catch | Attentioner/__init__.py do_attention |
-Doer/__init__.py do | <string> superDo_attention | Watcher/__init__.py watch |
-<string> watch_superDo_attention | Connecter/__init__.py do_connect |
-Doer/__init__.py do | <string> superDo_connect | Watcher/__init__.py watch |
-<string> watch_superDo_connect | <string> <module> | <string> <module> | site-
-packages/six.py exec_ | Celler/__init__.py do_cell | Doer/__init__.py do |
-<string> superDo_cell | Watcher/__init__.py watch | <string> watch_superDo_cell
-| Notebooker/__init__.py do_notebook | Doer/__init__.py do | <string>
-superDo_notebook | Watcher/__init__.py watch | <string> watch_superDo_notebook |
-Readmer/__init__.py do_readme | Doer/__init__.py do | <string> superDo_readme |
-Watcher/__init__.py watch | <string> watch_superDo_readme |
-python2.7/posixpath.py walk | python2.7/posixpath.py walk | Directer/__init__.py
-do_direct | Doer/__init__.py do | <string> superDo_direct | Watcher/__init__.py
-watch | <string> watch_superDo_direct | Installer/__init__.py do_install |
-Doer/__init__.py do | <string> superDo_install | Watcher/__init__.py watch |
-<string> watch_superDo_install | ShareYourSystem/Install.py <module>
-                            ////////////////////////////////
-
-                            l.180 :
-                            *****
-                            I am with [('NodeKeyStr', 'SecondConnecter')]
-                            *****
-                            self.CollectingCollectionStr is PreRelatome
-
-                            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-
-
-        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxx
-        ////////////////////////////////
-        Doer/__init__.py do
-        From <string> superDo_debug | Catcher/__init__.py do_catch |
-Doer/__init__.py do | <string> superDo_catch | Watcher/__init__.py watch |
-<string> watch_superDo_catch | Connecter/__init__.py do_connect |
-Doer/__init__.py do | <string> superDo_connect | Watcher/__init__.py watch |
-<string> watch_superDo_connect | <string> <module> | <string> <module> | site-
-packages/six.py exec_ | Celler/__init__.py do_cell | Doer/__init__.py do |
-<string> superDo_cell | Watcher/__init__.py watch | <string> watch_superDo_cell
-| Notebooker/__init__.py do_notebook | Doer/__init__.py do | <string>
-superDo_notebook | Watcher/__init__.py watch | <string> watch_superDo_notebook |
-Readmer/__init__.py do_readme | Doer/__init__.py do | <string> superDo_readme |
-Watcher/__init__.py watch | <string> watch_superDo_readme |
-python2.7/posixpath.py walk | python2.7/posixpath.py walk | Directer/__init__.py
-do_direct | Doer/__init__.py do | <string> superDo_direct | Watcher/__init__.py
-watch | <string> watch_superDo_direct | Installer/__init__.py do_install |
-Doer/__init__.py do | <string> superDo_install | Watcher/__init__.py watch |
-<string> watch_superDo_install | ShareYourSystem/Install.py <module>
-        ////////////////////////////////
-
-        l.180 :
-        *****
-        I am with [('NodeKeyStr', 'FirstConnecter')]
-        *****
-        self.CollectingCollectionStr is PostRelatome
-
-        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxx
+                        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 
 
 *****Start of the Attest *****
 
-MyProducer is < (ProducerClass), 4557090384>
+MyProducer is < (ProducerClass), 4555535312>
    /{
-   /  '<New><Instance>ApplyingIsBool' : True
    /  '<New><Instance>ConnectomeCollectionOrderedDict' :
    /   /{
-   /   /  'FirstConnecter' : < (ConnecterClass), 4557092816>
+   /   /  'FirstConnecter' : < (ConnecterClass), 4555535376>
    /   /   /{
-   /   /   /  '<New><Instance>ApplyingIsBool' : True
-   /   /   /  '<New><Instance>IdStr' : 4557092816
+   /   /   /  '<New><Instance>IdInt' : 4555535376
    /   /   /  '<New><Instance>NodeCollectionStr' : Connectome
    /   /   /  '<New><Instance>NodeIndexInt' : 0
    /   /   /  '<New><Instance>NodeKeyStr' : FirstConnecter
    /   /   /  '<New><Instance>NodePointDeriveNoder' : {...}< (ProducerClass),
-4557090384>
+4555535312>
    /   /   /  '<New><Instance>NodePointOrderedDict' : {...}< (OrderedDict),
-4557237216>
+4555735416>
    /   /   /  '<New><Instance>PostRelatomeCollectionOrderedDict' :
    /   /   /   /{
-   /   /   /   /  'SecondConnecterPointer' : < (PointerClass), 4557092880>
+   /   /   /   /  '_NodePointDeriveNoder_<Connectome>SecondConnecterPointer' : <
+(PointerClass), 4555684304>
    /   /   /   /   /{
-   /   /   /   /   /  '<New><Instance>IdStr' : 4557092880
+   /   /   /   /   /  '<New><Instance>IdInt' : 4555684304
    /   /   /   /   /  '<New><Instance>PointVariable' : < (ConnecterClass),
-4557093264>
+4555683216>
    /   /   /   /   /   /{
-   /   /   /   /   /   /  '<New><Instance>ApplyingIsBool' : True
-   /   /   /   /   /   /  '<New><Instance>IdStr' : 4557093264
+   /   /   /   /   /   /  '<New><Instance>IdInt' : 4555683216
    /   /   /   /   /   /  '<New><Instance>NodeCollectionStr' : Connectome
    /   /   /   /   /   /  '<New><Instance>NodeIndexInt' : 1
    /   /   /   /   /   /  '<New><Instance>NodeKeyStr' : SecondConnecter
    /   /   /   /   /   /  '<New><Instance>NodePointDeriveNoder' : {...}<
-(ProducerClass), 4557090384>
+(ProducerClass), 4555535312>
    /   /   /   /   /   /  '<New><Instance>NodePointOrderedDict' : {...}<
-(OrderedDict), 4557237216>
+(OrderedDict), 4555735416>
    /   /   /   /   /   /  '<New><Instance>PreRelatomeCollectionOrderedDict' :
    /   /   /   /   /   /   /{
-   /   /   /   /   /   /   /  'FirstConnecterPointer' : < (PointerClass),
-4557281296>
+   /   /   /   /   /   /   /
+'SecondConnecter>TopProducer<FirstConnecterPointer' : < (PointerClass),
+4555685072>
    /   /   /   /   /   /   /   /{
-   /   /   /   /   /   /   /   /  '<New><Instance>IdStr' : 4557281296
+   /   /   /   /   /   /   /   /  '<New><Instance>IdInt' : 4555685072
    /   /   /   /   /   /   /   /  '<New><Instance>PointVariable' : {...}<
-(ConnecterClass), 4557092816>
+(ConnecterClass), 4555535376>
    /   /   /   /   /   /   /   /  '<Spe><Class>PointedBackSetStr' :
    /   /   /   /   /   /   /   /  '<Spe><Class>PointedPathBackVariable' :
-   /   /   /   /   /   /   /   /  '<Spe><Class>PointingBackSetStr' :
    /   /   /   /   /   /   /   /  '<Spe><Instance>PointedGetVariable' : {...}<
-(ConnecterClass), 4557092816>
+(ConnecterClass), 4555535376>
    /   /   /   /   /   /   /   /  '<Spe><Instance>PointedLocalSetStr' :
 PointVariable
+   /   /   /   /   /   /   /   /  '<Spe><Instance>PointingBackSetStr' :
    /   /   /   /   /   /   /   /  '<Spe><Instance>PointingGetVariable' : {...}<
-(ConnecterClass), 4557092816>
+(ConnecterClass), 4555535376>
    /   /   /   /   /   /   /   /  '<Spe><Instance>PointingSetPathStr' :
 PointVariable
    /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /}
-   /   /   /   /   /   /  '<Spe><Class>ConnectedAttentionDeriveConnectersList' :
-None
-   /   /   /   /   /   /  '<Spe><Class>ConnectedDerivePointersList' :
-None
+   /   /   /   /   /   /  '<Spe><Class>ConnectedDerivePointersList' : None
    /   /   /   /   /   /  '<Spe><Class>ConnectingGraspClueVariablesList' : None
-   /   /   /   /   /   /  '<Spe><Class>ConnectingCatchGetStrsList' : None
    /   /   /   /   /   /}
    /   /   /   /   /  '<Spe><Class>PointedBackSetStr' :
    /   /   /   /   /  '<Spe><Class>PointedPathBackVariable' :
-   /   /   /   /   /  '<Spe><Class>PointingBackSetStr' :
    /   /   /   /   /  '<Spe><Instance>PointedGetVariable' : {...}<
-(ConnecterClass), 4557093264>
+(ConnecterClass), 4555683216>
    /   /   /   /   /  '<Spe><Instance>PointedLocalSetStr' : PointVariable
+   /   /   /   /   /  '<Spe><Instance>PointingBackSetStr' :
    /   /   /   /   /  '<Spe><Instance>PointingGetVariable' : {...}<
-(ConnecterClass), 4557093264>
+(ConnecterClass), 4555683216>
+   /   /   /   /   /  '<Spe><Instance>PointingSetPathStr' : PointVariable
+   /   /   /   /   /}
+   /   /   /   /  'FirstConnecter>TopProducer<FirstConnecterPointer' : <
+(PointerClass), 4555684560>
+   /   /   /   /   /{
+   /   /   /   /   /  '<New><Instance>HintVariable' : {...}< (ConnecterClass),
+4555535376>
+   /   /   /   /   /  '<New><Instance>IdInt' : 4555684560
+   /   /   /   /   /  '<New><Instance>MyInt' : 0
+   /   /   /   /   /  '<New><Instance>PointVariable' : {...}< (ConnecterClass),
+4555535376>
+   /   /   /   /   /  '<Spe><Class>PointedBackSetStr' :
+   /   /   /   /   /  '<Spe><Class>PointedPathBackVariable' :
+   /   /   /   /   /  '<Spe><Instance>PointedGetVariable' : {...}<
+(ConnecterClass), 4555535376>
+   /   /   /   /   /  '<Spe><Instance>PointedLocalSetStr' : PointVariable
+   /   /   /   /   /  '<Spe><Instance>PointingBackSetStr' :
+   /   /   /   /   /  '<Spe><Instance>PointingGetVariable' : {...}<
+(ConnecterClass), 4555535376>
    /   /   /   /   /  '<Spe><Instance>PointingSetPathStr' : PointVariable
    /   /   /   /   /}
    /   /   /   /}
-   /   /   /  '<Spe><Instance>ConnectedAttentionDeriveConnectersList' :
-   /   /   /   /[
-   /   /   /   /  0 : {...}< (ConnecterClass), 4557092816>
-   /   /   /   /]
+   /   /   /  '<New><Instance>PreRelatomeCollectionOrderedDict' :
+   /   /   /   /{
+   /   /   /   /  'FirstConnecter>TopProducer<FirstConnecterPointer' : <
+(PointerClass), 4555684816>
+   /   /   /   /   /{
+   /   /   /   /   /  '<New><Instance>HintVariable' : {...}< (ConnecterClass),
+4555535376>
+   /   /   /   /   /  '<New><Instance>IdInt' : 4555684816
+   /   /   /   /   /  '<New><Instance>MyInt' : 0
+   /   /   /   /   /  '<New><Instance>PointVariable' : {...}< (ConnecterClass),
+4555535376>
+   /   /   /   /   /  '<Spe><Class>PointedBackSetStr' :
+   /   /   /   /   /  '<Spe><Class>PointedPathBackVariable' :
+   /   /   /   /   /  '<Spe><Instance>PointedGetVariable' : {...}<
+(ConnecterClass), 4555535376>
+   /   /   /   /   /  '<Spe><Instance>PointedLocalSetStr' : PointVariable
+   /   /   /   /   /  '<Spe><Instance>PointingBackSetStr' :
+   /   /   /   /   /  '<Spe><Instance>PointingGetVariable' : {...}<
+(ConnecterClass), 4555535376>
+   /   /   /   /   /  '<Spe><Instance>PointingSetPathStr' : PointVariable
+   /   /   /   /   /}
+   /   /   /   /}
    /   /   /  '<Spe><Instance>ConnectedDerivePointersList' :
    /   /   /   /[
-   /   /   /   /  0 : {...}< (ConnecterClass), 4557092816>
+   /   /   /   /  0 : {...}< (ConnecterClass), 4555683216>
+   /   /   /   /  1 : {...}< (ConnecterClass), 4555535376>
    /   /   /   /]
    /   /   /  '<Spe><Instance>ConnectingGraspClueVariablesList' :
-['/NodePointDeriveNoder/<Connectome>SecondConnecter']
-   /   /   /  '<Spe><Instance>ConnectingCatchGetStrsList' :
-['/NodePointDeriveNoder/<Connectome>SecondConnecter']
+   /   /   /   /[
+   /   /   /   /  0 : /NodePointDeriveNoder/<Connectome>SecondConnecter
+   /   /   /   /  1 : GraspDictClass([('MyInt', 0), ('HintVariable', <
+(ConnecterClass), 4555535376>
+   /{
+   /  '<New><Instance>IdInt' : 4555535376
+   /  '<New><Instance>NodeCollectionStr' : Connectome
+   /  '<New><Instance>NodeIndexInt' : 0
+   /  '<New><Instance>NodeKeyStr' : FirstConnecter
+   /  '<New><Instance>NodePointDeriveNoder' : {...}< (ProducerClass),
+4555535312>
+   /  '<New><Instance>NodePointOrderedDict' : {...}< (OrderedDict), 4555735416>
+   /  '<New><Instance>PostRelatomeCollectionOrderedDict' : {...}< (OrderedDict),
+4555736008>
+   /  '<New><Instance>PreRelatomeCollectionOrderedDict' : {...}< (OrderedDict),
+4555735712>
+   /  '<New><Instance>WatchParentWithParenterBool' : True
+   /  '<Spe><Instance>ConnectedDerivePointersList' : {...}< (list), 4555689784>
+   /  '<Spe><Instance>ConnectingGraspClueVariablesList' : {...}< (list),
+4555751936>
+   /})])
+   /   /   /   /]
    /   /   /}
-   /   /  'SecondConnecter' : {...}< (ConnecterClass), 4557093264>
+   /   /  'SecondConnecter' : {...}< (ConnecterClass), 4555683216>
    /   /}
-   /  '<New><Instance>IdStr' : 4557090384
-   /  '<New><Instance>NodeCollectionStr' : Global
+   /  '<New><Instance>IdInt' : 4555535312
+   /  '<New><Instance>NodeCollectionStr' : Globals
    /  '<New><Instance>NodeIndexInt' : -1
-   /  '<New><Instance>NodeKeyStr' :
+   /  '<New><Instance>NodeKeyStr' : TopProducer
    /  '<New><Instance>NodePointDeriveNoder' : None
    /  '<New><Instance>NodePointOrderedDict' : None
+   /  '<Spe><Class>ProducingUpdateVariable' : None
    /  '<Spe><Instance>ProducedPushList' :
    /   /[
    /   /  0 :
    /   /   /[
    /   /   /  0 : First
-   /   /   /  1 : {...}< (ConnecterClass), 4557092816>
+   /   /   /  1 : {...}< (ConnecterClass), 4555535376>
    /   /   /]
    /   /  1 :
    /   /   /[
    /   /   /  0 : Second
-   /   /   /  1 : {...}< (ConnecterClass), 4557093264>
+   /   /   /  1 : {...}< (ConnecterClass), 4555683216>
    /   /   /]
    /   /]
    /  '<Spe><Instance>ProducingCollectionKeyStrsList' : ['First', 'Second']
-   /  '<Spe><Instance>ProducingUpdateVariable' :
-   /   /{
-   /   /}
    /  '<Spe><Instance>ProducingPushClass' : <class
 'ShareYourSystem.Noders.Connecter.ConnecterClass'>
    /}

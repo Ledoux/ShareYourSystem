@@ -1755,7 +1755,135 @@ View the Attributer notebook on <a href="http://nbviewer.ipython.org/url/shareyo
 FrozenIsBool False
 -->
 
-<p>View the Attributer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Itemizers/Installer">Github</a></p>
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+An Attributer instance has a __setitem__ method for setting things in the &lt;InstanceVariable&gt;.__dict__
+This is helpful for setting Propertized mutable variables in the instance different 
+from the propertized value setted at the level of the class
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Itemizers.Deleter"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineLocals&gt;
+AttributingStartStr='Attr_'
+#&lt;/DefineLocals&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class AttributerClass(BaseClass):
+
+    #Definition
+    RepresentingKeyStrsList=[
+                                    'AttributingKeyStr',
+                                    'AttributingValueVariable',
+                                    'AttributedSetKeyStr'
+                                ]
+
+    def default_init(self,  
+                        _AttributingKeyStr="",
+                        _AttributingValueVariable=None,    
+                        _AttributedSetKeyStr="",        
+                        **_KwargVariablesDict
+                    ):
+        """ """        
+
+        #Call the parent init method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+
+    def do_attribute(self):
+
+        #set
+        self.AttributedSetKeyStr=AttributingStartStr.join(
+            self.AttributingKeyStr.split(AttributingStartStr)[1:])
+
+        #Call the __setattr__ method
+        self.__setattr__(self.AttributedSetKeyStr,self.AttributingValueVariable)
+
+    #@Imitater.ImitaterClass()
+    def mimic_set(self):
+        """ """
+
+        #debug
+        '''
+        self.debug(('self.',self,['SettingKeyVariable','SettingValueVariable']))
+        '''
+
+        #Definition
+        OutputDict={'HookingIsBool':True}
+
+        #Deep set
+        if self.SettingKeyVariable.startswith(AttributingStartStr):
+
+            #debug
+            '''
+            self.debug('We are going to share')
+            '''
+
+            #Path
+            self.attribute(self.SettingKeyVariable,self.SettingValueVariable)
+
+            #debug
+            '''
+            self.debug(('self.',self,[
+                                        "SharedKeyStr",
+                                        "SharedChildKeyStr",
+                                        "SharedValueVariable"
+                                    ]
+                                ))
+            '''
+
+            #Stop the setting
+            OutputDict["HookingIsBool"]=False
+            #&lt;Hook&gt;return OutputDict
+
+        #Call the parent get method
+        if OutputDict['HookingIsBool']:
+
+            #debug
+            '''
+            self.debug(
+                        [
+                            'BaseClass is '+str(BaseClass),
+                            'BaseClass.set is '+str(BaseClass.set)
+                        ]
+                )
+            '''
+
+            #Set and return 
+            return BaseClass.set(self)
+
+        else:
+
+            #return
+            return OutputDict
+
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Attributer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Itemizers/Attributer" target="_blank">Github</a>
+</small></p>
 </div>
 </div>
 </div></section><section>
@@ -1806,9 +1934,9 @@ In&nbsp;[2]:
 
 *****Start of the Attest *****
 
-MyAttributer is &lt; (AttributerClass), 4348483408&gt;
+MyAttributer is &lt; (AttributerClass), 4555207120&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4348483408
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4555207120
    /  &apos;&lt;New&gt;&lt;Instance&gt;MyInt&apos; : 0
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;AttributedSetKeyStr&apos; : MyInt
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;AttributingKeyStr&apos; : Attr_MyInt

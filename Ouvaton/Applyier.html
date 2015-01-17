@@ -1755,7 +1755,179 @@ View the Applyier notebook on <a href="http://nbviewer.ipython.org/url/shareyour
 FrozenIsBool False
 -->
 
-<p>View the Applyier sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Applyiers/Installer">Github</a></p>
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+An Applyier apply a function thanks to a ApplyingMethodStr and an ApplyingArgDict.
+This property is going to be useful to begin to establish mappping methods and 
+commanding calls in deep structures.
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Itemizers.Executer"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+import copy
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class ApplyierClass(BaseClass):
+
+    #Definition
+    RepresentingKeyStrsList=[
+                                    #'ApplyingMethodStr',
+                                    #'ApplyingArgDict',
+                                    #'ApplyingIsBool',
+                                    #'AppliedMethod',
+                                    #'AppliedOutputVariable'
+                                ]
+
+    def default_init(self,
+                _ApplyingMethodStr="",
+                _ApplyingArgDict=None,
+                _ApplyingIsBool=False,
+                _AppliedMethod=None,
+                _AppliedOutputVariable=None,
+                **_KwargVariablesDict
+            ):
+
+        #Call the parent __init__ method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def do_apply(self):
+        """ """
+
+        #debug
+        '''
+        self.debug(
+                    ('self.',self,[
+                                    'ApplyingMethodStr',
+                                    'ApplyingArgDict'
+                                ])
+        )
+        '''
+
+        #set
+        self.AppliedMethod=getattr(self,self.ApplyingMethodStr)
+
+        #debug
+        ''''
+        self.debug(
+                    ('self.',self,[
+                                    'AppliedMethod'
+                                ])
+            )
+        '''
+
+        #Check
+        if self.AppliedMethod!=None:
+
+            #debug
+            '''
+            self.debug(
+                        [
+                            'AppliedMethod is good, We are going to apply',
+                            ('self.',self,['AppliedMethod','ApplyingArgDict'])
+                        ]
+                    )
+            '''
+
+            if 'KwargVariablesDict' in self.ApplyingArgDict:
+
+                #debug
+                '''
+                self.debug('We apply with a KwargVariablesDict')
+                '''
+
+                #Call the AppliedMethod
+                self.AppliedOutputVariable=self.AppliedMethod(
+                                *self.ApplyingArgDict['LiargVariablesList'],
+                                **self.ApplyingArgDict['KwargVariablesDict']
+                                ) 
+            else:
+
+                #debug
+                '''
+                self.debug('We apply without a KwargVariablesDict')
+                '''
+
+
+
+                #Call
+                self.AppliedOutputVariable=self.AppliedMethod(
+                    *self.ApplyingArgDict['LiargVariablesList']
+                    )
+
+        #Return self
+        #return self
+
+    def mimic_set(self):
+
+        #debug
+        '''
+        self.debug(('self.',self,['SettingKeyVariable','SettingValueVariable']))
+        '''
+
+        #Definition
+        OutputDict={'HookingIsBool':True}
+
+        #Check
+        if self.SettingKeyVariable!="":
+
+            #Call for a hook
+            if (self.SettingKeyVariable[0].isalpha() or self.SettingKeyVariable[:2]=="__"
+                ) and self.SettingKeyVariable[0].lower()==self.SettingKeyVariable[0]:
+
+                #debug
+                '''
+                self.debug(
+                            [
+                                ('This is a set that calls a method so this is an apply...'),
+                                ('self.',self,[
+                                                'SettingKeyVariable',
+                                                'SettingValueVariable'
+                                                ]
+                                )
+                            ]
+                        )
+                '''
+
+                #Apply
+                self.ApplyingIsBool=False
+                self.apply(
+                                self.SettingKeyVariable,
+                                self.SettingValueVariable
+                            )
+
+                #Return
+                OutputDict['HookingIsBool']=False
+                #&lt;Hook&gt;return OutputDict
+
+        if OutputDict['HookingIsBool']:
+            BaseClass.set(self)
+
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Applyier sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Applyiers/Applyier" target="_blank">Github</a>
+</small></p>
 </div>
 </div>
 </div></section><section>
@@ -1841,9 +2013,9 @@ In&nbsp;[3]:
 
 *****Start of the Attest *****
 
-MyApplyier is &lt; (ApplyierClass), 4550543888&gt;
+MyApplyier is &lt; (ApplyierClass), 4556354128&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550543888
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4556354128
    /  &apos;&lt;New&gt;&lt;Instance&gt;MyNotLostStr&apos; : ben he
    /  &apos;&lt;New&gt;&lt;Instance&gt;MyStr&apos; : Hello
    /}

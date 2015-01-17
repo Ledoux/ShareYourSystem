@@ -22,7 +22,9 @@ FrozenIsBool False
 </DefineSource>
 
 
-Binder...
+Binder helps for setting a method in a Class,
+taking inspiration (like a decoration) from another one.
+
 
 """
 
@@ -232,6 +234,6 @@ class BinderClass(BaseClass):
 ```
 
 <small>
-View the Binder sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Classors/Binder)
+View the Binder sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Classors/Binder" target="_blank">Github</a>
 </small>
 

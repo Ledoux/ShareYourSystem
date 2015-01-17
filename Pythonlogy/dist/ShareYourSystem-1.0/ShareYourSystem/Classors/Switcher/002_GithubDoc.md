@@ -219,6 +219,6 @@ class SwitcherClass(BaseClass):
 ```
 
 <small>
-View the Switcher sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Classors/Switcher)
+View the Switcher sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Classors/Switcher" target="_blank">Github</a>
 </small>
 

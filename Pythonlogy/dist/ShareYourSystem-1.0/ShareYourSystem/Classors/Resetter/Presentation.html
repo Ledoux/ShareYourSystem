@@ -1744,10 +1744,210 @@ View the Resetter notebook on <a href="http://nbviewer.ipython.org/url/shareyour
 </div>
 </div></section><section>
     
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<!--
+FrozenIsBool False
+-->
+
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+The Resetter
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Classors.Watcher"
+DecorationModuleStr="ShareYourSystem.Classors.Tester"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+import operator
+from ShareYourSystem.Classors import Doer,Observer
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineFunctions&gt;
+def getResetBool(_InstanceVariable,**_KwargVariablesDict):
+
+    #get and return
+    return getattr(_InstanceVariable,'_'+_KwargVariablesDict['ResetDoBoolKeyStr'])
+
+def setResetBool(_InstanceVariable,_ValueVariable,**_KwargVariablesDict):
+
+    #Debug
+    '''
+    print('l 37 Resetter')
+    print('We are in the setResetBool')
+    print('_KwargVariablesDict is ')
+    print(_KwargVariablesDict)
+    print('')
+    '''
+
+    #Alias
+    HideResetDoBoolKeyStr='_'+_KwargVariablesDict['ResetDoBoolKeyStr']
+
+    #Check
+    if hasattr(
+            _InstanceVariable,
+            HideResetDoBoolKeyStr
+            )==False:
+        _InstanceVariable.__setattr__(HideResetDoBoolKeyStr,False)
+
+    #get
+    ResetDoBool=getattr(
+            _InstanceVariable,
+            _KwargVariablesDict['ResetDoBoolKeyStr']
+            )
+
+    #Debug
+    '''
+    print('l 58 Resetter')
+    print("_KwargVariablesDict['ResetDoBoolKeyStr'] is ",_KwargVariablesDict['ResetDoBoolKeyStr'])
+    print('ResetDoBool is ',ResetDoBool)
+    print('')
+    '''
+
+    #check
+    if ResetDoBool==True and _ValueVariable==False:
+
+        #Debug
+        '''
+        print('l 69 Resetter')
+        print('Yes we reset')
+        print('')
+        '''
+
+        #map
+        map(
+                lambda __DefaultSetTuple:
+                _InstanceVariable.__setattr__(
+                        __DefaultSetTuple[0],
+                        __DefaultSetTuple[1]
+                ),
+                #self.DoClass.DefaultAttributeItemTuplesList
+                getattr(
+                    SYS,
+                    _KwargVariablesDict['BindDoClassStr']
+                ).DoneAttributeVariablesOrderedDict.items()
+            )
+
+    #set
+    _InstanceVariable.__setattr__(
+        HideResetDoBoolKeyStr,
+        _ValueVariable
+        )
+
+def delResetBool(_InstanceVariable,**_KwargVariablesDict):
+
+    #delete
+    _InstanceVariable.__delattr__('_'+_KwargVariablesDict['ResetDoBoolKeyStr'])
+#&lt;/DefineFunctions&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class ResetterClass(BaseClass):
+
+    #Definition 
+    RepresentingKeyStrsList=[                 
+    ]
+
+    def default_init(self,                    
+                        **_KwargVariablesDict
+                ):
+
+        #Call the parent init method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def __call__(self,_Class):
+
+        #Call the parent method
+        Observer.ObserverClass.__bases__[0].__call__(self,_Class)
+
+        #reset
+        self.reset()
+
+        #Return
+        return _Class
+
+    def do_reset(self):
+
+        #watch first
+        self.watch(True,**{'ObservingWrapMethodStr':self.DoClass.DoMethodStr})
+
+        #set to the class
+        """
+        self.DoClass.ResetDoBoolKeyStr='Reset'+'Watch'.join(
+            self.WatchedDoBoolKeyStr.split('Watch')[1:])
+        """
+        self.DoClass.ResetDoBoolKeyStr=self.WatchedDoBoolKeyStr
+
+        #Debug
+        '''
+        print('Resetter l 125')
+        print('self.WatchedDoBoolKeyStr is ',self.WatchedDoBoolKeyStr)
+        print('self.DoClass.ResetDoBoolKeyStr is ',self.DoClass.ResetDoBoolKeyStr)
+        print('Now we bind')
+        '''
+
+        #map binds
+        ResettedBindDecorationUnboundMethodsList=map(
+                lambda __Function:
+                self.bind(
+                            True,
+                            __Function,
+                            "",
+                            __Function.__name__+'With'+self.DoClass.NameStr,
+                            [('ResetDoBoolKeyStr',self.DoClass.ResetDoBoolKeyStr)],
+                            **{'ObservingWrapMethodStr':""}
+                    ).BindedDecorationUnboundMethod,
+                [getResetBool,setResetBool,delResetBool]
+            )
+
+        #Set
+        setattr(
+                    self.DoClass,
+                    self.DoClass.ResetDoBoolKeyStr,
+                    property(
+                        *ResettedBindDecorationUnboundMethodsList
+                    )
+                )
+
+        #Add to the KeyStrsList
+        self.DoClass.KeyStrsList+=[
+                                    self.DoClass.ResetDoBoolKeyStr,
+                                    'ResetDoBoolKeyStr'
+                                ]
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Resetter sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Classors/Resetter" target="_blank">Github</a>
+</small></p>
+</div>
+</div>
+</div></section><section>
+    
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[1]:
+In&nbsp;[2]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -1880,11 +2080,11 @@ In&nbsp;[1]:
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
 Before make, MyBuilder is 
-&lt; (BuilderClass), 4349608464&gt;
+&lt; (BuilderClass), 4538886224&gt;
    /{ 
    /  &apos;&lt;Base&gt;&lt;Class&gt;MadeMyInt&apos; : 0
    /  &apos;&lt;Base&gt;&lt;Class&gt;MakingMyFloat&apos; : 0.0
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4349608464
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4538886224
    /  &apos;&lt;Spe&gt;&lt;Class&gt;BuildingMyStr&apos; : 
    /  &apos;&lt;Spe&gt;&lt;Class&gt;BuiltMyStr&apos; : 
    /}
@@ -1892,9 +2092,9 @@ self.MakingMyFloat is 3.0
 self.MadeMyInt is 0
 
 After the first make, MyBuilder is 
-&lt; (BuilderClass), 4349608464&gt;
+&lt; (BuilderClass), 4538886224&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4349608464
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4538886224
    /  &apos;&lt;Spe&gt;&lt;Class&gt;BuildingMyStr&apos; : 
    /  &apos;&lt;Spe&gt;&lt;Class&gt;BuiltMyStr&apos; : 
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 3
@@ -1904,9 +2104,9 @@ self.MakingMyFloat is 5.0
 self.MadeMyInt is 3
 
 After the second make, MyBuilder is 
-&lt; (BuilderClass), 4349608464&gt;
+&lt; (BuilderClass), 4538886224&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4349608464
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4538886224
    /  &apos;&lt;Spe&gt;&lt;Class&gt;BuildingMyStr&apos; : 
    /  &apos;&lt;Spe&gt;&lt;Class&gt;BuiltMyStr&apos; : 
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 5
@@ -1914,9 +2114,9 @@ After the second make, MyBuilder is
    /}
 Now we reset
 After the reset MyBuilder is 
-&lt; (BuilderClass), 4349608464&gt;
+&lt; (BuilderClass), 4538886224&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4349608464
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4538886224
    /  &apos;&lt;Spe&gt;&lt;Class&gt;BuildingMyStr&apos; : 
    /  &apos;&lt;Spe&gt;&lt;Class&gt;BuiltMyStr&apos; : 
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 0
@@ -1926,9 +2126,9 @@ self.MakingMyFloat is 7.0
 self.MadeMyInt is 0
 
 After the third make, MyBuilder is 
-&lt; (BuilderClass), 4349608464&gt;
+&lt; (BuilderClass), 4538886224&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4349608464
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4538886224
    /  &apos;&lt;Spe&gt;&lt;Class&gt;BuildingMyStr&apos; : 
    /  &apos;&lt;Spe&gt;&lt;Class&gt;BuiltMyStr&apos; : 
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 7
@@ -1938,7 +2138,7 @@ After the third make, MyBuilder is
 
 *****Start of the Attest *****
 
-BuilderClass.WatchMakeWithMakerBool is &lt;property object at 0x103367e68&gt;
+BuilderClass.WatchMakeWithMakerBool is &lt;property object at 0x10e884310&gt;
 
 ------
 
@@ -1950,9 +2150,9 @@ BuilderClass.make is &lt;unbound method BuilderClass.watch_superDo_make&gt;
 
 ------
 
-MyBuilder is &lt; (BuilderClass), 4349608464&gt;
+MyBuilder is &lt; (BuilderClass), 4538886224&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4349608464
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4538886224
    /  &apos;&lt;Spe&gt;&lt;Class&gt;BuildingMyStr&apos; : 
    /  &apos;&lt;Spe&gt;&lt;Class&gt;BuiltMyStr&apos; : 
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 7

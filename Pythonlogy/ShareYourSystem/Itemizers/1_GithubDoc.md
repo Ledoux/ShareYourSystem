@@ -34,6 +34,6 @@ SYS.setConceptModule(globals())
 ```
 
 <small>
-View the Itemizers sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Itemizers)
+View the Itemizers sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Itemizers" target="_blank">Github</a>
 </small>
 

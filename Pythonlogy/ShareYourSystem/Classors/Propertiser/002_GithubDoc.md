@@ -274,6 +274,6 @@ class PropertiserClass(BaseClass):
 ```
 
 <small>
-View the Propertiser sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Classors/Propertiser)
+View the Propertiser sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Classors/Propertiser" target="_blank">Github</a>
 </small>
 

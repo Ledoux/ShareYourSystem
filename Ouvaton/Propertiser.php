@@ -1751,6 +1751,283 @@ View the Propertiser notebook on <a href="http://nbviewer.ipython.org/url/sharey
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<!--
+FrozenIsBool False
+-->
+
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+The Propertiser is an augmented Defaultor because it will set defaults attributes
+possibly in properties for the new-style decorated classes. This can set objects
+with high controlling features thanks to the binding 
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Classors.Deriver"
+DecorationModuleStr=BaseModuleStr
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+import inspect
+import collections
+
+from ShareYourSystem.Objects import Initiator
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineLocals&gt;
+PropertizingGetStr="_"
+PropertizingRepresentationStr="p:"
+#&lt;/DefineLocals&gt;
+
+#&lt;DefineFunctions&gt;
+def getPropertizedTupleWithItemTupleAndClass(_ItemTuple,_Class):
+
+    #Get the KeyStr, and the ValueVariable that should be a dict
+    PropertizedKeyStr=_ItemTuple[0]
+    PropertizedValueVariable=_ItemTuple[1]
+    PropertizedHideKeyStr=PropertizingGetStr+PropertizedKeyStr
+
+    #Check that this is a property yet or not
+    if type(PropertizedValueVariable)!=property:
+
+        #Init
+        PropertizedValueVariable=property()
+
+        #Definition the get function
+        PropertizedGetFunctionStr='get'+PropertizedKeyStr
+        if hasattr(_Class,PropertizedGetFunctionStr):
+
+            #Check for an already defined method
+            PropertizedGetFunction=getattr(_Class,PropertizedGetFunctionStr)
+
+        else:
+
+            #Definition a default one
+            def PropertizedGetFunction(self):
+                return getattr(self,PropertizedHideKeyStr)
+            PropertizedGetFunction.__name__=PropertizedGetFunctionStr
+
+        #Definition the set function
+        PropertizedSetFunctionStr='set'+PropertizedKeyStr
+
+        #Check
+        if hasattr(_Class,PropertizedSetFunctionStr):
+
+            #Check for an already defined method
+            PropertizedSetFunction=getattr(_Class,PropertizedSetFunctionStr)
+        else:
+
+            #Definition a default one
+            def PropertizedSetFunction(self,_SettingValueVariable):
+                self.__setattr__(PropertizedHideKeyStr,_SettingValueVariable)
+            PropertizedSetFunction.__name__='set'+PropertizedKeyStr
+
+
+        #Definition the del function
+        PropertizedDelFunctionStr='del'+PropertizedKeyStr
+        if hasattr(_Class,PropertizedDelFunctionStr):
+
+            #Check for an already defined method
+            PropertizedDelFunction=getattr(_Class,PropertizedDelFunctionStr)
+
+        else:
+
+            #Definition a default one
+            def PropertizedDelFunction(self):
+                self.__delattr__(PropertizedHideKeyStr)
+            PropertizedDelFunction.__name__='del'+PropertizedKeyStr
+
+        #Redefine
+        PropertizedValueVariable=property(
+                            PropertizedGetFunction,
+                            PropertizedSetFunction,
+                            PropertizedDelFunction,
+                            _ItemTuple[1]['PropertizingDocStr'
+                            ]if 'PropertizingDocStr' in _ItemTuple[1]
+                            else "This is here a property but with no more details..."
+                        )
+
+    #Definition the property
+    return (
+                PropertizedKeyStr,
+                PropertizedValueVariable
+            )
+
+def getPropertizedVariableWithItemTuple(_ItemTuple):
+
+    #Maybe it is already defined
+    if 'PropertizingInitVariable' in _ItemTuple[1]:
+        return _ItemTuple[1]['PropertizingInitVariable']
+    else:
+
+        #Return the default one associated with the type
+        return SYS.getTypeClassWithTypeStr(SYS.getWordStrsListWithStr(_ItemTuple[0])[-1])
+
+#&lt;/DefineFunctions&gt;
+
+#&lt;Define_Class&gt;
+@DecorationClass()
+class PropertiserClass(BaseClass):
+
+    def default_init(self,
+                        **_KwargVariablesDict
+                    ):
+
+        #Call the parent init method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def __call__(self,_Class):
+
+        #debug
+        '''
+        print('Defaultor l.31 __call__ method')
+        print('_Class is ',_Class)
+        print('')
+        '''
+
+        #Call the parent init method
+        BaseClass.__call__(self,_Class)
+
+        #Debug
+        '''
+        print('l.146 : We are going to propertize')
+        print('')
+        '''
+
+        #propertize
+        self.propertize()
+
+        #Debug
+        '''
+        print('l.153 : propertize is done')
+        print('')
+        '''
+
+        #Return 
+        return _Class
+
+    def do_propertize(self):
+
+        #Alias
+        PropertizedClass=self.DoClass
+
+        #Debug
+        '''
+        print('PropertizedClass is ',PropertizedClass)
+        print('')
+        '''
+
+        #debug
+        '''
+        print('Propertiser l.47 default method')
+        print('Class is ',Class)
+        print('')
+        '''
+
+        #Check
+        if hasattr(PropertizedClass,"DefaultAttributeVariablesOrderedDict"):
+
+            #debug
+            '''
+            print('PropertizedClass.DefaultAttributeVariablesOrderedDict is',PropertizedClass.DefaultAttributeVariablesOrderedDict)
+            print('')
+            '''
+
+            #set the PropertizedDefaultTuplesList
+            PropertizedClass.PropertizedDefaultTuplesList=SYS._filter(
+                lambda __DefaultSetTuple:
+                type(__DefaultSetTuple[1]
+                    )==property or (
+                    hasattr(__DefaultSetTuple[1],'items'
+                        ) and 'DefaultingSetType' in __DefaultSetTuple[1
+                    ] and __DefaultSetTuple[1
+                    ]['DefaultingSetType']==property),
+                PropertizedClass.DefaultAttributeVariablesOrderedDict.items()
+            )
+
+            #debug
+            '''
+            print('Before set PropertizedClass.PropertizedDefaultTuplesList is ',PropertizedClass.PropertizedDefaultTuplesList)
+            print('')
+            '''
+
+            #set at the level of the class the PropertizingGetStr+KeyStr
+            map(    
+                    lambda __PropertizedDefaultTuple:
+                    setattr(
+                                PropertizedClass,
+                                PropertizingGetStr+__PropertizedDefaultTuple[0],
+                                getPropertizedVariableWithItemTuple(__PropertizedDefaultTuple)
+                            ),
+                    PropertizedClass.PropertizedDefaultTuplesList
+                )
+
+            #set the PropertizedTuple for each at the level of the class
+            PropertizedClass.PropertizedDefaultTuplesList=map(
+                    lambda __PropertizedDefaultTuple:
+                    getPropertizedTupleWithItemTupleAndClass(
+                        __PropertizedDefaultTuple,
+                        PropertizedClass
+                    ),
+                    PropertizedClass.PropertizedDefaultTuplesList
+                )
+
+            #debug
+            '''
+            print('After set PropertizedClass.PropertizedDefaultTuplesList is ',PropertizedClass.PropertizedDefaultTuplesList)
+            print('')
+            '''
+
+            #Reset at the level of the class the properties
+            map(    
+                    lambda __PropertizedDefaultTuple:
+                    setattr(
+                                PropertizedClass,
+                                *__PropertizedDefaultTuple
+                            ),
+                    PropertizedClass.PropertizedDefaultTuplesList
+                )
+
+
+
+            #Add to the KeyStrsList
+            PropertizedClass.KeyStrsList+=[
+                                        "PropertizedDefaultTuplesList"
+                                    ]
+
+
+
+
+#&lt;/Define_Class&gt;
+</code></pre>
+<p><small>
+View the Propertiser sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Classors/Propertiser" target="_blank">Github</a>
+</small></p>
+</div>
+</div>
+</div></section><section>
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <!---
 FrozenIsBool True
 -->
@@ -1766,7 +2043,7 @@ that will be linked to the fset attribute of the property object. </p>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[2]:
+In&nbsp;[3]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -1861,12 +2138,12 @@ MakerClass.PropertizedDefaultTuplesList is
    /  0 : 
    /   /(
    /   /  0 : MakingMyFloat
-   /   /  1 : &lt;property object at 0x103314f70&gt;
+   /   /  1 : &lt;property object at 0x10e884100&gt;
    /   /)
    /  1 : 
    /   /(
    /   /  0 : MakingMyList
-   /   /  1 : &lt;property object at 0x103314e68&gt;
+   /   /  1 : &lt;property object at 0x10e884158&gt;
    /   /)
    /]
 
@@ -1876,7 +2153,7 @@ What are you saying DefaultMaker ?
 
 ------
 
-DefaultMaker.__dict__ is {&apos;IdInt&apos;: 4348604944}
+DefaultMaker.__dict__ is {&apos;IdInt&apos;: 4538653072}
 
 ------
 
@@ -1896,7 +2173,7 @@ What are you saying SpecialMaker ?
 
 ------
 
-SpecialMaker.__dict__ is {&apos;IdInt&apos;: 4348606416, &apos;MadeMyInt&apos;: 5, &apos;_MakingMyFloat&apos;: 5, &apos;_MakingMyList&apos;: [4, &apos;Hellllllo&apos;]}
+SpecialMaker.__dict__ is {&apos;IdInt&apos;: 4538653200, &apos;MadeMyInt&apos;: 5, &apos;_MakingMyFloat&apos;: 5, &apos;_MakingMyList&apos;: [4, &apos;Hellllllo&apos;]}
 
 ------
 

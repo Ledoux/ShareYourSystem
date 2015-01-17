@@ -1,9 +1,9 @@
 
 #ImportModules
-import tables
 import ShareYourSystem as SYS
 from ShareYourSystem.Noders import Structurer
 from ShareYourSystem.Databasers import Retriever
+import tables
 
 #Definition of a Structurer instance with a noded datar
 MyStructurer=Structurer.StructurerClass().collect(

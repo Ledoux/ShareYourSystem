@@ -92,6 +92,6 @@ class ConcluderClass(BaseClass):
 ```
 
 <small>
-View the Concluder sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Objects/Concluder)
+View the Concluder sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Objects/Concluder" target="_blank">Github</a>
 </small>
 

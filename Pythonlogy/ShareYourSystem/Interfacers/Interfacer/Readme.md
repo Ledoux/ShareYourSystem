@@ -96,8 +96,9 @@ class InterfacerClass(BaseClass):
 ```
 
 <small>
-View the Interfacer sources on [Github](https://github.com/Ledoux/ShareYourSyste
-m/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Interfacer)
+View the Interfacer sources on <a href="https://github.com/Ledoux/ShareYourSyste
+m/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Interfacer"
+target="_blank">Github</a>
 </small>
 
 
@@ -146,9 +147,9 @@ SYS._attest(
 
 *****Start of the Attest *****
 
-MyInterfacer is < (InterfacerClass), 4541976144>
+MyInterfacer is < (InterfacerClass), 4540175632>
    /{
-   /  '<New><Instance>IdInt' : 4541976144
+   /  '<New><Instance>IdInt' : 4540175632
    /}
 
 *****End of the Attest *****

@@ -2071,7 +2071,7 @@ class DebuggerClass(BaseClass):
 #&lt;/DefineClass&gt;
 </code></pre>
 <p><small>
-View the Debugger sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Objects/Debugger">Github</a>
+View the Debugger sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Objects/Debugger" target="_blank">Github</a>
 </small></p>
 </div>
 </div>

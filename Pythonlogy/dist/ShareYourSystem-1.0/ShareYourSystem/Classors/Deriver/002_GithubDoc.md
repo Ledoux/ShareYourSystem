@@ -140,6 +140,6 @@ class DeriverClass(BaseClass):
 ```
 
 <small>
-View the Deriver sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Classors/Deriver)
+View the Deriver sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Classors/Deriver" target="_blank">Github</a>
 </small>
 

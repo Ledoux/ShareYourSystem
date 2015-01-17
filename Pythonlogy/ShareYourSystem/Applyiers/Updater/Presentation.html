@@ -1753,7 +1753,79 @@ View the Updater notebook on <a href="http://nbviewer.ipython.org/url/shareyours
 FrozenIsBool False
 -->
 
-<p>View the Updater sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Applyiers/Installer">Github</a></p>
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+An Updater maps a __setitem__
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Applyiers.Gatherer"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class UpdaterClass(BaseClass):
+
+    #Definition
+    RepresentingKeyStrsList=[
+                                'UpdatingItemVariable'
+                            ]
+
+    def default_init(self,
+                _UpdatingItemVariable=None,
+                **_KwargVariablesDict):
+
+        #Call the parent __init__ method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def do_update(self):
+        """ """
+
+        #debug
+        '''
+        self.debug("self.UpdatingItemVariable is "+Representer.represent(
+            self.UpdatingItemVariable,**{'RepresentingAlineaIsBool':False}))
+        '''
+
+        #Apply
+        self.map('__setitem__',map(
+                                    lambda __UpdatingItemTuple:
+                                    {'LiargVariablesList':__UpdatingItemTuple},
+                                    self.UpdatingItemVariable.items()
+                                    if hasattr(self.UpdatingItemVariable,'items')
+                                    else (self.UpdatingItemVariable 
+                                        if self.UpdatingItemVariable !=None
+                                        else []
+                                    )
+                                )
+        )
+
+        #Return
+        #return self
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Updater sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Applyiers/Updater" target="_blank">Github</a>
+</small></p>
 </div>
 </div>
 </div></section><section>
@@ -1827,9 +1899,9 @@ In&nbsp;[3]:
 
 *****Start of the Attest *****
 
-MyUpdater is &lt; (UpdaterClass), 4550544592&gt;
+MyUpdater is &lt; (UpdaterClass), 4556354768&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550544592
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4556354768
    /  &apos;&lt;New&gt;&lt;Instance&gt;MyFloat&apos; : 0.2
    /  &apos;&lt;New&gt;&lt;Instance&gt;MyInt&apos; : 0
    /  &apos;&lt;New&gt;&lt;Instance&gt;MyStr&apos; : hello

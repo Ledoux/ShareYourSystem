@@ -7,7 +7,7 @@ from ShareYourSystem.Guiders import Celler
 MyCeller=Celler.CellerClass().load(
 	**{
 		'FolderingPathStr':
-		SYS.ShareYourSystemLocalFolderPathStr+'/ShareYourSystem/Objects/Rebooter',
+		SYS.ShareYourSystemLocalFolderPathStr+'Pythonlogy/ShareYourSystem/Objects/Rebooter',
 		'FilingKeyStr':'01_ExampleDoc.py'
 	}
 )

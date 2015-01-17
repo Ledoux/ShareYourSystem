@@ -129,7 +129,7 @@ self.PackagedModuleVariable.__file__.split('/')[:-1]
                         )+'/'
 
                         #set
-                        self.PackagedLocalFolderPathStr=SYS.LocalPythonlogyFolde
+                        self.PackagedLocalFolderPathStr=SYS.PythonlogyLocalFolde
 rPathStr+self.PackagedModuleVariable.__name__.replace(
                                 '.','/')+'/'
 
@@ -153,8 +153,9 @@ rPathStr+self.PackagedModuleVariable.__name__.replace(
 ```
 
 <small>
-View the Packager sources on [Github](https://github.com/Ledoux/ShareYourSystem/
-tree/master/ShareYourSystem/Objects/Packager)
+View the Packager sources on <a href="https://github.com/Ledoux/ShareYourSystem/
+tree/master/Pythonlogy/ShareYourSystem/Objects/Packager"
+target="_blank">Github</a>
 </small>
 
 
@@ -201,9 +202,9 @@ SYS._attest(
 
 *****Start of the Attest *****
 
-MyPackager< (PackagerClass), 4457658896>
+MyPackager< (PackagerClass), 4537117456>
    /{
-   /  '<New><Instance>IdInt' : 4457658896
+   /  '<New><Instance>IdInt' : 4537117456
    /  '<Spe><Instance>PackagedInstallFolderPathStr' : /usr/local/lib/python2.7
 /site-packages/ShareYourSystem/Objects/Printer/
    /  '<Spe><Instance>PackagedLocalFolderPathStr' : /Users/ledoux/Documents/Shar

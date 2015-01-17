@@ -1824,7 +1824,7 @@ class PrinterClass(BaseClass):
 #&lt;/DefineClass&gt;
 </code></pre>
 <p><small>
-View the Printer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Objects/Printer">Github</a>
+View the Printer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Objects/Printer" target="_blank">Github</a>
 </small></p>
 </div>
 </div>
@@ -1888,9 +1888,9 @@ hello
 
 *****Start of the Attest *****
 
-MyPrinter is &lt; (PrinterClass), 4457658960&gt;
+MyPrinter is &lt; (PrinterClass), 4537218384&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4457658960
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4537218384
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;PrintingVariable&apos; : hello
    /}
 
@@ -2259,7 +2259,7 @@ class DebuggerClass(BaseClass):
 #&lt;/DefineClass&gt;
 </code></pre>
 <p><small>
-View the Debugger sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Objects/Debugger">Github</a>
+View the Debugger sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Objects/Debugger" target="_blank">Github</a>
 </small></p>
 </div>
 </div>
@@ -2674,7 +2674,7 @@ class ConditionerClass(BaseClass):
 #&lt;/DefineClass&gt;
 </code></pre>
 <p><small>
-View the Conditioner sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Objects/Conditioner">Github</a>
+View the Conditioner sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Objects/Conditioner" target="_blank">Github</a>
 </small></p>
 </div>
 </div>
@@ -2880,7 +2880,7 @@ class ConcluderClass(BaseClass):
 #&lt;/DefineClass&gt;
 </code></pre>
 <p><small>
-View the Concluder sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Objects/Concluder">Github</a>
+View the Concluder sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Objects/Concluder" target="_blank">Github</a>
 </small></p>
 </div>
 </div>
@@ -2953,9 +2953,9 @@ In&nbsp;[15]:
 
 *****Start of the Attest *****
 
-MyConcluder is &lt; (ConcluderClass), 4457658832&gt;
+MyConcluder is &lt; (ConcluderClass), 4537219024&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4457658832
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4537219024
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;ConcludedConditionIsBoolsList&apos; : 
    /   /[
    /   /  0 : True
@@ -2980,7 +2980,7 @@ MyConcluder is &lt; (ConcluderClass), 4457658832&gt;
    /   /  2 : 
    /   /   /(
    /   /   /  0 : 1
-   /   /   /  1 : {...}&lt; (builtin_function_or_method), 4443314656&gt;
+   /   /   /  1 : {...}&lt; (builtin_function_or_method), 4522748384&gt;
    /   /   /  2 : 1
    /   /   /)
    /   /]
@@ -3190,7 +3190,7 @@ class CallerClass(BaseClass):
 #&lt;/DefineClass&gt;
 </code></pre>
 <p><small>
-View the Caller sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Objects/Caller">Github</a>
+View the Caller sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Objects/Caller" target="_blank">Github</a>
 </small></p>
 </div>
 </div>
@@ -3265,16 +3265,16 @@ In&nbsp;[19]:
 
 *****Start of the Attest *****
 
-MyCaller is &lt; (CallerClass), 4457589456&gt;
+MyCaller is &lt; (CallerClass), 4537218448&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4457589456
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4537218448
    /  &apos;&lt;Spe&gt;&lt;Class&gt;CallingClass&apos; : None
    /  &apos;&lt;Spe&gt;&lt;Class&gt;CallingClassStr&apos; : 
    /  &apos;&lt;Spe&gt;&lt;Class&gt;CallingInstanceVariable&apos; : None
    /  &apos;&lt;Spe&gt;&lt;Class&gt;CallingMethod&apos; : None
    /  &apos;&lt;Spe&gt;&lt;Class&gt;CallingMethodStr&apos; : 
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;CallingFunctionStr&apos; : represent
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;CallingVariable&apos; : &lt;function Watcher@represent at 0x10990a2a8&gt;
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;CallingVariable&apos; : &lt;function Watcher@represent at 0x10e4cf1b8&gt;
    /}
 
 *****End of the Attest *****
@@ -3585,7 +3585,7 @@ class ClonerClass(BaseClass):
 #&lt;/DefineClass&gt;
 </code></pre>
 <p><small>
-View the Cloner sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Objects/Cloner">Github</a>
+View the Cloner sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Objects/Cloner" target="_blank">Github</a>
 </small></p>
 </div>
 </div>
@@ -3653,19 +3653,19 @@ In&nbsp;[23]:
 (&apos;MyInt&apos;, 1)
 (&apos;ClonedItemTuplesList&apos;, [])
 (&apos;CloningIdsDict&apos;, {})
-(&apos;IdInt&apos;, 4457658832)
+(&apos;IdInt&apos;, 4537218832)
 
 
 *****Start of the Attest *****
 
-MyCloner is &lt; (ClonerClass), 4457658832&gt;
+MyCloner is &lt; (ClonerClass), 4537218832&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4457658832
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4537218832
    /  &apos;&lt;New&gt;&lt;Instance&gt;MyInt&apos; : 1
    /  &apos;&lt;Spe&gt;&lt;Class&gt;CloningResetBool&apos; : False
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;ClonedCopyVariable&apos; : &lt; (ClonerClass), 4457768912&gt;
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;ClonedCopyVariable&apos; : &lt; (ClonerClass), 4537217936&gt;
    /   /{ 
-   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4457658832
+   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4537218832
    /   /  &apos;&lt;New&gt;&lt;Instance&gt;MyInt&apos; : 2
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;ClonedCopyVariable&apos; : None
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;CloningResetBool&apos; : False
@@ -3689,10 +3689,10 @@ MyCloner is &lt; (ClonerClass), 4457658832&gt;
    /   /   /   /   /{ 
    /   /   /   /   /}
    /   /   /   /)
-   /   /   /  4 : (&apos;IdInt&apos;, 4457658832)
+   /   /   /  4 : (&apos;IdInt&apos;, 4537218832)
    /   /   /]
-   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;CloningIdsDict&apos; : {...}&lt; (dict), 4458034352&gt;
-   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;CloningNotCopyKeyStringsList&apos; : {...}&lt; (list), 4457755712&gt;
+   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;CloningIdsDict&apos; : {...}&lt; (dict), 4537304800&gt;
+   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;CloningNotCopyKeyStringsList&apos; : {...}&lt; (list), 4537070656&gt;
    /   /}
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;ClonedItemTuplesList&apos; : 
    /   /[
@@ -3701,7 +3701,7 @@ MyCloner is &lt; (ClonerClass), 4457658832&gt;
    /   /   /  0 : CloningNotCopyKeyStringsList
    /   /   /  1 : []
    /   /   /)
-   /   /  1 : {...}&lt; (tuple), 4457758592&gt;
+   /   /  1 : {...}&lt; (tuple), 4536798816&gt;
    /   /  2 : 
    /   /   /(
    /   /   /  0 : ClonedItemTuplesList
@@ -3714,17 +3714,17 @@ MyCloner is &lt; (ClonerClass), 4457658832&gt;
    /   /   /   /{ 
    /   /   /   /}
    /   /   /)
-   /   /  4 : {...}&lt; (tuple), 4457771448&gt;
+   /   /  4 : {...}&lt; (tuple), 4537214232&gt;
    /   /]
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;CloningIdsDict&apos; : {...}&lt; (dict), 4457571224&gt;
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;CloningNotCopyKeyStringsList&apos; : {...}&lt; (list), 4457755352&gt;
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;CloningIdsDict&apos; : {...}&lt; (dict), 4537065552&gt;
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;CloningNotCopyKeyStringsList&apos; : {...}&lt; (list), 4537073464&gt;
    /}
 
 ------
 
-MyFirstCloner is &lt; (ClonerClass), 4457768912&gt;
+MyFirstCloner is &lt; (ClonerClass), 4537217936&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4457658832
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4537218832
    /  &apos;&lt;New&gt;&lt;Instance&gt;MyInt&apos; : 2
    /  &apos;&lt;Spe&gt;&lt;Class&gt;ClonedCopyVariable&apos; : None
    /  &apos;&lt;Spe&gt;&lt;Class&gt;CloningResetBool&apos; : False
@@ -3748,10 +3748,10 @@ MyFirstCloner is &lt; (ClonerClass), 4457768912&gt;
    /   /   /   /{ 
    /   /   /   /}
    /   /   /)
-   /   /  4 : (&apos;IdInt&apos;, 4457658832)
+   /   /  4 : (&apos;IdInt&apos;, 4537218832)
    /   /]
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;CloningIdsDict&apos; : {...}&lt; (dict), 4458034352&gt;
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;CloningNotCopyKeyStringsList&apos; : {...}&lt; (list), 4457755712&gt;
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;CloningIdsDict&apos; : {...}&lt; (dict), 4537304800&gt;
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;CloningNotCopyKeyStringsList&apos; : {...}&lt; (list), 4537070656&gt;
    /}
 
 *****End of the Attest *****
@@ -3891,12 +3891,14 @@ class RebooterClass(BaseClass):
             )
 
         #debug
+        '''
         self.debug(
                     ('self.',self,[
                         'RebootingDoStrsList',
                         'RebootingNameStrsList'
                         ])
                 )
+        '''
 
         #map
         map(
@@ -3941,7 +3943,7 @@ class RebooterClass(BaseClass):
 #&lt;/DefineClass&gt;
 </code></pre>
 <p><small>
-View the Rebooter sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Objects/Rebooter">Github</a>
+View the Rebooter sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Objects/Rebooter" target="_blank">Github</a>
 </small></p>
 </div>
 </div>
@@ -4121,49 +4123,33 @@ In&nbsp;[27]:
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
 Before make, MyBuilder is 
-&lt; (BuilderClass), 4457770832&gt;
+&lt; (BuilderClass), 4537218832&gt;
    /{ 
    /  &apos;&lt;Base&gt;&lt;Class&gt;MadeMyInt&apos; : 0
    /  &apos;&lt;Base&gt;&lt;Class&gt;MakingMyFloat&apos; : 0.0
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4457770832
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4537218832
    /}
 I am in the mimic_make of the Builder
 I am in the do_make of the Maker
 After the first make, MyBuilder is 
-&lt; (BuilderClass), 4457770832&gt;
+&lt; (BuilderClass), 4537218832&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4457770832
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4537218832
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 13
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MakingMyFloat&apos; : 3.0
    /}
 After the second make, MyBuilder is 
-&lt; (BuilderClass), 4457770832&gt;
+&lt; (BuilderClass), 4537218832&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4457770832
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4537218832
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 13
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MakingMyFloat&apos; : 3.0
    /}
 Now we reboot
-                    
-                    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                    ////////////////////////////////
-                    Rebooter/__init__.py do_reboot
-                    From Rebooter/__init__.py do_reboot | site-packages/six.py exec_ | Celler/__init__.py do_cell | Notebooker/__init__.py do_notebook | Informer/__init__.py do_inform | inform.py &lt;module&gt;
-                    ////////////////////////////////
-                    
-                    l.89 : 
-                    *****
-                    I am with []
-                    *****
-                    self.RebootingDoStrsList is [&apos;Build&apos;, &apos;Make&apos;, &apos;Reboot&apos;, &apos;Conclude&apos;, &apos;Condition&apos;, &apos;Debug&apos;, &apos;_Print&apos;]
-                    self.RebootingNameStrsList is [&apos;Builder&apos;, &apos;Maker&apos;, &apos;Rebooter&apos;, &apos;Concluder&apos;, &apos;Conditioner&apos;, &apos;Debugger&apos;, &apos;Printer&apos;]
-                    
-                    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                                        
 After the reboot, MyBuilder is 
-&lt; (BuilderClass), 4457770832&gt;
+&lt; (BuilderClass), 4537218832&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4457770832
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4537218832
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 0
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MakingMyFloat&apos; : 3.0
    /}
@@ -4173,9 +4159,9 @@ I am in the do_make of the Maker
 
 *****Start of the Attest *****
 
-MyBuilder is &lt; (BuilderClass), 4457770832&gt;
+MyBuilder is &lt; (BuilderClass), 4537218832&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4457770832
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4537218832
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 18
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MakingMyFloat&apos; : 8.0
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;RebootedWatchBoolKeyStrsList&apos; : []
@@ -4323,7 +4309,7 @@ class PackagerClass(BaseClass):
             )+'/'
 
             #set
-            self.PackagedLocalFolderPathStr=SYS.LocalPythonlogyFolderPathStr+self.PackagedModuleVariable.__name__.replace(
+            self.PackagedLocalFolderPathStr=SYS.PythonlogyLocalFolderPathStr+self.PackagedModuleVariable.__name__.replace(
                 '.','/')+'/'
 
             #debug
@@ -4343,7 +4329,7 @@ class PackagerClass(BaseClass):
 #&lt;/DefineClass&gt;
 </code></pre>
 <p><small>
-View the Packager sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Objects/Packager">Github</a>
+View the Packager sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Objects/Packager" target="_blank">Github</a>
 </small></p>
 </div>
 </div>
@@ -4407,9 +4393,9 @@ In&nbsp;[31]:
 
 *****Start of the Attest *****
 
-MyPackager&lt; (PackagerClass), 4458056144&gt;
+MyPackager&lt; (PackagerClass), 4537217872&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4458056144
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4537217872
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;PackagedInstallFolderPathStr&apos; : /usr/local/lib/python2.7/site-packages/ShareYourSystem/Objects/Printer/
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;PackagedLocalFolderPathStr&apos; : /Users/ledoux/Documents/ShareYourSystem/Pythonlogy/ShareYourSystem/Objects/Printer/
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;PackagedModuleStr&apos; : ShareYourSystem.Objects.Printer

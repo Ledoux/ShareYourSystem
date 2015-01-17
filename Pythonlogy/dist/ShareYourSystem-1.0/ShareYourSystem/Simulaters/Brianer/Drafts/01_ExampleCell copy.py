@@ -1,45 +1,77 @@
 
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Simulaters import Rater,Brianer
-from ShareYourSystem.Noders import Connecter
+from ShareYourSystem.Simulaters import Populater,Brianer
 
-#Definition of a brian structure
+#Definition
 MyBrianer=Brianer.BrianerClass(
-	).push(
-		'Populome',
-		map(
-				lambda __KeyStr:
+	).update(
+		{
+			'StimulatingStepTimeFloat':0.1
+		}
+	).produce(
+		['E','I'],
+		Populater.PopulaterClass,
+		{
+			'PopulatingEquationStr':
+			'''
+				dv/dt = (ge+gi-(v+49*mV))/(20*ms) : volt
+				dge/dt = -ge/(5*ms) : volt
+				dgi/dt = -gi/(10*ms) : volt
+			''',
+		
+			'PopulatingThresholdStr':'v>-50*mV',
+
+			'PopulatingResetStr':'v=-60*mV',
+		
+			'MoniteringStateTuplesList':
+			[
+				('v',[0,1],0.1)
+			],
+
+			'MoniteringSpikeTuplesList':
+			[
+				()
+			],
+
+			'PopulatingInitDict':
+			{
+				'v':-60.
+			}
+		},
+		**{'CollectingCollectionStr':'Populatome'}
+	).__setitem__(
+		'Dis_<Populatome>',
+		[
+			{
+				'PopulatingUnitsInt':3200,
+				'ConnectingGraspClueVariablesList':
 				[
-					__KeyStr,
-					Rater.RaterClass()
-				],
-				['First','Second']
-			)
-	).push(
-		'Connectome',
-		map(
-				lambda __KeyStr:
-				[
-					__KeyStr,
-					Connecter.ConnecterClass(**{
-						'ConnectingGetStrsTuple':[
-								'/NodePointDeriveNoder/<Populome>FirstRater',
-								'/NodePointDeriveNoder/<Populome>SecondRater'
-							]
+					SYS.GraspDictClass(
+						{
+							'HintVariable':'/NodePointDeriveNoder/<Populatome>IPopulater',
+							'SynapsePreStr':'ge+=1.62*mV',
+							'SynapseProbabilityFloat':0.02,
+							'BrianClassStr':"Synapse"
 						}
 					)
-				],
-				['FirstToSecond']
-			)
-	).push(
-		'Clockome',
-		[
-			['Simulation',{'ClockingStepTimeFloat':0.1}],
-			['Record',{'ClockingStepTimeFloat':1.}]
+				]
+			},
+			{
+				'PopulatingUnitsInt':800,
+				'ConnectingGraspClueVariablesList':
+				[
+					SYS.GraspDictClass(
+						{
+							'HintVariable':'/NodePointDeriveNoder/<Populatome>EPopulater',
+							'SynapsePreStr':'gi-=9*mV',
+							'SynapseProbabilityFloat':0.02
+						}
+					)
+				]
+			}
 		]
-	)
-).brian('Populome','Connectome','Clockome')
+	).brian()
 		
 #Definition the AttestedStr
 SYS._attest(
@@ -53,6 +85,15 @@ SYS._attest(
 		),
 	]
 ) 
+
+#SYS._print(MyBrianer.BrianedMonitorsList[0].__dict__)
+
+#SYS._print(
+#	MyBrianer.BrianedNeuronGroupsList[0].__dict__
+#)
+
+#import matplotlib
+#plot(MyBrianer['<Connectome>FirstRater'].)
 
 #Print
 

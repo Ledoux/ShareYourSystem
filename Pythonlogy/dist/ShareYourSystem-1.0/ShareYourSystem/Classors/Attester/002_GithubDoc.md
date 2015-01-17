@@ -221,6 +221,6 @@ AttesterClass.DeriveClassor.AttestingFolderPathStr=SYS.PythonlogyLocalFolderPath
 ```
 
 <small>
-View the Attester sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Classors/Attester)
+View the Attester sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Classors/Attester" target="_blank">Github</a>
 </small>
 

@@ -81,6 +81,6 @@ class DeleterClass(BaseClass):
 ```
 
 <small>
-View the Deleter sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Itemizers/Deleter)
+View the Deleter sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Itemizers/Deleter" target="_blank">Github</a>
 </small>
 

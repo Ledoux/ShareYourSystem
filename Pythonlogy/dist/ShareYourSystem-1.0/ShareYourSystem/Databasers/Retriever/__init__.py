@@ -16,7 +16,7 @@ IndexInt of their corresponding table and their ModeledInt
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Databasers.Scanner"
+BaseModuleStr="ShareYourSystem.Databasers.Flusher"
 DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>

@@ -133,8 +133,9 @@ class StatuserClass(BaseClass):
 ```
 
 <small>
-View the Statuser sources on [Github](https://github.com/Ledoux/ShareYourSystem/
-tree/master/Pythonlogy/ShareYourSystem/Interfacers/Statuser)
+View the Statuser sources on <a href="https://github.com/Ledoux/ShareYourSystem/
+tree/master/Pythonlogy/ShareYourSystem/Interfacers/Statuser"
+target="_blank">Github</a>
 </small>
 
 
@@ -174,17 +175,17 @@ SYS._attest(
 
 *****Start of the Attest *****
 
-MyStatuser is < (StatuserClass), 4554778192>
+MyStatuser is < (StatuserClass), 4554094352>
    /{
-   /  '<New><Instance>IdInt' : 4554778192
-   /  '<Spe><Instance>StatusedIdStrsList' : ['4489']
-   /  '<Spe><Instance>StatusedLineStrsList' : ['  501  4489   344   0  3:02PM
-ttys000    0:00.32 /usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Ve
+   /  '<New><Instance>IdInt' : 4554094352
+   /  '<Spe><Instance>StatusedIdStrsList' : ['15410']
+   /  '<Spe><Instance>StatusedLineStrsList' : ['  501 15410 12535   0  5:55PM
+ttys000    0:01.07 /usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Ve
 rsions/2.7/Resources/Python.app/Contents/MacOS/Python inform.py']
-   /  '<Spe><Instance>StatusedSnapshotStr' :   501  4489   344   0  3:02PM
-ttys000    0:00.32 /usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Ve
+   /  '<Spe><Instance>StatusedSnapshotStr' :   501 15410 12535   0  5:55PM
+ttys000    0:01.07 /usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Ve
 rsions/2.7/Resources/Python.app/Contents/MacOS/Python inform.py
-  501  4518  4516   0  3:02PM ttys000    0:00.00 grep Python
+  501 15989 15987   0  5:56PM ttys000    0:00.00 grep Python
 
    /  '<Spe><Instance>StatusingProcessStr' : Python
    /}

@@ -1749,6 +1749,273 @@ View the Watcher notebook on <a href="http://nbviewer.ipython.org/url/shareyours
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<!--
+FrozenIsBool False
+-->
+
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+The Watcher 
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Classors.Binder"
+DecorationModuleStr="ShareYourSystem.Classors.Tester"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+import operator
+import copy
+from ShareYourSystem.Classors import Doer,Observer,Representer
+Binder=BaseModule
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineLocals&gt;
+WatchingPrefixKeyStr="Watch"
+#&lt;/DefineLocals&gt;
+
+#&lt;SetRepresent&gt;
+def getIsBoolWithItemTupleAndPrefixStr(_ItemTuple,_PrefixStr):
+
+    #Debug
+    '''
+    print('Watcher l 35')
+    print('_ItemTuple is ',_ItemTuple)
+    print('_PrefixStr is ',_PrefixStr)
+    print('')
+    '''
+
+    #Return
+    return _ItemTuple[0].split('&gt;')[-1].startswith(_PrefixStr)
+OldRepresentFunction=copy.copy(Representer.represent)
+def represent(_Variable,**_KwargVariablesDict):
+    return OldRepresentFunction(
+        _Variable,
+        **dict(
+            _KwargVariablesDict,
+            **{
+                'RepresentingNotConcludeTuplesList':
+                [
+                    (getIsBoolWithItemTupleAndPrefixStr,'_Watch'),
+                    (getIsBoolWithItemTupleAndPrefixStr,'Watch')
+                ]
+            }
+        )
+    )
+represent.__name__="Watcher@represent"
+Representer.represent=represent
+#&lt;/SetRepresent&gt;
+
+#&lt;DefineFunctions&gt;
+def watch(_InstanceVariable,*_LiargVariablesList,**_KwargVariablesDict):
+
+    #Debug
+    '''
+    print('l 67')
+    print('In the watch function ')
+    print('_KwargVariablesDict is ')
+    print(_KwargVariablesDict)
+    print('')
+    '''
+
+    """
+    #alias
+    FuncDict=_InstanceVariable.__class__.watch.__dict__
+
+    #Debug
+    '''
+    print('l 79')
+    print('In the watch function ')
+    print('FuncDict is ')
+    print(FuncDict)
+    print('')
+    '''
+    """
+
+    #Set in the _InstanceVariable
+    _InstanceVariable.__setattr__(
+            _KwargVariablesDict['WatchDoBoolKeyStr'],
+            True
+        )
+
+    #get the wrapped method
+    WrapUnboundMethod=getattr(
+        getattr(
+            SYS,
+            _KwargVariablesDict['BindDoClassStr']
+        ),
+        _KwargVariablesDict['BindObserveWrapMethodStr']
+    )
+
+    #del
+    map(
+            lambda __KeyStr:
+            _KwargVariablesDict.__delitem__(__KeyStr),
+            ['BindObserveWrapMethodStr','BindDoClassStr','WatchDoBoolKeyStr']
+        )
+
+    #Call
+    return WrapUnboundMethod(
+        _InstanceVariable,
+        *_LiargVariablesList,
+        **_KwargVariablesDict
+    )
+
+#&lt;/DefineFunctions&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class WatcherClass(BaseClass):
+
+    #Definition 
+    RepresentingKeyStrsList=[    
+        'WatchingIsBool',    
+        'WatchedDoBoolKeyStr',
+        'WatchedDecorationMethodStr'
+    ]
+
+    def default_init(self,        
+                        _WatchingIsBool=False,
+                        _WatchedDoBoolKeyStr="",
+                        _WatchedDecorationMethodStr="",
+                        **_KwargVariablesDict
+                ):
+
+        #Call the parent init method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def __call__(self,_Class):
+
+        #Call the parent method
+        Observer.ObserverClass.__bases__[0].__call__(self,_Class)
+
+        #Watch
+        self.watch()
+
+        #Return
+        return _Class
+
+    def do_watch(self):
+
+        #Check
+        if self.WatchingIsBool:
+
+            #Debug
+            '''
+            print('l 133 Watcher')
+            print('self.ObservingWrapMethodStr is '+self.ObservingWrapMethodStr)
+            print('')
+            '''
+
+            #Keep the old value
+            self.WatchedWrapMethodStr=self.ObservingWrapMethodStr
+
+            #observe first
+            self.observe(
+                            True
+                        )
+
+            #Debug
+            '''
+            print('l 171 Watcher')
+            print('self.ObservedWrapMethodStr is ',self.ObservedWrapMethodStr)
+            '''
+
+            #Check
+            if self.ObservedWrapMethodStr.startswith(
+                watch.__name__+Binder.BindingDecorationSuffixStr
+            )==False:
+
+                #Debug
+                '''
+                print('l 173 this is a new watch method')
+                print('')
+                '''
+
+                #Define
+                WatchedDoMethodStr=self.WatchedWrapMethodStr
+                WatchedDoStr=WatchedDoMethodStr[0].upper()+WatchedDoMethodStr[1:]
+                self.WatchedDoBoolKeyStr=WatchingPrefixKeyStr+WatchedDoStr
+                self.WatchedDoBoolKeyStr+='With'+self.DoClass.NameStr
+                self.WatchedDoBoolKeyStr+='Bool'
+
+                WatchedIsInitBool=True
+                if hasattr(self.DoClass,'ResetDoBoolKeyStr'):
+                    if self.WatchedDoBoolKeyStr!=self.DoClass.ResetDoBoolKeyStr:
+                        WatchedIsInitBool=False
+                if WatchedIsInitBool:
+                    #WARNING this cancels the reset property binding before
+                    #Set already in the class
+                    setattr(
+                            self.DoClass,
+                            self.WatchedDoBoolKeyStr,
+                            False
+                        )
+
+                #Debug
+                '''
+                print('l 145 Watcher')
+                print('WatchedDoMethodStr is ',WatchedDoMethodStr)
+                print('WatchedDoStr is ',WatchedDoStr)
+                print('self.WatchedDoBoolKeyStr is ',self.WatchedDoBoolKeyStr)
+                print('')
+                '''
+
+                #first bind
+                self.bind(
+                            True,
+                            watch,
+                            "",
+                            watch.__name__,
+                            [('WatchDoBoolKeyStr',self.WatchedDoBoolKeyStr)],
+                            **{'ObservingWrapMethodStr':self.ObservedWrapMethodStr}
+                        )
+
+                #set
+                self.WatchedDecorationMethodStr=self.BindedDecorationMethodStr
+
+                #Now make the amalgam
+                setattr(
+                        self.DoClass,
+                        WatchedDoMethodStr,
+                        self.BindedDecorationUnboundMethod
+                    )
+
+            else:
+
+                #set
+                self.WatchedDecorationMethodStr=self.ObservedWrapMethodStr
+
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Watcher sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Classors/Watcher" target="_blank">Github</a>
+</small></p>
+</div>
+</div>
+</div></section><section>
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <!---
 FrozenIsBool True
 -->
@@ -1761,7 +2028,7 @@ FrozenIsBool True
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[2]:
+In&nbsp;[3]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -1860,9 +2127,9 @@ In&nbsp;[2]:
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
 Before make, MyBuilder is 
-&lt; (MakerClass), 4348873808&gt;
+&lt; (MakerClass), 4539196240&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4348873808
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4539196240
    /  &apos;&lt;Spe&gt;&lt;Class&gt;MadeMyInt&apos; : 0
    /  &apos;&lt;Spe&gt;&lt;Class&gt;MakingMyFloat&apos; : 1.0
    /}
@@ -1870,9 +2137,9 @@ self.MakingMyFloat is 3.0
 self.MadeMyInt is 0
 
 After the first make, MyBuilder is 
-&lt; (MakerClass), 4348873808&gt;
+&lt; (MakerClass), 4539196240&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4348873808
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4539196240
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 3
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MakingMyFloat&apos; : 3.0
    /}
@@ -1884,9 +2151,9 @@ BuilderClass.make is &lt;unbound method BuilderClass.watch_superDo_make&gt;
 
 ------
 
-MyBuilder is &lt; (MakerClass), 4348873808&gt;
+MyBuilder is &lt; (MakerClass), 4539196240&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4348873808
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4539196240
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MadeMyInt&apos; : 3
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;MakingMyFloat&apos; : 3.0
    /}

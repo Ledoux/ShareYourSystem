@@ -686,7 +686,9 @@ DoStrsTuplesList=[
 	('Factorizer','Factorize','Factorizing','Factorized'),
 	('Organizer','Organize','Organizing','Organized'),
 	('Lifer','Lif','Lifing','Lifed'),
-	('Grasper','Grasp','Grasping','Grasped')
+	('Grasper','Grasp','Grasping','Grasped'),
+	('Meteorer','Meteor','Meteoring','Meteored'),
+	('Viewer','View','Viewing','Viewed')
 ]
 
 DoerStrToDoStrOrderedDict=SYS.dictify(DoStrsTuplesList,0,1)

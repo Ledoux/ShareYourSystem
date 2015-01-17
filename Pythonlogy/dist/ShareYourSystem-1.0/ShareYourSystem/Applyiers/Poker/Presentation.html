@@ -1753,7 +1753,85 @@ View the Poker notebook on <a href="http://nbviewer.ipython.org/url/shareyoursys
 FrozenIsBool False
 -->
 
-<p>View the Poker sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Applyiers/Installer">Github</a></p>
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+Poker instances
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Walkers.Grabber"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class PokerClass(BaseClass):
+
+    #Definition
+    RepresentingKeyStrsList=[    
+                                    'PokingNodeStr',
+                                    'PokingGetStrsList'
+                                ]
+
+    #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.__init__}]})
+    def default_init(self,
+                        _PokingNodeStr="",
+                        _PokingGetStrsList=None,
+                        **_KwargVariablesDict
+                    ):
+
+        #Call the parent init method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':Joiner.JoinerClass.model}]})
+    #@Argumenter.ArgumenterClass()
+    def do_poke(self):
+
+        #debug
+        '''
+        self.debug(('self.',self,['PokingNodeStr','PokingGetStrsList']))
+        '''
+
+        #Apply __getitem__
+        self.map('couple',map(
+                                    lambda __PokingGetStr:
+                                    {
+                                        'LiargVariablesList':
+                                        [
+                                            self.PokingNodeStr,
+                                            __PokingGetStr
+                                        ]
+                                    },
+                                    self.PokingGetStrsList
+                                )
+                    )
+
+        #Return self
+        #return self
+
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Poker sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Applyiers/Poker" target="_blank">Github</a>
+</small></p>
 </div>
 </div>
 </div></section><section>
@@ -1828,9 +1906,9 @@ In&nbsp;[2]:
 
 *****Start of the Attest *****
 
-MyPoker is &lt; (PokerClass), 4550567952&gt;
+MyPoker is &lt; (PokerClass), 4555537552&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550567952
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4555537552
    /  &apos;&lt;New&gt;&lt;Instance&gt;NodeCollectionStr&apos; : Globals
    /  &apos;&lt;New&gt;&lt;Instance&gt;NodeIndexInt&apos; : -1
    /  &apos;&lt;New&gt;&lt;Instance&gt;NodeKeyStr&apos; : TopPoker
@@ -1838,36 +1916,36 @@ MyPoker is &lt; (PokerClass), 4550567952&gt;
    /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : None
    /  &apos;&lt;New&gt;&lt;Instance&gt;PokomeCollectionOrderedDict&apos; : 
    /   /{ 
-   /   /  &apos;FirstChildPoker&apos; : &lt; (PokerClass), 4550568784&gt;
+   /   /  &apos;FirstChildPoker&apos; : &lt; (PokerClass), 4555536528&gt;
    /   /   /{ 
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550568784
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4555536528
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeCollectionStr&apos; : Pokome
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeIndexInt&apos; : 0
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeKeyStr&apos; : FirstChildPoker
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (PokerClass), 4550567952&gt;
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4550550472&gt;
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (PokerClass), 4555537552&gt;
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4556379672&gt;
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PokingGetStrsList&apos; : None
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PokingNodeStr&apos; : 
    /   /   /}
-   /   /  &apos;SecondChildPoker&apos; : &lt; (PokerClass), 4550568464&gt;
+   /   /  &apos;SecondChildPoker&apos; : &lt; (PokerClass), 4555534608&gt;
    /   /   /{ 
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550568464
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4555534608
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeCollectionStr&apos; : Pokome
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeIndexInt&apos; : 1
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeKeyStr&apos; : SecondChildPoker
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (PokerClass), 4550567952&gt;
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4550550472&gt;
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (PokerClass), 4555537552&gt;
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4556379672&gt;
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PokingGetStrsList&apos; : None
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PokingNodeStr&apos; : 
    /   /   /}
-   /   /  &apos;ThirdChildPoker&apos; : &lt; (PokerClass), 4550568656&gt;
+   /   /  &apos;ThirdChildPoker&apos; : &lt; (PokerClass), 4555536400&gt;
    /   /   /{ 
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550568656
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4555536400
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeCollectionStr&apos; : Pokome
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeIndexInt&apos; : 2
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeKeyStr&apos; : ThirdChildPoker
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (PokerClass), 4550567952&gt;
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4550550472&gt;
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (PokerClass), 4555537552&gt;
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4556379672&gt;
    /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;PokingGetStrsList&apos; : [&apos;/NodePointDeriveNoder/&lt;Pokome&gt;FirstChildPoker&apos;, &apos;/NodePointDeriveNoder/&lt;Pokome&gt;SecondChildPoker&apos;]
    /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;PokingNodeStr&apos; : Relatome
    /   /   /}

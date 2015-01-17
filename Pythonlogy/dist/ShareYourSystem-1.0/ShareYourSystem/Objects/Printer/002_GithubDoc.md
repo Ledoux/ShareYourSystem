@@ -80,6 +80,6 @@ class PrinterClass(BaseClass):
 ```
 
 <small>
-View the Printer sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Objects/Printer)
+View the Printer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Objects/Printer" target="_blank">Github</a>
 </small>
 

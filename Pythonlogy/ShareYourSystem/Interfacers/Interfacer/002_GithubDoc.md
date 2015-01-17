@@ -70,6 +70,6 @@ class InterfacerClass(BaseClass):
 ```
 
 <small>
-View the Interfacer sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Interfacer)
+View the Interfacer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Interfacer" target="_blank">Github</a>
 </small>
 

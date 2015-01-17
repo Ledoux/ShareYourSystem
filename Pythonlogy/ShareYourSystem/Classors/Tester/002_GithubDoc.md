@@ -217,6 +217,6 @@ TesterClass.DeriveClassor.AttestingFolderPathStr=Attester.AttesterClass.DeriveCl
 ```
 
 <small>
-View the Tester sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Classors/Tester)
+View the Tester sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Classors/Tester" target="_blank">Github</a>
 </small>
 

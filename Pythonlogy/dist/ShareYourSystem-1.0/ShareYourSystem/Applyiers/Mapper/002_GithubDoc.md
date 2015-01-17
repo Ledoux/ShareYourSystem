@@ -109,6 +109,6 @@ class MapperClass(BaseClass):
 ```
 
 <small>
-View the Mapper sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Applyiers/Mapper)
+View the Mapper sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Applyiers/Mapper" target="_blank">Github</a>
 </small>
 

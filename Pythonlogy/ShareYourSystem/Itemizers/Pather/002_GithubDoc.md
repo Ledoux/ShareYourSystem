@@ -619,6 +619,6 @@ def setWithPathVariableAndKeyVariable(_DictatedVariable,_KeyVariable,_ValueVaria
 ```
 
 <small>
-View the Pather sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Itemizers/Pather)
+View the Pather sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Itemizers/Pather" target="_blank">Github</a>
 </small>
 

@@ -1753,7 +1753,174 @@ View the Pointer notebook on <a href="http://nbviewer.ipython.org/url/shareyours
 FrozenIsBool False
 -->
 
-<p>View the Pointer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Itemizers/Installer">Github</a></p>
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+A Pointer 
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Applyiers.Updater"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+from ShareYourSystem.Itemizers import Pather
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineLocals&gt;
+PointingPrefixStr=""
+PointingSuffixStr=""
+PointingBackStr="Back"
+#&lt;/DefineLocals&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class PointerClass(BaseClass):
+
+    #Definition
+    RepresentingKeyStrsList=[
+                                'PointingGetVariable',
+                                'PointingSetPathStr',
+                                'PointingBackSetStr',
+                                'PointedGetVariable',
+                                'PointedPathBackVariable',
+                                'PointedLocalSetStr',
+                                'PointedBackSetStr'
+                            ]
+
+    def default_init(
+                    self,        
+                    _PointingGetVariable=None,
+                    _PointingSetPathStr="",
+                    _PointingBackSetStr="",
+                    _PointedGetVariable=None,
+                    _PointedPathBackVariable="",
+                    _PointedPathBackStr="",
+                    _PointedLocalSetStr="",
+                    _PointedBackSetStr="",
+                    **_KwargVariablesDict
+                ):
+
+        #Call the parent init method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def do_point(self):
+
+        #debug
+        '''
+        self.debug(('self.',self,[
+                                    'PointingGetVariable',
+                                    'PointingSetPathStr'
+                                ]))
+        '''
+
+        #get
+        if type(self.PointingGetVariable) in SYS.StrTypesList:
+            self.PointedGetVariable=self[self.PointingGetVariable]
+        else:
+            self.PointedGetVariable=self.PointingGetVariable
+
+        #debug
+        '''
+        self.debug(
+                    [
+                        'After getting',
+                        ('self.',self,[
+                                        'PointingGetVariable',
+                                        'PointedGetVariable'
+                                        ]
+                                    )
+                    ]
+                )
+        '''
+
+        #set
+        self.PointedPathBackStr=Pather.getPathedBackGetStrWithGetStr(self.PointingSetPathStr)
+
+        #set
+        self.PointedLocalSetStr=self.PointingSetPathStr.split(
+            self.PointedPathBackStr+Pather.PathingPrefixStr)[-1]
+
+        #debug
+        '''
+        self.debug(('self.',self,[
+                                    'PointingSetPathStr',
+                                    'PointedPathBackStr',
+                                    'PointedLocalSetStr'
+                                ]))
+        '''
+
+        #set
+        self.SettingKeyVariable=self.PointedPathBackStr+Pather.PathingPrefixStr+PointingPrefixStr+self.PointedLocalSetStr+PointingSuffixStr
+
+        #debug
+        '''
+        self.debug(('self.',self,['SettingKeyVariable']))
+        '''
+
+        #set the point variable
+        self[
+                self.SettingKeyVariable
+            ]=self.PointedGetVariable
+
+        #set a back pointer
+        if self.PointingBackSetStr!="":
+
+            #debug
+            '''
+            self.debug(
+                        [
+                            'We point back here',
+                            ('self.',self,[
+                                                'PointingSetPathStr',
+                                                'PointingBackSetStr'
+                                        ])
+                        ]
+                    )
+            '''
+
+            #Get
+            self.PointedPathBackVariable=Pather.getPathedBackVariableWithVariableAndGetStr(
+                self,
+                self.PointingSetPathStr
+            )
+
+            #debug
+            '''
+            self.debug(('self.',self,[
+                                        'PointedGetVariable',
+                                        'PointedPathBackVariable',
+                                        'PointingBackSetStr'
+                                    ]))
+            '''
+
+            #link
+            self.PointedGetVariable[
+                self.PointingBackSetStr
+            ]=self.PointedPathBackVariable
+
+
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Pointer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Itemizers/Pointer" target="_blank">Github</a>
+</small></p>
 </div>
 </div>
 </div></section><section>
@@ -1829,30 +1996,30 @@ In&nbsp;[3]:
 
 *****Start of the Attest *****
 
-MyPointer is &lt; (PointerClass), 4348484496&gt;
+MyPointer is &lt; (PointerClass), 4555209360&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;ChildPather&apos; : &lt; (PatherClass), 4348233936&gt;
+   /  &apos;&lt;New&gt;&lt;Instance&gt;ChildPather&apos; : &lt; (PatherClass), 4554627024&gt;
    /   /{ 
-   /   /  &apos;&lt;New&gt;&lt;Instance&gt;GrandChildPather&apos; : &lt; (PatherClass), 4348306064&gt;
+   /   /  &apos;&lt;New&gt;&lt;Instance&gt;GrandChildPather&apos; : &lt; (PatherClass), 4554690832&gt;
    /   /   /{ 
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4348306064
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4554690832
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedChildKeyStr&apos; : 
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedGetKeyStr&apos; : 
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedKeyStrsList&apos; : None
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathingKeyStr&apos; : 
    /   /   /}
-   /   /  &apos;&lt;New&gt;&lt;Instance&gt;GrandChildPather/GrandParentPointer&apos; : {...}&lt; (PointerClass), 4348484496&gt;
-   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4348233936
+   /   /  &apos;&lt;New&gt;&lt;Instance&gt;GrandChildPather/GrandParentPointer&apos; : {...}&lt; (PointerClass), 4555209360&gt;
+   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4554627024
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedChildKeyStr&apos; : 
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedGetKeyStr&apos; : 
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathedKeyStrsList&apos; : None
    /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PathingKeyStr&apos; : 
    /   /}
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4348484496
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4555209360
    /  &apos;&lt;Spe&gt;&lt;Class&gt;PointedBackSetStr&apos; : 
    /  &apos;&lt;Spe&gt;&lt;Class&gt;PointedPathBackVariable&apos; : 
    /  &apos;&lt;Spe&gt;&lt;Class&gt;PointingBackSetStr&apos; : 
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;PointedGetVariable&apos; : {...}&lt; (PointerClass), 4348484496&gt;
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;PointedGetVariable&apos; : {...}&lt; (PointerClass), 4555209360&gt;
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;PointedLocalSetStr&apos; : GrandParentPointer
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;PointingGetVariable&apos; : /
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;PointingSetPathStr&apos; : /ChildPather/GrandChildPather/GrandParentPointer

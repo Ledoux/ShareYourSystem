@@ -130,8 +130,9 @@ ProcessedBashPathStr=self.FolderingPathStr+ProcessingFileStr+'.txt'
 ```
 
 <small>
-View the Processer sources on [Github](https://github.com/Ledoux/ShareYourSystem
-/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Processer)
+View the Processer sources on <a href="https://github.com/Ledoux/ShareYourSystem
+/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Processer"
+target="_blank">Github</a>
 </small>
 
 
@@ -180,9 +181,9 @@ SYS._attest(
 
 *****Start of the Attest *****
 
-MyProcesser is < (ProcesserClass), 4552563664>
+MyProcesser is < (ProcesserClass), 4551822608>
    /{
-   /  '<New><Instance>IdInt' : 4552563664
+   /  '<New><Instance>IdInt' : 4551822608
    /  '<Spe><Instance>ProcessedBashStr' : /usr/local/bin/python
 
    /  '<Spe><Instance>ProcessingBashStr' : which python

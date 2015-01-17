@@ -1930,7 +1930,7 @@ class FoldererClass(BaseClass):
 #&lt;/DefineClass&gt;
 </code></pre>
 <p><small>
-View the Folderer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Folderer">Github</a>
+View the Folderer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Folderer" target="_blank">Github</a>
 </small></p>
 </div>
 </div>
@@ -2003,9 +2003,9 @@ In&nbsp;[3]:
 
 *****Start of the Attest *****
 
-MyFolderer is &lt; (FoldererClass), 4554998672&gt;
+MyFolderer is &lt; (FoldererClass), 4554249424&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4554998672
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4554249424
    /  &apos;&lt;Spe&gt;&lt;Class&gt;FolderedNameStr&apos; : 
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;FolderedDirKeyStrsList&apos; : []
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;FolderedModuleStr&apos; : 

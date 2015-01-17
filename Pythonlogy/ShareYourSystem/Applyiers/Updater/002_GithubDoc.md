@@ -80,6 +80,6 @@ class UpdaterClass(BaseClass):
 ```
 
 <small>
-View the Updater sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Applyiers/Updater)
+View the Updater sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Applyiers/Updater" target="_blank">Github</a>
 </small>
 

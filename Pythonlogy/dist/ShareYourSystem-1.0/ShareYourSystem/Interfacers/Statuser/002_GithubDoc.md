@@ -107,6 +107,6 @@ class StatuserClass(BaseClass):
 ```
 
 <small>
-View the Statuser sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Statuser)
+View the Statuser sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Interfacers/Statuser" target="_blank">Github</a>
 </small>
 

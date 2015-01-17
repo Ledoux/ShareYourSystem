@@ -1,0 +1,40 @@
+<template name="Shells">
+
+	<table border="1">
+
+		<tr>
+
+			<td>
+
+				<h2>Talk to Python</h2>
+				
+				{{> Shell}}
+
+			</td>
+
+			<td>
+
+				<h2>Talk to Node</h2>
+
+				{{> Shell}}
+
+			</td>
+
+		</tr>
+
+	</table>
+
+</template>
+
+<template name="Shell">
+
+  <ul>
+  {{#each Commands}}
+    <li><strong>{{IndentString}}</strong>{{InputString}}</li>
+  {{/each}}
+  </ul>
+
+  <strong>{{IndentString}}</strong><input id="NewCommand"/>
+
+</template>
+

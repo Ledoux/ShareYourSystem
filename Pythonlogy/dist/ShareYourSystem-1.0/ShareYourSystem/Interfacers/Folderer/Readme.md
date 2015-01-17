@@ -223,8 +223,9 @@ self.FolderedModuleStr=self.FolderedModuleStr
 ```
 
 <small>
-View the Folderer sources on [Github](https://github.com/Ledoux/ShareYourSystem/
-tree/master/Pythonlogy/ShareYourSystem/Interfacers/Folderer)
+View the Folderer sources on <a href="https://github.com/Ledoux/ShareYourSystem/
+tree/master/Pythonlogy/ShareYourSystem/Interfacers/Folderer"
+target="_blank">Github</a>
 </small>
 
 
@@ -280,9 +281,9 @@ SYS._attest(
 
 *****Start of the Attest *****
 
-MyFolderer is < (FoldererClass), 4511429712>
+MyFolderer is < (FoldererClass), 4540265104>
    /{
-   /  '<New><Instance>IdInt' : 4511429712
+   /  '<New><Instance>IdInt' : 4540265104
    /  '<Spe><Class>FolderedNameStr' :
    /  '<Spe><Instance>FolderedDirKeyStrsList' : []
    /  '<Spe><Instance>FolderedModuleStr' :

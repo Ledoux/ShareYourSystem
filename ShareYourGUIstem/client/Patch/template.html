@@ -1,0 +1,32 @@
+<template name="Patch">
+
+	<p id="text">
+	</p>
+
+	<!--
+	<table border="1">
+
+		<tr width="30%">
+
+			{{> ControlPatch}}
+
+		</tr>
+
+	</table>
+	-->
+
+    <svg id="Patch" width="1000" height="300">
+        
+        {{#each connectors}}
+            {{> Connector}}
+        {{/each}}
+        
+        {{#each boxes}}
+            {{> Box}}
+        {{/each}}
+
+	</svg>
+
+
+
+</template>

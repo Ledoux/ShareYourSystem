@@ -714,6 +714,6 @@ DoneStrToDoingStrOrderedDict=SYS.dictify(DoStrsTuplesList,3,2)
 ```
 
 <small>
-View the Doer sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Classors/Doer)
+View the Doer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Classors/Doer" target="_blank">Github</a>
 </small>
 

@@ -101,6 +101,6 @@ class InspecterClass(BaseClass):
 ```
 
 <small>
-View the Inspecter sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Classors/Inspecter)
+View the Inspecter sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Classors/Inspecter" target="_blank">Github</a>
 </small>
 

@@ -1,14 +1,27 @@
 
+
+<!--
+FrozenIsBool False
+-->
+
 #Distinguisher
- @Date : Fri Nov 14 13:20:38 2014
 
-@Author : Erwan Ledoux
+##Doc
+----
 
 
+>
+> A Distinguisher is a bit the opposite of a Commander, it updates
+> for every child nodes with a distinguished tuples list.
+>
+>
 
-A Distinguisher is a bit the opposite of a Commander, it updates for every child
-nodes with a distinguished tuples list.
+----
 
+<small>
+View the Distinguisher notebook on [NbViewer](http://nbviewer.ipython.org/url/sh
+areyoursystem.ouvaton.org/Distinguisher.ipynb)
+</small>
 
 
 
@@ -17,8 +30,152 @@ nodes with a distinguished tuples list.
 FrozenIsBool False
 -->
 
-View the Distinguisher sources on [Github](https://github.com/Ledoux/ShareYourSy
-stem/tree/master/ShareYourSystem/Noders/Installer)
+##Code
+
+----
+
+<ClassDocStr>
+
+----
+
+```python
+# -*- coding: utf-8 -*-
+"""
+
+
+<DefineSource>
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+</DefineSource>
+
+
+A Distinguisher is a bit the opposite of a Commander, it updates
+for every child nodes with a distinguished tuples list.
+
+"""
+
+#<DefineAugmentation>
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Noders.Adder"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#</DefineAugmentation>
+
+#<ImportSpecificModules>
+from ShareYourSystem.Noders import Noder
+#</ImportSpecificModules>
+
+#<DefineLocals>
+DistinguishingPrefixStr="Dis_"
+#</DefineLocals
+
+#<DefineClass>
+@DecorationClass()
+class DistinguisherClass(BaseClass):
+
+        #Definition
+        RepresentingKeyStrsList=[
+'DistinguishingNodeStr',
+'DistinguishingUpdatesList',
+'DistinguishedCollectionOrderedDict'
+                                                        ]
+
+        def default_init(self,
+                                _DistinguishingNodeStr="",
+                                _DistinguishingUpdatesList=None,
+                                _DistinguishedCollectionOrderedDict=None,
+                                **_KwargVariablesDict
+                                ):
+
+                #Call the parent __init__ method
+                BaseClass.__init__(self,**_KwargVariablesDict)
+
+        def mimic_set(self):
+                """ """
+
+                #debug
+                '''
+self.debug(('self.',self,['SettingKeyVariable','SettingValueVariable']))
+                '''
+
+                #Definition
+                OutputDict={'HookingIsBool':True}
+
+                #Deep set
+                if self.SettingKeyVariable.startswith(DistinguishingPrefixStr):
+
+                        #debug
+                        '''
+                        self.debug('We are going to distinguish')
+                        '''
+
+
+                        #set arguments
+self.DistinguishingNodeStr=Noder.NodingSuffixGetStr.join(
+                                        (
+                                                Noder.NodingPrefixGetStr.join(
+self.SettingKeyVariable.split(
+Noder.NodingPrefixGetStr
+                                                        )[1:]
+                                                )
+                                        ).split(Noder.NodingSuffixGetStr)[:-1]
+                                )
+
+                        self.DistinguishingUpdatesList=self.SettingValueVariable
+
+                        #debug
+                        '''
+                        self.debug(('self.',self,[
+                                        'DistinguishingNodeStr',
+                                        'DistinguishingUpdatesList'
+                                        ]))
+                        '''
+
+                        #distinguish
+                        self.distinguish()
+
+                        #Stop the setting
+                        OutputDict["HookingIsBool"]=False
+                        #<Hook>return OutputDict
+
+                #Call the parent get method
+                if OutputDict['HookingIsBool']:
+                        BaseClass.set(self)
+
+        def do_distinguish(self):
+                """ """
+
+                #Check
+                if self.DistinguishingNodeStr!="":
+
+                        #debug
+                        '''
+                        self.debug(('self.',self,['DistinguishingNodeStr']))
+                        '''
+
+                        #get
+                        self.DistinguishedCollectionOrderedDict=getattr(
+                                self,
+self.DistinguishingNodeStr+'CollectionOrderedDict'
+                        )
+
+                        #Map the distinguished updates
+                        map(
+                                lambda __NodeVariable,__UpdateTuplesList:
+                                __NodeVariable.update(__UpdateTuplesList),
+self.DistinguishedCollectionOrderedDict.values(),
+                                self.DistinguishingUpdatesList
+                        )
+
+#</DefineClass>
+
+```
+
+<small>
+View the Distinguisher sources on <a href="https://github.com/Ledoux/ShareYourSy
+stem/tree/master/Pythonlogy/ShareYourSystem/Noders/Distinguisher"
+target="_blank">Github</a>
+</small>
 
 
 
@@ -60,10 +217,13 @@ MyDistinguisher.distinguish("Tree",[
                                     ])
 
 #distinguish through setting
-MyDistinguisher.__setitem__("Dis_<Tree>",[
-                                        [('MyOtherStr',"bonjour")],
-                                        [('MyOtherInt',1)]
-                                    ])
+MyDistinguisher.__setitem__(
+    "Dis_<Tree>",
+    [
+        [('MyOtherStr',"bonjour")],
+        [('MyOtherInt',1)]
+    ]
+)
 
 #Definition the AttestedStr
 SYS._attest(
@@ -88,135 +248,104 @@ SYS._attest(
 ```console
 >>>
 
-                                                                xxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-////////////////////////////////
-                                                                Doer/__init__.py
-do
-                                                                From <string>
-superDo_debug | Appender/__init__.py do_append | Doer/__init__.py do | <string>
-superDo_append | Watcher/__init__.py watch | <string> watch_superDo_append |
-Instancer/__init__.py mimic_append | Mimicker/__init__.py mimic | <string>
-superMimic_watch_superDo_append | Applyier/__init__.py do_apply |
-Doer/__init__.py do | <string> superDo_apply | Watcher/__init__.py watch |
-<string> watch_superDo_apply | Mapper/__init__.py do_map | Doer/__init__.py do |
-<string> superDo_map | Watcher/__init__.py watch | <string> watch_superDo_map |
-Adder/__init__.py do_add | Doer/__init__.py do | <string> superDo_add |
-Watcher/__init__.py watch | <string> watch_superDo_add | Adder/__init__.py
-__add__ | <string> <module> | <string> <module> | site-packages/six.py exec_ |
-Celler/__init__.py do_cell | Doer/__init__.py do | <string> superDo_cell |
-Watcher/__init__.py watch | <string> watch_superDo_cell | Notebooker/__init__.py
-do_notebook | Doer/__init__.py do | <string> superDo_notebook |
-Watcher/__init__.py watch | <string> watch_superDo_notebook |
-Readmer/__init__.py do_readme | Doer/__init__.py do | <string> superDo_readme |
-Watcher/__init__.py watch | <string> watch_superDo_readme |
-python2.7/posixpath.py walk | python2.7/posixpath.py walk | Directer/__init__.py
-do_direct | Doer/__init__.py do | <string> superDo_direct | Watcher/__init__.py
-watch | <string> watch_superDo_direct | Installer/__init__.py do_install |
-Doer/__init__.py do | <string> superDo_install | Watcher/__init__.py watch |
-<string> watch_superDo_install | ShareYourSystem/Install.py <module>
-////////////////////////////////
+                                            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                                            ////////////////////////////////
+                                            Appender/__init__.py do_append
+                                            From Appender/__init__.py do_append
+| Instancer/__init__.py mimic_append | Mimicker/__init__.py mimic |
+Applyier/__init__.py do_apply | Mapper/__init__.py do_map | Adder/__init__.py
+do_add | Adder/__init__.py __add__ | site-packages/six.py exec_ |
+Celler/__init__.py do_cell | Notebooker/__init__.py do_notebook |
+Informer/__init__.py do_inform | inform.py <module>
+                                            ////////////////////////////////
 
-                                                                l.180 :
-                                                                *****
-                                                                I am with
-[('NodeKeyStr', '')]
-                                                                *****
-self.AppendedNodeCollectionStr is Tree
-self.AppendedNodeKeyStr is 0
+                                            l.138 :
+                                            *****
+                                            I am with [('NodeKeyStr',
+'TopDistinguisher')]
+                                            *****
+                                            self.AppendedNodeCollectionStr is
+Tree
+                                            self.AppendedNodeKeyStr is 0
 
-                                                                xxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                                            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 
-                                                                xxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-////////////////////////////////
-                                                                Doer/__init__.py
-do
-                                                                From <string>
-superDo_debug | Appender/__init__.py do_append | Doer/__init__.py do | <string>
-superDo_append | Watcher/__init__.py watch | <string> watch_superDo_append |
-Instancer/__init__.py mimic_append | Mimicker/__init__.py mimic | <string>
-superMimic_watch_superDo_append | Applyier/__init__.py do_apply |
-Doer/__init__.py do | <string> superDo_apply | Watcher/__init__.py watch |
-<string> watch_superDo_apply | Mapper/__init__.py do_map | Doer/__init__.py do |
-<string> superDo_map | Watcher/__init__.py watch | <string> watch_superDo_map |
-Adder/__init__.py do_add | Doer/__init__.py do | <string> superDo_add |
-Watcher/__init__.py watch | <string> watch_superDo_add | Adder/__init__.py
-__add__ | <string> <module> | <string> <module> | site-packages/six.py exec_ |
-Celler/__init__.py do_cell | Doer/__init__.py do | <string> superDo_cell |
-Watcher/__init__.py watch | <string> watch_superDo_cell | Notebooker/__init__.py
-do_notebook | Doer/__init__.py do | <string> superDo_notebook |
-Watcher/__init__.py watch | <string> watch_superDo_notebook |
-Readmer/__init__.py do_readme | Doer/__init__.py do | <string> superDo_readme |
-Watcher/__init__.py watch | <string> watch_superDo_readme |
-python2.7/posixpath.py walk | python2.7/posixpath.py walk | Directer/__init__.py
-do_direct | Doer/__init__.py do | <string> superDo_direct | Watcher/__init__.py
-watch | <string> watch_superDo_direct | Installer/__init__.py do_install |
-Doer/__init__.py do | <string> superDo_install | Watcher/__init__.py watch |
-<string> watch_superDo_install | ShareYourSystem/Install.py <module>
-////////////////////////////////
+                                            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                                            ////////////////////////////////
+                                            Appender/__init__.py do_append
+                                            From Appender/__init__.py do_append
+| Instancer/__init__.py mimic_append | Mimicker/__init__.py mimic |
+Applyier/__init__.py do_apply | Mapper/__init__.py do_map | Adder/__init__.py
+do_add | Adder/__init__.py __add__ | site-packages/six.py exec_ |
+Celler/__init__.py do_cell | Notebooker/__init__.py do_notebook |
+Informer/__init__.py do_inform | inform.py <module>
+                                            ////////////////////////////////
 
-                                                                l.180 :
-                                                                *****
-                                                                I am with
-[('NodeKeyStr', '')]
-                                                                *****
-self.AppendedNodeCollectionStr is Tree
-self.AppendedNodeKeyStr is 1
+                                            l.138 :
+                                            *****
+                                            I am with [('NodeKeyStr',
+'TopDistinguisher')]
+                                            *****
+                                            self.AppendedNodeCollectionStr is
+Tree
+                                            self.AppendedNodeKeyStr is 1
 
-                                                                xxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                                            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 
 
 *****Start of the Attest *****
 
-MyDistinguisher is < (DistinguisherClass), 4557299088>
+MyDistinguisher is < (DistinguisherClass), 4555575888>
    /{
-   /  '<New><Instance>ApplyingIsBool' : True
-   /  '<New><Instance>IdStr' : 4557299088
-   /  '<New><Instance>NodeCollectionStr' : Global
+   /  '<New><Instance>IdInt' : 4555575888
+   /  '<New><Instance>NodeCollectionStr' : Globals
    /  '<New><Instance>NodeIndexInt' : -1
-   /  '<New><Instance>NodeKeyStr' :
+   /  '<New><Instance>NodeKeyStr' : TopDistinguisher
    /  '<New><Instance>NodePointDeriveNoder' : None
    /  '<New><Instance>NodePointOrderedDict' : None
    /  '<New><Instance>TreeCollectionOrderedDict' :
    /   /{
-   /   /  '0' : < (DistinguisherClass), 4557281168>
+   /   /  '0' : < (DistinguisherClass), 4556355728>
    /   /   /{
-   /   /   /  '<New><Instance>ApplyingIsBool' : True
-   /   /   /  '<New><Instance>IdStr' : 4557281168
+   /   /   /  '<New><Instance>IdInt' : 4556355728
    /   /   /  '<New><Instance>MyOtherStr' : bonjour
    /   /   /  '<New><Instance>MyStr' : hello
    /   /   /  '<New><Instance>NodeCollectionStr' : Tree
    /   /   /  '<New><Instance>NodeIndexInt' : 0
    /   /   /  '<New><Instance>NodeKeyStr' : 0
    /   /   /  '<New><Instance>NodePointDeriveNoder' : {...}<
-(DistinguisherClass), 4557299088>
+(DistinguisherClass), 4555575888>
    /   /   /  '<New><Instance>NodePointOrderedDict' : {...}< (OrderedDict),
-4557307144>
+4537207184>
+   /   /   /  '<Spe><Class>DistinguishedCollectionOrderedDict' : None
    /   /   /  '<Spe><Class>DistinguishingNodeStr' :
    /   /   /  '<Spe><Class>DistinguishingUpdatesList' : None
    /   /   /}
-   /   /  '1' : < (DistinguisherClass), 4557299600>
+   /   /  '1' : < (DistinguisherClass), 4556354960>
    /   /   /{
-   /   /   /  '<New><Instance>ApplyingIsBool' : True
-   /   /   /  '<New><Instance>IdStr' : 4557299600
+   /   /   /  '<New><Instance>IdInt' : 4556354960
    /   /   /  '<New><Instance>MyInt' : 0
    /   /   /  '<New><Instance>MyOtherInt' : 1
    /   /   /  '<New><Instance>NodeCollectionStr' : Tree
    /   /   /  '<New><Instance>NodeIndexInt' : 1
    /   /   /  '<New><Instance>NodeKeyStr' : 1
    /   /   /  '<New><Instance>NodePointDeriveNoder' : {...}<
-(DistinguisherClass), 4557299088>
+(DistinguisherClass), 4555575888>
    /   /   /  '<New><Instance>NodePointOrderedDict' : {...}< (OrderedDict),
-4557307144>
+4537207184>
+   /   /   /  '<Spe><Class>DistinguishedCollectionOrderedDict' : None
    /   /   /  '<Spe><Class>DistinguishingNodeStr' :
    /   /   /  '<Spe><Class>DistinguishingUpdatesList' : None
    /   /   /}
    /   /}
+   /  '<Spe><Instance>DistinguishedCollectionOrderedDict' : {...}<
+(OrderedDict), 4537207184>
    /  '<Spe><Instance>DistinguishingNodeStr' : Tree
    /  '<Spe><Instance>DistinguishingUpdatesList' :
    /   /[

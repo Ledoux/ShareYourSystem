@@ -124,10 +124,10 @@ setup(
 			 		'ShareYourSystem.Databasers.Recoverer',
 			 		'ShareYourSystem.Databasers.Shaper',
 			 		'ShareYourSystem.Databasers.Merger',
-			 		'ShareYourSystem.Databasers.Scanner',
 			 		'ShareYourSystem.Databasers.Joiner',
 			 		'ShareYourSystem.Databasers.Hierarchizer',
 			 		'ShareYourSystem.Storers.Grider',
+			 		'ShareYourSystem.Storers.Explorer',
 			 		'ShareYourSystem.Storers.Controller',
 			 		'ShareYourSystem.Databasers.Featurer',
 			 		'ShareYourSystem.Databasers.Recuperater',
@@ -136,6 +136,8 @@ setup(
 			 		'ShareYourSystem.Ploters.Paneler',
 			 		'ShareYourSystem.Ploters.Figurer',
 			 		'ShareYourSystem.Ploters.Pyploter',
+			 		'ShareYourSystem.Meteorers.Meteorer',
+			 		'ShareYourSystem.Meteorers.Viewer',
 			 		'ShareYourSystem.Tutorials.Incrementer',
 			 		'ShareYourSystem.Tutorials.Decrementer',
 			 		'ShareYourSystem.Tutorials.Multiplier',
@@ -170,6 +172,7 @@ setup(
 			 		'ShareYourSystem.Ploters',
 			 		'ShareYourSystem.Tutorials',
 			 		'ShareYourSystem.Simulaters',
+			 		'ShareYourSystem.Meteorers',
 			 		'ShareYourSystem.Muzikers'
 			 	]
 			 ,

@@ -306,6 +306,6 @@ class MimickerClass(BaseClass):
 ```
 
 <small>
-View the Mimicker sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Classors/Mimicker)
+View the Mimicker sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Classors/Mimicker" target="_blank">Github</a>
 </small>
 

@@ -125,6 +125,6 @@ class CommanderClass(BaseClass):
 ```
 
 <small>
-View the Commander sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Applyiers/Commander)
+View the Commander sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Applyiers/Commander" target="_blank">Github</a>
 </small>
 

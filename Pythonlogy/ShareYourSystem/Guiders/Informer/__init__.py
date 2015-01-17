@@ -33,7 +33,7 @@ Readmer=BaseModule
 InformingOntologyLocalFolderPathStr=SYS.ShareYourSystemLocalFolderPathStr+'Ouvaton/'
 InformingNbviewerLocalFolderPathStr=SYS.ShareYourSystemLocalFolderPathStr+'Ouvaton/'
 InformingDocumentLocalFolderPathStr=SYS.ShareYourSystemLocalFolderPathStr+'docs/LibraryReference/'
-InformingOntologyOuvatonFolderPathStr='/httpdocs/reveal/'
+InformingOntologyOuvatonFolderPathStr='/httpdocs/slides/'
 InformingNbviewerOuvatonFolderPathStr='/httpdocs/ipython/'
 #</DefineLocals>
 
@@ -64,6 +64,7 @@ class InformerClass(BaseClass):
 								'InformingConceptReadmeIsBool',
 								'InformingConceptDocumentIsBool',
 								'InformingConceptSlideIsBool',
+								'InformingSiteDocumentIsBool',
 								'InformedConceptModule',
 								'InformedConceptModuleStr',
 								'InformedConceptModuleFolderPathStr',
@@ -81,6 +82,7 @@ class InformerClass(BaseClass):
 						_InformingConceptReadmeIsBool=True,
 						_InformingConceptDocumentIsBool=True,
 						_InformingConceptSlideIsBool=True,
+						_InformingSiteDocumentIsBool=True,
 						_InformedConceptModule=None,
 						_InformedConceptModuleStr="",
 						_InformedConceptModuleFolderPathStr="",
@@ -505,5 +507,28 @@ class InformerClass(BaseClass):
 
 			#Return self
 			#return self
+
+		if self.InformingSiteDocumentIsBool:
+
+			#open
+			os.popen(
+						'mkdocs build --clean'
+				)
+
+			#deploy
+			try:
+				self.deploy(
+					_ClientFilePathStrToServerFilePathStrOrderedDict=collections.OrderedDict(
+						[
+							(
+								self.InformedSlideLocalFilePathStr,
+								InformingOntologyOuvatonFolderPathStr+self.InformedConceptModule.__name__.split('.'
+									)[-1]+'.php'
+							)
+						]
+					)
+				)
+			except:
+				print('There is NO Internet !')
 
 #</DefineClass>

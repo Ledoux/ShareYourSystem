@@ -1755,6 +1755,152 @@ View the Deriver notebook on <a href="http://nbviewer.ipython.org/url/shareyours
 FrozenIsBool False
 -->
 
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+The Deriver helps for building a base-derive relationships between the classes.
+Once a &lt;Class&gt; with based classes is defined, a decorating DeriverClass instance
+append to these corresponding BaseClasses the &lt;Class&gt; as a derived class.
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Classors.Doer"
+DecorationModuleStr=BaseModuleStr
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+import sys
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineFunctions&gt;
+def getIsDerivedBoolWithParentClassAndDeriveClass(_ParentClass,_DeriveClass):
+
+    #Debug
+    '''
+    print('Deriver l.37')
+    print('_ParentClass is ',_ParentClass)
+    print('_DeriveClass is ',_DeriveClass)
+    print('')
+    '''
+
+    #Return
+    return _DeriveClass in _ParentClass.__mro__
+#&lt;/DefineFunctions&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class DeriverClass(BaseClass):
+
+    def default_init(self,
+                        _DerivedModule=None,
+                        **_KwargVariablesDict
+                    ):
+
+
+        #Call the parent init method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def __call__(self,_Class):
+
+        #debug
+        '''
+        print('Deriver l.30 __call__ method')
+        print('_Class is ',_Class)
+        print('')
+        '''
+
+        #Call the parent __call__ method
+        BaseClass.__call__(self,_Class)
+
+        #Debug
+        '''
+        print('Deriver l.54 We are going to derive')
+        print('self.derive is ',self.derive)
+        print('')
+        '''
+
+        #Derive
+        self.derive()
+
+        #Debug
+        '''
+        print('derive is done')
+        print('')
+        '''
+
+        #Return 
+        return _Class
+
+    def do_derive(self):
+
+        #Debug
+        '''
+        print('self.DoClass is ',self.DoClass)
+        print('')
+        '''
+
+        #alias
+        DoClass=self.DoClass
+
+        #Link
+        self.DerivedModule=sys.modules[DoClass.__module__]
+
+        #set
+        if len(DoClass.__bases__)&gt;0:
+
+            #set the DerivedBaseClas
+            DerivedBaseClass=DoClass.__bases__[0]
+
+            #Debug
+            '''
+            print('l. 83 Deriver')
+            print('We can set derived bases for the parent')
+            print('DerivedBaseClass is ',DerivedBaseClass)
+            print('')
+            '''
+
+            #Append to the parent class 
+            if hasattr(DerivedBaseClass,'DerivedClassesList'):
+                DerivedBaseClass.DerivedClassesList.append(DoClass)
+            else:
+                DerivedBaseClass.DerivedClassesList=[DoClass]
+
+            #Add to the KeyStrsList
+            DoClass.KeyStrsList+=SYS.getKeyStrsListWithClass(DoClass)
+
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Deriver sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Classors/Deriver" target="_blank">Github</a>
+</small></p>
+</div>
+</div>
+</div></section><section>
+    
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<!--
+FrozenIsBool False
+-->
+
 <h2 id="more-descriptions-at-the-level-of-the-class">More Descriptions at the level of the class</h2>
 <p>Special attributes of the ClassorsClass are :</p>
 </div>
@@ -1763,7 +1909,7 @@ FrozenIsBool False
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[2]:
+In&nbsp;[3]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -1810,7 +1956,7 @@ In&nbsp;[2]:
 
 *****Start of the Attest *****
 
-MakerClass.DerivedClassesList is [&lt;class &apos;ShareYourSystem.Objects.Printer.PrinterClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Objects.Debugger.DebuggerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Objects.Conditioner.ConditionerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Objects.Concluder.ConcluderClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Objects.Rebooter.RebooterClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Interfacers.Interfacer.InterfacerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Interfacers.Folderer.FoldererClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Objects.Packager.PackagerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Interfacers.Filer.FilerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Interfacers.Closer.CloserClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Interfacers.Loader.LoaderClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Interfacers.Writer.WriterClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Interfacers.Hdformater.HdformaterClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Interfacers.Capturer.CapturerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Interfacers.Deployer.DeployerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Guiders.Guider.GuiderClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Guiders.Scriptbooker.ScriptbookerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Guiders.Celler.CellerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Guiders.Notebooker.NotebookerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Guiders.Nbconverter.NbconverterClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Guiders.Installer.InstallerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Guiders.Documenter.DocumenterClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Guiders.Informer.InformerClass&apos;&gt;, &lt;class &apos;BuilderClass&apos;&gt;, &lt;class &apos;MakerClass&apos;&gt;, &lt;class &apos;MakerClass&apos;&gt;, &lt;class &apos;MakerClass&apos;&gt;, &lt;class &apos;BuilderClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Tutorials.Incrementer.IncrementerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Tutorials.Decrementer.DecrementerClass&apos;&gt;, &lt;class &apos;MakerClass&apos;&gt;, &lt;class &apos;MakerClass&apos;&gt;, &lt;class &apos;MakerClass&apos;&gt;, &lt;class &apos;BuilderClass&apos;&gt;, &lt;class &apos;MakerClass&apos;&gt;, &lt;class &apos;BuilderClass&apos;&gt;, &lt;class &apos;MakerClass&apos;&gt;, &lt;class &apos;MakerClass&apos;&gt;, &lt;class &apos;BuilderClass&apos;&gt;, &lt;class &apos;MakerClass&apos;&gt;, &lt;class &apos;BuilderClass&apos;&gt;, &lt;class &apos;BuilderClass&apos;&gt;]
+MakerClass.DerivedClassesList is [&lt;class &apos;ShareYourSystem.Objects.Printer.PrinterClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Objects.Debugger.DebuggerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Objects.Conditioner.ConditionerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Objects.Concluder.ConcluderClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Objects.Rebooter.RebooterClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Interfacers.Interfacer.InterfacerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Interfacers.Folderer.FoldererClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Objects.Packager.PackagerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Interfacers.Filer.FilerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Interfacers.Closer.CloserClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Interfacers.Loader.LoaderClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Interfacers.Writer.WriterClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Interfacers.Hdformater.HdformaterClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Interfacers.Capturer.CapturerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Interfacers.Deployer.DeployerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Guiders.Guider.GuiderClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Guiders.Scriptbooker.ScriptbookerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Guiders.Celler.CellerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Guiders.Notebooker.NotebookerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Guiders.Nbconverter.NbconverterClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Guiders.Installer.InstallerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Guiders.Documenter.DocumenterClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Guiders.Informer.InformerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Objects.Caller.CallerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Objects.Cloner.ClonerClass&apos;&gt;, &lt;class &apos;MakerClass&apos;&gt;, &lt;class &apos;BuilderClass&apos;&gt;, &lt;class &apos;MakerClass&apos;&gt;, &lt;class &apos;BuilderClass&apos;&gt;, &lt;class &apos;BuilderClass&apos;&gt;, &lt;class &apos;MakerClass&apos;&gt;, &lt;class &apos;MakerClass&apos;&gt;, &lt;class &apos;MakerClass&apos;&gt;, &lt;class &apos;BuilderClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Tutorials.Incrementer.IncrementerClass&apos;&gt;, &lt;class &apos;ShareYourSystem.Tutorials.Decrementer.DecrementerClass&apos;&gt;, &lt;class &apos;MakerClass&apos;&gt;, &lt;class &apos;MakerClass&apos;&gt;, &lt;class &apos;MakerClass&apos;&gt;, &lt;class &apos;BuilderClass&apos;&gt;, &lt;class &apos;MakerClass&apos;&gt;, &lt;class &apos;BuilderClass&apos;&gt;, &lt;class &apos;MakerClass&apos;&gt;, &lt;class &apos;MakerClass&apos;&gt;, &lt;class &apos;BuilderClass&apos;&gt;, &lt;class &apos;MakerClass&apos;&gt;, &lt;class &apos;BuilderClass&apos;&gt;, &lt;class &apos;BuilderClass&apos;&gt;]
 
 *****End of the Attest *****
 

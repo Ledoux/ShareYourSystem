@@ -87,6 +87,6 @@ class PokerClass(BaseClass):
 ```
 
 <small>
-View the Poker sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Applyiers/Poker)
+View the Poker sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Applyiers/Poker" target="_blank">Github</a>
 </small>
 

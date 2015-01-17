@@ -92,6 +92,6 @@ class ProducerClass(BaseClass):
 ```
 
 <small>
-View the Producer sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Applyiers/Producer)
+View the Producer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Applyiers/Producer" target="_blank">Github</a>
 </small>
 

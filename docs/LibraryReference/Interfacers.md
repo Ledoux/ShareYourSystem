@@ -29,37 +29,51 @@ eyoursystem.ouvaton.org/Interfacers.ipynb)
 FrozenIsBool False
 -->
 
-##Concept
+##Concept and SubModules family
 
 <script type="text/javascript">
 
         var HrefStr=window.location.href;
         //alert(window.location.href)
 
-        if(HrefStr == "https://shareyoursystem.ouvaton.org/Interfacers/"){
+        if(HrefStr ==
+"http://shareyoursystem.ouvaton.org/site/LibraryReference/Interfacers/"){
 
             //alert('Ouvaton')
             document.write("from ")
-            document.write("https://shareyoursystem.ouvaton.org ")
+            document.write("http://shareyoursystem.ouvaton.org/slides/ ")
             document.write("<iframe width=\"725\" height=\"300\" src=\"")
-            document.write("https://shareyoursystem.ouvaton.org")
-            document.write("/Interfacers.php\"></iframe>")
+            document.write("http://shareyoursystem.ouvaton.org")
+            document.write("/slides/Interfacers.php\"></iframe>")
         }
-        else{
+        else if(HrefStr ==
+"http://127.0.0.1:8000/LibraryReference/Interfacers/"){
 
-            //alert('Local')
+        //alert('Localhost')
+        document.write("from ")
+        document.write("localhost mkdocs but direct to ouvaton")
+        document.write("<iframe width=\"725\" height=\"300\" src=\"")
+        document.write("http://shareyoursystem.ouvaton.org")
+        document.write("/slides/Interfacers.php\"></iframe>")
+    }
+    else
+    {
+
+        //alert('Local')
             document.write("from ")
             document.write("/Users/ledoux/Documents/ShareYourSystem/Ouvaton/ ")
             document.write("<iframe width=\"725\" height=\"300\" src=\"")
             document.write("/Users/ledoux/Documents/ShareYourSystem/Ouvaton/")
             document.write("Interfacers.html\"></iframe>")
-        }
+
+    }
 
 </script>
 
 <small>
-View the Interfacers concept on [ Ouvaton
-](https://shareyoursystem.ouvaton.org/Interfacers.php)
+View the Interfacers concept on <a
+href="http://shareyoursystem.ouvaton.org/slides/Interfacers.php"
+target="_blank">Ouvaton</a>
 </small>
 
 
@@ -122,8 +136,9 @@ SYS.setConceptModule(globals())
 ```
 
 <small>
-View the Interfacers sources on [Github](https://github.com/Ledoux/ShareYourSyst
-em/tree/master/Pythonlogy/ShareYourSystem/Interfacers)
+View the Interfacers sources on <a href="https://github.com/Ledoux/ShareYourSyst
+em/tree/master/Pythonlogy/ShareYourSystem/Interfacers"
+target="_blank">Github</a>
 </small>
 
 

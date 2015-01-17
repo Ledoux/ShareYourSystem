@@ -21,14 +21,9 @@ SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
-
-from ShareYourSystem.Functers import Imitater,Switcher
 from ShareYourSystem.Databasers import Rower
 #</ImportSpecificModules>
 
-#<DefineDoStrsList>
-DoStrsList=["Featurer","Feature","Featuring","Featured"]
-#<DefineDoStrsList>
 
 #<DefineClass>
 @DecorationClass()
@@ -42,7 +37,6 @@ class FeaturerClass(
 									'FeaturedJoinDatabasersList'
 								]
 
-	#@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.__init__}]})
 	def default_init(self,
 						_FeaturingAllBool=False,
 						_FeaturingJoinFlushBool=True,	
@@ -53,9 +47,7 @@ class FeaturerClass(
 		#Call the parent init method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
-	#@Hooker.HookerClass(**{'HookingBeforeVariablesList':[{'CallingVariable':Rower.RowerClass.row}]})
-	@Imitater.ImitaterClass()
-	def model(self):
+	def mimic_model(self):
 
 		#<NotHook>
 		#feature first
@@ -72,9 +64,8 @@ class FeaturerClass(
 		#return self
 		#</NotHook>
 
-	#@Hooker.HookerClass(**{'HookingBeforeVariablesList':[{'CallingVariable':Rower.RowerClass.row}]})
-	@Imitater.ImitaterClass()
-	def row(self):
+
+	def mimic_row(self):
 
 		#debug
 		'''
@@ -110,8 +101,7 @@ class FeaturerClass(
 		#return self
 		#</NotHook>
 
-	@Imitater.ImitaterClass()
-	def flush(self):
+	def mimic_flush(self):
 
 		#<NotHook>
 		#feature first
@@ -155,8 +145,6 @@ class FeaturerClass(
 			#flush directly
 			BaseClass.flush(self)
 
-
-	@Switcher.SwitcherClass()
 	def do_feature(self):
 
 		#Check

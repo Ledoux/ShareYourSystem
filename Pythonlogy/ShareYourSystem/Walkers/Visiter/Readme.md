@@ -1,13 +1,116 @@
 
+
+<!--
+FrozenIsBool False
+-->
+
 #Visiter
- @Date : Fri Nov 14 13:20:38 2014
 
-@Author : Erwan Ledoux
+##Doc
+----
 
+
+>
+> A Visiter
+>
+>
+
+----
+
+<small>
+View the Visiter notebook on [NbViewer](http://nbviewer.ipython.org/url/shareyou
+rsystem.ouvaton.org/Visiter.ipynb)
+</small>
+
+
+
+
+<!--
+FrozenIsBool False
+-->
+
+##Code
+
+----
+
+<ClassDocStr>
+
+----
+
+```python
+# -*- coding: utf-8 -*-
+"""
+
+
+<DefineSource>
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+</DefineSource>
 
 
 A Visiter
 
+"""
+
+#<DefineAugmentation>
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Walkers.Cumulater"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#</DefineAugmentation>
+
+#<ImportSpecificModules>
+
+from ShareYourSystem.Noders import Noder
+#</ImportSpecificModules>
+
+#<DefineClass>
+@DecorationClass()
+class VisiterClass(BaseClass):
+
+        #Definition
+        RepresentingKeyStrsList=[
+'VisitingCollectionStrsList',
+'VisitingBeforeUpdateList',
+'VisitingAfterUpdateList'
+                                                                ]
+
+        def default_init(self,
+                                _VisitingCollectionStrsList=None,
+                                _VisitingBeforeUpdateList=None,
+                                _VisitingAfterUpdateList=None,
+                                **_KwargVariablesDict
+                        ):
+
+                #Call the parent __init__ method
+                BaseClass.__init__(self,**_KwargVariablesDict)
+
+        def do_visit(self):
+
+                #Walk inside the group in order to parent
+                self.walk(
+                                        {
+'BeforeUpdateList':self.VisitingBeforeUpdateList,
+'AfterUpdateList':self.VisitingAfterUpdateList,
+                                                'GatherVariablesList':map(
+                                                                lambda
+__NodeCollectionStr:
+Noder.NodingPrefixGetStr+__NodeCollectionStr+Noder.NodingSuffixGetStr,
+self.VisitingCollectionStrsList
+                                                        )
+                                        }
+                                )
+
+
+#</DefineClass>
+
+```
+
+<small>
+View the Visiter sources on <a href="https://github.com/Ledoux/ShareYourSystem/t
+ree/master/Pythonlogy/ShareYourSystem/Walkers/Visiter"
+target="_blank">Github</a>
+</small>
 
 
 
@@ -67,40 +170,37 @@ SYS._attest(
 
 *****Start of the Attest *****
 
-MyVisiter is < (VisiterClass), 4559074768>
+MyVisiter is < (VisiterClass), 4556651600>
    /{
-   /  '<New><Instance>ApplyingIsBool' : True
    /  '<New><Instance>CollectomeCollectionOrderedDict' :
    /   /{
    /   /}
-   /  '<New><Instance>IdString' : 4559074768
-   /  '<New><Instance>NodeCollectionStr' : Global
+   /  '<New><Instance>IdInt' : 4556651600
+   /  '<New><Instance>NodeCollectionStr' : Globals
    /  '<New><Instance>NodeIndexInt' : -1
-   /  '<New><Instance>NodeKeyStr' :
+   /  '<New><Instance>NodeKeyStr' : TopVisiter
    /  '<New><Instance>NodePointDeriveNoder' : None
    /  '<New><Instance>NodePointOrderedDict' : None
    /  '<New><Instance>TagStr' : Je suis passe par la
    /  '<New><Instance>VisitomeCollectionOrderedDict' :
    /   /{
-   /   /  'FirstChildVisiter' : < (VisiterClass), 4558963408>
+   /   /  'FirstChildVisiter' : < (VisiterClass), 4555499408>
    /   /   /{
-   /   /   /  '<New><Instance>ApplyingIsBool' : True
    /   /   /  '<New><Instance>CollectomeCollectionOrderedDict' :
    /   /   /   /{
-   /   /   /   /  'GrandChildCumulater' : < (CumulaterClass), 4558962768>
+   /   /   /   /  'GrandChildCumulater' : < (CumulaterClass), 4555499216>
    /   /   /   /   /{
-   /   /   /   /   /  '<New><Instance>ApplyingIsBool' : True
    /   /   /   /   /  '<New><Instance>CollectomeCollectionOrderedDict' :
    /   /   /   /   /   /{
    /   /   /   /   /   /}
-   /   /   /   /   /  '<New><Instance>IdString' : 4558962768
+   /   /   /   /   /  '<New><Instance>IdInt' : 4555499216
    /   /   /   /   /  '<New><Instance>NodeCollectionStr' : Collectome
    /   /   /   /   /  '<New><Instance>NodeIndexInt' : 0
    /   /   /   /   /  '<New><Instance>NodeKeyStr' : GrandChildCumulater
    /   /   /   /   /  '<New><Instance>NodePointDeriveNoder' : {...}<
-(VisiterClass), 4558963408>
+(VisiterClass), 4555499408>
    /   /   /   /   /  '<New><Instance>NodePointOrderedDict' : {...}<
-(OrderedDict), 4559296912>
+(OrderedDict), 4537423976>
    /   /   /   /   /  '<New><Instance>TagStr' : Je suis passe par la
    /   /   /   /   /  '<New><Instance>VisitomeCollectionOrderedDict' :
    /   /   /   /   /   /{
@@ -108,14 +208,14 @@ MyVisiter is < (VisiterClass), 4559074768>
    /   /   /   /   /  '<Spe><Class>CumulatedVariablesList' : None
    /   /   /   /   /}
    /   /   /   /}
-   /   /   /  '<New><Instance>IdString' : 4558963408
+   /   /   /  '<New><Instance>IdInt' : 4555499408
    /   /   /  '<New><Instance>NodeCollectionStr' : Visitome
    /   /   /  '<New><Instance>NodeIndexInt' : 0
    /   /   /  '<New><Instance>NodeKeyStr' : FirstChildVisiter
    /   /   /  '<New><Instance>NodePointDeriveNoder' : {...}< (VisiterClass),
-4559074768>
+4556651600>
    /   /   /  '<New><Instance>NodePointOrderedDict' : {...}< (OrderedDict),
-4559297504>
+4537424568>
    /   /   /  '<New><Instance>TagStr' : Je suis passe par la
    /   /   /  '<New><Instance>VisitomeCollectionOrderedDict' :
    /   /   /   /{
@@ -124,20 +224,19 @@ MyVisiter is < (VisiterClass), 4559074768>
    /   /   /  '<Spe><Class>VisitingBeforeUpdateList' : None
    /   /   /  '<Spe><Class>VisitingCollectionStrsList' : None
    /   /   /}
-   /   /  'SecondChildVisiter' : < (VisiterClass), 4558890128>
+   /   /  'SecondChildVisiter' : < (VisiterClass), 4555499664>
    /   /   /{
-   /   /   /  '<New><Instance>ApplyingIsBool' : True
    /   /   /  '<New><Instance>CollectomeCollectionOrderedDict' :
    /   /   /   /{
    /   /   /   /}
-   /   /   /  '<New><Instance>IdString' : 4558890128
+   /   /   /  '<New><Instance>IdInt' : 4555499664
    /   /   /  '<New><Instance>NodeCollectionStr' : Visitome
    /   /   /  '<New><Instance>NodeIndexInt' : 1
    /   /   /  '<New><Instance>NodeKeyStr' : SecondChildVisiter
    /   /   /  '<New><Instance>NodePointDeriveNoder' : {...}< (VisiterClass),
-4559074768>
+4556651600>
    /   /   /  '<New><Instance>NodePointOrderedDict' : {...}< (OrderedDict),
-4559297504>
+4537424568>
    /   /   /  '<New><Instance>TagStr' : Je suis passe par la
    /   /   /  '<New><Instance>VisitomeCollectionOrderedDict' :
    /   /   /   /{

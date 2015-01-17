@@ -123,12 +123,14 @@ _RebootedWatchBoolKeyStrsList=None,
                         )
 
                 #debug
+                '''
                 self.debug(
                                         ('self.',self,[
                                                 'RebootingDoStrsList',
                                                 'RebootingNameStrsList'
                                                 ])
                                 )
+                '''
 
                 #map
                 map(
@@ -179,8 +181,9 @@ hasattr(SYS,__RebootingClassStr)
 ```
 
 <small>
-View the Rebooter sources on [Github](https://github.com/Ledoux/ShareYourSystem/
-tree/master/ShareYourSystem/Objects/Rebooter)
+View the Rebooter sources on <a href="https://github.com/Ledoux/ShareYourSystem/
+tree/master/Pythonlogy/ShareYourSystem/Objects/Rebooter"
+target="_blank">Github</a>
 </small>
 
 
@@ -341,55 +344,33 @@ SYS._attest(
 ```console
 >>>
 Before make, MyBuilder is
-< (BuilderClass), 4457711568>
+< (BuilderClass), 4537162128>
    /{
    /  '<Base><Class>MadeMyInt' : 0
    /  '<Base><Class>MakingMyFloat' : 0.0
-   /  '<New><Instance>IdInt' : 4457711568
+   /  '<New><Instance>IdInt' : 4537162128
    /}
 I am in the mimic_make of the Builder
 I am in the do_make of the Maker
 After the first make, MyBuilder is
-< (BuilderClass), 4457711568>
+< (BuilderClass), 4537162128>
    /{
-   /  '<New><Instance>IdInt' : 4457711568
+   /  '<New><Instance>IdInt' : 4537162128
    /  '<Spe><Instance>MadeMyInt' : 13
    /  '<Spe><Instance>MakingMyFloat' : 3.0
    /}
 After the second make, MyBuilder is
-< (BuilderClass), 4457711568>
+< (BuilderClass), 4537162128>
    /{
-   /  '<New><Instance>IdInt' : 4457711568
+   /  '<New><Instance>IdInt' : 4537162128
    /  '<Spe><Instance>MadeMyInt' : 13
    /  '<Spe><Instance>MakingMyFloat' : 3.0
    /}
 Now we reboot
-
-                    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                    ////////////////////////////////
-                    Rebooter/__init__.py do_reboot
-                    From Rebooter/__init__.py do_reboot | site-packages/six.py
-exec_ | Celler/__init__.py do_cell | Notebooker/__init__.py do_notebook |
-Informer/__init__.py do_inform | inform.py <module>
-                    ////////////////////////////////
-
-                    l.89 :
-                    *****
-                    I am with []
-                    *****
-                    self.RebootingDoStrsList is ['Build', 'Make', 'Reboot',
-'Conclude', 'Condition', 'Debug', '_Print']
-                    self.RebootingNameStrsList is ['Builder', 'Maker',
-'Rebooter', 'Concluder', 'Conditioner', 'Debugger', 'Printer']
-
-                    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-
 After the reboot, MyBuilder is
-< (BuilderClass), 4457711568>
+< (BuilderClass), 4537162128>
    /{
-   /  '<New><Instance>IdInt' : 4457711568
+   /  '<New><Instance>IdInt' : 4537162128
    /  '<Spe><Instance>MadeMyInt' : 0
    /  '<Spe><Instance>MakingMyFloat' : 3.0
    /}
@@ -399,9 +380,9 @@ I am in the do_make of the Maker
 
 *****Start of the Attest *****
 
-MyBuilder is < (BuilderClass), 4457711568>
+MyBuilder is < (BuilderClass), 4537162128>
    /{
-   /  '<New><Instance>IdInt' : 4457711568
+   /  '<New><Instance>IdInt' : 4537162128
    /  '<Spe><Instance>MadeMyInt' : 18
    /  '<Spe><Instance>MakingMyFloat' : 8.0
    /  '<Spe><Instance>RebootedWatchBoolKeyStrsList' : []

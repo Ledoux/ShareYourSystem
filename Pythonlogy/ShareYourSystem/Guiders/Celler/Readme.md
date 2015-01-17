@@ -6,25 +6,221 @@ FrozenIsBool False
 
 #Celler
 
------------------------ ------------------------------------
+##Doc
+----
+
+
+>
+> The Celler defines template of Mardown and Code Cells for readming a Module.
+>
+>
+
+----
+
+<small>
+View the Celler notebook on [NbViewer](http://nbviewer.ipython.org/url/shareyour
+system.ouvaton.org/Celler.ipynb)
+</small>
 
 
 
-@Date : Fri Nov 14 13:20:38 2014
 
-@Author : Erwan Ledoux
+<!--
+FrozenIsBool False
+-->
+
+##Code
+
+----
+
+<ClassDocStr>
+
+----
+
+```python
+# -*- coding: utf-8 -*-
+"""
 
 
-
-The Installer directs a readme call in a ShareYourSystem directory.
-
-
-
-----------------------------------------------------------------
+<DefineSource>
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+</DefineSource>
 
 
+The Celler defines template of Mardown and Code Cells for readming a Module.
+
+"""
+
+#<DefineAugmentation>
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Guiders.Scriptbooker"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#</DefineAugmentation>
+
+#<ImportSpecificModules>
+import os
+import six
+import copy
+
+#</ImportSpecificModules>
+
+#<DefineLocals>
+CellingInitDict={
+                                'metadata': {
+                                                                'name': "",
+                                                                'signature': ""
+                                                        },
+                                'nbformat': 3,
+                                'nbformat_minor': 0,
+                                'worksheets': []
+                        }
+
+CellingCodeCellDict={
+                                                'cell_type':'code',
+                                                'collapsed': False,
+                                                'input':[],
+                                                'language': "python",
+                                                'metadata':
+{'slideshow':{'slide_type':"slide"}},
+                                                'prompt_number':0
+                                        }
+
+CellingOutputDict={
+                                                'output_type': "stream",
+                                                'stream': "stdout",
+                                                'text': [
+                                                                ]
+                                        }
+
+CellingMarkdownCellDict={
+                                                        'source': "",
+                                                        'cell_type': 'markdown',
+                                                        'metadata':
+{'slideshow':{'slide_type':"slide"}}
+                                                }
+#</DefineLocals>
+
+
+#<DefineClass>
+@DecorationClass()
+class CellerClass(BaseClass):
+
+        #Definition
+        RepresentingKeyStrsList=[
+'CellingTextStr',
+'CellingScriptStr',
+'CelledOutputStr',
+                                                                'CelledNoteDict'
+                                                        ]
+
+        def default_init(self,
+                                                _CellingTextStr="",
+                                                _CellingScriptStr="",
+                                                _CelledOutputStr="",
+                                                _CelledNoteDict=None,
+                                                **_KwargVariablesDict
+                                        ):
+
+                #Call the parent __init__ method
+                BaseClass.__init__(self,**_KwargVariablesDict)
+
+        def do_cell(self):
+
+                #Debug
+                '''
+                self.debug(
+                                        ('self.',self,[
+                                                'FolderingPathStr',
+                                                #'CellingTextStr'
+                                                ]
+                                        )
+                                )
+                '''
+
+                #Check Code case
+                if self.CellingScriptStr=='Python':
+
+                        #folder first
+                        self.folder()
+
+                        #Definition the self.CelledOutputStr
+                        if self.FolderingPathStr!=os.getcwd()+'/':
+
+                                #capture and six method
+                                self.CapturedPrintStrsList=[]
+                                self.capture()
+                                six.exec_(self.CellingTextStr,vars())
+                                self.CapturingStopBool=True
+self.CelledOutputStr='\n'.join(self.CapturedPrintStrsList)
+
+                        else:
+
+                                #Avoid the output of the corresponding NameStr
+because it will do a circular effect...
+                                self.CelledOutputStr=""
+
+
+                        #Debug
+                        '''
+                        self.debug(('self.',self,['CelledOutputStr']))
+                        '''
+
+                        #Return
+                        self.CelledNoteDict=dict(
+                                copy.deepcopy(CellingCodeCellDict),
+                                **{
+                                        'input':map(
+                                                                lambda
+__LineStr:
+                                                                __LineStr+'\n',
+self.CellingTextStr.replace(
+"#FrozenIsBool True",""
+                                                        ).replace(
+                                                                "#FrozenIsBool
+False",""
+                                                        ).replace(
+                                                                '\t',
+                                                                '    '
+                                                        ).replace('
+\n','\n').split('\n')
+                                                ),
+                                                "outputs":[
+                                                dict(
+copy.copy(CellingOutputDict),
+                                                                **
+                                                                {
+"text":map(
+        lambda __LineStr:
+        __LineStr+'\n',
+        self.CelledOutputStr.split('\n')
+)
+                                                                }
+                                                        )
+                                                ]
+                                }
+                        )
+
+                #Check Markdown case
+                elif self.CellingScriptStr=='Markdown':
+
+                        self.CelledNoteDict=dict(
+                                copy.deepcopy(CellingMarkdownCellDict),
+                                **{
+                                                'source':self.CellingTextStr
+                                }
+                        )
+
+#</DefineClass>
+
+
+```
+
+<small>
 View the Celler sources on [Github](https://github.com/Ledoux/ShareYourSystem/tr
-ee/master/ShareYourSystem.Guiders.Informer)
+ee/master/Pythonlogy/ShareYourSystem/Guiders/Celler)
+</small>
 
 
 
@@ -50,7 +246,8 @@ from ShareYourSystem.Guiders import Celler
 MyCeller=Celler.CellerClass().load(
     **{
         'FolderingPathStr':
-        SYS.ShareYourSystemLocalFolderPathStr+'/ShareYourSystem/Objects/Rebooter',
+        SYS.ShareYourSystemLocalFolderPathStr+'Pythonlogy/ShareYourSystem/Object
+s/Rebooter',
         'FilingKeyStr':'01_ExampleDoc.py'
     }
 )
@@ -77,39 +274,12 @@ SYS._attest(
 ```console
 >>>
 
-                        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                        ////////////////////////////////
-                        Doer/__init__.py do
-                        From <string> superDo_debug | Celler/__init__.py do_cell
-| Doer/__init__.py do | <string> superDo_cell | Watcher/__init__.py watch |
-<string> watch_superDo_cell | <string> <module> | <string> <module> | site-
-packages/six.py exec_ | Celler/__init__.py do_cell | Doer/__init__.py do |
-<string> superDo_cell | Watcher/__init__.py watch | <string> watch_superDo_cell
-| Notebooker/__init__.py do_notebook | Doer/__init__.py do | <string>
-superDo_notebook | Watcher/__init__.py watch | <string> watch_superDo_notebook |
-Informer/__init__.py getInformedReadmeInstanceVariableWithFolderPathStr |
-Informer/__init__.py do_inform | Doer/__init__.py do | <string> superDo_inform |
-Watcher/__init__.py watch | <string> watch_superDo_inform | inform.py <module>
-                        ////////////////////////////////
-
-                        l.180 :
-                        *****
-                        I am with []
-                        *****
-                        self.FolderingPathStr is
-/Users/ledoux/Documents/ShareYourSystem/ShareYourSystem/Objects/Rebooter/
-
-                        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-
-
 
 *****Start of the Attest *****
 
-MyCeller is < (CellerClass), 4466233296>
+MyCeller is < (CellerClass), 4540557072>
    /{
-   /  '<New><Instance>IdStr' : 4466233296
+   /  '<New><Instance>IdInt' : 4540557072
    /  '<New><Instance>_CapturingStopBool' : True
    /  '<Spe><Instance>CelledNoteDict' :
    /   /{
@@ -118,48 +288,51 @@ MyCeller is < (CellerClass), 4466233296>
    /   /  'input' : ['#ImportModules\n', 'import ShareYourSystem as SYS\n',
 'from ShareYourSystem.Classors import Classer\n', 'from ShareYourSystem.Objects
 import Rebooter\n', '\n', '#Definition \n', '@Classer.ClasserClass(**\n', '{\n',
-"\t'ClassingSwitchMethodStrsList':['make']\n", '})\n', 'class
-MakerClass(Rebooter.RebooterClass):\n', '\n', '\t#Definition\n',
-'\tRepresentingKeyStrsList=[\n', "\t\t\t\t\t\t\t\t'MakingMyFloat',\n",
-"\t\t\t\t\t\t\t\t'MadeMyInt'\n", '\t\t\t\t\t\t\t]\n', '\n', '\tdef
-__init__(self,\n', '\t\t\t\t\t_MakingMyFloat=0.,\n',
-'\t\t\t\t\t_MadeMyInt=0,\n', '\t\t\t\t\t**_KwarVariablesDict\n', '\t\t\t\t):\n',
-'\t\tRebooter.RebooterClass.__init__(self,**_KwarVariablesDict)\n', '\n',
-'\t#<DefineDoMethod>\n', '\tdef do_make(self):\n', '\t\t\n', '\t\t#print\n',
-"\t\tprint('I am in the do_make of the Maker')\n", '\n', '\t\t#cast\n',
-'\t\tself.MadeMyInt=int(self.MakingMyFloat)\n', '\n', '#Definition\n',
-'@Classer.ClasserClass(**{\n', '\t\'ClassingSwitchMethodStrsList\':["make"]\n',
-'})\n', 'class BuilderClass(MakerClass):\n', '\n', '\t#Definition\n',
-'\tRepresentingKeyStrsList=[\n', '\t\t\t\t\t\t\t]\n', '\n', '\tdef
-__init__(self,\n', '\t\t\t\t\t**_KwarVariablesDict\n', '\t\t\t\t):\n',
-'\t\tMakerClass.__init__(self,**_KwarVariablesDict)\n', '\n', '\tdef
-mimic_make(self):\n', '\t\t\n', '\t\t#print\n', "\t\tprint('I am in the
-mimic_make of the Builder')\n", '\n', '\t\t#call the parent method\n',
-'\t\tMakerClass.make(self)\n', '\n', '\t\t#cast\n', '\t\tself.MadeMyInt+=10\n',
-'\n', '\t#<DefineDoMethod>\n', '\tdef do_build(self):\n', '\t\tpass\n', '\n',
-'\n', '#Definition an instance\n', 'MyBuilder=BuilderClass()\n', '\n',
+"    'ClassingSwitchMethodStrsList':['make']\n", '})\n', 'class
+MakerClass(Rebooter.RebooterClass):\n', '\n', '    #Definition\n', '
+RepresentingKeyStrsList=[\n', "
+'MakingMyFloat',\n", "                                'MadeMyInt'\n", '
+]\n', '\n', '    def default_init(self,\n', '
+_MakingMyFloat=0.,\n', '                    _MadeMyInt=0,\n', '
+**_KwarVariablesDict\n', '                ):\n', '
+Rebooter.RebooterClass.__init__(self,**_KwarVariablesDict)\n', '\n', '    def
+do_make(self):\n', '    \n', '        #print\n', "        print('I am in the
+do_make of the Maker')\n", '\n', '        #cast\n', '
+self.MadeMyInt=int(self.MakingMyFloat)\n', '\n', '#Definition\n',
+'@Classer.ClasserClass(**{\n', '
+\'ClassingSwitchMethodStrsList\':["make"]\n', '})\n', 'class
+BuilderClass(MakerClass):\n', '\n', '    #Definition\n', '
+RepresentingKeyStrsList=[\n', '                            ]\n', '\n', '    def
+default_init(self,\n', '                    **_KwarVariablesDict\n', '
+):\n', '        MakerClass.__init__(self,**_KwarVariablesDict)\n', '\n', '
+def mimic_make(self):\n', '    \n', '        #print\n', "        print('I am in
+the mimic_make of the Builder')\n", '\n', '        #call the parent method\n', '
+MakerClass.make(self)\n', '\n', '        #cast\n', '
+self.MadeMyInt+=10\n', '\n', '    def do_build(self):\n', '        pass\n',
+'\n', '\n', '#Definition an instance\n', 'MyBuilder=BuilderClass()\n', '\n',
 '#Print\n', "print('Before make, MyBuilder is ')\n",
-'SYS._print(MyBuilder,**{\n', "\t'RepresentingKeyStrsList':[\n",
-"\t'MakingMyFloat',\n", "\t'MadeMyInt',\n", '\t]\n', '})\n', '\n', '#make
+'SYS._print(MyBuilder,**{\n', "    'RepresentingKeyStrsList':[\n", "
+'MakingMyFloat',\n", "    'MadeMyInt',\n", '    ]\n', '})\n', '\n', '#make
 once\n', 'MyBuilder.make(3.)\n', '\n', '#Print\n', "print('After the first make,
-MyBuilder is ')\n", 'SYS._print(MyBuilder,**{\n',
-"\t'RepresentingKeyStrsList':[\n", "\t'MakingMyFloat',\n", "\t'MadeMyInt',\n",
-"\t'_WatchMakeWithMakerBool'\n", '\t]\n', '})\n', '\n', '#make again\n',
-'MyBuilder.make(5.)\n', '\n', '#Print\n', "print('After the second make,
-MyBuilder is ')\n", 'SYS._print(MyBuilder,**{\n',
-"\t'RepresentingKeyStrsList':[\n", "\t'MakingMyFloat',\n", "\t'MadeMyInt',\n",
-"\t'_WatchMakeWithMakerBool'\n", '\t]\n', '})\n', '\n', '\n', '#make again\n',
-"print('Now we reboot')\n", "MyBuilder.reboot(['Make'])\n", '\n', '#Print\n',
-"print('After the reboot, MyBuilder is ')\n", 'SYS._print(MyBuilder,**{\n',
-"\t'RepresentingKeyStrsList':[\n", "\t'MakingMyFloat',\n", "\t'MadeMyInt',\n",
-"\t'_WatchMakeWithMakerBool'\n", '\t]\n', '})\n', '\n', '#make again\n',
-'MyBuilder.make(8.)\n', '\n', '#Definition the AttestedStr\n', 'SYS._attest(\n',
-'\t[\n', "\t\t'MyBuilder is '+SYS._str(\n", '\t\tMyBuilder,\n', '\t\t**{\n',
-"\t\t\t'RepresentingAlineaIsBool':False,\n",
-"\t\t\t'RepresentingKeyStrsList':[\n", "\t\t\t\t'MakingMyFloat',\n",
-"\t\t\t\t'MadeMyInt',\n", "\t\t\t\t'_WatchMakeWithMakerBool',\n",
-"\t\t\t\t'RebootedWatchBoolKeyStrsList'\n", '\t\t\t]\n', '\t\t\t}\n', '\t\t)\n',
-'\t]\n', ') \n']
+MyBuilder is ')\n", 'SYS._print(MyBuilder,**{\n', "
+'RepresentingKeyStrsList':[\n", "    'MakingMyFloat',\n", "    'MadeMyInt',\n",
+'    ]\n', '})\n', '\n', '#make again\n', 'MyBuilder.make(5.)\n', '\n',
+'#Print\n', "print('After the second make, MyBuilder is ')\n",
+'SYS._print(MyBuilder,**{\n', "    'RepresentingKeyStrsList':[\n", "
+'MakingMyFloat',\n", "    'MadeMyInt',\n", '    ]\n', '})\n', '\n', '#make
+again\n', "print('Now we reboot')\n", 'MyBuilder.reboot(\n', "
+#_NameStrsList=['Maker','Builder'],\n", "
+#_DoStrsList=['Make'],\n", '                    #_AllDoBool=True,\n', '
+#_AllNameBool=True,\n', '                )\n', '\n', '#Print\n', "print('After
+the reboot, MyBuilder is ')\n", 'SYS._print(MyBuilder,**{\n', "
+'RepresentingKeyStrsList':[\n", "    'MakingMyFloat',\n", "    'MadeMyInt',\n",
+'    ]\n', '})\n', '\n', '#make again\n', 'MyBuilder.make(8.)\n', '\n',
+'#Definition the AttestedStr\n', 'SYS._attest(\n', '    [\n', "
+'MyBuilder is '+SYS._str(\n", '        MyBuilder,\n', '        **{\n', "
+'RepresentingAlineaIsBool':False,\n", "
+'RepresentingKeyStrsList':[\n", "                'MakingMyFloat',\n", "
+'MadeMyInt',\n", "                'RebootedWatchBoolKeyStrsList'\n", '
+]\n', '            }\n', '        )\n', '    ]\n', ') \n']
    /   /  'language' : python
    /   /  'metadata' :
    /   /   /{
@@ -174,155 +347,74 @@ MyBuilder is ')\n", 'SYS._print(MyBuilder,**{\n',
    /   /   /   /{
    /   /   /   /  'output_type' : stream
    /   /   /   /  'stream' : stdout
-   /   /   /   /  'text' : ['Doer l.132 : DoerStr is Maker\n', 'DoStr is
-Make\n', 'DoMethodStr is make\n', 'DoingStr is Making\n', 'DoneStr is Made\n',
-'\n', 'Doer l.132 : DoerStr is Builder\n', 'DoStr is Build\n', 'DoMethodStr is
-build\n', 'DoingStr is Building\n', 'DoneStr is Built\n', '\n', 'Before make,
-MyBuilder is \n', '< (BuilderClass), 4466182800>\n', '   /{ \n', "   /
-'<Base><Class>MadeMyInt' : 0\n", "   /  '<Base><Class>MakingMyFloat' : 0.0\n", "
-/  '<New><Instance>IdStr' : 4466182800\n", '   /}\n', 'l 35\n', 'In the switch
-function \n', '_KwargVariablesDict is \n', "{'BindObserveWrapMethodStr':
-'watch_superMimic_switch_watch_superDo_make', 'WatchDoBoolKeyStr':
-'WatchMakeWithBuilderBool', 'BindDoClassStr': 'BuilderClass'}\n", '\n', 'I am in
-the mimic_make of the Builder\n', 'l 35\n', 'In the switch function \n',
-'_KwargVariablesDict is \n', "{'BindObserveWrapMethodStr': 'watch_superDo_make',
-'WatchDoBoolKeyStr': 'WatchMakeWithMakerBool', 'BindDoClassStr':
-'MakerClass'}\n", '\n', 'I am in the do_make of the Maker\n', 'After the first
-make, MyBuilder is \n', '< (BuilderClass), 4466182800>\n', '   /{ \n', "   /
-'<New><Instance>IdStr' : 4466182800\n", "   /
-'<New><Instance>WatchMakeWithBuilderBool' : True\n", "   /
-'<Spe><Instance>MadeMyInt' : 13\n", "   /  '<Spe><Instance>MakingMyFloat' :
-3.0\n", "   /  '<Spe><Instance>_WatchMakeWithMakerBool' : True\n", '   /}\n', 'l
-35\n', 'In the switch function \n', '_KwargVariablesDict is \n',
-"{'BindObserveWrapMethodStr': 'watch_superMimic_switch_watch_superDo_make',
-'WatchDoBoolKeyStr': 'WatchMakeWithBuilderBool', 'BindDoClassStr':
-'BuilderClass'}\n", '\n', 'After the second make, MyBuilder is \n', '<
-(BuilderClass), 4466182800>\n', '   /{ \n', "   /  '<New><Instance>IdStr' :
-4466182800\n", "   /  '<New><Instance>WatchMakeWithBuilderBool' : True\n", "   /
-'<Spe><Instance>MadeMyInt' : 13\n", "   /  '<Spe><Instance>MakingMyFloat' :
-3.0\n", "   /  '<Spe><Instance>_WatchMakeWithMakerBool' : True\n", '   /}\n',
-'Now we reboot\n', 'After the reboot, MyBuilder is \n', '< (BuilderClass),
-4466182800>\n', '   /{ \n', "   /  '<New><Instance>IdStr' : 4466182800\n", "   /
-'<New><Instance>WatchMakeWithBuilderBool' : False\n", "   /
+   /   /   /   /  'text' : ['Before make, MyBuilder is \n', '< (BuilderClass),
+4540177488>\n', '   /{ \n', "   /  '<Base><Class>MadeMyInt' : 0\n", "   /
+'<Base><Class>MakingMyFloat' : 0.0\n", "   /  '<New><Instance>IdInt' :
+4540177488\n", '   /}\n', 'I am in the mimic_make of the Builder\n', 'I am in
+the do_make of the Maker\n', 'After the first make, MyBuilder is \n', '<
+(BuilderClass), 4540177488>\n', '   /{ \n', "   /  '<New><Instance>IdInt' :
+4540177488\n", "   /  '<Spe><Instance>MadeMyInt' : 13\n", "   /
+'<Spe><Instance>MakingMyFloat' : 3.0\n", '   /}\n', 'After the second make,
+MyBuilder is \n', '< (BuilderClass), 4540177488>\n', '   /{ \n', "   /
+'<New><Instance>IdInt' : 4540177488\n", "   /  '<Spe><Instance>MadeMyInt' :
+13\n", "   /  '<Spe><Instance>MakingMyFloat' : 3.0\n", '   /}\n', 'Now we
+reboot\n', 'After the reboot, MyBuilder is \n', '< (BuilderClass),
+4540177488>\n', '   /{ \n', "   /  '<New><Instance>IdInt' : 4540177488\n", "   /
 '<Spe><Instance>MadeMyInt' : 0\n", "   /  '<Spe><Instance>MakingMyFloat' :
-3.0\n", "   /  '<Spe><Instance>_WatchMakeWithMakerBool' : False\n", '   /}\n',
-'l 35\n', 'In the switch function \n', '_KwargVariablesDict is \n',
-"{'BindObserveWrapMethodStr': 'watch_superMimic_switch_watch_superDo_make',
-'WatchDoBoolKeyStr': 'WatchMakeWithBuilderBool', 'BindDoClassStr':
-'BuilderClass'}\n", '\n', 'I am in the mimic_make of the Builder\n', 'l 35\n',
-'In the switch function \n', '_KwargVariablesDict is \n',
-"{'BindObserveWrapMethodStr': 'watch_superDo_make', 'WatchDoBoolKeyStr':
-'WatchMakeWithMakerBool', 'BindDoClassStr': 'MakerClass'}\n", '\n', 'I am in the
+3.0\n", '   /}\n', 'I am in the mimic_make of the Builder\n', 'I am in the
 do_make of the Maker\n', '\n', '\n', '*****Start of the Attest *****\n', '\n',
-'MyBuilder is < (BuilderClass), 4466182800>\n', '   /{ \n', "   /
-'<New><Instance>IdStr' : 4466182800\n", "   /
-'<New><Instance>WatchMakeWithBuilderBool' : True\n", "   /
-'<Spe><Instance>MadeMyInt' : 18\n", "   /  '<Spe><Instance>MakingMyFloat' :
-8.0\n", "   /  '<Spe><Instance>RebootedWatchBoolKeyStrsList' :
-['WatchMakeWithBuilderBool', '_WatchMakeWithMakerBool']\n", "   /
-'<Spe><Instance>_WatchMakeWithMakerBool' : True\n", '   /}\n', '\n', '*****End
-of the Attest *****\n', '\n', '\n']
+'MyBuilder is < (BuilderClass), 4540177488>\n', '   /{ \n', "   /
+'<New><Instance>IdInt' : 4540177488\n", "   /  '<Spe><Instance>MadeMyInt' :
+18\n", "   /  '<Spe><Instance>MakingMyFloat' : 8.0\n", "   /
+'<Spe><Instance>RebootedWatchBoolKeyStrsList' : []\n", '   /}\n', '\n',
+'*****End of the Attest *****\n', '\n', '\n']
    /   /   /   /}
    /   /   /]
    /   /  'prompt_number' : 0
    /   /}
-   /  '<Spe><Instance>CelledOutputStr' : Doer l.132 : DoerStr is Maker
-DoStr is Make
-DoMethodStr is make
-DoingStr is Making
-DoneStr is Made
-
-Doer l.132 : DoerStr is Builder
-DoStr is Build
-DoMethodStr is build
-DoingStr is Building
-DoneStr is Built
-
-Before make, MyBuilder is
-< (BuilderClass), 4466182800>
+   /  '<Spe><Instance>CelledOutputStr' : Before make, MyBuilder is
+< (BuilderClass), 4540177488>
    /{
    /  '<Base><Class>MadeMyInt' : 0
    /  '<Base><Class>MakingMyFloat' : 0.0
-   /  '<New><Instance>IdStr' : 4466182800
+   /  '<New><Instance>IdInt' : 4540177488
    /}
-l 35
-In the switch function
-_KwargVariablesDict is
-{'BindObserveWrapMethodStr': 'watch_superMimic_switch_watch_superDo_make',
-'WatchDoBoolKeyStr': 'WatchMakeWithBuilderBool', 'BindDoClassStr':
-'BuilderClass'}
-
 I am in the mimic_make of the Builder
-l 35
-In the switch function
-_KwargVariablesDict is
-{'BindObserveWrapMethodStr': 'watch_superDo_make', 'WatchDoBoolKeyStr':
-'WatchMakeWithMakerBool', 'BindDoClassStr': 'MakerClass'}
-
 I am in the do_make of the Maker
 After the first make, MyBuilder is
-< (BuilderClass), 4466182800>
+< (BuilderClass), 4540177488>
    /{
-   /  '<New><Instance>IdStr' : 4466182800
-   /  '<New><Instance>WatchMakeWithBuilderBool' : True
+   /  '<New><Instance>IdInt' : 4540177488
    /  '<Spe><Instance>MadeMyInt' : 13
    /  '<Spe><Instance>MakingMyFloat' : 3.0
-   /  '<Spe><Instance>_WatchMakeWithMakerBool' : True
    /}
-l 35
-In the switch function
-_KwargVariablesDict is
-{'BindObserveWrapMethodStr': 'watch_superMimic_switch_watch_superDo_make',
-'WatchDoBoolKeyStr': 'WatchMakeWithBuilderBool', 'BindDoClassStr':
-'BuilderClass'}
-
 After the second make, MyBuilder is
-< (BuilderClass), 4466182800>
+< (BuilderClass), 4540177488>
    /{
-   /  '<New><Instance>IdStr' : 4466182800
-   /  '<New><Instance>WatchMakeWithBuilderBool' : True
+   /  '<New><Instance>IdInt' : 4540177488
    /  '<Spe><Instance>MadeMyInt' : 13
    /  '<Spe><Instance>MakingMyFloat' : 3.0
-   /  '<Spe><Instance>_WatchMakeWithMakerBool' : True
    /}
 Now we reboot
 After the reboot, MyBuilder is
-< (BuilderClass), 4466182800>
+< (BuilderClass), 4540177488>
    /{
-   /  '<New><Instance>IdStr' : 4466182800
-   /  '<New><Instance>WatchMakeWithBuilderBool' : False
+   /  '<New><Instance>IdInt' : 4540177488
    /  '<Spe><Instance>MadeMyInt' : 0
    /  '<Spe><Instance>MakingMyFloat' : 3.0
-   /  '<Spe><Instance>_WatchMakeWithMakerBool' : False
    /}
-l 35
-In the switch function
-_KwargVariablesDict is
-{'BindObserveWrapMethodStr': 'watch_superMimic_switch_watch_superDo_make',
-'WatchDoBoolKeyStr': 'WatchMakeWithBuilderBool', 'BindDoClassStr':
-'BuilderClass'}
-
 I am in the mimic_make of the Builder
-l 35
-In the switch function
-_KwargVariablesDict is
-{'BindObserveWrapMethodStr': 'watch_superDo_make', 'WatchDoBoolKeyStr':
-'WatchMakeWithMakerBool', 'BindDoClassStr': 'MakerClass'}
-
 I am in the do_make of the Maker
 
 
 *****Start of the Attest *****
 
-MyBuilder is < (BuilderClass), 4466182800>
+MyBuilder is < (BuilderClass), 4540177488>
    /{
-   /  '<New><Instance>IdStr' : 4466182800
-   /  '<New><Instance>WatchMakeWithBuilderBool' : True
+   /  '<New><Instance>IdInt' : 4540177488
    /  '<Spe><Instance>MadeMyInt' : 18
    /  '<Spe><Instance>MakingMyFloat' : 8.0
-   /  '<Spe><Instance>RebootedWatchBoolKeyStrsList' :
-['WatchMakeWithBuilderBool', '_WatchMakeWithMakerBool']
-   /  '<Spe><Instance>_WatchMakeWithMakerBool' : True
+   /  '<Spe><Instance>RebootedWatchBoolKeyStrsList' : []
    /}
 
 *****End of the Attest *****
@@ -354,7 +446,6 @@ class MakerClass(Rebooter.RebooterClass):
                                 ):
                 Rebooter.RebooterClass.__init__(self,**_KwarVariablesDict)
 
-        #<DefineDoMethod>
         def do_make(self):
 
                 #print
@@ -389,7 +480,6 @@ class BuilderClass(MakerClass):
                 #cast
                 self.MadeMyInt+=10
 
-        #<DefineDoMethod>
         def do_build(self):
                 pass
 
@@ -415,7 +505,6 @@ SYS._print(MyBuilder,**{
         'RepresentingKeyStrsList':[
         'MakingMyFloat',
         'MadeMyInt',
-        '_WatchMakeWithMakerBool'
         ]
 })
 
@@ -428,14 +517,17 @@ SYS._print(MyBuilder,**{
         'RepresentingKeyStrsList':[
         'MakingMyFloat',
         'MadeMyInt',
-        '_WatchMakeWithMakerBool'
         ]
 })
 
-
 #make again
 print('Now we reboot')
-MyBuilder.reboot(['Make'])
+MyBuilder.reboot(
+                                        #_NameStrsList=['Maker','Builder'],
+                                        #_DoStrsList=['Make'],
+                                        #_AllDoBool=True,
+                                        #_AllNameBool=True,
+                                )
 
 #Print
 print('After the reboot, MyBuilder is ')
@@ -443,7 +535,6 @@ SYS._print(MyBuilder,**{
         'RepresentingKeyStrsList':[
         'MakingMyFloat',
         'MadeMyInt',
-        '_WatchMakeWithMakerBool'
         ]
 })
 
@@ -460,7 +551,6 @@ SYS._attest(
                         'RepresentingKeyStrsList':[
                                 'MakingMyFloat',
                                 'MadeMyInt',
-                                '_WatchMakeWithMakerBool',
                                 'RebootedWatchBoolKeyStrsList'
                         ]
                         }

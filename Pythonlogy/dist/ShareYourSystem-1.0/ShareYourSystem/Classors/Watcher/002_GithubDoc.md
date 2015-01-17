@@ -261,6 +261,6 @@ class WatcherClass(BaseClass):
 ```
 
 <small>
-View the Watcher sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Classors/Watcher)
+View the Watcher sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Classors/Watcher" target="_blank">Github</a>
 </small>
 

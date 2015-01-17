@@ -1,5 +1,6 @@
 pages:
 - [index.md, Home]
+- [About/Introduction.md, About, Introduction]
 - [About/Manifest.md, About, Manifest]
 - [About/StateArt.md, About, State of the art]
 - [About/FAQs.md, About, FAQs]

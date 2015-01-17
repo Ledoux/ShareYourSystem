@@ -1,0 +1,5 @@
+<template name="ControlScore">
+   
+    <input type="button" id="AddNote" value="Add Note" />
+
+</template>

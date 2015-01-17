@@ -1753,7 +1753,79 @@ View the Pusher notebook on <a href="http://nbviewer.ipython.org/url/shareyoursy
 FrozenIsBool False
 -->
 
-<p>View the Pusher sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Applyiers/Installer">Github</a></p>
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+Pusher instances
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Noders.Collecter"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class PusherClass(BaseClass):
+
+    #Definition
+    RepresentingKeyStrsList=[    
+                                    'PushingStoreListsList'
+                                ]
+
+    #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.__init__}]})
+    def default_init(self,
+                        _PushingStoreListsList=None,
+                        **_KwargVariablesDict
+                    ):
+
+        #Call the parent init method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    def do_push(self):
+
+        #debug
+        '''
+        self.debug(('self.',self,['PushingStoreListsList']))
+        '''
+
+        #Apply __getitem__
+        self.map('collect',map(
+                                    lambda __PushingStoreList:
+                                    {
+                                        'LiargVariablesList':[],
+                                        'KwargVariablesDict':
+                                        {
+                                            'CollectingNodeKeyStr':__PushingStoreList[0],
+                                            'CollectingNodeVariable':__PushingStoreList[1],
+                                        }
+                                    },
+                                    self.PushingStoreListsList
+                                )
+                    )
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Pusher sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Applyiers/Pusher" target="_blank">Github</a>
+</small></p>
 </div>
 </div>
 </div></section><section>
@@ -1813,9 +1885,9 @@ In&nbsp;[2]:
 
 *****Start of the Attest *****
 
-MyPusher is &lt; (PusherClass), 4550544720&gt;
+MyPusher is &lt; (PusherClass), 4556355856&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550544720
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4556355856
    /  &apos;&lt;New&gt;&lt;Instance&gt;NodeCollectionStr&apos; : Globals
    /  &apos;&lt;New&gt;&lt;Instance&gt;NodeIndexInt&apos; : -1
    /  &apos;&lt;New&gt;&lt;Instance&gt;NodeKeyStr&apos; : TopPusher
@@ -1823,25 +1895,25 @@ MyPusher is &lt; (PusherClass), 4550544720&gt;
    /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : None
    /  &apos;&lt;New&gt;&lt;Instance&gt;PushomeCollectionOrderedDict&apos; : 
    /   /{ 
-   /   /  &apos;FirstChildPusher&apos; : &lt; (PusherClass), 4550543760&gt;
+   /   /  &apos;FirstChildPusher&apos; : &lt; (PusherClass), 4556354896&gt;
    /   /   /{ 
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550543760
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4556354896
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;MyInt&apos; : 0
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeCollectionStr&apos; : Pushome
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeIndexInt&apos; : 0
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeKeyStr&apos; : FirstChildPusher
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (PusherClass), 4550544720&gt;
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4550549584&gt;
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (PusherClass), 4556355856&gt;
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4556378488&gt;
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PushingStoreListsList&apos; : None
    /   /   /}
-   /   /  &apos;SecondChildPusher&apos; : &lt; (PusherClass), 4550565968&gt;
+   /   /  &apos;SecondChildPusher&apos; : &lt; (PusherClass), 4556355472&gt;
    /   /   /{ 
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4550565968
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4556355472
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeCollectionStr&apos; : Pushome
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeIndexInt&apos; : 1
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeKeyStr&apos; : SecondChildPusher
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (PusherClass), 4550544720&gt;
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4550549584&gt;
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (PusherClass), 4556355856&gt;
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4556378488&gt;
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PushingStoreListsList&apos; : None
    /   /   /}
    /   /}
@@ -1850,12 +1922,12 @@ MyPusher is &lt; (PusherClass), 4550544720&gt;
    /   /  0 : 
    /   /   /[
    /   /   /  0 : FirstChild
-   /   /   /  1 : {...}&lt; (PusherClass), 4550543760&gt;
+   /   /   /  1 : {...}&lt; (PusherClass), 4556354896&gt;
    /   /   /]
    /   /  1 : 
    /   /   /[
    /   /   /  0 : SecondChild
-   /   /   /  1 : {...}&lt; (PusherClass), 4550565968&gt;
+   /   /   /  1 : {...}&lt; (PusherClass), 4556355472&gt;
    /   /   /]
    /   /]
    /}

@@ -72,7 +72,7 @@ class PackagerClass(BaseClass):
 							'PackagingModuleVariable'
 						]))
 		'''
-
+		
 		#Check
 		if type(self.PackagingModuleVariable) in SYS.StrTypesList:
 			self.PackagedModuleStr=self.PackagingModuleVariable
@@ -125,6 +125,6 @@ class PackagerClass(BaseClass):
 ```
 
 <small>
-View the Packager sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Objects/Packager)
+View the Packager sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Objects/Packager" target="_blank">Github</a>
 </small>
 

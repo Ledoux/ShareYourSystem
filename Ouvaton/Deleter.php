@@ -1753,7 +1753,78 @@ View the Deleter notebook on <a href="http://nbviewer.ipython.org/url/shareyours
 FrozenIsBool False
 -->
 
-<p>View the Deleter sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem/Itemizers/Installer">Github</a></p>
+<h2 id="code">Code</h2>
+<hr>
+<ClassDocStr>
+
+<hr>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+"""
+
+
+&lt;DefineSource&gt;
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+&lt;/DefineSource&gt;
+
+
+A Deleter has a __delitem__ method for deleting things in the &lt;InstanceVariable&gt;.__dict__
+
+"""
+
+#&lt;DefineAugmentation&gt;
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Itemizers.Setter"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
+SYS.setSubModule(globals())
+#&lt;/DefineAugmentation&gt;
+
+#&lt;ImportSpecificModules&gt;
+#&lt;/ImportSpecificModules&gt;
+
+#&lt;DefineClass&gt;
+@DecorationClass()
+class DeleterClass(BaseClass):
+
+    def default_init(self,
+                        _DeletingKeyVariable=None,
+                        **_KwargVariablesDict
+                    ):
+        """ """        
+
+        #Call the parent init method
+        BaseClass.__init__(self,**_KwargVariablesDict)
+
+    #@Argumenter.ArgumenterClass(**{'ArgumentingDoStr':"Delete"})
+    def __delitem__(self,_KeyVariable,**_KwargVariablesDict):
+        """ """
+
+        #debug
+        '''
+        self.debug(('self.',self,['DeletingKeyVariable']))
+        '''
+
+        #Delete
+        self.delete(_KeyVariable)
+
+        #set
+        return self
+
+    def do_delete(self):
+        """ """
+
+        #Do the minimal delitem
+        if type(self.DeletingKeyVariable) in [str,unicode]:
+
+            #Del Safely the Value
+            if self.DeletingKeyVariable in self.__dict__:
+                del self.__dict__[self.DeletingKeyVariable]
+
+#&lt;/DefineClass&gt;
+</code></pre>
+<p><small>
+View the Deleter sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Itemizers/Deleter" target="_blank">Github</a>
+</small></p>
 </div>
 </div>
 </div></section><section>
@@ -1820,9 +1891,9 @@ In&nbsp;[3]:
 
 *****Start of the Attest *****
 
-MyDeleter is &lt; (DeleterClass), 4348482896&gt;
+MyDeleter is &lt; (DeleterClass), 4555206736&gt;
    /{ 
-   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4348482896
+   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4555206736
    /}
 
 *****End of the Attest *****
