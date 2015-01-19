@@ -14,7 +14,7 @@ A Populater
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Simulaters.Moniter"
+BaseModuleStr="ShareYourSystem.Noders.Structurer"
 DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -26,42 +26,63 @@ class PopulaterClass(BaseClass):
 	#Definition
 	RepresentingKeyStrsList=[
 								'PopulatingUnitsInt',
-								'PopulatingEquationStr',
-								'PopulatingThresholdStr',
-								'PopulatingResetStr',
-								'PopulatingCommunicationDictsList'
+								'PopulatingEventCollectionStr',
+								'PopulatingStateCollectionStr',
+								'PopulatedEventDeriveMonitersList',
+								'PopulatedStateDeriveMonitersList',
+								'PopulatedPreviousDerivePopulaterVariable',
+								'PopulatedStartUnitInt',
+								'PopulatedEndUnitInt'
 							]
 
 	def default_init(self,
 						_PopulatingUnitsInt=0,
-						_PopulatingEquationStr='''
-							dv/dt = (ge+gi-(v+49*mV))/(20*ms) : volt
-							dge/dt = -ge/(5*ms) : volt
-							dgi/dt = -gi/(10*ms) : volt
-						''',
-						_PopulatingThresholdStr='v>-50*mV',
-						_PopulatingResetStr='v=-60*mV',
-						_PopulatingCommunicationDictsList=None,
+						_PopulatingEventCollectionStr='Spikome',
+						_PopulatingStateCollectionStr='Variablome',
+						_PopulatedEventDeriveMonitersList=None,
+						_PopulatedStateDeriveMonitersList=None,
+						_PopulatedPreviousDerivePopulaterVariable=None,
+						_PopulatedStartUnitInt=0,
+						_PopulatedEndUnitInt=0,
 						**_KwargVariablesDict
 					):
 
 		#Call the parent __init__ method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
+		#node for init
+		self.node(self.PopulatingEventCollectionStr)
+		self.node(self.PopulatingStateCollectionStr)
+
 	def do_populate(self):	
 
 		#debug
-		'''
 		self.debug(('self.',self,[
+								'PopulatingEventCollectionStr',
+								'PopulatingStateCollectionStr'
+								]))
 
-					]))
-		'''
+		#link
+		self.PopulatedEventDeriveMonitersList=getattr(
+				self,
+				self.PopulatingEventCollectionStr+'CollectionOrderedDict'
+			).values()
+		self.PopulatedStateDeriveMonitersList=getattr(
+				self,
+				self.PopulatingStateCollectionStr+'CollectionOrderedDict'
+			).values()
 
-		#monit first
-		self.monit()
+		#Check
+		if self.NetworkIndexInt>0:
+			self.PopulatedPreviousDerivePopulaterVariable=self.NetworkPointDeriveNetworker.NetworkedDeriveConnectersList[
+				self.NetworkIndexInt-1
+			]
+		else:
+			self.PopulatedPreviousDerivePopulaterVariable=self
 
+		#sum
+		self.PopulatedStartUnitInt=self.PopulatedPreviousDerivePopulaterVariable.PopulatedEndUnitInt
+		self.PopulatedEndUnitInt=self.PopulatedStartUnitInt+self.PopulatingUnitsInt
 
-		#Return self
-		#return self
 
 #</DefineClass>

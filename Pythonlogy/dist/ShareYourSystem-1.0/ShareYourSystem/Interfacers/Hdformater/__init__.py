@@ -28,7 +28,9 @@ import sys
 #</ImportSpecificModules>
 
 #<DefineClass>
-@DecorationClass(**{'SwitchingUnboundMethodStr':'hdformat'})
+@DecorationClass(**{
+	'ClassingSwitchMethodStrsList':['hdformat']
+})
 class HdformaterClass(BaseClass):
 	
 	#Definition

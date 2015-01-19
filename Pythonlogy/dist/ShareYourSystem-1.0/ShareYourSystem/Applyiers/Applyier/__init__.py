@@ -24,6 +24,12 @@ SYS.setSubModule(globals())
 import copy
 #</ImportSpecificModules>
 
+#<DefineLocals>
+class ApplyDictClass(dict):
+	pass
+SYS.ApplyDictClass=ApplyDictClass
+#</DefineLocals>
+
 #<DefineClass>
 @DecorationClass()
 class ApplyierClass(BaseClass):

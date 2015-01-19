@@ -7,31 +7,47 @@ from ShareYourSystem.Simulaters import Populater,Brianer
 MyBrianer=Brianer.BrianerClass(
 	).update(
 		{
+			#Set here the global net parameters
 			'StimulatingStepTimeFloat':0.1
 		}
 	).produce(
 		['E','I'],
 		Populater.PopulaterClass,
 		{
-			'NeuronGroupArgumentVariable':{
-				'LiargVariablesList':[
-					3200,
-					'''
-						dv/dt = (ge+gi-(v+49*mV))/(20*ms) : volt
-						dge/dt = -ge/(5*ms) : volt
-						dgi/dt = -gi/(10*ms) : volt
-					'''
-				],
-				'KwargVariablesDict':
+			#Here are defined the brian classic shared arguments between pops
+			'brian.NeuronGroupArgumentDict':SYS.ArgumentDict().update(
 				{
-					'threshold':'v>-50*mV'
-					'reset':'v=-60*mV'
+					'LiargVariablesList':[
+						0,
+						'''
+							dv/dt = (ge+gi-(v+49*mV))/(20*ms) : volt
+							dge/dt = -ge/(5*ms) : volt
+							dgi/dt = -gi/(10*ms) : volt
+						'''
+					],
+					'KwargVariablesDict':
+					{
+						'threshold':'v>-50*mV'
+						'reset':'v=-60*mV'
+					}
 				}
+			),
+			#Here are the settig of future brian monitors
+			'push':
+			{
+				'LiargVariablesList':
+				[
+					[
+						Moniter.MoniterClass.update(
+								{
+									'brian.SpikeMonitorArgumentDict':SYS.ArgumentDict()
+								}
+							)
+					],
+				],
+				'KwargVariablesDict':{'CollectingCollectionStr':'Monitome'}
 			},
-			'MonitorSpikeArgumentVariablesList':
-			[
-				[]
-			],
+			#Init conditions
 			'PopulatingInitDict':
 			{
 				'v':-60.
@@ -40,9 +56,10 @@ MyBrianer=Brianer.BrianerClass(
 		**{'CollectingCollectionStr':'Populatome'}
 	).__setitem__(
 		'Dis_<Populatome>',
+		#Here are defined the brian classic specific arguments for each pop
 		[
 			{
-				'PopulatingUnitsInt':3200,
+				'Exec_NeuronGroupArgumentDict["LiargVariablesList"][0]':3200,
 				'ConnectingGraspClueVariablesList':
 				[
 					SYS.GraspDictClass(
@@ -58,7 +75,7 @@ MyBrianer=Brianer.BrianerClass(
 				]
 			},
 			{
-				'PopulatingUnitsInt':800,
+				'Exec_NeuronGroupArgumentDict["LiargVariablesList"][0]':800,
 				'ConnectingGraspClueVariablesList':
 				[
 					SYS.GraspDictClass(

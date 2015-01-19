@@ -112,7 +112,7 @@ class HierarchizerClass(BaseClass):
 		#map
 		map(
 				lambda __JoinedAttentionCollectionDeriveJoinerPointer:
-				__JoinedAttentionCollectionDeriveJoinerPointer.PointVariable.flush(),
+				__JoinedAttentionCollectionDeriveJoinerPointer.CatchToPointVariable.flush(),
 				self.JoinedAttentionCollectionOrderedDict.values()
 			)
 		

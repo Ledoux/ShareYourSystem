@@ -465,7 +465,7 @@ MyFactorizer is < (FactorizerClass), 4557707536>
 (PointerClass), 4559813776>
    /   /   /   /   /   /   /{
    /   /   /   /   /   /   /  '<New><Instance>IdInt' : 4559813776
-   /   /   /   /   /   /   /  '<New><Instance>PointVariable' : <
+   /   /   /   /   /   /   /  '<New><Instance>CatchToPointVariable' : <
 (HierarchizerClass), 4559400464>
    /   /   /   /   /   /   /   /{
    /   /   /   /   /   /   /   /
@@ -533,7 +533,7 @@ ResultsHierarchizer
    /   /   /   /   /   /   /   /   /   /   /   /{
    /   /   /   /   /   /   /   /   /   /   /   /  '<New><Instance>IdInt' :
 4559814032
-   /   /   /   /   /   /   /   /   /   /   /   /  '<New><Instance>PointVariable'
+   /   /   /   /   /   /   /   /   /   /   /   /  '<New><Instance>CatchToPointVariable'
 : {...}< (HierarchizerClass), 4559400464>
    /   /   /   /   /   /   /   /   /   /   /   /
 '<Spe><Class>PointedBackSetStr' :
@@ -542,13 +542,13 @@ ResultsHierarchizer
    /   /   /   /   /   /   /   /   /   /   /   /
 '<Spe><Instance>PointedGetVariable' : {...}< (HierarchizerClass), 4559400464>
    /   /   /   /   /   /   /   /   /   /   /   /
-'<Spe><Instance>PointedLocalSetStr' : PointVariable
+'<Spe><Instance>PointedLocalSetStr' : CatchToPointVariable
    /   /   /   /   /   /   /   /   /   /   /   /
 '<Spe><Instance>PointingBackSetStr' :
    /   /   /   /   /   /   /   /   /   /   /   /
 '<Spe><Instance>PointingGetVariable' : {...}< (HierarchizerClass), 4559400464>
    /   /   /   /   /   /   /   /   /   /   /   /
-'<Spe><Instance>PointingSetPathStr' : PointVariable
+'<Spe><Instance>PointingSetPathStr' : CatchToPointVariable
    /   /   /   /   /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /   /   /   /  '<New><Instance>TagStr' : Networked
@@ -589,7 +589,7 @@ chizerModelRetrieveIndexesList']
 < (PointerClass), 4559494608>
    /   /   /   /   /   /   /   /   /   /{
    /   /   /   /   /   /   /   /   /   /  '<New><Instance>IdInt' : 4559494608
-   /   /   /   /   /   /   /   /   /   /  '<New><Instance>PointVariable' :
+   /   /   /   /   /   /   /   /   /   /  '<New><Instance>CatchToPointVariable' :
 {...}< (HierarchizerClass), 4559445968>
    /   /   /   /   /   /   /   /   /   /  '<Spe><Class>PointedBackSetStr' :
    /   /   /   /   /   /   /   /   /   /  '<Spe><Class>PointedPathBackVariable'
@@ -597,19 +597,19 @@ chizerModelRetrieveIndexesList']
    /   /   /   /   /   /   /   /   /   /  '<Spe><Instance>PointedGetVariable' :
 {...}< (HierarchizerClass), 4559445968>
    /   /   /   /   /   /   /   /   /   /  '<Spe><Instance>PointedLocalSetStr' :
-PointVariable
+CatchToPointVariable
    /   /   /   /   /   /   /   /   /   /  '<Spe><Instance>PointingBackSetStr' :
    /   /   /   /   /   /   /   /   /   /  '<Spe><Instance>PointingGetVariable' :
 {...}< (HierarchizerClass), 4559445968>
    /   /   /   /   /   /   /   /   /   /  '<Spe><Instance>PointingSetPathStr' :
-PointVariable
+CatchToPointVariable
    /   /   /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /   /   /
 '_NodePointDeriveNoder_<Component>YSumer_<Data>ParametersHierarchizerPointer' :
 < (PointerClass), 4559444752>
    /   /   /   /   /   /   /   /   /   /{
    /   /   /   /   /   /   /   /   /   /  '<New><Instance>IdInt' : 4559444752
-   /   /   /   /   /   /   /   /   /   /  '<New><Instance>PointVariable' : <
+   /   /   /   /   /   /   /   /   /   /  '<New><Instance>CatchToPointVariable' : <
 (HierarchizerClass), 4559444496>
    /   /   /   /   /   /   /   /   /   /   /{
    /   /   /   /   /   /   /   /   /   /   /
@@ -695,7 +695,7 @@ ParametersHierarchizer
    /   /   /   /   /   /   /   /   /   /   /   /   /   /   /   /
 '<New><Instance>IdInt' : 4559814544
    /   /   /   /   /   /   /   /   /   /   /   /   /   /   /   /
-'<New><Instance>PointVariable' : {...}< (HierarchizerClass), 4559444496>
+'<New><Instance>CatchToPointVariable' : {...}< (HierarchizerClass), 4559444496>
    /   /   /   /   /   /   /   /   /   /   /   /   /   /   /   /
 '<Spe><Class>PointedBackSetStr' :
    /   /   /   /   /   /   /   /   /   /   /   /   /   /   /   /
@@ -703,13 +703,13 @@ ParametersHierarchizer
    /   /   /   /   /   /   /   /   /   /   /   /   /   /   /   /
 '<Spe><Instance>PointedGetVariable' : {...}< (HierarchizerClass), 4559444496>
    /   /   /   /   /   /   /   /   /   /   /   /   /   /   /   /
-'<Spe><Instance>PointedLocalSetStr' : PointVariable
+'<Spe><Instance>PointedLocalSetStr' : CatchToPointVariable
    /   /   /   /   /   /   /   /   /   /   /   /   /   /   /   /
 '<Spe><Instance>PointingBackSetStr' :
    /   /   /   /   /   /   /   /   /   /   /   /   /   /   /   /
 '<Spe><Instance>PointingGetVariable' : {...}< (HierarchizerClass), 4559444496>
    /   /   /   /   /   /   /   /   /   /   /   /   /   /   /   /
-'<Spe><Instance>PointingSetPathStr' : PointVariable
+'<Spe><Instance>PointingSetPathStr' : CatchToPointVariable
    /   /   /   /   /   /   /   /   /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /   /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /   /   /   /   /   /   /   /
@@ -785,7 +785,7 @@ YSumer
    /   /   /   /   /   /   /   /   /   /   /   /   /  '<New><Instance>IdInt' :
 4559813264
    /   /   /   /   /   /   /   /   /   /   /   /   /
-'<New><Instance>PointVariable' : {...}< (HierarchizerClass), 4559400464>
+'<New><Instance>CatchToPointVariable' : {...}< (HierarchizerClass), 4559400464>
    /   /   /   /   /   /   /   /   /   /   /   /   /
 '<Spe><Class>PointedBackSetStr' :
    /   /   /   /   /   /   /   /   /   /   /   /   /
@@ -793,13 +793,13 @@ YSumer
    /   /   /   /   /   /   /   /   /   /   /   /   /
 '<Spe><Instance>PointedGetVariable' : {...}< (HierarchizerClass), 4559400464>
    /   /   /   /   /   /   /   /   /   /   /   /   /
-'<Spe><Instance>PointedLocalSetStr' : PointVariable
+'<Spe><Instance>PointedLocalSetStr' : CatchToPointVariable
    /   /   /   /   /   /   /   /   /   /   /   /   /
 '<Spe><Instance>PointingBackSetStr' :
    /   /   /   /   /   /   /   /   /   /   /   /   /
 '<Spe><Instance>PointingGetVariable' : {...}< (HierarchizerClass), 4559400464>
    /   /   /   /   /   /   /   /   /   /   /   /   /
-'<Spe><Instance>PointingSetPathStr' : PointVariable
+'<Spe><Instance>PointingSetPathStr' : CatchToPointVariable
    /   /   /   /   /   /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /   /   /   /   /   /
 'ParametersHierarchizer_YSumer>TopFactorizer<YSumer_ResultsHierarchizerPointer'
@@ -808,7 +808,7 @@ YSumer
    /   /   /   /   /   /   /   /   /   /   /   /   /  '<New><Instance>IdInt' :
 4559812688
    /   /   /   /   /   /   /   /   /   /   /   /   /
-'<New><Instance>PointVariable' : {...}< (HierarchizerClass), 4559507728>
+'<New><Instance>CatchToPointVariable' : {...}< (HierarchizerClass), 4559507728>
    /   /   /   /   /   /   /   /   /   /   /   /   /
 '<Spe><Class>PointedBackSetStr' :
    /   /   /   /   /   /   /   /   /   /   /   /   /
@@ -816,13 +816,13 @@ YSumer
    /   /   /   /   /   /   /   /   /   /   /   /   /
 '<Spe><Instance>PointedGetVariable' : {...}< (HierarchizerClass), 4559507728>
    /   /   /   /   /   /   /   /   /   /   /   /   /
-'<Spe><Instance>PointedLocalSetStr' : PointVariable
+'<Spe><Instance>PointedLocalSetStr' : CatchToPointVariable
    /   /   /   /   /   /   /   /   /   /   /   /   /
 '<Spe><Instance>PointingBackSetStr' :
    /   /   /   /   /   /   /   /   /   /   /   /   /
 '<Spe><Instance>PointingGetVariable' : {...}< (HierarchizerClass), 4559507728>
    /   /   /   /   /   /   /   /   /   /   /   /   /
-'<Spe><Instance>PointingSetPathStr' : PointVariable
+'<Spe><Instance>PointingSetPathStr' : CatchToPointVariable
    /   /   /   /   /   /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /   /   /   /   /
@@ -852,12 +852,12 @@ dflt=0, pos=None)
    /   /   /   /   /   /   /   /   /   /  '<Spe><Instance>PointedGetVariable' :
 {...}< (HierarchizerClass), 4559444496>
    /   /   /   /   /   /   /   /   /   /  '<Spe><Instance>PointedLocalSetStr' :
-PointVariable
+CatchToPointVariable
    /   /   /   /   /   /   /   /   /   /  '<Spe><Instance>PointingBackSetStr' :
    /   /   /   /   /   /   /   /   /   /  '<Spe><Instance>PointingGetVariable' :
 {...}< (HierarchizerClass), 4559444496>
    /   /   /   /   /   /   /   /   /   /  '<Spe><Instance>PointingSetPathStr' :
-PointVariable
+CatchToPointVariable
    /   /   /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /   /
@@ -868,7 +868,7 @@ PointVariable
 (PointerClass), 4559812304>
    /   /   /   /   /   /   /   /   /   /{
    /   /   /   /   /   /   /   /   /   /  '<New><Instance>IdInt' : 4559812304
-   /   /   /   /   /   /   /   /   /   /  '<New><Instance>PointVariable' :
+   /   /   /   /   /   /   /   /   /   /  '<New><Instance>CatchToPointVariable' :
 {...}< (HierarchizerClass), 4559444176>
    /   /   /   /   /   /   /   /   /   /  '<Spe><Class>PointedBackSetStr' :
    /   /   /   /   /   /   /   /   /   /  '<Spe><Class>PointedPathBackVariable'
@@ -876,12 +876,12 @@ PointVariable
    /   /   /   /   /   /   /   /   /   /  '<Spe><Instance>PointedGetVariable' :
 {...}< (HierarchizerClass), 4559444176>
    /   /   /   /   /   /   /   /   /   /  '<Spe><Instance>PointedLocalSetStr' :
-PointVariable
+CatchToPointVariable
    /   /   /   /   /   /   /   /   /   /  '<Spe><Instance>PointingBackSetStr' :
    /   /   /   /   /   /   /   /   /   /  '<Spe><Instance>PointingGetVariable' :
 {...}< (HierarchizerClass), 4559444176>
    /   /   /   /   /   /   /   /   /   /  '<Spe><Instance>PointingSetPathStr' :
-PointVariable
+CatchToPointVariable
    /   /   /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /   /  '<New><Instance>_DatabasingSealTuplesList' :
@@ -940,31 +940,31 @@ oYSumerParametersHierarchizerModelRetrieveIndexesList', 'FactorizingPowerFloat']
    /   /   /   /   /   /   /  '<Spe><Instance>PointedGetVariable' : {...}<
 (HierarchizerClass), 4559400464>
    /   /   /   /   /   /   /  '<Spe><Instance>PointedLocalSetStr' :
-PointVariable
+CatchToPointVariable
    /   /   /   /   /   /   /  '<Spe><Instance>PointingBackSetStr' :
    /   /   /   /   /   /   /  '<Spe><Instance>PointingGetVariable' : {...}<
 (HierarchizerClass), 4559400464>
    /   /   /   /   /   /   /  '<Spe><Instance>PointingSetPathStr' :
-PointVariable
+CatchToPointVariable
    /   /   /   /   /   /   /}
    /   /   /   /   /   /
 'ParametersHierarchizer_XSumer>TopFactorizer<XSumer_ResultsHierarchizerPointer'
 : < (PointerClass), 4559812432>
    /   /   /   /   /   /   /{
    /   /   /   /   /   /   /  '<New><Instance>IdInt' : 4559812432
-   /   /   /   /   /   /   /  '<New><Instance>PointVariable' : <
+   /   /   /   /   /   /   /  '<New><Instance>CatchToPointVariable' : <
 (HierarchizerClass), 4559494032>{...}< (dict), 4555069992>
    /   /   /   /   /   /   /  '<Spe><Class>PointedBackSetStr' :
    /   /   /   /   /   /   /  '<Spe><Class>PointedPathBackVariable' :
    /   /   /   /   /   /   /  '<Spe><Instance>PointedGetVariable' : {...}<
 (HierarchizerClass), 4559494032>
    /   /   /   /   /   /   /  '<Spe><Instance>PointedLocalSetStr' :
-PointVariable
+CatchToPointVariable
    /   /   /   /   /   /   /  '<Spe><Instance>PointingBackSetStr' :
    /   /   /   /   /   /   /  '<Spe><Instance>PointingGetVariable' : {...}<
 (HierarchizerClass), 4559494032>
    /   /   /   /   /   /   /  '<Spe><Instance>PointingSetPathStr' :
-PointVariable
+CatchToPointVariable
    /   /   /   /   /   /   /}
    /   /   /   /   /   /}
    /   /   /   /   /  '<New><Instance>_DatabasingSealTuplesList' :

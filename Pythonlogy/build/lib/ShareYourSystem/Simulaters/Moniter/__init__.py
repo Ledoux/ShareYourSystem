@@ -7,25 +7,19 @@
 @Author : Erwan Ledoux \n\n
 </DefineSource>
 
-
 A Moniter
 
 """
 
-
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Simulaters.Runner"
-DecorationModuleStr="ShareYourSystem.Classors.Representer"
+BaseModuleStr="ShareYourSystem.Noders.Structurer"
+DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
 #</ImportSpecificModules>
-
-#<DefineDoStrsList>
-DoStrsList=["Moniter","Monit","Monitering","Monitered"]
-#<DefineDoStrsList>
 
 #<DefineClass>
 @DecorationClass()
@@ -33,18 +27,19 @@ class MoniterClass(BaseClass):
 
 	#Definition
 	RepresentingKeyStrsList=[
-									'MonitoringTrackTuplesList'
-								]
+								'MoniteringVariableStr',
+								'MoniteringIndexIntsList',
+							]
 	
 	def default_init(self,
-						_MoniteringTrackTuplesList=None,
+						_MoniteringVariableStr="",
+						_MoniteringIndexIntsList=None,
 						**_KwargVariablesDict
 					):
 		
 		#Call the parent init method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 	
-	#<DefineDoMethod>	
 	def do_monit(self):
 
 		pass

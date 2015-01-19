@@ -1,8 +1,8 @@
 #ImportModules
 import ShareYourSystem as SYS
 from ShareYourSystem.Classors import Classer
+from ShareYourSystem.Controllers import Organizer
 from ShareYourSystem.Modelers import Hierarchizer
-from ShareYourSystem.Noders import Organizer
 import numpy as np
 import operator
 
@@ -81,7 +81,11 @@ class FactorizerClass(Organizer.OrganizerClass):
 		)
 
 #Definition of a Factorizer instance, organize structure and network
-MyFactorizer=FactorizerClass().walk(
+MyFactorizer=FactorizerClass(
+				**{
+					'FolderingPathStr':Organizer.LocalFolderPathStr
+				}
+			).walk(
 				{
 					'AfterUpdateList':[
 						('organize',{'LiargVariablesList':[]})

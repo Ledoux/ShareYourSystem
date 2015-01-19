@@ -14,7 +14,7 @@ Storer instances
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Controllers.Controller"
+BaseModuleStr="ShareYourSystem.Controllers.Organizer"
 DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>

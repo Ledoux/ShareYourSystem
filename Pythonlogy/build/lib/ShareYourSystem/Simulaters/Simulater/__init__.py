@@ -14,7 +14,7 @@ A Simulater
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Storers.Controller"
+BaseModuleStr="ShareYourSystem.Controllers.Controller"
 DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -32,7 +32,6 @@ class SimulaterClass(BaseClass):
 		'SimulatingStepTimeFloat'
 	]
 
-	#@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.__init__}]})
 	def default_init(self,
 						_SimulatingStopTimeFloat=100.,
 						_SimulatingStepTimeFloat=0.1,
@@ -42,8 +41,6 @@ class SimulaterClass(BaseClass):
 		#Call the parent __init__ method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
-	#@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingMethodStr':'hdformat'}]})
-	#@Argumenter.ArgumenterClass()
 	def do_simulate(
 				self,
 				**_KwargVariablesDict

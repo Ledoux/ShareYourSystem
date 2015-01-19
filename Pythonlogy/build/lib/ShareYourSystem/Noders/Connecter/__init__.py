@@ -54,7 +54,7 @@ class ConnecterClass(BaseClass):
 						__ConnectingGraspVariable
 					).catch(
 					).attention(
-					).GraspedAnswerVariable,
+					).CatchedDerivePointerVariable,
 				self.ConnectingGraspClueVariablesList
 			)
 

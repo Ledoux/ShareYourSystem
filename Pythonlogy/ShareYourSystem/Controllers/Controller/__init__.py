@@ -14,7 +14,7 @@ A Controller
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Noders.Organizer"
+BaseModuleStr="ShareYourSystem.Noders.Structurer"
 DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>

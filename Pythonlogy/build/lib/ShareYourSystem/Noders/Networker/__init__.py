@@ -29,17 +29,19 @@ class NetworkerClass(BaseClass):
 	
 	#Definition
 	RepresentingKeyStrsList=[
-									'NetworkedDeriveConnectersList',
-									'NetworkedGraphTuplesList'
-								]
+								'NetworkingSuffixStr',
+								'NetworkingCatchStr',
+								'NetworkingAttentionStr',
+								'NetworkedDeriveConnectersList',
+								'NetworkedDerivePointersList',
+							]
 
-	#@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.__init__}]})
 	def default_init(self,
 						_NetworkingSuffixStr="Connectome",
 						_NetworkingCatchStr="Post",
 						_NetworkingAttentionStr="Pre",
 						_NetworkedDeriveConnectersList=None,
-						_NetworkedGraphTuplesList=None,
+						_NetworkedDerivePointersList=None,
 						**_KwargVariablesDict
 					):
 
@@ -81,23 +83,32 @@ class NetworkerClass(BaseClass):
 		'''
 		
 		#map a connect
-		self.NetworkedGraphTuplesList=map(
-				lambda __NodedDeriveConnecter:
-				(
-					__NodedDeriveConnecter,
-					__NodedDeriveConnecter.connect(
-						**{
-							'CatchingCollectionStr':self.NetworkingCatchStr+self.NetworkingSuffixStr,
-							'AttentioningCollectionStr':self.NetworkingAttentionStr+self.NetworkingSuffixStr
-						}
-					).update(
-						[
-							('NetworkCollectionStr',self.NetworkingSuffixStr),
-							('NetworkCatchStr',self.NetworkingCatchStr),
-							('NetworkAttentionStr',self.NetworkingAttentionStr)
-						]
-					).ConnectedDerivePointersList
-				),
-				self.NetworkedDeriveConnectersList
-		)
+		self.NetworkedDerivePointersList=SYS.flat(
+			map(
+				lambda __NetworkedDeriveConnecter,__IndexInt:
+				__NetworkedDeriveConnecter.connect(
+					**{
+						'CatchingCollectionStr':self.NetworkingCatchStr+self.NetworkingSuffixStr,
+						'AttentioningCollectionStr':self.NetworkingAttentionStr+self.NetworkingSuffixStr
+					}
+				).update(
+					[
+						('NetworkCollectionStr',self.NetworkingSuffixStr),
+						('NetworkCatchStr',self.NetworkingCatchStr),
+						('NetworkAttentionStr',self.NetworkingAttentionStr),
+						('NetworkIndexInt',__IndexInt),
+						('point',{
+								'LiargVariablesList':
+								[
+									self,
+									'NetworkPointDeriveNetworker'
+								]
+							}
+						)
+					]
+				).ConnectedDerivePointersList,
+				self.NetworkedDeriveConnectersList,
+				xrange(len(self.NetworkedDeriveConnectersList))
+			)
+		)	
 #</DefineClass>

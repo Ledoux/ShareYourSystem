@@ -80,7 +80,7 @@ class TransmitterClass(BaseClass):
 				lambda __TransmittingCollectionStr:
 				map(
 					lambda __DeriveNoderPointer:
-					__DeriveNoderPointer.PointVariable,
+					__DeriveNoderPointer.CatchToPointVariable,
 					getattr(
 						self,
 						__TransmittingCollectionStr+'CollectionOrderedDict'

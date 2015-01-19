@@ -1,7 +1,7 @@
 #ImportModules
 import ShareYourSystem as SYS
 from ShareYourSystem.Classors import Classer
-from ShareYourSystem.Noders import Structurer
+from ShareYourSystem.Controllers import Controller
 from ShareYourSystem.Modelers import Joiner
 import operator
 import tables
@@ -9,13 +9,13 @@ import numpy as np
 
 #Define a Multiplier class
 @Classer.ClasserClass()
-class MultiplierClass(Structurer.StructurerClass):
+class MultiplierClass(Controller.ControllerClass):
 
 	#Definition
 	RepresentingKeyStrsList=[
-									'MultiplyingFirstInt',
-									'MultiplyingSecondInt'
-								]
+								'MultiplyingFirstInt',
+								'MultiplyingSecondInt'
+							]
 								
 	def default_init(self,
 						_MultiplyingFirstInt=0,
@@ -46,7 +46,7 @@ class MultiplierClass(Structurer.StructurerClass):
 		
 #Define a Modulizer class
 @Classer.ClasserClass()
-class ModulizerClass(Structurer.StructurerClass):
+class ModulizerClass(Controller.ControllerClass):
 
 	#Definition
 	RepresentingKeyStrsList=[
@@ -96,19 +96,23 @@ class ModulizerClass(Structurer.StructurerClass):
 
 
 #Definition of a Modulizer instance, structure and network
-MyModulizer=ModulizerClass().structure(
-	['Component']
-).network(
-	**{
-		'VisitingCollectionStrsList':['Datome','Component'],
-		'RecruitingConcludeConditionTuplesList':[
-			(
-				'__class__.__mro__',
-				operator.contains,Joiner.JoinerClass
-			)
-		]
-	}
-)
+MyModulizer=ModulizerClass(
+		**{
+			'FolderingPathStr':Joiner.LocalFolderPathStr
+		}
+	).structure(
+		['Component']
+	).network(
+		**{
+			'VisitingCollectionStrsList':['Datome','Component'],
+			'RecruitingConcludeConditionTuplesList':[
+				(
+					'__class__.__mro__',
+					operator.contains,Joiner.JoinerClass
+				)
+			]
+		}
+	)
 
 #Update and flush in the results
 MyModulizer.__setitem__(

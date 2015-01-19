@@ -14,13 +14,13 @@ Organizer instances
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Noders.Structurer"
+BaseModuleStr="ShareYourSystem.Controllers.Controller"
 DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
-from ShareYourSystem.Modelers import Modeler
+from ShareYourSystem.Modelers import Databaser
 from ShareYourSystem.Noders import Noder
 import operator
 #</ImportSpecificModules>
@@ -125,7 +125,7 @@ class OrganizerClass(BaseClass):
 								(
 									'Attr_DatabasingSealTuplesList',
 									map(
-										Modeler.getDatabasingColumnTupleWithGetKeyStr,
+										Databaser.getDatabasingColumnTupleWithGetKeyStr,
 										self.OrganizingInKeyStrsList
 									)
 								),
@@ -147,7 +147,7 @@ class OrganizerClass(BaseClass):
 								(
 									'Attr_DatabasingSealTuplesList',
 									map(
-										Modeler.getDatabasingColumnTupleWithGetKeyStr,
+										Databaser.getDatabasingColumnTupleWithGetKeyStr,
 										self.OrganizingOutKeyStrsList
 									)
 								),

@@ -258,22 +258,22 @@ MyMobilizer is < (MobilizerClass), 4556651536>
    /   /  'TopMobilizer><TopMobilizerPointer' : < (PointerClass), 4555536912>
    /   /   /{
    /   /   /  '<New><Instance>IdInt' : 4555536912
-   /   /   /  '<New><Instance>PointVariable' : {...}< (MobilizerClass),
+   /   /   /  '<New><Instance>CatchToPointVariable' : {...}< (MobilizerClass),
 4556651536>
    /   /   /  '<Spe><Class>PointedBackSetStr' :
    /   /   /  '<Spe><Class>PointedPathBackVariable' :
    /   /   /  '<Spe><Instance>PointedGetVariable' : {...}< (MobilizerClass),
 4556651536>
-   /   /   /  '<Spe><Instance>PointedLocalSetStr' : PointVariable
+   /   /   /  '<Spe><Instance>PointedLocalSetStr' : CatchToPointVariable
    /   /   /  '<Spe><Instance>PointingBackSetStr' :
    /   /   /  '<Spe><Instance>PointingGetVariable' : {...}< (MobilizerClass),
 4556651536>
-   /   /   /  '<Spe><Instance>PointingSetPathStr' : PointVariable
+   /   /   /  '<Spe><Instance>PointingSetPathStr' : CatchToPointVariable
    /   /   /}
    /   /  '>UnknowPath<Pointer' : < (PointerClass), 4559654096>
    /   /   /{
    /   /   /  '<New><Instance>IdInt' : 4559654096
-   /   /   /  '<New><Instance>PointVariable' : < (MobilizerClass), 4555535760>
+   /   /   /  '<New><Instance>CatchToPointVariable' : < (MobilizerClass), 4555535760>
    /   /   /   /{
    /   /   /   /  '<New><Instance>IdInt' : 4555535760
    /   /   /   /  '<New><Instance>MobilizomeCollectionOrderedDict' :
@@ -386,11 +386,11 @@ None
    /   /   /  '<Spe><Class>PointedPathBackVariable' :
    /   /   /  '<Spe><Instance>PointedGetVariable' : {...}< (MobilizerClass),
 4555535760>
-   /   /   /  '<Spe><Instance>PointedLocalSetStr' : PointVariable
+   /   /   /  '<Spe><Instance>PointedLocalSetStr' : CatchToPointVariable
    /   /   /  '<Spe><Instance>PointingBackSetStr' :
    /   /   /  '<Spe><Instance>PointingGetVariable' : {...}< (MobilizerClass),
 4555535760>
-   /   /   /  '<Spe><Instance>PointingSetPathStr' : PointVariable
+   /   /   /  '<Spe><Instance>PointingSetPathStr' : CatchToPointVariable
    /   /   /}
    /   /}
    /  '<New><Instance>MobilizomeCollectionOrderedDict' : {...}< (OrderedDict),
@@ -405,17 +405,17 @@ None
    /   /  '>UnknowPath<Pointer' : < (PointerClass), 4555537232>
    /   /   /{
    /   /   /  '<New><Instance>IdInt' : 4555537232
-   /   /   /  '<New><Instance>PointVariable' : {...}< (RecruiterClass),
+   /   /   /  '<New><Instance>CatchToPointVariable' : {...}< (RecruiterClass),
 4555536784>
    /   /   /  '<Spe><Class>PointedBackSetStr' :
    /   /   /  '<Spe><Class>PointedPathBackVariable' :
    /   /   /  '<Spe><Instance>PointedGetVariable' : {...}< (RecruiterClass),
 4555536784>
-   /   /   /  '<Spe><Instance>PointedLocalSetStr' : PointVariable
+   /   /   /  '<Spe><Instance>PointedLocalSetStr' : CatchToPointVariable
    /   /   /  '<Spe><Instance>PointingBackSetStr' :
    /   /   /  '<Spe><Instance>PointingGetVariable' : {...}< (RecruiterClass),
 4555536784>
-   /   /   /  '<Spe><Instance>PointingSetPathStr' : PointVariable
+   /   /   /  '<Spe><Instance>PointingSetPathStr' : CatchToPointVariable
    /   /   /}
    /   /}
    /  '<New><Instance>RecruitomeCollectionOrderedDict' :

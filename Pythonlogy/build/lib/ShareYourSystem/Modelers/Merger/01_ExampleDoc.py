@@ -1,12 +1,17 @@
 
 #ImportModules
-import operator,tables
 import ShareYourSystem as SYS
-from ShareYourSystem.Noders import Structurer
+from ShareYourSystem.Controllers import Controller
 from ShareYourSystem.Modelers import Merger
+import operator,tables
 
 #Definition a structure
-MyStructurer=Structurer.StructurerClass().collect(
+MyController=Controller.ControllerClass(
+		**{
+			'HdformatingFileKeyStr':"Datome.hdf5",
+			'FolderingPathStr':Merger.LocalFolderPathStr
+		}
+	).collect(
 	"Datome",
 	"Things",
 	Merger.MergerClass().update(
@@ -30,7 +35,7 @@ MyStructurer=Structurer.StructurerClass().collect(
 	)
 )
 
-MyStructurer.update(
+MyController.update(
 	[
 		('MyInt',0),
 		('MyStr',"hello"),
@@ -39,7 +44,7 @@ MyStructurer.update(
 	]
 )['<Datome>ThingsMerger'].flush()
 
-MyStructurer.update(
+MyController.update(
 	[
 		('MyInt',1),
 		('MyStr',"bonjour"),
@@ -47,7 +52,7 @@ MyStructurer.update(
 	]
 )['<Datome>ThingsMerger'].flush()
 
-MyStructurer.update(
+MyController.update(
 	[
 		('MyInt',1),
 		('MyStr',"ola"),
@@ -56,7 +61,7 @@ MyStructurer.update(
 )['<Datome>ThingsMerger'].flush()
 
 #Merge
-MyStructurer['<Datome>ThingsMerger'].merge(
+MyController['<Datome>ThingsMerger'].merge(
 			[
 				('UnitsInt',(operator.gt,2))
 			]	
@@ -65,14 +70,14 @@ MyStructurer['<Datome>ThingsMerger'].merge(
 #Definition the AttestedStr
 SYS._attest(
 	[
-		'MyStructurer is '+SYS._str(
-		MyStructurer,
+		'MyController is '+SYS._str(
+		MyController,
 		**{
 			'RepresentingAlineaIsBool':False,
 			'RepresentingBaseKeyStrsListBool':False
 		}
 		),
-		'hdf5 file is : '+MyStructurer.hdfview().hdfclose().HdformatedStr
+		'hdf5 file is : '+MyController.hdfview().hdfclose().HdformatedStr
 	]
 ) 
 

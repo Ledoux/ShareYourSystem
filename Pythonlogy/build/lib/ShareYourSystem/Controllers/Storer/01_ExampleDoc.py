@@ -74,7 +74,12 @@ class FactorizerClass(Storer.StorerClass):
 		)
 
 #Definition of a Factorizer 
-MyFactorizer=FactorizerClass()
+MyFactorizer=FactorizerClass(
+		**{
+			#'HdformatingFileKeyStr':"Datome.hdf5",
+			'FolderingPathStr':Storer.LocalFolderPathStr
+		}
+	)
 
 #Update transmit the do method and flush in the results
 MyFactorizer.__setitem__(

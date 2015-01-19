@@ -54,12 +54,14 @@ class AttentionerClass(BaseClass):
 			self.AttentioningCollectionStr=self.CollectingCollectionStr
 
 		#debug
+		'''
 		self.debug(
 					('self.',self,[
 							'AttentioningCollectionStr',
 							'GraspingClueVariable'
 							])
 				)
+		'''
 		
 		#poitn in the other way
 		self.GraspedAnswerVariable.grasp(

@@ -79,7 +79,7 @@ class CatcherClass(BaseClass):
 'CatchingPointBackSetStr',
 'CatchedGraspVariable',
 'CatchedNodeKeyStr',
-'CatchedDerivePointer'
+'CatchedDerivePointerVariable'
                                                         ]
 
         def default_init(self,
@@ -91,7 +91,7 @@ _CatchingDerivePointerClass=Pointer.PointerClass,
                                                 _CatchingPointBackSetStr="",
                                                 _CatchedGraspVariable=None,
                                                 _CatchedNodeKeyStr="",
-                                                _CatchedDerivePointer=None,
+                                                _CatchedDerivePointerVariable=None,
                                                 **_KwargVariablesDict
                                         ):
 
@@ -187,20 +187,20 @@ CatchedGetStr=CatchedUpPathStr+'>'+CatchedTopStr+'<'+CatchedDownPathStr
                         self.CatchingCollectionStr=self.CollectingCollectionStr
 
                 #init
-                self.CatchedDerivePointer=self.CatchingDerivePointerClass(
+                self.CatchedDerivePointerVariable=self.CatchingDerivePointerClass(
                         **{
 'PointingBackSetStr':self.CatchingPointBackSetStr
                         }
                 ).point(
                         self.GraspedAnswerVariable,
-                        'PointVariable'
+                        'CatchToPointVariable'
                 )
 
                 #debug
                 '''
                 self.debug(
                                         ('self.',self,[
-'CatchedDerivePointer'
+'CatchedDerivePointerVariable'
                                                                 ])
                                         )
                 '''
@@ -209,11 +209,11 @@ CatchedGetStr=CatchedUpPathStr+'>'+CatchedTopStr+'<'+CatchedDownPathStr
                 self.collect(
                         self.CatchingCollectionStr,
                         self.CatchedNodeKeyStr,
-                        self.CatchedDerivePointer
+                        self.CatchedDerivePointerVariable
                 )
 
                 #set
-                self.CatchedDerivePointer.update(
+                self.CatchedDerivePointerVariable.update(
                         self.CatchingUpdateVariable
                 )
 
@@ -309,7 +309,7 @@ MyProducer is < (ProducerClass), 4555633296>
 (PointerClass), 4555634512>
    /   /   /   /   /{
    /   /   /   /   /  '<New><Instance>IdInt' : 4555634512
-   /   /   /   /   /  '<New><Instance>PointVariable' : < (CatcherClass),
+   /   /   /   /   /  '<New><Instance>CatchToPointVariable' : < (CatcherClass),
 4555633488>
    /   /   /   /   /   /{
    /   /   /   /   /   /  '<New><Instance>IdInt' : 4555633488
@@ -322,7 +322,7 @@ MyProducer is < (ProducerClass), 4555633296>
 (ProducerClass), 4555633296>
    /   /   /   /   /   /  '<New><Instance>NodePointOrderedDict' : {...}<
 (OrderedDict), 4556379968>
-   /   /   /   /   /   /  '<Spe><Class>CatchedDerivePointer' : None
+   /   /   /   /   /   /  '<Spe><Class>CatchedDerivePointerVariable' : None
    /   /   /   /   /   /  '<Spe><Class>CatchedGraspVariable' : None
    /   /   /   /   /   /  '<Spe><Class>CatchedNodeKeyStr' :
    /   /   /   /   /   /  '<Spe><Class>CatchingCollectionStr' :
@@ -336,13 +336,13 @@ MyProducer is < (ProducerClass), 4555633296>
    /   /   /   /   /  '<Spe><Class>PointedBackSetStr' :
    /   /   /   /   /  '<Spe><Instance>PointedGetVariable' : {...}<
 (CatcherClass), 4555633488>
-   /   /   /   /   /  '<Spe><Instance>PointedLocalSetStr' : PointVariable
+   /   /   /   /   /  '<Spe><Instance>PointedLocalSetStr' : CatchToPointVariable
    /   /   /   /   /  '<Spe><Instance>PointedPathBackVariable' : {...}<
 (PointerClass), 4555634512>
    /   /   /   /   /  '<Spe><Instance>PointingBackSetStr' : MyBackVariable
    /   /   /   /   /  '<Spe><Instance>PointingGetVariable' : {...}<
 (CatcherClass), 4555633488>
-   /   /   /   /   /  '<Spe><Instance>PointingSetPathStr' : PointVariable
+   /   /   /   /   /  '<Spe><Instance>PointingSetPathStr' : CatchToPointVariable
    /   /   /   /   /}
    /   /   /   /}
    /   /   /  '<Spe><Class>CatchedGraspVariable' : None
@@ -351,7 +351,7 @@ MyProducer is < (ProducerClass), 4555633296>
 140476488083952>
    /   /   /  '<Spe><Class>CatchingNodeKeyStr' :
    /   /   /  '<Spe><Class>CatchingUpdateVariable' : None
-   /   /   /  '<Spe><Instance>CatchedDerivePointer' : {...}< (PointerClass),
+   /   /   /  '<Spe><Instance>CatchedDerivePointerVariable' : {...}< (PointerClass),
 4555634512>
    /   /   /  '<Spe><Instance>CatchedNodeKeyStr' :
 _NodePointDeriveNoder_<Pointome>SecondCatcher

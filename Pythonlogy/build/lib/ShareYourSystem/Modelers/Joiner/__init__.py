@@ -235,7 +235,7 @@ class JoinerClass(BaseClass):
 		#Flush the post joined databases
 		self.JoinedFlushIndexIntsList=map(
 			lambda __JoinedCatchDeriveJoinerPointer:
-			__JoinedCatchDeriveJoinerPointer.PointVariable.flush(),
+			__JoinedCatchDeriveJoinerPointer.CatchToPointVariable.flush(),
 			self.JoinedCatchCollectionOrderedDict.values(),
 		)
 
@@ -427,9 +427,9 @@ class JoinerClass(BaseClass):
 					#__JoinedCatchDeriveJoiner.__setitem__(
 					#	'FlushIsBool',
 					#	False
-					#).PointVariable.model(
+					#).CatchToPointVariable.model(
 					#),
-					__JoinedCatchDeriveJoiner.PointVariable.model(),
+					__JoinedCatchDeriveJoiner.CatchToPointVariable.model(),
 					self.JoinedCatchCollectionOrderedDict.values()
 				)
 

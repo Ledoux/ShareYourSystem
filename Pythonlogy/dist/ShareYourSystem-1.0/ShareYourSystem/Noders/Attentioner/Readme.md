@@ -222,17 +222,17 @@ MyProducer is < (ProducerClass), 4555536272>
 (PointerClass), 4555635216>
    /   /   /   /   /{
    /   /   /   /   /  '<New><Instance>IdInt' : 4555635216
-   /   /   /   /   /  '<New><Instance>PointVariable' : {...}<
+   /   /   /   /   /  '<New><Instance>CatchToPointVariable' : {...}<
 (AttentionerClass), 4555633872>
    /   /   /   /   /  '<Spe><Class>PointedBackSetStr' :
    /   /   /   /   /  '<Spe><Class>PointedPathBackVariable' :
    /   /   /   /   /  '<Spe><Instance>PointedGetVariable' : {...}<
 (AttentionerClass), 4555633872>
-   /   /   /   /   /  '<Spe><Instance>PointedLocalSetStr' : PointVariable
+   /   /   /   /   /  '<Spe><Instance>PointedLocalSetStr' : CatchToPointVariable
    /   /   /   /   /  '<Spe><Instance>PointingBackSetStr' :
    /   /   /   /   /  '<Spe><Instance>PointingGetVariable' : {...}<
 (AttentionerClass), 4555633872>
-   /   /   /   /   /  '<Spe><Instance>PointingSetPathStr' : PointVariable
+   /   /   /   /   /  '<Spe><Instance>PointingSetPathStr' : CatchToPointVariable
    /   /   /   /   /}
    /   /   /   /}
    /   /   /  '<New><Instance>IdInt' : 4555634960

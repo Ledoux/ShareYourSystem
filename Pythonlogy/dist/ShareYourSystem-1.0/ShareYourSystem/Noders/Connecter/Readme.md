@@ -233,7 +233,7 @@ FirstConnecter
                            /   /   /   /   /   /{
                            /   /   /   /   /   /  '<New><Instance>IdInt' :
 4555684304
-                           /   /   /   /   /   /  '<New><Instance>PointVariable'
+                           /   /   /   /   /   /  '<New><Instance>CatchToPointVariable'
 : < (ConnecterClass), 4555683216>
                            /   /   /   /   /   /   /{
                            /   /   /   /   /   /   /  '<New><Instance>IdInt' :
@@ -258,7 +258,7 @@ FirstConnecter
                            /   /   /   /   /   /   /   /   /
 '<New><Instance>IdInt' : 4555685072
                            /   /   /   /   /   /   /   /   /
-'<New><Instance>PointVariable' : {...}< (ConnecterClass), 4555535376>
+'<New><Instance>CatchToPointVariable' : {...}< (ConnecterClass), 4555535376>
                            /   /   /   /   /   /   /   /   /
 '<Spe><Class>PointedBackSetStr' :
                            /   /   /   /   /   /   /   /   /
@@ -266,13 +266,13 @@ FirstConnecter
                            /   /   /   /   /   /   /   /   /
 '<Spe><Instance>PointedGetVariable' : {...}< (ConnecterClass), 4555535376>
                            /   /   /   /   /   /   /   /   /
-'<Spe><Instance>PointedLocalSetStr' : PointVariable
+'<Spe><Instance>PointedLocalSetStr' : CatchToPointVariable
                            /   /   /   /   /   /   /   /   /
 '<Spe><Instance>PointingBackSetStr' :
                            /   /   /   /   /   /   /   /   /
 '<Spe><Instance>PointingGetVariable' : {...}< (ConnecterClass), 4555535376>
                            /   /   /   /   /   /   /   /   /
-'<Spe><Instance>PointingSetPathStr' : PointVariable
+'<Spe><Instance>PointingSetPathStr' : CatchToPointVariable
                            /   /   /   /   /   /   /   /   /}
                            /   /   /   /   /   /   /   /}
                            /   /   /   /   /   /   /
@@ -289,13 +289,13 @@ FirstConnecter
                            /   /   /   /   /   /
 '<Spe><Instance>PointedGetVariable' : {...}< (ConnecterClass), 4555683216>
                            /   /   /   /   /   /
-'<Spe><Instance>PointedLocalSetStr' : PointVariable
+'<Spe><Instance>PointedLocalSetStr' : CatchToPointVariable
                            /   /   /   /   /   /
 '<Spe><Instance>PointingBackSetStr' :
                            /   /   /   /   /   /
 '<Spe><Instance>PointingGetVariable' : {...}< (ConnecterClass), 4555683216>
                            /   /   /   /   /   /
-'<Spe><Instance>PointingSetPathStr' : PointVariable
+'<Spe><Instance>PointingSetPathStr' : CatchToPointVariable
                            /   /   /   /   /   /}
                            /   /   /   /   /
 'FirstConnecter>TopProducer<FirstConnecterPointer' : < (PointerClass),
@@ -306,7 +306,7 @@ FirstConnecter
                            /   /   /   /   /   /  '<New><Instance>IdInt' :
 4555684560
                            /   /   /   /   /   /  '<New><Instance>MyInt' : 0
-                           /   /   /   /   /   /  '<New><Instance>PointVariable'
+                           /   /   /   /   /   /  '<New><Instance>CatchToPointVariable'
 : {...}< (ConnecterClass), 4555535376>
                            /   /   /   /   /   /
 '<Spe><Class>PointedBackSetStr' :
@@ -315,13 +315,13 @@ FirstConnecter
                            /   /   /   /   /   /
 '<Spe><Instance>PointedGetVariable' : {...}< (ConnecterClass), 4555535376>
                            /   /   /   /   /   /
-'<Spe><Instance>PointedLocalSetStr' : PointVariable
+'<Spe><Instance>PointedLocalSetStr' : CatchToPointVariable
                            /   /   /   /   /   /
 '<Spe><Instance>PointingBackSetStr' :
                            /   /   /   /   /   /
 '<Spe><Instance>PointingGetVariable' : {...}< (ConnecterClass), 4555535376>
                            /   /   /   /   /   /
-'<Spe><Instance>PointingSetPathStr' : PointVariable
+'<Spe><Instance>PointingSetPathStr' : CatchToPointVariable
                            /   /   /   /   /   /}
                            /   /   /   /   /}
                            /   /   /   /
@@ -408,7 +408,7 @@ MyProducer is < (ProducerClass), 4555535312>
 (PointerClass), 4555684304>
    /   /   /   /   /{
    /   /   /   /   /  '<New><Instance>IdInt' : 4555684304
-   /   /   /   /   /  '<New><Instance>PointVariable' : < (ConnecterClass),
+   /   /   /   /   /  '<New><Instance>CatchToPointVariable' : < (ConnecterClass),
 4555683216>
    /   /   /   /   /   /{
    /   /   /   /   /   /  '<New><Instance>IdInt' : 4555683216
@@ -426,19 +426,19 @@ MyProducer is < (ProducerClass), 4555535312>
 4555685072>
    /   /   /   /   /   /   /   /{
    /   /   /   /   /   /   /   /  '<New><Instance>IdInt' : 4555685072
-   /   /   /   /   /   /   /   /  '<New><Instance>PointVariable' : {...}<
+   /   /   /   /   /   /   /   /  '<New><Instance>CatchToPointVariable' : {...}<
 (ConnecterClass), 4555535376>
    /   /   /   /   /   /   /   /  '<Spe><Class>PointedBackSetStr' :
    /   /   /   /   /   /   /   /  '<Spe><Class>PointedPathBackVariable' :
    /   /   /   /   /   /   /   /  '<Spe><Instance>PointedGetVariable' : {...}<
 (ConnecterClass), 4555535376>
    /   /   /   /   /   /   /   /  '<Spe><Instance>PointedLocalSetStr' :
-PointVariable
+CatchToPointVariable
    /   /   /   /   /   /   /   /  '<Spe><Instance>PointingBackSetStr' :
    /   /   /   /   /   /   /   /  '<Spe><Instance>PointingGetVariable' : {...}<
 (ConnecterClass), 4555535376>
    /   /   /   /   /   /   /   /  '<Spe><Instance>PointingSetPathStr' :
-PointVariable
+CatchToPointVariable
    /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /}
    /   /   /   /   /   /  '<Spe><Class>ConnectedDerivePointersList' : None
@@ -448,11 +448,11 @@ PointVariable
    /   /   /   /   /  '<Spe><Class>PointedPathBackVariable' :
    /   /   /   /   /  '<Spe><Instance>PointedGetVariable' : {...}<
 (ConnecterClass), 4555683216>
-   /   /   /   /   /  '<Spe><Instance>PointedLocalSetStr' : PointVariable
+   /   /   /   /   /  '<Spe><Instance>PointedLocalSetStr' : CatchToPointVariable
    /   /   /   /   /  '<Spe><Instance>PointingBackSetStr' :
    /   /   /   /   /  '<Spe><Instance>PointingGetVariable' : {...}<
 (ConnecterClass), 4555683216>
-   /   /   /   /   /  '<Spe><Instance>PointingSetPathStr' : PointVariable
+   /   /   /   /   /  '<Spe><Instance>PointingSetPathStr' : CatchToPointVariable
    /   /   /   /   /}
    /   /   /   /  'FirstConnecter>TopProducer<FirstConnecterPointer' : <
 (PointerClass), 4555684560>
@@ -461,17 +461,17 @@ PointVariable
 4555535376>
    /   /   /   /   /  '<New><Instance>IdInt' : 4555684560
    /   /   /   /   /  '<New><Instance>MyInt' : 0
-   /   /   /   /   /  '<New><Instance>PointVariable' : {...}< (ConnecterClass),
+   /   /   /   /   /  '<New><Instance>CatchToPointVariable' : {...}< (ConnecterClass),
 4555535376>
    /   /   /   /   /  '<Spe><Class>PointedBackSetStr' :
    /   /   /   /   /  '<Spe><Class>PointedPathBackVariable' :
    /   /   /   /   /  '<Spe><Instance>PointedGetVariable' : {...}<
 (ConnecterClass), 4555535376>
-   /   /   /   /   /  '<Spe><Instance>PointedLocalSetStr' : PointVariable
+   /   /   /   /   /  '<Spe><Instance>PointedLocalSetStr' : CatchToPointVariable
    /   /   /   /   /  '<Spe><Instance>PointingBackSetStr' :
    /   /   /   /   /  '<Spe><Instance>PointingGetVariable' : {...}<
 (ConnecterClass), 4555535376>
-   /   /   /   /   /  '<Spe><Instance>PointingSetPathStr' : PointVariable
+   /   /   /   /   /  '<Spe><Instance>PointingSetPathStr' : CatchToPointVariable
    /   /   /   /   /}
    /   /   /   /}
    /   /   /  '<New><Instance>PreRelatomeCollectionOrderedDict' :
@@ -483,17 +483,17 @@ PointVariable
 4555535376>
    /   /   /   /   /  '<New><Instance>IdInt' : 4555684816
    /   /   /   /   /  '<New><Instance>MyInt' : 0
-   /   /   /   /   /  '<New><Instance>PointVariable' : {...}< (ConnecterClass),
+   /   /   /   /   /  '<New><Instance>CatchToPointVariable' : {...}< (ConnecterClass),
 4555535376>
    /   /   /   /   /  '<Spe><Class>PointedBackSetStr' :
    /   /   /   /   /  '<Spe><Class>PointedPathBackVariable' :
    /   /   /   /   /  '<Spe><Instance>PointedGetVariable' : {...}<
 (ConnecterClass), 4555535376>
-   /   /   /   /   /  '<Spe><Instance>PointedLocalSetStr' : PointVariable
+   /   /   /   /   /  '<Spe><Instance>PointedLocalSetStr' : CatchToPointVariable
    /   /   /   /   /  '<Spe><Instance>PointingBackSetStr' :
    /   /   /   /   /  '<Spe><Instance>PointingGetVariable' : {...}<
 (ConnecterClass), 4555535376>
-   /   /   /   /   /  '<Spe><Instance>PointingSetPathStr' : PointVariable
+   /   /   /   /   /  '<Spe><Instance>PointingSetPathStr' : CatchToPointVariable
    /   /   /   /   /}
    /   /   /   /}
    /   /   /  '<Spe><Instance>ConnectedDerivePointersList' :

@@ -1,11 +1,11 @@
 
 #ImportModules
 import ShareYourSystem as SYS
-import tables
-import operator
 from ShareYourSystem.Classors import Classer
 from ShareYourSystem.Controllers import Controller
 from ShareYourSystem.Modelers import Flusher,Joiner
+import tables
+import operator
 
 #Define a Sumer class
 @Classer.ClasserClass()
@@ -39,56 +39,61 @@ class SumerClass(Controller.ControllerClass):
 		self.SumedTotalInt=self.SumingFirstInt+self.SumingSecondInt
 
 #Definition of a Storer instance with a noded data
-MySumer=SumerClass().push(
-	[
-		(
-			"Parameters",
-			Joiner.JoinerClass().update(
-				[
-					(
-						'Attr_DatabasingSealTuplesList',
-						[
-							('SumingFirstInt','SumingFirstInt',tables.Int64Col()),
-							('SumingSecondInt','SumingSecondInt',tables.Int64Col())
-						]
-					),
-					('Attr_RowingGetStrsList',['SumingFirstInt','SumingSecondInt'])
-				]
-			)
-		),
-		(
-			"Results",
-			Joiner.JoinerClass().update(
-				[
-					(
-						'Attr_DatabasingSealTuplesList',
-						[
-							('SumedTotalInt','SumedTotalInt',tables.Int64Col())
-						]
-					),
-					('ConnectingGraspClueVariablesList',
-						[
-							'/NodePointDeriveNoder/<Datome>ParametersJoiner'
-						]
-					),
-					('TagStr','Networked')
-				]
-			)
-		)
-	],
-	**{
-		'CollectingCollectionStr':'Datome'
-	}
-).network(
-	**{
-		'RecruitingConcludeConditionTuplesList':[
+MySumer=SumerClass(
+		**{
+				'HdformatingFileKeyStr':'Sums_1.hdf5',
+				'FolderingPathStr':Joiner.LocalFolderPathStr
+			}
+	).push(
+		[
 			(
-				'__class__.__mro__',
-				operator.contains,Joiner.JoinerClass
+				"Parameters",
+				Joiner.JoinerClass().update(
+					[
+						(
+							'Attr_DatabasingSealTuplesList',
+							[
+								('SumingFirstInt','SumingFirstInt',tables.Int64Col()),
+								('SumingSecondInt','SumingSecondInt',tables.Int64Col())
+							]
+						),
+						('Attr_RowingGetStrsList',['SumingFirstInt','SumingSecondInt'])
+					]
+				)
+			),
+			(
+				"Results",
+				Joiner.JoinerClass().update(
+					[
+						(
+							'Attr_DatabasingSealTuplesList',
+							[
+								('SumedTotalInt','SumedTotalInt',tables.Int64Col())
+							]
+						),
+						('ConnectingGraspClueVariablesList',
+							[
+								'/NodePointDeriveNoder/<Datome>ParametersJoiner'
+							]
+						),
+						('TagStr','Networked')
+					]
+				)
 			)
-		]
-	}
-).__setitem__('HdformatingFileKeyStr','Sums_1.hdf5')
+		],
+		**{
+			'CollectingCollectionStr':'Datome'
+		}
+	).network(
+		**{
+			'RecruitingConcludeConditionTuplesList':[
+				(
+					'__class__.__mro__',
+					operator.contains,Joiner.JoinerClass
+				)
+			]
+		}
+	)
 
 
 #Update and store

@@ -1798,7 +1798,7 @@ class CatcherClass(BaseClass):
                                 'CatchingPointBackSetStr',
                                 'CatchedGraspVariable',
                                 'CatchedNodeKeyStr',
-                                'CatchedDerivePointer'
+                                'CatchedDerivePointerVariable'
                             ]
 
     def default_init(self,
@@ -1810,7 +1810,7 @@ class CatcherClass(BaseClass):
                         _CatchingPointBackSetStr="",
                         _CatchedGraspVariable=None,
                         _CatchedNodeKeyStr="",
-                        _CatchedDerivePointer=None,
+                        _CatchedDerivePointerVariable=None,
                         **_KwargVariablesDict
                     ):
 
@@ -1903,20 +1903,20 @@ class CatcherClass(BaseClass):
             self.CatchingCollectionStr=self.CollectingCollectionStr
 
         #init
-        self.CatchedDerivePointer=self.CatchingDerivePointerClass(
+        self.CatchedDerivePointerVariable=self.CatchingDerivePointerClass(
             **{
                 'PointingBackSetStr':self.CatchingPointBackSetStr
             }
         ).point(
             self.GraspedAnswerVariable,
-            'PointVariable'
+            'CatchToPointVariable'
         )
 
         #debug
         '''
         self.debug(
                     ('self.',self,[
-                                    'CatchedDerivePointer'
+                                    'CatchedDerivePointerVariable'
                                 ])
                     )
         '''
@@ -1925,11 +1925,11 @@ class CatcherClass(BaseClass):
         self.collect(
             self.CatchingCollectionStr,
             self.CatchedNodeKeyStr,
-            self.CatchedDerivePointer
+            self.CatchedDerivePointerVariable
         )
 
         #set
-        self.CatchedDerivePointer.update(
+        self.CatchedDerivePointerVariable.update(
             self.CatchingUpdateVariable
         )
 
@@ -2035,7 +2035,7 @@ MyProducer is &lt; (ProducerClass), 4557706512&gt;
    /   /   /   /  &apos;_NodePointDeriveNoder_&lt;Pointome&gt;SecondCatcherPointer&apos; : &lt; (PointerClass), 4555536528&gt;
    /   /   /   /   /{ 
    /   /   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4555536528
-   /   /   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;PointVariable&apos; : &lt; (CatcherClass), 4556357264&gt;
+   /   /   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;CatchToPointVariable&apos; : &lt; (CatcherClass), 4556357264&gt;
    /   /   /   /   /   /{ 
    /   /   /   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4556357264
    /   /   /   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;MyBackVariable&apos; : {...}&lt; (PointerClass), 4555536528&gt;
@@ -2044,7 +2044,7 @@ MyProducer is &lt; (ProducerClass), 4557706512&gt;
    /   /   /   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeKeyStr&apos; : SecondCatcher
    /   /   /   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (ProducerClass), 4557706512&gt;
    /   /   /   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4557648544&gt;
-   /   /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;CatchedDerivePointer&apos; : None
+   /   /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;CatchedDerivePointerVariable&apos; : None
    /   /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;CatchedGraspVariable&apos; : None
    /   /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;CatchedNodeKeyStr&apos; : 
    /   /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;CatchingCollectionStr&apos; : 
@@ -2056,11 +2056,11 @@ MyProducer is &lt; (ProducerClass), 4557706512&gt;
    /   /   /   /   /   /}
    /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointedBackSetStr&apos; : 
    /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;PointedGetVariable&apos; : {...}&lt; (CatcherClass), 4556357264&gt;
-   /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;PointedLocalSetStr&apos; : PointVariable
+   /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;PointedLocalSetStr&apos; : CatchToPointVariable
    /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;PointedPathBackVariable&apos; : {...}&lt; (PointerClass), 4555536528&gt;
    /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;PointingBackSetStr&apos; : MyBackVariable
    /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;PointingGetVariable&apos; : {...}&lt; (CatcherClass), 4556357264&gt;
-   /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;PointingSetPathStr&apos; : PointVariable
+   /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;PointingSetPathStr&apos; : CatchToPointVariable
    /   /   /   /   /}
    /   /   /   /}
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;CatchedGraspVariable&apos; : None
@@ -2068,7 +2068,7 @@ MyProducer is &lt; (ProducerClass), 4557706512&gt;
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;CatchingDerivePointerClass&apos; : {...}&lt; (type), 140476488083952&gt;
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;CatchingNodeKeyStr&apos; : 
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;CatchingUpdateVariable&apos; : None
-   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;CatchedDerivePointer&apos; : {...}&lt; (PointerClass), 4555536528&gt;
+   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;CatchedDerivePointerVariable&apos; : {...}&lt; (PointerClass), 4555536528&gt;
    /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;CatchedNodeKeyStr&apos; : _NodePointDeriveNoder_&lt;Pointome&gt;SecondCatcher
    /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;CatchingCollectionStr&apos; : Relatome
    /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;CatchingPointBackSetStr&apos; : MyBackVariable

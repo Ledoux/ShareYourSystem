@@ -22,7 +22,6 @@ ShareYourSystem/Applyiers/__init__.py
 ShareYourSystem/Applyiers/__init__.pyc
 ShareYourSystem/Applyiers/Applyier/001_DocumentDoc.md
 ShareYourSystem/Applyiers/Applyier/001_GithubDoc.md
-ShareYourSystem/Applyiers/Applyier/002_GithubDoc.md
 ShareYourSystem/Applyiers/Applyier/00_ExampleDoc.md
 ShareYourSystem/Applyiers/Applyier/01_ExampleDoc.py
 ShareYourSystem/Applyiers/Applyier/PreReadme.ipynb
@@ -393,7 +392,6 @@ ShareYourSystem/Controllers/Readme.ipynb
 ShareYourSystem/Controllers/Readme.md
 ShareYourSystem/Controllers/__init__.py
 ShareYourSystem/Controllers/Controller/001_DocumentDoc.md
-ShareYourSystem/Controllers/Controller/002_GithubDoc.md
 ShareYourSystem/Controllers/Controller/00_ExampleDoc.md
 ShareYourSystem/Controllers/Controller/01_ExampleDoc.py
 ShareYourSystem/Controllers/Controller/PreReadme.ipynb
@@ -407,7 +405,6 @@ ShareYourSystem/Controllers/Controller/Tests/attest_path.txt
 ShareYourSystem/Controllers/Explorer/01_ExampleDoc.py
 ShareYourSystem/Controllers/Explorer/__init__.py
 ShareYourSystem/Controllers/Grider/001_DocumentDoc.md
-ShareYourSystem/Controllers/Grider/002_GithubDoc.md
 ShareYourSystem/Controllers/Grider/00_ExampleDoc.md
 ShareYourSystem/Controllers/Grider/01_ExampleDoc.py
 ShareYourSystem/Controllers/Grider/02_ExampleDoc.md
@@ -423,9 +420,20 @@ ShareYourSystem/Controllers/Grider/__init__.py
 ShareYourSystem/Controllers/Meteorer/00_ExampleDoc.md
 ShareYourSystem/Controllers/Meteorer/01_ExampleDoc.py
 ShareYourSystem/Controllers/Meteorer/__init__.py
+ShareYourSystem/Controllers/Organizer/.DS_Store
+ShareYourSystem/Controllers/Organizer/001_DocumentDoc.md
+ShareYourSystem/Controllers/Organizer/002_GithubDoc.md
+ShareYourSystem/Controllers/Organizer/00_ExampleDoc.md
+ShareYourSystem/Controllers/Organizer/01_ExampleDoc.py
+ShareYourSystem/Controllers/Organizer/Factorizes.hdf5
+ShareYourSystem/Controllers/Organizer/PreReadme.ipynb
+ShareYourSystem/Controllers/Organizer/Presentation.html
+ShareYourSystem/Controllers/Organizer/Presentation.ipynb
+ShareYourSystem/Controllers/Organizer/Readme.ipynb
+ShareYourSystem/Controllers/Organizer/Readme.md
+ShareYourSystem/Controllers/Organizer/__init__.py
 ShareYourSystem/Controllers/Storer/.DS_Store
 ShareYourSystem/Controllers/Storer/001_DocumentDoc.md
-ShareYourSystem/Controllers/Storer/002_GithubDoc.md
 ShareYourSystem/Controllers/Storer/00_ExampleDoc.md
 ShareYourSystem/Controllers/Storer/01_ExampleDoc.py
 ShareYourSystem/Controllers/Storer/Factorizes.hdf5
@@ -965,7 +973,6 @@ ShareYourSystem/Modelers/Flusher/Drafts/__init__ copy.py
 ShareYourSystem/Modelers/Flusher/__pycache__/Flusher.cpython-34.pyc
 ShareYourSystem/Modelers/Hierarchizer/.DS_Store
 ShareYourSystem/Modelers/Hierarchizer/001_DocumentDoc.md
-ShareYourSystem/Modelers/Hierarchizer/002_GithubDoc.md
 ShareYourSystem/Modelers/Hierarchizer/00_ExampleDoc.md
 ShareYourSystem/Modelers/Hierarchizer/01_ExampleDoc.py
 ShareYourSystem/Modelers/Hierarchizer/02_ExampleDoc.md
@@ -976,7 +983,7 @@ ShareYourSystem/Modelers/Hierarchizer/Presentation.html
 ShareYourSystem/Modelers/Hierarchizer/Presentation.ipynb
 ShareYourSystem/Modelers/Hierarchizer/Readme.ipynb
 ShareYourSystem/Modelers/Hierarchizer/Readme.md
-ShareYourSystem/Modelers/Hierarchizer/Sums.hdf5
+ShareYourSystem/Modelers/Hierarchizer/Sums_1.hdf5
 ShareYourSystem/Modelers/Hierarchizer/Test.py
 ShareYourSystem/Modelers/Hierarchizer/__init__.py
 ShareYourSystem/Modelers/Hierarchizer/Drafts/01_ExampleCell copy.py
@@ -989,7 +996,6 @@ ShareYourSystem/Modelers/Joiner/02_ExampleDoc.md
 ShareYourSystem/Modelers/Joiner/03_ExampleDoc.py
 ShareYourSystem/Modelers/Joiner/04_ExampleDoc.md
 ShareYourSystem/Modelers/Joiner/05_ExampleDoc.py
-ShareYourSystem/Modelers/Joiner/Factorizes.hdf5
 ShareYourSystem/Modelers/Joiner/Modulizes.hdf5
 ShareYourSystem/Modelers/Joiner/PreReadme.ipynb
 ShareYourSystem/Modelers/Joiner/Presentation.html
@@ -1009,15 +1015,14 @@ ShareYourSystem/Modelers/Joiner/Drafts/Joiner copy.py
 ShareYourSystem/Modelers/Joiner/Drafts/__init__ copy.py
 ShareYourSystem/Modelers/Joiner/__pycache__/Joiner.cpython-34.pyc
 ShareYourSystem/Modelers/Merger/001_DocumentDoc.md
-ShareYourSystem/Modelers/Merger/002_GithubDoc.md
 ShareYourSystem/Modelers/Merger/00_ExampleDoc.md
 ShareYourSystem/Modelers/Merger/01_ExampleDoc.py
+ShareYourSystem/Modelers/Merger/Datome.hdf5
 ShareYourSystem/Modelers/Merger/PreReadme.ipynb
 ShareYourSystem/Modelers/Merger/Presentation.html
 ShareYourSystem/Modelers/Merger/Presentation.ipynb
 ShareYourSystem/Modelers/Merger/Readme.ipynb
 ShareYourSystem/Modelers/Merger/Readme.md
-ShareYourSystem/Modelers/Merger/Structures.hdf5
 ShareYourSystem/Modelers/Merger/Test.py
 ShareYourSystem/Modelers/Merger/__init__.py
 ShareYourSystem/Modelers/Merger/__pycache__/Merger.cpython-34.pyc
@@ -1075,12 +1080,12 @@ ShareYourSystem/Modelers/Rower/__pycache__/Rower.cpython-34.pyc
 ShareYourSystem/Modelers/Shaper/001_DocumentDoc.md
 ShareYourSystem/Modelers/Shaper/00_ExampleDoc.md
 ShareYourSystem/Modelers/Shaper/01_ExampleDoc.py
+ShareYourSystem/Modelers/Shaper/Datome.hdf5
 ShareYourSystem/Modelers/Shaper/PreReadme.ipynb
 ShareYourSystem/Modelers/Shaper/Presentation.html
 ShareYourSystem/Modelers/Shaper/Presentation.ipynb
 ShareYourSystem/Modelers/Shaper/Readme.ipynb
 ShareYourSystem/Modelers/Shaper/Readme.md
-ShareYourSystem/Modelers/Shaper/Structures.hdf5
 ShareYourSystem/Modelers/Shaper/Test.py
 ShareYourSystem/Modelers/Shaper/__init__.py
 ShareYourSystem/Modelers/Shaper/Drafts/__init__ - copie.py
@@ -1248,7 +1253,6 @@ ShareYourSystem/Noders/Grouper/Drafts/__init__ copy.py
 ShareYourSystem/Noders/Grouper/__pycache__/Grouper.cpython-34.pyc
 ShareYourSystem/Noders/Networker/001_DocumentDoc.md
 ShareYourSystem/Noders/Networker/001_GithubDoc.md
-ShareYourSystem/Noders/Networker/002_GithubDoc.md
 ShareYourSystem/Noders/Networker/01_ExampleDoc.py
 ShareYourSystem/Noders/Networker/PreReadme.ipynb
 ShareYourSystem/Noders/Networker/Presentation.html
@@ -1277,18 +1281,6 @@ ShareYourSystem/Noders/Noder/Drafts/__init__ copy 2.py
 ShareYourSystem/Noders/Noder/Drafts/__init__ copy 3.py
 ShareYourSystem/Noders/Noder/Drafts/__init__ copy.py
 ShareYourSystem/Noders/Noder/__pycache__/Initiater.cpython-34.pyc
-ShareYourSystem/Noders/Organizer/.DS_Store
-ShareYourSystem/Noders/Organizer/001_DocumentDoc.md
-ShareYourSystem/Noders/Organizer/002_GithubDoc.md
-ShareYourSystem/Noders/Organizer/00_ExampleDoc.md
-ShareYourSystem/Noders/Organizer/01_ExampleDoc.py
-ShareYourSystem/Noders/Organizer/Factorizes.hdf5
-ShareYourSystem/Noders/Organizer/PreReadme.ipynb
-ShareYourSystem/Noders/Organizer/Presentation.html
-ShareYourSystem/Noders/Organizer/Presentation.ipynb
-ShareYourSystem/Noders/Organizer/Readme.ipynb
-ShareYourSystem/Noders/Organizer/Readme.md
-ShareYourSystem/Noders/Organizer/__init__.py
 ShareYourSystem/Noders/Parenter/00_ExampleDoc.md
 ShareYourSystem/Noders/Parenter/01_ExampleDoc.py
 ShareYourSystem/Noders/Parenter/PreReadme.ipynb
@@ -1526,7 +1518,6 @@ ShareYourSystem/Researchs/Dynamic/Tests/attest_output.txt
 ShareYourSystem/Researchs/Dynamic/__pycache__/Dynamic.cpython-34.pyc
 ShareYourSystem/Simulaters/.DS_Store
 ShareYourSystem/Simulaters/001_DocumentDoc.md
-ShareYourSystem/Simulaters/002_OuvatonDoc.md
 ShareYourSystem/Simulaters/1_GithubDoc.md
 ShareYourSystem/Simulaters/ConceptDoc.ipynb
 ShareYourSystem/Simulaters/PreReadme.ipynb
@@ -1534,9 +1525,10 @@ ShareYourSystem/Simulaters/Readme.ipynb
 ShareYourSystem/Simulaters/Readme.md
 ShareYourSystem/Simulaters/__init__.py
 ShareYourSystem/Simulaters/Brianer/.DS_Store
-ShareYourSystem/Simulaters/Brianer/001_DocumentDoc.md
-ShareYourSystem/Simulaters/Brianer/002_GithubDoc.md
-ShareYourSystem/Simulaters/Brianer/01_ExampleCell.py
+ShareYourSystem/Simulaters/Brianer/00_ExampleDoc.md
+ShareYourSystem/Simulaters/Brianer/01_ExampleDoc.py
+ShareYourSystem/Simulaters/Brianer/02_ExampleDoc.md
+ShareYourSystem/Simulaters/Brianer/03_ExampleDoc.py
 ShareYourSystem/Simulaters/Brianer/PreReadme.ipynb
 ShareYourSystem/Simulaters/Brianer/Presentation.html
 ShareYourSystem/Simulaters/Brianer/Presentation.ipynb
@@ -1546,7 +1538,10 @@ ShareYourSystem/Simulaters/Brianer/Test.py
 ShareYourSystem/Simulaters/Brianer/__init__.py
 ShareYourSystem/Simulaters/Brianer/Drafts/01_ExampleCell copy 2.py
 ShareYourSystem/Simulaters/Brianer/Drafts/01_ExampleCell copy 3.py
+ShareYourSystem/Simulaters/Brianer/Drafts/01_ExampleCell copy 4.py
 ShareYourSystem/Simulaters/Brianer/Drafts/01_ExampleCell copy.py
+ShareYourSystem/Simulaters/Brianer/Drafts/01_ExampleDoc copy.py
+ShareYourSystem/Simulaters/Brianer/Drafts/__init__ copy 2.py
 ShareYourSystem/Simulaters/Brianer/Drafts/__init__ copy.py
 ShareYourSystem/Simulaters/Dynamizer/001_DocumentDoc.md
 ShareYourSystem/Simulaters/Dynamizer/002_GithubDoc.md
@@ -1577,8 +1572,8 @@ ShareYourSystem/Simulaters/Moniter/Readme.ipynb
 ShareYourSystem/Simulaters/Moniter/Readme.md
 ShareYourSystem/Simulaters/Moniter/__init__.py
 ShareYourSystem/Simulaters/Moniter/Drafts/__init__ copy.py
+ShareYourSystem/Simulaters/Populater/.DS_Store
 ShareYourSystem/Simulaters/Populater/001_DocumentDoc.md
-ShareYourSystem/Simulaters/Populater/002_GithubDoc.md
 ShareYourSystem/Simulaters/Populater/01_ExampleCell.py
 ShareYourSystem/Simulaters/Populater/PreReadme.ipynb
 ShareYourSystem/Simulaters/Populater/Presentation.html
@@ -1586,6 +1581,7 @@ ShareYourSystem/Simulaters/Populater/Presentation.ipynb
 ShareYourSystem/Simulaters/Populater/Readme.ipynb
 ShareYourSystem/Simulaters/Populater/Readme.md
 ShareYourSystem/Simulaters/Populater/__init__.py
+ShareYourSystem/Simulaters/Populater/Drafts/__init__ copy.py
 ShareYourSystem/Simulaters/Pydelayer/01_ExampleCell.py
 ShareYourSystem/Simulaters/Pydelayer/__init__.py
 ShareYourSystem/Simulaters/Rater/001_DocumentDoc.md

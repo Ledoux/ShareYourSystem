@@ -106,7 +106,7 @@ class TransmitterClass(BaseClass):
                                 lambda __TransmittingCollectionStr:
                                 map(
                                         lambda __DeriveNoderPointer:
-                                        __DeriveNoderPointer.PointVariable,
+                                        __DeriveNoderPointer.CatchToPointVariable,
                                         getattr(
                                                 self,
 __TransmittingCollectionStr+'CollectionOrderedDict'
@@ -295,7 +295,7 @@ MyTransmitter is < (TransmitterClass), 4555900496>
 : < (PointerClass), 4556051600>
    /   /   /   /   /{
    /   /   /   /   /  '<New><Instance>IdInt' : 4556051600
-   /   /   /   /   /  '<New><Instance>PointVariable' : < (TransmitterClass),
+   /   /   /   /   /  '<New><Instance>CatchToPointVariable' : < (TransmitterClass),
 4556050960>
    /   /   /   /   /   /{
    /   /   /   /   /   /  '<New><Instance>IdInt' : 4556050960
@@ -320,19 +320,19 @@ MyTransmitter is < (TransmitterClass), 4555900496>
 4556052560>
    /   /   /   /   /   /   /   /{
    /   /   /   /   /   /   /   /  '<New><Instance>IdInt' : 4556052560
-   /   /   /   /   /   /   /   /  '<New><Instance>PointVariable' : {...}<
+   /   /   /   /   /   /   /   /  '<New><Instance>CatchToPointVariable' : {...}<
 (TransmitterClass), 4556050768>
    /   /   /   /   /   /   /   /  '<Spe><Class>PointedBackSetStr' :
    /   /   /   /   /   /   /   /  '<Spe><Class>PointedPathBackVariable' :
    /   /   /   /   /   /   /   /  '<Spe><Instance>PointedGetVariable' : {...}<
 (TransmitterClass), 4556050768>
    /   /   /   /   /   /   /   /  '<Spe><Instance>PointedLocalSetStr' :
-PointVariable
+CatchToPointVariable
    /   /   /   /   /   /   /   /  '<Spe><Instance>PointingBackSetStr' :
    /   /   /   /   /   /   /   /  '<Spe><Instance>PointingGetVariable' : {...}<
 (TransmitterClass), 4556050768>
    /   /   /   /   /   /   /   /  '<Spe><Instance>PointingSetPathStr' :
-PointVariable
+CatchToPointVariable
    /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /}
    /   /   /   /   /   /  '<New><Instance>TagStr' : Networked
@@ -348,11 +348,11 @@ PointVariable
    /   /   /   /   /  '<Spe><Class>PointedPathBackVariable' :
    /   /   /   /   /  '<Spe><Instance>PointedGetVariable' : {...}<
 (TransmitterClass), 4556050960>
-   /   /   /   /   /  '<Spe><Instance>PointedLocalSetStr' : PointVariable
+   /   /   /   /   /  '<Spe><Instance>PointedLocalSetStr' : CatchToPointVariable
    /   /   /   /   /  '<Spe><Instance>PointingBackSetStr' :
    /   /   /   /   /  '<Spe><Instance>PointingGetVariable' : {...}<
 (TransmitterClass), 4556050960>
-   /   /   /   /   /  '<Spe><Instance>PointingSetPathStr' : PointVariable
+   /   /   /   /   /  '<Spe><Instance>PointingSetPathStr' : CatchToPointVariable
    /   /   /   /   /}
    /   /   /   /}
    /   /   /  '<New><Instance>TagStr' : Networked

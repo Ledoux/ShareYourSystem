@@ -168,19 +168,23 @@ class FactorizerClass(Structurer.StructurerClass):
 		)
 
 #Definition of a Factorizer instance, structure and network
-MyFactorizer=FactorizerClass().structure(
-	['Component']
-).network(
-	**{
-		'VisitingCollectionStrsList':['Datome','Component'],
-		'RecruitingConcludeConditionTuplesList':[
-			(
-				'__class__.__mro__',
-				operator.contains,Hierarchizer.HierarchizerClass
-			)
-		]
-	}
-)
+MyFactorizer=FactorizerClass(
+		**{
+			'FolderingPathStr':Hierarchizer.LocalFolderPathStr
+		}
+	).structure(
+		['Component']
+	).network(
+		**{
+			'VisitingCollectionStrsList':['Datome','Component'],
+			'RecruitingConcludeConditionTuplesList':[
+				(
+					'__class__.__mro__',
+					operator.contains,Hierarchizer.HierarchizerClass
+				)
+			]
+		}
+	)
 
 #Update transmit the do method and flush in the results
 MyFactorizer.__setitem__(

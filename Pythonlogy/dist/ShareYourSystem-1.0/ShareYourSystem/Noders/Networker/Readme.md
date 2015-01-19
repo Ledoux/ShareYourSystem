@@ -276,7 +276,7 @@ MyNetworker is < (NetworkerClass), 4555534992>
 (PointerClass), 4555899792>
    /   /   /   /   /{
    /   /   /   /   /  '<New><Instance>IdInt' : 4555899792
-   /   /   /   /   /  '<New><Instance>PointVariable' : < (ConnecterClass),
+   /   /   /   /   /  '<New><Instance>CatchToPointVariable' : < (ConnecterClass),
 4555899088>
    /   /   /   /   /   /{
    /   /   /   /   /   /  '<New><Instance>ConnectomeCollectionOrderedDict' :
@@ -300,19 +300,19 @@ MyNetworker is < (NetworkerClass), 4555534992>
 4555901072>
    /   /   /   /   /   /   /   /{
    /   /   /   /   /   /   /   /  '<New><Instance>IdInt' : 4555901072
-   /   /   /   /   /   /   /   /  '<New><Instance>PointVariable' : {...}<
+   /   /   /   /   /   /   /   /  '<New><Instance>CatchToPointVariable' : {...}<
 (ConnecterClass), 4555682512>
    /   /   /   /   /   /   /   /  '<Spe><Class>PointedBackSetStr' :
    /   /   /   /   /   /   /   /  '<Spe><Class>PointedPathBackVariable' :
    /   /   /   /   /   /   /   /  '<Spe><Instance>PointedGetVariable' : {...}<
 (ConnecterClass), 4555682512>
    /   /   /   /   /   /   /   /  '<Spe><Instance>PointedLocalSetStr' :
-PointVariable
+CatchToPointVariable
    /   /   /   /   /   /   /   /  '<Spe><Instance>PointingBackSetStr' :
    /   /   /   /   /   /   /   /  '<Spe><Instance>PointingGetVariable' : {...}<
 (ConnecterClass), 4555682512>
    /   /   /   /   /   /   /   /  '<Spe><Instance>PointingSetPathStr' :
-PointVariable
+CatchToPointVariable
    /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /}
    /   /   /   /   /   /  '<New><Instance>TagStr' : Networked
@@ -323,11 +323,11 @@ PointVariable
    /   /   /   /   /  '<Spe><Class>PointedPathBackVariable' :
    /   /   /   /   /  '<Spe><Instance>PointedGetVariable' : {...}<
 (ConnecterClass), 4555899088>
-   /   /   /   /   /  '<Spe><Instance>PointedLocalSetStr' : PointVariable
+   /   /   /   /   /  '<Spe><Instance>PointedLocalSetStr' : CatchToPointVariable
    /   /   /   /   /  '<Spe><Instance>PointingBackSetStr' :
    /   /   /   /   /  '<Spe><Instance>PointingGetVariable' : {...}<
 (ConnecterClass), 4555899088>
-   /   /   /   /   /  '<Spe><Instance>PointingSetPathStr' : PointVariable
+   /   /   /   /   /  '<Spe><Instance>PointingSetPathStr' : CatchToPointVariable
    /   /   /   /   /}
    /   /   /   /}
    /   /   /  '<New><Instance>TagStr' : Networked

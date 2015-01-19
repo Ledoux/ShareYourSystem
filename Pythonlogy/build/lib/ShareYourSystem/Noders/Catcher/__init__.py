@@ -38,7 +38,7 @@ class CatcherClass(BaseClass):
 								'CatchingPointBackSetStr',
 								'CatchedGraspVariable',
 								'CatchedNodeKeyStr',
-								'CatchedDerivePointer'
+								'CatchedDerivePointerVariable'
 							]
 
 	def default_init(self,
@@ -50,7 +50,7 @@ class CatcherClass(BaseClass):
 						_CatchingPointBackSetStr="",
 						_CatchedGraspVariable=None,
 						_CatchedNodeKeyStr="",
-						_CatchedDerivePointer=None,
+						_CatchedDerivePointerVariable=None,
 						**_KwargVariablesDict
 					):
 
@@ -143,20 +143,23 @@ class CatcherClass(BaseClass):
 			self.CatchingCollectionStr=self.CollectingCollectionStr
 
 		#init
-		self.CatchedDerivePointer=self.CatchingDerivePointerClass(
+		self.CatchedDerivePointerVariable=self.CatchingDerivePointerClass(
 			**{
 				'PointingBackSetStr':self.CatchingPointBackSetStr
 			}
 		).point(
 			self.GraspedAnswerVariable,
-			'PointVariable'
+			'CatchToPointVariable'
+		).point(
+			self,
+			'CatchFromPointVariable'
 		)
 
 		#debug
 		'''
 		self.debug(
 					('self.',self,[
-									'CatchedDerivePointer'
+									'CatchedDerivePointerVariable'
 								])
 					)
 		'''
@@ -165,13 +168,17 @@ class CatcherClass(BaseClass):
 		self.collect(
 			self.CatchingCollectionStr,
 			self.CatchedNodeKeyStr,
-			self.CatchedDerivePointer
+			self.CatchedDerivePointerVariable
 		)
 
+		
+
 		#set
-		self.CatchedDerivePointer.update(
+		self.CatchedDerivePointerVariable.update(
 			self.CatchingUpdateVariable
 		)
+
+		
 
 #</DefineClass>
 

@@ -1,15 +1,15 @@
 
 #ImportModules
 import ShareYourSystem as SYS
+from ShareYourSystem.Classors import Classer
+from ShareYourSystem.Controllers import Controller
+from ShareYourSystem.Modelers import Flusher,Hierarchizer
 import tables
 import operator
-from ShareYourSystem.Classors import Classer
-from ShareYourSystem.Noders import Structurer
-from ShareYourSystem.Modelers import Flusher,Hierarchizer
 
 #Define a Sumer class
 @Classer.ClasserClass()
-class SumerClass(Structurer.StructurerClass):
+class SumerClass(Controller.ControllerClass):
 
 	#Definition
 	RepresentingKeyStrsList=[
@@ -39,56 +39,61 @@ class SumerClass(Structurer.StructurerClass):
 		self.SumedTotalInt=self.SumingFirstInt+self.SumingSecondInt
 
 #Definition of a Storer instance with a noded data
-MySumer=SumerClass().push(
-	[
-		(
-			"Parameters",
-			Hierarchizer.HierarchizerClass().update(
-				[
-					(
-						'Attr_DatabasingSealTuplesList',
-						[
-							('SumingFirstInt','SumingFirstInt',tables.Int64Col()),
-							('SumingSecondInt','SumingSecondInt',tables.Int64Col())
-						]
-					),
-					('Attr_RowingGetStrsList',['SumingFirstInt','SumingSecondInt'])
-				]
-			)
-		),
-		(
-			"Results",
-			Hierarchizer.HierarchizerClass().update(
-				[
-					(
-						'Attr_DatabasingSealTuplesList',
-						[
-							('SumedTotalInt','SumedTotalInt',tables.Int64Col())
-						]
-					),
-					('ConnectingGraspClueVariablesList',
-						[
-							'/NodePointDeriveNoder/<Datome>ParametersHierarchizer'
-						]
-					),
-					('TagStr','Networked')
-				]
-			)
-		)
-	],
-	**{
-		'CollectingCollectionStr':'Datome'
-	}
-).network(
-	**{
-		'RecruitingConcludeConditionTuplesList':[
+MySumer=SumerClass(
+		**{
+			'HdformatingFileKeyStr':'Sums_1.hdf5',
+			'FolderingPathStr':Hierarchizer.LocalFolderPathStr
+		}
+	).push(
+		[
 			(
-				'__class__.__mro__',
-				operator.contains,Hierarchizer.HierarchizerClass
+				"Parameters",
+				Hierarchizer.HierarchizerClass().update(
+					[
+						(
+							'Attr_DatabasingSealTuplesList',
+							[
+								('SumingFirstInt','SumingFirstInt',tables.Int64Col()),
+								('SumingSecondInt','SumingSecondInt',tables.Int64Col())
+							]
+						),
+						('Attr_RowingGetStrsList',['SumingFirstInt','SumingSecondInt'])
+					]
+				)
+			),
+			(
+				"Results",
+				Hierarchizer.HierarchizerClass().update(
+					[
+						(
+							'Attr_DatabasingSealTuplesList',
+							[
+								('SumedTotalInt','SumedTotalInt',tables.Int64Col())
+							]
+						),
+						('ConnectingGraspClueVariablesList',
+							[
+								'/NodePointDeriveNoder/<Datome>ParametersHierarchizer'
+							]
+						),
+						('TagStr','Networked')
+					]
+				)
 			)
-		]
-	}
-)
+		],
+		**{
+			'CollectingCollectionStr':'Datome'
+		}
+	).network(
+		**{
+			'RecruitingConcludeConditionTuplesList':[
+				(
+					'__class__.__mro__',
+					operator.contains,Hierarchizer.HierarchizerClass
+				)
+			]
+		}
+	)
 
 #Update and store
 MySumer.update(

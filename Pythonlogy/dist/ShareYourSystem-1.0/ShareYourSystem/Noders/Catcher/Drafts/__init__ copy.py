@@ -40,7 +40,7 @@ class CatcherClass(BaseClass):
 								'CatchingPointBackBool',
 								'CatchedGraspVariable',
 								'CatchedNodeKeyStr',
-								'CatchedDerivePointer'
+								'CatchedDerivePointerVariable'
 							]
 
 	#@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.__init__}]})
@@ -54,7 +54,7 @@ class CatcherClass(BaseClass):
 						_CatchingPointBackBool=False,
 						_CatchedGraspVariable=None,
 						_CatchedNodeKeyStr="",
-						_CatchedDerivePointer=None,
+						_CatchedDerivePointerVariable=None,
 						**_KwargVariablesDict
 					):
 
@@ -167,20 +167,20 @@ class CatcherClass(BaseClass):
 			self.CatchingCollectionStr=self.CollectingCollectionStr
 
 		#init
-		self.CatchedDerivePointer=self.CatchingDerivePointerClass(
+		self.CatchedDerivePointerVariable=self.CatchingDerivePointerClass(
 			**{
 				'PointingBackBool':self.CatchingPointBackBool
 			}
 		).point(
 			self.GraspedAnswerVariable,
-			'PointVariable'
+			'CatchToPointVariable'
 		)
 
 		#debug
 		'''
 		self.debug(
 					('self.',self,[
-									'CatchedDerivePointer'
+									'CatchedDerivePointerVariable'
 								])
 					)
 		'''
@@ -189,11 +189,11 @@ class CatcherClass(BaseClass):
 		self.collect(
 					self.CatchingCollectionStr,
 					self.CatchedNodeKeyStr,
-					self.CatchedDerivePointer
+					self.CatchedDerivePointerVariable
 				)
 
 		#set
-		self.CatchedDerivePointer.update(self.CatchingUpdateVariable)
+		self.CatchedDerivePointerVariable.update(self.CatchingUpdateVariable)
 
 #</DefineClass>
 
