@@ -5,25 +5,59 @@
 
 int main( int argc, char *argv[] )
 {
-	int i;
-	std::string InputStr=argv[1];
+	//Define
+	std::string InputStr="";
+	std::string OptionStr="";
 
-	//std::cout<<InputStr<<std::endl;
+	//Cout
+	std::cout<<"Command length is "<<std::endl;
+	std::cout<<argc<<std::endl;
 	
 	//Check
-	if(InputStr == "pythonlogize")
+	if(argc>1)
 	{
-		system("cd Pythonlogy;sudo sh install.sh");
-	}
 
-	else if(InputStr == "inform")
-	{
-		system("python inform.py");
-	}
+		//Input
+		InputStr=argv[1];
+		std::cout<<"InputStr is "<<std::endl;
+		std::cout<<InputStr<<std::endl;
+		
+		//Check
+		if(argc>2)
+		{
+			//Option	
+			OptionStr=argv[2];		
+			std::cout<<"OptionStr is "<<std::endl;
+			std::cout<<OptionStr<<std::endl;	
+		}
+		
+		//Check
+		if(InputStr == "pythonlogize")
+		{
+			system("cd Pythonlogy;sudo sh install.sh");
+		}
 
-	else if(InputStr == "GUI")
+		else if(InputStr == "inform")
+		{
+			system("python inform.py");
+		}
+
+		else if(InputStr == "GUI")
+		{
+
+			//Check
+			if(OptionStr == "local")
+			{
+				system("shellinaboxd -s /:LOGIN&");
+			}
+
+			//call the GUI.ipynb
+			system("cd ShareYourGUIstem;ipython notebook GUI.ipynb");
+		}
+	}
+	else
 	{
-		system("cd ShareYourGUIstem;ipython notebook GUI.ipynb");
+		std::cout<<"You need to specify an input"<<std::endl;
 	}
 
 	//return 

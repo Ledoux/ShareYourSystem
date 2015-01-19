@@ -29,14 +29,20 @@ class MeteorerClass(BaseClass):
 	#Definition 
 	RepresentingKeyStrsList=[
 								'MeteoringSocketStr',
+								'MeteoringWidthInt',
+								'MeteoringHeigthInt',
 								'MeteoredConcurrentDDPClientVariable',
 								'MeteoredUrlStr'
 							]
 
 	def default_init(self,
 						_MeteoringSocketStr='ws://127.0.0.1:3000/websocket',
+						_MeteoringWidthInt=100,
+						_MeteoringHeigthInt=100,
 						_MeteoredConcurrentDDPClientVariable=None,
-						_MeteoredUrlStr='http://127.0.0.1:3000',
+						_MeteoredUrlStr="",
+						_MeteoredServerStr="",
+						_MeteoredServerHtmlVariable=None,
 						**_KwargVariablesDict
 				):
 
@@ -45,14 +51,14 @@ class MeteorerClass(BaseClass):
 		
 	def do_meteor(self):
 
-		#Do the connection
-		self.MeteoredConcurrentDDPClientVariable = ddp.ConcurrentDDPClient(self.MeteoringSocketStr)
-		self.MeteoredConcurrentDDPClientVariable.start()
-
 		#Set the MeteoredUrlStr
 		self.MeteoredUrlStr='/websocket'.join(
 				self.MeteoringSocketStr.split('/websocket')[:-1]
 			).replace('ws','http')
+
+		#Do the connection
+		self.MeteoredConcurrentDDPClientVariable = ddp.ConcurrentDDPClient(self.MeteoringSocketStr)
+		self.MeteoredConcurrentDDPClientVariable.start()
 
 
 #</DefineClass>

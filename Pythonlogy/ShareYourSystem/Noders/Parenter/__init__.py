@@ -33,17 +33,21 @@ class ParenterClass(BaseClass):
 
 	#Definition
 	RepresentingKeyStrsList=[
+								'ParentingTopPickVariablesList',
 								'ParentingWalkBool',
 								'ParentedDeriveParentersList',
 								'ParentedNodeCollectionStrsList',
-								'ParentedPathStr'
+								'ParentedPathStr',
+								'ParentedTopDeriveParenterVariable'
 							]
 
 	def default_init(self,
+				_ParentingTopPickVariablesList=None,
 				_ParentingWalkBool=True,
 				_ParentedDeriveParentersList=None,
 				_ParentedNodeCollectionStrsList=None,
 				_ParentedPathStr="",
+				_ParentedTopDeriveParenterVariable=None,
 				**_KwargVariablesDict):	
 
 		#Call the parent init method
@@ -68,7 +72,10 @@ class ParenterClass(BaseClass):
 			if self.ParentingWalkBool:
 
 				#parent the parent
-				self.NodePointDeriveNoder.parent()
+				self.NodePointDeriveNoder.parent(
+						self.ParentingTopPickVariablesList,
+						self.ParentingWalkBool
+					)
 
 			#set
 			self.ParentedDeriveParentersList=[self.NodePointDeriveNoder
@@ -94,8 +101,25 @@ class ParenterClass(BaseClass):
 			#set
 			self.ParentedPathStr=Pather.PathingPrefixStr.join(ParentedPathStrsList)
 
-		#Return self
-		#return self
+
+			#Check
+			if len(self.ParentedDeriveParentersList)>0:
+				self.ParentedTopDeriveParenterVariable=self.ParentedDeriveParentersList[-1]
+			else:
+				self.ParentedTopDeriveParenterVariable=self
+
+			#Link
+			self.update(
+							zip(
+								self.ParentingTopPickVariablesList,
+								self.ParentedTopDeriveParenterVariable.pick(
+										self.ParentingTopPickVariablesList
+									)
+								)
+						)
+
+		else:
+			self.ParentedTopDeriveParenterVariable=self
 
 #</DefineClass>
 

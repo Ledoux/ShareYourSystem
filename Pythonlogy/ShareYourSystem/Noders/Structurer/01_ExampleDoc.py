@@ -23,7 +23,12 @@ MyStructurer=Structurer.StructurerClass().update(
 			])
 		)
 	]	
-).structure(['Graph','Tree']).hdfclose()
+).structure(
+	['Graph','Tree'],
+	**{
+		'FolderingPathStr':Structurer.LocalFolderPathStr
+	}
+	).hdfclose()
 		
 #Definition the AttestedStr
 SYS._attest(

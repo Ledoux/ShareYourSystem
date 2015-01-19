@@ -31,13 +31,12 @@ class StructurerClass(BaseClass):
 	
 	#Definition
 	RepresentingKeyStrsList=[
-									'StructuringNodeCollectionStrsList',
-									'StructuringBeforeUpdateList'
-								]
+								'StructuringNodeCollectionStrsList',
+								'StructuringBeforeUpdateList'
+							]
 
-	#@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.__init__}]})
 	def default_init(self,
-						_StructuringNodeCollectionStrsList=[],
+						_StructuringNodeCollectionStrsList=None,
 						_StructuringBeforeUpdateList=None,
 						**_KwargVariablesDict
 					):
@@ -45,7 +44,6 @@ class StructurerClass(BaseClass):
 		#Call the parent __init__ method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
-	#@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingMethodStr':'hdformat'}]})
 	def do_structure(self):
 
 		#debug
@@ -70,7 +68,7 @@ class StructurerClass(BaseClass):
 					{
 						'BeforeUpdateList':
 						[
-							('parent',{'LiargVariablesList':[]}),
+							('parent',{'LiargVariablesList':[['HdformatedFileVariable']]}),
 							('group',{'LiargVariablesList':[]})
 						]+self.StructuringBeforeUpdateList,
 						'GatherVariablesList':map(
@@ -80,8 +78,5 @@ class StructurerClass(BaseClass):
 							)
 					}
 				)
-
-		#Return self
-		#return self
 
 #</DefineClass>

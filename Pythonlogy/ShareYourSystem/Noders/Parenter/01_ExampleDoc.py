@@ -13,7 +13,7 @@ MyParenter=Parenter.ParenterClass().__setitem__(
 
 #Parent for the children
 #MyParenter['<Tree>ChildParenter'].parent('Tree')
-MyParenter['<Tree>ChildParenter']['<Tree>GrandChildParenter'].parent()
+MyParenter['<Tree>ChildParenter']['<Tree>GrandChildParenter'].parent(['IdInt'])
 
 #Definition the AttestedStr
 SYS._attest(

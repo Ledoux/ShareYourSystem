@@ -22,7 +22,6 @@ SYS.setSubModule(globals())
 
 #<ImportSpecificModules>
 import functools
-
 from ShareYourSystem.Classors import Doer
 #</ImportSpecificModules>
 
@@ -67,7 +66,6 @@ class GrouperClass(BaseClass):
 									'GroupedPathStr'
 								]
 
-	#@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.__init__}]})
 	def default_init(
 				self,
 				_GroupedParentVariable=None,
@@ -97,24 +95,8 @@ class GrouperClass(BaseClass):
 		'''
 	
 		#Parent
-		self.parent()
+		self.parent(_PickVariablesList=['HdformatedFileVariable'])
 		
-		#Check
-		if len(self.ParentedDeriveParentersList)>0:
-			UppestParentPointer=self.ParentedDeriveParentersList[-1]
-		else:
-			UppestParentPointer=self
-
-		#Then get also from the UppestParentPointer its UppestGroupedParentVariable
-		if hasattr(UppestParentPointer,'GroupedDeriveParentersList'):
-			if len(UppestParentPointer.GroupedDeriveParentersList)>0:
-				UppestGroupedParentVariable=UppestParentPointer.GroupedDeriveParentersList.GroupedDeriveParentersList[-1]
-			else:
-				UppestGroupedParentVariable=UppestParentPointer
-
-		#Link
-		self.HdformatedFileVariable=UppestGroupedParentVariable.HdformatedFileVariable
-
 		#debug
 		#print('self.HdformatedFileVariable is ',self.HdformatedFileVariable)
 
@@ -135,12 +117,12 @@ class GrouperClass(BaseClass):
 			'''
 
 			#set the GroupedPathStr
-			if UppestParentPointer==self:
+			if self.ParentedTopDeriveParenterVariable==self:
 				self.GroupedPathStr="/"
 			else:
 				self.GroupedPathStr=getGroupedPathStrWithPathStrsList(
 					[
-						UppestGroupedParentVariable.GroupedPathStr,
+						self.ParentedTopDeriveParenterVariable.GroupedPathStr,
 						self.ParentedPathStr,
 						self.NodeKeyStr
 					]
@@ -174,8 +156,5 @@ class GrouperClass(BaseClass):
 					
 					#Prepare the next group	
 					ParsingChildPathStr=NewParsingChildPathStr+'/'
-
-		#Return self
-		#return self
 
 #</DefineClass>

@@ -15,7 +15,7 @@ it depending on the FiledModeStr.
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Objects.Packager"
+BaseModuleStr="ShareYourSystem.Objects.Consoler"
 DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>

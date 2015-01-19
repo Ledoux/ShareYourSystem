@@ -1180,9 +1180,15 @@ ShareYourSystem/Itemizers/Sharer/__init__.py
 ShareYourSystem/Itemizers/Sharer/__init__.pyc
 ShareYourSystem/Meteorers/.DS_Store
 ShareYourSystem/Meteorers/__init__.py
+ShareYourSystem/Meteorers/Boxer/00_ExampleDoc.md
+ShareYourSystem/Meteorers/Boxer/01_ExampleDoc.py
+ShareYourSystem/Meteorers/Boxer/__init__.py
 ShareYourSystem/Meteorers/Meteorer/00_ExampleDoc.md
 ShareYourSystem/Meteorers/Meteorer/01_ExampleDoc.py
 ShareYourSystem/Meteorers/Meteorer/__init__.py
+ShareYourSystem/Meteorers/Server/00_ExampleDoc.md
+ShareYourSystem/Meteorers/Server/01_ExampleDoc.py
+ShareYourSystem/Meteorers/Server/__init__.py
 ShareYourSystem/Meteorers/Viewer/00_ExampleDoc.md
 ShareYourSystem/Meteorers/Viewer/01_ExampleDoc.py
 ShareYourSystem/Meteorers/Viewer/__init__.py
@@ -1337,11 +1343,9 @@ ShareYourSystem/Noders/Distinguisher/__init__.py
 ShareYourSystem/Noders/Distinguisher/__init__.pyc
 ShareYourSystem/Noders/Distinguisher/__pycache__/Commander.cpython-34.pyc
 ShareYourSystem/Noders/Grouper/001_DocumentDoc.md
-ShareYourSystem/Noders/Grouper/001_GithubDoc.md
-ShareYourSystem/Noders/Grouper/002_GithubDoc.md
 ShareYourSystem/Noders/Grouper/00_ExampleDoc.md
 ShareYourSystem/Noders/Grouper/01_ExampleDoc.py
-ShareYourSystem/Noders/Grouper/Groups.hdf5
+ShareYourSystem/Noders/Grouper/Groupers.hdf5
 ShareYourSystem/Noders/Grouper/PreReadme.ipynb
 ShareYourSystem/Noders/Grouper/Presentation.html
 ShareYourSystem/Noders/Grouper/Presentation.ipynb
@@ -1407,9 +1411,6 @@ ShareYourSystem/Noders/Organizer/Presentation.ipynb
 ShareYourSystem/Noders/Organizer/Readme.ipynb
 ShareYourSystem/Noders/Organizer/Readme.md
 ShareYourSystem/Noders/Organizer/__init__.py
-ShareYourSystem/Noders/Parenter/001_DocumentDoc.md
-ShareYourSystem/Noders/Parenter/001_GithubDoc.md
-ShareYourSystem/Noders/Parenter/002_GithubDoc.md
 ShareYourSystem/Noders/Parenter/00_ExampleDoc.md
 ShareYourSystem/Noders/Parenter/01_ExampleDoc.py
 ShareYourSystem/Noders/Parenter/PreReadme.ipynb
@@ -1437,7 +1438,6 @@ ShareYourSystem/Noders/Settler/__init__.py
 ShareYourSystem/Noders/Settler/__init__.pyc
 ShareYourSystem/Noders/Structurer/001_DocumentDoc.md
 ShareYourSystem/Noders/Structurer/001_GithubDoc.md
-ShareYourSystem/Noders/Structurer/002_GithubDoc.md
 ShareYourSystem/Noders/Structurer/00_ExampleDoc.md
 ShareYourSystem/Noders/Structurer/01_ExampleDoc.py
 ShareYourSystem/Noders/Structurer/PreReadme.ipynb
@@ -1556,6 +1556,9 @@ ShareYourSystem/Objects/Conditioner/Readme.ipynb
 ShareYourSystem/Objects/Conditioner/Readme.md
 ShareYourSystem/Objects/Conditioner/__init__.py
 ShareYourSystem/Objects/Conditioner/__init__.pyc
+ShareYourSystem/Objects/Consoler/00_ExampleDoc.md
+ShareYourSystem/Objects/Consoler/01_ExampleDoc.py
+ShareYourSystem/Objects/Consoler/__init__.py
 ShareYourSystem/Objects/Debugger/001_DocumentDoc.md
 ShareYourSystem/Objects/Debugger/002_GithubDoc.md
 ShareYourSystem/Objects/Debugger/00_ExampleDoc.md
