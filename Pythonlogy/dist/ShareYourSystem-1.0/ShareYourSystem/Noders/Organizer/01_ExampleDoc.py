@@ -1,7 +1,7 @@
 #ImportModules
 import ShareYourSystem as SYS
 from ShareYourSystem.Classors import Classer
-from ShareYourSystem.Databasers import Hierarchizer
+from ShareYourSystem.Modelers import Hierarchizer
 from ShareYourSystem.Noders import Organizer
 import numpy as np
 import operator

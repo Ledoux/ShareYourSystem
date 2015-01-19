@@ -23,7 +23,6 @@ SYS.setSubModule(globals())
 
 #<ImportSpecificModules>
 import collections
-from ShareYourSystem.Functers import Argumenter
 #</ImportSpecificModules>
 
 #<DefineLocals>

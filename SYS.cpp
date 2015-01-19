@@ -10,8 +10,8 @@ int main( int argc, char *argv[] )
 	std::string OptionStr="";
 
 	//Cout
-	std::cout<<"Command length is "<<std::endl;
-	std::cout<<argc<<std::endl;
+	//std::cout<<"Command length is "<<std::endl;
+	//std::cout<<argc<<std::endl;
 	
 	//Check
 	if(argc>1)
@@ -19,16 +19,16 @@ int main( int argc, char *argv[] )
 
 		//Input
 		InputStr=argv[1];
-		std::cout<<"InputStr is "<<std::endl;
-		std::cout<<InputStr<<std::endl;
+		//std::cout<<"InputStr is "<<std::endl;
+		//std::cout<<InputStr<<std::endl;
 		
 		//Check
 		if(argc>2)
 		{
 			//Option	
 			OptionStr=argv[2];		
-			std::cout<<"OptionStr is "<<std::endl;
-			std::cout<<OptionStr<<std::endl;	
+			//std::cout<<"OptionStr is "<<std::endl;
+			//std::cout<<OptionStr<<std::endl;	
 		}
 		
 		//Check
@@ -37,9 +37,9 @@ int main( int argc, char *argv[] )
 			system("cd Pythonlogy;sudo sh install.sh");
 		}
 
-		else if(InputStr == "inform")
+		else if(InputStr == "document")
 		{
-			system("python inform.py");
+			system("python document.py");
 		}
 
 		else if(InputStr == "GUI")

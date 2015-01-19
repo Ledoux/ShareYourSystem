@@ -15,7 +15,7 @@ for every child nodes with a distinguished tuples list.
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Noders.Adder"
+BaseModuleStr="ShareYourSystem.Noders.Noder"
 DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>

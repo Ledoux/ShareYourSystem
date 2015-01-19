@@ -332,22 +332,22 @@ MyStructurer.hdfview().HdformatedStr is /                        Group
 /TopStructurer/SecondChildStructurer/OtherGrandChildStructurer Group
 /xx0xxThingsFindoerTable Dataset {3/Inf}
     Data:
-        (0) {ModeledInt=0, MyInt=1, MyIntsList=[0,0,1], MyStr="bonjour"},
-        (1) {ModeledInt=1, MyInt=0, MyIntsList=[0,0,1], MyStr="guten tag"},
-        (2) {ModeledInt=2, MyInt=1, MyIntsList=[0,0,0], MyStr="bonjour"}
+        (0) {RowInt=0, MyInt=1, MyIntsList=[0,0,1], MyStr="bonjour"},
+        (1) {RowInt=1, MyInt=0, MyIntsList=[0,0,1], MyStr="guten tag"},
+        (2) {RowInt=2, MyInt=1, MyIntsList=[0,0,0], MyStr="bonjour"}
 /xx0xxThingsFlusherTable Dataset {2/Inf}
     Data:
-        (0) {ModeledInt=0, MyInt=1, MyIntsList=[2,4,6], MyStr="bonjour"},
-        (1) {ModeledInt=1, MyInt=0, MyIntsList=[0,0,0], MyStr="hello"}
+        (0) {RowInt=0, MyInt=1, MyIntsList=[2,4,6], MyStr="bonjour"},
+        (1) {RowInt=1, MyInt=0, MyIntsList=[0,0,0], MyStr="hello"}
 /xx0xxThingsRecovererTable Dataset {3/Inf}
     Data:
-        (0) {ModeledInt=0, MyInt=1, MyIntsList=[0,0,1], MyStr="bonjour"},
-        (1) {ModeledInt=1, MyInt=0, MyIntsList=[0,0,1], MyStr="guten tag"},
-        (2) {ModeledInt=2, MyInt=1, MyIntsList=[0,0,0], MyStr="bonjour"}
+        (0) {RowInt=0, MyInt=1, MyIntsList=[0,0,1], MyStr="bonjour"},
+        (1) {RowInt=1, MyInt=0, MyIntsList=[0,0,1], MyStr="guten tag"},
+        (2) {RowInt=2, MyInt=1, MyIntsList=[0,0,0], MyStr="bonjour"}
 /xx0xxThingsRetrieverTable Dataset {2/Inf}
     Data:
-        (0) {ModeledInt=0, MyInt=1, MyIntsList=[2,4,6], MyStr="bonjour"},
-        (1) {ModeledInt=1, MyInt=0, MyIntsList=[0,0,0], MyStr="guten tag"}
+        (0) {RowInt=0, MyInt=1, MyIntsList=[2,4,6], MyStr="bonjour"},
+        (1) {RowInt=1, MyInt=0, MyIntsList=[0,0,0], MyStr="guten tag"}
 /xx0xxThingsRowerTable   Dataset {0/Inf}
     Data:
 
@@ -356,18 +356,18 @@ MyStructurer.hdfview().HdformatedStr is /                        Group
 
 /xx0xx__UnitsInt_3__ThingsMergerTable Dataset {2/Inf}
     Data:
-        (0) {ModeledInt=0, MyInt=0, MyIntsList=[0,0,1], MyStr="hello"},
-        (1) {ModeledInt=1, MyInt=1, MyIntsList=[0,0,1], MyStr="bonjour"}
+        (0) {RowInt=0, MyInt=0, MyIntsList=[0,0,1], MyStr="hello"},
+        (1) {RowInt=1, MyInt=1, MyIntsList=[0,0,1], MyStr="bonjour"}
 /xx0xx__UnitsInt_3__ThingsShaperTable Dataset {2/Inf}
     Data:
-        (0) {ModeledInt=0, MyInt=0, MyIntsList=[0,0,1], MyStr="hello"},
-        (1) {ModeledInt=1, MyInt=1, MyIntsList=[0,0,1], MyStr="bonjour"}
+        (0) {RowInt=0, MyInt=0, MyIntsList=[0,0,1], MyStr="hello"},
+        (1) {RowInt=1, MyInt=1, MyIntsList=[0,0,1], MyStr="bonjour"}
 /xx1xx__UnitsInt_2__ThingsMergerTable Dataset {1/Inf}
     Data:
-        (0) {ModeledInt=0, MyInt=0, MyIntsList=[0,0], MyStr=""}
+        (0) {RowInt=0, MyInt=0, MyIntsList=[0,0], MyStr=""}
 /xx1xx__UnitsInt_2__ThingsShaperTable Dataset {1/Inf}
     Data:
-        (0) {ModeledInt=0, MyInt=0, MyIntsList=[0,0], MyStr=""}
+        (0) {RowInt=0, MyInt=0, MyIntsList=[0,0], MyStr=""}
 
 
 *****End of the Attest *****

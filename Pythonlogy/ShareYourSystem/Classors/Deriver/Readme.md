@@ -249,7 +249,7 @@ MakerClass.DerivedClassesList is [<class
 'ShareYourSystem.Guiders.Nbconverter.NbconverterClass'>, <class
 'ShareYourSystem.Guiders.Installer.InstallerClass'>, <class
 'ShareYourSystem.Guiders.Documenter.DocumenterClass'>, <class
-'ShareYourSystem.Guiders.Informer.InformerClass'>, <class
+'ShareYourSystem.Guiders.Documenter.DocumenterClass'>, <class
 'ShareYourSystem.Objects.Caller.CallerClass'>, <class
 'ShareYourSystem.Objects.Cloner.ClonerClass'>, <class 'MakerClass'>, <class
 'BuilderClass'>, <class 'MakerClass'>, <class 'BuilderClass'>, <class

@@ -22,7 +22,6 @@ SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
-from ShareYourSystem.Functers import Argumenter
 #</ImportSpecificModules>
 
 #<DefineClass>
@@ -35,7 +34,6 @@ class GetterClass(BaseClass):
 									'GettedValueVariable'
 								]
 
-	#@SYS.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.init}]})
 	def default_init(self,
 						_GettingKeyVariable=None,
 						_GettedValueVariable=None,
@@ -46,7 +44,6 @@ class GetterClass(BaseClass):
 		#Call the parent init method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
-	#@Argumenter.ArgumenterClass(**{'ArgumentingDoStr':'Get'})
 	def __getitem__(self,_KeyVariable):
 		""" """
 

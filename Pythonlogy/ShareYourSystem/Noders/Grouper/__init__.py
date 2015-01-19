@@ -81,11 +81,12 @@ class GrouperClass(BaseClass):
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
 		#set
-		self.HdformatingFileKeyStr=SYS.InflectEngine.plural(
-			Doer.DoerStrToDoStrOrderedDict[
-				self.__class__.NameStr
-				]
-			)+'.hdf5'
+		if self.HdformatingFileKeyStr=="":
+			self.HdformatingFileKeyStr=SYS.InflectEngine.plural(
+				Doer.DoerStrToDoStrOrderedDict[
+					self.__class__.NameStr
+					]
+				)+'.hdf5'
 
 	def do_group(self):
 

@@ -21,7 +21,6 @@ SYS.setSubModule(globals())
 
 #<ImportSpecificModules>
 import copy
-from ShareYourSystem.Functers import Argumenter
 #</ImportSpecificModules>
 
 #<DefineClass>
@@ -45,7 +44,6 @@ class MapperClass(BaseClass):
 		#Call the parent __init__ method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
-	#<DefineDoMethods>
 	def do_map(self):
 		""" """
 
@@ -86,8 +84,5 @@ class MapperClass(BaseClass):
 							).AppliedOutputVariable,
 					self.MappingArgDictsList
 				)
-
-		#Return self
-		#return self
 
 #</DefineClass>

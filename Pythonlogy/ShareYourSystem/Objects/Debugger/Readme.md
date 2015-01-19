@@ -467,7 +467,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxx
                 ////////////////////////////////
                 site-packages/six.py exec_
                 From site-packages/six.py exec_ | Celler/__init__.py do_cell |
-Notebooker/__init__.py do_notebook | Informer/__init__.py do_inform | inform.py
+Notebooker/__init__.py do_notebook | Documenter/__init__.py do_inform | inform.py
 <module>
                 ////////////////////////////////
 
@@ -485,7 +485,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxx
                 ////////////////////////////////
                 site-packages/six.py exec_
                 From site-packages/six.py exec_ | Celler/__init__.py do_cell |
-Notebooker/__init__.py do_notebook | Informer/__init__.py do_inform | inform.py
+Notebooker/__init__.py do_notebook | Documenter/__init__.py do_inform | inform.py
 <module>
                 ////////////////////////////////
 
@@ -503,7 +503,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxx
                 ////////////////////////////////
                 site-packages/six.py exec_
                 From site-packages/six.py exec_ | Celler/__init__.py do_cell |
-Notebooker/__init__.py do_notebook | Informer/__init__.py do_inform | inform.py
+Notebooker/__init__.py do_notebook | Documenter/__init__.py do_inform | inform.py
 <module>
                 ////////////////////////////////
 
@@ -521,7 +521,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxx
                 ////////////////////////////////
                 site-packages/six.py exec_
                 From site-packages/six.py exec_ | Celler/__init__.py do_cell |
-Notebooker/__init__.py do_notebook | Informer/__init__.py do_inform | inform.py
+Notebooker/__init__.py do_notebook | Documenter/__init__.py do_inform | inform.py
 <module>
                 ////////////////////////////////
 
@@ -539,7 +539,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxx
                 ////////////////////////////////
                 site-packages/six.py exec_
                 From site-packages/six.py exec_ | Celler/__init__.py do_cell |
-Notebooker/__init__.py do_notebook | Informer/__init__.py do_inform | inform.py
+Notebooker/__init__.py do_notebook | Documenter/__init__.py do_inform | inform.py
 <module>
                 ////////////////////////////////
 
@@ -557,7 +557,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxx
                 ////////////////////////////////
                 site-packages/six.py exec_
                 From site-packages/six.py exec_ | Celler/__init__.py do_cell |
-Notebooker/__init__.py do_notebook | Informer/__init__.py do_inform | inform.py
+Notebooker/__init__.py do_notebook | Documenter/__init__.py do_inform | inform.py
 <module>
                 ////////////////////////////////
 
@@ -575,7 +575,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxx
                 ////////////////////////////////
                 site-packages/six.py exec_
                 From site-packages/six.py exec_ | Celler/__init__.py do_cell |
-Notebooker/__init__.py do_notebook | Informer/__init__.py do_inform | inform.py
+Notebooker/__init__.py do_notebook | Documenter/__init__.py do_inform | inform.py
 <module>
                 ////////////////////////////////
 
@@ -595,7 +595,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
                                         From site-packages/six.py exec_ |
 Celler/__init__.py do_cell | Doer/__init__.py do | Notebooker/__init__.py
 <lambda> | Notebooker/__init__.py do_notebook | Doer/__init__.py do |
-Informer/__init__.py <lambda> | Informer/__init__.py do_inform |
+Documenter/__init__.py <lambda> | Documenter/__init__.py do_inform |
 Doer/__init__.py do | inform.py <module>
                                         ////////////////////////////////
 
@@ -615,7 +615,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
                                         From site-packages/six.py exec_ |
 Celler/__init__.py do_cell | Doer/__init__.py do | Notebooker/__init__.py
 <lambda> | Notebooker/__init__.py do_notebook | Doer/__init__.py do |
-Informer/__init__.py <lambda> | Informer/__init__.py do_inform |
+Documenter/__init__.py <lambda> | Documenter/__init__.py do_inform |
 Doer/__init__.py do | inform.py <module>
                                         ////////////////////////////////
 
@@ -635,7 +635,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
                                         From site-packages/six.py exec_ |
 Celler/__init__.py do_cell | Doer/__init__.py do | Notebooker/__init__.py
 <lambda> | Notebooker/__init__.py do_notebook | Doer/__init__.py do |
-Informer/__init__.py <lambda> | Informer/__init__.py do_inform |
+Documenter/__init__.py <lambda> | Documenter/__init__.py do_inform |
 Doer/__init__.py do | inform.py <module>
                                         ////////////////////////////////
 
@@ -655,7 +655,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
                                         From site-packages/six.py exec_ |
 Celler/__init__.py do_cell | Doer/__init__.py do | Notebooker/__init__.py
 <lambda> | Notebooker/__init__.py do_notebook | Doer/__init__.py do |
-Informer/__init__.py <lambda> | Informer/__init__.py do_inform |
+Documenter/__init__.py <lambda> | Documenter/__init__.py do_inform |
 Doer/__init__.py do | inform.py <module>
                                         ////////////////////////////////
 
@@ -675,7 +675,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
                                         From site-packages/six.py exec_ |
 Celler/__init__.py do_cell | Doer/__init__.py do | Notebooker/__init__.py
 <lambda> | Notebooker/__init__.py do_notebook | Doer/__init__.py do |
-Informer/__init__.py <lambda> | Informer/__init__.py do_inform |
+Documenter/__init__.py <lambda> | Documenter/__init__.py do_inform |
 Doer/__init__.py do | inform.py <module>
                                         ////////////////////////////////
 
@@ -695,7 +695,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
                                         From site-packages/six.py exec_ |
 Celler/__init__.py do_cell | Doer/__init__.py do | Notebooker/__init__.py
 <lambda> | Notebooker/__init__.py do_notebook | Doer/__init__.py do |
-Informer/__init__.py <lambda> | Informer/__init__.py do_inform |
+Documenter/__init__.py <lambda> | Documenter/__init__.py do_inform |
 Doer/__init__.py do | inform.py <module>
                                         ////////////////////////////////
 
@@ -715,7 +715,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
                                         From site-packages/six.py exec_ |
 Celler/__init__.py do_cell | Doer/__init__.py do | Notebooker/__init__.py
 <lambda> | Notebooker/__init__.py do_notebook | Doer/__init__.py do |
-Informer/__init__.py <lambda> | Informer/__init__.py do_inform |
+Documenter/__init__.py <lambda> | Documenter/__init__.py do_inform |
 Doer/__init__.py do | inform.py <module>
                                         ////////////////////////////////
 

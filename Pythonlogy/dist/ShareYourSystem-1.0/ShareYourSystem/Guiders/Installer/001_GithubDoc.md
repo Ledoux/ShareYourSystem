@@ -22,5 +22,5 @@ The Installer directs a readme call in a ShareYourSystem directory.
 ----------------------------------------------------------------
 
 
-View the Installer sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem.Guiders.Informer)
+View the Installer sources on [Github](https://github.com/Ledoux/ShareYourSystem/tree/master/ShareYourSystem.Guiders.Documenter)
 

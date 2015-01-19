@@ -168,7 +168,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
                         From Attentioner/__init__.py do_attention |
 Connecter/__init__.py do_connect | site-packages/six.py exec_ |
 Celler/__init__.py do_cell | Notebooker/__init__.py do_notebook |
-Informer/__init__.py do_inform | inform.py <module>
+Documenter/__init__.py do_inform | inform.py <module>
                         ////////////////////////////////
 
                         l.60 :
@@ -190,7 +190,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
                         From Attentioner/__init__.py do_attention |
 Connecter/__init__.py do_connect | site-packages/six.py exec_ |
 Celler/__init__.py do_cell | Notebooker/__init__.py do_notebook |
-Informer/__init__.py do_inform | inform.py <module>
+Documenter/__init__.py do_inform | inform.py <module>
                         ////////////////////////////////
 
                         l.60 :

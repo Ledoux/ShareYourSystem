@@ -20,7 +20,7 @@ SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
-from ShareYourSystem.Databasers import Modeler
+from ShareYourSystem.Modelers import Modeler
 from ShareYourSystem.Noders import Noder
 import operator
 #</ImportSpecificModules>
@@ -113,7 +113,7 @@ class OrganizerClass(BaseClass):
 		'''
 
 		#import
-		from ShareYourSystem.Databasers import Hierarchizer
+		from ShareYourSystem.Modelers import Hierarchizer
 
 		#Set a parameters and a results database
 		self.push(
@@ -123,9 +123,9 @@ class OrganizerClass(BaseClass):
 						Hierarchizer.HierarchizerClass().update(
 							[
 								(
-									'Attr_ModelingSealTuplesList',
+									'Attr_DatabasingSealTuplesList',
 									map(
-										Modeler.getModelingColumnTupleWithGetKeyStr,
+										Modeler.getDatabasingColumnTupleWithGetKeyStr,
 										self.OrganizingInKeyStrsList
 									)
 								),
@@ -145,9 +145,9 @@ class OrganizerClass(BaseClass):
 						Hierarchizer.HierarchizerClass().update(
 							[
 								(
-									'Attr_ModelingSealTuplesList',
+									'Attr_DatabasingSealTuplesList',
 									map(
-										Modeler.getModelingColumnTupleWithGetKeyStr,
+										Modeler.getDatabasingColumnTupleWithGetKeyStr,
 										self.OrganizingOutKeyStrsList
 									)
 								),

@@ -286,7 +286,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 Applyier/__init__.py do_apply | Mapper/__init__.py do_map | Adder/__init__.py
 do_add | Adder/__init__.py __add__ | site-packages/six.py exec_ |
 Celler/__init__.py do_cell | Notebooker/__init__.py do_notebook |
-Informer/__init__.py do_inform | inform.py <module>
+Documenter/__init__.py do_inform | inform.py <module>
                                             ////////////////////////////////
 
                                             l.138 :
@@ -311,7 +311,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 Applyier/__init__.py do_apply | Mapper/__init__.py do_map | Adder/__init__.py
 do_add | Adder/__init__.py __add__ | site-packages/six.py exec_ |
 Celler/__init__.py do_cell | Notebooker/__init__.py do_notebook |
-Informer/__init__.py do_inform | inform.py <module>
+Documenter/__init__.py do_inform | inform.py <module>
                                             ////////////////////////////////
 
                                             l.138 :
@@ -336,7 +336,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 Applyier/__init__.py do_apply | Mapper/__init__.py do_map | Adder/__init__.py
 do_add | Adder/__init__.py __add__ | site-packages/six.py exec_ |
 Celler/__init__.py do_cell | Notebooker/__init__.py do_notebook |
-Informer/__init__.py do_inform | inform.py <module>
+Documenter/__init__.py do_inform | inform.py <module>
                                             ////////////////////////////////
 
                                             l.138 :
@@ -361,7 +361,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 Applyier/__init__.py do_apply | Mapper/__init__.py do_map | Adder/__init__.py
 do_add | Adder/__init__.py __add__ | site-packages/six.py exec_ |
 Celler/__init__.py do_cell | Notebooker/__init__.py do_notebook |
-Informer/__init__.py do_inform | inform.py <module>
+Documenter/__init__.py do_inform | inform.py <module>
                                             ////////////////////////////////
 
                                             l.138 :

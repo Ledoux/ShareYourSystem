@@ -10,7 +10,7 @@ FrozenIsBool False
 
 
 > 
-> The Documenter export in the mkdoc the readme of a Module 
+> The Documenter
 > 
 > 
 

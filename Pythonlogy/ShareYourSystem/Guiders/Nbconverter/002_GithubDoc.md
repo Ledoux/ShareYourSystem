@@ -210,7 +210,7 @@ class NbconverterClass(BaseClass):
 
 
 			#chunk
-			InformedOldChunkStrsList=SYS.chunk(
+			DocumentedOldChunkStrsList=SYS.chunk(
 						['<code class="language-python">','</code>'],
 						self.LoadedReadVariable,
 						**{'ChunksInt':"All"}
@@ -220,21 +220,21 @@ class NbconverterClass(BaseClass):
 			'''
 			self.debug(
 						[
-							'self.InformedOldChunkStrsList is ',
-							str(InformedOldChunkStrsList)
+							'self.DocumentedOldChunkStrsList is ',
+							str(DocumentedOldChunkStrsList)
 						]
 					)
 			'''
 			
 			#map
-			InformedNewChunkStrsList=copy.deepcopy(InformedOldChunkStrsList)
+			DocumentedNewChunkStrsList=copy.deepcopy(DocumentedOldChunkStrsList)
 			map(
 					lambda __ChunkStr,__ChunkIndexInt:
 					map(
 							lambda __RemoveStr:
-							 InformedNewChunkStrsList.__setitem__(
+							 DocumentedNewChunkStrsList.__setitem__(
 							 	__ChunkIndexInt,
-							 	InformedNewChunkStrsList[__ChunkIndexInt].replace(
+							 	DocumentedNewChunkStrsList[__ChunkIndexInt].replace(
 									__RemoveStr,
 									''
 								)
@@ -262,29 +262,29 @@ class NbconverterClass(BaseClass):
 									]
 							)+['</span>']
 					),
-					InformedOldChunkStrsList,
-					xrange(len(InformedOldChunkStrsList))
+					DocumentedOldChunkStrsList,
+					xrange(len(DocumentedOldChunkStrsList))
 				)
 
 			#debug
 			'''
 			self.debug(
 						[
-							'self.InformedNewChunkStrsList is ',
-							str(InformedNewChunkStrsList)
+							'self.DocumentedNewChunkStrsList is ',
+							str(DocumentedNewChunkStrsList)
 						]
 					)
 			'''
 
 			#replace
 			map(
-					lambda __InformedOldChunkStr,__InformedNewChunkStr:
+					lambda __DocumentedOldChunkStr,__DocumentedNewChunkStr:
 					self.__setattr__(
 							'LoadedReadVariable',
-							self.LoadedReadVariable.replace(__InformedOldChunkStr,__InformedNewChunkStr)
+							self.LoadedReadVariable.replace(__DocumentedOldChunkStr,__DocumentedNewChunkStr)
 						),
-					InformedOldChunkStrsList,
-					InformedNewChunkStrsList
+					DocumentedOldChunkStrsList,
+					DocumentedNewChunkStrsList
 				)
 
 			#write

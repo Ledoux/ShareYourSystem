@@ -25,7 +25,7 @@ DoStrsList=["Storer","Store","Storing","Stored"]
 
 #<ImportSpecificModules>
 
-from ShareYourSystem.Databasers import Hierarchizer
+from ShareYourSystem.Modelers import Hierarchizer
 import itertools
 #</ImportSpecificModules>
 

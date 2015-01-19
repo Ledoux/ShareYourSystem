@@ -232,7 +232,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
                             From Attentioner/__init__.py do_attention |
 Connecter/__init__.py do_connect | Networker/__init__.py do_network | site-
 packages/six.py exec_ | Celler/__init__.py do_cell | Notebooker/__init__.py
-do_notebook | Informer/__init__.py do_inform | inform.py <module>
+do_notebook | Documenter/__init__.py do_inform | inform.py <module>
                             ////////////////////////////////
 
                             l.60 :

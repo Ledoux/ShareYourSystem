@@ -205,7 +205,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
                     Deployer/__init__.py do_deploy
                     From Deployer/__init__.py do_deploy | site-packages/six.py
 exec_ | Celler/__init__.py do_cell | Notebooker/__init__.py do_notebook |
-Informer/__init__.py do_inform | inform.py <module>
+Documenter/__init__.py do_inform | inform.py <module>
                     ////////////////////////////////
 
                     l.82 :

@@ -575,7 +575,7 @@ DoStrsTuplesList=[
 	('Structurer','Structure','Structuring','Structured'),
 	('Saver','Save','Saving','Saved'),
 	('Databaser','Database','Databasing','Databased'),
-	('Modeler','Model','Modeling','Modeled'),
+	('Modeler','Model','Databasing','Databased'),
 	('Tabularer','Tabular','Tabularing','Tabulared'),
 	('Tabler','Table','Tabling','Tabled'),
 	('Rower','Row','Rowing','Rowed'),

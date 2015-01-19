@@ -25,7 +25,6 @@ import collections
 import importlib
 import os
 import sys
-#from ShareYourSystem.Functers import Alerter
 #</ImportSpecificModules>
 
 #<DefineClass>
@@ -34,13 +33,12 @@ class HdformaterClass(BaseClass):
 	
 	#Definition
 	RepresentingKeyStrsList=[
-									'HdformatingModuleStr',
-									'HdformatingFileKeyStr',
-									'HdformatedFileVariable',
-									'HdformatedStr'
-								]
+								'HdformatingModuleStr',
+								'HdformatingFileKeyStr',
+								'HdformatedFileVariable',
+								'HdformatedStr'
+							]
 
-	#@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.__init__}]})
 	def default_init(self,
 			_HdformatingModuleStr="tables",
 			_HdformatingFileKeyStr="", 			
@@ -53,16 +51,12 @@ class HdformaterClass(BaseClass):
 		#Call the parent __init__ method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
-	#@Alerter.AlerterClass()		
-	#@Switcher.SwitcherClass()
 	def do_hdformat(self):
 
 		#debug
-		'''
 		self.debug(('self.',self,[
 									'HdformatingFileKeyStr'
 								]))
-		'''
 		
 		#Check
 		if self.HdformatedFileVariable==None:
@@ -114,9 +108,6 @@ class HdformaterClass(BaseClass):
 					#Open the HdformatedFileVariable
 					self.HdformatedFileVariable=sys.modules[self.HdformatingModuleStr].File(
 						self.HdformatedFilePathStr,'r+')
-
-		#Return self
-		#return self
 
 	def hdfview(self):
 
