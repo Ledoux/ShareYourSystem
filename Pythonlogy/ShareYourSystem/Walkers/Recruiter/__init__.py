@@ -20,7 +20,6 @@ SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
-
 from ShareYourSystem.Noders import Noder
 #</ImportSpecificModules>
 
@@ -30,9 +29,9 @@ class RecruiterClass(BaseClass):
 	
 	#Definition
 	RepresentingKeyStrsList=[
-									'RecruitingConcludeConditionTuplesList',
-									'RecruitedFlatCumulateVariablesList'
-								]
+								'RecruitingConcludeConditionTuplesList',
+								'RecruitedFlatCumulateVariablesList'
+							]
 
 	def default_init(self,
 				_RecruitingConcludeConditionTuplesList=None,

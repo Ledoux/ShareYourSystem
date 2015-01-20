@@ -64,6 +64,8 @@ ConceptStrsTuplesList=[
 	('Databaser','Databasers'),
 	('Ploter','Ploters'),
 	('Tutorials','Tutorials'),
+	('Brianer','Brianers'),
+	('Neuroner','Neuroners'),
 	('Simulater','Simulaters'),
 	('Muziker','Muzikers')
 ]
@@ -807,6 +809,43 @@ def getProcessIdStrsListWithProcessNameStr(_ProcessNameStr):
 
 def setGUI(*_LiargVariablesList):
 	from ShareYourSystem.Controllers import Systemer
+
+def lib():
+
+	#open
+	SetupFile=open(PythonlogyLocalFolderPathStr+"setup.py",'r')
+
+	#chunk
+	InstalledPackageStr=chunk(
+			['packages=[','],'],SetupFile.read()
+		)[0]
+
+	#close
+	SetupFile.close()
+	
+	#filter
+	InstalledTextStrsList=InstalledPackageStr.split('\n')
+	InstalledTextStrListsList=_filter(
+		lambda __InstalledChunkList:
+		len(__InstalledChunkList)>0,
+		map(
+				lambda __InstalledTextStr:
+				chunk(
+					["'ShareYourSystem","',"],
+					__InstalledTextStr
+				),
+				InstalledTextStrsList
+		)
+	)
+
+	#return
+	return map(
+		lambda __InstalledTextStrList:
+		('ShareYourSystem'+__InstalledTextStrList[0])
+		if __InstalledTextStrList[0]!="'"
+		else 'ShareYourSystem',
+		InstalledTextStrListsList
+	)[:-1]
 #</DefineFunctions>
 
 #<DefineLocals>
@@ -814,15 +853,26 @@ SingularStrToPluralStrOrderedDict=dictify(ConceptStrsTuplesList,0,1)
 PluralStrToSingularStrOrderedDict=dictify(ConceptStrsTuplesList,1,0)
 #</DefineLocals>
 
-"""
 #<DefineClass>
 class ShareYourSystem():
 
-	def __init__(self,_Module):
-		self.__dict__['Module']=_Module
+	def __init__(self,_WrapModule):
+
+		#Bind the Module
+		self.__dict__['WrapModule']=_WrapModule
+
+		#Get the library ref
+		_WrapModule.ModuleStrsList=lib()
+		_WrapModule.NameStrsList=map(
+			lambda __ModuleStr:
+			__ModuleStr.split('.')[-1],
+			_WrapModule.ModuleStrsList
+		)
+		_WrapModule.ClassStrsList=map(getClassStrWithNameStr,_WrapModule.NameStrsList)
 
 	def __setattr__(self,_KeyVariable,_ValueVariable):
 		
+		'''
 		#Give it the IdInt
 		if hasattr(_ValueVariable,'IdInt'):
 			_ValueVariable.IdInt=id(_ValueVariable)
@@ -830,15 +880,112 @@ class ShareYourSystem():
 
 		#set
 		self.__dict__[_KeyVariable]=_ValueVariable
+		'''
 
+		#Give it to the Module
+		setattr(
+					self.__dict__['WrapModule'],
+					_KeyVariable,
+					_ValueVariable
+			)
 
 	def __getattr__(self,_KeyVariable):
-		return getattr(self.Module,_KeyVariable)
 
+		#alias
+		WrapModule=self.__dict__['WrapModule']
+
+		#Check for maybe automatically importing submodules
+		if hasattr(WrapModule,_KeyVariable)==False:
+
+			#Debug
+			'''
+			print('SYS l. 889')
+			print('SYS has not this _KeyVariable')
+			print('_KeyVariable is ',_KeyVariable)
+			print('')
+			'''
+
+			#Check for special methods
+			if _KeyVariable in ['_print','_str']:
+				from ShareYourSystem.Classors import Representer
+				return getattr(WrapModule,_KeyVariable)
+
+			#Check
+			elif _KeyVariable.endswith('Class'):
+
+				#Debug
+				'''
+				print('SYS l. 898')
+				print('it looks like a class')
+				print('')
+				'''
+
+				#try
+				try:
+
+					#get
+					ValueModuleStr=WrapModule.ModuleStrsList[
+							WrapModule.ClassStrsList.index(_KeyVariable)
+							]
+
+					#import
+					ValueModule=importlib.import_module(ValueModuleStr)
+
+					#return
+					return getattr(ValueModule,_KeyVariable)
+
+				except:
+					
+					#print
+					'''
+					print('l 941 SYS')
+					print('No _KeyVariable like')
+					print(_KeyVariable)
+					print('')
+					'''
+					
+					#raise
+					raise AttributeError
+
+			#Check for a module call
+			else:
+
+				#try
+				try:
+
+					#get
+					ValueModuleStr=WrapModule.ModuleStrsList[
+							WrapModule.NameStrsList.index(_KeyVariable)
+							]
+
+					#import
+					ValueModule=importlib.import_module(ValueModuleStr)
+
+					#return
+					return ValueModule
+
+				except:
+
+					#print
+					'''
+					print('l 968 SYS')
+					print('No _KeyVariable like')
+					print(_KeyVariable)
+					print('')
+					'''
+
+					#raise
+					raise AttributeError
+
+		else:
+
+			#return 
+			return getattr(WrapModule,_KeyVariable)
+
+#set
 sys.modules[__name__]=ShareYourSystem(sys.modules[__name__])
-#sys.modules['__main__'].ShareYourSystem=ShareYourSystem(sys.modules[__name__])
 #</DefineClass>
-"""
+
 
 
 

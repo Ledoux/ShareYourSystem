@@ -1,19 +1,18 @@
 
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Itemizers import Pather,Pointer
 
 #Explicit expression
-MyPointer=Pointer.PointerClass().__setitem__(
+MyPointer=SYS.PointerClass().__setitem__(
 		'ChildPather',
-		Pather.PatherClass().__setitem__(
+		SYS.PatherClass().__setitem__(
 			'GrandChildPather',
-			Pather.PatherClass()
-		)
-	).point(
+			SYS.PatherClass()
+			)
+		).point(
 			'/',
 			'/ChildPather/GrandChildPather/GrandParentPointer'
-	)
+		)
 
 #Return
 SYS._attest(

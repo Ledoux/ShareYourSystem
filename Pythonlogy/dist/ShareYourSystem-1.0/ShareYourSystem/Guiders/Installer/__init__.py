@@ -63,30 +63,8 @@ class InstallerClass(BaseClass):
 		)
 
 		#chunk to set the InstalledModuleStrsList
-		InstalledPackageStr=SYS.chunk(
-			['packages=[','],'],self.LoadedReadVariable
-		)[0]
-		InstalledTextStrsList=InstalledPackageStr.split('\n')
-		InstalledTextStrListsList=SYS._filter(
-			lambda __InstalledChunkList:
-			len(__InstalledChunkList)>0,
-			map(
-					lambda __InstalledTextStr:
-					SYS.chunk(
-						["'ShareYourSystem","',"],
-						__InstalledTextStr
-					),
-					InstalledTextStrsList
-			)
-		)
-
-		self.InstallingModuleStrsList=map(
-			lambda __InstalledTextStrList:
-			('ShareYourSystem'+__InstalledTextStrList[0])
-			if __InstalledTextStrList[0]!="'"
-			else 'ShareYourSystem',
-			InstalledTextStrListsList
-		)
+		if len(self.InstallingModuleStrsList)==0:
+			self.InstallingModuleStrsList=SYS.lib()
 
 		#debug
 		'''
@@ -111,8 +89,4 @@ class InstallerClass(BaseClass):
 					__InstalledModulePathStr.split('/')[-1],
 					self.InstalledModulePathStrsList
 			)
-
-		#Return self
-		#return self
-
 #</DefineClass>

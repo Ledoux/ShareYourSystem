@@ -1,24 +1,23 @@
 
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Walkers import Walker
 
 #Definition a Walker instance with a noded tree
-MyWalker=Walker.WalkerClass().update(
+MyWalker=SYS.WalkerClass().update(
 	[
 		(
-			'<Tree>FirstChildWalker',
+			'<Walkers>FirstChildWalker',
 			Walker.WalkerClass().update(
 				[
 					(
-						'<Tree>GrandChildWalker',
+						'<Walkers>GrandChildWalker',
 						Walker.WalkerClass()
 					)
 				]
 			)
 		),
 		(
-			'<Tree>SecondChildWalker',
+			'<Walkers>SecondChildWalker',
 			Walker.WalkerClass()
 		)
 	]	
@@ -32,7 +31,7 @@ MyWalker.walk(
 					('SwitchingParentBool',False),
 					('parent',{'LiargVariablesList':['Tree']})
 				],
-				'GatherVariablesList':['<Tree>']
+				'GatherVariablesList':['<Walkers>']
 			}
 		)
 

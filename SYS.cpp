@@ -59,6 +59,12 @@ int main( int argc, char *argv[] )
 		{
 			system("cd /Users/ledoux/Documents/ShareYourSystem/ShareYourGUIstem;meteor");
 		}
+
+		else if(InputStr == "docs")
+		{
+			system("cd /Users/ledoux/Documents/ShareYourSystem;mkdocs serve&");
+			system("cd /Applications/Firefox.app/Contents/MacOS/;./firefox -new-window 127.0.0.1:8000");
+		}
 	}
 	else
 	{

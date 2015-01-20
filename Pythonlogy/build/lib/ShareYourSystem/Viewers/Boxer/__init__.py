@@ -28,9 +28,19 @@ class BoxerClass(BaseClass):
 	
 	#Definition 
 	RepresentingKeyStrsList=[
+								'BoxingInitWidthInt',
+								'BoxingInitHeigthInt',
+								'BoxedWidthInt',
+								'BoxedHeigthInt',
 							]
 
 	def default_init(self, 
+						_BoxingInitWidthInt=400,
+						_BoxingInitHeigthInt=100,
+						_BoxingStepWidthInt=10,
+						_BoxingStepHeightInt=10,
+						_BoxedWidthInt=0,
+						_BoxedHeigthInt=0,
 						**_KwargVariablesDict
 				):
 
@@ -42,9 +52,18 @@ class BoxerClass(BaseClass):
 		#parent first
 		self.parent(['MeteoredConcurrentDDPClientVariable'])
 
+		#debug
+		self.debug(('self.',self,['ParentedGrandParentVariablesList']))
+
 		#insert  box
 		self.MeteoredConcurrentDDPClientVariable.call(
-				'control','boxes','insert',{'x':400,'y':100}
+				'control',
+				'boxes',
+				'insert',
+				{
+					'x':self.BoxingInitWidthInt,
+					'y':self.BoxingInitHeigthInt
+				}
 			)
 
 #</DefineClass>

@@ -16,7 +16,7 @@ of the pointers and the pathStrs.
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Applyiers.Commander"
+BaseModuleStr="ShareYourSystem.Itemizers.Commander"
 DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>

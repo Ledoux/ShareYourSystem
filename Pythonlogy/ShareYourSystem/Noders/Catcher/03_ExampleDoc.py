@@ -1,19 +1,17 @@
 
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Applyiers import Producer
-from ShareYourSystem.Noders import Catcher
 
 #Definition of an instance
-MyProducer=Producer.ProducerClass().produce(
+MyProducer=SYS.ProducerClass().produce(
+			"Catchers",
 			['First','Second'],
-			Catcher.CatcherClass,
-			**{'CollectingCollectionStr':"Pointome"}
+			SYS.CatcherClass,
 		)
 
 #point
-MyProducer['<Pointome>FirstCatcher'].grasp(
-			'/NodePointDeriveNoder/<Pointome>SecondCatcher'
+MyProducer['<Catchers>FirstCatcher'].grasp(
+			'/NodePointDeriveNoder/<Catchers>SecondCatcher'
 		).catch(
 			_PointBackSetStr='MyBackVariable',
 			**{

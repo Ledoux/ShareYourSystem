@@ -17,7 +17,9 @@
         </td>
 
   		  <td width="50%">
-				  {{> Patch}}
+          {{#each patches}}
+				    {{> Patch}}
+          {{/each}}
 			  </td>
 		  
       </tr>

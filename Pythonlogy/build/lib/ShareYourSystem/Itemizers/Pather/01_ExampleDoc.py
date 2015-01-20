@@ -1,11 +1,16 @@
 
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Itemizers import Pather
 
 #Explicit expression
-MyPather=Pather.PatherClass().__setitem__('MyStr','I am the parent')
-MyPather.__setitem__('ChildPather',Pather.PatherClass())
+MyPather=SYS.PatherClass().__setitem__(
+	'MyStr',
+	'I am the parent'
+	)
+MyPather.__setitem__(
+	'ChildPather',
+	SYS.PatherClass()
+	)
 
 #set with a deep short Str
 MyPather.__setitem__(
@@ -16,19 +21,19 @@ MyPather.__setitem__(
 #set with a deep deep short Str
 MyPather.__setitem__(
 	'/ChildPather/GrandChildPather',
-	Pather.PatherClass()
+	SYS.PatherClass()
 )
 
 #set with a deep short Str
 MyPather.__setitem__(
 	'/OtherChildPather',
-	Pather.PatherClass().__setitem__('MyInt',3)
+	SYS.PatherClass().__setitem__('MyInt',3)
 )
 
 #set with a deep short Str
 MyPather.__setitem__(
 	'/OtherChildPather',
-	Pather.PatherClass().__setitem__('MyInt',4)
+	SYS.PatherClass().__setitem__('MyInt',4)
 )
 
 #'/' gets the self

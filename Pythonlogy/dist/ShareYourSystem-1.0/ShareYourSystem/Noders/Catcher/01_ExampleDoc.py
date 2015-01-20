@@ -1,37 +1,35 @@
 
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Applyiers import Producer
-from ShareYourSystem.Noders import Catcher
 
 #Definition of an instance
-MyProducer=Producer.ProducerClass().produce(
+MyProducer=SYS.ProducerClass().produce(
+	"Catchers",
 	['First','Second','Third','Four'],
-	Catcher.CatcherClass,
-	**{'CollectingCollectionStr':"Pointome"}
+	SYS.CatcherClass,
 )
 
 #Catch with a relative path 
-MyProducer['<Pointome>FirstCatcher'].grasp(
-		'/NodePointDeriveNoder/<Pointome>SecondCatcher'
+MyProducer['<Catchers>FirstCatcher'].grasp(
+		'/NodePointDeriveNoder/<Catchers>SecondCatcher'
 	).catch(
 		'Relatome',
 		{'MyStr':"hello"}
 	)
 
 #Catch with a direct catch
-MyProducer['<Pointome>FirstCatcher'].grasp(
-		MyProducer['<Pointome>ThirdCatcher']
+MyProducer['<Catchers>FirstCatcher'].grasp(
+		MyProducer['<Catchers>ThirdCatcher']
 	).catch(
 		'Relatome',
 		{'MyInt':3}
 )
 
 #Catch with a CatchDict
-MyProducer['<Pointome>FirstCatcher'].grasp(
+MyProducer['<Catchers>FirstCatcher'].grasp(
 	SYS.GraspDictClass(
 		**{
-		'HintVariable':'/NodePointDeriveNoder/<Pointome>FourCatcher',
+		'HintVariable':'/NodePointDeriveNoder/<Catchers>FourCatcher',
 		'MyFloat':5.5
 		}
 	)

@@ -29,13 +29,13 @@ class SynapserClass(BaseClass):
 	#Definition
 	RepresentingKeyStrsList=[
 									'SynapsingKwargVariablesDict',
-									'SynapsingProbabilityFloat',
+									'SynapsingProbabilityVariable',
 									'SynapsedBrianVariable'
 							]
 
 	def default_init(self,
 						_SynapsingKwargVariablesDict=None,
-						_SynapsingProbabilityFloat=0.,
+						_SynapsingProbabilityVariable=None,
 						_SynapsedBrianVariable=None,
 						**_KwargVariablesDict
 					):
@@ -51,9 +51,14 @@ class SynapserClass(BaseClass):
 		#Maybe should import
 		import brian2
 
-		#set
-		self.SynapsedBrianVariable=brian2.Synapses(**self.SynapsingKwargVariablesDict)
+		#init
+		self.SynapsedBrianVariable=brian2.Synapses(
+			**self.SynapsingKwargVariablesDict
+			)
 
+		#connect
+		if type(self.SynapsingProbabilityVariable)==float:
+			self.SynapsedBrianVariable.connect(True,p=self.SynapsingProbabilityVariable)
 
 
 #</DefineClass>

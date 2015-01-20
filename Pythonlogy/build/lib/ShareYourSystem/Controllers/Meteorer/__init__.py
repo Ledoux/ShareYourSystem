@@ -62,7 +62,7 @@ class MeteorerClass(BaseClass):
 		#Do the connection
 		self.MeteoredConcurrentDDPClientVariable = ddp.ConcurrentDDPClient(self.MeteoringSocketStr)
 		self.MeteoredConcurrentDDPClientVariable.start()
-
+		
 		#Init
 		self.MeteoredHtmlStr=""
 

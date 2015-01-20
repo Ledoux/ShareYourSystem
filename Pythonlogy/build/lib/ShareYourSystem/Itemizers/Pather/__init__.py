@@ -15,7 +15,7 @@ the PathingPrefixStr
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Itemizers.Restricter"
+BaseModuleStr="ShareYourSystem.Itemizers.Attributer"
 DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>

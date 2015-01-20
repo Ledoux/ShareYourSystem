@@ -1,11 +1,9 @@
 
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Classors import Attester
-from ShareYourSystem.Itemizers import Executer
 
 #Definition and update with an exec Str
-MyExecuter=Executer.ExecuterClass()
+MyExecuter=SYS.ExecuterClass()
 
 MySecondInt=MyExecuter.__setitem__(
 	'MySecondInt',

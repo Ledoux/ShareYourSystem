@@ -687,6 +687,7 @@ DoStrsTuplesList=[
 	('Organizer','Organize','Organizing','Organized'),
 	('Neuroner','Neuron','Neuroning','Neuroned'),
 	('Lifer','Lif','Lifing','Lifed'),
+	('Neurongrouper','Neurongroup','Neurongrouping','Neurongrouped'),
 	('Synapser','Synapse','Synapsing','Synapsed'),
 	('Grasper','Grasp','Grasping','Grasped'),
 	('Meteorer','Meteor','Meteoring','Meteored'),

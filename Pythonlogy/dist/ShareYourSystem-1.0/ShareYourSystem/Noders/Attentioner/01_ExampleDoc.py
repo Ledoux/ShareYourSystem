@@ -1,19 +1,17 @@
 
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Applyiers import Producer
-from ShareYourSystem.Noders import Attentioner
 
 #Definition of an instance
-MyProducer=Producer.ProducerClass().produce(
+MyProducer=SYS.ProducerClass().produce(
+			"Attentioners",
 			['First','Second'],
-			Attentioner.AttentionerClass,
-			**{'CollectingCollectionStr':"Pointome"}
+			SYS.AttentionerClass,
 		)
 
 #attention
-MyProducer['<Pointome>FirstAttentioner'].grasp(
-		'/NodePointDeriveNoder/<Pointome>SecondAttentioner'
+MyProducer['<Attentioners>FirstAttentioner'].grasp(
+		'/NodePointDeriveNoder/<Attentioners>SecondAttentioner'
 	).attention(
 		'BackRelatome'
 	)

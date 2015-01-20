@@ -1,18 +1,17 @@
 
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Noders import Noder,Collecter
 
 #Definition of an instance
-MyCollecter=Collecter.CollecterClass().collect(
-	'Nodome',
-	'First',
-	Noder.NoderClass()
-).collect(
-	'Nodome',
-	'Second',
-	Noder.NoderClass()
-)
+MyCollecter=SYS.CollecterClass().collect(
+		'Nodome',
+		'First',
+		SYS.NoderClass()
+	).collect(
+		'Nodome',
+		'Second',
+		SYS.NoderClass()
+	)
 
 #Definition the AttestedStr
 SYS._attest(

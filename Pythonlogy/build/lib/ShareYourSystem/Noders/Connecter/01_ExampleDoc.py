@@ -1,21 +1,19 @@
 
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Applyiers import Producer
-from ShareYourSystem.Noders import Connecter
 
 #Definition of an instance
-MyProducer=Producer.ProducerClass().produce(
+MyProducer=SYS.ProducerClass().produce(
+			"Connecters",
 			['First','Second'],
-			Connecter.ConnecterClass,
-			**{'CollectingCollectionStr':"Connectome"}
+			SYS.ConnecterClass
 		)
 
 #connect
-MyProducer['<Connectome>FirstConnecter'].connect(
+MyProducer['<Connecters>FirstConnecter'].connect(
 	[
-		'/NodePointDeriveNoder/<Connectome>SecondConnecter',
-		SYS.GraspDictClass(**{'MyInt':0,'HintVariable':MyProducer['<Connectome>FirstConnecter']})
+		'/NodePointDeriveNoder/<Connecters>SecondConnecter',
+		SYS.GraspDictClass(**{'MyInt':0,'HintVariable':MyProducer['<Connecters>FirstConnecter']})
 	],
 	**{
 		'CatchingCollectionStr':"PostRelatome",

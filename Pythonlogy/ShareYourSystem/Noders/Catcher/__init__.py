@@ -13,7 +13,7 @@ Catcher instances grasps a Variable, sets a Pointer on it that will be then coll
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Applyiers.Producer"
+BaseModuleStr="ShareYourSystem.Noders.Producer"
 DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -170,8 +170,6 @@ class CatcherClass(BaseClass):
 			self.CatchedNodeKeyStr,
 			self.CatchedDerivePointerVariable
 		)
-
-		
 
 		#set
 		self.CatchedDerivePointerVariable.update(

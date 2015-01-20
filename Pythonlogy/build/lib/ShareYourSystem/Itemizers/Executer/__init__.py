@@ -13,7 +13,7 @@ An Executer can exec commands with the six.exec_ function
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Itemizers.Sharer"
+BaseModuleStr="ShareYourSystem.Itemizers.Grasper"
 DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -42,8 +42,6 @@ class ExecuterClass(BaseClass):
 		#Call the parent __init__ method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
-	#<Hook>@Hooker.HookerClass(**{'HookingBeforeCallingDictsList':[BaseClass.get]})
-	#@Imitater.ImitaterClass()
 	def mimic_get(self):
 
 		#Check
@@ -69,8 +67,6 @@ class ExecuterClass(BaseClass):
 		#Call the parent get method
 		return BaseClass.get(self)
 
-	#<Hook>@Hooker.HookerClass(**{'HookingBeforeCallingDictsList':[BaseClass.set]})
-	#@Imitater.ImitaterClass()
 	def mimic_set(self):
 
 		#Check
@@ -98,13 +94,15 @@ class ExecuterClass(BaseClass):
 		#Call the parent get method
 		BaseClass.set(self)
 
-
 	def do_execute(self):
 
+		#debug
+		'''
+		self.debug(('self.',self,['ExecutingPrefixStr']))
+		'''
+		
 		#Execute
 		six.exec_(self.ExecutingPrefixStr,locals())
 
-		#Return self
-		#return self
 
 #</DefineClass>

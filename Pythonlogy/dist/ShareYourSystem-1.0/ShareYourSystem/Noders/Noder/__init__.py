@@ -17,7 +17,7 @@ arborescent and (possibly circular) structures of objects.
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Applyiers.Filterer"
+BaseModuleStr="ShareYourSystem.Itemizers.Filterer"
 DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -39,12 +39,12 @@ class NoderClass(BaseClass):
 
 	#Definition
 	RepresentingKeyStrsList=[
-									'NodingCollectionStr',
-									'NodedCollectionOrderedDict',
-									'NodedCollectionStr',
-									'NodedKeyStr',
-									'NodedCollectionIndexInt'
-								]
+								'NodingCollectionStr',
+								'NodedCollectionOrderedDict',
+								'NodedCollectionStr',
+								'NodedKeyStr',
+								'NodedCollectionIndexInt'
+							]
 
 	def default_init(self,
 				_NodingCollectionStr="",							

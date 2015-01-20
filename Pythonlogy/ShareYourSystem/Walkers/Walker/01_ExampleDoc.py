@@ -1,40 +1,39 @@
 
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Walkers import Walker
 
 #Definition a Walker instance with a noded tree
-MyWalker=Walker.WalkerClass().update(
+MyWalker=SYS.WalkerClass().update(
 	[
 		(
-			'<Tree>FirstChildWalker',
-			Walker.WalkerClass().update(
+			'<Walkers>FirstChildWalker',
+			SYS.WalkerClass().update(
 				[
 					(
-						'<Tree>GrandChildWalker',
-						Walker.WalkerClass()
+						'<Walkers>GrandChildWalker',
+						SYS.WalkerClass()
 					)
 				]
 			)
 		),
 		(
-			'<Tree>SecondChildWalker',
-			Walker.WalkerClass()
+			'<Walkers>SecondChildWalker',
+			SYS.WalkerClass()
 		)
 	]	
 )
 
 #Walk inside the Tree in order to parent again because the tree was not yet completely setted when it was done
 MyWalker.walk(
-			{
-				'BeforeUpdateList':
-				[
-					('SwitchingParentBool',False),
-					('parent',{'LiargVariablesList':['Tree']})
-				],
-				'GatherVariablesList':['<Tree>']
-			}
-		)
+		{
+			'BeforeUpdateList':
+			[
+				('SwitchingParentBool',False),
+				('parent',{'LiargVariablesList':[]})
+			],
+			'GatherVariablesList':['<Walkers>']
+		}
+	)
 
 
 #Definition the AttestedStr

@@ -38,7 +38,6 @@ class CollecterClass(BaseClass):
 									'CollectedSetKeyStr'
 								]
 
-	#@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.__init__}]})
 	def default_init(self,
 						_CollectingCollectionStr="",
 						_CollectingNodeKeyStr="",
@@ -57,12 +56,12 @@ class CollecterClass(BaseClass):
 		#debug
 		'''
 		self.debug(('self.',self,[
+						'CollectingNodeVariable'
 						'CollectingCollectionStr',
 						'CollectingNodeKeyStr',
-						'CollectingNodeVariable'
 					]))
 		'''
-		
+
 		#Set
 		self.CollectedGetStr=Noder.NodingPrefixGetStr+self.CollectingCollectionStr+Noder.NodingSuffixGetStr
 

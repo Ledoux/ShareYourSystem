@@ -14,7 +14,7 @@ A Pointer
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Applyiers.Updater"
+BaseModuleStr="ShareYourSystem.Itemizers.Updater"
 DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>

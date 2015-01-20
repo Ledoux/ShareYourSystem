@@ -1,15 +1,12 @@
 
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Classors import Classer
-from ShareYourSystem.Controllers import Controller
-from ShareYourSystem.Modelers import Flusher,Joiner
 import tables
 import operator
 
 #Define a Sumer class
-@Classer.ClasserClass()
-class SumerClass(Controller.ControllerClass):
+@SYS.ClasserClass()
+class SumerClass(SYS.ControllerClass):
 
 	#Definition
 	RepresentingKeyStrsList=[
@@ -42,13 +39,13 @@ class SumerClass(Controller.ControllerClass):
 MySumer=SumerClass(
 		**{
 				'HdformatingFileKeyStr':'Sums_1.hdf5',
-				'FolderingPathStr':Joiner.LocalFolderPathStr
+				'FolderingPathStr':SYS.Joiner.LocalFolderPathStr
 			}
 	).push(
 		[
 			(
 				"Parameters",
-				Joiner.JoinerClass().update(
+				SYS.JoinerClass().update(
 					[
 						(
 							'Attr_DatabasingSealTuplesList',
@@ -63,7 +60,7 @@ MySumer=SumerClass(
 			),
 			(
 				"Results",
-				Joiner.JoinerClass().update(
+				SYS.JoinerClass().update(
 					[
 						(
 							'Attr_DatabasingSealTuplesList',
@@ -89,7 +86,7 @@ MySumer=SumerClass(
 			'RecruitingConcludeConditionTuplesList':[
 				(
 					'__class__.__mro__',
-					operator.contains,Joiner.JoinerClass
+					operator.contains,SYS.JoinerClass
 				)
 			]
 		}

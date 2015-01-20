@@ -1,16 +1,15 @@
 
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Noders import Noder
 		
 #Definition of a Noder instance
-MyNoder=Noder.NoderClass()
+MyNoder=SYS.NoderClass()
 
 #Short expression for setting in the appended manner a structured object
-MyNoder['<Nodome>FirstChildNoder']=Noder.NoderClass()
+MyNoder['<Noders>FirstChildNoder']=SYS.NoderClass()
 
 #Short expression for setting in the appended manner a structured object
-MyNoder['<Nodome>SecondChildNoder']=Noder.NoderClass()
+MyNoder['<Noders>SecondChildNoder']=SYS.NoderClass()
 
 #Definition the AttestedStr
 SYS._attest(

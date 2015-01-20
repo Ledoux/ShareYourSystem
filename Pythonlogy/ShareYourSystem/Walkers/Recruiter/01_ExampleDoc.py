@@ -1,30 +1,29 @@
 
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Walkers import Cumulater,Recruiter
 import operator
 
 #Definition a Recruiter instance that is grouped
-MyRecruiter=Recruiter.RecruiterClass().update(
+MyRecruiter=SYS.RecruiterClass().update(
 		[
 			(
-				'<Visitome>FirstChildRecruiter',
-				Recruiter.RecruiterClass().update(
+				'<Recruiters>FirstChildRecruiter',
+				SYS.RecruiterClass().update(
 					[
 						(
-							'<Collectome>GrandChildCumulater',
-							Cumulater.CumulaterClass()
+							'<Cumulaters>GrandChildCumulater',
+							SYS.CumulaterClass()
 						)
 					]
 				)
 			),
 			(
-				'<Visitome>SecondChildRecruiter',
-				Recruiter.RecruiterClass()
+				'<Recruiters>SecondChildRecruiter',
+				SYS.RecruiterClass()
 			),
 			(
-				'<Visitome>ThirdChildRecruiter',
-				Recruiter.RecruiterClass()
+				'<Recruiters>ThirdChildRecruiter',
+				SYS.RecruiterClass()
 			)
 		]	
 	)
@@ -39,7 +38,7 @@ MyRecruiter.recruit(
 			2
 		)
 	],
-	**{'VisitingCollectionStrsList':['Visitome','Collectome']}
+	**{'VisitingCollectionStrsList':['Recruiters','Cumulaters']}
 )
 		
 #Definition the AttestedStr
