@@ -685,12 +685,16 @@ DoStrsTuplesList=[
 	('Transmitter','Transmit','Transmitting','Transmitted'),
 	('Factorizer','Factorize','Factorizing','Factorized'),
 	('Organizer','Organize','Organizing','Organized'),
+	('Neuroner','Neuron','Neuroning','Neuroned'),
 	('Lifer','Lif','Lifing','Lifed'),
+	('Synapser','Synapse','Synapsing','Synapsed'),
 	('Grasper','Grasp','Grasping','Grasped'),
 	('Meteorer','Meteor','Meteoring','Meteored'),
 	('Viewer','View','Viewing','Viewed'),
 	('Boxer','Box','Boxing','Boxed'),
-	('Consoler','Console','Consoling','Consoled')
+	('Consoler','Console','Consoling','Consoled'),
+	('Systemer','System','Systeming','Systemed'),
+	('Patcher','Patch','Patching','Patched')
 ]
 
 DoerStrToDoStrOrderedDict=SYS.dictify(DoStrsTuplesList,0,1)

@@ -1,11 +1,17 @@
-<template name="welcome">
-  <p>
-    Welcome to the example chat app!
-  </p>
+<template name="Chat">
+	<table heigth=100px>
+		<tr heigth=20% style="border-bottom:1pt solid black;">
+			<br>
+			{{>input}}
+		</tr>
+		<tr heigth=80%>
+			{{>messages}}
+		</tr>
+	</table>
 </template>
 
 <template name="messages">
-	Messages are :
+	Messages are : <br>
   {{#each messages}}
     <strong>{{name}}:</strong> {{message}}<br>
   {{/each}}

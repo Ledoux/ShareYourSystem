@@ -34,12 +34,12 @@ int main( int argc, char *argv[] )
 		//Check
 		if(InputStr == "pythonlogize")
 		{
-			system("cd Pythonlogy;sudo sh install.sh");
+			system("cd /Users/ledoux/Documents/ShareYourSystem/Pythonlogy;sudo sh install.sh");
 		}
 
 		else if(InputStr == "document")
 		{
-			system("python document.py");
+			system("python /Users/ledoux/Documents/ShareYourSystem/Pythonlogy/document.py");
 		}
 
 		else if(InputStr == "GUI")
@@ -48,11 +48,16 @@ int main( int argc, char *argv[] )
 			//Check
 			if(OptionStr == "local")
 			{
-				system("shellinaboxd -s /:LOGIN&");
+				system("sudo shellinaboxd&");
 			}
 
 			//call the GUI.ipynb
-			system("cd ShareYourGUIstem;ipython notebook GUI.ipynb");
+			system("cd /Users/ledoux/Documents/ShareYourSystem/ShareYourGUIstem;ipython notebook GUI.ipynb");
+		}
+
+		else if(InputStr == "meteor")
+		{
+			system("cd /Users/ledoux/Documents/ShareYourSystem/ShareYourGUIstem;meteor");
 		}
 	}
 	else

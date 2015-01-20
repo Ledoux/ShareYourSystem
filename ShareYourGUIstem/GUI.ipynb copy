@@ -1,0 +1,140 @@
+{
+ "metadata": {
+  "name": "",
+  "signature": "sha256:b777955e07243c879258f6930c66c88498ee535a9c6ab3437c5220716614dd4a"
+ },
+ "nbformat": 3,
+ "nbformat_minor": 0,
+ "worksheets": [
+  {
+   "cells": [
+    {
+     "cell_type": "code",
+     "collapsed": false,
+     "input": [
+      "import ShareYourSystem as SYS\n",
+      "SYS.setGUI()\n",
+      "ServerConsoler=SYS.ConsolerClass().console(1050,100)"
+     ],
+     "language": "python",
+     "metadata": {},
+     "outputs": [
+      {
+       "html": [
+        "<h1>Server-side</h1><iframe id=\"Server\" width=\"1050\" height=\"100\" src=\"http://127.0.0.1:4200\" frameborder=\"1\"></iframe>"
+       ],
+       "metadata": {},
+       "output_type": "display_data",
+       "text": [
+        "<IPython.core.display.HTML at 0x110c6d450>"
+       ]
+      }
+     ],
+     "prompt_number": 1
+    },
+    {
+     "cell_type": "code",
+     "collapsed": false,
+     "input": [
+      "import ShareYourSystem as SYS\n",
+      "SYS.setGUI()\n",
+      "MySystemer=SYS.SystemerClass().meteor(1050,400)"
+     ],
+     "language": "python",
+     "metadata": {},
+     "outputs": [
+      {
+       "html": [
+        "<h1>Client-side</h1><iframe id=\"Client\" width=\"1050\" height=\"400\" src=\"http://127.0.0.1:3000\" frameborder=\"1\"></iframe>"
+       ],
+       "metadata": {},
+       "output_type": "display_data",
+       "text": [
+        "<IPython.core.display.HTML at 0x1125cb190>"
+       ]
+      }
+     ],
+     "prompt_number": 6
+    },
+    {
+     "cell_type": "code",
+     "collapsed": false,
+     "input": [
+      "MySystemer.system('control','boxes','insert',{'name':\"MyBox\"});"
+     ],
+     "language": "python",
+     "metadata": {},
+     "outputs": [
+      {
+       "metadata": {},
+       "output_type": "pyout",
+       "prompt_number": 9,
+       "text": [
+        "< (SystemerClass), 4585501584>\n",
+        "   /{ \n",
+        "   /  '<New><Instance>IdInt' : 4585501584\n",
+        "   /  '<New><Instance>NewtorkAttentionStr' : \n",
+        "   /  '<New><Instance>NewtorkCatchStr' : \n",
+        "   /  '<New><Instance>NewtorkCollectionStr' : \n",
+        "   /  '<New><Instance>NodeCollectionStr' : Globals\n",
+        "   /  '<New><Instance>NodeIndexInt' : -1\n",
+        "   /  '<New><Instance>NodeKeyStr' : TopSystemer\n",
+        "   /  '<New><Instance>NodePointDeriveNoder' : None\n",
+        "   /  '<New><Instance>NodePointOrderedDict' : None\n",
+        "   /  '<New><Instance>RepresentomeCollectionOrderedDict' : \n",
+        "   /   /{ \n",
+        "   /   /  'InstanceBoxer' : < (BoxerClass), 4594319184>\n",
+        "   /   /   /{ \n",
+        "   /   /   /  '<New><Instance>IdInt' : 4594319184\n",
+        "   /   /   /  '<New><Instance>NewtorkAttentionStr' : \n",
+        "   /   /   /  '<New><Instance>NewtorkCatchStr' : \n",
+        "   /   /   /  '<New><Instance>NewtorkCollectionStr' : \n",
+        "   /   /   /  '<New><Instance>NodeCollectionStr' : Representome\n",
+        "   /   /   /  '<New><Instance>NodeIndexInt' : 0\n",
+        "   /   /   /  '<New><Instance>NodeKeyStr' : InstanceBoxer\n",
+        "   /   /   /  '<New><Instance>NodePointDeriveNoder' : < (SystemerClass), 4585501584>\n",
+        "   /   /   /   /{ \n",
+        "   /   /   /   /  '<New><Instance>IdInt' : 4585501584\n",
+        "   /   /   /   /  '<New><Instance>NewtorkAttentionStr' : \n",
+        "   /   /   /   /  '<New><Instance>NewtorkCatchStr' : \n",
+        "   /   /   /   /  '<New><Instance>NewtorkCollectionStr' : \n",
+        "   /   /   /   /  '<New><Instance>NodeCollectionStr' : Globals\n",
+        "   /   /   /   /  '<New><Instance>NodeIndexInt' : -1\n",
+        "   /   /   /   /  '<New><Instance>NodeKeyStr' : TopSystemer\n",
+        "   /   /   /   /  '<New><Instance>NodePointDeriveNoder' : None\n",
+        "   /   /   /   /  '<New><Instance>NodePointOrderedDict' : None\n",
+        "   /   /   /   /  '<New><Instance>RepresentomeCollectionOrderedDict' : {...}< (OrderedDict), 4576570040>\n",
+        "   /   /   /   /  '<Spe><Instance>SystemingCollectionDict' : \n",
+        "   /   /   /   /   /{ \n",
+        "   /   /   /   /   /  'name' : MyBox\n",
+        "   /   /   /   /   /}\n",
+        "   /   /   /   /  '<Spe><Instance>SystemingHelperMethodStr' : insert\n",
+        "   /   /   /   /  '<Spe><Instance>SystemingServerCollectionStr' : boxes\n",
+        "   /   /   /   /  '<Spe><Instance>SystemingServerMethodStr' : control\n",
+        "   /   /   /   /}\n",
+        "   /   /   /  '<New><Instance>NodePointOrderedDict' : {...}< (OrderedDict), 4576570040>\n",
+        "   /   /   /}\n",
+        "   /   /}\n",
+        "   /  '<Spe><Instance>SystemingCollectionDict' : {...}< (dict), 4576682344>\n",
+        "   /  '<Spe><Instance>SystemingHelperMethodStr' : insert\n",
+        "   /  '<Spe><Instance>SystemingServerCollectionStr' : boxes\n",
+        "   /  '<Spe><Instance>SystemingServerMethodStr' : control\n",
+        "   /}"
+       ]
+      }
+     ],
+     "prompt_number": 9
+    },
+    {
+     "cell_type": "code",
+     "collapsed": false,
+     "input": [],
+     "language": "python",
+     "metadata": {},
+     "outputs": []
+    }
+   ],
+   "metadata": {}
+  }
+ ]
+}

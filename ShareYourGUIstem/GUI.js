@@ -1,6 +1,6 @@
 Messages = new Meteor.Collection('messages');
-
 Boxes = new Meteor.Collection('boxes');
+Connectors = new Meteor.Collection('connectors')
 
 if (Meteor.isClient) {
 

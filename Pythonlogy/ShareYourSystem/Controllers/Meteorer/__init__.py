@@ -20,6 +20,7 @@ SYS.setSubModule(globals())
 
 #<ImportSpecificModules>
 import ddp
+from IPython.display import HTML,display
 #</ImportSpecificModules>
 
 #<DefineClass>
@@ -28,21 +29,23 @@ class MeteorerClass(BaseClass):
 	
 	#Definition 
 	RepresentingKeyStrsList=[
-								'MeteoringSocketStr',
 								'MeteoringWidthInt',
-								'MeteoringHeigthInt',
+								'MeteoringHeightInt',
+								'MeteoringSocketStr',
 								'MeteoredConcurrentDDPClientVariable',
-								'MeteoredUrlStr'
+								'MeteoredUrlStr',
+								'MeteoredHtmlStr',
+								'MeteoredHTMLVariable'
 							]
 
 	def default_init(self,
-						_MeteoringSocketStr='ws://127.0.0.1:3000/websocket',
 						_MeteoringWidthInt=100,
-						_MeteoringHeigthInt=100,
+						_MeteoringHeightInt=100,
+						_MeteoringSocketStr='ws://127.0.0.1:3000/websocket',
 						_MeteoredConcurrentDDPClientVariable=None,
 						_MeteoredUrlStr="",
-						_MeteoredServerStr="",
-						_MeteoredServerHtmlVariable=None,
+						_MeteoredHtmlStr="",
+						_MeteoredHTMLVariable=None,
 						**_KwargVariablesDict
 				):
 
@@ -60,5 +63,28 @@ class MeteorerClass(BaseClass):
 		self.MeteoredConcurrentDDPClientVariable = ddp.ConcurrentDDPClient(self.MeteoringSocketStr)
 		self.MeteoredConcurrentDDPClientVariable.start()
 
+		#Init
+		self.MeteoredHtmlStr=""
+
+		#display
+		self.MeteoredHtmlStr+="<h1>Client-side</h1><iframe id=\"Client\" width=\""+str(self.MeteoringWidthInt
+				)+"\" height=\""+str(self.MeteoringHeightInt
+				)+"\" src=\""+self.MeteoredUrlStr+"\" frameborder=\"1\"></iframe>"
+
+		#debug
+		'''
+		self.debug(('self.',self,[
+									'MeteoringUrlStr',
+									'MeteoringHeightInt',
+									'MeteoringWidthInt',
+									'MeteoredHtmlStr'
+								]))
+		'''
+
+		#Html
+		self.MeteoredHTMLVariable=HTML(self.MeteoredHtmlStr)
+		
+		#display
+		display(self.MeteoredHTMLVariable)
 
 #</DefineClass>

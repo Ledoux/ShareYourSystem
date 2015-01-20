@@ -2,58 +2,63 @@
 #ImportModules
 import ShareYourSystem as SYS
 from ShareYourSystem.Simulaters import Moniter,Populater,Brianer
-import brian
-
-#Set a neuron group
-TotalNeuronGroup=brian.NeuronGroup(
-			4000,
-			'''
-				dv/dt = (ge+gi-(v+49*mV))/(20*ms) : volt
-				dge/dt = -ge/(5*ms) : volt
-				dgi/dt = -gi/(10*ms) : volt
-			''',
-			threshold='v>-50*mV',
-			reset='v=-60*mV'
-		)
-TotalNeuronGroup.v=-60*brian.mV
-TotalSpikeMonitor=brian.SpikeMonitor(TotalNeuronGroup)
+import numpy as np
 
 #Definition
 MyBrianer=Brianer.BrianerClass(
-	).update(
-		{
-			#Set here the global net parameters
-			'StimulatingStepTimeFloat':0.1
-		}
-	).produce(
-		['E','I'],
-		Populater.PopulaterClass,
-		{
-			#Here are the settig of future brian monitors
-			'collect':
+	).collect(
+		'Ratome',
+		'P',
+		Populater.PopulaterClass().update(
 			{
-				'LiargVariablesList':
+				'NeuronGroupKwargDict':
+				{
+					'model':
+					'''
+						Jv : mV
+						dv/dt = -r + np.atanh(Jv) : volt
+					'''
+				},
+
+				'produce':
+				{
+					'LiargVariablesList':
+					[
+						['Rate'],
+						Moniter.MoniterClass,
+						{
+							'MoniteringVariableStr':'v',
+							'MoniteringIndexIntsList':[0,1]
+						}
+					],
+					'KwargVariablesDict':
+					{
+						'CollectingCollectionStr':'Variablome'
+					}
+				},
+
+				'PopulatingUnitsInt':2,
+
+				'ConnectingGraspClueVariablesList':
 				[
-					'Spikome',
-					'Spike',
-					Moniter.MoniterClass()
-				],
+					SYS.GraspDictClass(
+						{
+							'HintVariable':'/NodePointDeriveNoder/<Populatome>PPopulater',
+							'SynapsesKwargVariablesDict':
+							{
+								'model':
+								'''
+									J : 1
+									Jv : mV
+									Jv = J*v_pre : mV
+								'''
+							},
+							'PostVariableStr':'Jv'
+						}
+					)
+				]
 			}
-		},
-		**{'CollectingCollectionStr':'Populatome'}
-	).__setitem__(
-		'Dis_<Populatome>',
-		#Here are defined the brian classic specific arguments for each pop
-		[
-			{
-				'PopulatingUnitsInt':3200,
-				'NeuronGroup':TotalNeuronGroup
-			},
-			{
-				'PopulatingUnitsInt':800,
-				'NeuronGroup':TotalNeuronGroup
-			}
-		]
+		)
 	).brian()
 		
 #Definition the AttestedStr
@@ -69,15 +74,25 @@ SYS._attest(
 	]
 ) 
 
-#SYS._print(MyBrianer.BrianedMonitorsList[0].__dict__)
+#init
+import brian2
+map(
+	lambda __BrianedNeuronGroup:
+	__BrianedNeuronGroup.__setattr__(
+		'v',
+		0*brian2.mV
+	),
+	MyBrianer.BrianedNeuronGroupsList
+)
 
-#SYS._print(
-#	MyBrianer.BrianedNeuronGroupsList[0].__dict__
-#)
+#run
+MyBrianer.run(1000)
 
-#import matplotlib
-#plot(MyBrianer['<Connectome>FirstRater'].)
+#plot
+M=MyBrianer['<Ratome>EPopulater']['<Variablome>RateMoniter'].StateMonitor
+from matplotlib import pyplot
+pyplot.plot(M.t/brian2.ms, M.i, '.')
+pyplot.show()
 
 #Print
-
 

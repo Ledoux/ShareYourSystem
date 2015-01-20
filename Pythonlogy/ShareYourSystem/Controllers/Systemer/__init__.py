@@ -14,7 +14,7 @@ Systemer
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Noders.Grider"
+BaseModuleStr="ShareYourSystem.Controllers.Patcher"
 DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -31,9 +31,17 @@ class SystemerClass(BaseClass):
 	
 	#Definition
 	RepresentingKeyStrsList=[
+								'SystemingServerMethodStr',
+								'SystemingServerCollectionStr',
+								'SystemingHelperMethodStr',
+								'SystemingCollectionDict',
 							]
 
 	def default_init(self,
+						_SystemingServerMethodStr="",
+						_SystemingServerCollectionStr="",
+						_SystemingHelperMethodStr="",
+						_SystemingCollectionDict=None,
 						**_KwargVariablesDict
 					):
 
@@ -42,7 +50,13 @@ class SystemerClass(BaseClass):
 
 	def do_system(self):
 
-		pass
+		#call
+		self.MeteoredConcurrentDDPClientVariable.call(
+				self.SystemingServerMethodStr,
+				self.SystemingServerCollectionStr,
+				self.SystemingHelperMethodStr,
+				self.SystemingCollectionDict
+			)
 		
 		
 #</DefineClass>

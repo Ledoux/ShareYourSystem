@@ -14,7 +14,7 @@ A Boxer
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Meteorers.Meteorer"
+BaseModuleStr="ShareYourSystem.Viewers.Viewer"
 DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -41,5 +41,10 @@ class BoxerClass(BaseClass):
 		
 		#parent first
 		self.parent(['MeteoredConcurrentDDPClientVariable'])
+
+		#insert  box
+		self.MeteoredConcurrentDDPClientVariable.call(
+				'control','boxes','insert',{'x':400,'y':100}
+			)
 
 #</DefineClass>

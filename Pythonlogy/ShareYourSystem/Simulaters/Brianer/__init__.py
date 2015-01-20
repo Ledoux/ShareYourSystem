@@ -26,19 +26,33 @@ import operator
 #</ImportSpecificModules>
 
 #<DefineFunctions>
-'''
-def getStateMonitorWithArgumentVariable(_ArgumentVariable):
-
-	import brian 
-
-	if hasattr(_ArgumentVariable,'items'):
-		brian.SpikeMonitor(
-
-			)
-'''
-
-
 #</DefineFunctions>
+
+#<DefineLocals>
+class BrianSynapseDict(SYS.GraspDictClass):
+
+
+	def __init__(self):
+
+
+		self.update(
+			{
+				'HintVariable':'',
+				'SynapsesKwargVariablesDict':
+				{
+					'model':
+					'''
+						J : 1
+						Jv : mV
+						Jv = J*v_pre : mV
+					'''
+				},
+				'ConnectProbabilityFloat':0.,
+				'PostVariableStrsList':[]
+			}
+		)
+
+#</DefineLocals>
 
 #<DefineClass>
 @DecorationClass(**{
@@ -278,20 +292,35 @@ class BrianerClass(BaseClass):
 				self.NetworkedDerivePointersList
 			)
 
-		#debug
-		'''
-		self.debug(('self.',self,['BrianedSynapsesList']))
-		'''
-
 		#map
-		self.BrianedSynapsesList=map(
+		map(
 				lambda __NetworkedDerivePointer:
+
+				#Do a stochastic connection
 				__NetworkedDerivePointer.Synapses.connect(
 					True,
 					p=__NetworkedDerivePointer.ConnectProbabilityFloat
-				),
+				)
+				if hasattr(__NetworkedDerivePointer,'ConnectProbabilityFloat')
+				else
+
+				#Do a bind with the post variable
+				__NetworkedDerivePointer.CatchToPointVariable.NeuronGroup.__setattr__(
+					__NetworkedDerivePointer.PostVariableStr,
+					getattr(
+							__NetworkedDerivePointer,
+							PostVariableStr
+						)
+				)
+				if hasattr(__NetworkedDerivePointer,'PostVariableStr')
+
+				#Do nothing
+				else None,
 				self.NetworkedDerivePointersList
 			)
+
+		#debug
+		self.debug(('self.',self,['BrianedSynapsesList']))
 
 		#add
 		map(

@@ -1,4 +1,7 @@
 //Build collections
+
+
+//drag function
 var BoxDrag = d3.behavior.drag().on("drag", function(d) {
     var id = $(this).data("id");
     if(id && d3.event.dx !== 0 || d3.event.dy !== 0){
@@ -20,4 +23,3 @@ Template.Box.rendered = function ( ) {
     //attach drag handler
 };
 
-Meteor.Boxes=Boxes

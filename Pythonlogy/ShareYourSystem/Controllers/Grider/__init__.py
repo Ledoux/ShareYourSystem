@@ -14,7 +14,7 @@ Grider instances
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Storers.Storer"
+BaseModuleStr="ShareYourSystem.Controllers.Storer"
 DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>

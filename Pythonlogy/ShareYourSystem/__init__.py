@@ -805,10 +805,8 @@ def getProcessIdStrsListWithProcessNameStr(_ProcessNameStr):
 				)
 			)
 
-def setMVC():
-	from ShareYourSystem.Controllers import Controller
-def setGUI():
-	from ShareYourSystem.Meteorers import Viewer
+def setGUI(*_LiargVariablesList):
+	from ShareYourSystem.Controllers import Systemer
 #</DefineFunctions>
 
 #<DefineLocals>

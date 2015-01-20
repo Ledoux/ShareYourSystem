@@ -81,9 +81,6 @@ class BrianerClass(BaseClass):
 
 	def mimic_run(self):
 
-		#brian first
-		self.brian()
-
 		#parent method
 		BaseClass.run(self)
 
@@ -267,12 +264,7 @@ class BrianerClass(BaseClass):
 		self.debug(('self.',self,['BrianedStateMonitorsList']))
 		'''
 
-		"""
-
-		#debug
-		self.debug(('self.',self,['NetworkedGraphTuplesList']))
-		"""
-
+		#map
 		self.BrianedSynapsesList=map(
 				lambda __NetworkedDerivePointer:
 				__NetworkedDerivePointer.__setitem__(
@@ -286,58 +278,35 @@ class BrianerClass(BaseClass):
 				self.NetworkedDerivePointersList
 			)
 
+		#map
+		map(
+				lambda __NetworkedDerivePointer:
 
+				#Do a stochastic connection
+				__NetworkedDerivePointer.Synapses.connect(
+					True,
+					p=__NetworkedDerivePointer.ConnectProbabilityFloat
+				)
+				if hasattr(__NetworkedDerivePointer,'ConnectProbabilityFloat')
+				else
 
+				#Do a bind with the post variable
+				__NetworkedDerivePointer.CatchToPointVariable.NeuronGroup.__setattr__(
+					__NetworkedDerivePointer.PostVariableStr,
+					getattr(
+							__NetworkedDerivePointer,
+							PostVariableStr
+						)
+				)
+				if hasattr(__NetworkedDerivePointer,'PostVariableStr')
 
-		'''
-		#set connections
-		self.BrianedConnectionsList=map(
-				lambda __ConnectionTuple:
-				map(
-						lambda __ListedVariable:
-						__ConnectionTuple[0].__setitem__(
-							str(
-								(
-									__ConnectionTuple[0].NodeKeyStr,
-									__ListedVariable.NodeKeyStr
-								)
-							)+'Connection',
-							brian.Connection(
-								__ConnectionTuple[0].NeuronGroup,
-								__ListedVariable.NeuronGroup
-							)
-						).SettingValueVariable,
-						__ConnectionTuple[1][0]
-					)+map(
-						lambda __ListedVariable:
-						__ListedVariable.__setitem__(
-							str(
-								(
-									__ListedVariable.NodeKeyStr,
-									__ConnectionTuple[0].NodeKeyStr
-								)
-							)+'Connection',
-							brian.Connection(
-								__ListedVariable.NeuronGroup,
-								__ConnectionTuple[0].NeuronGroup
-							)
-						).SettingValueVariable,
-						__ConnectionTuple[1][1]
-					),
-				self.NetworkedConnectionTuplesList	
+				#Do nothing
+				else None,
+				self.NetworkedDerivePointersList
 			)
-		'''
 
-		"""
 		#debug
-		'''
-		self.debug(('self.',self,['BrianedNeuronGroupsList']))
-		'''
-
-		#alias
-		BrianedNetworkVariable=self.BrianedNetworkVariable
-
-		"""
+		self.debug(('self.',self,['BrianedSynapsesList']))
 
 		#add
 		map(

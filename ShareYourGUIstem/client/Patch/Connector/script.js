@@ -1,6 +1,3 @@
-//Build collection
-var Connectors = new Meteor.Collection(null);//client side only
-
 //helpers for connectors are reactive, so any changes to Boxes redraws connectors also
 Template.Connector.helpers({
     "sourceX":function(){
@@ -29,5 +26,3 @@ Template.Connector.helpers({
     }
 });
 
-//Link
-Meteor.Connectors=Connectors

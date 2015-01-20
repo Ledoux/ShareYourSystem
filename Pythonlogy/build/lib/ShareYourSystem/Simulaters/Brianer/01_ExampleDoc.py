@@ -21,14 +21,17 @@ MyBrianer=Brianer.BrianerClass(
 				'threshold':'v>-50*mV',
 				'reset':'v=-60*mV'
 			},
-			'collect':
+			'produce':
 			{
 				'LiargVariablesList':
 				[
-					'Spikome',
-					'Spike',
-					Moniter.MoniterClass()
-				]
+					['Spike'],
+					Moniter.MoniterClass
+				],
+				'KwargVariablesDict':
+				{
+					'CollectingCollectionStr':'Spikome'
+				}
 			}
 		},
 		**{'CollectingCollectionStr':'Populatome'}
@@ -75,9 +78,6 @@ MyBrianer=Brianer.BrianerClass(
 		]
 	).brian()
 		
-#run
-#MyBrianer.BrianedNetworkVariable.run(1*second)
-
 #Definition the AttestedStr
 SYS._attest(
 	[
@@ -91,9 +91,25 @@ SYS._attest(
 	]
 ) 
 
-#import matplotlib
-#plot(M.t/ms, M.i, '.')
-#show()
+#init
+import brian2
+map(
+	lambda __BrianedNeuronGroup:
+	__BrianedNeuronGroup.__setattr__(
+		'v',
+		-60*brian2.mV
+	),
+	MyBrianer.BrianedNeuronGroupsList
+)
+
+#run
+MyBrianer.run(1000)
+
+#plot
+M=MyBrianer['<Populatome>EPopulater']['<Spikome>SpikeMoniter'].SpikeMonitor
+from matplotlib import pyplot
+pyplot.plot(M.t/brian2.ms, M.i, '.')
+pyplot.show()
 
 #Print
 

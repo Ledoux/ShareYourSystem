@@ -432,6 +432,9 @@ ShareYourSystem/Controllers/Organizer/Presentation.ipynb
 ShareYourSystem/Controllers/Organizer/Readme.ipynb
 ShareYourSystem/Controllers/Organizer/Readme.md
 ShareYourSystem/Controllers/Organizer/__init__.py
+ShareYourSystem/Controllers/Patcher/00_ExampleDoc.md
+ShareYourSystem/Controllers/Patcher/01_ExampleDoc.py
+ShareYourSystem/Controllers/Patcher/__init__.py
 ShareYourSystem/Controllers/Storer/.DS_Store
 ShareYourSystem/Controllers/Storer/001_DocumentDoc.md
 ShareYourSystem/Controllers/Storer/00_ExampleDoc.md
@@ -1648,9 +1651,6 @@ ShareYourSystem/Viewers/__init__.py
 ShareYourSystem/Viewers/Boxer/00_ExampleDoc.md
 ShareYourSystem/Viewers/Boxer/01_ExampleDoc.py
 ShareYourSystem/Viewers/Boxer/__init__.py
-ShareYourSystem/Viewers/Meteorer/00_ExampleDoc.md
-ShareYourSystem/Viewers/Meteorer/01_ExampleDoc.py
-ShareYourSystem/Viewers/Meteorer/__init__.py
 ShareYourSystem/Viewers/Viewer/00_ExampleDoc.md
 ShareYourSystem/Viewers/Viewer/01_ExampleDoc.py
 ShareYourSystem/Viewers/Viewer/__init__.py
