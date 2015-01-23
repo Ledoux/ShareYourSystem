@@ -29,20 +29,26 @@ class BoxerClass(BaseClass):
 	#Definition 
 	RepresentingKeyStrsList=[
 								'BoxingPatchStr',
-								'BoxingInitWidthInt',
-								'BoxingInitHeigthInt',
+								'BoxingXaxisInt',
+								'BoxingYaxisInt',
+								'BoxingWidthInt',
+								'BoxingHeigthInt',
 								'BoxedWidthInt',
 								'BoxedHeigthInt',
+								'BoxedDerivePatcherVariable',
+								'BoxedCollectionsOrderedDict'
 							]
 
 	def default_init(self, 
 						_BoxingPatchStr="",
-						_BoxingInitWidthInt=400,
-						_BoxingInitHeigthInt=100,
-						_BoxingStepWidthInt=10,
-						_BoxingStepHeightInt=10,
+						_BoxingXaxisInt=400,
+						_BoxingYaxisInt=100,
+						_BoxingWidthInt=50,
+						_BoxingHeigthInt=10,
 						_BoxedWidthInt=0,
 						_BoxedHeigthInt=0,
+						_BoxedDerivePatcherVariable=None,
+						_BoxedCollectionsOrderedDict=None,
 						**_KwargVariablesDict
 				):
 
@@ -54,44 +60,79 @@ class BoxerClass(BaseClass):
 		#parent first
 		self.parent(['MeteoredConcurrentDDPClientVariable'])
 
-		#debug
+		#Check
+		if self.BoxedDerivePatcherVariable==None:
+			self.BoxedDerivePatcherVariable=self.NodePointDeriveNoder
+
 		'''
-		self.debug(('self.',self,['ParentedGrandParentVariablesList']))
+		#debug
+		self.debug(('self.',self,[
+			#'ParentedDeriveParentersList',
+			'ParentedPathStr'
+		]))
+
+		#Determine the deep
+		self.BoxedDeepInt=len(self.ParentedPathStr.split('/'))
 		'''
 
+
+		"""
 		#insert the node box
 		self.MeteoredConcurrentDDPClientVariable.call(
 				'mongo',
 				'boxes',
 				'insert',
 				{
-					'x':self.BoxingInitWidthInt,
-					'y':self.BoxingInitHeigthInt,
+					'x':self.BoxingWidthInt,
+					'y':self.BoxingHeigthInt,
 					'IsNoderBool':True,
 					'NodeKeyStr':self.NodeKeyStr,
 					'CollectionStr':self.NodeCollectionStr,
 					'PatchStr':self.BoxingPatchStr
 				}
 			)
+		"""
 
-		#insert the collections ordered dict
-		map(
-				lambda __NodedCollectionStr,__IndexInt:
-				self.MeteoredConcurrentDDPClientVariable.call(
-					'mongo',
-					'boxes',
-					'insert',
-					{
-						'x':self.BoxingInitWidthInt,
-						'y':self.BoxingInitHeigthInt,
-						'IsOrderedDict':True,
-						'CollectionStr':self.NodeCollectionStr,
-						'PatchStr':self.BoxingPatchStr
-					}
-				),
-				self.NodedCollectionStrsSet,
-				len(self.NodedCollectionStrsSet)
-			)
-		
+		#set
+		self.BoxedCollectionsOrderedDict=self.BoxedDerivePatcherVariable.CollectionsOrderedDict
+
+		#debug
+		'''
+		self.debug(('self.',self,['BoxedCollectionsOrderedDict']))
+		'''
+
+		#Compute the intervals
+		if len(self.CollectionsOrderedDict)>0:
+
+			#Check
+			if len(self.CollectionsOrderedDict)%2==0:
+				BoxedStepXaxisInt=self.BoxingWidthInt/len(self.BoxedCollectionsOrderedDict)
+			else:
+				BoxedStepXaxisInt=self.BoxingWidthInt/(len(self.BoxedCollectionsOrderedDict)-1)
+
+			#set
+			self.BoxedCollectionXaxisIntsArray=BoxedStepXaxisInt*np.array(
+				len(self.BoxedCollectionsOrderedDict)
+			)+self.BoxingXaxisInt-(self.BoxingWidthInt/2.)
+			self.BoxesCollectionYaxisInt=self.BoxingYaxisInt+self.BoxingHeigthInt
+
+			#insert the child collections ordered dict
+			map(
+					lambda __BoxedCollectionKeyStr,__BoxedCollectionXaxisInt:
+					self.MeteoredConcurrentDDPClientVariable.call(
+						'mongo',
+						'boxes',
+						'insert',
+						{
+							'x':__BoxedCollectionXaxisInt,
+							'y':self.BoxesCollectionYaxisInt,
+							'IsOrderedDict':True,
+							'CollectionStr':BoxedCollectionKeyStr,
+							'PatchStr':self.BoxingPatchStr
+						}
+					),
+					self.BoxedCollectionsOrderedDict.keys(),
+					self.BoxedCollectionXaxisIntsArray
+				)
 
 #</DefineClass>

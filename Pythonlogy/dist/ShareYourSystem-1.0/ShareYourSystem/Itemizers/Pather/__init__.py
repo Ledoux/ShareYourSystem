@@ -511,8 +511,9 @@ def setWithPathVariableAndKeyVariable(_DictatedVariable,_KeyVariable,_ValueVaria
 				pass
 
 			#Call a method of the dict
-			elif  (_KeyVariable[0].isalpha() or _KeyVariable[0:2]=="__") and  _KeyVariable[0].lower()==_KeyVariable[0]:
-				
+			#elif  (_KeyVariable[0].isalpha() or _KeyVariable[0:2]=="__") and  _KeyVariable[0].lower()==_KeyVariable[0]:
+			elif type(_ValueVariable)==SYS.ApplyDictClass:
+
 				#debug
 				'''
 				print('Pather l.342')

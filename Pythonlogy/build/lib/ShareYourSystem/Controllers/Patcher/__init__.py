@@ -19,6 +19,7 @@ SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
+import operator
 #</ImportSpecificModules>
 
 #<DefineClass>
@@ -45,18 +46,19 @@ class PatcherClass(BaseClass):
 		#network
 		self.network(
 			**{
+				'VisitingCollectionStrsList':['Components'],
 				'RecruitingConcludeConditionTuplesList':[
 					(
 						'MroClassesList',
 						operator.contains,
-						Patcher.PatcherClass
+						SYS.PatcherClass
 					)
 				]
 			}
 		)
 
 		#alias
-		self.PatchedDerivePatchersList=self.NetworkedDeriveNodersList
+		self.PatchedDerivePatchersList=self.NetworkedDeriveConnectersList
 
 		#import
 		from ShareYourSystem.Viewers import Boxer
@@ -66,10 +68,11 @@ class PatcherClass(BaseClass):
 				lambda __PatchedDerivePatcher:
 				__PatchedDerivePatcher.collect(
 						'Views',
-						'InstanceBoxer',
+						'Instance',
 						Boxer.BoxerClass()
-					)['<Views>InstanceBoxer'].box(),
-				self.PatchedDerivePatchersList
+					).CollectingNodeVariable.box(
+					),
+				[self]+self.PatchedDerivePatchersList
 			)
 
 		#box

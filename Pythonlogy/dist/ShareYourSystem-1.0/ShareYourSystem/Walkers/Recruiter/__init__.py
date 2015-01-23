@@ -57,12 +57,20 @@ class RecruiterClass(BaseClass):
 				'ConcludingConditionTuplesList',
 				self.RecruitingConcludeConditionTuplesList
 			),
-			('cumulate',{'LiargVariablesList':[]})
+			(
+				'cumulate',
+				SYS.ApplyDictClass()
+			)
 		]
 
 		#visit
 		self.visit()
 
+		#debug
+		'''
+		self.debug(('self.',self,['CumulatedVariablesList']))
+		'''
+		
 		#flat
 		self.RecruitedFlatCumulateVariablesList=SYS.filterNone(
 			SYS.flat(

@@ -64,6 +64,7 @@ class MeteorerClass(BaseClass):
 		self.MeteoredConcurrentDDPClientVariable.start()
 		
 		#Init
+		"""
 		self.MeteoredHtmlStr=""
 
 		#display
@@ -86,5 +87,6 @@ class MeteorerClass(BaseClass):
 		
 		#display
 		display(self.MeteoredHTMLVariable)
+		"""
 
 #</DefineClass>

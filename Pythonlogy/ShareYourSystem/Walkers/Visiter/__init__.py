@@ -48,6 +48,11 @@ class VisiterClass(BaseClass):
 
 	def do_visit(self):
 			
+		#debug
+		'''
+		self.debug(('self.',self,['VisitingCollectionStrsList']))
+		'''
+		
 		#Walk inside 
 		self.walk(
 					{

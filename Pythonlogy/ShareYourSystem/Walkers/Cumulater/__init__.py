@@ -21,7 +21,6 @@ SYS.setSubModule(globals())
 
 #<ImportSpecificModules>
 import copy
-
 #</ImportSpecificModules>
 
 #<DefineClass>

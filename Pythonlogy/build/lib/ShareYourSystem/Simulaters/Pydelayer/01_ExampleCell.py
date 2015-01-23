@@ -8,7 +8,7 @@ MyPydelayer=SYS.PydelayerClass(
 	).update(
 		{
 			'SimulatingInitFloatsArray':np.array([1.]),
-			'SimulatingStopTimeFloat':10.,
+			'SimulatingStopTimeFloat':20.,
 			'EuleringStepTimeFloat':0.1,
 		}
 	).pydelay(
@@ -37,11 +37,10 @@ SYS._attest(
 ) 
 
 #plot
-'''
+
 from matplotlib import pyplot
 pyplot.plot(MyPydelayer['<StateMoniters>VariableMoniter'].MoniteredTotalVariablesArray.T)
 pyplot.show()
-'''
 
 #Print
 

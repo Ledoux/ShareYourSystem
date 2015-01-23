@@ -1,17 +1,23 @@
 
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Meteorers import Meteorer
+from ShareYourSystem.Controllers import Patcher
 
 #Definition an Tree instance
-MyMeteorer=Meteorer.MeteorerClass().meteor()
-MyMeteorer.MeteoredConcurrentDDPClientVariable.stop()
+MyPatcher=SYS.PatcherClass().produce(
+		'Components',
+		['A','B'],
+		SYS.PatcherClass
+	).__setitem__(
+		'<Components>APatcher/<Components>aPatcher',
+		SYS.PatcherClass()
+	).patch()
 		
 #Definition the AttestedStr
 SYS._attest(
 	[
-		'MyMeteorer is '+SYS._str(
-		MyMeteorer,
+		'MyPatcher is '+SYS._str(
+		MyPatcher,
 		**{
 			'RepresentingBaseKeyStrsListBool':False,
 			'RepresentingAlineaIsBool':False

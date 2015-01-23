@@ -8,7 +8,7 @@ MyPydelayer=SYS.PydelayerClass(
 	).update(
 		{
 			'SimulatingInitFloatsArray':np.array([1.]),
-			'SimulatingStopTimeFloat':10.,
+			'SimulatingStopTimeFloat':20.,
 			'EuleringStepTimeFloat':0.1,
 		}
 	).pydelay(

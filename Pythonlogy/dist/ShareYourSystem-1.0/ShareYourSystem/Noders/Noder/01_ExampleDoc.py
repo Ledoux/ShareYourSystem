@@ -9,7 +9,7 @@ MyNoder=SYS.NoderClass()
 MyNoder['<Noders>FirstChildNoder']=SYS.NoderClass()
 
 #Short expression for setting in the appended manner a structured object
-MyNoder['<Noders>SecondChildNoder']=SYS.NoderClass()
+MyNoder['<Noders>FirstChildNoder/<Noders>FirstGrandChildNoder']=SYS.NoderClass()
 
 #Definition the AttestedStr
 SYS._attest(

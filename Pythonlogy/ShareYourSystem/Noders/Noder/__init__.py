@@ -43,7 +43,8 @@ class NoderClass(BaseClass):
 								'NodedCollectionOrderedDict',
 								'NodedCollectionStr',
 								'NodedKeyStr',
-								'NodedCollectionIndexInt'
+								'NodedCollectionIndexInt',
+								'NodedCollectionStrsSet'
 							]
 
 	def default_init(self,
@@ -51,9 +52,9 @@ class NoderClass(BaseClass):
 				_NodedCollectionOrderedDict=None, 												
 				_NodedCollectionStr="", 		
 				_NodedKeyStr="", 		 	
-				_NodedCollectionIndexInt=-1,								
+				_NodedCollectionIndexInt=-1,							
 				**_KwargVariablesDict
-				):
+			):
 
 		#Call the parent init method
 		BaseClass.__init__(self,**_KwargVariablesDict)
@@ -96,6 +97,9 @@ class NoderClass(BaseClass):
 				NodingCollectionPrefixStr+'PointDeriveNoder'
 			)
 
+		#init
+		self.CollectionsOrderedDict=collections.OrderedDict()
+
 	def do_node(self):
 
 		#debug
@@ -118,6 +122,9 @@ class NoderClass(BaseClass):
 									collections.OrderedDict()
 								)
 				self.NodedCollectionOrderedDict=getattr(self,NodedCollectionOrderedDictKeyStr)
+
+			#set
+			self.CollectionsOrderedDict[NodedCollectionOrderedDictKeyStr]=self.NodedCollectionOrderedDict
 
 	def mimic_get(self):
 

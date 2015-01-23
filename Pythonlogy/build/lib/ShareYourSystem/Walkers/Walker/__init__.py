@@ -120,9 +120,13 @@ class WalkerClass(BaseClass):
 		#Command a recursive order in other gathered variables
 		self.command(
 						_UpdateList=[
-							('walk',{
+							(
+								'walk',
+								SYS.ApplyDictClass(
+									{
 										'LiargVariablesList':[self.WalkingSocketDict],
 									}
+								)
 							)
 						],
 						**{
