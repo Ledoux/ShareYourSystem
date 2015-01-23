@@ -243,7 +243,7 @@ class IntegraterClass(BaseClass):
 						(
 							len(self.IntegratingInitFloatsArray),
 							self.IntegratingTimeDelayVariable
-							#self.IntegratingTimeDelayVariable/self.EuleringTimeStep
+							#self.IntegratingTimeDelayVariable/self.EuleringStepTime
 						),
 						dtype=float
 					)
@@ -265,7 +265,7 @@ class IntegraterClass(BaseClass):
 						lambda __IntegratingTimeDelayVariable:
 						np.zeros(
 							__IntegratingTimeDelayVariable,
-							#__IntegratingTimeDelayFloat/self.EuleringTimeStep,
+							#__IntegratingTimeDelayFloat/self.EuleringStepTime,
 							dtype=float
 						)-1,
 						self.IntegratingTimeDelayVariable

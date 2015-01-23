@@ -22,9 +22,31 @@ SYS.setSubModule(globals())
 
 #<ImportSpecificModules>
 import copy
+import collections
 #</ImportSpecificModules>
 
 #<DefineLocals>
+class ApplyDictClass(collections.OrderedDict):
+	def __init__(self,_Dict=None):
+
+		#Check
+		if _Dict==None:
+			_Dict={}
+
+		#call the parent init method
+		collections.OrderedDict.__init__(self,_Dict)
+
+		#define 
+		self.update(
+			{
+				'LiargVariablesList':[],
+				'KwargVariablesDict':{}
+			}
+		)
+
+		#update
+		self.update(_Dict)
+SYS.ApplyDictClass=ApplyDictClass
 #</DefineLocals>
 
 #<DefineClass>
@@ -130,8 +152,9 @@ class ApplyierClass(BaseClass):
 		if self.SettingKeyVariable!="":
 
 			#Call for a hook
-			if (self.SettingKeyVariable[0].isalpha() or self.SettingKeyVariable[:2]=="__"
-				) and self.SettingKeyVariable[0].lower()==self.SettingKeyVariable[0]:
+			#if (self.SettingKeyVariable[0].isalpha() or self.SettingKeyVariable[:2]=="__"
+			#	) and self.SettingKeyVariable[0].lower()==self.SettingKeyVariable[0]:
+			if type(self.SettingValueVariable)==ApplyDictClass:
 
 				#debug
 				'''

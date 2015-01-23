@@ -11,7 +11,7 @@ class DiffuserClass(SYS.UserClass):
 	def initAfterBasesWithDiffuser(self):
         
 		#<DefineSpecificDict>
-		self.TimeStepsInt=64
+		self.StepTimesInt=64
 		self.DiffusionFloat=1.
 		self.TauFloat=1.0
 		self(**{'TypeDictString':"Use",'UsedTypeString':"Stimulater"})
@@ -80,7 +80,7 @@ class DiffuserClass(SYS.UserClass):
 							w/(Stimulation.PlanesInt*Stimulation.PlanesStepFloat))
 							)
 		del(w,u,v)
-		self.TimesList=np.logspace(-1.0,1.0,TimeStepsInt)*TauFloat
+		self.TimesList=np.logspace(-1.0,1.0,StepTimesInt)*TauFloat
 		self.ConcentrationArray=np.zeros((PlanesInt,PixelsInt,PixelsInt),dtype=np.float32)
 		self.XySliceArray=np.zeros((Stimulation.PlanesInt,Stimulation.PixelsInt,Stimulation.PixelsInt),dtype=np.float32)
 		self.XzSliceArray=np.zeros((Stimulation.PlanesInt,Stimulation.PixelsInt,Stimulation.PixelsInt),dtype=np.float32)
@@ -91,13 +91,13 @@ class DiffuserClass(SYS.UserClass):
 		Pool.map(
 			lambda TimeInt:
 			self.computeDiffuserWithTimeInt(TimeInt),
-			xrange(self.TimeStepsInt)
+			xrange(self.StepTimesInt)
 			)
 
 		#map(
 		#	lambda TimeInt:
 		#	computeDiffuserWithTimeInt(TimeInt),
-		#	xrange(TimeStepsInt)
+		#	xrange(StepTimesInt)
 		#	)
 			
 		#Compute Statistics
@@ -114,7 +114,7 @@ class DiffuserClass(SYS.UserClass):
 		#DataDict
 		DataDict={
 					#MetaData Parameters
-					'*TimeStepsInt':self.TimeStepsInt,
+					'*StepTimesInt':self.StepTimesInt,
 					'*DiffuserFloat':self.DiffuserFloat,
 					'*TauFloat':self.TauFloat,
 

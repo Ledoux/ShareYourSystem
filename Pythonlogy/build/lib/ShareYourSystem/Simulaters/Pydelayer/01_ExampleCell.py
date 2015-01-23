@@ -8,29 +8,20 @@ MyPydelayer=SYS.PydelayerClass(
 	).update(
 		{
 			'SimulatingInitFloatsArray':np.array([1.]),
-			'SimulatingStopTimeFloat':50.,
+			'SimulatingStopTimeFloat':10.,
 			'EuleringStepTimeFloat':0.1,
 		}
-	).collect(
-		"StateMoniters",
-		"Variable",
-		SYS.MoniterClass().update(
-				{
-					'MoniteringVariableStr':'x',
-					'MoniteringIndexIntsList':[0]
-				}
-			),
 	).pydelay(
 		{
 			'eqns':{
 				'x' : '0.25 * x(t-tau) / (1.0 + pow(x(t-tau),p)) -0.1*x'
 				},
 			'params':{
-					'tau' : 15,
+					'tau' : 5,
 			    	'p'   : 10
 				}
 		}
-	).run()
+	).simulate()
 
 #Definition the AttestedStr
 SYS._attest(
@@ -46,11 +37,11 @@ SYS._attest(
 ) 
 
 #plot
-"""
+'''
 from matplotlib import pyplot
 pyplot.plot(MyPydelayer['<StateMoniters>VariableMoniter'].MoniteredTotalVariablesArray.T)
 pyplot.show()
-"""
+'''
 
 #Print
 

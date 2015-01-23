@@ -28,11 +28,11 @@ class RunnerClass(BaseClass):
 	
 	#Definition
 	RepresentingKeyStrsList=[
-									'RunningTimeFloat'
+									'RunningStopTimeFloat'
 								]
 
 	def default_init(self,
-						_RunningTimeFloat=0.,
+						_RunningStopTimeFloat=0.,
 						**_KwargVariablesDict
 					):
 
@@ -44,8 +44,5 @@ class RunnerClass(BaseClass):
 			):	
 
 		pass
-
-		#Return self
-		#return self
 
 #</DefineClass>

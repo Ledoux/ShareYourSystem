@@ -58,7 +58,7 @@ class MoniterClass(BaseClass):
 
 		#debug
 		self.debug(('self.',self,[
-								'MoniteringTimeIndexIntsArray',
+								'MoniteringSampleTimeIndexIntsArray',
 								'MoniteringVariableIndexIntsArray',
 								'MoniteringVariableStr'
 							]))
@@ -84,14 +84,14 @@ class MoniterClass(BaseClass):
 			]
 
 		#debug
-		import numpy as np
 		self.debug(
 					[
 						('self.',self,[
-								'MoniteringTimeIndexIntsArray',	
+								'MoniteringVariableIndexIntsArray',
+								'MoniteringRecordTimeIndexIntsArray',	
 								'MoniteredTempVariablesArray'
 																]),
-						'shape(MoniteredTotalVariablesArray) is '+str(
+						'np.shape(self.MoniteredTotalVariablesArray) is '+str(
 							np.shape(self.MoniteredTotalVariablesArray))
 					]
 				)

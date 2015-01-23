@@ -31,14 +31,14 @@ class EulererClass(BaseClass):
 	RepresentingKeyStrsList=[
 		'EuleringPreFloatsArray',
 		'EuleringJacMethodStr',
-		'EuleringTimeStepFloat',
+		'EuleringStepTimeFloat',
 		'EuleredPostFloatsArray',
 	]
 
 	def default_init(self,
 						_EuleringPreFloatsArray=None,
 						_EuleringJacMethodStr="euler_null",
-						_EuleringTimeStepFloat=0.1,
+						_EuleringStepTimeFloat=0.1,
 						_EuleredPostFloatsArray=None,
 						**_KwargVariablesDict
 					):
@@ -68,6 +68,6 @@ class EulererClass(BaseClass):
 		
 		#Do euler
 		self.EuleredPostFloatsArray=self.EuleringPreFloatsArray+getattr(
-			self,self.EuleringJacMethodStr)()*self.EuleringTimeStepFloat
+			self,self.EuleringJacMethodStr)()*self.EuleringStepTimeFloat
 
 #</DefineClass>
