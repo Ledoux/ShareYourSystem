@@ -51,7 +51,7 @@ class RecruiterClass(BaseClass):
 		#add
 		self.VisitingBeforeUpdateList+=[
 			(
-				'PickingGetKeyVariablesList',['/']
+				'PickingKeyVariablesList',['/']
 			),
 			(
 				'ConcludingConditionTuplesList',
@@ -64,8 +64,9 @@ class RecruiterClass(BaseClass):
 		self.visit()
 
 		#flat
-		self.RecruitedFlatCumulateVariablesList=SYS.filterNone(SYS.flat(
-			self.CumulatedVariablesList
+		self.RecruitedFlatCumulateVariablesList=SYS.filterNone(
+			SYS.flat(
+				self.CumulatedVariablesList
 			)
 		)
 #</DefineClass>

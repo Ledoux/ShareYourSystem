@@ -67,8 +67,8 @@ SYS.setSubModule(globals())
 class PickerClass(BaseClass):
 
         def default_init(self,
-                                _PickingGetKeyVariablesList=None,
-                                _PickedGetValueVariablesList=None,
+                                _PickingKeyVariablesList=None,
+                                _PickedValueVariablesList=None,
                                 **_KwargVariablesDict
                                 ):
 
@@ -80,7 +80,7 @@ class PickerClass(BaseClass):
 
                 #debug
                 '''
-                self.debug(('self.',self,['PickingGetKeyVariablesList']))
+                self.debug(('self.',self,['PickingKeyVariablesList']))
                 '''
 
                 #Apply __getitem__
@@ -88,20 +88,20 @@ class PickerClass(BaseClass):
                                                                         lambda
 __PickingKeyVariable:
 {'LiargVariablesList':[__PickingKeyVariable]},
-self.PickingGetKeyVariablesList
+self.PickingKeyVariablesList
                                                                 )
                                         )
 
                 #link with AppliedMappedVariablesList
-                self.PickedGetValueVariablesList=self.MappedVariablesList
+                self.PickedValueVariablesList=self.MappedVariablesList
 
                 #debug
                 '''
-                self.debug(('self.',self,['PickedGetValueVariablesList']))
+                self.debug(('self.',self,['PickedValueVariablesList']))
                 '''
 
                 #Return AppliedVariablesList
-                return self.PickedGetValueVariablesList
+                return self.PickedValueVariablesList
 #</DefineClass>
 
 ```

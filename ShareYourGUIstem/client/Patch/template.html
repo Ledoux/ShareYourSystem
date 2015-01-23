@@ -1,15 +1,12 @@
 <template name="Patch">
 
-    <svg id="Patch" width="700" height="300">
-        
-        {{#each connectors}}
-            {{> Connector}}
-        {{/each}}
-        
-        {{#each boxes}}
-            {{> Box}}
-        {{/each}}
-
-	</svg>
+    {{#each connectors}}
+        {{> Connector}}
+    {{/each}}
+    
+    {{#each boxes}}
+        {{> Box}}
+    {{/each}}
 
 </template>
+

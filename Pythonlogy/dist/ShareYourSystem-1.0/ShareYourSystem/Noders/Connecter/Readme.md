@@ -67,12 +67,12 @@ class ConnecterClass(BaseClass):
         #Definition
         RepresentingKeyStrsList=[
 'ConnectingGraspClueVariablesList',
-'ConnectedDerivePointersList'
+'ConnectedCatchDerivePointersList'
                                                         ]
 
         def default_init(self,
 _ConnectingGraspClueVariablesList=None,
-_ConnectedDerivePointersList=None,
+_ConnectedCatchDerivePointersList=None,
                                                 **_KwargVariablesDict
                                         ):
 
@@ -87,7 +87,7 @@ _ConnectedDerivePointersList=None,
                 '''
 
                 #catch
-                self.ConnectedDerivePointersList=map(
+                self.ConnectedCatchDerivePointersList=map(
                                 lambda __ConnectingGraspVariable:
                                 self.grasp(
                                                 __ConnectingGraspVariable
@@ -278,7 +278,7 @@ FirstConnecter
                            /   /   /   /   /   /   /
 '<New><Instance>WatchParentWithParenterBool' : True
                            /   /   /   /   /   /   /
-'<Spe><Class>ConnectedDerivePointersList' : None
+'<Spe><Class>ConnectedCatchDerivePointersList' : None
                            /   /   /   /   /   /   /
 '<Spe><Class>ConnectingGraspClueVariablesList' : None
                            /   /   /   /   /   /   /}
@@ -327,7 +327,7 @@ FirstConnecter
                            /   /   /   /
 '<New><Instance>WatchParentWithParenterBool' : True
                            /   /   /   /
-'<Spe><Instance>ConnectedDerivePointersList' : []
+'<Spe><Instance>ConnectedCatchDerivePointersList' : []
                            /   /   /   /
 '<Spe><Instance>ConnectingGraspClueVariablesList' :
                            /   /   /   /   /[
@@ -375,7 +375,7 @@ True
 : {...}< (OrderedDict), 4555736008>
                            /  '<New><Instance>WatchParentWithParenterBool' :
 True
-                           /  '<Spe><Instance>ConnectedDerivePointersList' :
+                           /  '<Spe><Instance>ConnectedCatchDerivePointersList' :
 {...}< (list), 4555696536>
                            /  '<Spe><Instance>ConnectingGraspClueVariablesList'
 : {...}< (list), 4555751936>
@@ -441,7 +441,7 @@ CatchToPointVariable
 CatchToPointVariable
    /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /}
-   /   /   /   /   /   /  '<Spe><Class>ConnectedDerivePointersList' : None
+   /   /   /   /   /   /  '<Spe><Class>ConnectedCatchDerivePointersList' : None
    /   /   /   /   /   /  '<Spe><Class>ConnectingGraspClueVariablesList' : None
    /   /   /   /   /   /}
    /   /   /   /   /  '<Spe><Class>PointedBackSetStr' :
@@ -496,7 +496,7 @@ CatchToPointVariable
    /   /   /   /   /  '<Spe><Instance>PointingSetPathStr' : CatchToPointVariable
    /   /   /   /   /}
    /   /   /   /}
-   /   /   /  '<Spe><Instance>ConnectedDerivePointersList' :
+   /   /   /  '<Spe><Instance>ConnectedCatchDerivePointersList' :
    /   /   /   /[
    /   /   /   /  0 : {...}< (ConnecterClass), 4555683216>
    /   /   /   /  1 : {...}< (ConnecterClass), 4555535376>
@@ -519,7 +519,7 @@ CatchToPointVariable
    /  '<New><Instance>PreRelatomeCollectionOrderedDict' : {...}< (OrderedDict),
 4555735712>
    /  '<New><Instance>WatchParentWithParenterBool' : True
-   /  '<Spe><Instance>ConnectedDerivePointersList' : {...}< (list), 4555689784>
+   /  '<Spe><Instance>ConnectedCatchDerivePointersList' : {...}< (list), 4555689784>
    /  '<Spe><Instance>ConnectingGraspClueVariablesList' : {...}< (list),
 4555751936>
    /})])

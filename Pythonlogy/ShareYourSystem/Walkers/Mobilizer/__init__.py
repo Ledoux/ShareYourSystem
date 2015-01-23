@@ -29,12 +29,10 @@ def getMobilizedIsBoolWithParentClassAndDeriveClassesList(
 	_ParentClass,_DeriveClassesList):
 
 	#Debug
-	'''
 	print('Mobilizer l.37')
 	print('_ParentClass is ',_ParentClass)
 	print('_DeriveClassesList is ',_DeriveClassesList)
 	print('')
-	'''
 
 	#Return
 	return any(
@@ -62,7 +60,7 @@ class MobilizerClass(BaseClass):
 
 	def default_init(self,
 				_MobilizingNameStrsList=None,
-				_MobilizingCollectionSuffixStr="Figurome",
+				_MobilizingCollectionSuffixStr="",
 				_MobilizedAttestClassesList=None,
 				**_KwargVariablesDict
 			):
@@ -88,11 +86,11 @@ class MobilizerClass(BaseClass):
 		'''
 		self.debug(('self.',self,['MobilizedAttestClassesList']))
 		'''
-
+		
 		#append
 		self.RecruitingConcludeConditionTuplesList.append(
 				(
-					'__class__',
+					'SelfClass',
 					getMobilizedIsBoolWithParentClassAndDeriveClassesList,
 					self.MobilizedAttestClassesList
 				)

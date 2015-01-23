@@ -20,7 +20,6 @@ SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
-
 from ShareYourSystem.Noders import Noder
 #</ImportSpecificModules>
 
@@ -30,9 +29,9 @@ class RecruiterClass(BaseClass):
 	
 	#Definition
 	RepresentingKeyStrsList=[
-									'RecruitingConcludeConditionTuplesList',
-									'RecruitedFlatCumulateVariablesList'
-								]
+								'RecruitingConcludeConditionTuplesList',
+								'RecruitedFlatCumulateVariablesList'
+							]
 
 	def default_init(self,
 				_RecruitingConcludeConditionTuplesList=None,
@@ -52,7 +51,7 @@ class RecruiterClass(BaseClass):
 		#add
 		self.VisitingBeforeUpdateList+=[
 			(
-				'PickingGetKeyVariablesList',['/']
+				'PickingKeyVariablesList',['/']
 			),
 			(
 				'ConcludingConditionTuplesList',
@@ -65,8 +64,9 @@ class RecruiterClass(BaseClass):
 		self.visit()
 
 		#flat
-		self.RecruitedFlatCumulateVariablesList=SYS.filterNone(SYS.flat(
-			self.CumulatedVariablesList
+		self.RecruitedFlatCumulateVariablesList=SYS.filterNone(
+			SYS.flat(
+				self.CumulatedVariablesList
 			)
 		)
 #</DefineClass>

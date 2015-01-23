@@ -27,13 +27,23 @@ class MoniterClass(BaseClass):
 
 	#Definition
 	RepresentingKeyStrsList=[
+								'MoniteringRecordTimeIndexIntsArray',
+								'MoniteringSampleTimeIndexIntsArray',
 								'MoniteringVariableStr',
-								'MoniteringIndexIntsList',
+								'MoniteringVariableIndexIntsArray',
+								'MoniteringDerivePopulaterVariable',
+								'MoniteredTempVariablesArray',
+								'MoniteredTotalVariablesArray'
 							]
 	
 	def default_init(self,
-						_MoniteringVariableStr="",
-						_MoniteringIndexIntsList=None,
+						_MoniteringRecordTimeIndexIntsArray=None,
+						_MoniteringSampleTimeIndexIntsArray=None,
+						_MoniteringVariableStr="IntegratedMonitPreFloatsArray",
+						_MoniteringVariableIndexIntsArray=None,
+						_MoniteringDerivePopulaterVariable=None,
+						_MoniteredTempVariablesArray=None,
+						_MoniteredTotalVariablesArray=None,
 						**_KwargVariablesDict
 					):
 		
@@ -42,7 +52,59 @@ class MoniterClass(BaseClass):
 	
 	def do_monit(self):
 
-		pass
+		#Check
+		if self.MoniteringDerivePopulaterVariable==None:
+			self.MoniteringDerivePopulaterVariable=self.NodePointDeriveNoder
+
+		#debug
+		self.debug(('self.',self,[
+								'MoniteringTimeIndexIntsArray',
+								'MoniteringVariableIndexIntsArray',
+								'MoniteringVariableStr'
+							]))
+		
+		#debug
+		import numpy as np
+		MoniteredTempCompleteVariablesArray=getattr(
+				self.MoniteringDerivePopulaterVariable,
+				self.MoniteringVariableStr
+			)
+		self.debug('np.shape(MoniteredTempCompleteVariablesArray) is '+str(
+			np.shape(MoniteredTempCompleteVariablesArray)
+			)
+		)
+
+		#pick
+		self.MoniteredTempVariablesArray=getattr(
+				self.MoniteringDerivePopulaterVariable,
+				self.MoniteringVariableStr
+			)[
+				self.MoniteringVariableIndexIntsArray,
+				self.MoniteringSampleTimeIndexIntsArray
+			]
+
+		#debug
+		import numpy as np
+		self.debug(
+					[
+						('self.',self,[
+								'MoniteringTimeIndexIntsArray',	
+								'MoniteredTempVariablesArray'
+																]),
+						'shape(MoniteredTotalVariablesArray) is '+str(
+							np.shape(self.MoniteredTotalVariablesArray))
+					]
+				)
+
+		#set
+		VariableLengthInt=len(self.MoniteringVariableIndexIntsArray)
+		self.MoniteredTotalVariablesArray[
+			self.MoniteringVariableIndexIntsArray,
+			self.MoniteringRecordTimeIndexIntsArray
+		]=self.MoniteredTempVariablesArray
+
+		#debug
+		self.debug(('self.',self,['MoniteredTotalVariablesArray']))
 
 #</DefineClass>
 

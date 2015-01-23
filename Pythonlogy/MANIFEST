@@ -13,31 +13,6 @@ ShareYourSystem/Readme.md
 ShareYourSystem/__init__.py
 ShareYourSystem/__init__.pyc
 ShareYourSystem/.ipynb_checkpoints/Readme-checkpoint.ipynb
-ShareYourSystem/Brianers/.DS_Store
-ShareYourSystem/Brianers/__init__.py
-ShareYourSystem/Brianers/Brianer/.DS_Store
-ShareYourSystem/Brianers/Brianer/00_ExampleDoc.md
-ShareYourSystem/Brianers/Brianer/01_ExampleDoc.py
-ShareYourSystem/Brianers/Brianer/02_ExampleDoc.md
-ShareYourSystem/Brianers/Brianer/03_ExampleDoc.py
-ShareYourSystem/Brianers/Brianer/PreReadme.ipynb
-ShareYourSystem/Brianers/Brianer/Presentation.html
-ShareYourSystem/Brianers/Brianer/Presentation.ipynb
-ShareYourSystem/Brianers/Brianer/Readme.ipynb
-ShareYourSystem/Brianers/Brianer/Readme.md
-ShareYourSystem/Brianers/Brianer/Test.py
-ShareYourSystem/Brianers/Brianer/__init__.py
-ShareYourSystem/Brianers/Brianer/Drafts/01_ExampleCell copy 2.py
-ShareYourSystem/Brianers/Brianer/Drafts/01_ExampleCell copy 3.py
-ShareYourSystem/Brianers/Brianer/Drafts/01_ExampleCell copy 4.py
-ShareYourSystem/Brianers/Brianer/Drafts/01_ExampleCell copy.py
-ShareYourSystem/Brianers/Brianer/Drafts/01_ExampleDoc copy.py
-ShareYourSystem/Brianers/Brianer/Drafts/__init__ copy 2.py
-ShareYourSystem/Brianers/Brianer/Drafts/__init__ copy.py
-ShareYourSystem/Brianers/Neurongrouper/01_ExampleCell.py
-ShareYourSystem/Brianers/Neurongrouper/__init__.py
-ShareYourSystem/Brianers/Synapser/01_ExampleCell.py
-ShareYourSystem/Brianers/Synapser/__init__.py
 ShareYourSystem/Classors/.DS_Store
 ShareYourSystem/Classors/001_DocumentDoc.md
 ShareYourSystem/Classors/001_GithubDoc.md
@@ -1118,6 +1093,9 @@ ShareYourSystem/Noders/Readme.ipynb
 ShareYourSystem/Noders/Readme.md
 ShareYourSystem/Noders/__init__.py
 ShareYourSystem/Noders/__init__.pyc
+ShareYourSystem/Noders/Arrayer/001_DocumentDoc.md
+ShareYourSystem/Noders/Arrayer/01_ExampleDoc.py
+ShareYourSystem/Noders/Arrayer/__init__.py
 ShareYourSystem/Noders/Attentioner/001_DocumentDoc.md
 ShareYourSystem/Noders/Attentioner/01_ExampleDoc.py
 ShareYourSystem/Noders/Attentioner/PreReadme.ipynb
@@ -1301,8 +1279,6 @@ ShareYourSystem/Objects/Caller/__init__.pyc
 ShareYourSystem/Objects/Caller/Tests/attest_group.txt
 ShareYourSystem/Objects/Caller/__pycache__/Representer.cpython-34.pyc
 ShareYourSystem/Objects/Concluder/001_DocumentDoc.md
-ShareYourSystem/Objects/Concluder/001_GithubDoc.md
-ShareYourSystem/Objects/Concluder/002_GithubDoc.md
 ShareYourSystem/Objects/Concluder/00_ExampleDoc.md
 ShareYourSystem/Objects/Concluder/01_ExampleDoc.py
 ShareYourSystem/Objects/Concluder/PreReadme.ipynb
@@ -1315,7 +1291,6 @@ ShareYourSystem/Objects/Concluder/__init__.py
 ShareYourSystem/Objects/Concluder/__init__.pyc
 ShareYourSystem/Objects/Concluder/.ipynb_checkpoints/Presentation-checkpoint.ipynb
 ShareYourSystem/Objects/Conditioner/001_DocumentDoc.md
-ShareYourSystem/Objects/Conditioner/002_GithubDoc.md
 ShareYourSystem/Objects/Conditioner/00_ExampleDoc.md
 ShareYourSystem/Objects/Conditioner/01_ExampleDoc.py
 ShareYourSystem/Objects/Conditioner/PreReadme.ipynb
@@ -1481,6 +1456,26 @@ ShareYourSystem/Simulaters/PreReadme.ipynb
 ShareYourSystem/Simulaters/Readme.ipynb
 ShareYourSystem/Simulaters/Readme.md
 ShareYourSystem/Simulaters/__init__.py
+ShareYourSystem/Simulaters/Brianer/.DS_Store
+ShareYourSystem/Simulaters/Brianer/00_ExampleDoc.md
+ShareYourSystem/Simulaters/Brianer/01_ExampleDoc.py
+ShareYourSystem/Simulaters/Brianer/02_ExampleDoc.md
+ShareYourSystem/Simulaters/Brianer/03_ExampleDoc.py
+ShareYourSystem/Simulaters/Brianer/PreReadme.ipynb
+ShareYourSystem/Simulaters/Brianer/Presentation.html
+ShareYourSystem/Simulaters/Brianer/Presentation.ipynb
+ShareYourSystem/Simulaters/Brianer/Readme.ipynb
+ShareYourSystem/Simulaters/Brianer/Readme.md
+ShareYourSystem/Simulaters/Brianer/Test.py
+ShareYourSystem/Simulaters/Brianer/__init__.py
+ShareYourSystem/Simulaters/Brianer/Drafts/01_ExampleCell copy 2.py
+ShareYourSystem/Simulaters/Brianer/Drafts/01_ExampleCell copy 3.py
+ShareYourSystem/Simulaters/Brianer/Drafts/01_ExampleCell copy 4.py
+ShareYourSystem/Simulaters/Brianer/Drafts/01_ExampleCell copy.py
+ShareYourSystem/Simulaters/Brianer/Drafts/01_ExampleDoc copy 2.py
+ShareYourSystem/Simulaters/Brianer/Drafts/01_ExampleDoc copy.py
+ShareYourSystem/Simulaters/Brianer/Drafts/__init__ copy 2.py
+ShareYourSystem/Simulaters/Brianer/Drafts/__init__ copy.py
 ShareYourSystem/Simulaters/Dynamizer/001_DocumentDoc.md
 ShareYourSystem/Simulaters/Dynamizer/002_GithubDoc.md
 ShareYourSystem/Simulaters/Dynamizer/01_ExampleCell.py
@@ -1490,6 +1485,10 @@ ShareYourSystem/Simulaters/Dynamizer/Presentation.ipynb
 ShareYourSystem/Simulaters/Dynamizer/Readme.ipynb
 ShareYourSystem/Simulaters/Dynamizer/Readme.md
 ShareYourSystem/Simulaters/Dynamizer/__init__.py
+ShareYourSystem/Simulaters/Eulerer/01_ExampleCell.py
+ShareYourSystem/Simulaters/Eulerer/__init__.py
+ShareYourSystem/Simulaters/Integrater/01_ExampleCell.py
+ShareYourSystem/Simulaters/Integrater/__init__.py
 ShareYourSystem/Simulaters/Lifer/001_DocumentDoc.md
 ShareYourSystem/Simulaters/Lifer/002_GithubDoc.md
 ShareYourSystem/Simulaters/Lifer/01_ExampleCell.py
@@ -1499,6 +1498,8 @@ ShareYourSystem/Simulaters/Lifer/Presentation.ipynb
 ShareYourSystem/Simulaters/Lifer/Readme.ipynb
 ShareYourSystem/Simulaters/Lifer/Readme.md
 ShareYourSystem/Simulaters/Lifer/__init__.py
+ShareYourSystem/Simulaters/Matrixer/01_ExampleCell.py
+ShareYourSystem/Simulaters/Matrixer/__init__.py
 ShareYourSystem/Simulaters/Moniter/001_DocumentDoc.md
 ShareYourSystem/Simulaters/Moniter/002_GithubDoc.md
 ShareYourSystem/Simulaters/Moniter/00_ExampleCell.md
@@ -1510,6 +1511,8 @@ ShareYourSystem/Simulaters/Moniter/Readme.ipynb
 ShareYourSystem/Simulaters/Moniter/Readme.md
 ShareYourSystem/Simulaters/Moniter/__init__.py
 ShareYourSystem/Simulaters/Moniter/Drafts/__init__ copy.py
+ShareYourSystem/Simulaters/Neurongrouper/01_ExampleCell.py
+ShareYourSystem/Simulaters/Neurongrouper/__init__.py
 ShareYourSystem/Simulaters/Populater/.DS_Store
 ShareYourSystem/Simulaters/Populater/001_DocumentDoc.md
 ShareYourSystem/Simulaters/Populater/01_ExampleCell.py
@@ -1520,8 +1523,11 @@ ShareYourSystem/Simulaters/Populater/Readme.ipynb
 ShareYourSystem/Simulaters/Populater/Readme.md
 ShareYourSystem/Simulaters/Populater/__init__.py
 ShareYourSystem/Simulaters/Populater/Drafts/__init__ copy.py
+ShareYourSystem/Simulaters/Pydelayer/.DS_Store
 ShareYourSystem/Simulaters/Pydelayer/01_ExampleCell.py
 ShareYourSystem/Simulaters/Pydelayer/__init__.py
+ShareYourSystem/Simulaters/Pydelayer/Drafts/01_ExampleCell copy.py
+ShareYourSystem/Simulaters/Rater/.DS_Store
 ShareYourSystem/Simulaters/Rater/001_DocumentDoc.md
 ShareYourSystem/Simulaters/Rater/002_GithubDoc.md
 ShareYourSystem/Simulaters/Rater/01_ExampleCell.py
@@ -1531,6 +1537,7 @@ ShareYourSystem/Simulaters/Rater/Presentation.ipynb
 ShareYourSystem/Simulaters/Rater/Readme.ipynb
 ShareYourSystem/Simulaters/Rater/Readme.md
 ShareYourSystem/Simulaters/Rater/__init__.py
+ShareYourSystem/Simulaters/Rater/Drafts/__init__ copy.py
 ShareYourSystem/Simulaters/Runner/001_DocumentDoc.md
 ShareYourSystem/Simulaters/Runner/002_GithubDoc.md
 ShareYourSystem/Simulaters/Runner/01_ExampleCell.py
@@ -1549,6 +1556,8 @@ ShareYourSystem/Simulaters/Simulater/Presentation.ipynb
 ShareYourSystem/Simulaters/Simulater/Readme.ipynb
 ShareYourSystem/Simulaters/Simulater/Readme.md
 ShareYourSystem/Simulaters/Simulater/__init__.py
+ShareYourSystem/Simulaters/Synapser/01_ExampleCell.py
+ShareYourSystem/Simulaters/Synapser/__init__.py
 ShareYourSystem/Tutorials/.DS_Store
 ShareYourSystem/Tutorials/Readme.md
 ShareYourSystem/Tutorials/__init__.py
@@ -1599,8 +1608,6 @@ ShareYourSystem/Walkers/Readme.md
 ShareYourSystem/Walkers/__init__.py
 ShareYourSystem/Walkers/__init__.pyc
 ShareYourSystem/Walkers/Cumulater/001_DocumentDoc.md
-ShareYourSystem/Walkers/Cumulater/001_GithubDoc.md
-ShareYourSystem/Walkers/Cumulater/002_GithubDoc.md
 ShareYourSystem/Walkers/Cumulater/01_ExampleDoc.py
 ShareYourSystem/Walkers/Cumulater/PreReadme.ipynb
 ShareYourSystem/Walkers/Cumulater/Presentation.html
@@ -1620,8 +1627,6 @@ ShareYourSystem/Walkers/Mobilizer/Readme.md
 ShareYourSystem/Walkers/Mobilizer/__init__.py
 ShareYourSystem/Walkers/Mobilizer/__init__.pyc
 ShareYourSystem/Walkers/Recruiter/001_DocumentDoc.md
-ShareYourSystem/Walkers/Recruiter/001_GithubDoc.md
-ShareYourSystem/Walkers/Recruiter/002_GithubDoc.md
 ShareYourSystem/Walkers/Recruiter/01_ExampleDoc.py
 ShareYourSystem/Walkers/Recruiter/PreReadme.ipynb
 ShareYourSystem/Walkers/Recruiter/Presentation.html
@@ -1631,8 +1636,6 @@ ShareYourSystem/Walkers/Recruiter/Readme.md
 ShareYourSystem/Walkers/Recruiter/__init__.py
 ShareYourSystem/Walkers/Recruiter/__init__.pyc
 ShareYourSystem/Walkers/Visiter/001_DocumentDoc.md
-ShareYourSystem/Walkers/Visiter/001_GithubDoc.md
-ShareYourSystem/Walkers/Visiter/002_GithubDoc.md
 ShareYourSystem/Walkers/Visiter/01_ExampleDoc.py
 ShareYourSystem/Walkers/Visiter/PreReadme.ipynb
 ShareYourSystem/Walkers/Visiter/Presentation.html

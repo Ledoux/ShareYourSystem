@@ -59,9 +59,11 @@ class ConcluderClass(BaseClass):
 				self.condition(
 						self.ConcludingTestVariable[
 							__ConcludingConditionTuple[0]
-						] if type(
-							__ConcludingConditionTuple[0])
-						in SYS.StrTypesList else __ConcludingConditionTuple[0],
+						] 
+						if type(
+							__ConcludingConditionTuple[0]
+						) in SYS.StrTypesList 
+						else __ConcludingConditionTuple[0],
 						__ConcludingConditionTuple[1],
 						__ConcludingConditionTuple[2]
 					).ConditionedIsBool,
@@ -70,7 +72,4 @@ class ConcluderClass(BaseClass):
 
 		#all
 		self.ConcludedIsBool=all(self.ConcludedConditionIsBoolsList)
-
-		#Return self
-		#return self
 #</DefineClass>

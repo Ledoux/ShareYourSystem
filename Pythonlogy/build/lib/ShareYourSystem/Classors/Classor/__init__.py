@@ -112,11 +112,15 @@ class ClassorClass(BaseClass):
 		setattr(SYS,_Class.__name__,_Class)
 		SYS.NameStrsList.append(_Class.NameStr)
 
-		#get the module
+		#get the module and set it to the class
 		Module=sys.modules[_Class.__module__]
 		_Class.Module=Module
 		_Class.Module.LocalFolderPathStr=SYS.PythonlogyLocalFolderPathStr+Module.__name__.replace(
 			'.','/')+'/'
+
+		#set a pointer to itself
+		_Class.SelfClass=_Class
+		_Class.MroClassesList=_Class.__mro__
 		
 		#Check
 		if hasattr(_Class,'callAllMro')==False:

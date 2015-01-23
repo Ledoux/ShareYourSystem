@@ -1,10 +1,50 @@
+from solvers import Solver, Adaptive
 
+
+
+
+"""
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Simulaters import Rater
 
-#Definition an instance
-MyRater=Rater.RaterClass().populate()
+#Definition
+MyRater=SYS.RaterClass().update(
+	{
+		'RatingTimeConstantVariable':10.,
+
+		'PopulatingUnitsInt':2,
+
+		'collect':
+		{
+			'LiargVariablesList':
+			[
+				"Matricers",
+				"Local",
+				SYS.MatrixerClass().update(
+					{
+						'MatricingStdFloat':1.,
+						'MatricingStatStr':'norm',
+						'MatricingNormalisationFunction':lambda _UnitsInt:1./_UnitsInt
+					}
+				)
+			]
+		},
+
+		'produce':
+		{
+			'LiargVariablesList':
+			[
+				"StateMoniters",
+				['Rate'],
+				SYS.MoniterClass,
+				{
+					'MoniteringVariableStr':'RatedPostFloatsList',
+					'MoniteringIndexIntsList':[0,1]
+				}
+			]
+		}
+	}
+).rate()
 		
 #Definition the AttestedStr
 SYS._attest(
@@ -15,10 +55,6 @@ SYS._attest(
 			'RepresentingBaseKeyStrsListBool':False,
 			'RepresentingAlineaIsBool':False,
 			'RepresentingKeyStrsList':[
-				'PopulatingEquationStr',
-				'DynamizedParamStr',
-				'DynamizedPreStr',
-				'DynamizedPostStr'
 			]
 		}
 		),
@@ -26,4 +62,4 @@ SYS._attest(
 ) 
 
 #Print
-
+"""

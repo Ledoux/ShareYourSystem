@@ -1,6 +1,3 @@
-//Import Objects
-Boxes=Meteor.Boxes
-Connectors=Meteor.Connectors
 
 //Init functions
 var createPatch = function(){
@@ -41,12 +38,20 @@ var destroyPatch = function(){
 
 Template.Patch.helpers({
     'boxes': function () {
-        return Boxes.find();
+        return Boxes.find(
+            {
+                PatchStr:
+               {
+                $in:
+                Session.get('PatchStrsList')
+                //Patches.find({},{name:true}).map(function(object){return object['name']})
+               }
+           }
+       )
     },
     'connectors': function () {
         return Connectors.find();
     }
-
 });
 
 

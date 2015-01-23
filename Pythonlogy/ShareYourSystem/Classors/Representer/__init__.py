@@ -291,7 +291,7 @@ def getRepresentedStrWithVariable(_Variable,**_KwargVariablesDict):
 	'''
 
 	#None type
-	if _Variable==None:
+	if type(_Variable)==None.__class__:
 		return "None"
 
 	#Dict types print
@@ -417,11 +417,31 @@ def getRepresentedStrWithVariable(_Variable,**_KwargVariablesDict):
 	#Instance print
 	elif type(_Variable).__name__ in ["instancemethod"]:
 
+		#Debug
+		'''
+		print('Representer l 421')
+		print('This is a method ')
+		print('_Variable.__name__ is ',_Variable.__name__)
+		print('')
+		'''
+
 		#Definition the Local alinea
 		RepresentedLocalAlineaStr=RepresentedAlineaStr if _KwargVariablesDict['RepresentedDeepInt']==0 else ""
+		
+		#append
+		RepresentedAlreadyIdIntsList.append(_Variable.im_self)
 
 		#return RepresentedAlineaStr+"instancemethod"
-		return RepresentedLocalAlineaStr+_Variable.__repr__().split('of')[0]+">"
+		RepresentedStr=RepresentedLocalAlineaStr
+		RepresentedStr+="< bound method "+_Variable.__name__
+		RepresentedStr+=" of "+str(_Variable.im_self.__class__)
+		RepresentedStr+=" "+str(id(_Variable.im_self))+" >"
+		#RepresentedStr='inst'
+
+		
+
+		#return
+		return RepresentedStr
 
 	#Str types
 	elif type(_Variable) in SYS.StrTypesList:

@@ -1,43 +1,42 @@
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Noders import Connecter,Networker
 import operator
 
 #Definition of a brian structure
-MyNetworker=Networker.NetworkerClass(
-	).push(
+MyNetworker=SYS.NetworkerClass(
+	).array(
+		["Networkers","Connecters"],
+		[
+			['A','B'],['1','2']
+		],
+		[SYS.NetworkerClass,SYS.ConnecterClass],
+	).update(
 		[
 			(
-				'First',
-				Connecter.ConnecterClass().update(
-					[
-						('ConnectingGraspClueVariablesList',
-							[
-								'/NodePointDeriveNoder/<Connectome>SecondConnecter'
-							]
-						),
-						('TagStr','Networked')
-					]
-				)
+				'<Networkers>ANetworker/Dis_<Connecters>',
+				[
+						[
+							('ConnectingGraspClueVariablesList',
+								[
+									'/NodePointDeriveNoder/<Connecters>2Connecter'
+								]
+							),
+							('TagStr','Networked')
+						],
+						[
+							('TagStr','Networked')
+						]
+				]
 			),
-			(
-				'Second',
-				Connecter.ConnecterClass().__setitem__(
-					'TagStr',
-					'Networked'
-				)
-			)
-		],
-		**{
-			'CollectingCollectionStr':'Connectome'
-		}
+		]
 	).network(
 		**{
-					'RecruitingConcludeConditionTuplesList':[
-						('__class__.NameStr',operator.eq,'Connecter')
-					]
-			}
-		)	
+			'VisitingCollectionStrsList':["Networkers","Connecters"],
+			'RecruitingConcludeConditionTuplesList':[
+				('NameStr',operator.eq,'Connecter')
+			]
+		}
+	)	
 
 #Definition the AttestedStr
 SYS._attest(

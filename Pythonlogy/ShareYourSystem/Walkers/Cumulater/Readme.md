@@ -183,7 +183,7 @@ operator.lt(-1,_TestInt)
                         ]
                     ),
                     (
-                        'PickingGetKeyVariablesList',['NodeKeyStr']
+                        'PickingKeyVariablesList',['NodeKeyStr']
                     ),
                     ('cumulate',{'LiargVariablesList':[]})
                 ],

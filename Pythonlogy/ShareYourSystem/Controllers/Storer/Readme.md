@@ -100,21 +100,21 @@ class StorerClass(BaseClass):
                                         'AfterUpdateList':[
 ('organize',{'LiargVariablesList':[]})
                                         ],
-'GatherVariablesList':[self.OrganizedComponentGetStr]
+'GatherVariablesList':[self.OrganizedComponentsGetStr]
                                 }
                         )
 
                         #structure
                         self.structure(
-                                        [self.OrganizingComponentCollectionStr]
+                                        [self.OrganizingComponentsCollectionStr]
                                 )
 
                         #network
                         self.network(
                                         **{
                                                 'VisitingCollectionStrsList':[
-self.OrganizingDataCollectionStr,
-self.OrganizingComponentCollectionStr
+self.OrganizingModelsCollectionStr,
+self.OrganizingComponentsCollectionStr
                                                 ],
 'RecruitingConcludeConditionTuplesList':[
                                                         (
@@ -137,7 +137,7 @@ operator.contains,Hierarchizer.HierarchizerClass
                                         'AfterUpdateList':[
 ('callDo',{'LiargVariablesList':[]})
                                         ],
-'GatherVariablesList':[self.OrganizedComponentGetStr]
+'GatherVariablesList':[self.OrganizedComponentsGetStr]
                                 }
                         )
 
@@ -225,7 +225,7 @@ class FactorizerClass(Storer.StorerClass):
         self.produce(
                 ['X','Y'],
                 SumerClass,
-**{'CollectingCollectionStr':self.OrganizingComponentCollectionStr}
+**{'CollectingCollectionStr':self.OrganizingComponentsCollectionStr}
             )
 
     def do_factorize(self):
@@ -241,7 +241,7 @@ class FactorizerClass(Storer.StorerClass):
                 map(
                     lambda __DeriveSumer:
                     __DeriveSumer.SumedTotalInt,
-                    self[self.OrganizedComponentGetStr]
+                    self[self.OrganizedComponentsGetStr]
                 )
             ),
             self.FactorizingPowerFloat

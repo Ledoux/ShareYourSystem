@@ -7,33 +7,33 @@ MyWalker=SYS.WalkerClass().update(
 	[
 		(
 			'<Walkers>FirstChildWalker',
-			Walker.WalkerClass().update(
+			SYS.WalkerClass().update(
 				[
 					(
 						'<Walkers>GrandChildWalker',
-						Walker.WalkerClass()
+						SYS.WalkerClass()
 					)
 				]
 			)
 		),
 		(
 			'<Walkers>SecondChildWalker',
-			Walker.WalkerClass()
+			SYS.WalkerClass()
 		)
 	]	
 )
 
 #Walk inside the Tree in order to parent again because the tree was not yet completely setted when it was done
 MyWalker.walk(
-			{
-				'BeforeUpdateList':
-				[
-					('SwitchingParentBool',False),
-					('parent',{'LiargVariablesList':['Tree']})
-				],
-				'GatherVariablesList':['<Walkers>']
-			}
-		)
+		{
+			'BeforeUpdateList':
+			[
+				('SwitchingParentBool',False),
+				('parent',{'LiargVariablesList':[]})
+			],
+			'GatherVariablesList':['<Walkers>']
+		}
+	)
 
 
 #Definition the AttestedStr

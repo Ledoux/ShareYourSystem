@@ -14,10 +14,13 @@ A Populater
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Noders.Structurer"
+BaseModuleStr="ShareYourSystem.Simulaters.Runner"
 DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
+
+#<ImportSpecificModules>
+#</ImportSpecificModules>
 
 #<DefineClass>
 @DecorationClass()
@@ -37,8 +40,8 @@ class PopulaterClass(BaseClass):
 
 	def default_init(self,
 						_PopulatingUnitsInt=0,
-						_PopulatingEventCollectionStr='Spikome',
-						_PopulatingStateCollectionStr='Variablome',
+						_PopulatingEventCollectionStr='SpikeMoniters',
+						_PopulatingStateCollectionStr='StateMoniters',
 						_PopulatedEventDeriveMonitersList=None,
 						_PopulatedStateDeriveMonitersList=None,
 						_PopulatedPreviousDerivePopulaterVariable=None,
@@ -57,11 +60,13 @@ class PopulaterClass(BaseClass):
 	def do_populate(self):	
 
 		#debug
+		'''
 		self.debug(('self.',self,[
 								'PopulatingEventCollectionStr',
 								'PopulatingStateCollectionStr'
 								]))
-
+		'''
+		
 		#link
 		self.PopulatedEventDeriveMonitersList=getattr(
 				self,
@@ -73,7 +78,7 @@ class PopulaterClass(BaseClass):
 			).values()
 
 		#Check
-		if self.NetworkIndexInt>0:
+		if hasattr(self,'NetworkIndexInt') and self.NetworkIndexInt>0:
 			self.PopulatedPreviousDerivePopulaterVariable=self.NetworkPointDeriveNetworker.NetworkedDeriveConnectersList[
 				self.NetworkIndexInt-1
 			]

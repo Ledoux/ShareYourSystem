@@ -1,64 +1,64 @@
 
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Walkers import Cumulater
 import operator
 
 #Definition a Filter instance that is grouped
-MyCumulater=Cumulater.CumulaterClass().update(
+MyCumulater=SYS.CumulaterClass().update(
 		[
 			(
-				'<Filterome>FirstChildCumulater',
-				Cumulater.CumulaterClass().update(
+				'<Cumulaters>FirstChildCumulater',
+				SYS.CumulaterClass().update(
 					[
 						(
-							'<Filterome>GrandChildFilter',
-							Cumulater.CumulaterClass()
+							'<Cumulaters>GrandChildCumulater',
+							SYS.CumulaterClass()
 						)
 					]
 				)
 			),
 			(
-				'<Filterome>SecondChildFilter',
-				Cumulater.CumulaterClass()
+				'<Cumulaters>SecondChildCumulater',
+				SYS.CumulaterClass()
 			),
 			(
-				'<Filterome>ThirdChildFilter',
-				Cumulater.CumulaterClass()
+				'<Cumulaters>ThirdChildCumulater',
+				SYS.CumulaterClass()
 			)
 		]	
 	)
 
 #Walk inside the group in order to parent
 MyCumulater.walk(
-			{
-				'BeforeUpdateList':
-				[
+	{
+		'BeforeUpdateList':
+		[
+			(
+				'ConcludingConditionTuplesList',[
 					(
-						'ConcludingConditionTuplesList',[
-							(
-								'NodeIndexInt',
-								lambda _TestInt,_AttestInt:
-									operator.lt(_TestInt,_AttestInt) and operator.lt(-1,_TestInt)
-									if _TestInt!=None else False,
-								2
-							)
-						]
-					),
-					(
-						'PickingGetKeyVariablesList',['NodeKeyStr']
-					),
-					('cumulate',{'LiargVariablesList':[]})
-				],
-				'GatherVariablesList':['<Filterome>']
-			}
-		)
+						'NodeIndexInt',
+						lambda _TestInt,_AttestInt:
+							operator.lt(_TestInt,_AttestInt
+								) and operator.gt(_TestInt,-1)
+							if _TestInt!=None else False,
+						2
+					)
+				]
+			),
+			(
+				'PickingKeyVariablesList',['NodeKeyStr']
+			),
+			('cumulate',{'LiargVariablesList':[]})
+		],
+		'GatherVariablesList':['<Cumulaters>']
+	}
+)
 		
 #Definition the AttestedStr
 SYS._attest(
 	[
 		'MyCumulater is '+SYS._str(
-		MyCumulater,
+		MyCumulater.CumulatedVariablesList,
 		**{
 			'RepresentingBaseKeyStrsListBool':False,
 			'RepresentingAlineaIsBool':False

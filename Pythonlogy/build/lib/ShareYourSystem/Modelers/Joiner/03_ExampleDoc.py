@@ -1,15 +1,12 @@
 
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Classors import Classer
-from ShareYourSystem.Controllers import Controller
-from ShareYourSystem.Modelers import Flusher,Joiner
 import tables
 import operator
 
 #Define a Sumer class
-@Classer.ClasserClass()
-class SumerClass(Controller.ControllerClass):
+@SYS.ClasserClass()
+class SumerClass(SYS.ControllerClass):
 
 	#Definition
 	RepresentingKeyStrsList=[
@@ -42,54 +39,49 @@ class SumerClass(Controller.ControllerClass):
 MySumer=SumerClass(
 		**{
 				'HdformatingFileKeyStr':'Sums_2.hdf5',
-				'FolderingPathStr':Joiner.LocalFolderPathStr
+				'FolderingPathStr':SYS.Joiner.LocalFolderPathStr
 			}
-	).push(
-		[
-			(
-				"Parameters",
-				Joiner.JoinerClass().update(
+	).collect(
+		"Joiners",
+		"Parameters",
+		SYS.JoinerClass().update(
+			[
+				(
+					'Attr_DatabasingSealTuplesList',
 					[
-						(
-							'Attr_DatabasingSealTuplesList',
-							[
-								('SumingFirstInt','SumingFirstInt',tables.Int64Col()),
-								('SumingSecondInt','SumingSecondInt',tables.Int64Col())
-							]
-						),
-						('Attr_RowingGetStrsList',['SumingFirstInt','SumingSecondInt'])
+						('SumingFirstInt','SumingFirstInt',tables.Int64Col()),
+						('SumingSecondInt','SumingSecondInt',tables.Int64Col())
 					]
-				)
-			),
-			(
-				"Results",
-				Joiner.JoinerClass().update(
+				),
+				('Attr_RowingGetStrsList',['SumingFirstInt','SumingSecondInt'])
+			]
+		)
+	).collect(
+		"Joiners",
+		"Results",
+		SYS.JoinerClass().update(
+			[
+				(
+					'Attr_DatabasingSealTuplesList',
 					[
-						(
-							'Attr_DatabasingSealTuplesList',
-							[
-								('SumedTotalInt','SumedTotalInt',tables.Int64Col())
-							]
-						),
-						('ConnectingGraspClueVariablesList',
-							[
-								'/NodePointDeriveNoder/<Datome>ParametersJoiner'
-							]
-						),
-						('TagStr','Networked')
+						('SumedTotalInt','SumedTotalInt',tables.Int64Col())
 					]
-				)
-			)
-		],
-		**{
-			'CollectingCollectionStr':'Datome'
-		}
+				),
+				('ConnectingGraspClueVariablesList',
+					[
+						'/NodePointDeriveNoder/<Joiners>ParametersJoiner'
+					]
+				),
+				('TagStr','Networked')
+			]
+		)
 	).network(
 		**{
 			'RecruitingConcludeConditionTuplesList':[
 				(
-					'__class__.__mro__',
-					operator.contains,Joiner.JoinerClass
+					'MroClassesList',
+					operator.contains,
+					SYS.JoinerClass
 				)
 			]
 		}
@@ -102,7 +94,7 @@ MySumer.update(
 			('SumingSecondInt',3)
 		]
 	).sum(
-	)['<Datome>ParametersJoiner'].flush(
+	)['<Joiners>ParametersJoiner'].flush(
 )
 
 #Definition the AttestedStr

@@ -1,31 +1,33 @@
 
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Walkers import Cumulater,Visiter
 
 #Definition a Visiter instance that is grouped
-MyVisiter=Visiter.VisiterClass().update(
+MyVisiter=SYS.VisiterClass().update(
 	[
 		(
-			'<Visitome>FirstChildVisiter',
-			Visiter.VisiterClass().update(
+			'<Visiters>FirstChildVisiter',
+			SYS.VisiterClass().update(
 				[
 					(
-						'<Collectome>GrandChildCumulater',
-						Cumulater.CumulaterClass()
+						'<Collecters>GrandChildCumulater',
+						SYS.CumulaterClass()
 					)
 				]
 			)
 		),
 		(
-			'<Visitome>SecondChildVisiter',
-			Visiter.VisiterClass()
+			'<Visiters>SecondChildVisiter',
+			SYS.VisiterClass()
 		)
 	]	
 )
 
 #Walk inside the group in order to parent
-MyVisiter.visit(['Visitome','Collectome'],[('TagStr','Je suis passe par la')])
+MyVisiter.visit(
+	['Visiters','Collecters'],
+	[('TagStr','Je suis passe par la')]
+)
 		
 #Definition the AttestedStr
 SYS._attest(

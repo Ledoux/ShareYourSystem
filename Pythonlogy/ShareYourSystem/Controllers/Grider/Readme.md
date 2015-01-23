@@ -222,7 +222,7 @@ class FactorizerClass(Grider.GriderClass):
         self.produce(
                 ['X','Y'],
                 SumerClass,
-**{'CollectingCollectionStr':self.OrganizingComponentCollectionStr}
+**{'CollectingCollectionStr':self.OrganizingComponentsCollectionStr}
             )
 
     def do_factorize(self):
@@ -238,7 +238,7 @@ class FactorizerClass(Grider.GriderClass):
                 map(
                     lambda __DeriveSumer:
                     __DeriveSumer.SumedTotalInt,
-                    self[self.OrganizedComponentGetStr]
+                    self[self.OrganizedComponentsGetStr]
                 )
             ),
             self.FactorizingPowerFloat

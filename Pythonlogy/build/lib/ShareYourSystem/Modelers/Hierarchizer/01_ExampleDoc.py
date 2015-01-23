@@ -1,15 +1,12 @@
 
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Classors import Classer
-from ShareYourSystem.Controllers import Controller
-from ShareYourSystem.Modelers import Flusher,Hierarchizer
 import tables
 import operator
 
 #Define a Sumer class
-@Classer.ClasserClass()
-class SumerClass(Controller.ControllerClass):
+@SYS.ClasserClass()
+class SumerClass(SYS.ControllerClass):
 
 	#Definition
 	RepresentingKeyStrsList=[
@@ -26,7 +23,7 @@ class SumerClass(Controller.ControllerClass):
 					):
 
 		#Call the parent init method
-		self.__class__.__bases__[0].__init__(self,**_KwargVariablesDict)
+		SYS.ControllerClass.__init__(self,**_KwargVariablesDict)
 						
 	def do_sum(self):
 		
@@ -42,54 +39,48 @@ class SumerClass(Controller.ControllerClass):
 MySumer=SumerClass(
 		**{
 			'HdformatingFileKeyStr':'Sums_1.hdf5',
-			'FolderingPathStr':Hierarchizer.LocalFolderPathStr
+			'FolderingPathStr':SYS.Hierarchizer.LocalFolderPathStr
 		}
-	).push(
-		[
-			(
-				"Parameters",
-				Hierarchizer.HierarchizerClass().update(
+	).collect(
+		"Hierarchizers",
+		"Parameters",
+		SYS.HierarchizerClass().update(
+			[
+				(
+					'Attr_DatabasingSealTuplesList',
 					[
-						(
-							'Attr_DatabasingSealTuplesList',
-							[
-								('SumingFirstInt','SumingFirstInt',tables.Int64Col()),
-								('SumingSecondInt','SumingSecondInt',tables.Int64Col())
-							]
-						),
-						('Attr_RowingGetStrsList',['SumingFirstInt','SumingSecondInt'])
+						('SumingFirstInt','SumingFirstInt',tables.Int64Col()),
+						('SumingSecondInt','SumingSecondInt',tables.Int64Col())
 					]
-				)
-			),
-			(
-				"Results",
-				Hierarchizer.HierarchizerClass().update(
+				),
+				('Attr_RowingGetStrsList',['SumingFirstInt','SumingSecondInt'])
+			]
+		)
+	).collect(
+		"Hierarchizers",
+		"Results",
+		SYS.HierarchizerClass().update(
+			[
+				(
+					'Attr_DatabasingSealTuplesList',
 					[
-						(
-							'Attr_DatabasingSealTuplesList',
-							[
-								('SumedTotalInt','SumedTotalInt',tables.Int64Col())
-							]
-						),
-						('ConnectingGraspClueVariablesList',
-							[
-								'/NodePointDeriveNoder/<Datome>ParametersHierarchizer'
-							]
-						),
-						('TagStr','Networked')
+						('SumedTotalInt','SumedTotalInt',tables.Int64Col())
 					]
-				)
-			)
-		],
-		**{
-			'CollectingCollectionStr':'Datome'
-		}
+				),
+				('ConnectingGraspClueVariablesList',
+					[
+						'/NodePointDeriveNoder/<Hierarchizers>ParametersHierarchizer'
+					]
+				),
+				('TagStr','Networked')
+			]
+		)
 	).network(
 		**{
 			'RecruitingConcludeConditionTuplesList':[
 				(
-					'__class__.__mro__',
-					operator.contains,Hierarchizer.HierarchizerClass
+					'MroClassesList',
+					operator.contains,SYS.HierarchizerClass
 				)
 			]
 		}
@@ -102,7 +93,7 @@ MySumer.update(
 			('SumingSecondInt',3)
 		]
 	).sum(
-	)['<Datome>ParametersHierarchizer'].flush(
+	)['<Hierarchizers>ParametersHierarchizer'].flush(
 )
 
 #Update and store
@@ -113,7 +104,7 @@ MySumer.update(
 		]
 	).sum(
 	)[
-	'<Datome>ParametersHierarchizer'
+	'<Hierarchizers>ParametersHierarchizer'
 	].flush()
 
 #Definition the AttestedStr

@@ -19,7 +19,6 @@ SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
-from ShareYourSystem.Viewers import Boxer
 #</ImportSpecificModules>
 
 #<DefineClass>
@@ -28,25 +27,52 @@ class PatcherClass(BaseClass):
 	
 	#Definition 
 	RepresentingKeyStrsList=[
+								'PatchingKeyStr',
+								'PatchedDerivePatchersList'
 							]
 
 	def default_init(self,
+						_PatchingKeyStr="Default",
+						_PatchedDerivePatchersList=None,
 						**_KwargVariablesDict
 				):
 
 		#Call the parent __init__ method
 		BaseClass.__init__(self,**_KwargVariablesDict)
-		
-		#collect
-		self.collect(
-						'Representome',
-						'Instance',
-						Boxer.BoxerClass()
-					);
 
 	def do_patch(self):
 
+		#network
+		self.network(
+			**{
+				'RecruitingConcludeConditionTuplesList':[
+					(
+						'MroClassesList',
+						operator.contains,
+						Patcher.PatcherClass
+					)
+				]
+			}
+		)
+
+		#alias
+		self.PatchedDerivePatchersList=self.NetworkedDeriveNodersList
+
+		#import
+		from ShareYourSystem.Viewers import Boxer
+
+		#map
+		map(
+				lambda __PatchedDerivePatcher:
+				__PatchedDerivePatcher.collect(
+						'Views',
+						'InstanceBoxer',
+						Boxer.BoxerClass()
+					)['<Views>InstanceBoxer'].box(),
+				self.PatchedDerivePatchersList
+			)
+
 		#box
-		self['<Representome>InstanceBoxer'].box()
+		#self['<Views>InstanceBoxer'].box()
 
 #</DefineClass>

@@ -36,8 +36,8 @@ class OrganizerClass(BaseClass):
 	
 	#Definition
 	RepresentingKeyStrsList=[
-								'OrganizingDataCollectionStr',
-								'OrganizingComponentCollectionStr',
+								'OrganizingModelsCollectionStr',
+								'OrganizingComponentsCollectionStr',
 								'OrganizingOutKeyStrsList',
 								'OrganizingInKeyStrsList',
 								'OrganizingOutStr',
@@ -45,16 +45,15 @@ class OrganizerClass(BaseClass):
 								'OrganizedTopDeriveDatabaserVariable',
 								'OrganizedInstallIsBool',
 								'OrganizedDataGetStr',
-								'OrganizedComponentGetStr',
+								'OrganizedComponentsGetStr',
 								'OrganizedDataGetStr',
-								'OrganizedComponentGetStr',
 								'OrganizedInConnectAttentionGetStrsList',
 								'OrganizedOutConnectAttentionGetStrsList'
 							]
 
 	def default_init(self,
-						_OrganizingDataCollectionStr="Data",
-						_OrganizingComponentCollectionStr="Component",
+						_OrganizingModelsCollectionStr="Models",
+						_OrganizingComponentsCollectionStr="Components",
 						_OrganizingOutKeyStrsList=None,
 						_OrganizingInKeyStrsList=None,
 						_OrganizingOutStr="Results",
@@ -62,7 +61,7 @@ class OrganizerClass(BaseClass):
 						_OrganizedTopDeriveDatabaserVariable=None,
 						_OrganizedInstallIsBool=False,
 						_OrganizedDataGetStr="",
-						_OrganizedComponentGetStr="",
+						_OrganizedComponentsGetStr="",
 						_OrganizedInConnectAttentionGetStrsList=None,
 						_OrganizedOutConnectAttentionGetStrsList=None,
 						_OrganizedComponentCollectionOrderedDict=None,
@@ -81,20 +80,20 @@ class OrganizerClass(BaseClass):
 			self.OrganizingOutKeyStrsList=self.__class__.DoneAttributeVariablesOrderedDict.keys()
 
 		#set
-		self.OrganizedDataGetStr=Noder.NodingPrefixGetStr+self.OrganizingDataCollectionStr+Noder.NodingSuffixGetStr
-		self.OrganizedComponentGetStr=Noder.NodingPrefixGetStr+self.OrganizingComponentCollectionStr+Noder.NodingSuffixGetStr
+		self.OrganizedDataGetStr=Noder.NodingPrefixGetStr+self.OrganizingModelsCollectionStr+Noder.NodingSuffixGetStr
+		self.OrganizedComponentsGetStr=Noder.NodingPrefixGetStr+self.OrganizingComponentsCollectionStr+Noder.NodingSuffixGetStr
 
 		#Make the hierarchical joins for the ins 
 		self.OrganizedInConnectAttentionGetStrsList=map(
 				lambda __DeriveNoder:
-				'/NodePointDeriveNoder/'+self.OrganizedComponentGetStr+__DeriveNoder.NodeKeyStr+'/'+self.OrganizedDataGetStr+self.OrganizingInStr+'Hierarchizer',
-				self[self.OrganizedComponentGetStr]
+				'/NodePointDeriveNoder/'+self.OrganizedComponentsGetStr+__DeriveNoder.NodeKeyStr+'/'+self.OrganizedDataGetStr+self.OrganizingInStr+'Hierarchizer',
+				self[self.OrganizedComponentsGetStr]
 			)
 
 		#Set
 		self.OrganizedComponentCollectionOrderedDict=getattr(
 			self,
-			self.OrganizingComponentCollectionStr+'CollectionOrderedDict'
+			self.OrganizingComponentsCollectionStr+'CollectionOrderedDict'
 		)
 
 		#map
@@ -116,57 +115,57 @@ class OrganizerClass(BaseClass):
 		from ShareYourSystem.Modelers import Hierarchizer
 
 		#Set a parameters and a results database
-		self.push(
-				[
-					(
-						self.OrganizingInStr,
-						Hierarchizer.HierarchizerClass().update(
-							[
-								(
-									'Attr_DatabasingSealTuplesList',
-									map(
-										Databaser.getDatabasingColumnTupleWithGetKeyStr,
-										self.OrganizingInKeyStrsList
-									)
-								),
-								(
-									'Attr_RowingGetStrsList',
-									self.__class__.DoingAttributeVariablesOrderedDict.keys()
-								),
-								(
-									'ConnectingGraspClueVariablesList',
-									self.OrganizedInConnectAttentionGetStrsList
+		self.collect(
+				self.OrganizingModelsCollectionStr,
+				self.OrganizingInStr,
+				Hierarchizer.HierarchizerClass(
+					).update(
+						[
+							(
+								'Attr_DatabasingSealTuplesList',
+								map(
+									Databaser.getDatabasingColumnTupleWithGetKeyStr,
+									self.OrganizingInKeyStrsList
 								)
-							]
-						)
-					),
-					(
-						self.OrganizingOutStr,
-						Hierarchizer.HierarchizerClass().update(
-							[
-								(
-									'Attr_DatabasingSealTuplesList',
-									map(
-										Databaser.getDatabasingColumnTupleWithGetKeyStr,
-										self.OrganizingOutKeyStrsList
-									)
-								),
-								(
-									'ConnectingGraspClueVariablesList',
-									self.OrganizedOutConnectAttentionGetStrsList
-								),
-								('TagStr','Networked')
-							]
-						)
+							),
+							(
+								'Attr_RowingGetStrsList',
+								self.__class__.DoingAttributeVariablesOrderedDict.keys()
+							),
+							(
+								'ConnectingGraspClueVariablesList',
+								self.OrganizedInConnectAttentionGetStrsList
+							)
+						]
 					)
-				],
-			**{'CollectingCollectionStr':self.OrganizingDataCollectionStr}
-		)
+				)
 
+		self.collect(
+				self.OrganizingModelsCollectionStr,
+				self.OrganizingOutStr,
+				Hierarchizer.HierarchizerClass(
+					).update(
+						[
+							(
+								'Attr_DatabasingSealTuplesList',
+								map(
+									Databaser.getDatabasingColumnTupleWithGetKeyStr,
+									self.OrganizingOutKeyStrsList
+								)
+							),
+							(
+								'ConnectingGraspClueVariablesList',
+								self.OrganizedOutConnectAttentionGetStrsList
+							),
+							('TagStr','Networked')
+						]
+					)
+				)
+		
 		#set
 		self.OrganizedTopDeriveDatabaserVariable=getattr(
 				self,
-				self.OrganizingDataCollectionStr+'CollectionOrderedDict'
+				self.OrganizingModelsCollectionStr+'CollectionOrderedDict'
 			).values()[-1]
 #</DefineClass>
 

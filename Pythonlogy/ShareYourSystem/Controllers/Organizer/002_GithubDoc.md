@@ -50,8 +50,8 @@ class OrganizerClass(BaseClass):
 	
 	#Definition
 	RepresentingKeyStrsList=[
-								'OrganizingDataCollectionStr',
-								'OrganizingComponentCollectionStr',
+								'OrganizingModelsCollectionStr',
+								'OrganizingComponentsCollectionStr',
 								'OrganizingOutKeyStrsList',
 								'OrganizingInKeyStrsList',
 								'OrganizingOutStr',
@@ -59,16 +59,16 @@ class OrganizerClass(BaseClass):
 								'OrganizedTopDeriveDatabaserVariable',
 								'OrganizedInstallIsBool',
 								'OrganizedDataGetStr',
-								'OrganizedComponentGetStr',
+								'OrganizedComponentsGetStr',
 								'OrganizedDataGetStr',
-								'OrganizedComponentGetStr',
+								'OrganizedComponentsGetStr',
 								'OrganizedInConnectAttentionGetStrsList',
 								'OrganizedOutConnectAttentionGetStrsList'
 							]
 
 	def default_init(self,
-						_OrganizingDataCollectionStr="Data",
-						_OrganizingComponentCollectionStr="Component",
+						_OrganizingModelsCollectionStr="Data",
+						_OrganizingComponentsCollectionStr="Component",
 						_OrganizingOutKeyStrsList=None,
 						_OrganizingInKeyStrsList=None,
 						_OrganizingOutStr="Results",
@@ -76,7 +76,7 @@ class OrganizerClass(BaseClass):
 						_OrganizedTopDeriveDatabaserVariable=None,
 						_OrganizedInstallIsBool=False,
 						_OrganizedDataGetStr="",
-						_OrganizedComponentGetStr="",
+						_OrganizedComponentsGetStr="",
 						_OrganizedInConnectAttentionGetStrsList=None,
 						_OrganizedOutConnectAttentionGetStrsList=None,
 						_OrganizedComponentCollectionOrderedDict=None,
@@ -95,20 +95,20 @@ class OrganizerClass(BaseClass):
 			self.OrganizingOutKeyStrsList=self.__class__.DoneAttributeVariablesOrderedDict.keys()
 
 		#set
-		self.OrganizedDataGetStr=Noder.NodingPrefixGetStr+self.OrganizingDataCollectionStr+Noder.NodingSuffixGetStr
-		self.OrganizedComponentGetStr=Noder.NodingPrefixGetStr+self.OrganizingComponentCollectionStr+Noder.NodingSuffixGetStr
+		self.OrganizedDataGetStr=Noder.NodingPrefixGetStr+self.OrganizingModelsCollectionStr+Noder.NodingSuffixGetStr
+		self.OrganizedComponentsGetStr=Noder.NodingPrefixGetStr+self.OrganizingComponentsCollectionStr+Noder.NodingSuffixGetStr
 
 		#Make the hierarchical joins for the ins 
 		self.OrganizedInConnectAttentionGetStrsList=map(
 				lambda __DeriveNoder:
-				'/NodePointDeriveNoder/'+self.OrganizedComponentGetStr+__DeriveNoder.NodeKeyStr+'/'+self.OrganizedDataGetStr+self.OrganizingInStr+'Hierarchizer',
-				self[self.OrganizedComponentGetStr]
+				'/NodePointDeriveNoder/'+self.OrganizedComponentsGetStr+__DeriveNoder.NodeKeyStr+'/'+self.OrganizedDataGetStr+self.OrganizingInStr+'Hierarchizer',
+				self[self.OrganizedComponentsGetStr]
 			)
 
 		#Set
 		self.OrganizedComponentCollectionOrderedDict=getattr(
 			self,
-			self.OrganizingComponentCollectionStr+'CollectionOrderedDict'
+			self.OrganizingComponentsCollectionStr+'CollectionOrderedDict'
 		)
 
 		#map
@@ -174,13 +174,13 @@ class OrganizerClass(BaseClass):
 						)
 					)
 				],
-			**{'CollectingCollectionStr':self.OrganizingDataCollectionStr}
+			**{'CollectingCollectionStr':self.OrganizingModelsCollectionStr}
 		)
 
 		#set
 		self.OrganizedTopDeriveDatabaserVariable=getattr(
 				self,
-				self.OrganizingDataCollectionStr+'CollectionOrderedDict'
+				self.OrganizingModelsCollectionStr+'CollectionOrderedDict'
 			).values()[-1]
 #</DefineClass>
 

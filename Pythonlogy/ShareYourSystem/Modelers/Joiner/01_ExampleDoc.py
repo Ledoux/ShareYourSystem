@@ -37,56 +37,51 @@ class SumerClass(SYS.ControllerClass):
 
 #Definition of a Storer instance with a noded data
 MySumer=SumerClass(
-		**{
-				'HdformatingFileKeyStr':'Sums_1.hdf5',
-				'FolderingPathStr':SYS.Joiner.LocalFolderPathStr
-			}
-	).push(
-		[
-			(
-				"Parameters",
-				SYS.JoinerClass().update(
-					[
-						(
-							'Attr_DatabasingSealTuplesList',
-							[
-								('SumingFirstInt','SumingFirstInt',tables.Int64Col()),
-								('SumingSecondInt','SumingSecondInt',tables.Int64Col())
-							]
-						),
-						('Attr_RowingGetStrsList',['SumingFirstInt','SumingSecondInt'])
-					]
-				)
-			),
-			(
-				"Results",
-				SYS.JoinerClass().update(
-					[
-						(
-							'Attr_DatabasingSealTuplesList',
-							[
-								('SumedTotalInt','SumedTotalInt',tables.Int64Col())
-							]
-						),
-						('ConnectingGraspClueVariablesList',
-							[
-								'/NodePointDeriveNoder/<Datome>ParametersJoiner'
-							]
-						),
-						('TagStr','Networked')
-					]
-				)
-			)
-		],
-		**{
-			'CollectingCollectionStr':'Datome'
+	**{
+			'HdformatingFileKeyStr':'Sums_1.hdf5',
+			'FolderingPathStr':SYS.Joiner.LocalFolderPathStr
 		}
+	).collect(
+			"Joiners",
+			"Parameters",
+			SYS.JoinerClass().update(
+			[
+				(
+					'Attr_DatabasingSealTuplesList',
+					[
+						('SumingFirstInt','SumingFirstInt',tables.Int64Col()),
+						('SumingSecondInt','SumingSecondInt',tables.Int64Col())
+					]
+				),
+				('Attr_RowingGetStrsList',['SumingFirstInt','SumingSecondInt'])
+			]
+		)
+	).collect(
+			"Joiners",
+			"Results",
+			SYS.JoinerClass().update(
+			[
+				(
+					'Attr_DatabasingSealTuplesList',
+					[
+						('SumedTotalInt','SumedTotalInt',tables.Int64Col())
+					]
+				),
+				('ConnectingGraspClueVariablesList',
+					[
+						'/NodePointDeriveNoder/<Joiners>ParametersJoiner'
+					]
+				),
+				('TagStr','Networked')
+			]
+		)
 	).network(
 		**{
 			'RecruitingConcludeConditionTuplesList':[
 				(
-					'__class__.__mro__',
-					operator.contains,SYS.JoinerClass
+					'MroClassesList',
+					operator.contains,
+					SYS.JoinerClass
 				)
 			]
 		}
@@ -100,7 +95,7 @@ MySumer.update(
 			('SumingSecondInt',3)
 		]
 	).sum(
-	)['<Datome>ResultsJoiner'].flush(
+	)['<Joiners>ResultsJoiner'].flush(
 )
 
 
@@ -111,7 +106,7 @@ MySumer.update(
 			('SumingSecondInt',4)
 		]
 	).sum(
-	)['<Datome>ResultsJoiner'
+	)['<Joiners>ResultsJoiner'
 	#].transmit(
 	#	[
 	#		('setSwitch',{'LiargVariablesList':[],'KwargVariablesDict':{'_DoStrsList':['Flush']}})

@@ -45,8 +45,7 @@ class ConditionerClass(BaseClass):
 		
 		#Call the parent init method
 		BaseClass.__init__(self,**_KwargVariablesDict)
-	
-	#<DefineDoMethod>	
+		
 	def do_condition(self):
 
 		#debug

@@ -1788,12 +1788,12 @@ class ConnecterClass(BaseClass):
     #Definition
     RepresentingKeyStrsList=[
                                 'ConnectingGraspClueVariablesList',
-                                'ConnectedDerivePointersList'
+                                'ConnectedCatchDerivePointersList'
                             ]
 
     def default_init(self,
                         _ConnectingGraspClueVariablesList=None,
-                        _ConnectedDerivePointersList=None,
+                        _ConnectedCatchDerivePointersList=None,
                         **_KwargVariablesDict
                     ):
 
@@ -1808,7 +1808,7 @@ class ConnecterClass(BaseClass):
         '''
 
         #catch
-        self.ConnectedDerivePointersList=map(
+        self.ConnectedCatchDerivePointersList=map(
                 lambda __ConnectingGraspVariable:
                 self.grasp(
                         __ConnectingGraspVariable
@@ -1969,7 +1969,7 @@ In&nbsp;[3]:
                            /   /   /   /   /   /   /   /   /}
                            /   /   /   /   /   /   /   /}
                            /   /   /   /   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;WatchParentWithParenterBool&apos; : True
-                           /   /   /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;ConnectedDerivePointersList&apos; : None
+                           /   /   /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;ConnectedCatchDerivePointersList&apos; : None
                            /   /   /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;ConnectingGraspClueVariablesList&apos; : None
                            /   /   /   /   /   /   /}
                            /   /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointedBackSetStr&apos; : 
@@ -1996,7 +1996,7 @@ In&nbsp;[3]:
                            /   /   /   /   /   /}
                            /   /   /   /   /}
                            /   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;WatchParentWithParenterBool&apos; : True
-                           /   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;ConnectedDerivePointersList&apos; : []
+                           /   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;ConnectedCatchDerivePointersList&apos; : []
                            /   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;ConnectingGraspClueVariablesList&apos; : 
                            /   /   /   /   /[
                            /   /   /   /   /  0 : /NodePointDeriveNoder/&lt;Connectome&gt;SecondConnecter
@@ -2032,7 +2032,7 @@ In&nbsp;[3]:
                            /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4557624560&gt;
                            /  &apos;&lt;New&gt;&lt;Instance&gt;PostRelatomeCollectionOrderedDict&apos; : {...}&lt; (OrderedDict), 4557625448&gt;
                            /  &apos;&lt;New&gt;&lt;Instance&gt;WatchParentWithParenterBool&apos; : True
-                           /  &apos;&lt;Spe&gt;&lt;Instance&gt;ConnectedDerivePointersList&apos; : {...}&lt; (list), 4556980592&gt;
+                           /  &apos;&lt;Spe&gt;&lt;Instance&gt;ConnectedCatchDerivePointersList&apos; : {...}&lt; (list), 4556980592&gt;
                            /  &apos;&lt;Spe&gt;&lt;Instance&gt;ConnectingGraspClueVariablesList&apos; : {...}&lt; (list), 4558788728&gt;
                            /})])
                         
@@ -2082,7 +2082,7 @@ MyProducer is &lt; (ProducerClass), 4557735312&gt;
    /   /   /   /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;PointingSetPathStr&apos; : CatchToPointVariable
    /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /}
-   /   /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;ConnectedDerivePointersList&apos; : None
+   /   /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;ConnectedCatchDerivePointersList&apos; : None
    /   /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;ConnectingGraspClueVariablesList&apos; : None
    /   /   /   /   /   /}
    /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;PointedBackSetStr&apos; : 
@@ -2125,7 +2125,7 @@ MyProducer is &lt; (ProducerClass), 4557735312&gt;
    /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;PointingSetPathStr&apos; : CatchToPointVariable
    /   /   /   /   /}
    /   /   /   /}
-   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;ConnectedDerivePointersList&apos; : 
+   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;ConnectedCatchDerivePointersList&apos; : 
    /   /   /   /[
    /   /   /   /  0 : {...}&lt; (ConnecterClass), 4557707024&gt;
    /   /   /   /  1 : {...}&lt; (ConnecterClass), 4557706960&gt;
@@ -2144,7 +2144,7 @@ MyProducer is &lt; (ProducerClass), 4557735312&gt;
    /  &apos;&lt;New&gt;&lt;Instance&gt;PostRelatomeCollectionOrderedDict&apos; : {...}&lt; (OrderedDict), 4557625448&gt;
    /  &apos;&lt;New&gt;&lt;Instance&gt;PreRelatomeCollectionOrderedDict&apos; : {...}&lt; (OrderedDict), 4557624856&gt;
    /  &apos;&lt;New&gt;&lt;Instance&gt;WatchParentWithParenterBool&apos; : True
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;ConnectedDerivePointersList&apos; : {...}&lt; (list), 4556999208&gt;
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;ConnectedCatchDerivePointersList&apos; : {...}&lt; (list), 4556999208&gt;
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;ConnectingGraspClueVariablesList&apos; : {...}&lt; (list), 4558788728&gt;
    /})])
    /   /   /   /]

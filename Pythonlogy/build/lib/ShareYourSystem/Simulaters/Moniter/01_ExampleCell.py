@@ -17,10 +17,10 @@ MyMoniter=Moniter.MoniterClass().update(
 		
 #Definition the AttestedStr
 SYS._attest(
-					[
-						'MyMoniter is '+SYS._str(MyMoniter)
-					]
-				) 
+	[
+		'MyMoniter is '+SYS._str(MyMoniter)
+	]
+) 
 
 #Print
 

@@ -28,6 +28,7 @@ class BoxerClass(BaseClass):
 	
 	#Definition 
 	RepresentingKeyStrsList=[
+								'BoxingPatchStr',
 								'BoxingInitWidthInt',
 								'BoxingInitHeigthInt',
 								'BoxedWidthInt',
@@ -35,6 +36,7 @@ class BoxerClass(BaseClass):
 							]
 
 	def default_init(self, 
+						_BoxingPatchStr="",
 						_BoxingInitWidthInt=400,
 						_BoxingInitHeigthInt=100,
 						_BoxingStepWidthInt=10,
@@ -53,17 +55,43 @@ class BoxerClass(BaseClass):
 		self.parent(['MeteoredConcurrentDDPClientVariable'])
 
 		#debug
+		'''
 		self.debug(('self.',self,['ParentedGrandParentVariablesList']))
+		'''
 
-		#insert  box
+		#insert the node box
 		self.MeteoredConcurrentDDPClientVariable.call(
-				'control',
+				'mongo',
 				'boxes',
 				'insert',
 				{
 					'x':self.BoxingInitWidthInt,
-					'y':self.BoxingInitHeigthInt
+					'y':self.BoxingInitHeigthInt,
+					'IsNoderBool':True,
+					'NodeKeyStr':self.NodeKeyStr,
+					'CollectionStr':self.NodeCollectionStr,
+					'PatchStr':self.BoxingPatchStr
 				}
 			)
+
+		#insert the collections ordered dict
+		map(
+				lambda __NodedCollectionStr,__IndexInt:
+				self.MeteoredConcurrentDDPClientVariable.call(
+					'mongo',
+					'boxes',
+					'insert',
+					{
+						'x':self.BoxingInitWidthInt,
+						'y':self.BoxingInitHeigthInt,
+						'IsOrderedDict':True,
+						'CollectionStr':self.NodeCollectionStr,
+						'PatchStr':self.BoxingPatchStr
+					}
+				),
+				self.NodedCollectionStrsSet,
+				len(self.NodedCollectionStrsSet)
+			)
+		
 
 #</DefineClass>

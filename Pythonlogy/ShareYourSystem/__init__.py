@@ -57,11 +57,11 @@ ConceptStrsTuplesList=[
 	('Interfacer','Interfacers'),
 	('Guider','Guiders'),
 	('Itemizer','Itemizers'),
-	('Applyier','Applyiers'),
 	('Walker','Walkers'),
 	('Noder','Noders'),
-	('Storer','Storers'),
-	('Databaser','Databasers'),
+	('Controller','Controllers'),
+	('Modeler','Modelers'),
+	('Viewer','Viewers'),
 	('Ploter','Ploters'),
 	('Tutorials','Tutorials'),
 	('Brianer','Brianers'),
@@ -441,7 +441,7 @@ def getIsNoneBool(_Variable):
 
 	#debug
 	'''
-	print('SYS  getIsNoneBool l.168 ')
+	print('SYS  getIsNoneBool l.443 ')
 	print('_Variable is ',_Variable)
 	print('type(_Variable) is ',type(_Variable))
 	print('')
@@ -454,10 +454,26 @@ def getIsNoneBool(_Variable):
 	import numpy
 	if Type!=numpy.ndarray:
 
+		#Debug
+		'''
+		print('SYS  getIsNoneBool l.456 ')
+		print('Type is ')
+		print(Type)
+		print('')
+		'''
+		
 		#return
-		return type(_Variable)==None.__class__
+		return Type==None.__class__
 
 	else:
+
+		#Debug
+		'''
+		print('SYS  getIsNoneBool l.456 ')
+		print('Type is ')
+		print(Type)
+		print('')
+		'''
 
 		#return 
 		return False
@@ -906,8 +922,8 @@ class ShareYourSystem():
 			'''
 
 			#Check for special methods
-			if _KeyVariable in ['_print','_str']:
-				from ShareYourSystem.Classors import Representer
+			if _KeyVariable in ['_print','_str','_attest','_test']:
+				from ShareYourSystem.Classors import Tester
 				return getattr(WrapModule,_KeyVariable)
 
 			#Check

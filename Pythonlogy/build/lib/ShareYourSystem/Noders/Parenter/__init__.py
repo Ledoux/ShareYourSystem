@@ -57,7 +57,9 @@ class ParenterClass(BaseClass):
 
 		#debug
 		'''
-		self.debug(('self.',self,['ParentingNodeStr','NodePointDeriveNoder']))
+		self.debug(('self.',self,[
+					
+				]))
 		'''
 
 		#Check of a parent pointer
@@ -67,7 +69,7 @@ class ParenterClass(BaseClass):
 			'''
 			self.debug('We are going to node the parent pointer')
 			'''
-
+			
 			#Parent the parent maybe
 			if self.ParentingWalkBool:
 

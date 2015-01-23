@@ -7,13 +7,15 @@
 @Author : Erwan Ledoux \n\n
 </DefineSource>
 
-Catcher instances grasps a Variable, sets a Pointer on it that will be then collected 
+Catcher instances grasps a Variable, sets a To Pointer on this latter Variable,
+also a Pointer on the source Catcher, give a CatchKeyStr, and makes collect this
+grapsed Variables.
 
 """
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Noders.Producer"
+BaseModuleStr="ShareYourSystem.Noders.Arrayer"
 DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -63,24 +65,18 @@ class CatcherClass(BaseClass):
 		'''
 		self.debug(
 					('self.',self,[
-									'CollectingCollectionStr',
-									'GraspingClueVariable'
+									'CatchingCollectionStr',
 								])
 				)
-		'''
-		
-		#grasp
-		'''
-		self.grasp(
-			self.GraspingClueVariable
-		)
 		'''
 
 		#link
 		if type(self.GraspingClueVariable)==SYS.GraspDictClass:
 			self.CatchingUpdateVariable=self.GraspingClueVariable
 
+
 		#Defaut set for the collection keyStr
+		self.CatchedNodeKeyStr=""
 		if self.CatchingDefaultNodeKeyStrBool:
 
 			#Check
@@ -91,10 +87,11 @@ class CatcherClass(BaseClass):
 				CatchedGetStr=self.GraspingClueVariable
 
 			elif type(self.GraspingClueVariable)==SYS.GraspDictClass and type(
-				self.GraspingClueVariable['HintVariable']) in SYS.StrTypesList:
+				self.GraspingClueVariable['HintVariable']
+				) in SYS.StrTypesList:
 
 				#set
-				CatchedGetStr=self.GraspingClueVariable['HintVariable']
+				CatchedGetStr=self.NodeKeyStr+self.GraspingClueVariable['HintVariable']
 
 			elif hasattr(self.GraspedAnswerVariable,'parent'):
 
@@ -137,11 +134,7 @@ class CatcherClass(BaseClass):
 								])
 					)
 		'''
-
-		#Check
-		if self.CatchingCollectionStr=="":
-			self.CatchingCollectionStr=self.CollectingCollectionStr
-
+		
 		#init
 		self.CatchedDerivePointerVariable=self.CatchingDerivePointerClass(
 			**{
@@ -153,6 +146,8 @@ class CatcherClass(BaseClass):
 		).point(
 			self,
 			'CatchFromPointVariable'
+		).__setitem__(
+			'CatchKeyStr',self.CatchedNodeKeyStr
 		)
 
 		#debug

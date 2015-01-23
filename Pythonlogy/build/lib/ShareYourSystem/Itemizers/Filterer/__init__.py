@@ -49,7 +49,7 @@ class FiltererClass(BaseClass):
 		#debug
 		'''
 		self.debug(('self.',self,[
-									'PickingGetKeyVariablesList',
+									'PickingKeyVariablesList',
 									'ConcludingConditionTuplesList',
 									'FilteringGetVariable'
 								])
@@ -70,7 +70,7 @@ class FiltererClass(BaseClass):
 			self.debug(
 					(
 						'self.',self,[
-										'PickingGetKeyVariablesList',
+										'PickingKeyVariablesList',
 										'ConcludedConditionIsBoolsList',
 									]+SYS.unzip(
 										self.ConcludingConditionTuplesList,[0]

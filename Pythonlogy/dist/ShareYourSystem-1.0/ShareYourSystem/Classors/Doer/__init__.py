@@ -57,9 +57,7 @@ def setDoing(_InstanceVariable,_DoClassVariable=None,**_KwargVariablesDict):
 			SYS,
 			SYS.getClassStrWithNameStr(_DoClassVariable)
 		)
-
-
-
+		
 	#call
 	_InstanceVariable.setDefault(
 		_DoClassVariable,
@@ -430,7 +428,7 @@ class DoerClass(BaseClass):
 				lambda __KeyStr:
 				"\n".join(
 					[
-						"\tif "+DoingAttributePrefixStr+__KeyStr+"!=None:",
+						"\tif type("+DoingAttributePrefixStr+__KeyStr+")!=None.__class__:",
 						"\t\t_InstanceVariable."+__KeyStr+"="+DoingAttributePrefixStr+__KeyStr,
 					]
 				),
@@ -695,7 +693,12 @@ DoStrsTuplesList=[
 	('Boxer','Box','Boxing','Boxed'),
 	('Consoler','Console','Consoling','Consoled'),
 	('Systemer','System','Systeming','Systemed'),
-	('Patcher','Patch','Patching','Patched')
+	('Patcher','Patch','Patching','Patched'),
+	('Arrayer','Array','Arraying','Arrayed'),
+	('Matrixer','Matrix','Matrixing','Matrixed'),
+	('Eulerer','Euler','Eulering','Eulered'),
+	('Integrater','Integrate','Integrating','Integrated'),
+	('Pydelayer','Pydelay','Pydelaying','Pydelayed')
 ]
 
 DoerStrToDoStrOrderedDict=SYS.dictify(DoStrsTuplesList,0,1)

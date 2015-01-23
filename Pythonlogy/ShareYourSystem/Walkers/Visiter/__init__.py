@@ -39,6 +39,7 @@ class VisiterClass(BaseClass):
 				_VisitingCollectionStrsList=None,
 				_VisitingBeforeUpdateList=None,
 				_VisitingAfterUpdateList=None,
+				_VisitingAllIsBool=True,
 				**_KwargVariablesDict
 			):
 
@@ -47,7 +48,7 @@ class VisiterClass(BaseClass):
 
 	def do_visit(self):
 			
-		#Walk inside the group in order to parent
+		#Walk inside 
 		self.walk(
 					{
 						'BeforeUpdateList':self.VisitingBeforeUpdateList,

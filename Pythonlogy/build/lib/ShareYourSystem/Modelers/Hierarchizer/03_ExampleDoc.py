@@ -1,15 +1,12 @@
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Classors import Classer
-from ShareYourSystem.Noders import Structurer
-from ShareYourSystem.Modelers import Hierarchizer
 import operator
 import tables
 import numpy as np
 
 #Define a Sumer class
-@Classer.ClasserClass()
-class SumerClass(Structurer.StructurerClass):
+@SYS.ClasserClass()
+class SumerClass(SYS.ControllerClass):
 
 	#Definition
 	RepresentingKeyStrsList=[
@@ -26,13 +23,13 @@ class SumerClass(Structurer.StructurerClass):
 					):
 
 		#Call the parent init method
-		self.__class__.__bases__[0].__init__(self,**_KwargVariablesDict)
+		SYS.ControllerClass.__init__(self,**_KwargVariablesDict)
 
 		#Set a parameters database
 		self.collect(
-				"Datome",
+				"Hierarchizers",
 				"Parameters",
-				Hierarchizer.HierarchizerClass().update(
+				SYS.HierarchizerClass().update(
 					[
 						(
 							'Attr_DatabasingSealTuplesList',
@@ -48,9 +45,9 @@ class SumerClass(Structurer.StructurerClass):
 
 		#Set a results database
 		self.collect(
-			"Datome",
+			"Hierarchizers",
 			"Results",
-			Hierarchizer.HierarchizerClass().update(
+			SYS.HierarchizerClass().update(
 				[
 					(
 						'Attr_DatabasingSealTuplesList',
@@ -60,7 +57,7 @@ class SumerClass(Structurer.StructurerClass):
 					),
 					('ConnectingGraspClueVariablesList',
 						[
-							'/NodePointDeriveNoder/<Datome>ParametersHierarchizer'
+							'/NodePointDeriveNoder/<Hierarchizers>ParametersHierarchizer'
 						]
 					),
 					('TagStr','Networked')
@@ -79,8 +76,8 @@ class SumerClass(Structurer.StructurerClass):
 		self.SumedTotalInt=self.SumingFirstInt+self.SumingSecondInt
 
 #Define a Factorizer class
-@Classer.ClasserClass()
-class FactorizerClass(Structurer.StructurerClass):
+@SYS.ClasserClass()
+class FactorizerClass(SYS.ControllerClass):
 
 	#Definition
 	RepresentingKeyStrsList=[
@@ -95,21 +92,21 @@ class FactorizerClass(Structurer.StructurerClass):
 					):
 
 		#Call the parent init method
-		self.__class__.__bases__[0].__init__(self,**_KwargVariablesDict)
+		SYS.ControllerClass.__init__(self,**_KwargVariablesDict)
 
 		#Build the output hierarchy
 		self.update(
 						[
-							('<Component>XSumer',SumerClass()),
-							('<Component>YSumer',SumerClass())
+							('<Components>XSumer',SumerClass()),
+							('<Components>YSumer',SumerClass())
 						]
 					)
 
 		#Set a parameters database
 		self.collect(
-					"Datome",
+					"Hierarchizers",
 					"Parameters",
-					Hierarchizer.HierarchizerClass().update(
+					SYS.HierarchizerClass().update(
 						[
 							(
 								'Attr_DatabasingSealTuplesList',
@@ -120,8 +117,8 @@ class FactorizerClass(Structurer.StructurerClass):
 							('Attr_RowingGetStrsList',['FactorizingPowerFloat']),
 							('ConnectingGraspClueVariablesList',
 								[
-									'/NodePointDeriveNoder/<Component>XSumer/<Datome>ParametersHierarchizer',
-									'/NodePointDeriveNoder/<Component>YSumer/<Datome>ParametersHierarchizer'
+									'/NodePointDeriveNoder/<Components>XSumer/<Hierarchizers>ParametersHierarchizer',
+									'/NodePointDeriveNoder/<Components>YSumer/<Hierarchizers>ParametersHierarchizer'
 								]
 							)
 						]
@@ -130,9 +127,9 @@ class FactorizerClass(Structurer.StructurerClass):
 
 		#Set a results database
 		self.collect(
-			"Datome",
+			"Hierarchizers",
 			"Results",
-			Hierarchizer.HierarchizerClass().update(
+			SYS.HierarchizerClass().update(
 				[
 					(
 						'Attr_DatabasingSealTuplesList',
@@ -142,7 +139,7 @@ class FactorizerClass(Structurer.StructurerClass):
 					),
 					('ConnectingGraspClueVariablesList',
 						[
-							'/NodePointDeriveNoder/<Datome>ParametersHierarchizer'
+							'/NodePointDeriveNoder/<Hierarchizers>ParametersHierarchizer'
 						]
 					),
 					('TagStr','Networked')
@@ -161,7 +158,7 @@ class FactorizerClass(Structurer.StructurerClass):
 				map(
 					lambda __DeriveSumer:
 					__DeriveSumer.SumedTotalInt,
-					self['<Component>']
+					self['<Components>']
 				)
 			),
 			self.FactorizingPowerFloat
@@ -170,17 +167,17 @@ class FactorizerClass(Structurer.StructurerClass):
 #Definition of a Factorizer instance, structure and network
 MyFactorizer=FactorizerClass(
 		**{
-			'FolderingPathStr':Hierarchizer.LocalFolderPathStr
+			'FolderingPathStr':SYS.Hierarchizer.LocalFolderPathStr
 		}
 	).structure(
-		['Component']
+		['Components']
 	).network(
 		**{
-			'VisitingCollectionStrsList':['Datome','Component'],
+			'VisitingCollectionStrsList':['Hierarchizers','Components'],
 			'RecruitingConcludeConditionTuplesList':[
 				(
-					'__class__.__mro__',
-					operator.contains,Hierarchizer.HierarchizerClass
+					'MroClassesList',
+					operator.contains,SYS.HierarchizerClass
 				)
 			]
 		}
@@ -188,7 +185,7 @@ MyFactorizer=FactorizerClass(
 
 #Update transmit the do method and flush in the results
 MyFactorizer.__setitem__(
-	"Dis_<Component>",
+	"Dis_<Components>",
 	[
 		[
 			('SumingFirstInt',1),
@@ -204,13 +201,13 @@ MyFactorizer.__setitem__(
 		'AfterUpdateList':[
 			('callDo',{'LiargVariablesList':[]})
 		],
-		'GatherVariablesList':['<Component>']
+		'GatherVariablesList':['<Components>']
 	}
-)['<Datome>ResultsHierarchizer'].flush()
+)['<Hierarchizers>ResultsHierarchizer'].flush()
 
 #Update and flush in the results
 MyFactorizer.__setitem__(
-	"Dis_<Component>",
+	"Dis_<Components>",
 	[
 		[
 			('SumingFirstInt',2)
@@ -224,9 +221,9 @@ MyFactorizer.__setitem__(
 		'AfterUpdateList':[
 			('callDo',{'LiargVariablesList':[]})
 		],
-		'GatherVariablesList':['<Component>']
+		'GatherVariablesList':['<Components>']
 	}
-)['<Datome>ResultsHierarchizer'].flush()
+)['<Hierarchizers>ResultsHierarchizer'].flush()
 
 #Definition the AttestedStr
 SYS._attest(

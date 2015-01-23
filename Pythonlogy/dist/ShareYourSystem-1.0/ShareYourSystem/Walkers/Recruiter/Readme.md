@@ -92,7 +92,7 @@ class RecruiterClass(BaseClass):
                 #add
                 self.VisitingBeforeUpdateList+=[
                         (
-                                'PickingGetKeyVariablesList',['/']
+                                'PickingKeyVariablesList',['/']
                         ),
                         (
                                 'ConcludingConditionTuplesList',

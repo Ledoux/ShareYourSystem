@@ -2,6 +2,7 @@
 import ShareYourSystem as SYS
 from ShareYourSystem.Classors import Defaultor,Attester
 from ShareYourSystem.Objects import Initiator
+import numpy as np
 
 #Definition a FooClass decorated by the DefaultorClass
 @Defaultor.DefaultorClass()
@@ -9,6 +10,7 @@ class FooClass(Initiator.InitiatorClass):
 
 	def default_init(self,
 						_MyFirstList=[],
+						_MyArray=None,
 						_MySecondList=None,
 				):
 		pass
@@ -24,6 +26,7 @@ DefaultFoo.MyFirstList.append('hello')
 
 #Definition a special instance that sets in its __dict__
 SpecialFoo=FooClass(
+			_MyArray=np.array([4]),
 			_MySecondList=['bonjour'],
 			**{'MyInt':3}
 			)

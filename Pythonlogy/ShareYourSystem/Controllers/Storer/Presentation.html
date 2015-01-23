@@ -1820,21 +1820,21 @@ class StorerClass(BaseClass):
                     'AfterUpdateList':[
                         ('organize',{'LiargVariablesList':[]})
                     ],
-                    'GatherVariablesList':[self.OrganizedComponentGetStr]
+                    'GatherVariablesList':[self.OrganizedComponentsGetStr]
                 }
             )
 
             #structure
             self.structure(
-                    [self.OrganizingComponentCollectionStr]
+                    [self.OrganizingComponentsCollectionStr]
                 )
 
             #network
             self.network(
                     **{
                         'VisitingCollectionStrsList':[
-                            self.OrganizingDataCollectionStr,
-                            self.OrganizingComponentCollectionStr
+                            self.OrganizingModelsCollectionStr,
+                            self.OrganizingComponentsCollectionStr
                         ],
                         'RecruitingConcludeConditionTuplesList':[
                             (
@@ -1857,7 +1857,7 @@ class StorerClass(BaseClass):
                     'AfterUpdateList':[
                         ('callDo',{'LiargVariablesList':[]})
                     ],
-                    'GatherVariablesList':[self.OrganizedComponentGetStr]
+                    'GatherVariablesList':[self.OrganizedComponentsGetStr]
                 }
             )
 
@@ -1953,7 +1953,7 @@ In&nbsp;[3]:
         <span class="bp">self</span><span class="o">.</span><span class="n">produce</span><span class="p">(</span>
                 <span class="p">[</span><span class="s">&#39;X&#39;</span><span class="p">,</span><span class="s">&#39;Y&#39;</span><span class="p">],</span>
                 <span class="n">SumerClass</span><span class="p">,</span>
-                <span class="o">**</span><span class="p">{</span><span class="s">&#39;CollectingCollectionStr&#39;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">OrganizingComponentCollectionStr</span><span class="p">}</span>
+                <span class="o">**</span><span class="p">{</span><span class="s">&#39;CollectingCollectionStr&#39;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">OrganizingComponentsCollectionStr</span><span class="p">}</span>
             <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">do_factorize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1969,7 +1969,7 @@ In&nbsp;[3]:
                 <span class="nb">map</span><span class="p">(</span>
                     <span class="k">lambda</span> <span class="n">__DeriveSumer</span><span class="p">:</span>
                     <span class="n">__DeriveSumer</span><span class="o">.</span><span class="n">SumedTotalInt</span><span class="p">,</span>
-                    <span class="bp">self</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">OrganizedComponentGetStr</span><span class="p">]</span>
+                    <span class="bp">self</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">OrganizedComponentsGetStr</span><span class="p">]</span>
                 <span class="p">)</span>
             <span class="p">),</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">FactorizingPowerFloat</span>

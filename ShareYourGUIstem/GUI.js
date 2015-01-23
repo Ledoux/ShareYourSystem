@@ -1,5 +1,5 @@
 //Define collections
-Pacthes = new Meteor.Collection('pacthes');
+Patches = new Meteor.Collection('patches');
 Messages = new Meteor.Collection('messages');
 Boxes = new Meteor.Collection('boxes');
 Connectors = new Meteor.Collection('connectors')
@@ -11,6 +11,18 @@ if (Meteor.isClient) {
 	    // code to run on client at startup
 	    
 	  });
+
+  Template.GUI.helpers({
+    'patches': function () {
+        return Patches.find();
+    },
+    'DisplayPatchStrsList':function()
+    {
+      return Session.get('PatchStrsList')
+    }
+  });
+  
+  Session.set('PatchStrsList',['Default','Default2'])
 }
 
 //server side
@@ -26,7 +38,7 @@ if (Meteor.isServer) {
 
       },
 
-      control:function(CollectionStr,MethodStr,CollectionDict)
+      mongo:function(CollectionStr,MethodStr,CollectionDict)
       {
         console.log(CollectionStr,MethodStr,CollectionDict)
         Meteor.Collection.get(CollectionStr)[MethodStr](CollectionDict)
@@ -36,14 +48,6 @@ if (Meteor.isServer) {
 
     }
   )
-
-  
 }
 
-
-Template.patches.helpers({
-    patches: function() {
-        return Patches.find({}, { sort: { time: -1}});
-    }
-  })
 

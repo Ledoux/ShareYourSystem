@@ -46,13 +46,9 @@ class AttentionerClass(BaseClass):
 		
 		#debug
 		'''
-		self.debug(('self.',self,['CatchingCollectionStr']))
+		self.debug(('self.',self,['AttentioningCollectionStr']))
 		'''
 		
-		#set
-		if self.AttentioningCollectionStr=="":
-			self.AttentioningCollectionStr=self.CollectingCollectionStr
-
 		#debug
 		'''
 		self.debug(

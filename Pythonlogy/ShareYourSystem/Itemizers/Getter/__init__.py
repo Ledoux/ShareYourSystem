@@ -95,7 +95,7 @@ class GetterClass(BaseClass):
 				
 				#Stop the getting
 				return {"HookingIsBool":False}
-
+				
 			elif self.GettingKeyVariable in self.__class__.__dict__:
 
 				#__getitem__ in the __class__

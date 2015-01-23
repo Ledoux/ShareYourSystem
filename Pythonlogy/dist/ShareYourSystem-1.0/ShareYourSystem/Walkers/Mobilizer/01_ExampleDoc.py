@@ -1,34 +1,33 @@
 
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Walkers import Visiter,Recruiter,Mobilizer
 import operator
 
 #Definition a Mobilizer instance that is grouped
-MyMobilizer=Mobilizer.MobilizerClass().update(
+MyMobilizer=SYS.MobilizerClass().update(
 	[
 		(
-			'<Mobilizome>FirstChildMobilizer',
-			Mobilizer.MobilizerClass().update(
+			'<Mobilizers>FirstChildMobilizer',
+			SYS.MobilizerClass().update(
 				[
 					(
-						'<Recruitome>GrandChildRecruiter',
-						Recruiter.RecruiterClass()
+						'<Recruiters>GrandChildRecruiter',
+						SYS.RecruiterClass()
 					),
 					(
-						'<Recruitome>FakeGrandChildVisiter',
-						Visiter.VisiterClass()
+						'<Recruiters>FakeGrandChildVisiter',
+						SYS.VisiterClass()
 					)
 				]
 			)
 		),
 		(
-			'<Mobilizome>SecondChildMobilizer',
-			Mobilizer.MobilizerClass()
+			'<Mobilizers>SecondChildMobilizer',
+			SYS.MobilizerClass()
 		),
 		(
-			'<Mobilizome>ThirdChildMobilizer',
-			Mobilizer.MobilizerClass()
+			'<Mobilizers>ThirdChildMobilizer',
+			SYS.MobilizerClass()
 		)
 	]	
 )
@@ -39,7 +38,7 @@ MyMobilizer.mobilize(
 		'Mobilizer','Recruiter'
 	],
 	**{
-			'VisitingCollectionStrsList':['Mobilizome','Recruitome'],
+			'VisitingCollectionStrsList':['Mobilizers','Recruiters'],
 			'RecruitingConcludeConditionTuplesList':[
 			('NodeIndexInt',lambda _TestInt,_AttestInt:
 				_TestInt!=None and operator.lt(_TestInt,_AttestInt),2)
@@ -51,7 +50,7 @@ MyMobilizer.mobilize(
 SYS._attest(
 	[
 		'MyMobilizer is '+SYS._str(
-		MyMobilizer,
+		MyMobilizer.CumulatedVariablesList,
 		**{
 			'RepresentingBaseKeyStrsListBool':False,
 			'RepresentingAlineaIsBool':False

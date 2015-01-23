@@ -1,11 +1,10 @@
 
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Objects import Concluder
 import operator
 
 #Definition of an instance Concluder and make it print hello
-MyConcluder=Concluder.ConcluderClass().conclude(
+MyConcluder=SYS.ConcluderClass().conclude(
 	{'MyColorStr':'Black','MySuperInt':6},
 	[
 		('MyColorStr',operator.eq,"Black"),

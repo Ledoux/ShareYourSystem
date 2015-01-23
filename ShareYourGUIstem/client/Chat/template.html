@@ -1,22 +1,29 @@
 <template name="Chat">
-	<table heigth=100px>
+
+	<table>
+
 		<tr heigth=20% style="border-bottom:1pt solid black;">
-			<br>
 			{{>input}}
 		</tr>
 		<tr heigth=80%>
 			{{>messages}}
 		</tr>
+
 	</table>
+
 </template>
 
 <template name="messages">
+
 	Messages are : <br>
-  {{#each messages}}
-    <strong>{{name}}:</strong> {{message}}<br>
-  {{/each}}
+	{{#each messages}}
+	    <strong>{{name}}:</strong> {{message}}<br>
+	{{/each}}
+
 </template>
 
 <template name="input">
+
   <p>Message: <input type="text" id="message"></p>
+
 </template>

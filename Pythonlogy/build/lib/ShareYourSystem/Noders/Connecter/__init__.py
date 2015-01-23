@@ -19,6 +19,7 @@ SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
+import copy
 #</ImportSpecificModules>
 
 #<DefineClass>
@@ -28,12 +29,18 @@ class ConnecterClass(BaseClass):
 	#Definition
 	RepresentingKeyStrsList=[
 								'ConnectingGraspClueVariablesList',
-								'ConnectedDerivePointersList'
+								'ConnectingCatchCollectionStr',
+								'ConnectingAttentionCollectionStr',
+								'ConnectedCatchDerivePointersList',
+								'ConnectedCatchKeyStrsList'
 							]
 
 	def default_init(self,
 						_ConnectingGraspClueVariablesList=None,
-						_ConnectedDerivePointersList=None,
+						_ConnectingCatchCollectionStr="To",
+						_ConnectingAttentionCollectionStr="From",
+						_ConnectedCatchDerivePointersList=None,
+						_ConnectedCatchKeyStrsList=None,
 						**_KwargVariablesDict
 					):
 
@@ -48,14 +55,30 @@ class ConnecterClass(BaseClass):
 		'''
 		
 		#catch
-		self.ConnectedDerivePointersList=map(
+		self.ConnectedCatchDerivePointersList=map(
 				lambda __ConnectingGraspVariable:
-				self.grasp(
+				copy.copy(
+					self.grasp(
 						__ConnectingGraspVariable
 					).catch(
+						self.ConnectingCatchCollectionStr
 					).attention(
-					).CatchedDerivePointerVariable,
+						self.ConnectingAttentionCollectionStr
+					).CatchedDerivePointerVariable
+				),
 				self.ConnectingGraspClueVariablesList
 			)
+
+		#map
+		self.ConnectedCatchKeyStrsList=map(
+				lambda __ConnectedDerivePointer:
+				__ConnectedDerivePointer.CatchKeyStr,
+				self.ConnectedCatchDerivePointersList
+			)
+
+		#debug
+		'''
+		self.debug(('self.',self,['ConnectedCatchKeyStrsList']))
+		'''
 
 #</DefineClass>

@@ -50,7 +50,7 @@ MyMobilizer.mobilize(
 SYS._attest(
 	[
 		'MyMobilizer is '+SYS._str(
-		MyMobilizer,
+		MyMobilizer.CumulatedVariablesList,
 		**{
 			'RepresentingBaseKeyStrsListBool':False,
 			'RepresentingAlineaIsBool':False

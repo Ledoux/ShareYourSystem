@@ -1,12 +1,10 @@
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Classors import Classer
-from ShareYourSystem.Controllers import Storer
 import numpy as np
 
 #Define a Sumer class
-@Classer.ClasserClass()
-class SumerClass(Storer.StorerClass):
+@SYS.ClasserClass()
+class SumerClass(SYS.StorerClass):
 
 	#Definition
 	RepresentingKeyStrsList=[
@@ -30,8 +28,8 @@ class SumerClass(Storer.StorerClass):
 		self.SumedTotalInt=self.SumingFirstInt+self.SumingSecondInt
 
 #Define a Factorizer class
-@Classer.ClasserClass()
-class FactorizerClass(Storer.StorerClass):
+@SYS.ClasserClass()
+class FactorizerClass(SYS.StorerClass):
 
 	#Definition
 	RepresentingKeyStrsList=[
@@ -45,13 +43,13 @@ class FactorizerClass(Storer.StorerClass):
 					):
 
 		#Call the parent init method
-		self.__class__.__bases__[0].__init__(self)
+		SYS.StorerClass.__init__(self)
 
 		#Build the output hierarchy
 		self.produce(
+				self.OrganizingComponentsCollectionStr,
 				['X','Y'],
-				SumerClass,
-				**{'CollectingCollectionStr':self.OrganizingComponentCollectionStr}
+				SumerClass
 			)
 
 	def do_factorize(self):
@@ -67,7 +65,7 @@ class FactorizerClass(Storer.StorerClass):
 				map(
 					lambda __DeriveSumer:
 					__DeriveSumer.SumedTotalInt,
-					self[self.OrganizedComponentGetStr]
+					self[self.OrganizedComponentsGetStr]
 				)
 			),
 			self.FactorizingPowerFloat
@@ -77,13 +75,13 @@ class FactorizerClass(Storer.StorerClass):
 MyFactorizer=FactorizerClass(
 		**{
 			#'HdformatingFileKeyStr':"Datome.hdf5",
-			'FolderingPathStr':Storer.LocalFolderPathStr
+			'FolderingPathStr':SYS.Storer.LocalFolderPathStr
 		}
 	)
 
 #Update transmit the do method and flush in the results
 MyFactorizer.__setitem__(
-	"Dis_<Component>",
+	"Dis_<Components>",
 	[
 		[
 			('SumingFirstInt',1),
@@ -98,7 +96,7 @@ MyFactorizer.__setitem__(
 
 #Update and flush in the results
 MyFactorizer.__setitem__(
-	"Dis_<Component>",
+	"Dis_<Components>",
 	[
 		[
 			('SumingFirstInt',2)

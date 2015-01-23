@@ -117,7 +117,7 @@ class WalkerClass(BaseClass):
 		self.debug(('self.',self,['WalkingSocketDict']))
 		'''
 		
-		#Command an recursive order in other gathered variables
+		#Command a recursive order in other gathered variables
 		self.command(
 						_UpdateList=[
 							('walk',{

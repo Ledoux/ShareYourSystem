@@ -140,7 +140,7 @@ self.NetworkedDeriveConnectersList=self.RecruitedFlatCumulateVariablesList
                                         ).pick(
                                                 [
 'ConnectedAttentionDeriveConnectersList',
-'ConnectedDerivePointersList'
+'ConnectedCatchDerivePointersList'
                                                 ]
                                         )
                                 ),
@@ -316,7 +316,7 @@ CatchToPointVariable
    /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /}
    /   /   /   /   /   /  '<New><Instance>TagStr' : Networked
-   /   /   /   /   /   /  '<Spe><Instance>ConnectedDerivePointersList' : []
+   /   /   /   /   /   /  '<Spe><Instance>ConnectedCatchDerivePointersList' : []
    /   /   /   /   /   /  '<Spe><Instance>ConnectingGraspClueVariablesList' : []
    /   /   /   /   /   /}
    /   /   /   /   /  '<Spe><Class>PointedBackSetStr' :
@@ -331,7 +331,7 @@ CatchToPointVariable
    /   /   /   /   /}
    /   /   /   /}
    /   /   /  '<New><Instance>TagStr' : Networked
-   /   /   /  '<Spe><Instance>ConnectedDerivePointersList' :
+   /   /   /  '<Spe><Instance>ConnectedCatchDerivePointersList' :
    /   /   /   /[
    /   /   /   /  0 : {...}< (ConnecterClass), 4555899088>
    /   /   /   /]

@@ -1,12 +1,10 @@
 
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Classors import Classer
-from ShareYourSystem.Controllers import Grider
 
 #Define a Multiplier class
-@Classer.ClasserClass()
-class MultiplierClass(Grider.GriderClass):
+@SYS.ClasserClass()
+class MultiplierClass(SYS.GriderClass):
 
 	#Definition
 	RepresentingKeyStrsList=[

@@ -81,7 +81,7 @@ def setDefaultMutable(
 	#Check
 	if _AttributeKeyStrsList==None:
 		_AttributeKeyStrsList=DefaultClass.DefaultSetKeyStrsList
-
+		
 	#map an init for the mutable variables by detecting them at the level of the class : they are None
 	TypeClassesList=map(
 			lambda __AttributeKeyStr:
@@ -89,12 +89,15 @@ def setDefaultMutable(
 				SYS.getTypeStrWithKeyStr(__AttributeKeyStr)
 			)
 			if (
-				SYS.getIsNoneBool(
-				getattr(
-					_InstanceVariable,
-					__AttributeKeyStr
+					SYS.getIsNoneBool(
+						getattr(
+							_InstanceVariable,
+							__AttributeKeyStr
+						)
+					) 
+					if ForceSetIsBool==False 
+					else True
 				)
-			) if ForceSetIsBool==False else True)
 			and getattr(DefaultClass,__AttributeKeyStr)==None
 			else None.__class__,
 			_AttributeKeyStrsList

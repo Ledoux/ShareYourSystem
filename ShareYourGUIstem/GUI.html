@@ -8,27 +8,34 @@
 
   <h1>Welcome to the ShareYourSystem GUI</h1>
 
-    <table border='1'>
-
-      <tr>
-
-        <td width="50%">
-          {{> Chat}}
-        </td>
-
-  		  <td width="50%">
-          {{#each patches}}
-				    {{> Patch}}
-          {{/each}}
-			  </td>
-		  
-      </tr>
-  
-  	</table>
+  {{>GUI}}
 
 </body>
 
+<template name="GUI">
 
+  <table 
+  width="1000" height="300"
+  border='1'>
+    
+    <tr>
+
+      <td width="30%">
+        {{> Chat}}
+      </td>
+
+      <td width="70%">
+        {{DisplayPatchStrsList}}
+        <svg id="Patch" width="700" height="300">
+            {{> Patch}}
+        </svg>
+      </td>
+    
+    </tr>
+
+  </table>
+
+</template>
 
 
 

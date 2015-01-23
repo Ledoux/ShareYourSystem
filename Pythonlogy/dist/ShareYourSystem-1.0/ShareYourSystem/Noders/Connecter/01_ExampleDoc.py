@@ -15,10 +15,8 @@ MyProducer['<Connecters>FirstConnecter'].connect(
 		'/NodePointDeriveNoder/<Connecters>SecondConnecter',
 		SYS.GraspDictClass(**{'MyInt':0,'HintVariable':MyProducer['<Connecters>FirstConnecter']})
 	],
-	**{
-		'CatchingCollectionStr':"PostRelatome",
-		'AttentioningCollectionStr':"PreRelatome",
-	}
+	"PostConnecters",
+	"PreConnecters"
 )
 
 #Definition the AttestedStr

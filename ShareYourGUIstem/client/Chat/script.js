@@ -17,12 +17,34 @@ Template.input.events = {
       var message = document.getElementById('message');
 
       if (message.value != '') {
-        Messages.insert({
-          name: name,
-          message: message.value,
-          time: Date.now(),
-        });
 
+        //Print
+        //console.log(message.value)
+        //console.log(message.value.substring(1))
+
+        //It is a command
+        if (message.value[0] == '>') {
+
+            //Print
+            console.log(message.value.substring(1))
+            console.log(message.value.substring(1).toString())
+            eval(message.value.substring(1).toString())
+            console.log('t=4',message.value.substring(1))
+            eval('A=5')
+            console.log(A)
+            console.log(t)
+        }
+        else
+        {
+          //It is an insert
+          Messages.insert({
+            name: name,
+            message: message.value,
+            time: Date.now(),
+          });
+        }
+        
+        //Reset
         document.getElementById('message').value = '';
         message.value = '';
       }

@@ -25,7 +25,27 @@ import collections
 #</ImportSpecificModules>
 
 #<DefineLocals>
-class GraspDictClass(collections.OrderedDict):pass
+class GraspDictClass(collections.OrderedDict):
+	def __init__(self,_Dict=None,**_KwargVariablesDict):
+
+		#call the parent method
+		collections.OrderedDict.__init__(self)
+
+		#default update
+		self.update(
+			{
+				'DirectionStr':"To",
+				'HintVariable':""
+			}
+		)
+
+		#update with the _Dict
+		if _Dict!=None:
+			self.update(_Dict)
+
+		#update with Kwargs
+		self.update(_KwargVariablesDict)
+
 SYS.GraspDictClass=GraspDictClass
 #</DefineLocals>
 

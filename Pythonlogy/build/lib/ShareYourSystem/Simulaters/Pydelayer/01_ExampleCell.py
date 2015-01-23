@@ -1,24 +1,42 @@
 
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Simulaters import Simulater
+import numpy as np 
 
 #Definition an instance
-MySimulater=Simulater.SimulaterClass().simulate(
-		_EquationsDict={
-							'x' : '0.25 * x(t-tau) / (1.0 + pow(x(t-tau),p)) -0.1*x'
-		},
-		_ParametersDict={
-							'tau' : 15,
-	    					'p'   : 10
+MyPydelayer=SYS.PydelayerClass(
+	).update(
+		{
+			'SimulatingInitFloatsArray':np.array([1.]),
+			'SimulatingStopTimeFloat':50.,
+			'EuleringStepTimeFloat':0.1,
 		}
-	).SimulatedDde23.run()
-		
+	).collect(
+		"StateMoniters",
+		"Variable",
+		SYS.MoniterClass().update(
+				{
+					'MoniteringVariableStr':'x',
+					'MoniteringIndexIntsList':[0]
+				}
+			),
+	).pydelay(
+		{
+			'eqns':{
+				'x' : '0.25 * x(t-tau) / (1.0 + pow(x(t-tau),p)) -0.1*x'
+				},
+			'params':{
+					'tau' : 15,
+			    	'p'   : 10
+				}
+		}
+	).run()
+
 #Definition the AttestedStr
 SYS._attest(
 	[
-		'MySimulater is '+SYS._str(
-		MySimulater,
+		'MyPydelayer is '+SYS._str(
+		MyPydelayer,
 		**{
 			'RepresentingBaseKeyStrsListBool':False,
 			'RepresentingAlineaIsBool':False
@@ -26,6 +44,15 @@ SYS._attest(
 		),
 	]
 ) 
+
+#plot
+"""
+from matplotlib import pyplot
+pyplot.plot(MyPydelayer['<StateMoniters>VariableMoniter'].MoniteredTotalVariablesArray.T)
+pyplot.show()
+"""
+
+#Print
 
 #Print
 

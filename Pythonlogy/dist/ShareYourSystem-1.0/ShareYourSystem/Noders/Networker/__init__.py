@@ -8,7 +8,10 @@
 </DefineSource>
 
 
-A Networker 
+A Networker recruits a bunch of concluded noded variables and makes them
+parent and connect. Note also that each networked derive Noders has some
+tag attributes such the NetworkKeyStr wich by default is the parented path str 
+plus the NodeKeyStr.
 
 """
 
@@ -37,7 +40,7 @@ class NetworkerClass(BaseClass):
 							]
 
 	def default_init(self,
-						_NetworkingSuffixStr="Connectome",
+						_NetworkingSuffixStr="Connecters",
 						_NetworkingCatchStr="Post",
 						_NetworkingAttentionStr="Pre",
 						_NetworkedDeriveConnectersList=None,
@@ -81,32 +84,35 @@ class NetworkerClass(BaseClass):
 		'''
 		self.debug(('self.',self,['NetworkedDeriveConnectersList']))
 		'''
-		
+
 		#map a connect
 		self.NetworkedDerivePointersList=SYS.flat(
 			map(
 				lambda __NetworkedDeriveConnecter,__IndexInt:
-				__NetworkedDeriveConnecter.connect(
-					**{
-						'CatchingCollectionStr':self.NetworkingCatchStr+self.NetworkingSuffixStr,
-						'AttentioningCollectionStr':self.NetworkingAttentionStr+self.NetworkingSuffixStr
-					}
-				).update(
-					[
-						('NetworkCollectionStr',self.NetworkingSuffixStr),
-						('NetworkCatchStr',self.NetworkingCatchStr),
-						('NetworkAttentionStr',self.NetworkingAttentionStr),
-						('NetworkIndexInt',__IndexInt),
-						('point',{
-								'LiargVariablesList':
-								[
-									self,
-									'NetworkPointDeriveNetworker'
-								]
-							}
-						)
-					]
-				).ConnectedDerivePointersList,
+				__NetworkedDeriveConnecter.parent(
+					).connect(
+						_ConnectingCatchCollectionStr=self.NetworkingCatchStr+self.NetworkingSuffixStr,
+						_ConnectingAttentionCollectionStr=self.NetworkingAttentionStr+self.NetworkingSuffixStr
+					).update(
+						[
+							('NetworkCollectionStr',self.NetworkingSuffixStr),
+							('NetworkCatchStr',self.NetworkingCatchStr),
+							('NetworkAttentionStr',self.NetworkingAttentionStr),
+							('NetworkIndexInt',__IndexInt),
+							(
+								'NetworkKeyStr',
+								__NetworkedDeriveConnecter.ParentedPathStr+'/'+__NetworkedDeriveConnecter.NodeKeyStr
+							),
+							('point',{
+									'LiargVariablesList':
+									[
+										self,
+										'NetworkPointDeriveNetworker'
+									]
+								}
+							)
+						]
+					).ConnectedCatchDerivePointersList,
 				self.NetworkedDeriveConnectersList,
 				xrange(len(self.NetworkedDeriveConnectersList))
 			)

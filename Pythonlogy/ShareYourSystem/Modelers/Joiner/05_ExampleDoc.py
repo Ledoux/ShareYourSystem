@@ -1,15 +1,12 @@
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Classors import Classer
-from ShareYourSystem.Controllers import Controller
-from ShareYourSystem.Modelers import Joiner
 import operator
 import tables
 import numpy as np
 
 #Define a Multiplier class
-@Classer.ClasserClass()
-class MultiplierClass(Controller.ControllerClass):
+@SYS.ClasserClass()
+class MultiplierClass(SYS.ControllerClass):
 
 	#Definition
 	RepresentingKeyStrsList=[
@@ -24,13 +21,13 @@ class MultiplierClass(Controller.ControllerClass):
 					):
 
 		#Call the parent init method
-		self.__class__.__bases__[0].__init__(self,**_KwargVariablesDict)
+		SYS.ControllerClass.__init__(self,**_KwargVariablesDict)
 
 		#Set a parameters database
 		self.collect(
-						"Datome",
+						"Joiners",
 						"Parameters",
-						Joiner.JoinerClass().update(
+						SYS.JoinerClass().update(
 							[
 								(
 									'Attr_DatabasingSealTuplesList',
@@ -45,8 +42,8 @@ class MultiplierClass(Controller.ControllerClass):
 				)
 		
 #Define a Modulizer class
-@Classer.ClasserClass()
-class ModulizerClass(Controller.ControllerClass):
+@SYS.ClasserClass()
+class ModulizerClass(SYS.ControllerClass):
 
 	#Definition
 	RepresentingKeyStrsList=[
@@ -61,21 +58,21 @@ class ModulizerClass(Controller.ControllerClass):
 					):
 
 		#Call the parent init method
-		self.__class__.__bases__[0].__init__(self,**_KwargVariablesDict)
+		SYS.ControllerClass.__init__(self,**_KwargVariablesDict)
 
 		#Build the output hierarchy
 		self.update(
 						[
-							('<Component>RealMultiplier',MultiplierClass()),
-							('<Component>ImageMultiplier',MultiplierClass())
+							('<Components>RealMultiplier',MultiplierClass()),
+							('<Components>ImageMultiplier',MultiplierClass())
 						]
 					)
 
 		#Set a parameters database
 		self.collect(
-					"Datome",
+					"Joiners",
 					"Parameters",
-					Joiner.JoinerClass().update(
+					SYS.JoinerClass().update(
 						[
 							(
 								'Attr_DatabasingSealTuplesList',
@@ -86,8 +83,8 @@ class ModulizerClass(Controller.ControllerClass):
 							('Attr_RowingGetStrsList',['ModulizingPowerFloat']),
 							('ConnectingGraspClueVariablesList',
 								[
-									'/NodePointDeriveNoder/<Component>RealMultiplier/<Datome>ParametersJoiner',
-									'/NodePointDeriveNoder/<Component>ImageMultiplier/<Datome>ParametersJoiner'
+									'/NodePointDeriveNoder/<Components>RealMultiplier/<Joiners>ParametersJoiner',
+									'/NodePointDeriveNoder/<Components>ImageMultiplier/<Joiners>ParametersJoiner'
 								]
 							)
 						]
@@ -98,17 +95,17 @@ class ModulizerClass(Controller.ControllerClass):
 #Definition of a Modulizer instance, structure and network
 MyModulizer=ModulizerClass(
 		**{
-			'FolderingPathStr':Joiner.LocalFolderPathStr
+			'FolderingPathStr':SYS.Joiner.LocalFolderPathStr
 		}
 	).structure(
-		['Component']
+		['Components']
 	).network(
 		**{
-			'VisitingCollectionStrsList':['Datome','Component'],
+			'VisitingCollectionStrsList':['Joiners','Components'],
 			'RecruitingConcludeConditionTuplesList':[
 				(
-					'__class__.__mro__',
-					operator.contains,Joiner.JoinerClass
+					'MroClassesList',
+					operator.contains,SYS.JoinerClass
 				)
 			]
 		}
@@ -116,7 +113,7 @@ MyModulizer=ModulizerClass(
 
 #Update and flush in the results
 MyModulizer.__setitem__(
-	"Dis_<Component>",
+	"Dis_<Components>",
 	[
 		[
 			('MultiplyingFirstInt',1),
@@ -127,11 +124,11 @@ MyModulizer.__setitem__(
 			('MultiplyingSecondInt',3)
 		]
 	]
-)['<Datome>ParametersJoiner'].flush()
+)['<Joiners>ParametersJoiner'].flush()
 
 #Update and flush in the results
 MyModulizer.__setitem__(
-	"Dis_<Component>",
+	"Dis_<Components>",
 	[
 		[
 			('MultiplyingFirstInt',2)
@@ -140,7 +137,7 @@ MyModulizer.__setitem__(
 			('MultiplyingSecondInt',4)
 		]
 	]
-)['<Datome>ParametersJoiner'].flush()
+)['<Joiners>ParametersJoiner'].flush()
 
 
 #Definition the AttestedStr

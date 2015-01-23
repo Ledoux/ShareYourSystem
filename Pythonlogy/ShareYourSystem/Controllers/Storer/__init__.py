@@ -60,25 +60,25 @@ class StorerClass(BaseClass):
 					'AfterUpdateList':[
 						('organize',{'LiargVariablesList':[]})
 					],
-					'GatherVariablesList':[self.OrganizedComponentGetStr]
+					'GatherVariablesList':[self.OrganizedComponentsGetStr]
 				}
 			)
 
 			#structure
 			self.structure(
-					[self.OrganizingComponentCollectionStr]
+					[self.OrganizingComponentsCollectionStr]
 				)
 
 			#network
 			self.network(
 					**{
 						'VisitingCollectionStrsList':[
-							self.OrganizingDataCollectionStr,
-							self.OrganizingComponentCollectionStr
+							self.OrganizingModelsCollectionStr,
+							self.OrganizingComponentsCollectionStr
 						],
 						'RecruitingConcludeConditionTuplesList':[
 							(
-								'__class__.__mro__',
+								'MroClassesList',
 								operator.contains,Hierarchizer.HierarchizerClass
 							)
 						]
@@ -97,7 +97,7 @@ class StorerClass(BaseClass):
 					'AfterUpdateList':[
 						('callDo',{'LiargVariablesList':[]})
 					],
-					'GatherVariablesList':[self.OrganizedComponentGetStr]
+					'GatherVariablesList':[self.OrganizedComponentsGetStr]
 				}
 			)
 

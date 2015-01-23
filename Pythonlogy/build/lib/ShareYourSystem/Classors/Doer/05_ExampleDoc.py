@@ -2,6 +2,7 @@
 import ShareYourSystem as SYS
 from ShareYourSystem.Classors import Doer,Attester 
 from ShareYourSystem.Objects import Initiator
+import numpy as np
 
 #Definition a MakerClass decorated by the DefaultorClass
 @Doer.DoerClass()
@@ -9,6 +10,7 @@ class MakerClass(Initiator.InitiatorClass):
 
 	def default_init(self,
 				_MakingMyFloat=1.,
+				_MakingMyArray=None,
 				_MakingMyList=None,
 				_MakingFirstInt={'DefaultingSetType':int},
 				_MakingSecondInt=0,
@@ -39,6 +41,7 @@ MyMaker=MakerClass(
 	**{'MakingFirstInt':3}
 	).superDo_make(
 		3.,
+		np.array([5]),
 		_SecondInt=5
 	)
 
@@ -46,6 +49,8 @@ MyMaker=MakerClass(
 AttestingStrsList+=[
 		'After the make ',
 		'MyMaker.MakingMyFloat is '+str(MyMaker.MakingMyFloat),
+		#Special numpy variables also...check Doer l 431 to compare them to None...
+		'MyMaker.MakingMyArray is '+str(MyMaker.MakingMyArray),
 		'MyMaker.MakingMyList is '+str(MyMaker.MakingMyList),
 		'MyMaker.MakingFirstInt is '+str(MyMaker.MakingFirstInt),
 		'MyMaker.MakingSecondInt is '+str(MyMaker.MakingSecondInt),

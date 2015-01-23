@@ -21,7 +21,7 @@ MyFilterer=Filterer.FiltererClass().update(
 					]
 				),
 		(
-			'PickingGetKeyVariablesList',['NodeKeyStr']
+			'PickingKeyVariablesList',['NodeKeyStr']
 		)
 	]
 ).filter('/')

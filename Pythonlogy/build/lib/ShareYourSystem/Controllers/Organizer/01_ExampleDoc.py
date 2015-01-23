@@ -1,14 +1,14 @@
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Classors import Classer
-from ShareYourSystem.Controllers import Organizer
-from ShareYourSystem.Modelers import Hierarchizer
 import numpy as np
 import operator
 
+from ShareYourSystem.Controllers import Organizer
+
+
 #Define a Sumer class
-@Classer.ClasserClass()
-class SumerClass(Organizer.OrganizerClass):
+@SYS.ClasserClass()
+class SumerClass(SYS.OrganizerClass):
 
 	#Definition
 	RepresentingKeyStrsList=[
@@ -24,7 +24,7 @@ class SumerClass(Organizer.OrganizerClass):
 					):
 
 		#Call the parent init method
-		self.__class__.__bases__[0].__init__(self)
+		SYS.OrganizerClass.__init__(self)
 		
 	def do_sum(self):
 		
@@ -37,8 +37,8 @@ class SumerClass(Organizer.OrganizerClass):
 		self.SumedTotalInt=self.SumingFirstInt+self.SumingSecondInt
 
 #Define a Factorizer class
-@Classer.ClasserClass()
-class FactorizerClass(Organizer.OrganizerClass):
+@SYS.ClasserClass()
+class FactorizerClass(SYS.OrganizerClass):
 
 	#Definition
 	RepresentingKeyStrsList=[
@@ -52,13 +52,13 @@ class FactorizerClass(Organizer.OrganizerClass):
 					):
 
 		#Call the parent init method
-		self.__class__.__bases__[0].__init__(self)
+		SYS.OrganizerClass.__init__(self)
 
 		#Build the output hierarchy
 		self.produce(
+				self.OrganizingComponentsCollectionStr,
 				['X','Y'],
-				SumerClass,
-				**{'CollectingCollectionStr':self.OrganizingComponentCollectionStr}
+				SumerClass
 			)
 
 	def do_factorize(self):
@@ -74,7 +74,7 @@ class FactorizerClass(Organizer.OrganizerClass):
 				map(
 					lambda __DeriveSumer:
 					__DeriveSumer.SumedTotalInt,
-					self['<Component>']
+					self['<Components>']
 				)
 			),
 			self.FactorizingPowerFloat
@@ -83,26 +83,27 @@ class FactorizerClass(Organizer.OrganizerClass):
 #Definition of a Factorizer instance, organize structure and network
 MyFactorizer=FactorizerClass(
 				**{
-					'FolderingPathStr':Organizer.LocalFolderPathStr
+					'FolderingPathStr':SYS.Organizer.LocalFolderPathStr
 				}
 			).walk(
 				{
 					'AfterUpdateList':[
 						('organize',{'LiargVariablesList':[]})
 					],
-					'GatherVariablesList':['<Component>']
+					'GatherVariablesList':['<Components>']
 				}
 			).structure(
-				['Component']
+				['Components']
 			).network(
 				**{
 					'VisitingCollectionStrsList':[
-						'Data','Component'
+						'Models','Components'
 					],
 					'RecruitingConcludeConditionTuplesList':[
 						(
-							'__class__.__mro__',
-							operator.contains,Hierarchizer.HierarchizerClass
+							'MroClassesList',
+							operator.contains,
+							SYS.HierarchizerClass
 						)
 					]
 				}
@@ -110,7 +111,7 @@ MyFactorizer=FactorizerClass(
 
 #Update transmit the do method and flush in the results
 MyFactorizer.__setitem__(
-	"Dis_<Component>",
+	"Dis_<Components>",
 	[
 		[
 			('SumingFirstInt',1),
@@ -126,13 +127,13 @@ MyFactorizer.__setitem__(
 		'AfterUpdateList':[
 			('callDo',{'LiargVariablesList':[]})
 		],
-		'GatherVariablesList':['<Component>']
+		'GatherVariablesList':['<Components>']
 	}
-)['<Data>ResultsHierarchizer'].flush()
+)['<Models>ResultsHierarchizer'].flush()
 
 #Update and flush in the results
 MyFactorizer.__setitem__(
-	"Dis_<Component>",
+	"Dis_<Components>",
 	[
 		[
 			('SumingFirstInt',2)
@@ -146,9 +147,9 @@ MyFactorizer.__setitem__(
 		'AfterUpdateList':[
 			('callDo',{'LiargVariablesList':[]})
 		],
-		'GatherVariablesList':['<Component>']
+		'GatherVariablesList':['<Components>']
 	}
-)['<Data>ResultsHierarchizer'].flush()
+)['<Models>ResultsHierarchizer'].flush()
 
 #Definition the AttestedStr
 SYS._attest(
