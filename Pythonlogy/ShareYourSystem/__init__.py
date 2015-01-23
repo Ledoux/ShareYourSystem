@@ -824,7 +824,7 @@ def getProcessIdStrsListWithProcessNameStr(_ProcessNameStr):
 			)
 
 def setGUI(*_LiargVariablesList):
-	from ShareYourSystem.Controllers import Systemer
+	from ShareYourSystem.Standards.Controllers import Systemer
 
 def lib():
 
@@ -923,7 +923,7 @@ class ShareYourSystem():
 
 			#Check for special methods
 			if _KeyVariable in ['_print','_str','_attest','_test']:
-				from ShareYourSystem.Classors import Tester
+				from ShareYourSystem.Standards.Classors import Tester
 				return getattr(WrapModule,_KeyVariable)
 
 			#Check
@@ -942,8 +942,15 @@ class ShareYourSystem():
 					#get
 					ValueModuleStr=WrapModule.ModuleStrsList[
 							WrapModule.ClassStrsList.index(_KeyVariable)
-							]
+						]
 
+					#Debug
+					'''
+					print('SYS l. 948')
+					print('ValueModuleStr is '+ValueModuleStr)
+					print('')
+					'''
+					
 					#import
 					ValueModule=importlib.import_module(ValueModuleStr)
 

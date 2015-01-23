@@ -1,8 +1,10 @@
 //Define collections
 Patches = new Meteor.Collection('patches');
-Messages = new Meteor.Collection('messages');
+Systems = new Meteor.Collection('systems');
+Coops = new Meteor.Collection('coops');
 Boxes = new Meteor.Collection('boxes');
-Connectors = new Meteor.Collection('connectors')
+Connectors = new Meteor.Collection('connectors');
+Messages = new Meteor.Collection('messages');
 
 //client side
 if (Meteor.isClient) {
@@ -38,13 +40,37 @@ if (Meteor.isServer) {
 
       },
 
-      mongo:function(CollectionStr,MethodStr,CollectionDict)
+      mongo:function(_CollectionStr,_MethodStr,_CollectionDict)
       {
-        console.log(CollectionStr,MethodStr,CollectionDict)
-        Meteor.Collection.get(CollectionStr)[MethodStr](CollectionDict)
+        console.log(_CollectionStr,_MethodStr,_CollectionDict)
+        Meteor.Collection.get(_CollectionStr)[_MethodStr](_CollectionDict)
+      },
+
+      box:function(_BoxDict){
+
+        //Debug
+        console.log(
+            'We box here',
+            '_BoxDict is ',
+            _BoxDict,
+            ''
+        )
+
+        //Give x and y
+        if(_BoxDict['ParentPathStr']==''){
+
+          //Debug
+          console.log('This is the top')
+
+          //set
+          _BoxDict['x']=400
+          _BoxDict['y']=100
+        }
+
+        //insert
+        Boxes.insert(_BoxDict)
 
       }
-
 
     }
   )

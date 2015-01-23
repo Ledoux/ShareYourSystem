@@ -1,0 +1,4 @@
+  501   886   204   0  5:11PM ??         0:00.30 /usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Versions/2.7/Resources/Python.app/Contents/MacOS/Python /Users/ledoux/Documents/ShareYourSystem/Pythonlogy/ShareYourSystem/Standards/Interfacers/Killer/01_ExampleDoc.py
+  501   894   886   0  5:11PM ??         0:00.00 sh /Users/ledoux/Documents/ShareYourSystem/Pythonlogy/ShareYourSystem/Standards/Interfacers/Killer/ProcessTemp.sh
+  501   895   894   0  5:11PM ??         0:00.00 sh /Users/ledoux/Documents/ShareYourSystem/Pythonlogy/ShareYourSystem/Standards/Interfacers/Killer/ProcessTemp.sh
+  501   897   895   0  5:11PM ??         0:00.00 grep Python

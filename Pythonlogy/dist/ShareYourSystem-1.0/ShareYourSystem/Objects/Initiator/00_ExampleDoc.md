@@ -1,7 +1,0 @@
-
-<!---
-FrozenIsBool True
--->
-
-##Example
-
