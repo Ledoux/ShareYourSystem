@@ -31,12 +31,16 @@ var destroyPatch = function(){
     Connectors.find({}).forEach(function(_Connector){
         Connectors.remove({_id:_Connector._id});
     });
-    Boxes.find({}).forEach(function(_Box){
-        Boxes.remove({_id:_Box._id});
-    });
+
+    Boxes.find({}).forEach(
+        function(_Box){
+            Boxes.remove({_id:_Box._id});
+        }
+    );
 };
 
-Template.Patch.helpers({
+Template.Patch.helpers(
+{
     'boxes': function () {
         return Boxes.find(
             {

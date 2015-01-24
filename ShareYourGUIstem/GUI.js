@@ -9,9 +9,54 @@ Messages = new Meteor.Collection('messages');
 //client side
 if (Meteor.isClient) {
 
+  //require
+  require('raphael')
+
+  //starup
 	Meteor.startup(function () {
+
+      //get
+      PatchDiv=$('#PatchDiv')
+      PatchDivOffset=PatchDiv.offset()
+
+      //Debug
+      /*
+      console.log(PatchDiv)
+      console.log(PatchDivOffset.left,PatchDivOffset.top)
+      */
+
 	    // code to run on client at startup
-	    
+      paper=Raphael($('#PatchSvg').get(0))
+
+      //define
+      Raphael.st.draggable = function() {
+        var me = this,
+            lx = 0,
+            ly = 0,
+            ox = 0,
+            oy = 0,
+            moveFnc = function(dx, dy) {
+                lx = dx + ox;
+                ly = dy + oy;
+                me.transform('t' + lx + ',' + ly);
+            },
+            startFnc = function() {},
+            endFnc = function() {
+                ox = lx;
+                oy = ly;
+            };
+
+        this.drag(moveFnc, startFnc, endFnc);
+      };
+      mySet = paper.set();
+      mySet.push(paper.circle(400, 150, 50).attr('fill', 'red'));
+      mySet.push(paper.circle(400, 150, 40).attr('fill', 'white'));
+      mySet.push(paper.circle(400, 150, 30).attr('fill', 'red'));
+      mySet.push(paper.circle(400, 150, 20).attr('fill', 'white'));
+      mySet.push(paper.circle(400, 150, 10).attr('fill', 'red'));
+      mySet.draggable();
+
+
 	  });
 
   Template.GUI.helpers({
@@ -42,7 +87,14 @@ if (Meteor.isServer) {
 
       mongo:function(_CollectionStr,_MethodStr,_CollectionDict)
       {
-        console.log(_CollectionStr,_MethodStr,_CollectionDict)
+        //Debug
+        console.log('l 86 GUI.js')
+        console.log('mongo method')
+        console.log("_CollectionStr is ",_CollectionStr)
+        console.log("_MethodStr is ",_MethodStr)
+        console.log("_CollectionDict is ",_CollectionDict)
+
+        //get
         Meteor.Collection.get(_CollectionStr)[_MethodStr](_CollectionDict)
       },
 

@@ -22,8 +22,169 @@ var BoxDrag = d3.behavior.drag(
         }
     );
 
+function dragStart(){
+
+    //get the raph box
+    //Box=$("#Box_"+this.data._id)
+
+    //Debug
+    /*
+    console.log(
+        'dragStart l 31 \n',
+        'this is : \n',
+        this,
+        'this.ParentBox is : \n',
+        this.ParentBox,
+        'this.ParentBox.data.x0 is : \n',
+        this.ParentBox.data.x0
+    )   
+    */
+
+    //RaphRect=Box.RaphRect
+    this.ox=this.ParentBox.data.x0
+    this.oy=this.ParentBox.data.y0
+
+}
+function dragMove(dx,dy)
+{
+
+
+    //Debug
+    /*
+    console.log(
+        'dragMove l 45 \n',
+        'this is : \n',
+        this,
+        'this.ox is : \n',
+        this.ox
+    )
+    */
+
+    //
+    var x=this.ox + dx
+    var y=this.oy + dy
+
+    //Move ... 
+    this.attr({ x:x , y:y });
+
+    //better to not update directly the boxes to not overload the db queries
+    //Boxes.update(
+    //    {_id:this.ParentBox.data._id},
+    //    {$set:{x0:x,y0:y}}
+    //)
+    
+}
+function dragStop(){
+
+    //Debug
+    /*
+    console.log(
+        'dragEnd l 57 \n',
+        'this.attr("x") is : \n',
+        this.attr("x"),
+    )
+    */
+
+    //
+    var x=this.attr('x')
+    var y=this.attr('y')
+
+    //set in the box
+    this.ParentBox.data.x0=x
+    this.ParentBox.data.y0=y
+
+    //delete
+    delete(this.ox)
+    delete(this.oy)
+
+    //Debug
+    console.log(
+        'dragEnd l 100 \n',
+        'x is ',
+        x,
+        'y is ',
+        y
+    )
+
+    //better to not update directly the boxes to not overload the db queries
+    Boxes.update(
+        {_id:this.ParentBox.data._id},
+        {$set:{x0:x,y0:y}}
+    )
+}
+
+RaphRectsDict={}
+
 Template.Box.rendered = function ( ) {
-    d3.select("#Box_"+this.data._id).call(BoxDrag);
+
+    //d3.select("#Box_"+this.data._id).call(BoxDrag);
     //attach drag handler
+
+    //Debug
+    console.log(
+        'Box rendered l 57\n',
+        'this.data is : \n',
+        this.data
+    )
+
+    //init position
+    if (this.data.x0 === undefined || this.data.x0 === null) {
+        this.data.x0=200
+    }
+    if (this.data.y0 === undefined || this.data.y0 === null) {
+        this.data.y0=100
+    }
+    
+    //Debug
+    /*
+    console.log(
+        'Box rendered l 67\n',
+        'paper is : \n',
+        paper
+        //'dragStart is : \n',
+        //dragStart
+    )
+    */
+
+    //
+    Rect=paper.rect(
+            this.data.x0,
+            this.data.y0,
+            20,
+            20
+        ).attr('fill', 'green')
+    
+
+    //link with the parent box
+    Rect.ParentBox=this
+
+    //Make it drag
+    Rect.drag(dragMove,dragStart,dragStop)
+
+    /*
+    //init a Raphael rect
+    var Set=paper.set()
+    Set.push(
+        //paper.circle(this.data.x0,this.data.y0, 10).attr('fill', 'red')
+
+        paper.rect(
+            this.data.x0,
+            this.data.y0,
+            20,
+            20
+        ).attr('fill', 'red')
+    )
+    //link parent box
+    Set.ParentBox=this
+    //Make them drag
+    Set.draggable()
+    //Debug
+    console.log(
+        'Box rendered l 87\n',
+        'Set is : \n',
+        Set
+    )
+    */
+    
 };
 
