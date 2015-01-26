@@ -2,7 +2,7 @@
 Patches = new Meteor.Collection('patches');
 Systems = new Meteor.Collection('systems');
 Coops = new Meteor.Collection('coops');
-Boxes = new Meteor.Collection('boxes');
+Instances = new Meteor.Collection('instances');
 Connectors = new Meteor.Collection('connectors');
 Messages = new Meteor.Collection('messages');
 
@@ -10,8 +10,11 @@ Messages = new Meteor.Collection('messages');
 if (Meteor.isClient) {
 
   //starup
-  Meteor.startup(function () {
+  Meteor.startup(
+    function () 
+    {
 
+      /*
       mySet = PatchRaphael.set();
       mySet.push(PatchRaphael.circle(400, 150, 50).attr('fill', 'red'));
       mySet.push(PatchRaphael.circle(400, 150, 40).attr('fill', 'white'));
@@ -21,18 +24,22 @@ if (Meteor.isClient) {
       //    Raphael.st.dragSetStart,
       //    Raphael.st.dragSetStop
       //)
+      */
+      
+	  }
+  );
 
-	  });
-
-  Template.GUI.helpers({
-    'patches': function () {
-        return Patches.find();
-    },
-    'DisplayPatchStrsList':function()
+  Template.GUI.helpers(
     {
-      return Session.get('PatchStrsList')
+      'patches': function () {
+          return Patches.find();
+      },
+      'DisplayPatchStrsList':function()
+      {
+        return Session.get('PatchStrsList')
+      }
     }
-  });
+  );
   
   //
   Session.set('PatchStrsList',['Default','Default2'])
@@ -41,19 +48,14 @@ if (Meteor.isClient) {
 
 //server side
 if (Meteor.isServer) {
-  Meteor.startup(function () {
-    // code to run on server at startup
-  });
 
-  Meteor.methods({
-
-      removeAllPosts: function() {
-        return Messages.remove({});
-
-      },
+  //methods
+  Meteor.methods(
+    {
 
       mongo:function(_CollectionStr,_MethodStr,_CollectionDict)
       {
+
         //Debug
         console.log(
                   'l 86 GUI.js \n',
@@ -70,35 +72,11 @@ if (Meteor.isServer) {
 
         //get
         Meteor.Collection.get(_CollectionStr)[_MethodStr](_CollectionDict)
-      },
-
-      box:function(_BoxDict){
-
-        //Debug
-        console.log(
-            'We box here',
-            '_BoxDict is ',
-            _BoxDict,
-            ''
-        )
-
-        //Give x and y
-        if(_BoxDict['ParentPathStr']==''){
-
-          //Debug
-          console.log('This is the top')
-
-          //set
-          _BoxDict['x']=400
-          _BoxDict['y']=100
-        }
-
-        //insert
-        Boxes.insert(_BoxDict)
-
+      
       }
-
+    
     }
+  
   )
 }
 
