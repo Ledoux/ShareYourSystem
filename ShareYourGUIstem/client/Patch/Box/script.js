@@ -22,7 +22,7 @@ var BoxDrag = d3.behavior.drag(
         }
     );
 
-function dragStart(){
+dragBoxStart = function(_x,_y){
 
     //get the raph box
     //Box=$("#Box_"+this.data._id)
@@ -30,13 +30,22 @@ function dragStart(){
     //Debug
     /*
     console.log(
-        'dragStart l 31 \n',
+        'dragBoxStart l 31 \n',
         'this is : \n',
         this,
         'this.ParentBox is : \n',
         this.ParentBox,
         'this.ParentBox.data.x0 is : \n',
-        this.ParentBox.data.x0
+        this.ParentBox.data.x0,
+        '\n',
+        'this.ParentBox.data.y0 is : \n',
+        this.ParentBox.data.y0,
+        '\n',
+        '_x is : \n',
+        _x,
+        '\n',
+        '_y is : \n',
+        _y
     )   
     */
 
@@ -45,24 +54,22 @@ function dragStart(){
     this.oy=this.ParentBox.data.y0
 
 }
-function dragMove(dx,dy)
+dragBoxMove=function(_dx,_dy)
 {
 
 
     //Debug
-    /*
     console.log(
-        'dragMove l 45 \n',
+        'dragBoxMove l 45 \n',
         'this is : \n',
         this,
         'this.ox is : \n',
         this.ox
     )
-    */
 
     //
-    var x=this.ox + dx
-    var y=this.oy + dy
+    var x=this.ox + _dx
+    var y=this.oy + _dy
 
     //Move ... 
     this.attr({ x:x , y:y });
@@ -74,7 +81,7 @@ function dragMove(dx,dy)
     //)
     
 }
-function dragStop(){
+dragBoxStop=function(){
 
     //Debug
     /*
@@ -98,6 +105,7 @@ function dragStop(){
     delete(this.oy)
 
     //Debug
+    /*
     console.log(
         'dragEnd l 100 \n',
         'x is ',
@@ -105,6 +113,7 @@ function dragStop(){
         'y is ',
         y
     )
+    */
 
     //better to not update directly the boxes to not overload the db queries
     Boxes.update(
@@ -113,7 +122,7 @@ function dragStop(){
     )
 }
 
-RaphRectsDict={}
+
 
 Template.Box.rendered = function ( ) {
 
@@ -121,11 +130,13 @@ Template.Box.rendered = function ( ) {
     //attach drag handler
 
     //Debug
+    /*
     console.log(
         'Box rendered l 57\n',
         'this.data is : \n',
         this.data
     )
+    */
 
     //init position
     if (this.data.x0 === undefined || this.data.x0 === null) {
@@ -139,15 +150,15 @@ Template.Box.rendered = function ( ) {
     /*
     console.log(
         'Box rendered l 67\n',
-        'paper is : \n',
-        paper
-        //'dragStart is : \n',
-        //dragStart
+        'PatchRaphael is : \n',
+        PatchRaphael
+        //'dragBoxStart is : \n',
+        //dragBoxStart
     )
     */
 
     //
-    Rect=paper.rect(
+    Rect=PatchRaphael.rect(
             this.data.x0,
             this.data.y0,
             20,
@@ -159,15 +170,19 @@ Template.Box.rendered = function ( ) {
     Rect.ParentBox=this
 
     //Make it drag
-    Rect.drag(dragMove,dragStart,dragStop)
+    Rect.drag(dragBoxMove,dragBoxStart,dragBoxStop)
+
+    //add in the dict
+    RaphObjectsDict[Rect.ParentBox.data._id]=Rect
+    GlobalSet.push(Rect)
 
     /*
     //init a Raphael rect
-    var Set=paper.set()
+    var Set=PatchRaphael.set()
     Set.push(
-        //paper.circle(this.data.x0,this.data.y0, 10).attr('fill', 'red')
+        //PatchRaphael.circle(this.data.x0,this.data.y0, 10).attr('fill', 'red')
 
-        paper.rect(
+        PatchRaphael.rect(
             this.data.x0,
             this.data.y0,
             20,
