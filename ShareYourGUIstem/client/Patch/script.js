@@ -11,44 +11,6 @@ defining in a certain Patch.
 */
 
 
-//starup
-Meteor.startup(
-
-    function () {
-
-        /*
-            Define here the global variables for the raphael env
-        */
-
-
-        // require
-        require('raphael')
-
-        //build the Raphael environment
-        PatchRaphael=Raphael($('#PatchSvg').get(0))
-
-        //get
-        PatchSvg=$('#PatchSvg')
-        PatchSvgOffset=PatchSvg.offset()
-
-        //Debug
-        /*
-        console.log(
-                    'l Patch 36\n',
-                    'PatchSvg is ',
-                    PatchSvg,
-                    '\n',
-                    'PatchSvgOffset is ',
-                    PatchSvgOffset,
-                    '\n'
-                )
-        */
-        
-        //init
-        InstancesSet=PatchRaphael.set()
-    }
-)
-
 Template.Patch.helpers(
     {
         'instances': function () 

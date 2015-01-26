@@ -16,103 +16,106 @@ Meteor.startup(
         //require
         require('raphael')
 
+        //build the Raphael environment
+        PatchRaphael=Raphael($('#PatchSvg').get(0))
+
+        //get
+        PatchSvg=$('#PatchSvg')
+        PatchSvgOffset=PatchSvg.offset()
+
+        //init
+        PatchRaphael.BoxSetsSet=PatchRaphael.set()
+        PatchRaphael.InstancesDict={}
+
         //define
-        Box = function() {
-
-            //alias
-            Box=this
-
-            Box.set=PatchRaphael.set()
-            Box.lx = 0
-            Box.ly = 0
-            if(Box.ox == undefined || Box.ox == null)
-            {
-                Box.ox=0
-            }
-            if(Box.oy == undefined || Box.oy == null)
-            {
-                Box.oy=0
-            }
-            Box.Instance={}
-            Box.AnchorRect={}
+        BoxProto = function() {
 
             //Debug
             /*
             console.log(
-                'Box l 39',
-                'Box.set is',
-                Box.set,
-                '\n',
-                'Box.ox is \n',
-                Box.ox,
-                '\n',
-                'Box.oy is \n',
-                Box.oy,
-                '\n',
-                'Box.lx is \n',
-                Box.lx,
-                '\n',
-                'Box.ly is \n',
-                Box.ly
+                'l 24 BoxProto \n',
+                'We init a new Box \n',
+                'PatchRaphael is ',
+                PatchRaphael
             )
             */
 
-            Box.dragBoxStart = function() {
+            //alias
+            var LocalBox=this
+
+            //
+            LocalBox.set=PatchRaphael.set()
+            LocalBox.set.Box=LocalBox
+            LocalBox.lx = 0
+            LocalBox.ly = 0
+            if(LocalBox.ox == undefined || LocalBox.ox == null)
+            {
+                LocalBox.ox=0
+            }
+            if(LocalBox.oy == undefined || LocalBox.oy == null)
+            {
+                LocalBox.oy=0
+            }
+            //LocalBox.Instance={}
+            //LocalBox.AnchorRect={}
+
+            //Debug
+            /*
+            console.log(
+                'LocalBox l 39',
+                'LocalBox.set is',
+                LocalBox.set,
+                '\n',
+                'LocalBox.ox is \n',
+                LocalBox.ox,
+                '\n',
+                'LocalBox.oy is \n',
+                LocalBox.oy,
+                '\n',
+                'LocalBox.lx is \n',
+                LocalBox.lx,
+                '\n',
+                'LocalBox.ly is \n',
+                LocalBox.ly
+            )
+            */
+
+            LocalBox.dragBoxSetStart = function() {
 
                 //Debug
                 /*
                 console.log(
-                        'l 188 dragBoxStart \n',
-                        'Box.ox is \n',
-                        Box.ox,
+                        'l 188 dragBoxSetStart \n',
+                        'LocalBox.ox is \n',
+                        LocalBox.ox,
                         '\n',
-                        'Box.oy is \n',
-                        Box.oy,
+                        'LocalBox.oy is \n',
+                        LocalBox.oy,
                         '\n',
                         'lx is \n',
-                        Box.lx,
+                        LocalBox.lx,
                         '\n',
-                        'Box.ly is \n',
-                        Box.ly
+                        'LocalBox.ly is \n',
+                        LocalBox.ly
                     )
                 */
 
-                //update the x and y in the elements
-                for(var __KeyStr in Box.set.items) {
-
-                    //get
-                    RaphObject=Box.set.items[__KeyStr]
-
-                    //Debug
-                    /*
-                    console.log(
-                            'l 106 dragsetMove',
-                            'RaphObject is : \n',
-                            RaphObject,
-                           'RaphObject.attr("x") is \n ',
-                           RaphObject.attr("x"),
-                           '\n',
-                           'RaphObject.attr("y") is \n ',
-                           RaphObject.attr("y")
-                    )
-                    */
-                }
             }
 
-            Box.dragBoxMove = function(_dx,_dy) {
+            LocalBox.dragBoxSetMove = function(_dx,_dy) {
 
                 //Debug
                 /*
                 console.log(
-                        'l 242 dragBoxMove \n',
-                        'Box.set is \n',
-                        Box.set,
+                        'l 242 dragBoxSetMove \n',
+                        'LocalBox.set is \n',
+                        LocalBox.set,
                         '\n',
-                        'Box.ox is \n',
-                        Box.ox,
+                        'LocalBox.ox is \n',
+                        LocalBox.ox,
                         '\n',
-                        'Box.oy is \n',
-                        Box.oy,
+                        'LocalBox.oy is \n',
+                        LocalBox.oy,
                         '\n',
                         '_dx is : \n',
                         _dx,
@@ -123,185 +126,230 @@ Meteor.startup(
                 */
 
                 //transform the local set
-                Box.lx = Box.ox+_dx;
-                Box.ly = Box.oy+_dy;
-                Box.set.transform('T' + Box.lx + ',' + Box.ly);
+                LocalBox.lx = LocalBox.ox+_dx;
+                LocalBox.ly = LocalBox.oy+_dy;
+                LocalBox.set.transform('T' + LocalBox.lx + ',' + LocalBox.ly);
                 
-
             }
 
-            Box.dragBoxStop = function() {
+            LocalBox.dragBoxSetStop = function() {
 
                 //set
-                Box.ox = Box.lx;
-                Box.oy = Box.ly;
+                LocalBox.ox = LocalBox.lx;
+                LocalBox.oy = LocalBox.ly;
 
                 //Debug
                 /*
                 console.log(
-                        'l 264 dragBoxStop \n',
-                        'Box.ox is \n',
-                        Box.ox,
+                        'l 264 dragBoxSetStop \n',
+                        'LocalBox.ox is \n',
+                        LocalBox.ox,
                         '\n',
-                        'Box.oy is \n',
-                        Box.oy,
+                        'LocalBox.oy is \n',
+                        LocalBox.oy,
                         '\n',
-                        'Box.lx is \n',
-                        Box.lx,
+                        'LocalBox.lx is \n',
+                        LocalBox.lx,
                         '\n',
-                        'Box.ly is \n',
-                        Box.ly
+                        'LocalBox.ly is \n',
+                        LocalBox.ly
                     )
                 */
 
                 //update the db
-                var newX=Box.AnchorRect.attr('x')+Box.lx
-                var newY=Box.AnchorRect.attr('y')+Box.ly
+                var newX=LocalBox.AnchorRect.attr('x')+LocalBox.lx
+                var newY=LocalBox.AnchorRect.attr('y')+LocalBox.ly
               
                 //better to not update directly the boxes to not overload the db queries
                 Instances.update(
-                    {_id:Box.Instance.data._id},
+                    {_id:LocalBox.Instance.data._id},
                     {$set:{x0:newX,y0:newY}}
                 )
             }
-        }   
+
+            //Debug
+            /*
+            console.log(
+                'l155 Instance',
+                'End of the BoxProto definition'
+                )
+            */
+        } 
+
+        Template.Instance.rendered = function(){
+
+            //Debug
+            console.log(
+                'l 213 Instance rendered',
+                'this is : \n',
+                this
+            )
+
+            //alias
+            var LocalInstance=this
+
+            //init position
+            CoordinateStrsList=["x","y"]
+            for(var __AxisIndexInt in CoordinateStrsList)
+            {
+
+                //set
+                var InitAxisKeyStr=CoordinateStrsList[__AxisIndexInt]+"0"
+
+                //Debug
+                //console.log(__AxisIndexInt,InitAxisKeyStr)
+
+                //Check
+                if (LocalInstance.data[
+                    InitAxisKeyStr] === undefined || LocalInstance.data[
+                    InitAxisKeyStr] === null) {
+                    
+                    //init value
+                    LocalInstance.data[InitAxisKeyStr]=200
+
+                    //update dict
+                    var UpdateDict={}
+                    UpdateDict[InitAxisKeyStr]=LocalInstance.data[InitAxisKeyStr]
+
+                    //Debug
+                    //console.log(UpdateDict)
+
+                    //update
+                    Instances.update(
+                        {_id:LocalInstance.data._id},
+                        {$set:UpdateDict}
+                    )
+                }
+            }
+
+            //Init the anchor Rect
+            LocalInstance.AnchorRect=PatchRaphael.rect(
+                    LocalInstance.data.x0,
+                    LocalInstance.data.y0,
+                    20,
+                    20
+                ).attr(
+                    {
+                        fill : 'green',
+                        cursor : 'move'
+                    }
+                )
+            
+            //Init the anchor Rect
+            LocalInstance.InfoRect=PatchRaphael.rect(
+                    LocalInstance.data.x0,
+                    LocalInstance.data.y0+20,
+                    20,
+                    20
+                ).attr(
+                    {
+                        fill : 'gray',
+                        cursor : 'move'
+                    }
+                )
+
+            //Debug
+            /*
+            console.log(
+                'l 242 Box rendered \n',
+                //'Box is \n',
+                //Box
+                'init a new Box'
+            )
+            */
+
+            //init
+            LocalInstance.Box=new BoxProto()
+
+            //Debug
+            /*
+            console.log(
+                'l 253 Box rendered \n',
+                'Box is \n',
+                Box
+            )
+            */
+
+            //Link
+            LocalInstance.Box.Instance=LocalInstance
+            LocalInstance.Box.AnchorRect=LocalInstance.AnchorRect
+
+            //push
+            LocalInstance.Box.set.push(
+                LocalInstance.AnchorRect,
+                LocalInstance.InfoRect
+            )   
+
+            //Debug
+            /*
+            console.log(
+                'l 228 Box \n',
+                'Make it drag'
+            )
+            */
+
+
+            //make it draggable
+            LocalInstance.Box.set.drag(
+                LocalInstance.Box.dragBoxSetMove, 
+                LocalInstance.Box.dragBoxSetStart, 
+                LocalInstance.Box.dragBoxSetStop
+            );
+
+            //Debug
+            /*
+            console.log(
+                    'Box rendered l 290',
+                    'PatchRaphael.BoxSetsSet is : \n',
+                    PatchRaphael.BoxSetsSet,
+                    '\n',
+                    'PatchRaphael.InstancesDict is : \n',
+                    PatchRaphael.InstancesDict,
+                    '\n',
+                )
+            */
+
+            //Give to the BoxSetsSet
+            PatchRaphael.BoxSetsSet.push(LocalInstance.Box.set)
+            PatchRaphael.InstancesDict[LocalInstance.data._id]=LocalInstance
+
+            //Debug
+            console.log(
+                'Instance rendered l 309 \n',
+                'Instance.Box.AnchorRect.getBBox() is \n',
+                LocalInstance.Box.AnchorRect.getBBox(),
+                'LocalInstance.data._id is \n',
+                LocalInstance.data._id
+            )
+            LocalInstance.Box.AnchorRect.BBox=LocalInstance.Box.AnchorRect.getBBox()
+
+        }
+
+        Template.Instance.destroyed = function(){
+
+            //Debug
+            /*
+            console.log(
+                'l 213 Instance destroyed',
+                'this is : \n',
+                this
+            )
+            */
+
+            //alias
+            var LocalInstance=this
+
+            //exclude 
+            PatchRaphael.BoxSetsSet.exclude(LocalInstance.Box.set)
+
+            //remove
+            LocalInstance.Box.set.remove()
+
+            //delete
+            delete PatchRaphael.InstancesDict[LocalInstance.data._id]
+
+        }
+
     }
 )
 
-Template.Instance.rendered = function(){
-
-    //Debug
-    /*
-    console.log(
-        'l 213 Box destroyed',
-        'this is : \n',
-        this
-    )
-    */
-
-    //init position
-    CoordinateStrsList=["x","y"]
-    for(var __AxisIndexInt in CoordinateStrsList)
-    {
-
-        //set
-        InitAxisKeyStr=CoordinateStrsList[__AxisIndexInt]+"0"
-
-        //Debug
-        //console.log(__AxisIndexInt,InitAxisKeyStr)
-
-        //Check
-        if (this.data[InitAxisKeyStr] === undefined || this.data[InitAxisKeyStr] === null) {
-            
-            //init value
-            this.data[InitAxisKeyStr]=200
-
-            //update dict
-            UpdateDict={}
-            UpdateDict[InitAxisKeyStr]=this.data[InitAxisKeyStr]
-
-            //Debug
-            //console.log(UpdateDict)
-
-            //update
-            Instances.update(
-                {_id:this.data._id},
-                {$set:UpdateDict}
-            )
-        }
-    }
-
-    //Init the anchor Rect
-    AnchorRect=PatchRaphael.rect(
-            this.data.x0,
-            this.data.y0,
-            20,
-            20
-        ).attr(
-            {
-                fill : 'green',
-                cursor : 'move'
-            }
-        )
-    
-    //Init the anchor Rect
-    InfoRect=PatchRaphael.rect(
-            this.data.x0,
-            this.data.y0+20,
-            20,
-            20
-        ).attr(
-            {
-                fill : 'gray',
-                cursor : 'move'
-            }
-        )
-
-    //Debug
-    /*
-    console.log(
-        'l 290 Box rendered \n',
-        //'Box is \n',
-        //Box
-        'init a new Box'
-    )
-    */
-
-    //init
-    Box=new Box()
-    Box.Instance=this
-    Box.AnchorRect=AnchorRect
-
-    //Debug
-    /*
-    console.log(
-        'l 300 Box rendered \n',
-        'Box is \n',
-        Box
-    )
-    */
-
-    //push
-    Box.set.push(
-        AnchorRect,
-        InfoRect
-    )   
-
-    //Debug
-    /*
-    console.log(
-        'l 228 Box \n',
-        'Make it drag'
-    )
-    */
-
-    //make it draggable
-    Box.set.drag(
-        Box.dragBoxMove, 
-        Box.dragBoxStart, 
-        Box.dragBoxStop
-    );
-
-    //link
-    this.Box=Box
-
-    //Give to the InstancesSet
-    InstancesSet[this.data._id]=this
-
-}
-
-Template.Instance.destroyed = function(){
-
-    //Debug
-    /*
-    console.log(
-        'l 213 Instance destroyed',
-        'this is : \n',
-        this
-    )
-    */
-
-    //remove
-    this.Box.set.remove()
-
-}
