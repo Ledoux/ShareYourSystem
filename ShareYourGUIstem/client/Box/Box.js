@@ -5,7 +5,7 @@
 @Author : Erwan Ledoux \n\n
 </DefineSource>
 
-Instance defines the svg support for displaying an instance coming
+Box defines the svg support for displaying instances (Object, collection Dicts) coming
 from a Python call.
 
 */
@@ -25,7 +25,7 @@ Meteor.startup(
 
         //init
         PatchRaphael.BoxSetsSet=PatchRaphael.set()
-        PatchRaphael.InstancesDict={}
+        PatchRaphael.BoxeBlazesDict={}
 
         //define
         BoxClass = function() {
@@ -41,23 +41,23 @@ Meteor.startup(
             */
 
             //alias
-            var LocalBox=this
+            var LocalBoxObject=this
 
             //Define the set
-            LocalBox.set=PatchRaphael.set()
-            LocalBox.set.Box=LocalBox
+            LocalBoxObject.set=PatchRaphael.set()
+            LocalBoxObject.set.BoxObject=LocalBoxObject
 
             //Debug
             /*
             console.log(
-                'LocalBox l 39',
-                'LocalBox.set is',
-                LocalBox.set,
+                'LocalBoxObject l 39',
+                'LocalBoxObject.set is',
+                LocalBoxObject.set,
                 '\n'
             )
             */
 
-            LocalBox.dragBoxSetStart = function() {
+            LocalBoxObject.dragBoxSetStart = function() {
 
                 //Debug
                 /*  
@@ -67,7 +67,7 @@ Meteor.startup(
                 */
 
                 //map
-                LocalBox.set.items.map(
+                LocalBoxObject.set.items.map(
                         function(__Element){
 
                             //set
@@ -92,7 +92,7 @@ Meteor.startup(
 
             }
 
-            LocalBox.dragBoxSetMove = function(_dx,_dy) {
+            LocalBoxObject.dragBoxSetMove = function(_dx,_dy) {
 
                 //Debug
                 /*
@@ -101,7 +101,7 @@ Meteor.startup(
                     )
                 */
 
-                LocalBox.set.items.map(
+                LocalBoxObject.set.items.map(
                         function(__Element){
 
                             //Debug
@@ -131,38 +131,41 @@ Meteor.startup(
 
                 //update the db... 
                 /*
-                Instances.update(
-                    {_id:LocalBox.Instance.data._id},
+
+                Boxes.update(
+                    {_id:LocalBoxObject.BoxBlaze.data._id},
                     {
                         $set:{
-                            x0:LocalBox.AnchorRect.attr('x'),
-                            y0:LocalBox.AnchorRect.attr('y')
+                            x0:LocalBoxObject.AnchorRect.attr('x'),
+                            y0:LocalBoxObject.AnchorRect.attr('y')
                         }
                     }
                 )
                 */
 
                 //set
-                LocalBox.Instance.Infox.set(LocalBox.AnchorRect.attr('x'))
-                LocalBox.Instance.Infoy.set(LocalBox.AnchorRect.attr('y'))
+                LocalBoxObject.BoxBlaze.Infox.set(LocalBoxObject.AnchorRect.attr('x'))
+                LocalBoxObject.BoxBlaze.Infoy.set(LocalBoxObject.AnchorRect.attr('y'))
             }
 
-            LocalBox.dragBoxSetStop = function() {
+            LocalBoxObject.dragBoxSetStop = function() {
 
                 //Debug
+                /*
                 console.log(
                         'l 264 dragBoxSetStop \n',
-                        'LocalBox.Instance.data._id is \n',
-                        LocalBox.Instance.data._id
+                        'LocalBox.BoxBlaze.data._id is \n',
+                        LocalBoxObject.BoxBlaze.data._id
                     )
-                
+                */
+
                 //update the db
-                Instances.update(
-                    {_id:LocalBox.Instance.data._id},
+                Boxes.update(
+                    {_id:LocalBoxObject.BoxBlaze.data._id},
                     {
                         $set:{
-                            x0:LocalBox.AnchorRect.attr('x'),
-                            y0:LocalBox.AnchorRect.attr('y')
+                            x0:LocalBoxObject.AnchorRect.attr('x'),
+                            y0:LocalBoxObject.AnchorRect.attr('y')
                         }
                     }
                 )
@@ -172,51 +175,90 @@ Meteor.startup(
             //Debug
             /*
             console.log(
-                'l155 Instance',
+                'l 155 BoxClass',
                 'End of the BoxClass definition'
                 )
             */
         }
 
+        //Bond an observe of the Instances data
+        Boxes.find().observe(
+            {
+                changed:function(_NewObject, _OldObject)
+                {
+                    //Debug
+                    /*
+                    console.log(
+                      'Instances observe changed',
+                      '_NewObject is \n',
+                      _NewObject,
+                      '\n',
+                      '_OldObject is \n',
+                      _OldObject,
+                      '\n'
+                    )
+                    */
 
-        //InstanceReactiveClass = new ReactiveClass(Instances);
-        //InstanceReactiveClass.prototype.getName = function() {
-        //  return this.name;
-        //}
+                    //find the translation
+                    var LocalBoxBlaze=PatchRaphael.BoxeBlazesDict[_NewObject._id]
+                    dx=_NewObject.x0-LocalBoxBlaze.BoxObject.AnchorRect.attr('x')
+                    dy=_NewObject.y0-LocalBoxBlaze.BoxObject.AnchorRect.attr('y')
+
+                    //Debug
+                    /*
+                    console.log(
+                    'dx is \n',
+                    dx,
+                    '\n',
+                    'dy is \n',
+                    dy,
+                    '\n'
+                    )
+                    */
+
+                    //drag
+                    LocalBoxBlaze.BoxObject.dragBoxSetStart()
+                    LocalBoxBlaze.BoxObject.dragBoxSetMove(dx,dy)
+                    LocalBoxBlaze.BoxObject.dragBoxSetStop()
+
+                }
+            }
+        )
 
     } 
 )
 
-Template.Instance.created = function()
+Template.Box.created = function()
 {
     //Debug
     /*
     console.log(
-        'l 190 Instance created',
+        'l 190 Box created',
         'this is : \n',
         this
     )
     */
 
     //alias
-    var LocalInstance=this
+    var LocalBoxBlaze=this
 
     //init position
-    DefaultInstanceDataDict={
+    DefaultBoxDataDict={
         'x0':200,
         'y0':200,
-        'NodeKeyStr':"Default"
+        //'NodeKeyStr':"Default"
+        'PathStr':"Default",
     }
 
     //map
     UpdateKeyStrsList=_.filter(
-        _.keys(DefaultInstanceDataDict),
+        _.keys(DefaultBoxDataDict),
         function(__KeyStr){
 
             //Debug
             /*
             console.log(
-                'Template Instance rendered \n',
+                'Template Box rendered \n',
                 '\n',
                 '__KeyStr is \n',
                 __KeyStr,
@@ -224,8 +266,8 @@ Template.Instance.created = function()
                 )
             */
 
-            return LocalInstance.data[
-                __KeyStr] === undefined || LocalInstance.data[
+            return LocalBoxBlaze.data[
+                __KeyStr] === undefined || LocalBoxBlaze.data[
                 __KeyStr] === null
         }
     )
@@ -237,7 +279,7 @@ Template.Instance.created = function()
                             function(__UpdateKeyStr){
                                 return [
                                     __UpdateKeyStr,
-                                    DefaultInstanceDataDict[__UpdateKeyStr]
+                                    DefaultBoxDataDict[__UpdateKeyStr]
                                 ]
                             }
                         )
@@ -246,25 +288,30 @@ Template.Instance.created = function()
     //Debug
     /*
     console.log(
-        'Tempate Instance rendered l 238 \n',
+        'Template Box created l 290 \n',
         'UpdateObject is \n',
         UpdateObject
     )
     */
 
     //update
-    _.each(UpdateObject,function(__Value,__Key){LocalInstance.data[__Key]=__Value})
-    Instances.update(
-                {_id:LocalInstance.data._id},
+    _.each(
+            UpdateObject,
+            function(__Value,__Key){
+                 LocalBoxBlaze.data[__Key]=__Value
+            }
+    )
+    Boxes.update(
+                {_id:LocalBoxBlaze.data._id},
                 {
                     $set:UpdateObject
                 }
             )
 
     //Init the anchor Rect
-    LocalInstance.AnchorRect=PatchRaphael.rect(
-            LocalInstance.data.x0,
-            LocalInstance.data.y0,
+    LocalBoxBlaze.AnchorRect=PatchRaphael.rect(
+            LocalBoxBlaze.data.x0,
+            LocalBoxBlaze.data.y0,
             20,
             20
         ).attr(
@@ -275,9 +322,9 @@ Template.Instance.created = function()
         )
     
     //Init the anchor Rect
-    LocalInstance.InfoRect=PatchRaphael.rect(
-            LocalInstance.data.x0,
-            LocalInstance.data.y0+20,
+    LocalBoxBlaze.InfoRect=PatchRaphael.rect(
+            LocalBoxBlaze.data.x0,
+            LocalBoxBlaze.data.y0+20,
             20,
             20
         ).attr(
@@ -286,10 +333,10 @@ Template.Instance.created = function()
                 cursor : 'move'
             }
         )
-    this.Infox = new ReactiveVar;
-    this.Infoy = new ReactiveVar;
-    this.Infox.set(LocalInstance.data.x0)
-    this.Infoy.set(LocalInstance.data.y0)
+    LocalBoxBlaze.Infox = new ReactiveVar;
+    LocalBoxBlaze.Infoy = new ReactiveVar;
+    LocalBoxBlaze.Infox.set(LocalBoxBlaze.data.x0)
+    LocalBoxBlaze.Infoy.set(LocalBoxBlaze.data.y0)
 
     //Debug
     /*
@@ -302,7 +349,7 @@ Template.Instance.created = function()
     */
 
     //init
-    LocalInstance.Box=new BoxClass()
+    LocalBoxBlaze.BoxObject=new BoxClass()
 
     //Debug
     /*
@@ -314,13 +361,13 @@ Template.Instance.created = function()
     */
 
     //Link
-    LocalInstance.Box.Instance=LocalInstance
-    LocalInstance.Box.AnchorRect=LocalInstance.AnchorRect
+    LocalBoxBlaze.BoxObject.BoxBlaze=LocalBoxBlaze
+    LocalBoxBlaze.BoxObject.AnchorRect=LocalBoxBlaze.AnchorRect
 
     //push
-    LocalInstance.Box.set.push(
-        LocalInstance.AnchorRect,
-        LocalInstance.InfoRect
+    LocalBoxBlaze.BoxObject.set.push(
+        LocalBoxBlaze.AnchorRect,
+        LocalBoxBlaze.InfoRect
     )   
 
     //Debug
@@ -333,10 +380,10 @@ Template.Instance.created = function()
 
 
     //make it draggable
-    LocalInstance.Box.set.drag(
-        LocalInstance.Box.dragBoxSetMove, 
-        LocalInstance.Box.dragBoxSetStart, 
-        LocalInstance.Box.dragBoxSetStop
+    LocalBoxBlaze.BoxObject.set.drag(
+        LocalBoxBlaze.BoxObject.dragBoxSetMove, 
+        LocalBoxBlaze.BoxObject.dragBoxSetStart, 
+        LocalBoxBlaze.BoxObject.dragBoxSetStop
     );
 
     //Debug
@@ -346,18 +393,18 @@ Template.Instance.created = function()
             'PatchRaphael.BoxSetsSet is : \n',
             PatchRaphael.BoxSetsSet,
             '\n',
-            'PatchRaphael.InstancesDict is : \n',
-            PatchRaphael.InstancesDict,
+            'PatchRaphael.BoxeBlazesDict is : \n',
+            PatchRaphael.BoxeBlazesDict,
             '\n',
         )
     */
 
     //Give to the BoxSetsSet
-    PatchRaphael.BoxSetsSet.push(LocalInstance.Box.set)
-    PatchRaphael.InstancesDict[LocalInstance.data._id]=LocalInstance
+    PatchRaphael.BoxSetsSet.push(LocalBoxBlaze.BoxObject.set)
+    PatchRaphael.BoxeBlazesDict[LocalBoxBlaze.data._id]=LocalBoxBlaze
  
 }
-Template.Instance.helpers(
+Template.Box.helpers(
     {
         Infox:function()
         {
@@ -366,52 +413,76 @@ Template.Instance.helpers(
         Infoy:function()
         {
             return Template.instance().Infoy.get();
+        },
+        'coops': function () 
+        {
+
+            //Debug
+            console.log(
+              'Template Patch helpers l 21',
+              'this.BoxStr is \n',
+              this.BoxStr,
+              '\n',
+              'Coops found are \n',
+              Coops.find(
+                    {
+                        BoxStr:this.BoxStr
+                    }
+                ).fetch()
+            )
+            
+            //return
+            return Coops.find(
+                {
+                    BoxStr:this.BoxStr
+               }
+           )
         }
     }
 )
-Template.Instance.rendered = function()
+Template.Box.rendered = function()
 {
 
     //Debug
     /*
     console.log(
-        'Template.Instance.rendered l 374'
+        'Template.Box.rendered l 374'
     )
     */
 
     //alias
-    var LocalInstance=this
+    var LocalBoxBlaze=this
 
     //update
-    LocalInstance.Box.AnchorRect.attr(
+    LocalBoxBlaze.BoxObject.AnchorRect.attr(
             {
-                x:LocalInstance.data.x0,
-                y:LocalInstance.data.y0
+                x:LocalBoxBlaze.data.x0,
+                y:LocalBoxBlaze.data.y0
             }
         )
 }
 
-Template.Instance.destroyed = function(){
+Template.Box.destroyed = function(){
 
     //Debug
     /*
     console.log(
-        'l 213 Instance destroyed',
+        'l 213 Box destroyed',
         'this is : \n',
         this
     )
     */
 
     //alias
-    var LocalInstance=this
+    var LocalBoxBlaze=this
 
     //exclude 
-    PatchRaphael.BoxSetsSet.exclude(LocalInstance.Box.set)
+    PatchRaphael.BoxSetsSet.exclude(LocalBoxBlaze.BoxObject.set)
 
     //remove
-    LocalInstance.Box.set.remove()
+    LocalBoxBlaze.BoxObject.set.remove()
 
     //delete
-    delete PatchRaphael.InstancesDict[LocalInstance.data._id]
+    delete PatchRaphael.BoxeBlazesDict[LocalBoxBlaze.data._id]
 
 }

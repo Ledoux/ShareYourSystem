@@ -28,7 +28,9 @@
         {{DisplayPatchStrsList}}
         <div id="PatchDiv">
           <svg id="PatchSvg" width="700" height="300">
-              {{> Patch}}
+              {{#each patches}}
+                {{> Patch}}
+              {{/each}}
           </svg>
         </div>
       </td>

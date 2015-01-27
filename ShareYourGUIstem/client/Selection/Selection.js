@@ -67,7 +67,7 @@ Meteor.startup(
                             */
 
                             //set
-                            __BoxSet.Box.dragBoxSetStart()
+                            __BoxSet.BoxObject.dragBoxSetStart()
                         }
                     )
 
@@ -106,7 +106,7 @@ Meteor.startup(
                             */
 
                             //set
-                            __BoxSet.Box.dragBoxSetMove(_dx,_dy)
+                            __BoxSet.BoxObject.dragBoxSetMove(_dx,_dy)
                         }
 
                     )
@@ -135,7 +135,7 @@ Meteor.startup(
                             */
 
                             //set
-                            __BoxSet.Box.dragBoxSetStop()
+                            __BoxSet.BoxObject.dragBoxSetStop()
                         }
 
                     )
@@ -243,9 +243,9 @@ Meteor.startup(
 
                             //make it drag
                             __BoxSet.drag(
-                                __BoxSet.Box.dragBoxSetMove,
-                                __BoxSet.Box.dragBoxSetStart,
-                                __BoxSet.Box.dragBoxSetStop
+                                __BoxSet.BoxObject.dragBoxSetMove,
+                                __BoxSet.BoxObject.dragBoxSetStart,
+                                __BoxSet.BoxObject.dragBoxSetStop
                             )
 
                             //exclude
@@ -283,8 +283,8 @@ Meteor.startup(
                     'PatchRaphael.BoxSetsSet is :\n',
                     PatchRaphael.BoxSetsSet,
                     '\n',
-                    'PatchRaphael.InstancesDict is : \n',
-                    PatchRaphael.InstancesDict
+                    'PatchRaphael.BoxesDict is : \n',
+                    PatchRaphael.BoxesDict
                 );
                 */
 
@@ -292,7 +292,7 @@ Meteor.startup(
                         function(__BoxSet)
                         {
                             //get the BBox
-                            __BoxSet.MyBounds=__BoxSet.Box.AnchorRect.getBBox()
+                            __BoxSet.MyBounds=__BoxSet.BoxObject.AnchorRect.getBBox()
 
                             //do bounding boxes overlap?
                             //is one of this object's x extremes between the selection's xe xtremes?

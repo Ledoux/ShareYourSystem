@@ -13,31 +13,27 @@ defining in a certain Patch.
 
 Template.Patch.helpers(
     {
-        'instances': function () 
+        'systems': function () 
         {
 
-            //Debug
             /*
+            //Debug
             console.log(
               'Template Patch helpers l 21'
             )
             */
             
             //return
-            return Instances.find(
+            return Systems.find(
                 {
                     PatchStr:
                    {
                     $in:
                     Session.get('PatchStrsList')
-                    //Patches.find({},{name:true}).map(function(object){return object['name']})
+                    //CollectionsDictObject['Patches'].find({},{name:true}).map(function(object){return object['name']})
                    }
                }
            )
-        },
-
-        'connectors': function () {
-            return Connectors.find();
         }
     }
 )
