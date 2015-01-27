@@ -15,6 +15,15 @@ Template.Patch.helpers(
     {
         'instances': function () 
         {
+
+            //Debug
+            /*
+            console.log(
+              'Template Patch helpers l 21'
+            )
+            */
+            
+            //return
             return Instances.find(
                 {
                     PatchStr:

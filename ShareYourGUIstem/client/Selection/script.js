@@ -14,7 +14,7 @@ Meteor.startup(
     function()
     {
         //define
-        SelectionProto = function() {
+        SelectionClass = function() {
 
             //Debug
             /*
@@ -32,76 +32,53 @@ Meteor.startup(
             //
             LocalSelection.set=PatchRaphael.set()
             LocalSelection.set.Selection=LocalSelection
-            LocalSelection.lx = 0
-            LocalSelection.ly = 0
-            LocalSelection.dx = 0
-            LocalSelection.dy = 0
-            if(LocalSelection.ox == undefined || LocalSelection.ox == null)
-            {
-                LocalSelection.ox=0
-            }
-            if(LocalSelection.oy == undefined || LocalSelection.oy == null)
-            {
-                LocalSelection.oy=0
-            } 
 
             //Debug
             /*
             console.log(
                 'LocalSelection l 39',
                 'LocalSelection.set is',
-                LocalSelection.set,
-                '\n',
-                'LocalSelection.ox is \n',
-                LocalSelection.ox,
-                '\n',
-                'LocalSelection.oy is \n',
-                LocalSelection.oy,
-                '\n',
-                'LocalSelection.lx is \n',
-                LocalSelection.lx,
-                '\n',
-                'LocalSelection.ly is \n',
-                LocalSelection.ly
+                LocalSelection.set
             )
             */
 
-            LocalSelection.dragSetStart = function() {
+            LocalSelection.dragSelectionSetStart = function() {
 
                 //Debug
                 /*
                 console.log(
-                        'l 188 dragSetStart \n',
-                        'LocalSelection.ox is \n',
-                        LocalSelection.ox,
-                        '\n',
-                        'LocalSelection.oy is \n',
-                        LocalSelection.oy,
-                        '\n',
-                        'lx is \n',
-                        LocalSelection.lx,
-                        '\n',
-                        'LocalSelection.ly is \n',
-                        LocalSelection.ly
+                        'l 188 dragSelectionSetStart \n',
+                        'LocalSelection.set is \n',
+                        LocalSelection.set,
+                        '\n'
                     )
                 */
 
+                //map
+                LocalSelection.set.items.map(
+                        function(__BoxSet){
+
+                            //Debug
+                            /*
+                            console.log(
+                                'dragSelectionSetStart l 64',
+                                '\n'
+                            )
+                            */
+
+                            //set
+                            __BoxSet.Box.dragBoxSetStart()
+                        }
+                    )
+
             }
 
-            LocalSelection.dragSetMove = function(_dx,_dy) {
+            LocalSelection.dragSelectionSetMove = function(_dx,_dy) {
 
                 //Debug
                 /*
                 console.log(
-                        'l 242 dragSetMove \n',
-                        'LocalSelection.set is \n',
-                        LocalSelection.set,
-                        '\n',
-                        'LocalSelection.ox is \n',
-                        LocalSelection.ox,
-                        '\n',
-                        'LocalSelection.oy is \n',
-                        LocalSelection.oy,
+                        'l 87 dragSelectionSetMove \n',
                         '\n',
                         '_dx is : \n',
                         _dx,
@@ -111,51 +88,83 @@ Meteor.startup(
                     )
                 */
 
-                //transform the local set
-                LocalSelection.lx = LocalSelection.ox + _dx;
-                LocalSelection.ly = LocalSelection.oy + _dy;
-                LocalSelection.dx = _dx
-                LocalSelection.dy = _dy
-                LocalSelection.set.transform(
-                    'T' + LocalSelection.lx + ',' + LocalSelection.ly);
-                
+                //map
+                LocalSelection.set.items.map(
+                        function(__BoxSet){
+
+                            //Debug
+                            /*
+                            console.log(
+                                'dragSelectionSetMove l 105',
+                                '__BoxSet.ox is \n',
+                                __BoxSet.ox,
+                                '\n',
+                                '__BoxSet.oy is \n',
+                                __BoxSet.oy,
+                                '\n'
+                            )
+                            */
+
+                            //set
+                            __BoxSet.Box.dragBoxSetMove(_dx,_dy)
+                        }
+
+                    )
+
             }
 
-            LocalSelection.dragSetStop = function() {
-
-                //set
-                LocalSelection.ox = LocalSelection.lx;
-                LocalSelection.oy = LocalSelection.ly;
+            LocalSelection.dragSelectionSetStop = function() {
 
                 //Debug
                 /*
                 console.log(
-                        'l 264 dragSetStop \n',
-                        'LocalSelection.ox is \n',
-                        LocalSelection.ox,
-                        '\n',
-                        'LocalSelection.oy is \n',
-                        LocalSelection.oy,
-                        '\n',
-                        'LocalSelection.lx is \n',
-                        LocalSelection.lx,
-                        '\n',
-                        'LocalSelection.ly is \n',
-                        LocalSelection.ly
+                        'l 264 dragSelectionSetStop \n',
                     )
                 */
+
+                //map
+                LocalSelection.set.items.map(
+                        function(__BoxSet){
+
+                            //Debug
+                            /*
+                            console.log(
+                                'dragSelectionSetStrop l 138',
+                                '\n'
+                            )
+                            */
+
+                            //set
+                            __BoxSet.Box.dragBoxSetStop()
+                        }
+
+                    )
+
             }
 
             //when mouse goes down over background, start drawing selection box
-            LocalSelection.dragRectStart = function(_x, _y, _Event) {
+            LocalSelection.dragSelectionRectStart = function(_x, _y, _Event) {
 
                 //Debug
+                /*
                 console.log(
-                    'l 20 dragRectStart \n',
-                    '_x _y are : \n',
-                    _x,_y
+                    'l 178 dragSelectionRectStart \n',
+                    '_x is : \n',
+                    _x,
+                    '\n',
+                    '_y is : \n',
+                    _y,
+                    '\n',
+                   ' _x-PatchSvgOffset.left is : \n',
+                    _x-PatchSvgOffset.left,
+                    '\n',
+                    '_y-PatchSvgOffset.top is : \n',
+                    _y-PatchSvgOffset.top,
+                    '\n'
                 )
+                */
 
+                //init
                 LocalSelection.rect=PatchRaphael.rect(
                               _x-PatchSvgOffset.left, 
                               _y-PatchSvgOffset.top, 5, 5
@@ -164,21 +173,19 @@ Meteor.startup(
                             ); 
 
                 //for
-                for (var __KeyStr in LocalSelection.set.items) {
-
-                    //get
-                    var BoxSet=LocalSelection.set[__KeyStr]
-
-                    //set opacity
-                    BoxSet.attr("opacity", 1); 
-                }
+                LocalSelection.set.items.map(
+                        function(__BoxSet)
+                        {
+                            __BoxSet.attr("opacity", 1)
+                        }
+                    )
             }
 
             // When mouse moves during drag, adjust box.
             // If the drag is to the left or above original point,
             // you have to translate the whole box and invert the dx 
             // or dy values since .rect() doesn't take negative width or height
-            LocalSelection.dragRectMove = function (_dx, _dy, _x, _y, _Event) {
+            LocalSelection.dragSelectionRectMove = function (_dx, _dy, _x, _y, _Event) {
 
                 //init
                 var xoffset = 0,
@@ -212,82 +219,66 @@ Meteor.startup(
 
             }
 
-            LocalSelection.resetSet = function(){
+            LocalSelection.resetSelectionSet = function(){
 
                 //undrag
                 LocalSelection.set.undrag()
 
-                //reinit and give the last X0 and Y0
-                var ox=LocalSelection.ox
-                var oy=LocalSelection.oy
-                var lx=LocalSelection.lx
-                var ly=LocalSelection.ly
+                //Debug
+                /*
+                console.log(
+                    'resetSet l 229 \n',
+                    'LocalSelection.set.items is \n',
+                    LocalSelection.set.items
+                )
+                */
+                
+                //map remake them drag
+                LocalSelection.set.items.map(
+                        function(__BoxSet)
+                        {
 
-                //for
-                for (var __KeyStr in LocalSelection.set.items) {
+                            //change opacity
+                            __BoxSet.attr("opacity", 1);
 
-                    //exclude
-                    //SelectionSet.exclude(BoxSet)
+                            //make it drag
+                            __BoxSet.drag(
+                                __BoxSet.Box.dragBoxSetMove,
+                                __BoxSet.Box.dragBoxSetStart,
+                                __BoxSet.Box.dragBoxSetStop
+                            )
 
-                    //get
-                    var BoxSet=LocalSelection.set[__KeyStr]
-
-                    //get
-                    BoxSet.attr("opacity", 1);
-
-                    //Debug
-                    console.log(
-                        'l 235 resetSet \n',
-                        'BoxSet is ',
-                        BoxSet
+                            //exclude
+                            LocalSelection.set.exclude(__BoxSet)
+                        }
                     )
-
-                    //Remake drag for rect ellipse...
-                    BoxSet.drag(
-                        BoxSet.Box.dragBoxSetMove,
-                        BoxSet.Box.dragBoxSetStart,
-                        BoxSet.Box.dragBoxSetStop
-                    )
-                    BoxSet.Box.ox=ox
-                    BoxSet.Box.oy=oy
-                    BoxSet.Box.dragBoxSetStart()
-                    BoxSet.Box.dragBoxSetMove(0,0)
-                    BoxSet.Box.dragBoxSetStop()
-
-                    //exclude
-                    LocalSelection.set.exclude(BoxSet)
-
-                }
 
                 //remove the rectangle of selection
                 LocalSelection.rect.remove();
 
-                //empty selections and reset opacity;
-                //LocalSelection.ox=ox
-                //LocalSelection.oy=oy
             }
 
-            LocalSelection.dragRectStop = function (_Event) {
+            LocalSelection.dragSelectionRectStop = function (_Event) {
 
-                //get the RectBounds of the selections
-                var RectBounds = LocalSelection.rect.getBBox();
+                //get the SelectionRectBounds of the selections
+                var SelectionRectBounds = LocalSelection.rect.getBBox();
 
+                //Debug
+                console.log(
+                    'l 267 dragSelectionStop before reset \n',
+                    'SelectionRectBounds is \n',
+                    SelectionRectBounds
+                )
+
+                //reset
+                LocalSelection.resetSelectionSet()
+                
                 //Debug
                 /*
                 console.log(
-                'l 144 dragSelectionStop before reset \n',
-                'SelectionSet is \n',
-                SelectionSet
-                )
-                */
-
-                //
-                LocalSelection.resetSet()
-                    
-                console.log(
                     'dragRectStop l 100\n',
-                    'RectBounds is \n :',
-                    RectBounds,
+                    'SelectionRectBounds is \n :',
+                    SelectionRectBounds,
                     '\n',
                     'PatchRaphael.BoxSetsSet is :\n',
                     PatchRaphael.BoxSetsSet,
@@ -295,100 +286,49 @@ Meteor.startup(
                     'PatchRaphael.InstancesDict is : \n',
                     PatchRaphael.InstancesDict
                 );
+                */
 
-                //for
-                //for (var __KeyStr in PatchRaphael.BoxSetsSet.items) {
-                for (var __KeyStr in PatchRaphael.InstancesDict) {
-
-                    //get
-                    //var BoxSet=PatchRaphael.BoxSetsSet[__KeyStr]
-                    var Instance=PatchRaphael.InstancesDict[__KeyStr]
-                    var BoxSet=Instance.Box.set
-
-                    // Here, we want to get the x,y vales of each object
-                    // regardless of what sort of shape it is.
-                    // But rect uses rx and ry, circle uses cx and cy, etc
-                    // So we'll see if the bounding boxes intercept instead
-                    BoxSet.MyBounds=BoxSet.Box.AnchorRect.getBBox()
-                    //Instance.MyBounds=BoxSet.Box.AnchorRect.Bbox
-
-                    //Debug
-                    console.log(
-                        'l 327 dragRectStop \n',
-                        'Instance.data._id is \n',
-                        Instance.data._id,
-                        '\n',
-                        '__KeyStr is ',
-                        __KeyStr,
-                        '\n',
-                        'BoxSet.Box is ',
-                        BoxSet.Box,
-                        '\n',
-                        'BoxSet.Box.AnchorRect is ',
-                        BoxSet.Box.AnchorRect,
-                        '\n',
-                        'BoxSet is ',
-                        BoxSet,
-                        '\n',
-                        'BoxSet.Box.AnchorRect.getBBox() is ',
-                        BoxSet.Box.AnchorRect.getBBox(),
-                        '\n',
-                        'BoxSet.Box.AnchorRect.BBox is ',
-                        BoxSet.Box.AnchorRect.BBox,
-                        '\n',
-                        'BoxSet.MyBounds is \n',
-                        BoxSet.MyBounds,
-                        '\n',
-                        'LocalSelection.rect is ',
-                        LocalSelection.rect,
-                        '\n',
-                        'RectBounds is \n',
-                        RectBounds,
-                        '\n'
-                    )
-
-                    //do bounding boxes overlap?
-                    //is one of this object's x extremes between the selection's xe xtremes?
-                    if (BoxSet.MyBounds.x >= RectBounds.x && BoxSet.MyBounds.x <= RectBounds.x2 || BoxSet.MyBounds.x2 >= RectBounds.x && BoxSet.MyBounds.x2 <= RectBounds.x2) {
-
-                        //same for y
-                        if (BoxSet.MyBounds.y >= RectBounds.y && BoxSet.MyBounds.y <= RectBounds.y2 || BoxSet.MyBounds.y2 >= RectBounds.y && BoxSet.MyBounds.y2 <= RectBounds.y2) 
+                PatchRaphael.BoxSetsSet.items.map(
+                        function(__BoxSet)
                         {
+                            //get the BBox
+                            __BoxSet.MyBounds=__BoxSet.Box.AnchorRect.getBBox()
 
-                            //push
-                            LocalSelection.set.push(BoxSet);     
+                            //do bounding boxes overlap?
+                            //is one of this object's x extremes between the selection's xe xtremes?
+                            if (
+                                __BoxSet.MyBounds.x >= SelectionRectBounds.x && __BoxSet.MyBounds.x <= SelectionRectBounds.x2 || __BoxSet.MyBounds.x2 >= SelectionRectBounds.x && __BoxSet.MyBounds.x2 <= SelectionRectBounds.x2) 
+                                {
 
-                            //drag
-                            BoxSet.undrag()
+                                    //same for y
+                                    if (__BoxSet.MyBounds.y >= SelectionRectBounds.y && __BoxSet.MyBounds.y <= SelectionRectBounds.y2 || __BoxSet.MyBounds.y2 >= SelectionRectBounds.y && __BoxSet.MyBounds.y2 <= SelectionRectBounds.y2) 
+                                    {
 
-                            //set
-                            BoxSet.attr("opacity", 0.5);
+                                        //push
+                                        LocalSelection.set.push(__BoxSet);     
+
+                                        //drag
+                                        __BoxSet.undrag()
+
+                                        //set
+                                        __BoxSet.attr("opacity", 0.5);
+                                    }
+                            }
                         }
-                    }
-
-                    //enable the drag
-                    LocalSelection.set.drag(
-                        LocalSelection.dragSetMove,
-                        LocalSelection.dragSetStart,
-                        LocalSelection.dragSetStop
                     )
-                }
 
-            }
-
-            //Debug
-            /*
-            console.log(
-                'l155 SelectionProto',
-                'End of the SelectionProto definition'
+                //enable the drag
+                LocalSelection.set.drag(
+                    LocalSelection.dragSelectionSetMove,
+                    LocalSelection.dragSelectionSetStart,
+                    LocalSelection.dragSelectionSetStop
                 )
-            */
-
+            }
         } 
 
 
         //set that will receive the selected items
-        PatchSelection=new SelectionProto()
+        PatchSelection=new SelectionClass()
 
         //init
         var BackRect = PatchRaphael.rect(
@@ -397,9 +337,9 @@ Meteor.startup(
                         "fill", "#FFF"
                       );
         BackRect.drag(
-                PatchSelection.dragRectMove, 
-                PatchSelection.dragRectStart, 
-                PatchSelection.dragRectStop
+                PatchSelection.dragSelectionRectMove, 
+                PatchSelection.dragSelectionRectStart, 
+                PatchSelection.dragSelectionRectStop
             );
     }
 )

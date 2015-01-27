@@ -12,8 +12,9 @@ streams
 bootstrap
 accounts-password
 insecure
-autopublish
 dburles:mongo-collection-instances
 gandev:server-eval
 houston:admin
 raix:famono
+reactive-var
+reactive-class

@@ -9,6 +9,9 @@ Messages = new Meteor.Collection('messages');
 //client side
 if (Meteor.isClient) {
 
+  //subscribe
+  Meteor.subscribe('instances')
+
   //starup
   Meteor.startup(
     function () 
@@ -41,13 +44,63 @@ if (Meteor.isClient) {
     }
   );
   
-  //
+  //Set
   Session.set('PatchStrsList',['Default','Default2'])
+
+  //Bond an observe of the Instances data
+  Instances.find().observe(
+      {
+          changed:function(_NewObject, _OldObject)
+          {
+              //Debug
+              console.log(
+                  'Instances observe changed',
+                  '_NewObject is \n',
+                  _NewObject,
+                  '\n',
+                  '_OldObject is \n',
+                  _OldObject,
+                  '\n'
+              )
+
+              //find the translation
+              var LocalInstance=PatchRaphael.InstancesDict[_NewObject._id]
+              dx=_NewObject.x0-LocalInstance.Box.AnchorRect.attr('x')
+              dy=_NewObject.y0-LocalInstance.Box.AnchorRect.attr('y')
+
+              //Debug
+              console.log(
+                'dx is \n',
+                dx,
+                '\n',
+                'dy is \n',
+                dy,
+                '\n'
+              )
+
+              //drag
+              LocalInstance.Box.dragBoxSetStart()
+              LocalInstance.Box.dragBoxSetMove(dx,dy)
+              LocalInstance.Box.dragBoxSetStop()
+
+
+
+          }
+      }
+  )
 
 }
 
 //server side
 if (Meteor.isServer) {
+
+  Meteor.publish(
+      "instances", 
+      function () 
+      {
+        return Instances.find();
+      }
+  );
 
   //methods
   Meteor.methods(
