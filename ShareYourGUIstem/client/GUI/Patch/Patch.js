@@ -10,6 +10,36 @@ defining in a certain Patch.
 
 */
 
+Template.Patch.created = function()
+{
+  /*
+  //Debug
+  console.log(
+      'System created l 17'
+    )
+  */
+
+  //Define
+  var LocalPatchBlaze=this
+
+  //Debug
+  /*
+  console.log(
+      'Patch created l 28',
+    )
+  */
+
+  //init
+  init(
+      this,
+      {
+        'TemplateStr':'Patch',
+        'ChildCollectionStrsArray':['systems'],
+        'DefaultObject':{    
+                      }
+      }
+    )
+}
 
 Template.Patch.helpers(
     {
@@ -29,7 +59,7 @@ Template.Patch.helpers(
                     PatchStr:
                    {
                     $in:
-                    Session.get('PatchStrsList')
+                    Session.get('PatchStrsArray')
                     //CollectionsDictObject['Patches'].find({},{name:true}).map(function(object){return object['name']})
                    }
                }

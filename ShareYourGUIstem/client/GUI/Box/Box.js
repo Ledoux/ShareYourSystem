@@ -233,81 +233,38 @@ Template.Box.created = function()
     //Debug
     /*
     console.log(
-        'l 190 Box created',
+        'l 236 Box created \n',
         'this is : \n',
         this
     )
     */
-
+    
     //alias
     var LocalBoxBlaze=this
 
-    //init position
-    DefaultBoxDataDict={
-        'x0':200,
-        'y0':200,
-        //'NodeKeyStr':"Default"
-        'PathStr':"Default",
-    }
-
-    //map
-    UpdateKeyStrsList=_.filter(
-        _.keys(DefaultBoxDataDict),
-        function(__KeyStr){
-
-            //Debug
-            /*
-            console.log(
-                'Template Box rendered \n',
-                '\n',
-                '__KeyStr is \n',
-                __KeyStr,
-                '\n'
-                )
-            */
-
-            return LocalBoxBlaze.data[
-                __KeyStr] === undefined || LocalBoxBlaze.data[
-                __KeyStr] === null
-        }
-    )
-
-    //object
-    UpdateObject=_.object(
-                        _.map(
-                            UpdateKeyStrsList,
-                            function(__UpdateKeyStr){
-                                return [
-                                    __UpdateKeyStr,
-                                    DefaultBoxDataDict[__UpdateKeyStr]
-                                ]
+    //init
+    init(
+            this,
+            {
+                'ParentTemplateStr':"System",
+                'TemplateStr':'Box',
+                'ChildCollectionStrsArray':['coops'],
+                'DefaultObject':{
+                                'x0':200,
+                                'y0':200
                             }
-                        )
-                    )
+            }
+        )
 
     //Debug
     /*
     console.log(
-        'Template Box created l 290 \n',
-        'UpdateObject is \n',
-        UpdateObject
+        'l 259 Box created \n',
+        'LocalBoxBlaze is : \n',
+        LocalBoxBlaze
     )
     */
-
-    //update
-    _.each(
-            UpdateObject,
-            function(__Value,__Key){
-                 LocalBoxBlaze.data[__Key]=__Value
-            }
-    )
-    Boxes.update(
-                {_id:LocalBoxBlaze.data._id},
-                {
-                    $set:UpdateObject
-                }
-            )
-
+    
     //Init the anchor Rect
     LocalBoxBlaze.AnchorRect=PatchRaphael.rect(
             LocalBoxBlaze.data.x0,
@@ -413,30 +370,6 @@ Template.Box.helpers(
         Infoy:function()
         {
             return Template.instance().Infoy.get();
-        },
-        'coops': function () 
-        {
-
-            //Debug
-            console.log(
-              'Template Patch helpers l 21',
-              'this.BoxStr is \n',
-              this.BoxStr,
-              '\n',
-              'Coops found are \n',
-              Coops.find(
-                    {
-                        BoxStr:this.BoxStr
-                    }
-                ).fetch()
-            )
-            
-            //return
-            return Coops.find(
-                {
-                    BoxStr:this.BoxStr
-               }
-           )
         }
     }
 )

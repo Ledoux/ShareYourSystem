@@ -127,8 +127,27 @@ TestPatch=function()
           }
         )
       }
-   ) 
-            
+    ) 
+      
+    //Debug
+    /*
+    console.log(
+      'TestPatch',
+      'We insert one ghost...'
+    )
+    */
+
+    //call
+    Meteor.call(
+            'mongo',
+            'ghosts',
+            'insert',
+            {
+              'CoopStr':"1",
+              'GhostStr':"MyGhost"
+            }
+          )
+    
     //Debug
     /*
     console.log(

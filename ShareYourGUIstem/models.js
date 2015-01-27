@@ -1,22 +1,34 @@
-//Define collections
-
-//Degub
 /*
-console.log(
-  'GUI l.4',
-  'We define the collections'
-)
+
+<DefineSource>
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+</DefineSource>
+
+models
+
 */
 
 CollectionsDictObject={}
-CollectionStrsList=[
-      "patches",
-      "systems",
-      "boxes",
-      "coops",
-      "connectors",
-      "messages"
-    ]
+CollectionListsList=[
+    ["patch","patches"],
+    ["system","systems"],
+    ["box","boxes"],
+    ["coop","coops"],
+    ["connector","connectors"],
+    ["message","messages"],
+    ["ghost","ghosts"]
+  ]
+CollectionStrsList=_.map
+(
+    CollectionListsList,
+    function(__CollectionList)
+    {
+      return __CollectionList[1]
+    }
+)
+SingularToPluralDict=_.object(CollectionListsList)
+
 _.map(
     CollectionStrsList,
     function(__CollectionStr)
@@ -70,8 +82,20 @@ console.log(
 )
 */
 
-//client side
-if (Meteor.isClient) {
+//Check
+if (Meteor.isClient)
+{
+
+  Meteor.startup(
+    function()
+    {
+      //Debug
+      console.log('models client starup')
+
+      //Global ref
+      BlazesDict={}
+    }
+  )
 
   //map subscribe
   _.map(
@@ -81,67 +105,13 @@ if (Meteor.isClient) {
       Meteor.subscribe(__CollectionStr)
     }
   )
-  
-  //starup
-  Meteor.startup(
-    function () 
-    {
-
-      /*
-      mySet = PatchRaphael.set();
-      mySet.push(PatchRaphael.circle(400, 150, 50).attr('fill', 'red'));
-      mySet.push(PatchRaphael.circle(400, 150, 40).attr('fill', 'white'));
-      mySet.draggable();
-      //mySet.drag(
-      //    Raphael.st.dragSetMove,
-      //    Raphael.st.dragSetStart,
-      //    Raphael.st.dragSetStop
-      //)
-      */
-      
-	  }
-  );
-
-  Template.GUI.helpers(
-    {
-      'DisplayPatchStrsList':function()
-      {
-        return Session.get('PatchStrsList')
-      },
-
-      'patches': function () 
-      {
-
-          /*
-          //Debug
-          console.log(
-            'Template Patch helpers l 21'
-          )
-          */
-          
-          //return
-          return Patches.find(
-              {
-                  PatchStr:
-                 {
-                  $in:
-                  Session.get('PatchStrsList')
-                 }
-             }
-         )
-      }
-    }
-  );
-  
-  //Set
-  Session.set('PatchStrsList',['Default','Default2'])
-
-  
 
 }
 
-//server side
-if (Meteor.isServer) {
+
+//Check
+if (Meteor.isServer)
+{
 
   //map a publish
   _.map(
@@ -172,7 +142,7 @@ if (Meteor.isServer) {
 
       }
     )
-  
+     
   //methods
   Meteor.methods(
     {
@@ -195,6 +165,7 @@ if (Meteor.isServer) {
                   _OptionDict,
                   //"CollectionsDictObject is \n",
                   //CollectionsDictObject,
+                  '\n',
                   "_.keys(CollectionsDictObject) is \n",
                   _.keys(CollectionsDictObject)
                 )
@@ -206,25 +177,43 @@ if (Meteor.isServer) {
         //Debug
         /*
         console.log(
-                  'l 150 GUI.js \n',
+                  'l 150 models.js \n',
                   'mongo method \n',
                   'CollectionKeyStr is \n',
                   CollectionKeyStr,
-                  '\n',
-                  "CollectionsDictObject[CollectionKeyStr] is : \n",
-                  CollectionsDictObject[CollectionKeyStr]
+                  '\n'
+                  //"CollectionsDictObject[CollectionKeyStr] is : \n",
+                  //CollectionsDictObject[CollectionKeyStr]
                 )
         */
 
         //get
-        //Meteor.Collection.get(_CollectionStr)[_MethodStr](_OptionDict)
-        CollectionsDictObject[CollectionKeyStr][_MethodStr](_OptionDict)
+        //var OutputObject=Meteor.Collection.get(_CollectionStr)[_MethodStr](_OptionDict)
+        var OutputObject=CollectionsDictObject[CollectionKeyStr][_MethodStr](_OptionDict)
+
+        //Debug
+        /*
+        console.log(
+          'l 191 models.js mongo \n',
+          'OutputObject is \n',
+          OutputObject 
+        )
+        */
+        
+        if(_MethodStr=='find')
+        {
+          //Debug
+          console.log(
+            'Return the fetch'
+          )
+
+          //return
+          return OutputObject.fetch()
+        }
 
       }
     
     }
-  
+
   )
 }
-
-
