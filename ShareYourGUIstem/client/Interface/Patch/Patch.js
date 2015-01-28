@@ -13,6 +13,7 @@ defining in a certain Patch.
 PatchAbstraction=new AbstractionClass(
   {
       'TemplateStr':'Patch',
+      'CollectionStr':'patches',
       'ChildHelpersObject':
       {
         'systems': function () 
@@ -28,7 +29,7 @@ PatchAbstraction=new AbstractionClass(
               */
               
               //find
-              var FindObject=Systems.find(
+              var Find=Systems.find(
                   {
                       ParentPatchStr:
                      {
@@ -39,16 +40,14 @@ PatchAbstraction=new AbstractionClass(
               )
 
               //Debug
-              /*
               console.log(
                 'Template Patch helpers l 45 \n',
-                'FindObject.fetch() is \n',
-                FindObject.fetch()
+                'Find.fetch() is \n',
+                Find.fetch()
               )
-              */
 
               //return
-              return FindObject
+              return Find
           }
       }
   }

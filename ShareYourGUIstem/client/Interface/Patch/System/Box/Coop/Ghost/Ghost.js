@@ -13,7 +13,8 @@ the childify methods along ParentBlaze
 GhostAbstraction=new AbstractionClass(
    {
 	    'ParentTemplateStr':"Coop",
-	    'TemplateStr':'Ghost'
+	    'TemplateStr':'Ghost',
+        'CollectionStr':'ghosts',
 	}
 )
 

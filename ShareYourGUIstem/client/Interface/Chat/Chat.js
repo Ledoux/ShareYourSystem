@@ -1,3 +1,5 @@
+Messages=new Meteor.Collection('messages')
+
 /**
 * Templates
 */

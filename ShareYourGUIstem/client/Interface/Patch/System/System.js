@@ -14,6 +14,7 @@ SystemAbstraction= new AbstractionClass(
 	{
 		'ParentTemplateStr':"Patch",
 	    'TemplateStr':'System',
+	    'CollectionStr':'systems',
 	    'ChildHelpersObject':
 	    {
 	      'boxes':function()
@@ -25,7 +26,6 @@ SystemAbstraction= new AbstractionClass(
 	       		)
 
 	       		//Debug
-	       		/*
 	       		console.log(
 	       			'System boxes helpers l 24 \n',
 	       			'this.SystemStr is \n',
@@ -34,7 +34,6 @@ SystemAbstraction= new AbstractionClass(
 	       			'FindObject.fetch() is \n',
 	       			FindObject.fetch()
 	       		)
-				*/
 
 	            //return
 	            return FindObject

@@ -22,7 +22,7 @@ TestPatch=function()
 
     //remove all
     _.map(
-      CollectionStrsList,
+      _.keys(CollectionsDictObject),
       function(__CollectionStr)
       {
 
@@ -157,25 +157,6 @@ TestPatch=function()
             {
               'ParentCoopStr':"First",
               'GhostStr':"MyGhost"
-            }
-          )
-
-     //Debug
-    /*
-    console.log(
-      'TestPatch',
-      'We insert one tamere...'
-    )
-    */
-
-    //call
-    Meteor.call(
-            'mongo',
-            'tameres',
-            'insert',
-            {
-              'ParentGhostStr':"MyGhost",
-              'TamereStr':"MyTamere"
             }
           )
 

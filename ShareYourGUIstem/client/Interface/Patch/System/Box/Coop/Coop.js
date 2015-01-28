@@ -14,6 +14,7 @@ CoopAbstraction=new AbstractionClass(
    {
 	    'ParentTemplateStr':"Box",
 	    'TemplateStr':'Coop',
+	    'CollectionStr':'coops',
 	    'DefaultObject':{
 	        'x':200,
 	        'y':200

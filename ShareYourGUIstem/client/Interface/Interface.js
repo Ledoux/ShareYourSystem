@@ -12,21 +12,15 @@ Interface client
 InterfaceAbstraction=new AbstractionClass(
   {
     'TemplateStr':'Interface',
+    'CollectionStr':"interfaces",
     'DefaultDataObject':{},
     'ChildHelpersObject':
     {
       'patches': function () 
       {
 
-          /*
-          //Debug
-          console.log(
-            'Template Patch helpers l 21'
-          )
-          */
-          
-          //return
-          return Patches.find(
+          //set
+          var Find=Patches.find(
               {
                   PatchStr:
                  {
@@ -35,6 +29,18 @@ InterfaceAbstraction=new AbstractionClass(
                  }
              }
          )
+
+          //Debug
+          /*
+          console.log(
+            'Template Interface helpers l 35 \n',
+            'Find.fetch() is \n',
+            Find.fetch()
+          )
+          */
+          
+          //return
+          return Find
       }
     }
   }
@@ -55,3 +61,11 @@ Template.Interface.helpers(
 //Set
 Session.set('PatchStrsArray',['Default','Default2'])
 
+//End to set up the abstractions
+_.map(
+    AbstractionsDictObject,
+    function(__Abstraction)
+    {
+      __Abstraction.tini()
+    }
+  )

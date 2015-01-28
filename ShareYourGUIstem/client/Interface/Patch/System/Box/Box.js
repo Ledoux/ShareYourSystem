@@ -14,6 +14,7 @@ BoxAbstraction=new AbstractionClass(
     {
         'ParentTemplateStr':"System",
         'TemplateStr':'Box',
+        'CollectionStr':'boxes',
         'DefaultObject':{
             'x':200,
             'y':200
@@ -172,6 +173,32 @@ Template.Box.helpers(
     )
 )
 
+Template.Box.destroyed = function(){
+
+    //Debug
+    /*
+    console.log(
+        'l 213 Box destroyed',
+        'this is : \n',
+        this
+    )
+    */
+
+    //alias
+    var LocalBlaze=this
+
+    //exclude 
+    PatchRaphael.BoxSetsSet.exclude(LocalBlaze.Data.Box.set)
+
+    //remove
+    LocalBlaze.Data.Box.set.remove()
+
+    //delete
+    //delete BlazesDict['boxes'][LocalBoxBlaze.data._id]
+
+}
+
+
 Meteor.startup(
     function()
     {
@@ -213,7 +240,7 @@ Meteor.startup(
                         'l 212 dragBoxSetStart \n'
                     )
                 */
-                
+
                 //map
                 LocalBox.set.items.map(
                         function(__Element){
