@@ -17,7 +17,8 @@ CollectionListsList=[
     ["coop","coops"],
     ["connector","connectors"],
     ["message","messages"],
-    ["ghost","ghosts"]
+    ["ghost","ghosts"],
+    ["tamere","tameres"]
   ]
 CollectionStrsList=_.map
 (
@@ -90,7 +91,11 @@ if (Meteor.isClient)
     function()
     {
       //Debug
-      console.log('models client starup')
+      /*
+      console.log(
+        'models client starup'
+      )
+      */
 
       //Global ref
       BlazesDict={}
@@ -105,7 +110,6 @@ if (Meteor.isClient)
       Meteor.subscribe(__CollectionStr)
     }
   )
-
 }
 
 

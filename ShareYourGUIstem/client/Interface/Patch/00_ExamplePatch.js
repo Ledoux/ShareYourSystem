@@ -75,34 +75,46 @@ TestPatch=function()
     */
     
     //call
-    Meteor.call(
-            'mongo',
-            'systems',
-            'insert',
-            {
-              'PatchStr':"Default",
-              'SystemStr':"MySystem"
-            }
-          )
+    _.map(
+      ["MySystem","YourSystem"],
+      function(__SystemStr)
+      {
+        Meteor.call(
+          'mongo',
+          'systems',
+          'insert',
+          {
+            'ParentPatchStr':"Default",
+            'SystemStr':__SystemStr
+          }
+        )
+      }
+    ) 
 
     //Debug
     /*
     console.log(
       'TestPatch',
-      'We insert a Box...'
+      'We insert boxes...'
     )
     */
 
     //call
-    Meteor.call(
-            'mongo',
-            'boxes',
-            'insert',
-            {
-              'SystemStr':"MySystem",
-              'BoxStr':"TopSystemer"
-            }
-          )
+    _.map(
+      ["TopBox","ChildBox"],
+      function(__BoxStr)
+      {
+        Meteor.call(
+          'mongo',
+          'boxes',
+          'insert',
+          {
+            'ParentSystemStr':"MySystem",
+            'BoxStr':__BoxStr
+          }
+        )
+      }
+    ) 
 
     //Debug
     /*
@@ -114,7 +126,7 @@ TestPatch=function()
 
     //call
     _.map(
-      ["1","2","3"],
+      ["First","Second","Third"],
       function(__CoopStr)
       {
         Meteor.call(
@@ -122,7 +134,7 @@ TestPatch=function()
           'coops',
           'insert',
           {
-            'BoxStr':"TopSystemer",
+            'ParentBoxStr':"TopBox",
             'CoopStr':__CoopStr
           }
         )
@@ -136,18 +148,37 @@ TestPatch=function()
       'We insert one ghost...'
     )
     */
-
+    
     //call
     Meteor.call(
             'mongo',
             'ghosts',
             'insert',
             {
-              'CoopStr':"1",
+              'ParentCoopStr':"First",
               'GhostStr':"MyGhost"
             }
           )
-    
+
+     //Debug
+    /*
+    console.log(
+      'TestPatch',
+      'We insert one tamere...'
+    )
+    */
+
+    //call
+    Meteor.call(
+            'mongo',
+            'tameres',
+            'insert',
+            {
+              'ParentGhostStr':"MyGhost",
+              'TamereStr':"MyTamere"
+            }
+          )
+
     //Debug
     /*
     console.log(

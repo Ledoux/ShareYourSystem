@@ -13,6 +13,20 @@ to make it drag together
 Meteor.startup(
     function()
     {
+
+        //require
+        require('raphael')
+
+        //build the Raphael environment
+        PatchRaphael=Raphael($('#PatchSvg').get(0))
+
+        //get
+        PatchSvg=$('#PatchSvg')
+        PatchSvgOffset=PatchSvg.offset()
+
+        //init
+        PatchRaphael.BoxSetsSet=PatchRaphael.set()
+
         //define
         SelectionClass = function() {
 
@@ -67,7 +81,7 @@ Meteor.startup(
                             */
 
                             //set
-                            __BoxSet.BoxObject.dragBoxSetStart()
+                            __BoxSet.Box.dragBoxSetStart()
                         }
                     )
 
@@ -106,7 +120,7 @@ Meteor.startup(
                             */
 
                             //set
-                            __BoxSet.BoxObject.dragBoxSetMove(_dx,_dy)
+                            __BoxSet.Box.dragBoxSetMove(_dx,_dy)
                         }
 
                     )
@@ -135,7 +149,7 @@ Meteor.startup(
                             */
 
                             //set
-                            __BoxSet.BoxObject.dragBoxSetStop()
+                            __BoxSet.Box.dragBoxSetStop()
                         }
 
                     )
@@ -243,9 +257,9 @@ Meteor.startup(
 
                             //make it drag
                             __BoxSet.drag(
-                                __BoxSet.BoxObject.dragBoxSetMove,
-                                __BoxSet.BoxObject.dragBoxSetStart,
-                                __BoxSet.BoxObject.dragBoxSetStop
+                                __BoxSet.Box.dragBoxSetMove,
+                                __BoxSet.Box.dragBoxSetStart,
+                                __BoxSet.Box.dragBoxSetStop
                             )
 
                             //exclude
@@ -264,12 +278,14 @@ Meteor.startup(
                 var SelectionRectBounds = LocalSelection.rect.getBBox();
 
                 //Debug
+                /*
                 console.log(
                     'l 267 dragSelectionStop before reset \n',
                     'SelectionRectBounds is \n',
                     SelectionRectBounds
                 )
-
+                */
+                
                 //reset
                 LocalSelection.resetSelectionSet()
                 
@@ -292,7 +308,7 @@ Meteor.startup(
                         function(__BoxSet)
                         {
                             //get the BBox
-                            __BoxSet.MyBounds=__BoxSet.BoxObject.AnchorRect.getBBox()
+                            __BoxSet.MyBounds=__BoxSet.Box.AnchorRect.getBBox()
 
                             //do bounding boxes overlap?
                             //is one of this object's x extremes between the selection's xe xtremes?
