@@ -59,7 +59,7 @@ TestPatch=function()
             'patches',
             'insert',
             {
-              'PatchStr':"Default"
+              'PatchStr':"DefaultPatch"
             }
           )
 
@@ -84,7 +84,7 @@ TestPatch=function()
           'systems',
           'insert',
           {
-            'ParentPatchStr':"Default",
+            'ParentPatchStr':"DefaultPatch",
             'SystemStr':__SystemStr
           }
         )
@@ -126,7 +126,7 @@ TestPatch=function()
 
     //call
     _.map(
-      ["First","Second","Third"],
+      ["FirstCoop","SecondCoop","ThirdCoop"],
       function(__CoopStr)
       {
         Meteor.call(

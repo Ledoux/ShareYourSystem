@@ -45,15 +45,13 @@ Template.Coop.created = function()
     */
 
     //init
-    var LocalData=new DataClass(
+    var LocalInstance=new InstanceClass(
       {
         'Blaze':this,
         'Abstraction':CoopAbstraction
       }
     )
-
-    //datafy
-    LocalData.datafy()
+    
 }
 
 Template.Coop.helpers(

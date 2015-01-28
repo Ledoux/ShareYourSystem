@@ -40,12 +40,14 @@ PatchAbstraction=new AbstractionClass(
               )
 
               //Debug
+              /*
               console.log(
                 'Template Patch helpers l 45 \n',
                 'Find.fetch() is \n',
                 Find.fetch()
               )
-
+              */
+              
               //return
               return Find
           }
@@ -63,16 +65,12 @@ Template.Patch.created = function()
   */
 
   //init
-  var LocalData=new DataClass(
+  var LocalInstance=new InstanceClass(
       {
         'Blaze':this,
         'Abstraction':PatchAbstraction
       }
     )
-
-  //datafy
-  LocalData.datafy()
-
 }
 
 Template.Patch.helpers(

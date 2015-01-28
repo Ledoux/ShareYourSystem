@@ -12,6 +12,7 @@ abstraction
 
 AbstractionsDictObject={}
 CollectionsDictObject={}
+CollectionStrToTemplateStrDictObject={}
 
 ////////////////////////////////
 //Define Class
@@ -44,6 +45,7 @@ AbstractionClass = function(_UpdateDictObject)
       )
     LocalAbstraction.Collection=CollectionsDictObject[LocalAbstraction.CollectionKeyStr]
     LocalAbstraction.Template=Template[LocalAbstraction.TemplateStr]
+    CollectionStrToTemplateStrDictObject[LocalAbstraction.CollectionStr]=LocalAbstraction.TemplateStr
 
     //set meteor links at the parent level
     if(LocalAbstraction.ParentTemplateStr!=undefined && LocalAbstraction.ParentTemplateStr!=null)
@@ -69,21 +71,35 @@ AbstractionClass = function(_UpdateDictObject)
     {
         LocalAbstraction.ChildCollectionStrsArray=[]
     }
-
-    //map
-    LocalAbstraction.ChildCollectionsArray=_.map(
+    LocalAbstraction.ChildAbstractionsArray=_.map(
             LocalAbstraction.ChildCollectionStrsArray,
             function(__ChildCollectionStr)
             {
-                return Meteor.Collection.get(__ChildCollectionStr)
+                //Debug
+                /*
+                console.log(
+                    'abstraction l 81 \n',
+                    '__ChildCollectionStr is \n',
+                    __ChildCollectionStr,
+                    '\n',
+                    '_.keys(AbstractionsDictObject) is \n',
+                    _.keys(AbstractionsDictObject)
+                )
+                */
+                
+                //return 
+                return AbstractionsDictObject[
+                        CollectionStrToTemplateStrDictObject[
+                        __ChildCollectionStr
+                    ]+'Abstraction'
+                ]
             }
     )
-
     ////////////////////////////////
     //add in the global Dict
     ////////////////////////////////
     AbstractionsDictObject[
-        LocalAbstraction.TemplateKeyStr+'Abstraction'
+        LocalAbstraction.TemplateStr+'Abstraction'
     ]=this
 
 }
@@ -94,7 +110,25 @@ AbstractionClass.prototype.tini=function()
     //Define
     var LocalAbstraction=this
     
-    //set parent
-    LocalAbstraction.ParentAbstraction=AbstractionsDictObject[LocalAbstraction.ParentTemplateStr]
 
+
+    //set parent
+    LocalAbstraction.ParentAbstraction=AbstractionsDictObject[
+        LocalAbstraction.ParentTemplateStr+'Abstraction'
+    ]
+
+    //Debug
+    /*
+    console.log(
+        'tini l 104 \n',
+        'LocalAbstraction.ParentAbstraction is \n',
+        LocalAbstraction.ParentAbstraction,
+        '\n',
+        'LocalAbstraction.ParentTemplateStr is \n',
+        LocalAbstraction.ParentTemplateStr,
+        '\n',
+        'AbstractionsDictObject is \n',
+        AbstractionsDictObject
+    )
+    */
 }

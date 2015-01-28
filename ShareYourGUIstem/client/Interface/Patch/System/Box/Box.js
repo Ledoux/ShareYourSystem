@@ -45,16 +45,13 @@ Template.Box.created = function()
     */
 
     //init
-    var LocalData=new DataClass(
+    var LocalInstance=new InstanceClass(
       {
         'Blaze':this,
         'Abstraction':BoxAbstraction
       }
     )
-
-    //datafy
-    LocalData.datafy()
-
+    
     //Debug
     /*
     console.log(
@@ -63,13 +60,13 @@ Template.Box.created = function()
     */
 
     //init
-    LocalData.Box=new BoxClass()
-    LocalData.Box.Data=LocalData
+    LocalInstance.Box=new BoxClass()
+    LocalInstance.Box.Instance=LocalInstance
 
     //Init the anchor Rect
-    LocalData.Box.AnchorRect=PatchRaphael.rect(
-            LocalData.Blaze.data.x,
-            LocalData.Blaze.data.y,
+    LocalInstance.Box.AnchorRect=PatchRaphael.rect(
+            LocalInstance.Blaze.data.x,
+            LocalInstance.Blaze.data.y,
             20,
             20
         ).attr(
@@ -80,9 +77,9 @@ Template.Box.created = function()
         )
     
     //Init the anchor Rect
-    LocalData.Box.InfoRect=PatchRaphael.rect(
-            LocalData.Blaze.data.x,
-            LocalData.Blaze.data.y+20,
+    LocalInstance.Box.InfoRect=PatchRaphael.rect(
+            LocalInstance.Blaze.data.x,
+            LocalInstance.Blaze.data.y+20,
             20,
             20
         ).attr(
@@ -91,10 +88,10 @@ Template.Box.created = function()
                 cursor : 'move'
             }
         )
-    LocalData.Infox = new ReactiveVar;
-    LocalData.Infoy = new ReactiveVar;
-    LocalData.Infox.set(LocalData.Blaze.data.x)
-    LocalData.Infoy.set(LocalData.Blaze.data.y)
+    LocalInstance.Infox = new ReactiveVar;
+    LocalInstance.Infoy = new ReactiveVar;
+    LocalInstance.Infox.set(LocalInstance.Blaze.data.x)
+    LocalInstance.Infoy.set(LocalInstance.Blaze.data.y)
 
     //Debug
     /*
@@ -118,9 +115,9 @@ Template.Box.created = function()
     */
 
     //push
-    LocalData.Box.set.push(
-        LocalData.Box.AnchorRect,
-        LocalData.Box.InfoRect
+    LocalInstance.Box.set.push(
+        LocalInstance.Box.AnchorRect,
+        LocalInstance.Box.InfoRect
     )   
 
     //Debug
@@ -133,10 +130,10 @@ Template.Box.created = function()
 
 
     //make it draggable
-    LocalData.Box.set.drag(
-        LocalData.Box.dragBoxSetMove, 
-        LocalData.Box.dragBoxSetStart, 
-        LocalData.Box.dragBoxSetStop
+    LocalInstance.Box.set.drag(
+        LocalInstance.Box.dragBoxSetMove, 
+        LocalInstance.Box.dragBoxSetStart, 
+        LocalInstance.Box.dragBoxSetStop
     );
 
     //Debug
@@ -153,7 +150,7 @@ Template.Box.created = function()
     */
 
     //Give to the BoxSetsSet
-    PatchRaphael.BoxSetsSet.push(LocalData.Box.set)
+    PatchRaphael.BoxSetsSet.push(LocalInstance.Box.set)
 
 }
 
@@ -163,11 +160,11 @@ Template.Box.helpers(
         {
             Infox:function()
             {
-                return Template.instance().Data.Infox.get();
+                return Template.instance().Instance.Infox.get();
             },
             Infoy:function()
             {
-                return Template.instance().Data.Infoy.get();
+                return Template.instance().Instance.Infoy.get();
             }
         }
     )
@@ -188,10 +185,10 @@ Template.Box.destroyed = function(){
     var LocalBlaze=this
 
     //exclude 
-    PatchRaphael.BoxSetsSet.exclude(LocalBlaze.Data.Box.set)
+    PatchRaphael.BoxSetsSet.exclude(LocalBlaze.Instance.Box.set)
 
     //remove
-    LocalBlaze.Data.Box.set.remove()
+    LocalBlaze.Instance.Box.set.remove()
 
     //delete
     //delete BlazesDict['boxes'][LocalBoxBlaze.data._id]
@@ -319,8 +316,8 @@ Meteor.startup(
                 */
 
                 //set
-                LocalBox.Data.Infox.set(LocalBox.AnchorRect.attr('x'))
-                LocalBox.Data.Infoy.set(LocalBox.AnchorRect.attr('y'))
+                LocalBox.Instance.Infox.set(LocalBox.AnchorRect.attr('x'))
+                LocalBox.Instance.Infoy.set(LocalBox.AnchorRect.attr('y'))
             }
 
             LocalBox.dragBoxSetStop = function() {
@@ -336,7 +333,7 @@ Meteor.startup(
 
                 //update the db
                 Boxes.update(
-                    {_id:LocalBox.Data.Blaze.data._id},
+                    {_id:LocalBox.Instance.Blaze.data._id},
                     {
                         $set:{
                             x:LocalBox.AnchorRect.attr('x'),
@@ -378,13 +375,13 @@ Meteor.startup(
                         */
                         
                         //find the translation
-                        var LocalData=BlazesDict['boxes'][_NewObject._id]
-                        if (LocalData!=undefined && LocalData!=null)
+                        var LocalInstance=BlazesDict['boxes'][_NewObject._id]
+                        if (LocalInstance!=undefined && LocalInstance!=null)
                         {
 
                             //set
-                            var dx=_NewObject.x-LocalData.Box.AnchorRect.attr('x')
-                            var dy=_NewObject.y-LocalData.Box.AnchorRect.attr('y')
+                            var dx=_NewObject.x-LocalInstance.Box.AnchorRect.attr('x')
+                            var dy=_NewObject.y-LocalInstance.Box.AnchorRect.attr('y')
                         
                             //Debug
                             /*
@@ -411,9 +408,9 @@ Meteor.startup(
                                     */
 
                                     //drag
-                                    LocalData.Box.dragBoxSetStart()
-                                    LocalData.Box.dragBoxSetMove(dx,dy)
-                                    LocalData.Box.dragBoxSetStop()
+                                    LocalInstance.Box.dragBoxSetStart()
+                                    LocalInstance.Box.dragBoxSetMove(dx,dy)
+                                    LocalInstance.Box.dragBoxSetStop()
                                 }
                             }
                             

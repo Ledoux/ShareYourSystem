@@ -13,7 +13,7 @@ InterfaceAbstraction=new AbstractionClass(
   {
     'TemplateStr':'Interface',
     'CollectionStr':"interfaces",
-    'DefaultDataObject':{},
+    'DefaultInstanceObject':{},
     'ChildHelpersObject':
     {
       'patches': function () 
@@ -59,7 +59,10 @@ Template.Interface.helpers(
 );
 
 //Set
-Session.set('PatchStrsArray',['Default','Default2'])
+Session.set('PatchStrsArray',[
+            'DefaultPatch'
+          ]
+        )
 
 //End to set up the abstractions
 _.map(

@@ -21,22 +21,24 @@ SystemAbstraction= new AbstractionClass(
 	       {
 
 	       		//Define
-	       		var FindObject=Boxes.find(
+	       		var Find=Boxes.find(
 	       			{'ParentSystemStr':this.SystemStr}
 	       		)
 
 	       		//Debug
+	       		/*
 	       		console.log(
 	       			'System boxes helpers l 24 \n',
 	       			'this.SystemStr is \n',
 	       			this.SystemStr,
 	       			'\n',
-	       			'FindObject.fetch() is \n',
-	       			FindObject.fetch()
+	       			'Find.fetch() is \n',
+	       			Find.fetch()
 	       		)
+				*/
 
 	            //return
-	            return FindObject
+	            return Find
 
 	       }
 	    }
@@ -53,15 +55,13 @@ Template.System.created = function()
 	*/
 
 	//init
-	var LocalData=new DataClass(
+	var LocalInstance=new InstanceClass(
 	  {
 	    'Blaze':this,
 	    'Abstraction':SystemAbstraction
 	  }
 	)
-
-	//datafy
-	LocalData.datafy()
+	
 }
 
 Template.System.helpers(

@@ -26,16 +26,13 @@ Template.Ghost.created = function()
             'Ghost created l 29'
         )
     */
-
+    
     //init
-    var LocalData=new DataClass(
+    var LocalInstance=new InstanceClass(
       {
         'Blaze':this,
         'Abstraction':GhostAbstraction
       }
     )
-
-    //datafy
-    //LocalData.datafy()
 
 }
