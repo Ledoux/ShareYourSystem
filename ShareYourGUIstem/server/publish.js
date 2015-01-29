@@ -17,8 +17,7 @@ CollectionStrsList=[
     "boxes",
     "coops",
     "connectors",
-    "messages",
-    "ghosts"
+    "messages"
 ]
 CollectionsDictObject={}
 

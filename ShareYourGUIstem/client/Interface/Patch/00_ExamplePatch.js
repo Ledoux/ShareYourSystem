@@ -147,25 +147,6 @@ TestPatch=function()
         )
       }
     ) 
-      
-    //Debug
-    /*
-    console.log(
-      'TestPatch',
-      'We insert one ghost...'
-    )
-    */
-    
-    //call
-    Meteor.call(
-            'mongo',
-            'ghosts',
-            'insert',
-            {
-              'ParentNameStr':"FirstCoop",
-              'NameStr':"MyGhost"
-            }
-          )
 
     //Debug
     /*

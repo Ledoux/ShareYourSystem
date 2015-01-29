@@ -17,7 +17,8 @@ BoxAbstraction=new AbstractionClass(
         'CollectionStr':'boxes',
         'DefaultObject':{
             'x':200,
-            'y':200
+            'y':200,
+            'coopx':50
         },
         'ChildHelpersObject':
         {
@@ -50,43 +51,44 @@ BoxAbstraction=new AbstractionClass(
 
 Template.Box.created = function()
 {
+
+    //get
+    var LocalBlaze=this
+
     //Debug
     /*
     console.log(
-            'Box created l 40'
+            'Box created l 46\n',
+            'LocalBlaze is \n',
+            LocalBlaze.data
         )
     */
 
-    //init
-    /*
-    var LocalInstance=new InstanceClass(
-      {
-        'Blaze':this,
-        'Abstraction':BoxAbstraction
-      }
-    )
-    */
+    //get
+    var LocalInstance=InstancesDictObject[this.data._id]
+    if(LocalInstance!=undefined)
+    {
+        LocalBlaze.data.x=LocalInstance.x
+        LocalBlaze.data.y=LocalInstance.y
+    }
 
-    //Debug
-    /*
-    console.log(
-        'l 60 Box created \n'
-    )
-    */
-
-    var IsRaphaelBool=false
+    IsRaphaelBool=true
     if(IsRaphaelBool)
     {
         //init
-        LocalInstance.Box=new BoxClass()
-        LocalInstance.Box.Instance=LocalInstance
+        LocalBlaze.Sticker=new StickerClass(
+                {
+                    'CollectionStr':'boxes'
+                }
+            )
+        LocalBlaze.Sticker.Blaze=LocalBlaze
 
         //Init the anchor Rect
-        LocalInstance.Box.AnchorRect=PatchRaphael.rect(
-                LocalInstance.Blaze.data.x,
-                LocalInstance.Blaze.data.y,
-                20,
-                20
+        LocalBlaze.Sticker.AnchorRect=PatchRaphael.rect(
+                LocalBlaze.data.x,
+                LocalBlaze.data.y,
+                10,
+                10
             ).attr(
                 {
                     fill : 'green',
@@ -95,47 +97,39 @@ Template.Box.created = function()
             )
         
         //Init the anchor Rect
-        LocalInstance.Box.InfoRect=PatchRaphael.rect(
-                LocalInstance.Blaze.data.x,
-                LocalInstance.Blaze.data.y+20,
+        LocalBlaze.Sticker.InfoRect=PatchRaphael.rect(
+                LocalBlaze.data.x,
+                LocalBlaze.data.y+10,
+                50,
                 20,
-                20
+                5
             ).attr(
                 {
-                    fill : 'gray',
-                    cursor : 'move'
+                    fill : '#F5F5F5',
+                    cursor : 'move',
+                    stroke : 'black',
+                    'stroke-width' : 3,
                 }
             )
-        LocalInstance.Infox = new ReactiveVar;
-        LocalInstance.Infoy = new ReactiveVar;
-        LocalInstance.Infox.set(LocalInstance.Blaze.data.x)
-        LocalInstance.Infoy.set(LocalInstance.Blaze.data.y)
-
-        //Debug
-        /*
-        console.log(
-            'l 242 Box rendered \n',
-            //'Box is \n',
-            //Box
-            'init a new Box'
-        )
-        */
-
-        
-
-        //Debug
-        /*
-        console.log(
-            'l 253 Box rendered \n',
-            'Box is \n',
-            Box
-        )
-        */
+        LocalBlaze.Sticker.InfoText = PatchRaphael.text(
+                LocalBlaze.data.x+25, 
+                LocalBlaze.data.y+19, 
+                LocalBlaze.data.NameStr
+            ).attr(
+                {
+                    fill: '#000040'
+                }
+            )
+        LocalBlaze.Infox = new ReactiveVar;
+        LocalBlaze.Infoy = new ReactiveVar;
+        LocalBlaze.Infox.set(LocalBlaze.data.x)
+        LocalBlaze.Infoy.set(LocalBlaze.data.y)
 
         //push
-        LocalInstance.Box.set.push(
-            LocalInstance.Box.AnchorRect,
-            LocalInstance.Box.InfoRect
+        LocalBlaze.Sticker.set.push(
+            LocalBlaze.Sticker.AnchorRect,
+            LocalBlaze.Sticker.InfoRect,
+            LocalBlaze.Sticker.InfoText
         )   
 
         //Debug
@@ -146,29 +140,24 @@ Template.Box.created = function()
         )
         */
 
-
         //make it draggable
-        LocalInstance.Box.set.drag(
-            LocalInstance.Box.dragBoxSetMove, 
-            LocalInstance.Box.dragBoxSetStart, 
-            LocalInstance.Box.dragBoxSetStop
+        LocalBlaze.Sticker.set.drag(
+            LocalBlaze.Sticker.dragStickerSetMove, 
+            LocalBlaze.Sticker.dragStickerSetStart, 
+            LocalBlaze.Sticker.dragStickerSetStop
         );
 
         //Debug
         /*
         console.log(
                 'Box rendered l 290',
-                'PatchRaphael.BoxSetsSet is : \n',
-                PatchRaphael.BoxSetsSet,
-                '\n',
-                'BlazesDict['boxes'] is : \n',
-                BlazesDict['boxes'],
-                '\n',
+                'PatchRaphael.StickerSetsSet is : \n',
+                PatchRaphael.StickerSetsSet
             )
         */
 
-        //Give to the BoxSetsSet
-        PatchRaphael.BoxSetsSet.push(LocalInstance.Box.set)
+        //Give to the StickerSetsSet
+        StickerSetsSet.push(LocalBlaze.Sticker.set)
     }
 
 }
@@ -179,11 +168,11 @@ Template.Box.helpers(
         {
             Infox:function()
             {
-                return Template.instance().Instance.Infox.get();
+                return Template.instance().Blaze.Infox.get();
             },
             Infoy:function()
             {
-                return Template.instance().Instance.Infoy.get();
+                return Template.instance().Blaze.Infoy.get();
             }
         }
     )
@@ -191,192 +180,28 @@ Template.Box.helpers(
 
 Template.Box.destroyed = function(){
 
-    //Debug
-    /*
-    console.log(
-        'l 213 Box destroyed',
-        'this is : \n',
-        this
-    )
-    */
-
-    /*
-    //alias
+    //get
     var LocalBlaze=this
 
-    //exclude 
-    PatchRaphael.BoxSetsSet.exclude(LocalBlaze.Instance.Box.set)
+    if(IsRaphaelBool)
+    {
+        //exclude 
+        StickerSetsSet.exclude(LocalBlaze.Sticker.set)
 
-    //remove
-    LocalBlaze.Instance.Box.set.remove()
+        //remove
+        LocalBlaze.Sticker.set.remove()
+    }
 
-    //delete
-    //delete BlazesDict['boxes'][LocalBoxBlaze.data._id]
-    */
-    
 }
 
 
 Meteor.startup(
     function()
     {
-        //define
-        BoxClass = function() {
-
-            //Debug
-            /*
-            console.log(
-                'l 24 BoxClass \n',
-                'We init a new Box \n',
-                'PatchRaphael is ',
-                PatchRaphael
-            )
-            */
-
-            //alias
-            var LocalBox=this
-
-            //Define the set
-            LocalBox.set=PatchRaphael.set()
-            LocalBox.set.Box=LocalBox
-
-            //Debug
-            /*
-            console.log(
-                'LocalBox l 39',
-                'LocalBox.set is',
-                LocalBox.set,
-                '\n'
-            )
-            */
-
-            LocalBox.dragBoxSetStart = function() {
-
-                //Debug
-                /*
-                console.log(
-                        'l 212 dragBoxSetStart \n'
-                    )
-                */
-
-                //map
-                LocalBox.set.items.map(
-                        function(__Element){
-
-                            //set
-                            __Element.ox=__Element.attr('x')
-                            __Element.oy=__Element.attr('y')
-
-                            //Debug
-                            /*
-                            console.log(
-                                'dragBoxSetStart l 113',
-                                '__Element.ox is \n',
-                                __Element.ox,
-                                '\n',
-                                '__Element.oy is \n',
-                                __Element.oy,
-                                '\n'
-                            )
-                            */     
-                        }
-
-                    )
-
-            }
-
-            LocalBox.dragBoxSetMove = function(_dx,_dy) {
-
-                //Debug
-                /*
-                console.log(
-                        'l 242 dragBoxSetMove \n',
-                    )
-                */
-
-                LocalBox.set.items.map(
-                        function(__Element){
-
-                            //Debug
-                            /*
-                            console.log(
-                                'dragBoxSetMove l 113',
-                                '__Element.ox is \n',
-                                __Element.ox,
-                                '\n',
-                                '__Element.oy is \n',
-                                __Element.oy,
-                                '\n'
-                            )
-                            */
-
-                            //set
-                            __Element.attr(
-                                    {
-                                        x:__Element.ox+_dx,
-                                        y:__Element.oy+_dy
-                                    }
-                                )
-                        }
-
-                    )
-
-
-                //update the db... 
-                /*
-
-                Boxes.update(
-                    {_id:LocalBox.BoxBlaze.data._id},
-                    {
-                        $set:{
-                            x:LocalBox.AnchorRect.attr('x'),
-                            y:LocalBox.AnchorRect.attr('y')
-                        }
-                    }
-                )
-                */
-
-                //set
-                LocalBox.Instance.Infox.set(LocalBox.AnchorRect.attr('x'))
-                LocalBox.Instance.Infoy.set(LocalBox.AnchorRect.attr('y'))
-            }
-
-            LocalBox.dragBoxSetStop = function() {
-
-                //Debug
-                /*
-                console.log(
-                        'l 264 dragBoxSetStop \n',
-                        'LocalBox.BoxBlaze.data._id is \n',
-                        LocalBox.BoxBlaze.data._id
-                    )
-                */
-
-                //update the db
-                Boxes.update(
-                    {_id:LocalBox.Instance.Blaze.data._id},
-                    {
-                        $set:{
-                            x:LocalBox.AnchorRect.attr('x'),
-                            y:LocalBox.AnchorRect.attr('y')
-                        }
-                    }
-                )
-
-            }
-
-            //Debug
-            /*
-            console.log(
-                'l 155 BoxClass',
-                'End of the BoxClass definition'
-                )
-            */
-        }
-
+        
         //Bind an observe of the Instances data
-        var isObserveBool=false
-        if(isObserveBool)
+        var IsObserveBool=true
+        if(IsObserveBool)
         {
             Boxes.find().observe(
                 {
@@ -395,47 +220,22 @@ Meteor.startup(
                         )
                         */
                         
-                        //find the translation
-                        var LocalInstance=BlazesDict['boxes'][_NewObject._id]
-                        if (LocalInstance!=undefined && LocalInstance!=null)
-                        {
+                        //translate(_NewObject._id)
 
-                            //set
-                            var dx=_NewObject.x-LocalInstance.Box.AnchorRect.attr('x')
-                            var dy=_NewObject.y-LocalInstance.Box.AnchorRect.attr('y')
+                        //set
+                        var BoxInstance=InstancesDictObject[_NewObject._id]
+
+                        /*
+                        console.log(
+                            BoxInstance.ChildIdStrsDictsObject
+                        )
+                        */
+
+                        //Coops.find(
+                        //    {ParentIdStr:_NewObject._id}
+                        //).fetch()
+
                         
-                            //Debug
-                            /*
-                            console.log(
-                            'dx is \n',
-                            dx,
-                            '\n',
-                            'dy is \n',
-                            dy,
-                            '\n'
-                            )
-                            */
-
-                            if(dx!=undefined && dx!=null)
-                            {
-                              if(dy!=undefined && dy!=null) 
-                                {
-                                    //Debug
-                                    /*
-                                    console.log(
-                                        'Boxes observe changed 224 \n',
-                                        'We can drag'
-                                    )
-                                    */
-
-                                    //drag
-                                    LocalInstance.Box.dragBoxSetStart()
-                                    LocalInstance.Box.dragBoxSetMove(dx,dy)
-                                    LocalInstance.Box.dragBoxSetStop()
-                                }
-                            }
-                            
-                        }
                     }
                 }
             )
@@ -443,4 +243,51 @@ Meteor.startup(
 
     }
 )
+
+
+translate = function(_NewObject)
+{
+
+    //find the translation
+    var LocalBlaze=InstancesDictObject[_NewObject._id]
+    if (LocalBlaze!=undefined && LocalBlaze!=null)
+    {
+
+        //set
+        var dx=_NewObject.x-LocalBlaze.Sticker.AnchorRect.attr('x')
+        var dy=_NewObject.y-LocalBlaze.Sticker.AnchorRect.attr('y')
+    
+        //Debug
+        /*
+        console.log(
+        'dx is \n',
+        dx,
+        '\n',
+        'dy is \n',
+        dy,
+        '\n'
+        )
+        */
+
+        if(dx!=undefined && dx!=null)
+        {
+          if(dy!=undefined && dy!=null) 
+            {
+                //Debug
+                /*
+                console.log(
+                    'Boxes observe changed 224 \n',
+                    'We can drag'
+                )
+                */
+
+                //drag
+                LocalBlaze.Sticker.dragStickerSetStart()
+                LocalBlaze.Sticker.dragStickerSetMove(dx,dy)
+                LocalBlaze.Sticker.dragStickerSetStop()
+            }
+        }
+        
+    }
+}
 

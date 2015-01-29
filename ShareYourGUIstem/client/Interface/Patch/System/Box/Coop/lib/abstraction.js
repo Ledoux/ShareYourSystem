@@ -148,6 +148,15 @@ AbstractionClass.prototype.tini=function()
         LocalAbstraction.ParentTemplateStr+'Abstraction'
     ]
 
+    //observe
+    LocalAbstraction.observe()
+}
+
+AbstractionClass.prototype.observe=function()
+{
+    //Define
+    var LocalAbstraction=this
+
     //observe 
     LocalAbstraction.Collection.find().observe(
         {
@@ -176,15 +185,83 @@ AbstractionClass.prototype.tini=function()
                 //Check
                 if(AddedInstance==undefined)
                 {
-                    //Init
-                    AddedInstance=new InstanceClass(
-                        _.extend(
-                            _NewObject,
+                    //Define
+                    var InitDictObject={}
+
+                    //add maybe default object
+                    if(LocalAbstraction.DefaultObject!=undefined)
+                    {
+
+                        //extend
+                        InitDictObject=_.extend(
+                            InitDictObject,
+                            LocalAbstraction.DefaultObject
+                        )
+
+                        //Debug
+                        /*
+                        console.log(
+                            'added l 204 \n',
+                            'we update in the db the default dict \n',
+                            'LocalAbstraction.TemplateStr is \n',
+                            LocalAbstraction.TemplateStr
+                        )
+                        */
+
+
+                        //Check the value not present
+                        var UpdateDictObject=_.object(
+                            _.filter(
+                                _.pairs(LocalAbstraction.DefaultObject),
+                                function(__ItemArray)
+                                {
+                                    //Debug
+                                    /*
+                                    console.log(
+                                        '_.has(_NewObject,__ItemArray[0]) is \n',
+                                        _.has(_NewObject,__ItemArray[0])
+                                    )
+                                    */
+
+                                    //return 
+                                    return _.has(_NewObject,__ItemArray[0])==false
+                                }
+                            )
+                        )
+                        
+                        //Debug
+                        /*
+                        console.log(
+                            'UpdateDictObject is \n',
+                            UpdateDictObject,
+                            '\n',
+                            '_.pairs(LocalAbstraction.DefaultObject) is \n',
+                            _.pairs(LocalAbstraction.DefaultObject)
+                        )
+                        */
+
+                        //update
+                        LocalAbstraction.Collection.update(
                             {
-                                'Abstraction':LocalAbstraction
+                                _id:_NewObject._id
+                            },
+                            {
+                                $set:UpdateDictObject
                             }
                         )
-                    )
+                    }
+
+                    //extend with _NewObject
+                    InitDictObject=_.extend(
+                            InitDictObject,
+                            _NewObject
+                            )
+
+                    //add LocalAbstraction
+                    InitDictObject['Abstraction']=LocalAbstraction
+
+                    //Init
+                    AddedInstance=new InstanceClass(InitDictObject)
 
                     //Define an instance for it
                     InstancesDictObject[_NewObject._id]=AddedInstance
@@ -203,33 +280,44 @@ AbstractionClass.prototype.tini=function()
                 ////////////////////////////////
                 //Make findParent for the children !
                 ////////////////////////////////
+                IsMakeChildrenParentBool=true
+                if(IsMakeChildrenParentBool)
+                {
+                    //Debug
+                    /*
+                    console.log(
+                        'abstraction added l 209',
+                        'AddedInstance.NameStr is \n',
+                        AddedInstance.NameStr,
+                        '\n',
+                        'we make the children find this parent'
+                    )
+                    */
 
-                //Debug
-                /*
-                console.log(
-                    'abstraction added l 209',
-                    'AddedInstance.NameStr is \n',
-                    AddedInstance.NameStr,
-                    '\n',
-                    'we make the children find this parent'
-                )
-                */
+                    //map map
+                    _.map(
+                        AddedInstance.ChildInstancesDictsObject,
+                        function(__ChildInstancesDict)
+                        {
+                            _.map(
+                                __ChildInstancesDict,
+                                function(__ChildInstance)
+                                {
+                                    __ChildInstance.findParent()
+                                }
+                            )
+                        }
+                    )
+                }
+
+                ////////////////////////////////
+                //Make findChildren for the parent !
+                ////////////////////////////////
+                if(AddedInstance.Pa!=undefined)
+                {
+                    AddedInstance.ParentInstance.findChildren()
+                }
                 
-                //map map
-                _.map(
-                    AddedInstance.ChildInstancesDictsObject,
-                    function(__ChildInstancesDict)
-                    {
-                        _.map(
-                            __ChildInstancesDict,
-                            function(__ChildInstance)
-                            {
-                                __ChildInstance.findParent()
-                            }
-                        )
-                    }
-                )
-
                 ////////////////////////////////
                 //For top object do a parent walk !
                 ////////////////////////////////
@@ -240,15 +328,31 @@ AbstractionClass.prototype.tini=function()
             },
             'changed':function(_OldObject,_NewObject)
             {
+
                 //Debug
                 /*
                 console.log(
-                    'abstraction tini setting changed l 197 \n',
+                    'abstraction tini setting changed l 291 \n',
+                    '_NewObject.NameStr is \n',
+                    _NewObject.NameStr
+                )
+                */
+
+                //Debug
+                /*
+                console.log(
+                    'abstraction tini setting changed l 298 \n',
                     '_OldObject is \n',
                     _OldObject,
                     '\n',
                     '_NewObject is \n',
-                    _NewObject,
+                    _NewObject
+                )
+                */
+
+                //Debug
+                /*
+                console.log(
                     //'\n',
                     //'InstancesDictObject is \n',
                     //InstancesDictObject,
@@ -343,4 +447,6 @@ AbstractionClass.prototype.tini=function()
             }
         }
     )
+
 }
+

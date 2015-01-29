@@ -14,6 +14,11 @@ ReactVarsDictObject={}
 
 InstanceClass = function(_UpdateDictObject)
 {
+
+    ////////////////////////////////
+    //update`
+    ////////////////////////////////
+
     //Define
     var LocalInstance=this
 
@@ -162,7 +167,7 @@ InstanceClass.prototype.findParent = function()
             ParentFind.fetch()
         )
         */
-        
+
         //Define
         var PossibleParentObjectsArray=ParentFind.fetch()
 
@@ -269,14 +274,14 @@ InstanceClass.prototype.findParent = function()
         //Debug
         /*
         console.log(
-            'instance findParent l 132 \n',
+            'instance findParent l 276 \n',
             'LocalInstance.NameStr is \n',
             LocalInstance.NameStr,
             '\n',
             'Ok we find one unique parent'
         )
         */
-
+        
         ////////////////////////////////////////////
         //update at this level
         ////////////////////////////////////////////
@@ -316,8 +321,8 @@ InstanceClass.prototype.findParent = function()
         //Define
         var UpdateDictObject={}
         UpdateDictObject[
-            'ChildIntsDictsObject.'+LocalInstance.Abstraction.CollectionStr+'.'+LocalInstance.NameStr
-        ]=LocalInstance.ParentInt
+            'ChildIdStrsDictsObject.'+LocalInstance.Abstraction.CollectionStr+'.'+LocalInstance.NameStr
+        ]=LocalInstance._id
 
         //update
         LocalInstance.ParentInstance.Abstraction.Collection.update(
@@ -523,8 +528,6 @@ InstanceClass.prototype.findChildren = function()
                         }
                 )
             )
-
-
         }
     )
 
@@ -542,113 +545,5 @@ InstanceClass.prototype.findChildren = function()
 }
 
 
-/*
-InstanceClass.prototype.setChildInstancesDictsObject = function(_FindDictObject)
-{
-    //Define
-    var LocalInstance=this
-
-    
-
-    //map
-    _.map(
-        LocalInstance.Abstraction.ChildAbstractionsArray,
-        function(__ChildAbstraction)
-        {
-            //Debug
-            console.log(
-                'instance l 630\n',
-                'LocalInstance.Abstraction is \n',
-                LocalInstance.Abstraction,
-                '\n',
-                '\n',
-                '__ChildAbstraction is \n',
-                __ChildAbstraction,
-                '\n',
-                'LocalInstance.NameStr is \n',
-                LocalInstance.NameStr
-            )
-            
-            //set
-            LocalInstance.ChildInstancesDictsObject[
-                __ChildAbstraction.CollectionStr
-            ]={}
-
-            //find
-            var Find=__ChildAbstraction.Collection.find(
-                //{
-                //    'ParentNameStr':LocalInstance.NameStr
-                //}
-                _FindDictObject
-            )
-
-            //Debug
-            console.log(
-                'instance in child map l 657\n',
-                'Find.fetch() is \n',
-                Find.fetch()
-            )
-
-            //Define
-            var ChildObjectsArray=Find.fetch()
-
-            //map
-            LocalInstance.ChildInstancesDictsObject[
-                __ChildAbstraction.CollectionStr
-            ]=_.map(
-                    ChildObjectsArray,
-                    function(__ChildObject)
-                    {
-                        //Debug
-                        console.log(
-                            'instance map child l 673 \n',
-                            'we get the child instance'
-                        )
-
-                        //get the ChildInstance
-                        var ChildInstance=InstancesDictObject[__ChildObject._id]
-
-                        //return
-                        return ChildInstance
-                    }
-            )
-        }
-    )
-}
-*/
-
-InstanceClass.prototype.setChildren=function()
-{
-    //Define
-    var LocalInstance=this
-
-    //map
-    _.map(
-            LocalInstance.ChildInstancesDictsObject,
-            function(__ChildInstancesDict)
-            {
-
-                _.map(
-                    __ChildInstancesDict,
-                    function(__ChildInstance)
-                    {
-                        __ChildInstance.Abstraction.Collection.update(
-                            {
-                                _id:__ChildInstance._id
-                            },
-                            {
-                                $set:{
-                                    'ParentId':LocalInstance._id
-                                }
-                            }
-
-                        )
-                    }
-                )
-            }
-        )
-   
-
-}
 
 
