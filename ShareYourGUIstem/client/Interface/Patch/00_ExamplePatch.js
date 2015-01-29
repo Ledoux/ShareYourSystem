@@ -141,7 +141,7 @@ TestPatch=function()
           'insert',
           {
             'ParentNameStr':"TopBox",
-            'GrandParentNameStrsList':['MySystem'],
+            'GrandParentNameStrsArray':['MySystem'],
             'NameStr':__CoopStr
           }
         )

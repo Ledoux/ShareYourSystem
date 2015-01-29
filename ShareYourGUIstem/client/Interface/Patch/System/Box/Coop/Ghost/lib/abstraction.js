@@ -170,46 +170,116 @@ AbstractionClass.prototype.tini=function()
                 )
                 */
 
-                //Init
-                var LocalInstance=new InstanceClass(
-                    _.extend(
-                        _NewObject,
-                        {
-                            'Abstraction':LocalAbstraction
-                        }
-                    )
-                )
+                //Define
+                var AddedInstance=InstancesDictObject[_NewObject._id]
 
-                //Define an instance for it
-                InstancesDictObject[_NewObject._id]=LocalInstance
+                //Check
+                if(AddedInstance==undefined)
+                {
+                    //Init
+                    AddedInstance=new InstanceClass(
+                        _.extend(
+                            _NewObject,
+                            {
+                                'Abstraction':LocalAbstraction
+                            }
+                        )
+                    )
+
+                    //Define an instance for it
+                    InstancesDictObject[_NewObject._id]=AddedInstance
+                }
 
                 ////////////////////////////////
                 //look for a parent Instance !
                 ////////////////////////////////
-                LocalInstance.findParent()
+                AddedInstance.findParent()
     
                 ////////////////////////////////
                 //look for the children Instance !
                 ////////////////////////////////
-                LocalInstance.findChildren()
+                AddedInstance.findChildren()
+
+                ////////////////////////////////
+                //Make findParent for the children !
+                ////////////////////////////////
+
+                //Debug
+                /*
+                console.log(
+                    'abstraction added l 209',
+                    'AddedInstance.NameStr is \n',
+                    AddedInstance.NameStr,
+                    '\n',
+                    'we make the children find this parent'
+                )
+                */
+                
+                //map map
+                _.map(
+                    AddedInstance.ChildInstancesDictsObject,
+                    function(__ChildInstancesDict)
+                    {
+                        _.map(
+                            __ChildInstancesDict,
+                            function(__ChildInstance)
+                            {
+                                __ChildInstance.findParent()
+                            }
+                        )
+                    }
+                )
+
+                ////////////////////////////////
+                //For top object do a parent walk !
+                ////////////////////////////////
+                //not yet necessary
+                
 
 
             },
-            'changed':function(_NewObject,_OldObject)
+            'changed':function(_OldObject,_NewObject)
             {
                 //Debug
+                /*
                 console.log(
                     'abstraction tini setting changed l 197 \n',
-                    '_NewObject is \n',
-                    _NewObject,
-                    '\n',
                     '_OldObject is \n',
                     _OldObject,
                     '\n',
-                    'InstancesDictObject is \n',
-                    InstancesDictObject
+                    '_NewObject is \n',
+                    _NewObject,
+                    //'\n',
+                    //'InstancesDictObject is \n',
+                    //InstancesDictObject,
+                    //'\n',
+                    'InstancesDictObject[_NewObject._id].NameStr is \n',
+                    InstancesDictObject[_NewObject._id].NameStr,
+                    '\n',
+                    '_.keys(InstancesDictObject[_NewObject._id]) is \n',
+                    _.keys(InstancesDictObject[_NewObject._id])
+                )
+                */
+
+                //extend
+                _.extend(
+                    InstancesDictObject[_NewObject._id],
+                    _NewObject
                 )
 
+                //Debug
+                /*
+                console.log(
+                    'abstraction tini setting changed l 224 \n',
+                    'after extend',
+                    //'\n',
+                    //'InstancesDictObject[_NewObject._id] is \n',
+                    //InstancesDictObject[_NewObject._id],
+                    '\n',
+                    '_.keys(InstancesDictObject[_NewObject._id]) is \n',
+                    _.keys(InstancesDictObject[_NewObject._id])
+                )   
+                */
 
 
             },
@@ -254,6 +324,7 @@ AbstractionClass.prototype.tini=function()
                             'RemovedInstance.ParentInstance is \n',
                             RemovedInstance.ParentInstance
                         )
+                        */
 
                         if(RemovedInstance.ParentInstance.ChildInstancesDictsObject[
                             RemovedInstance.Abstraction.CollectionStr
@@ -264,7 +335,6 @@ AbstractionClass.prototype.tini=function()
                                     RemovedInstance.NameStr
                                 ]
                         }
-                        */
                     }
 
                     //delete

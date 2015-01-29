@@ -29,8 +29,15 @@ InstanceClass = function(_UpdateDictObject)
     )
     */
 
-    //
+    //init
     LocalInstance.ChildInstancesDictsObject={}
+
+    //check
+    if(LocalInstance.GrandParentNameStrsArray==undefined)
+    {
+        //init
+        LocalInstance.GrandParentNameStrsArray=[]
+    }
 
 }
 
@@ -80,14 +87,46 @@ InstanceClass.prototype.findParent = function()
     )
     */
 
+    //Define
+    var ParentObject=null
+
     //First look at an already possible ParentIdStr given
     if (LocalInstance.ParentIdStr!=undefined)
     {
-        //get
-        LocalInstance.ParentInstance=InstancesDictObject[LocalInstance.ParentIdStr]
+        //Debug
+        /*
+        console.log(
+            'instance l 94\n',
+            'LocalInstance.ParentIdStr is \n',
+            LocalInstance.ParentIdStr,
+            '\n',
+            'LocalInstance.NameStr is \n',
+            LocalInstance.NameStr,
+            '\n',
+            'LocalInstance.ParentNameStr is \n',
+            LocalInstance.ParentNameStr,
+            '\n'
+        )
+        */
 
+        //findOne
+        ParentObject=LocalInstance.Abstraction.ParentAbstraction.Collection.findOne(
+            {
+                _id:LocalInstance.ParentIdStr
+            }
+        )
+
+        //Debug
+        /*
+        console.log(
+            'instance l 121\n',
+            'ParentObject is \n',
+            ParentObject
+        )
+        */
     }
-    else if(LocalInstance.Abstraction.ParentAbstraction!=undefined)
+
+    if(LocalInstance.ParentInstance==undefined && LocalInstance.Abstraction.ParentAbstraction!=undefined)
     {
 
         //Debug
@@ -116,23 +155,180 @@ InstanceClass.prototype.findParent = function()
         /*
         console.log(
             'abstraction added parent find l 201\n',
+            'LocalInstance.NameStr is \n',
+            LocalInstance.NameStr,
+            '\n',
             'ParentFind.fetch() is \n',
             ParentFind.fetch()
         )
         */
+        
+        //Define
+        var PossibleParentObjectsArray=ParentFind.fetch()
 
-        var ParentObjectsArray=ParentFind.fetch()
-
-        if(_.size(ParentObjectsArray)==1)
+        //Check
+        if(_.size(PossibleParentObjectsArray)>1)
         {
-            //get
-            LocalInstance.ParentInstance=InstancesDictObject[
-                    ParentObjectsArray[0]._id
-                ]
+            //Debug
+            /*
+            console.log(
+                'instance findParent l 161 \n',
+                'LocalInstance.NameStr is \n',
+                LocalInstance.NameStr,
+                '\n',
+                'it is not sufficient to find a parent'
+            )
+            */
+
+            //Check
+            if(LocalInstance.GrandParentNameStrsArray!=undefined)
+            {
+
+                //Debug
+                /*
+                console.log(
+                    'instance findParent l 177 \n',
+                    'LocalInstance.NameStr is \n',
+                    LocalInstance.NameStr,
+                    '\n',
+                    'LocalInstance.GrandParentNameStrsArray is \n',
+                    LocalInstance.GrandParentNameStrsArray
+                )
+                */
+
+                //filter
+                var FilterArray=_.filter(
+                    PossibleParentObjectsArray,
+                    function(__PossibleParentObject)
+                    {
+
+                        //get
+                        var PossibleParentInstance=InstancesDictObject[__PossibleParentObject._id]
+
+                        //Debug
+                        /*
+                        console.log(
+                            'instance grand parent for l 197\n',
+                            '__PossibleParentObject is \n',
+                            __PossibleParentObject,
+                            '\n',
+                            'PossibleParentInstance.GrandParentNameStrsArray is \n',
+                            PossibleParentInstance.GrandParentNameStrsArray
+                        )
+                        */
+
+                        //map
+                        return _.all(
+                                    _.map(
+                                        _.range(
+                                            _.size(
+                                                LocalInstance.GrandParentNameStrsArray
+                                            )
+                                        ),
+                                        function(__Int)
+                                        {
+                                            return LocalInstance.GrandParentNameStrsArray[__Int
+                                            ]==PossibleParentInstance.GrandParentNameStrsArray[__Int]
+                                        }
+                                    )
+                                )
+                    }
+                )
+    
+                //Debug
+                /*
+                console.log(
+                    'instance findParent l 177 \n',
+                    'LocalInstance.NameStr is \n',
+                    LocalInstance.NameStr,
+                    '\n',
+                    'FilterArray is \n',
+                    FilterArray
+                )
+                */
+
+                //Check
+                if(_.size(FilterArray)==1)
+                {
+                    ParentObject=FilterArray[0]
+                }
+            }
+
+        }
+        else if(_.size(PossibleParentObjectsArray)==1)
+        {
+            ParentObject=PossibleParentObjectsArray[0]
         }
     }
 
-    //LocalInstance.Abstraction.InstancesDictObject[LocalInstance.PathStr]=LocalInstance
+
+    //Check
+    if(ParentObject!=null)
+    {
+
+        //Debug
+        /*
+        console.log(
+            'instance findParent l 132 \n',
+            'LocalInstance.NameStr is \n',
+            LocalInstance.NameStr,
+            '\n',
+            'Ok we find one unique parent'
+        )
+        */
+
+        ////////////////////////////////////////////
+        //update at this level
+        ////////////////////////////////////////////
+
+        //get
+        LocalInstance.ParentInstance=InstancesDictObject[
+                ParentObject._id
+            ]
+
+        //set
+        LocalInstance.GrandParentNameStrsArray=_.union(
+            [LocalInstance.ParentInstance.NameStr],
+            LocalInstance.ParentInstance.GrandParentNameStrsArray
+        )
+
+        //Debug
+        /*
+        console.log(
+            'We give directly the ParentIdStr to the data'
+        )
+        */
+
+        //update the ParentIdStr
+        LocalInstance.Abstraction.Collection.update(
+            {_id:LocalInstance._id},
+            {
+                $set:{
+                        'ParentIdStr':LocalInstance.ParentInstance._id
+                    }
+            }
+        )
+
+        ////////////////////////////////////////////
+        //update at the level of the parent
+        ////////////////////////////////////////////
+
+        //Define
+        var UpdateDictObject={}
+        UpdateDictObject[
+            'ChildIntsDictsObject.'+LocalInstance.Abstraction.CollectionStr+'.'+LocalInstance.NameStr
+        ]=LocalInstance.ParentInt
+
+        //update
+        LocalInstance.ParentInstance.Abstraction.Collection.update(
+            {
+                _id:LocalInstance.ParentInstance._id
+            },
+            {
+                $set:UpdateDictObject
+            }
+        )
+    }
 
     //Debug
     /*
@@ -266,14 +462,16 @@ InstanceClass.prototype.findChildren = function()
 
 
             //Debug
+            /*
             console.log(
-                'instance in findChildren map l 235\n',
+                'instance in findChildren map l 305\n',
                 'LocalInstance.NameStr is \n',
                 LocalInstance.NameStr,
                 '\n',
                 'ChildObjectsDictObject is \n',
                 ChildObjectsDictObject
             )
+            */
 
             //set the child instances and also the ParentIdStr        
             LocalInstance.ChildInstancesDictsObject[
@@ -295,8 +493,9 @@ InstanceClass.prototype.findChildren = function()
                             var ChildInstance=InstancesDictObject[__ChildObject._id]
 
                             //Debug
+                            /*
                             console.log(
-                                'instance findChildren map child l 300 \n',
+                                'instance findChildren map child l 336 \n',
                                 'LocalInstance.NameStr is \n',
                                 LocalInstance.NameStr,
                                 '\n',
@@ -305,6 +504,7 @@ InstanceClass.prototype.findChildren = function()
                                 '\n',
                                 'we are going to update with the ParentIdStr'
                             )
+                            */
 
                             //update
                             ChildInstance.Abstraction.Collection.update(
