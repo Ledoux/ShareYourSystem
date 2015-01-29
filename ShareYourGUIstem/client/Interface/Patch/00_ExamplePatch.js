@@ -59,7 +59,7 @@ TestPatch=function()
             'patches',
             'insert',
             {
-              'PatchStr':"DefaultPatch"
+              'NameStr':"DefaultPatch"
             }
           )
 
@@ -84,8 +84,8 @@ TestPatch=function()
           'systems',
           'insert',
           {
-            'ParentPatchStr':"DefaultPatch",
-            'SystemStr':__SystemStr
+            'ParentNameStr':"DefaultPatch",
+            'NameStr':__SystemStr
           }
         )
       }
@@ -101,16 +101,22 @@ TestPatch=function()
 
     //call
     _.map(
-      ["TopBox","ChildBox"],
-      function(__BoxStr)
+      ['MySystem','YourSystem'],
+      function(__SystemStr)
       {
-        Meteor.call(
-          'mongo',
-          'boxes',
-          'insert',
+        _.map(
+          ["TopBox","ChildBox"],
+          function(__BoxStr)
           {
-            'ParentSystemStr':"MySystem",
-            'BoxStr':__BoxStr
+            Meteor.call(
+              'mongo',
+              'boxes',
+              'insert',
+              {
+                'ParentNameStr':__SystemStr,
+                'NameStr':__BoxStr
+              }
+            )
           }
         )
       }
@@ -134,8 +140,9 @@ TestPatch=function()
           'coops',
           'insert',
           {
-            'ParentBoxStr':"TopBox",
-            'CoopStr':__CoopStr
+            'ParentNameStr':"TopBox",
+            'GrandParentNameStrsList':['MySystem'],
+            'NameStr':__CoopStr
           }
         )
       }
@@ -155,8 +162,8 @@ TestPatch=function()
             'ghosts',
             'insert',
             {
-              'ParentCoopStr':"First",
-              'GhostStr':"MyGhost"
+              'ParentNameStr':"FirstCoop",
+              'NameStr':"MyGhost"
             }
           )
 

@@ -28,11 +28,12 @@ Template.Ghost.created = function()
     */
     
     //init
+    /*
     var LocalInstance=new InstanceClass(
       {
         'Blaze':this,
         'Abstraction':GhostAbstraction
       }
     )
-
+    */
 }

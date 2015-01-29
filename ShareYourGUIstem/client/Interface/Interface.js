@@ -22,7 +22,7 @@ InterfaceAbstraction=new AbstractionClass(
           //set
           var Find=Patches.find(
               {
-                  PatchStr:
+                  NameStr:
                  {
                   $in:
                   Session.get('PatchStrsArray')
@@ -38,7 +38,7 @@ InterfaceAbstraction=new AbstractionClass(
             Find.fetch()
           )
           */
-          
+
           //return
           return Find
       }
@@ -69,6 +69,16 @@ _.map(
     AbstractionsDictObject,
     function(__Abstraction)
     {
+      //Debug
+      /*
+      console.log(
+        'l 74 Interface',
+        '__Abstraction is \n',
+        __Abstraction
+      )
+      */
+      
+      //tini
       __Abstraction.tini()
     }
   )

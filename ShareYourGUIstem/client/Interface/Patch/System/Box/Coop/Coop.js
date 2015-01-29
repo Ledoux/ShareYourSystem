@@ -27,7 +27,7 @@ CoopAbstraction=new AbstractionClass(
 	            //return
 	            return Ghosts.find(
 	                {
-	                    'ParentCoopStr':this.CoopStr
+	                    'ParentNameStr':this.CoopStr
 	                }
 	           )
 	       }
@@ -45,13 +45,14 @@ Template.Coop.created = function()
     */
 
     //init
+    /*
     var LocalInstance=new InstanceClass(
       {
         'Blaze':this,
         'Abstraction':CoopAbstraction
       }
     )
-    
+    */
 }
 
 Template.Coop.helpers(

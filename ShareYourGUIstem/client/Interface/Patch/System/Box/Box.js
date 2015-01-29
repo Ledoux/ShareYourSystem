@@ -24,12 +24,25 @@ BoxAbstraction=new AbstractionClass(
           'coops':function()
            {
 
+                //Define
+                var Find=Coops.find(
+                    {'ParentNameStr':this.NameStr}
+                )
+
+                //Debug
+                /*
+                console.log(
+                    'System coops helpers l 24 \n',
+                    'this.NameStr is \n',
+                    this.NameStr,
+                    '\n',
+                    'Find.fetch() is \n',
+                    Find.fetch()
+                )
+                */
+
                 //return
-                return Coops.find(
-                    {
-                        'ParentBoxStr':this.BoxStr
-                    }
-               )
+                return Find
            }
         }
     }
@@ -45,13 +58,15 @@ Template.Box.created = function()
     */
 
     //init
+    /*
     var LocalInstance=new InstanceClass(
       {
         'Blaze':this,
         'Abstraction':BoxAbstraction
       }
     )
-    
+    */
+
     //Debug
     /*
     console.log(
@@ -59,98 +74,102 @@ Template.Box.created = function()
     )
     */
 
-    //init
-    LocalInstance.Box=new BoxClass()
-    LocalInstance.Box.Instance=LocalInstance
+    var IsRaphaelBool=false
+    if(IsRaphaelBool)
+    {
+        //init
+        LocalInstance.Box=new BoxClass()
+        LocalInstance.Box.Instance=LocalInstance
 
-    //Init the anchor Rect
-    LocalInstance.Box.AnchorRect=PatchRaphael.rect(
-            LocalInstance.Blaze.data.x,
-            LocalInstance.Blaze.data.y,
-            20,
-            20
-        ).attr(
-            {
-                fill : 'green',
-                cursor : 'move'
-            }
+        //Init the anchor Rect
+        LocalInstance.Box.AnchorRect=PatchRaphael.rect(
+                LocalInstance.Blaze.data.x,
+                LocalInstance.Blaze.data.y,
+                20,
+                20
+            ).attr(
+                {
+                    fill : 'green',
+                    cursor : 'move'
+                }
+            )
+        
+        //Init the anchor Rect
+        LocalInstance.Box.InfoRect=PatchRaphael.rect(
+                LocalInstance.Blaze.data.x,
+                LocalInstance.Blaze.data.y+20,
+                20,
+                20
+            ).attr(
+                {
+                    fill : 'gray',
+                    cursor : 'move'
+                }
+            )
+        LocalInstance.Infox = new ReactiveVar;
+        LocalInstance.Infoy = new ReactiveVar;
+        LocalInstance.Infox.set(LocalInstance.Blaze.data.x)
+        LocalInstance.Infoy.set(LocalInstance.Blaze.data.y)
+
+        //Debug
+        /*
+        console.log(
+            'l 242 Box rendered \n',
+            //'Box is \n',
+            //Box
+            'init a new Box'
         )
-    
-    //Init the anchor Rect
-    LocalInstance.Box.InfoRect=PatchRaphael.rect(
-            LocalInstance.Blaze.data.x,
-            LocalInstance.Blaze.data.y+20,
-            20,
-            20
-        ).attr(
-            {
-                fill : 'gray',
-                cursor : 'move'
-            }
+        */
+
+        
+
+        //Debug
+        /*
+        console.log(
+            'l 253 Box rendered \n',
+            'Box is \n',
+            Box
         )
-    LocalInstance.Infox = new ReactiveVar;
-    LocalInstance.Infoy = new ReactiveVar;
-    LocalInstance.Infox.set(LocalInstance.Blaze.data.x)
-    LocalInstance.Infoy.set(LocalInstance.Blaze.data.y)
+        */
 
-    //Debug
-    /*
-    console.log(
-        'l 242 Box rendered \n',
-        //'Box is \n',
-        //Box
-        'init a new Box'
-    )
-    */
+        //push
+        LocalInstance.Box.set.push(
+            LocalInstance.Box.AnchorRect,
+            LocalInstance.Box.InfoRect
+        )   
 
-    
-
-    //Debug
-    /*
-    console.log(
-        'l 253 Box rendered \n',
-        'Box is \n',
-        Box
-    )
-    */
-
-    //push
-    LocalInstance.Box.set.push(
-        LocalInstance.Box.AnchorRect,
-        LocalInstance.Box.InfoRect
-    )   
-
-    //Debug
-    /*
-    console.log(
-        'l 228 Box \n',
-        'Make it drag'
-    )
-    */
-
-
-    //make it draggable
-    LocalInstance.Box.set.drag(
-        LocalInstance.Box.dragBoxSetMove, 
-        LocalInstance.Box.dragBoxSetStart, 
-        LocalInstance.Box.dragBoxSetStop
-    );
-
-    //Debug
-    /*
-    console.log(
-            'Box rendered l 290',
-            'PatchRaphael.BoxSetsSet is : \n',
-            PatchRaphael.BoxSetsSet,
-            '\n',
-            'BlazesDict['boxes'] is : \n',
-            BlazesDict['boxes'],
-            '\n',
+        //Debug
+        /*
+        console.log(
+            'l 228 Box \n',
+            'Make it drag'
         )
-    */
+        */
 
-    //Give to the BoxSetsSet
-    PatchRaphael.BoxSetsSet.push(LocalInstance.Box.set)
+
+        //make it draggable
+        LocalInstance.Box.set.drag(
+            LocalInstance.Box.dragBoxSetMove, 
+            LocalInstance.Box.dragBoxSetStart, 
+            LocalInstance.Box.dragBoxSetStop
+        );
+
+        //Debug
+        /*
+        console.log(
+                'Box rendered l 290',
+                'PatchRaphael.BoxSetsSet is : \n',
+                PatchRaphael.BoxSetsSet,
+                '\n',
+                'BlazesDict['boxes'] is : \n',
+                BlazesDict['boxes'],
+                '\n',
+            )
+        */
+
+        //Give to the BoxSetsSet
+        PatchRaphael.BoxSetsSet.push(LocalInstance.Box.set)
+    }
 
 }
 
@@ -181,6 +200,7 @@ Template.Box.destroyed = function(){
     )
     */
 
+    /*
     //alias
     var LocalBlaze=this
 
@@ -192,7 +212,8 @@ Template.Box.destroyed = function(){
 
     //delete
     //delete BlazesDict['boxes'][LocalBoxBlaze.data._id]
-
+    */
+    
 }
 
 

@@ -9,7 +9,6 @@ abstraction
 
 */
 
-
 AbstractionsDictObject={}
 CollectionsDictObject={}
 CollectionStrToTemplateStrDictObject={}
@@ -19,14 +18,15 @@ CollectionStrToTemplateStrDictObject={}
 ////////////////////////////////
 AbstractionClass = function(_UpdateDictObject)
 {
-    ////////////////////////////////
-    //Define
-    ////////////////////////////////
-    var LocalAbstraction=this
 
     ////////////////////////////////
     //update`
     ////////////////////////////////
+
+    //define
+    var LocalAbstraction=this
+
+    //extend
     _.extend(LocalAbstraction,_UpdateDictObject)
 
     ////////////////////////////////
@@ -47,17 +47,30 @@ AbstractionClass = function(_UpdateDictObject)
     LocalAbstraction.Template=Template[LocalAbstraction.TemplateStr]
     CollectionStrToTemplateStrDictObject[LocalAbstraction.CollectionStr]=LocalAbstraction.TemplateStr
 
-    //set meteor links at the parent level
-    if(LocalAbstraction.ParentTemplateStr!=undefined && LocalAbstraction.ParentTemplateStr!=null)
-    {
-        //set
-        LocalAbstraction.ParentTemplateKeyStr='Parent'+LocalAbstraction.ParentTemplateStr+'Str'
-
-    }
+    ////////////////////////////////
+    //add in the global Dict
+    ////////////////////////////////
+    AbstractionsDictObject[
+        LocalAbstraction.TemplateStr+'Abstraction'
+    ]=this
 
     ////////////////////////////////
-    //set meteor links at the child level
+    //look for children abstraction already setted
     ////////////////////////////////
+
+    //setChildAbstractionsArray
+    LocalAbstraction.setChildAbstractionsArray()
+
+}
+
+AbstractionClass.prototype.setChildAbstractionsArray=function()
+{
+    ////////////////////////////////
+    //set meteor links at the children level
+    ////////////////////////////////
+
+    //Define
+    var LocalAbstraction=this
 
     //Check
     if(LocalAbstraction.ChildHelpersObject!=undefined && LocalAbstraction.ChildHelpersObject!=null)
@@ -86,7 +99,7 @@ AbstractionClass = function(_UpdateDictObject)
                     _.keys(AbstractionsDictObject)
                 )
                 */
-                
+
                 //return 
                 return AbstractionsDictObject[
                         CollectionStrToTemplateStrDictObject[
@@ -95,40 +108,104 @@ AbstractionClass = function(_UpdateDictObject)
                 ]
             }
     )
-    ////////////////////////////////
-    //add in the global Dict
-    ////////////////////////////////
-    AbstractionsDictObject[
-        LocalAbstraction.TemplateStr+'Abstraction'
-    ]=this
-
 }
-
 
 AbstractionClass.prototype.tini=function()
 {
+
+    ////////////////////////////////
+    //set meteor links at the parent level
+    ////////////////////////////////
+
     //Define
     var LocalAbstraction=this
     
+    //set meteor links at the parent level
+    if(LocalAbstraction.ParentTemplateStr!=undefined && LocalAbstraction.ParentTemplateStr!=null)
+    {
+        //set
+        LocalAbstraction.ParentTemplateKeyStr='Parent'+LocalAbstraction.ParentTemplateStr+'Str'
 
+    }
+
+    //Debug
+    /*
+    console.log(
+        'abstraction l 115 \n',
+        'we set finally the parent Abstraction \n',
+        'LocalAbstraction is \n',
+        LocalAbstraction
+    )
+    */
 
     //set parent
     LocalAbstraction.ParentAbstraction=AbstractionsDictObject[
         LocalAbstraction.ParentTemplateStr+'Abstraction'
     ]
 
-    //Debug
-    /*
-    console.log(
-        'tini l 104 \n',
-        'LocalAbstraction.ParentAbstraction is \n',
-        LocalAbstraction.ParentAbstraction,
-        '\n',
-        'LocalAbstraction.ParentTemplateStr is \n',
-        LocalAbstraction.ParentTemplateStr,
-        '\n',
-        'AbstractionsDictObject is \n',
-        AbstractionsDictObject
+    //observe 
+    LocalAbstraction.Collection.find().observe(
+        {
+            'added':function(_NewObject,p)
+            {
+
+                ////////////////////////////////
+                //set an Instance at this level
+                ////////////////////////////////
+
+                //Debug
+                /*
+                console.log(
+                    'abstraction tini setting added l 125 \n',
+                    '_NewObject is \n',
+                    _NewObject,
+                    '\n',
+                    'InstancesDictObject is \n',
+                    InstancesDictObject
+                )
+                */
+                
+                //Init
+                var LocalInstance=new InstanceClass(
+                    _.extend(
+                        _NewObject,
+                        {
+                            'Abstraction':LocalAbstraction
+                        }
+                    )
+                )
+
+                //Define an instance for it
+                InstancesDictObject[_NewObject._id]=LocalInstance
+
+                ////////////////////////////////
+                //look for a parent Instance !
+                ////////////////////////////////
+                LocalInstance.findParent()
+    
+                ////////////////////////////////
+                //look for the children Instance !
+                ////////////////////////////////
+                LocalInstance.findChildren()
+
+
+            },
+            'removed':function(_OldObject)
+            {
+                //Debug
+                console.log(
+                    'abstraction tini setting removed l 267 \n',
+                    '_OldObject is \n',
+                    _OldObject,
+                    '\n',
+                    'InstancesDictObject is \n',
+                    InstancesDictObject
+                )
+
+                //delete
+                delete InstancesDictObject[_OldObject._id]
+
+            }
+        }
     )
-    */
 }

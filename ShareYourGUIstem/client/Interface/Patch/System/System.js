@@ -22,7 +22,7 @@ SystemAbstraction= new AbstractionClass(
 
 	       		//Define
 	       		var Find=Boxes.find(
-	       			{'ParentSystemStr':this.SystemStr}
+	       			{'ParentNameStr':this.NameStr}
 	       		)
 
 	       		//Debug
@@ -55,13 +55,14 @@ Template.System.created = function()
 	*/
 
 	//init
+	/*
 	var LocalInstance=new InstanceClass(
 	  {
 	    'Blaze':this,
 	    'Abstraction':SystemAbstraction
 	  }
 	)
-	
+	*/
 }
 
 Template.System.helpers(

@@ -31,7 +31,7 @@ PatchAbstraction=new AbstractionClass(
               //find
               var Find=Systems.find(
                   {
-                      ParentPatchStr:
+                      ParentNameStr:
                      {
                       $in:
                       Session.get('PatchStrsArray')
@@ -47,7 +47,7 @@ PatchAbstraction=new AbstractionClass(
                 Find.fetch()
               )
               */
-              
+
               //return
               return Find
           }
@@ -65,12 +65,14 @@ Template.Patch.created = function()
   */
 
   //init
+  /*
   var LocalInstance=new InstanceClass(
       {
         'Blaze':this,
         'Abstraction':PatchAbstraction
       }
     )
+  */
 }
 
 Template.Patch.helpers(
