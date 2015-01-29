@@ -80,8 +80,14 @@ InstanceClass.prototype.findParent = function()
     )
     */
 
-    //Check
-    if(LocalInstance.Abstraction.ParentAbstraction!=undefined)
+    //First look at an already possible ParentIdStr given
+    if (LocalInstance.ParentIdStr!=undefined)
+    {
+        //get
+        LocalInstance.ParentInstance=InstancesDictObject[LocalInstance.ParentIdStr]
+
+    }
+    else if(LocalInstance.Abstraction.ParentAbstraction!=undefined)
     {
 
         //Debug
@@ -125,6 +131,8 @@ InstanceClass.prototype.findParent = function()
                 ]
         }
     }
+
+    //LocalInstance.Abstraction.InstancesDictObject[LocalInstance.PathStr]=LocalInstance
 
     //Debug
     /*
@@ -176,6 +184,7 @@ InstanceClass.prototype.findChildren = function()
             */
 
             //set
+            /*
             if(LocalInstance.ChildInstancesDictsObject[
                 __ChildAbstraction.CollectionStr
             ]==undefined)
@@ -184,6 +193,7 @@ InstanceClass.prototype.findChildren = function()
                     __ChildAbstraction.CollectionStr
                 ]={}
             }
+            */
 
             //find
             var Find=__ChildAbstraction.Collection.find(
@@ -209,9 +219,22 @@ InstanceClass.prototype.findChildren = function()
                     PossibleChildObjectsArray,
                     function(__PossibleChildObject)
                     {
-                        return (
-                            __PossibleChildObject.ParentIdStr==undefined || __PossibleChildObject.ParentIdStr == ""
-                        ) 
+
+                        //Check
+                        if(__PossibleChildObject.ParentIdStr==LocalInstance._id)
+                        {
+                            return true
+                        }
+                        else if (__PossibleChildObject.ParentIdStr==undefined || __PossibleChildObject.ParentIdStr == "")
+                        {
+                            if(__PossibleChildObject.ParentInstance==undefined)
+                            {
+                                return true
+                            }
+                        }
+
+                        //return false either
+                        return false
                     }
             )
 
@@ -228,7 +251,7 @@ InstanceClass.prototype.findChildren = function()
             */
 
             //objectify the possible childs in order to remove the redundant children with the same NameStr
-            var ChildsDictObject=_.object(
+            var ChildObjectsDictObject=_.object(
                 _.map(
                     PossibleAbandonnedChildObjectsArray,
                     function(__PossibleAbandonnedChildObject)
@@ -241,47 +264,74 @@ InstanceClass.prototype.findChildren = function()
                 )
             )
 
+
             //Debug
-            /*
             console.log(
                 'instance in findChildren map l 235\n',
                 'LocalInstance.NameStr is \n',
                 LocalInstance.NameStr,
                 '\n',
-                'ChildsDictObject is \n',
-                ChildsDictObject
+                'ChildObjectsDictObject is \n',
+                ChildObjectsDictObject
             )
-            */
 
-            //map
+            //set the child instances and also the ParentIdStr        
             LocalInstance.ChildInstancesDictsObject[
-                __ChildAbstraction.CollectionStr
-            ]=_.map(
-                    _.values(ChildsDictObject),
-                    function(__ChildObject)
-                    {
-                        //Debug
-                        /*
-                        console.log(
-                            'instance map child l 673 \n',
-                            'we get the child instance'
-                        )
-                        */
+                    __ChildAbstraction.CollectionStr
+                ]=_.object(
+                    _.map(
+                        ChildObjectsDictObject,
+                        function(__ChildObject,__ChildNameStr)
+                        {
+                            //Debug
+                            /*
+                            console.log(
+                                'instance map child l 673 \n',
+                                'we get the child instance'
+                            )
+                            */
 
-                        //get the ChildInstance
-                        var ChildInstance=InstancesDictObject[__ChildObject._id]
+                            //get the ChildInstance
+                            var ChildInstance=InstancesDictObject[__ChildObject._id]
 
-                        //return
-                        return ChildInstance
-                    }
+                            //Debug
+                            console.log(
+                                'instance findChildren map child l 300 \n',
+                                'LocalInstance.NameStr is \n',
+                                LocalInstance.NameStr,
+                                '\n',
+                                'ChildInstance is \n',
+                                ChildInstance,
+                                '\n',
+                                'we are going to update with the ParentIdStr'
+                            )
+
+                            //update
+                            ChildInstance.Abstraction.Collection.update(
+                                {
+                                    _id:__ChildObject._id
+                                },
+                                {
+                                    $set:{
+                                        'ParentIdStr':LocalInstance._id
+                                    }
+                                }
+                            )
+
+                            //return
+                            return [__ChildNameStr,ChildInstance]
+                        }
                 )
+            )
+
+
         }
     )
 
     //Debug
     /*
     console.log(
-        'abstraction findChildren l 223 \n',
+        'abstraction findChildren l 302 \n',
         'LocalInstance.NameStr is \n',
         LocalInstance.NameStr,
         '\n',

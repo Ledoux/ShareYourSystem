@@ -61,6 +61,11 @@ AbstractionClass = function(_UpdateDictObject)
     //setChildAbstractionsArray
     LocalAbstraction.setChildAbstractionsArray()
 
+    ////////////////////////////////
+    //prepare to receive Instances
+    ////////////////////////////////
+    LocalAbstraction.InstancesDictObject={}
+
 }
 
 AbstractionClass.prototype.setChildAbstractionsArray=function()
@@ -146,7 +151,7 @@ AbstractionClass.prototype.tini=function()
     //observe 
     LocalAbstraction.Collection.find().observe(
         {
-            'added':function(_NewObject,p)
+            'added':function(_NewObject)
             {
 
                 ////////////////////////////////
@@ -164,7 +169,7 @@ AbstractionClass.prototype.tini=function()
                     InstancesDictObject
                 )
                 */
-                
+
                 //Init
                 var LocalInstance=new InstanceClass(
                     _.extend(
@@ -190,11 +195,14 @@ AbstractionClass.prototype.tini=function()
 
 
             },
-            'removed':function(_OldObject)
+            'changed':function(_NewObject,_OldObject)
             {
                 //Debug
                 console.log(
-                    'abstraction tini setting removed l 267 \n',
+                    'abstraction tini setting changed l 197 \n',
+                    '_NewObject is \n',
+                    _NewObject,
+                    '\n',
                     '_OldObject is \n',
                     _OldObject,
                     '\n',
@@ -202,9 +210,66 @@ AbstractionClass.prototype.tini=function()
                     InstancesDictObject
                 )
 
-                //delete
-                delete InstancesDictObject[_OldObject._id]
 
+
+            },
+            'removed':function(_OldObject)
+            {
+                //Debug
+                /*
+                console.log(
+                    'abstraction tini setting removed l 213 \n',
+                    '_OldObject is \n',
+                    _OldObject,
+                    '\n',
+                    'InstancesDictObject is \n',
+                    InstancesDictObject
+                )
+                */
+
+                //Check
+                if(_OldObject!=undefined)
+                {
+
+                    //Find
+                    var RemovedInstance=InstancesDictObject[_OldObject._id]
+
+                    //Debug
+                    /*
+                    console.log(
+                        'abstraction tini setting removed l 213 \n',
+                        'RemovedInstance is \n',
+                        RemovedInstance
+                    )
+                    */
+
+                    //delete in the parent 
+                    if(RemovedInstance.ParentInstance!=undefined)
+                    {
+
+                        //Debug
+                        /*
+                        console.log(
+                            'abstraction tini setting removed l 243 \n',
+                            'RemovedInstance.ParentInstance is \n',
+                            RemovedInstance.ParentInstance
+                        )
+
+                        if(RemovedInstance.ParentInstance.ChildInstancesDictsObject[
+                            RemovedInstance.Abstraction.CollectionStr
+                        ]!=undefined)
+                        {
+                            delete RemovedInstance.ParentInstance.ChildInstancesDictsObject[
+                                RemovedInstance.Abstraction.CollectionStr][
+                                    RemovedInstance.NameStr
+                                ]
+                        }
+                        */
+                    }
+
+                    //delete
+                    delete InstancesDictObject[_OldObject._id]
+                }
             }
         }
     )
