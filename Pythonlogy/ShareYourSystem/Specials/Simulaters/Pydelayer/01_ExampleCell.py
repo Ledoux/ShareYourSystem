@@ -5,13 +5,8 @@ import numpy as np
 
 #Definition an instance
 MyPydelayer=SYS.PydelayerClass(
-	).update(
-		{
-			'SimulatingInitFloatsArray':np.array([1.]),
-			'SimulatingStopTimeFloat':20.,
-			'EuleringStepTimeFloat':0.1,
-		}
 	).pydelay(
+		#PydelayingKwargVariablesDict
 		{
 			'eqns':{
 				'x' : '0.25 * x(t-tau) / (1.0 + pow(x(t-tau),p)) -0.1*x'
@@ -21,7 +16,7 @@ MyPydelayer=SYS.PydelayerClass(
 			    	'p'   : 10
 				}
 		}
-	).simulate()
+	)
 
 #Definition the AttestedStr
 SYS._attest(
@@ -35,32 +30,3 @@ SYS._attest(
 		),
 	]
 ) 
-
-#plot
-
-from matplotlib import pyplot
-pyplot.plot(MyPydelayer['<StateMoniters>VariableMoniter'].MoniteredTotalVariablesArray.T)
-pyplot.show()
-
-#Print
-
-#Print
-
-
-"""
-# Make a plot of x(t) vs x(t-tau):
-# Sample the solution twice with a stepsize of dt=0.1:
-
-# once in the interval [515, 1000]
-sol1 = dde.sample(515, 1000, 0.1)
-x1 = sol1['x']
-
-# and once between [500, 1000-15]
-sol2 = dde.sample(500, 1000-15, 0.1)
-x2 = sol2['x']
-
-pl.plot(x1, x2)
-pl.xlabel('$x(t)$')
-pl.ylabel('$x(t - 15)$')
-pl.show()
-"""

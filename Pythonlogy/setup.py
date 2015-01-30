@@ -142,6 +142,7 @@ setup(
 			 		'ShareYourSystem.Specials.Simulaters.Brianer',
 			 		'ShareYourSystem.Specials.Simulaters.Neurongrouper',
 			 		'ShareYourSystem.Specials.Simulaters.Synapser',
+			 		'ShareYourSystem.Specials.Simulaters.Equationer',
 			 		'ShareYourSystem.Specials.Simulaters.Pydelayer',
 			 		'ShareYourSystem.Specials.Muzikers.Muziker',
 			 		'ShareYourSystem.Specials.Muzikers.Vexflower',

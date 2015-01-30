@@ -29,7 +29,6 @@ class MatrixerClass(BaseClass):
 	
 	#Definition
 	RepresentingKeyStrsList=[
-								'MatrixingNumpyVariable',
 								'MatrixingRowsInt',
 								'MatrixingColsInt',
 								'MatrixingSizeTuple',
@@ -37,12 +36,13 @@ class MatrixerClass(BaseClass):
 								'MatrixingStdFloat',
 								'MatrixingNormalisationFunction',
 								'MatrixingStatStr',
+								'MatrixingDiagFloatsArray',
+								'MatrixingTagVariablesArray',
 								'MatrixedStatFunction',
-								'MatrixedNumpyVariable'
+								'MatrixedRandomFloatsArray'
 							]
 
 	def default_init(self,
-						_MatrixingNumpyVariable=None,
 						_MatrixingRowsInt=0,
 						_MatrixingColsInt=0,
 						_MatrixingSizeTuple=None,
@@ -50,8 +50,10 @@ class MatrixerClass(BaseClass):
 						_MatrixingStdFloat=1.,
 						_MatrixingNormalisationFunction=None,
 						_MatrixingStatStr="norm",
+						_MatrixingDiagFloatsArray=None,
+						_MatrixingTagVariablesArray=None,
 						_MatrixedStatFunction=None,
-						_MatrixedNumpyVariable=None,
+						_MatrixedRandomFloatsArray=None,
 						**_KwargVariablesDict
 					):
 
@@ -82,7 +84,7 @@ class MatrixerClass(BaseClass):
 		if self.MatrixingStatStr=='norm':
 
 			#set
-			self.MatrixedNumpyVariable=self.MatrixingStdFloat+self.MatrixedStatFunction(
+			self.MatrixedRandomFloatsArray=self.MatrixingStdFloat*self.MatrixedStatFunction(
 				self.MatrixingMeanFloat,size=self.MatrixingSizeTuple
 			)
 
@@ -91,9 +93,22 @@ class MatrixerClass(BaseClass):
 			self.MatrixingSizeTuple) and self.MatrixingSizeTuple[0]==self.MatrixingSizeTuple[1]:
 
 				#normalize
-				self.MatrixedNumpyVariable/=self.MatrixingNormalisationFunction(
+				self.MatrixedRandomFloatsArray/=self.MatrixingNormalisationFunction(
 					self.MatrixingSizeTuple[0]
 				)
 
+		#Check
+		if type(self.MatrixingDiagFloatsArray)!=None.__class__:
+
+			#map
+			map(
+					lambda __RowInt,__MatrixingDiagFloat:
+					self.MatrixedRandomFloatsArray.__setitem__(
+						(__RowInt,__RowInt),
+						__MatrixingDiagFloat
+					),
+					xrange(len(self.MatrixedRandomFloatsArray)),
+					self.MatrixingDiagFloatsArray
+				)
 	
 #</DefineClass>

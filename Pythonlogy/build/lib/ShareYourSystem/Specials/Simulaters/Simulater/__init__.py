@@ -34,8 +34,8 @@ class SimulaterClass(BaseClass):
 	]
 
 	def default_init(self,
-						_SimulatingInitFloatsArray=None,
 						_SimulatingStopTimeFloat=100.,
+						_SimulatingInitFloatsArray=None,
 						_SimulatingStartTimeFloat=0.,
 						**_KwargVariablesDict
 					):
@@ -50,9 +50,6 @@ class SimulaterClass(BaseClass):
 
 	def simulate_pydelay(self):
 		self.pydelay()
-
-
-
 
 	def do_simulate(
 				self,

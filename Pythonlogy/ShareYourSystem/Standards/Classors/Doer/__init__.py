@@ -698,7 +698,8 @@ DoStrsTuplesList=[
 	('Matrixer','Matrix','Matrixing','Matrixed'),
 	('Eulerer','Euler','Eulering','Eulered'),
 	('Integrater','Integrate','Integrating','Integrated'),
-	('Pydelayer','Pydelay','Pydelaying','Pydelayed')
+	('Pydelayer','Pydelay','Pydelaying','Pydelayed'),
+	('Equationer','Equation','Equationing','Equationed')
 ]
 
 DoerStrToDoStrOrderedDict=SYS.dictify(DoStrsTuplesList,0,1)

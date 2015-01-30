@@ -8,13 +8,16 @@
 </DefineSource>
 
 
-A Pydelayer
+A Pydelayer is a Runner that make run a special instance
+of dde23 from the pydelay module and use a global states Moniter
+to track the differenciated variables, moreover with a 
+bufferring manner to not overload the pythonic memory.
 
 """
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Specials.Simulaters.Populater"
+BaseModuleStr="ShareYourSystem.Specials.Simulaters.Runner"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -22,6 +25,8 @@ SYS.setSubModule(globals())
 #<ImportSpecificModules>
 import numpy as np
 from pydelay import dde23
+import operator
+from ShareYourSystem.Specials.Simulaters import Equationer
 #</ImportSpecificModules>
 
 #<DefineClass>
@@ -33,6 +38,7 @@ class PydelayerClass(BaseClass):
 		'PydelayingKwargVariablesDict',
 		'PydelayingHistoryFunctionsDict',
 		'PydelayingBufferStepTimeFloat',
+		'PydelayedUnitsInt',
 		'PydelayedDde23Variable',
 		'PydelayedVariableStrsList',
 		'PydelayedBufferFloatsArray',
@@ -43,9 +49,12 @@ class PydelayerClass(BaseClass):
 
 	def default_init(self,
 						_PydelayingKwargVariablesDict=None,
+						_PydelayingStopTimeFloat=20.,
+						_PydelayingSampleStepTimeFloat=0.1,
 						_PydelayingMoniterVariableIndexIntsArray=None,
 						_PydelayingHistoryFunctionsDict=None,
 						_PydelayingBufferStepTimeFloat=5.,
+						_PydelayedUnitsInt=0,
 						_PydelayedDde23Variable=None,
 						_PydelayedVariableStrsList=None,
 						_PydelayedBufferFloatsArray=None,
@@ -59,6 +68,11 @@ class PydelayerClass(BaseClass):
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
 	def mimic_simulate(self):
+
+		#pydelay first
+		self.pydelay(
+				_PydelayingStopTimeFloat=self.SimulatingStopTimeFloat
+			)
 
 		#reset
 		self.PydelayedBufferStopTimeFloat=0
@@ -78,12 +92,14 @@ class PydelayerClass(BaseClass):
 	def mimic_run(self):
 		
 		#debug
+		'''
 		self.debug(
 					[
 						'We run the PydelayedDde23Variable',
 						('self.',self,['RunningStopTimeFloat'])
 					]
 				)
+		'''
 
 		#set
 		self.PydelayedDde23Variable.set_sim_params(
@@ -94,23 +110,25 @@ class PydelayerClass(BaseClass):
 		self.PydelayedDde23Variable.run()
 
 		#debug
+		'''
 		self.debug(
 					[
 						'Now we sample',
 						('self.',self,[
 							'PydelayedBufferStopTimeFloat',
 							'RunningStopTimeFloat',
-							'EuleringStepTimeFloat'
+							'PydelayingSampleStepTimeFloat'
 							]
 						)
 					]
 				)
+		'''
 
 		#sample and update the instance with that
 		SampleDict=self.PydelayedDde23Variable.sample(
 					self.PydelayedBufferStopTimeFloat,
 					self.RunningStopTimeFloat,
-					self.EuleringStepTimeFloat
+					self.PydelayingSampleStepTimeFloat
 				)
 
 		#map
@@ -123,12 +141,14 @@ class PydelayerClass(BaseClass):
 		)
 
 		#debug
+		'''
 		self.debug(('self.',self,['PydelayedBufferFloatsArray']))
+		'''
 
 		#moniter
 		self['<StateMoniters>VariableMoniter'].monit(
 			self.PydelayedMoniterSampleTimeIndexIntsArray+(int)(
-				self.PydelayedBufferStopTimeFloat/self.EuleringStepTimeFloat
+				self.PydelayedBufferStopTimeFloat/self.PydelayingSampleStepTimeFloat
 				)
 		)
 
@@ -142,35 +162,77 @@ class PydelayerClass(BaseClass):
 		self.debug(('self.',self,[]))
 		'''
 
+		#network first
+		self.network(
+			**{
+				'RecruitingConcludeConditionTuplesList':[
+					(
+						'MroClassesList',
+						operator.contains,
+						Equationer.EquationerClass
+					)
+				]
+			}
+		)
+
+		#link
+		self.PydelayedDeriveEquationersList=self.NetworkedDeriveConnectersList
+
+		#map populate and neurongroup
+		self.PydelayedEquationDictsList=map(
+			lambda __PydelayedDeriveEquationer:
+			__PydelayedDeriveEquationer.populate(
+				).equation().EquationingDifferentialDict,
+			self.PydelayedDeriveEquationersList
+		)
+
+		#Check
+		if 'eqns' not in self.PydelayingKwargVariablesDict:
+			self.PydelayingKwargVariablesDict['eqns']={}
+
+		#update
+		map(
+				lambda __PydelayedEquationDict:
+				self.PydelayingKwargVariablesDict['eqns'].update(__PydelayedEquationDict),
+				self.PydelayedEquationDictsList
+			)
+
+		#debug
+		'''
+		self.debug(('self.',self,['PydelayingKwargVariablesDict']))
+		'''
+
 		#bind
-		self.PopulatingUnitsInt=len(self.PydelayingKwargVariablesDict['eqns'])
+		self.PydelayedUnitsInt=len(self.PydelayingKwargVariablesDict['eqns'])
 
 		#set
 		self.PydelayedVariableStrsList=self.PydelayingKwargVariablesDict['eqns'].keys()
 
-		# Initialise the solver
+		#Initialise the solver
 		self.PydelayedDde23Variable = dde23(
 			**self.PydelayingKwargVariablesDict
 		)
 
-		# Set params inside the solver
+		#Set params inside the solver
 		self.PydelayedDde23Variable.set_sim_params(
-				dtmax=self.EuleringStepTimeFloat
+				dtmax=self.PydelayingSampleStepTimeFloat
 			)
 
 		#Check if the init conditions was not yet define else give them equal to 0
-		if len(self.SimulatingInitFloatsArray)!=self.PopulatingUnitsInt:
-			self.SimulatingInitFloatsArray=[0.]*self.PopulatingUnitsInt
+		if type(self.SimulatingInitFloatsArray)==None.__class__:
+			self.SimulatingInitFloatsArray=np.zeros(1,dtype=float)
+		if len(self.SimulatingInitFloatsArray)!=self.PydelayedUnitsInt:
+			self.SimulatingInitFloatsArray=np.array([0.]*self.PydelayedUnitsInt)
 		
 		#Check if there is an history setted, else give the history as just the constant value of initial conditions
-		if len(self.PydelayingHistoryFunctionsDict)!=self.PopulatingUnitsInt:
+		if len(self.PydelayingHistoryFunctionsDict)!=self.PydelayedUnitsInt:
 
 			#dict
 			self.PydelayingHistoryFunctionsDict=dict(
 				map(
 					lambda __Int,__KeyStr:
 					(__KeyStr,lambda _Time:self.SimulatingInitFloatsArray[__Int]),
-					xrange(self.PopulatingUnitsInt),
+					xrange(self.PydelayedUnitsInt),
 					self.PydelayingKwargVariablesDict['eqns'].keys()
 				)
 			)
@@ -179,23 +241,28 @@ class PydelayerClass(BaseClass):
 			self.PydelayedDde23Variable.hist_from_funcs(self.PydelayingHistoryFunctionsDict)
 
 		#Set the size of the Buffer
-		if self.SimulatingStopTimeFloat<self.PydelayingBufferStepTimeFloat:
-			self.PydelayedBufferStepsInt=(int)(self.SimulatingStopTimeFloat/self.EuleringStepTimeFloat)
+		if self.PydelayingStopTimeFloat<self.PydelayingBufferStepTimeFloat:
+			self.PydelayedBufferStepsInt=(int)(
+				self.PydelayingStopTimeFloat/self.PydelayingSampleStepTimeFloat
+			)
 		else:
 			self.PydelayedBufferStepsInt=(int)(
-				self.PydelayingBufferStepTimeFloat/self.EuleringStepTimeFloat)
+				self.PydelayingBufferStepTimeFloat/self.PydelayingSampleStepTimeFloat
+			)
 
 		#debug
+		'''
 		self.debug(('self.',self,[
 						'PydelayedBufferStepsInt',
 						'SimulatingStopTimeFloat',
 						'PydelayingBufferStepTimeFloat'
 					]))
-
+		'''
+		
 		#init the buffer array
 		self.PydelayedBufferFloatsArray=np.array(
 				(
-					self.PopulatingUnitsInt,
+					self.PydelayedUnitsInt,
 					self.PydelayedBufferStepsInt
 				),
 				dtype=float
@@ -208,7 +275,7 @@ class PydelayerClass(BaseClass):
 
 		#Check
 		if self.PydelayingMoniterVariableIndexIntsArray==None:
-			self.PydelayingMoniterVariableIndexIntsArray=np.array(xrange(self.PopulatingUnitsInt))
+			self.PydelayingMoniterVariableIndexIntsArray=np.array(xrange(self.PydelayedUnitsInt))
 
 		#collect the global monitor
 		self.collect(
@@ -221,10 +288,10 @@ class PydelayerClass(BaseClass):
 						'MoniteringVariableIndexIntsArray':self.PydelayingMoniterVariableIndexIntsArray,
 						'MoniteredTotalVariablesArray':np.zeros(
 									(
-										self.PopulatingUnitsInt,
+										self.PydelayedUnitsInt,
 										(int)(
-											self.SimulatingStopTimeFloat-self.SimulatingStartTimeFloat
-										)/self.EuleringStepTimeFloat
+											self.PydelayingStopTimeFloat-self.SimulatingStartTimeFloat
+										)/self.PydelayingSampleStepTimeFloat
 									)
 								,dtype=float
 							)	

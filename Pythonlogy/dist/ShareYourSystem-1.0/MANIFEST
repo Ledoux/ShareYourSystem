@@ -125,6 +125,11 @@ ShareYourSystem/Specials/Simulaters/Dynamizer/Presentation.ipynb
 ShareYourSystem/Specials/Simulaters/Dynamizer/Readme.ipynb
 ShareYourSystem/Specials/Simulaters/Dynamizer/Readme.md
 ShareYourSystem/Specials/Simulaters/Dynamizer/__init__.py
+ShareYourSystem/Specials/Simulaters/Equationer/.DS_Store
+ShareYourSystem/Specials/Simulaters/Equationer/01_ExampleCell.py
+ShareYourSystem/Specials/Simulaters/Equationer/03_ExampleCell.py
+ShareYourSystem/Specials/Simulaters/Equationer/__init__.py
+ShareYourSystem/Specials/Simulaters/Equationer/Drafts/01_ExampleCell copy.py
 ShareYourSystem/Specials/Simulaters/Eulerer/01_ExampleCell.py
 ShareYourSystem/Specials/Simulaters/Eulerer/__init__.py
 ShareYourSystem/Specials/Simulaters/Integrater/01_ExampleCell.py
@@ -165,6 +170,7 @@ ShareYourSystem/Specials/Simulaters/Populater/__init__.py
 ShareYourSystem/Specials/Simulaters/Populater/Drafts/__init__ copy.py
 ShareYourSystem/Specials/Simulaters/Pydelayer/.DS_Store
 ShareYourSystem/Specials/Simulaters/Pydelayer/01_ExampleCell.py
+ShareYourSystem/Specials/Simulaters/Pydelayer/03_ExampleCell.py
 ShareYourSystem/Specials/Simulaters/Pydelayer/__init__.py
 ShareYourSystem/Specials/Simulaters/Pydelayer/Drafts/01_ExampleCell copy.py
 ShareYourSystem/Specials/Simulaters/Rater/.DS_Store

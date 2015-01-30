@@ -23,7 +23,13 @@ SYS.setSubModule(globals())
 #</ImportSpecificModules>
 
 #<DefineClass>
-@DecorationClass()
+@DecorationClass(
+	**{
+		'ClassingSwitchMethodStrsList':[
+			'populate'
+		]
+	}
+)
 class PopulaterClass(BaseClass):
 	
 	#Definition

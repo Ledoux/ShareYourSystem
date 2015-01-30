@@ -20,7 +20,7 @@ SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
-from ShareYourSystem.Brianers import Synapser
+from ShareYourSystem.Specials.Simulaters import Synapser
 #</ImportSpecificModules>
 
 #<DefineClass>
@@ -53,6 +53,9 @@ class NeurongrouperClass(BaseClass):
 				self
 			):	
 
+		#populate before
+		self.populate()
+
 		#maybe should import
 		from brian2 import NeuronGroup,SpikeMonitor,StateMonitor
 
@@ -61,6 +64,10 @@ class NeurongrouperClass(BaseClass):
 							'NeurongroupingKwargVariablesDict'
 							]))
 		
+		#Check
+		if 'N' not in self.NeurongroupingKwargVariablesDict:
+			self.NeurongroupingKwargVariablesDict['N']=self.PopulatingUnitsInt
+
 		#init
 		self.NeurongroupedBrianVariable=NeuronGroup(
 			**self.NeurongroupingKwargVariablesDict 

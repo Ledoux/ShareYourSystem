@@ -3,13 +3,33 @@
 import ShareYourSystem as SYS
 
 #Definition an instance
-MyNeuronGrouper=SYS.NeuronGrouperClass().run()
+MyNeurongrouper=SYS.NeurongrouperClass(
+	**{
+			#either set with N in the NeuronGroup Kwarg 
+			#or here at the populating level
+			#'PopulatingUnitsInt':100
+		}
+	).collect(
+		'SpikeMoniters',
+		'MySpikes',
+		SYS.MoniterClass()
+	).neurongroup(
+		{
+			'N':100,
+			'model':
+			'''
+				dv/dt = (-(v+60*mV)+11*mV + 5.*mV*sqrt(20.*ms)*xi)/(20*ms) : volt
+			''',
+			'threshold':'v>-50*mV',
+			'reset':'v=-70*mV'
+		}
+	)
 		
 #Definition the AttestedStr
 SYS._attest(
 	[
-		'MyNeuronGrouper is '+SYS._str(
-		MyNeuronGrouper,
+		'MyNeurongrouper is '+SYS._str(
+		MyNeurongrouper,
 		**{
 			'RepresentingBaseKeyStrsListBool':False,
 			'RepresentingAlineaIsBool':False
@@ -19,22 +39,23 @@ SYS._attest(
 ) 
 
 #Print
+from brian2 import Network,ms,mV
+MyNetwork=Network()
+map(
+	MyNetwork.add,
+	SYS.flat(
+		[
+			MyNeurongrouper.NeurongroupedBrianVariable,
+			MyNeurongrouper.NeurongroupedSpikeMonitorsList,
+			MyNeurongrouper.NeurongroupedStateMonitorsList
+		]
+	)
+)
 
-
-"""
-# Make a plot of x(t) vs x(t-tau):
-# Sample the solution twice with a stepsize of dt=0.1:
-
-# once in the interval [515, 1000]
-sol1 = dde.sample(515, 1000, 0.1)
-x1 = sol1['x']
-
-# and once between [500, 1000-15]
-sol2 = dde.sample(500, 1000-15, 0.1)
-x2 = sol2['x']
-
-pl.plot(x1, x2)
-pl.xlabel('$x(t)$')
-pl.ylabel('$x(t - 15)$')
-pl.show()
-"""
+#plot
+MyNeurongrouper.NeurongroupedBrianVariable.v=-55.*mV
+MyNetwork.run(500.*ms)
+M=MyNeurongrouper.NeurongroupedSpikeMonitorsList[0]
+from matplotlib import pyplot
+pyplot.plot(M.t/ms, M.i, '.')
+pyplot.show()
