@@ -107,7 +107,7 @@ class EquationerClass(BaseClass):
 									if __RowJacFloat>0.
 									else '('+str(__RowJacFloat)+')'
 									)+'*'+__EquationedVariableStr+(
-									'(t)'
+									'(t-0.)'
 									if hasattr(
 										__RowTagVariable,
 										'items'

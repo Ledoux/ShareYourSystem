@@ -57,16 +57,13 @@ class MoniterClass(BaseClass):
 			self.MoniteringDerivePopulaterVariable=self.NodePointDeriveNoder
 
 		#debug
-		'''
 		self.debug(('self.',self,[
 								'MoniteringSampleTimeIndexIntsArray',
 								'MoniteringVariableIndexIntsArray',
 								'MoniteringVariableStr'
 							]))
-		'''
 
 		#debug
-		'''
 		import numpy as np
 		MoniteredTempCompleteVariablesArray=getattr(
 				self.MoniteringDerivePopulaterVariable,
@@ -76,7 +73,6 @@ class MoniterClass(BaseClass):
 			np.shape(MoniteredTempCompleteVariablesArray)
 			)
 		)
-		'''
 
 		#pick
 		self.MoniteredTempVariablesArray=getattr(
@@ -84,6 +80,9 @@ class MoniterClass(BaseClass):
 				self.MoniteringVariableStr
 			)[
 				self.MoniteringVariableIndexIntsArray,
+				:
+			][
+				:,
 				self.MoniteringSampleTimeIndexIntsArray
 			]
 
@@ -106,7 +105,7 @@ class MoniterClass(BaseClass):
 		VariableLengthInt=len(self.MoniteringVariableIndexIntsArray)
 		self.MoniteredTotalVariablesArray[
 			self.MoniteringVariableIndexIntsArray,
-			self.MoniteringRecordTimeIndexIntsArray
+			self.MoniteringRecordTimeIndexIntsArray[0]:(self.MoniteringRecordTimeIndexIntsArray[-1]+1)
 		]=self.MoniteredTempVariablesArray
 
 		#debug

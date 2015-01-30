@@ -7,7 +7,7 @@ import numpy as np
 MyEquationer=SYS.EquationerClass(
 	).equation(
 		{
-			'x' : '0.25 * x(t-5.) / (1.0 + pow(x(t-5.),10)) -0.1*x'
+			'x' : '0.25 * x(t-5.0) / (1.0 + pow(x(t-5.0),10)) -0.1*x'
 		}
 	)
 
