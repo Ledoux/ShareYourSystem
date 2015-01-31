@@ -9,7 +9,6 @@ sticker
 
 */
 
-
 //define
 StickerClass = function(_InitDictObject) {
 
@@ -29,8 +28,18 @@ StickerClass = function(_InitDictObject) {
     //extend
     _.extend(LocalSticker,_InitDictObject)
 
+    //Debug
+    /*
+    console.log(
+        '_InitDictObject is \n',
+        _InitDictObject,
+        '\n',
+        Meteor.PatchRaphael
+    )
+    */
+    
     //Define the set
-    LocalSticker.set=PatchRaphael.set()
+    LocalSticker.set=Meteor.PatchRaphael.set()
     LocalSticker.set.Sticker=LocalSticker
         
     //Debug

@@ -3,31 +3,18 @@
 import ShareYourSystem as SYS
 import numpy as np 
 
+#Pick a random value
+ParamFloat=10.+np.random.rand()
+
 #Definition an instance
 MyEquationer=SYS.EquationerClass(
-	).collect(
-		'JacobianMatrixers',
-		'Leak',
-		SYS.MatrixerClass(
-			).matrix(
-				_SizeTuple=(2,2),
-				_StdFloat=0.,
-				_DiagFloatsArray=np.array([-1.,-1.])
-			)
-	).collect(
-		'JacobianMatrixers',
-		'Delay',
-		SYS.MatrixerClass(
-			).matrix(
-				_SizeTuple=(2,2),
-				_TagVariablesArray=np.array(
-					[
-						[{},{'DelayFloat':5.}],
-						[{'DelayFloat':5.},{}]
-					]
-				)
-			)
 	).equation(
+		{
+			'x' : '0.25 * x(t-5.0) / (1.0 + pow(x(t-5.0),p)) -0.1*x'
+		},
+		{
+			'p':ParamFloat
+		}
 	)
 
 #Definition the AttestedStr
@@ -51,7 +38,7 @@ MyPydelayer=SYS.PydelayerClass(
 		MyEquationer
 	).simulate(
 		20.,
-		np.array([1.,1.2])
+		np.array([1.])
 	)
 
 from matplotlib import pyplot

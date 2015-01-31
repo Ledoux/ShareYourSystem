@@ -1,10 +1,9 @@
 
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Standards.Objects import Structurer
 
 #Definition a "graph" structure
-MyStructurer=Structurer.StructurerClass().update(
+MyStructurer=SYS.StructurerClass().update(
 	[
 		(
 			'<Graph>ChildStructurer1',

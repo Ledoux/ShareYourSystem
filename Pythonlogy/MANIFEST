@@ -24,6 +24,7 @@ ShareYourSystem/Specials/Diffusers/Diffuser/01_ExampleDoc.py
 ShareYourSystem/Specials/Diffusers/Diffuser/Diffuser.pyc
 ShareYourSystem/Specials/Diffusers/Diffuser/Diffusion.pyc
 ShareYourSystem/Specials/Diffusers/Diffuser/__init__.py
+ShareYourSystem/Specials/Muzikers/.DS_Store
 ShareYourSystem/Specials/Muzikers/__init__.py
 ShareYourSystem/Specials/Muzikers/Differenciater/01_ExampleDoc.py
 ShareYourSystem/Specials/Muzikers/Differenciater/__init__.py
@@ -35,6 +36,11 @@ ShareYourSystem/Specials/Muzikers/Permuter/01_ExampleDoc.py
 ShareYourSystem/Specials/Muzikers/Permuter/__init__.py
 ShareYourSystem/Specials/Muzikers/Pooler/01_ExampleDoc.py
 ShareYourSystem/Specials/Muzikers/Pooler/__init__.py
+ShareYourSystem/Specials/Muzikers/Scaler/.DS_Store
+ShareYourSystem/Specials/Muzikers/Scaler/01_ExampleDoc.py
+ShareYourSystem/Specials/Muzikers/Scaler/__init__.py
+ShareYourSystem/Specials/Muzikers/Streamer/01_ExampleDoc.py
+ShareYourSystem/Specials/Muzikers/Streamer/__init__.py
 ShareYourSystem/Specials/Muzikers/Vexflower/01_ExampleDoc.py
 ShareYourSystem/Specials/Muzikers/Vexflower/Vexflower.py
 ShareYourSystem/Specials/Muzikers/Vexflower/__init__.py
@@ -126,8 +132,11 @@ ShareYourSystem/Specials/Simulaters/Dynamizer/Readme.ipynb
 ShareYourSystem/Specials/Simulaters/Dynamizer/Readme.md
 ShareYourSystem/Specials/Simulaters/Dynamizer/__init__.py
 ShareYourSystem/Specials/Simulaters/Equationer/.DS_Store
+ShareYourSystem/Specials/Simulaters/Equationer/00_ExampleDoc.md
 ShareYourSystem/Specials/Simulaters/Equationer/01_ExampleCell.py
+ShareYourSystem/Specials/Simulaters/Equationer/02_ExampleDoc.md
 ShareYourSystem/Specials/Simulaters/Equationer/03_ExampleCell.py
+ShareYourSystem/Specials/Simulaters/Equationer/05_ExampleCell.py
 ShareYourSystem/Specials/Simulaters/Equationer/__init__.py
 ShareYourSystem/Specials/Simulaters/Equationer/Drafts/01_ExampleCell copy.py
 ShareYourSystem/Specials/Simulaters/Eulerer/01_ExampleCell.py

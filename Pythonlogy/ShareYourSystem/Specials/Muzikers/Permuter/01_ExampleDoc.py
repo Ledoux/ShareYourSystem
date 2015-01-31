@@ -1,10 +1,9 @@
 
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Muzikers import Permuter
 
 #Definition a permuter
-MyPermuter=Permuter.PermuterClass().permute(3,7)
+MyPermuter=SYS.PermuterClass().permute(3,7)
 
 #Definition the AttestedStr
 SYS._attest(
@@ -15,8 +14,7 @@ SYS._attest(
 			'RepresentingBaseKeyStrsListBool':False,
 			'RepresentingAlineaIsBool':False
 		}
-		),
-		'MyPermuter.hdfview().HdformatedStr is '+MyPermuter.hdfview().HdformatedStr
+		)
 	]
 ) 
 

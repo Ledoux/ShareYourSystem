@@ -14,26 +14,24 @@ A Muziker
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Objects.Controller"
+BaseModuleStr="ShareYourSystem.Standards.Controllers.Systemer"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
-from music21 import converter
-from ShareYourSystem.Functers import Argumenter
+import music21 
 #</ImportSpecificModules>
 
 #<DefineClass>
 @DecorationClass()
-class VexflowerClass(BaseClass):
+class MuzikerClass(BaseClass):
 	
 	#Definition
 	RepresentingKeyStrsList=[
-									"MuzikingScoreStr"
-								]
+								"MuzikingScoreStr"
+							]
 
-	#@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.__init__}]})
 	def default_init(self,
 						_MuzikingScoreStr="",
 						_MuzikedMusic21Converter=None,
@@ -43,27 +41,27 @@ class VexflowerClass(BaseClass):
 		#Call the parent __init__ method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
-	#@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingMethodStr':'hdformat'}]})
-	@Argumenter.ArgumenterClass()
-	def muzik(self,_ScoreStr=None,**_KwargVariablesDict):
+	def do_muzik(self):
 
 		#debug
 		'''
 		self.debug(('self.',self,['MuzikingScoreStr']))
 		'''
 
+		"""
 		#Convert
 		if self.FileKeyStr!='' and self.FileKeyStr.endswith('.xml'):
 
-			self.MuzikedMusic21Converter=converter.parse(
+			self.MuzikedMusic21ConverterVariable=music21.converter.parse(
 				self.FilePathStr)
 
 		else:
 
-			self.MuzikedMusic21Converter=converter.parse(
+			self.MuzikedMusic21ConverterVariable=music21.converter.parse(
 				self.MuzikingScoreStr)
+		"""
 
-		#Return self
-		return self
+
+
 
 #</DefineClass>

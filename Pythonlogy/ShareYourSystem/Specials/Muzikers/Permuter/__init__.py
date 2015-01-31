@@ -14,7 +14,7 @@ A Permuter
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Objects.Controller"
+BaseModuleStr="ShareYourSystem.Standards.Controllers.Systemer"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -22,7 +22,6 @@ SYS.setSubModule(globals())
 #<ImportSpecificModules>
 import functools
 import itertools
-from ShareYourSystem.Functers import Argumenter,Hooker,Switcher
 #</ImportSpecificModules>
 
 #<DefineFunctions>
@@ -59,7 +58,6 @@ class PermuterClass(BaseClass):
 									'PermutedIntsList'
 								]
 
-	#@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.__init__}]})
 	def default_init(self,
 						_PermutingSubsetContentInt=0,
 						_PermutingSetLengthInt=0,
@@ -70,8 +68,7 @@ class PermuterClass(BaseClass):
 		#Call the parent __init__ method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
-	@Argumenter.ArgumenterClass()
-	def permute(self,_SubsetContentInt=None,_SetLengthInt=None,**_KwargVariablesDict):
+	def do_permute(self):
 
 		#debug
 		'''
@@ -83,8 +80,4 @@ class PermuterClass(BaseClass):
 			self.PermutingSubsetContentInt,
 			self.PermutingSetLengthInt
 		)
-
-		#Return self
-		return self
-
 #</DefineClass>

@@ -39,6 +39,8 @@ class PydelayerClass(BaseClass):
 		'PydelayingHistoryFunctionsDict',
 		'PydelayingBufferStepTimeFloat',
 		'PydelayedUnitsInt',
+		'PydelayedEquationDictsList',
+		'PydelayedParamDictsList',
 		'PydelayedDde23Variable',
 		'PydelayedVariableStrsList',
 		'PydelayedBufferFloatsArray',
@@ -55,6 +57,8 @@ class PydelayerClass(BaseClass):
 						_PydelayingHistoryFunctionsDict=None,
 						_PydelayingBufferStepTimeFloat=5.,
 						_PydelayedUnitsInt=0,
+						_PydelayedEquationDictsList=None,
+						_PydelayedParamDictsList=None,
 						_PydelayedDde23Variable=None,
 						_PydelayedVariableStrsList=None,
 						_PydelayedBufferFloatsArray=None,
@@ -195,6 +199,24 @@ class PydelayerClass(BaseClass):
 				lambda __PydelayedEquationDict:
 				self.PydelayingKwargVariablesDict['eqns'].update(__PydelayedEquationDict),
 				self.PydelayedEquationDictsList
+			)
+
+		#map populate and neurongroup
+		self.PydelayedParamDictsList=map(
+			lambda __PydelayedDeriveEquationer:
+			__PydelayedDeriveEquationer.EquationingParamDict,
+			self.PydelayedDeriveEquationersList
+		)
+
+		#Check
+		if 'params' not in self.PydelayingKwargVariablesDict:
+			self.PydelayingKwargVariablesDict['params']={}
+
+		#update
+		map(
+				lambda __PydelayedParamDict:
+				self.PydelayingKwargVariablesDict['params'].update(__PydelayedParamDict),
+				self.PydelayedParamDictsList
 			)
 
 		#debug

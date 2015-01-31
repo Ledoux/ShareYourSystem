@@ -34,6 +34,7 @@ class EquationerClass(BaseClass):
 	#Definition
 	RepresentingKeyStrsList=[
 		'EquationingDifferentialDict',
+		'EquationingParamDict',
 		'EquationingSymbolStr',
 		'EquationedVariableStrsList',
 		'EquationedPreExpressionStrsList'
@@ -41,6 +42,7 @@ class EquationerClass(BaseClass):
 
 	def default_init(self,
 						_EquationingDifferentialDict=None,
+						_EquationingParamDict=None,
 						_EquationingSymbolStr='x',
 						_EquationedVariableStrsList=None,
 						_EquationedPreExpressionStrsList=None,

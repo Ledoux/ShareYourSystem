@@ -14,14 +14,13 @@ A Pooler...
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Objects.Controller"
+BaseModuleStr="ShareYourSystem.Standards.Controllers.Systemer"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
 import itertools
-from ShareYourSystem.Functers import Argumenter,Hooker,Switcher
 #</ImportSpecificModules>
 
 
@@ -33,22 +32,20 @@ class PoolerClass(BaseClass):
 	RepresentingKeyStrsList=[
 									'PoolingSubsetLengthInt',
 									'PoolingSetLengthInt',
-									'PooledIntsList'
+									'PooledIntsListsList'
 								]
 
-	#@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.__init__}]})
 	def default_init(self,
 						_PoolingSubsetLengthInt=0,
 						_PoolingSetLengthInt=0,
-						_PooledIntsList=None,
+						_PooledIntsListsList=None,
 						**_KwargVariablesDict
 					):
 
 		#Call the parent __init__ method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
-	@Argumenter.ArgumenterClass()
-	def pool(self,_SubsetLengthInt=None,_SetLengthInt=None,**_KwargVariablesDict):
+	def do_pool(self):
 
 		#debug
 		self.debug(('self.',self,[
@@ -57,7 +54,7 @@ class PoolerClass(BaseClass):
 								]))
 
 		#Combine
-		self.PooledIntsList=list(
+		self.PooledIntsListsList=list(
 			itertools.combinations(
 				xrange(self.PoolingSetLengthInt),
 				self.PoolingSubsetLengthInt
@@ -66,10 +63,14 @@ class PoolerClass(BaseClass):
 		
 		#debug
 		'''
-		self.debug(('self.',self,['PooledIntsList']))
+		self.debug(('self.',self,['PooledIntsListsList']))
 		'''
 
-		#Return self
-		return self
+		#filter only the one with the pitch 0
+		self.PooledIntsListsList=SYS._filter(
+			lambda __PooledInt:
+			__PooledInt[0]==0,
+			self.PooledIntsListsList
+		)
 
 #</DefineClass>

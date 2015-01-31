@@ -1,9 +1,3 @@
-from solvers import Solver, Adaptive
-
-
-
-
-"""
 #ImportModules
 import ShareYourSystem as SYS
 
@@ -62,4 +56,4 @@ SYS._attest(
 ) 
 
 #Print
-"""
+

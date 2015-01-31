@@ -325,6 +325,8 @@ SelectionClass = function() {
     }
 }
 
+/*
+
 Meteor.startup(
     function()
     {
@@ -358,4 +360,4 @@ Meteor.startup(
             );
     }
 )
-
+*/

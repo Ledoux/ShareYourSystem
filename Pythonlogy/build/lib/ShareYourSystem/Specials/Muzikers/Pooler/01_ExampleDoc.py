@@ -1,10 +1,9 @@
 
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Muzikers import Pooler
 
 #Definition a Pooler
-MyPooler=Pooler.PoolerClass().pool(8,12)
+MyPooler=SYS.PoolerClass().pool(7,12)
 
 #Definition the AttestedStr
 SYS._attest(
@@ -15,9 +14,7 @@ SYS._attest(
 			'RepresentingBaseKeyStrsListBool':False,
 			'RepresentingAlineaIsBool':False
 		}
-		),
-		'MyPooler.hdfview().HdformatedStr is '+MyPooler.hdfview().HdformatedStr
-	]
+		)]
 ) 
 
 #Print

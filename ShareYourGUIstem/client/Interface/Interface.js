@@ -64,21 +64,45 @@ Session.set('PatchStrsArray',[
           ]
         )
 
-//End to set up the abstractions
-_.map(
-    AbstractionsDictObject,
-    function(__Abstraction)
-    {
-      //Debug
-      /*
-      console.log(
-        'l 74 Interface',
-        '__Abstraction is \n',
-        __Abstraction
-      )
-      */
-      
-      //tini
-      __Abstraction.tini()
-    }
-  )
+Template.Interface.rendered=function()
+{
+    //require
+    //require('raphael')
+
+    //Debug
+    /*
+    console.log(
+      'init a Raphael patch\n',
+      '$("#PatchSvg").get(0) is \n',
+      $('#PatchSvg').get(0)
+    )
+    */
+    
+    //build the Raphael environment
+    PatchRaphael=Raphael($('#PatchSvg').get(0))
+    Meteor.PatchRaphael=PatchRaphael
+
+    //get
+    PatchSvg=$('#PatchSvg')
+    PatchSvgOffset=PatchSvg.offset()
+
+    //init
+    StickerSetsSet=PatchRaphael.set()
+
+    //set that will receive the selected items
+    PatchSelection=new SelectionClass()
+
+    //init
+    var BackRect = PatchRaphael.rect(
+                    0, 0, PatchRaphael.width, PatchRaphael.height
+                  ).attr(
+                    "fill", "#FDFDFD"
+                  );
+    BackRect.drag(
+            PatchSelection.dragSelectionRectMove, 
+            PatchSelection.dragSelectionRectStart, 
+            PatchSelection.dragSelectionRectStop
+        );
+}
+
+

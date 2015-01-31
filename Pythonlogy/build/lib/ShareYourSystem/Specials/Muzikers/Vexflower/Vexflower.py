@@ -1,10 +1,21 @@
-from music21 import *
+import music21
 #us = environment.UserSettings()
 #us.create()  
 #sBach = corpus.parse('bach/bwv7.7')
 #sBach.show()
 #converter.parse('/Users/cuthbert/Desktop/Bach.xml',sBach)
-Music21File=converter.parse("tinynotation: 3/4 c4 d8 f g16 a g f#")
+#Music21File=converter.parse("tinynotation: 3/4 c4 d8 f g16 a g f#")
+
+
+
+print(music21.note)
+
+s=music21.stream.Stream()
+
+
+
+
+
 
 #Music21File.show('text')
 #print(Music21File._elements[1].__dict__)
@@ -12,12 +23,12 @@ Music21File=converter.parse("tinynotation: 3/4 c4 d8 f g16 a g f#")
 #Music21File._elements[1].JJJ='noqsdqsdq'
 #Music21File.write('musicxml',fp="./Music21.xml")
 
-a=vexflow.fromObject(Music21File,mode='html')
+#a=vexflow.fromObject(Music21File,mode='html')
 
-help(vexflow.fromObject)
+#help(vexflow.fromObject)
 
 
-print a.replace('CANVAS','SVG')
+#print a.replace('CANVAS','SVG')
 
 
 #Music21File.write('lilypond',fp="./Music21.ly")

@@ -20,10 +20,13 @@ console.log(
 
 //map subscribe
 _.map(
-  _.keys(CollectionsDictObject),
+  _.union(_.keys(CollectionsDictObject),['messages']),
   function(__CollectionStr)
   {
-    Meteor.subscribe(__CollectionStr[0].toLowerCase()+__CollectionStr.slice(1))
+    Meteor.subscribe(
+    	__CollectionStr[0].toLowerCase()+__CollectionStr.slice(1)
+    	)
   }
 )
+
 

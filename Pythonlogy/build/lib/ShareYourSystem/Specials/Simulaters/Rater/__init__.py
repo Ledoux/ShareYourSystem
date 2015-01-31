@@ -14,21 +14,13 @@ A Rater
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Specials.Simulaters.Dynamizer"
+BaseModuleStr="ShareYourSystem.Specials.Simulaters.Pydelayer"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<DefineFunctions>
-def RateJacUnboundFunction(
-				_InstanceVariable,
-				_FloatsArray,
-				**_KwargVariablesDict
-			):
-
-	return (_FloatsArray+_InstanceVariable.RatingExternalFloatsArray
-		)/_InstanceVariable.RatingTimeConstantVariable
-
+from ShareYourSystem.Specials.Simulaters import Rater
 #</DefineFunctions>
 
 #<DefineClass>
@@ -37,21 +29,53 @@ class RaterClass(BaseClass):
 	
 	#Definition
 	RepresentingKeyStrsList=[
-								'RatingMatrixStr',
-								'RatedPreStr'
+								'RatingTimeConstantVariable',
+								'RatedPostFloatsArray'
 							]
 
 	def default_init(self,
+						_RatingUnitsInt=0,
 						_RatingTimeConstantVariable=1.,
-						_RatedPostFloatsArray"",
+						_RatingDelayTimeFloat=0.,
+						_RatingWeigthFloat=0.,
+						_RatingSymmetryFloat=0.,
 						**_KwargVariablesDict
 					):
 
 		#Call the parent __init__ method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
-		#init
-		self.EuleringJacUnboundFunction=RateJacUnboundFunction
+		#collect
+		self.collect(
+			'Equationers',
+			'RateEquationer',
+			SYS.EquationerClass(
+			).collect(
+				'JacobianMatrixers',
+				'Leak',
+				SYS.MatrixerClass(
+					).matrix(
+						_SizeTuple=(2,2),
+						_StdFloat=0.,
+						_DiagFloatsArray=np.array([-1.,-1.])
+					)
+			).collect(
+				'JacobianMatrixers',
+				'Delay',
+				SYS.MatrixerClass(
+					).matrix(
+						_SizeTuple=(2,2),
+						_TagVariablesArray=np.array(
+							[
+								[{},{'DelayFloat':5.}],
+								[{'DelayFloat':5.},{}]
+							]
+						)
+					)
+			).equation(
+			)
+	)
+
 
 	def do_rate(
 				self,

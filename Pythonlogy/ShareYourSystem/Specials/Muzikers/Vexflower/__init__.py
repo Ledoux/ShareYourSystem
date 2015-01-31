@@ -14,15 +14,13 @@ A Vexflower
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Objects.Muziker"
+BaseModuleStr="ShareYourSystem.Specials.Muzikers.Muziker"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
 from music21 import vexflow
-from ShareYourSystem.Standards.Objects import Noder
-from ShareYourSystem.Functers import Argumenter,Hooker,Switcher
 #</ImportSpecificModules>
 
 #<DefineClass>
@@ -33,7 +31,6 @@ class VexflowerClass(BaseClass):
 	RepresentingKeyStrsList=[
 								]
 
-	#@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.__init__}]})
 	def default_init(self,
 						_VexflowedMusic21Str="",
 						**_KwargVariablesDict
@@ -42,9 +39,7 @@ class VexflowerClass(BaseClass):
 		#Call the parent __init__ method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
-	#@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingMethodStr':'hdformat'}]})
-	@Argumenter.ArgumenterClass()
-	def vexflow(self,**_KwargVariablesDict):
+	def do_vexflow(self):
 
 		#first muzik
 		self.muzik()
@@ -52,8 +47,5 @@ class VexflowerClass(BaseClass):
 		#vexflow now
 		self.VexflowedMusic21Vexflow=vexflow.fromObject(
 			self.MuzikedMusic21Converter)
-
-		#Return self
-		return self
 
 #</DefineClass>
