@@ -41,34 +41,117 @@ initScales=function()
 			//object
 			var ScalesDictObject=_.object(
 				_.map(
-					ScaleIntsArraysArray,
-					function(__ScaleIntsArray)
+					_.range(_.size(ScaleIntsArraysArray)),
+					function(__IndexInt)
 					{
+						//define
+						var ScaleIntsArray=ScaleIntsArraysArray[__IndexInt]
+
+						//return
 						return [
-							__ScaleIntsArray.toString(),
+							ScaleIntsArray.toString(),
 							{
+								'KeyStr':ScaleIntsArray.join('').toString(),
+								'IndexInt':__IndexInt,
+								'NameStr':"Unnamed",
 								'NotesInt':__NotesInt,
-								'PoolIntsArray':__ScaleIntsArray,
+								'PoolIntsArray':ScaleIntsArray,
 								'NoteSharpsArray':_.map(
-										__ScaleIntsArray,
+										ScaleIntsArray,
 										function(__ScaleInt)
 										{
 											return NoteSharpStrsArray[__ScaleInt]
 										}
 									),
 								'NoteFlatsArray':_.map(
-										__ScaleIntsArray,
+										ScaleIntsArray,
 										function(__ScaleInt)
 										{
 											return NoteFlatStrsArray[__ScaleInt]
 										}
-									)
+									),
+								'IntervalIntsArray':
+								_.map(
+										_.range(_.size(ScaleIntsArray)),
+										function(__IndexInt)
+										{
+											if(__IndexInt<(_.size(ScaleIntsArray)-1))
+											{
+												return ScaleIntsArray[__IndexInt+1]-ScaleIntsArray[__IndexInt]
+											}
+											else{
+												return 12-ScaleIntsArray[__IndexInt]
+											}
+
+										}
+									),
+								'MinorThirdBool':_.contains(ScaleIntsArray,3),
+								'MajorThirdBool':_.contains(ScaleIntsArray,4),
+								'MinorSevenBool':_.contains(ScaleIntsArray,10),
+								'MajorSevenBool':_.contains(ScaleIntsArray,11),
+								'PerfectFifthBool':_.contains(ScaleIntsArray,7),
+								'DimFifthBool':_.contains(ScaleIntsArray,6),
 							}
 						]
 					}
 				)
 			)
 			//console.log(ScalesDictObject)
+
+			_.map(
+				ScalesDictObject,
+				function(__ValueObject,__KeyStr)
+				{
+					_.extend(
+						__ValueObject,
+						{
+							//distance compute
+							'DistanceIntsArray':_.map(
+										_.range(_.size(__ValueObject['IntervalIntsArray'])),
+										function(__IndexInt)
+										{
+											if(__IndexInt<(_.size(__ValueObject[
+												'IntervalIntsArray'])-1))
+											{
+												return __ValueObject['IntervalIntsArray'
+												][__IndexInt+1]-__ValueObject['IntervalIntsArray'][
+												__IndexInt]
+											}
+											else{
+												return __ValueObject['IntervalIntsArray'][
+												__IndexInt]-__ValueObject['IntervalIntsArray'][
+												0]
+											}
+
+										}
+									),
+
+							//classic interval test
+							'Major7Bool':__ValueObject['PerfectFifthBool'] && __ValueObject['MajorThirdBool'] && __ValueObject['MajorSevenBool'
+							] && __ValueObject['MinorThirdBool']==false && __ValueObject['MinorSevenBool']==false,
+							'Minor7Bool':__ValueObject['PerfectFifthBool'] && __ValueObject['MinorThirdBool'] && __ValueObject['MinorSevenBool'
+							] && __ValueObject['MajorThirdBool']==false && __ValueObject['MajorSevenBool']==false
+						}
+					)
+
+					//classic chord test
+					_.map(
+						['Major7Bool','Minor7Bool'],
+						function(__BoolKeyStr)
+						{
+							if(__ValueObject[__BoolKeyStr])
+							{
+								__ValueObject['NameStr']=__BoolKeyStr.replace('Bool','')
+							}
+						}
+					)
+
+					//Jim or Barack scale test
+					__ValueObject['JimScaleBool']=_.contains(
+						__ValueObject['DistanceIntsArray'],0)==false
+
+				}
+			)
 
 			
 			//map inserts

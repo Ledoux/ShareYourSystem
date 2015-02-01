@@ -21,13 +21,21 @@ ScaleAbstraction=new AbstractionClass(
   }
 )
 
-console.log(Vex)
-
 Template.Scale.rendered = function()
 {
-
+    //Debug
+    /*
+    console.log(
+            '".SvgScore#"+this.data._id" is \n',
+            '.SvgScore#Svg'+this.data._id,
+            '\n',
+            "$('.SvgScore#Svg'+this.data._id)[0] is \n",
+            $(".SvgScore#Svg"+this.data._id)[0]
+        )
+    */
+    
     var renderer = new Vex.Flow.Renderer(
-        $("#"+this.data._id)[0],
+        $(".SvgScore#Svg"+this.data._id)[0],
         Vex.Flow.Renderer.Backends.RAPHAEL
     );
 
@@ -37,20 +45,20 @@ Template.Scale.rendered = function()
 
     // Create the notes
     var notes = _.map(
-            this.data.NoteSharpsArray,
-            function(__NoteSharp)
+            this.data.NoteFlatsArray,
+            function(__NoteFlat)
             {
                 //init
                 StaveNote=new Vex.Flow.StaveNote(
-                    { keys: [__NoteSharp[0].toLowerCase()+"/4"], duration: "q" }
+                    { keys: [__NoteFlat[0].toLowerCase()+"/4"], duration: "q" }
                     )
 
                 //check for sharp and flat
-                if(__NoteSharp.slice(1)=="#")
+                if(__NoteFlat.slice(1)=="#")
                 {
                     StaveNote.addAccidental(0, new Vex.Flow.Accidental("#"))
                 }
-                if(__NoteSharp.slice(1)=="b")
+                if(__NoteFlat.slice(1)=="b")
                 {
                     StaveNote.addAccidental(0, new Vex.Flow.Accidental("b"))
                 }
@@ -65,7 +73,7 @@ Template.Scale.rendered = function()
 
     // Create a voice in 4/4
     var voice = new Vex.Flow.Voice({
-        num_beats: _.size(this.data.NoteSharpsArray),
+        num_beats: _.size(this.data.NoteFlatsArray),
         beat_value: 4,
         resolution: Vex.Flow.RESOLUTION
     });
@@ -81,3 +89,43 @@ Template.Scale.rendered = function()
     voice.draw(ctx, stave);
 
 }
+
+Template.Scale.events = {
+    'click .InputScore': function()
+    {   
+        //
+        var conductor = new BandJS();
+        conductor.setTimeSignature(4,4);
+        conductor.setTempo(120);
+
+        //
+        var piano = conductor.createInstrument();
+
+        //map
+        _.map(
+                this.NoteFlatsArray,
+                function(__NoteFlat)
+                {
+                    piano.note('quarter',__NoteFlat+"4")
+                }
+            )
+
+        //
+        var player = conductor.finish();
+        player.play()
+    }
+}
+
+Template.Scale.helpers(
+    _.extend(
+        ScaleAbstraction['ChildHelpersObject'],
+        {
+            'SvgId':function(){
+                return 'Svg'+this._id
+            },
+            'InputId':function(){
+                return 'Input'+this._id
+            }
+        }
+    )
+)

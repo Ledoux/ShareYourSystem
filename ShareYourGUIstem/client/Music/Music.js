@@ -19,11 +19,13 @@ MusicAbstraction=new AbstractionClass(
     	'scales':function()
     	{
     		//Debug
+    		/*
 			console.log(
-				'Template Patch helpers l 25 \n',
+				'Template Music helpers l 25 \n',
 				'Session.get("ScaleConditionsDictObject") is \n',
 				Session.get('ScaleConditionsDictObject')
 			)
+			*/
 
 			//find
 			var Find=Scales.find(
@@ -31,11 +33,13 @@ MusicAbstraction=new AbstractionClass(
 			)
 
 			//Debug
+			/*
 			console.log(
 				'Template Patch helpers l 45 \n',
 				'Find.fetch() is \n',
 				Find.fetch()
 			)
+			*/
 
 			//return
 			return Find
@@ -48,7 +52,7 @@ MusicAbstraction=new AbstractionClass(
 Session.set(
 	'ScaleConditionsDictObject',
 	{
-		'NotesInt':7
+		'NotesInt':4
 	}
 )
 

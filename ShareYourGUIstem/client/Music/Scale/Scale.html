@@ -1,13 +1,43 @@
 <template name="Scale">
 
 	<td>
-		{{PoolIntsArray}}<br>
-		{{NoteSharpsArray}}<br>
-		{{NoteFlatsArray}}
+		Scale n. {{IndexInt}} <br>
+		Name : {{NameStr}}
 	</td>
 	<td>
+		{{PoolIntsArray}}<br>
+		{{NoteSharpsArray}}<br>
+		{{NoteFlatsArray}}<br>
+		{{IntervalIntsArray}}<br>
+		{{DistanceIntsArray}}
+	</td>
+	<td>
+		{{#if MinorThirdBool}}
+		3- : {{MinorThirdBool}} 
+		{{/if}}
+		{{#if MajorThirdBool}}
+		3  : {{MajorThirdBool}} 
+		{{/if}} <br>
+		{{#if MinorSevenBool}}
+		7- : {{MinorSevenBool}} 
+		{{/if}}
+		{{#if MajorSevenBool}}
+		7 : {{MajorSevenBool}} 
+		{{/if}} <br>
+		{{#if PerfectFifthBool}}
+		5 : {{PerfectFifthBool}} 
+		{{/if}}
+		{{#if DimFifthBool}}
+		5- : {{DimFifthBool}} 
+		{{/if}} <br>
+		{{#if JimScaleBool}}
+		JimScale
+		{{/if}} <br>
+	</td>
+	<td>
+		<input class="InputScore" type="button" id={{InputId}} value="play" />
 		<div>
-			<svg id={{_id}} width="300" height="100">
+			<svg class="SvgScore" id={{SvgId}} width="300" height="100">
 			</svg>
 		</div>
 	</td>

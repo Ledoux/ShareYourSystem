@@ -12,13 +12,7 @@
 	"famous-polyfills": {
 		"alias": "famous.polyfills"
 	},
-	"raphael": {
-		"bower":"raphael"
-	},
 	"underscore": {
 		"bower":"underscore"
-	},
-	"vexflow":{
-		"bower":"vexflow"
 	}
 }
