@@ -2,14 +2,22 @@
 
 	<td>
 		Scale n. {{IndexInt}} <br>
-		Name : {{NameStr}}
+		Name : {{NameStr}} <br>
+		{{ScaleCountInt}}
 	</td>
 	<td>
-		{{PoolIntsArray}}<br>
-		{{NoteSharpsArray}}<br>
-		{{NoteFlatsArray}}<br>
-		{{IntervalIntsArray}}<br>
-		{{DistanceIntsArray}}
+		{{#if Major7Bool}}
+			Major7
+		{{/if}}
+		{{#if Minor7Bool}}
+			Minor7
+		{{/if}}
+		{{#if Dominant7Bool}}
+			Dominant7
+		{{/if}}
+		{{#if MinMaj7Bool}}
+			MinMaj7
+		{{/if}}
 	</td>
 	<td>
 		{{#if MinorThirdBool}}
@@ -33,6 +41,9 @@
 		{{#if JimScaleBool}}
 		JimScale
 		{{/if}} <br>
+	</td>
+	<td>
+		{{PoolIntsArray}}<br>
 	</td>
 	<td>
 		<input class="InputScore" type="button" id={{InputId}} value="play" />

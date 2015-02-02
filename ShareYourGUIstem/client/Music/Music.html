@@ -1,18 +1,50 @@
 <template name="Music">
 
- <table border="1" width="700">
+	<table border="1" width="800">
+		{{#each scales}}
 
- {{#each scales}}
+			<tr align="center">
+				<br>
+				{{>Scale}}
+				<br>
+			</tr>
 
- 	<tr align="center">
- 		<br>
- 		{{>Scale}}
- 		<br>
- 	</tr>
+		{{/each}}
+	</table>
 
- {{/each}}
+	<!--
+	<table border="1" width="800">
+ 
+		
+		{{#each voices}}
 
-</table>
+			<tr align="center">
+				<br>
+				{{>Voice}}
+				<br>
+			</tr>
+
+		{{/each}}
+		
+
+	</table>
+	-->
+
+	<!--
+	<table border="1" width="800">
+
+		{{#each patterns}}
+
+		 	<tr align="center">
+		 		<br>
+		 		{{>Pattern}}
+		 		<br>
+		 	</tr>
+
+		{{/each}}
+		 
+	</table>
+	-->
 
 </template>
 

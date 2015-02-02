@@ -19,7 +19,9 @@ CollectionStrsList=[
     "connectors",
     "messages",
     "musics",
-    "scales"
+    "scales",
+    "patterns",
+    "voices"
 ]
 CollectionsDictObject={}
 

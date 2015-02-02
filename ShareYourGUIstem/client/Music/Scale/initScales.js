@@ -56,14 +56,14 @@ initScales=function()
 								'NameStr':"Unnamed",
 								'NotesInt':__NotesInt,
 								'PoolIntsArray':ScaleIntsArray,
-								'NoteSharpsArray':_.map(
+								'NoteSharpStrsArray':_.map(
 										ScaleIntsArray,
 										function(__ScaleInt)
 										{
 											return NoteSharpStrsArray[__ScaleInt]
 										}
 									),
-								'NoteFlatsArray':_.map(
+								'NoteFlatStrsArray':_.map(
 										ScaleIntsArray,
 										function(__ScaleInt)
 										{
@@ -114,29 +114,68 @@ initScales=function()
 												'IntervalIntsArray'])-1))
 											{
 												return __ValueObject['IntervalIntsArray'
-												][__IndexInt+1]-__ValueObject['IntervalIntsArray'][
+												][__IndexInt+1]+__ValueObject['IntervalIntsArray'][
 												__IndexInt]
 											}
 											else{
 												return __ValueObject['IntervalIntsArray'][
-												__IndexInt]-__ValueObject['IntervalIntsArray'][
+												__IndexInt]+__ValueObject['IntervalIntsArray'][
 												0]
 											}
 
 										}
 									),
 
-							//classic interval test
-							'Major7Bool':__ValueObject['PerfectFifthBool'] && __ValueObject['MajorThirdBool'] && __ValueObject['MajorSevenBool'
+							//classic tetrade test
+							'Major7Bool': __ValueObject['MajorThirdBool'] && __ValueObject['MajorSevenBool'
 							] && __ValueObject['MinorThirdBool']==false && __ValueObject['MinorSevenBool']==false,
-							'Minor7Bool':__ValueObject['PerfectFifthBool'] && __ValueObject['MinorThirdBool'] && __ValueObject['MinorSevenBool'
-							] && __ValueObject['MajorThirdBool']==false && __ValueObject['MajorSevenBool']==false
+							'Minor7Bool':__ValueObject['MinorThirdBool'] && __ValueObject['MinorSevenBool'
+							] && __ValueObject['MajorThirdBool']==false && __ValueObject['MajorSevenBool']==false,
+							'Dominant7Bool': __ValueObject['MajorThirdBool'] && __ValueObject['MinorSevenBool'
+							] && __ValueObject['MinorThirdBool']==false && __ValueObject['MajorSevenBool']==false,
+							'MinMaj7Bool': __ValueObject['MinorThirdBool'] && __ValueObject['MajorSevenBool'
+							] && __ValueObject['MajorThirdBool']==false && __ValueObject['MinorSevenBool']==false
+
 						}
 					)
+				}
+			)
 
-					//classic chord test
+			//map
+			_.map(
+					ScalesDictObject,
+					function(__ValueObject,__KeyStr)
+					{
+						//define
+						var PoolIntsArray=__ValueObject['PoolIntsArray']
+
+						//extend
+						_.extend(
+							__ValueObject,
+							{
+		
+								//classic mode test
+								'Ionien7Bool':__ValueObject['PerfectFifthBool'] && __ValueObject['DimFifthBool']==false && __ValueObject['Major7Bool'
+								] && _.contains(PoolIntsArray,2) && _.contains(PoolIntsArray,9),
+								'Dorien7Bool':__ValueObject['PerfectFifthBool'] && __ValueObject['DimFifthBool']==false && __ValueObject['Minor7Bool'
+								] && _.contains(PoolIntsArray,2) && _.contains(PoolIntsArray,9),
+								'Phrygian7Bool':__ValueObject['PerfectFifthBool'] && __ValueObject['DimFifthBool']==false && __ValueObject['Minor7Bool'
+								] && _.contains(PoolIntsArray,1) && _.contains(PoolIntsArray,8),
+								'Lydian7Bool':__ValueObject['PerfectFifthBool'] && __ValueObject['DimFifthBool'] && __ValueObject['Major7Bool'
+								] && _.contains(PoolIntsArray,2) && _.contains(PoolIntsArray,9),
+								'Mixolydian7Bool':__ValueObject['PerfectFifthBool'] && __ValueObject['DimFifthBool']==false && __ValueObject['Dominant7Bool'
+								] && _.contains(PoolIntsArray,2) && _.contains(PoolIntsArray,9),
+								'Eolien7Bool':__ValueObject['PerfectFifthBool'] && __ValueObject['DimFifthBool']==false && __ValueObject['Minor7Bool'
+								] && _.contains(PoolIntsArray,2) && _.contains(PoolIntsArray,8),
+								'Locrien7Bool':__ValueObject['DimFifthBool'] && __ValueObject['PerfectFifthBool']==false && __ValueObject['Minor7Bool'
+								] && _.contains(PoolIntsArray,1) && _.contains(PoolIntsArray,8)
+							}
+						)
+	
+					//name
 					_.map(
-						['Major7Bool','Minor7Bool'],
+						//['Major7Bool','Minor7Bool'],
+						['Ionien7Bool','Dorien7Bool','Phrygian7Bool','Lydian7Bool','Mixolydian7Bool','Eolien7Bool','Locrien7Bool'],
 						function(__BoolKeyStr)
 						{
 							if(__ValueObject[__BoolKeyStr])
@@ -148,12 +187,13 @@ initScales=function()
 
 					//Jim or Barack scale test
 					__ValueObject['JimScaleBool']=_.contains(
-						__ValueObject['DistanceIntsArray'],0)==false
-
-				}
-			)
-
-			
+							__ValueObject['DistanceIntsArray'],2
+						)==false
+	
+					}
+				)
+					
+	
 			//map inserts
 			_.map(
 				ScalesDictObject,

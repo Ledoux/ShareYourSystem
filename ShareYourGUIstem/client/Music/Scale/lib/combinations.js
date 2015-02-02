@@ -139,8 +139,8 @@ combinations =function(set) {
 
 */
 
-cartesianproduct=function() {
-    return _.reduce(arguments, function(a, b) {
+cartesianproduct=function(_CartesianArray) {
+    return _.reduce(_CartesianArray, function(a, b) {
         return _.flatten(_.map(a, function(x) {
             return _.map(b, function(y) {
                 return x.concat([y]);
