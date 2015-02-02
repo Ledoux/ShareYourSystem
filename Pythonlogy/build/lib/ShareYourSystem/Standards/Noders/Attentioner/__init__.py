@@ -67,8 +67,12 @@ class AttentionerClass(BaseClass):
 				self
 			).catch(
 				self.AttentioningCollectionStr,
-				_CatchingUpdateVariable=self.AttentioningUpdateVariable
 			)
+
+		#update
+		self.GraspedAnswerVariable.CatchedDerivePointerVariable.update(
+			self.AttentioningUpdateVariable
+		)
 
 		
 

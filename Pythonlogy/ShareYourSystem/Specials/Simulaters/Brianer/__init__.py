@@ -238,13 +238,22 @@ class BrianerClass(BaseClass):
 		)	
 		
 		#debug
+		'''
 		self.debug(
 			[
 				('self.',self,['BrianedStateMonitorsList']),
 				'Now we synapse...'
 			]
 		)
+		'''
 
+
+		print(map(
+			lambda __BrianedDeriveSynapser:
+			__BrianedDeriveSynapser.SynapsingKwargVariablesDict,
+			self.BrianedDeriveSynapsersList
+			)
+		)
 
 		#map synapse
 		self.BrianedSynapsesList=map(

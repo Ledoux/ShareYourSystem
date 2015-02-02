@@ -24,6 +24,7 @@ SYS.setSubModule(globals())
 from ShareYourSystem.Standards.Itemizers import Pointer
 from ShareYourSystem.Standards.Noders import Noder
 import collections
+import copy
 #</ImportSpecificModules>
 
 #<DefineClass>
@@ -66,14 +67,23 @@ class CatcherClass(BaseClass):
 		self.debug(
 					('self.',self,[
 									'CatchingCollectionStr',
+									'GraspingClueVariable'
 								])
 				)
 		'''
 
 		#link
 		if type(self.GraspingClueVariable)==SYS.GraspDictClass:
-			self.CatchingUpdateVariable=self.GraspingClueVariable
+			self.CatchingUpdateVariable=copy.deepcopy(self.GraspingClueVariable)
 
+		#debug
+		'''
+		self.debug(
+					('self.',self,[
+									'CatchingUpdateVariable'
+								])
+				)
+		'''
 
 		#Defaut set for the collection keyStr
 		self.CatchedNodeKeyStr=""
@@ -166,6 +176,15 @@ class CatcherClass(BaseClass):
 			self.CatchedDerivePointerVariable
 		)
 
+		#debug
+		'''
+		self.debug(
+					('self.',self,[
+									'CatchingUpdateVariable'
+								])
+				)
+		'''
+		
 		#set
 		self.CatchedDerivePointerVariable.update(
 			self.CatchingUpdateVariable

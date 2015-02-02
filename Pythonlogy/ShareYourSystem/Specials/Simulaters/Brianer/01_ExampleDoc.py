@@ -100,6 +100,23 @@ SYS._attest(
 	]
 ) 
 
+#Definition the AttestedStr
+'''
+SYS._print(
+		[
+			"MyBrianer['<Neurongroupers>ENeurongrouper'].NeurongroupedBrianVariable.equations is ",
+			MyBrianer['<Neurongroupers>ENeurongrouper'].NeurongroupedBrianVariable.equations.__dict__
+		]
+	)
+SYS._print(
+	[
+		"MyBrianer['<Neurongroupers>INeurongrouper'].NeurongroupedBrianVariable.equations is ",
+		MyBrianer['<Neurongroupers>INeurongrouper'].NeurongroupedBrianVariable.equations.__dict__
+	]
+)
+'''
+
+
 #init
 import brian2
 map(

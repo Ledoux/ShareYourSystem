@@ -124,15 +124,17 @@ class NeurongrouperClass(BaseClass):
 			)
 
 		#debug
+		'''
 		self.debug(('self.',self,[
 							'NeurongroupedPostModelInsertStrsList',
 							'NeurongroupedPostModelAddDict'
 						]))
+		'''
 
 		#Check
 		if 'model' not in self.NeurongroupingKwargVariablesDict:
 			self.NeurongroupingKwargVariablesDict['model']=''
-
+			
 		#add synaptic model variables
 		map(
 				lambda __NeurongroupedPostModelInsertStr:
@@ -169,10 +171,12 @@ class NeurongrouperClass(BaseClass):
 		)
 
 		#debug
+		'''
 		self.debug(('self.',self,[
 							'NeurongroupedEquationStrsList',
 							'NeurongroupingKwargVariablesDict'
 							]))
+		'''
 
 
 		#init
