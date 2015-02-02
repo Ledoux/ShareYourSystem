@@ -31,11 +31,13 @@ class AttentionerClass(BaseClass):
 	
 	#Definition
 	RepresentingKeyStrsList=[
-								'AttentioningCollectionStr'
+								'AttentioningCollectionStr',
+								'AttentioningUpdateVariable'
 							]
 
 	def default_init(self,
 						_AttentioningCollectionStr="",
+						_AttentioningUpdateVariable=None,
 						**_KwargVariablesDict
 					):
 
@@ -54,7 +56,8 @@ class AttentionerClass(BaseClass):
 		self.debug(
 					('self.',self,[
 							'AttentioningCollectionStr',
-							'GraspingClueVariable'
+							'GraspingClueVariable',
+							'AttentioningUpdateVariable'
 							])
 				)
 		'''
@@ -63,7 +66,8 @@ class AttentionerClass(BaseClass):
 		self.GraspedAnswerVariable.grasp(
 				self
 			).catch(
-				self.AttentioningCollectionStr
+				self.AttentioningCollectionStr,
+				_CatchingUpdateVariable=self.AttentioningUpdateVariable
 			)
 
 		

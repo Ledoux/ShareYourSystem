@@ -28,8 +28,8 @@ class RunnerClass(BaseClass):
 	
 	#Definition
 	RepresentingKeyStrsList=[
-									'RunningStopTimeFloat'
-								]
+								'RunningStopTimeFloat'
+							]
 
 	def default_init(self,
 						_RunningStopTimeFloat=0.,

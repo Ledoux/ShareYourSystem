@@ -28,14 +28,16 @@ class SimulaterClass(BaseClass):
 	
 	#Definition
 	RepresentingKeyStrsList=[
-		'SimulatingInitFloatsArray',
 		'SimulatingStopTimeFloat',
+		'SimulatingInitFloatsArray',
+		'SimulatingStepTimeFloat',
 		'SimulatingStartTimeFloat'
 	]
 
 	def default_init(self,
 						_SimulatingStopTimeFloat=100.,
 						_SimulatingInitFloatsArray=None,
+						_SimulatingStepTimeFloat=0.1,
 						_SimulatingStartTimeFloat=0.,
 						**_KwargVariablesDict
 					):

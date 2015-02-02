@@ -1,123 +1,101 @@
-import ShareYourSystem as SYS
-from brian2 import *
-import numpy as np
-
-
-'''
-def sdot(r):
-	return np.dot(J,r)
-np.sdot=
-'''
-
-P=NeuronGroup(
-		1,
-		'''
-			I:1
-			dr/dt = (-r + tanh(I))/(10*ms) : 1
-		'''
-	)
-
-#P.Jr=np.array([0]*P.N)
-
-#J=np.array([[0.1,0.2],[0.1,0.1]])
-
-S=Synapses(
-		P,
-		P,
-		'''
-		J : 1
-		Jr=J*r_pre : 1
-		'''
-	)
-#S.J[0,0]=0.5
-#P.I[0]=sum(S.Jr[0:])
-print(P.I)
-print(S.Jr)
-print(S.J)
-print(S)
-S.Jr[:]=np.array([0]*P.N)
-P.I[:]=S.Jr[:]
-
-
-M=StateMonitor(P,'r',[0,1])
-P.r[0]=3.
-P.r[1]=2.
-run(10.*ms)
-from matplotlib import pyplot
-pyplot.plot(M.r.T, '.')
-pyplot.show()
-
-
-
-
-
-
-#P.Jr=S.Jr
-'''
-S.J[:,:]=2.
-#print(S.Jr)
-P.Jr=S.Jr
-'''
-
-
-"""
 #ImportModules
 import ShareYourSystem as SYS
-import numpy as np
+import operator
 
 #Definition
 MyBrianer=SYS.BrianerClass(
-	).collect(
-		'Neurongroupers',
-		'P',
-		SYS.NeurongrouperClass().update(
+	).produce(
+		"Neurongroupers",
+		['E','I'],
+		SYS.NeurongrouperClass,
+		#Here are defined the brian classic shared arguments for each pop
+		{
+			'NeurongroupingKwargVariablesDict':
 			{
-				'NeurongroupingKwargVariablesDict':
-				{
-					'model':
-					'''
-						Jv : 1
-						dr/dt = -r + np.atanh(Jr) : herz
-					'''
-				},
-
-				'produce':
+				'model':
+				'''
+					dv/dt = (-(v+49*mV))/(20*ms) : volt
+				''',
+				'threshold':'v>-50*mV',
+				'reset':'v=-60*mV'
+			},
+			'produce':
+			SYS.ApplyDictClass(
 				{
 					'LiargVariablesList':
-					[
-						"StateMoniters",
-						['Rate'],
-						SYS.MoniterClass,
-						{
-							'MoniteringVariableStr':'r',
-							'MoniteringIndexIntsList':[0,1]
-						}
-					]
-				},
-
-				'PopulatingUnitsInt':2,
-
+						[
+							"SpikeMoniters",
+							['Spike'],
+							SYS.MoniterClass
+						]
+				}
+			)		
+		}
+	).__setitem__(
+		'Dis_<Neurongroupers>',
+		#Here are defined the brian classic specific arguments for each pop
+		[
+			{
+				'PopulatingUnitsInt':3200,
 				'ConnectingGraspClueVariablesList':
-				[
+				map(
+					lambda __PrefixStr:
 					SYS.GraspDictClass(
 						{
-							'HintVariable':'/NodePointDeriveNoder/<Neurongroupers>PNeurongrouper',
+							'HintVariable':'/NodePointDeriveNoder/<Neurongroupers>'+__PrefixStr+'Neurongrouper',
 							'SynapsingKwargVariablesDict':
 							{
-								'model':
-								'''
-									J : 1
-									Jr = J*r_pre : 1
-								'''
+								'pre':'ge+=1.62*mV',
 							},
-							'SynapsingPostVariableStrsList':['Jr']
+							'SynapsingProbabilityVariable':0.02,
+							'AttentionUpdateVariable':{
+								'PostModelInsertStrsList':['dge/dt = -ge/(5*ms) : volt'],
+								'PostModelAddDict':{'v':['ge']}
+							}
+							
 						}
+					),
+					['E','I']
+				)
+			},
+			{
+				'PopulatingUnitsInt':800,
+				'ConnectingGraspClueVariablesList':
+				map(
+					lambda __PrefixStr:
+					SYS.GraspDictClass(
+						{
+							'HintVariable':'/NodePointDeriveNoder/<Neurongroupers>'+__PrefixStr+'Neurongrouper',
+							'SynapsingKwargVariablesDict':
+							{
+								'pre':'gi-=9*mV'
+							},
+							'SynapsingProbabilityVariable':0.02,
+							'AttentionUpdateVariable':
+							{
+								'PostModelInsertStrsList':['dgi/dt = -gi/(10*ms) : volt'],
+								'PostModelAddDict':{'v':['gi']}
+							}
+						}
+					),
+					['E','I']
+					#[]
+				)
+			}
+		]
+	).network(
+			**{
+				'RecruitingConcludeConditionTuplesList':[
+					(
+						'MroClassesList',
+						operator.contains,
+						SYS.NeurongrouperClass
 					)
 				]
 			}
-		)
-	).brian()
-		
+		).brian()
+
+
 #Definition the AttestedStr
 SYS._attest(
 	[
@@ -132,27 +110,28 @@ SYS._attest(
 ) 
 
 """
-
 #init
-"""
 import brian2
 map(
 	lambda __BrianedNeuronGroup:
 	__BrianedNeuronGroup.__setattr__(
 		'v',
-		0*brian2.mV
+		-60*brian2.mV
 	),
 	MyBrianer.BrianedNeuronGroupsList
 )
 
+
 #run
-MyBrianer.run(1000)
+MyBrianer.run(300)
 
 #plot
-M=MyBrianer['<Ratome>ENeuronGrouper']['<Variablome>RateMoniter'].StateMonitor
+ME=MyBrianer['<Neurongroupers>ENeurongrouper']['<SpikeMoniters>SpikeMoniter'].SpikeMonitor
+MI=MyBrianer['<Neurongroupers>INeurongrouper']['<SpikeMoniters>SpikeMoniter'].SpikeMonitor
 from matplotlib import pyplot
-pyplot.plot(M.t/brian2.ms, M.i, '.')
+pyplot.plot(ME.t/brian2.ms, ME.i, 'r.')
+pyplot.plot(MI.t/brian2.ms, ME.source.N+MI.i, 'b.')
 pyplot.show()
-"""
-#Print
 
+#Print
+"""

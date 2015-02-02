@@ -702,6 +702,9 @@ DoStrsTuplesList=[
 	('Equationer','Equation','Equationing','Equationed'),
 	('Scaler','Scale','Scaling','Scaled'),
 	('Streamer','Stream','Streaming','Streamed'),
+	('Predicter','Predict','Predicting','Predicted'),
+	('Predispiker','Predispike','Predispiking','Predispiked'),
+	('Predirater','Predirate','Predirating','Predirated')
 ]
 
 DoerStrToDoStrOrderedDict=SYS.dictify(DoStrsTuplesList,0,1)

@@ -6,10 +6,12 @@ import os
 #Definition a Scaler
 MyScaler=SYS.ScalerClass().scale()
 
-'''
+#write
+import music21
 MyScaler.write(
 	music21.vexflow.fromObject(
-		MyScaler.ScaledOrderedDict.values()[5]['Stream'],
+		MyScaler.ScaledOrderedDict.values(
+		)[60]['Streamer'].StreamedMusic21Variable,
 		mode="html"
 	),
 	**{
@@ -17,4 +19,3 @@ MyScaler.write(
 		'FilingKeyStr':"Scale.html"
 	}
 ).close()
-'''

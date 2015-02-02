@@ -30,15 +30,21 @@ class SynapserClass(BaseClass):
 	RepresentingKeyStrsList=[
 									'SynapsingKwargVariablesDict',
 									'SynapsingProbabilityVariable',
+									'SynapsingTagStr',
 									'SynapsedBrianVariable'
 							]
 
 	def default_init(self,
 						_SynapsingKwargVariablesDict=None,
 						_SynapsingProbabilityVariable=None,
+						_SynapsingTagStr="",
 						_SynapsedBrianVariable=None,
 						**_KwargVariablesDict
 					):
+
+		#init
+		self.PostModelInsertStrsList=[]
+		self.PostModelAddDict={}
 
 		#Call the parent __init__ method
 		BaseClass.__init__(self,**_KwargVariablesDict)

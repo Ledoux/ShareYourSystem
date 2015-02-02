@@ -94,6 +94,14 @@ ShareYourSystem/Specials/Neuroners/Neurongrouper/01_ExampleCell.py
 ShareYourSystem/Specials/Neuroners/Neurongrouper/__init__.py
 ShareYourSystem/Specials/Neuroners/Synapser/01_ExampleCell.py
 ShareYourSystem/Specials/Neuroners/Synapser/__init__.py
+ShareYourSystem/Specials/Predicters/.DS_Store
+ShareYourSystem/Specials/Predicters/__init__.py
+ShareYourSystem/Specials/Predicters/Predicter/00_ExampleDoc.md
+ShareYourSystem/Specials/Predicters/Predicter/01_ExampleDoc.py
+ShareYourSystem/Specials/Predicters/Predicter/__init__.py
+ShareYourSystem/Specials/Predicters/Predispiker/00_ExampleDoc.md
+ShareYourSystem/Specials/Predicters/Predispiker/01_ExampleDoc.py
+ShareYourSystem/Specials/Predicters/Predispiker/__init__.py
 ShareYourSystem/Specials/Simulaters/.DS_Store
 ShareYourSystem/Specials/Simulaters/001_DocumentDoc.md
 ShareYourSystem/Specials/Simulaters/1_GithubDoc.md
@@ -107,6 +115,8 @@ ShareYourSystem/Specials/Simulaters/Brianer/00_ExampleDoc.md
 ShareYourSystem/Specials/Simulaters/Brianer/01_ExampleDoc.py
 ShareYourSystem/Specials/Simulaters/Brianer/02_ExampleDoc.md
 ShareYourSystem/Specials/Simulaters/Brianer/03_ExampleDoc.py
+ShareYourSystem/Specials/Simulaters/Brianer/04_ExampleDoc.md
+ShareYourSystem/Specials/Simulaters/Brianer/05_ExampleDoc.py
 ShareYourSystem/Specials/Simulaters/Brianer/PreReadme.ipynb
 ShareYourSystem/Specials/Simulaters/Brianer/Presentation.html
 ShareYourSystem/Specials/Simulaters/Brianer/Presentation.ipynb
@@ -1343,9 +1353,11 @@ ShareYourSystem/Standards/Noders/Grouper/__init__.py
 ShareYourSystem/Standards/Noders/Grouper/__init__.pyc
 ShareYourSystem/Standards/Noders/Grouper/Drafts/__init__ copy.py
 ShareYourSystem/Standards/Noders/Grouper/__pycache__/Grouper.cpython-34.pyc
-ShareYourSystem/Standards/Noders/Networker/001_DocumentDoc.md
 ShareYourSystem/Standards/Noders/Networker/001_GithubDoc.md
+ShareYourSystem/Standards/Noders/Networker/00_ExampleDoc.md
 ShareYourSystem/Standards/Noders/Networker/01_ExampleDoc.py
+ShareYourSystem/Standards/Noders/Networker/02_DocumentDoc.md
+ShareYourSystem/Standards/Noders/Networker/03_ExampleDoc.py
 ShareYourSystem/Standards/Noders/Networker/PreReadme.ipynb
 ShareYourSystem/Standards/Noders/Networker/Presentation.html
 ShareYourSystem/Standards/Noders/Networker/Presentation.ipynb

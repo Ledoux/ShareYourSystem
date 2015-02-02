@@ -144,6 +144,8 @@ setup(
 			 		'ShareYourSystem.Specials.Simulaters.Synapser',
 			 		'ShareYourSystem.Specials.Simulaters.Equationer',
 			 		'ShareYourSystem.Specials.Simulaters.Pydelayer',
+			 		'ShareYourSystem.Specials.Predicters.Predicter',
+			 		'ShareYourSystem.Specials.Predicters.Predispiker',
 			 		'ShareYourSystem.Specials.Muzikers.Muziker',
 			 		'ShareYourSystem.Specials.Muzikers.Streamer',
 			 		'ShareYourSystem.Specials.Muzikers.Vexflower',

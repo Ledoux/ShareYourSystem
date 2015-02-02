@@ -5,4 +5,5 @@ FrozenIsBool False
 
 ##Example
 
-Let's invent a rate model
+Note now that equation parts relied on the synaptic interactions
+can be completely incorcoprate din our Synapsers object

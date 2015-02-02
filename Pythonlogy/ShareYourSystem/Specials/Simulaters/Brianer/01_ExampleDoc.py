@@ -22,14 +22,16 @@ MyBrianer=SYS.BrianerClass(
 				'reset':'v=-60*mV'
 			},
 			'produce':
-			{
-				'LiargVariablesList':
-				[
-					"SpikeMoniters",
-					['Spike'],
-					SYS.MoniterClass
-				]
-			}		
+			SYS.ApplyDictClass(
+				{
+					'LiargVariablesList':
+						[
+							"SpikeMoniters",
+							['Spike'],
+							SYS.MoniterClass
+						]
+				}
+			)		
 		}
 	).__setitem__(
 		'Dis_<Neurongroupers>',

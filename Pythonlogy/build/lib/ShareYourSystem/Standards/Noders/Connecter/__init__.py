@@ -54,6 +54,7 @@ class ConnecterClass(BaseClass):
 		self.debug(('self.',self,['ConnectingGraspClueVariablesList']))
 		'''
 		
+
 		#catch
 		self.ConnectedCatchDerivePointersList=map(
 				lambda __ConnectingGraspVariable:
@@ -63,7 +64,10 @@ class ConnecterClass(BaseClass):
 					).catch(
 						self.ConnectingCatchCollectionStr
 					).attention(
-						self.ConnectingAttentionCollectionStr
+						self.ConnectingAttentionCollectionStr,
+						__ConnectingGraspVariable['AttentionUpdateVariable'] 
+						if 'AttentionUpdateVariable' in __ConnectingGraspVariable
+						else {}
 					).CatchedDerivePointerVariable
 				),
 				self.ConnectingGraspClueVariablesList

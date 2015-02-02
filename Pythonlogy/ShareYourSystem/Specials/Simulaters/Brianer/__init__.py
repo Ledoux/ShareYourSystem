@@ -82,7 +82,7 @@ class BrianerClass(BaseClass):
 
 		#run with the brian method
 		self.BrianedNetworkVariable.run(
-			self.RunningTimeFloat*self.BrianingTimeDimensionVariable
+			self.RunningStopTimeFloat*self.BrianingTimeDimensionVariable
 		)
 
 		#debug
@@ -238,9 +238,13 @@ class BrianerClass(BaseClass):
 		)	
 		
 		#debug
-		'''
-		self.debug(('self.',self,['BrianedStateMonitorsList']))
-		'''
+		self.debug(
+			[
+				('self.',self,['BrianedStateMonitorsList']),
+				'Now we synapse...'
+			]
+		)
+
 
 		#map synapse
 		self.BrianedSynapsesList=map(
@@ -255,7 +259,11 @@ class BrianerClass(BaseClass):
 							'target':__BrianedDeriveSynapser.CatchToPointVariable.NeurongroupedBrianVariable,
 							#'name':(
 							#	__BrianedDeriveSynapser.CatchFromPointVariable.NetworkKeyStr+'To'+__BrianedDeriveSynapser.CatchToPointVariable.NetworkKeyStr).replace('/','_')
-							'name':__BrianedDeriveSynapser.CatchKeyStr.replace('>','_').replace('<','_')
+							'name':(
+								__BrianedDeriveSynapser.SynapsingTagStr 
+								if __BrianedDeriveSynapser.SynapsingTagStr!="" 
+								else __BrianedDeriveSynapser.CatchKeyStr.replace('>','_').replace('<','_')
+							)
 						}
 					)
 				).SynapsedBrianVariable,

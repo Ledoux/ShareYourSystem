@@ -13,7 +13,10 @@ MyProducer=SYS.ProducerClass().produce(
 MyProducer['<Attentioners>FirstAttentioner'].grasp(
 		'/NodePointDeriveNoder/<Attentioners>SecondAttentioner'
 	).attention(
-		'BackRelatome'
+		#AttentioningCollectionStr
+		'BackRelatome',
+		#AttentioningUpdateVariable
+		{'MyStr':"hello"}
 	)
 
 #Definition the AttestedStr

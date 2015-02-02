@@ -30,6 +30,9 @@ class NeurongrouperClass(BaseClass):
 	#Definition
 	RepresentingKeyStrsList=[
 								'NeurongroupingKwargVariablesDict',
+								'NeurongroupedPostModelInsertStrsList',
+								'NeurongroupedPostModelAddDict',
+								'NeurongroupedEquationStrsList',
 								'NeurongroupedBrianVariable',
 								'NeurongroupedSpikeMonitorsList',
 								'NeurongroupedStateMonitorsList'
@@ -37,6 +40,9 @@ class NeurongrouperClass(BaseClass):
 
 	def default_init(self,
 						_NeurongroupingKwargVariablesDict=None,
+						_NeurongroupedPostModelInsertStrsList=None,
+						_NeurongroupedPostModelAddDict=None,
+						_NeurongroupedEquationStrsList=None,
 						_NeurongroupedBrianVariable=None,
 						_NeurongroupedSpikeMonitorsList=None,
 						_NeurongroupedStateMonitorsList=None,
@@ -49,6 +55,10 @@ class NeurongrouperClass(BaseClass):
 		#set
 		self.CatchingDerivePointerClass=Synapser.SynapserClass
 
+		#
+		self.node('PostConnecters')
+		self.node('PreConnecters')
+
 	def do_neurongroup(
 				self
 			):	
@@ -59,14 +69,111 @@ class NeurongrouperClass(BaseClass):
 		#maybe should import
 		from brian2 import NeuronGroup,SpikeMonitor,StateMonitor
 
-		#debug
-		self.debug(('self.',self,[
-							'NeurongroupingKwargVariablesDict'
-							]))
-		
 		#Check
 		if 'N' not in self.NeurongroupingKwargVariablesDict:
 			self.NeurongroupingKwargVariablesDict['N']=self.PopulatingUnitsInt
+
+		#add the synaptic model strs
+		'''
+		self.debug(('self.',self,['CollectionsOrderedDict']))
+		'''
+
+		#map
+		self.NeurongroupedPostModelInsertStrsList=list(
+			set(
+				SYS.flat(
+					map(
+						lambda __PreConnecter:
+						__PreConnecter.PostModelInsertStrsList,
+						self.PreConnectersCollectionOrderedDict.values()
+					)
+				)
+			)
+		)
+
+		#map
+		'''
+		self.debug(
+			[
+				'self.PreConnectersCollectionOrderedDict.keys() is ',
+				self.PreConnectersCollectionOrderedDict.keys(),
+				'self.PostConnectersCollectionOrderedDict.keys() is ',
+				self.PostConnectersCollectionOrderedDict.keys(),
+			]
+		)
+		'''
+
+		#map
+		map(
+				lambda __PreConnecter:
+				map(
+						lambda __ItemTuple:
+						self.NeurongroupedPostModelAddDict.__setitem__(
+							__ItemTuple[0],
+							list(
+								set(
+									(self.NeurongroupedPostModelAddDict[__ItemTuple[0]]
+									if __ItemTuple[0] in self.NeurongroupedPostModelAddDict
+									else [])+__ItemTuple[1]
+								)
+							)
+						),
+						__PreConnecter.PostModelAddDict.items()
+				),
+				self.PreConnectersCollectionOrderedDict.values()
+			)
+
+		#debug
+		self.debug(('self.',self,[
+							'NeurongroupedPostModelInsertStrsList',
+							'NeurongroupedPostModelAddDict'
+						]))
+
+		#Check
+		if 'model' not in self.NeurongroupingKwargVariablesDict:
+			self.NeurongroupingKwargVariablesDict['model']=''
+
+		#add synaptic model variables
+		map(
+				lambda __NeurongroupedPostModelInsertStr:
+				self.NeurongroupingKwargVariablesDict.__setitem__(
+					'model',
+					self.NeurongroupingKwargVariablesDict['model'
+					]+'\n'+__NeurongroupedPostModelInsertStr
+				),
+				self.NeurongroupedPostModelInsertStrsList
+			)
+
+		#map
+		self.NeurongroupedEquationStrsList=map(
+				lambda __KeyStr:
+				SYS.chunk(
+					['d'+__KeyStr+'/dt',')/'],
+					self.NeurongroupingKwargVariablesDict['model'],
+				)[0],
+				self.NeurongroupedPostModelAddDict.keys()
+			)
+
+		#map
+		map(
+				lambda __NeurongroupedEquationStr,__AddStrsList:
+				self.NeurongroupingKwargVariablesDict.__setitem__(
+					'model',
+					self.NeurongroupingKwargVariablesDict['model'].replace(
+						__NeurongroupedEquationStr,
+						__NeurongroupedEquationStr+'+'+'+'.join(__AddStrsList)
+					)
+				),
+				self.NeurongroupedEquationStrsList,
+				self.NeurongroupedPostModelAddDict.values()
+		)
+
+		#debug
+		self.debug(('self.',self,[
+							'NeurongroupedEquationStrsList',
+							'NeurongroupingKwargVariablesDict'
+							]))
+
 
 		#init
 		self.NeurongroupedBrianVariable=NeuronGroup(
