@@ -36,6 +36,8 @@ Score = function(_InitDictObject){
     LocalScore.BeatValueInt=4
     LocalScore.StepCountInt=0
     LocalScore.BarCountInt=0
+    LocalScore.BarMaxInt=4
+    LocalScore.SystemCountInt=0
 
     //extend
     _.extend(
@@ -63,25 +65,20 @@ Score = function(_InitDictObject){
 
     //Draw an empty stave
     LocalScore.Context = LocalScore.Renderer.getContext();
-    LocalScore.Stave = new Vex.Flow.Stave(10, 0, 500);
-    LocalScore.Stave.addClef(
-                    "treble"
-                ).setContext(
-                    LocalScore.Context
-                ).draw()
+    LocalScore.BarDictObjectsArray={}
+
 }
 
 
-Score.prototype.push=function()
+Score.prototype.pushVoice=function(_NoteDictObjectsArray)
 {
 
 	//define
     var LocalScore=this
 
     // Create the notes
-    LocalScore.BarDictObjectsArray={}
     _.map(
-            LocalScore.NoteDictObjectsArray,
+            _NoteDictObjectsArray,
             function(__NoteDictObject)
             {
 
@@ -123,15 +120,6 @@ Score.prototype.push=function()
             //get
             var BarDictObject=LocalScore.BarDictObjectsArray[__IndexInt]
 
-            // Create a voice in 4/4
-            var Voice = new Vex.Flow.Voice(
-                {
-                    num_beats:  LocalScore.NumBeatsInt,
-                    beat_value: LocalScore.BeatValueInt,
-                    resolution: Vex.Flow.RESOLUTION
-                }
-             );
-
             //Debug
             /*
             console.log(
@@ -139,7 +127,6 @@ Score.prototype.push=function()
                 BarDictObject
             )
             */
-
         
             //Debug
             /*
@@ -167,86 +154,143 @@ Score.prototype.push=function()
                 )
                 */
                 
-                if(LocalScore.StepCountInt<16)
-                {
-
-                    //compute
-                    var DiffInt=16-LocalScore.StepCountInt
-
-                    //Debug
-                    console.log(
-                        'DiffInt is \n',
-                        DiffInt,
-                        '\n',
-                        'DurationIntToDurationStrDict[DiffInt.toString()] is \n',
-                        DurationIntToDurationStrDict[DiffInt.toString()]
-                    )
-
-                    //push
-                    BarDictObject.NoteDictObjectsArray.push(
-                        {
-                            'StaveNote':Vex.Flow.StaveNote(
-                                { 
-                                    keys: [
-                                           "c/4" 
-                                        ], 
-                                    duration: DurationIntToDurationStrDict[
-                                            DiffInt.toString()
-                                        ]+'r' 
-                                }
-                            )
-                        }
-                    )
-
-                    //Debug
-                    console.log(
-                        'BarDictObject is \n',
-                        BarDictObject
-                    )
-
-                }
-            }
-
-
-
-            //add
-            Voice.addTickables(
                 _.map(
-                    BarDictObject.NoteDictObjectsArray,
-                    function(__NoteDictObject)
+                    _.values(BarDictObject['VoiceDictObjectsObject']),
+                    function(__VoiceDictObject)
                     {
 
                         //Debug
                         /*
                         console.log(
-                            '__NoteDictObject.StaveNote is \n',
-                            __NoteDictObject.StaveNote
+                            '__VoiceDictObject is \n',
+                            __VoiceDictObject
                         )
                         */
 
-                        //return 
-                        return  __NoteDictObject.StaveNote
+                        //
+                        if(__VoiceDictObject.StepCountInt<16)
+                        {
+                            //compute
+                            var DiffInt=16-__VoiceDictObject.StepCountInt
+
+                            //Debug
+                            /*
+                            console.log(
+                                'DiffInt is \n',
+                                DiffInt,
+                                '\n',
+                                'DurationIntToDurationStrDict[DiffInt.toString()] is \n',
+                                DurationIntToDurationStrDict[DiffInt.toString()],
+                                '\n',
+                                'BarDictObject.NoteDictObjectsArray is \n',
+                                BarDictObject.NoteDictObjectsArray
+                            )
+                            */
+
+                            //push
+                            __VoiceDictObject['NoteDictObjectsArray'].push(
+                                {
+                                    'StaveNote':new Vex.Flow.StaveNote(
+                                        { 
+                                            keys: [
+                                                   "a/4" 
+                                                ], 
+                                            duration: DurationIntToDurationStrDict[
+                                                    DiffInt.toString()
+                                                ] + 'r'
+                                        }
+                                    )
+                                }
+                            )
+
+                            //Debug
+                            /*
+                            console.log(
+                                'After  __VoiceDictObject is \n',
+                                 __VoiceDictObject
+                            )
+                            */  
+
+                        }
+
+                        //add the end
+                        __VoiceDictObject['NoteDictObjectsArray'].push(
+                            {
+                                'StaveNote':new Vex.Flow.BarNote(3)
+                            }
+                        )
                     }
                 )
-            );
 
-            // Format and justify the notes to 500 pixels
-            var Formatter = new Vex.Flow.Formatter().
-            joinVoices(
-                [Voice]
-            ).format([Voice], 200);
+                
 
-            // Render voice
-            Voice.draw(
-                LocalScore.Context,
-                LocalScore.Stave
-            );
+            }
 
-            //update
-            BarDictObject['Voice']=Voice
+            //Debug
+            console.log(
+                "BarDictObject['VoiceDictObjectsObject'] is ",
+                BarDictObject['VoiceDictObjectsObject']
+            )
+
+            //map
+            _.map(
+                    _.values(BarDictObject['VoiceDictObjectsObject']),
+                    function(__VoiceDictObject)
+                    {
+                        //Debug
+                        /*
+                        console.log(
+                            '__VoiceDictObject is \n',
+                            __VoiceDictObject
+                        )
+                        */
+
+                        //add
+                        __VoiceDictObject['Voice'].addTickables(
+                            _.map(
+                                __VoiceDictObject['NoteDictObjectsArray'],
+                                function(__NoteDictObject)
+                                {
+
+                                    //Debug
+                                    /*
+                                    console.log(
+                                        '__NoteDictObject.StaveNote is \n',
+                                        __NoteDictObject.StaveNote
+                                    )
+                                    */
+
+                                    //return 
+                                    return  __NoteDictObject.StaveNote
+                                }
+                            )
+                        );
+
+                        //Debug
+                        /*
+                        console.log(
+                            'format'
+                        )
+                        */
+
+                        // Format and justify the notes to 500 pixels
+                        var Formatter = new Vex.Flow.Formatter().
+                        joinVoices(
+                            [__VoiceDictObject['Voice']]
+                        ).format([__VoiceDictObject['Voice']], 200);
+
+                        // Render voice
+                        __VoiceDictObject['Voice'].draw(
+                            LocalScore.Context,
+                            BarDictObject['Stave']
+                        );
+
+                    }
+                )
 
         }
     )
+    
 
 }
 
@@ -263,10 +307,11 @@ Score.prototype.setNote=function(_NoteDictObject)
 
     //init
     var StaveNote=new Vex.Flow.StaveNote(
-        { keys: [
+        { 
+            keys: [
                 _NoteDictObject['NoteStr']
                 ], 
-                duration: _NoteDictObject['DurationStr'] 
+            duration: _NoteDictObject['DurationStr'] 
         }
     )
 
@@ -283,17 +328,140 @@ Score.prototype.setNote=function(_NoteDictObject)
     //link
     _NoteDictObject['StaveNote']=StaveNote
 
-    //set to the bar dict
-    if(LocalScore.BarDictObjectsArray[LocalScore.BarCountInt.toString()]==undefined){
-                    LocalScore.BarDictObjectsArray[LocalScore.BarCountInt.toString()]={
-                        'NoteDictObjectsArray':[]
-                    }
+    //Debug
+    console.log(
+        'score.js setNote l 292 \n',
+        'Maybe init the bar'
+    )
+
+    //init maybe the bar
+    if(LocalScore.BarDictObjectsArray[
+            LocalScore.BarCountInt.toString()
+        ]==undefined)
+    {
+
+        //first Bar
+        if(LocalScore.BarCountInt.toString()==0)
+        {
+            LocalScore.BarDictObjectsArray[LocalScore.BarCountInt.toString()]={
+            'VoiceDictObjectsObject':{},
+            'Stave': new Vex.Flow.Stave(
+                        10, 
+                        0, 
+                        250)
+            }
+
+            LocalScore.BarDictObjectsArray[LocalScore.BarCountInt.toString()]['Stave'
+            ].addClef(
+                        "treble"
+            ).addTimeSignature(LocalScore.NumBeatsInt+'/'+LocalScore.BeatValueInt
+            ).setContext(
+                LocalScore.Context
+            ).draw()
+        }
+        else
+        {
+            if(LocalScore.BarCountInt<=LocalScore.BarMaxInt)
+            {
+                //place a stave just on the right
+                LocalScore.BarDictObjectsArray[LocalScore.BarCountInt.toString()]={
+                'VoiceDictObjectsObject':{},
+                'Stave': new Vex.Flow.Stave(
+                            LocalScore.BarDictObjectsArray[
+                                (LocalScore.BarCountInt-1).toString()
+                            ]['Stave'].x+LocalScore.BarDictObjectsArray[
+                                (LocalScore.BarCountInt-1).toString()
+                            ]['Stave'].width, 
+                            LocalScore.BarDictObjectsArray[
+                                (LocalScore.BarCountInt-1).toString()
+                            ]['Stave'].y, 
+                            250
+                            )
                 }
+
+                //set
+                LocalScore.BarDictObjectsArray[LocalScore.BarCountInt.toString()]['Stave'
+                ].setContext(
+                            LocalScore.Context
+                        ).draw()
+            }
+            else
+            {
+                //increment
+                LocalScore.SystemCountInt+=1
+
+                //replace the score to the left
+                LocalScore.BarDictObjectsArray[LocalScore.BarCountInt.toString()]={
+                'VoiceDictObjectsObject':{},
+                'Stave': new Vex.Flow.Stave(
+                            10, 
+                            LocalScore.BarDictObjectsArray[
+                                (LocalScore.BarCountInt-1).toString()
+                            ]['Stave'].y+LocalScore.BarDictObjectsArray[
+                                (LocalScore.BarCountInt-1).toString()
+                            ]['Stave'].height, 
+                            250
+                            )
+                }
+
+                //set
+                LocalScore.BarDictObjectsArray[LocalScore.BarCountInt.toString()]['Stave'
+                ].setContext(
+                            LocalScore.Context
+                        ).draw()
+            }
+
+        }
+        
+    }
+
+    //Debug
+    console.log(
+        'score.js setNote l 321 \n',
+        'Maybe init the voice'
+    )
+
+    //init maybe the voice
+    if (LocalScore.BarDictObjectsArray[
+                LocalScore.BarCountInt.toString()
+            ]['VoiceDictObjectsObject'][_NoteDictObject['VoiceStr']]==undefined)
+    {
+        LocalScore.BarDictObjectsArray[
+                LocalScore.BarCountInt.toString()
+            ]['VoiceDictObjectsObject'][
+            _NoteDictObject['VoiceStr']
+            ]={
+                'Voice':new Vex.Flow.Voice(
+                    {
+                        num_beats:  LocalScore.NumBeatsInt,
+                        beat_value: LocalScore.BeatValueInt,
+                        resolution: Vex.Flow.RESOLUTION
+                    }
+                ),
+                'NoteDictObjectsArray':[]
+            }
+    }
+
+    //Debug
+    console.log(
+        'score.js setNote l 348 \n',
+        'push the note'
+    )
 
     //push         
     LocalScore.BarDictObjectsArray[
                 LocalScore.BarCountInt.toString()
-            ]['NoteDictObjectsArray'].push(_NoteDictObject)
+            ]['VoiceDictObjectsObject'][_NoteDictObject['VoiceStr']
+            ]['NoteDictObjectsArray'].push(
+                _NoteDictObject
+            )
+
+    //set step count int
+    LocalScore.BarDictObjectsArray[
+                LocalScore.BarCountInt.toString()
+            ]['VoiceDictObjectsObject'][_NoteDictObject['VoiceStr']
+            ]['StepCountInt']=LocalScore.StepCountInt+DurationStrToDurationIntDict[
+            _NoteDictObject['DurationStr']]
 
     //set
     _NoteDictObject['BarCountInt']=LocalScore.BarCountInt

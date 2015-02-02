@@ -14,7 +14,7 @@ A Predispiker
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Specials.Simulaters.Brianer"
+BaseModuleStr="ShareYourSystem.Specials.Simulaters.Neurongrouper"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -58,102 +58,5 @@ class PredispikerClass(BaseClass):
 
 	def do_predispike(self):	
 
-		#Check
-		if hasattr(self,'NodePointDeriveNoder'):
-
-			#debug
-			self.debug(
-				[
-					#('self.',self,['NodePointDeriveNoder']),
-				]
-			)
-
-			#point
-			self.point(
-				self.NodePointDeriveNoder,
-				'PredictedDerivePredicterVariable'
-			)
-
-		else:
-
-			#point
-			self.point(
-				SYS.PredicterClass(),
-				'PredictedDerivePredicterVariable'
-			)
-
-
-		#Definition
-		self.produce(
-				"Neurongroupers",
-				['P'],
-				SYS.NeurongrouperClass,
-				#Here are defined the brian classic shared arguments for each pop
-				{
-					'NeurongroupingKwargVariablesDict':
-					{
-						'model':
-						'''
-							dv/dt = (-(v+'''+self.LifingRestFloat+'''*mV))/('''+self.LifingConstantTimeFloat+'''*ms) : volt
-							dge/dt = -ge/(5*ms) : volt
-							dgi/dt = -gi/(10*ms) : volt
-						''',
-						'threshold':'v>'+self.LifingThresholdFloat+'*mV',
-						'reset':'v='+self.LifingResetFloat+'*mV'
-					},
-					'produce':
-					SYS.ApplyDictClass(
-						{
-							'LiargVariablesList':
-								[
-									"SpikeMoniters",
-									['Spike'],
-									SYS.MoniterClass
-								]
-						}
-					)		
-				}
-			).__setitem__(
-				'Dis_<Neurongroupers>',
-				#Here are defined the brian classic specific arguments for each pop
-				[
-					{
-						'PopulatingUnitsInt':3200,
-						'ConnectingGraspClueVariablesList':
-						[
-							SYS.GraspDictClass(
-								{
-									'HintVariable':'/NodePointDeriveNoder/<Neurongroupers>'+'P'+'Neurongrouper',
-									'SynapsingKwargVariablesDict':
-									{
-										'pre':'ge+=1.62*mV',
-									},
-									'SynapsingProbabilityVariable':0.02
-								}
-							),
-							SYS.GraspDictClass(
-								{
-									'HintVariable':'/NodePointDeriveNoder/<Neurongroupers>'+'P'+'Neurongrouper',
-									'SynapsingKwargVariablesDict':
-									{
-										'pre':'ge+=1.62*mV',
-									},
-									'SynapsingProbabilityVariable':0.02
-								}
-							)
-						]
-					},
-				]
-			).network(
-					**{
-						'RecruitingConcludeConditionTuplesList':[
-							(
-								'MroClassesList',
-								operator.contains,
-								SYS.NeurongrouperClass
-							)
-						]
-					}
-				).brian()
 		
 #</DefineClass>

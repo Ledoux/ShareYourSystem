@@ -6,7 +6,7 @@ import operator
 MyPredispiker=SYS.PredispikerClass(
 	).produce(
 		"Neurongroupers",
-		['E','I'],
+		['P'],
 		SYS.NeurongrouperClass,
 		#Here are defined the brian classic shared arguments for each pop
 		{
@@ -14,9 +14,7 @@ MyPredispiker=SYS.PredispikerClass(
 			{
 				'model':
 				'''
-					dv/dt = (ge+gi-(v+49*mV))/(20*ms) : volt
-					dge/dt = -ge/(5*ms) : volt
-					dgi/dt = -gi/(10*ms) : volt
+					dv/dt = (-(v+60*mV))/(20*ms) : volt
 				''',
 				'threshold':'v>-50*mV',
 				'reset':'v=-60*mV'
@@ -49,7 +47,12 @@ MyPredispiker=SYS.PredispikerClass(
 							{
 								'pre':'ge+=1.62*mV',
 							},
-							'SynapsingProbabilityVariable':0.02
+							'SynapsingProbabilityVariable':0.02,
+							'AttentionUpdateVariable':
+							{
+								'PostModelInsertStrsList':['dgi/dt = -gi/(10*ms) : volt'],
+								'PostModelAddDict':{'v':['gi']}
+							}
 						}
 					),
 					['E','I']

@@ -155,19 +155,19 @@ initScales=function()
 							{
 		
 								//classic mode test
-								'Ionien7Bool':__ValueObject['PerfectFifthBool'] && __ValueObject['DimFifthBool']==false && __ValueObject['Major7Bool'
+								'IonienBool':__ValueObject['PerfectFifthBool'] && __ValueObject['DimFifthBool']==false && __ValueObject['Major7Bool'
 								] && _.contains(PoolIntsArray,2) && _.contains(PoolIntsArray,9),
-								'Dorien7Bool':__ValueObject['PerfectFifthBool'] && __ValueObject['DimFifthBool']==false && __ValueObject['Minor7Bool'
+								'DorienBool':__ValueObject['PerfectFifthBool'] && __ValueObject['DimFifthBool']==false && __ValueObject['Minor7Bool'
 								] && _.contains(PoolIntsArray,2) && _.contains(PoolIntsArray,9),
-								'Phrygian7Bool':__ValueObject['PerfectFifthBool'] && __ValueObject['DimFifthBool']==false && __ValueObject['Minor7Bool'
+								'PhrygianBool':__ValueObject['PerfectFifthBool'] && __ValueObject['DimFifthBool']==false && __ValueObject['Minor7Bool'
 								] && _.contains(PoolIntsArray,1) && _.contains(PoolIntsArray,8),
-								'Lydian7Bool':__ValueObject['PerfectFifthBool'] && __ValueObject['DimFifthBool'] && __ValueObject['Major7Bool'
+								'LydianBool':__ValueObject['PerfectFifthBool'] && __ValueObject['DimFifthBool'] && __ValueObject['Major7Bool'
 								] && _.contains(PoolIntsArray,2) && _.contains(PoolIntsArray,9),
-								'Mixolydian7Bool':__ValueObject['PerfectFifthBool'] && __ValueObject['DimFifthBool']==false && __ValueObject['Dominant7Bool'
+								'MixolydianBool':__ValueObject['PerfectFifthBool'] && __ValueObject['DimFifthBool']==false && __ValueObject['Dominant7Bool'
 								] && _.contains(PoolIntsArray,2) && _.contains(PoolIntsArray,9),
-								'Eolien7Bool':__ValueObject['PerfectFifthBool'] && __ValueObject['DimFifthBool']==false && __ValueObject['Minor7Bool'
+								'EolienBool':__ValueObject['PerfectFifthBool'] && __ValueObject['DimFifthBool']==false && __ValueObject['Minor7Bool'
 								] && _.contains(PoolIntsArray,2) && _.contains(PoolIntsArray,8),
-								'Locrien7Bool':__ValueObject['DimFifthBool'] && __ValueObject['PerfectFifthBool']==false && __ValueObject['Minor7Bool'
+								'LocrienBool':__ValueObject['DimFifthBool'] && __ValueObject['PerfectFifthBool']==false && __ValueObject['Minor7Bool'
 								] && _.contains(PoolIntsArray,1) && _.contains(PoolIntsArray,8)
 							}
 						)
@@ -175,7 +175,7 @@ initScales=function()
 					//name
 					_.map(
 						//['Major7Bool','Minor7Bool'],
-						['Ionien7Bool','Dorien7Bool','Phrygian7Bool','Lydian7Bool','Mixolydian7Bool','Eolien7Bool','Locrien7Bool'],
+						['IonienBool','DorienBool','PhrygianBool','LydianBool','MixolydianBool','EolienBool','Locrien7Bool'],
 						function(__BoolKeyStr)
 						{
 							if(__ValueObject[__BoolKeyStr])

@@ -116,7 +116,7 @@ SYS._print(
 )
 '''
 
-"""
+
 #init
 import brian2
 map(
@@ -141,4 +141,4 @@ pyplot.plot(MI.t/brian2.ms, ME.source.N+MI.i, 'b.')
 pyplot.show()
 
 #Print
-"""
+

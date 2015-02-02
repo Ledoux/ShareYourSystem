@@ -30,6 +30,7 @@ class NeurongrouperClass(BaseClass):
 	#Definition
 	RepresentingKeyStrsList=[
 								'NeurongroupingKwargVariablesDict',
+								'NeurongroupingVariableStrToGetStrDict',
 								'NeurongroupedPostModelInsertStrsList',
 								'NeurongroupedPostModelAddDict',
 								'NeurongroupedEquationStrsList',
@@ -40,6 +41,7 @@ class NeurongrouperClass(BaseClass):
 
 	def default_init(self,
 						_NeurongroupingKwargVariablesDict=None,
+						_NeurongroupingVariableStrToGetStrDict=None,
 						_NeurongroupedPostModelInsertStrsList=None,
 						_NeurongroupedPostModelAddDict=None,
 						_NeurongroupedEquationStrsList=None,
@@ -65,6 +67,11 @@ class NeurongrouperClass(BaseClass):
 
 		#populate before
 		self.populate()
+
+		#debug
+		self.debug(('self.',self,[
+							'NeurongroupingKwargVariablesDict'
+							]))
 
 		#maybe should import
 		from brian2 import NeuronGroup,SpikeMonitor,StateMonitor
@@ -171,18 +178,30 @@ class NeurongrouperClass(BaseClass):
 		)
 
 		#debug
-		'''
 		self.debug(('self.',self,[
 							'NeurongroupedEquationStrsList',
 							'NeurongroupingKwargVariablesDict'
 							]))
-		'''
 
 
 		#init
 		self.NeurongroupedBrianVariable=NeuronGroup(
 			**self.NeurongroupingKwargVariablesDict 
 		)
+
+		#debug
+		self.debug(('self.',self,['NeurongroupedBrianVariable']))
+		
+		#update variables
+		map(
+				lambda __ItemTuple:
+				setattr(
+					self.NeurongroupedBrianVariable,
+					__ItemTuple[0],
+					self[__ItemTuple[1]]
+				),
+				self.NeurongroupingVariableStrToGetStrDict.items()
+			)
 
 		#debug
 		self.debug(('self.',self,['NeurongroupedBrianVariable']))

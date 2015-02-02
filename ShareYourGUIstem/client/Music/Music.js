@@ -153,7 +153,8 @@ Session.set(
 	'ScaleConditionsDictObject',
 	{
 		'NotesInt':7,
-		'JimScaleBool':true
+		'JimScaleBool':true,
+		'NameStr':"Ionien"
 	}
 )
 

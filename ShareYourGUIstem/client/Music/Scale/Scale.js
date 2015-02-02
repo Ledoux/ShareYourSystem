@@ -39,19 +39,21 @@ Template.Scale.rendered = function()
         {
             'Instance':LocalInstance,
             //'NumBeatsInt':_.size(LocalInstance.NoteFlatStrsArray),
-            'NoteDictObjectsArray':_.map(
+        }
+    )
+    LocalInstance.Score.pushVoice(
+        _.map(
                 LocalInstance.NoteFlatStrsArray,
                 function(__NoteFlatStr)
                 {   
                     return {
+                        'VoiceStr':'0',
                         'NoteStr':__NoteFlatStr.toLowerCase()+"/4",
                         'DurationStr':"q"
                     }
                 }
             )
-        }
     )
-    LocalInstance.Score.push()
 
 }
 
