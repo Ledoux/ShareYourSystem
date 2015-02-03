@@ -5,32 +5,50 @@ import numpy as np
 
 #Definition an instance
 MyEquationer=SYS.EquationerClass(
+		**{
+			'PopulatingUnitsInt':2
+		}
 	).collect(
-		'JacobianMatrixers',
+		'LateralExpressers',
 		'Leak',
-		SYS.MatrixerClass(
-			).matrix(
-				_SizeTuple=(2,2),
-				_StdFloat=0.,
-				_DiagFloatsArray=np.array([-1.,-1.])
+		SYS.ExpresserClass(
+				**{
+					'MatrixingStdFloat':0.,
+					'MatrixingDiagFloatsArray':np.array([-1.,-1.])
+				}
 			)
 	).collect(
-		'JacobianMatrixers',
-		'Delay',
-		SYS.MatrixerClass(
-			).matrix(
-				_SizeTuple=(2,2),
-				_TagVariablesArray=np.array(
-					[
-						[{},{'DelayFloat':5.}],
-						[{'DelayFloat':5.},{}]
-					]
-				)
+		'LateralExpressers',
+		'Interaction',
+		SYS.ExpresserClass(
+				**{
+					'ExpressingSpecificTagVariablesArray':np.array(
+						[
+							[{},{'DelayFloat':5.,'TransferFunctionStr':'cos'}],
+							[{'DelayFloat':5.},{}]
+						]
+					),
+					'ExpressingRowTagVariablesArray':np.array(
+						[
+							{'TransferFunctionStr':'foo'},
+							{}
+						]
+					)
+				}
 			)
 	).equation(
 	)
 
+#print
+SYS._print(
+		[
+			"MyEquationer['EquationingDifferentialDict'] is ",
+			MyEquationer['EquationingDifferentialDict']
+		]
+	)
+
 #Definition the AttestedStr
+'''
 SYS._attest(
 	[
 		'MyEquationer is '+SYS._str(
@@ -42,6 +60,7 @@ SYS._attest(
 		),
 	]
 ) 
+'''
 
 #plot
 MyPydelayer=SYS.PydelayerClass(

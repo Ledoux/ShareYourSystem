@@ -51,7 +51,7 @@ class RaterClass(BaseClass):
 			'RateEquationer',
 			SYS.EquationerClass(
 			).collect(
-				'JacobianMatrixers',
+				'LateralExpressers',
 				'Leak',
 				SYS.MatrixerClass(
 					).matrix(
@@ -60,7 +60,7 @@ class RaterClass(BaseClass):
 						_DiagFloatsArray=np.array([-1.,-1.])
 					)
 			).collect(
-				'JacobianMatrixers',
+				'LateralExpressers',
 				'Delay',
 				SYS.MatrixerClass(
 					).matrix(

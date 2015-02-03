@@ -44,6 +44,7 @@ class EquationerClass(BaseClass):
 						_EquationingDifferentialDict=None,
 						_EquationingParamDict=None,
 						_EquationingSymbolStr='x',
+						_EquationingCodeStr='',
 						_EquationedVariableStrsList=None,
 						_EquationedPreExpressionStrsList=None,
 						**_KwargVariablesDict
@@ -58,25 +59,32 @@ class EquationerClass(BaseClass):
 			):
 		
 		#Loop integrativ over the matrixers to build the equations
-		for __Int,__Matrixer in enumerate(self['<JacobianMatrixers>']):
+		for __IndexInt,__LateralMatrixer in enumerate(self['<LateralExpressers>']):
 				
 			#debug
+			'''
 			self.debug(
 				[
-					'__Matrixer is \n',
-					__Matrixer
+					'__LateralMatrixer is \n',
+					__LateralMatrixer
 				]
 			)
+			'''
+
+			#matrix first 
+			__LateralMatrixer.matrix(
+					_SizeTuple=(self.PopulatingUnitsInt,self.PopulatingUnitsInt)
+				)
 
 			#Check
-			if __Int==0:
+			if __IndexInt==0:
 
 				#set
 				self.EquationedVariableStrsList=map(
-					lambda __Int:
-					self.EquationingSymbolStr+EquationingIndexStr+str(__Int),
+					lambda __IndexInt:
+					self.EquationingSymbolStr+EquationingIndexStr+str(__IndexInt),
 					xrange(
-						len(__Matrixer.MatrixedRandomFloatsArray)
+						len(__LateralMatrixer.MatrixedRandomFloatsArray)
 					)
 				)
 				self.EquationingDifferentialDict.update(
@@ -88,47 +96,48 @@ class EquationerClass(BaseClass):
 
 
 			#debug
+			'''
 			self.debug(
 				[
 					('self.',self,[
 									'EquationedVariableStrsList',
 								]),
-					('__Matrixer.',__Matrixer,['MatrixedRandomFloatsArray'])
+					('__LateralMatrixer.',__LateralMatrixer,['MatrixedRandomFloatsArray'])
 				]
 			)
+			'''
 
-			#map
+			#map express
 			self.EquationedPreExpressionStrsList=map(
-					lambda __RowJacFloatsArray,__RowTagVariablesArray:
+					lambda __RowJacFloatsArray,__RowSpecificTagVariablesArray:
 					('+'.join(
 							map(
-								lambda __RowJacFloat,__RowTagVariable,__EquationedVariableStr:
-								(
-									(
-									str(__RowJacFloat)
-									if __RowJacFloat>0.
-									else '('+str(__RowJacFloat)+')'
-									)+'*'+__EquationedVariableStr+(
-									'(t-0.)'
-									if hasattr(
-										__RowTagVariable,
-										'items'
-									)==False or 'DelayFloat' not in __RowTagVariable or __RowTagVariable['DelayFloat'
-									]<=0.
-									else '(t-'+str(__RowTagVariable['DelayFloat'])+')'
-									)
-								) 
-								if __RowJacFloat!=0.
-								else '',
+								lambda __RowJacFloat,__EquationedVariableStr,__RowSpecificTagVariable:
+								__LateralMatrixer.express(
+										__RowJacFloat,
+										__EquationedVariableStr,
+										__RowSpecificTagVariable['DelayFloat']
+										if type(
+											__RowSpecificTagVariable
+											)!=None.__class__ and 'DelayFloat' in __RowSpecificTagVariable 
+										else 0.,
+										__RowSpecificTagVariable['TransferFunctionStr']
+										if type(
+											__RowSpecificTagVariable
+											)!=None.__class__ and 'TransferFunctionStr' in __RowSpecificTagVariable
+										else ""
+									).ExpressedTermStr,
 								__RowJacFloatsArray,
-								__RowTagVariablesArray if __RowTagVariablesArray!=None else [],
-								self.EquationedVariableStrsList
+								self.EquationedVariableStrsList,
+								__RowSpecificTagVariablesArray if type(
+									__RowSpecificTagVariablesArray
+								)!=None.__class__ else []
 							)
 						)
 					),
-					__Matrixer.MatrixedRandomFloatsArray,
-					__Matrixer.MatrixingTagVariablesArray
-					if len(np.shape(__Matrixer.MatrixingTagVariablesArray))==2
+					__LateralMatrixer.MatrixedRandomFloatsArray,
+					__LateralMatrixer.MatrixingSpecificTagVariablesArray
+					if len(np.shape(__LateralMatrixer.MatrixingSpecificTagVariablesArray))==2
 					else [[]]
 				)
 
@@ -154,11 +163,13 @@ class EquationerClass(BaseClass):
 				)
 
 			#debug
+			'''
 			self.debug(
 				[
 					('self.',self,['EquationedPreExpressionStrsList'])
 				]
 			)
+			'''
 
 			#update
 			map(

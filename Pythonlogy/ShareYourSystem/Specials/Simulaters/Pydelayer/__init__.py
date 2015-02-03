@@ -73,6 +73,13 @@ class PydelayerClass(BaseClass):
 
 	def mimic_simulate(self):
 
+		#debug
+		'''
+		self.debug(('self.',self,[
+						'PydelayingKwargVariablesDict'
+					]))
+		'''
+
 		#pydelay first
 		self.pydelay(
 				_PydelayingStopTimeFloat=self.SimulatingStopTimeFloat
@@ -186,7 +193,8 @@ class PydelayerClass(BaseClass):
 		self.PydelayedEquationDictsList=map(
 			lambda __PydelayedDeriveEquationer:
 			__PydelayedDeriveEquationer.populate(
-				).equation().EquationingDifferentialDict,
+				).equation(
+				).EquationingDifferentialDict,
 			self.PydelayedDeriveEquationersList
 		)
 
@@ -217,6 +225,27 @@ class PydelayerClass(BaseClass):
 				lambda __PydelayedParamDict:
 				self.PydelayingKwargVariablesDict['params'].update(__PydelayedParamDict),
 				self.PydelayedParamDictsList
+			)
+
+		#map populate and neurongroup
+		self.PydelayedCodeStrsList=map(
+			lambda __PydelayedDeriveEquationer:
+			__PydelayedDeriveEquationer.EquationingCodeStr,
+			self.PydelayedDeriveEquationersList
+		)
+
+		#Check
+		if 'supportcode' not in self.PydelayingKwargVariablesDict:
+			self.PydelayingKwargVariablesDict['supportcode']=""
+
+		#update
+		map(
+				lambda __PydelayedCodeStr:
+				self.PydelayingKwargVariablesDict.__setitem__(
+					'supportcode',
+					self.PydelayingKwargVariablesDict['supportcode']+'\n'+__PydelayedCodeStr
+				),
+				self.PydelayedCodeStrsList
 			)
 
 		#debug

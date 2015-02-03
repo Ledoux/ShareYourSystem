@@ -57,13 +57,16 @@ class MoniterClass(BaseClass):
 			self.MoniteringDerivePopulaterVariable=self.NodePointDeriveNoder
 
 		#debug
+		'''
 		self.debug(('self.',self,[
 								'MoniteringSampleTimeIndexIntsArray',
 								'MoniteringVariableIndexIntsArray',
 								'MoniteringVariableStr'
 							]))
-
+		'''
+		
 		#debug
+		'''
 		import numpy as np
 		MoniteredTempCompleteVariablesArray=getattr(
 				self.MoniteringDerivePopulaterVariable,
@@ -73,6 +76,7 @@ class MoniterClass(BaseClass):
 			np.shape(MoniteredTempCompleteVariablesArray)
 			)
 		)
+		'''
 
 		#pick
 		self.MoniteredTempVariablesArray=getattr(

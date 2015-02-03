@@ -34,54 +34,60 @@ Template.Scale.rendered = function()
         )
     */
 
+    //get
     LocalInstance=InstancesDictObject[this.data._id]
-    LocalInstance.Score=new Score(
-        {
-            'Instance':LocalInstance,
-            //'NumBeatsInt':_.size(LocalInstance.NoteFlatStrsArray),
-        }
-    )
-    LocalInstance.Score.pushVoice(
-        _.map(
+
+    //init
+    LocalInstance.Song=new SongClass(
+            {
+                'Instance':LocalInstance,
+                'NumBeatsInt':_.size(LocalInstance.NoteFlatStrsArray),
+            }
+        )
+
+    //
+
+    //map
+    LocalInstance.Song.NoteDictObjectsArraysObject['0']=_.map(
                 LocalInstance.NoteFlatStrsArray,
                 function(__NoteFlatStr)
                 {   
                     return {
                         'VoiceStr':'0',
-                        'NoteStr':__NoteFlatStr.toLowerCase()+"/4",
+                        'NoteStr':__NoteFlatStr+"/4",
                         'DurationStr':"q"
                     }
                 }
             )
-    )
+
+    //push
+    LocalInstance.Song.Score.pushVoice('0')
 
 }
 
-ScaleBand = new BandJS();
-ScaleBand.setTimeSignature(4,4);
-ScaleBand.setTempo(120);
+//init
+ScalePlayer = new PlayerClass();
 
 Template.Scale.events = {
     'click .InputScore': function()
     {  
-        //
-        var Piano = ScaleBand.createInstrument();
 
-        //map
-        _.map(
-                this.NoteFlatStrsArray,
-                function(__NoteFlatStr)
-                {
-                    Piano.note('quarter',__NoteFlatStr+"4")
-                }
-            )
+        //set
+        ScalePlayer.Song=InstancesDictObject[this._id].Song
+        InstancesDictObject[this._id].Song.Player=ScalePlayer
 
-        //
-        var Player = ScaleBand.finish();
-        Player.play()
+        //Debug
+        console.log(
+            'InstancesDictObject[this._id].Song is \n',
+            InstancesDictObject[this._id].Song
+        )
+
+        //play
+        InstancesDictObject[this._id].Song.Player.play()
 
     }
 }
+
 
 Template.Scale.helpers(
     _.extend(

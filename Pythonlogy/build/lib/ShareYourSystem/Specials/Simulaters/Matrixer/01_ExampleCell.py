@@ -13,11 +13,11 @@ SYS._attest(
 		'MyMatrixer is '+SYS._str(
 		MyMatrixer,
 		**{
-			'RepresentingBaseKeyStrsListBool':False,
-			'RepresentingAlineaIsBool':False,
-			'RepresentingKeyStrsList':[
-			]
-		}
+				'RepresentingBaseKeyStrsListBool':False,
+				'RepresentingAlineaIsBool':False,
+				'RepresentingKeyStrsList':[
+				]
+			}
 		),
 	]
 ) 

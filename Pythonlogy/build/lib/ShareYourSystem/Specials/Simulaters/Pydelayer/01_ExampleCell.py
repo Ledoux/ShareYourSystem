@@ -9,12 +9,18 @@ MyPydelayer=SYS.PydelayerClass(
 		#PydelayingKwargVariablesDict
 		{
 			'eqns':{
-				'x' : '0.25 * x(t-tau) / (1.0 + pow(x(t-tau),p)) -0.1*x'
+				'x' : '(foo(t) + 0.25 * x(t-tau)) / (1.0 + pow(x(t-tau),p)) -0.1*x'
 				},
 			'params':{
 					'tau' : 5,
 			    	'p'   : 10
+				},
+			'supportcode':'''
+				double foo(t){
+					return cos(t)
 				}
+			'''
+
 		}
 	)
 

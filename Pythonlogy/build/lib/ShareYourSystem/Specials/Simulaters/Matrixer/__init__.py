@@ -20,7 +20,6 @@ SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
-
 #</ImportSpecificModules>
 
 #<DefineClass>
@@ -35,27 +34,33 @@ class MatrixerClass(BaseClass):
 								'MatrixingMeanFloat',
 								'MatrixingStdFloat',
 								'MatrixingNormalisationFunction',
+								'MatrixingDivideVariable',
 								'MatrixingStatStr',
 								'MatrixingDiagFloatsArray',
-								'MatrixingTagVariablesArray',
+								'MatrixingSpecificTagVariablesArray',
+								'MatrixingRowTagVariablesArray',
+								'MatrixingColTagVariablesArray',
 								'MatrixedStatFunction',
 								'MatrixedRandomFloatsArray'
 							]
 
 	def default_init(self,
-						_MatrixingRowsInt=0,
-						_MatrixingColsInt=0,
-						_MatrixingSizeTuple=None,
-						_MatrixingMeanFloat=0.,
-						_MatrixingStdFloat=1.,
-						_MatrixingNormalisationFunction=None,
-						_MatrixingStatStr="norm",
-						_MatrixingDiagFloatsArray=None,
-						_MatrixingTagVariablesArray=None,
-						_MatrixedStatFunction=None,
-						_MatrixedRandomFloatsArray=None,
-						**_KwargVariablesDict
-					):
+			_MatrixingRowsInt=0,
+			_MatrixingColsInt=0,
+			_MatrixingSizeTuple=None,
+			_MatrixingMeanFloat=0.,
+			_MatrixingStdFloat=1.,
+			_MatrixingNormalisationFunction=None,
+			_MatrixingDivideVariable=None,
+			_MatrixingStatStr="norm",
+			_MatrixingDiagFloatsArray=None,
+			_MatrixingSpecificTagVariablesArray=None,
+			_MatrixingRowTagVariablesArray=None,
+			_MatrixingColTagVariablesArray=None,
+			_MatrixedStatFunction=None,
+			_MatrixedRandomFloatsArray=None,
+			**_KwargVariablesDict
+		):
 
 		#Call the parent __init__ method
 		BaseClass.__init__(self,**_KwargVariablesDict)
@@ -64,7 +69,7 @@ class MatrixerClass(BaseClass):
 				self,
 			):	
 
-		#set
+		#Check
 		if self.MatrixingStatStr!="":
 
 			#import
@@ -80,14 +85,24 @@ class MatrixerClass(BaseClass):
 		if self.MatrixingSizeTuple==None:
 			self.MatrixingSizeTuple=(self.MatrixingRowsInt,self.MatrixingColsInt)
 
+		#debug
+		self.debug(('self.',self,['MatrixingSizeTuple']))
+
 		#Check
 		if self.MatrixingStatStr=='norm':
 
 			#set
 			self.MatrixedRandomFloatsArray=self.MatrixingStdFloat*self.MatrixedStatFunction(
-				self.MatrixingMeanFloat,size=self.MatrixingSizeTuple
+				self.MatrixingMeanFloat,
+				size=self.MatrixingSizeTuple
 			)
 
+		#Check
+		if self.MatrixingDivideVariable!=None:
+			self.MatrixedRandomFloatsArray=(
+				self.MatrixedRandomFloatsArray.T/self.MatrixingDivideVariable
+			).T
+		
 		#Check
 		if self.MatrixingNormalisationFunction!=None and len(
 			self.MatrixingSizeTuple) and self.MatrixingSizeTuple[0]==self.MatrixingSizeTuple[1]:

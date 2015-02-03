@@ -35,46 +35,137 @@ Template.Pattern.rendered = function()
         )
     */
 
+    //Define
     LocalInstance=InstancesDictObject[this.data._id]
-    LocalInstance.MelodyScore=new Score(
+
+    /////////////////////////////////////
+    //Melody Score
+    /////////////////////////////////////
+    //init
+    LocalInstance.MelodyScore=new ScoreClass(
         {
             'Instance':LocalInstance,
-            'ScoreStr':"Melody"
+            'ScoreStr':"Melody",
+            'NumBeatsInt':_.size(LocalInstance.PatternCursorIntsArray)+1,
         }
     )
-    LocalInstance.MelodyScore.drawShortScore()
 
-    LocalInstance.RhythmScore=new Score(
+    //init
+    NoteInt=0
+
+    //set
+    LocalInstance.NoteDictObjectsArray=_.union(
+                [
+                    {
+                        'VoiceStr':'0',
+                        'NoteStr':'c/4',
+                        'DurationStr':"q"
+                    }
+                ],
+                _.map(
+                        LocalInstance.PatternCursorIntsArray,
+                        function(__PatternCursorInt)
+                        {   
+
+                            //increment
+                            NoteInt+=__PatternCursorInt
+
+                            //Debug
+                            console.log(
+                                'NoteInt is \n',
+                                NoteInt
+                            )
+
+                            //return 
+                            return {
+                                'VoiceStr':'0',
+                                'NoteStr':NoteIntToNoteFlatStrDict[
+                                            NoteInt%_.size(
+                                                NoteIntToNoteFlatStrDict
+                                            )
+                                        ]+'/4',
+                                'DurationStr':"q"
+                            }
+                        }
+                    )
+                )
+
+    //map
+    LocalInstance.MelodyScore.pushVoice(LocalInstance.NoteDictObjectsArray)
+        
+
+    /////////////////////////////////////
+    //Rhythm Score
+    /////////////////////////////////////
+
+    console.log(new Vex.Flow.StaveNote({keys:['c/4'],duration:"hq16"}))
+
+    /*
+    //init
+    LocalInstance.RhythmScore=new ScoreClass(
         {
             'Instance':LocalInstance,
             'ScoreStr':"Rhythm"
         }
     )
-    LocalInstance.RhythmScore.drawShortScore()
-    
+
+    //set
+    LocalInstance.NoteDictObjectsArray=_.map(
+                _.filter(
+                    LocalInstance.PatternCursorIntsArray,
+                    function(__PatternCursorInt)
+                    {
+                        return __PatternCursorInt!=0
+                    }
+                ),
+                function(__PatternCursorInt)
+                {   
+                    //Debug
+                    console.log(
+                        'DurationIntToDurationStrDict[__PatternCursorInt] is \n',
+                        DurationIntToDurationStrDict[__PatternCursorInt]
+                    )
+
+                    //return 
+                    return {
+                        'VoiceStr':'0',
+                        'NoteStr':"a/4",
+                        'DurationStr':DurationIntToDurationStrDict[__PatternCursorInt]
+                    }
+                }
+            )
+
+    //push
+    LocalInstance.RhythmScore.pushVoice(
+            LocalInstance.NoteDictObjectsArray
+        )
+    */
 }
 
-PattenrBand = new BandJS();
-PattenrBand.setTimeSignature(4,4);
-PattenrBand.setTempo(120);
+PatternBand = new BandJS();
+PatternBand.setTimeSignature(4,4);
+PatternBand.setTempo(120);
 
 Template.Pattern.events = {
     'click .InputScore': function()
     {  
         //
-        var Piano = PattenrBand.createInstrument();
+        var Piano = PatternBand.createInstrument();
 
         //map
         _.map(
-                this.NoteFlatsArray,
-                function(__NoteFlat)
+                InstanceDictObjects[this._id].NoteDictObjectsArray,
+                function(__NoteDictObject)
                 {
-                    Piano.note('quarter',__NoteFlat+"4")
+                    Piano.note(
+                        DurationStrToBandDurationStr[__NoteDictObject['DurationStr']],
+                        __NoteDictObject['NoteStr']+"4"
+                    )
                 }
             )
 
         //
-        var Player = PattenrBand.finish();
+        var Player = PatternBand.finish();
         Player.play()
 
     }

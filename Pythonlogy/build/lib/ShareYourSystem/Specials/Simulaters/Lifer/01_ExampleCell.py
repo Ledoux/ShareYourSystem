@@ -20,10 +20,10 @@ MyLifer=SYS.LiferClass(
 		#20.+2.*scipy.stats.uniform.rvs(0,size=10),
 		#LifingThresholdVariable
 		#-50.,
-		-50.+scipy.stats.uniform.rvs(0,size=10),
+		-50.+2.*scipy.stats.uniform.rvs(0,size=10),
 		#LifingResetVariable
 		#-70.
-		-70.+scipy.stats.uniform.rvs(0,size=10),
+		-70.+2.*scipy.stats.uniform.rvs(0,size=10),
 	).neurongroup(
 	)
 		
