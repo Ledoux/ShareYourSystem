@@ -40,6 +40,12 @@ JoinClass.prototype.join=function(_FindDictObject,_FilterDictObject)
     //Define local
     var LocalJoin=this
 
+    //Check
+    if(_FindDictObject==undefined)
+    {
+        _FindDictObject={}
+    }
+
     //Default
     if(_FindDictObject['OrderArray']==undefined)
     {
@@ -61,10 +67,18 @@ JoinClass.prototype.join=function(_FindDictObject,_FilterDictObject)
     }
 
     //Debug
+    /*
     console.log(
         '_FindDictObject["OrderArray"] is \n',
         _FindDictObject['OrderArray']
     )
+    */
+
+    //Check
+    if(_FilterDictObject==undefined)
+    {
+        _FilterDictObject={}
+    }
 
     //Define
     LocalJoin.FilterKeyStrsArray=_.filter(
@@ -109,6 +123,7 @@ JoinClass.prototype.join=function(_FindDictObject,_FilterDictObject)
             var JoinKeyStr=__JoinStr.split(CollectionStr).slice(1)[0].slice(1)
 
             //Debug
+            /*
             console.log(
                 'CollectionStr is \n',
                 CollectionStr,
@@ -116,6 +131,7 @@ JoinClass.prototype.join=function(_FindDictObject,_FilterDictObject)
                 'JoinKeyStr is \n',
                 JoinKeyStr
             )
+            */
 
             //init
             var MapFilterDictObject=_.extend(
@@ -156,7 +172,10 @@ JoinClass.prototype.join=function(_FindDictObject,_FilterDictObject)
             /*
             console.log(
                 'MapCollection is \n',
-                MapCollection
+                MapCollection,
+                '\n',
+                '_FindDictObject[__JoinStr] is \n',
+                _FindDictObject[__JoinStr]
             )
             */
 
@@ -347,14 +366,90 @@ JoinClass.prototype.insert=function()
     )
 }
 
-JoinClass.prototype.find=function()
+JoinClass.prototype.find=function(_JoinFindDictObject,_FilterDictObject)
 {
 
+    //Define local
+    var LocalJoin=this
 
+    //Debug
+    /*
+    console.log(
+        'find l 360 \n',
+        '_JoinFindDictObject is \n',
+        _JoinFindDictObject,
+        '\n',
+        '_FilterDictObject is \n',
+        _FilterDictObject
+    )
+    */
+    
+    //join first
+    LocalJoin.join(
+            _JoinFindDictObject,
+            _FilterDictObject
+        )
 
+    //Debug
+    /*
+    console.log(
+        'find l 395 \n',
+        'LocalJoin.JoinDictObjectsArray is \n',
+        LocalJoin.JoinDictObjectsArray
+    )
+    */
 
+    //Set
+    var FindDictObject={}
+    if(_.size(LocalJoin.JoinDictObjectsArray)>0)
+    {
+        FindDictObject={
+                $or:LocalJoin.JoinDictObjectsArray
+            }
+    }
 
+    //Check
+    if(_FilterDictObject==undefined)
+    {
+
+        //Debug
+        /*
+        console.log(
+            '_FilterDictObject is undefined'
+        )
+        */
+
+        //return
+        return LocalJoin.Abstraction.Collection.find(
+            FindDictObject,
+            _FilterDictObject
+        )
+    }
+    else
+    {
+        //return
+        return LocalJoin.Abstraction.Collection.find(
+            FindDictObject,
+            _FilterDictObject
+        )
+    }
 }
 
+Meteor.Collection.prototype.findJoin=function(_FindDictObject,_FilterDictObject)
+{
+    //Define
+    var LocalCollection=this
+
+    //init
+    var LocalJoin=new JoinClass(
+        {
+            'Abstraction':LocalCollection.Abstraction
+        }
+    )
+
+    //return
+    return LocalJoin.find(_FindDictObject,_FilterDictObject)
+
+}
 
 

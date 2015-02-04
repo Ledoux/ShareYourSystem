@@ -79,6 +79,12 @@ ScoreClass = function(_InitDictObject){
     //jQuery
     LocalScore.Svg=$(".SvgScore#Svg"+this.Song.SongStr+LocalScore.Song.Instance._id)[0]
 
+    //Debug
+    console.log(
+        'LocalScore.Svg is \n',
+        LocalScore.Svg
+    )
+
     //Renderer a svg raphael
     LocalScore.Renderer = new Vex.Flow.Renderer(
         LocalScore.Svg,

@@ -102,6 +102,49 @@ MusicAbstraction=new AbstractionClass(
 			//return
 			return Find
     	},
+    	'progressions':function()
+    	{
+    		//Debug
+    		/*
+			console.log(
+				'Template Music helpers l 66 \n',
+				'Session.get("VoiceConditionsDictObject") is \n',
+				Session.get('VoiceConditionsDictObject')
+			)
+			*/
+
+			//find
+			var Find=Progressions.findJoin(
+				Session.get('ProgressionConditionsDictObject')
+			)
+
+			//fetch
+			var FindFetch=Find.fetch()
+
+			//map
+			_.map(
+				_.range(_.size(FindFetch)),
+				function(__Int)
+				{
+					Voices.update(
+						{_id:FindFetch[__Int]._id},
+						{$set:{'ProgressionCountInt':__Int}}
+					)
+				}
+			)
+
+			//Debug
+			/*
+			console.log(
+				'Template Music helpers l 96 \n',
+				'Find.fetch() is \n',
+				Find.fetch()
+			)
+			*/
+
+			//return
+			return Find
+    	},
     	'voices':function()
     	{
     		//Debug
@@ -169,6 +212,26 @@ Session.set(
 	{
 		//'PatternCursorIntsArray':[1,0]
 		'PatternCursorIntsArray':[1,2]
+	}
+)
+
+Session.set(
+	'ProgressionConditionsDictObject',
+	{
+		'OrderArray':['*scales','*patterns*Note','*patterns*Rhythm'],
+		'*scales':{
+			'NotesInt':7,
+			'ModeBool':true,
+			'Major7Bool':true
+		},
+		'*patterns*Note':
+		{
+			'CursorsInt':2
+		},
+		'*patterns*Rhythm':
+		{
+			'CursorsInt':2
+		}
 	}
 )
 

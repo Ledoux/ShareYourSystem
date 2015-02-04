@@ -51,6 +51,66 @@ initProgressions=function()
 	//insert
 	ProgressionsJoin.insert()
 
+	
 }
+
+
+test=function()
+{
+
+	/*
+	//init a join
+	var ProgressionsJoin=new JoinClass(
+			{
+				'Abstraction':ProgressionAbstraction
+			}
+		)
+
+	var Find=ProgressionsJoin.find(
+			{
+				'OrderArray':['*scales','*patterns*Note','*patterns*Rhythm'],
+				'*scales':{
+					'NotesInt':7,
+					'ModeBool':true,
+					'Major7Bool':true
+				},
+				'*patterns*Note':
+				{
+					'CursorsInt':2
+				},
+				'*patterns*Rhythm':
+				{
+					'CursorsInt':2
+				}
+			}
+		)
+
+	console.log(Find.fetch())
+	*/
+
+	return Progressions.findJoin(
+		{
+			'OrderArray':['*scales','*patterns*Note','*patterns*Rhythm'],
+			'*scales':{
+				'NotesInt':7,
+				'ModeBool':true,
+				'Major7Bool':true
+			},
+			'*patterns*Note':
+			{
+				'CursorsInt':2
+			},
+			'*patterns*Rhythm':
+			{
+				'CursorsInt':2
+			}
+		}
+	)
+
+
+
+}
+
+
 
 

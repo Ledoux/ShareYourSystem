@@ -20,6 +20,7 @@ SongClass = function(_InitDictObject){
     LocalSong.VoicesObject={}
     LocalSong.NumBeatsInt=4
     LocalSong.BeatValueInt=4
+    LocalSong.SongStr=""
 
     //extend
     _.extend(

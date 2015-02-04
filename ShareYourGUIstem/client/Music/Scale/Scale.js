@@ -37,6 +37,13 @@ Template.Scale.rendered = function()
     //get
     LocalInstance=InstancesDictObject[this.data._id]
 
+    //Debug
+    console.log(
+        'Scale rendered \n',
+        'LocalInstance is \n',
+        LocalInstance
+    )
+
     //init
     LocalInstance.Song=new SongClass(
             {
@@ -44,8 +51,6 @@ Template.Scale.rendered = function()
                 'NumBeatsInt':_.size(LocalInstance.NoteFlatStrsArray),
             }
         )
-
-    //
 
     //map
     LocalInstance.Song.NoteDictObjectsArraysObject['0']=_.map(

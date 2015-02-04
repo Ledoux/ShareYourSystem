@@ -35,9 +35,8 @@ Template.Progression.rendered = function()
         )
     */
 
-    //Define
+    //get
     LocalInstance=InstancesDictObject[this.data._id]
-
  
 }
 
