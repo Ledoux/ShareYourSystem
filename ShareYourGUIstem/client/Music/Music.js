@@ -167,7 +167,8 @@ Session.set(
 Session.set(
 	'PatternConditionsDictObject',
 	{
-		'PatternCursorIntsArray':[1,0]
+		//'PatternCursorIntsArray':[1,0]
+		'PatternCursorIntsArray':[1,2]
 	}
 )
 

@@ -44,6 +44,7 @@ AbstractionClass = function(_UpdateDictObject)
         "CollectionsDictObject[\"" + LocalAbstraction.CollectionKeyStr + "\"] = " + LocalAbstraction.CollectionKeyStr
       )
     LocalAbstraction.Collection=CollectionsDictObject[LocalAbstraction.CollectionKeyStr]
+    LocalAbstraction.Collection.Abstraction=LocalAbstraction
     LocalAbstraction.Template=Template[LocalAbstraction.TemplateStr]
     CollectionStrToTemplateStrDictObject[LocalAbstraction.CollectionStr]=LocalAbstraction.TemplateStr
 

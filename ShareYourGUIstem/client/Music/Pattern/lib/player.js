@@ -11,7 +11,19 @@ midi
 
 //Rhythm
 VexflowDurationStrToBandDurationIntDict={
+    'w':'whole',
+    'hd':'dottedHalf',
+    'h':'half',
+    'qd':'dottedQuarter',
+    '8t':'tripletEighth',
     'q':'quarter',
+    'ht':'tripletHalf',
+    '8d':'dottedEighth',
+    '8':'eighth',
+    'qt':'tripletQuarter',
+    '16d':'dottedSixteenth',
+    '16':'sixteenth',
+    '16t':'tripletSixteenth'
 }
 
 BandDurationStrToVexflowDurationStrDict=_.object(
@@ -44,6 +56,15 @@ PlayerClass.prototype.play=function()
     //define
     var LocalPlayer=this
 
+    //Debug
+    /*
+    console.log(
+        'play l 49 \n',
+        'LocalPlayer.Song is \n',
+        LocalPlayer.Song
+    )
+    */
+
     //set
     LocalPlayer.Band.setTimeSignature(
                         LocalPlayer.Song.NumBeatsInt,
@@ -73,11 +94,14 @@ PlayerClass.prototype.play=function()
                                 ''
                             )
                         */
-                        
+
                         //Define
                         var BandDurationInt=VexflowDurationStrToBandDurationIntDict[
                                 __NoteDictObject['DurationStr']
                             ]
+
+                        var BandNoteStr=__NoteDictObject['NoteStr'][0].toUpperCase()+__NoteDictObject['NoteStr'].slice(1)
+                        BandNoteStr=BandNoteStr.replace('/','')
 
                         //Debug
                         /*
@@ -97,7 +121,7 @@ PlayerClass.prototype.play=function()
                         //note
                         LocalPlayer.InstrumentsObject[__KeyStr].note(
                             BandDurationInt,
-                            __NoteDictObject['NoteStr'].replace('/','')
+                            BandNoteStr
                         )
 
                         //Debug

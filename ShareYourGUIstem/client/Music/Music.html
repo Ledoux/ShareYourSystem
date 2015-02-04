@@ -1,5 +1,6 @@
 <template name="Music">
 
+	<!--
 	<table border="1" width="850">
 		{{#each scales}}
 
@@ -11,6 +12,7 @@
 
 		{{/each}}
 	</table>
+	-->
 
 	<!--
 	<table border="1" width="800">
@@ -45,6 +47,22 @@
 		 
 	</table>
 	-->
+
+	<table border="1" width="800">
+
+		{{#each progressions}}
+
+		 	<tr align="center">
+		 		<br>
+		 		{{>Progression}}
+		 		<br>
+		 	</tr>
+
+		{{/each}}
+		 
+	</table>
+
+	
 
 </template>
 

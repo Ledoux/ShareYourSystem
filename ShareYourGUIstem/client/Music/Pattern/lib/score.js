@@ -42,7 +42,7 @@ DurationStrToDurationIntDict={
 }
 
 DurationIntToDurationStrDict=_.object(
-    _.map(_.values(DurationStrToDurationIntDict),function(__Int){return __Int.toString()}),
+    _.map(_.values(DurationStrToDurationIntDict),function(___IndexInt){return ___IndexInt.toString()}),
     _.keys(DurationStrToDurationIntDict)
     )
 
@@ -59,6 +59,7 @@ ScoreClass = function(_InitDictObject){
     LocalScore.BarMaxInt=4
     LocalScore.SystemCountInt=0
     LocalScore.width=275
+    //LocalScore.width=350
 
     //extend
     _.extend(
@@ -76,7 +77,7 @@ ScoreClass = function(_InitDictObject){
 	*/
 	
     //jQuery
-    LocalScore.Svg=$(".SvgScore#Svg"+this.ScoreStr+LocalScore.Song.Instance._id)[0]
+    LocalScore.Svg=$(".SvgScore#Svg"+this.Song.SongStr+LocalScore.Song.Instance._id)[0]
 
     //Renderer a svg raphael
     LocalScore.Renderer = new Vex.Flow.Renderer(
@@ -115,6 +116,8 @@ ScoreClass.prototype.pushVoice=function(_VoiceStr)
 
                 //Debug
                 console.log(
+                    'pushVoice l 118 \n',
+                    'We PUSH a new NOTE\n',
                     '__NoteDictObject is \n',
                     __NoteDictObject
                 )
@@ -123,7 +126,7 @@ ScoreClass.prototype.pushVoice=function(_VoiceStr)
                 if(__NoteDictObject!=undefined)
                 {
                     //split
-                    LocalScore.splitNote(__NoteDictObject)
+                    LocalScore.pushNote(__NoteDictObject)
                 }
 
             }
@@ -194,19 +197,21 @@ ScoreClass.prototype.pushVoice=function(_VoiceStr)
                 
 
                 _.map(
-                    _.values(BarDictObject['VoiceDictObjectsObject']),
-                    function(__VoiceDictObject)
+                    BarDictObject['VoiceDictObjectsObject'],
+                    function(__VoiceDictObject,__VoiceStr)
                     {
 
                         //Debug
-                        /*
                         console.log(
+                            'We check if the voice has enough notes \n',
                             '__VoiceDictObject is \n',
-                            __VoiceDictObject
+                            __VoiceDictObject,
+                            '\n',
+                            'TotalBeatsInt is \n',
+                            TotalBeatsInt
                         )
-                        */
 
-                        //
+                        //Check
                         if(__VoiceDictObject.StepCountInt<TotalBeatsInt)
                         {
                             //compute
@@ -214,29 +219,22 @@ ScoreClass.prototype.pushVoice=function(_VoiceStr)
 
                             //Debug
                             console.log(
+                                'We add a silence\n',
                                 'DiffInt is \n',
                                 DiffInt,
                                 '\n',
                                 'DurationIntToDurationStrDict[DiffInt.toString()] is \n',
-                                DurationIntToDurationStrDict[DiffInt.toString()],
-                                '\n',
-                                'BarDictObject.NoteDictObjectsArray is \n',
-                                BarDictObject.NoteDictObjectsArray
+                                DurationIntToDurationStrDict[DiffInt.toString()]
                             )
 
-                            //push
-                            __VoiceDictObject['NoteDictObjectsArray'].push(
+                            //push silence
+                            LocalScore.pushNote(
                                 {
-                                    'StaveNote':new Vex.Flow.StaveNote(
-                                        { 
-                                            keys: [
-                                                   "a/4" 
-                                                ], 
-                                            duration: DurationIntToDurationStrDict[
-                                                    DiffInt.toString()
-                                                ] + 'r'
-                                        }
-                                    )
+                                    'NoteStr':"a/4",
+                                    'DurationInt':DiffInt,
+                                    'DurationStr':DurationIntToDurationStrDict[DiffInt.toString()],
+                                    'VoiceStr':__VoiceStr,
+                                    'SilentBool':true
                                 }
                             )
 
@@ -276,12 +274,10 @@ ScoreClass.prototype.pushVoice=function(_VoiceStr)
                     function(__VoiceDictObject)
                     {
                         //Debug
-                        /*
                         console.log(
                             '__VoiceDictObject is \n',
                             __VoiceDictObject
                         )
-                        */
 
                         //add
                         __VoiceDictObject['Voice'].addTickables(
@@ -346,185 +342,439 @@ ScoreClass.prototype.pushVoice=function(_VoiceStr)
     */
 }
 
-ScoreClass.prototype.setNote=function(_NoteDictObject)
+ScoreClass.prototype.getDurationStrsArray=function(_TotalDurationInt)
 {
     //define
     var LocalScore=this
 
     //Debug
-    console.log(
-        "setNote l 355 \n",
-       '_NoteDictObject is \n',
-       _NoteDictObject 
-    )
-
-    //init
-    var StaveNote=new Vex.Flow.StaveNote(
-        { 
-            keys: [
-                _NoteDictObject['NoteStr']
-                ], 
-            duration: _NoteDictObject['DurationStr'] 
-        }
-    )
-
-    //check for sharp and flat
-    if(_NoteDictObject['NoteStr'][1]=="#")
-    {
-        StaveNote.addAccidental(0, new Vex.Flow.Accidental("#"))
-    }
-    if(_NoteDictObject['NoteStr'][1]=="b")
-    {
-        StaveNote.addAccidental(0, new Vex.Flow.Accidental("b"))
-    }
-
-    //link
-    _NoteDictObject['StaveNote']=StaveNote
-
-    //Debug
     /*
     console.log(
-        'score.js setNote l 292 \n',
-        'Maybe init the bar'
+        "getDurationStrsArray l 355 \n",
+       '_TotalDurationInt is \n',
+       _TotalDurationInt 
     )
     */
 
-    //init maybe the bar
-    if(LocalScore.BarDictObjectsArray[
-            LocalScore.BarCountInt.toString()
-        ]==undefined)
+    //Define
+    var DurationStr=DurationIntToDurationStrDict[_TotalDurationInt]
+
+    //Check
+    if(DurationStr!=undefined)
     {
+        return [DurationStr]
+    }
+    else
+    {
+        //Debug
+        /*
+        console.log(
+            '_.keys(DurationIntToDurationStrDict) is \n',
+            _.keys(DurationIntToDurationStrDict)
+        )
+        */
 
-        //first Bar
-        if(LocalScore.BarCountInt.toString()==0)
-        {
-            LocalScore.BarDictObjectsArray[LocalScore.BarCountInt.toString()]={
-            'VoiceDictObjectsObject':{},
-            'Stave': new Vex.Flow.Stave(
-                        10, 
-                        0, 
-                        LocalScore.width
-                    )
-            }
-
-            LocalScore.BarDictObjectsArray[LocalScore.BarCountInt.toString()]['Stave'
-            ].addClef(
-                        "treble"
-            ).addTimeSignature(LocalScore.Song.NumBeatsInt+'/'+LocalScore.Song.BeatValueInt
-            ).setContext(
-                LocalScore.Context
-            ).draw()
-        }
-        else
-        {
-            if(LocalScore.BarCountInt<=LocalScore.BarMaxInt)
-            {
-                //place a stave just on the right
-                LocalScore.BarDictObjectsArray[LocalScore.BarCountInt.toString()]={
-                'VoiceDictObjectsObject':{},
-                'Stave': new Vex.Flow.Stave(
-                            LocalScore.BarDictObjectsArray[
-                                (LocalScore.BarCountInt-1).toString()
-                            ]['Stave'].x+LocalScore.BarDictObjectsArray[
-                                (LocalScore.BarCountInt-1).toString()
-                            ]['Stave'].width, 
-                            LocalScore.BarDictObjectsArray[
-                                (LocalScore.BarCountInt-1).toString()
-                            ]['Stave'].y, 
-                            LocalScore.width
-                        )
+        //define
+        var DiffIntsArray=_.filter(
+            _.map(
+                _.keys(DurationIntToDurationStrDict),
+                function(__DurationInt)
+                {
+                    return _TotalDurationInt-parseInt(__DurationInt)
                 }
-
-                //set
-                LocalScore.BarDictObjectsArray[LocalScore.BarCountInt.toString()]['Stave'
-                ].setContext(
-                    LocalScore.Context
-                ).draw()
-            }
-            else
+            ),
+            function(___IndexInt)
             {
-                //increment
-                LocalScore.SystemCountInt+=1
-
-                //replace the score to the left
-                LocalScore.BarDictObjectsArray[LocalScore.BarCountInt.toString()]={
-                'VoiceDictObjectsObject':{},
-                'Stave': new Vex.Flow.Stave(
-                            10, 
-                            LocalScore.BarDictObjectsArray[
-                                (LocalScore.BarCountInt-1).toString()
-                            ]['Stave'].y+LocalScore.BarDictObjectsArray[
-                                (LocalScore.BarCountInt-1).toString()
-                            ]['Stave'].height, 
-                            LocalScore.width
-                        )
-                }
-
-                //set
-                LocalScore.BarDictObjectsArray[LocalScore.BarCountInt.toString()]['Stave'
-                ].setContext(
-                    LocalScore.Context
-                ).draw()
+                return ___IndexInt>=0
             }
+        )
 
-        }
+        //define
+        var BigDurationInt=_TotalDurationInt-DiffIntsArray[_.size(DiffIntsArray)-1]
+
+        //Debug
+        /*
+        console.log(
+            'DiffIntsArray is \n',
+            DiffIntsArray,
+            '\n',
+            'BigDurationInt is \n',
+            BigDurationInt
+        )
+        */
+
+        //return
+        return _.union(
+                        [DurationIntToDurationStrDict[BigDurationInt]],
+                        LocalScore.getDurationStrsArray(
+                            _TotalDurationInt-BigDurationInt
+                        )
+        )
         
     }
 
-    //Debug
-    /*
-    console.log(
-        'score.js setNote l 321 \n',
-        'Maybe init the voice'
-    )
-    */
 
-    //init maybe the voice
-    if (LocalScore.BarDictObjectsArray[
-                LocalScore.BarCountInt.toString()
-            ]['VoiceDictObjectsObject'][_NoteDictObject['VoiceStr']]==undefined)
+}
+
+ScoreClass.prototype.pushNote=function(_NoteDictObject)
+{
+    //define
+    var LocalScore=this
+
+    //Count to avoid circular calls
+    LocalScore.CallsCountInt=0
+
+    //call split
+    LocalScore.splitNote(_NoteDictObject)
+
+}
+
+ScoreClass.prototype.setNote=function(_NoteDictObject)
+{
+    //define
+    var LocalScore=this
+
+    //Check
+    LocalScore.CallsCountInt+=1
+
+    //Debug
+    console.log(
+        'setNote l 458 \n',
+        ' LocalScore.CallsCountInt is \n',
+         LocalScore.CallsCountInt
+    )
+
+    //Check
+    if(LocalScore.CallsCountInt<50)
     {
-        LocalScore.BarDictObjectsArray[
-                LocalScore.BarCountInt.toString()
-            ]['VoiceDictObjectsObject'][
-            _NoteDictObject['VoiceStr']
-            ]={
-                'Voice':new Vex.Flow.Voice(
-                    {
-                        num_beats:  LocalScore.Song.NumBeatsInt,
-                        beat_value: LocalScore.Song.BeatValueInt,
-                        resolution: Vex.Flow.RESOLUTION
-                    }
-                ),
-                'NoteDictObjectsArray':[]
-            }
-    }
 
-    //Debug
-    /*
-    console.log(
-        'score.js setNote l 348 \n',
-        'push the note'
-    )
-    */
+        //Debug
+        /*
+        console.log(
+            "setNote l 355 \n",
+           '_NoteDictObject is \n',
+           _NoteDictObject 
+        )
+        */
 
-    //push         
-    LocalScore.BarDictObjectsArray[
-                LocalScore.BarCountInt.toString()
-            ]['VoiceDictObjectsObject'][_NoteDictObject['VoiceStr']
-            ]['NoteDictObjectsArray'].push(
-                _NoteDictObject
+        //Define
+        var DurationStr=_NoteDictObject['DurationStr']
+
+        //Check
+        if(DurationStr==undefined)
+        {
+            
+            //get
+            var DurationStrsArray=LocalScore.getDurationStrsArray(
+                parseInt(_NoteDictObject['DurationInt'])
             )
 
-    //set step count int
-    LocalScore.BarDictObjectsArray[
-                LocalScore.BarCountInt.toString()
-            ]['VoiceDictObjectsObject'][_NoteDictObject['VoiceStr']
-            ]['StepCountInt']=LocalScore.StepCountInt+DurationStrToDurationIntDict[
-            _NoteDictObject['DurationStr']]
+            //Debug
+            console.log(
+                'setNote the DurationStr is undefined\n',
+                '_NoteDictObject["DurationInt"] is \n',
+                _NoteDictObject['DurationInt'],
+                '\n',
+                'so we split the note into \n',
+                DurationStrsArray
+            )
 
-    //set
-    _NoteDictObject['BarCountInt']=LocalScore.BarCountInt
+            //map
+            _.map(
+                    DurationStrsArray,
+                    function(__DurationStr)
+                    {
+
+                        //Debug
+                        console.log(
+                            'Split note continue with l 490\n',
+                            '__DurationStr is \n',
+                            __DurationStr
+                        )
+
+                        //set
+                        LocalScore.setNote(
+                            _.extend(
+                                _NoteDictObject,
+                                {
+                                    'DurationStr':__DurationStr
+                                }
+                            )
+                        )
+                    }
+                )
+
+
+        }
+        else
+        {
+
+            //Copy to make sure
+            var PushedNoteDictObject=_.extend(
+                            {},
+                            _NoteDictObject
+                        )
+
+            //Debug
+            console.log(
+                'ICI setNote ok for the duration\n',
+                'DurationStr is \n',
+                DurationStr,
+                '\n',
+                'PushedNoteDictObject is \n',
+                PushedNoteDictObject
+            )
+
+            //Check for silence
+            var VexflowDurationStr=PushedNoteDictObject['DurationStr']
+            if(PushedNoteDictObject['SilentBool']==true)
+            {
+                VexflowDurationStr+='r'
+            }
+
+            //Debug
+            console.log(
+                'We set the StaveNote\n',
+                'VexflowDurationStr is \n',
+                VexflowDurationStr
+            )
+
+            //init
+            var StaveNote=new Vex.Flow.StaveNote(
+                { 
+                    keys: [
+                            PushedNoteDictObject['NoteStr']
+                        ], 
+                    duration: VexflowDurationStr
+                }
+            )
+
+            //check
+            /*
+            if(StaveNote.duration!=PushedNoteDictObject['DurationStr'])
+            {
+                console.log('WARNING not properly outputed by vexflow')
+            }
+            */
+
+            //check for sharp and flat
+            if(PushedNoteDictObject['NoteStr'][1]=="#")
+            {
+                StaveNote.addAccidental(0, new Vex.Flow.Accidental("#"))
+            }
+            if(PushedNoteDictObject['NoteStr'][1]=="b")
+            {
+                StaveNote.addAccidental(0, new Vex.Flow.Accidental("b"))
+            }
+
+            if(PushedNoteDictObject['DurationStr'].charAt(
+                PushedNoteDictObject['DurationStr'].length-1)=='d')
+            {
+                //Debug
+                console.log('WE ADD A DOT')
+
+                //
+                StaveNote.addDotToAll();
+            }
+
+            //link
+            PushedNoteDictObject['StaveNote']=StaveNote
+
+            //Debug
+            /*
+            console.log(
+                'score.js setNote l 292 \n',
+                'Maybe init the bar'
+            )
+            */
+
+            //init maybe the bar
+            if(LocalScore.BarDictObjectsArray[
+                    LocalScore.BarCountInt.toString()
+                ]==undefined)
+            {
+
+                //first Bar
+                if(LocalScore.BarCountInt.toString()==0)
+                {
+                    LocalScore.BarDictObjectsArray[LocalScore.BarCountInt.toString()]={
+                    'VoiceDictObjectsObject':{},
+                    'Stave': new Vex.Flow.Stave(
+                                10, 
+                                0, 
+                                LocalScore.width
+                            )
+                    }
+
+                    LocalScore.BarDictObjectsArray[
+                        LocalScore.BarCountInt.toString()
+                    ]['Stave'
+                    ].addClef(
+                                "treble"
+                    ).addTimeSignature(LocalScore.Song.NumBeatsInt+'/'+LocalScore.Song.BeatValueInt
+                    ).setContext(
+                        LocalScore.Context
+                    ).draw()
+                }
+                else
+                {
+                    if(LocalScore.BarCountInt<=LocalScore.BarMaxInt)
+                    {
+                        //place a stave just on the right
+                        LocalScore.BarDictObjectsArray[LocalScore.BarCountInt.toString()]={
+                        'VoiceDictObjectsObject':{},
+                        'Stave': new Vex.Flow.Stave(
+                                    LocalScore.BarDictObjectsArray[
+                                        (LocalScore.BarCountInt-1).toString()
+                                    ]['Stave'].x+LocalScore.BarDictObjectsArray[
+                                        (LocalScore.BarCountInt-1).toString()
+                                    ]['Stave'].width, 
+                                    LocalScore.BarDictObjectsArray[
+                                        (LocalScore.BarCountInt-1).toString()
+                                    ]['Stave'].y, 
+                                    LocalScore.width
+                                )
+                        }
+
+                        //set
+                        LocalScore.BarDictObjectsArray[
+                            LocalScore.BarCountInt.toString()
+                        ]['Stave'
+                        ].setContext(
+                            LocalScore.Context
+                        ).draw()
+                    }
+                    else
+                    {
+                        //increment
+                        LocalScore.SystemCountInt+=1
+
+                        //replace the score to the left
+                        LocalScore.BarDictObjectsArray[LocalScore.BarCountInt.toString()]={
+                        'VoiceDictObjectsObject':{},
+                        'Stave': new Vex.Flow.Stave(
+                                    10, 
+                                    LocalScore.BarDictObjectsArray[
+                                        (LocalScore.BarCountInt-1).toString()
+                                    ]['Stave'].y+LocalScore.BarDictObjectsArray[
+                                        (LocalScore.BarCountInt-1).toString()
+                                    ]['Stave'].height, 
+                                    LocalScore.width
+                                )
+                        }
+
+                        //set
+                        LocalScore.BarDictObjectsArray[LocalScore.BarCountInt.toString()]['Stave'
+                        ].setContext(
+                            LocalScore.Context
+                        ).draw()
+                    }
+
+                }
+                
+            }
+
+            //Debug
+            /*
+            console.log(
+                'score.js setNote l 321 \n',
+                'Maybe init the voice'
+            )
+            */
+
+            //init maybe the voice
+            if (LocalScore.BarDictObjectsArray[
+                        LocalScore.BarCountInt.toString()
+                    ]['VoiceDictObjectsObject'][
+                        PushedNoteDictObject['VoiceStr']
+                    ]==undefined)
+            {
+                LocalScore.BarDictObjectsArray[
+                        LocalScore.BarCountInt.toString()
+                    ]['VoiceDictObjectsObject'][
+                    PushedNoteDictObject['VoiceStr']
+                    ]={
+                        'Voice':new Vex.Flow.Voice(
+                            {
+                                num_beats:  LocalScore.Song.NumBeatsInt,
+                                beat_value: LocalScore.Song.BeatValueInt,
+                                resolution: Vex.Flow.RESOLUTION
+                            }
+                        ),
+                        'NoteDictObjectsArray':[]
+                    }
+            }
+
+            //Debug
+            console.log(
+                'score.js setNote l 695 \n',
+                'push the note in the voice\n',
+                'PushedNoteDictObject is \n',
+                PushedNoteDictObject
+            )
+
+            //define
+            var NoteIndexInt=_.size(
+                LocalScore.BarDictObjectsArray[
+                        LocalScore.BarCountInt.toString()
+                    ]['VoiceDictObjectsObject'][_NoteDictObject['VoiceStr']
+                    ]['NoteDictObjectsArray']
+                )
+
+            //set
+            PushedNoteDictObject['IndexInt']=NoteIndexInt
+
+            //push         
+            LocalScore.BarDictObjectsArray[
+                        LocalScore.BarCountInt.toString()
+                    ]['VoiceDictObjectsObject'][_NoteDictObject['VoiceStr']
+                    ]['NoteDictObjectsArray'].push(
+                        PushedNoteDictObject   
+                    )
+
+            //Define
+            var DurationInt=DurationStrToDurationIntDict[
+                        PushedNoteDictObject['DurationStr']
+                    ]
+
+            //Debug
+            console.log(
+                'We update the StepCountInt in the voice object\n',
+                'LocalScore.StepCountInt is \n',
+                LocalScore.StepCountInt,
+                '\n',
+                "DurationInt is \n",
+                DurationInt,
+                '\n',
+                "PushedNoteDictObject['DurationStr'] is \n",
+                PushedNoteDictObject['DurationStr']
+            )
+
+            //set step count int
+            LocalScore.BarDictObjectsArray[
+                        LocalScore.BarCountInt.toString()
+                    ]['VoiceDictObjectsObject'][
+                    PushedNoteDictObject['VoiceStr']
+                    ]['StepCountInt']=LocalScore.StepCountInt+DurationInt
+
+            //Debug
+            console.log(
+                'The StepCountInt in the corresponding voice object is \n',
+                LocalScore.BarDictObjectsArray[
+                        LocalScore.BarCountInt.toString()
+                    ]['VoiceDictObjectsObject'][
+                    PushedNoteDictObject['VoiceStr']
+                    ]['StepCountInt']
+            )
+
+            //set
+            _NoteDictObject['BarCountInt']=LocalScore.BarCountInt
+            _NoteDictObject['VoiceDictObject']=LocalScore.BarDictObjectsArray[
+                        LocalScore.BarCountInt.toString()
+                    ]['VoiceDictObjectsObject'][PushedNoteDictObject['VoiceStr']
+                ]
+        }
+    }
 
 }
 
@@ -533,165 +783,351 @@ ScoreClass.prototype.splitNote=function(_NoteDictObject)
     //define
     var LocalScore=this
 
-    //increment
-    var StepCountInt=LocalScore.StepCountInt+DurationStrToDurationIntDict[
-        _NoteDictObject['DurationStr']
-    ]
+    //Check
+    LocalScore.CallsCountInt+=1
 
-    //Define
-    var TotalBeatsInt=LocalScore.Song.NumBeatsInt*LocalScore.Song.BeatValueInt
+    //Debug
+    console.log(
+        'splitNote l 747 \n',
+        ' LocalScore.CallsCountInt is \n',
+         LocalScore.CallsCountInt
+    )
 
-    //Split at the half or not
-    if (LocalScore.Song.NumBeatsInt==4 && LocalScore.Song.BeatValueInt==4)
+    //Check
+    if(LocalScore.NoteSplitBool)
     {
-        var HalfBeatsInt=TotalBeatsInt/2
+        //Debug
+        /*
+        console.log(
+            'WE CAN MAYBER MERGE HERE\n',
+            'LocalScore.LastNoteDictObject is \n',
+            LocalScore.LastNoteDictObject,
+            '\n',
+            '_NoteDictObject is \n',
+            _NoteDictObject
+        )
+        */
+
+        if(LocalScore.LastNoteDictObject['NoteStr']==_NoteDictObject['NoteStr'])
+        {
+            console.log(
+                'YES WE MERGE\n',
+                'LocalScore.LastNoteDictObject is \n',
+                LocalScore.LastNoteDictObject,
+                '\n',
+                '_NoteDictObject is \n',
+                _NoteDictObject
+            )
+
+        }
+
+    }
+
+    //init
+    LocalScore.NoteSplitBool=false
+
+    //Check
+    if(LocalScore.CallsCountInt<50)
+    {
+
+        //Define
+        var DurationInt=DurationStrToDurationIntDict[
+            _NoteDictObject['DurationStr']
+        ]
 
         //Debug
         console.log(
-            'splitNote l 547\n',
-            'TotalBeatsInt is \n',
-            TotalBeatsInt,
-            '\n',
-            'StepCountInt is \n',
-            StepCountInt
+            'splitNote l 763 \n',
+            'DurationInt is \n',
+            DurationInt
         )
 
         //Check
-        if(LocalScore.StepCountInt<HalfBeatsInt && StepCountInt>HalfBeatsInt)
+        if(DurationInt==undefined)
         {
-            //Debug
-            console.log(
-                'The half of the bar is crossed\n',
-                'LocalScore.StepCountInt is \n',
-                LocalScore.StepCountInt,
-                '\n',
-                'StepCountInt is \n',
-                StepCountInt,
-                '\n',
-                'HalfBeatsInt is \n',
-                HalfBeatsInt
-            )
 
-            //compute
-            var FirstDiffInt=HalfBeatsInt-LocalScore.StepCountInt
-            var SecondDiffInt=StepCountInt-HalfBeatsInt
-
-            //first Note
-            var FirstNoteDictObject=_.extend(
-                {},
-                _NoteDictObject
+            var DurationStrsArray=LocalScore.getDurationStrsArray(
+                _NoteDictObject['DurationInt']
             )
 
             //Debug
             console.log(
-                'FirstDiffInt is \n',
-                FirstDiffInt,
+                'splitNote, this DurationInt not exists \n',
+                'but _NoteDictObject["DurationInt"] is \n',
+                _NoteDictObject['DurationInt'],
                 '\n',
-                'DurationIntToDurationStrDict is \n',
-                DurationIntToDurationStrDict
+                'so we split the note \n',
+                DurationStrsArray
             )
 
-            //setNote
-            FirstNoteDictObject['DurationStr']=DurationIntToDurationStrDict[FirstDiffInt.toString()]
-            LocalScore.setNote(FirstNoteDictObject)
+            //map
+            _.map(
+                DurationStrsArray,
+                function(__DurationStr)
+                {
+                    //Debug
+                    console.log(
+                        'splitNote the split continues with\n',
+                        __DurationStr
+                    )
 
-            //Debug
-            console.log(
-                'SecondDiffInt is \n',
-                SecondDiffInt,
-                '\n',
-                'DurationIntToDurationStrDict is \n',
-                DurationIntToDurationStrDict
+                    //splitNote
+                    LocalScore.splitNote(
+                        _.extend(    
+                            _NoteDictObject,
+                            {
+                                'DurationInt':DurationStrToDurationIntDict[__DurationStr],
+                                'DurationStr':__DurationStr
+                            }
+                        )
+                    )
+                }
             )
-
-            //second Note
-            var SecondNoteDictObject=_.extend(
-                {},
-                _NoteDictObject
-            )
-            SecondNoteDictObject['DurationStr']=DurationIntToDurationStrDict[SecondDiffInt.toString()]
-            LocalScore.StepCountInt=HalfBeatsInt
-            LocalScore.splitNote(SecondNoteDictObject)
-
         }
         else
         {
-            //just set
-            LocalScore.setNote(
-                _NoteDictObject
+            //Debug
+            /*
+            console.log(
+                'This DurationInt exists \n',
+                'DurationInt is \n',
+                DurationInt
             )
+            */
 
             //set
-            LocalScore.StepCountInt=StepCountInt
+            LocalScore.NoteDictObject=_NoteDictObject
+
+            //increment
+            LocalScore.NewStepCountInt=LocalScore.StepCountInt+DurationInt
+
+            //Define
+            LocalScore.TotalBeatsInt=LocalScore.Song.NumBeatsInt*LocalScore.Song.BeatValueInt
+
+            //init
+            LocalScore.HalfBeatsIntsArray=[]
+
+            //Split at the half or not
+            if (LocalScore.Song.NumBeatsInt==4 && LocalScore.Song.BeatValueInt==4)
+            {
+                LocalScore.HalfBeatsIntsArray=[8]
+            }
+            if (LocalScore.Song.NumBeatsInt==3 && LocalScore.Song.BeatValueInt==4)
+            {
+                LocalScore.HalfBeatsIntsArray=[4,8]
+            }
+
+            //Debug
+            console.log(
+                'LocalScore.HalfBeatsIntsArray is \n',
+                LocalScore.HalfBeatsIntsArray
+            )
+
+            //define
+            var SplitHalfBool=false
+
+            //for over all the halksplits
+            for (__IndexInt = 0; __IndexInt < _.size(LocalScore.HalfBeatsIntsArray); __IndexInt++) {
+
+                //set
+                LocalScore.HalfBeatsInt=LocalScore.HalfBeatsIntsArray[__IndexInt]
+
+                //Check
+                if (LocalScore.StepCountInt<LocalScore.HalfBeatsInt && LocalScore.NewStepCountInt>LocalScore.HalfBeatsInt)
+                {
+                    //set
+                    SplitHalfBool=true
+
+                    //Debug
+                    console.log(
+                        'We split half here',
+                        'LocalScore.HalfBeatsInt is \n',
+                        LocalScore.HalfBeatsInt
+                    )
+
+                    //plit half
+                    LocalScore.splitHalfNote()
+                }
+
+                //break
+                break
+            }
+
+            //Debug
+            console.log(
+                'SplitHalfBool is \n',
+                SplitHalfBool
+            )
+
+            //continue if not split
+            if(SplitHalfBool==false)
+            {
+
+                //Check
+                if(LocalScore.NewStepCountInt>LocalScore.TotalBeatsInt)
+                {
+                    //compute
+                    var FirstDiffInt=LocalScore.TotalBeatsInt-LocalScore.StepCountInt
+                    var SecondDiffInt=LocalScore.NewStepCountInt-LocalScore.TotalBeatsInt
+
+                    //first Note
+                    var FirstNoteDictObject=_.extend(
+                        {},
+                        _NoteDictObject
+                    )
+
+                    //Debug
+                    /*
+                    console.log(
+                        'FirstDiffInt is \n',
+                        FirstDiffInt,
+                        '\n',
+                        'DurationIntToDurationStrDict is \n',
+                        DurationIntToDurationStrDict
+                    )
+                    */
+
+                    //setNote
+                    SecondNoteDictObject['DurationInt']=FirstDiffInt
+                    FirstNoteDictObject['DurationStr']=DurationIntToDurationStrDict[
+                        FirstDiffInt.toString()
+                    ]
+                    LocalScore.setNote(FirstNoteDictObject)
+                    
+                    //Debug
+                    /*
+                    console.log(
+                        'SecondDiffInt is \n',
+                        SecondDiffInt,
+                        '\n',
+                        'DurationIntToDurationStrDict is \n',
+                        DurationIntToDurationStrDict
+                    )
+                    */
+
+                    //second Note
+                    var SecondNoteDictObject=_.extend(
+                        {},
+                        _NoteDictObject
+                    )
+                    SecondNoteDictObject['DurationInt']=SecondDiffInt
+                    SecondNoteDictObject['DurationStr']=DurationIntToDurationStrDict[
+                        SecondDiffInt.toString()
+                    ]
+                    LocalScore.StepCountInt+=FirstDiffInt
+                    LocalScore.splitNote(SecondNoteDictObject)
+                }
+
+                else
+                {
+                    //Debug
+                    console.log(
+                        'It doent cross the half neither the end so just set'
+                    )
+
+                    //just set
+                    LocalScore.setNote(
+                        _NoteDictObject
+                    )
+
+                    //set
+                    LocalScore.StepCountInt=_NoteDictObject['VoiceDictObject']['StepCountInt']
+                    
+                    //Check
+                    if(LocalScore.StepCountInt==LocalScore.TotalBeatsInt)
+                    {
+                        LocalScore.StepCountInt=0
+                        LocalScore.BarCountInt+=1
+                    }
+
+                    //
+                    LocalScore.NoteSplitBool=true
+                    LocalScore.LastNoteDictObject=_NoteDictObject
+
+
+                }
+            }
         }
     }
+}
+
+ScoreClass.prototype.splitHalfNote=function()
+{
+    //define
+    var LocalScore=this
+
+    /*
+    console.log(
+        'splitHalfNote l 547\n',
+        'LocalScore.TotalBeatsInt is \n',
+        LocalScore.TotalBeatsInt,
+        '\n',
+        'LocalScore.StepCountInt is \n',
+        LocalScore.StepCountInt,
+        '\n',
+        'LocalScore.NewStepCountInt is \n',
+        LocalScore.NewStepCountInt,
+        '\n',
+        'LocalScore.HalfBeatsInt is \n',
+        LocalScore.HalfBeatsInt
+    )
+    */
+
+    //compute
+    var FirstDiffInt=LocalScore.HalfBeatsInt-LocalScore.StepCountInt
+    var SecondDiffInt=LocalScore.NewStepCountInt-LocalScore.HalfBeatsInt
+
+    //first Note
+    var FirstNoteDictObject=_.extend(
+        {},
+        LocalScore.NoteDictObject
+    )
+
+    //Debug
+    console.log(
+        'it has crossed\n',
+        'FirstDiffInt is \n',
+        FirstDiffInt,
+        '\n',
+        'DurationIntToDurationStrDict is \n',
+        DurationIntToDurationStrDict
+    )
+
+    //setNote
+    FirstNoteDictObject['DurationInt']=FirstDiffInt
+    FirstNoteDictObject['DurationStr']=DurationIntToDurationStrDict[
+        FirstDiffInt.toString()
+    ]
+    LocalScore.setNote(FirstNoteDictObject)
+
+    //Debug
+    console.log(
+        'We set the second note after the half\n',
+        'SecondDiffInt is \n',
+        SecondDiffInt,
+        '\n',
+        'DurationIntToDurationStrDict is \n',
+        DurationIntToDurationStrDict
+    )
+
+    //second Note
+    LocalScore.StepCountInt=LocalScore.HalfBeatsInt
+    var SecondNoteDictObject=_.extend(
+        {},
+        LocalScore.NoteDictObject
+    )
+    SecondNoteDictObject['DurationInt']=SecondDiffInt
+    SecondNoteDictObject['DurationStr']=DurationIntToDurationStrDict[
+        SecondDiffInt.toString()
+    ]
 
     //Check
-    if(StepCountInt>TotalBeatsInt)
-    {
-        //compute
-        var FirstDiffInt=TotalBeatsInt-LocalScore.StepCountInt
-        var SecondDiffInt=StepCountInt-TotalBeatsInt
+    LocalScore.splitNote(SecondNoteDictObject)
 
-        //first Note
-        var FirstNoteDictObject=_.extend(
-            {},
-            _NoteDictObject
-        )
-
-        //Debug
-        /*
-        console.log(
-            'FirstDiffInt is \n',
-            FirstDiffInt,
-            '\n',
-            'DurationIntToDurationStrDict is \n',
-            DurationIntToDurationStrDict
-        )
-        */
-
-        //setNote
-        FirstNoteDictObject['DurationStr']=DurationIntToDurationStrDict[FirstDiffInt.toString()]
-        LocalScore.setNote(FirstNoteDictObject)
-        
-        //Debug
-        /*
-        console.log(
-            'SecondDiffInt is \n',
-            SecondDiffInt,
-            '\n',
-            'DurationIntToDurationStrDict is \n',
-            DurationIntToDurationStrDict
-        )
-        */
-
-        //second Note
-        var SecondNoteDictObject=_.extend(
-            {},
-            _NoteDictObject
-        )
-        SecondNoteDictObject['DurationStr']=DurationIntToDurationStrDict[SecondDiffInt.toString()]
-        LocalScore.BarCountInt+=1
-        LocalScore.StepCountInt=0
-        LocalScore.splitNote(SecondNoteDictObject)
-    }
-
-    else
-    {
-        //just set
-        LocalScore.setNote(
-            _NoteDictObject
-        )
-
-        //set
-        LocalScore.StepCountInt=StepCountInt
-        
-        //Check
-        if(LocalScore.StepCountInt==TotalBeatsInt)
-        {
-            LocalScore.StepCountInt=0,
-            LocalScore.BarCountInt+=1
-        }
-    }
-
+    //Debug
+    console.log(
+        'The second note after the half is setted\n',
+        'LocalScore.StepCountInt is \n',
+        LocalScore.StepCountInt
+    )
 }

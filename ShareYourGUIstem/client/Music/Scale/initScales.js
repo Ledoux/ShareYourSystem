@@ -138,8 +138,16 @@ initScales=function()
 
 						}
 					)
+
+					//Jim or Barack scale test
+					__ValueObject['JimScaleBool']=_.contains(
+							__ValueObject['DistanceIntsArray'],2
+						)==false
+
 				}
 			)
+
+			
 
 			//map
 			_.map(
@@ -155,45 +163,58 @@ initScales=function()
 							{
 		
 								//classic mode test
-								'IonienBool':__ValueObject['PerfectFifthBool'] && __ValueObject['DimFifthBool']==false && __ValueObject['Major7Bool'
+								'IonienBool':__ValueObject['JimScaleBool'] && __ValueObject['PerfectFifthBool'] && __ValueObject['DimFifthBool']==false && __ValueObject['Major7Bool'
+								] && _.contains(PoolIntsArray,2) && _.contains(PoolIntsArray,5) && _.contains(PoolIntsArray,9),
+								'DorienBool':__ValueObject['JimScaleBool'] && __ValueObject['PerfectFifthBool'] && __ValueObject['DimFifthBool']==false && __ValueObject['Minor7Bool'
+								] && _.contains(PoolIntsArray,2) && _.contains(PoolIntsArray,5) && _.contains(PoolIntsArray,9),
+								'PhrygianBool':__ValueObject['JimScaleBool'] && __ValueObject['PerfectFifthBool'] && __ValueObject['DimFifthBool']==false && __ValueObject['Minor7Bool'
+								] && _.contains(PoolIntsArray,1) && _.contains(PoolIntsArray,5) && _.contains(PoolIntsArray,8),
+								'LydianBool':__ValueObject['JimScaleBool'] && __ValueObject['PerfectFifthBool'] && __ValueObject['DimFifthBool'] && __ValueObject['Major7Bool'
 								] && _.contains(PoolIntsArray,2) && _.contains(PoolIntsArray,9),
-								'DorienBool':__ValueObject['PerfectFifthBool'] && __ValueObject['DimFifthBool']==false && __ValueObject['Minor7Bool'
-								] && _.contains(PoolIntsArray,2) && _.contains(PoolIntsArray,9),
-								'PhrygianBool':__ValueObject['PerfectFifthBool'] && __ValueObject['DimFifthBool']==false && __ValueObject['Minor7Bool'
-								] && _.contains(PoolIntsArray,1) && _.contains(PoolIntsArray,8),
-								'LydianBool':__ValueObject['PerfectFifthBool'] && __ValueObject['DimFifthBool'] && __ValueObject['Major7Bool'
-								] && _.contains(PoolIntsArray,2) && _.contains(PoolIntsArray,9),
-								'MixolydianBool':__ValueObject['PerfectFifthBool'] && __ValueObject['DimFifthBool']==false && __ValueObject['Dominant7Bool'
-								] && _.contains(PoolIntsArray,2) && _.contains(PoolIntsArray,9),
-								'EolienBool':__ValueObject['PerfectFifthBool'] && __ValueObject['DimFifthBool']==false && __ValueObject['Minor7Bool'
-								] && _.contains(PoolIntsArray,2) && _.contains(PoolIntsArray,8),
-								'LocrienBool':__ValueObject['DimFifthBool'] && __ValueObject['PerfectFifthBool']==false && __ValueObject['Minor7Bool'
+								'MixolydianBool':__ValueObject['JimScaleBool'] && __ValueObject['PerfectFifthBool'] && __ValueObject['DimFifthBool']==false && __ValueObject['Dominant7Bool'
+								] && _.contains(PoolIntsArray,2) && _.contains(PoolIntsArray,5) && _.contains(PoolIntsArray,9),
+								'EolienBool':__ValueObject['JimScaleBool'] && __ValueObject['PerfectFifthBool'] && __ValueObject['DimFifthBool']==false && __ValueObject['Minor7Bool'
+								] && _.contains(PoolIntsArray,2) && _.contains(PoolIntsArray,5) && _.contains(PoolIntsArray,8),
+								'LocrienBool':__ValueObject['JimScaleBool'] && __ValueObject['DimFifthBool'] && __ValueObject['PerfectFifthBool']==false && __ValueObject['Minor7Bool'
 								] && _.contains(PoolIntsArray,1) && _.contains(PoolIntsArray,8)
 							}
 						)
 	
-					//name
-					_.map(
-						//['Major7Bool','Minor7Bool'],
-						['IonienBool','DorienBool','PhrygianBool','LydianBool','MixolydianBool','EolienBool','Locrien7Bool'],
-						function(__BoolKeyStr)
-						{
-							if(__ValueObject[__BoolKeyStr])
+						//name
+						_.map(
+							//['Major7Bool','Minor7Bool'],
+							[
+								'IonienBool','DorienBool','PhrygianBool',
+								'LydianBool','MixolydianBool',
+								'EolienBool','LocrienBool'
+							],
+							function(__BoolKeyStr)
 							{
-								__ValueObject['NameStr']=__BoolKeyStr.replace('Bool','')
-							}
-						}
-					)
+								if(__ValueObject['ModeBool']==undefined)
+								{
+									if(__ValueObject[__BoolKeyStr])
+									{
+										//Debug
+										console.log(
+											'__BoolKeyStr is \n',
+											__BoolKeyStr
+										)
 
-					//Jim or Barack scale test
-					__ValueObject['JimScaleBool']=_.contains(
-							__ValueObject['DistanceIntsArray'],2
-						)==false
-	
+										//set
+										__ValueObject['ModeBool']=true
+										__ValueObject['NameStr']=__BoolKeyStr.replace('Bool','')
+									}
+								}
+							}
+						)
+						if(__ValueObject['ModeBool']==undefined)
+						{
+							__ValueObject['ModeBool']=false
+						}
 					}
 				)
+
 					
-	
 			//map inserts
 			_.map(
 				ScalesDictObject,

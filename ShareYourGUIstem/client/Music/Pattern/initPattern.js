@@ -50,24 +50,33 @@ initPatterns=function()
 					*/
 
 					//cartesian product
-					var PatternCursorIntsArraysArray=cartesianproduct(
+					var CursorIntsArraysArray=cartesianproduct(
 						RepeatArray
 					)
 
 					//Debug
 					console.log(
 						'initPatterns l 45 \n',
-						'PatternCursorIntsArraysArray is \n',
-						PatternCursorIntsArraysArray
+						'CursorIntsArraysArray is \n',
+						CursorIntsArraysArray
 					)
 
 					//set
 					_.map(
-							PatternCursorIntsArraysArray,
-							function(__PatternCursorIntsArray)
+							CursorIntsArraysArray,
+							function(__CursorIntsArray)
 							{
-								PatternsDictObject[__PatternCursorIntsArray.join('').toString()]={
-									'PatternCursorIntsArray':__PatternCursorIntsArray
+								PatternsDictObject[__CursorIntsArray.join('').toString()]={
+									'CursorIntsArray':__CursorIntsArray,
+									'SumInt':_.reduce(
+											__CursorIntsArray,
+											function(__Int1,__Int2)
+											{
+												return __Int1+__Int2
+											}
+										),
+									'CursorsInt':_.size(__CursorIntsArray),
+									'KeyStr':__CursorIntsArray.join('')
 								}
 							}
 						)

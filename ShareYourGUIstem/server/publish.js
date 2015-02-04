@@ -21,6 +21,7 @@ CollectionStrsList=[
     "musics",
     "scales",
     "patterns",
+    "progressions",
     "voices"
 ]
 CollectionsDictObject={}
