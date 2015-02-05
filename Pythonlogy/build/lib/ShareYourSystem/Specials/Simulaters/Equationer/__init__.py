@@ -36,7 +36,7 @@ class EquationerClass(BaseClass):
 		'EquationingDifferentialDict',
 		'EquationingParamDict',
 		'EquationingSymbolStr',
-		'EquationedVariableStrsList',
+		'EquationedIndexSymbolStrsList',
 		'EquationedPreExpressionStrsList'
 	]
 
@@ -45,7 +45,7 @@ class EquationerClass(BaseClass):
 						_EquationingParamDict=None,
 						_EquationingSymbolStr='x',
 						_EquationingCodeStr='',
-						_EquationedVariableStrsList=None,
+						_EquationedIndexSymbolStrsList=None,
 						_EquationedPreExpressionStrsList=None,
 						**_KwargVariablesDict
 					):
@@ -58,41 +58,37 @@ class EquationerClass(BaseClass):
 				**_KwargVariablesDict
 			):
 		
-		#Loop integrativ over the matrixers to build the equations
-		for __IndexInt,__LateralMatrixer in enumerate(self['<LateralExpressers>']):
+		#Loop integrativ over the lateral expressers to build the equations
+		for __IndexInt,__LateralExpresser in enumerate(self['<LateralExpressers>']):
 				
 			#debug
 			'''
 			self.debug(
 				[
-					'__LateralMatrixer is \n',
-					__LateralMatrixer
+					'__LateralExpresser is \n',
+					__LateralExpresser
 				]
 			)
 			'''
-
-			#matrix first 
-			__LateralMatrixer.matrix(
-					_SizeTuple=(self.PopulatingUnitsInt,self.PopulatingUnitsInt)
-				)
 
 			#Check
 			if __IndexInt==0:
 
 				#set
-				self.EquationedVariableStrsList=map(
+				self.EquationedIndexSymbolStrsList=map(
 					lambda __IndexInt:
 					self.EquationingSymbolStr+EquationingIndexStr+str(__IndexInt),
 					xrange(
-						len(__LateralMatrixer.MatrixedRandomFloatsArray)
+						self.PopulatingUnitsInt
 					)
 				)
 				self.EquationingDifferentialDict.update(
 					zip(
-						self.EquationedVariableStrsList,
-						['']*len(self.EquationedVariableStrsList)
+						self.EquationedIndexSymbolStrsList,
+						['']*len(self.EquationedIndexSymbolStrsList)
 					)
 				)
+
 
 
 			#debug
@@ -100,91 +96,134 @@ class EquationerClass(BaseClass):
 			self.debug(
 				[
 					('self.',self,[
-									'EquationedVariableStrsList',
+									'EquationedIndexSymbolStrsList',
 								]),
-					('__LateralMatrixer.',__LateralMatrixer,['MatrixedRandomFloatsArray'])
+					('__LateralExpresser.',__LateralExpresser,['MatrixedRandomFloatsArray'])
 				]
 			)
 			'''
 
-			#map express
-			self.EquationedPreExpressionStrsList=map(
-					lambda __RowJacFloatsArray,__RowSpecificTagVariablesArray:
-					('+'.join(
-							map(
-								lambda __RowJacFloat,__EquationedVariableStr,__RowSpecificTagVariable:
-								__LateralMatrixer.express(
-										__RowJacFloat,
-										__EquationedVariableStr,
-										__RowSpecificTagVariable['DelayFloat']
-										if type(
-											__RowSpecificTagVariable
-											)!=None.__class__ and 'DelayFloat' in __RowSpecificTagVariable 
-										else 0.,
-										__RowSpecificTagVariable['TransferFunctionStr']
-										if type(
-											__RowSpecificTagVariable
-											)!=None.__class__ and 'TransferFunctionStr' in __RowSpecificTagVariable
-										else ""
-									).ExpressedTermStr,
-								__RowJacFloatsArray,
-								self.EquationedVariableStrsList,
-								__RowSpecificTagVariablesArray if type(
-									__RowSpecificTagVariablesArray
-								)!=None.__class__ else []
-							)
+			#map to give name variables in the cols
+			__LateralExpresser.ExpressingColTagVariablesArray=map(
+					lambda __EquationedIndexSymbolStr,__ExpressingColTagVariable:
+					dict(
+							__ExpressingColTagVariable,
+							**{'SymbolStr':__EquationedIndexSymbolStr}
 						)
+					if type(
+						__ExpressingColTagVariable
+					)!=None.__class__
+					else {'SymbolStr':__EquationedIndexSymbolStr},
+					self.EquationedIndexSymbolStrsList,
+					__LateralExpresser.ExpressingColTagVariablesArray
+					if type(
+						__LateralExpresser.ExpressingColTagVariablesArray
+					)!=None.__class__
+					else []
+				)
+
+			#debug
+			self.debug(
+				[
+					('__LateralExpresser.',__LateralExpresser,['ExpressingColTagVariablesArray'])
+				]
+			)
+
+			#map express
+			self.EquationedPreExpressionStrsList=__LateralExpresser.express(
+					_MapBool=True,
+					**{
+						'MatrixingSizeTuple':(
+							self.PopulatingUnitsInt,
+							self.PopulatingUnitsInt
+						)
+					}
+				).ExpressedPreExpressionStrsList
+			
+			#debug
+			self.debug(
+				[
+					'update equation for a lateral',
+					('self.',self,['EquationedPreExpressionStrsList'])
+				]
+			)
+
+			#update
+			map(
+					lambda __EquationedIndexSymbolStr,__EquationedPreExpressionStr:
+					self.EquationingDifferentialDict.__setitem__
+					(
+						__EquationedIndexSymbolStr,
+						self.EquationingDifferentialDict[__EquationedIndexSymbolStr].__add__(
+							'+'+__EquationedPreExpressionStr
+							if self.EquationingDifferentialDict[__EquationedIndexSymbolStr]!=''
+							else __EquationedPreExpressionStr
+						) 
 					),
-					__LateralMatrixer.MatrixedRandomFloatsArray,
-					__LateralMatrixer.MatrixingSpecificTagVariablesArray
-					if len(np.shape(__LateralMatrixer.MatrixingSpecificTagVariablesArray))==2
-					else [[]]
-				)
-
-			#map
-			self.EquationedPreExpressionStrsList=map(
-					lambda __EquationedPreExpressionStr:
-					__EquationedPreExpressionStr[1:]
-					if __EquationedPreExpressionStr[0]=='+'
-					else __EquationedPreExpressionStr,
-					self.EquationedPreExpressionStrsList
-				)
-			self.EquationedPreExpressionStrsList=map(
-					lambda __EquationedPreExpressionStr:
-					__EquationedPreExpressionStr[:-1]
-					if __EquationedPreExpressionStr[-1]=='+'
-					else __EquationedPreExpressionStr,
-					self.EquationedPreExpressionStrsList
-				)
-			self.EquationedPreExpressionStrsList=map(
-					lambda __EquationedPreExpressionStr:
-					__EquationedPreExpressionStr.replace('++',''),
+					self.EquationedIndexSymbolStrsList,
 					self.EquationedPreExpressionStrsList
 				)
 
+		#Loop integrativ over the input expressers to build the equations
+		for __IndexInt,__InputExpresser in enumerate(self['<InputExpressers>']):
+				
 			#debug
 			'''
 			self.debug(
 				[
-					('self.',self,['EquationedPreExpressionStrsList'])
+					'__InputExpresser is \n',
+					__InputExpresser
 				]
 			)
 			'''
 
+			#matrix first
+			if __InputExpresser.MatrixingSizeTuple==None:
+
+				#Check
+				if __InputExpresser.ExpressingSpecificTagVariablesArray!=None:
+					__InputExpresser.MatrixingSizeTuple=np.shape(
+							__InputExpresser.ExpressingSpecificTagVariablesArray
+						)
+				elif __InputExpresser.ExpressingRowTagVariablesArray!=None:
+					__InputExpresser.MatrixingSizeTuple=(
+						self.PopulatingUnitsInt,
+						len(
+						__InputExpresser.ExpressingRowTagVariablesArray
+						)
+					)
+				else:
+					__InputExpresser.MatrixingSizeTuple=(self.PopulatingUnitsInt,0)
+
+			#express
+			self.EquationedPreExpressionStrsList=__InputExpresser.express(
+					_MapBool=True
+				).ExpressedPreExpressionStrsList
+
+			#debug
+			self.debug(
+				[
+					'update equation for an input',
+					('self.',self,['EquationedPreExpressionStrsList'])
+				]
+			)
+
 			#update
 			map(
-					lambda __EquationedVariableStr,__EquationedPreExpressionStr:
+					lambda __EquationedIndexSymbolStr,__EquationedPreExpressionStr:
 					self.EquationingDifferentialDict.__setitem__
 					(
-						__EquationedVariableStr,
-						self.EquationingDifferentialDict[__EquationedVariableStr].__add__(
+						__EquationedIndexSymbolStr,
+						self.EquationingDifferentialDict[__EquationedIndexSymbolStr].__add__(
 							'+'+__EquationedPreExpressionStr
-							if self.EquationingDifferentialDict[__EquationedVariableStr]!=''
+							if self.EquationingDifferentialDict[__EquationedIndexSymbolStr]!=''
 							else __EquationedPreExpressionStr
 						) 
 					),
-					self.EquationedVariableStrsList,
+					self.EquationedIndexSymbolStrsList,
 					self.EquationedPreExpressionStrsList
 				)
+
+
 			
 #</DefineClass>

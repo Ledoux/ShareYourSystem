@@ -24,6 +24,7 @@ h1 {
     font-size: 55px;
     color: #757575;
     text-align:left;
+    margin-left: 35px;
     margin-bottom:15px;
 }
 h1:hover {
@@ -58,11 +59,12 @@ h2:hover {
 dt {
     float: left;
     clear: left;
-    width: 17%;
-    /*font-weight: bold;*/
+    width: 25%;
+    font-style: italic;
 }
 dd {
-    margin-left: 17%;
+    margin-left: 25%;
+    margin-bottom : 3%;
 }
 p {
     margin-top:0;
@@ -72,7 +74,7 @@ p {
 /* Blockquotes */
 blockquote {
     text-align: left;
-    margin-right:200px;
+    margin-right: 350px;
 }
 
 /* Links */
@@ -90,7 +92,7 @@ a:hover, a:active {
 /* Horizontal separators */
 hr {
     color: #A6A6A6;
-    margin-right:200px;
+    margin-right:270px;
 }
 
 table {
@@ -99,8 +101,9 @@ table {
 
 img[title="Erwan Ledoux"] { 
     position: absolute;
-    top: 40px;
-    right: 50px;
+    top: 4%;
+    /*right: 15%;*/
+    left: 65%;
     width:  200px; 
     heigth:  200px; 
 }

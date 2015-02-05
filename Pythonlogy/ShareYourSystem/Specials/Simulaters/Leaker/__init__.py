@@ -43,17 +43,17 @@ class LeakerClass(BaseClass):
 		#Call the parent __init__ method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
-		#collect some Matrixers
+		#collect some Expressers
 		self.collect(
 			'LateralExpressers',
 			'Leak',
-			SYS.MatrixerClass(**{
+			SYS.ExpresserClass(**{
 				'MatrixingStdFloat':0.
 			})
 		).collect(
 			'LateralExpressers',
 			'Interaction',
-			SYS.MatrixerClass()
+			SYS.ExpresserClass()
 		)
 
 	def do_leak(
@@ -62,14 +62,14 @@ class LeakerClass(BaseClass):
 			):
 
 		#matrix the Leak
-		self['<LateralExpressers>LeakMatrixer'].matrix(
+		self['<LateralExpressers>LeakExpresser'].matrix(
 						_SizeTuple=(self.PopulatingUnitsInt,self.PopulatingUnitsInt),
 						_DiagFloatsArray=-np.ones(self.PopulatingUnitsInt,dtype=float),
 						_DivideVariable=self.LeakingConstantTimeVariable
 					)
 
 		#matrix the Lateral
-		self['<LateralExpressers>InteractionMatrixer'].matrix(
+		self['<LateralExpressers>InteractionExpresser'].matrix(
 				_SizeTuple=(self.PopulatingUnitsInt,self.PopulatingUnitsInt),
 				_DivideVariable=self.LeakingConstantTimeVariable
 			)

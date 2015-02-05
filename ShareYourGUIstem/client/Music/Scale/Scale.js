@@ -38,12 +38,14 @@ Template.Scale.rendered = function()
     LocalInstance=InstancesDictObject[this.data._id]
 
     //Debug
+    /*
     console.log(
         'Scale rendered \n',
         'LocalInstance is \n',
         LocalInstance
     )
-
+    */
+    
     //init
     LocalInstance.Song=new SongClass(
             {

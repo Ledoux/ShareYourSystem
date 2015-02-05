@@ -20,6 +20,7 @@ SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
+import numpy as np
 #</ImportSpecificModules>
 
 #<DefineClass>
@@ -82,11 +83,13 @@ class MatrixerClass(BaseClass):
 			).rvs
 
 		#set
-		if self.MatrixingSizeTuple==None:
+		if self.MatrixingSizeTuple==None or len(self.MatrixingSizeTuple)==0 :
 			self.MatrixingSizeTuple=(self.MatrixingRowsInt,self.MatrixingColsInt)
 
 		#debug
+		'''
 		self.debug(('self.',self,['MatrixingSizeTuple']))
+		'''
 
 		#Check
 		if self.MatrixingStatStr=='norm':
@@ -113,7 +116,12 @@ class MatrixerClass(BaseClass):
 				)
 
 		#Check
-		if type(self.MatrixingDiagFloatsArray)!=None.__class__:
+		if type(self.MatrixingDiagFloatsArray)!=None.__class__ and len(self.MatrixingDiagFloatsArray)==np.shape(
+				self.MatrixedRandomFloatsArray
+			)[0]:
+
+			#debug
+			self.debug(('self.',self,['MatrixingDiagFloatsArray']))
 
 			#map
 			map(

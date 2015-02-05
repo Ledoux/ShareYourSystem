@@ -5,44 +5,61 @@ import numpy as np
 
 #Definition an instance
 MyEquationer=SYS.EquationerClass(
+		**{
+			'PopulatingUnitsInt':2
+		}
 	).collect(
 		'LateralExpressers',
 		'Leak',
-		SYS.MatrixerClass(
-			).matrix(
-				_SizeTuple=(2,2),
-				_StdFloat=0.,
-				_DiagFloatsArray=np.array([-1.,-1.])
-			)
+		SYS.ExpresserClass(
+			**{
+				'MatrixingStdFloat':0.,
+				'MatrixingDiagFloatsArray':np.array([-1.,-1.])
+			}
+		)
 	).collect(
 		'LateralExpressers',
 		'Interaction',
-		SYS.MatrixerClass(
-			).matrix(
-				_SizeTuple=(2,2),
-				_SpecificTagVariablesArray=np.array(
+		SYS.ExpresserClass(
+			**{
+				'ExpressingSpecificTagVariablesArray':np.array(
 					[
 						[{},{'DelayFloat':5.}],
 						[{'DelayFloat':5.},{}]
 					]
-				)
-			)
+				),
+				'MatrixingStdFloat':0.2,
+			}
+		)
 	).collect(
-		'InputMatrixers',
+		'InputExpressers',
 		'Constant',
-		SYS.MatrixerClass(
-			).matrix(
-				_SizeTuple=(3,2),
-				_SpecificTagVariablesArray=np.array(
+		SYS.ExpresserClass(
+			**{
+				'ExpressingSymbolStr':'id',
+				'ExpressingSpecificTagVariablesArray':np.array(
 					[
-						[{},{'DelayFloat':5.}],
-						[{'DelayFloat':5.},{}]
+						[{},{'DelayFloat':1.},{}],
+						[{},{},{}]
 					]
-				)
-			)
+				),
+				#'ExpressingColTagVariablesArray':np.array(
+				#		[
+				#			{'SymbolStr':'1'},
+				#			{'SymbolStr':'1'}
+				#		]
+				#	)
+			}
+		)
 	).equation(
+		_CodeStr='''
+			double id(double t){
+						return 1.;
+					}
+		'''
 	)
 
+'''
 #Definition the AttestedStr
 SYS._attest(
 	[
@@ -55,7 +72,17 @@ SYS._attest(
 		),
 	]
 ) 
+'''
 
+#print
+SYS._print(
+		[
+			"MyEquationer['EquationingDifferentialDict'] is ",
+			MyEquationer['EquationingDifferentialDict']
+		]
+	)
+
+'''
 #plot
 MyPydelayer=SYS.PydelayerClass(
 	).collect(
@@ -72,3 +99,4 @@ pyplot.plot(MyPydelayer['<StateMoniters>VariableMoniter'].MoniteredTotalVariable
 pyplot.show()
 
 #Print
+'''

@@ -343,6 +343,10 @@ def getWordStrsListWithStr(_Str):
 	else:
 		return [""]
 
+def getDefaultArray():
+	import numpy
+	return numpy.array([])
+
 def getTypeClassWithTypeStr(_TypeStr):
 
 	#Debug
@@ -362,6 +366,11 @@ def getTypeClassWithTypeStr(_TypeStr):
 
 		#Return None
 		return None.__class__
+
+	#elif _TypeStr=='Array':
+	#
+	#	#return 
+	#	return getDefaultArray
 
 	elif _TypeStr in MutableStrsList+NotMutableStrsList :
 

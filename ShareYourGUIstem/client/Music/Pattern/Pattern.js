@@ -42,14 +42,12 @@ Template.Pattern.rendered = function()
     //Melody Score
     /////////////////////////////////////
 
-    /*
-
     //init
     LocalInstance.MelodySong=new SongClass(
         {
             'Instance':LocalInstance,
             'SongStr':"Melody",
-            'NumBeatsInt':_.size(LocalInstance.PatternCursorIntsArray)+1,
+            'NumBeatsInt':_.size(LocalInstance.CursorIntsArray)+1,
         }
     )
 
@@ -66,12 +64,12 @@ Template.Pattern.rendered = function()
                     }
                 ],
                 _.map(
-                        LocalInstance.PatternCursorIntsArray,
-                        function(__PatternCursorInt)
+                        LocalInstance.CursorIntsArray,
+                        function(__CursorInt)
                         {   
 
                             //increment
-                            NoteInt+=__PatternCursorInt
+                            NoteInt+=__CursorInt
 
                             //Debug
                             console.log(
@@ -96,8 +94,6 @@ Template.Pattern.rendered = function()
     //map
     LocalInstance.MelodySong.Score.pushVoice('0')
             
-    */
-
     /////////////////////////////////////
     //Rhythm Score
     /////////////////////////////////////
@@ -113,25 +109,25 @@ Template.Pattern.rendered = function()
     //set
     LocalInstance.RhythmSong.NoteDictObjectsArraysObject['0']=_.map(
                 _.filter(
-                    LocalInstance.PatternCursorIntsArray,
-                    function(__PatternCursorInt)
+                    LocalInstance.CursorIntsArray,
+                    function(__CursorInt)
                     {
-                        return __PatternCursorInt!=0
+                        return __CursorInt!=0
                     }
                 ),
-                function(__PatternCursorInt)
+                function(__CursorInt)
                 {   
                     //Debug
                     console.log(
-                        'DurationIntToDurationStrDict[__PatternCursorInt] is \n',
-                        DurationIntToDurationStrDict[__PatternCursorInt]
+                        'DurationIntToDurationStrDict[__CursorInt] is \n',
+                        DurationIntToDurationStrDict[__CursorInt]
                     )
 
                     //return 
                     return {
                         'VoiceStr':'0',
                         'NoteStr':"a/4",
-                        'DurationStr':DurationIntToDurationStrDict[__PatternCursorInt]
+                        'DurationStr':DurationIntToDurationStrDict[__CursorInt]
                     }
                 }
             )
@@ -139,8 +135,8 @@ Template.Pattern.rendered = function()
     //Debug
     console.log(
         'Pattern rendered\n',
-        'LocalInstance.PatternSumInt is \n',
-        LocalInstance.PatternSumInt
+        'LocalInstance.SumInt is \n',
+        LocalInstance.SumInt
     )
 
     //push

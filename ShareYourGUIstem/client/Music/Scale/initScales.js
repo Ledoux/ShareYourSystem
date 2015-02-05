@@ -9,6 +9,47 @@ subscribe
 
 */
 
+getSubsetBool=function(_NoteDictObject)
+{
+	//get all the scales just with one more note
+	var ScaleDictObjectsArray=Scales.find(
+		{
+			'NotesInt':_NoteDictObject['NotesInt']+1,
+		}
+	).fetch()
+
+	//return 
+	return _.size(
+		_.filter(
+			ScaleDictObjectsArray,
+			function(__ScaleDictObject)
+			{
+
+				//Debug
+				/*
+				console.log(
+					'__ScaleDictObject is \n',
+					__ScaleDictObject
+				)
+				*/
+				
+				//return
+				return _.all(
+					_.map(
+						_NoteDictObject['PoolIntsList'],
+						function(__PoolInt){
+							return _.contains(
+								__ScaleDictObject['PoolIntsList'],
+								__PoolInt
+							)
+						}
+					)
+				)
+			}
+		)
+	)>0
+}
+
 
 NoteSharpStrsArray=["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"]
 NoteFlatStrsArray=["C","Db","D","Eb","E","F","Gb","G","Ab","A","Bb","B"]
@@ -21,7 +62,7 @@ initScales=function()
 
 	//map	
 	_.map(
-		[3,4,5,6,7,8],
+		[8,7,6,5,4,3],
 		function(__NotesInt){
 
 			//pool
@@ -126,7 +167,10 @@ initScales=function()
 										}
 									),
 
+							'SubsetBool':getSubsetBool(__ValueObject),
+
 							//classic tetrade test
+							/*
 							'Major7Bool': __ValueObject['MajorThirdBool'] && __ValueObject['MajorSevenBool'
 							] && __ValueObject['MinorThirdBool']==false && __ValueObject['MinorSevenBool']==false,
 							'Minor7Bool':__ValueObject['MinorThirdBool'] && __ValueObject['MinorSevenBool'
@@ -135,6 +179,15 @@ initScales=function()
 							] && __ValueObject['MinorThirdBool']==false && __ValueObject['MajorSevenBool']==false,
 							'MinMaj7Bool': __ValueObject['MinorThirdBool'] && __ValueObject['MajorSevenBool'
 							] && __ValueObject['MajorThirdBool']==false && __ValueObject['MinorSevenBool']==false
+							*/
+							'Major7Bool': __ValueObject['MajorThirdBool'] && __ValueObject['MajorSevenBool'
+							],
+							'Minor7Bool':__ValueObject['MinorThirdBool'] && __ValueObject['MinorSevenBool'
+							],
+							'Dominant7Bool': __ValueObject['MajorThirdBool'] && __ValueObject['MinorSevenBool'
+							],
+							'MinMaj7Bool': __ValueObject['MinorThirdBool'] && __ValueObject['MajorSevenBool'
+							]
 
 						}
 					)

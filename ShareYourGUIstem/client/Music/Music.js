@@ -195,9 +195,10 @@ MusicAbstraction=new AbstractionClass(
 Session.set(
 	'ScaleConditionsDictObject',
 	{
-		'NotesInt':7,
+		'NotesInt':{$in:[6,7,8]},
+		'SubsetBool':false,
 		'JimScaleBool':true,
-		'NameStr':"Ionien"
+		'Major7Bool':true
 	}
 )
 
@@ -211,7 +212,7 @@ Session.set(
 	'PatternConditionsDictObject',
 	{
 		//'PatternCursorIntsArray':[1,0]
-		'PatternCursorIntsArray':[1,2]
+		//'PatternCursorIntsArray':[1,2]
 	}
 )
 

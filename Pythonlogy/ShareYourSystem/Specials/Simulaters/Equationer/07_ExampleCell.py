@@ -5,10 +5,13 @@ import numpy as np
 
 #Definition an instance
 MyEquationer=SYS.EquationerClass(
+		**{
+			'PopulatingUnitsInt':2
+		}
 	).collect(
 		'LateralExpressers',
 		'Leak',
-		SYS.Expresser(
+		SYS.ExpresserClass(
 			**{
 				'MatrixingStdFloat':0.,
 				'MatrixingDiagFloatsArray':np.array([-1.,-1.])
@@ -17,33 +20,46 @@ MyEquationer=SYS.EquationerClass(
 	).collect(
 		'LateralExpressers',
 		'Interaction',
-		SYS.Expresser(
+		SYS.ExpresserClass(
 			**{
 				'ExpressingSpecificTagVariablesArray':np.array(
 					[
 						[{},{'DelayFloat':5.}],
 						[{'DelayFloat':5.},{}]
 					]
-				)
+				),
+				'MatrixingStdFloat':0.2,
 			}
 		)
 	).collect(
 		'InputExpressers',
 		'Constant',
-		SYS.Expresser(
+		SYS.ExpresserClass(
 			**{
-				'MatrixingSizeTuple':(3,2),
-				'ExpressingSpecificTagVariablesArray'=np.array(
+				'ExpressingSymbolStr':'id',
+				'ExpressingSpecificTagVariablesArray':np.array(
 					[
-						[{},{'DelayFloat':5.}],
-						[{'DelayFloat':5.},{}]
+						[{},{'DelayFloat':1.},{}],
+						[{},{},{}]
 					]
-				)
+				),
+				#'ExpressingColTagVariablesArray':np.array(
+				#		[
+				#			{'SymbolStr':'1'},
+				#			{'SymbolStr':'1'}
+				#		]
+				#	)
 			}
 		)
 	).equation(
+		_CodeStr='''
+			double id(double t){
+						return 1.;
+					}
+		'''
 	)
 
+'''
 #Definition the AttestedStr
 SYS._attest(
 	[
@@ -56,6 +72,15 @@ SYS._attest(
 		),
 	]
 ) 
+'''
+
+#print
+SYS._print(
+		[
+			"MyEquationer['EquationingDifferentialDict'] is ",
+			MyEquationer['EquationingDifferentialDict']
+		]
+	)
 
 #plot
 MyPydelayer=SYS.PydelayerClass(

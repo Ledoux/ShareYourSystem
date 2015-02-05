@@ -80,10 +80,12 @@ ScoreClass = function(_InitDictObject){
     LocalScore.Svg=$(".SvgScore#Svg"+this.Song.SongStr+LocalScore.Song.Instance._id)[0]
 
     //Debug
+    /*
     console.log(
         'LocalScore.Svg is \n',
         LocalScore.Svg
-    )
+    )  
+    */
 
     //Renderer a svg raphael
     LocalScore.Renderer = new Vex.Flow.Renderer(
@@ -108,11 +110,13 @@ ScoreClass.prototype.pushVoice=function(_VoiceStr)
     var NoteDictObjectsArray=LocalScore.Song.NoteDictObjectsArraysObject[_VoiceStr]
 
     //Debug
+    /*
     console.log(
         'pushVoice l 101\n',
         'NoteDictObjectsArray is \n',
         NoteDictObjectsArray
-    )
+    )   
+    */
 
     // Create the notes
     _.map(
@@ -121,12 +125,14 @@ ScoreClass.prototype.pushVoice=function(_VoiceStr)
             {
 
                 //Debug
+                /*
                 console.log(
                     'pushVoice l 118 \n',
                     'We PUSH a new NOTE\n',
                     '__NoteDictObject is \n',
                     __NoteDictObject
                 )
+                */
 
                 //Check
                 if(__NoteDictObject!=undefined)
@@ -208,6 +214,7 @@ ScoreClass.prototype.pushVoice=function(_VoiceStr)
                     {
 
                         //Debug
+                        /*
                         console.log(
                             'We check if the voice has enough notes \n',
                             '__VoiceDictObject is \n',
@@ -216,6 +223,7 @@ ScoreClass.prototype.pushVoice=function(_VoiceStr)
                             'TotalBeatsInt is \n',
                             TotalBeatsInt
                         )
+                        */
 
                         //Check
                         if(__VoiceDictObject.StepCountInt<TotalBeatsInt)
@@ -224,6 +232,7 @@ ScoreClass.prototype.pushVoice=function(_VoiceStr)
                             var DiffInt=TotalBeatsInt-__VoiceDictObject.StepCountInt
 
                             //Debug
+                            /*
                             console.log(
                                 'We add a silence\n',
                                 'DiffInt is \n',
@@ -232,6 +241,7 @@ ScoreClass.prototype.pushVoice=function(_VoiceStr)
                                 'DurationIntToDurationStrDict[DiffInt.toString()] is \n',
                                 DurationIntToDurationStrDict[DiffInt.toString()]
                             )
+                            */
 
                             //push silence
                             LocalScore.pushNote(
@@ -280,10 +290,12 @@ ScoreClass.prototype.pushVoice=function(_VoiceStr)
                     function(__VoiceDictObject)
                     {
                         //Debug
+                        /*
                         console.log(
                             '__VoiceDictObject is \n',
                             __VoiceDictObject
                         )
+                        */
 
                         //add
                         __VoiceDictObject['Voice'].addTickables(
@@ -444,11 +456,13 @@ ScoreClass.prototype.setNote=function(_NoteDictObject)
     LocalScore.CallsCountInt+=1
 
     //Debug
+    /*
     console.log(
         'setNote l 458 \n',
         ' LocalScore.CallsCountInt is \n',
          LocalScore.CallsCountInt
     )
+    */
 
     //Check
     if(LocalScore.CallsCountInt<50)
@@ -476,6 +490,7 @@ ScoreClass.prototype.setNote=function(_NoteDictObject)
             )
 
             //Debug
+            /*
             console.log(
                 'setNote the DurationStr is undefined\n',
                 '_NoteDictObject["DurationInt"] is \n',
@@ -484,6 +499,7 @@ ScoreClass.prototype.setNote=function(_NoteDictObject)
                 'so we split the note into \n',
                 DurationStrsArray
             )
+            */
 
             //map
             _.map(
@@ -492,11 +508,13 @@ ScoreClass.prototype.setNote=function(_NoteDictObject)
                     {
 
                         //Debug
+                        /*
                         console.log(
                             'Split note continue with l 490\n',
                             '__DurationStr is \n',
                             __DurationStr
                         )
+                        */
 
                         //set
                         LocalScore.setNote(
@@ -522,6 +540,7 @@ ScoreClass.prototype.setNote=function(_NoteDictObject)
                         )
 
             //Debug
+            /*
             console.log(
                 'ICI setNote ok for the duration\n',
                 'DurationStr is \n',
@@ -530,6 +549,7 @@ ScoreClass.prototype.setNote=function(_NoteDictObject)
                 'PushedNoteDictObject is \n',
                 PushedNoteDictObject
             )
+            */
 
             //Check for silence
             var VexflowDurationStr=PushedNoteDictObject['DurationStr']
@@ -539,11 +559,13 @@ ScoreClass.prototype.setNote=function(_NoteDictObject)
             }
 
             //Debug
+            /*
             console.log(
                 'We set the StaveNote\n',
                 'VexflowDurationStr is \n',
                 VexflowDurationStr
             )
+            */
 
             //init
             var StaveNote=new Vex.Flow.StaveNote(
@@ -577,7 +599,9 @@ ScoreClass.prototype.setNote=function(_NoteDictObject)
                 PushedNoteDictObject['DurationStr'].length-1)=='d')
             {
                 //Debug
+                /*
                 console.log('WE ADD A DOT')
+                */
 
                 //
                 StaveNote.addDotToAll();
@@ -712,12 +736,14 @@ ScoreClass.prototype.setNote=function(_NoteDictObject)
             }
 
             //Debug
+            /*
             console.log(
                 'score.js setNote l 695 \n',
                 'push the note in the voice\n',
                 'PushedNoteDictObject is \n',
                 PushedNoteDictObject
             )
+            */
 
             //define
             var NoteIndexInt=_.size(
@@ -744,6 +770,7 @@ ScoreClass.prototype.setNote=function(_NoteDictObject)
                     ]
 
             //Debug
+            /*
             console.log(
                 'We update the StepCountInt in the voice object\n',
                 'LocalScore.StepCountInt is \n',
@@ -755,6 +782,7 @@ ScoreClass.prototype.setNote=function(_NoteDictObject)
                 "PushedNoteDictObject['DurationStr'] is \n",
                 PushedNoteDictObject['DurationStr']
             )
+            */
 
             //set step count int
             LocalScore.BarDictObjectsArray[
@@ -764,6 +792,7 @@ ScoreClass.prototype.setNote=function(_NoteDictObject)
                     ]['StepCountInt']=LocalScore.StepCountInt+DurationInt
 
             //Debug
+            /*
             console.log(
                 'The StepCountInt in the corresponding voice object is \n',
                 LocalScore.BarDictObjectsArray[
@@ -772,6 +801,7 @@ ScoreClass.prototype.setNote=function(_NoteDictObject)
                     PushedNoteDictObject['VoiceStr']
                     ]['StepCountInt']
             )
+            */
 
             //set
             _NoteDictObject['BarCountInt']=LocalScore.BarCountInt
@@ -793,11 +823,13 @@ ScoreClass.prototype.splitNote=function(_NoteDictObject)
     LocalScore.CallsCountInt+=1
 
     //Debug
+    /*
     console.log(
         'splitNote l 747 \n',
         ' LocalScore.CallsCountInt is \n',
          LocalScore.CallsCountInt
     )
+    */
 
     //Check
     if(LocalScore.NoteSplitBool)
@@ -816,6 +848,7 @@ ScoreClass.prototype.splitNote=function(_NoteDictObject)
 
         if(LocalScore.LastNoteDictObject['NoteStr']==_NoteDictObject['NoteStr'])
         {
+            /*
             console.log(
                 'YES WE MERGE\n',
                 'LocalScore.LastNoteDictObject is \n',
@@ -824,7 +857,7 @@ ScoreClass.prototype.splitNote=function(_NoteDictObject)
                 '_NoteDictObject is \n',
                 _NoteDictObject
             )
-
+            */
         }
 
     }
@@ -842,11 +875,13 @@ ScoreClass.prototype.splitNote=function(_NoteDictObject)
         ]
 
         //Debug
+        /*
         console.log(
             'splitNote l 763 \n',
             'DurationInt is \n',
             DurationInt
         )
+        */
 
         //Check
         if(DurationInt==undefined)
@@ -857,6 +892,7 @@ ScoreClass.prototype.splitNote=function(_NoteDictObject)
             )
 
             //Debug
+            /*
             console.log(
                 'splitNote, this DurationInt not exists \n',
                 'but _NoteDictObject["DurationInt"] is \n',
@@ -865,6 +901,7 @@ ScoreClass.prototype.splitNote=function(_NoteDictObject)
                 'so we split the note \n',
                 DurationStrsArray
             )
+            */
 
             //map
             _.map(
@@ -872,10 +909,12 @@ ScoreClass.prototype.splitNote=function(_NoteDictObject)
                 function(__DurationStr)
                 {
                     //Debug
+                    /*
                     console.log(
                         'splitNote the split continues with\n',
                         __DurationStr
                     )
+                    */
 
                     //splitNote
                     LocalScore.splitNote(
@@ -924,10 +963,12 @@ ScoreClass.prototype.splitNote=function(_NoteDictObject)
             }
 
             //Debug
+            /*
             console.log(
                 'LocalScore.HalfBeatsIntsArray is \n',
                 LocalScore.HalfBeatsIntsArray
             )
+            */
 
             //define
             var SplitHalfBool=false
@@ -945,11 +986,13 @@ ScoreClass.prototype.splitNote=function(_NoteDictObject)
                     SplitHalfBool=true
 
                     //Debug
+                    /*
                     console.log(
                         'We split half here',
                         'LocalScore.HalfBeatsInt is \n',
                         LocalScore.HalfBeatsInt
                     )
+                    */
 
                     //plit half
                     LocalScore.splitHalfNote()
@@ -960,10 +1003,12 @@ ScoreClass.prototype.splitNote=function(_NoteDictObject)
             }
 
             //Debug
+            /*
             console.log(
                 'SplitHalfBool is \n',
                 SplitHalfBool
             )
+            */
 
             //continue if not split
             if(SplitHalfBool==false)
@@ -1027,9 +1072,11 @@ ScoreClass.prototype.splitNote=function(_NoteDictObject)
                 else
                 {
                     //Debug
+                    /*
                     console.log(
                         'It doent cross the half neither the end so just set'
                     )
+                    */
 
                     //just set
                     LocalScore.setNote(
@@ -1090,6 +1137,7 @@ ScoreClass.prototype.splitHalfNote=function()
     )
 
     //Debug
+    /*
     console.log(
         'it has crossed\n',
         'FirstDiffInt is \n',
@@ -1098,6 +1146,7 @@ ScoreClass.prototype.splitHalfNote=function()
         'DurationIntToDurationStrDict is \n',
         DurationIntToDurationStrDict
     )
+    */
 
     //setNote
     FirstNoteDictObject['DurationInt']=FirstDiffInt
@@ -1107,6 +1156,7 @@ ScoreClass.prototype.splitHalfNote=function()
     LocalScore.setNote(FirstNoteDictObject)
 
     //Debug
+    /*
     console.log(
         'We set the second note after the half\n',
         'SecondDiffInt is \n',
@@ -1115,6 +1165,7 @@ ScoreClass.prototype.splitHalfNote=function()
         'DurationIntToDurationStrDict is \n',
         DurationIntToDurationStrDict
     )
+    */
 
     //second Note
     LocalScore.StepCountInt=LocalScore.HalfBeatsInt
@@ -1131,9 +1182,11 @@ ScoreClass.prototype.splitHalfNote=function()
     LocalScore.splitNote(SecondNoteDictObject)
 
     //Debug
+    /*
     console.log(
         'The second note after the half is setted\n',
         'LocalScore.StepCountInt is \n',
         LocalScore.StepCountInt
     )
+    */
 }

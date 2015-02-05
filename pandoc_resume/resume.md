@@ -5,96 +5,204 @@ Erwan Ledoux
 
 ----
 
->  In this style, the resume starts with a blockquote, where
->  you can briefly list your specialties, or include a salient
->  quote. Ending a line with a backslash forces a line break.
+ 
+>   Main specialities : research in the theory 
+>   of neural networks, programming for the scientific 
+>   web development and Informatic/Physics teaching
 
 ----
+
+
 
 Education
 ---------
 
-2010-2014 (expected)
-:   **PhD, Computer Science**; Awesome University (MyTown)
+2008-2011
+:   **PhD Computational Neuroscience** <br>
+     Université Paris Descartes
 
-    *Thesis title: Deep Learning Approaches to the Self-Awesomeness
-     Estimation Problem*
+    *Thesis title : Dynamic of neural networks and <br>
+    application to the oscillations in the hippocampus * <br>
+    (PhD advisor : Nicolas Brunel)
 
-2007-2010
-:   **BSc, Computer Science and Electrical Engineering**; University of
-    HomeTown (HomeTown)
+2004-2008
+:   **BA/MA Biology and BA in Physics** <br>
+    Ecole Normale Supérieure de Paris
 
-    *Minor: Awesomeology*
+    *Internship MA : Modeling homeostasis in the pyloric system <br>
+    Brandeis University (Waltham, USA, advisor : Eve Marder) *
 
-Experience
+2002-2004
+:   **Classes préparatoires BCPST** <br>
+    Lycée Henri IV (Paris)
+
+
+Work Experience
 ----------
 
-**Your Most Recent Work Experience:**
+2013-2015 
+:    **Postdoctoral research in the Group For Neural Theory** <br>
+     Ecole Normale Supérieure de Paris
 
-Short text containing the type of work done, results obtained,
-lessons learned and other remarks. Can also include lists and
-links:
+2011-2013
+:    **Demi ATER in Physics** <br>
+     Université Paris Descartes
 
-* First item
-
-* Item with [link](http://www.example.com). Links will work both in
-  the html and pdf versions.
-
-**That Other Job You Had**
-
-Also with a short description.
-
-Technical Experience
+Publications 
 --------------------
 
-My Cool Side Project
-:   For items which don't have a clear time ordering, a definition
-    list can be used to have named items.
+Journal Articles
+:    
+    
+    **Inferring synaptic connectivity of CA1 by computing transfer function** <br>
+    E. Ledoux and N. Brunel, in preparation 
 
-    * These items can also contain lists, but you need to mind the
-      indentation levels in the markdown source.
-    * Second item.
+    **Transfer function of network with multiple types of interneurons** <br>
+    E. Ledoux and N. Brunel, in preparation 
+ 
+    **Dynamics of networks of excitatory and inhibitory neurons in response to time-dependent inputs** <br>
+    E. Ledoux and N. Brunel, Frontiers in Computational Neuroscience, 2011 
 
-Open Source
-:   List open source contributions here, perhaps placing emphasis on
-    the project names, for example the **Linux Kernel**, where you
-    implemented multithreading over a long weekend, or **node.js**
-    (with [link](http://nodejs.org)) which was actually totally
-    your idea...
+Other
+:    
+       
+    **Étude théorique de la dynamique des réseaux de neurones et application aux oscillations physiologiques de l'hippocampe** <br>
+    E. Ledoux, PhD Thesis, June 2012 
 
-Programming Languages
-:   **first-lang:** Here, we have an itemization, where we only want
-    to add descriptions to the first few items, but still want to
-    mention some others together at the end. A format that works well
-    here is a description list where the first few items have their
-    first word emphasized, and the last item contains the final few
-    emphasized terms. Notice the reasonably nice page break in the pdf
-    version, which wouldn't happen if we generated the pdf via html.
+    **Homeostasis in a pyloric network model based on constrained regulation of cellular properties** <br>
+    E. Ledoux, Figures p.254 in Computational neuroscience in epilepsy, Ivan Soltesz and Kevin Staley, 2008 
 
-:   **second-lang:** Description of your experience with second-lang,
-    perhaps again including a [link] [ref], this time placing the url
-    reference elsewhere in the document to reduce clutter (see source
-    file). 
+    **Abstrax articles**
 
-:   **obscure-but-impressive-lang:** We both know this one's pushing
-    it.
+Applications
+--------------------
 
-:   Basic knowledge of **C**, **x86 assembly**, **forth**, **Common Lisp**
+ShareYourSystem
+:    
 
-[ref]: https://github.com/githubuser/superlongprojectname
+    **Scientific data-mining application** <br> 
+    based on a Python-Javascript MVC framework <br>
+    Documentation : http://shareyoursystem.ouvaton.org/site <br>
+    Meteor GUI : http://shareyoursystem.meteor.com <br>
+    Git : https://github.com/Ledoux/ShareYourSystem <br>
 
-Extra Section, Call it Whatever You Want
+Informatic Tutorials 
+:    
+      
+    **ErwanLedoux Homepage** qdqsdq
+  
+    **NeuDraw**  qdqd
+  
+    **Pasduforro** qdqd
+  
+    **Scales** qsdqd
+
+Talks
+--------------------
+
+**Organized Coding** <br>
+GNT meeting  <br>
+E.N.S. Paris, September 2015 
+
+**Modeling the global oscillations in CA1** <br>
+LNC meeting, and GNT meeting  <br>
+E.N.S. Paris, April 2014 
+
+**Predictive Spiking Network with sparse connectivity** <br>
+GNT meeting  <br>
+E.N.S. Paris, October 2013 
+
+**Modeling oscillations in the hippocampus** <br>
+Paris Area Computational Neuroscience Day 
+"Oscillations and Computation in the brain" <br>
+E.N.S. Paris, April 2012 
+
+**Inferring parameters of network connectivity from observed phase shifts between different classes of neurons during distinct oscillatory states in the hippocampus** <br>
+Poster session  <br>
+Society For Neuroscience, San Diego, November 2010 
+
+**When genes trigger agressive behaviour** <br>
+Workshop on Neuroethics, Paris Montagne (scientific mediation organization), <br>
+E.N.S. Paris, October 2010 
+
+**Role of inhibitory interneurons in shaping the response of networks to time-dependent inputs** <br>
+Cerebellum Group Meeting, <br>
+E.N.S. Paris, Mai 2010 
+
+**Dynamics of excitatory-inhibitory networks** <br>
+Third Computational Summer School, <br>
+uOttawa, June 2009 
+
+**Homeostasis in a pyloric network model based on constrained regulation of cellular properties** <br>
+Marder Lab Meeting <br>
+Brandeis University, September 2005 
+
+Teaching Experience
+--------------------
+
+**Tutorial class in Physics**
+  P1, PAES Med. Paris V, 2012 
+
+**Tutorial class in Geometrical Optic**
+  L1, Physics Paris V, 2012 
+
+**Scientific articles analysis**
+  D2, Med. Paris V, 2011 
+
+**Mathematics for biologists**
+  M2, E.N.S. Paris, 2010-2011
+
+**Practical class of Neurophysiology** 
+  L3, E.N.S. Paris, 2009-2011 
+
+**Introduction to programming in C** 
+  L2, U.P.M.C. Paris VI, 2009 
+
+Knowledge
 ----------------------------------------
 
-* Human Languages:
+Human Languages
+:    
 
-     * English (native speaker)
-     * ???
-     * This is what a nested list looks like.
+     English
 
-* Random tidbit
+     German
 
-* Other sort of impressive-sounding thing you did
+     Spanish
+
+
+Informatic Languages
+:    
+
+    Python and the scientific specialized modules <br>
+    (numpy, scipy, matplotlib, scikit, pytable, brian, pymongo...)
+  
+    Javascript and the web specialized libraries <br>
+    (node, grunt, meteor, ember, underscore, raphael, reveal, vexflow...)
+  
+    C/C++,Swig,R,Matlab
+  
+    MySQL, Mongodb, hdf5, JSON, yaml 
+  
+    Latex, Markdown, Sublime, IPython notebook
+
+    HTML5, CSS, Php, Wordpress
+
+    Adobe Illustrator, Photoshop
+  
+    Finale, Lilypond, Logic Pro, Ableton, MaxMSP
+
+Music ability
+:    
+
+    Guitar, Bass player (Funk Jazz)
+
+    Forró, Lindy Hop dancer
+
+Organisation ability
+:    
+
+     GNT retreat
 
 ----
 

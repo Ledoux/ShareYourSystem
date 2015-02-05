@@ -33,10 +33,16 @@ MyEquationer=SYS.EquationerClass(
 							{'TransferFunctionStr':'foo'},
 							{}
 						]
-					)
+					),
+					'MatrixingStdFloat':0.2,
 				}
 			)
 	).equation(
+		_CodeStr='''
+			double foo(double t){
+						return cos(t);
+					}
+		'''
 	)
 
 #print
