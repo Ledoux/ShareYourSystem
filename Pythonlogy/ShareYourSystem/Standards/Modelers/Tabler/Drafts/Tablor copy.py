@@ -85,10 +85,10 @@ class TablerClass(
 				self.hdformat()
 			print("iiii",self)
 
-			#Check that the TabularedOrderedDict exists 
-			TabularedOrderedDictKeyStr="Tabulared"+DoneTabularingStr+"OrderedDict"
-			if hasattr(self,TabularedOrderedDictKeyStr):
-				TabularedOrderedDict=getattr(self,TabularedOrderedDictKeyStr)
+			#Check that the TabularedTablesOrderedDict exists 
+			TabularedTablesOrderedDictKeyStr="Tabulared"+DoneTabularingStr+"OrderedDict"
+			if hasattr(self,TabularedTablesOrderedDictKeyStr):
+				TabularedTablesOrderedDict=getattr(self,TabularedTablesOrderedDictKeyStr)
 
 				#Definition the DatabasingJoinStr
 				DatabasingJoinStr=SYS.Modeler.DatabasingJoinStr
@@ -99,7 +99,7 @@ class TablerClass(
 				#Create the table or get it and set it again
 				map(
 						lambda __TableStrAndTableGroupedPathStrTuple,__DatabasedModelClass:
-						TabularedOrderedDict.__setitem__(
+						TabularedTablesOrderedDict.__setitem__(
 							DatabasingJoinStr.join(
 								__TableStrAndTableGroupedPathStrTuple[0].split(DatabasingJoinStr)[:-1]
 								),
@@ -115,7 +115,7 @@ class TablerClass(
 						if __TableStrAndTableGroupedPathStrTuple[1] not in self.HdformatedFileVariable
 						else
 						#Get the Node and set it to the TabularedDict
-						TabularedOrderedDict.__setitem__(
+						TabularedTablesOrderedDict.__setitem__(
 								DatabasingJoinStr.join(
 								__TableStrAndTableGroupedPathStrTuple[0].split(DatabasingJoinStr)[:-1]
 								),
@@ -142,7 +142,7 @@ class TablerClass(
 				#Do a smart joining link to the corresponding OrderedDict
 				map(
 						lambda __Table:
-						#TabularedOrderedDict.__setitem__(
+						#TabularedTablesOrderedDict.__setitem__(
 							#'__'.join(__Table.name.split('__')[1:-1])
 						DoneTabularingStr.join(__Table.name.split(DoneTabularingStr)[1:])
 							#__Table.name
@@ -174,7 +174,7 @@ class TablerClass(
 			#print('DatabasedGettingStrsList is ',DatabasedGettingStrsList)
 
 			#Build the Table of it doesn't exist yet
-			if TableStr not in TabularedOrderedDict:
+			if TableStr not in TabularedTablesOrderedDict:
 
 				#Build maybe the model
 				DatabasedOrderedDictKeyStr="Databased"+DoneTabularingStr+"OrderedDict"
@@ -186,17 +186,17 @@ class TablerClass(
 				self.tabular(_CalibratingStr)
 
 			#debug
-			#print('TabularedOrderedDict is ',TabularedOrderedDict)
+			#print('TabularedTablesOrderedDict is ',TabularedTablesOrderedDict)
 
 			#Definition the Table
 			self.TabularedCalibratedModelClass=DatabasedOrderedDict[TableStr]
-			self.TabularedCalibratedTable=TabularedOrderedDict[TableStr]
+			self.TabularedCalibratedTable=TabularedTablesOrderedDict[TableStr]
 			self.TabularedCalibratedKeyStr=TableStr
 
 		else:
 
-			print('WARNING calibrate method : not such TabularedOrderedDictKeyStr ',
-						TabularedOrderedDictKeyStr)
+			print('WARNING calibrate method : not such TabularedTablesOrderedDictKeyStr ',
+						TabularedTablesOrderedDictKeyStr)
 		'''
 	"""
 

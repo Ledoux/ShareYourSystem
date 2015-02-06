@@ -34,20 +34,25 @@ class TabularerClass(
 	#Definition
 	RepresentingKeyStrsList=[
 									'TabularingDatabaseStr',
-									'TabularedGroup', 	
-									'TabularedFilePointedVariable',									
+									'TabularedGroupVariable', 
+									'TabularedDeriveNoderVariable',	
+									'TabularedTopFileVariable',									
 									'TabularedSuffixStr',																
 									'TabularedKeyStrsList', 													
-									'TabularedOrderedDict'
+									'TabularedTablesOrderedDict',
+									'TabularedCollectionsOrderedDict'
 								]
 
 	def default_init(self,
 					_TabularingDatabaseStr='hdf',
-					_TabularedGroup=None,
-					_TabularedFilePointedVariable=None,
+					_TabularedGroupVariable=None,
+					_TabularedDeriveNoderVariable=None,
+					_TabularedTopFileVariable=None,
+					_TabularedTopDatabaseVariable=None,
 					_TabularedSuffixStr="",
 					_TabularedKeyStrsList=None,
-					_TabularedOrderedDict=None,
+					_TabularedTablesOrderedDict=None,
+					_TabularedCollectionsOrderedDict=None,
 					**_KwargVariablesDict
 				):
 
@@ -91,6 +96,19 @@ class TabularerClass(
 		#Maybe we have to hdformat first
 		if self.ModeledPointDeriveStorerVariable!=None:
 
+			#set 
+			self.GroupedPathStr=self.ModeledPointDeriveStorerVariable.GroupedPathStr
+
+			#debug
+			'''
+			self.debug(('self.',self,['ModeledSuffixStr']))
+			'''
+			
+			#set
+			self.TabularedSuffixStr='Model'.join(
+				self.ModeledSuffixStr.split('Model')[:-1]
+			)+'Table'
+					
 			#Hdf case
 			if self.TabularingDatabaseStr=='hdf':
 
@@ -107,20 +125,19 @@ class TabularerClass(
 					#self.ModeledPointDeriveStorerVariable.structure()
 				
 				#Link
-				self.TabularedFilePointedVariable=self.ModeledPointDeriveStorerVariable.HdformatedFileVariable
-				self.GroupedPathStr=self.ModeledPointDeriveStorerVariable.GroupedPathStr
-
+				self.TabularedTopFileVariable=self.ModeledPointDeriveStorerVariable.HdformatedFileVariable
+				
 				#debug
 				'''
 				self.debug(('self.',self,[
-											'HdformatedFileVariable',
+											'HdformatedTopFileVariable',
 											'DatabasingSealTuplesList',
 											'DatabasedModelClass'
 										]))
 				'''
 				
 				#Check
-				if self.TabularedFilePointedVariable!=None:
+				if self.TabularedTopFileVariable!=None:
 
 					#debug
 					'''
@@ -133,16 +150,9 @@ class TabularerClass(
 					'''
 
 					#Definition Tabulared attributes
-					self.TabularedGroup=self.TabularedFilePointedVariable.getNode(
-						self.GroupedPathStr)
-
-					#debug
-					'''
-					self.debug(('self.',self,['ModeledSuffixStr']))
-					'''
-					
-					#set
-					self.TabularedSuffixStr='Model'.join(self.ModeledSuffixStr.split('Model')[:-1])+'Table'
+					self.TabularedGroupVariable=self.TabularedTopFileVariable.getNode(
+						self.GroupedPathStr
+					)
 
 					#debug
 					'''
@@ -159,16 +169,16 @@ class TabularerClass(
 						filter(
 								lambda __KeyStr:
 								__KeyStr.endswith(self.TabularedSuffixStr),
-								self.TabularedGroup._v_leaves.keys()
+								self.TabularedGroupVariable._v_leaves.keys()
 							)
 					)
 					
-					self.TabularedOrderedDict.update(
+					self.TabularedTablesOrderedDict.update(
 						map(
 								lambda __TabularedKeyStr:
 								(
 									__TabularedKeyStr,
-									self.TabularedGroup._f_getChild(__TabularedKeyStr)
+									self.TabularedGroupVariable._f_getChild(__TabularedKeyStr)
 								),
 								self.TabularedKeyStrsList
 							)
@@ -186,9 +196,75 @@ class TabularerClass(
 			elif self.TabularingDatabaseStr=='mongo':
 
 				#Check
-				if self.ModeledPointDeriveStorerVariable.HdformatedFileVariable==None:
+				if self.ModeledPointDeriveStorerVariable.PymongoneDatabaseVariable==None:
 
+					#debug
+					'''
+					self.debug('We have to pymongo first...')
+					'''
+
+					#pymongo
+					self.ModeledPointDeriveStorerVariable.pymongo()
+					#self.ModeledPointDeriveStorerVariable.structure()
+
+				#Link
+				self.TabularedTopDatabaseVariable=self.ModeledPointDeriveStorerVariable.PymongoneDatabaseVariable
 				
+				#debug
+				'''
+				self.debug(('self.',self,[
+											'HdformatedTopDatabaseVariable',
+											'DatabasingSealTuplesList',
+											'DatabasedModelClass'
+										]))
+				'''
+				
+				#Check
+				if self.TabularedTopDatabaseVariable!=None:
+
+					#debug
+					self.debug(
+								[	
+									'Looking for names of collections here',
+									('self.',self,['GroupedPathStr'])
+								]
+							)
+
+					#get
+					self.TabularedDeriveNoderVariable=self.TabularedTopDatabaseVariable.ParentDerivePymongoer[
+						self.GroupedPathStr
+					]
+
+
+					#Get and sort
+					self.TabularedKeyStrsList=sorted(
+						filter(
+								lambda __KeyStr:
+								__KeyStr.endswith(self.TabularedSuffixStr),
+								self.TabularedDeriveNoderVariable.MongosCollectionOrderedDict.keys()
+							)
+					)
+					
+					self.TabularedCollectionsOrderedDict.update(
+						map(
+								lambda __TabularedKeyStr:
+								(
+									__TabularedKeyStr,
+									self.TabularedGroupVariable._f_getChild(
+										__TabularedKeyStr
+									)
+								),
+								self.TabularedKeyStrsList
+							)
+					)
+
+					#debug
+					'''
+					self.debug(("self.",self,[
+												'TabularedSuffixStr',
+												'TabularedKeyStrsList'
+												]))
+					'''
 
 
 		

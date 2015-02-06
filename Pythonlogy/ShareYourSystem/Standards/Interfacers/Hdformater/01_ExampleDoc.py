@@ -13,8 +13,8 @@ MyHdformater=SYS.HdformaterClass().hdformat(
 #Definition the AttestedStr
 SYS._attest(
 	[
-		'MyHdformater.HdformatedStr is '+str(
-			MyHdformater.HdformatedStr)
+		'MyHdformater.HdformatedConsoleStr is '+str(
+			MyHdformater.HdformatedConsoleStr)
 	]
 ) 
 

@@ -183,7 +183,7 @@ class FlusherClass(
 								'self.DatabasedModelClass is '+(str(self.DatabasedModelClass.columns) if hasattr(self.DatabasedModelClass,'columns') else ""),
 								'Row is '+str(dir(Row)),
 								'Row.table is '+str(Row.table),
-								'TabularedOrderedDict is '+str(self.TabularedOrderedDict)
+								'TabularedTablesOrderedDict is '+str(self.TabularedTablesOrderedDict)
 							]
 						)
 				'''

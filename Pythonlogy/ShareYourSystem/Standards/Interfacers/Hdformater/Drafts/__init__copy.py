@@ -36,7 +36,7 @@ class HdformaterClass(BaseClass):
 			_HdformatingModuleStr="tables",
 			_HdformatingPathStr="", 			
 			_HdformatedFileVariable=None, 		
-			_HdformatedStr="", 			
+			_HdformatedConsoleStr="", 			
 			**_KwargVariablesDict
 		):
 
@@ -92,8 +92,8 @@ class HdformaterClass(BaseClass):
 		self.debug(('self.',self,['HdformatingPathStr']))
 		'''
 
-		#set the HdformatedStr
-		self.HdformatedStr=os.popen(
+		#set the HdformatedConsoleStr
+		self.HdformatedConsoleStr=os.popen(
 										'/usr/local/bin/h5ls -dlr '+self.HdformatingPathStr
 								).read()
 		

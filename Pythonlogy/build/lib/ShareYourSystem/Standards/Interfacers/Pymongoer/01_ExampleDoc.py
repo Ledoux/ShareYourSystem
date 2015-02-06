@@ -9,15 +9,19 @@ MyPymongoer=SYS.PymongoerClass().pymongo(
 	}
 )
 
+#remove
+MyPymongoer.PymongoneDatabaseVariable.ThingsCollection.remove({})
+MyPymongoer.PymongoneDatabaseVariable.ThingsCollection.insert({'MyStr':'hello'})
+
 #Definition the AttestedStr
-SYS._attest(
-	[
-		'MyPymongoer.PymongoneClientVariable is '+str(
-			MyPymongoer.PymongoneClientVariable)
-	]
-) 
+SYS._print('MyPymongoer is '+SYS._str(MyPymongoer)+'\n')
 
-#Print
+#print
+print('ThingsCollection fetch gives')
+SYS._print(
+	list(MyPymongoer.PymongoneDatabaseVariable.ThingsCollection.find())
+)
 
-
-
+#kill
+if MyPymongoer.PymongonePopenVariable!=None:
+	MyPymongoer.PymongonePopenVariable.kill()

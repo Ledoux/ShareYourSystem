@@ -39,8 +39,8 @@ SYS._attest(
 			'RepresentingAlineaIsBool':False
 		}
 		),
-		'MyStructurer.hdfview().HdformatedStr is '+MyStructurer.hdfview(
-			).HdformatedStr
+		'MyStructurer.hdfview().HdformatedConsoleStr is '+MyStructurer.hdfview(
+			).HdformatedConsoleStr
 	]
 ) 
 

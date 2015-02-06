@@ -192,8 +192,8 @@ SYS._attest(
             'RepresentingAlineaIsBool':False
         }
         ),
-        'MyStructurer.hdfview().HdformatedStr is
-'+MyStructurer.hdfview().HdformatedStr
+        'MyStructurer.hdfview().HdformatedConsoleStr is
+'+MyStructurer.hdfview().HdformatedConsoleStr
     ]
 )
 
@@ -324,7 +324,7 @@ MyStructurer is < (StructurerClass), 4555635664>
 
 ------
 
-MyStructurer.hdfview().HdformatedStr is /                        Group
+MyStructurer.hdfview().HdformatedConsoleStr is /                        Group
 /TopStructurer           Group
 /TopStructurer/FirstChildStructurer Group
 /TopStructurer/FirstChildStructurer/GrandChildStructurer Group

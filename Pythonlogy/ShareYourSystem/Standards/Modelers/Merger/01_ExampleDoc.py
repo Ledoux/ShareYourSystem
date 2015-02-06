@@ -77,7 +77,7 @@ SYS._attest(
 			'RepresentingBaseKeyStrsListBool':False
 		}
 		),
-		'hdf5 file is : '+MyController.hdfview().hdfclose().HdformatedStr
+		'hdf5 file is : '+MyController.hdfview().hdfclose().HdformatedConsoleStr
 	]
 ) 
 

@@ -48,7 +48,7 @@ SYS._attest(
 			'RepresentingAlineaIsBool':False
 			}
 		),
-		'MyGrouper.hdfview().HdformatedStr is '+MyGrouper.hdfview().HdformatedStr
+		'MyGrouper.hdfview().HdformatedConsoleStr is '+MyGrouper.hdfview().HdformatedConsoleStr
 	]
 ) 
 

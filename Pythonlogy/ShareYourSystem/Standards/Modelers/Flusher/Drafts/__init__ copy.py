@@ -200,7 +200,7 @@ def attest_flush():
 	return Attester.getAttestedStrWithStrsList(
 			[
 				MyDatabaser,
-				MyDatabaser['<Database>MyFlusher'].hdfview().HdformatedStr
+				MyDatabaser['<Database>MyFlusher'].hdfview().HdformatedConsoleStr
 			]
 		)
 #</DefineAttestingFunctions>

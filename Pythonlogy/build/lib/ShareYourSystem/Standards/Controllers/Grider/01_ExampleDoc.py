@@ -46,7 +46,7 @@ SYS._attest(
 			'RepresentingAlineaIsBool':False
 		}
 		),
-		'hdf5 file is : '+MyMultiplier.hdfview().hdfclose().HdformatedStr
+		'hdf5 file is : '+MyMultiplier.hdfview().hdfclose().HdformatedConsoleStr
 	]
 ) 
 

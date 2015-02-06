@@ -20,7 +20,7 @@ SYS._attest(
 			'RepresentingAlineaIsBool':False
 		}
 		),
-		'MyDifferenciater.hdfview().HdformatedStr is '+MyDifferenciater.hdfview().HdformatedStr
+		'MyDifferenciater.hdfview().HdformatedConsoleStr is '+MyDifferenciater.hdfview().HdformatedConsoleStr
 	]
 ) 
 

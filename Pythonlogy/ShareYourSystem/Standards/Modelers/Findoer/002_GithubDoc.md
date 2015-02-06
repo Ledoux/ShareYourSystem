@@ -86,7 +86,7 @@ class FindoerClass(BaseClass):
 
 			#Take the first one in the list
 			self.FoundRowDictsList=Rower.getRowedDictsListWithTable(
-												self.TabularedGroup._f_getChild(
+												self.TabularedGroupVariable._f_getChild(
 													self.TabularedKeyStrsList[0]
 												)
 											)

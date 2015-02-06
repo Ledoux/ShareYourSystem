@@ -150,7 +150,7 @@ SYS._attest(
 			'RepresentingAlineaIsBool':False
 		}
 		),
-		'hdf5 file is : '+MyModulizer.hdfview().hdfclose().HdformatedStr
+		'hdf5 file is : '+MyModulizer.hdfview().hdfclose().HdformatedConsoleStr
 	]
 ) 
 

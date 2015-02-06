@@ -1798,7 +1798,7 @@ class HdformaterClass(BaseClass):
                                     'HdformatingModuleStr',
                                     'HdformatingFileKeyStr',
                                     'HdformatedFileVariable',
-                                    'HdformatedStr'
+                                    'HdformatedConsoleStr'
                                 ]
 
     #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.__init__}]})
@@ -1807,7 +1807,7 @@ class HdformaterClass(BaseClass):
             _HdformatingFileKeyStr="",             
             _HdformatedFileVariable=None, 
             _HdformatedFilePathStr="",        
-            _HdformatedStr="",             
+            _HdformatedConsoleStr="",             
             **_KwargVariablesDict
         ):
 
@@ -1888,8 +1888,8 @@ class HdformaterClass(BaseClass):
 
         if self.HdformatedFilePathStr!="":
 
-            #set the HdformatedStr
-            self.HdformatedStr=os.popen(
+            #set the HdformatedConsoleStr
+            self.HdformatedConsoleStr=os.popen(
                                         SYS.h5lsPathStr+' -dlr '+self.HdformatedFilePathStr
                                 ).read()
 
@@ -1953,8 +1953,8 @@ In&nbsp;[3]:
 <span class="c">#Definition the AttestedStr</span>
 <span class="n">SYS</span><span class="o">.</span><span class="n">_attest</span><span class="p">(</span>
     <span class="p">[</span>
-        <span class="s">&#39;MyHdformater.HdformatedStr is &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span>
-            <span class="n">MyHdformater</span><span class="o">.</span><span class="n">HdformatedStr</span><span class="p">)</span>
+        <span class="s">&#39;MyHdformater.HdformatedConsoleStr is &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span>
+            <span class="n">MyHdformater</span><span class="o">.</span><span class="n">HdformatedConsoleStr</span><span class="p">)</span>
     <span class="p">]</span>
 <span class="p">)</span> 
 
@@ -1976,7 +1976,7 @@ In&nbsp;[3]:
 
 *****Start of the Attest *****
 
-MyHdformater.HdformatedStr is /                        Group
+MyHdformater.HdformatedConsoleStr is /                        Group
 
 
 *****End of the Attest *****

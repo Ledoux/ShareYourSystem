@@ -132,7 +132,7 @@ class MergerClass(BaseClass):
 											__Table
 											if __MergedFilteredShapingDict!=None
 											else None,
-											self.TabularedOrderedDict.values(),
+											self.TabularedTablesOrderedDict.values(),
 											MergedFilteredShapingDictsList
 									))
 								

@@ -38,7 +38,7 @@ class HdformaterClass(BaseClass):
 								'HdformatingModuleStr',
 								'HdformatingFileKeyStr',
 								'HdformatedFileVariable',
-								'HdformatedStr'
+								'HdformatedConsoleStr'
 							]
 
 	def default_init(self,
@@ -46,7 +46,7 @@ class HdformaterClass(BaseClass):
 			_HdformatingFileKeyStr="", 			
 			_HdformatedFileVariable=None, 
 			_HdformatedFilePathStr="",		
-			_HdformatedStr="", 			
+			_HdformatedConsoleStr="", 			
 			**_KwargVariablesDict
 		):
 
@@ -120,8 +120,8 @@ class HdformaterClass(BaseClass):
 
 		if self.HdformatedFilePathStr!="":
 		
-			#set the HdformatedStr
-			self.HdformatedStr=os.popen(
+			#set the HdformatedConsoleStr
+			self.HdformatedConsoleStr=os.popen(
 										SYS.h5lsPathStr+' -dlr '+self.HdformatedFilePathStr
 								).read()
 		

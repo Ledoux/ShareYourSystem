@@ -9,8 +9,8 @@ MyHdformater=Hdformater.HdformaterClass().hdformat().hdfview().hdfclose()
 #Definition the AttestedStr
 SYS._attest(
 					[
-						'MyHdformater.HdformatedStr is '+str(
-							MyHdformater.HdformatedStr)
+						'MyHdformater.HdformatedConsoleStr is '+str(
+							MyHdformater.HdformatedConsoleStr)
 					]
 				) 
 

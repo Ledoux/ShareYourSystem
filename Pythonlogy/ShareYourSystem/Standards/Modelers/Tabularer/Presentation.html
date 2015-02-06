@@ -1794,19 +1794,19 @@ class TabularerClass(
 
     #Definition
     RepresentingKeyStrsList=[
-                                    'TabularedGroup',     
-                                    'TabularedFilePointedVariable',                                    
+                                    'TabularedGroupVariable',     
+                                    'TabularedTopFileVariable',                                    
                                     'TabularedSuffixStr',                                                                
                                     'TabularedKeyStrsList',                                                     
-                                    'TabularedOrderedDict'
+                                    'TabularedTablesOrderedDict'
                                 ]
 
     def default_init(self,
-                    _TabularedGroup=None,
-                    _TabularedFilePointedVariable=None,
+                    _TabularedGroupVariable=None,
+                    _TabularedTopFileVariable=None,
                     _TabularedSuffixStr="",
                     _TabularedKeyStrsList=None,
-                    _TabularedOrderedDict=None,
+                    _TabularedTablesOrderedDict=None,
                     **_KwargVariablesDict
                 ):
 
@@ -1863,7 +1863,7 @@ class TabularerClass(
                 #self.ModeledPointDeriveStorerVariable.structure()
 
             #Link
-            self.TabularedFilePointedVariable=self.ModeledPointDeriveStorerVariable.HdformatedFileVariable
+            self.TabularedTopFileVariable=self.ModeledPointDeriveStorerVariable.HdformatedFileVariable
             self.GroupedPathStr=self.ModeledPointDeriveStorerVariable.GroupedPathStr
 
             #debug
@@ -1876,7 +1876,7 @@ class TabularerClass(
             '''
 
             #Check
-            if self.TabularedFilePointedVariable!=None:
+            if self.TabularedTopFileVariable!=None:
 
                 #debug
                 '''
@@ -1889,7 +1889,7 @@ class TabularerClass(
                 '''
 
                 #Definition Tabulared attributes
-                self.TabularedGroup=self.TabularedFilePointedVariable.getNode(
+                self.TabularedGroupVariable=self.TabularedTopFileVariable.getNode(
                     self.GroupedPathStr)
 
                 #debug
@@ -1915,16 +1915,16 @@ class TabularerClass(
                     filter(
                             lambda __KeyStr:
                             __KeyStr.endswith(self.TabularedSuffixStr),
-                            self.TabularedGroup._v_leaves.keys()
+                            self.TabularedGroupVariable._v_leaves.keys()
                         )
                 )
 
-                self.TabularedOrderedDict.update(
+                self.TabularedTablesOrderedDict.update(
                     map(
                             lambda __TabularedKeyStr:
                             (
                                 __TabularedKeyStr,
-                                self.TabularedGroup._f_getChild(__TabularedKeyStr)
+                                self.TabularedGroupVariable._f_getChild(__TabularedKeyStr)
                             ),
                             self.TabularedKeyStrsList
                         )
@@ -2010,7 +2010,7 @@ In&nbsp;[3]:
             <span class="s">&#39;RepresentingAlineaIsBool&#39;</span><span class="p">:</span><span class="bp">False</span>
         <span class="p">}</span>
         <span class="p">),</span>
-        <span class="s">&#39;hdf5 file is : &#39;</span><span class="o">+</span><span class="n">MyStructurer</span><span class="o">.</span><span class="n">hdfview</span><span class="p">()</span><span class="o">.</span><span class="n">hdfclose</span><span class="p">()</span><span class="o">.</span><span class="n">HdformatedStr</span>
+        <span class="s">&#39;hdf5 file is : &#39;</span><span class="o">+</span><span class="n">MyStructurer</span><span class="o">.</span><span class="n">hdfview</span><span class="p">()</span><span class="o">.</span><span class="n">hdfclose</span><span class="p">()</span><span class="o">.</span><span class="n">HdformatedConsoleStr</span>
     <span class="p">]</span>
 <span class="p">)</span> 
 
@@ -2068,7 +2068,7 @@ MyStructurer is &lt; (StructurerClass), 4565029712&gt;
    /   /   /   /   /  2 : Int64Col(shape=(3,), dflt=0, pos=None)
    /   /   /   /   /)
    /   /   /   /]
-   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;TabularedFilePointedVariable&apos; : File(filename=/Users/ledoux/Documents/ShareYourSystem/Structures.hdf5, title=&apos;&apos;, mode=&apos;r+&apos;, root_uep=&apos;/&apos;, filters=Filters(complevel=0, shuffle=False, fletcher32=False, least_significant_digit=None))
+   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;TabularedTopFileVariable&apos; : File(filename=/Users/ledoux/Documents/ShareYourSystem/Structures.hdf5, title=&apos;&apos;, mode=&apos;r+&apos;, root_uep=&apos;/&apos;, filters=Filters(complevel=0, shuffle=False, fletcher32=False, least_significant_digit=None))
 / (RootGroup) &apos;&apos;
 /xx0xxThingsFindoerTable (Table(3,)) &apos;This is the ThingsFindoerModelClass&apos;
   description := {
@@ -2156,10 +2156,10 @@ MyStructurer is &lt; (StructurerClass), 4565029712&gt;
 /TopStructurer/SecondChildStructurer/OtherGrandChildStructurer (Group) &apos;&apos;
 /TopStructurer/FirstChildStructurer/GrandChildStructurer (Group) &apos;&apos;
 
-   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;TabularedGroup&apos; : / (RootGroup) &apos;&apos;
+   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;TabularedGroupVariable&apos; : / (RootGroup) &apos;&apos;
   children := [&apos;xx1xx__UnitsInt_2__ThingsMergerTable&apos; (Table), &apos;xx0xx__UnitsInt_3__ThingsShaperTable&apos; (Table), &apos;xx0xxThingsRetrieverTable&apos; (Table), &apos;xx0xxThingsFlusherTable&apos; (Table), &apos;xx1xx__UnitsInt_2__ThingsShaperTable&apos; (Table), &apos;xx0xx__UnitsInt_3__ThingsMergerTable&apos; (Table), &apos;TopStructurer&apos; (Group), &apos;xx0xxThingsRecovererTable&apos; (Table), &apos;xx0xxThingsFindoerTable&apos; (Table), &apos;xx0xxThingsRowerTable&apos; (Table), &apos;xx0xxThingsTablerTable&apos; (Table)]
    /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;TabularedKeyStrsList&apos; : []
-   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;TabularedOrderedDict&apos; : 
+   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;TabularedTablesOrderedDict&apos; : 
    /   /   /   /{ 
    /   /   /   /}
    /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;TabularedSuffixStr&apos; : ThingsTabularerTable

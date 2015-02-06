@@ -118,7 +118,7 @@ self.debug(("self.",self,['DatabasedKeyStr','FindingConditionTuplesList']))
 
                         #Take the first one in the list
                         self.FoundRowDictsList=Rower.getRowedDictsListWithTable(
-                self.TabularedGroup._f_getChild(
+                self.TabularedGroupVariable._f_getChild(
                         self.TabularedKeyStrsList[0]
                 )
         )
@@ -255,7 +255,7 @@ SYS._attest(
             'RepresentingAlineaIsBool':False
         }
         ),
-        'hdf5 file is : '+MyStructurer.hdfview().hdfclose().HdformatedStr
+        'hdf5 file is : '+MyStructurer.hdfview().hdfclose().HdformatedConsoleStr
     ]
 )
 

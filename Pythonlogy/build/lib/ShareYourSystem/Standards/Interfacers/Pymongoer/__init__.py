@@ -33,16 +33,20 @@ class PymongoerClass(BaseClass):
 	#Definition
 	RepresentingKeyStrsList=[
 			'PymongoingUrlStr',
+			'PymongoingDatabaseStr',
 			'PymongoneFolderPathStr',
-			'PymongonePopenVariabe',
-			'PymongoneClientVariable'
+			'PymongonePopenVariable',
+			'PymongoneClientVariable',
+			'PymongoneDatabaseVariable'
 		]
 
 	def default_init(self,		
 			_PymongoingUrlStr='mongodb://localhost:27017/',
+			_PymongoingDatabaseStr='Default',
 			_PymongoneFolderPathStr="",
-			_PymongonePopenVariabe=None,
+			_PymongonePopenVariable=None,
 			_PymongoneClientVariable=None,
+			_PymongoneDatabaseVariable=None,
 			**_KwargVariablesDict
 		):
 
@@ -102,6 +106,15 @@ class PymongoerClass(BaseClass):
 
 			#init
 			self.PymongoneClientVariable=MongoClient(self.PymongoingUrlStr)
+
+		#get
+		self.PymongoneDatabaseVariable=getattr(
+				self.PymongoneClientVariable,
+				self.PymongoingDatabaseStr
+			) 
+
+		#give a parent pointer
+		self.PymongoneDatabaseVariable.ParentDerivePymongoer=self
 
 #</DefineClass>
 

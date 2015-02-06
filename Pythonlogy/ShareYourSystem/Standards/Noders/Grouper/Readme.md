@@ -303,8 +303,8 @@ SYS._attest(
             'RepresentingAlineaIsBool':False
             }
         ),
-        'MyGrouper.hdfview().HdformatedStr is
-'+MyGrouper.hdfview().HdformatedStr
+        'MyGrouper.hdfview().HdformatedConsoleStr is
+'+MyGrouper.hdfview().HdformatedConsoleStr
     ]
 )
 
@@ -415,7 +415,7 @@ MyGrouper is < (GrouperClass), 4556052880>
 
 ------
 
-MyGrouper.hdfview().HdformatedStr is /                        Group
+MyGrouper.hdfview().HdformatedConsoleStr is /                        Group
 /TopGrouper              Group
 /TopGrouper/FirstChildGrouper Group
 /TopGrouper/FirstChildGrouper/GrandChildGrouper Group

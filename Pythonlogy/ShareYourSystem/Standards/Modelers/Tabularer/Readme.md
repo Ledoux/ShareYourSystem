@@ -74,19 +74,19 @@ class TabularerClass(
 
         #Definition
         RepresentingKeyStrsList=[
-'TabularedGroup',
-'TabularedFilePointedVariable',
+'TabularedGroupVariable',
+'TabularedTopFileVariable',
 'TabularedSuffixStr',
 'TabularedKeyStrsList',
-'TabularedOrderedDict'
+'TabularedTablesOrderedDict'
                                                                 ]
 
         def default_init(self,
-                                        _TabularedGroup=None,
-                                        _TabularedFilePointedVariable=None,
+                                        _TabularedGroupVariable=None,
+                                        _TabularedTopFileVariable=None,
                                         _TabularedSuffixStr="",
                                         _TabularedKeyStrsList=None,
-                                        _TabularedOrderedDict=None,
+                                        _TabularedTablesOrderedDict=None,
                                         **_KwargVariablesDict
                                 ):
 
@@ -145,7 +145,7 @@ self.ModeledPointDeriveStorerVariable.hdformat()
 #self.ModeledPointDeriveStorerVariable.structure()
 
                         #Link
-                        self.TabularedFilePointedVariable=self.DatabasedPointDer
+                        self.TabularedTopFileVariable=self.DatabasedPointDer
 iveStorerVariable.HdformatedFileVariable
 self.GroupedPathStr=self.ModeledPointDeriveStorerVariable.GroupedPathStr
 
@@ -159,7 +159,7 @@ self.GroupedPathStr=self.ModeledPointDeriveStorerVariable.GroupedPathStr
                         '''
 
                         #Check
-                        if self.TabularedFilePointedVariable!=None:
+                        if self.TabularedTopFileVariable!=None:
 
                                 #debug
                                 '''
@@ -173,7 +173,7 @@ names of tables here',
                                 '''
 
                                 #Definition Tabulared attributes
-self.TabularedGroup=self.TabularedFilePointedVariable.getNode(
+self.TabularedGroupVariable=self.TabularedTopFileVariable.getNode(
                                         self.GroupedPathStr)
 
                                 #debug
@@ -201,17 +201,17 @@ tables with the same suffix Str as : '),
                                         filter(
                                                         lambda __KeyStr:
 __KeyStr.endswith(self.TabularedSuffixStr),
-self.TabularedGroup._v_leaves.keys()
+self.TabularedGroupVariable._v_leaves.keys()
                                                 )
                                 )
 
-                                self.TabularedOrderedDict.update(
+                                self.TabularedTablesOrderedDict.update(
                                         map(
                                                         lambda
 __TabularedKeyStr:
                                                         (
 __TabularedKeyStr,
-self.TabularedGroup._f_getChild(__TabularedKeyStr)
+self.TabularedGroupVariable._f_getChild(__TabularedKeyStr)
                                                         ),
 self.TabularedKeyStrsList
                                                 )
@@ -290,7 +290,7 @@ SYS._attest(
             'RepresentingAlineaIsBool':False
         }
         ),
-        'hdf5 file is : '+MyStructurer.hdfview().hdfclose().HdformatedStr
+        'hdf5 file is : '+MyStructurer.hdfview().hdfclose().HdformatedConsoleStr
     ]
 )
 
@@ -345,7 +345,7 @@ MyStructurer is < (StructurerClass), 4563976400>
    /   /   /   /   /  2 : Int64Col(shape=(3,), dflt=0, pos=None)
    /   /   /   /   /)
    /   /   /   /]
-   /   /   /  '<Spe><Instance>TabularedFilePointedVariable' :
+   /   /   /  '<Spe><Instance>TabularedTopFileVariable' :
 File(filename=/Users/ledoux/Documents/ShareYourSystem/Structures.hdf5, title='',
 mode='r+', root_uep='/', filters=Filters(complevel=0, shuffle=False,
 fletcher32=False, least_significant_digit=None))
@@ -440,7 +440,7 @@ __UnitsInt_2__ThingsShaperModelClass'
 /TopStructurer/SecondChildStructurer/OtherGrandChildStructurer (Group) ''
 /TopStructurer/FirstChildStructurer/GrandChildStructurer (Group) ''
 
-   /   /   /  '<Spe><Instance>TabularedGroup' : / (RootGroup) ''
+   /   /   /  '<Spe><Instance>TabularedGroupVariable' : / (RootGroup) ''
   children := ['xx1xx__UnitsInt_2__ThingsMergerTable' (Table),
 'xx0xx__UnitsInt_3__ThingsShaperTable' (Table), 'xx0xxThingsRetrieverTable'
 (Table), 'xx0xxThingsFlusherTable' (Table),
@@ -449,7 +449,7 @@ __UnitsInt_2__ThingsShaperModelClass'
 'xx0xxThingsRecovererTable' (Table), 'xx0xxThingsFindoerTable' (Table),
 'xx0xxThingsRowerTable' (Table), 'xx0xxThingsTablerTable' (Table)]
    /   /   /  '<Spe><Instance>TabularedKeyStrsList' : []
-   /   /   /  '<Spe><Instance>TabularedOrderedDict' :
+   /   /   /  '<Spe><Instance>TabularedTablesOrderedDict' :
    /   /   /   /{
    /   /   /   /}
    /   /   /  '<Spe><Instance>TabularedSuffixStr' : ThingsTabularerTable

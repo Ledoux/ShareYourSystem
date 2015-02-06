@@ -230,7 +230,7 @@ hasattr(self.DatabasedModelClass,'columns') else ""),
 '+str(dir(Row)),
                                                                 'Row.table is
 '+str(Row.table),
-'TabularedOrderedDict is '+str(self.TabularedOrderedDict)
+'TabularedTablesOrderedDict is '+str(self.TabularedTablesOrderedDict)
                                                         ]
                                                 )
                                 '''
@@ -356,7 +356,7 @@ SYS._attest(
             'RepresentingAlineaIsBool':False
         }
         ),
-        'hdf5 file is : '+MyStructurer.hdfview().hdfclose().HdformatedStr
+        'hdf5 file is : '+MyStructurer.hdfview().hdfclose().HdformatedConsoleStr
     ]
 )
 

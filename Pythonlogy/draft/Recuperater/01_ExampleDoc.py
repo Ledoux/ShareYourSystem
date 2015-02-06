@@ -20,7 +20,7 @@ SYS._attest(
 			'RepresentingAlineaIsBool':False
 		}
 		),
-		'hdf5 file is : '+MyRecuperater.hdfview().hdfclose().HdformatedStr
+		'hdf5 file is : '+MyRecuperater.hdfview().hdfclose().HdformatedConsoleStr
 	]
 ) 
 

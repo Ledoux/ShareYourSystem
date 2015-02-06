@@ -228,15 +228,15 @@ TabularedSuffixStr
 it depending if it is new or not',
                                                 'self.TabledKeyStr is
 '+self.TabledKeyStr,
-'self.TabularedFilePointedVariable!=None is
-'+str(self.TabularedFilePointedVariable!=None)
+'self.TabularedTopFileVariable!=None is
+'+str(self.TabularedTopFileVariable!=None)
                                         ]
                                 )
                 '''
 
                 #Check
                 if self.TabledKeyStr!="" and
-self.TabularedFilePointedVariable!=None:
+self.TabularedTopFileVariable!=None:
 
                         #debug
                         '''
@@ -261,8 +261,8 @@ exists',
                                 '''
 
                                 #Create the Table in the hdf5
-self.TabledTable=self.TabularedFilePointedVariable.create_table(
-        self.TabularedGroup,
+self.TabledTable=self.TabularedTopFileVariable.create_table(
+        self.TabularedGroupVariable,
         self.TabledKeyStr,
         self.DatabasedModelClass,
         self.DatabasedModelClass.__doc__
@@ -282,21 +282,21 @@ self.TabularedKeyStrsList.append(self.TabledKeyStr)
                                                                 [
                                                                         'The
 table exists',
-"self.TabularedGroup is "+str(self.TabularedGroup)
+"self.TabularedGroupVariable is "+str(self.TabularedGroupVariable)
                                                                 ]
                                                         )
                                 '''
 
                                 #Else just get it
-self.TabledTable=self.TabularedGroup._f_getChild(self.TabledKeyStr)
+self.TabledTable=self.TabularedGroupVariable._f_getChild(self.TabledKeyStr)
 
                         #set the in the TablesOrderedDict
-self.TabularedOrderedDict[self.TabledKeyStr]=self.TabledTable
+self.TabularedTablesOrderedDict[self.TabledKeyStr]=self.TabledTable
 
                         #debug
                         '''
-                        self.debug("self.TabularedOrderedDict is
-"+str(self.TabularedOrderedDict))
+                        self.debug("self.TabularedTablesOrderedDict is
+"+str(self.TabularedTablesOrderedDict))
                         '''
 
                 #debug
@@ -304,7 +304,7 @@ self.TabularedOrderedDict[self.TabledKeyStr]=self.TabledTable
                 self.debug(
                                         [
                                                 'Table is done here...',
-('self.',self,['TabledTable','TabularedFilePointedVariable'])
+('self.',self,['TabledTable','TabularedTopFileVariable'])
                                         ]
                                 )
                 '''
@@ -374,7 +374,7 @@ SYS._attest(
             'RepresentingAlineaIsBool':False
         }
         ),
-        'hdf5 file is : '+MyStructurer.hdfview().hdfclose().HdformatedStr
+        'hdf5 file is : '+MyStructurer.hdfview().hdfclose().HdformatedConsoleStr
     ]
 )
 

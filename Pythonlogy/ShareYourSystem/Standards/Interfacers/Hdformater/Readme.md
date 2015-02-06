@@ -78,7 +78,7 @@ class HdformaterClass(BaseClass):
 'HdformatingModuleStr',
 'HdformatingFileKeyStr',
 'HdformatedFileVariable',
-'HdformatedStr'
+'HdformatedConsoleStr'
                                                                 ]
 
         #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':
@@ -88,7 +88,7 @@ BaseClass.__init__}]})
                         _HdformatingFileKeyStr="",
                         _HdformatedFileVariable=None,
                         _HdformatedFilePathStr="",
-                        _HdformatedStr="",
+                        _HdformatedConsoleStr="",
                         **_KwargVariablesDict
                 ):
 
@@ -172,8 +172,8 @@ self.HdformatedFileVariable=sys.modules[self.HdformatingModuleStr].File(
 
                 if self.HdformatedFilePathStr!="":
 
-                        #set the HdformatedStr
-                        self.HdformatedStr=os.popen(
+                        #set the HdformatedConsoleStr
+                        self.HdformatedConsoleStr=os.popen(
 SYS.h5lsPathStr+' -dlr '+self.HdformatedFilePathStr
                                                                 ).read()
 
@@ -231,8 +231,8 @@ MyHdformater=Hdformater.HdformaterClass().hdformat(
 #Definition the AttestedStr
 SYS._attest(
     [
-        'MyHdformater.HdformatedStr is '+str(
-            MyHdformater.HdformatedStr)
+        'MyHdformater.HdformatedConsoleStr is '+str(
+            MyHdformater.HdformatedConsoleStr)
     ]
 )
 
@@ -251,7 +251,7 @@ SYS._attest(
 
 *****Start of the Attest *****
 
-MyHdformater.HdformatedStr is /                        Group
+MyHdformater.HdformatedConsoleStr is /                        Group
 
 
 *****End of the Attest *****

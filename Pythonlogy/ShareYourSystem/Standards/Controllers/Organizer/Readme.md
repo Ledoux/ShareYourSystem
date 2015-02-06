@@ -397,7 +397,7 @@ SYS._attest(
             'RepresentingAlineaIsBool':False
         }
         ),
-        'hdf5 file is : '+MyFactorizer.hdfview().hdfclose().HdformatedStr
+        'hdf5 file is : '+MyFactorizer.hdfview().hdfclose().HdformatedConsoleStr
     ]
 )
 

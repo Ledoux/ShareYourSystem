@@ -127,7 +127,7 @@ class RetrieverClass(BaseClass):
 		self.debug(
 					[
 						('Ok table is done'),
-						('self.',self,['TabularedOrderedDict','TabularedKeyStrsList'])
+						('self.',self,['TabularedTablesOrderedDict','TabularedKeyStrsList'])
 					]
 				)
 		'''
@@ -136,7 +136,7 @@ class RetrieverClass(BaseClass):
 		self.RetrievedModelInt=self.RetrievingIndexesList[1]
 
 		#Definition the RetrievedTable
-		self.RetrievedTable=self.TabularedOrderedDict[
+		self.RetrievedTable=self.TabularedTablesOrderedDict[
 			self.TabularedKeyStrsList[
 				self.RetrievingIndexesList[0]
 			]
