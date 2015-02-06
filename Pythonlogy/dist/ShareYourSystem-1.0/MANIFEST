@@ -158,11 +158,15 @@ ShareYourSystem/Specials/Simulaters/Expresser/00_ExampleDoc.md
 ShareYourSystem/Specials/Simulaters/Expresser/01_ExampleCell.py
 ShareYourSystem/Specials/Simulaters/Expresser/02_ExampleDoc.md
 ShareYourSystem/Specials/Simulaters/Expresser/03_ExampleCell.py
+ShareYourSystem/Specials/Simulaters/Expresser/03_ExampleDoc.md
+ShareYourSystem/Specials/Simulaters/Expresser/04_ExampleCell.py
 ShareYourSystem/Specials/Simulaters/Expresser/__init__.py
 ShareYourSystem/Specials/Simulaters/Integrater/01_ExampleCell.py
 ShareYourSystem/Specials/Simulaters/Integrater/__init__.py
 ShareYourSystem/Specials/Simulaters/Leaker/00_ExampleDoc.md
 ShareYourSystem/Specials/Simulaters/Leaker/01_ExampleCell.py
+ShareYourSystem/Specials/Simulaters/Leaker/02_ExampleDoc.md
+ShareYourSystem/Specials/Simulaters/Leaker/03_ExampleCell.py
 ShareYourSystem/Specials/Simulaters/Leaker/__init__.py
 ShareYourSystem/Specials/Simulaters/Lifer/001_DocumentDoc.md
 ShareYourSystem/Specials/Simulaters/Lifer/002_GithubDoc.md
@@ -199,8 +203,11 @@ ShareYourSystem/Specials/Simulaters/Populater/Readme.md
 ShareYourSystem/Specials/Simulaters/Populater/__init__.py
 ShareYourSystem/Specials/Simulaters/Populater/Drafts/__init__ copy.py
 ShareYourSystem/Specials/Simulaters/Pydelayer/.DS_Store
+ShareYourSystem/Specials/Simulaters/Pydelayer/00_ExampleDoc.md
 ShareYourSystem/Specials/Simulaters/Pydelayer/01_ExampleCell.py
+ShareYourSystem/Specials/Simulaters/Pydelayer/02_ExampleDoc.md
 ShareYourSystem/Specials/Simulaters/Pydelayer/03_ExampleCell.py
+ShareYourSystem/Specials/Simulaters/Pydelayer/04_ExampleDoc.md
 ShareYourSystem/Specials/Simulaters/Pydelayer/05_ExampleCell.py
 ShareYourSystem/Specials/Simulaters/Pydelayer/__init__.py
 ShareYourSystem/Specials/Simulaters/Pydelayer/Drafts/01_ExampleCell copy.py
@@ -542,7 +549,6 @@ ShareYourSystem/Standards/Controllers/Storer/.DS_Store
 ShareYourSystem/Standards/Controllers/Storer/001_DocumentDoc.md
 ShareYourSystem/Standards/Controllers/Storer/00_ExampleDoc.md
 ShareYourSystem/Standards/Controllers/Storer/01_ExampleDoc.py
-ShareYourSystem/Standards/Controllers/Storer/Factorizes.hdf5
 ShareYourSystem/Standards/Controllers/Storer/PreReadme.ipynb
 ShareYourSystem/Standards/Controllers/Storer/Presentation.html
 ShareYourSystem/Standards/Controllers/Storer/Presentation.ipynb
@@ -849,6 +855,15 @@ ShareYourSystem/Standards/Interfacers/Processer/Readme.ipynb
 ShareYourSystem/Standards/Interfacers/Processer/Readme.md
 ShareYourSystem/Standards/Interfacers/Processer/__init__.py
 ShareYourSystem/Standards/Interfacers/Processer/__init__.pyc
+ShareYourSystem/Standards/Interfacers/Pymongoer/00_ExampleDoc.md
+ShareYourSystem/Standards/Interfacers/Pymongoer/01_ExampleDoc.py
+ShareYourSystem/Standards/Interfacers/Pymongoer/__init__.py
+ShareYourSystem/Standards/Interfacers/Pymongoer/local.0
+ShareYourSystem/Standards/Interfacers/Pymongoer/local.ns
+ShareYourSystem/Standards/Interfacers/Pymongoer/mongod.lock
+ShareYourSystem/Standards/Interfacers/Pymongoer/data/db/local.0
+ShareYourSystem/Standards/Interfacers/Pymongoer/data/db/local.ns
+ShareYourSystem/Standards/Interfacers/Pymongoer/data/db/mongod.lock
 ShareYourSystem/Standards/Interfacers/Statuser/001_DocumentDoc.md
 ShareYourSystem/Standards/Interfacers/Statuser/002_GithubDoc.md
 ShareYourSystem/Standards/Interfacers/Statuser/01_ExampleDoc.py
@@ -1256,6 +1271,8 @@ ShareYourSystem/Standards/Modelers/Tabler/__pycache__/Tablor.cpython-34.pyc
 ShareYourSystem/Standards/Modelers/Tabularer/001_DocumentDoc.md
 ShareYourSystem/Standards/Modelers/Tabularer/00_ExampleDoc.md
 ShareYourSystem/Standards/Modelers/Tabularer/01_ExampleDoc.py
+ShareYourSystem/Standards/Modelers/Tabularer/02_ExampleDoc.md
+ShareYourSystem/Standards/Modelers/Tabularer/03_ExampleDoc.py
 ShareYourSystem/Standards/Modelers/Tabularer/Datome.hdf5
 ShareYourSystem/Standards/Modelers/Tabularer/PreReadme.ipynb
 ShareYourSystem/Standards/Modelers/Tabularer/Presentation.html

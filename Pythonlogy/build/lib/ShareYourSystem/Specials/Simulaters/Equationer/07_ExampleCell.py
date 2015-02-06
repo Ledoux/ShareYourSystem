@@ -82,7 +82,6 @@ SYS._print(
 		]
 	)
 
-'''
 #plot
 MyPydelayer=SYS.PydelayerClass(
 	).collect(
@@ -99,4 +98,3 @@ pyplot.plot(MyPydelayer['<StateMoniters>VariableMoniter'].MoniteredTotalVariable
 pyplot.show()
 
 #Print
-'''

@@ -48,6 +48,7 @@ setup(
 			 		'ShareYourSystem.Standards.Interfacers.Writer',
 			 		'ShareYourSystem.Standards.Interfacers.Deployer',
 			 		'ShareYourSystem.Standards.Interfacers.Hdformater',
+			 		'ShareYourSystem.Standards.Interfacers.Pymongoer',
 			 		'ShareYourSystem.Standards.Interfacers.Capturer',
 			 		'ShareYourSystem.Standards.Interfacers.Processer',
 			 		'ShareYourSystem.Standards.Interfacers.Statuser',

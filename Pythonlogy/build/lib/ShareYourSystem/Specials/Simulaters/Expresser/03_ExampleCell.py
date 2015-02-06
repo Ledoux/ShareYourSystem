@@ -7,21 +7,21 @@ import numpy as np
 #Definition an instance
 MyExpresser=SYS.ExpresserClass(
 	).express(
-		_ExpressingSymbolStr='c',
-		_ExpressingMapBool=True,
-		_ExpressingSpecificTagVariablesArray=np.array(
+		_SymbolStr='c',
+		_MapBool=True,
+		_SpecificTagVariablesArray=np.array(
 					[
 						[{},{'DelayFloat':1.}],
 						[{'TransferFunctionStr':'cos'},{}]
 					]
 				),
-		_ExpressingRowTagVariablesArray=np.array(
+		_RowTagVariablesArray=np.array(
 				[
 					{},
 					{'TransferFunctionStr':'tanh'}
 				]
 			),
-		_ExpressingColTagVariablesArray=np.array(
+		_ColTagVariablesArray=np.array(
 				[
 					{'SymbolStr':'c0'},
 					{'SymbolStr':'c1'}

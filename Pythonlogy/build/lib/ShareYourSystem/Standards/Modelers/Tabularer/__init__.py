@@ -33,6 +33,7 @@ class TabularerClass(
 	
 	#Definition
 	RepresentingKeyStrsList=[
+									'TabularingDatabaseStr',
 									'TabularedGroup', 	
 									'TabularedFilePointedVariable',									
 									'TabularedSuffixStr',																
@@ -41,6 +42,7 @@ class TabularerClass(
 								]
 
 	def default_init(self,
+					_TabularingDatabaseStr='hdf',
 					_TabularedGroup=None,
 					_TabularedFilePointedVariable=None,
 					_TabularedSuffixStr="",
@@ -89,97 +91,105 @@ class TabularerClass(
 		#Maybe we have to hdformat first
 		if self.ModeledPointDeriveStorerVariable!=None:
 
-			#Check
-			if self.ModeledPointDeriveStorerVariable.HdformatedFileVariable==None:
+			#Hdf case
+			if self.TabularingDatabaseStr=='hdf':
+
+				#Check
+				if self.ModeledPointDeriveStorerVariable.HdformatedFileVariable==None:
+
+					#debug
+					'''
+					self.debug('We have to hdformat first...')
+					'''
+
+					#Hdformat
+					self.ModeledPointDeriveStorerVariable.hdformat()
+					#self.ModeledPointDeriveStorerVariable.structure()
+				
+				#Link
+				self.TabularedFilePointedVariable=self.ModeledPointDeriveStorerVariable.HdformatedFileVariable
+				self.GroupedPathStr=self.ModeledPointDeriveStorerVariable.GroupedPathStr
 
 				#debug
 				'''
-				self.debug('We have to hdformat first...')
-				'''
-
-				#Hdformat
-				self.ModeledPointDeriveStorerVariable.hdformat()
-				#self.ModeledPointDeriveStorerVariable.structure()
-			
-			#Link
-			self.TabularedFilePointedVariable=self.ModeledPointDeriveStorerVariable.HdformatedFileVariable
-			self.GroupedPathStr=self.ModeledPointDeriveStorerVariable.GroupedPathStr
-
-			#debug
-			'''
-			self.debug(('self.',self,[
-										'HdformatedFileVariable',
-										'DatabasingSealTuplesList',
-										'DatabasedModelClass'
-									]))
-			'''
-			
-			#Check
-			if self.TabularedFilePointedVariable!=None:
-
-				#debug
-				'''
-				self.debug(
-							[	
-								'Looking for names of tables here',
-								('self.',self,['GroupedPathStr'])
-							]
-						)
-				'''
-
-				#Definition Tabulared attributes
-				self.TabularedGroup=self.TabularedFilePointedVariable.getNode(
-					self.GroupedPathStr)
-
-				#debug
-				'''
-				self.debug(('self.',self,['ModeledSuffixStr']))
+				self.debug(('self.',self,[
+											'HdformatedFileVariable',
+											'DatabasingSealTuplesList',
+											'DatabasedModelClass'
+										]))
 				'''
 				
-				#set
-				self.TabularedSuffixStr='Model'.join(self.ModeledSuffixStr.split('Model')[:-1])+'Table'
+				#Check
+				if self.TabularedFilePointedVariable!=None:
 
-				#debug
-				'''
-				self.debug(
-							[
-								('looking for tables with the same suffix Str as : '),
-								('self.',self,['TabularedSuffixStr'])
-							]
-						)
-				'''
+					#debug
+					'''
+					self.debug(
+								[	
+									'Looking for names of tables here',
+									('self.',self,['GroupedPathStr'])
+								]
+							)
+					'''
 
-				#Get and sort
-				self.TabularedKeyStrsList=sorted(
-					filter(
-							lambda __KeyStr:
-							__KeyStr.endswith(self.TabularedSuffixStr),
-							self.TabularedGroup._v_leaves.keys()
-						)
-				)
+					#Definition Tabulared attributes
+					self.TabularedGroup=self.TabularedFilePointedVariable.getNode(
+						self.GroupedPathStr)
+
+					#debug
+					'''
+					self.debug(('self.',self,['ModeledSuffixStr']))
+					'''
+					
+					#set
+					self.TabularedSuffixStr='Model'.join(self.ModeledSuffixStr.split('Model')[:-1])+'Table'
+
+					#debug
+					'''
+					self.debug(
+								[
+									('looking for tables with the same suffix Str as : '),
+									('self.',self,['TabularedSuffixStr'])
+								]
+							)
+					'''
+
+					#Get and sort
+					self.TabularedKeyStrsList=sorted(
+						filter(
+								lambda __KeyStr:
+								__KeyStr.endswith(self.TabularedSuffixStr),
+								self.TabularedGroup._v_leaves.keys()
+							)
+					)
+					
+					self.TabularedOrderedDict.update(
+						map(
+								lambda __TabularedKeyStr:
+								(
+									__TabularedKeyStr,
+									self.TabularedGroup._f_getChild(__TabularedKeyStr)
+								),
+								self.TabularedKeyStrsList
+							)
+					)
+
+					#debug
+					'''
+					self.debug(("self.",self,[
+												'TabularedSuffixStr',
+												'TabularedKeyStrsList'
+												]))
+					'''
+
+			#Check
+			elif self.TabularingDatabaseStr=='mongo':
+
+				#Check
+				if self.ModeledPointDeriveStorerVariable.HdformatedFileVariable==None:
+
 				
-				self.TabularedOrderedDict.update(
-					map(
-							lambda __TabularedKeyStr:
-							(
-								__TabularedKeyStr,
-								self.TabularedGroup._f_getChild(__TabularedKeyStr)
-							),
-							self.TabularedKeyStrsList
-						)
-				)
 
-				#debug
-				'''
-				self.debug(("self.",self,[
-											'TabularedSuffixStr',
-											'TabularedKeyStrsList'
-											]))
-				'''
 
-		#<NotHook>
-		#Return 
-		#return self
-		#</NotHook>
 		
 #</DefineClass>

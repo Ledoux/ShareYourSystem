@@ -58,7 +58,10 @@ class StorerClass(BaseClass):
 			self.walk(
 				{
 					'AfterUpdateList':[
-						('organize',{'LiargVariablesList':[]})
+						(
+							'organize',
+							SYS.ApplyDictClass({'LiargVariablesList':[]})
+						)
 					],
 					'GatherVariablesList':[self.OrganizedComponentsGetStr]
 				}
@@ -95,7 +98,12 @@ class StorerClass(BaseClass):
 			self.walk(
 				{
 					'AfterUpdateList':[
-						('callDo',{'LiargVariablesList':[]})
+						(
+							'callDo',
+							SYS.ApplyDictClass(
+								{'LiargVariablesList':[]}
+							)
+						)
 					],
 					'GatherVariablesList':[self.OrganizedComponentsGetStr]
 				}

@@ -40,12 +40,16 @@ class FactorizerClass(SYS.OrganizerClass):
 	#Definition
 	RepresentingKeyStrsList=[
 								'FactorizingPowerFloat',
-								'FactorizedTotalFloat'
+								'FactorizedFloatsArray',
+								'FactorizedTotalFloat',
+								'FactorizedTotalStr'
 							]
 								
 	def default_init(self,
 						_FactorizingPowerFloat=1.,
-						_FactorizedTotalFloat=0.
+						_FactorizedFloatsArray=None,
+						_FactorizedTotalFloat=0.,
+						_FactorizedTotalStr="",
 					):
 
 		#Call the parent init method
@@ -65,49 +69,57 @@ class FactorizerClass(SYS.OrganizerClass):
 		self.debug('We factorize here')
 		'''
 
-		#set the FactorizedTotalFloat
-		self.FactorizedTotalFloat=np.power(
-			sum(
-				map(
+		#Pick
+		self.FactorizedFloatsArray=np.array(
+			map(
 					lambda __DeriveSumer:
 					__DeriveSumer.SumedTotalInt,
 					self['<Components>']
 				)
+		)
+
+		#set the FactorizedTotalFloat
+		self.FactorizedTotalFloat=np.power(
+			sum(
+				self.FactorizedFloatsArray
 			),
 			self.FactorizingPowerFloat
 		)
 
+		#set
+		self.FactorizedTotalStr=str(self.FactorizedTotalFloat)
+
 #Definition of a Factorizer instance, organize structure and network
 MyFactorizer=FactorizerClass(
-				**{
-					'FolderingPathStr':SYS.Organizer.LocalFolderPathStr
-				}
-			).walk(
-				{
-					'AfterUpdateList':[
-						(
-							'organize',
-							SYS.ApplyDictClass()
-						)
-					],
-					'GatherVariablesList':['<Components>']
-				}
-			).structure(
-				['Components']
-			).network(
-				**{
-					'VisitingCollectionStrsList':[
-						'Models','Components'
-					],
-					'RecruitingConcludeConditionTuplesList':[
-						(
-							'MroClassesList',
-							operator.contains,
-							SYS.HierarchizerClass
-						)
-					]
-				}
-			)
+		**{
+			'FolderingPathStr':SYS.Organizer.LocalFolderPathStr
+		}
+	).walk(
+		{
+			'AfterUpdateList':[
+				(
+					'organize',
+					SYS.ApplyDictClass()
+				)
+			],
+			'GatherVariablesList':['<Components>']
+		}
+	).structure(
+		['Components']
+	).network(
+		**{
+			'VisitingCollectionStrsList':[
+				'Models','Components'
+			],
+			'RecruitingConcludeConditionTuplesList':[
+				(
+					'MroClassesList',
+					operator.contains,
+					SYS.HierarchizerClass
+				)
+			]
+		}
+	)
 
 #Update transmit the do method and flush in the results
 MyFactorizer.__setitem__(
@@ -125,7 +137,7 @@ MyFactorizer.__setitem__(
 ).walk(
 	{
 		'AfterUpdateList':[
-			('callDo',{'LiargVariablesList':[]})
+			('callDo',SYS.ApplyDictClass({'LiargVariablesList':[]}))
 		],
 		'GatherVariablesList':['<Components>']
 	}

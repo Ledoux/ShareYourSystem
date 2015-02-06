@@ -545,12 +545,24 @@ def collect(_Variable,_WalkingKeyStr,_GettingKeyStr):
 					,getattr(_Variable,_WalkingKeyStr)
 				))
 
-def map_(_Function,_List):
-	if sys.version[0]==2:
-		map(_Function,_List)
-	else:
-		return list(map(_Function,_List))
+def map_(_Function,_List,**_KwargVariablesDict):
+	
+	#Check
+	if 'MultiprocessBool' in _KwargVariablesDict and _KwargVariablesDict['MultiprocessBool']:
 
+		from multiprocessing import Pool
+		MapPool=Pool(min(len(_List),100))
+		return MapPool.map(_Function,_List)
+
+	else:
+
+		#Check version
+		if sys.version[0]==2:
+			map(_Function,_List)
+		else:
+			return list(map(_Function,_List))
+
+	
 def range_(*ArgsList):
 	if sys.version[0]==2:
 		return range(*ArgsList).__iter__()
@@ -763,6 +775,17 @@ def getSplitListsListWithSplittedListAndFunctionPointer(_SplittedList,_FunctionP
 
 	#Return
 	return SplitListsList
+
+def getIndexTuplesList(__SizeTuple):
+
+	#numpy
+	import itertools
+
+	#map
+	return list(
+		itertools.product(*map(xrange,__SizeTuple))
+	)
+
 
 def getArgumentDictWithFunction(_Function):
 

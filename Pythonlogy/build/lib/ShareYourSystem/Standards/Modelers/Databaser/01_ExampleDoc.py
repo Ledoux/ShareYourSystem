@@ -12,11 +12,11 @@ MyController=SYS.ControllerClass().collect(
 
 #Definition a Databaser instance
 MyController['<Databasers>ThingsDatabaser'].database([
-										#GetStr #ColumnStr #Col
-										('MyInt','MyInt',tables.Int64Col()),
-										('MyStr','MyStr',tables.StringCol(10)),
-										('MyIntsList','MyIntsList',tables.Int64Col(shape=3))
-								])
+		#GetStr #ColumnStr #Col
+		('MyInt','MyInt',tables.Int64Col()),
+		('MyStr','MyStr',tables.StringCol(10)),
+		('MyIntsList','MyIntsList',tables.Int64Col(shape=3))
+])
 							
 		
 #Definition the AttestedStr

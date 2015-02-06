@@ -121,8 +121,10 @@ class MatrixerClass(BaseClass):
 			)[0]:
 
 			#debug
+			'''
 			self.debug(('self.',self,['MatrixingDiagFloatsArray']))
-
+			'''
+			
 			#map
 			map(
 					lambda __RowInt,__MatrixingDiagFloat:

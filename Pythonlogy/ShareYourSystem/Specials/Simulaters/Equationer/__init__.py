@@ -123,11 +123,13 @@ class EquationerClass(BaseClass):
 				)
 
 			#debug
+			'''
 			self.debug(
 				[
 					('__LateralExpresser.',__LateralExpresser,['ExpressingColTagVariablesArray'])
 				]
 			)
+			'''
 
 			#map express
 			self.EquationedPreExpressionStrsList=__LateralExpresser.express(
@@ -141,12 +143,17 @@ class EquationerClass(BaseClass):
 				).ExpressedPreExpressionStrsList
 			
 			#debug
+			'''
 			self.debug(
 				[
 					'update equation for a lateral',
-					('self.',self,['EquationedPreExpressionStrsList'])
+					('self.',self,[
+								'EquationedPreExpressionStrsList',
+								'EquationingDifferentialDict'
+							])
 				]
 			)
+			'''
 
 			#update
 			map(
@@ -201,12 +208,14 @@ class EquationerClass(BaseClass):
 				).ExpressedPreExpressionStrsList
 
 			#debug
+			'''
 			self.debug(
 				[
 					'update equation for an input',
 					('self.',self,['EquationedPreExpressionStrsList'])
 				]
 			)
+			'''
 
 			#update
 			map(
@@ -224,6 +233,41 @@ class EquationerClass(BaseClass):
 					self.EquationedPreExpressionStrsList
 				)
 
+		'''
+		#check the format
+		map(
+			lambda __EquationTuple:
+			self.EquationingDifferentialDict.__setitem__(
+				__EquationTuple[0],
+				__EquationTuple[1].replace('++','')
+			),
+			self.EquationingDifferentialDict.items()
+		)
+
+		#check the format
+		map(
+			lambda __EquationTuple:
+			self.EquationingDifferentialDict.__setitem__(
+				__EquationTuple[0],
+				__EquationTuple[1][1:] 
+				if __EquationTuple[1][0]=='+'
+				else __EquationTuple[1]
+			),
+			self.EquationingDifferentialDict.items()
+		)
+
+		#check the format
+		map(
+			lambda __EquationTuple:
+			self.EquationingDifferentialDict.__setitem__(
+				__EquationTuple[0],
+				__EquationTuple[1][:-1] 
+				if __EquationTuple[1][-1]=='+'
+				else __EquationTuple[1]
+			),
+			self.EquationingDifferentialDict.items()
+		)
+		'''
 
 			
 #</DefineClass>

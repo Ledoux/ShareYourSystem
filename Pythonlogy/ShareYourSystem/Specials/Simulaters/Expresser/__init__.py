@@ -42,7 +42,9 @@ class ExpresserClass(BaseClass):
 		'ExpressingRowTagVariablesArray',
 		'ExpressingColTagVariablesArray',
 		'ExpressedTermStr',
-		'ExpressedPreExpressionStrsList'
+		'ExpressedPreExpressionStrsList',
+		'ExpressedIndexTuplesList',
+		'ExpressedTheoryParamStrsList'
 	]
 
 	def default_init(
@@ -53,11 +55,15 @@ class ExpresserClass(BaseClass):
 						_ExpressingTransferFunctionStr='',
 						_ExpressingOutputFloat=1.,
 						_ExpressingMapBool=False,
+						_ExpressingTheoryBool=False,
+						_ExpressingJacSymbolStr='J',
 						_ExpressingSpecificTagVariablesArray=None,
 						_ExpressingRowTagVariablesArray=None,
 						_ExpressingColTagVariablesArray=None,
 						_ExpressedTermStr="",
 						_ExpressedPreExpressionStrsList=None,
+						_ExpressedIndexTuplesList=None,
+						_ExpressedTheoryParamStrsList=None,
 						**_KwargVariablesDict
 					):
 
@@ -80,61 +86,127 @@ class ExpresserClass(BaseClass):
 				)
 
 			#matrix first
-			self.matrix()
+			if self.ExpressingTheoryBool==False:
+				self.matrix()
 
 			#debug
+			'''
 			self.debug(('self.',self,[
 						'MatrixedRandomFloatsArray',
 						'ExpressingRowTagVariablesArray',
 						'ExpressingColTagVariablesArray',
 						'ExpressingSpecificTagVariablesArray'
 					]))
+			'''
+			
+			#Check
+			if type(self.ExpressingColTagVariablesArray)==None.__class__:
+				self.ExpressingColTagVariablesArray=[]
 
-			#map express
-			self.ExpressedPreExpressionStrsList=map(
-					lambda __RowJacFloatsArray,__RowSpecificTagVariablesArray:
-					('+'.join(
-							map(
-								lambda __RowJacFloat,__ExpressingColTagVariable,__SpecificTagVariable:
-								self.express(
-										__RowJacFloat,
-										__SpecificTagVariable['SymbolStr'] 
-										if __SpecificTagVariable!=None and 'SymbolStr' in __SpecificTagVariable
-										else
-										(
-											__ExpressingColTagVariable['SymbolStr']
-											if __ExpressingColTagVariable!=None and 'SymbolStr' in __ExpressingColTagVariable
-											else self.ExpressingSymbolStr
-										),
-										__SpecificTagVariable['DelayFloat']
-										if type(
-												__SpecificTagVariable
-											)!=None.__class__ and 'DelayFloat' in __SpecificTagVariable 
-										else 0.,
-										__SpecificTagVariable['TransferFunctionStr']
-										if type(
-											__SpecificTagVariable
-											)!=None.__class__ and 'TransferFunctionStr' in __SpecificTagVariable
-										else "",
-										_ExpressingMapBool=False
-									).ExpressedTermStr,
-								__RowJacFloatsArray 
-								if type(__RowJacFloatsArray)!=None.__class__ 
-								else [],
-								self.ExpressingColTagVariablesArray
-								if type(self.ExpressingColTagVariablesArray)!=None.__class__
-								else [],
-								__RowSpecificTagVariablesArray 
-								if type(__RowSpecificTagVariablesArray)!=None.__class__ 
-								else []
+			#Init
+			self.ExpressedCountInt=0
+
+			#Check
+			if self.ExpressingTheoryBool==False:
+
+				#map express
+				self.ExpressedPreExpressionStrsList=map(
+						lambda __RowJacFloatsArray,__RowSpecificTagVariablesArray:
+						('+'.join(
+								map(
+									lambda __RowJacFloat,__ExpressingColTagVariable,__SpecificTagVariable:
+									self.update(
+										{
+											'ExpressingInputFloat':0.,
+											'ExpressingSymbolStr':'x',
+											'ExpressingDelayFloat':0.,
+											'ExpressingTransferFunctionStr':'',
+											'ExpressingOutputFloat':1.,
+											'ExpressedCountInt':self.ExpressedCountInt+1
+										}
+									).update(
+										dict(
+											__ExpressingColTagVariable,
+											**__SpecificTagVariable
+										)
+									).express(
+											__RowJacFloat,
+											_MapBool=False
+										).ExpressedTermStr,
+									__RowJacFloatsArray,
+									self.ExpressingColTagVariablesArray,
+									__RowSpecificTagVariablesArray 
+								)
 							)
-						)
-					),
-					self.MatrixedRandomFloatsArray,
-					self.ExpressingSpecificTagVariablesArray
-					if len(np.shape(self.ExpressingSpecificTagVariablesArray))==2
-					else [[]]
-				)
+						),
+						self.MatrixedRandomFloatsArray,
+						self.ExpressingSpecificTagVariablesArray
+						if len(np.shape(self.ExpressingSpecificTagVariablesArray))==2
+						else [[]]
+					)
+
+			else:
+
+				#get
+				self.ExpressedIndexTuplesList=SYS.getIndexTuplesList(self.MatrixingSizeTuple)
+
+				#
+				self.ExpressedTheoryParamStrsList=map(
+						lambda __ExpressedIndexTuple:
+						self.ExpressingJacSymbolStr+''.join(map(str,__ExpressedIndexTuple)),
+						self.ExpressedIndexTuplesList
+					)
+
+				#map
+				map(
+						lambda __ExpressedIndexTuple,__ExpressedTheoryParamStr:
+						self.ExpressingSpecificTagVariablesArray[
+						__ExpressedIndexTuple].__setitem__(
+							'ExpressingInputFloat',
+							__ExpressedTheoryParamStr
+						),
+						self.ExpressedIndexTuplesList,
+						self.ExpressedTheoryParamStrsList
+					)
+				
+				#debug
+				self.debug(('self.',self,['ExpressingSpecificTagVariablesArray']))
+
+				#map express
+				self.ExpressedPreExpressionStrsList=map(
+						lambda __RowSpecificTagVariablesArray:
+						('+'.join(
+								map(
+									lambda __ExpressingColTagVariable,__SpecificTagVariable:
+									self.update(
+										{
+											'ExpressingSymbolStr':'x',
+											'ExpressingDelayFloat':0.,
+											'ExpressingTransferFunctionStr':'',
+											'ExpressingOutputFloat':1.,
+											'ExpressedCountInt':self.ExpressedCountInt+1
+										}
+									).update(
+										dict(
+											__ExpressingColTagVariable,
+											**__SpecificTagVariable
+										)
+									).express(
+											_MapBool=False
+										).ExpressedTermStr,
+									self.ExpressingColTagVariablesArray,
+									__RowSpecificTagVariablesArray 
+								)
+							)
+						),
+						self.ExpressingSpecificTagVariablesArray
+						if len(np.shape(self.ExpressingSpecificTagVariablesArray))==2
+						else [[]]
+					)
+
+
+			#debug
+			self.debug('Ok we have joined')
 
 			#row
 			self.ExpressedPreExpressionStrsList=map(
@@ -149,9 +221,19 @@ class ExpresserClass(BaseClass):
 				)
 
 			#debug
+			'''
 			self.debug(('self.',self,[
 							'ExpressedPreExpressionStrsList'
 						]))
+			'''
+
+			#map
+			'''
+			self.ExpressedPreExpressionStrsList=map(
+					lambda __ExpressedPreExpressionStr:
+					__ExpressedPreExpressionStr.replace('++',''),
+					self.ExpressedPreExpressionStrsList
+				)
 
 			#map
 			self.ExpressedPreExpressionStrsList=map(
@@ -168,19 +250,18 @@ class ExpresserClass(BaseClass):
 					else __ExpressedPreExpressionStr,
 					self.ExpressedPreExpressionStrsList
 				)
-			self.ExpressedPreExpressionStrsList=map(
-					lambda __ExpressedPreExpressionStr:
-					__ExpressedPreExpressionStr.replace('++',''),
-					self.ExpressedPreExpressionStrsList
-				)
+			'''
 
 			#debug
+			'''
 			self.debug(('self.',self,['ExpressedPreExpressionStrsList']))
+			'''
 
 		#One single expression
 		else:
 
 			#debug
+			'''
 			self.debug(
 					[
 						'We express just one element',
@@ -190,6 +271,8 @@ class ExpresserClass(BaseClass):
 						])
 					]
 				)
+			'''
+
 
 			#Check
 			if self.ExpressingInputFloat!=0.:
@@ -206,7 +289,7 @@ class ExpresserClass(BaseClass):
 					)
 
 				#Check
-				if self.ExpressingTransferFunctionStr:
+				if self.ExpressingTransferFunctionStr!='':
 					self.ExpressedTermStr=self.ExpressingTransferFunctionStr+'('+self.ExpressedTermStr+')'
 				
 			#else
@@ -214,14 +297,16 @@ class ExpresserClass(BaseClass):
 				self.ExpressedTermStr=''
 
 			#debug
+			'''
 			self.debug(
 					[
 						'We express just one element now it is ',
 						('self.',self,['ExpressedTermStr'])
 					]
 				)
+			'''
 
-
-
+			#debug
+			print('Ok we have expressed, ExpressedCountInt is '+str(self.ExpressedCountInt))
 
 #</DefineClass>

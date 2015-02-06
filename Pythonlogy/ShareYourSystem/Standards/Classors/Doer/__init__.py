@@ -706,7 +706,8 @@ DoStrsTuplesList=[
 	('Predispiker','Predispike','Predispiking','Predispiked'),
 	('Predirater','Predirate','Predirating','Predirated'),
 	('Leaker','Leak','Leaking','Leaked'),
-	('Expresser','Express','Expressing','Expressed')
+	('Expresser','Express','Expressing','Expressed'),
+	('Pymongoer','Pymongo','Pymongoing','Pymongone')
 ]
 
 DoerStrToDoStrOrderedDict=SYS.dictify(DoStrsTuplesList,0,1)

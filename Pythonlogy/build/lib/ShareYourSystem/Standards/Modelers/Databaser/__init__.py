@@ -47,21 +47,42 @@ def getDatabasedColWithGetKeyStr(_GetKeyStr):
 	#Definition
 	DatabasedColStr=SYS._filter(
 		lambda __AnalyzingColStr:
-		_GetKeyStr.endswith(__AnalyzingColStr),
-		AnalyzingColStrsList
+			_GetKeyStr.endswith(__AnalyzingColStr),
+			AnalyzingColStrsList
 		)[0]
 
+	#Debug
+	'''
+	print('l 55 getDatabasedColWithGetKeyStr')
+	print('DatabasedColStr is ')
+	print(DatabasedColStr)
+	print('')
+	'''
+
 	#Get the Col Class
-	DatabasedColClass=getattr(tables,DatabasedColStr+'Col')
+	if DatabasedColStr=='Str':
+		DatabasedColClass=getattr(
+							tables,
+							'StringCol'
+						)
+	else:
+		DatabasedColClass=getattr(
+							tables,
+							DatabasedColStr+'Col'
+						)
 
 	#Return
-	if _GetKeyStr=='Str':
-		return DatabasedColClass(length=100)
+	if DatabasedColStr=='Str':
+		return DatabasedColClass(100)
 	else:
 		return DatabasedColClass() 
 
 def getDatabasingColumnTupleWithGetKeyStr(_GetKeyStr):
-	return (_GetKeyStr,_GetKeyStr,getDatabasedColWithGetKeyStr(_GetKeyStr))
+	return (
+			_GetKeyStr,
+			_GetKeyStr,
+			getDatabasedColWithGetKeyStr(_GetKeyStr)
+	)
 
 #</DefineFunctions>
 
