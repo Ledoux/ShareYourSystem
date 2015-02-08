@@ -114,8 +114,8 @@ class StorerClass(BaseClass):
 			self.debug(('self.',self,['OrganizedTopDeriveDatabaserVariable']))
 			'''
 
-			#flush
-			self.OrganizedTopDeriveDatabaserVariable.flush()	
+			#insert
+			self.OrganizedTopDeriveDatabaserVariable.insert()	
 		
 #</DefineClass>
 

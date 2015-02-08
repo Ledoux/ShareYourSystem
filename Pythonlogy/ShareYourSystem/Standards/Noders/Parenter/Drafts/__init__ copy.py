@@ -38,7 +38,7 @@ class ParenterClass(BaseClass):
 	def default_init(self,
 				_ParentingNodeStr="",
 				_ParentedDeriveNodersList=None,
-				_ParentedPathStr="",
+				_ParentedNodePathStr="",
 				**_KwargVariablesDict):
 
 		#Call the parent init method
@@ -117,7 +117,7 @@ class ParenterClass(BaseClass):
 								PathStrKeyStr,
 								PathStr
 							)
-			self.ParentedPathStr=PathStr
+			self.ParentedNodePathStr=PathStr
 
 		#Return self
 		#return self

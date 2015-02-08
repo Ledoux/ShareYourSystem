@@ -190,7 +190,10 @@ ShareYourSystem/Specials/Simulaters/Moniter/Readme.ipynb
 ShareYourSystem/Specials/Simulaters/Moniter/Readme.md
 ShareYourSystem/Specials/Simulaters/Moniter/__init__.py
 ShareYourSystem/Specials/Simulaters/Moniter/Drafts/__init__ copy.py
+ShareYourSystem/Specials/Simulaters/Neurongrouper/00_ExampleDoc.md
 ShareYourSystem/Specials/Simulaters/Neurongrouper/01_ExampleCell.py
+ShareYourSystem/Specials/Simulaters/Neurongrouper/02_ExampleDoc.md
+ShareYourSystem/Specials/Simulaters/Neurongrouper/03_ExampleCell.py
 ShareYourSystem/Specials/Simulaters/Neurongrouper/__init__.py
 ShareYourSystem/Specials/Simulaters/Populater/.DS_Store
 ShareYourSystem/Specials/Simulaters/Populater/001_DocumentDoc.md
@@ -1132,19 +1135,6 @@ ShareYourSystem/Standards/Modelers/Findoer/Test.py
 ShareYourSystem/Standards/Modelers/Findoer/Things.hdf5
 ShareYourSystem/Standards/Modelers/Findoer/__init__.py
 ShareYourSystem/Standards/Modelers/Findoer/__pycache__/Retriever.cpython-34.pyc
-ShareYourSystem/Standards/Modelers/Flusher/001_DocumentDoc.md
-ShareYourSystem/Standards/Modelers/Flusher/00_ExampleDoc.md
-ShareYourSystem/Standards/Modelers/Flusher/01_ExampleDoc.py
-ShareYourSystem/Standards/Modelers/Flusher/Datome.hdf5
-ShareYourSystem/Standards/Modelers/Flusher/PreReadme.ipynb
-ShareYourSystem/Standards/Modelers/Flusher/Presentation.html
-ShareYourSystem/Standards/Modelers/Flusher/Presentation.ipynb
-ShareYourSystem/Standards/Modelers/Flusher/Readme.ipynb
-ShareYourSystem/Standards/Modelers/Flusher/Readme.md
-ShareYourSystem/Standards/Modelers/Flusher/Test.py
-ShareYourSystem/Standards/Modelers/Flusher/__init__.py
-ShareYourSystem/Standards/Modelers/Flusher/Drafts/__init__ copy.py
-ShareYourSystem/Standards/Modelers/Flusher/__pycache__/Flusher.cpython-34.pyc
 ShareYourSystem/Standards/Modelers/Hierarchizer/.DS_Store
 ShareYourSystem/Standards/Modelers/Hierarchizer/001_DocumentDoc.md
 ShareYourSystem/Standards/Modelers/Hierarchizer/00_ExampleDoc.md
@@ -1162,6 +1152,28 @@ ShareYourSystem/Standards/Modelers/Hierarchizer/Test.py
 ShareYourSystem/Standards/Modelers/Hierarchizer/__init__.py
 ShareYourSystem/Standards/Modelers/Hierarchizer/Drafts/01_ExampleCell copy.py
 ShareYourSystem/Standards/Modelers/Hierarchizer/Drafts/__init__ copy.py
+ShareYourSystem/Standards/Modelers/Inserter/001_DocumentDoc.md
+ShareYourSystem/Standards/Modelers/Inserter/00_ExampleDoc.md
+ShareYourSystem/Standards/Modelers/Inserter/01_ExampleDoc.py
+ShareYourSystem/Standards/Modelers/Inserter/02_ExampleDoc.md
+ShareYourSystem/Standards/Modelers/Inserter/03_ExampleDoc.py
+ShareYourSystem/Standards/Modelers/Inserter/Controls.hdf5
+ShareYourSystem/Standards/Modelers/Inserter/PreReadme.ipynb
+ShareYourSystem/Standards/Modelers/Inserter/Presentation.html
+ShareYourSystem/Standards/Modelers/Inserter/Presentation.ipynb
+ShareYourSystem/Standards/Modelers/Inserter/Readme.ipynb
+ShareYourSystem/Standards/Modelers/Inserter/Readme.md
+ShareYourSystem/Standards/Modelers/Inserter/Test.py
+ShareYourSystem/Standards/Modelers/Inserter/Things.hdf5
+ShareYourSystem/Standards/Modelers/Inserter/__init__.py
+ShareYourSystem/Standards/Modelers/Inserter/Drafts/__init__ copy.py
+ShareYourSystem/Standards/Modelers/Inserter/__pycache__/Flusher.cpython-34.pyc
+ShareYourSystem/Standards/Modelers/Inserter/data/db/Default.0
+ShareYourSystem/Standards/Modelers/Inserter/data/db/Default.ns
+ShareYourSystem/Standards/Modelers/Inserter/data/db/local.0
+ShareYourSystem/Standards/Modelers/Inserter/data/db/local.ns
+ShareYourSystem/Standards/Modelers/Inserter/data/db/mongod.lock
+ShareYourSystem/Standards/Modelers/Inserter/data/db/journal/j._0
 ShareYourSystem/Standards/Modelers/Joiner/.DS_Store
 ShareYourSystem/Standards/Modelers/Joiner/001_DocumentDoc.md
 ShareYourSystem/Standards/Modelers/Joiner/00_ExampleDoc.md
@@ -1242,14 +1254,15 @@ ShareYourSystem/Standards/Modelers/Retriever/__pycache__/Retriever.cpython-34.py
 ShareYourSystem/Standards/Modelers/Rower/001_DocumentDoc.md
 ShareYourSystem/Standards/Modelers/Rower/00_ExampleDoc.md
 ShareYourSystem/Standards/Modelers/Rower/01_ExampleDoc.py
-ShareYourSystem/Standards/Modelers/Rower/Controls.hdf5
+ShareYourSystem/Standards/Modelers/Rower/02_ExampleDoc.md
+ShareYourSystem/Standards/Modelers/Rower/03_ExampleDoc.py
 ShareYourSystem/Standards/Modelers/Rower/PreReadme.ipynb
 ShareYourSystem/Standards/Modelers/Rower/Presentation.html
 ShareYourSystem/Standards/Modelers/Rower/Presentation.ipynb
 ShareYourSystem/Standards/Modelers/Rower/Readme.ipynb
 ShareYourSystem/Standards/Modelers/Rower/Readme.md
-ShareYourSystem/Standards/Modelers/Rower/Structures.hdf5
 ShareYourSystem/Standards/Modelers/Rower/Test.py
+ShareYourSystem/Standards/Modelers/Rower/Things.hdf5
 ShareYourSystem/Standards/Modelers/Rower/__init__.py
 ShareYourSystem/Standards/Modelers/Rower/Drafts/__init__ copy.py
 ShareYourSystem/Standards/Modelers/Rower/__pycache__/Rower.cpython-34.pyc
@@ -1270,7 +1283,8 @@ ShareYourSystem/Standards/Modelers/Shaper/__pycache__/Shaper.cpython-34.pyc
 ShareYourSystem/Standards/Modelers/Tabler/001_DocumentDoc.md
 ShareYourSystem/Standards/Modelers/Tabler/00_ExampleDoc.md
 ShareYourSystem/Standards/Modelers/Tabler/01_ExampleDoc.py
-ShareYourSystem/Standards/Modelers/Tabler/Datome.hdf5
+ShareYourSystem/Standards/Modelers/Tabler/02_ExampleDoc.md
+ShareYourSystem/Standards/Modelers/Tabler/03_ExampleDoc.py
 ShareYourSystem/Standards/Modelers/Tabler/PreReadme.ipynb
 ShareYourSystem/Standards/Modelers/Tabler/Presentation.html
 ShareYourSystem/Standards/Modelers/Tabler/Presentation.ipynb
@@ -1281,22 +1295,34 @@ ShareYourSystem/Standards/Modelers/Tabler/Things.hdf5
 ShareYourSystem/Standards/Modelers/Tabler/__init__.py
 ShareYourSystem/Standards/Modelers/Tabler/Drafts/Tablor copy.py
 ShareYourSystem/Standards/Modelers/Tabler/__pycache__/Tablor.cpython-34.pyc
+ShareYourSystem/Standards/Modelers/Tabler/data/db/Things.0
+ShareYourSystem/Standards/Modelers/Tabler/data/db/Things.ns
+ShareYourSystem/Standards/Modelers/Tabler/data/db/local.0
+ShareYourSystem/Standards/Modelers/Tabler/data/db/local.ns
+ShareYourSystem/Standards/Modelers/Tabler/data/db/mongod.lock
+ShareYourSystem/Standards/Modelers/Tabler/data/db/journal/j._0
+ShareYourSystem/Standards/Modelers/Tabler/data/db/journal/lsn
 ShareYourSystem/Standards/Modelers/Tabularer/001_DocumentDoc.md
 ShareYourSystem/Standards/Modelers/Tabularer/00_ExampleDoc.md
 ShareYourSystem/Standards/Modelers/Tabularer/01_ExampleDoc.py
 ShareYourSystem/Standards/Modelers/Tabularer/02_ExampleDoc.md
 ShareYourSystem/Standards/Modelers/Tabularer/03_ExampleDoc.py
-ShareYourSystem/Standards/Modelers/Tabularer/Datome.hdf5
 ShareYourSystem/Standards/Modelers/Tabularer/PreReadme.ipynb
 ShareYourSystem/Standards/Modelers/Tabularer/Presentation.html
 ShareYourSystem/Standards/Modelers/Tabularer/Presentation.ipynb
 ShareYourSystem/Standards/Modelers/Tabularer/Readme.ipynb
 ShareYourSystem/Standards/Modelers/Tabularer/Readme.md
 ShareYourSystem/Standards/Modelers/Tabularer/Test.py
-ShareYourSystem/Standards/Modelers/Tabularer/Things.hdf5
 ShareYourSystem/Standards/Modelers/Tabularer/__init__.py
 ShareYourSystem/Standards/Modelers/Tabularer/Drafts/Tablor copy.py
 ShareYourSystem/Standards/Modelers/Tabularer/__pycache__/Tablor.cpython-34.pyc
+ShareYourSystem/Standards/Modelers/Tabularer/data/db/Things.0
+ShareYourSystem/Standards/Modelers/Tabularer/data/db/Things.ns
+ShareYourSystem/Standards/Modelers/Tabularer/data/db/local.0
+ShareYourSystem/Standards/Modelers/Tabularer/data/db/local.ns
+ShareYourSystem/Standards/Modelers/Tabularer/data/db/mongod.lock
+ShareYourSystem/Standards/Modelers/Tabularer/data/db/journal/j._0
+ShareYourSystem/Standards/Modelers/Tabularer/data/db/journal/lsn
 ShareYourSystem/Standards/Noders/.DS_Store
 ShareYourSystem/Standards/Noders/001_DocumentDoc.md
 ShareYourSystem/Standards/Noders/001_GithubDoc.md
@@ -1681,6 +1707,9 @@ ShareYourSystem/Standards/Viewers/Ploter/ProcessTemp.txt
 ShareYourSystem/Standards/Viewers/Ploter/__init__.py
 ShareYourSystem/Standards/Viewers/Pyploter/01_ExampleCell.py
 ShareYourSystem/Standards/Viewers/Pyploter/__init__.py
+ShareYourSystem/Standards/Viewers/Texter/00_ExampleDoc.md
+ShareYourSystem/Standards/Viewers/Texter/01_ExampleDoc.py
+ShareYourSystem/Standards/Viewers/Texter/__init__.py
 ShareYourSystem/Standards/Viewers/Viewer/00_ExampleDoc.md
 ShareYourSystem/Standards/Viewers/Viewer/01_ExampleDoc.py
 ShareYourSystem/Standards/Viewers/Viewer/__init__.py

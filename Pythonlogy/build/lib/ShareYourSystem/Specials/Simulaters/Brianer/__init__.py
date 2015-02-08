@@ -190,13 +190,14 @@ class BrianerClass(BaseClass):
 			__BrianedDeriveNeurongrouper.populate(
 				).neurongroup(
 					dict(
-						__BrianedDeriveNeurongrouper.NeurongroupingKwargVariablesDict,
-						**{
+						{
 							'clock':self.BrianedSimulationClock,
 							'N':__BrianedDeriveNeurongrouper.PopulatingUnitsInt,
 							#Don't forget to replace the '/' by '_' because brian doesn't like them
-							'name':__BrianedDeriveNeurongrouper.NetworkKeyStr.replace('/','_')
-						}
+							'name':__BrianedDeriveNeurongrouper.NetworkKeyStr.replace(
+								'/','_')
+						},
+						**__BrianedDeriveNeurongrouper.NeurongroupingKwargVariablesDict
 					)
 				).NeurongroupedBrianVariable,
 			self.BrianedDeriveNeurongroupersList

@@ -79,14 +79,14 @@ class DatabaserClass(
 'ModeledSuffixStr',
 'DatabasedCollectionStr',
 'ModeledSuffixStr',
-'ModeledPointDeriveStorerVariable'
+'ModeledPointDeriveControllerVariable'
                                                         ]
 
         def default_init(self,
                                         _DatabasingKeyStr="",
                                         _DatabasedCollectionStr="",
                                         _ModeledSuffixStr="",
-_ModeledPointDeriveStorerVariable=None,
+_ModeledPointDeriveControllerVariable=None,
                                         **_KwargVariablesDict
                                 ):
 
@@ -107,7 +107,7 @@ _ModeledPointDeriveStorerVariable=None,
                 if hasattr(self,'NodePointDeriveNoder'):
                         self.point(
                                 self.NodePointDeriveNoder,
-                                'ModeledPointDeriveStorerVariable'
+                                'ModeledPointDeriveControllerVariable'
                         )
 
 #</DefineClass>
@@ -195,7 +195,7 @@ MyStorer is < (StorerClass), 4559345232>
    /   /   /  '<New><Instance>NodePointOrderedDict' : {...}< (OrderedDict),
 4563600328>
    /   /   /  '<Spe><Instance>DatabasedCollectionStr' : Datome
-   /   /   /  '<Spe><Instance>ModeledPointDeriveStorerVariable' : {...}<
+   /   /   /  '<Spe><Instance>ModeledPointDeriveControllerVariable' : {...}<
 (StorerClass), 4559345232>
    /   /   /  '<Spe><Instance>ModeledSuffixStr' : ThingsDatabaserModel
    /   /   /}

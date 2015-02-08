@@ -69,11 +69,11 @@ class BoxerClass(BaseClass):
 		#debug
 		self.debug(('self.',self,[
 			#'ParentedDeriveParentersList',
-			'ParentedPathStr'
+			'ParentedNodePathStr'
 		]))
 
 		#Determine the deep
-		self.BoxedDeepInt=len(self.ParentedPathStr.split('/'))
+		self.BoxedDeepInt=len(self.ParentedNodePathStr.split('/'))
 		'''
 
 

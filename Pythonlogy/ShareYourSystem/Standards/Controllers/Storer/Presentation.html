@@ -1866,8 +1866,8 @@ class StorerClass(BaseClass):
             self.debug(('self.',self,['OrganizedTopDeriveDatabaserVariable']))
             '''
 
-            #flush
-            self.OrganizedTopDeriveDatabaserVariable.flush()    
+            #insert
+            self.OrganizedTopDeriveDatabaserVariable.insert()    
 
 #&lt;/DefineClass&gt;
 </code></pre>
@@ -1978,7 +1978,7 @@ In&nbsp;[3]:
 <span class="c">#Definition of a Factorizer </span>
 <span class="n">MyFactorizer</span><span class="o">=</span><span class="n">FactorizerClass</span><span class="p">()</span>
 
-<span class="c">#Update transmit the do method and flush in the results</span>
+<span class="c">#Update transmit the do method and insert in the results</span>
 <span class="n">MyFactorizer</span><span class="o">.</span><span class="n">__setitem__</span><span class="p">(</span>
     <span class="s">&quot;Dis_&lt;Component&gt;&quot;</span><span class="p">,</span>
     <span class="p">[</span>
@@ -1993,7 +1993,7 @@ In&nbsp;[3]:
     <span class="p">]</span>
 <span class="p">)</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
 
-<span class="c">#Update and flush in the results</span>
+<span class="c">#Update and insert in the results</span>
 <span class="n">MyFactorizer</span><span class="o">.</span><span class="n">__setitem__</span><span class="p">(</span>
     <span class="s">&quot;Dis_&lt;Component&gt;&quot;</span><span class="p">,</span>
     <span class="p">[</span>

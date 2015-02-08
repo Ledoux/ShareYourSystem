@@ -115,8 +115,8 @@ class JoinerClass(SYS.FeaturerClass):
 		#debug
 		self.debug('Look if we have to make row first the noded children')
 
-		#IsNodingFlushingBool
-		if 'IsNodingRowingBool' not in _FlushingVariablesList or _FlushingVariablesList['IsNodingFlushingBool']:
+		#IsNodingInsertingBool
+		if 'IsNodingRowingBool' not in _InsertingVariablesList or _InsertingVariablesList['IsNodingInsertingBool']:
 
 			#debug
 			self.debug(
@@ -136,7 +136,7 @@ class JoinerClass(SYS.FeaturerClass):
 			#debug
 			self.debug(
 						[
-							'The noded children have flushed'
+							'The noded children have inserted'
 						]
 					)
 
@@ -144,7 +144,7 @@ class JoinerClass(SYS.FeaturerClass):
 		self.debug(
 					[
 						"self.DatabasedDict['ModelStr'] is "+str(self.DatabasedDict['ModelStr'])
-						"We are going to check if the joined model is already flushed...",
+						"We are going to check if the joined model is already inserted...",
 						"First look if JoinedDatabasedDict!={} is "+str(len(JoinedDatabasedDict)>0)
 					]
 				)
@@ -247,7 +247,7 @@ class JoinerClass(SYS.FeaturerClass):
 		#debug
 		self.debug('End of the method')
 
-	def flushBefore(self,**_FlushingVariablesList):
+	def insertBefore(self,**_InsertingVariablesList):
 
 		#debug
 		self.debug('Start of the method')
@@ -274,13 +274,13 @@ class JoinerClass(SYS.FeaturerClass):
 		ModelStr=self.DatabasedDict['ModelStr']
 
 		'''
-		#IsNodingFlushingBool
-		if 'IsNodingFlushingBool' not in _FlushingVariablesList or _FlushingVariablesList['IsNodingFlushingBool']:
+		#IsNodingInsertingBool
+		if 'IsNodingInsertingBool' not in _InsertingVariablesList or _InsertingVariablesList['IsNodingInsertingBool']:
 
 			#debug
 			self.debug(
 						[
-							'We are going to make flush all the noded children with the Model',
+							'We are going to make insert all the noded children with the Model',
 							'ModelStr is '+str(ModelStr)
 						]
 					)
@@ -288,28 +288,28 @@ class JoinerClass(SYS.FeaturerClass):
 			#Flush each noded children
 			map(
 					lambda __Variable:
-					__Variable.flush(ModelStr),
+					__Variable.insert(ModelStr),
 					self.DatabasedDict['JoinedNodifiedOrderedDict'].values()
 				)
 
 			#debug
 			self.debug(
 						[
-							'The noded children have flushed',
+							'The noded children have inserted',
 							'Now look at the joined model',
 							('self.DatabasedDict',self.DatabasedDict,['JoinedModelStr'])
 						]
 					)
 		'''
 
-		#flush the joined model
+		#insert the joined model
 		if self.DatabasedDict['JoinedModelStr']!="":
 
 			#debug
 			self.debug(
 						[
 							'Flush self with the joined model',
-							'But without making the noded children flushing'
+							'But without making the noded children inserting'
 						]
 					)
 
@@ -317,7 +317,7 @@ class JoinerClass(SYS.FeaturerClass):
 			CopiedDatabasedDict=copy.copy(self.DatabasedDict)
 
 			#Flush
-			self.flush(self.DatabasedDict['JoinedModelStr'],**{'IsNodingFlushingBool':False})
+			self.insert(self.DatabasedDict['JoinedModelStr'],**{'IsNodingInsertingBool':False})
 
 			#debug
 			self.debug('Flush self with the joined model was done')
@@ -331,7 +331,7 @@ class JoinerClass(SYS.FeaturerClass):
 			#Alias
 			JoinedOrderedDict=self.DatabasedDict['JoinedOrderedDict']
 
-			#It is going to be flushed so update the self.JoinedRetrievingIndexesList to the last row index
+			#It is going to be inserted so update the self.JoinedRetrievingIndexesList to the last row index
 			if JoinedOrderedDict[JoinedRetrievingIndexesListKeyStr][1]==-1:
 
 				#debug
@@ -353,8 +353,8 @@ class JoinerClass(SYS.FeaturerClass):
 
 			#Get the JoinedRetrievingIndexesList
 			JoinedRetrievingIndexesListsList=map(
-								lambda __FlushingVariable:
-								__FlushingVariable.DatabasedDict['JoinedOrderedDict'][JoinedRetrievingIndexesListKeyStr],
+								lambda __InsertingVariable:
+								__InsertingVariable.DatabasedDict['JoinedOrderedDict'][JoinedRetrievingIndexesListKeyStr],
 								self.DatabasedDict['JoinedNodifiedOrderedDict'].values()
 							)
 
@@ -935,7 +935,7 @@ def attest_join():
 													('model',{'ArgsVariable':"Parameter"}),
 													('table',{'ArgsVariable':""}),
 													('row',{'ArgsVariable':""}),
-													('flush',{'ArgsVariable':""})
+													('insert',{'ArgsVariable':""})
 												]
 											}
 									).update(
@@ -957,7 +957,7 @@ def attest_join():
 									).model("Result"		
 									).table(
 									).row(
-									).flush("Result"
+									).insert("Result"
 									).hdfclose()
 
 	#Return the object itself

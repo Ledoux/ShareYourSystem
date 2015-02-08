@@ -114,7 +114,7 @@ a new table or not...In order to index it',
                                                 ('self.',self,[
         'DatabasedKeyStr',
         'DatabasedModelClass',
-        'TabularedKeyStrsList',
+        'TabularedTableKeyStrsList',
         'TabularedSuffixStr',
         'TabledKeyStr'
 ])
@@ -132,7 +132,7 @@ a new table or not...In order to index it',
                                 map(
                                                 lambda __TabledKeyStr:
 __TabledKeyStr.split(TablingOrderStr),
-                                                self.TabularedKeyStrsList
+                                                self.TabularedTableKeyStrsList
                                         )
                         ),[0,1])
 
@@ -179,7 +179,7 @@ self.TabularedSuffixStr)
                         else:
 
                                 #Get the already setted one
-                                IndexStr=self.TabularedKeyStrsList[
+                                IndexStr=self.TabularedTableKeyStrsList[
 TabledSuffixStrsList.index(self.TabularedSuffixStr)
                                         ].split(TablingOrderStr)[1]
 
@@ -242,13 +242,13 @@ self.TabularedTopFileVariable!=None:
                         '''
                         self.debug(
                                                 [
-('self.',self,['TabledKeyStr','TabularedKeyStrsList'])
+('self.',self,['TabledKeyStr','TabularedTableKeyStrsList'])
                                                 ]
                                         )
                         '''
 
                         #Create the Table if not already
-                        if self.TabledKeyStr not in self.TabularedKeyStrsList:
+                        if self.TabledKeyStr not in self.TabularedTableKeyStrsList:
 
                                 #debug
                                 '''
@@ -271,8 +271,8 @@ self.TabledTable=self.TabularedTopFileVariable.create_table(
 )
 
                                 #Append in the
-self.DatabasedDict['TabularedKeyStrsList']
-self.TabularedKeyStrsList.append(self.TabledKeyStr)
+self.DatabasedDict['TabularedTableKeyStrsList']
+self.TabularedTableKeyStrsList.append(self.TabledKeyStr)
 
                         else:
 
@@ -468,7 +468,7 @@ hdf5 file is : /                        Group
         (0) {RowInt=0, MyInt=1, MyIntsList=[0,0,1], MyStr="bonjour"},
         (1) {RowInt=1, MyInt=0, MyIntsList=[0,0,1], MyStr="guten tag"},
         (2) {RowInt=2, MyInt=1, MyIntsList=[0,0,0], MyStr="bonjour"}
-/xx0xxThingsFlusherTable Dataset {2/Inf}
+/xx0xxThingsInserterTable Dataset {2/Inf}
     Data:
         (0) {RowInt=0, MyInt=1, MyIntsList=[2,4,6], MyStr="bonjour"},
         (1) {RowInt=1, MyInt=0, MyIntsList=[0,0,0], MyStr="hello"}

@@ -43,7 +43,8 @@ class CloserClass(BaseClass):
 	def do_close(self):
 
 		#close
-		self.FiledFileVariable.close()
+		if self.FiledFileVariable!=None:
+			self.FiledFileVariable.close()
 
 		#Close the HdformatedFileVariable
 		if hasattr(self,'hdfclose'):

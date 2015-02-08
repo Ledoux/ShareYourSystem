@@ -71,7 +71,7 @@ class CatcherClass(BaseClass):
 								])
 				)
 		'''
-
+		
 		#link
 		if type(self.GraspingClueVariable)==SYS.GraspDictClass:
 			self.CatchingUpdateVariable=copy.deepcopy(self.GraspingClueVariable)
@@ -107,13 +107,13 @@ class CatcherClass(BaseClass):
 
 				#Get the up
 				CatchedUpNodeKeyStrsList=(self.parent(
-					).ParentedPathStr+'/'+self.NodeKeyStr).split('/')
+					).ParentedNodePathStr+'/'+self.NodeKeyStr).split('/')
 				CatchedUpNodeKeyStrsList.reverse()
 				CatchedUpPathStr='/'.join(CatchedUpNodeKeyStrsList[:-1])
 
 				#Get the down
 				CatchedDownNodeKeyStrsList=(self.GraspedAnswerVariable.parent(
-					).ParentedPathStr+'/'+self.GraspedAnswerVariable.NodeKeyStr).split('/')
+					).ParentedNodePathStr+'/'+self.GraspedAnswerVariable.NodeKeyStr).split('/')
 				CatchedDownPathStr='/'.join(CatchedDownNodeKeyStrsList[1:])
 
 				#Get the top
@@ -140,11 +140,11 @@ class CatcherClass(BaseClass):
 		self.debug(
 					('self.',self,[
 									'CatchingCollectionStr',
-									'CatchedNodeKeyStr'
+									'CatchingDerivePointerClass'
 								])
 					)
 		'''
-		
+
 		#init
 		self.CatchedDerivePointerVariable=self.CatchingDerivePointerClass(
 			**{
@@ -164,11 +164,13 @@ class CatcherClass(BaseClass):
 		'''
 		self.debug(
 					('self.',self,[
+									'CatchingCollectionStr',
+									'CatchedNodeKeyStr',
 									'CatchedDerivePointerVariable'
 								])
 					)
 		'''
-		
+
 		#collect and update
 		self.collect(
 			self.CatchingCollectionStr,
@@ -184,7 +186,7 @@ class CatcherClass(BaseClass):
 								])
 				)
 		'''
-		
+
 		#set
 		self.CatchedDerivePointerVariable.update(
 			self.CatchingUpdateVariable

@@ -11,7 +11,7 @@ FrozenIsBool False
 
 > 
 > The Rower helps to set rowed lines in a Databaser from pointed attributes,
-> ready then to be flushed in a table.
+> ready then to be inserted in a table.
 > 
 > 
 

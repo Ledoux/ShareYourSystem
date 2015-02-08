@@ -23,6 +23,7 @@ SYS.setSubModule(globals())
 #<ImportSpecificModules>
 import copy
 from ShareYourSystem.Standards.Itemizers import Pather
+from ShareYourSystem.Standards.Noders import Noder
 #</ImportSpecificModules>
 
 #<DefineClass>
@@ -37,7 +38,9 @@ class ParenterClass(BaseClass):
 								'ParentingWalkBool',
 								'ParentedDeriveParentersList',
 								'ParentedNodeCollectionStrsList',
-								'ParentedPathStr',
+								'ParentedNodePathStr',
+								'ParentedCollectionPathStr',
+								'ParentedTotalPathStr',
 								'ParentedTopDeriveParenterVariable'
 							]
 
@@ -46,7 +49,9 @@ class ParenterClass(BaseClass):
 				_ParentingWalkBool=True,
 				_ParentedDeriveParentersList=None,
 				_ParentedNodeCollectionStrsList=None,
-				_ParentedPathStr="",
+				_ParentedNodePathStr="",
+				_ParentedCollectionPathStr="",
+				_ParentedTotalPathStr="",
 				_ParentedTopDeriveParenterVariable=None,
 				**_KwargVariablesDict):	
 
@@ -88,21 +93,44 @@ class ParenterClass(BaseClass):
 			self.ParentedNodeCollectionStrsList.reverse()
 
 			#definition
-			ParentedPathStrsList=map(
+			ParentedNodePathStrsList=map(
 					lambda __ParentedDeriveParenter:
 					__ParentedDeriveParenter.NodeKeyStr,
 					self.ParentedDeriveParentersList
 				)
-			ParentedPathStrsList.reverse()
+			ParentedNodePathStrsList.reverse()
+
+			#definition
+			ParentedTotalPathTuplesList=map(
+					lambda __ParentedDeriveParenter:
+					(
+						Noder.NodingPrefixGetStr+__ParentedDeriveParenter.NodeCollectionStr+Noder.NodingSuffixGetStr,
+						__ParentedDeriveParenter.NodeKeyStr
+					),
+					self.ParentedDeriveParentersList
+				)
+			ParentedTotalPathTuplesList.reverse()
+
 			
 			#Debug
 			'''
-			self.debug('ParentedPathStrsList is '+str(ParentedPathStrsList))
+			self.debug('ParentedTotalPathTuplesList is '+str(ParentedTotalPathTuplesList))
 			'''
 			
 			#set
-			self.ParentedPathStr=Pather.PathingPrefixStr.join(ParentedPathStrsList)
-
+			self.ParentedNodePathStr=Pather.PathingPrefixStr.join(
+				SYS.unzip(ParentedTotalPathTuplesList,[1])
+			)
+			self.ParentedCollectionPathStr=Pather.PathingPrefixStr.join(
+				SYS.unzip(ParentedTotalPathTuplesList,[0])
+			)
+			self.ParentedTotalPathStr=Pather.PathingPrefixStr.join(
+				map(
+					lambda __ParentedTotalPathTuple:
+					__ParentedTotalPathTuple[0]+__ParentedTotalPathTuple[1],
+					ParentedTotalPathTuplesList
+				)
+			)
 
 			#Check
 			if len(self.ParentedDeriveParentersList)>0:

@@ -177,7 +177,7 @@ self.HdformatedFileVariable=UppestGroupedParentVariable.HdformatedFileVariable
 'UppestGroupedParentVariable.GroupedPathStr is
 '+UppestGroupedParentVariable.GroupedPathStr,
                                                         ('self.',self,[
-'ParentedPathStr',
+'ParentedNodePathStr',
 'NodedKeyStr'
                                                                         ])
                                                 ]
@@ -191,7 +191,7 @@ self.HdformatedFileVariable=UppestGroupedParentVariable.HdformatedFileVariable
 self.GroupedPathStr=getGroupedPathStrWithPathStrsList(
                                         [
 UppestGroupedParentVariable.GroupedPathStr,
-                                                self.ParentedPathStr,
+                                                self.ParentedNodePathStr,
                                                 self.NodeKeyStr
                                         ]
                                 )

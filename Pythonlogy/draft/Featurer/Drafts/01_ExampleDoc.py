@@ -30,7 +30,7 @@ ThingsStructurer=Structurer.StructurerClass(
 				)
 			]
 ).command(
-	_UpdateList=[('flush',{'LiargVariablesList':[]})],
+	_UpdateList=[('insert',{'LiargVariablesList':[]})],
 	**{'GatheringVariablesList':['<Database>ThingsFeaturer']}		
 ).update(
 			[
@@ -39,7 +39,7 @@ ThingsStructurer=Structurer.StructurerClass(
 				('MyIntsList',[2,4,6])
 			]
 ).command(
-	_UpdateList=[('flush',{'LiargVariablesList':[]})],	
+	_UpdateList=[('insert',{'LiargVariablesList':[]})],	
 )
 																	
 #Definition the AttestedStr

@@ -89,13 +89,13 @@ ShareYourSystem
 Informatic Tutorials 
 :    
       
-    **ErwanLedoux Homepage** qdqsdq
+    **ErwanLedoux Homepage** a basic php/html homepage 
   
-    **NeuDraw**  qdqd
+    **NeuDraw**  a javascript application for drawing neurons in a canvas
   
-    **Pasduforro** qdqd
+    **Pasduforro** an ajax/MySQL application that lists some moves in forró
   
-    **Scales** qsdqd
+    **Scales** a Meteor application for building jazz voice leadings
 
 Talks
 --------------------

@@ -9,8 +9,8 @@ FrozenIsBool False
 ----
 
 
-> Joiner instances helps to flush in joined databases, get the corresponding
-> RetrieveIndexesLists if it was already flushed, and then flush locally
+> Joiner instances helps to insert in joined databases, get the corresponding
+> RetrieveIndexesLists if it was already inserted, and then insert locally
 > depending if it is a new row compared to all JoinedRetrieveIndexesListsList
 > 
 > 

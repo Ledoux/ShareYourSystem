@@ -1937,7 +1937,7 @@ In&nbsp;[3]:
                 <span class="p">(</span><span class="s">&#39;MyStr&#39;</span><span class="p">,</span><span class="s">&quot;bonjour&quot;</span><span class="p">),</span>
                 <span class="p">(</span><span class="s">&#39;MyIntsList&#39;</span><span class="p">,[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
             <span class="p">]</span>
-<span class="p">)[</span><span class="s">&#39;&lt;Datome&gt;ThingsRecoverer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+<span class="p">)[</span><span class="s">&#39;&lt;Datome&gt;ThingsRecoverer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">insert</span><span class="p">()</span>
 
 <span class="n">MyStructurer</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
             <span class="p">[</span>
@@ -1945,7 +1945,7 @@ In&nbsp;[3]:
                 <span class="p">(</span><span class="s">&#39;MyStr&#39;</span><span class="p">,</span><span class="s">&quot;guten tag&quot;</span><span class="p">),</span>
                 <span class="p">(</span><span class="s">&#39;MyIntsList&#39;</span><span class="p">,[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
             <span class="p">]</span>
-<span class="p">)[</span><span class="s">&#39;&lt;Datome&gt;ThingsRecoverer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+<span class="p">)[</span><span class="s">&#39;&lt;Datome&gt;ThingsRecoverer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">insert</span><span class="p">()</span>
 
 <span class="n">MyStructurer</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
             <span class="p">[</span>
@@ -1953,7 +1953,7 @@ In&nbsp;[3]:
                 <span class="p">(</span><span class="s">&#39;MyStr&#39;</span><span class="p">,</span><span class="s">&quot;bonjour&quot;</span><span class="p">),</span>
                 <span class="p">(</span><span class="s">&#39;MyIntsList&#39;</span><span class="p">,[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
             <span class="p">]</span>
-<span class="p">)[</span><span class="s">&#39;&lt;Datome&gt;ThingsRecoverer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+<span class="p">)[</span><span class="s">&#39;&lt;Datome&gt;ThingsRecoverer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">insert</span><span class="p">()</span>
 
 <span class="c">#Retrieve</span>
 <span class="n">MyStructurer</span><span class="p">[</span><span class="s">&#39;&lt;Datome&gt;ThingsRecoverer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">recover</span><span class="p">(</span>
@@ -2074,7 +2074,7 @@ hdf5 file is : /                        Group
         (0) {RowInt=0, MyInt=1, MyIntsList=[0,0,1], MyStr=&quot;bonjour&quot;},
         (1) {RowInt=1, MyInt=0, MyIntsList=[0,0,1], MyStr=&quot;guten tag&quot;},
         (2) {RowInt=2, MyInt=1, MyIntsList=[0,0,0], MyStr=&quot;bonjour&quot;}
-/xx0xxThingsFlusherTable Dataset {2/Inf}
+/xx0xxThingsInserterTable Dataset {2/Inf}
     Data:
         (0) {RowInt=0, MyInt=1, MyIntsList=[2,4,6], MyStr=&quot;bonjour&quot;},
         (1) {RowInt=1, MyInt=0, MyIntsList=[0,0,0], MyStr=&quot;hello&quot;}

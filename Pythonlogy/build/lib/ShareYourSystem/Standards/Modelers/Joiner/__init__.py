@@ -6,8 +6,8 @@
 @Author : Erwan Ledoux \n\n
 </DefineSource>
 
-Joiner instances helps to flush in joined databases, get the corresponding
-RetrieveIndexesLists if it was already flushed, and then flush locally
+Joiner instances helps to insert in joined databases, get the corresponding
+RetrieveIndexesLists if it was already inserted, and then insert locally
 depending if it is a new row compared to all JoinedRetrieveIndexesListsList
 
 """
@@ -48,7 +48,7 @@ def getJoinedRetrieveIndexesListWithInstanceVariableAndDeriveDatabaser(
 		'model',
 		'tabular',
 		'join',
-		'flush'
+		'insert'
 	]
 })
 class JoinerClass(BaseClass):
@@ -145,7 +145,7 @@ class JoinerClass(BaseClass):
 		'''
 		self.debug(
 					[
-						("We are going to check if is already flushed in the joined databases..."),
+						("We are going to check if is already inserted in the joined databases..."),
 						('self.',self,['JoinedCatchDeriveJoinersList'])
 					]
 				)
@@ -212,7 +212,7 @@ class JoinerClass(BaseClass):
 		self.debug('Ok row is over for joining')
 		'''
 
-	def mimic_flush(self):
+	def mimic_insert(self):
 
 		#<NotHook>
 		#row first
@@ -223,7 +223,7 @@ class JoinerClass(BaseClass):
 		'''
 		self.debug(
 					[
-						'First setSwitch and make flush the catched databases',
+						'First setSwitch and make insert the catched databases',
 						('self.',self,[
 											'JoiningCatchStr',
 											'JoiningCollectionStr'
@@ -235,7 +235,7 @@ class JoinerClass(BaseClass):
 		#Flush the post joined databases
 		self.JoinedFlushIndexIntsList=map(
 			lambda __JoinedCatchDeriveJoinerPointer:
-			__JoinedCatchDeriveJoinerPointer.CatchToPointVariable.flush(),
+			__JoinedCatchDeriveJoinerPointer.CatchToPointVariable.insert(),
 			self.JoinedCatchCollectionOrderedDict.values(),
 		)
 
@@ -257,12 +257,12 @@ class JoinerClass(BaseClass):
 
 		#debug
 		'''
-		self.debug('Now we can flush here')
+		self.debug('Now we can insert here')
 		'''
 
 		#<NotHook>
-		#flush then
-		BaseClass.flush(self)
+		#insert then
+		BaseClass.insert(self)
 		#</NotHook>
 		
 	def mimic_retrieve(self):
@@ -443,9 +443,9 @@ class JoinerClass(BaseClass):
 					lambda __JoinedCatchDeriveJoiner:
 					"Join"+''.join(
 						[
-							__JoinedCatchDeriveJoiner.ModeledPointDeriveStorerVariable.NodeKeyStr
-							if __JoinedCatchDeriveJoiner.ModeledPointDeriveStorerVariable.NodeKeyStr!="" 
-							else 'Top'+__JoinedCatchDeriveJoiner.ModeledPointDeriveStorerVariable.__class__.NameStr,
+							__JoinedCatchDeriveJoiner.ModeledPointDeriveControllerVariable.NodeKeyStr
+							if __JoinedCatchDeriveJoiner.ModeledPointDeriveControllerVariable.NodeKeyStr!="" 
+							else 'Top'+__JoinedCatchDeriveJoiner.ModeledPointDeriveControllerVariable.__class__.NameStr,
 							__JoinedCatchDeriveJoiner.ModeledSuffixStr
 						]
 					)+"RetrieveIndexesList",
@@ -462,14 +462,14 @@ class JoinerClass(BaseClass):
 					lambda __JoinedCatchDeriveJoiner:
 					"Joined"+''.join(
 						[
-							self.ModeledPointDeriveStorerVariable.NodeKeyStr
-							if self.ModeledPointDeriveStorerVariable.NodeKeyStr!="" 
-							else 'Top'+self.ModeledPointDeriveStorerVariable.__class__.NameStr,
+							self.ModeledPointDeriveControllerVariable.NodeKeyStr
+							if self.ModeledPointDeriveControllerVariable.NodeKeyStr!="" 
+							else 'Top'+self.ModeledPointDeriveControllerVariable.__class__.NameStr,
 							self.ModeledSuffixStr,
 							'To',
-							__JoinedCatchDeriveJoiner.ModeledPointDeriveStorerVariable.NodeKeyStr
-							if __JoinedCatchDeriveJoiner.ModeledPointDeriveStorerVariable.NodeKeyStr!="" 
-							else 'Top'+__JoinedCatchDeriveJoiner.ModeledPointDeriveStorerVariable.__class__.NameStr,
+							__JoinedCatchDeriveJoiner.ModeledPointDeriveControllerVariable.NodeKeyStr
+							if __JoinedCatchDeriveJoiner.ModeledPointDeriveControllerVariable.NodeKeyStr!="" 
+							else 'Top'+__JoinedCatchDeriveJoiner.ModeledPointDeriveControllerVariable.__class__.NameStr,
 							__JoinedCatchDeriveJoiner.ModeledSuffixStr
 						]
 					)+"RetrieveIndexesList",
@@ -487,7 +487,7 @@ class JoinerClass(BaseClass):
 			'''
 
 			#Table all the joined databasers and init the corresponding JoinedRetrieveIndexesList in the NodePointDeriveNoder
-			self.ModeledPointDeriveStorerVariable.update(
+			self.ModeledPointDeriveControllerVariable.update(
 				zip(
 						self.JoinedRetrieveIndexesListGetStrsList,
 						map(

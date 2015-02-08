@@ -1734,9 +1734,9 @@ FrozenIsBool False
 <h2 id="doc">Doc</h2>
 <hr>
 <blockquote>
-<p>Retriever instances can retrieve FlushedVariablesList given their 
+<p>Retriever instances can retrieve InsertedVariablesList given their 
 IndexInt of their corresponding table and their RowInt 
-(ie their index of their flushed line).</p>
+(ie their index of their inserted line).</p>
 </blockquote>
 <hr>
 <p><small>
@@ -1770,15 +1770,15 @@ FrozenIsBool False
 &lt;/DefineSource&gt;
 
 
-Retriever instances can retrieve FlushedVariablesList given their 
+Retriever instances can retrieve InsertedVariablesList given their 
 IndexInt of their corresponding table and their RowInt 
-(ie their index of their flushed line).
+(ie their index of their inserted line).
 
 """
 
 #&lt;DefineAugmentation&gt;
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Modelers.Flusher"
+BaseModuleStr="ShareYourSystem.Standards.Modelers.Inserter"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #&lt;/DefineAugmentation&gt;
@@ -1858,7 +1858,7 @@ class RetrieverClass(BaseClass):
         self.debug(
                     [
                         ('self.',self,[
-                                        'TabularedKeyStrsList',
+                                        'TabularedTableKeyStrsList',
                                         'RetrievingIndexesList'
                                     ])
                     ]
@@ -1875,7 +1875,7 @@ class RetrieverClass(BaseClass):
         self.debug(
                     [
                         ('Ok table is done'),
-                        ('self.',self,['TabularedTablesOrderedDict','TabularedKeyStrsList'])
+                        ('self.',self,['TabularedTablesOrderedDict','TabularedTableKeyStrsList'])
                     ]
                 )
         '''
@@ -1885,7 +1885,7 @@ class RetrieverClass(BaseClass):
 
         #Definition the RetrievedTable
         self.RetrievedTable=self.TabularedTablesOrderedDict[
-            self.TabularedKeyStrsList[
+            self.TabularedTableKeyStrsList[
                 self.RetrievingIndexesList[0]
             ]
         ]
@@ -2016,7 +2016,7 @@ In&nbsp;[3]:
                 <span class="p">(</span><span class="s">&#39;MyIntsList&#39;</span><span class="p">,[</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">])</span>
             <span class="p">]</span>
 <span class="p">)</span><span class="o">.</span><span class="n">command</span><span class="p">(</span>
-    <span class="n">_UpdateList</span><span class="o">=</span><span class="p">[(</span><span class="s">&#39;flush&#39;</span><span class="p">,{</span><span class="s">&#39;LiargVariablesList&#39;</span><span class="p">:[]})],</span>
+    <span class="n">_UpdateList</span><span class="o">=</span><span class="p">[(</span><span class="s">&#39;insert&#39;</span><span class="p">,{</span><span class="s">&#39;LiargVariablesList&#39;</span><span class="p">:[]})],</span>
     <span class="o">**</span><span class="p">{</span><span class="s">&#39;GatheringVariablesList&#39;</span><span class="p">:[</span><span class="s">&#39;&lt;Datome&gt;ThingsRetriever&#39;</span><span class="p">]}</span>    
 <span class="p">)</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
             <span class="p">[</span>
@@ -2025,7 +2025,7 @@ In&nbsp;[3]:
                 <span class="p">(</span><span class="s">&#39;MyIntsList&#39;</span><span class="p">,[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
             <span class="p">]</span>
 <span class="p">)</span><span class="o">.</span><span class="n">command</span><span class="p">(</span>
-    <span class="n">_UpdateList</span><span class="o">=</span><span class="p">[(</span><span class="s">&#39;flush&#39;</span><span class="p">,{</span><span class="s">&#39;LiargVariablesList&#39;</span><span class="p">:[]})],</span>
+    <span class="n">_UpdateList</span><span class="o">=</span><span class="p">[(</span><span class="s">&#39;insert&#39;</span><span class="p">,{</span><span class="s">&#39;LiargVariablesList&#39;</span><span class="p">:[]})],</span>
 <span class="p">)</span>
 
 
@@ -2156,7 +2156,7 @@ hdf5 file is : /                        Group
         (0) {RowInt=0, MyInt=1, MyIntsList=[0,0,1], MyStr=&quot;bonjour&quot;},
         (1) {RowInt=1, MyInt=0, MyIntsList=[0,0,1], MyStr=&quot;guten tag&quot;},
         (2) {RowInt=2, MyInt=1, MyIntsList=[0,0,0], MyStr=&quot;bonjour&quot;}
-/xx0xxThingsFlusherTable Dataset {2/Inf}
+/xx0xxThingsInserterTable Dataset {2/Inf}
     Data:
         (0) {RowInt=0, MyInt=1, MyIntsList=[2,4,6], MyStr=&quot;bonjour&quot;},
         (1) {RowInt=1, MyInt=0, MyIntsList=[0,0,0], MyStr=&quot;hello&quot;}

@@ -111,7 +111,7 @@ class MergerClass(BaseClass):
                                         ('self.',self,[
 'DatabasedKeyStr',
 'MergingConditionTuplesList',
-'TabularedKeyStrsList'
+'TabularedTableKeyStrsList'
                                                                         ])
                                 )
                 '''
@@ -124,7 +124,7 @@ class MergerClass(BaseClass):
                                                         lambda
 __TabularedKeyStr:
 __TabularedKeyStr.split(Shaper.ShapingJoiningStr),
-                                                self.TabularedKeyStrsList
+                                                self.TabularedTableKeyStrsList
                                         )
                         )
                 '''
@@ -150,7 +150,7 @@ __StrsList:
                                                                         lambda
 __TabularedKeyStr:
 __TabularedKeyStr.split(Shaper.ShapingJoiningStr),
-self.TabularedKeyStrsList
+self.TabularedTableKeyStrsList
                                                                 )
                                                 )
 
@@ -272,7 +272,7 @@ MyStructurer.update(
         ('UnitsInt',3),
         ('MyIntsList',[0,0,1])
     ]
-)['<Datome>ThingsMerger'].flush()
+)['<Datome>ThingsMerger'].insert()
 
 MyStructurer.update(
     [
@@ -280,7 +280,7 @@ MyStructurer.update(
         ('MyStr',"bonjour"),
         ('MyIntsList',[0,0,1])
     ]
-)['<Datome>ThingsMerger'].flush()
+)['<Datome>ThingsMerger'].insert()
 
 MyStructurer.update(
     [
@@ -288,7 +288,7 @@ MyStructurer.update(
         ('MyStr',"ola"),
         ('MyIntsList',[0,1])
     ]
-)['<Datome>ThingsMerger'].flush()
+)['<Datome>ThingsMerger'].insert()
 
 #Merge
 MyStructurer['<Datome>ThingsMerger'].merge(
@@ -427,7 +427,7 @@ hdf5 file is : /                        Group
         (0) {RowInt=0, MyInt=1, MyIntsList=[0,0,1], MyStr="bonjour"},
         (1) {RowInt=1, MyInt=0, MyIntsList=[0,0,1], MyStr="guten tag"},
         (2) {RowInt=2, MyInt=1, MyIntsList=[0,0,0], MyStr="bonjour"}
-/xx0xxThingsFlusherTable Dataset {2/Inf}
+/xx0xxThingsInserterTable Dataset {2/Inf}
     Data:
         (0) {RowInt=0, MyInt=1, MyIntsList=[2,4,6], MyStr="bonjour"},
         (1) {RowInt=1, MyInt=0, MyIntsList=[0,0,0], MyStr="hello"}

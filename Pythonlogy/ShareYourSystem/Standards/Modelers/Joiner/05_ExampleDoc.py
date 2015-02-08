@@ -111,7 +111,7 @@ MyModulizer=ModulizerClass(
 		}
 	)
 
-#Update and flush in the results
+#Update and insert in the results
 MyModulizer.__setitem__(
 	"Dis_<Components>",
 	[
@@ -124,9 +124,9 @@ MyModulizer.__setitem__(
 			('MultiplyingSecondInt',3)
 		]
 	]
-)['<Joiners>ParametersJoiner'].flush()
+)['<Joiners>ParametersJoiner'].insert()
 
-#Update and flush in the results
+#Update and insert in the results
 MyModulizer.__setitem__(
 	"Dis_<Components>",
 	[
@@ -137,7 +137,7 @@ MyModulizer.__setitem__(
 			('MultiplyingSecondInt',4)
 		]
 	]
-)['<Joiners>ParametersJoiner'].flush()
+)['<Joiners>ParametersJoiner'].insert()
 
 
 #Definition the AttestedStr

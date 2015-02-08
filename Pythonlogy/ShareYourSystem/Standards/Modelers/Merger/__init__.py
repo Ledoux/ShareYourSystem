@@ -69,7 +69,7 @@ class MergerClass(BaseClass):
 					('self.',self,[
 										'DatabasedKeyStr',
 										'MergingConditionTuplesList',
-										'TabularedKeyStrsList'
+										'TabularedTableKeyStrsList'
 									])
 				)
 		'''
@@ -81,7 +81,7 @@ class MergerClass(BaseClass):
 				map(
 							lambda __TabularedKeyStr:
 						__TabularedKeyStr.split(Shaper.ShapingJoiningStr),
-						self.TabularedKeyStrsList
+						self.TabularedTableKeyStrsList
 					)
 			)
 		'''
@@ -105,7 +105,7 @@ class MergerClass(BaseClass):
 								map(
 									lambda __TabularedKeyStr:
 									__TabularedKeyStr.split(Shaper.ShapingJoiningStr),
-									self.TabularedKeyStrsList
+									self.TabularedTableKeyStrsList
 								)
 						)
 

@@ -51,7 +51,7 @@ class JoinerClass(BaseClass):
 		self.debug(
 					[
 						"self.DatabasingModelStr is "+str(self.DatabasingModelStr),
-						"We are going to check if the joined model is already flushed...",
+						"We are going to check if the joined model is already inserted...",
 						"First look if self.JoinedDatabasedDatabase!={} is "+str(len(self.JoinedDatabasedDatabase)>0)
 					]
 				)
@@ -145,7 +145,7 @@ class JoinerClass(BaseClass):
 		#debug
 		self.debug('End of the method')
 
-	def flushBefore(self,**_FlushingVariablesList):
+	def insertBefore(self,**_InsertingVariablesList):
 
 		#debug
 		self.debug('Start of the method')
@@ -168,7 +168,7 @@ class JoinerClass(BaseClass):
 		#Alias
 		ModelStr=self.DatabasedDict['ModelStr']
 
-		#flush the joined model
+		#insert the joined model
 		if self.DatabasedDict['JoiningModelStr']!="":
 
 			#debug
@@ -182,7 +182,7 @@ class JoinerClass(BaseClass):
 			CopiedDatabasedDict=copy.copy(self.DatabasedDict)
 
 			#Flush
-			self.flush(self.DatabasedDict['JoiningModelStr'])
+			self.insert(self.DatabasedDict['JoiningModelStr'])
 
 			#debug
 			self.debug('Flush self with the joined model was done')
@@ -196,7 +196,7 @@ class JoinerClass(BaseClass):
 			#Alias
 			JoinedRetrievingIndexesList=self.DatabasedDict['JoinedRetrievingIndexesList']
 
-			#It is going to be flushed so update the JoinedRetrievingIndexesList to the last row index
+			#It is going to be inserted so update the JoinedRetrievingIndexesList to the last row index
 			if JoinedRetrievingIndexesList==-1:
 
 				#debug
@@ -720,7 +720,7 @@ def attest_join():
 													('model',{'ArgsVariable':"Parameter"}),
 													('table',{'ArgsVariable':""}),
 													('row',{'ArgsVariable':""}),
-													('flush',{'ArgsVariable':""})
+													('insert',{'ArgsVariable':""})
 												]
 											}
 									).update(
@@ -742,7 +742,7 @@ def attest_join():
 									).model("Result"		
 									).table(
 									).row(
-									).flush("Result"
+									).insert("Result"
 									).hdfclose()
 
 	#Return the object itself

@@ -3,7 +3,7 @@ import ShareYourSystem as SYS
 #</ImportSpecificModules>
 
 """
-print(SYS.Joiner.attest_flush())
+print(SYS.Joiner.attest_insert())
 #SYS.JoinerClass().test()
 """
 

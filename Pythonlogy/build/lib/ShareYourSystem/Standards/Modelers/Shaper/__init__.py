@@ -26,7 +26,7 @@ SYS.setSubModule(globals())
 import copy
 import collections
 import numpy
-from ShareYourSystem.Standards.Modelers import Databaser,Tabularer,Tabler,Flusher
+from ShareYourSystem.Standards.Modelers import Databaser,Tabularer,Tabler,Inserter
 #</ImportSpecificModules>
 
 #<DefineLocals>
@@ -234,7 +234,7 @@ class ShaperClass(BaseClass):
 			self.debug("self.TabularedSuffixStr is "+self.TabularedSuffixStr)
 			'''
 
-	def mimic_flush(self):
+	def mimic_insert(self):
 
 		#debug
 		'''
@@ -252,22 +252,22 @@ class ShaperClass(BaseClass):
 		try:
 
 			#<NotHook>
-			#flush first
-			BaseClass.flush(self)
+			#insert first
+			BaseClass.insert(self)
 			#</NotHook>
 
 		except ValueError:
 
-			#Definition the FlushedOldDimensionIntsListsList
-			FlushedOldDimensionIntsList=map(
+			#Definition the InsertedOldDimensionIntsListsList
+			InsertedOldDimensionIntsList=map(
 					lambda __ShapedSealDimensionGetKeyStrsList:
 					self.NodePointDeriveNoder.pick(
 						__ShapedSealDimensionGetKeyStrsList),
 					self.ShapedSealDimensionGetKeyStrsListsList
 					)
 
-			#Definition the FlushedNewDimensionIntsListsList
-			FlushedNewDimensionIntsListsList=map(
+			#Definition the InsertedNewDimensionIntsListsList
+			InsertedNewDimensionIntsListsList=map(
 												lambda __ShapedSealGetKeyStr:
 												list(
 														numpy.shape(
@@ -280,27 +280,27 @@ class ShaperClass(BaseClass):
 			#debug
 			'''
 			self.debug(('vars ',vars(),[
-											'FlushedOldDimensionIntsList',
-											'FlushedNewDimensionIntsListsList'
+											'InsertedOldDimensionIntsList',
+											'InsertedNewDimensionIntsListsList'
 										]))
 			'''
 
 			#set the shaping attributes to their new values
 			map(
-					lambda __ShapedSealDimensionGetKeyStrsList,__FlushedOldDimensionList,__FlushedNewDimensionList:
+					lambda __ShapedSealDimensionGetKeyStrsList,__InsertedOldDimensionList,__InsertedNewDimensionList:
 					self.__setitem__(
 						'ShapedErrorBool',
 						True
 						).NodePointDeriveNoder.update(
 						zip(
 							__ShapedSealDimensionGetKeyStrsList,
-							__FlushedNewDimensionList
+							__InsertedNewDimensionList
 							)
-					) if __FlushedNewDimensionList!=__FlushedOldDimensionList
+					) if __InsertedNewDimensionList!=__InsertedOldDimensionList
 					else None,
 					self.ShapedSealDimensionGetKeyStrsListsList,
-					FlushedOldDimensionIntsList,
-					FlushedNewDimensionIntsListsList
+					InsertedOldDimensionIntsList,
+					InsertedNewDimensionIntsListsList
 					)
 
 			#debug
@@ -317,12 +317,12 @@ class ShaperClass(BaseClass):
 
 			#debug
 			'''
-			self.debug('Ok table again is done, so now we flush')
+			self.debug('Ok table again is done, so now we insert')
 			'''
 
 			#<NotHook>
-			#flush first
-			BaseClass.flush(self)
+			#insert first
+			BaseClass.insert(self)
 			#</NotHook>
 	
 	def do_shape(self):

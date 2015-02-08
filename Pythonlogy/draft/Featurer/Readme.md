@@ -144,7 +144,7 @@ self.debug(('self.',self,['RowingGetStrsList','DatabasingSealTuplesList']))
                 #return self
                 #</NotHook>
 
-        def mimic_flush(self):
+        def mimic_insert(self):
 
                 #<NotHook>
                 #feature first
@@ -162,7 +162,7 @@ self.FeaturingJoinFlushBool:
 
                         #debug
                         '''
-                        self.debug('flush in the joined featured databasers')
+                        self.debug('insert in the joined featured databasers')
                         '''
 
                         #set
@@ -171,7 +171,7 @@ self.FeaturingJoinFlushBool:
                         #map
                         map(
                                         lambda __FeaturedDatabaser:
-                                        __FeaturedDatabaser.flush(),
+                                        __FeaturedDatabaser.insert(),
                                         self.FeaturedJoinDatabasersList
                                 )
 
@@ -184,10 +184,10 @@ self.FeaturingJoinFlushBool:
                 else:
 
                         #debug
-                        self.debug('flush now here')
+                        self.debug('insert now here')
 
-                        #flush directly
-                        BaseClass.flush(self)
+                        #insert directly
+                        BaseClass.insert(self)
 
         def do_feature(self):
 

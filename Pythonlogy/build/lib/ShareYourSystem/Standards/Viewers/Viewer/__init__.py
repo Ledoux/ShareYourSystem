@@ -20,7 +20,6 @@ SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
-from IPython.display import HTML,display
 #</ImportSpecificModules>
 
 #<DefineClass>
@@ -29,9 +28,15 @@ class ViewerClass(BaseClass):
 	
 	#Definition 
 	RepresentingKeyStrsList=[
-							]
+			'ViewingKeyStr',
+			'ViewedCollectionStr',
+			'ViewedPointDeriveControllerVariable',
+		]
 
 	def default_init(self, 
+						_ViewingKeyStr="",
+						_ViewedCollectionStr="",
+						_ViewedPointDeriveControllerVariable=None,
 						**_KwargVariablesDict
 				):
 
@@ -39,6 +44,27 @@ class ViewerClass(BaseClass):
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
 	def do_view(self):
-		pass
+
+		#set
+		if hasattr(self,'NodeKeyStr'):
+			self.ViewingKeyStr=self.NodeKeyStr
+			self.ViewedCollectionStr=self.NodeCollectionStr
+
+		#Check
+		if hasattr(self,'NodePointDeriveNoder'):
+
+			#debug
+			self.debug(
+				[
+					#('self.',self,['NodePointDeriveNoder']),
+					str(self.point)
+				]
+			)
+
+			#point
+			self.point(
+				self.NodePointDeriveNoder,
+				'ViewedPointDeriveControllerVariable'
+			)
 
 #</DefineClass>

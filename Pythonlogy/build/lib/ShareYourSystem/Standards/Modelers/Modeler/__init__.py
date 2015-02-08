@@ -35,14 +35,14 @@ class ModelerClass(
 								'ModeledSuffixStr',
 								'ModeledCollectionStr',
 								'ModeledSuffixStr',
-								'ModeledPointDeriveStorerVariable'
+								'ModeledPointDeriveControllerVariable'
 							]
 
 	def default_init(self,
 					_ModelingKeyStr="",
 					_ModeledCollectionStr="",
 					_ModeledSuffixStr="",
-					_ModeledPointDeriveStorerVariable=None,
+					_ModeledPointDeriveControllerVariable=None,
 					**_KwargVariablesDict
 				):
 
@@ -73,7 +73,7 @@ class ModelerClass(
 			#point
 			self.point(
 				self.NodePointDeriveNoder,
-				'ModeledPointDeriveStorerVariable'
+				'ModeledPointDeriveControllerVariable'
 			)
 
 #</DefineClass>

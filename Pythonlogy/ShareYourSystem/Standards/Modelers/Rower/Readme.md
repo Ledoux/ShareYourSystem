@@ -12,7 +12,7 @@ FrozenIsBool False
 
 >
 > The Rower helps to set rowed lines in a Databaser from pointed attributes,
-> ready then to be flushed in a table.
+> ready then to be inserted in a table.
 >
 >
 
@@ -50,7 +50,7 @@ FrozenIsBool False
 
 
 The Rower helps to set rowed lines in a Databaser from pointed attributes,
-ready then to be flushed in a table.
+ready then to be inserted in a table.
 
 """
 
@@ -464,7 +464,7 @@ hdf5 file is : /                        Group
         (0) {RowInt=0, MyInt=1, MyIntsList=[0,0,1], MyStr="bonjour"},
         (1) {RowInt=1, MyInt=0, MyIntsList=[0,0,1], MyStr="guten tag"},
         (2) {RowInt=2, MyInt=1, MyIntsList=[0,0,0], MyStr="bonjour"}
-/xx0xxThingsFlusherTable Dataset {2/Inf}
+/xx0xxThingsInserterTable Dataset {2/Inf}
     Data:
         (0) {RowInt=0, MyInt=1, MyIntsList=[2,4,6], MyStr="bonjour"},
         (1) {RowInt=1, MyInt=0, MyIntsList=[0,0,0], MyStr="hello"}

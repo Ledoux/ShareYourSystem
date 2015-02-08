@@ -90,13 +90,13 @@ class CatcherClass(BaseClass):
 
 				#Get the up
 				CatchedUpNodeKeyStrsList=(self.parent(
-					).ParentedPathStr+'/'+self.NodeKeyStr).split('/')
+					).ParentedNodePathStr+'/'+self.NodeKeyStr).split('/')
 				CatchedUpNodeKeyStrsList.reverse()
 				CatchedUpPathStr='/'.join(CatchedUpNodeKeyStrsList[:-1])
 
 				#Get the down
 				CatchedDownNodeKeyStrsList=(self.GraspedAnswerVariable.parent(
-					).ParentedPathStr+'/'+self.GraspedAnswerVariable.NodeKeyStr).split('/')
+					).ParentedNodePathStr+'/'+self.GraspedAnswerVariable.NodeKeyStr).split('/')
 				CatchedDownPathStr='/'.join(CatchedDownNodeKeyStrsList[1:])
 
 				#Get the top

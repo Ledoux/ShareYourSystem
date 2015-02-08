@@ -110,7 +110,7 @@ class GrouperClass(BaseClass):
 						[
 							'UppestGroupedParentVariable.GroupedPathStr is '+UppestGroupedParentVariable.GroupedPathStr,
 							('self.',self,[
-										'ParentedPathStr',
+										'ParentedNodePathStr',
 										'NodedKeyStr'
 									])
 						]
@@ -124,7 +124,7 @@ class GrouperClass(BaseClass):
 				self.GroupedPathStr=getGroupedPathStrWithPathStrsList(
 					[
 						self.ParentedTopDeriveParenterVariable.GroupedPathStr,
-						self.ParentedPathStr,
+						self.ParentedNodePathStr,
 						self.NodeKeyStr
 					]
 				)

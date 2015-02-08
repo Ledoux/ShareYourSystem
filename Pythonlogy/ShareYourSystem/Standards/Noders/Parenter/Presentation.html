@@ -1797,14 +1797,14 @@ class ParenterClass(BaseClass):
                                 'ParentingWalkBool',
                                 'ParentedDeriveParentersList',
                                 'ParentedNodeCollectionStrsList',
-                                'ParentedPathStr'
+                                'ParentedNodePathStr'
                             ]
 
     def default_init(self,
                 _ParentingWalkBool=True,
                 _ParentedDeriveParentersList=None,
                 _ParentedNodeCollectionStrsList=None,
-                _ParentedPathStr="",
+                _ParentedNodePathStr="",
                 **_KwargVariablesDict):    
 
         #Call the parent init method
@@ -1840,20 +1840,20 @@ class ParenterClass(BaseClass):
             self.ParentedNodeCollectionStrsList.reverse()
 
             #definition
-            ParentedPathStrsList=map(
+            ParentedNodePathStrsList=map(
                     lambda __ParentedDeriveParenter:
                     __ParentedDeriveParenter.NodeKeyStr,
                     self.ParentedDeriveParentersList
                 )
-            ParentedPathStrsList.reverse()
+            ParentedNodePathStrsList.reverse()
 
             #Debug
             '''
-            self.debug('ParentedPathStrsList is '+str(ParentedPathStrsList))
+            self.debug('ParentedNodePathStrsList is '+str(ParentedNodePathStrsList))
             '''
 
             #set
-            self.ParentedPathStr=Pather.PathingPrefixStr.join(ParentedPathStrsList)
+            self.ParentedNodePathStr=Pather.PathingPrefixStr.join(ParentedNodePathStrsList)
 
         #Return self
         #return self
@@ -1974,7 +1974,7 @@ MyParenter is &lt; (ParenterClass), 4557737552&gt;
    /   /   /   /   /   /  1 : {...}&lt; (ParenterClass), 4557737552&gt;
    /   /   /   /   /   /]
    /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;ParentedNodeCollectionStrsList&apos; : [&apos;&apos;, &apos;&apos;]
-   /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;ParentedPathStr&apos; : TopParenter/ChildParenter
+   /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;ParentedNodePathStr&apos; : TopParenter/ChildParenter
    /   /   /   /   /}
    /   /   /   /}
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;ParentingWalkBool&apos; : True
@@ -1983,10 +1983,10 @@ MyParenter is &lt; (ParenterClass), 4557737552&gt;
    /   /   /   /  0 : {...}&lt; (ParenterClass), 4557737552&gt;
    /   /   /   /]
    /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;ParentedNodeCollectionStrsList&apos; : [&apos;&apos;]
-   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;ParentedPathStr&apos; : TopParenter
+   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;ParentedNodePathStr&apos; : TopParenter
    /   /   /}
    /   /}
-   /  &apos;&lt;Spe&gt;&lt;Class&gt;ParentedPathStr&apos; : 
+   /  &apos;&lt;Spe&gt;&lt;Class&gt;ParentedNodePathStr&apos; : 
    /  &apos;&lt;Spe&gt;&lt;Class&gt;ParentingWalkBool&apos; : True
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;ParentedDeriveParentersList&apos; : []
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;ParentedNodeCollectionStrsList&apos; : []

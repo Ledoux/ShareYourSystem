@@ -54,7 +54,6 @@ class ConnecterClass(BaseClass):
 		self.debug(('self.',self,['ConnectingGraspClueVariablesList']))
 		'''
 		
-
 		#catch
 		self.ConnectedCatchDerivePointersList=map(
 				lambda __ConnectingGraspVariable:

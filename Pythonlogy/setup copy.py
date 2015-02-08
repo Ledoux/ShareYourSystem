@@ -101,7 +101,7 @@ setup(
 			 		'ShareYourSystem.Modelers.Tabularer',
 			 		'ShareYourSystem.Modelers.Tabler',
 			 		'ShareYourSystem.Modelers.Rower',
-			 		'ShareYourSystem.Modelers.Flusher',
+			 		'ShareYourSystem.Modelers.Inserter',
 			 		'ShareYourSystem.Modelers.Retriever',
 			 		'ShareYourSystem.Modelers.Findoer',
 			 		'ShareYourSystem.Modelers.Recoverer',

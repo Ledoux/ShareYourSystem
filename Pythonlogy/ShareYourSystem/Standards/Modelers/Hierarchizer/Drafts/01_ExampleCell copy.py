@@ -104,7 +104,7 @@ MyModulizer.__setitem__(
 			('MultiplyingSecondInt',3)
 		]
 	]
-)['<Data>ParametersHierarchizer'].flush()
+)['<Data>ParametersHierarchizer'].insert()
 
 MyModulizer.__setitem__(
 	"Dis_<Component>",
@@ -116,7 +116,7 @@ MyModulizer.__setitem__(
 			('MultiplyingSecondInt',4)
 		]
 	]
-)['<Data>ParametersHierarchizer'].flush()
+)['<Data>ParametersHierarchizer'].insert()
 
 
 #Definition the AttestedStr

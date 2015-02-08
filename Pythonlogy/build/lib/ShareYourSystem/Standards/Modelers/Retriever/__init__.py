@@ -8,15 +8,15 @@
 </DefineSource>
 
 
-Retriever instances can retrieve FlushedVariablesList given their 
+Retriever instances can retrieve InsertedVariablesList given their 
 IndexInt of their corresponding table and their RowInt 
-(ie their index of their flushed line).
+(ie their index of their inserted line).
 
 """
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Modelers.Flusher"
+BaseModuleStr="ShareYourSystem.Standards.Modelers.Inserter"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -95,7 +95,7 @@ class RetrieverClass(BaseClass):
 		self.debug(
 					[
 						('self.',self,[
-										'TabularedKeyStrsList',
+										'TabularedTableKeyStrsList',
 										'RetrievingIndexesList'
 									])
 					]
@@ -112,7 +112,7 @@ class RetrieverClass(BaseClass):
 		self.debug(
 					[
 						('Ok table is done'),
-						('self.',self,['TabularedTablesOrderedDict','TabularedKeyStrsList'])
+						('self.',self,['TabularedTablesOrderedDict','TabularedTableKeyStrsList'])
 					]
 				)
 		'''
@@ -122,7 +122,7 @@ class RetrieverClass(BaseClass):
 
 		#Definition the RetrievedTable
 		self.RetrievedTable=self.TabularedTablesOrderedDict[
-			self.TabularedKeyStrsList[
+			self.TabularedTableKeyStrsList[
 				self.RetrievingIndexesList[0]
 			]
 		]

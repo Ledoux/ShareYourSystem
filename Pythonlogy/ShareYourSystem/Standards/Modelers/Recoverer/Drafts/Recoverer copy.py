@@ -142,31 +142,31 @@ def attest_recover():
 						('FirstInt',1),
 						('SecondInt',2)
 					]
-		).flush('Result'
+		).insert('Result'
 		).update(
 					[
 						('FirstInt',1),
 						('SecondInt',3)
 					]
-		).flush(
+		).insert(
 		).update(
 					[
 						('FirstInt',2),
 						('SecondInt',2)
 					]
-		).flush(
+		).insert(
 		).update(
 					[
 						('FirstInt',2),
 						('SecondInt',3)
 					]
-		).flush(
+		).insert(
 		).update(
 					[
 						('FirstInt',3),
 						('SecondInt',3)
 					]
-		).flush(
+		).insert(
 		).recover(
 					'Result'	
 		).hdfclose()

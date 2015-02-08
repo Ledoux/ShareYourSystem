@@ -64,7 +64,7 @@ print("\n\n\nHHHHAAAAHH\n\n\n")
 
 MySumer.command(
 	[
-		('flush',{'LiargVariablesList':[]})
+		('insert',{'LiargVariablesList':[]})
 	],
 	**{'GatherVariablesList':[
 									#'<Database>ParametersFeaturer'
@@ -77,7 +77,7 @@ MySumer.command(
 	]
 ).command(
 	[
-		('flush',{'LiargVariablesList':[]}),
+		('insert',{'LiargVariablesList':[]}),
 	],
 	**{
 		'GatherVariablesList':[

@@ -1,102 +1,25 @@
 import ShareYourSystem as SYS
 from brian2 import *
 import numpy as np
-
-
-'''
-def sdot(r):
-	return np.dot(J,r)
-np.sdot=
-'''
-
-P=NeuronGroup(
-		1,
-		'''
-			I:1
-			dr/dt = (-r + tanh(I))/(10*ms) : 1
-		'''
-	)
-
-#P.Jr=np.array([0]*P.N)
-
-#J=np.array([[0.1,0.2],[0.1,0.1]])
-
-S=Synapses(
-		P,
-		P,
-		'''
-		J : 1
-		Jr=J*r_pre : 1
-		'''
-	)
-#S.J[0,0]=0.5
-#P.I[0]=sum(S.Jr[0:])
-print(P.I)
-print(S.Jr)
-print(S.J)
-print(S)
-S.Jr[:]=np.array([0]*P.N)
-P.I[:]=S.Jr[:]
-
-
-M=StateMonitor(P,'r',[0,1])
-P.r[0]=3.
-P.r[1]=2.
-run(10.*ms)
-from matplotlib import pyplot
-pyplot.plot(M.r.T, '.')
-pyplot.show()
-
-
-
-
-
-
-#P.Jr=S.Jr
-'''
-S.J[:,:]=2.
-#print(S.Jr)
-P.Jr=S.Jr
-'''
-
-
-"""
-#ImportModules
-import ShareYourSystem as SYS
-import numpy as np
+import operator
 
 #Definition
 MyBrianer=SYS.BrianerClass(
 	).collect(
-		'Neurongroupers',
+		"Neurongroupers",
 		'P',
-		SYS.NeurongrouperClass().update(
-			{
+		SYS.NeurongrouperClass(
+			#Here are defined the brian classic shared arguments for each pop
+			**{
 				'NeurongroupingKwargVariablesDict':
 				{
+					'N':2,
 					'model':
 					'''
-						Jv : 1
-						dr/dt = -r + np.atanh(Jr) : herz
+						Jr : 1
+						dr/dt = (-r+Jr)/(20*ms) : 1
 					'''
 				},
-
-				'produce':
-				{
-					'LiargVariablesList':
-					[
-						"StateMoniters",
-						['Rate'],
-						SYS.MoniterClass,
-						{
-							'MoniteringVariableStr':'r',
-							'MoniteringIndexIntsList':[0,1]
-						}
-					]
-				},
-
-				'PopulatingUnitsInt':2,
-
 				'ConnectingGraspClueVariablesList':
 				[
 					SYS.GraspDictClass(
@@ -107,52 +30,60 @@ MyBrianer=SYS.BrianerClass(
 								'model':
 								'''
 									J : 1
-									Jr = J*r_pre : 1
+									Jr_post=J*r_pre : 1 (summed)
 								'''
 							},
-							'SynapsingPostVariableStrsList':['Jr']
+							'SynapsingWeigthSymbolStr':'J',
+							'SynapsingWeigthFloatsArray':np.array(
+								[
+									[0.,-2.],
+									[4.,0.]
+								]
+							)
 						}
+					)
+				]		
+			}
+		).collect(
+			"StateMoniters",
+			'Rate',
+			SYS.MoniterClass(
+				**{
+					'MoniteringVariableStr':'r',
+					'MoniteringRecordTimeIndexIntsArray':[0,1]
+					}
+				)
+		)
+	).network(
+			**{
+				'RecruitingConcludeConditionTuplesList':[
+					(
+						'MroClassesList',
+						operator.contains,
+						SYS.NeurongrouperClass
 					)
 				]
 			}
-		)
 	).brian()
-		
-#Definition the AttestedStr
-SYS._attest(
-	[
-		'MyBrianer is '+SYS._str(
-		MyBrianer,
-		**{
-			'RepresentingBaseKeyStrsList':False,
-			'RepresentingAlineaIsBool':False
-		}
-		),
-	]
-) 
 
-"""
 
-#init
-"""
 import brian2
 map(
 	lambda __BrianedNeuronGroup:
 	__BrianedNeuronGroup.__setattr__(
-		'v',
-		0*brian2.mV
+		'r',
+		1.+np.array(map(float,xrange(__BrianedNeuronGroup.N)))
 	),
 	MyBrianer.BrianedNeuronGroupsList
 )
 
 #run
-MyBrianer.run(1000)
+MyBrianer.run(100)
 
 #plot
-M=MyBrianer['<Ratome>ENeuronGrouper']['<Variablome>RateMoniter'].StateMonitor
+M=MyBrianer['<Neurongroupers>PNeurongrouper']['<StateMoniters>RateMoniter'].StateMonitor
 from matplotlib import pyplot
-pyplot.plot(M.t/brian2.ms, M.i, '.')
+pyplot.plot(M.t/brian2.ms, M.r.T)
 pyplot.show()
-"""
-#Print
+
 

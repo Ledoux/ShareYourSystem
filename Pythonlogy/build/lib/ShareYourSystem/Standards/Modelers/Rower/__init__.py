@@ -9,7 +9,7 @@
 
 
 The Rower helps to set rowed lines in a Databaser from pointed attributes,
-ready then to be flushed in a table.
+ready then to be inserted in a table.
 
 """
 
@@ -56,11 +56,15 @@ class RowerClass(
 	RepresentingKeyStrsList=[
 								'RowingGetStrsList',
 								'RowedGetStrToColumnStrOrderedDict',
-								'RowedColumnStrsList',																										
-								'RowedPickOrderedDict',
-								'RowedIsBoolsList',
-								'RowedIsBool',
-								'RowedIndexInt'
+								'RowedHdfColumnStrsList',	
+								'RowedMongoPickOrderedDict',																									
+								'RowedHdfPickOrderedDict',
+								'RowedMongoIsBoolsList',
+								'RowedHdfIsBoolsList',
+								'RowedMongoIsBool',
+								'RowedHdfIsBool',
+								'RowedMongoIndexInt',
+								'RowedHdfIndexInt'
 							]
 
 	def default_init(
@@ -71,11 +75,15 @@ class RowerClass(
 							'PropertizingDocStr':''
 					},
 					_RowedGetStrToColumnStrOrderedDict=None,
-					_RowedColumnStrsList=None,																
-					_RowedPickOrderedDict=None, 
-					_RowedIsBoolsList=None,	
-					_RowedIsBool=False,
-					_RowedIndexInt=-1,
+					_RowedHdfColumnStrsList=None,
+					_RowedMongoPickOrderedDict=None, 																
+					_RowedHdfPickOrderedDict=None,
+					_RowedMongoIsBoolsList=None,	 
+					_RowedHdfIsBoolsList=None,	
+					_RowedMongoIsBool=False,
+					_RowedHdfIsBool=False,
+					_RowedMongoIndexInt=-1,
+					_RowedHdfIndexInt=-1,
 					**_KwargVariablesDict
 				):
 
@@ -113,7 +121,10 @@ class RowerClass(
 		self.RowedGetStrToColumnStrOrderedDict=collections.OrderedDict(
 				map(
 					lambda _DatabasingSealTuple:
-					(_DatabasingSealTuple[0],_DatabasingSealTuple[1]),
+					(
+						_DatabasingSealTuple[0],
+						_DatabasingSealTuple[1]
+					),
 					self._DatabasingSealTuplesList
 					)
 				)
@@ -128,11 +139,11 @@ class RowerClass(
 		'''
 
 	DatabasingSealTuplesList=property(
-									BaseClass.DatabasingSealTuplesList.fget,
-									setDatabasingSealTuplesList,
-									BaseClass.DatabasingSealTuplesList.fdel,
-									BaseClass.DatabasingSealTuplesList.__doc__
-								)
+			BaseClass.DatabasingSealTuplesList.fget,
+			setDatabasingSealTuplesList,
+			BaseClass.DatabasingSealTuplesList.fdel,
+			BaseClass.DatabasingSealTuplesList.__doc__
+		)
 
 	def setRowingGetStrsList(self,_SettingValueVariable):
 		
@@ -144,100 +155,170 @@ class RowerClass(
 		#set
 		self._RowingGetStrsList=_SettingValueVariable
 
-		#debug
-		'''
-		self.debug(
-						[
-							'bind with RowedColumnStrsList setting',
-							('self.',self,['RowedGetStrToColumnStrOrderedDict'])
-						]
-					)
-		'''
-		
-		#Bind with 
-		self.RowedColumnStrsList=map(
-				lambda __RowingGetStr:
-				self.RowedGetStrToColumnStrOrderedDict[__RowingGetStr],
-				_SettingValueVariable
-			)
 
-		#debug
-		'''
-		self.debug(('self.',self,['RowedColumnStrsList']))
-		'''
+		#Check
+		if self.DatabasingHdfBool:
 
-	#@Alerter.AlerterClass()
-	#@Hooker.HookerClass(**{'HookingBeforeVariablesList':[{'CallingMethodStr':"table"}]})
+			#debug
+			'''
+			self.debug(
+							[
+								'bind with RowedHdfColumnStrsList setting',
+								('self.',self,['RowedGetStrToColumnStrOrderedDict'])
+							]
+						)
+			'''
+			
+			#Bind with 
+			self.RowedHdfColumnStrsList=map(
+					lambda __RowingGetStr:
+					self.RowedGetStrToColumnStrOrderedDict[__RowingGetStr],
+					_SettingValueVariable
+				)
+
+			#debug
+			'''
+			self.debug(('self.',self,['RowedHdfColumnStrsList']))
+			'''
+
 	def do_row(self):
 		""""""
 	
-		#<NotHook>
 		#table then
 		self.table()
-		#</NotHook>
 		
 		#Check	
-		if self.NodePointDeriveNoder!=None:
+		if self.ModeledPointDeriveControllerVariable!=None:
 			
 			#debug
 			'''
-			self.NodePointDeriveNoder.debug('ParentSpeaking...')
+			self.ModeledPointDeriveControllerVariable.debug('ParentSpeaking...')
 			'''
 
-			#Update
-			self.RowedPickOrderedDict.update(
-				zip(
-					self.RowedColumnStrsList,
-					self.NodePointDeriveNoder.pick(self.RowingGetStrsList)
+			#Check
+			if self.DatabasingHdfBool:
+
+				#Update
+				self.RowedHdfPickOrderedDict.update(
+					zip(
+						self.RowedHdfColumnStrsList,
+						self.ModeledPointDeriveControllerVariable.pick(
+							self.RowingGetStrsList
+						)
+					)
 				)
-			)
 
-			#debug
-			'''
-			self.debug(('self.',self,[
-									'RowedPickOrderedDict',
-									'TabledTable'
-								]))
-			'''
+				#debug
+				'''
+				self.debug(('self.',self,[
+										'RowedHdfPickOrderedDict',
+										'TabledHdfTable'
+									]))
+				'''
 
-			#Check if it was already rowed
-			self.RowedIsBoolsList=map(
-					lambda __Row:
-					all(
-						map(
-								lambda __RowedItemTuple:
-								SYS.getIsEqualBool(
-													__Row[__RowedItemTuple[0]],
-													__RowedItemTuple[1]
-												),
-								self.RowedPickOrderedDict.items()
-							)
+				#Check if it was already rowed
+				self.RowedHdfIsBoolsList=map(
+						lambda __Row:
+						all(
+							map(
+									lambda __RowedItemTuple:
+									SYS.getIsEqualBool(
+														__Row[__RowedItemTuple[0]],
+														__RowedItemTuple[1]
+													),
+									self.RowedHdfPickOrderedDict.items()
+								)
+							),
+						self.TabledHdfTable.iterrows()
+					)
+
+				#debug
+				'''
+				self.debug(('self.',self,['RowedHdfIsBoolsList']))
+				'''
+
+				#set
+				if len(self.RowedHdfIsBoolsList)==0:
+					self.RowedHdfIsBool=False
+				else:
+					self.RowedHdfIsBool=any(self.RowedHdfIsBoolsList)
+
+				#Init to the len of the table
+				self.RowedHdfIndexInt=self.TabledHdfTable.nrows
+
+				#But maybe find a last index
+				if self.RowedHdfIsBool: 
+					if len(self.RowedHdfIsBoolsList)>0:
+						self.RowedHdfIndexInt=self.RowedHdfIsBoolsList.index(True)
+
+				#debug
+				'''
+				self.debug(('self.',self,['RowedHdfIsBool','RowedHdfIndexInt']))
+				'''
+
+			#Check
+			if self.DatabasingMongoBool:
+
+				#Update
+				self.RowedMongoPickOrderedDict.update(
+					zip(
+						self.RowingGetStrsList,
+						self.ModeledPointDeriveControllerVariable.pick(
+							self.RowingGetStrsList
+						)
+					)
+				)
+
+				#debug
+				self.debug(('self.',self,[
+										'RowedMongoPickOrderedDict',
+										'TabledMongoCollection'
+									]))
+
+				#Define
+				RowedCursor=self.TabledMongoCollection.find()
+
+				#debug
+				self.debug('list(RowedCursor) is '+SYS._str(list(RowedCursor)))
+
+				#Check if it was already rowed
+				self.RowedMongoIsBoolsList=map(
+						lambda __Row:
+						all(
+							map(
+									lambda __RowedItemTuple:
+									SYS.getIsEqualBool(
+														__Row[__RowedItemTuple[0]],
+														__RowedItemTuple[1]
+													),
+									self.RowedMongoPickOrderedDict.items()
+								)
 						),
-					self.TabledTable.iterrows()
-				)
+						RowedCursor
+					)
 
-			#debug
-			'''
-			self.debug(('self.',self,['RowedIsBoolsList']))
-			'''
+				#debug
+				'''
+				self.debug(('self.',self,['RowedHdfIsBoolsList']))
+				'''
 
-			#set
-			if len(self.RowedIsBoolsList)==0:
-				self.RowedIsBool=False
-			else:
-				self.RowedIsBool=any(self.RowedIsBoolsList)
+				#set
+				if len(self.RowedMongoIsBoolsList)==0:
+					self.RowedMongoIsBool=False
+				else:
+					self.RowedMongoIsBool=any(self.RowedMongoIsBoolsList)
 
-			#Init to the len of the table
-			self.RowedIndexInt=self.TabledTable.nrows
+				#Init to the len of the table
+				self.RowedMongoIndexInt=RowedCursor.count()
 
-			#But maybe find a last index
-			if self.RowedIsBool: 
-				if len(self.RowedIsBoolsList)>0:
-					self.RowedIndexInt=self.RowedIsBoolsList.index(True)
+				#But maybe find a last index
+				if self.RowedMongoIsBool: 
+					if len(self.RowedMongoIsBoolsList)>0:
+						self.RowedMongoIndexInt=self.RowedMongoIsBoolsList.index(True)
 
-			#debug
-			'''
-			self.debug(('self.',self,['RowedIsBool','RowedIndexInt']))
-			'''
+				#debug
+				'''
+				self.debug(('self.',self,['RowedMongoIsBool','RowedMongoIndexInt']))
+				'''
 		
 #</DefineClass>

@@ -20,6 +20,7 @@ SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
+import numpy as np
 #</ImportSpecificModules>
 
 #<DefineClass>
@@ -31,14 +32,19 @@ class SynapserClass(BaseClass):
 									'SynapsingKwargVariablesDict',
 									'SynapsingProbabilityVariable',
 									'SynapsingTagStr',
-									'SynapsedBrianVariable'
+									'SynapsingWeigthSymbolStr',
+									'SynapsingWeigthFloatsArray',
+									'SynapsedBrianVariable',
 							]
 
 	def default_init(self,
 						_SynapsingKwargVariablesDict=None,
 						_SynapsingProbabilityVariable=None,
 						_SynapsingTagStr="",
+						_SynapsingWeigthSymbolStr="",
+						_SynapsingWeigthFloatsArray=None,
 						_SynapsedBrianVariable=None,
+						_SynapsedWeigthFloatsArray=None,
 						**_KwargVariablesDict
 					):
 
@@ -58,9 +64,11 @@ class SynapserClass(BaseClass):
 		import brian2
 
 		#debug
+		'''
 		self.debug(('self.',self,[
 								'SynapsingKwargVariablesDict'
 								]))
+		'''
 		
 		#init
 		self.SynapsedBrianVariable=brian2.Synapses(
@@ -79,6 +87,43 @@ class SynapserClass(BaseClass):
 				True,
 				p=self.SynapsingProbabilityVariable
 			)
+
+		#Check
+		if self.SynapsingWeigthSymbolStr!="":
+
+			#debug
+			'''
+			self.debug(
+				('self.',self,[
+					'SynapsedBrianVariable',
+					'SynapsingWeigthSymbolStr'
+					])
+			)
+			'''
+
+			#connect
+			self.SynapsedBrianVariable.connect(True)
+
+			#get
+			self.SynapsedWeigthFloatsArray=getattr(
+				self.SynapsedBrianVariable,
+				self.SynapsingWeigthSymbolStr
+			)
+			
+			#set
+			self.SynapsedWeigthFloatsArray[:]=np.reshape(
+					self.SynapsingWeigthFloatsArray,
+					self.SynapsedBrianVariable.source.N*self.SynapsedBrianVariable.target.N
+				)
+
+			#debug
+			self.debug(
+				('self.',self,[
+					'SynapsedWeigthFloatsArray'
+					])
+			)
+
+
 
 
 #</DefineClass>

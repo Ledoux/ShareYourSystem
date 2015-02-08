@@ -8,8 +8,8 @@
 </DefineSource>
 
 
-Joiner instances helps to flush in joined databases, get the corresponding
-RetrieveIndexesLists if it was already flushed, and then flush locally
+Joiner instances helps to insert in joined databases, get the corresponding
+RetrieveIndexesLists if it was already inserted, and then insert locally
 depending if it is a new row compared to all JoinedRetrieveIndexesListsList
 
 """
@@ -130,7 +130,7 @@ class JoinerClass(BaseClass):
 		#debug
 		self.debug(
 					[
-						("We are going to check if is already flushed in the joined databases..."),
+						("We are going to check if is already inserted in the joined databases..."),
 						('self.',self,['JoinedDownDeriveJoinersList'])
 					]
 				)
@@ -182,11 +182,11 @@ class JoinerClass(BaseClass):
 	#		{'CallingMethodStr':'row'}
 	#	],
 	#	'HookingBeforeVariablesList':[
-	#		{'CallingVariable':Featurer.FeaturerClass.flush}
+	#		{'CallingVariable':Featurer.FeaturerClass.insert}
 	#	]
 	#}
 	#)
-	def flush(self,**_KwargVariablesDict):
+	def insert(self,**_KwargVariablesDict):
 
 		#<NotHook>
 		#row first
@@ -194,21 +194,21 @@ class JoinerClass(BaseClass):
 		#</NotHook>
 
 		#debug
-		self.debug('First make flush the joined databases')
+		self.debug('First make insert the joined databases')
 
 		#Flush the joined databases
 		self.JoinedFlushIndexIntsList=map(
 					lambda __JoinedDeriveDatabaserPointer:
-					__JoinedDeriveDatabaserPointer.flush(),
+					__JoinedDeriveDatabaserPointer.insert(),
 					self.JoinedDownDeriveJoinersList
 				)
 
 		#debug
-		self.debug('Now we can flush')
+		self.debug('Now we can insert')
 
 		#<NotHook>
-		#flush then
-		Featurer.FeaturerClass.flush(self)
+		#insert then
+		Featurer.FeaturerClass.insert(self)
 		#</NotHook>
 
 	#@Hooker.HookerClass(**{'HookingAfterVariablesList':[

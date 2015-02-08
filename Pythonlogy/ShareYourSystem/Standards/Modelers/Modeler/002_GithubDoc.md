@@ -49,14 +49,14 @@ class DatabaserClass(
 								'ModeledSuffixStr',
 								'DatabasedCollectionStr',
 								'ModeledSuffixStr',
-								'ModeledPointDeriveStorerVariable'
+								'ModeledPointDeriveControllerVariable'
 							]
 
 	def default_init(self,
 					_DatabasingKeyStr="",
 					_DatabasedCollectionStr="",
 					_ModeledSuffixStr="",
-					_ModeledPointDeriveStorerVariable=None,
+					_ModeledPointDeriveControllerVariable=None,
 					**_KwargVariablesDict
 				):
 
@@ -77,7 +77,7 @@ class DatabaserClass(
 		if hasattr(self,'NodePointDeriveNoder'):
 			self.point(
 				self.NodePointDeriveNoder,
-				'ModeledPointDeriveStorerVariable'
+				'ModeledPointDeriveControllerVariable'
 			)
 
 #</DefineClass>

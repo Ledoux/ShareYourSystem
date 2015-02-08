@@ -34,7 +34,7 @@ MyController.update(
 				('MyStr',"bonjour"),
 				('MyIntsList',[0,0,1])
 			]
-)['<Findoers>ThingsFindoer'].flush()
+)['<Findoers>ThingsFindoer'].insert()
 
 MyController.update(
 			[
@@ -42,7 +42,7 @@ MyController.update(
 				('MyStr',"guten tag"),
 				('MyIntsList',[0,0,1])
 			]
-)['<Findoers>ThingsFindoer'].flush()
+)['<Findoers>ThingsFindoer'].insert()
 
 MyController.update(
 			[
@@ -50,7 +50,7 @@ MyController.update(
 				('MyStr',"bonjour"),
 				('MyIntsList',[0,0,0])
 			]
-)['<Findoers>ThingsFindoer'].flush()
+)['<Findoers>ThingsFindoer'].insert()
 
 #Retrieve
 MyController['<Findoers>ThingsFindoer'].find(

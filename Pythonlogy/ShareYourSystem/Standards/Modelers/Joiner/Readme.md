@@ -10,8 +10,8 @@ FrozenIsBool False
 ----
 
 
-> Joiner instances helps to flush in joined databases, get the corresponding
-> RetrieveIndexesLists if it was already flushed, and then flush locally
+> Joiner instances helps to insert in joined databases, get the corresponding
+> RetrieveIndexesLists if it was already inserted, and then insert locally
 > depending if it is a new row compared to all JoinedRetrieveIndexesListsList
 >
 >
@@ -47,8 +47,8 @@ FrozenIsBool False
 @Author : Erwan Ledoux \n\n
 </DefineSource>
 
-Joiner instances helps to flush in joined databases, get the corresponding
-RetrieveIndexesLists if it was already flushed, and then flush locally
+Joiner instances helps to insert in joined databases, get the corresponding
+RetrieveIndexesLists if it was already inserted, and then insert locally
 depending if it is a new row compared to all JoinedRetrieveIndexesListsList
 
 """
@@ -89,7 +89,7 @@ def getJoinedRetrieveIndexesListWithInstanceVariableAndDeriveDatabaser(
                 'model',
                 'tabular',
                 'join',
-                'flush'
+                'insert'
         ]
 })
 class JoinerClass(BaseClass):
@@ -189,7 +189,7 @@ method'
                 self.debug(
                                         [
                                                 ("We are going to check if is
-already flushed in the joined databases..."),
+already inserted in the joined databases..."),
 ('self.',self,['JoinedCatchDeriveJoinersList'])
                                         ]
                                 )
@@ -260,7 +260,7 @@ DatabasedGetStrToColumStr')
                 self.debug('Ok row is over for joining')
                 '''
 
-        def mimic_flush(self):
+        def mimic_insert(self):
 
                 #<NotHook>
                 #row first
@@ -271,7 +271,7 @@ DatabasedGetStrToColumStr')
                 '''
                 self.debug(
                                         [
-                                                'First setSwitch and make flush
+                                                'First setSwitch and make insert
 the catched databases',
                                                 ('self.',self,[
         'JoiningCatchStr',
@@ -284,7 +284,7 @@ the catched databases',
                 #Flush the post joined databases
                 self.JoinedFlushIndexIntsList=map(
                         lambda __JoinedCatchDeriveJoinerPointer:
-                        __JoinedCatchDeriveJoinerPointer.CatchToPointVariable.flush(),
+                        __JoinedCatchDeriveJoinerPointer.CatchToPointVariable.insert(),
                         self.JoinedCatchCollectionOrderedDict.values(),
                 )
 
@@ -306,12 +306,12 @@ the catched databases',
 
                 #debug
                 '''
-                self.debug('Now we can flush here')
+                self.debug('Now we can insert here')
                 '''
 
                 #<NotHook>
-                #flush then
-                BaseClass.flush(self)
+                #insert then
+                BaseClass.insert(self)
                 #</NotHook>
 
         def mimic_retrieve(self):
@@ -502,11 +502,11 @@ self.debug(('self.',self,['JoinedCatchCollectionOrderedDict']))
                                         lambda __JoinedCatchDeriveJoiner:
                                         "Join"+''.join(
                                                 [
-__JoinedCatchDeriveJoiner.ModeledPointDeriveStorerVariable.NodeKeyStr
+__JoinedCatchDeriveJoiner.ModeledPointDeriveControllerVariable.NodeKeyStr
                                                         if
-__JoinedCatchDeriveJoiner.ModeledPointDeriveStorerVariable.NodeKeyStr!=""
+__JoinedCatchDeriveJoiner.ModeledPointDeriveControllerVariable.NodeKeyStr!=""
                                                         else 'Top'+__JoinedCatch
-DeriveJoiner.ModeledPointDeriveStorerVariable.__class__.NameStr,
+DeriveJoiner.ModeledPointDeriveControllerVariable.__class__.NameStr,
 __JoinedCatchDeriveJoiner.ModeledSuffixStr
                                                 ]
                                         )+"RetrieveIndexesList",
@@ -523,18 +523,18 @@ self.debug(('self.',self,['JoinedRetrieveIndexesListColumnStrsList']))
                                         lambda __JoinedCatchDeriveJoiner:
                                         "Joined"+''.join(
                                                 [
-self.ModeledPointDeriveStorerVariable.NodeKeyStr
+self.ModeledPointDeriveControllerVariable.NodeKeyStr
                                                         if
-self.ModeledPointDeriveStorerVariable.NodeKeyStr!=""
+self.ModeledPointDeriveControllerVariable.NodeKeyStr!=""
                                                         else
-'Top'+self.ModeledPointDeriveStorerVariable.__class__.NameStr,
+'Top'+self.ModeledPointDeriveControllerVariable.__class__.NameStr,
                                                         self.ModeledSuffixStr,
                                                         'To',
-__JoinedCatchDeriveJoiner.ModeledPointDeriveStorerVariable.NodeKeyStr
+__JoinedCatchDeriveJoiner.ModeledPointDeriveControllerVariable.NodeKeyStr
                                                         if
-__JoinedCatchDeriveJoiner.ModeledPointDeriveStorerVariable.NodeKeyStr!=""
+__JoinedCatchDeriveJoiner.ModeledPointDeriveControllerVariable.NodeKeyStr!=""
                                                         else 'Top'+__JoinedCatch
-DeriveJoiner.ModeledPointDeriveStorerVariable.__class__.NameStr,
+DeriveJoiner.ModeledPointDeriveControllerVariable.__class__.NameStr,
 __JoinedCatchDeriveJoiner.ModeledSuffixStr
                                                 ]
                                         )+"RetrieveIndexesList",
@@ -554,7 +554,7 @@ databases'
 
                         #Table all the joined databasers and init the
 corresponding JoinedRetrieveIndexesList in the NodePointDeriveNoder
-                        self.ModeledPointDeriveStorerVariable.update(
+                        self.ModeledPointDeriveControllerVariable.update(
                                 zip(
 self.JoinedRetrieveIndexesListGetStrsList,
                                                 map(
@@ -713,7 +713,7 @@ MyModulizer=ModulizerClass().structure(
     }
 )
 
-#Update and flush in the results
+#Update and insert in the results
 MyModulizer.__setitem__(
     "Dis_<Component>",
     [
@@ -726,9 +726,9 @@ MyModulizer.__setitem__(
             ('MultiplyingSecondInt',3)
         ]
     ]
-)['<Datome>ParametersJoiner'].flush()
+)['<Datome>ParametersJoiner'].insert()
 
-#Update and flush in the results
+#Update and insert in the results
 MyModulizer.__setitem__(
     "Dis_<Component>",
     [
@@ -739,7 +739,7 @@ MyModulizer.__setitem__(
             ('MultiplyingSecondInt',4)
         ]
     ]
-)['<Datome>ParametersJoiner'].flush()
+)['<Datome>ParametersJoiner'].insert()
 
 
 #Definition the AttestedStr

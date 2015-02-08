@@ -122,8 +122,8 @@ class HdformaterClass(BaseClass):
 		
 			#set the HdformatedConsoleStr
 			self.HdformatedConsoleStr=os.popen(
-										SYS.h5lsPathStr+' -dlr '+self.HdformatedFilePathStr
-								).read()
+				SYS.h5lsPathStr+' -dlr '+self.HdformatedFilePathStr
+			).read()
 		
 		#Return self
 		return self

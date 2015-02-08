@@ -178,11 +178,12 @@ class NeurongrouperClass(BaseClass):
 		)
 
 		#debug
+		'''
 		self.debug(('self.',self,[
 							'NeurongroupedEquationStrsList',
 							'NeurongroupingKwargVariablesDict'
 							]))
-
+		'''
 
 		#init
 		self.NeurongroupedBrianVariable=NeuronGroup(
@@ -190,8 +191,10 @@ class NeurongrouperClass(BaseClass):
 		)
 
 		#debug
+		'''
 		self.debug(('self.',self,['NeurongroupedBrianVariable']))
-		
+		'''
+
 		#update variables
 		map(
 				lambda __ItemTuple:
@@ -204,7 +207,9 @@ class NeurongrouperClass(BaseClass):
 			)
 
 		#debug
+		'''
 		self.debug(('self.',self,['NeurongroupedBrianVariable']))
+		'''
 
 		#map
 		self.NeurongroupedSpikeMonitorsList=map(
@@ -226,7 +231,7 @@ class NeurongrouperClass(BaseClass):
 					StateMonitor(
 						self.NeurongroupedBrianVariable,
 						__PopulatedStateDeriveMoniter.MoniteringVariableStr,
-						__PopulatedStateDeriveMoniter.MoniteringIndexIntsList
+						__PopulatedStateDeriveMoniter.MoniteringRecordTimeIndexIntsArray
 					)
 				).StateMonitor,
 				self.PopulatedStateDeriveMonitersList

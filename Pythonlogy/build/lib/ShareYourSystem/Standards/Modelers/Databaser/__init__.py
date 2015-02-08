@@ -24,7 +24,6 @@ SYS.setSubModule(globals())
 #<ImportSpecificModules>
 import collections
 import copy
-import tables
 from ShareYourSystem.Standards.Classors import Doer
 #</ImportSpecificModules>
 
@@ -40,6 +39,9 @@ DatabasingLinkStr='_'
 
 #<DefineFunctions>
 def getDatabasedColWithGetKeyStr(_GetKeyStr):
+
+	#import
+	import tables
 
 	#Definition
 	global AnalyzingColStrsList
@@ -94,7 +96,9 @@ class DatabaserClass(BaseClass):
 	
 	#Definition
 	RepresentingKeyStrsList=[
-								'DatabasingSealTuplesList', 									
+								'DatabasingSealTuplesList', 
+								'DatabasingMongoBool',
+								'DatabasingHdfBool',									
 								'DatabasedModelClassesOrderedDict',																
 								'DatabasedModelClass', 													
 								'DatabasedKeyStr'
@@ -106,7 +110,9 @@ class DatabaserClass(BaseClass):
 								'DefaultingSetType':property,
 								'PropertizingInitVariable':[],
 								'PropertizingDocStr':''
-						}, 								
+						}, 	
+					_DatabasingMongoBool=False,
+					_DatabasingHdfBool=False,							
 					_DatabasedModelClassesOrderedDict=None,																
 					_DatabasedModelClass=None, 													
 					_DatabasedKeyStr="",
@@ -123,11 +129,9 @@ class DatabaserClass(BaseClass):
 		'''
 		self.debug(('self.',self,['DatabasingSealTuplesList']))
 		'''
-		
-		#<NotHook>
+
 		#model first
 		self.model()
-		#</NotHook>
 
 		#set a name if it was not already
 		if self.DatabasedKeyStr=="":
@@ -140,36 +144,48 @@ class DatabaserClass(BaseClass):
 			#Link set
 			self.DatabasedKeyStr=self.ModeledSuffixStr
 
-		#Definition the ModelClass
-		class ModelClass(tables.IsDescription):
+		#Check
+		if len(self.DatabasingSealTuplesList)>0:
+			self.DatabasingHdfBool=True
+		else:
+			self.DatabasingMongoBool=True
 
-			#Add (just like a unique KEY in mysql...) 
-			RowInt=tables.Int64Col()
+		#Check
+		if self.DatabasingHdfBool:
 
-		#debug
-		'''
-		self.debug(('self.',self,['DatabasedGetStrToColumnStrOrderedDict']))
-		'''
-		
-		#set the cols in the ModelClass
-		map(
-				lambda __DatabasingColumnTuple:
-				ModelClass.columns.__setitem__(
-					__DatabasingColumnTuple[1],
-					__DatabasingColumnTuple[2]
-					),
-				self.DatabasingSealTuplesList
-			)
+			#import 
+			import tables
 
-		#Give a name
-		ModelClass.__name__=SYS.getClassStrWithNameStr(self.DatabasedKeyStr)
+			#Definition the ModelClass
+			class ModelClass(tables.IsDescription):
 
-		#set the ModelClass
-		if self.DatabasedModelClassesOrderedDict==None:
-			self.DatabasedModelClassesOrderedDict=collections.OrderedDict()
-		self.DatabasedModelClassesOrderedDict[self.DatabasedKeyStr]=ModelClass
+				#Add (just like a unique KEY in mysql...) 
+				RowInt=tables.Int64Col()
 
-		#set the DatabasedModelClass
-		self.DatabasedModelClass=ModelClass
+			#debug
+			'''
+			self.debug(('self.',self,['DatabasedGetStrToColumnStrOrderedDict']))
+			'''
+			
+			#set the cols in the ModelClass
+			map(
+					lambda __DatabasingColumnTuple:
+					ModelClass.columns.__setitem__(
+						__DatabasingColumnTuple[1],
+						__DatabasingColumnTuple[2]
+						),
+					self.DatabasingSealTuplesList
+				)
+
+			#Give a name
+			ModelClass.__name__=SYS.getClassStrWithNameStr(self.DatabasedKeyStr)
+
+			#set the ModelClass
+			if self.DatabasedModelClassesOrderedDict==None:
+				self.DatabasedModelClassesOrderedDict=collections.OrderedDict()
+			self.DatabasedModelClassesOrderedDict[self.DatabasedKeyStr]=ModelClass
+
+			#set the DatabasedModelClass
+			self.DatabasedModelClass=ModelClass
 
 #</DefineClass>

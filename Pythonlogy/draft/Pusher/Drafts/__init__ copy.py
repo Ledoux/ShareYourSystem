@@ -88,7 +88,7 @@ class StorerClass(BaseClass):
 		self['<Database>ParametersFeaturer'].scan(_DatabaseKeyStr="ResultsHierarchizer")
 		"""
 
-		#Set the done variables and flush
+		#Set the done variables and insert
 		self.setDoneVariables()['<Database>ParametersHierarchizer'].scan()
 
 		#Return self

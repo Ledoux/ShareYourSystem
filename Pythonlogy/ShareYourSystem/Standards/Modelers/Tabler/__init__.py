@@ -35,15 +35,21 @@ class TablerClass(
 	
 	#Definition
 	RepresentingKeyStrsList=[
-									'TabledKeyStr', 										
-									'TabledInt',																
-									'TabledTable'
-								]
+					'TabledMongoKeyStr', 	
+					'TabledHdfKeyStr', 
+					'TabledMongoInt', 	
+					'TabledHdfInt', 			
+					'TabledMongoCollection', 	
+					'TabledHdfTable' 
+		]
 
 	def default_init(self,
-						_TabledKeyStr="", 	
-						_TabledInt=-1, 			
-						_TabledTable=None, 	
+						_TabledMongoKeyStr="", 	
+						_TabledHdfKeyStr="", 
+						_TabledMongoInt=-1, 	
+						_TabledHdfInt=-1, 			
+						_TabledMongoCollection=None, 	
+						_TabledHdfTable=None, 
 						**_KwargVariablesDict
 						):
 
@@ -57,198 +63,410 @@ class TablerClass(
 		self.debug(('self.',self,['DatabasingSealTuplesList']))
 		'''
 
-		#<NotHook>
 		#tabular first
 		self.tabular()
-		#</NotHook>
 
 		#debug
-		'''
 		self.debug(
 					[
-						'We are going to look if this is a new table or not...In order to index it',
+						'We are going to look if this is a new table or not...',
+						'In order to index it',
 						('self.',self,[
 											'DatabasedKeyStr',
 											'DatabasedModelClass',
-											'TabularedKeyStrsList',
-											'TabularedSuffixStr',
-											'TabledKeyStr'
-										])
+										]
+						)
 					]
 				)
-		'''
-		
-		#Get the suffix Strs of all the tables and their index
-		TabledList=SYS.unzip(map(
-				lambda __StrsList:
-				(
-					__StrsList[1],
-					TablingOrderStr.join(__StrsList[2:])
-				),
-				map(
-						lambda __TabledKeyStr:
-						__TabledKeyStr.split(TablingOrderStr),
-						self.TabularedKeyStrsList
-					)
-			),[0,1])
-
-		#debug
-		'''
-		self.debug(('vars ',vars(),['TabledList']))
-		'''
-		
-		#Unpack if it is possible
-		if len(TabledList)>0:
-
-			#Unpack
-			[TabledIntsTuple,TabledSuffixStrsList]=TabledList
-
-			#debug
-			'''
-			self.debug(
-						[
-							'There are already some tables',
-							'TabledSuffixStrsList is '+str(TabledSuffixStrsList),
-							"self.TabularedSuffixStr is "+str(
-								self.TabularedSuffixStr)
-						]
-					)
-			'''
-
-			if self.TabularedSuffixStr not in TabledSuffixStrsList:
-
-				#Increment the IndexStr
-				IndexInt=max(map(int,TabledIntsTuple))+1
-
-				#Strify
-				IndexStr=str(IndexInt)
-
-				#debug
-				'''
-				self.debug('IndexStr of this new table is '+str(IndexStr))
-				'''
-				
-			else:
-
-				#Get the already setted one
-				IndexStr=self.TabularedKeyStrsList[
-					TabledSuffixStrsList.index(self.TabularedSuffixStr)
-					].split(TablingOrderStr)[1]
-
-				#Intify
-				IndexInt=(int)(IndexStr)
-
-				#debug
-				'''
-				self.debug('IndexStr of this not new table is '+str(IndexStr))
-				'''
-
-		else:
-
-			#debug
-			'''
-			self.debug('There are no tables here')
-			'''
-
-			#set to empty lists 
-			[TabledIntsTuple,TabledSuffixStrsList]=[[],[]]
-
-			#Init the list
-			IndexInt=0
-
-			#Strify
-			IndexStr="0"
-
-		#Bind with TabledKeyStr setting
-		self.TabledKeyStr=TablingOrderStr+IndexStr+TablingOrderStr+self.TabularedSuffixStr
-
-		#set the TabularedInt
-		self.TabledInt=IndexInt
-
-		#debug
-		'''
-		self.debug("self.TabledKeyStr is "+str(self.TabledKeyStr))
-		'''
-		
-		#debug
-		'''
-		self.debug(
-					[
-						'Here we create the table or get it depending if it is new or not',
-						'self.TabledKeyStr is '+self.TabledKeyStr,
-						'self.TabularedTopFileVariable!=None is '+str(self.TabularedTopFileVariable!=None)
-					]
-				)
-		'''
 
 		#Check
-		if self.TabledKeyStr!="" and self.TabularedTopFileVariable!=None:
+		if self.DatabasingMongoBool:
+
+			#debug
+			self.debug(
+						[
+							'TabularedMongoKeyStrsList',
+							'TabularedMongoSuffixStr',
+							'TabledMongoKeyStr'
+						]
+					)
+			
+			#Get the suffix Strs of all the tables and their index
+			TabledMongoList=SYS.unzip(map(
+					lambda __StrsList:
+					(
+						__StrsList[1],
+						TablingOrderStr.join(__StrsList[2:])
+					),
+					map(
+							lambda __TabledMongoKeyStr:
+							__TabledMongoKeyStr.split(TablingOrderStr),
+							self.TabularedMongoKeyStrsList
+						)
+				),[0,1]
+			)
 
 			#debug
 			'''
-			self.debug(
-						[
-							('self.',self,['TabledKeyStr','TabularedKeyStrsList'])
-						]
-					)
+			self.debug(('vars ',vars(),['TabledHdfList']))
 			'''
+			
+			#Unpack if it is possible
+			if len(TabledMongoList)>0:
 
-			#Create the Table if not already
-			if self.TabledKeyStr not in self.TabularedKeyStrsList:
+				#Unpack
+				[TabledMongoIntsTuple,TabledMongoSuffixStrsList]=TabledMongoList
 
 				#debug
 				'''
 				self.debug(
 							[
-								'The table not exists',
+								'There are already some tables',
+								'TabledMongoSuffixStrsList is '+str(TabledMongoSuffixStrsList),
+								"self.TabularedMongoSuffixStr is "+str(
+									self.TabularedMongoSuffixStr)
 							]
 						)
 				'''
 
-				#Create the Table in the hdf5
-				self.TabledTable=self.TabularedTopFileVariable.create_table(
-											self.TabularedGroupVariable,
-											self.TabledKeyStr,
-											self.DatabasedModelClass,
-											self.DatabasedModelClass.__doc__ 
-											if self.DatabasedModelClass.__doc__!=None 
-											else "This is the "+self.DatabasedModelClass.__name__
-										)
+				if self.TabularedMongoSuffixStr not in TabledMongoSuffixStrsList:
 
-				#Append in the self.DatabasedDict['TabularedKeyStrsList']
-				self.TabularedKeyStrsList.append(self.TabledKeyStr)
+					#Increment the IndexStr
+					TabledMongoIndexInt=max(map(int,TabledMongoIntsTuple))+1
+
+					#Strify
+					TabledMongoIndexStr=str(TabledMongoIndexInt)
+
+					#debug
+					'''
+					self.debug('IndexStr of this new table is '+str(IndexStr))
+					'''
+					
+				else:
+
+					#Get the already setted one
+					TabledMongoIndexStr=self.TabularedMongoKeyStrsList[
+							TabledMongoSuffixStrsList.index(self.TabularedMongoSuffixStr)
+						].split(TablingOrderStr)[1]
+
+					#Intify
+					TabledMongoIndexInt=(int)(TabledMongoIndexStr)
+
+					#debug
+					'''
+					self.debug('IndexStr of this not new table is '+str(IndexStr))
+					'''
 
 			else:
 
 				#debug
 				'''
-				self.debug(
-								[
-									'The table exists',
-									"self.TabularedGroupVariable is "+str(self.TabularedGroupVariable)
-								]
-							)
+				self.debug('There are no tables here')
 				'''
 
-				#Else just get it 
-				self.TabledTable=self.TabularedGroupVariable._f_getChild(self.TabledKeyStr)
+				#set to empty lists 
+				[TabledMongoIntsTuple,TabledMongoSuffixStrsList]=[[],[]]
 
-			#set the in the TablesOrderedDict
-			self.TabularedTablesOrderedDict[self.TabledKeyStr]=self.TabledTable
+				#Init the list
+				TabledMongoIndexInt=0
+
+				#Strify
+				TabledMongoIndexStr="0"
+
+			#Bind with TabledHdfKeyStr setting
+			self.TabledMongoKeyStr=TablingOrderStr+TabledMongoIndexStr+TablingOrderStr+self.TabularedMongoSuffixStr
+
+			#set the TabularedInt
+			self.TabledMongoInt=TabledMongoIndexInt
 
 			#debug
 			'''
-			self.debug("self.TabularedTablesOrderedDict is "+str(self.TabularedTablesOrderedDict))
+			self.debug("self.TabledMongoKeyStr is "+str(self.TabledMongoKeyStr))
 			'''
 			
-		#debug
-		'''
-		self.debug(
-					[
-						'Table is done here...',
-						('self.',self,['TabledTable','TabularedTopFileVariable'])
-					]
-				)
-		'''
+			#debug
+			'''
+			self.debug(
+						[
+							'Here we create the collection or get it depending if it is new or not',
+							'self.TabledMongoKeyStr is '+self.TabledMongoKeyStr,
+							'self.TabularedTopFileVariable!=None is '+str(self.TabularedTopFileVariable!=None)
+						]
+					)
+			'''
+
+			#Check
+			if self.TabledMongoKeyStr!="" and self.TabularedMongoTopDatabaseVariable!=None:
+
+				#debug
+				self.debug(
+							[
+								('self.',self,[
+									'TabledMongoKeyStr',
+									'TabularedMongoKeyStrsList'])
+							]
+						)
+
+				#Create the collection if not already
+				if self.TabledMongoKeyStr not in self.TabularedMongoKeyStrsList:
+
+					#debug
+					'''
+					self.debug(
+								[
+									'The collection not exists',
+								]
+							)
+					'''
+
+					#Create the collections
+					self.TabledMongoCollection=self.TabularedMongoTopDatabaseVariable.create_collection(
+						self.TabledMongoKeyStr)
+
+					#Append
+					self.TabularedMongoKeyStrsList.append(self.TabledMongoKeyStr)
+
+				else:
+
+					#debug
+					'''
+					self.debug(
+									[
+										'The collection exists',
+										"self.TabularedGroupVariable is "+str(self.TabularedGroupVariable)
+									]
+								)
+					'''
+
+					#Else just get it 
+					self.TabledMongoCollection=getattr(
+						self.TabularedMongoTopDatabaseVariable,
+						self.TabledMongoKeyStr
+					)
+
+				#set the in the TabularedMongoCollectionsOrderedDict
+				self.TabularedMongoCollectionsOrderedDict[
+					self.TabledMongoKeyStr
+				]=self.TabledMongoCollection
+
+				#debug
+				'''
+				self.debug("self.TabularedMongoCollectionsOrderedDict is "+str(self.TabularedMongoCollectionsOrderedDict))
+				'''
+				
+			#debug
+			'''
+			self.debug(
+						[
+							'Table is done here for mongo...',
+							('self.',self,[
+								'TabledMongoCollection',
+								'TabularedMongoTopDatabaseVariable'
+								]
+							)
+						]
+					)
+			'''
+
+
+		#Check
+		if self.DatabasingHdfBool:
+
+			#debug
+			self.debug(
+						('self.',self,[
+							'TabularedHdfKeyStrsList',
+							'TabularedHdfSuffixStr',
+							'TabledHdfKeyStr'
+						])
+					)
+			
+			#Get the suffix Strs of all the tables and their index
+			TabledHdfList=SYS.unzip(map(
+					lambda __StrsList:
+					(
+						__StrsList[1],
+						TablingOrderStr.join(__StrsList[2:])
+					),
+					map(
+							lambda __TabledHdfKeyStr:
+							__TabledHdfKeyStr.split(TablingOrderStr),
+							self.TabularedHdfKeyStrsList
+						)
+				),[0,1]
+			)
+
+			#debug
+			'''
+			self.debug(('vars ',vars(),['TabledHdfList']))
+			'''
+			
+			#Unpack if it is possible
+			if len(TabledHdfList)>0:
+
+				#Unpack
+				[TabledHdfIntsTuple,TabledHdfSuffixStrsList]=TabledHdfList
+
+				#debug
+				'''
+				self.debug(
+							[
+								'There are already some tables',
+								'TabledHdfSuffixStrsList is '+str(TabledHdfSuffixStrsList),
+								"self.TabularedHdfSuffixStr is "+str(
+									self.TabularedHdfSuffixStr)
+							]
+						)
+				'''
+
+				if self.TabularedHdfSuffixStr not in TabledHdfSuffixStrsList:
+
+					#Increment the IndexStr
+					TabledHdfIndexInt=max(map(int,TabledHdfIntsTuple))+1
+
+					#Strify
+					TabledHdfIndexStr=str(TabledHdfIndexInt)
+
+					#debug
+					'''
+					self.debug('IndexStr of this new table is '+str(IndexStr))
+					'''
+					
+				else:
+
+					#Get the already setted one
+					TabledHdfIndexStr=self.TabularedHdfKeyStrsList[
+							TabledHdfSuffixStrsList.index(self.TabularedHdfSuffixStr)
+						].split(TablingOrderStr)[1]
+
+					#Intify
+					TabledHdfIndexInt=(int)(TabledHdfIndexStr)
+
+					#debug
+					'''
+					self.debug('IndexStr of this not new table is '+str(IndexStr))
+					'''
+
+			else:
+
+				#debug
+				'''
+				self.debug('There are no tables here')
+				'''
+
+				#set to empty lists 
+				[TabledHdfIntsTuple,TabledHdfSuffixStrsList]=[[],[]]
+
+				#Init the list
+				TabledHdfIndexInt=0
+
+				#Strify
+				TabledHdfIndexStr="0"
+
+			#Bind with TabledHdfKeyStr setting
+			self.TabledHdfKeyStr=TablingOrderStr+TabledHdfIndexStr+TablingOrderStr+self.TabularedHdfSuffixStr
+
+			#set the TabularedInt
+			self.TabledHdfInt=TabledHdfIndexInt
+
+			#debug
+			'''
+			self.debug("self.TabledHdfKeyStr is "+str(self.TabledHdfKeyStr))
+			'''
+			
+			#debug
+			'''
+			self.debug(
+						[
+							'Here we create the table or get it depending if it is new or not',
+							'self.TabledHdfKeyStr is '+self.TabledHdfKeyStr,
+							'self.TabularedHdfTopFileVariable!=None is '+str(self.TabularedHdfTopFileVariable!=None)
+						]
+					)
+			'''
+
+			#Check
+			if self.TabledHdfKeyStr!="" and self.TabularedHdfTopFileVariable!=None:
+
+				#debug
+				self.debug(
+							[
+								('self.',self,[
+									'TabledHdfKeyStr',
+									'TabularedHdfKeyStrsList'
+								])
+							]
+						)
+
+				#Create the Table if not already
+				if self.TabledHdfKeyStr not in self.TabularedHdfKeyStrsList:
+
+					#debug
+					'''
+					self.debug(
+								[
+									'The table not exists',
+								]
+							)
+					'''
+
+					#Create the Table in the hdf5
+					self.TabledHdfTable=self.TabularedHdfTopFileVariable.create_table(
+						self.TabularedHdfGroupVariable,
+						self.TabledHdfKeyStr,
+						self.DatabasedModelClass,
+						self.DatabasedModelClass.__doc__ 
+						if self.DatabasedModelClass.__doc__!=None 
+						else "This is the "+self.DatabasedModelClass.__name__
+					)
+
+					#Append
+					self.TabularedHdfKeyStrsList.append(
+						self.TabledHdfKeyStr
+					)
+
+				else:
+
+					#debug
+					'''
+					self.debug(
+									[
+										'The table exists',
+										"self.TabularedGroupVariable is "+str(self.TabularedGroupVariable)
+									]
+								)
+					'''
+
+					#Else just get it 
+					self.TabledHdfTable=self.TabularedHdfGroupVariable._f_getChild(
+						self.TabledHdfKeyStr
+					)
+
+				#set the in the TablesOrderedDict
+				self.TabularedHdfTablesOrderedDict[
+					self.TabledHdfKeyStr
+				]=self.TabledHdfTable
+
+				#debug
+				'''
+				self.debug("self.TabularedHdfTablesOrderedDict is "+str(
+					self.TabularedHdfTablesOrderedDict))
+				'''
+				
+			#debug
+			'''
+			self.debug(
+						[
+							'Table is done here for hdf...',
+							('self.',self,[
+								'TabledHdfTable',
+								'TabularedHdfTopFileVariable'
+								]
+							)
+						]
+					)
+			'''
+
+
 
 #</DefineClass>

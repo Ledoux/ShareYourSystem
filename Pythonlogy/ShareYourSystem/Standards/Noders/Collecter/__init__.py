@@ -56,12 +56,12 @@ class CollecterClass(BaseClass):
 		#debug
 		'''
 		self.debug(('self.',self,[
-						'CollectingNodeVariable'
+						'CollectingNodeVariable',
 						'CollectingCollectionStr',
 						'CollectingNodeKeyStr',
 					]))
 		'''
-
+		
 		#Set
 		self.CollectedGetStr=Noder.NodingPrefixGetStr+self.CollectingCollectionStr+Noder.NodingSuffixGetStr
 

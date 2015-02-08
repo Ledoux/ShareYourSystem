@@ -40,7 +40,7 @@ MyController.update(
 		('UnitsInt',3),
 		('MyIntsList',[0,0,1])
 	]
-)['<Shapers>ThingsShaper'].flush()
+)['<Shapers>ThingsShaper'].insert()
 
 MyController.update(
 	[
@@ -48,7 +48,7 @@ MyController.update(
 		('MyStr',"bonjour"),
 		('MyIntsList',[0,0,1])
 	]
-)['<Shapers>ThingsShaper'].flush()
+)['<Shapers>ThingsShaper'].insert()
 
 
 MyController.update(
@@ -57,7 +57,7 @@ MyController.update(
 		('MyStr',"ola"),
 		('MyIntsList',[0,1])
 	]
-)['<Shapers>ThingsShaper'].flush()
+)['<Shapers>ThingsShaper'].insert()
 
 #Definition the AttestedStr
 SYS._attest(

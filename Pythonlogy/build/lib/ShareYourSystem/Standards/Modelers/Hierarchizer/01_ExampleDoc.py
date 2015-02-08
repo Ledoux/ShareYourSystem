@@ -93,7 +93,7 @@ MySumer.update(
 			('SumingSecondInt',3)
 		]
 	).sum(
-	)['<Hierarchizers>ParametersHierarchizer'].flush(
+	)['<Hierarchizers>ParametersHierarchizer'].insert(
 )
 
 #Update and store
@@ -105,7 +105,7 @@ MySumer.update(
 	).sum(
 	)[
 	'<Hierarchizers>ParametersHierarchizer'
-	].flush()
+	].insert()
 
 #Definition the AttestedStr
 SYS._attest(

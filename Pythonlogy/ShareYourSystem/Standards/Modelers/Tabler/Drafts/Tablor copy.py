@@ -253,30 +253,30 @@ class TablerClass(
 				SYS.getDoingStrWithDoStr(_RowingVariablesDict['RowingStr'])+'TuplesList'
 				]
 
-			#Get the FlushingTuplesList
+			#Get the InsertingTuplesList
 			self.TabularedRowedTuplesList=zip(
 									SYS.unzip(DatabasingTuplesList,[0]),
 									self.pick(SYS.unzip(DatabasingTuplesList,[0]))
 								)
 
-	def flush(self):
+	def insert(self):
 
 		#Get the row
 		Row=self.TabularedCalibratedTable.row
 
-		#set the FlushingTuples in the Row
+		#set the InsertingTuples in the Row
 		map(
-				lambda __FlushingTuple:
-				Row.__setitem__(*__FlushingTuple),
+				lambda __InsertingTuple:
+				Row.__setitem__(*__InsertingTuple),
 				self.TabularedRowedTuplesList
 			)
 
 		#Append
 		Row.append()
-		self.TabularedCalibratedTable.flush()
+		self.TabularedCalibratedTable.insert()
 
 	'''
-	def flush(self,_FlushingStr,_JoiningStr=""):
+	def insert(self,_InsertingStr,_JoiningStr=""):
 
 		#Check that the TabularedCalibratedTable is ok
 		if self.TabularedCalibratedTable!=None:
@@ -292,19 +292,19 @@ class TablerClass(
 			#Get the DatabasingTuplesList
 			DatabasingTuplesList=self.DatabasingDict[DoingDatabasingStr+'TuplesList']
 
-			#Get the FlushingTuplesList
-			FlushingTuplesList=zip(
+			#Get the InsertingTuplesList
+			InsertingTuplesList=zip(
 									SYS.unzip(DatabasingTuplesList,[0]),
 									self.pick(SYS.unzip(DatabasingTuplesList,[0]))
 								)
 
 			#If it is an output add the joins
-			if _FlushingStr=="Output":
+			if _InsertingStr=="Output":
 
 				#Join before
 				self.join()
 
-				FlushingTuplesList+=zip( 
+				InsertingTuplesList+=zip( 
 										map(
 												lambda __JoiningChildObjects:
 												SYS.getRowIntColumnStrWithKeyStr(
@@ -378,7 +378,7 @@ def attest_tabular():
 											#('MyIntsList',[2,4]),
 											#('calibrate',{'ArgsVariable':"Feature"}),
 											#('row',{'ArgsVariable':"Feature"}),
-											#('flush',{})
+											#('insert',{})
 										]
 									)
 							).hdfclose()

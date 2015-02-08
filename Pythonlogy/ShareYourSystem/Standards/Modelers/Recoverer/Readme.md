@@ -222,7 +222,7 @@ MyStructurer.update(
                 ('MyStr',"bonjour"),
                 ('MyIntsList',[0,0,1])
             ]
-)['<Datome>ThingsRecoverer'].flush()
+)['<Datome>ThingsRecoverer'].insert()
 
 MyStructurer.update(
             [
@@ -230,7 +230,7 @@ MyStructurer.update(
                 ('MyStr',"guten tag"),
                 ('MyIntsList',[0,0,1])
             ]
-)['<Datome>ThingsRecoverer'].flush()
+)['<Datome>ThingsRecoverer'].insert()
 
 MyStructurer.update(
             [
@@ -238,7 +238,7 @@ MyStructurer.update(
                 ('MyStr',"bonjour"),
                 ('MyIntsList',[0,0,0])
             ]
-)['<Datome>ThingsRecoverer'].flush()
+)['<Datome>ThingsRecoverer'].insert()
 
 #Retrieve
 MyStructurer['<Datome>ThingsRecoverer'].recover(
@@ -358,7 +358,7 @@ hdf5 file is : /                        Group
         (0) {RowInt=0, MyInt=1, MyIntsList=[0,0,1], MyStr="bonjour"},
         (1) {RowInt=1, MyInt=0, MyIntsList=[0,0,1], MyStr="guten tag"},
         (2) {RowInt=2, MyInt=1, MyIntsList=[0,0,0], MyStr="bonjour"}
-/xx0xxThingsFlusherTable Dataset {2/Inf}
+/xx0xxThingsInserterTable Dataset {2/Inf}
     Data:
         (0) {RowInt=0, MyInt=1, MyIntsList=[2,4,6], MyStr="bonjour"},
         (1) {RowInt=1, MyInt=0, MyIntsList=[0,0,0], MyStr="hello"}

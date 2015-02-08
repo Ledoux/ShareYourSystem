@@ -43,10 +43,16 @@ class CloserClass(BaseClass):
 	def do_close(self):
 
 		#close
-		self.FiledFileVariable.close()
+		if self.FiledFileVariable!=None:
+			self.FiledFileVariable.close()
 
-		#Return self
-		#return self
+		#Close the HdformatedFileVariable
+		if hasattr(self,'hdfclose'):
+			self.hdfclose()
+
+		#Close the HdformatedFileVariable
+		if hasattr(self,'mongoclose'):
+			self.mongoclose()
 	
 #</DefineClass>
 

@@ -8,7 +8,7 @@
 </DefineSource>
 
 
-Scanner instances helps for doing and flushing rows from
+Scanner instances helps for doing and inserting rows from
 a range of modeling values
  
 """
@@ -53,8 +53,8 @@ class ExplorerClass(BaseClass):
 		#Check
 		if len(self.ScanningRangeTuplesList)==0:
 
-			#just flush
-			self.flush()
+			#just insert
+			self.insert()
 
 		else:
 

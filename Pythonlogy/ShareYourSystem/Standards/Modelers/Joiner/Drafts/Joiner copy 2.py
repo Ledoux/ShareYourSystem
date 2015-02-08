@@ -133,14 +133,14 @@ class JoinerClass(SYS.FeaturerClass):
 			print()
 			'''
 
-	def flushBefore(self,**_LocalFlushingVariablesList):
+	def insertBefore(self,**_LocalInsertingVariablesList):
 
 		#debug
 		'''
-		print("Joiner flushBefore method")
+		print("Joiner insertBefore method")
 		if hasattr(self,"StructuredKeyStr"):
 			print('self.StructuredKeyStr is ',self.StructuredKeyStr)
-		print('_LocalFlushingVariablesList is',_LocalFlushingVariablesList)
+		print('_LocalInsertingVariablesList is',_LocalInsertingVariablesList)
 		print('')
 		'''
 		
@@ -148,7 +148,7 @@ class JoinerClass(SYS.FeaturerClass):
 		if 'JoiningTuple' in self.DatabasedDict:
 
 			#We need maybe to join if it was not already rowed
-			if 'IsRowedBool' in _LocalFlushingVariablesList and _LocalFlushingVariablesList['IsRowedBool']==False:
+			if 'IsRowedBool' in _LocalInsertingVariablesList and _LocalInsertingVariablesList['IsRowedBool']==False:
 				self.join("")
 
 			#Definition the NodifyingStr
@@ -157,7 +157,7 @@ class JoinerClass(SYS.FeaturerClass):
 			
 			#debug
 			'''
-			print('Joiner flushAfter method')
+			print('Joiner insertAfter method')
 			print('self.RowedIdentifiedOrderedDict is',self.RowedIdentifiedOrderedDict)
 			print('self.JoinedOrderedDict is ',self.JoinedOrderedDict)
 			print('')
@@ -200,22 +200,22 @@ class JoinerClass(SYS.FeaturerClass):
 			'''
 
 			#Flush first all the children
-			FlushingVariablesList=map(
+			InsertingVariablesList=map(
 					lambda __NodifiedKeyStr:
 					self['App_'+self.JoinedNodifiedNodeStr+'_'+__NodifiedKeyStr
-					].flush(_LocalFlushingVariablesList['FlushingStr'])
+					].insert(_LocalInsertingVariablesList['InsertingStr'])
 					if __NodifiedKeyStr!=""
 					else
-					self.flush(self.JoinedDatabasedDict['ModelStr']),
+					self.insert(self.JoinedDatabasedDict['ModelStr']),
 					NodifiedKeyStrsList
 				)
 			
-			#It is going to be flushed so update the self.JoinedJoinedList to the last row index
+			#It is going to be inserted so update the self.JoinedJoinedList to the last row index
 			if self.JoinedJoinedList[1]==-1:
 				self.JoinedJoinedList[1]=self.JoinedTabularedTable.nrows-1
 
 			#Get the JoinedJoinedList
-			JoinedListsList=map(lambda __FlushingVariable:__FlushingVariable.JoinedJoinedList,FlushingVariablesList)
+			JoinedListsList=map(lambda __InsertingVariable:__InsertingVariable.JoinedJoinedList,InsertingVariablesList)
 
 			#debug
 			'''
@@ -225,7 +225,7 @@ class JoinerClass(SYS.FeaturerClass):
 			'''
 
 			#A row to reset the values plus the modeled and tabulared attributes is need but the join method doesn't need to be called one more time
-			self.row(_LocalFlushingVariablesList['FlushingStr'],**{'IsJoiningBool':False})
+			self.row(_LocalInsertingVariablesList['InsertingStr'],**{'IsJoiningBool':False})
 
 			#Just change the __RowInt
 			map(
@@ -883,7 +883,7 @@ def attest_join():
 													('model',{'ArgsVariable':"Parameter"}),
 													('tabular',{'ArgsVariable':""}),
 													('row',{'ArgsVariable':""}),
-													('flush',{'ArgsVariable':""})
+													('insert',{'ArgsVariable':""})
 												]
 											}
 									).update(
@@ -905,7 +905,7 @@ def attest_join():
 									).model("Result"		
 									).tabular(
 									).row(
-									).flush("Result"
+									).insert("Result"
 									).hdfclose()
 
 	#Return the object itself

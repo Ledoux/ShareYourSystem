@@ -14,7 +14,7 @@ FrozenIsBool False
 > the client-side "Model" in the MVC architecture of SYS. 
 > Here the databasing process relies on a hdf5 
 > pytable wrapping, going from simple encapsulations
-> of the create_table,flush methods to 'sophisticated'
+> of the create_table,insert methods to 'sophisticated'
 > routines that facilitate the joins between tables and 
 > the automatic shaping of the rowed datas.
 > 

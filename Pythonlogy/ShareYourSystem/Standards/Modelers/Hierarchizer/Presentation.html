@@ -1798,7 +1798,7 @@ Joiner=BaseModule
         'model',
         'tabular',
         'join',
-        'flush'
+        'insert'
     ]
 })
 class HierarchizerClass(BaseClass):
@@ -1815,13 +1815,13 @@ class HierarchizerClass(BaseClass):
         #Call the parent init method
         BaseClass.__init__(self,**_KwargVariablesDict)
 
-    def mimic_flush(self):
+    def mimic_insert(self):
 
         #debug
         '''
         self.debug(    
                     [
-                        'we setSwitch first and flush',
+                        'we setSwitch first and insert',
                         ('self.',self,[
                                         'JoiningAttentionStr',
                                         'JoiningCollectionStr'
@@ -1831,8 +1831,8 @@ class HierarchizerClass(BaseClass):
         '''
 
         #&lt;NotHook&gt;
-        #flush then
-        BaseClass.flush(self)
+        #insert then
+        BaseClass.insert(self)
         #&lt;/NotHook&gt;
 
         #debug
@@ -1866,7 +1866,7 @@ class HierarchizerClass(BaseClass):
         '''
         self.debug(
                     [
-                        'flush then in the joined attention databasers',
+                        'insert then in the joined attention databasers',
                         ('self.',self,['JoinedAttentionCollectionOrderedDict'])
                     ]
                 )
@@ -1875,7 +1875,7 @@ class HierarchizerClass(BaseClass):
         #map
         map(
                 lambda __JoinedAttentionCollectionDeriveJoinerPointer:
-                __JoinedAttentionCollectionDeriveJoinerPointer.CatchToPointVariable.flush(),
+                __JoinedAttentionCollectionDeriveJoinerPointer.CatchToPointVariable.insert(),
                 self.JoinedAttentionCollectionOrderedDict.values()
             )
 
@@ -2095,7 +2095,7 @@ In&nbsp;[3]:
     <span class="p">}</span>
 <span class="p">)</span>
 
-<span class="c">#Update transmit the do method and flush in the results</span>
+<span class="c">#Update transmit the do method and insert in the results</span>
 <span class="n">MyFactorizer</span><span class="o">.</span><span class="n">__setitem__</span><span class="p">(</span>
     <span class="s">&quot;Dis_&lt;Component&gt;&quot;</span><span class="p">,</span>
     <span class="p">[</span>
@@ -2115,9 +2115,9 @@ In&nbsp;[3]:
         <span class="p">],</span>
         <span class="s">&#39;GatherVariablesList&#39;</span><span class="p">:[</span><span class="s">&#39;&lt;Component&gt;&#39;</span><span class="p">]</span>
     <span class="p">}</span>
-<span class="p">)[</span><span class="s">&#39;&lt;Datome&gt;ResultsHierarchizer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+<span class="p">)[</span><span class="s">&#39;&lt;Datome&gt;ResultsHierarchizer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">insert</span><span class="p">()</span>
 
-<span class="c">#Update and flush in the results</span>
+<span class="c">#Update and insert in the results</span>
 <span class="n">MyFactorizer</span><span class="o">.</span><span class="n">__setitem__</span><span class="p">(</span>
     <span class="s">&quot;Dis_&lt;Component&gt;&quot;</span><span class="p">,</span>
     <span class="p">[</span>
@@ -2135,7 +2135,7 @@ In&nbsp;[3]:
         <span class="p">],</span>
         <span class="s">&#39;GatherVariablesList&#39;</span><span class="p">:[</span><span class="s">&#39;&lt;Component&gt;&#39;</span><span class="p">]</span>
     <span class="p">}</span>
-<span class="p">)[</span><span class="s">&#39;&lt;Datome&gt;ResultsHierarchizer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+<span class="p">)[</span><span class="s">&#39;&lt;Datome&gt;ResultsHierarchizer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">insert</span><span class="p">()</span>
 
 <span class="c">#Definition the AttestedStr</span>
 <span class="n">SYS</span><span class="o">.</span><span class="n">_attest</span><span class="p">(</span>

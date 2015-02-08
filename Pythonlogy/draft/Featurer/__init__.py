@@ -101,7 +101,7 @@ class FeaturerClass(
 		#return self
 		#</NotHook>
 
-	def mimic_flush(self):
+	def mimic_insert(self):
 
 		#<NotHook>
 		#feature first
@@ -118,7 +118,7 @@ class FeaturerClass(
 
 			#debug
 			'''
-			self.debug('flush in the joined featured databasers')
+			self.debug('insert in the joined featured databasers')
 			'''
 
 			#set
@@ -127,7 +127,7 @@ class FeaturerClass(
 			#map
 			map(
 					lambda __FeaturedDatabaser:
-					__FeaturedDatabaser.flush(),
+					__FeaturedDatabaser.insert(),
 					self.FeaturedJoinDatabasersList
 				)
 
@@ -140,10 +140,10 @@ class FeaturerClass(
 		else:
 
 			#debug
-			self.debug('flush now here')
+			self.debug('insert now here')
 
-			#flush directly
-			BaseClass.flush(self)
+			#insert directly
+			BaseClass.insert(self)
 
 	def do_feature(self):
 

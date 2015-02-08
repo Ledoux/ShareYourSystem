@@ -1,7 +1,6 @@
 
 #ImportModules
 import ShareYourSystem as SYS
-#import tables
 
 #Definition 
 MyController=SYS.ControllerClass(
@@ -16,23 +15,30 @@ MyController=SYS.ControllerClass(
 	)
 
 #Build a structure with a database
-MyController['<Tabularers>ThingsTabularer'].tabular(
-		_DatabaseStr="mongo"
-	)
+MyController['<Tabularers>ThingsTabularer'].tabular()
+MyController['<Tabularers>ThingsTabularer'].TabularedMongoTopDatabaseVariable.TestsCollection.remove(
+	{}
+)
+MyController['<Tabularers>ThingsTabularer'].TabularedMongoTopDatabaseVariable.TestsCollection.insert(
+	{'MyStr':"hello"}
+)
 		
 #Definition the AttestedStr
 SYS._attest(
 	[
 		'MyController is '+SYS._str(
 		MyController,
-		**{
-			'RepresentingBaseKeyStrsListBool':False,
-			'RepresentingAlineaIsBool':False
-		}
+			**{
+				'RepresentingBaseKeyStrsListBool':False,
+				'RepresentingAlineaIsBool':False
+			}
 		),
-		'mongo db is : '+MyController.pymongoview().PymongoneViewStr
+		
 	]
 ) 
 
-#Print
+#print
+print('mongo db is : \n'+MyController.pymongoview().PymongoneViewStr)
 
+#Print
+MyController.close()

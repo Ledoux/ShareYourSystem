@@ -101,7 +101,7 @@ class NetworkerClass(BaseClass):
 							('NetworkIndexInt',__IndexInt),
 							(
 								'NetworkKeyStr',
-								__NetworkedDeriveConnecter.ParentedPathStr+'/'+__NetworkedDeriveConnecter.NodeKeyStr
+								__NetworkedDeriveConnecter.ParentedNodePathStr+'/'+__NetworkedDeriveConnecter.NodeKeyStr
 							),
 							(
 								'point',

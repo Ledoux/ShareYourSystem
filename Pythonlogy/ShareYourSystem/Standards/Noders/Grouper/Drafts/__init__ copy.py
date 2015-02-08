@@ -148,7 +148,7 @@ class GrouperClass(BaseClass):
 			self.GroupedPathStr=getGroupedPathStrWithPathStrsList(
 				[
 					UppestGroupedParentVariable.GroupedPathStr,
-					self.ParentedPathStr
+					self.ParentedNodePathStr
 				]
 			)
 

@@ -1734,8 +1734,8 @@ FrozenIsBool False
 <h2 id="doc">Doc</h2>
 <hr>
 <blockquote>
-<p>Joiner instances helps to flush in joined databases, get the corresponding
-RetrieveIndexesLists if it was already flushed, and then flush locally
+<p>Joiner instances helps to insert in joined databases, get the corresponding
+RetrieveIndexesLists if it was already inserted, and then insert locally
 depending if it is a new row compared to all JoinedRetrieveIndexesListsList</p>
 </blockquote>
 <hr>
@@ -1768,8 +1768,8 @@ FrozenIsBool False
 @Author : Erwan Ledoux \n\n
 &lt;/DefineSource&gt;
 
-Joiner instances helps to flush in joined databases, get the corresponding
-RetrieveIndexesLists if it was already flushed, and then flush locally
+Joiner instances helps to insert in joined databases, get the corresponding
+RetrieveIndexesLists if it was already inserted, and then insert locally
 depending if it is a new row compared to all JoinedRetrieveIndexesListsList
 
 """
@@ -1810,7 +1810,7 @@ def getJoinedRetrieveIndexesListWithInstanceVariableAndDeriveDatabaser(
         'model',
         'tabular',
         'join',
-        'flush'
+        'insert'
     ]
 })
 class JoinerClass(BaseClass):
@@ -1907,7 +1907,7 @@ class JoinerClass(BaseClass):
         '''
         self.debug(
                     [
-                        ("We are going to check if is already flushed in the joined databases..."),
+                        ("We are going to check if is already inserted in the joined databases..."),
                         ('self.',self,['JoinedCatchDeriveJoinersList'])
                     ]
                 )
@@ -1974,7 +1974,7 @@ class JoinerClass(BaseClass):
         self.debug('Ok row is over for joining')
         '''
 
-    def mimic_flush(self):
+    def mimic_insert(self):
 
         #&lt;NotHook&gt;
         #row first
@@ -1985,7 +1985,7 @@ class JoinerClass(BaseClass):
         '''
         self.debug(
                     [
-                        'First setSwitch and make flush the catched databases',
+                        'First setSwitch and make insert the catched databases',
                         ('self.',self,[
                                             'JoiningCatchStr',
                                             'JoiningCollectionStr'
@@ -1997,7 +1997,7 @@ class JoinerClass(BaseClass):
         #Flush the post joined databases
         self.JoinedFlushIndexIntsList=map(
             lambda __JoinedCatchDeriveJoinerPointer:
-            __JoinedCatchDeriveJoinerPointer.CatchToPointVariable.flush(),
+            __JoinedCatchDeriveJoinerPointer.CatchToPointVariable.insert(),
             self.JoinedCatchCollectionOrderedDict.values(),
         )
 
@@ -2019,12 +2019,12 @@ class JoinerClass(BaseClass):
 
         #debug
         '''
-        self.debug('Now we can flush here')
+        self.debug('Now we can insert here')
         '''
 
         #&lt;NotHook&gt;
-        #flush then
-        BaseClass.flush(self)
+        #insert then
+        BaseClass.insert(self)
         #&lt;/NotHook&gt;
 
     def mimic_retrieve(self):
@@ -2205,9 +2205,9 @@ class JoinerClass(BaseClass):
                     lambda __JoinedCatchDeriveJoiner:
                     "Join"+''.join(
                         [
-                            __JoinedCatchDeriveJoiner.ModeledPointDeriveStorerVariable.NodeKeyStr
-                            if __JoinedCatchDeriveJoiner.ModeledPointDeriveStorerVariable.NodeKeyStr!="" 
-                            else 'Top'+__JoinedCatchDeriveJoiner.ModeledPointDeriveStorerVariable.__class__.NameStr,
+                            __JoinedCatchDeriveJoiner.ModeledPointDeriveControllerVariable.NodeKeyStr
+                            if __JoinedCatchDeriveJoiner.ModeledPointDeriveControllerVariable.NodeKeyStr!="" 
+                            else 'Top'+__JoinedCatchDeriveJoiner.ModeledPointDeriveControllerVariable.__class__.NameStr,
                             __JoinedCatchDeriveJoiner.ModeledSuffixStr
                         ]
                     )+"RetrieveIndexesList",
@@ -2224,14 +2224,14 @@ class JoinerClass(BaseClass):
                     lambda __JoinedCatchDeriveJoiner:
                     "Joined"+''.join(
                         [
-                            self.ModeledPointDeriveStorerVariable.NodeKeyStr
-                            if self.ModeledPointDeriveStorerVariable.NodeKeyStr!="" 
-                            else 'Top'+self.ModeledPointDeriveStorerVariable.__class__.NameStr,
+                            self.ModeledPointDeriveControllerVariable.NodeKeyStr
+                            if self.ModeledPointDeriveControllerVariable.NodeKeyStr!="" 
+                            else 'Top'+self.ModeledPointDeriveControllerVariable.__class__.NameStr,
                             self.ModeledSuffixStr,
                             'To',
-                            __JoinedCatchDeriveJoiner.ModeledPointDeriveStorerVariable.NodeKeyStr
-                            if __JoinedCatchDeriveJoiner.ModeledPointDeriveStorerVariable.NodeKeyStr!="" 
-                            else 'Top'+__JoinedCatchDeriveJoiner.ModeledPointDeriveStorerVariable.__class__.NameStr,
+                            __JoinedCatchDeriveJoiner.ModeledPointDeriveControllerVariable.NodeKeyStr
+                            if __JoinedCatchDeriveJoiner.ModeledPointDeriveControllerVariable.NodeKeyStr!="" 
+                            else 'Top'+__JoinedCatchDeriveJoiner.ModeledPointDeriveControllerVariable.__class__.NameStr,
                             __JoinedCatchDeriveJoiner.ModeledSuffixStr
                         ]
                     )+"RetrieveIndexesList",
@@ -2249,7 +2249,7 @@ class JoinerClass(BaseClass):
             '''
 
             #Table all the joined databasers and init the corresponding JoinedRetrieveIndexesList in the NodePointDeriveNoder
-            self.ModeledPointDeriveStorerVariable.update(
+            self.ModeledPointDeriveControllerVariable.update(
                 zip(
                         self.JoinedRetrieveIndexesListGetStrsList,
                         map(
@@ -2414,7 +2414,7 @@ In&nbsp;[3]:
     <span class="p">}</span>
 <span class="p">)</span>
 
-<span class="c">#Update and flush in the results</span>
+<span class="c">#Update and insert in the results</span>
 <span class="n">MyModulizer</span><span class="o">.</span><span class="n">__setitem__</span><span class="p">(</span>
     <span class="s">&quot;Dis_&lt;Component&gt;&quot;</span><span class="p">,</span>
     <span class="p">[</span>
@@ -2427,9 +2427,9 @@ In&nbsp;[3]:
             <span class="p">(</span><span class="s">&#39;MultiplyingSecondInt&#39;</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
         <span class="p">]</span>
     <span class="p">]</span>
-<span class="p">)[</span><span class="s">&#39;&lt;Datome&gt;ParametersJoiner&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+<span class="p">)[</span><span class="s">&#39;&lt;Datome&gt;ParametersJoiner&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">insert</span><span class="p">()</span>
 
-<span class="c">#Update and flush in the results</span>
+<span class="c">#Update and insert in the results</span>
 <span class="n">MyModulizer</span><span class="o">.</span><span class="n">__setitem__</span><span class="p">(</span>
     <span class="s">&quot;Dis_&lt;Component&gt;&quot;</span><span class="p">,</span>
     <span class="p">[</span>
@@ -2440,7 +2440,7 @@ In&nbsp;[3]:
             <span class="p">(</span><span class="s">&#39;MultiplyingSecondInt&#39;</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
         <span class="p">]</span>
     <span class="p">]</span>
-<span class="p">)[</span><span class="s">&#39;&lt;Datome&gt;ParametersJoiner&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+<span class="p">)[</span><span class="s">&#39;&lt;Datome&gt;ParametersJoiner&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">insert</span><span class="p">()</span>
 
 
 <span class="c">#Definition the AttestedStr</span>

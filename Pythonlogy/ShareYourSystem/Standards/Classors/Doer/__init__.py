@@ -632,7 +632,7 @@ DoStrsTuplesList=[
 	('Tabularer','Tabular','Tabularing','Tabulared'),
 	('Tabler','Table','Tabling','Tabled'),
 	('Rower','Row','Rowing','Rowed'),
-	('Flusher','Flush','Flushing','Flushed'),
+	('Inserter','Insert','Inserting','Inserted'),
 	('Retriever','Retrieve','Retrieving','Retrieved'),
 	('Findoer','Find','Finding','Found'),
 	('Recoverer','Recover','Recovering','Recovered'),
@@ -707,7 +707,8 @@ DoStrsTuplesList=[
 	('Predirater','Predirate','Predirating','Predirated'),
 	('Leaker','Leak','Leaking','Leaked'),
 	('Expresser','Express','Expressing','Expressed'),
-	('Pymongoer','Pymongo','Pymongoing','Pymongone')
+	('Pymongoer','Pymongo','Pymongoing','Pymongone'),
+	('Texter','Text','Texting','Texted')
 ]
 
 DoerStrToDoStrOrderedDict=SYS.dictify(DoStrsTuplesList,0,1)

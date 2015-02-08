@@ -270,12 +270,12 @@ def attest_join():
 											),
 											('model',{'ArgsVariable':"Feature"}),
 											('tabular',{'ArgsVariable':"Feature"}),
-											('flush',{}),
+											('insert',{}),
 											('UnitsInt',2),
 											('MyIntsList',[2,4]),
 											('MyFloatsList',[2.3,4.5]),
 											('tabular',{'ArgsVariable':"Feature"}),
-											('flush',{}),
+											('insert',{}),
 											('model',{
 														'ArgsVariable':"Output",
 														'KwargsDict':{'JoiningStr':"Scan"}
@@ -285,7 +285,7 @@ def attest_join():
 														'ArgsVariable':"Output",
 													}
 											),
-											('flush',{})
+											('insert',{})
 										]
 									)
 							).hdfclose()

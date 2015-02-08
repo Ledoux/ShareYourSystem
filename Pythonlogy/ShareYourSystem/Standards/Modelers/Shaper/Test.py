@@ -12,5 +12,5 @@ _print(Shaper.ShaperClass())
 _print(Shaper.ShaperClass().__dict__)
 
 #Test
-print(Shaper.attest_flushWithShaping())
+print(Shaper.attest_insertWithShaping())
 

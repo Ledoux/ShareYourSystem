@@ -10,9 +10,9 @@ FrozenIsBool False
 
 
 > 
-> Retriever instances can retrieve FlushedVariablesList given their 
+> Retriever instances can retrieve InsertedVariablesList given their 
 > IndexInt of their corresponding table and their RowInt 
-> (ie their index of their flushed line).
+> (ie their index of their inserted line).
 > 
 > 
 

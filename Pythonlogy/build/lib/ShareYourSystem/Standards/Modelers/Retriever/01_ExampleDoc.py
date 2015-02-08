@@ -30,7 +30,7 @@ MyController.update(
 				('MyIntsList',[2,4,6])
 			]
 ).command(
-	_UpdateList=[('flush',{'LiargVariablesList':[]})],	
+	_UpdateList=[('insert',{'LiargVariablesList':[]})],	
 	**{'GatheringVariablesList':['<Retrievers>ThingsRetriever']}		
 ).update(
 			[
@@ -39,7 +39,7 @@ MyController.update(
 				('MyIntsList',[0,0,0])
 			]
 ).command(
-	_UpdateList=[('flush',{'LiargVariablesList':[]})],	
+	_UpdateList=[('insert',{'LiargVariablesList':[]})],	
 )
 
 

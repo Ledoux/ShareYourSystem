@@ -11,14 +11,17 @@ MyController=SYS.ControllerClass().collect(
 )
 
 #Definition a Databaser instance
-MyController['<Databasers>ThingsDatabaser'].database([
+MyController['<Databasers>ThingsDatabaser'].database(
+	#DatabasingSealTuplesList
+	[
 		#GetStr #ColumnStr #Col
 		('MyInt','MyInt',tables.Int64Col()),
 		('MyStr','MyStr',tables.StringCol(10)),
 		('MyIntsList','MyIntsList',tables.Int64Col(shape=3))
-])
+	]
+)
 							
-		
+	
 #Definition the AttestedStr
 SYS._attest(
 	[

@@ -10,7 +10,7 @@ FrozenIsBool False
 
 
 > 
-> Scanner instances helps for doing and flushing rows from
+> Scanner instances helps for doing and inserting rows from
 > a range of modeling values
 >  
 > 

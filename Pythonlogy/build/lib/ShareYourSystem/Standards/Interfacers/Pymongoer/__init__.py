@@ -33,7 +33,7 @@ class PymongoerClass(BaseClass):
 	#Definition
 	RepresentingKeyStrsList=[
 			'PymongoingUrlStr',
-			'PymongoingDatabaseStr',
+			'PymongoingDatabaseKeyStr',
 			'PymongoneFolderPathStr',
 			'PymongonePopenVariable',
 			'PymongoneClientVariable',
@@ -42,7 +42,7 @@ class PymongoerClass(BaseClass):
 
 	def default_init(self,		
 			_PymongoingUrlStr='mongodb://localhost:27017/',
-			_PymongoingDatabaseStr='Default',
+			_PymongoingDatabaseKeyStr='Default',
 			_PymongoneFolderPathStr="",
 			_PymongonePopenVariable=None,
 			_PymongoneClientVariable=None,
@@ -100,21 +100,77 @@ class PymongoerClass(BaseClass):
 				('self.',self,['PymongonePopenVariable'])
 			)
 
-			#wait
+			#wait for connect
 			import time
-			time.sleep(0.2)
+			PymongoneConnectBool=False
+			while PymongoneConnectBool==False:
+				try:
+					self.PymongoneClientVariable=MongoClient(self.PymongoingUrlStr)
+					if self.PymongoneClientVariable!=None:
+						PymongoneConnectBool=True
+				except:
+					PymongoneConnectBool=False
+					time.sleep(0.2)
 
-			#init
-			self.PymongoneClientVariable=MongoClient(self.PymongoingUrlStr)
+			#debug
+			self.debug(
+				[
+					'after connection',
+					('self.',self,['PymongoneClientVariable'])
+				]
+			)
 
 		#get
 		self.PymongoneDatabaseVariable=getattr(
 				self.PymongoneClientVariable,
-				self.PymongoingDatabaseStr
+				self.PymongoingDatabaseKeyStr
 			) 
 
 		#give a parent pointer
 		self.PymongoneDatabaseVariable.ParentDerivePymongoer=self
+
+		#
+
+	def pymongoview(self):
+
+		#debug
+		'''
+		self.debug(
+			[
+				('self.',self,['PymongoneDatabaseVariable']),
+				'self.PymongoneDatabaseVariable.collection_names is \n',
+				self.PymongoneDatabaseVariable.collection_names()
+			]
+		)
+		'''
+
+		#map
+		self.PymongoneViewStr='\n'.join(
+			map(
+				lambda __CollectionStr:
+				'In '+__CollectionStr+' : \n'+SYS._str(
+					list(self.PymongoneDatabaseVariable[__CollectionStr].find())
+				),
+				self.PymongoneDatabaseVariable.collection_names()
+			)
+		)
+
+		#return self
+		return self
+		
+	def mongoclose(self):
+
+		#kill the process
+		if self.PymongonePopenVariable!=None:
+
+			#debug
+			self.debug('kill the mongod popen variable')
+
+			#kill
+			self.PymongonePopenVariable.kill()
+
+		#return self
+		return self
 
 #</DefineClass>
 

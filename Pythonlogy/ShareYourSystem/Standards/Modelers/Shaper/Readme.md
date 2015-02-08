@@ -69,7 +69,7 @@ SYS.setSubModule(globals())
 import copy
 import collections
 import numpy
-from ShareYourSystem.Standards.Modelers import Modeler,Tabularer,Tabler,Flusher
+from ShareYourSystem.Standards.Modelers import Modeler,Tabularer,Tabler,Inserter
 #</ImportSpecificModules>
 
 #<DefineLocals>
@@ -286,7 +286,7 @@ self.TabularedSuffixStr=self.ShapedStr+ShapingJoiningStr+self.TabularedSuffixStr
 "+self.TabularedSuffixStr)
                         '''
 
-        def mimic_flush(self):
+        def mimic_insert(self):
 
                 #debug
                 '''
@@ -304,14 +304,14 @@ self.TabularedSuffixStr=self.ShapedStr+ShapingJoiningStr+self.TabularedSuffixStr
                 try:
 
                         #<NotHook>
-                        #flush first
-                        BaseClass.flush(self)
+                        #insert first
+                        BaseClass.insert(self)
                         #</NotHook>
 
                 except ValueError:
 
-                        #Definition the FlushedOldDimensionIntsListsList
-                        FlushedOldDimensionIntsList=map(
+                        #Definition the InsertedOldDimensionIntsListsList
+                        InsertedOldDimensionIntsList=map(
                                         lambda
 __ShapedSealDimensionGetKeyStrsList:
                                         self.NodePointDeriveNoder.pick(
@@ -319,8 +319,8 @@ __ShapedSealDimensionGetKeyStrsList),
 self.ShapedSealDimensionGetKeyStrsListsList
                                         )
 
-                        #Definition the FlushedNewDimensionIntsListsList
-                        FlushedNewDimensionIntsListsList=map(
+                        #Definition the InsertedNewDimensionIntsListsList
+                        InsertedNewDimensionIntsListsList=map(
                 lambda __ShapedSealGetKeyStr:
                 list(
                                 numpy.shape(
@@ -333,29 +333,29 @@ self.NodePointDeriveNoder[__ShapedSealGetKeyStr]
                         #debug
                         '''
                         self.debug(('vars ',vars(),[
-        'FlushedOldDimensionIntsList',
-        'FlushedNewDimensionIntsListsList'
+        'InsertedOldDimensionIntsList',
+        'InsertedNewDimensionIntsListsList'
 ]))
                         '''
 
                         #set the shaping attributes to their new values
                         map(
                                         lambda __ShapedSealDimensionGetKeyStrsLi
-st,__FlushedOldDimensionList,__FlushedNewDimensionList:
+st,__InsertedOldDimensionList,__InsertedNewDimensionList:
                                         self.__setitem__(
                                                 'ShapedErrorBool',
                                                 True
                                                 ).NodePointDeriveNoder.update(
                                                 zip(
 __ShapedSealDimensionGetKeyStrsList,
-__FlushedNewDimensionList
+__InsertedNewDimensionList
                                                         )
                                         ) if
-__FlushedNewDimensionList!=__FlushedOldDimensionList
+__InsertedNewDimensionList!=__InsertedOldDimensionList
                                         else None,
 self.ShapedSealDimensionGetKeyStrsListsList,
-                                        FlushedOldDimensionIntsList,
-                                        FlushedNewDimensionIntsListsList
+                                        InsertedOldDimensionIntsList,
+                                        InsertedNewDimensionIntsListsList
                                         )
 
                         #debug
@@ -372,12 +372,12 @@ self.ShapedSealDimensionGetKeyStrsListsList,
 
                         #debug
                         '''
-                        self.debug('Ok table again is done, so now we flush')
+                        self.debug('Ok table again is done, so now we insert')
                         '''
 
                         #<NotHook>
-                        #flush first
-                        BaseClass.flush(self)
+                        #insert first
+                        BaseClass.insert(self)
                         #</NotHook>
 
         def do_shape(self):
@@ -537,7 +537,7 @@ MyStructurer.update(
         ('UnitsInt',3),
         ('MyIntsList',[0,0,1])
     ]
-)['<Datome>ThingsShaper'].flush()
+)['<Datome>ThingsShaper'].insert()
 
 MyStructurer.update(
     [
@@ -545,7 +545,7 @@ MyStructurer.update(
         ('MyStr',"bonjour"),
         ('MyIntsList',[0,0,1])
     ]
-)['<Datome>ThingsShaper'].flush()
+)['<Datome>ThingsShaper'].insert()
 
 
 MyStructurer.update(
@@ -554,7 +554,7 @@ MyStructurer.update(
         ('MyStr',"ola"),
         ('MyIntsList',[0,1])
     ]
-)['<Datome>ThingsShaper'].flush()
+)['<Datome>ThingsShaper'].insert()
 
 #Definition the AttestedStr
 SYS._attest(
@@ -672,7 +672,7 @@ hdf5 file is : /                        Group
         (0) {RowInt=0, MyInt=1, MyIntsList=[0,0,1], MyStr="bonjour"},
         (1) {RowInt=1, MyInt=0, MyIntsList=[0,0,1], MyStr="guten tag"},
         (2) {RowInt=2, MyInt=1, MyIntsList=[0,0,0], MyStr="bonjour"}
-/xx0xxThingsFlusherTable Dataset {2/Inf}
+/xx0xxThingsInserterTable Dataset {2/Inf}
     Data:
         (0) {RowInt=0, MyInt=1, MyIntsList=[2,4,6], MyStr="bonjour"},
         (1) {RowInt=1, MyInt=0, MyIntsList=[0,0,0], MyStr="hello"}

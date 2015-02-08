@@ -66,16 +66,16 @@ class BoxerClass(BaseClass):
 		#debug
 		self.debug(('self.',self,[
 			#'ParentedDeriveParentersList',
-			'ParentedPathStr'
+			'ParentedNodePathStr'
 		]))
 
 		#Determine the deep
-		self.BoxedDeepInt=len(self.ParentedPathStr.split('/'))
+		self.BoxedDeepInt=len(self.ParentedNodePathStr.split('/'))
 		'''
 
 		#set
-		self.BoxedParentPathStr=self.BoxedDerivePatcherVariable.ParentedPathStr
-		self.BoxedPathStr=self.BoxedDerivePatcherVariable.ParentedPathStr+'/'+self.BoxedDerivePatcherVariable.NodeKeyStr
+		self.BoxedParentPathStr=self.BoxedDerivePatcherVariable.ParentedNodePathStr
+		self.BoxedPathStr=self.BoxedDerivePatcherVariable.ParentedNodePathStr+'/'+self.BoxedDerivePatcherVariable.NodeKeyStr
 
 
 		#insert the node box

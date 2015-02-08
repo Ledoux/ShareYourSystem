@@ -8,8 +8,8 @@
 </DefineSource>
 
 
-Joiner instances helps to flush in Hierarchized databases, get the corresponding
-RetrieveIndexesLists if it was already flushed, and then flush locally
+Joiner instances helps to insert in Hierarchized databases, get the corresponding
+RetrieveIndexesLists if it was already inserted, and then insert locally
 depending if it is a new row compared to all HierarchizedRetrieveIndexesListsList
 
 """
@@ -270,7 +270,7 @@ class HierarchizerClass(BaseClass):
 
 	#@Argumenter.ArgumenterClass()
 	@Imitater.ImitaterClass()
-	def flush(self):
+	def insert(self):
 				
 		#<NotHook>
 		#row first
@@ -281,7 +281,7 @@ class HierarchizerClass(BaseClass):
 		'''
 		self.debug(
 					[
-						'First make flush the Hierarchized databases',
+						'First make insert the Hierarchized databases',
 						('self.',self,['HierarchizedNodeVariablesList'])
 					]
 				)
@@ -290,7 +290,7 @@ class HierarchizerClass(BaseClass):
 		#Flush the Hierarchized databases
 		self.HierarchizedFlushIndexIntsList=map(
 					lambda __HierarchizedDeriveDatabaser:
-					__HierarchizedDeriveDatabaser.flush(),
+					__HierarchizedDeriveDatabaser.insert(),
 					self.HierarchizedDeriveDatabasersList
 				)
 
@@ -298,7 +298,7 @@ class HierarchizerClass(BaseClass):
 		'''
 		self.debug(
 					[
-						'First make flush the Hierarchized databases',
+						'First make insert the Hierarchized databases',
 						('self.',self,['HierarchizedNodeVariablesList'])
 					]
 				)
@@ -306,12 +306,12 @@ class HierarchizerClass(BaseClass):
 
 		#debug
 		'''
-		self.debug('Now we can flush')
+		self.debug('Now we can insert')
 		'''
 
 		#<NotHook>
-		#flush then
-		BaseClass.flush(self)
+		#insert then
+		BaseClass.insert(self)
 		#</NotHook>
 
 		#<NotHook>

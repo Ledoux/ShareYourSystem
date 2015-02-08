@@ -121,7 +121,7 @@ MyFactorizer=FactorizerClass(
 		}
 	)
 
-#Update transmit the do method and flush in the results
+#Update transmit the do method and insert in the results
 MyFactorizer.__setitem__(
 	"Dis_<Components>",
 	[
@@ -141,9 +141,9 @@ MyFactorizer.__setitem__(
 		],
 		'GatherVariablesList':['<Components>']
 	}
-)['<Models>ResultsHierarchizer'].flush()
+)['<Models>ResultsHierarchizer'].insert()
 
-#Update and flush in the results
+#Update and insert in the results
 MyFactorizer.__setitem__(
 	"Dis_<Components>",
 	[
@@ -161,7 +161,7 @@ MyFactorizer.__setitem__(
 		],
 		'GatherVariablesList':['<Components>']
 	}
-)['<Models>ResultsHierarchizer'].flush()
+)['<Models>ResultsHierarchizer'].insert()
 
 #Definition the AttestedStr
 SYS._attest(

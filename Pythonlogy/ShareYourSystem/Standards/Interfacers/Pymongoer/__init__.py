@@ -100,12 +100,25 @@ class PymongoerClass(BaseClass):
 				('self.',self,['PymongonePopenVariable'])
 			)
 
-			#wait
+			#wait for connect
 			import time
-			time.sleep(0.2)
+			PymongoneConnectBool=False
+			while PymongoneConnectBool==False:
+				try:
+					self.PymongoneClientVariable=MongoClient(self.PymongoingUrlStr)
+					if self.PymongoneClientVariable!=None:
+						PymongoneConnectBool=True
+				except:
+					PymongoneConnectBool=False
+					time.sleep(0.2)
 
-			#init
-			self.PymongoneClientVariable=MongoClient(self.PymongoingUrlStr)
+			#debug
+			self.debug(
+				[
+					'after connection',
+					('self.',self,['PymongoneClientVariable'])
+				]
+			)
 
 		#get
 		self.PymongoneDatabaseVariable=getattr(
@@ -116,13 +129,48 @@ class PymongoerClass(BaseClass):
 		#give a parent pointer
 		self.PymongoneDatabaseVariable.ParentDerivePymongoer=self
 
+		#
+
 	def pymongoview(self):
 
+		#debug
 		'''
-		self.PymongoneConsoleStr=map(
-			self.PymongoneDatabaseVariable
+		self.debug(
+			[
+				('self.',self,['PymongoneDatabaseVariable']),
+				'self.PymongoneDatabaseVariable.collection_names is \n',
+				self.PymongoneDatabaseVariable.collection_names()
+			]
+		)
 		'''
-		pass
+
+		#map
+		self.PymongoneViewStr='\n'.join(
+			map(
+				lambda __CollectionStr:
+				'In '+__CollectionStr+' : \n'+SYS._str(
+					list(self.PymongoneDatabaseVariable[__CollectionStr].find())
+				),
+				self.PymongoneDatabaseVariable.collection_names()
+			)
+		)
+
+		#return self
+		return self
+		
+	def mongoclose(self):
+
+		#kill the process
+		if self.PymongonePopenVariable!=None:
+
+			#debug
+			self.debug('kill the mongod popen variable')
+
+			#kill
+			self.PymongonePopenVariable.kill()
+
+		#return self
+		return self
 
 #</DefineClass>
 

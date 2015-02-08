@@ -95,7 +95,7 @@ MySumer.update(
 			('SumingSecondInt',3)
 		]
 	).sum(
-	)['<Joiners>ResultsJoiner'].flush(
+	)['<Joiners>ResultsJoiner'].insert(
 )
 
 
@@ -112,7 +112,7 @@ MySumer.update(
 	#		('setSwitch',{'LiargVariablesList':[],'KwargVariablesDict':{'_DoStrsList':['Flush']}})
 	#	],
 	#	['PostConnectome']
-	].flush()
+	].insert()
 
 #Definition the AttestedStr
 SYS._attest(

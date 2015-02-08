@@ -568,7 +568,7 @@ DoStrsTuplesList=[
 	('Tabularer','Tabular','Tabularing','Tabulared'),
 	('Tabler','Table','Tabling','Tabled'),
 	('Rower','Row','Rowing','Rowed'),
-	('Flusher','Flush','Flushing','Flushed'),
+	('Inserter','Flush','Inserting','Inserted'),
 	('Retriever','Retrieve','Retrieving','Retrieved'),
 	('Findoer','Find','Finding','Found'),
 	('Recoverer','Recover','Recovering','Recovered'),

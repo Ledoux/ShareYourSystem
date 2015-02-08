@@ -8,14 +8,14 @@
 </DefineSource>
 
 
-Scanner instances helps for doing and flushing rows from
+Scanner instances helps for doing and inserting rows from
 a range of modeling values
  
 """
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Databasers.Flusher"
+BaseModuleStr="ShareYourSystem.Databasers.Inserter"
 DecorationModuleStr="ShareYourSystem.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -60,8 +60,8 @@ class ScannerClass(BaseClass):
 		#Check
 		if len(self.ScanningRangeTuplesList)==0:
 
-			#just flush
-			self.flush()
+			#just insert
+			self.insert()
 
 		else:
 
@@ -98,7 +98,7 @@ class ScannerClass(BaseClass):
 								__ScannedValueVariablesTuple
 							)
 						).setDoneVariables(),'NodedDatabaseOrderedDict'
-						)[self.ScanningDatabaseKeyStr].flush().pick(['TabledInt','RowedIndexInt']),
+						)[self.ScanningDatabaseKeyStr].insert().pick(['TabledInt','RowedIndexInt']),
 					self.ScannedValueVariablesTuplesList
 				)
 

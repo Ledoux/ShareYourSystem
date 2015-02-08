@@ -11,9 +11,9 @@ FrozenIsBool False
 
 
 >
-> Retriever instances can retrieve FlushedVariablesList given their
+> Retriever instances can retrieve InsertedVariablesList given their
 > IndexInt of their corresponding table and their RowInt
-> (ie their index of their flushed line).
+> (ie their index of their inserted line).
 >
 >
 
@@ -50,15 +50,15 @@ FrozenIsBool False
 </DefineSource>
 
 
-Retriever instances can retrieve FlushedVariablesList given their
+Retriever instances can retrieve InsertedVariablesList given their
 IndexInt of their corresponding table and their RowInt
-(ie their index of their flushed line).
+(ie their index of their inserted line).
 
 """
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Modelers.Flusher"
+BaseModuleStr="ShareYourSystem.Standards.Modelers.Inserter"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -140,7 +140,7 @@ BaseClass.DatabasingSealTuplesList.__doc__
                 self.debug(
                                         [
                                                 ('self.',self,[
-'TabularedKeyStrsList',
+'TabularedTableKeyStrsList',
 'RetrievingIndexesList'
                                                                         ])
                                         ]
@@ -157,7 +157,7 @@ BaseClass.DatabasingSealTuplesList.__doc__
                 self.debug(
                                         [
                                                 ('Ok table is done'),
-('self.',self,['TabularedTablesOrderedDict','TabularedKeyStrsList'])
+('self.',self,['TabularedTablesOrderedDict','TabularedTableKeyStrsList'])
                                         ]
                                 )
                 '''
@@ -167,7 +167,7 @@ BaseClass.DatabasingSealTuplesList.__doc__
 
                 #Definition the RetrievedTable
                 self.RetrievedTable=self.TabularedTablesOrderedDict[
-                        self.TabularedKeyStrsList[
+                        self.TabularedTableKeyStrsList[
                                 self.RetrievingIndexesList[0]
                         ]
                 ]
@@ -293,7 +293,7 @@ MyStructurer.update(
                 ('MyIntsList',[2,4,6])
             ]
 ).command(
-    _UpdateList=[('flush',{'LiargVariablesList':[]})],
+    _UpdateList=[('insert',{'LiargVariablesList':[]})],
     **{'GatheringVariablesList':['<Datome>ThingsRetriever']}
 ).update(
             [
@@ -302,7 +302,7 @@ MyStructurer.update(
                 ('MyIntsList',[0,0,0])
             ]
 ).command(
-    _UpdateList=[('flush',{'LiargVariablesList':[]})],
+    _UpdateList=[('insert',{'LiargVariablesList':[]})],
 )
 
 
@@ -431,7 +431,7 @@ hdf5 file is : /                        Group
         (0) {RowInt=0, MyInt=1, MyIntsList=[0,0,1], MyStr="bonjour"},
         (1) {RowInt=1, MyInt=0, MyIntsList=[0,0,1], MyStr="guten tag"},
         (2) {RowInt=2, MyInt=1, MyIntsList=[0,0,0], MyStr="bonjour"}
-/xx0xxThingsFlusherTable Dataset {2/Inf}
+/xx0xxThingsInserterTable Dataset {2/Inf}
     Data:
         (0) {RowInt=0, MyInt=1, MyIntsList=[2,4,6], MyStr="bonjour"},
         (1) {RowInt=1, MyInt=0, MyIntsList=[0,0,0], MyStr="hello"}

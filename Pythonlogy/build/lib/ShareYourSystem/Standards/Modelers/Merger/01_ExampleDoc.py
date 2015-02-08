@@ -42,7 +42,7 @@ MyController.update(
 		('UnitsInt',3),
 		('MyIntsList',[0,0,1])
 	]
-)['<Datome>ThingsMerger'].flush()
+)['<Datome>ThingsMerger'].insert()
 
 MyController.update(
 	[
@@ -50,7 +50,7 @@ MyController.update(
 		('MyStr',"bonjour"),
 		('MyIntsList',[0,0,1])
 	]
-)['<Datome>ThingsMerger'].flush()
+)['<Datome>ThingsMerger'].insert()
 
 MyController.update(
 	[
@@ -58,7 +58,7 @@ MyController.update(
 		('MyStr',"ola"),
 		('MyIntsList',[0,1])
 	]
-)['<Datome>ThingsMerger'].flush()
+)['<Datome>ThingsMerger'].insert()
 
 #Merge
 MyController['<Datome>ThingsMerger'].merge(

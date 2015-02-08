@@ -74,7 +74,7 @@ class DistanceClass(SYS.ObjectsClass):
 #</DefineClass>
 
 #<DefineAttestingFunctions>
-def attest_flush():
+def attest_insert():
 
 	#Flush the default output
 	Distance=SYS.DistanceClass(
@@ -83,43 +83,43 @@ def attest_flush():
 						('IntsList',[4,5]),
 						('PowerFloat',0.5)
 					]
-		).flush('Result'
+		).insert('Result'
 		).update(
 					[
 						('IntsList',[4,5]),
 						('PowerFloat',1.)
 					]
-		).flush(
+		).insert(
 		).update(
 					[
 						('IntsList',[4,5]),
 						('PowerFloat',2.)
 					]
-		).flush(
+		).insert(
 		).update(
 					[
 						('IntsList',[1,2,3]),
 						('PowerFloat',0.5)
 					]
-		).flush(
+		).insert(
 		).update(
 					[
 						('IntsList',[4,6]),
 						('PowerFloat',1.)
 					]
-		).flush(
+		).insert(
 		).update(
 					[
 						('IntsList',[1,2,3]),
 						('PowerFloat',1.)
 					]
-		).flush( 
+		).insert( 
 		).update(
 					[
 						('IntsList',[0,1]),
 						('PowerFloat',0.5)
 					]
-		).flush( 
+		).insert( 
 		).hdfclose()
 
 	#Return the object and the h5py

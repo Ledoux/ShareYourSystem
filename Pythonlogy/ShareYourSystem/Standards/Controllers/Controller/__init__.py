@@ -36,7 +36,6 @@ class ControllerClass(BaseClass):
 		#Call the parent init method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
-	#@Argumenter.ArgumenterClass()
 	def do_control(self):
 		pass
 

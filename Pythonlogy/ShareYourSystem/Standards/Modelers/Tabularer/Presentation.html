@@ -1797,7 +1797,7 @@ class TabularerClass(
                                     'TabularedGroupVariable',     
                                     'TabularedTopFileVariable',                                    
                                     'TabularedSuffixStr',                                                                
-                                    'TabularedKeyStrsList',                                                     
+                                    'TabularedTableKeyStrsList',                                                     
                                     'TabularedTablesOrderedDict'
                                 ]
 
@@ -1805,7 +1805,7 @@ class TabularerClass(
                     _TabularedGroupVariable=None,
                     _TabularedTopFileVariable=None,
                     _TabularedSuffixStr="",
-                    _TabularedKeyStrsList=None,
+                    _TabularedTableKeyStrsList=None,
                     _TabularedTablesOrderedDict=None,
                     **_KwargVariablesDict
                 ):
@@ -1848,10 +1848,10 @@ class TabularerClass(
         '''
 
         #Maybe we have to hdformat first
-        if self.ModeledPointDeriveStorerVariable!=None:
+        if self.ModeledPointDeriveControllerVariable!=None:
 
             #Check
-            if self.ModeledPointDeriveStorerVariable.HdformatedFileVariable==None:
+            if self.ModeledPointDeriveControllerVariable.HdformatedFileVariable==None:
 
                 #debug
                 '''
@@ -1859,12 +1859,12 @@ class TabularerClass(
                 '''
 
                 #Hdformat
-                self.ModeledPointDeriveStorerVariable.hdformat()
-                #self.ModeledPointDeriveStorerVariable.structure()
+                self.ModeledPointDeriveControllerVariable.hdformat()
+                #self.ModeledPointDeriveControllerVariable.structure()
 
             #Link
-            self.TabularedTopFileVariable=self.ModeledPointDeriveStorerVariable.HdformatedFileVariable
-            self.GroupedPathStr=self.ModeledPointDeriveStorerVariable.GroupedPathStr
+            self.TabularedTopFileVariable=self.ModeledPointDeriveControllerVariable.HdformatedFileVariable
+            self.GroupedPathStr=self.ModeledPointDeriveControllerVariable.GroupedPathStr
 
             #debug
             '''
@@ -1911,7 +1911,7 @@ class TabularerClass(
                 '''
 
                 #Get and sort
-                self.TabularedKeyStrsList=sorted(
+                self.TabularedTableKeyStrsList=sorted(
                     filter(
                             lambda __KeyStr:
                             __KeyStr.endswith(self.TabularedSuffixStr),
@@ -1926,7 +1926,7 @@ class TabularerClass(
                                 __TabularedKeyStr,
                                 self.TabularedGroupVariable._f_getChild(__TabularedKeyStr)
                             ),
-                            self.TabularedKeyStrsList
+                            self.TabularedTableKeyStrsList
                         )
                 )
 
@@ -1934,7 +1934,7 @@ class TabularerClass(
                 '''
                 self.debug(("self.",self,[
                                             'TabularedSuffixStr',
-                                            'TabularedKeyStrsList'
+                                            'TabularedTableKeyStrsList'
                                             ]))
                 '''
 
@@ -2078,7 +2078,7 @@ MyStructurer is &lt; (StructurerClass), 4565029712&gt;
   &quot;MyStr&quot;: StringCol(itemsize=10, shape=(), dflt=&apos;&apos;, pos=3)}
   byteorder := &apos;little&apos;
   chunkshape := (1310,)
-/xx0xxThingsFlusherTable (Table(2,)) &apos;This is the ThingsFlusherModelClass&apos;
+/xx0xxThingsInserterTable (Table(2,)) &apos;This is the ThingsInserterModelClass&apos;
   description := {
   &quot;RowInt&quot;: Int64Col(shape=(), dflt=0, pos=0),
   &quot;MyInt&quot;: Int64Col(shape=(), dflt=0, pos=1),
@@ -2157,8 +2157,8 @@ MyStructurer is &lt; (StructurerClass), 4565029712&gt;
 /TopStructurer/FirstChildStructurer/GrandChildStructurer (Group) &apos;&apos;
 
    /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;TabularedGroupVariable&apos; : / (RootGroup) &apos;&apos;
-  children := [&apos;xx1xx__UnitsInt_2__ThingsMergerTable&apos; (Table), &apos;xx0xx__UnitsInt_3__ThingsShaperTable&apos; (Table), &apos;xx0xxThingsRetrieverTable&apos; (Table), &apos;xx0xxThingsFlusherTable&apos; (Table), &apos;xx1xx__UnitsInt_2__ThingsShaperTable&apos; (Table), &apos;xx0xx__UnitsInt_3__ThingsMergerTable&apos; (Table), &apos;TopStructurer&apos; (Group), &apos;xx0xxThingsRecovererTable&apos; (Table), &apos;xx0xxThingsFindoerTable&apos; (Table), &apos;xx0xxThingsRowerTable&apos; (Table), &apos;xx0xxThingsTablerTable&apos; (Table)]
-   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;TabularedKeyStrsList&apos; : []
+  children := [&apos;xx1xx__UnitsInt_2__ThingsMergerTable&apos; (Table), &apos;xx0xx__UnitsInt_3__ThingsShaperTable&apos; (Table), &apos;xx0xxThingsRetrieverTable&apos; (Table), &apos;xx0xxThingsInserterTable&apos; (Table), &apos;xx1xx__UnitsInt_2__ThingsShaperTable&apos; (Table), &apos;xx0xx__UnitsInt_3__ThingsMergerTable&apos; (Table), &apos;TopStructurer&apos; (Group), &apos;xx0xxThingsRecovererTable&apos; (Table), &apos;xx0xxThingsFindoerTable&apos; (Table), &apos;xx0xxThingsRowerTable&apos; (Table), &apos;xx0xxThingsTablerTable&apos; (Table)]
+   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;TabularedTableKeyStrsList&apos; : []
    /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;TabularedTablesOrderedDict&apos; : 
    /   /   /   /{ 
    /   /   /   /}
@@ -2191,7 +2191,7 @@ hdf5 file is : /                        Group
         (0) {RowInt=0, MyInt=1, MyIntsList=[0,0,1], MyStr=&quot;bonjour&quot;},
         (1) {RowInt=1, MyInt=0, MyIntsList=[0,0,1], MyStr=&quot;guten tag&quot;},
         (2) {RowInt=2, MyInt=1, MyIntsList=[0,0,0], MyStr=&quot;bonjour&quot;}
-/xx0xxThingsFlusherTable Dataset {2/Inf}
+/xx0xxThingsInserterTable Dataset {2/Inf}
     Data:
         (0) {RowInt=0, MyInt=1, MyIntsList=[2,4,6], MyStr=&quot;bonjour&quot;},
         (1) {RowInt=1, MyInt=0, MyIntsList=[0,0,0], MyStr=&quot;hello&quot;}

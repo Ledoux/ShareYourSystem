@@ -27,7 +27,7 @@ import copy
 import collections
 import numpy
 from ShareYourSystem.Functers import Argumenter,Switcher,Alerter,Hooker
-from ShareYourSystem.Standards.Modelers import Modeler,Tabularer,Tabler,Flusher
+from ShareYourSystem.Standards.Modelers import Modeler,Tabularer,Tabler,Inserter
 #</ImportSpecificModules>
 
 #<DefineLocals>
@@ -243,13 +243,13 @@ class ShaperClass(BaseClass):
 			self.debug("self.TabularedSuffixStr is "+self.TabularedSuffixStr)
 			'''
 
-	@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':Flusher.FlusherClass.flush}]})
-	def flush(self,**_KwargVariablesDict):
+	@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':Inserter.InserterClass.insert}]})
+	def insert(self,**_KwargVariablesDict):
 
 		'''
 		#<NotHook>
-		#flush first
-		Flusher.FlusherClass.flush(self)
+		#insert first
+		Inserter.InserterClass.insert(self)
 		#</NotHook>
 		'''
 
@@ -257,9 +257,9 @@ class ShaperClass(BaseClass):
 		'''
 		self.debug(
 					[
-						'We are going to check if it was Flushed',
+						'We are going to check if it was Inserted',
 						('self.',self,[
-											'FlushedErrorBool',
+											'InsertedErrorBool',
 											'TabledKeyStr',
 											'TabledTable'
 										])
@@ -267,7 +267,7 @@ class ShaperClass(BaseClass):
 			)
 		'''
 
-		if self.FlushedErrorBool:
+		if self.InsertedErrorBool:
 
 			#Debuf
 			'''
@@ -284,8 +284,8 @@ class ShaperClass(BaseClass):
 					)
 			'''
 
-			#Definition the FlushedOldDimensionListsList
-			FlushedGettingStrsListsList=map(
+			#Definition the InsertedOldDimensionListsList
+			InsertedGettingStrsListsList=map(
 					lambda __ShapedColClassAndGettingStrTuple:
 					list(
 							[__ShapedColClassAndGettingStrTuple[1]]
@@ -297,15 +297,15 @@ class ShaperClass(BaseClass):
 					self.ShapedColClassAndGettingStrTuplesList
 				)
 			
-			#Definition the FlushedOldDimensionListsList
-			FlushedOldDimensionListsList=map(
-												lambda __FlushedGettingStrsList:
-												self.ShapedVariablePointer.pick(__FlushedGettingStrsList),
-												FlushedGettingStrsListsList
+			#Definition the InsertedOldDimensionListsList
+			InsertedOldDimensionListsList=map(
+												lambda __InsertedGettingStrsList:
+												self.ShapedVariablePointer.pick(__InsertedGettingStrsList),
+												InsertedGettingStrsListsList
 										)
 
-			#Definition the FlushedNewDimensionListsList
-			FlushedNewDimensionListsList=map(
+			#Definition the InsertedNewDimensionListsList
+			InsertedNewDimensionListsList=map(
 												lambda __ShapedGettingStr:
 												list(
 														numpy.shape(
@@ -318,32 +318,32 @@ class ShaperClass(BaseClass):
 			#debug
 			'''
 			self.debug(('vars ',vars(),[
-											'FlushedGettingStrsListsList',
-											'FlushedOldDimensionListsList',
-											'FlushedNewDimensionListsList'
+											'InsertedGettingStrsListsList',
+											'InsertedOldDimensionListsList',
+											'InsertedNewDimensionListsList'
 										]))
 			'''
 
 			#set the shaping attributes to their new values
 			map(
-					lambda __FlushedGettingStrsList,__FlushedOldDimensionList,__FlushedNewDimensionList:
+					lambda __InsertedGettingStrsList,__InsertedOldDimensionList,__InsertedNewDimensionList:
 					self.ShapedVariablePointer.update(
 						zip(
-							__FlushedGettingStrsList,
-							__FlushedNewDimensionList
+							__InsertedGettingStrsList,
+							__InsertedNewDimensionList
 							)
 					)
-					if __FlushedNewDimensionList!=__FlushedOldDimensionList
+					if __InsertedNewDimensionList!=__InsertedOldDimensionList
 					else None,
-					FlushedGettingStrsListsList,
-					FlushedOldDimensionListsList,
-					FlushedNewDimensionListsList
+					InsertedGettingStrsListsList,
+					InsertedOldDimensionListsList,
+					InsertedNewDimensionListsList
 				)
 
 			#debug
 			'''
 			self.debug(('self.ShapedVariablePointer',self.ShapedVariablePointer,SYS.flat(
-				FlushedGettingStrsListsList)))
+				InsertedGettingStrsListsList)))
 			'''
 
 			#set again the ColumnTuplesList
@@ -364,16 +364,16 @@ class ShaperClass(BaseClass):
 
 			#debug
 			'''
-			self.debug('Ok table again is done, so now we flush')
+			self.debug('Ok table again is done, so now we insert')
 			'''
 
 			#Reset to False
-			self.FlushedErrorBool=False
+			self.InsertedErrorBool=False
 
 			#Flush again
-			#self.flush()
-			#Functer.getFunctingFunctionWithFuncFunction(Flusher.FlusherClass.flush)(self)
-			Flusher.FlusherClass.flush(self)
+			#self.insert()
+			#Functer.getFunctingFunctionWithFuncFunction(Inserter.InserterClass.insert)(self)
+			Inserter.InserterClass.insert(self)
 	
 	#@Alerter.AlerterClass()
 	@Switcher.SwitcherClass()

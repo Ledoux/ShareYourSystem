@@ -94,7 +94,7 @@ MySumer.update(
 			('SumingSecondInt',3)
 		]
 	).sum(
-	)['<Joiners>ParametersJoiner'].flush(
+	)['<Joiners>ParametersJoiner'].insert(
 )
 
 #Definition the AttestedStr

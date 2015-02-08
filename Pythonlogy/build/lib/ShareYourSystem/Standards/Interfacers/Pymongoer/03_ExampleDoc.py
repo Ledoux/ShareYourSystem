@@ -24,9 +24,8 @@ MyPymongoer.PymongoneDatabaseVariable.ChildDatabase.ThingsCollection.remove(
 	{}
 )
 MyPymongoer.PymongoneDatabaseVariable.ChildDatabase.ThingsCollection.insert(
-	{'MyInt':1}
+	[{'MyInt':1},{'MyInt':3}]
 )
-
 
 #Definition the AttestedStr
 SYS._print('MyPymongoer is '+SYS._str(MyPymongoer)+'\n')

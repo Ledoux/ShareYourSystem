@@ -78,7 +78,7 @@ Joiner=BaseModule
                 'model',
                 'tabular',
                 'join',
-                'flush'
+                'insert'
         ]
 })
 class HierarchizerClass(BaseClass):
@@ -96,13 +96,13 @@ BaseClass.__init__}]})
                 #Call the parent init method
                 BaseClass.__init__(self,**_KwargVariablesDict)
 
-        def mimic_flush(self):
+        def mimic_insert(self):
 
                 #debug
                 '''
                 self.debug(
                                         [
-                                                'we setSwitch first and flush',
+                                                'we setSwitch first and insert',
                                                 ('self.',self,[
 'JoiningAttentionStr',
 'JoiningCollectionStr'
@@ -112,8 +112,8 @@ BaseClass.__init__}]})
                 '''
 
                 #<NotHook>
-                #flush then
-                BaseClass.flush(self)
+                #insert then
+                BaseClass.insert(self)
                 #</NotHook>
 
                 #debug
@@ -148,7 +148,7 @@ BaseClass.__init__}]})
                 '''
                 self.debug(
                                         [
-                                                'flush then in the joined
+                                                'insert then in the joined
 attention databasers',
 ('self.',self,['JoinedAttentionCollectionOrderedDict'])
                                         ]
@@ -159,7 +159,7 @@ attention databasers',
                 map(
                                 lambda
 __JoinedAttentionCollectionDeriveJoinerPointer:
-__JoinedAttentionCollectionDeriveJoinerPointer.CatchToPointVariable.flush(),
+__JoinedAttentionCollectionDeriveJoinerPointer.CatchToPointVariable.insert(),
 self.JoinedAttentionCollectionOrderedDict.values()
                         )
 
@@ -372,7 +372,7 @@ MyFactorizer=FactorizerClass().structure(
     }
 )
 
-#Update transmit the do method and flush in the results
+#Update transmit the do method and insert in the results
 MyFactorizer.__setitem__(
     "Dis_<Component>",
     [
@@ -392,9 +392,9 @@ MyFactorizer.__setitem__(
         ],
         'GatherVariablesList':['<Component>']
     }
-)['<Datome>ResultsHierarchizer'].flush()
+)['<Datome>ResultsHierarchizer'].insert()
 
-#Update and flush in the results
+#Update and insert in the results
 MyFactorizer.__setitem__(
     "Dis_<Component>",
     [
@@ -412,7 +412,7 @@ MyFactorizer.__setitem__(
         ],
         'GatherVariablesList':['<Component>']
     }
-)['<Datome>ResultsHierarchizer'].flush()
+)['<Datome>ResultsHierarchizer'].insert()
 
 #Definition the AttestedStr
 SYS._attest(

@@ -119,7 +119,7 @@ self.debug(("self.",self,['DatabasedKeyStr','FindingConditionTuplesList']))
                         #Take the first one in the list
                         self.FoundRowDictsList=Rower.getRowedDictsListWithTable(
                 self.TabularedGroupVariable._f_getChild(
-                        self.TabularedKeyStrsList[0]
+                        self.TabularedTableKeyStrsList[0]
                 )
         )
 
@@ -219,7 +219,7 @@ MyStructurer.update(
                 ('MyStr',"bonjour"),
                 ('MyIntsList',[0,0,1])
             ]
-)['<Datome>ThingsFindoer'].flush()
+)['<Datome>ThingsFindoer'].insert()
 
 MyStructurer.update(
             [
@@ -227,7 +227,7 @@ MyStructurer.update(
                 ('MyStr',"guten tag"),
                 ('MyIntsList',[0,0,1])
             ]
-)['<Datome>ThingsFindoer'].flush()
+)['<Datome>ThingsFindoer'].insert()
 
 MyStructurer.update(
             [
@@ -235,7 +235,7 @@ MyStructurer.update(
                 ('MyStr',"bonjour"),
                 ('MyIntsList',[0,0,0])
             ]
-)['<Datome>ThingsFindoer'].flush()
+)['<Datome>ThingsFindoer'].insert()
 
 #Retrieve
 MyStructurer['<Datome>ThingsFindoer'].find(
@@ -393,7 +393,7 @@ hdf5 file is : /                        Group
         (0) {RowInt=0, MyInt=1, MyIntsList=[0,0,1], MyStr="bonjour"},
         (1) {RowInt=1, MyInt=0, MyIntsList=[0,0,1], MyStr="guten tag"},
         (2) {RowInt=2, MyInt=1, MyIntsList=[0,0,0], MyStr="bonjour"}
-/xx0xxThingsFlusherTable Dataset {2/Inf}
+/xx0xxThingsInserterTable Dataset {2/Inf}
     Data:
         (0) {RowInt=0, MyInt=1, MyIntsList=[2,4,6], MyStr="bonjour"},
         (1) {RowInt=1, MyInt=0, MyIntsList=[0,0,0], MyStr="hello"}

@@ -34,7 +34,7 @@ MyController.update(
 				('MyStr',"bonjour"),
 				('MyIntsList',[0,0,1])
 			]
-	)['<Recoverers>ThingsRecoverer'].flush(
+	)['<Recoverers>ThingsRecoverer'].insert(
 	)
 
 MyController.update(
@@ -43,7 +43,7 @@ MyController.update(
 				('MyStr',"guten tag"),
 				('MyIntsList',[0,0,1])
 			]
-)['<Recoverers>ThingsRecoverer'].flush()
+)['<Recoverers>ThingsRecoverer'].insert()
 
 MyController.update(
 			[
@@ -51,7 +51,7 @@ MyController.update(
 				('MyStr',"bonjour"),
 				('MyIntsList',[0,0,0])
 			]
-)['<Recoverers>ThingsRecoverer'].flush()
+)['<Recoverers>ThingsRecoverer'].insert()
 
 #Retrieve
 MyController['<Recoverers>ThingsRecoverer'].recover(

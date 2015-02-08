@@ -35,7 +35,7 @@ Joiner=BaseModule
 		'model',
 		'tabular',
 		'join',
-		'flush'
+		'insert'
 	]
 })
 class HierarchizerClass(BaseClass):
@@ -52,13 +52,13 @@ class HierarchizerClass(BaseClass):
 		#Call the parent init method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
-	def mimic_flush(self):
+	def mimic_insert(self):
 
 		#debug
 		'''
 		self.debug(	
 					[
-						'we setSwitch first and flush',
+						'we setSwitch first and insert',
 						('self.',self,[
 										'JoiningAttentionStr',
 										'JoiningCollectionStr'
@@ -68,8 +68,8 @@ class HierarchizerClass(BaseClass):
 		'''
 		
 		#<NotHook>
-		#flush then
-		BaseClass.flush(self)
+		#insert then
+		BaseClass.insert(self)
 		#</NotHook>
 
 		#debug
@@ -103,7 +103,7 @@ class HierarchizerClass(BaseClass):
 		'''
 		self.debug(
 					[
-						'flush then in the joined attention databasers',
+						'insert then in the joined attention databasers',
 						('self.',self,['JoinedAttentionCollectionOrderedDict'])
 					]
 				)
@@ -112,7 +112,7 @@ class HierarchizerClass(BaseClass):
 		#map
 		map(
 				lambda __JoinedAttentionCollectionDeriveJoinerPointer:
-				__JoinedAttentionCollectionDeriveJoinerPointer.CatchToPointVariable.flush(),
+				__JoinedAttentionCollectionDeriveJoinerPointer.CatchToPointVariable.insert(),
 				self.JoinedAttentionCollectionOrderedDict.values()
 			)
 		

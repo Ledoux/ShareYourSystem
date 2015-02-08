@@ -77,7 +77,7 @@ class TabularerClass(
 'TabularedGroupVariable',
 'TabularedTopFileVariable',
 'TabularedSuffixStr',
-'TabularedKeyStrsList',
+'TabularedTableKeyStrsList',
 'TabularedTablesOrderedDict'
                                                                 ]
 
@@ -85,7 +85,7 @@ class TabularerClass(
                                         _TabularedGroupVariable=None,
                                         _TabularedTopFileVariable=None,
                                         _TabularedSuffixStr="",
-                                        _TabularedKeyStrsList=None,
+                                        _TabularedTableKeyStrsList=None,
                                         _TabularedTablesOrderedDict=None,
                                         **_KwargVariablesDict
                                 ):
@@ -129,11 +129,11 @@ class TabularerClass(
                 '''
 
                 #Maybe we have to hdformat first
-                if self.ModeledPointDeriveStorerVariable!=None:
+                if self.ModeledPointDeriveControllerVariable!=None:
 
                         #Check
                         if
-self.ModeledPointDeriveStorerVariable.HdformatedFileVariable==None:
+self.ModeledPointDeriveControllerVariable.HdformatedFileVariable==None:
 
                                 #debug
                                 '''
@@ -141,13 +141,13 @@ self.ModeledPointDeriveStorerVariable.HdformatedFileVariable==None:
                                 '''
 
                                 #Hdformat
-self.ModeledPointDeriveStorerVariable.hdformat()
-#self.ModeledPointDeriveStorerVariable.structure()
+self.ModeledPointDeriveControllerVariable.hdformat()
+#self.ModeledPointDeriveControllerVariable.structure()
 
                         #Link
                         self.TabularedTopFileVariable=self.DatabasedPointDer
 iveStorerVariable.HdformatedFileVariable
-self.GroupedPathStr=self.ModeledPointDeriveStorerVariable.GroupedPathStr
+self.GroupedPathStr=self.ModeledPointDeriveControllerVariable.GroupedPathStr
 
                         #debug
                         '''
@@ -197,7 +197,7 @@ tables with the same suffix Str as : '),
                                 '''
 
                                 #Get and sort
-                                self.TabularedKeyStrsList=sorted(
+                                self.TabularedTableKeyStrsList=sorted(
                                         filter(
                                                         lambda __KeyStr:
 __KeyStr.endswith(self.TabularedSuffixStr),
@@ -213,7 +213,7 @@ __TabularedKeyStr:
 __TabularedKeyStr,
 self.TabularedGroupVariable._f_getChild(__TabularedKeyStr)
                                                         ),
-self.TabularedKeyStrsList
+self.TabularedTableKeyStrsList
                                                 )
                                 )
 
@@ -221,7 +221,7 @@ self.TabularedKeyStrsList
                                 '''
                                 self.debug(("self.",self,[
         'TabularedSuffixStr',
-        'TabularedKeyStrsList'
+        'TabularedTableKeyStrsList'
         ]))
                                 '''
 
@@ -358,7 +358,7 @@ fletcher32=False, least_significant_digit=None))
   "MyStr": StringCol(itemsize=10, shape=(), dflt='', pos=3)}
   byteorder := 'little'
   chunkshape := (1310,)
-/xx0xxThingsFlusherTable (Table(2,)) 'This is the ThingsFlusherModelClass'
+/xx0xxThingsInserterTable (Table(2,)) 'This is the ThingsInserterModelClass'
   description := {
   "RowInt": Int64Col(shape=(), dflt=0, pos=0),
   "MyInt": Int64Col(shape=(), dflt=0, pos=1),
@@ -443,12 +443,12 @@ __UnitsInt_2__ThingsShaperModelClass'
    /   /   /  '<Spe><Instance>TabularedGroupVariable' : / (RootGroup) ''
   children := ['xx1xx__UnitsInt_2__ThingsMergerTable' (Table),
 'xx0xx__UnitsInt_3__ThingsShaperTable' (Table), 'xx0xxThingsRetrieverTable'
-(Table), 'xx0xxThingsFlusherTable' (Table),
+(Table), 'xx0xxThingsInserterTable' (Table),
 'xx1xx__UnitsInt_2__ThingsShaperTable' (Table),
 'xx0xx__UnitsInt_3__ThingsMergerTable' (Table), 'TopStructurer' (Group),
 'xx0xxThingsRecovererTable' (Table), 'xx0xxThingsFindoerTable' (Table),
 'xx0xxThingsRowerTable' (Table), 'xx0xxThingsTablerTable' (Table)]
-   /   /   /  '<Spe><Instance>TabularedKeyStrsList' : []
+   /   /   /  '<Spe><Instance>TabularedTableKeyStrsList' : []
    /   /   /  '<Spe><Instance>TabularedTablesOrderedDict' :
    /   /   /   /{
    /   /   /   /}
@@ -481,7 +481,7 @@ hdf5 file is : /                        Group
         (0) {RowInt=0, MyInt=1, MyIntsList=[0,0,1], MyStr="bonjour"},
         (1) {RowInt=1, MyInt=0, MyIntsList=[0,0,1], MyStr="guten tag"},
         (2) {RowInt=2, MyInt=1, MyIntsList=[0,0,0], MyStr="bonjour"}
-/xx0xxThingsFlusherTable Dataset {2/Inf}
+/xx0xxThingsInserterTable Dataset {2/Inf}
     Data:
         (0) {RowInt=0, MyInt=1, MyIntsList=[2,4,6], MyStr="bonjour"},
         (1) {RowInt=1, MyInt=0, MyIntsList=[0,0,0], MyStr="hello"}
