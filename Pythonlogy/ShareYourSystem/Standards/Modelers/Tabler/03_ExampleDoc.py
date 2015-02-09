@@ -32,7 +32,7 @@ SYS._attest(
 ) 
 
 #print
-print('mongo db is : \n'+MyController.pymongoview().PymongoneViewStr)
+print('mongo db is : \n'+SYS._str(MyController.pymongoview()))
 
 #close
 MyController.close()

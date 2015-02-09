@@ -14,15 +14,114 @@ An Pymongoer
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Interfacers.Hdformater"
+BaseModuleStr="ShareYourSystem.Standards.Interfacers.Killer"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
+import collections
 from pymongo import MongoClient
 import os
 #</ImportSpecificModules>
+
+#<DefineFunctions>
+def getRepresentedCollectionItemTuple(_CollectionItemTuple):
+
+	#Debug
+	print('_CollectionItemTuple[0] is ')
+	print(_CollectionItemTuple[0])
+	print('')
+
+	#filter
+	RepresentedCollectionList=filter(
+		lambda __PymongoviewDict:
+		len(__PymongoviewDict)>0,
+		SYS.filterNone(
+				map(
+					lambda __NoderItemTuple:
+					__NoderItemTuple[1].pymongoview()
+					if hasattr(
+							__NoderItemTuple[1],
+							'pymongoview'
+						) 
+					else None,
+					_CollectionItemTuple[1].items()
+				)
+			)
+	)
+
+
+	#Debug
+	print('RepresentedCollectionList is ')
+	print(RepresentedCollectionList)
+	print('')
+
+	#Check
+	if len(RepresentedCollectionList)>0:
+		return (
+			_CollectionItemTuple[0],
+			RepresentedCollectionList
+		)
+	else:
+		return None
+
+def getRepresentedDatabaseOrderedDict(_Database):
+
+	#map
+	RepresentedDatabaseDict=collections.OrderedDict(
+		map(
+			lambda __CollectionStr:
+			(
+				__CollectionStr,
+				list(_Database[__CollectionStr].find())
+			),
+			_Database.collection_names()
+		)
+	)
+
+	#Debug
+	'''
+	print('_Database is ')
+	print(_Database)
+	print('_Database.__dict__.keys() is'+str(_Database.__dict__.keys()))
+	print('')
+	'''
+
+	#Get the childs database dicts
+	if 'ParentDerivePymongoer' in _Database.__dict__:
+
+		#Debug
+		'''
+		print('_Database.ParentDerivePymongoer is '+SYS._str(_Database.__dict__[
+			'ParentDerivePymongoer']))
+		print('')
+		'''
+
+		#update
+		RepresentedDatabaseDict.update(
+			collections.OrderedDict(
+				filter(
+					lambda __ItemTuple:
+					len(__ItemTuple[1])>0,
+					SYS.filterNone(	
+						map(
+							lambda __CollectionItemTuple:
+							getRepresentedCollectionItemTuple(__CollectionItemTuple),
+							_Database.__dict__[
+								'ParentDerivePymongoer'
+							].CollectionsOrderedDict.items()
+						)
+					)
+				)
+			)
+		)
+
+	#return 
+	return {_Database._Database__name:RepresentedDatabaseDict}
+
+
+#</DefineFunctions>
 
 #<DefineClass>
 @DecorationClass(**{
@@ -43,6 +142,7 @@ class PymongoerClass(BaseClass):
 	def default_init(self,		
 			_PymongoingUrlStr='mongodb://localhost:27017/',
 			_PymongoingDatabaseKeyStr='Default',
+			_PymongoingKillBool=True,
 			_PymongoneFolderPathStr="",
 			_PymongonePopenVariable=None,
 			_PymongoneClientVariable=None,
@@ -52,6 +152,9 @@ class PymongoerClass(BaseClass):
 
 		#Call the parent __init__ method
 		BaseClass.__init__(self,**_KwargVariablesDict)
+
+		#set
+		self.StatusingProcessStr="mongod"
 
 	def do_pymongo(self):
 
@@ -64,6 +167,10 @@ class PymongoerClass(BaseClass):
 		#folder
 		self.folder()
 
+		#kill all a possible old mongod process
+		if self.PymongoingKillBool:
+			self.kill()
+
 		#connect
 		try:
 
@@ -72,7 +179,9 @@ class PymongoerClass(BaseClass):
 		except:
 
 			#debug
+			'''
 			self.debug('No connection maybe to pymongo')
+			'''
 
 			#set
 			self.PymongoneFolderPathStr=self.FolderingPathStr+'data/db/'
@@ -103,14 +212,24 @@ class PymongoerClass(BaseClass):
 			#wait for connect
 			import time
 			PymongoneConnectBool=False
-			while PymongoneConnectBool==False:
+			PymongoneCountInt=0
+			while PymongoneConnectBool==False and PymongoneCountInt<20:
 				try:
+
+					#connect
 					self.PymongoneClientVariable=MongoClient(self.PymongoingUrlStr)
+
+					#Check
 					if self.PymongoneClientVariable!=None:
 						PymongoneConnectBool=True
+
 				except:
+
+					#say that it is not setted
 					PymongoneConnectBool=False
+					PymongoneCountInt+=1
 					time.sleep(0.2)
+
 
 			#debug
 			self.debug(
@@ -126,37 +245,29 @@ class PymongoerClass(BaseClass):
 				self.PymongoingDatabaseKeyStr
 			) 
 
-		#give a parent pointer
-		self.PymongoneDatabaseVariable.ParentDerivePymongoer=self
+		#set
+		self.PymongoneDatabaseVariable.__dict__['ParentDerivePymongoer']=self
 
-		#
-
-	def pymongoview(self):
+	def pymongoview(self,_DatabasesList=None):
 
 		#debug
-		'''
 		self.debug(
 			[
-				('self.',self,['PymongoneDatabaseVariable']),
-				'self.PymongoneDatabaseVariable.collection_names is \n',
-				self.PymongoneDatabaseVariable.collection_names()
+				('self.',self,[
+								'PymongoneClientVariable',
+								'PymongoingDatabaseKeyStr'
+							]),
+				'self.PymongoneClientVariable.database_names is \n',
+				self.PymongoneClientVariable.database_names()
 			]
 		)
-		'''
-
-		#map
-		self.PymongoneViewStr='\n'.join(
-			map(
-				lambda __CollectionStr:
-				'In '+__CollectionStr+' : \n'+SYS._str(
-					list(self.PymongoneDatabaseVariable[__CollectionStr].find())
-				),
-				self.PymongoneDatabaseVariable.collection_names()
-			)
-		)
-
-		#return self
-		return self
+		
+		#return
+		return getRepresentedDatabaseOrderedDict(
+						self.PymongoneClientVariable[
+							self.PymongoingDatabaseKeyStr
+						]
+					)
 		
 	def mongoclose(self):
 

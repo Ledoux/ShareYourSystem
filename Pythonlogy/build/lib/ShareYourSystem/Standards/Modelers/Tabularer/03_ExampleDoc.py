@@ -1,7 +1,6 @@
 
 #ImportModules
 import ShareYourSystem as SYS
-#import tables
 
 #Definition 
 MyController=SYS.ControllerClass(
@@ -17,10 +16,10 @@ MyController=SYS.ControllerClass(
 
 #Build a structure with a database
 MyController['<Tabularers>ThingsTabularer'].tabular()
-MyController['<Tabularers>ThingsTabularer'].TabularedMongoTopDatabaseVariable.TestsCollection.remove(
+MyController['<Tabularers>ThingsTabularer'].TabularedMongoLocalDatabaseVariable.TestsCollection.remove(
 	{}
 )
-MyController['<Tabularers>ThingsTabularer'].TabularedMongoTopDatabaseVariable.TestsCollection.insert(
+MyController['<Tabularers>ThingsTabularer'].TabularedMongoLocalDatabaseVariable.TestsCollection.insert(
 	{'MyStr':"hello"}
 )
 		
@@ -39,7 +38,7 @@ SYS._attest(
 ) 
 
 #print
-print('mongo db is : \n'+MyController.pymongoview().PymongoneViewStr)
+print('mongo db is : \n'+SYS._str(MyController.pymongoview()))
 
 #Print
 MyController.close()

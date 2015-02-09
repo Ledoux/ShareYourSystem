@@ -26,18 +26,24 @@ from ShareYourSystem.Standards.Noders import Noder
 #</ImportSpecificModules>
 
 #<DefineClass>
-@DecorationClass()
+@DecorationClass(
+	**{
+	'ClassingSwitchMethodStrsList':['structure']
+	}
+)
 class StructurerClass(BaseClass):
 	
 	#Definition
 	RepresentingKeyStrsList=[
 								'StructuringNodeCollectionStrsList',
-								'StructuringBeforeUpdateList'
+								'StructuringBeforeUpdateList',
+								'StructuringParentKeyStrsList'
 							]
 
 	def default_init(self,
 						_StructuringNodeCollectionStrsList=None,
 						_StructuringBeforeUpdateList=None,
+						_StructuringParentKeyStrsList=None,
 						**_KwargVariablesDict
 					):
 
@@ -47,14 +53,33 @@ class StructurerClass(BaseClass):
 	def do_structure(self):
 
 		#debug
-		'''
-		self.debug(('self.',self,['ParentingNodeStr']))
-		'''
+		self.debug(
+			('self.',self,[
+					'StructuringNodeCollectionStrsList',
+					'StructuringBeforeUpdateList',
+					'StructuringParentKeyStrsList'
+				])
+		)
 		
-		#<NotHook>
-		#hdformat first
-		self.hdformat()
-		#</NotHook>
+		"""
+		#
+		if self.PymongoingDatabaseKeyStr!="":
+
+			#set
+			self.DatabasingMongoBool=True
+
+			#pymongo first
+			self.pymongo()
+
+		#Check
+		if self.HdformatingFileKeyStr!="":
+
+			#set
+			self.DatabasingHdfBool=True
+
+			#hdformat first
+			self.hdformat()
+		"""
 
 		#Walk while parentizing and grouping
 		self.walk(
@@ -66,15 +91,11 @@ class StructurerClass(BaseClass):
 								SYS.ApplyDictClass(
 									{
 									'LiargVariablesList':[
-										['HdformatedFileVariable']
+											self.StructuringParentKeyStrsList
 										]
 									}
 								)
 							),
-							(
-								'group',
-								SYS.ApplyDictClass()
-							)
 						]+self.StructuringBeforeUpdateList,
 						'GatherVariablesList':map(
 								lambda __StructuringNodeCollectionStr:

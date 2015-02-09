@@ -35,15 +35,15 @@ class HdformaterClass(BaseClass):
 	
 	#Definition
 	RepresentingKeyStrsList=[
-								'HdformatingModuleStr',
 								'HdformatingFileKeyStr',
+								'HdformatingModuleStr',
 								'HdformatedFileVariable',
 								'HdformatedConsoleStr'
 							]
 
 	def default_init(self,
-			_HdformatingModuleStr="tables",
-			_HdformatingFileKeyStr="", 			
+			_HdformatingFileKeyStr="", 
+			_HdformatingModuleStr="tables",			
 			_HdformatedFileVariable=None, 
 			_HdformatedFilePathStr="",		
 			_HdformatedConsoleStr="", 			
@@ -126,7 +126,7 @@ class HdformaterClass(BaseClass):
 			).read()
 		
 		#Return self
-		return self
+		return self.HdformatedConsoleStr
 
 	def hdfclose(self):
 

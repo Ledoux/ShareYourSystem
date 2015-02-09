@@ -34,7 +34,6 @@ import copy
 import inspect
 import numpy
 import sys
-
 from ShareYourSystem.Standards.Objects import Initiator
 #</ImportSpecificModules>
 
@@ -82,14 +81,27 @@ def getRepresentedPointerStrWithVariable(_Variable,**_KwargVariablesDict):
 	#Definition the Local alinea
 	RepresentedLocalAlineaStr=RepresentedAlineaStr if _KwargVariablesDict['RepresentedDeepInt']==0 else ""
 
-	if RepresentingIdBool:
-		return RepresentedLocalAlineaStr+"<"+(
-			_Variable.__name__ if hasattr(_Variable,__name__) else ""
-			)+" ("+_Variable.__class__.__name__+"), "+str(id(_Variable))+">"
+	#Define
+	if type(_Variable).__name__=='Database':
+		RepresentedVariableStr=_Variable._Database__name
 	else:
-		return RepresentedLocalAlineaStr+"<"+(
-			_Variable.__name__ if hasattr(_Variable,__name__) else ""
-			)+" ("+_Variable.__class__.__name__+")"+" >"
+		RepresentedVariableStr=_Variable.__name__ if hasattr(_Variable,__name__) else ""
+
+	#Debug
+	'''
+	print('l 85 Representer')
+	print('type(_Variable).__name__ is ')
+	print(type(_Variable).__name__)
+	print('RepresentedVariableStr is ')
+	print(RepresentedVariableStr)
+	print('')
+	'''
+
+	#Check
+	if RepresentingIdBool:
+		return RepresentedLocalAlineaStr+"<"+RepresentedVariableStr+" ("+_Variable.__class__.__name__+"), "+str(id(_Variable))+">"
+	else:
+		return RepresentedLocalAlineaStr+"<"+RepresentedVariableStr+" ("+_Variable.__class__.__name__+")"+" >"
 
 def getRepresentedStrWithDictatedVariable(
 	_DictatedVariable,**_KwargVariablesDict

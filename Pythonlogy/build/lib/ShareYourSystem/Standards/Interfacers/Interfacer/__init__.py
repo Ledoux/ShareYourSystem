@@ -42,13 +42,9 @@ class InterfacerClass(BaseClass):
 		#Call the parent __init__ method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
-	#@Argumenter.ArgumenterClass()
 	def do_interface(self,**_KwargVariablesDict):
 
 		pass
-
-		#Return self
-		#return self
 	
 #</DefineClass>
 

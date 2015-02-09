@@ -3,7 +3,12 @@
 import ShareYourSystem as SYS
 
 #Definition of a Controller instance with a noded datar
-MyController=SYS.ControllerClass().collect(
+MyController=SYS.ControllerClass(
+	**{
+			'PymongoingDatabaseKeyStr':"Things",
+			'FolderingPathStr':SYS.Rower.LocalFolderPathStr
+		}
+	).collect(
 	"Rowers",
 	"Things",
 	SYS.RowerClass().update(
@@ -37,7 +42,7 @@ SYS._attest(
 ) 
 
 #print
-print('mongo db is : \n'+MyController.pymongoview().PymongoneViewStr)
+print('mongo db is : \n'+SYS._str(MyController.pymongoview()))
 
 #Print
 MyController.close()

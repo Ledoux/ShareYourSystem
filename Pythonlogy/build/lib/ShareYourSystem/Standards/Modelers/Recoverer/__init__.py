@@ -53,10 +53,8 @@ class RecovererClass(
 			)
 		'''
 
-		#<NotHook>
 		#find first
 		self.find()
-		#</NotHook>
 
 		#Check
 		if len(self.RecoveredDict)==0:

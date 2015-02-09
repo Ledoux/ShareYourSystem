@@ -1,7 +1,6 @@
 
 #ImportModules
 import ShareYourSystem as SYS
-import tables
 
 #Definition of a Controller instance with a noded datar
 MyController=SYS.ControllerClass(
@@ -33,7 +32,7 @@ SYS._attest(
 ) 
 
 #print
-print('mongo db is : \n'+MyController.pymongoview().PymongoneViewStr)
+print('mongo db is : \n'+SYS._str(MyController.pymongoview()))
 
 #close
 MyController.close()

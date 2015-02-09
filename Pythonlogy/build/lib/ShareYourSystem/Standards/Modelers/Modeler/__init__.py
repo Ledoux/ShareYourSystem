@@ -63,13 +63,15 @@ class ModelerClass(
 		if hasattr(self,'NodePointDeriveNoder'):
 
 			#debug
+			'''
 			self.debug(
 				[
 					#('self.',self,['NodePointDeriveNoder']),
 					str(self.point)
 				]
 			)
-
+			'''
+			
 			#point
 			self.point(
 				self.NodePointDeriveNoder,

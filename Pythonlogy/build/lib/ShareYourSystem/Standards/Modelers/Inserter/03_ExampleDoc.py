@@ -1,6 +1,5 @@
 
 #ImportModules
-import tables
 import ShareYourSystem as SYS
 
 #Definition of a Controller instance with a noded datar
@@ -29,10 +28,7 @@ MyController.update(
 ).command(
 	_UpdateList=[('insert',SYS.ApplyDictClass({'LiargVariablesList':[]}))],
 	**{'GatheringVariablesList':['<Inserters>ThingsInserter']}		
-)
-
-'''
-.update(
+).update(
 			[
 				('MyInt',0),
 				('MyStr',"hello"),
@@ -41,7 +37,7 @@ MyController.update(
 ).command(
 	_UpdateList=[('insert',SYS.ApplyDictClass({'LiargVariablesList':[]}))],		
 )
-'''
+
 
 #Definition the AttestedStr
 SYS._attest(
@@ -57,7 +53,7 @@ SYS._attest(
 ) 
 
 #print
-print('mongo db is : \n'+MyController.pymongoview().PymongoneViewStr)
+print('mongo db is : \n'+SYS._str(MyController.pymongoview()))
 
 #Print
 MyController.close()

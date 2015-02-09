@@ -84,7 +84,4 @@ class CapturerClass(BaseClass):
 		#init
 		sys.stdout = StringIO()
 
-		#Return self
-		#return self
-
 #</DefineClass>

@@ -97,8 +97,14 @@ MyModulizer=ModulizerClass(
 		**{
 			'FolderingPathStr':SYS.Joiner.LocalFolderPathStr
 		}
+	).hdformat(
+		'Modulizers.hdf5'
 	).structure(
-		['Components']
+		['Components'],
+		[
+			('group',SYS.ApplyDictClass())
+		],
+		['HdformatedFileVariable']
 	).network(
 		**{
 			'VisitingCollectionStrsList':['Joiners','Components'],
@@ -150,9 +156,10 @@ SYS._attest(
 			'RepresentingAlineaIsBool':False
 		}
 		),
-		'hdf5 file is : '+MyModulizer.hdfview().hdfclose().HdformatedConsoleStr
+		'hdf5 file is : '+MyModulizer.hdfview()
 	]
 ) 
 
-#Print
+#Close
+MyModulizer.hdfclose()
 

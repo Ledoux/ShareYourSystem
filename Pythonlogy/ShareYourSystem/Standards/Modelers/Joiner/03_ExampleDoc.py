@@ -107,6 +107,9 @@ SYS._attest(
 			'RepresentingAlineaIsBool':False
 		}
 		),
-		'hdf5 file is : '+MySumer.hdfview().hdfclose().HdformatedConsoleStr
+		'hdf5 file is : '+MySumer.hdfview()
 	]
 ) 
+
+#close
+MySumer.hdfclose()

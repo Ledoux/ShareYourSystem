@@ -55,14 +55,14 @@ MyController.update(
 
 #Retrieve
 MyController['<Recoverers>ThingsRecoverer'].recover(
-												**{
-														'FindingConditionTuplesList':
-														[
-															('MyInt',(operator.eq,1)),
-															('MyIntsList',(SYS.getIsEqualBool,[0,0,1]))
-														]
-												}
-										)
+		**{
+				'FindingWhereTuplesList':
+				[
+					('MyInt',(operator.eq,1)),
+					('MyIntsList',(SYS.getIsEqualBool,[0,0,1]))
+				]
+		}
+)
 														
 
 #Definition the AttestedStr

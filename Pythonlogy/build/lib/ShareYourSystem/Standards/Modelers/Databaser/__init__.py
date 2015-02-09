@@ -147,7 +147,9 @@ class DatabaserClass(BaseClass):
 		#Check
 		if len(self.DatabasingSealTuplesList)>0:
 			self.DatabasingHdfBool=True
+			self.DatabasingMongoBool=False
 		else:
+			self.DatabasingHdfBool=False
 			self.DatabasingMongoBool=True
 
 		#Check

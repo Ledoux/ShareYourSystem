@@ -29,11 +29,11 @@ class StatuserClass(BaseClass):
 	
 	#Definition
 	RepresentingKeyStrsList=[
-									'StatusingProcessStr',
-									'StatusedSnapshotStr',
-									'StatusedLineStrsList',
-									'StatusedIdStrsList'
-								]
+							'StatusingProcessStr',
+							'StatusedSnapshotStr',
+							'StatusedLineStrsList',
+							'StatusedIdStrsList'
+						]
 
 	def default_init(self,
 						_StatusingProcessStr="",
@@ -47,6 +47,11 @@ class StatuserClass(BaseClass):
 		BaseClass.__init__(self,**_KwargVariablesDict)
 	
 	def do_status(self):
+
+		#debug
+		'''
+		self.debug(('self.',self,['StatusingProcessStr']))
+		'''
 
 		#Check
 		if self.StatusingProcessStr!="":
@@ -62,16 +67,35 @@ class StatuserClass(BaseClass):
 			'''
 
 			#map
-			self.StatusedLineStrsList=SYS._filter(
-					lambda __LineStr:
-					SYS.PythonPathStr in __LineStr,
-					self.StatusedSnapshotStr.split('\n')
-				)
+			if self.StatusingProcessStr=='Python':
+
+				#filter
+				self.StatusedLineStrsList=SYS._filter(
+						lambda __LineStr:
+						SYS.PythonPathStr in __LineStr,
+						self.StatusedSnapshotStr.split('\n')
+					)
+			else:
+
+				#split
+				self.StatusedLineStrsList=self.StatusedSnapshotStr.split('\n')
 
 			#debug
 			'''
-			self.debug(('self.',self,['StatusedLineStrsList']))
+			self.debug(
+					[
+						('self.',self,['StatusedLineStrsList']),
+
+					]
+				)
 			'''
+			
+			#filter
+			self.StatusedLineStrsList=SYS._filter(
+					lambda __StatusedLineStr:
+					__StatusedLineStr!='',
+					self.StatusedLineStrsList
+				)
 
 			#call
 			self.StatusedIdStrsList=map(
@@ -84,8 +108,5 @@ class StatuserClass(BaseClass):
 			'''
 			self.debug(('self.',self,['StatusedIdStrsList']))
 			'''
-
-		#Return self
-		#return self
 
 #</DefineClass>

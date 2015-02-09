@@ -81,25 +81,19 @@ class GrouperClass(BaseClass):
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
 		#set
+		'''
 		if self.HdformatingFileKeyStr=="":
 			self.HdformatingFileKeyStr=SYS.InflectEngine.plural(
 				Doer.DoerStrToDoStrOrderedDict[
 					self.__class__.NameStr
 					]
 				)+'.hdf5'
+		'''
 
 	def do_group(self):
-
-		#debug
-		'''
-		self.debug(('self.',self,['ParentingNodeStr']))
-		'''
-	
-		#Parent
-		self.parent(_PickVariablesList=['HdformatedFileVariable'])
 		
 		#debug
-		#print('self.HdformatedFileVariable is ',self.HdformatedFileVariable)
+		self.debug(('self.',self,['HdformatedFileVariable']))
 
 		#Create a group in the hdf5 file
 		if self.HdformatedFileVariable!=None:

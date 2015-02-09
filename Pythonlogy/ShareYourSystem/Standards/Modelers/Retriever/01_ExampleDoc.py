@@ -4,7 +4,12 @@ import ShareYourSystem as SYS
 import tables
 
 #Definition of a Controller instance with a noded datar
-MyController=SYS.ControllerClass().collect(
+MyController=SYS.ControllerClass(
+		**{
+			'HdformatingFileKeyStr':"Things.hdf5",
+			'FolderingPathStr':SYS.Retriever.LocalFolderPathStr
+			}
+	).collect(
 	"Retrievers",
 	"Things",
 	SYS.RetrieverClass().update(
@@ -24,13 +29,13 @@ MyController=SYS.ControllerClass().collect(
 )
 
 MyController.update(
-			[
-				('MyInt',1),
-				('MyStr',"bonjour"),
-				('MyIntsList',[2,4,6])
-			]
+	[
+		('MyInt',1),
+		('MyStr',"bonjour"),
+		('MyIntsList',[2,4,6])
+	]
 ).command(
-	_UpdateList=[('insert',{'LiargVariablesList':[]})],	
+	_UpdateList=[('insert',SYS.ApplyDictClass({'LiargVariablesList':[]}))],	
 	**{'GatheringVariablesList':['<Retrievers>ThingsRetriever']}		
 ).update(
 			[
@@ -39,7 +44,7 @@ MyController.update(
 				('MyIntsList',[0,0,0])
 			]
 ).command(
-	_UpdateList=[('insert',{'LiargVariablesList':[]})],	
+	_UpdateList=[('insert',SYS.ApplyDictClass({'LiargVariablesList':[]}))],	
 )
 
 
@@ -58,9 +63,9 @@ SYS._attest(
 			'RepresentingAlineaIsBool':False
 		}
 		),
-		'hdf5 file is : '+MyController.hdfview().hdfclose().HdformatedConsoleStr
+		'hdf5 file is : '+MyController.hdfview()
 	]
 ) 
 
-#Print
-
+#close
+MyController.close()

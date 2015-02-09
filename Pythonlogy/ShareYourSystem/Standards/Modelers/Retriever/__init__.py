@@ -31,18 +31,19 @@ class RetrieverClass(BaseClass):
 	
 	#Definition
 	RepresentingKeyStrsList=[
-									'RetrievingIndexesList',
-									'RetrievedColumnStrToGetStrOrderedDict',
-									'RetrievedModelInt',			
-									'RetrievedTable', 			
-									'RetrievedPickOrderedDict'
-								]
+							'RetrievingIndexesList',
+							'RetrievedColumnStrToGetStrOrderedDict',
+							'RetrievedRowInt',			
+							'RetrievedHdfTable', 			
+							'RetrievedPickOrderedDict'
+						]
 
 	def default_init(self,
 						_RetrievingIndexesList=None,
+						_RetrievingDatabaseStr='mongo',
 						_RetrievedColumnStrToGetStrOrderedDict=None,
-						_RetrievedModelInt=-1,			
-						_RetrievedTable=None, 			
+						_RetrievedRowInt=-1,			
+						_RetrievedHdfTable=None, 			
 						_RetrievedPickOrderedDict=None,		
 						**_KwargVariablesDict
 			):
@@ -63,6 +64,8 @@ class RetrieverClass(BaseClass):
 		#Bind with RetrievedColumnStrToGetStrOrderedDict setting
 		if self.RetrievedColumnStrToGetStrOrderedDict==None:
 			self.RetrievedColumnStrToGetStrOrderedDict=collections.OrderedDict()
+
+		#map
 		map(
 			lambda __DatabasingColumnTuple:
 			self.RetrievedColumnStrToGetStrOrderedDict.__setitem__(
@@ -95,87 +98,106 @@ class RetrieverClass(BaseClass):
 		self.debug(
 					[
 						('self.',self,[
-										'TabularedTableKeyStrsList',
+										'TabularedHdfKeyStrsList',
 										'RetrievingIndexesList'
 									])
 					]
 				)
 		'''
 
-		#<NotHook>
 		#table first
 		self.table()
-		#</NotHook>
+
+		#Check
+		if len(self.DatabasingSealTuplesList)>0:
+			self.RetrievingDatabaseStr='hdf'
 
 		#debug
 		'''
 		self.debug(
 					[
 						('Ok table is done'),
-						('self.',self,['TabularedTablesOrderedDict','TabularedTableKeyStrsList'])
+						('self.',self,['TabularedHdfTablesOrderedDict','TabularedHdfKeyStrsList'])
 					]
 				)
 		'''
 
-		#set the RetrievedModelInt
-		self.RetrievedModelInt=self.RetrievingIndexesList[1]
+		#set the RetrievedRowInt
+		self.RetrievedRowInt=self.RetrievingIndexesList[1]
 
-		#Definition the RetrievedTable
-		self.RetrievedTable=self.TabularedTablesOrderedDict[
-			self.TabularedTableKeyStrsList[
-				self.RetrievingIndexesList[0]
+		#Check
+		if self.RetrievingDatabaseStr=='mongo':
+
+			#Definition the RetrievedMongoCollection
+			self.RetrievedMongoCollection=self.TabularedMongoCollectionsOrderedDict[
+				self.TabularedMongoKeyStrsList[
+					self.RetrievingIndexesList[0]
+				]
 			]
-		]
 
-		#debug
-		'''
-		self.debug(('self.',self,['RetrievedModelInt','RetrievedTable']))
-		'''
+			#debug
+			self.debug(('self.',self,['RetrievedMongoCollection']))
 
-		#Definition the RetrievedRowsList
-		for __RetrievedRow in self.RetrievedTable.iterrows():
-			if __RetrievedRow['RowInt']==self.RetrievedModelInt:
+			#findOne
+			self.RetrievedPickOrderedDict=self.RetrievedMongoCollection.find_one(
+				{'RowInt':self.RetrievedRowInt}
+			)
 
-				#debug
-				'''
-				self.debug('self.RetrievedTable.colnames is '+str(self.RetrievedTable.colnames))
-				'''
+		#Check
+		if self.RetrievingDatabaseStr=='hdf':
 
-				#Init
-				if self.RetrievedPickOrderedDict==None:
-					self.RetrievedPickOrderedDict=collections.OrderedDict()
+			#Definition the RetrievedHdfTable
+			self.RetrievedHdfTable=self.TabularedHdfTablesOrderedDict[
+				self.TabularedHdfKeyStrsList[
+					self.RetrievingIndexesList[0]
+				]
+			]
 
-				#set
-				map(
-					lambda __ColumnStr:
-					self.RetrievedPickOrderedDict.__setitem__(
-						self.RetrievedColumnStrToGetStrOrderedDict[__ColumnStr],
-						__RetrievedRow[__ColumnStr]
-						) if __ColumnStr in self.RetrievedColumnStrToGetStrOrderedDict else None
-					,
-					self.RetrievedTable.colnames
-				)
+			#debug
+			'''
+			self.debug(('self.',self,['RetrievedRowInt','RetrievedHdfTable']))
+			'''
 
-				#debug
-				'''
-				self.debug('RetrievedPickOrderedDict is setted')
-				'''
+			#Definition the RetrievedRowsList
+			for __RetrievedRow in self.RetrievedHdfTable.iterrows():
+				if __RetrievedRow['RowInt']==self.RetrievedRowInt:
 
-		#debug
-		'''
-		self.debug(
-					[
-						('self.',self,['RetrievedPickOrderedDict'])
-					]
-				)
-		'''
+					#debug
+					'''
+					self.debug('self.RetrievedHdfTable.colnames is '+str(self.RetrievedHdfTable.colnames))
+					'''
 
-		#Update
-		self.NodePointDeriveNoder.update(
-			self.RetrievedPickOrderedDict.items(),
-			#**{'RestrictingIsBool':True}
-		)
-		self.NodePointDeriveNoder.RestrictingIsBool=False
+					#set
+					map(
+						lambda __ColumnStr:
+						self.RetrievedPickOrderedDict.__setitem__(
+							self.RetrievedColumnStrToGetStrOrderedDict[__ColumnStr],
+							__RetrievedRow[__ColumnStr]
+							) if __ColumnStr in self.RetrievedColumnStrToGetStrOrderedDict else None
+						,
+						self.RetrievedHdfTable.colnames
+					)
+
+					#debug
+					'''
+					self.debug('RetrievedPickOrderedDict is setted')
+					'''
+
+			#debug
+			'''
+			self.debug(
+						[
+							('self.',self,['RetrievedPickOrderedDict'])
+						]
+					)
+			'''
+
+			#Update
+			self.ModeledPointDeriveControllerVariable.update(
+				self.RetrievedPickOrderedDict.items(),
+				#**{'RestrictingIsBool':True}
+			)
+			self.ModeledPointDeriveControllerVariable.RestrictingIsBool=False
 
 
 #</DefineClass>

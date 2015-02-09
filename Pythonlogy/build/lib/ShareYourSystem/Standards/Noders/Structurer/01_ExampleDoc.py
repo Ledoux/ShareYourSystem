@@ -3,7 +3,8 @@
 import ShareYourSystem as SYS
 
 #Definition a "graph" structure
-MyStructurer=SYS.StructurerClass().update(
+MyStructurer=SYS.StructurerClass(
+	).update(
 	[
 		(
 			'<Graph>FirstChildStructurer',
@@ -22,12 +23,23 @@ MyStructurer=SYS.StructurerClass().update(
 			])
 		)
 	]	
+).hdformat(
+	_FileKeyStr="Graphs.hdf5"
 ).structure(
+	#StructuringNodeCollectionStrsList
 	['Graph','Tree'],
+	#StructuringBeforeUpdateList
+	[
+		('group',SYS.ApplyDictClass())
+	],
+	#StructuringParentKeyStrsList
+	[
+		'HdformatedFileVariable'
+	],
 	**{
 		'FolderingPathStr':SYS.Structurer.LocalFolderPathStr
 	}
-	).hdfclose()
+).hdfclose()
 		
 #Definition the AttestedStr
 SYS._attest(
@@ -40,7 +52,7 @@ SYS._attest(
 		}
 		),
 		'MyStructurer.hdfview().HdformatedConsoleStr is '+MyStructurer.hdfview(
-			).HdformatedConsoleStr
+			)
 	]
 ) 
 

@@ -46,9 +46,9 @@ SYS._attest(
 			'RepresentingAlineaIsBool':False
 		}
 		),
-		'hdf5 file is : '+MyController.hdfview().hdfclose().HdformatedConsoleStr
+		'hdf5 file is : '+MyController.hdfview()
 	]
 ) 
 
-#Print
-
+#close
+MyController.close()

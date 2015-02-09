@@ -80,7 +80,7 @@ def getAttestedStrWithStrsList(_StrsList):
 	AttestedStr+=AttestingJumpStr.join(
 		map(
 			lambda __Str:
-			Representer.represent(__Str,**{'RepresentingAlineaIsBool':False}),
+			Representer.represent(str(__Str),**{'RepresentingAlineaIsBool':False}),
 			_StrsList
 		)
 	)

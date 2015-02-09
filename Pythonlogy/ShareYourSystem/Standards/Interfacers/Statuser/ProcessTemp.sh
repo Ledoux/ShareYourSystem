@@ -1,2 +1,2 @@
-OUTPUT="$(ps -ef | grep Python)"
-echo "${OUTPUT}" > /Users/ledoux/Documents/ShareYourSystem/ShareYourSystem/Interfacers/Statuser/ProcessTemp.txt
+OUTPUT="$(ps -ef | grep mongod)"
+echo "${OUTPUT}" > /Users/ledoux/Documents/ShareYourSystem/Pythonlogy/ShareYourSystem/Standards/Interfacers/Statuser/ProcessTemp.txt

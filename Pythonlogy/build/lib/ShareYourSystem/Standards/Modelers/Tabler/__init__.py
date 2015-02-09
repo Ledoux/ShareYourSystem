@@ -37,8 +37,8 @@ class TablerClass(
 	RepresentingKeyStrsList=[
 					'TabledMongoKeyStr', 	
 					'TabledHdfKeyStr', 
-					'TabledMongoInt', 	
-					'TabledHdfInt', 			
+					'TabledMongoIndexInt', 	
+					'TabledHdfIndexInt', 			
 					'TabledMongoCollection', 	
 					'TabledHdfTable' 
 		]
@@ -46,8 +46,8 @@ class TablerClass(
 	def default_init(self,
 						_TabledMongoKeyStr="", 	
 						_TabledHdfKeyStr="", 
-						_TabledMongoInt=-1, 	
-						_TabledHdfInt=-1, 			
+						_TabledMongoIndexInt=-1, 	
+						_TabledHdfIndexInt=-1, 			
 						_TabledMongoCollection=None, 	
 						_TabledHdfTable=None, 
 						**_KwargVariablesDict
@@ -67,6 +67,7 @@ class TablerClass(
 		self.tabular()
 
 		#debug
+		'''
 		self.debug(
 					[
 						'We are going to look if this is a new table or not...',
@@ -78,11 +79,13 @@ class TablerClass(
 						)
 					]
 				)
+		'''
 
 		#Check
 		if self.DatabasingMongoBool:
 
 			#debug
+			'''
 			self.debug(
 						[
 							'TabularedMongoKeyStrsList',
@@ -90,7 +93,8 @@ class TablerClass(
 							'TabledMongoKeyStr'
 						]
 					)
-			
+			'''
+
 			#Get the suffix Strs of all the tables and their index
 			TabledMongoList=SYS.unzip(map(
 					lambda __StrsList:
@@ -115,7 +119,7 @@ class TablerClass(
 			if len(TabledMongoList)>0:
 
 				#Unpack
-				[TabledMongoIntsTuple,TabledMongoSuffixStrsList]=TabledMongoList
+				[TabledMongoIndexIntsTuple,TabledMongoSuffixStrsList]=TabledMongoList
 
 				#debug
 				'''
@@ -132,7 +136,7 @@ class TablerClass(
 				if self.TabularedMongoSuffixStr not in TabledMongoSuffixStrsList:
 
 					#Increment the IndexStr
-					TabledMongoIndexInt=max(map(int,TabledMongoIntsTuple))+1
+					TabledMongoIndexInt=max(map(int,TabledMongoIndexIntsTuple))+1
 
 					#Strify
 					TabledMongoIndexStr=str(TabledMongoIndexInt)
@@ -165,7 +169,7 @@ class TablerClass(
 				'''
 
 				#set to empty lists 
-				[TabledMongoIntsTuple,TabledMongoSuffixStrsList]=[[],[]]
+				[TabledMongoIndexIntsTuple,TabledMongoSuffixStrsList]=[[],[]]
 
 				#Init the list
 				TabledMongoIndexInt=0
@@ -177,7 +181,7 @@ class TablerClass(
 			self.TabledMongoKeyStr=TablingOrderStr+TabledMongoIndexStr+TablingOrderStr+self.TabularedMongoSuffixStr
 
 			#set the TabularedInt
-			self.TabledMongoInt=TabledMongoIndexInt
+			self.TabledMongoIndexInt=TabledMongoIndexInt
 
 			#debug
 			'''
@@ -196,9 +200,10 @@ class TablerClass(
 			'''
 
 			#Check
-			if self.TabledMongoKeyStr!="" and self.TabularedMongoTopDatabaseVariable!=None:
+			if self.TabledMongoKeyStr!="" and self.TabularedMongoLocalDatabaseVariable!=None:
 
 				#debug
+				'''
 				self.debug(
 							[
 								('self.',self,[
@@ -206,6 +211,7 @@ class TablerClass(
 									'TabularedMongoKeyStrsList'])
 							]
 						)
+				'''
 
 				#Create the collection if not already
 				if self.TabledMongoKeyStr not in self.TabularedMongoKeyStrsList:
@@ -220,7 +226,7 @@ class TablerClass(
 					'''
 
 					#Create the collections
-					self.TabledMongoCollection=self.TabularedMongoTopDatabaseVariable.create_collection(
+					self.TabledMongoCollection=self.TabularedMongoLocalDatabaseVariable.create_collection(
 						self.TabledMongoKeyStr)
 
 					#Append
@@ -228,21 +234,19 @@ class TablerClass(
 
 				else:
 
-					#debug
-					'''
-					self.debug(
-									[
-										'The collection exists',
-										"self.TabularedGroupVariable is "+str(self.TabularedGroupVariable)
-									]
-								)
-					'''
-
 					#Else just get it 
 					self.TabledMongoCollection=getattr(
-						self.TabularedMongoTopDatabaseVariable,
+						self.TabularedMongoLocalDatabaseVariable,
 						self.TabledMongoKeyStr
 					)
+
+				#debug
+				self.debug(
+					[
+						'The collection exists',
+						('self.',self,['TabledMongoCollection'])
+					]
+				)
 
 				#set the in the TabularedMongoCollectionsOrderedDict
 				self.TabularedMongoCollectionsOrderedDict[
@@ -273,6 +277,7 @@ class TablerClass(
 		if self.DatabasingHdfBool:
 
 			#debug
+			'''
 			self.debug(
 						('self.',self,[
 							'TabularedHdfKeyStrsList',
@@ -280,7 +285,8 @@ class TablerClass(
 							'TabledHdfKeyStr'
 						])
 					)
-			
+			'''
+
 			#Get the suffix Strs of all the tables and their index
 			TabledHdfList=SYS.unzip(map(
 					lambda __StrsList:
@@ -305,7 +311,7 @@ class TablerClass(
 			if len(TabledHdfList)>0:
 
 				#Unpack
-				[TabledHdfIntsTuple,TabledHdfSuffixStrsList]=TabledHdfList
+				[TabledHdfIndexIntsTuple,TabledHdfSuffixStrsList]=TabledHdfList
 
 				#debug
 				'''
@@ -322,7 +328,7 @@ class TablerClass(
 				if self.TabularedHdfSuffixStr not in TabledHdfSuffixStrsList:
 
 					#Increment the IndexStr
-					TabledHdfIndexInt=max(map(int,TabledHdfIntsTuple))+1
+					TabledHdfIndexInt=max(map(int,TabledHdfIndexIntsTuple))+1
 
 					#Strify
 					TabledHdfIndexStr=str(TabledHdfIndexInt)
@@ -355,7 +361,7 @@ class TablerClass(
 				'''
 
 				#set to empty lists 
-				[TabledHdfIntsTuple,TabledHdfSuffixStrsList]=[[],[]]
+				[TabledHdfIndexIntsTuple,TabledHdfSuffixStrsList]=[[],[]]
 
 				#Init the list
 				TabledHdfIndexInt=0
@@ -367,7 +373,7 @@ class TablerClass(
 			self.TabledHdfKeyStr=TablingOrderStr+TabledHdfIndexStr+TablingOrderStr+self.TabularedHdfSuffixStr
 
 			#set the TabularedInt
-			self.TabledHdfInt=TabledHdfIndexInt
+			self.TabledHdfIndexInt=TabledHdfIndexInt
 
 			#debug
 			'''
@@ -389,6 +395,7 @@ class TablerClass(
 			if self.TabledHdfKeyStr!="" and self.TabularedHdfTopFileVariable!=None:
 
 				#debug
+				'''
 				self.debug(
 							[
 								('self.',self,[
@@ -397,7 +404,8 @@ class TablerClass(
 								])
 							]
 						)
-
+				'''
+				
 				#Create the Table if not already
 				if self.TabledHdfKeyStr not in self.TabularedHdfKeyStrsList:
 

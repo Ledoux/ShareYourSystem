@@ -183,8 +183,6 @@ class PatherClass(BaseClass):
 				)
 		'''
 
-	#<Hook>@Hooker.HookerClass(**{'HookingAfterVariablesList':[BaseClass.get]})
-	#@Imitater.ImitaterClass()
 	def mimic_get(self):
 
 		#debug
@@ -284,8 +282,6 @@ class PatherClass(BaseClass):
 			#return 
 			return OutputDict
 
-	#<Hook>@Hooker.HookerClass(**{'HookingAfterVariablesList':[BaseClass.set]})
-	#@Imitater.ImitaterClass()
 	def mimic_set(self):
 		""" """
 
@@ -413,7 +409,6 @@ class PatherClass(BaseClass):
 
 			#Stop the setting
 			OutputDict["HookingIsBool"]=False
-			#<Hook>return OutputDict
 
 		#Call the parent get method
 		if OutputDict['HookingIsBool']:

@@ -22,7 +22,6 @@ SYS.setSubModule(globals())
 #<ImportSpecificModules>
 Featurer=BaseModule
 import collections
-import tables
 from ShareYourSystem.Standards.Modelers import Modeler
 #</ImportSpecificModules>
 
@@ -30,17 +29,6 @@ from ShareYourSystem.Standards.Modelers import Modeler
 JoinStr='__'
 JoinDeepStr='/'
 #</DefineLocals>
-
-#<DefineFunctions>
-def getJoinedRetrieveIndexesListWithInstanceVariableAndDeriveDatabaser(
-	_InstanceVariable,_DeriveDatabaser):
-
-	#Table
-	_DeriveDatabaser.table().pick(['TabledInt',-1])
-
-	#set the JoinedRetrieveIndexesListKeyStr
-	return [_DeriveDatabaser.TabledInt,-1]
-#<DefineFunctions>
 
 #<DefineClass>
 @DecorationClass(**{
@@ -59,11 +47,13 @@ class JoinerClass(BaseClass):
 								'JoiningCatchStr',
 								'JoiningAttentionStr',
 								'JoiningFindBeforeBool',
+								'JoiningDatabaseStr',
 								'JoinedCatchCollectionOrderedDict',
 								'JoinedCatchDeriveJoinersList',
 								'JoinedRetrieveIndexesListGetStrsList',
 								'JoinedRetrieveIndexesListColumnStrsList',
-								'JoinedFlushIndexIntsList'
+								'JoinedMongoInsertIndexIntsList',
+								'JoinedHdfInsertIndexIntsList'
 							]
 
 	def default_init(self,
@@ -71,12 +61,14 @@ class JoinerClass(BaseClass):
 						_JoiningCatchStr="",
 						_JoiningAttentionStr="",
 						_JoiningFindBeforeBool=True,
+						_JoiningDatabaseStr='mongo',
 						_JoinedAttentionCollectionOrderedDict=None,
 						_JoinedCatchCollectionOrderedDict=None,
 						_JoinedCatchDeriveJoinersList=None,
 						_JoinedRetrieveIndexesListGetStrsList=None,
 						_JoinedRetrieveIndexesListColumnStrsList=None,
-						_JoinedFlushIndexIntsList=None,
+						_JoinedMongoInsertIndexIntsList=None,
+						_JoinedHdfInsertIndexIntsList=None,
 						**_KwargVariablesDict
 					):
 
@@ -90,10 +82,8 @@ class JoinerClass(BaseClass):
 		self.debug('We join first')
 		'''
 
-		#<NotHook>
 		#join first
 		self.join()
-		#</NotHook>
 		
 		#debug
 		'''
@@ -102,16 +92,24 @@ class JoinerClass(BaseClass):
 		
 		#set
 		if len(self.JoinedRetrieveIndexesListColumnStrsList)>0:
-			self.DatabasingSealTuplesList=map(
-				lambda __JoinedRetrieveIndexesListGetStr,__JoinedRetrieveIndexesListColumnStr:
-				(
-					__JoinedRetrieveIndexesListGetStr,
-					__JoinedRetrieveIndexesListColumnStr,
-					tables.Int64Col(shape=2)
-				),
-				self.JoinedRetrieveIndexesListGetStrsList,
-				self.JoinedRetrieveIndexesListColumnStrsList
-			)+self.DatabasingSealTuplesList
+
+			#Check
+			if self.DatabasingHdfBool:
+
+				#import 
+				import tables
+
+				#add
+				self.DatabasingSealTuplesList=map(
+					lambda __JoinedRetrieveIndexesListGetStr,__JoinedRetrieveIndexesListColumnStr:
+					(
+						__JoinedRetrieveIndexesListGetStr,
+						__JoinedRetrieveIndexesListColumnStr,
+						tables.Int64Col(shape=2)
+					),
+					self.JoinedRetrieveIndexesListGetStrsList,
+					self.JoinedRetrieveIndexesListColumnStrsList
+				)+self.DatabasingSealTuplesList
 
 		#debug
 		'''
@@ -123,10 +121,8 @@ class JoinerClass(BaseClass):
 				)
 		'''
 
-		#<NotHook>
 		#then database 
 		BaseClass.database(self)
-		#</NotHook>
 
 	def mimic_row(self):
 
@@ -135,11 +131,9 @@ class JoinerClass(BaseClass):
 		self.debug('Maybe we have to join first')
 		'''
 
-		#<NotHook>
 		#table and join first
 		self.table()
 		self.join()
-		#</NotHook>
 
 		#debug
 		'''
@@ -152,34 +146,64 @@ class JoinerClass(BaseClass):
 		'''
 
 		#set
-		self.JoinedFlushIndexIntsList=map(
-					lambda __JoinedDeriveDatabaserPointer:
-					__JoinedDeriveDatabaserPointer.row().RowedIndexInt,
+		self.JoinedHdfInsertIndexIntsList=map(
+					lambda __JoinedCatchDeriveJoiner:
+					__JoinedCatchDeriveJoiner.row().RowedHdfIndexInt,
+					self.JoinedCatchDeriveJoinersList
+				)
+
+		#set
+		self.JoinedMongoInsertIndexIntsList=map(
+					lambda __JoinedCatchDeriveJoiner:
+					__JoinedCatchDeriveJoiner.RowedMongoIndexInt,
 					self.JoinedCatchDeriveJoinersList
 				)
 
 		#debug
 		'''
 		self.debug(('self.',self,[
-									'JoinedFlushIndexIntsList',
+									'JoinedMongoInsertIndexIntsList',
+									'JoinedHdfInsertIndexIntsList',
 									'JoinedRetrieveIndexesListGetStrsList'
-
 								]))
 		'''
 
-		#set the modeled int in the retrieve tuples
-		map(
-				lambda __JoinedRetrieveIndexesListGetStr,__JoinedFlushIndexInt:
-				getattr(
-					self.NodePointDeriveNoder,
-					__JoinedRetrieveIndexesListGetStr
-					).__setitem__(
-						1,
-						__JoinedFlushIndexInt
-				),
-				self.JoinedRetrieveIndexesListGetStrsList,
-				self.JoinedFlushIndexIntsList
-			)
+		#Check
+		if len(self.DatabasingSealTuplesList)>0:
+			self.JoiningDatabaseStr='hdf'
+
+		#Check
+		if self.JoiningDatabaseStr=='mongo':
+
+			#set the modeled int in the retrieve tuples
+			map(
+					lambda __JoinedRetrieveIndexesListGetStr,__JoinedInsertIndexInt:
+					getattr(
+						self.ModeledPointDeriveControllerVariable,
+						__JoinedRetrieveIndexesListGetStr
+						).__setitem__(
+							1,
+							__JoinedInsertIndexInt
+					),
+					self.JoinedRetrieveIndexesListGetStrsList,
+					self.JoinedMongoInsertIndexIntsList
+				)
+
+		elif self.JoiningDatabaseStr=='hdf':
+
+			#set the modeled int in the retrieve tuples
+			map(
+					lambda __JoinedRetrieveIndexesListGetStr,__JoinedInsertIndexInt:
+					getattr(
+						self.ModeledPointDeriveControllerVariable,
+						__JoinedRetrieveIndexesListGetStr
+						).__setitem__(
+							1,
+							__JoinedInsertIndexInt
+					),
+					self.JoinedRetrieveIndexesListGetStrsList,
+					self.JoinedHdfInsertIndexIntsList
+				)
 
 		#debug
 		'''
@@ -202,10 +226,8 @@ class JoinerClass(BaseClass):
 		self.debug('Now row with Featurer')
 		'''
 
-		#<NotHook>
 		#row then
 		BaseClass.row(self)
-		#</NotHook>
 
 		#debug
 		'''
@@ -214,10 +236,8 @@ class JoinerClass(BaseClass):
 
 	def mimic_insert(self):
 
-		#<NotHook>
 		#row first
 		self.row()
-		#</NotHook>
 
 		#debug
 		'''
@@ -233,7 +253,7 @@ class JoinerClass(BaseClass):
 		'''
 		
 		#Flush the post joined databases
-		self.JoinedFlushIndexIntsList=map(
+		self.JoinedCatchDeriveJoinersList=map(
 			lambda __JoinedCatchDeriveJoinerPointer:
 			__JoinedCatchDeriveJoinerPointer.CatchToPointVariable.insert(),
 			self.JoinedCatchCollectionOrderedDict.values(),
@@ -260,10 +280,8 @@ class JoinerClass(BaseClass):
 		self.debug('Now we can insert here')
 		'''
 
-		#<NotHook>
 		#insert then
 		BaseClass.insert(self)
-		#</NotHook>
 		
 	def mimic_retrieve(self):
 
@@ -272,17 +290,15 @@ class JoinerClass(BaseClass):
 		self.debug(('self.',self,['RetrievingIndexesList']))
 		'''
 
-		#<NotHook>
 		#retrieve first
 		BaseClass.retrieve(self)
-		#</NotHook>
 
 		#Retrieve in the joined databases
-		self.JoinedFlushIndexIntsList=map(
-					lambda __JoinedRetrieveIndexesListGetStr,__JoinedDeriveDatabaserPointer:
-					__JoinedDeriveDatabaserPointer.retrieve(
+		JoinedInsertIndexIntsList=map(
+					lambda __JoinedRetrieveIndexesListGetStr,__JoinedCatchDeriveJoiner:
+					__JoinedCatchDeriveJoiner.retrieve(
 						getattr(
-							self.NodePointDeriveNoder,
+							self.ModeledPointDeriveControllerVariable,
 							__JoinedRetrieveIndexesListGetStr
 						)
 					),
@@ -290,16 +306,20 @@ class JoinerClass(BaseClass):
 					self.JoinedCatchDeriveJoinersList
 				)
 
+		#Check
+		if self.JoiningDatabaseStr=='mongo':
+			self.JoinedMongoInsertIndexIntsList=JoinedInsertIndexIntsList
+		elif self.JoiningDatabaseStr=='hdf':
+			self.JoinedHdfInsertIndexIntsList=JoinedInsertIndexIntsList
+
 	def mimic_find(self):
 
-		#<NotHook>
 		#table first
 		self.table()
-		#</NotHook>
 
 		#debug
 		'''
-		self.debug(('self.',self,['FindingConditionTuplesList']))
+		self.debug(('self.',self,['FindingWhereTuplesList']))
 		'''
 
 		#
@@ -307,8 +327,9 @@ class JoinerClass(BaseClass):
 
 			#Find in the joined databases
 			JoinedFindFilterRowDictsListsList=map(
-					lambda __JoinedDeriveDatabaserPointer:
-					__JoinedDeriveDatabaserPointer.find().FoundFilterRowDictsList,
+					lambda __JoinedCatchDeriveJoiner:
+					__JoinedCatchDeriveJoiner.find(
+						).FoundFilterRowDictsList,
 					self.JoinedCatchDeriveJoinersList
 				)
 
@@ -338,7 +359,7 @@ class JoinerClass(BaseClass):
 			'''
 
 			#Map
-			JoinedFindingConditionTuplesList=map(
+			JoinedFindingWhereTuplesList=map(
 					lambda __JoinedRetrieveIndexesListColumnStr,__JoinedFindFilterRetrieveList:
 					(
 						__JoinedRetrieveIndexesListColumnStr,
@@ -353,11 +374,11 @@ class JoinerClass(BaseClass):
 
 			#debug
 			'''
-			self.debug('JoinedFindingConditionTuplesList is '+str(JoinedFindingConditionTuplesList))
+			self.debug('JoinedFindingWhereTuplesList is '+str(JoinedFindingWhereTuplesList))
 			'''
 
 			#Add to the finding condition tuples
-			self.FindingConditionTuplesList+=JoinedFindingConditionTuplesList
+			self.FindingWhereTuplesList+=JoinedFindingWhereTuplesList
 
 			#Call the parent method
 			Featurer.FeaturerClass.find(self)
@@ -371,10 +392,8 @@ class JoinerClass(BaseClass):
 				self
 			):
 
-		#<NotHook>
 		#model first
 		self.model()
-		#</NotHook>
 
 		#Check
 		if self.JoiningCollectionStr=="":
@@ -486,6 +505,16 @@ class JoinerClass(BaseClass):
 					)
 			'''
 
+			#Check
+			if len(self.DatabasingSealTuplesList)>0:
+				self.DatabasingHdfBool=True
+				self.JoiningDatabaseStr="hdf"
+				JoinedTabledIndexIntKeyStr='TabledHdfIndexInt'
+			else:
+				self.JoiningDatabaseStr="mongo"
+				JoinedTabledIndexIntKeyStr='TabledMongoIndexInt'
+
+
 			#Table all the joined databasers and init the corresponding JoinedRetrieveIndexesList in the NodePointDeriveNoder
 			self.ModeledPointDeriveControllerVariable.update(
 				zip(
@@ -493,7 +522,10 @@ class JoinerClass(BaseClass):
 						map(
 							lambda __JoinedCatchDeriveJoiner:
 							[
-								__JoinedCatchDeriveJoiner.table()['TabledInt'],
+								__JoinedCatchDeriveJoiner.table(
+									)[
+										JoinedTabledIndexIntKeyStr
+									],
 								-1
 							],
 							self.JoinedCatchDeriveJoinersList
@@ -502,13 +534,11 @@ class JoinerClass(BaseClass):
 			)
 
 			#debug
-			'''
 			self.debug(
 						('self.',self,[
 										'JoinedRetrieveIndexesListColumnStrsList',
 										'JoinedRetrieveIndexesListGetStrsList'
 									])
 			)
-			'''
 #</DefineClass>
 

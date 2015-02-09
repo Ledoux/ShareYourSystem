@@ -155,6 +155,9 @@ class RowerClass(
 		#set
 		self._RowingGetStrsList=_SettingValueVariable
 
+		#Check
+		if len(self.DatabasingSealTuplesList)>0:
+			self.DatabasingHdfBool=True
 
 		#Check
 		if self.DatabasingHdfBool:
@@ -194,67 +197,6 @@ class RowerClass(
 			'''
 			self.ModeledPointDeriveControllerVariable.debug('ParentSpeaking...')
 			'''
-
-			#Check
-			if self.DatabasingHdfBool:
-
-				#Update
-				self.RowedHdfPickOrderedDict.update(
-					zip(
-						self.RowedHdfColumnStrsList,
-						self.ModeledPointDeriveControllerVariable.pick(
-							self.RowingGetStrsList
-						)
-					)
-				)
-
-				#debug
-				'''
-				self.debug(('self.',self,[
-										'RowedHdfPickOrderedDict',
-										'TabledHdfTable'
-									]))
-				'''
-
-				#Check if it was already rowed
-				self.RowedHdfIsBoolsList=map(
-						lambda __Row:
-						all(
-							map(
-									lambda __RowedItemTuple:
-									SYS.getIsEqualBool(
-														__Row[__RowedItemTuple[0]],
-														__RowedItemTuple[1]
-													),
-									self.RowedHdfPickOrderedDict.items()
-								)
-							),
-						self.TabledHdfTable.iterrows()
-					)
-
-				#debug
-				'''
-				self.debug(('self.',self,['RowedHdfIsBoolsList']))
-				'''
-
-				#set
-				if len(self.RowedHdfIsBoolsList)==0:
-					self.RowedHdfIsBool=False
-				else:
-					self.RowedHdfIsBool=any(self.RowedHdfIsBoolsList)
-
-				#Init to the len of the table
-				self.RowedHdfIndexInt=self.TabledHdfTable.nrows
-
-				#But maybe find a last index
-				if self.RowedHdfIsBool: 
-					if len(self.RowedHdfIsBoolsList)>0:
-						self.RowedHdfIndexInt=self.RowedHdfIsBoolsList.index(True)
-
-				#debug
-				'''
-				self.debug(('self.',self,['RowedHdfIsBool','RowedHdfIndexInt']))
-				'''
 
 			#Check
 			if self.DatabasingMongoBool:
@@ -320,5 +262,76 @@ class RowerClass(
 				'''
 				self.debug(('self.',self,['RowedMongoIsBool','RowedMongoIndexInt']))
 				'''
+
+			#Check
+			if self.DatabasingHdfBool:
+
+				#debug
+				'''
+				self.debug(('self.',self,[
+					'RowingGetStrsList',
+					'RowedHdfColumnStrsList'
+					]))
+				'''
+
+				#Update
+				self.RowedHdfPickOrderedDict.update(
+					zip(
+						self.RowedHdfColumnStrsList,
+						self.ModeledPointDeriveControllerVariable.pick(
+							self.RowingGetStrsList
+						)
+					)
+				)
+
+				#debug
+				'''
+				self.debug(('self.',self,[
+										'RowedHdfPickOrderedDict',
+										'TabledHdfTable'
+							]))
+				'''
+				
+				#Check if it was already rowed
+				self.RowedHdfIsBoolsList=map(
+						lambda __Row:
+						all(
+							map(
+									lambda __RowedItemTuple:
+									SYS.getIsEqualBool(
+														__Row[__RowedItemTuple[0]],
+														__RowedItemTuple[1]
+													),
+									self.RowedHdfPickOrderedDict.items()
+								)
+							),
+						self.TabledHdfTable.iterrows()
+					)
+
+				#debug
+				'''
+				self.debug(('self.',self,['RowedHdfIsBoolsList']))
+				'''
+
+				#set
+				if len(self.RowedHdfIsBoolsList)==0:
+					self.RowedHdfIsBool=False
+				else:
+					self.RowedHdfIsBool=any(self.RowedHdfIsBoolsList)
+
+				#Init to the len of the table
+				self.RowedHdfIndexInt=self.TabledHdfTable.nrows
+
+				#But maybe find a last index
+				if self.RowedHdfIsBool: 
+					if len(self.RowedHdfIsBoolsList)>0:
+						self.RowedHdfIndexInt=self.RowedHdfIsBoolsList.index(True)
+
+				#debug
+				'''
+				self.debug(('self.',self,['RowedHdfIsBool','RowedHdfIndexInt']))
+				'''
+
+			
 		
 #</DefineClass>

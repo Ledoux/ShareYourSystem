@@ -23,7 +23,7 @@ class SumerClass(SYS.ControllerClass):
 					):
 
 		#Call the parent init method
-		self.__class__.__bases__[0].__init__(self,**_KwargVariablesDict)
+		SYS.ControllerClass.__init__(self,**_KwargVariablesDict)
 						
 	def do_sum(self):
 		
@@ -124,6 +124,9 @@ SYS._attest(
 			'RepresentingAlineaIsBool':False
 		}
 		),
-		'hdf5 file is : '+MySumer.hdfview().hdfclose().HdformatedConsoleStr
+		'hdf5 file is : '+MySumer.hdfview()
 	]
 ) 
+
+#close
+MySumer.hdfclose()

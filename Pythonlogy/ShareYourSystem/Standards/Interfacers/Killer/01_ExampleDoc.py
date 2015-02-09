@@ -2,7 +2,10 @@
 import ShareYourSystem as SYS
 
 #Definition a Killer
-MyKiller=SYS.KillerClass().kill(**{'StatusingProcessStr':"Python"})
+MyKiller=SYS.KillerClass(
+	).kill(
+		**{'StatusingProcessStr':"mongod"}
+	)
 
 #Definition the AttestedStr
 SYS._attest(

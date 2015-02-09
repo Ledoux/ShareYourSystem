@@ -142,23 +142,19 @@ class InserterClass(
 				if self.TabledMongoCollection!=None:
 
 					#debug
+					'''
 					self.debug(
 						[
 							'This is a new collection row',
 							('self.',self,[
 										'RowingGetStrsList',
 										'InsertedNotRowGetStrsList'
-									])
-						]
-					)
-
-					#debug
-					self.debug(
-						[
+									]),
 							'Before update',
 							('self.',self,['InsertedMongoNotRowPickOrderedDict'])
 						]
 					)
+					'''
 
 					#Pick and update				
 					self.InsertedMongoNotRowPickOrderedDict.update(
@@ -171,18 +167,25 @@ class InserterClass(
 					)
 
 					#debug
+					'''
 					self.debug(
 						[
 							'After update',
 							('self.',self,['InsertedMongoNotRowPickOrderedDict'])
 						]
 					)
-
+					'''
+					
 					#Definition the InsertedItemTuplesList
 					InsertedItemTuplesList=[
 											('RowInt',self.RowedMongoIndexInt)
 										]+self.RowedMongoPickOrderedDict.items(
 					)+self.InsertedMongoNotRowPickOrderedDict.items()
+
+					#debug
+					self.debug(
+							('self.',self,['TabledMongoCollection'])
+						)
 
 					#insert
 					self.TabledMongoCollection.insert(
@@ -191,6 +194,9 @@ class InserterClass(
 
 		#Check
 		if self.DatabasingHdfBool:
+
+			#Debug
+			self.debug(('self.',self,['RowedHdfIsBool']))
 
 			#Append and row if it is new
 			if self.RowedHdfIsBool==False:
@@ -235,25 +241,20 @@ class InserterClass(
 											('RowInt',self.RowedHdfIndexInt)
 										]+self.RowedHdfPickOrderedDict.items(
 					)+self.InsertedHdfNotRowPickOrderedDict.items()
-						
-					#import tables
-					#print(tables.tableextension.Row)
-
+							
 					#debug
-					'''
 					self.debug(
 						[
-							'This is a new row',
-							'Colnames are : '+str(self.TabledHdfTable.colnames),
+							'This is a new hdf row',
+							#'Colnames are : '+str(self.TabledHdfTable.colnames),
 							'InsertedItemTuplesList is '+str(InsertedItemTuplesList),
-							'self.TabledHdfTable is '+str(dir(self.TabledHdfTable)),
-							'self.DatabasedModelClass is '+(str(self.DatabasedModelClass.columns) if hasattr(self.DatabasedModelClass,'columns') else ""),
-							'Row is '+str(dir(Row)),
-							'Row.table is '+str(Row.table),
-							'TabularedHdfTablesOrderedDict is '+str(self.TabularedHdfTablesOrderedDict)
+							#'self.TabledHdfTable is '+str(dir(self.TabledHdfTable)),
+							#'self.DatabasedModelClass is '+(str(self.DatabasedModelClass.columns) if hasattr(self.DatabasedModelClass,'columns') else ""),
+							#'Row is '+str(dir(Row)),
+							#'Row.table is '+str(Row.table),
+							#'TabularedHdfTablesOrderedDict is '+str(self.TabularedHdfTablesOrderedDict)
 						]
 					)
-					'''
 
 					#set
 					map(

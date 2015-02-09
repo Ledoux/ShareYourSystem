@@ -1,10 +1,8 @@
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Standards.Interfacers import Statuser
-import os
 
 #Definition a Statuser
-MyStatuser=Statuser.StatuserClass().status('Python')
+MyStatuser=SYS.StatuserClass().status('mongod')
 
 #Definition the AttestedStr
 SYS._attest(

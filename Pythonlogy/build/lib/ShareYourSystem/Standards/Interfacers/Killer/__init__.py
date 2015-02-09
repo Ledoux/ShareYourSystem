@@ -23,10 +23,6 @@ SYS.setSubModule(globals())
 import os
 #</ImportSpecificModules>
 
-#<DefineDoStrsList>
-DoStrsList=["Killer","Kill","Killing","Killed"]
-#<DefineDoStrsList>
-
 #<DefineClass>
 @DecorationClass()
 class KillerClass(BaseClass):
@@ -54,13 +50,21 @@ class KillerClass(BaseClass):
 		
 		#map kill the other previous process
 		if self.StatusingProcessStr=='Python' and len(self.StatusedIdStrsList)>1:
+
+			#kill all except this one
 			map(
 				lambda __IdStr:
 				os.popen("kill "+__IdStr),
 				sorted(self.StatusedIdStrsList)[:-1]
 			)
+		else:
 
-		#Return self
-		#return self
+			#kill all
+			map(
+				lambda __IdStr:
+				os.popen("kill "+__IdStr),
+				sorted(self.StatusedIdStrsList)
+			)
+
 
 #</DefineClass>

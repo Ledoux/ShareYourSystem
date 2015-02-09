@@ -9,7 +9,7 @@
 
 
 Findoer (sorry Finder is already an important module in python standards, so just to be sure to not override...)
-instances helps to find in a hdf5 table RowedVariablesList corresponding to the FindingConditionTuplesList.
+instances helps to find in a hdf5 table RowedVariablesList corresponding to the FindingWhereTuplesList.
 
 """
 
@@ -32,70 +32,98 @@ class FindoerClass(BaseClass):
 	
 	#Definition
 	RepresentingKeyStrsList=[
-									'FindingConditionTuplesList',
-									'FoundRowDictsList',			
-									'FoundFilterRowDictsList'
-								]
+								'FindingMongoDict',
+								'FindingWhereTuplesList',
+								'FoundMongoRowDictsList',	
+								'FoundHdfRowDictsList',			
+								'FoundFilterRowDictsList',
+								'FoundMongoIsBool',
+								'FoundHdfIsBool'
+							]
 
 	def default_init(self,
-					_FindingConditionTuplesList=None,
-					_FoundRowDictsList=None,			
+					_FindingMongoDict=None,
+					_FindingWhereTuplesList=None,
+					_FoundMongoRowDictsList=None,	
+					_FoundHdfRowDictsList=None,			
 					_FoundFilterRowDictsList=None, 
-					_FoundIsBool=False,
+					_FoundMongoIsBool=False,
+					_FoundHdfIsBool=False,
 					**_KwargVariablesDict
 				):
 
 		#Call the parent init method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 		
-	#@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingMethodStr':"table"}]})
-	#@Argumenter.ArgumenterClass()
 	def do_find(self):
 
 		#debug
 		'''
-		self.debug(("self.",self,['DatabasedKeyStr','FindingConditionTuplesList']))
+		self.debug(("self.",self,['DatabasedKeyStr','FindingWhereTuplesList']))
 		'''
 
-		#<NotHook>
 		#table first
 		self.table()
-		#</NotHook>
 
 		#If the FoundRowedTuplesList was not yet setted
-		if self.FoundIsBool==False:
+		if self.FoundHdfIsBool==False:
 
 			#debug
 			'''
-			self.debug('FoundRowDictsList was not yet setted')
+			self.debug('FoundHdfRowDictsList was not yet setted')
 			'''
 
-			#Take the first one in the list
-			self.FoundRowDictsList=Rower.getRowedDictsListWithTable(
-												self.TabularedGroupVariable._f_getChild(
-													self.TabularedTableKeyStrsList[0]
-												)
-											)
+			#Check
+			if self.DatabasingHdfBool:
 
-			#set
-			self.FoundIsBool=True
-		
-		#debug
-		'''
-		self.debug(
-						[
-							("self.",self,['FoundRowDictsList'])
-						]
+				#Take the first one in the list
+				self.FoundHdfRowDictsList=Rower.getRowedDictsListWithTable(
+					#self.TabularedHdfGroupVariable._f_getChild(
+					#	self.TabularedHdfKeyStrsList[0]
+					#)
+					self.TabledHdfTable
 				)
-		'''
 
-		#Now find really ! 
+				#set
+				self.FoundHdfIsBool=True
+
+				#debug
+				'''
+				self.debug(
+								[
+									("self.",self,['FoundHdfRowDictsList'])
+								]
+						)
+				'''
+
+
+			if self.DatabasingMongoBool:
+
+				#Take the first one in the list
+				self.FoundMongoRowDictsList=list(
+					self.TabledMongoCollection.find(
+						self.FindingMongoDict
+					)
+				)
+				
+				#set
+				self.FoundMongoIsBool=True
+
+				#debug
+				self.debug(
+								[
+									("self.",self,['FoundMongoRowDictsList'])
+								]
+						)
+
+			
+		#Now we find with a condition Tuples list 
 		self.FoundFilterRowDictsList=SYS.filterNone(
-								SYS.where(
-											self.FoundRowDictsList,
-											self.FindingConditionTuplesList
-								)
-							)
+			SYS.where(
+				self.FoundHdfRowDictsList,
+				self.FindingWhereTuplesList
+			)
+		)
 
 		#debug
 		'''
@@ -107,11 +135,6 @@ class FindoerClass(BaseClass):
 
 				)
 		'''
-
-		#<NotHook>
-		#Return self
-		#return self
-		#</NotHook>
 
 #</DefineClass>
 

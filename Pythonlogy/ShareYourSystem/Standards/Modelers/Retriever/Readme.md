@@ -75,7 +75,7 @@ class RetrieverClass(BaseClass):
         RepresentingKeyStrsList=[
 'RetrievingIndexesList',
 'RetrievedColumnStrToGetStrOrderedDict',
-'RetrievedModelInt',
+'RetrievedRowInt',
 'RetrievedTable',
 'RetrievedPickOrderedDict'
                                                                 ]
@@ -83,7 +83,7 @@ class RetrieverClass(BaseClass):
         def default_init(self,
                                                 _RetrievingIndexesList=None,
 _RetrievedColumnStrToGetStrOrderedDict=None,
-                                                _RetrievedModelInt=-1,
+                                                _RetrievedRowInt=-1,
                                                 _RetrievedTable=None,
                                                 _RetrievedPickOrderedDict=None,
                                                 **_KwargVariablesDict
@@ -162,8 +162,8 @@ BaseClass.DatabasingSealTuplesList.__doc__
                                 )
                 '''
 
-                #set the RetrievedModelInt
-                self.RetrievedModelInt=self.RetrievingIndexesList[1]
+                #set the RetrievedRowInt
+                self.RetrievedRowInt=self.RetrievingIndexesList[1]
 
                 #Definition the RetrievedTable
                 self.RetrievedTable=self.TabularedTablesOrderedDict[
@@ -174,12 +174,12 @@ BaseClass.DatabasingSealTuplesList.__doc__
 
                 #debug
                 '''
-self.debug(('self.',self,['RetrievedModelInt','RetrievedTable']))
+self.debug(('self.',self,['RetrievedRowInt','RetrievedTable']))
                 '''
 
                 #Definition the RetrievedRowsList
                 for __RetrievedRow in self.RetrievedTable.iterrows():
-                        if __RetrievedRow['RowInt']==self.RetrievedModelInt:
+                        if __RetrievedRow['RowInt']==self.RetrievedRowInt:
 
                                 #debug
                                 '''
@@ -383,7 +383,7 @@ MyStructurer is < (StructurerClass), 4563994000>
    /   /   /   /  'MyStr' : MyStr
    /   /   /   /  'MyIntsList' : MyIntsList
    /   /   /   /}
-   /   /   /  '<Spe><Instance>RetrievedModelInt' : 1
+   /   /   /  '<Spe><Instance>RetrievedRowInt' : 1
    /   /   /  '<Spe><Instance>RetrievedPickOrderedDict' :
    /   /   /   /{
    /   /   /   /  'MyInt' : 0
