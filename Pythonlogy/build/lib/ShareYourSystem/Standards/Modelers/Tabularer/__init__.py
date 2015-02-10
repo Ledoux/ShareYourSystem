@@ -114,10 +114,12 @@ class TabularerClass(
 				)+'Collection'
 
 				#debug
+				'''
 				self.debug(('self.',self,[
 					'PymongoneClientVariable'
 				]))
-
+				'''
+				
 				#Check
 				if self.ModeledPointDeriveControllerVariable.PymongoneClientVariable==None:
 
@@ -127,10 +129,7 @@ class TabularerClass(
 					'''
 
 					#pymongo
-					self.ModeledPointDeriveControllerVariable.pymongo(
-						_DatabaseKeyStr=self.ModeledPointDeriveControllerVariable.NodeKeyStr
-					)
-					#self.ModeledPointDeriveControllerVariable.structure()
+					self.ModeledPointDeriveControllerVariable.pymongo()
 
 				#Link
 				self.TabularedMongoTopClientVariable=self.ModeledPointDeriveControllerVariable.PymongoneClientVariable
@@ -148,6 +147,7 @@ class TabularerClass(
 				if self.TabularedMongoTopClientVariable!=None:
 
 					#debug
+					'''
 					self.debug(
 								[	
 									'Looking for names of collections here',
@@ -158,13 +158,10 @@ class TabularerClass(
 									'self.ModeledPointDeriveControllerVariable.ParentedNodePathStr is '+self.ModeledPointDeriveControllerVariable.ParentedNodePathStr
 								]
 							)
+					'''
 
 					#set
-					self.TabularedMongoDatabaseKeyStr=(
-						self.ModeledPointDeriveControllerVariable.ParentedNodePathStr+'/'+self.ModeledPointDeriveControllerVariable.NodeKeyStr
-						).replace('/','_')
-					if self.TabularedMongoDatabaseKeyStr[0]=='_':
-						self.TabularedMongoDatabaseKeyStr=self.TabularedMongoDatabaseKeyStr[1:]
+					self.TabularedMongoDatabaseKeyStr=self.ModeledPointDeriveControllerVariable.getDatabaseKeyStr()
 
 					#set
 					self.ModeledPointDeriveControllerVariable.PymongoingDatabaseKeyStr=self.TabularedMongoDatabaseKeyStr
@@ -174,26 +171,52 @@ class TabularerClass(
 							self.TabularedMongoDatabaseKeyStr
 					]
 
+					#debug
+					'''
+					self.debug(
+							[
+								('self.',self,[
+									'TabularedMongoDatabaseKeyStr',
+									'TabularedMongoLocalDatabaseVariable'
+									]),
+								"id(self.TabularedMongoLocalDatabaseVariable) is "+str(
+									id(self.TabularedMongoLocalDatabaseVariable))
+							]
+						)
+					'''
+
 					#set
-					self.TabularedMongoLocalDatabaseVariable.__dict__['ParentDerivePymongoer']=self.ModeledPointDeriveControllerVariable
+					self.TabularedMongoLocalDatabaseVariable.__dict__[
+						'ParentDerivePymongoer'
+					]=self.ModeledPointDeriveControllerVariable
+
+					#alias
+					self.ModeledPointDeriveControllerVariable.Database=self.TabularedMongoLocalDatabaseVariable
 
 					#debug
+					'''
 					self.debug(
 								[	
 									('self.',self,[
 										'TabularedMongoLocalDatabaseVariable'
-										])
+										]),
+									"'ParentDerivePymongoer' in self.TabularedMongoLocalDatabaseVariable.__dict__",
+									'ParentDerivePymongoer' in self.TabularedMongoLocalDatabaseVariable.__dict__
 								]
 							)
+					'''
 
 					#Get and sort
-					self.TabularedMongoKeyStrsList=sorted(
-						filter(
-								lambda __KeyStr:
-								__KeyStr.endswith(
-									self.TabularedMongoSuffixStr
-								),
-								self.TabularedMongoLocalDatabaseVariable.collection_names()
+					self.TabularedMongoKeyStrsList=map(
+						str,
+						sorted(
+							filter(
+									lambda __KeyStr:
+									__KeyStr.endswith(
+										self.TabularedMongoSuffixStr
+									),
+									self.TabularedMongoLocalDatabaseVariable.collection_names()
+								)
 							)
 					)
 					
@@ -234,8 +257,10 @@ class TabularerClass(
 			if self.DatabasingHdfBool:
 
 				#debug
+				'''
 				self.debug('We tabular for hdf here...')
-
+				'''
+				
 				#set 
 				self.GroupedPathStr=self.ModeledPointDeriveControllerVariable.GroupedPathStr
 

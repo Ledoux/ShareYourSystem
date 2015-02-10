@@ -31,12 +31,13 @@ class InserterClass(
 				):
 	
 	#Definition
-	RepresentingKeyStrsList=[										
+	RepresentingKeyStrsList=[									
 								'InsertedNotRowGetStrsList',
 								'InsertedNotRowColumnStrsList',
 								'InsertedMongoNotRowPickOrderedDict',
 								'InsertedHdfNotRowPickOrderedDict',
-								'InsertedIndexInt'
+								'InsertedIndexInt',
+								'InsertedItemTuplesList'
 							]
 
 	def default_init(self,
@@ -44,7 +45,8 @@ class InserterClass(
 					_InsertedNotRowColumnStrsList=None,
 					_InsertedMongoNotRowPickOrderedDict=None,
 					_InsertedHdfNotRowPickOrderedDict=None,
-					_InsertedIndexInt=-1,		
+					_InsertedIndexInt=-1,	
+					_InsertedItemTuplesList=None,	
 					**_KwargVariablesDict
 					):
 
@@ -82,14 +84,14 @@ class InserterClass(
 		BaseClass.RowingGetStrsList.__doc__
 	)
 
-	def do_insert(self):
+	def do_insert(self,**_KwargVariablesDict):
 		""" """
 
 		#debug
 		'''
 		self.debug('row maybe before...')
 		'''
-
+		
 		#row first
 		self.row()
 
@@ -177,26 +179,41 @@ class InserterClass(
 					'''
 					
 					#Definition the InsertedItemTuplesList
-					InsertedItemTuplesList=[
+					self.InsertedItemTuplesList=[
 											('RowInt',self.RowedMongoIndexInt)
 										]+self.RowedMongoPickOrderedDict.items(
 					)+self.InsertedMongoNotRowPickOrderedDict.items()
 
 					#debug
+					'''
 					self.debug(
-							('self.',self,['TabledMongoCollection'])
+							('self.',self,[
+									'InsertedItemTuplesList',
+									'TabledMongoCollection'
+								])
 						)
+					'''
 
 					#insert
 					self.TabledMongoCollection.insert(
-						dict(InsertedItemTuplesList)
+						dict(self.InsertedItemTuplesList)
 					)
+
+					#Define
+					InsertedCursor=self.TabledMongoCollection.find()
+
+					#debug
+					'''
+					self.debug('list(InsertedCursor) is '+SYS._str(list(InsertedCursor)))
+					'''
 
 		#Check
 		if self.DatabasingHdfBool:
 
 			#Debug
+			'''
 			self.debug(('self.',self,['RowedHdfIsBool']))
+			'''
 
 			#Append and row if it is new
 			if self.RowedHdfIsBool==False:
@@ -237,17 +254,18 @@ class InserterClass(
 					'''
 
 					#Definition the InsertedItemTuplesList
-					InsertedItemTuplesList=[
+					self.InsertedItemTuplesList=[
 											('RowInt',self.RowedHdfIndexInt)
 										]+self.RowedHdfPickOrderedDict.items(
 					)+self.InsertedHdfNotRowPickOrderedDict.items()
 							
 					#debug
+					'''
 					self.debug(
 						[
 							'This is a new hdf row',
+							('self.',self,['InsertedItemTuplesList'])
 							#'Colnames are : '+str(self.TabledHdfTable.colnames),
-							'InsertedItemTuplesList is '+str(InsertedItemTuplesList),
 							#'self.TabledHdfTable is '+str(dir(self.TabledHdfTable)),
 							#'self.DatabasedModelClass is '+(str(self.DatabasedModelClass.columns) if hasattr(self.DatabasedModelClass,'columns') else ""),
 							#'Row is '+str(dir(Row)),
@@ -255,12 +273,13 @@ class InserterClass(
 							#'TabularedHdfTablesOrderedDict is '+str(self.TabularedHdfTablesOrderedDict)
 						]
 					)
-
+					'''
+					
 					#set
 					map(
 							lambda __InsertingTuple:
 							Row.__setitem__(*__InsertingTuple),
-							InsertedItemTuplesList
+							self.InsertedItemTuplesList
 						)
 
 					#debug
@@ -268,7 +287,7 @@ class InserterClass(
 					self.debug('The Row setting was good, so append insert')
 					'''
 
-					#Append and Flush
+					#Append and Insert
 					Row.append()
 					self.TabledHdfTable.flush()
 					

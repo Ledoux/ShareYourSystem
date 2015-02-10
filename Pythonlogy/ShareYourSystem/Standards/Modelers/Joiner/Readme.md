@@ -104,7 +104,7 @@ class JoinerClass(BaseClass):
 'JoinedCatchDeriveJoinersList',
 'JoinedRetrieveIndexesListGetStrsList',
 'JoinedRetrieveIndexesListColumnStrsList',
-'JoinedFlushIndexIntsList'
+'JoinedInsertIndexIntsList'
                                                         ]
 
         def default_init(self,
@@ -117,7 +117,7 @@ _JoinedCatchCollectionOrderedDict=None,
 _JoinedCatchDeriveJoinersList=None,
 _JoinedRetrieveIndexesListGetStrsList=None,
 _JoinedRetrieveIndexesListColumnStrsList=None,
-                                                _JoinedFlushIndexIntsList=None,
+                                                _JoinedInsertIndexIntsList=None,
                                                 **_KwargVariablesDict
                                         ):
 
@@ -196,7 +196,7 @@ already inserted in the joined databases..."),
                 '''
 
                 #set
-                self.JoinedFlushIndexIntsList=map(
+                self.JoinedInsertIndexIntsList=map(
                                         lambda __JoinedDeriveDatabaserPointer:
 __JoinedDeriveDatabaserPointer.row().RowedIndexInt,
                                         self.JoinedCatchDeriveJoinersList
@@ -205,7 +205,7 @@ __JoinedDeriveDatabaserPointer.row().RowedIndexInt,
                 #debug
                 '''
                 self.debug(('self.',self,[
-'JoinedFlushIndexIntsList',
+'JoinedInsertIndexIntsList',
 'JoinedRetrieveIndexesListGetStrsList'
 
                                                                 ]))
@@ -214,16 +214,16 @@ __JoinedDeriveDatabaserPointer.row().RowedIndexInt,
                 #set the modeled int in the retrieve tuples
                 map(
                                 lambda
-__JoinedRetrieveIndexesListGetStr,__JoinedFlushIndexInt:
+__JoinedRetrieveIndexesListGetStr,__JoinedInsertIndexInt:
                                 getattr(
                                         self.NodePointDeriveNoder,
                                         __JoinedRetrieveIndexesListGetStr
                                         ).__setitem__(
                                                 1,
-                                                __JoinedFlushIndexInt
+                                                __JoinedInsertIndexInt
                                 ),
                                 self.JoinedRetrieveIndexesListGetStrsList,
-                                self.JoinedFlushIndexIntsList
+                                self.JoinedInsertIndexIntsList
                         )
 
                 #debug
@@ -281,8 +281,8 @@ the catched databases',
                                 )
                 '''
 
-                #Flush the post joined databases
-                self.JoinedFlushIndexIntsList=map(
+                #Insert the post joined databases
+                self.JoinedInsertIndexIntsList=map(
                         lambda __JoinedCatchDeriveJoinerPointer:
                         __JoinedCatchDeriveJoinerPointer.CatchToPointVariable.insert(),
                         self.JoinedCatchCollectionOrderedDict.values(),
@@ -296,7 +296,7 @@ the catched databases',
                                                 'KwargVariablesDict':
                                                 {
 '_ClassVariable':"Joiner",
-                                                        '_DoStrsList':['Flush']
+                                                        '_DoStrsList':['Insert']
                                                 }
                                         }
                                 )
@@ -327,7 +327,7 @@ the catched databases',
                 #</NotHook>
 
                 #Retrieve in the joined databases
-                self.JoinedFlushIndexIntsList=map(
+                self.JoinedInsertIndexIntsList=map(
                                         lambda
 __JoinedRetrieveIndexesListGetStr,__JoinedDeriveDatabaserPointer:
                                         __JoinedDeriveDatabaserPointer.retrieve(
@@ -484,7 +484,7 @@ Str+self.JoiningCollectionStr+"CollectionOrderedDict"
                         self.JoinedCatchDeriveJoinersList=map(
                                         lambda __JoinedCatchDeriveJoiner:
                                         #__JoinedCatchDeriveJoiner.__setitem__(
-                                        #       'FlushIsBool',
+                                        #       'InsertIsBool',
                                         #       False
                                         #).CatchToPointVariable.model(
                                         #),
@@ -1031,7 +1031,7 @@ dflt=0, pos=None)
    /   /   /   /   /   /   /   /   /   /   /
 '<Spe><Instance>JoinedCatchDeriveJoinersList' : []
    /   /   /   /   /   /   /   /   /   /   /
-'<Spe><Instance>JoinedFlushIndexIntsList' : []
+'<Spe><Instance>JoinedInsertIndexIntsList' : []
    /   /   /   /   /   /   /   /   /   /   /
 '<Spe><Instance>JoinedRetrieveIndexesListColumnStrsList' : []
    /   /   /   /   /   /   /   /   /   /   /
@@ -1107,7 +1107,7 @@ inerModelToImageMultiplierParametersJoinerModelRetrieveIndexesList',
    /   /   /   /   /   /   /   /   /  0 : {...}< (JoinerClass), 4564992336>
    /   /   /   /   /   /   /   /   /  1 : {...}< (JoinerClass), 4564992784>
    /   /   /   /   /   /   /   /   /]
-   /   /   /   /   /   /   /   /  '<Spe><Instance>JoinedFlushIndexIntsList' :
+   /   /   /   /   /   /   /   /  '<Spe><Instance>JoinedInsertIndexIntsList' :
 [1, 1]
    /   /   /   /   /   /   /   /
 '<Spe><Instance>JoinedRetrieveIndexesListColumnStrsList' :
@@ -1158,7 +1158,7 @@ CatchToPointVariable
    /   /   /   /   /   /{
    /   /   /   /   /   /}
    /   /   /   /   /  '<Spe><Instance>JoinedCatchDeriveJoinersList' : []
-   /   /   /   /   /  '<Spe><Instance>JoinedFlushIndexIntsList' : []
+   /   /   /   /   /  '<Spe><Instance>JoinedInsertIndexIntsList' : []
    /   /   /   /   /  '<Spe><Instance>JoinedRetrieveIndexesListColumnStrsList' :
 []
    /   /   /   /   /  '<Spe><Instance>JoinedRetrieveIndexesListGetStrsList' : []

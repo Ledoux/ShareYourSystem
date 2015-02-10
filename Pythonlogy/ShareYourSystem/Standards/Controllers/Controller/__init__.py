@@ -31,6 +31,7 @@ class ControllerClass(BaseClass):
 								]
 
 	def default_init(self,
+				_ControllingCommandStr="",
 				**_KwargVariablesDict):
 
 		#Call the parent init method
@@ -38,6 +39,9 @@ class ControllerClass(BaseClass):
 
 	def do_control(self):
 		pass
+
+
+
 
 #</DefineClass>
 

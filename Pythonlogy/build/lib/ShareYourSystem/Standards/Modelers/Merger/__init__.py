@@ -48,116 +48,115 @@ class MergerClass(BaseClass):
 
 	def mimic_find(self):
 
-		#<NotHook>
 		#merge first
 		self.merge()
-		#</NotHook>
 
 		#Bound the FoundRowDictsList with the MergedRowedDictsList one
 		self.FoundRowDictsList=self.MergedRowedDictsList
 
-		#<NotHook>
 		#find then
 		BaseClass.find(self)
-		#</NotHook>
 
 	def do_merge(self):
 
-		#debug
-		'''
-		self.debug(
-					('self.',self,[
-										'DatabasedKeyStr',
-										'MergingConditionTuplesList',
-										'TabularedTableKeyStrsList'
-									])
-				)
-		'''
+		#Check
+		if self.DatabasingHdfBool:
 
-		#Debug
-		'''
-		print(
-
-				map(
-							lambda __TabularedKeyStr:
-						__TabularedKeyStr.split(Shaper.ShapingJoiningStr),
-						self.TabularedTableKeyStrsList
+			#debug
+			'''
+			self.debug(
+						('self.',self,[
+											'DatabasedKeyStr',
+											'MergingConditionTuplesList',
+											'TabularedTableKeyStrsList'
+										])
 					)
-			)
-		'''
-		
-		#Bind with MergedShapingDictsList setting
-		MergedShapingDictsList=map(
-								lambda __StrsList:
-								dict(
-									map(
-											lambda __ShapingStr:
-											SYS.getUnSerializedTuple(
-												self.NodePointDeriveNoder,
-												__ShapingStr.split(
-													Shaper.ShapingTuplingStr
-												)
-											)
-											#Remove the suffix and the prefix
-											,__StrsList[1:-1] if len(__StrsList)>2 else []
-										)
-								),
-								map(
-									lambda __TabularedKeyStr:
-									__TabularedKeyStr.split(Shaper.ShapingJoiningStr),
-									self.TabularedTableKeyStrsList
-								)
+			'''
+
+			#Debug
+			'''
+			print(
+
+					map(
+								lambda __TabularedKeyStr:
+							__TabularedKeyStr.split(Shaper.ShapingJoiningStr),
+							self.TabularedTableKeyStrsList
 						)
-
-		#debug
-		'''
-		self.debug('MergedShapingDictsList is '+str(MergedShapingDictsList))
-		'''
-
-		#Bind with MergedFilteredShapingDictsList
-		MergedFilteredShapingDictsList=SYS.where(
-									MergedShapingDictsList,
-									self.MergingConditionTuplesList
-									)
-
-		#debug
-		'''
-		self.debug('MergedFilteredShapingDictsList is '+str(MergedFilteredShapingDictsList))
-		'''
-
-		#Bind with MergedTablesList setting
-		MergedTablesList=SYS.filterNone(
-									map(
-											lambda __Table,__MergedFilteredShapingDict:
-											__Table
-											if __MergedFilteredShapingDict!=None
-											else None,
-											self.TabularedTablesOrderedDict.values(),
-											MergedFilteredShapingDictsList
-									))
-								
-		MergedRowedDictsListsList=map(
-				lambda __MergedTable:
-				map(
-						lambda __RowedDict:
-						dict(__RowedDict,**{
-								'TabledInt':int(
-												__MergedTable.name.split(Tabler.TablingOrderStr)[1]
+				)
+			'''
+			
+			#Bind with MergedShapingDictsList setting
+			MergedShapingDictsList=map(
+									lambda __StrsList:
+									dict(
+										map(
+												lambda __ShapingStr:
+												SYS.getUnSerializedTuple(
+													self.NodePointDeriveNoder,
+													__ShapingStr.split(
+														Shaper.ShapingTuplingStr
+													)
+												)
+												#Remove the suffix and the prefix
+												,__StrsList[1:-1] if len(__StrsList)>2 else []
 											)
-							}
-						),
-						Rower.getRowedDictsListWithTable(__MergedTable)
-					),
-				MergedTablesList
-			)
+									),
+									map(
+										lambda __TabularedKeyStr:
+										__TabularedKeyStr.split(Shaper.ShapingJoiningStr),
+										self.TabularedTableKeyStrsList
+									)
+							)
 
-		#debug
-		'''
-		self.debug('MergedRowedDictsListsList is '+str(MergedRowedDictsListsList))
-		'''
-		
-		#Reduce
-		if len(MergedRowedDictsListsList)>0:
-			self.MergedRowedDictsList=reduce(operator.__add__,MergedRowedDictsListsList)
+			#debug
+			'''
+			self.debug('MergedShapingDictsList is '+str(MergedShapingDictsList))
+			'''
+
+			#Bind with MergedFilteredShapingDictsList
+			MergedFilteredShapingDictsList=SYS.where(
+										MergedShapingDictsList,
+										self.MergingConditionTuplesList
+										)
+
+			#debug
+			'''
+			self.debug('MergedFilteredShapingDictsList is '+str(MergedFilteredShapingDictsList))
+			'''
+
+			#Bind with MergedTablesList setting
+			MergedTablesList=SYS.filterNone(
+										map(
+												lambda __Table,__MergedFilteredShapingDict:
+												__Table
+												if __MergedFilteredShapingDict!=None
+												else None,
+												self.TabularedTablesOrderedDict.values(),
+												MergedFilteredShapingDictsList
+										))
+									
+			MergedRowedDictsListsList=map(
+					lambda __MergedTable:
+					map(
+							lambda __RowedDict:
+							dict(__RowedDict,**{
+									'TabledInt':int(
+													__MergedTable.name.split(Tabler.TablingOrderStr)[1]
+												)
+								}
+							),
+							Rower.getRowedDictsListWithTable(__MergedTable)
+						),
+					MergedTablesList
+				)
+
+			#debug
+			'''
+			self.debug('MergedRowedDictsListsList is '+str(MergedRowedDictsListsList))
+			'''
+			
+			#Reduce
+			if len(MergedRowedDictsListsList)>0:
+				self.MergedRowedDictsList=reduce(operator.__add__,MergedRowedDictsListsList)
 
 #</DefineClass>

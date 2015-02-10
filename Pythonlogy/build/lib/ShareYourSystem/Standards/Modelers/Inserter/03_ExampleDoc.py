@@ -5,7 +5,6 @@ import ShareYourSystem as SYS
 #Definition of a Controller instance with a noded datar
 MyController=SYS.ControllerClass(
 		**{
-			'PymongoingFileKeyStr':"Things",
 			'FolderingPathStr':SYS.Inserter.LocalFolderPathStr
 		}
 	).collect(
@@ -13,7 +12,10 @@ MyController=SYS.ControllerClass(
 		"Things",
 		SYS.InserterClass().update(
 		[
-			('Attr_RowingGetStrsList',['MyInt'])	
+			('Attr_RowingGetStrsList',[
+					'MyInt',
+					'MyStr'
+			])		
 		]
 	)
 )
@@ -38,7 +40,6 @@ MyController.update(
 	_UpdateList=[('insert',SYS.ApplyDictClass({'LiargVariablesList':[]}))],		
 )
 
-
 #Definition the AttestedStr
 SYS._attest(
 	[
@@ -54,8 +55,5 @@ SYS._attest(
 
 #print
 print('mongo db is : \n'+SYS._str(MyController.pymongoview()))
-
-#Print
-MyController.close()
 
 

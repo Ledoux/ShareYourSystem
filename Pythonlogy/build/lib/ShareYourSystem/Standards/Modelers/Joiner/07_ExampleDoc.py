@@ -87,8 +87,10 @@ MyModulizer=ModulizerClass(
 			'FolderingPathStr':SYS.Joiner.LocalFolderPathStr
 		}
 	).pymongo(
-		_DatabaseKeyStr="Modulizer"
-	).structure(
+	)
+
+
+MyModulizer.structure(
 		['Components'],
 		[],
 		['PymongoneClientVariable']
@@ -132,6 +134,7 @@ MyModulizer.__setitem__(
 	]
 )['<Joiners>ParametersJoiner'].insert()
 
+"""
 #Definition the AttestedStr
 SYS._attest(
 	[
@@ -144,10 +147,8 @@ SYS._attest(
 		)
 	]
 ) 
+"""
 
 #print
 print('mongo db is : \n'+SYS._str(MyModulizer.pymongoview()))
-
-#Print
-MyModulizer.close()
 

@@ -88,7 +88,7 @@ class HierarchizerClass(BaseClass):
 								'KwargVariablesDict':
 								{
 									'_ClassVariable':'Hierarchizer',
-									'_DoStrsList':['Flush']
+									'_DoStrsList':['Insert']
 								}
 							})
 			],

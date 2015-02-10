@@ -161,5 +161,5 @@ SYS._attest(
 ) 
 
 #Close
-MyModulizer.hdfclose()
+MyModulizer.close()
 

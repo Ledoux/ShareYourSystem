@@ -248,7 +248,7 @@ Row.__setitem__(*__InsertingTuple),
 insert')
                                 '''
 
-                                #Append and Flush
+                                #Append and Insert
                                 Row.append()
                                 self.TabledTable.insert()
 

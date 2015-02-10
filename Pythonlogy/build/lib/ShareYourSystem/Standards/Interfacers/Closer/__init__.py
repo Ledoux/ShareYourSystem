@@ -21,10 +21,6 @@ SYS.setSubModule(globals())
 #<ImportSpecificModules>
 #</ImportSpecificModules>
 
-#<DefineDoStrsList>
-DoStrsList=["Closer","Close","Closing","Closed"]
-#<DefineDoStrsList>
-
 #<DefineClass>
 @DecorationClass()
 class CloserClass(BaseClass):
@@ -44,15 +40,6 @@ class CloserClass(BaseClass):
 
 		#close
 		if self.FiledFileVariable!=None:
-			self.FiledFileVariable.close()
-
-		#Close the HdformatedFileVariable
-		if hasattr(self,'hdfclose'):
-			self.hdfclose()
-
-		#Close the HdformatedFileVariable
-		if hasattr(self,'mongoclose'):
-			self.mongoclose()
-	
+			self.FiledFileVariable.close()	
 #</DefineClass>
 

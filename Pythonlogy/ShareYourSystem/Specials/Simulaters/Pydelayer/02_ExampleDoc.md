@@ -1,8 +1,0 @@
-
-<!--
-FrozenIsBool False
--->
-
-##Example
-
-Pydelayer

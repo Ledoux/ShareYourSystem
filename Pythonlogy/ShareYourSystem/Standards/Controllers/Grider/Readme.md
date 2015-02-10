@@ -92,7 +92,7 @@ class GriderClass(BaseClass):
         def do_grid(self):
 
                 #just for init
-                self.store(_FlushIsBool=False)
+                self.store(_InsertIsBool=False)
 
                 #grid before in all the components
                 self.GridedComponentRetrieveListsList=map(
@@ -119,7 +119,7 @@ self.OrganizedComponentCollectionOrderedDict.values()
                 )
 
                 #set
-                self.StoringFlushIsBool=True
+                self.StoringInsertIsBool=True
 
                 #map an update and a store for each combination
                 self.GridedScanRetrieveListsList=map(

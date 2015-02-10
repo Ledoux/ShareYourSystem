@@ -79,7 +79,7 @@ class StorerClass(BaseClass):
 
         def default_init(self,
                                                 _StoringOrganizeIsBool=False,
-                                                _StoringFlushIsBool=True,
+                                                _StoringInsertIsBool=True,
                                                 **_KwargVariablesDict
                                         ):
 
@@ -129,7 +129,7 @@ operator.contains,Hierarchizer.HierarchizerClass
                         self.StoringOrganizeIsBool=True
 
                 #Check
-                if self.StoringFlushIsBool:
+                if self.StoringInsertIsBool:
 
                         #Walk
                         self.walk(

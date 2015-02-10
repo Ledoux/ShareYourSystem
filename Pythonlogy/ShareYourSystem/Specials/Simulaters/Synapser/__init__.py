@@ -34,7 +34,10 @@ class SynapserClass(BaseClass):
 									'SynapsingTagStr',
 									'SynapsingWeigthSymbolStr',
 									'SynapsingWeigthFloatsArray',
+									'SynapsingDelayDict',
 									'SynapsedBrianVariable',
+									'SynapsedCustomOperationStr',
+									'SynapsedDelayStateStrsList'
 							]
 
 	def default_init(self,
@@ -43,8 +46,11 @@ class SynapserClass(BaseClass):
 						_SynapsingTagStr="",
 						_SynapsingWeigthSymbolStr="",
 						_SynapsingWeigthFloatsArray=None,
+						_SynapsingDelayDict=0.,
 						_SynapsedBrianVariable=None,
 						_SynapsedWeigthFloatsArray=None,
+						_SynapsedCustomOperationStr="",
+						_SynapsedDelayStateStrsList="",
 						**_KwargVariablesDict
 					):
 
@@ -55,13 +61,115 @@ class SynapserClass(BaseClass):
 		#Call the parent __init__ method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
+
+
+	def setDelay(self,_SymbolStr,_DelayVariable):
+
+		#debug
+		'''
+		self.debug(
+			[
+				"self.SynapsingKwargVariablesDict['source'].clock is ",
+				self.SynapsingKwargVariablesDict['source'].clock
+			]
+		)
+		'''
+
+		#define
+		if type(_DelayVariable).__name__=='Quantity':
+
+			#divide
+			DelayEquationsInt=(int)(
+				_DelayVariable/self.SynapsingKwargVariablesDict['source'].clock.dt
+			)
+
+		else:
+
+			#debug
+			'''
+			self.debug(
+				[
+					"float of dt is ",
+					float(
+						self.SynapsingKwargVariablesDict['source'].clock.dt
+					)
+				]
+			)
+			'''
+
+			#divide and put that in ms...(rough)
+			DelayEquationsInt=(int)(
+				_DelayVariable*0.001/float(
+					self.SynapsingKwargVariablesDict['source'].clock.dt
+				)
+			)
+
+		#join
+		self.SynapsedCustomOperationStr='\n'.join(
+			map(
+					lambda __EquationIndexInt:
+					_SymbolStr+"_delayer_"+str(
+						__EquationIndexInt
+					)+"="+_SymbolStr+"_delayer_"+str(
+						__EquationIndexInt-1
+					),
+					xrange(DelayEquationsInt,1,-1)
+				)+[
+				_SymbolStr+"delayer_1="+_SymbolStr
+			]
+		)
+
+		#debug
+		self.debug(
+			('self.',self,[
+							'SynapsedCustomOperationStr'
+						])
+		)
+
+		#custom
+		self.SynapsingKwargVariablesDict['source'].custom_operation(
+				self.SynapsedCustomOperationStr
+			)
+
+		#join
+		self.SynapsedDelayStateStrsListsList=map(
+					lambda __EquationIndexInt:
+					_SymbolStr+"_delayer_ : 1",
+					xrange(DelayEquationsInt)
+				)
+
+		#debug
+		self.debug(
+			('self.',self,[
+							'SynapsedDelayStateStrsList'
+						])
+		)
+
+		#add in the PreModelInsertStrsList
+		if hasattr(self,'AttentionUpdateVariable')==False:
+			self.AttentionUpdateVariable={
+				'PreModelInsertStrsList':[]
+			}
+		self.AttentionUpdateVariable['PreModelInsertStrsList']+=self.SynapsedDelayStateStrsListsList
+
+
 	def do_synapse(
 				self
 			):	
 
 		
 		#Maybe should import
-		import brian2
+		from brian2 import Synapses
+
+		#Check
+		if len(self.SynapsingDelayDict)>0.:
+
+			#map
+			map(
+					lambda __ItemTuple:
+					self.setDelay(*__ItemTuple),
+					self.SynapsingDelayDict.items()
+				)
 
 		#debug
 		'''
@@ -71,7 +179,7 @@ class SynapserClass(BaseClass):
 		'''
 		
 		#init
-		self.SynapsedBrianVariable=brian2.Synapses(
+		self.SynapsedBrianVariable=Synapses(
 				**self.SynapsingKwargVariablesDict
 			)
 

@@ -64,7 +64,7 @@ class JoinerClass(BaseClass):
 						_JoinedDownDeriveJoinersList=None,
 						_JoinedRetrieveIndexesListGetStrsList=[],
 						_JoinedRetrieveIndexesListColumnStrsList=[],
-						_JoinedFlushIndexIntsList=[],
+						_JoinedInsertIndexIntsList=[],
 						**_KwargVariablesDict
 					):
 
@@ -136,7 +136,7 @@ class JoinerClass(BaseClass):
 				)
 
 		#set
-		self.JoinedFlushIndexIntsList=map(
+		self.JoinedInsertIndexIntsList=map(
 					lambda __JoinedDeriveDatabaserPointer:
 					__JoinedDeriveDatabaserPointer.row().RowedIndexInt,
 					self.JoinedDownDeriveJoinersList
@@ -144,23 +144,23 @@ class JoinerClass(BaseClass):
 
 		#debug
 		self.debug(('self.',self,[
-									'JoinedFlushIndexIntsList',
+									'JoinedInsertIndexIntsList',
 									'JoinedRetrieveIndexesListGetStrsList'
 
 								]))
 
 		#set the modeled int in the retrieve tuples
 		map(
-				lambda __JoinedRetrieveIndexesListGetStr,__JoinedFlushIndexInt:
+				lambda __JoinedRetrieveIndexesListGetStr,__JoinedInsertIndexInt:
 				getattr(
 					self.NodedDatabaseParentPointer,
 					__JoinedRetrieveIndexesListGetStr
 					).__setitem__(
 						1,
-						__JoinedFlushIndexInt
+						__JoinedInsertIndexInt
 				),
 				self.JoinedRetrieveIndexesListGetStrsList,
-				self.JoinedFlushIndexIntsList
+				self.JoinedInsertIndexIntsList
 			)
 
 		#Add in the RowingGetStrsList
@@ -196,8 +196,8 @@ class JoinerClass(BaseClass):
 		#debug
 		self.debug('First make insert the joined databases')
 
-		#Flush the joined databases
-		self.JoinedFlushIndexIntsList=map(
+		#Insert the joined databases
+		self.JoinedInsertIndexIntsList=map(
 					lambda __JoinedDeriveDatabaserPointer:
 					__JoinedDeriveDatabaserPointer.insert(),
 					self.JoinedDownDeriveJoinersList

@@ -208,11 +208,15 @@ class TablerClass(
 							[
 								('self.',self,[
 									'TabledMongoKeyStr',
-									'TabularedMongoKeyStrsList'])
+									'TabularedMongoKeyStrsList'
+									]
+								),
+								'self.TabularedMongoLocalDatabaseVariable.collection_names() is ',
+								str(self.TabularedMongoLocalDatabaseVariable.collection_names())
 							]
 						)
 				'''
-
+				
 				#Create the collection if not already
 				if self.TabledMongoKeyStr not in self.TabularedMongoKeyStrsList:
 
@@ -227,27 +231,31 @@ class TablerClass(
 
 					#Create the collections
 					self.TabledMongoCollection=self.TabularedMongoLocalDatabaseVariable.create_collection(
-						self.TabledMongoKeyStr)
+						self.TabledMongoKeyStr
+					)
 
 					#Append
 					self.TabularedMongoKeyStrsList.append(self.TabledMongoKeyStr)
 
 				else:
 
-					#Else just get it 
-					self.TabledMongoCollection=getattr(
-						self.TabularedMongoLocalDatabaseVariable,
-						self.TabledMongoKeyStr
+					#debug
+					'''
+					self.debug(
+						[
+							'The collection exists',
+						]
 					)
+					'''
 
-				#debug
-				self.debug(
-					[
-						'The collection exists',
-						('self.',self,['TabledMongoCollection'])
+					#Else just get it 
+					self.TabledMongoCollection=self.TabularedMongoLocalDatabaseVariable[
+						self.TabledMongoKeyStr
 					]
-				)
+					
 
+				
+				
 				#set the in the TabularedMongoCollectionsOrderedDict
 				self.TabularedMongoCollectionsOrderedDict[
 					self.TabledMongoKeyStr

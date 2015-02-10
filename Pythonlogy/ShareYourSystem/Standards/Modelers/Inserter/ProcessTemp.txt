@@ -1,1 +1,2 @@
-  501  3703  3701   0  7:12PM ??         0:00.00 grep mongod
+  501  3312     1   0  1:38AM ??         0:00.24 /usr/local/bin/mongod --dbpath /Users/ledoux/Documents/ShareYourSystem/Pythonlogy/ShareYourSystem/Standards/Modelers/Inserter/data/db/
+  501  3324  3322   0  1:38AM ??         0:00.00 grep mongod

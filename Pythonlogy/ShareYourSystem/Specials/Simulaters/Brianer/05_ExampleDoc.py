@@ -1,7 +1,5 @@
+#import SYS
 import ShareYourSystem as SYS
-from brian2 import *
-import numpy as np
-import operator
 
 #Definition
 MyBrianer=SYS.BrianerClass(
@@ -34,12 +32,13 @@ MyBrianer=SYS.BrianerClass(
 								'''
 							},
 							'SynapsingWeigthSymbolStr':'J',
-							'SynapsingWeigthFloatsArray':np.array(
+							'SynapsingWeigthFloatsArray':SYS.array(
 								[
 									[0.,-2.],
 									[4.,0.]
 								]
-							)
+							),
+							"SynapsingDelayDict":{'r':1.*SYS.brian2.ms}
 						}
 					)
 				]		
@@ -59,20 +58,19 @@ MyBrianer=SYS.BrianerClass(
 				'RecruitingConcludeConditionTuplesList':[
 					(
 						'MroClassesList',
-						operator.contains,
+						SYS.contains,
 						SYS.NeurongrouperClass
 					)
 				]
 			}
 	).brian()
 
-
-import brian2
+#init variables
 map(
 	lambda __BrianedNeuronGroup:
 	__BrianedNeuronGroup.__setattr__(
 		'r',
-		1.+np.array(map(float,xrange(__BrianedNeuronGroup.N)))
+		1.+SYS.array(map(float,xrange(__BrianedNeuronGroup.N)))
 	),
 	MyBrianer.BrianedNeuronGroupsList
 )
@@ -82,8 +80,5 @@ MyBrianer.run(100)
 
 #plot
 M=MyBrianer['<Neurongroupers>PNeurongrouper']['<StateMoniters>RateMoniter'].StateMonitor
-from matplotlib import pyplot
-pyplot.plot(M.t/brian2.ms, M.r.T)
-pyplot.show()
-
-
+SYS.plot(M.t, M.r.T)
+SYS.show()

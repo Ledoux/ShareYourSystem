@@ -75,7 +75,7 @@ class DistanceClass(SYS.ObjectsClass):
 #<DefineAttestingFunctions>
 def attest_insert():
 
-	#Flush the default output
+	#Insert the default output
 	Distance=SYS.DistanceClass(
 		).update(
 					[

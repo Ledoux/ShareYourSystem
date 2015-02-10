@@ -46,7 +46,7 @@ def getRowedDictsListWithTable(_Table):
 
 #<DefineClass>
 @DecorationClass(
-	#**{'ClassingSwitchMethodStrsList':["row"]}
+	**{'ClassingSwitchMethodStrsList':["row"]}
 )
 class RowerClass(
 					BaseClass
@@ -217,11 +217,8 @@ class RowerClass(
 										'TabledMongoCollection'
 									]))
 
-				#Define
-				RowedCursor=self.TabledMongoCollection.find()
-
 				#debug
-				self.debug('list(RowedCursor) is '+SYS._str(list(RowedCursor)))
+				self.debug('list(self.TabledMongoCollection.find()) is '+SYS._str(list(self.TabledMongoCollection.find())))
 
 				#Check if it was already rowed
 				self.RowedMongoIsBoolsList=map(
@@ -236,13 +233,13 @@ class RowerClass(
 									self.RowedMongoPickOrderedDict.items()
 								)
 						),
-						RowedCursor
+						self.TabledMongoCollection.find()
 					)
 
 				#debug
-				'''
-				self.debug(('self.',self,['RowedHdfIsBoolsList']))
-				'''
+				self.debug(('self.',self,[
+						'RowedMongoIsBoolsList'
+					]))
 
 				#set
 				if len(self.RowedMongoIsBoolsList)==0:
@@ -251,8 +248,16 @@ class RowerClass(
 					self.RowedMongoIsBool=any(self.RowedMongoIsBoolsList)
 
 				#Init to the len of the table
-				self.RowedMongoIndexInt=RowedCursor.count()
-
+				self.RowedMongoIndexInt=len(self.RowedMongoIsBoolsList)
+				
+				#debug
+				'''
+				self.debug(('self.',self,[
+						'RowedMongoIndexInt',
+						'RowedMongoIsBool'
+					]))
+				'''
+				
 				#But maybe find a last index
 				if self.RowedMongoIsBool: 
 					if len(self.RowedMongoIsBoolsList)>0:

@@ -70,7 +70,7 @@ class InserterClass(
 					)
 				)
 
-		#Append and Flush if it is new
+		#Append and Insert if it is new
 		if any(self.InsertedIsBoolsList)==False:
 
 			#Get the row
@@ -107,7 +107,7 @@ class InserterClass(
 				#debug
 				self.debug('The Row setting was good, so append insert')
 
-				#Append and Flush
+				#Append and Insert
 				Row.append()
 				self.TabledTable.insert()
 

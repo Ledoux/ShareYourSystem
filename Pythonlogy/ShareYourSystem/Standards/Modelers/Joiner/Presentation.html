@@ -1825,7 +1825,7 @@ class JoinerClass(BaseClass):
                                 'JoinedCatchDeriveJoinersList',
                                 'JoinedRetrieveIndexesListGetStrsList',
                                 'JoinedRetrieveIndexesListColumnStrsList',
-                                'JoinedFlushIndexIntsList'
+                                'JoinedInsertIndexIntsList'
                             ]
 
     def default_init(self,
@@ -1838,7 +1838,7 @@ class JoinerClass(BaseClass):
                         _JoinedCatchDeriveJoinersList=None,
                         _JoinedRetrieveIndexesListGetStrsList=None,
                         _JoinedRetrieveIndexesListColumnStrsList=None,
-                        _JoinedFlushIndexIntsList=None,
+                        _JoinedInsertIndexIntsList=None,
                         **_KwargVariablesDict
                     ):
 
@@ -1914,7 +1914,7 @@ class JoinerClass(BaseClass):
         '''
 
         #set
-        self.JoinedFlushIndexIntsList=map(
+        self.JoinedInsertIndexIntsList=map(
                     lambda __JoinedDeriveDatabaserPointer:
                     __JoinedDeriveDatabaserPointer.row().RowedIndexInt,
                     self.JoinedCatchDeriveJoinersList
@@ -1923,7 +1923,7 @@ class JoinerClass(BaseClass):
         #debug
         '''
         self.debug(('self.',self,[
-                                    'JoinedFlushIndexIntsList',
+                                    'JoinedInsertIndexIntsList',
                                     'JoinedRetrieveIndexesListGetStrsList'
 
                                 ]))
@@ -1931,16 +1931,16 @@ class JoinerClass(BaseClass):
 
         #set the modeled int in the retrieve tuples
         map(
-                lambda __JoinedRetrieveIndexesListGetStr,__JoinedFlushIndexInt:
+                lambda __JoinedRetrieveIndexesListGetStr,__JoinedInsertIndexInt:
                 getattr(
                     self.NodePointDeriveNoder,
                     __JoinedRetrieveIndexesListGetStr
                     ).__setitem__(
                         1,
-                        __JoinedFlushIndexInt
+                        __JoinedInsertIndexInt
                 ),
                 self.JoinedRetrieveIndexesListGetStrsList,
-                self.JoinedFlushIndexIntsList
+                self.JoinedInsertIndexIntsList
             )
 
         #debug
@@ -1994,8 +1994,8 @@ class JoinerClass(BaseClass):
                 )
         '''
 
-        #Flush the post joined databases
-        self.JoinedFlushIndexIntsList=map(
+        #Insert the post joined databases
+        self.JoinedInsertIndexIntsList=map(
             lambda __JoinedCatchDeriveJoinerPointer:
             __JoinedCatchDeriveJoinerPointer.CatchToPointVariable.insert(),
             self.JoinedCatchCollectionOrderedDict.values(),
@@ -2009,7 +2009,7 @@ class JoinerClass(BaseClass):
                         'KwargVariablesDict':
                         {
                             '_ClassVariable':"Joiner",
-                            '_DoStrsList':['Flush']
+                            '_DoStrsList':['Insert']
                         }
                     }
                 )
@@ -2040,7 +2040,7 @@ class JoinerClass(BaseClass):
         #&lt;/NotHook&gt;
 
         #Retrieve in the joined databases
-        self.JoinedFlushIndexIntsList=map(
+        self.JoinedInsertIndexIntsList=map(
                     lambda __JoinedRetrieveIndexesListGetStr,__JoinedDeriveDatabaserPointer:
                     __JoinedDeriveDatabaserPointer.retrieve(
                         getattr(
@@ -2187,7 +2187,7 @@ class JoinerClass(BaseClass):
             self.JoinedCatchDeriveJoinersList=map(
                     lambda __JoinedCatchDeriveJoiner:
                     #__JoinedCatchDeriveJoiner.__setitem__(
-                    #    'FlushIsBool',
+                    #    'InsertIsBool',
                     #    False
                     #).CatchToPointVariable.model(
                     #),
@@ -2659,7 +2659,7 @@ MyModulizer is &lt; (ModulizerClass), 4565351120&gt;
    /   /   /   /   /   /   /   /   /   /   /   /{ 
    /   /   /   /   /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;JoinedCatchDeriveJoinersList&apos; : []
-   /   /   /   /   /   /   /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;JoinedFlushIndexIntsList&apos; : []
+   /   /   /   /   /   /   /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;JoinedInsertIndexIntsList&apos; : []
    /   /   /   /   /   /   /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;JoinedRetrieveIndexesListColumnStrsList&apos; : []
    /   /   /   /   /   /   /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;JoinedRetrieveIndexesListGetStrsList&apos; : []
    /   /   /   /   /   /   /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;JoiningAttentionStr&apos; : Pre
@@ -2704,7 +2704,7 @@ MyModulizer is &lt; (ModulizerClass), 4565351120&gt;
    /   /   /   /   /   /   /   /   /  0 : {...}&lt; (JoinerClass), 4565349328&gt;
    /   /   /   /   /   /   /   /   /  1 : {...}&lt; (JoinerClass), 4566557072&gt;
    /   /   /   /   /   /   /   /   /]
-   /   /   /   /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;JoinedFlushIndexIntsList&apos; : [1, 1]
+   /   /   /   /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;JoinedInsertIndexIntsList&apos; : [1, 1]
    /   /   /   /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;JoinedRetrieveIndexesListColumnStrsList&apos; : [&apos;JoinRealMultiplierParametersJoinerModelRetrieveIndexesList&apos;, &apos;JoinImageMultiplierParametersJoinerModelRetrieveIndexesList&apos;]
    /   /   /   /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;JoinedRetrieveIndexesListGetStrsList&apos; : [&apos;JoinedTopModulizerParametersJoinerModelToRealMultiplierParametersJoinerModelRetrieveIndexesList&apos;, &apos;JoinedTopModulizerParametersJoinerModelToImageMultiplierParametersJoinerModelRetrieveIndexesList&apos;]
    /   /   /   /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;JoiningAttentionStr&apos; : Pre
@@ -2741,7 +2741,7 @@ MyModulizer is &lt; (ModulizerClass), 4565351120&gt;
    /   /   /   /   /   /{ 
    /   /   /   /   /   /}
    /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;JoinedCatchDeriveJoinersList&apos; : []
-   /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;JoinedFlushIndexIntsList&apos; : []
+   /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;JoinedInsertIndexIntsList&apos; : []
    /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;JoinedRetrieveIndexesListColumnStrsList&apos; : []
    /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;JoinedRetrieveIndexesListGetStrsList&apos; : []
    /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;JoiningAttentionStr&apos; : Pre

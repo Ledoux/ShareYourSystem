@@ -35,6 +35,7 @@ JoinDeepStr='/'
 	'ClassingSwitchMethodStrsList':[
 		'model',
 		'tabular',
+		'row',
 		'join',
 		'insert'
 	]
@@ -136,37 +137,38 @@ class JoinerClass(BaseClass):
 		self.join()
 
 		#debug
-		'''
 		self.debug(
 					[
-						("We are going to check if is already inserted in the joined databases..."),
-						('self.',self,['JoinedCatchDeriveJoinersList'])
+						"We are going to check if is already inserted in the joined databases...",
+						"So we make the children row",
+						#('self.',self,['JoinedCatchDeriveJoinersList'])
 					]
-				)
-		'''
-
-		#set
-		self.JoinedHdfInsertIndexIntsList=map(
-					lambda __JoinedCatchDeriveJoiner:
-					__JoinedCatchDeriveJoiner.row().RowedHdfIndexInt,
-					self.JoinedCatchDeriveJoinersList
 				)
 
 		#set
 		self.JoinedMongoInsertIndexIntsList=map(
 					lambda __JoinedCatchDeriveJoiner:
-					__JoinedCatchDeriveJoiner.RowedMongoIndexInt,
+					__JoinedCatchDeriveJoiner.row().RowedMongoIndexInt,
 					self.JoinedCatchDeriveJoinersList
 				)
 
+		#set
+		self.JoinedHdfInsertIndexIntsList=map(
+					lambda __JoinedCatchDeriveJoiner:
+					__JoinedCatchDeriveJoiner.RowedHdfIndexInt,
+					self.JoinedCatchDeriveJoinersList
+				)
+
+		
+
 		#debug
-		'''
-		self.debug(('self.',self,[
+		self.debug(
+				'Ok the catched databases have rowed',
+				('self.',self,[
 									'JoinedMongoInsertIndexIntsList',
-									'JoinedHdfInsertIndexIntsList',
-									'JoinedRetrieveIndexesListGetStrsList'
-								]))
-		'''
+									'JoinedHdfInsertIndexIntsList'
+								])
+			)
 
 		#Check
 		if len(self.DatabasingSealTuplesList)>0:
@@ -222,9 +224,7 @@ class JoinerClass(BaseClass):
 		self.RowingGetStrsList=self.JoinedRetrieveIndexesListGetStrsList+self.RowingGetStrsList
 
 		#debug
-		'''
-		self.debug('Now row with Featurer')
-		'''
+		self.debug('Now row with the BaseClass')
 
 		#row then
 		BaseClass.row(self)
@@ -234,13 +234,15 @@ class JoinerClass(BaseClass):
 		self.debug('Ok row is over for joining')
 		'''
 
-	def mimic_insert(self):
+	def mimic_insert(self,**_KwargVariablesDict):
+
+		#debug
+		self.debug('First we row')
 
 		#row first
 		self.row()
 
 		#debug
-		'''
 		self.debug(
 					[
 						'First setSwitch and make insert the catched databases',
@@ -250,35 +252,39 @@ class JoinerClass(BaseClass):
 									])
 					]
 				)
-		'''
 		
-		#Flush the post joined databases
+		#Insert the post joined databases
 		self.JoinedCatchDeriveJoinersList=map(
 			lambda __JoinedCatchDeriveJoinerPointer:
 			__JoinedCatchDeriveJoinerPointer.CatchToPointVariable.insert(),
 			self.JoinedCatchCollectionOrderedDict.values(),
 		)
 
+		#debug
+		self.debug('We transmit now')
+
 		#switch first
 		self.transmit(
 			[
-				('setSwitch',{
-						'LiargVariablesList':[],
-						'KwargVariablesDict':
+				(
+					'setSwitch',
+					SYS.ApplyDictClass(
 						{
-							'_ClassVariable':"Joiner",
-							'_DoStrsList':['Flush']
+							'LiargVariablesList':[],
+							'KwargVariablesDict':
+							{
+								'_ClassVariable':"Joiner",
+								'_DoStrsList':['Insert']
+							}
 						}
-					}
+					)
 				)
 			],
 			[self.JoiningCatchStr+self.JoiningCollectionStr]
 		)
 
 		#debug
-		'''
 		self.debug('Now we can insert here')
-		'''
 
 		#insert then
 		BaseClass.insert(self)
@@ -444,7 +450,7 @@ class JoinerClass(BaseClass):
 			self.JoinedCatchDeriveJoinersList=map(
 					lambda __JoinedCatchDeriveJoiner:
 					#__JoinedCatchDeriveJoiner.__setitem__(
-					#	'FlushIsBool',
+					#	'InsertIsBool',
 					#	False
 					#).CatchToPointVariable.model(
 					#),

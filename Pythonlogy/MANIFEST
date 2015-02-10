@@ -132,42 +132,6 @@ ShareYourSystem/Specials/Simulaters/Brianer/Drafts/01_ExampleDoc copy 2.py
 ShareYourSystem/Specials/Simulaters/Brianer/Drafts/01_ExampleDoc copy.py
 ShareYourSystem/Specials/Simulaters/Brianer/Drafts/__init__ copy 2.py
 ShareYourSystem/Specials/Simulaters/Brianer/Drafts/__init__ copy.py
-ShareYourSystem/Specials/Simulaters/Dynamizer/001_DocumentDoc.md
-ShareYourSystem/Specials/Simulaters/Dynamizer/002_GithubDoc.md
-ShareYourSystem/Specials/Simulaters/Dynamizer/01_ExampleCell.py
-ShareYourSystem/Specials/Simulaters/Dynamizer/PreReadme.ipynb
-ShareYourSystem/Specials/Simulaters/Dynamizer/Presentation.html
-ShareYourSystem/Specials/Simulaters/Dynamizer/Presentation.ipynb
-ShareYourSystem/Specials/Simulaters/Dynamizer/Readme.ipynb
-ShareYourSystem/Specials/Simulaters/Dynamizer/Readme.md
-ShareYourSystem/Specials/Simulaters/Dynamizer/__init__.py
-ShareYourSystem/Specials/Simulaters/Equationer/.DS_Store
-ShareYourSystem/Specials/Simulaters/Equationer/00_ExampleDoc.md
-ShareYourSystem/Specials/Simulaters/Equationer/01_ExampleCell.py
-ShareYourSystem/Specials/Simulaters/Equationer/02_ExampleDoc.md
-ShareYourSystem/Specials/Simulaters/Equationer/03_ExampleCell.py
-ShareYourSystem/Specials/Simulaters/Equationer/04_ExampleDoc.md
-ShareYourSystem/Specials/Simulaters/Equationer/05_ExampleCell.py
-ShareYourSystem/Specials/Simulaters/Equationer/06_ExampleDoc.md
-ShareYourSystem/Specials/Simulaters/Equationer/07_ExampleCell.py
-ShareYourSystem/Specials/Simulaters/Equationer/__init__.py
-ShareYourSystem/Specials/Simulaters/Equationer/Drafts/01_ExampleCell copy.py
-ShareYourSystem/Specials/Simulaters/Eulerer/01_ExampleCell.py
-ShareYourSystem/Specials/Simulaters/Eulerer/__init__.py
-ShareYourSystem/Specials/Simulaters/Expresser/00_ExampleDoc.md
-ShareYourSystem/Specials/Simulaters/Expresser/01_ExampleCell.py
-ShareYourSystem/Specials/Simulaters/Expresser/02_ExampleDoc.md
-ShareYourSystem/Specials/Simulaters/Expresser/03_ExampleCell.py
-ShareYourSystem/Specials/Simulaters/Expresser/03_ExampleDoc.md
-ShareYourSystem/Specials/Simulaters/Expresser/04_ExampleCell.py
-ShareYourSystem/Specials/Simulaters/Expresser/__init__.py
-ShareYourSystem/Specials/Simulaters/Integrater/01_ExampleCell.py
-ShareYourSystem/Specials/Simulaters/Integrater/__init__.py
-ShareYourSystem/Specials/Simulaters/Leaker/00_ExampleDoc.md
-ShareYourSystem/Specials/Simulaters/Leaker/01_ExampleCell.py
-ShareYourSystem/Specials/Simulaters/Leaker/02_ExampleDoc.md
-ShareYourSystem/Specials/Simulaters/Leaker/03_ExampleCell.py
-ShareYourSystem/Specials/Simulaters/Leaker/__init__.py
 ShareYourSystem/Specials/Simulaters/Lifer/001_DocumentDoc.md
 ShareYourSystem/Specials/Simulaters/Lifer/002_GithubDoc.md
 ShareYourSystem/Specials/Simulaters/Lifer/01_ExampleCell.py
@@ -205,15 +169,6 @@ ShareYourSystem/Specials/Simulaters/Populater/Readme.ipynb
 ShareYourSystem/Specials/Simulaters/Populater/Readme.md
 ShareYourSystem/Specials/Simulaters/Populater/__init__.py
 ShareYourSystem/Specials/Simulaters/Populater/Drafts/__init__ copy.py
-ShareYourSystem/Specials/Simulaters/Pydelayer/.DS_Store
-ShareYourSystem/Specials/Simulaters/Pydelayer/00_ExampleDoc.md
-ShareYourSystem/Specials/Simulaters/Pydelayer/01_ExampleCell.py
-ShareYourSystem/Specials/Simulaters/Pydelayer/02_ExampleDoc.md
-ShareYourSystem/Specials/Simulaters/Pydelayer/03_ExampleCell.py
-ShareYourSystem/Specials/Simulaters/Pydelayer/04_ExampleDoc.md
-ShareYourSystem/Specials/Simulaters/Pydelayer/05_ExampleCell.py
-ShareYourSystem/Specials/Simulaters/Pydelayer/__init__.py
-ShareYourSystem/Specials/Simulaters/Pydelayer/Drafts/01_ExampleCell copy.py
 ShareYourSystem/Specials/Simulaters/Rater/.DS_Store
 ShareYourSystem/Specials/Simulaters/Rater/001_DocumentDoc.md
 ShareYourSystem/Specials/Simulaters/Rater/002_GithubDoc.md
@@ -861,12 +816,10 @@ ShareYourSystem/Standards/Interfacers/Processer/__init__.pyc
 ShareYourSystem/Standards/Interfacers/Pymongoer/.DS_Store
 ShareYourSystem/Standards/Interfacers/Pymongoer/00_ExampleDoc.md
 ShareYourSystem/Standards/Interfacers/Pymongoer/01_ExampleDoc.py
-ShareYourSystem/Standards/Interfacers/Pymongoer/02_ExampleDoc.md
 ShareYourSystem/Standards/Interfacers/Pymongoer/03_ExampleDoc.py
+ShareYourSystem/Standards/Interfacers/Pymongoer/ProcessTemp.sh
+ShareYourSystem/Standards/Interfacers/Pymongoer/ProcessTemp.txt
 ShareYourSystem/Standards/Interfacers/Pymongoer/__init__.py
-ShareYourSystem/Standards/Interfacers/Pymongoer/local.0
-ShareYourSystem/Standards/Interfacers/Pymongoer/local.ns
-ShareYourSystem/Standards/Interfacers/Pymongoer/mongod.lock
 ShareYourSystem/Standards/Interfacers/Statuser/001_DocumentDoc.md
 ShareYourSystem/Standards/Interfacers/Statuser/002_GithubDoc.md
 ShareYourSystem/Standards/Interfacers/Statuser/01_ExampleDoc.py
@@ -1166,14 +1119,12 @@ ShareYourSystem/Standards/Modelers/Inserter/Test.py
 ShareYourSystem/Standards/Modelers/Inserter/Things.hdf5
 ShareYourSystem/Standards/Modelers/Inserter/__init__.py
 ShareYourSystem/Standards/Modelers/Inserter/Drafts/__init__ copy.py
-ShareYourSystem/Standards/Modelers/Inserter/__pycache__/Flusher.cpython-34.pyc
 ShareYourSystem/Standards/Modelers/Inserter/data/db/TopController.0
 ShareYourSystem/Standards/Modelers/Inserter/data/db/TopController.ns
 ShareYourSystem/Standards/Modelers/Inserter/data/db/local.0
 ShareYourSystem/Standards/Modelers/Inserter/data/db/local.ns
 ShareYourSystem/Standards/Modelers/Inserter/data/db/mongod.lock
 ShareYourSystem/Standards/Modelers/Inserter/data/db/journal/j._0
-ShareYourSystem/Standards/Modelers/Inserter/data/db/journal/lsn
 ShareYourSystem/Standards/Modelers/Joiner/.DS_Store
 ShareYourSystem/Standards/Modelers/Joiner/001_DocumentDoc.md
 ShareYourSystem/Standards/Modelers/Joiner/00_ExampleDoc.md
@@ -1203,7 +1154,6 @@ ShareYourSystem/Standards/Modelers/Joiner/Drafts/Joiner copy 4.py
 ShareYourSystem/Standards/Modelers/Joiner/Drafts/Joiner copy 5.py
 ShareYourSystem/Standards/Modelers/Joiner/Drafts/Joiner copy.py
 ShareYourSystem/Standards/Modelers/Joiner/Drafts/__init__ copy.py
-ShareYourSystem/Standards/Modelers/Joiner/__pycache__/Joiner.cpython-34.pyc
 ShareYourSystem/Standards/Modelers/Joiner/data/db/TopModulizer.0
 ShareYourSystem/Standards/Modelers/Joiner/data/db/TopModulizer.ns
 ShareYourSystem/Standards/Modelers/Joiner/data/db/TopModulizer_ImageMultiplier.0
@@ -1213,7 +1163,6 @@ ShareYourSystem/Standards/Modelers/Joiner/data/db/TopModulizer_RealMultiplier.ns
 ShareYourSystem/Standards/Modelers/Joiner/data/db/local.0
 ShareYourSystem/Standards/Modelers/Joiner/data/db/local.ns
 ShareYourSystem/Standards/Modelers/Joiner/data/db/mongod.lock
-ShareYourSystem/Standards/Modelers/Joiner/data/db/journal/j._0
 ShareYourSystem/Standards/Modelers/Merger/001_DocumentDoc.md
 ShareYourSystem/Standards/Modelers/Merger/00_ExampleDoc.md
 ShareYourSystem/Standards/Modelers/Merger/01_ExampleDoc.py
@@ -1290,12 +1239,6 @@ ShareYourSystem/Standards/Modelers/Rower/Things.hdf5
 ShareYourSystem/Standards/Modelers/Rower/__init__.py
 ShareYourSystem/Standards/Modelers/Rower/Drafts/__init__ copy.py
 ShareYourSystem/Standards/Modelers/Rower/__pycache__/Rower.cpython-34.pyc
-ShareYourSystem/Standards/Modelers/Rower/data/db/TopController.0
-ShareYourSystem/Standards/Modelers/Rower/data/db/TopController.ns
-ShareYourSystem/Standards/Modelers/Rower/data/db/local.0
-ShareYourSystem/Standards/Modelers/Rower/data/db/local.ns
-ShareYourSystem/Standards/Modelers/Rower/data/db/mongod.lock
-ShareYourSystem/Standards/Modelers/Rower/data/db/journal/j._0
 ShareYourSystem/Standards/Modelers/Shaper/001_DocumentDoc.md
 ShareYourSystem/Standards/Modelers/Shaper/00_ExampleDoc.md
 ShareYourSystem/Standards/Modelers/Shaper/01_ExampleDoc.py
@@ -1326,7 +1269,6 @@ ShareYourSystem/Standards/Modelers/Tabler/Test.py
 ShareYourSystem/Standards/Modelers/Tabler/Things.hdf5
 ShareYourSystem/Standards/Modelers/Tabler/__init__.py
 ShareYourSystem/Standards/Modelers/Tabler/Drafts/Tablor copy.py
-ShareYourSystem/Standards/Modelers/Tabler/__pycache__/Tablor.cpython-34.pyc
 ShareYourSystem/Standards/Modelers/Tabler/data/db/TopController.0
 ShareYourSystem/Standards/Modelers/Tabler/data/db/TopController.ns
 ShareYourSystem/Standards/Modelers/Tabler/data/db/local.0
@@ -1868,6 +1810,35 @@ draft/Documenter/Readme.md
 draft/Documenter/__init__.py
 draft/Documenter/__init__.pyc
 draft/Documenter/mkdocs.yml
+draft/Dynamizer/001_DocumentDoc.md
+draft/Dynamizer/002_GithubDoc.md
+draft/Dynamizer/01_ExampleCell.py
+draft/Dynamizer/PreReadme.ipynb
+draft/Dynamizer/Presentation.html
+draft/Dynamizer/Presentation.ipynb
+draft/Dynamizer/Readme.ipynb
+draft/Dynamizer/Readme.md
+draft/Dynamizer/__init__.py
+draft/Equationer/.DS_Store
+draft/Equationer/00_ExampleDoc.md
+draft/Equationer/01_ExampleCell.py
+draft/Equationer/02_ExampleDoc.md
+draft/Equationer/03_ExampleCell.py
+draft/Equationer/04_ExampleDoc.md
+draft/Equationer/05_ExampleCell.py
+draft/Equationer/06_ExampleDoc.md
+draft/Equationer/07_ExampleCell.py
+draft/Equationer/__init__.py
+draft/Equationer/Drafts/01_ExampleCell copy.py
+draft/Eulerer/01_ExampleCell.py
+draft/Eulerer/__init__.py
+draft/Expresser/00_ExampleDoc.md
+draft/Expresser/01_ExampleCell.py
+draft/Expresser/02_ExampleDoc.md
+draft/Expresser/03_ExampleCell.py
+draft/Expresser/03_ExampleDoc.md
+draft/Expresser/04_ExampleCell.py
+draft/Expresser/__init__.py
 draft/Featurer/001_DocumentDoc.md
 draft/Featurer/002_GithubDoc.md
 draft/Featurer/00_ExampleDoc.md
@@ -1908,6 +1879,13 @@ draft/Instancer/Readme.md
 draft/Instancer/Test.py
 draft/Instancer/__init__.py
 draft/Instancer/__init__.pyc
+draft/Integrater/01_ExampleCell.py
+draft/Integrater/__init__.py
+draft/Leaker/00_ExampleDoc.md
+draft/Leaker/01_ExampleCell.py
+draft/Leaker/02_ExampleDoc.md
+draft/Leaker/03_ExampleCell.py
+draft/Leaker/__init__.py
 draft/Linker/001_DocumentDoc.md
 draft/Linker/001_GithubDoc.md
 draft/Linker/002_GithubDoc.md
@@ -1955,6 +1933,15 @@ draft/Pusher/__init__.py
 draft/Pusher/__init__.pyc
 draft/Pusher/Drafts/01_ExampleCell copy.py
 draft/Pusher/Drafts/__init__ copy.py
+draft/Pydelayer/.DS_Store
+draft/Pydelayer/00_ExampleDoc.md
+draft/Pydelayer/01_ExampleCell.py
+draft/Pydelayer/02_ExampleDoc.md
+draft/Pydelayer/03_ExampleCell.py
+draft/Pydelayer/04_ExampleDoc.md
+draft/Pydelayer/05_ExampleCell.py
+draft/Pydelayer/__init__.py
+draft/Pydelayer/Drafts/01_ExampleCell copy.py
 draft/Recuperater/001_DocumentDoc.md
 draft/Recuperater/002_GithubDoc.md
 draft/Recuperater/00_ExampleDoc.md

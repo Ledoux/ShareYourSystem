@@ -29,9 +29,11 @@ import os
 def getRepresentedCollectionItemTuple(_CollectionItemTuple):
 
 	#Debug
+	'''
 	print('_CollectionItemTuple[0] is ')
 	print(_CollectionItemTuple[0])
 	print('')
+	'''
 
 	#filter
 	RepresentedCollectionList=filter(
@@ -53,9 +55,11 @@ def getRepresentedCollectionItemTuple(_CollectionItemTuple):
 
 
 	#Debug
+	'''
 	print('RepresentedCollectionList is ')
 	print(RepresentedCollectionList)
 	print('')
+	'''
 
 	#Check
 	if len(RepresentedCollectionList)>0:
@@ -70,13 +74,18 @@ def getRepresentedDatabaseOrderedDict(_Database):
 
 	#map
 	RepresentedDatabaseDict=collections.OrderedDict(
-		map(
-			lambda __CollectionStr:
-			(
-				__CollectionStr,
-				list(_Database[__CollectionStr].find())
-			),
-			_Database.collection_names()
+		SYS.filterNone
+		(
+			map(
+				lambda __CollectionStr:
+				(
+					__CollectionStr,
+					list(_Database[__CollectionStr].find())
+				)
+				if __CollectionStr not in ['system.indexes']
+				else None,
+				_Database.collection_names()
+			)
 		)
 	)
 
@@ -84,19 +93,20 @@ def getRepresentedDatabaseOrderedDict(_Database):
 	'''
 	print('_Database is ')
 	print(_Database)
-	print('_Database.__dict__.keys() is'+str(_Database.__dict__.keys()))
+	print('id(_Database) is')
+	print(id(_Database))
+	print("'ParentDerivePymongoer' in _Database.__dict__")
+	print('ParentDerivePymongoer' in _Database.__dict__)
 	print('')
 	'''
-
+	
 	#Get the childs database dicts
 	if 'ParentDerivePymongoer' in _Database.__dict__:
 
 		#Debug
-		'''
 		print('_Database.ParentDerivePymongoer is '+SYS._str(_Database.__dict__[
 			'ParentDerivePymongoer']))
 		print('')
-		'''
 
 		#update
 		RepresentedDatabaseDict.update(
@@ -132,7 +142,7 @@ class PymongoerClass(BaseClass):
 	#Definition
 	RepresentingKeyStrsList=[
 			'PymongoingUrlStr',
-			'PymongoingDatabaseKeyStr',
+			'PymongoingKillBool',
 			'PymongoneFolderPathStr',
 			'PymongonePopenVariable',
 			'PymongoneClientVariable',
@@ -141,7 +151,6 @@ class PymongoerClass(BaseClass):
 
 	def default_init(self,		
 			_PymongoingUrlStr='mongodb://localhost:27017/',
-			_PymongoingDatabaseKeyStr='Default',
 			_PymongoingKillBool=True,
 			_PymongoneFolderPathStr="",
 			_PymongonePopenVariable=None,
@@ -159,10 +168,11 @@ class PymongoerClass(BaseClass):
 	def do_pymongo(self):
 
 		#debug
+		'''
 		self.debug(('self.',self,[
 							'PymongoingUrlStr'
 								]))
-		
+		'''
 
 		#folder
 		self.folder()
@@ -205,9 +215,11 @@ class PymongoerClass(BaseClass):
             )
 
 			#debug
+			'''
 			self.debug(
 				('self.',self,['PymongonePopenVariable'])
 			)
+			'''
 
 			#wait for connect
 			import time
@@ -232,25 +244,33 @@ class PymongoerClass(BaseClass):
 
 
 			#debug
+			'''
 			self.debug(
 				[
 					'after connection',
 					('self.',self,['PymongoneClientVariable'])
 				]
 			)
+			'''
+
+	def getDatabaseKeyStr(self):
 
 		#get
-		self.PymongoneDatabaseVariable=getattr(
-				self.PymongoneClientVariable,
-				self.PymongoingDatabaseKeyStr
-			) 
+		_DatabaseKeyStr=(
+				self.ParentedNodePathStr+'/'+self.NodeKeyStr
+			).replace('/','_')
 
-		#set
-		self.PymongoneDatabaseVariable.__dict__['ParentDerivePymongoer']=self
+		#remove
+		if _DatabaseKeyStr[0]=='_':
+			_DatabaseKeyStr=_DatabaseKeyStr[1:]
 
-	def pymongoview(self,_DatabasesList=None):
+		#return 
+		return _DatabaseKeyStr
+
+	def pymongoview(self,_DatabaseKeyStr=""):
 
 		#debug
+		'''
 		self.debug(
 			[
 				('self.',self,[
@@ -261,27 +281,70 @@ class PymongoerClass(BaseClass):
 				self.PymongoneClientVariable.database_names()
 			]
 		)
-		
-		#return
-		return getRepresentedDatabaseOrderedDict(
-						self.PymongoneClientVariable[
-							self.PymongoingDatabaseKeyStr
+		'''
+
+		#debug
+		'''
+		self.debug('_DatabaseKeyStr is '+_DatabaseKeyStr)
+		'''
+
+		#init
+		Database=None
+
+		#Check
+		if _DatabaseKeyStr!='':
+
+			#_DatabaseKeyStr=self.getDatabaseKeyStr()
+			Database=self.PymongoneClientVariable[
+							_DatabaseKeyStr
 						]
-					)
+		else:
+
+			#Check
+			if hasattr(self,'Database'):
+				#get the local one
+				Database=self.Database
+
+		#Check
+		if Database!=None:
+
+			#debug
+			'''
+			self.debug(
+				[
+					'_DatabaseKeyStr is '+_DatabaseKeyStr,
+					"_DatabaseKeyStr in self.PymongoneClientVariable.database_names()",
+					_DatabaseKeyStr in self.PymongoneClientVariable.database_names(),
+					'self.PymongoneClientVariable.__dict__.keys() is ',
+					str(self.PymongoneClientVariable.__dict__.keys())
+				]
+			)
+			'''
+
+			#return
+			return getRepresentedDatabaseOrderedDict(
+							Database
+						)
+
+		else:
+
+			#return empty
+			return {}
 		
-	def mongoclose(self):
+	def mimic_close(self):
 
 		#kill the process
 		if self.PymongonePopenVariable!=None:
 
 			#debug
+			'''
 			self.debug('kill the mongod popen variable')
-
-			#kill
+			'''
+			
+			#kill but before wait a bit to be sure that the db has time to refresh
+			import time
+			time.sleep(5)
 			self.PymongonePopenVariable.kill()
-
-		#return self
-		return self
 
 #</DefineClass>
 

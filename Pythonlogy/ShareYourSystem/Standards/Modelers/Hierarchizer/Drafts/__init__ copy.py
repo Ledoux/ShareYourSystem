@@ -43,7 +43,7 @@ class HierarchizerClass(BaseClass):
 									'HierarchizedKeyStrsList',
 									'HierarchizedRetrieveIndexesListColumnStrsList',
 									'HierarchizedRetrieveIndexesListGetStrsList',
-									'HierarchizedFlushIndexIntsList'
+									'HierarchizedInsertIndexIntsList'
 								]
 
 	#@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.__init__}]})
@@ -56,7 +56,7 @@ class HierarchizerClass(BaseClass):
 						_HierarchizedKeyStrsList=None,
 						_HierarchizedRetrieveIndexesListColumnStrsList=None,
 						_HierarchizedRetrieveIndexesListGetStrsList=None,
-						_HierarchizedFlushIndexIntsList=None,
+						_HierarchizedInsertIndexIntsList=None,
 						**_KwargVariablesDict
 					):
 
@@ -195,7 +195,7 @@ class HierarchizerClass(BaseClass):
 		#</NotHook>
 
 		#set
-		self.HierarchizedFlushIndexIntsList=map(
+		self.HierarchizedInsertIndexIntsList=map(
 					lambda __HierarchizedDeriveDatabaser:
 					__HierarchizedDeriveDatabaser.row().RowedIndexInt,
 					self.HierarchizedDeriveDatabasersList
@@ -204,7 +204,7 @@ class HierarchizerClass(BaseClass):
 		#debug
 		'''
 		self.debug(('self.',self,[
-									'RowedHierarchyFlushIndexIntsList',
+									'RowedHierarchyInsertIndexIntsList',
 									'HierarchizedRetrieveIndexesListGetStrsList'
 
 								]))
@@ -212,16 +212,16 @@ class HierarchizerClass(BaseClass):
 
 		#set the modeled int in the retrieve tuples
 		map(
-				lambda __HierarchizedRetrieveIndexesListGetStr,__RowedHierarchyFlushIndexInt:
+				lambda __HierarchizedRetrieveIndexesListGetStr,__RowedHierarchyInsertIndexInt:
 				getattr(
 					self.NodePointDeriveNoder,
 					__HierarchizedRetrieveIndexesListGetStr
 					).__setitem__(
 						1,
-						__RowedHierarchyFlushIndexInt
+						__RowedHierarchyInsertIndexInt
 				),
 				self.HierarchizedRetrieveIndexesListGetStrsList,
-				self.HierarchizedFlushIndexIntsList
+				self.HierarchizedInsertIndexIntsList
 			)
 	
 
@@ -287,8 +287,8 @@ class HierarchizerClass(BaseClass):
 				)
 		'''
 
-		#Flush the Hierarchized databases
-		self.HierarchizedFlushIndexIntsList=map(
+		#Insert the Hierarchized databases
+		self.HierarchizedInsertIndexIntsList=map(
 					lambda __HierarchizedDeriveDatabaser:
 					__HierarchizedDeriveDatabaser.insert(),
 					self.HierarchizedDeriveDatabasersList
@@ -333,7 +333,7 @@ class HierarchizerClass(BaseClass):
 		#</NotHook>
 
 		#Retrieve in the joined databases
-		self.HierarchizedFlushIndexIntsList=map(
+		self.HierarchizedInsertIndexIntsList=map(
 					lambda __HierarchizedRetrieveIndexesListGetStr,__HierarchizedDeriveDatabaserPointer:
 					__HierarchizedDeriveDatabaserPointer.retrieve(
 						getattr(

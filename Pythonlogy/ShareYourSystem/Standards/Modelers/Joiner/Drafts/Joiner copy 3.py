@@ -239,7 +239,7 @@ class JoinerClass(SYS.FeaturerClass):
 						]
 					)
 
-			#Flush each noded children
+			#Insert each noded children
 			map(
 					lambda __Variable:
 					__Variable.insert(ModelStr),
@@ -261,7 +261,7 @@ class JoinerClass(SYS.FeaturerClass):
 			#debug
 			self.debug(
 						[
-							'Flush self with the joined model',
+							'Insert self with the joined model',
 							'But without making the noded children inserting'
 						]
 					)
@@ -269,11 +269,11 @@ class JoinerClass(SYS.FeaturerClass):
 			#Copy the DatabasedDict
 			CopiedDatabasedDict=copy.copy(self.DatabasedDict)
 
-			#Flush
+			#Insert
 			self.insert(self.DatabasedDict['JoinedModelStr'],**{'IsNodingInsertingBool':False})
 
 			#debug
-			self.debug('Flush self with the joined model was done')
+			self.debug('Insert self with the joined model was done')
 		
 			#Reset the self.DatabasedDict
 			self.DatabasedDict=CopiedDatabasedDict

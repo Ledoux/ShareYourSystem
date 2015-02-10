@@ -109,7 +109,7 @@ MySumer.update(
 	)['<Joiners>ResultsJoiner'
 	#].transmit(
 	#	[
-	#		('setSwitch',{'LiargVariablesList':[],'KwargVariablesDict':{'_DoStrsList':['Flush']}})
+	#		('setSwitch',{'LiargVariablesList':[],'KwargVariablesDict':{'_DoStrsList':['Insert']}})
 	#	],
 	#	['PostConnectome']
 	].insert()

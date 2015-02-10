@@ -19,6 +19,7 @@ import functools
 import importlib
 import inspect
 import inflect
+import operator
 import os
 import re
 import sys
@@ -730,10 +731,24 @@ def getIsEqualBool(_VariableA,_VariableB):
 
 	#Then do the equal process
 	if numpy.ndarray not in map(type,[_VariableA,_VariableB]):
+
+		#special unicode case
+		if type(_VariableA)==unicode:
+			_VariableA=str(_VariableA)
+		if type(_VariableB)==unicode:
+			_VariableB=str(_VariableB)	
+
+		#return
 		return _VariableA==_VariableB
+
 	elif len(_VariableA)!=len(_VariableB):
-			return False
+		
+		#return
+		return False
+		
 	else:
+
+		#return
 		return all(
 					map(
 						lambda __ArrayingInt:
@@ -942,6 +957,18 @@ class ShareYourSystem():
 		#alias
 		WrapModule=self.__dict__['WrapModule']
 
+		#VERY pretentious way of accessing 
+		#numpy, matplotlib operator functions as if it was in the SYS library...
+		#(but it's then simpler as the pylab module)
+		if _KeyVariable=='array':
+			import numpy
+			return numpy.array
+		elif _KeyVariable=='contains':
+			return operator.contains
+		elif _KeyVariable in ['plot','show']:
+			from matplotlib import pyplot
+			return getattr(pyplot,_KeyVariable)
+
 		#Check for maybe automatically importing submodules
 		if hasattr(WrapModule,_KeyVariable)==False:
 
@@ -998,11 +1025,11 @@ class ShareYourSystem():
 					print(_KeyVariable)
 					print('')
 					'''
-					
+
 					#raise
 					raise AttributeError
 
-			#Check for a module call
+			#Check for a SYS module call
 			else:
 
 				#try
@@ -1011,7 +1038,7 @@ class ShareYourSystem():
 					#get
 					ValueModuleStr=WrapModule.ModuleStrsList[
 							WrapModule.NameStrsList.index(_KeyVariable)
-							]
+						]
 
 					#import
 					ValueModule=importlib.import_module(ValueModuleStr)
@@ -1021,17 +1048,31 @@ class ShareYourSystem():
 
 				except:
 
-					#print
-					'''
-					print('l 968 SYS')
-					print('No _KeyVariable like')
-					print(_KeyVariable)
-					print('')
-					'''
+					#Check for a non SYS module call
+					try:
 
-					#raise
-					raise AttributeError
+						#import
+						ValueModule=importlib.import_module(_KeyVariable)
 
+						#return
+						return ValueModule
+
+					except:
+
+						#print
+						'''
+						print('l 1050 SYS')
+						print('No _KeyVariable like')
+						print(_KeyVariable)
+						print('WrapModule.NameStrsList is ')
+						print(WrapModule.NameStrsList)
+						print('WrapModule.ModuleStrsList is ')
+						print(WrapModule.ModuleStrsList)
+						'''
+
+						#raise
+						raise AttributeError
+						
 		else:
 
 			#return 

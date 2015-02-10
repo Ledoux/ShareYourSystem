@@ -49,14 +49,14 @@ class ShaperClass(BaseClass):
 	
 	#Definition
 	RepresentingKeyStrsList=[
-									'ShapingDimensionTuplesList',
-									'ShapedSealGetKeyStrsList',	
-									'ShapedSealDimensionGetKeyStrsListsList',
-									'ShapedIndexIntsList',														
-									'ShapedDimensionGetKeyStrsList',	
-									'ShapedDimensionIntsList',							
-									'ShapedStr'
-								]
+								'ShapingDimensionTuplesList',
+								'ShapedSealGetKeyStrsList',	
+								'ShapedSealDimensionGetKeyStrsListsList',
+								'ShapedIndexIntsList',														
+								'ShapedDimensionGetKeyStrsList',	
+								'ShapedDimensionIntsList',							
+								'ShapedStr'
+							]
 
 	def default_init(self,
 					_ShapingDimensionTuplesList=None,										
@@ -186,17 +186,14 @@ class ShaperClass(BaseClass):
 			self.DatabasingSealTuplesList))
 		'''
 		
-		#<NotHook>
 		#database then
 		Databaser.DatabaserClass.database(self)
-		#</NotHook>
 
 	def mimic_tabular(self):
 
-		#<NotHook>
+
 		#tabular first
 		Tabularer.TabularerClass.tabular(self)
-		#</NotHook>
 
 		#debug
 		'''
@@ -251,10 +248,8 @@ class ShaperClass(BaseClass):
 
 		try:
 
-			#<NotHook>
 			#insert first
 			BaseClass.insert(self)
-			#</NotHook>
 
 		except ValueError:
 
@@ -320,101 +315,102 @@ class ShaperClass(BaseClass):
 			self.debug('Ok table again is done, so now we insert')
 			'''
 
-			#<NotHook>
 			#insert first
 			BaseClass.insert(self)
-			#</NotHook>
 	
 	def do_shape(self):
 
-		#debug
-		'''
-		self.debug(
-					[
-						'We shape here',
-						#("self.",self,['ShapingDimensionTuplesList'])
-					]
-				)
-		'''
-
 		#Check
-		if len(self.ShapingDimensionTuplesList)>0:
+		if self.DatabasingHdfBool:
 
-			#set
-			[
-				self.ShapedSealGetKeyStrsList,
-				self.ShapedSealDimensionGetKeyStrsListsList
-			]=SYS.unzip(self.ShapingDimensionTuplesList,[0,1])
+			#debug
+			'''
+			self.debug(
+						[
+							'We shape here',
+							#("self.",self,['ShapingDimensionTuplesList'])
+						]
+					)
+			'''
 
-			#Flat and set
-			self.ShapedDimensionGetKeyStrsList=list(
-				set(
-					SYS.flat(
-						self.ShapedSealDimensionGetKeyStrsListsList
+			#Check
+			if len(self.ShapingDimensionTuplesList)>0:
+
+				#set
+				[
+					self.ShapedSealGetKeyStrsList,
+					self.ShapedSealDimensionGetKeyStrsListsList
+				]=SYS.unzip(self.ShapingDimensionTuplesList,[0,1])
+
+				#Flat and set
+				self.ShapedDimensionGetKeyStrsList=list(
+					set(
+						SYS.flat(
+							self.ShapedSealDimensionGetKeyStrsListsList
+							)
 						)
 					)
+
+			else:
+
+				#Default
+				self.ShapedSealGetKeyStrsList=[]
+				self.ShapedDimensionGetKeyStrsList=[]
+				self.ShapedSealDimensionGetKeyStrsListsList=[]
+
+			#debug
+			'''
+			self.debug(("self.",self,[
+										'ShapedSealGetKeyStrsList',
+										'ShapedDimensionGetKeyStrsList'
+									]))
+			'''
+
+			#Definition
+			DatabasedGetKeyStrsList=SYS.unzip(self.DatabasingSealTuplesList,[0])
+
+			#set
+			self.ShapedIndexIntsList=map(
+					lambda __ShapedSealGetKeyStr:
+					DatabasedGetKeyStrsList.index(__ShapedSealGetKeyStr),
+					self.ShapedSealGetKeyStrsList
 				)
 
-		else:
+			#Check
+			if hasattr(self,'NodePointDeriveNoder') and self.NodePointDeriveNoder!=None:
 
-			#Default
-			self.ShapedSealGetKeyStrsList=[]
-			self.ShapedDimensionGetKeyStrsList=[]
-			self.ShapedSealDimensionGetKeyStrsListsList=[]
+				#Pick
+				self.ShapedDimensionIntsList=self.NodePointDeriveNoder.pick(
+					self.ShapedDimensionGetKeyStrsList
+				)
 
-		#debug
-		'''
-		self.debug(("self.",self,[
-									'ShapedSealGetKeyStrsList',
-									'ShapedDimensionGetKeyStrsList'
-								]))
-		'''
+			else:
 
-		#Definition
-		DatabasedGetKeyStrsList=SYS.unzip(self.DatabasingSealTuplesList,[0])
+				#Default
+				self.ShapedDimensionIntsList=[]
+						
 
-		#set
-		self.ShapedIndexIntsList=map(
-				lambda __ShapedSealGetKeyStr:
-				DatabasedGetKeyStrsList.index(__ShapedSealGetKeyStr),
-				self.ShapedSealGetKeyStrsList
+			#debug
+			'''
+			self.debug(("self.",self,['ShapedDimensionIntsList']))
+			'''
+
+			#Bind with DatabasedShapedStr setting
+			self.ShapedStr=ShapingJoiningStr.join(
+										map(
+												lambda __ShapedSealGetKeyStr,__ShapedDimensionVariable:
+												ShapingJoiningStr+str(
+													__ShapedSealGetKeyStr
+													)+ShapingTuplingStr+str(
+													__ShapedDimensionVariable),
+												self.ShapedDimensionGetKeyStrsList,
+												self.ShapedDimensionIntsList
+											)
 			)
 
-		#Check
-		if hasattr(self,'NodePointDeriveNoder') and self.NodePointDeriveNoder!=None:
-
-			#Pick
-			self.ShapedDimensionIntsList=self.NodePointDeriveNoder.pick(
-				self.ShapedDimensionGetKeyStrsList
-			)
-
-		else:
-
-			#Default
-			self.ShapedDimensionIntsList=[]
-					
-
-		#debug
-		'''
-		self.debug(("self.",self,['ShapedDimensionIntsList']))
-		'''
-
-		#Bind with DatabasedShapedStr setting
-		self.ShapedStr=ShapingJoiningStr.join(
-									map(
-											lambda __ShapedSealGetKeyStr,__ShapedDimensionVariable:
-											ShapingJoiningStr+str(
-												__ShapedSealGetKeyStr
-												)+ShapingTuplingStr+str(
-												__ShapedDimensionVariable),
-											self.ShapedDimensionGetKeyStrsList,
-											self.ShapedDimensionIntsList
-										)
-		)
-
-		#debug 
-		'''
-		self.debug(('self.',self,['ShapedStr']))
-		'''
+			#debug 
+			'''
+			self.debug(('self.',self,['ShapedStr']))
+			'''
 #</DefineClass>
 

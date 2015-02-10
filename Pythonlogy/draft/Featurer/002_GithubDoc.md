@@ -53,7 +53,7 @@ class FeaturerClass(
 
 	def default_init(self,
 						_FeaturingAllBool=False,
-						_FeaturingJoinFlushBool=True,	
+						_FeaturingJoinInsertBool=True,	
 						_FeaturedJoinDatabasersList=None,
 						**_KwargVariablesDict
 					):
@@ -124,11 +124,11 @@ class FeaturerClass(
 
 		#debug
 		'''
-		self.debug(('self.',self,['FeaturingJoinFlushBool']))
+		self.debug(('self.',self,['FeaturingJoinInsertBool']))
 		'''
 
 		#Check
-		if len(self.FeaturedJoinDatabasersList)>0 and self.FeaturingJoinFlushBool:
+		if len(self.FeaturedJoinDatabasersList)>0 and self.FeaturingJoinInsertBool:
 
 			#debug
 			'''
@@ -136,7 +136,7 @@ class FeaturerClass(
 			'''
 
 			#set
-			self.FeaturingJoinFlushBool=False
+			self.FeaturingJoinInsertBool=False
 
 			#map
 			map(
@@ -146,7 +146,7 @@ class FeaturerClass(
 				)
 
 			#set
-			self.FeaturingJoinFlushBool=True
+			self.FeaturingJoinInsertBool=True
 
 			#Return
 			return

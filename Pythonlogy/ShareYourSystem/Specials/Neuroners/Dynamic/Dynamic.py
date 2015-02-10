@@ -432,7 +432,7 @@ def attest_output():
 
 def attest_store():
 
-	#Flush the default output
+	#Insert the default output
 	SYS.Config.seed(5)
 	Dynamic=SYS.DynamicClass().organize().output().collect().output().hdfclose()
 
@@ -443,7 +443,7 @@ def attest_store():
 
 def attest_scan():
 
-	#Flush with all the scanning featuring values
+	#Insert with all the scanning featuring values
 	Dynamic=SYS.DynamicClass().organize().scan().hdfclose()
 
 	#Return the shape of the storing hdf5

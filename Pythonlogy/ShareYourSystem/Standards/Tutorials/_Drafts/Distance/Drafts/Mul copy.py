@@ -90,7 +90,7 @@ def attest_output():
 
 def attest_store():
 
-	#Flush the default output
+	#Insert the default output
 	SYS.Config.seed(5)
 	Mul=SYS.MulClass().organize().output().collect().output().hdfclose()
 
@@ -101,7 +101,7 @@ def attest_store():
 
 def attest_scan():
 
-	#Flush with all the scanning featuring values
+	#Insert with all the scanning featuring values
 	Mul=SYS.MulClass().organize().scan().hdfclose()
 
 	#Return the shape of the storing hdf5

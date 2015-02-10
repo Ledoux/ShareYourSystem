@@ -23,6 +23,7 @@ SYS.setSubModule(globals())
 from ShareYourSystem.Standards.Noders import Noder
 from ShareYourSystem.Specials.Simulaters import Neurongrouper,Synapser
 import operator
+from brian2 import ms
 #</ImportSpecificModules>
 
 #<DefineFunctions>

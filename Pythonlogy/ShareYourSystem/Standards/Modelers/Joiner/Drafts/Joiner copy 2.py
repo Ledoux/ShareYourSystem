@@ -144,7 +144,7 @@ class JoinerClass(SYS.FeaturerClass):
 		print('')
 		'''
 		
-		#Flush the joined stuff if they are not yet
+		#Insert the joined stuff if they are not yet
 		if 'JoiningTuple' in self.DatabasedDict:
 
 			#We need maybe to join if it was not already rowed
@@ -199,7 +199,7 @@ class JoinerClass(SYS.FeaturerClass):
 			print('')
 			'''
 
-			#Flush first all the children
+			#Insert first all the children
 			InsertingVariablesList=map(
 					lambda __NodifiedKeyStr:
 					self['App_'+self.JoinedNodifiedNodeStr+'_'+__NodifiedKeyStr

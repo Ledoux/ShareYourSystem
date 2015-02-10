@@ -3,23 +3,25 @@
 import ShareYourSystem as SYS
 
 #Definition a Pymongoer 
-MyPymongoer=SYS.PymongoerClass().pymongo(
-	**{
+MyPymongoer=SYS.PymongoerClass(
+	).pymongo(
+		**{
 		'FolderingPathStr':SYS.Pymongoer.LocalFolderPathStr
-	}
+		}
 )
 
 #build a parent Database
-MyPymongoer.PymongoneDatabaseVariable.ThingsCollection.remove(
+MyDatabase=MyPymongoer.PymongoneClientVariable['MyDatabase']
+MyDatabase=ThingsCollection.remove(
 	{}
 )
-MyPymongoer.PymongoneDatabaseVariable.ThingsCollection.insert(
+MyDatabase.ThingsCollection.insert(
 	{'MyStr':'hello'}
 )
 
 #build a child
 import collections
-MyPymongoer.PymongoneDatabaseVariable.ChildDatabase=MyPymongoer.PymongoneClientVariable.ChildDatabase
+MyPymongoer.PymongoneClientVariable.ChildDatabase=MyPymongoer.PymongoneClientVariable.ChildDatabase
 MyPymongoer.PymongoneDatabaseVariable.ChildDatabase.ThingsCollection.remove(
 	{}
 )

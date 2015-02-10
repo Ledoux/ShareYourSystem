@@ -5,7 +5,6 @@ import ShareYourSystem as SYS
 #Definition 
 MyController=SYS.ControllerClass(
 		**{
-			'PymongoingDatabaseKeyStr':"Things",
 			'FolderingPathStr':SYS.Tabularer.LocalFolderPathStr
 		}
 	).collect(

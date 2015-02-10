@@ -5,7 +5,6 @@ import ShareYourSystem as SYS
 #Definition of a Controller instance with a noded datar
 MyController=SYS.ControllerClass(
 		**{
-			'PymongoingDatabaseKeyStr':"Things",
 			'FolderingPathStr':SYS.Tabler.LocalFolderPathStr
 		}
 	).collect(

@@ -370,7 +370,7 @@ class ShaperClass(BaseClass):
 			#Reset to False
 			self.InsertedErrorBool=False
 
-			#Flush again
+			#Insert again
 			#self.insert()
 			#Functer.getFunctingFunctionWithFuncFunction(Inserter.InserterClass.insert)(self)
 			Inserter.InserterClass.insert(self)

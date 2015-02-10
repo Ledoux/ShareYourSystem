@@ -128,14 +128,11 @@ class HdformaterClass(BaseClass):
 		#Return self
 		return self.HdformatedConsoleStr
 
-	def hdfclose(self):
+	def mimic_close(self):
 
 		#Close the HdformatedFileVariable
 		if self.HdformatedFileVariable!=None:
 			self.HdformatedFileVariable.close()
-
-		#Return self
-		return self
 
 #</DefineClass>
 

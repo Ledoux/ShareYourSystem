@@ -133,7 +133,7 @@ BaseClass.__init__}]})
 'KwargVariablesDict':
                                                                 {
 '_ClassVariable':'Hierarchizer',
-'_DoStrsList':['Flush']
+'_DoStrsList':['Insert']
                                                                 }
                                                         })
                         ],
