@@ -112,7 +112,7 @@ class ParenterClass(BaseClass):
 
 			#set the PathStr
 			PathStrKeyStr=self.NodedPrefixStr+"PathStr"
-			PathStr=Pather.PathingPrefixStr.join(getattr(self,PathStrsListKeyStr))
+			PathStr=Pather.PathPrefixStr.join(getattr(self,PathStrsListKeyStr))
 			self.__setattr__(
 								PathStrKeyStr,
 								PathStr

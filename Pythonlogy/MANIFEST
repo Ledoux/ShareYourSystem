@@ -547,11 +547,13 @@ ShareYourSystem/Standards/Itemizers/Attributer/03_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Attributer/Readme.md
 ShareYourSystem/Standards/Itemizers/Attributer/__init__.py
 ShareYourSystem/Standards/Itemizers/Commander/001_DocumentDoc.md
+ShareYourSystem/Standards/Itemizers/Commander/00_ExampleDoc copy.md
 ShareYourSystem/Standards/Itemizers/Commander/00_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Commander/01_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Commander/Readme.md
 ShareYourSystem/Standards/Itemizers/Commander/Test.py
 ShareYourSystem/Standards/Itemizers/Commander/__init__.py
+ShareYourSystem/Standards/Itemizers/Commander/draft/__init__ copy 2.py
 ShareYourSystem/Standards/Itemizers/Filterer/001_DocumentDoc.md
 ShareYourSystem/Standards/Itemizers/Filterer/001_GithubDoc.md
 ShareYourSystem/Standards/Itemizers/Filterer/002_GithubDoc.md
@@ -581,6 +583,12 @@ ShareYourSystem/Standards/Itemizers/Itemizer/00_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Itemizer/01_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Itemizer/Readme.md
 ShareYourSystem/Standards/Itemizers/Itemizer/__init__.py
+ShareYourSystem/Standards/Itemizers/Mapper/001_DocumentDoc.md
+ShareYourSystem/Standards/Itemizers/Mapper/00_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Mapper/01_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Mapper/Readme.md
+ShareYourSystem/Standards/Itemizers/Mapper/Test.py
+ShareYourSystem/Standards/Itemizers/Mapper/__init__.py
 ShareYourSystem/Standards/Itemizers/Pather/001_DocumentDoc.md
 ShareYourSystem/Standards/Itemizers/Pather/00_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Pather/01_ExampleDoc.py
@@ -918,21 +926,21 @@ ShareYourSystem/Standards/Objects/Swiger/Modules/12b_IntegrateAndFireTransferFun
 ShareYourSystem/Standards/Objects/Swiger/Modules/12b_IntegrateAndFireTransferFunctionSwig/IntegrateAndFireTransferFunctionSwig.py
 ShareYourSystem/Standards/Objects/Swiger/Modules/12b_IntegrateAndFireTransferFunctionSwig/Makefile
 ShareYourSystem/Standards/Objects/Swiger/Modules/12b_IntegrateAndFireTransferFunctionSwig/Readme.txt
-ShareYourSystem/Standards/Parenters/__init__.py
-ShareYourSystem/Standards/Parenters/Familiarizer/001_DocumentDoc.md
-ShareYourSystem/Standards/Parenters/Familiarizer/00_ExampleDoc.md
-ShareYourSystem/Standards/Parenters/Familiarizer/01_ExampleDoc.py
-ShareYourSystem/Standards/Parenters/Familiarizer/Readme.md
-ShareYourSystem/Standards/Parenters/Familiarizer/Test.py
-ShareYourSystem/Standards/Parenters/Familiarizer/__init__.py
-ShareYourSystem/Standards/Parenters/Familiarizer/Drafts/__init__ copy 2.py
-ShareYourSystem/Standards/Parenters/Familiarizer/Drafts/__init__ copy 3.py
-ShareYourSystem/Standards/Parenters/Parenter/00_ExampleDoc.md
-ShareYourSystem/Standards/Parenters/Parenter/01_ExampleDoc.py
-ShareYourSystem/Standards/Parenters/Parenter/Readme.md
-ShareYourSystem/Standards/Parenters/Parenter/Test.py
-ShareYourSystem/Standards/Parenters/Parenter/__init__.py
-ShareYourSystem/Standards/Parenters/Parenter/Tests/attest_path.txt
+ShareYourSystem/Standards/Teamers/__init__.py
+ShareYourSystem/Standards/Teamers/Manager/00_ExampleDoc.md
+ShareYourSystem/Standards/Teamers/Manager/01_ExampleDoc.py
+ShareYourSystem/Standards/Teamers/Manager/Readme.md
+ShareYourSystem/Standards/Teamers/Manager/Test.py
+ShareYourSystem/Standards/Teamers/Manager/__init__.py
+ShareYourSystem/Standards/Teamers/Manager/Tests/attest_path.txt
+ShareYourSystem/Standards/Teamers/Teamer/001_DocumentDoc.md
+ShareYourSystem/Standards/Teamers/Teamer/00_ExampleDoc.md
+ShareYourSystem/Standards/Teamers/Teamer/01_ExampleDoc.py
+ShareYourSystem/Standards/Teamers/Teamer/Readme.md
+ShareYourSystem/Standards/Teamers/Teamer/Test.py
+ShareYourSystem/Standards/Teamers/Teamer/__init__.py
+ShareYourSystem/Standards/Teamers/Teamer/Drafts/__init__ copy 2.py
+ShareYourSystem/Standards/Teamers/Teamer/Drafts/__init__ copy 3.py
 ShareYourSystem/Standards/Tutorials/Readme.md
 ShareYourSystem/Standards/Tutorials/__init__.py
 ShareYourSystem/Standards/Tutorials/Decrementer/00_ExampleDoc.md

@@ -264,7 +264,7 @@ class NoderClass(BaseClass):
 			#Append (or set if it is already in)
 			Pather.setWithPathVariableAndKeyVariable(
 				self.NodedOrderedDict,
-				Pather.PathingPrefixStr+SettedKeyStr,
+				Pather.PathPrefixStr+SettedKeyStr,
 				self.SettingValueVariable
 			)
 

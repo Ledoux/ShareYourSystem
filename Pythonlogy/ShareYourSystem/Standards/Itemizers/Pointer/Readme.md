@@ -136,7 +136,7 @@ f.PointingSetPathStr)
 
                 #set
                 self.PointedLocalSetStr=self.PointingSetPathStr.split(
-                        self.PointedPathBackStr+Pather.PathingPrefixStr)[-1]
+                        self.PointedPathBackStr+Pather.PathPrefixStr)[-1]
 
                 #debug
                 '''

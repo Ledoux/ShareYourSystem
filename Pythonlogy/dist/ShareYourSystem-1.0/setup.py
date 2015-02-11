@@ -72,8 +72,8 @@ setup(
 			 		'ShareYourSystem.Standards.Itemizers.Commander',
 			 		'ShareYourSystem.Standards.Itemizers.Pointer',
 			 		'ShareYourSystem.Standards.Itemizers.Filterer',
-			 		'ShareYourSystem.Standards.Parenters.Parenter',
-			 		'ShareYourSystem.Standards.Parenters.Familiarizer',
+			 		'ShareYourSystem.Standards.Teamers.Teamer',
+			 		'ShareYourSystem.Standards.Teamers.Manager',
 			 		'ShareYourSystem.Standards.Objects',
 			 		'ShareYourSystem.Standards.Classors',
 			 		'ShareYourSystem.Standards.Functers',
@@ -81,7 +81,7 @@ setup(
 			 		'ShareYourSystem.Standards.Guiders',
 			 		'ShareYourSystem.Standards.Itemizers',
 			 		'ShareYourSystem.Standards.Walkers',
-			 		'ShareYourSystem.Standards.Parenters',
+			 		'ShareYourSystem.Standards.Teamers',
 			 		'ShareYourSystem.Standards'
 			 	]
 			 ,

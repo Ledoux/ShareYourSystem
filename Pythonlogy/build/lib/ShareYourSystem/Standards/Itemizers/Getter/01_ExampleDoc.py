@@ -12,4 +12,3 @@ print('Get the MyInt returns '+str(MyGetter['MyInt']))
 #print
 print('Get the MyStr returns '+str(MyGetter['MyStr']))
 
-

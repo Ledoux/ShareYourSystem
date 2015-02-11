@@ -31,15 +31,15 @@ class CommanderClass(BaseClass):
 	#Definition 
 	RepresentingKeyStrsList=[
 							#'CommandingGraspVariable',
-							#'CommandingUpdateList',
+							#'CommandingUpdateVariable',
 							'CommandingOrderStr'
 						]
 
 	def default_init(
 				self,
 				_CommandingGraspVariable=None,
-				_CommandingUpdateList=None,	
-				_CommandingOrderStr="AllSetsForEach",				
+				_CommandingUpdateVariable=None,	
+				_CommandingOrderStr="AllUpdatesForEachGrasp",				
 				**_KwargVariablesDict
 			):
 
@@ -56,7 +56,17 @@ class CommanderClass(BaseClass):
 
 		#Check
 		if type(self.CommandingGraspVariable)!=list:
-			self.CommandingGraspVariable=[self.CommandingGraspVariable]
+			
+			self.CommandingGraspVariable=[
+				self.CommandingGraspVariable
+			]
+
+		#Check
+		if type(self.CommandingUpdateVariable)!=list:
+			
+			self.CommandingUpdateVariable=[
+				self.CommandingUpdateVariable
+			]
 
 		#map a grasp
 		self.CommandedGraspVariablesList=map(
@@ -68,20 +78,20 @@ class CommanderClass(BaseClass):
 			)
 
 		#Check for the order
-		if self.CommandingOrderStr=="AllSetsForEach":
+		if self.CommandingOrderStr=="AllUpdatesForEachGrasp":
 
 			#For each __GatheredVariable it is updating with _UpdatingItemVariable
 			map(
 					lambda __CommandedGraspVariable:
 					__CommandedGraspVariable.set(
 						SYS.MapListClass(
-							self.CommandingUpdateList
+							self.CommandingUpdateVariable
 						)
 					),
 					self.CommandedGraspVariablesList
 				)
 
-		elif self.CommandingOrderStr=="EachSetForAll":
+		elif self.CommandingOrderStr=="EachUpdateForAllGrasps":
 
 			#For each SettingTuple it is setted in _GatheredVariablesList
 			map(
@@ -93,8 +103,8 @@ class CommanderClass(BaseClass):
 						),
 						self.CommandedGraspVariablesList
 					),
-					self.CommandingUpdateList.items() 
-					if hasattr(self.CommandingUpdateList,'items')
-					else self.CommandingUpdateList
+					self.CommandingUpdateVariable.items() 
+					if hasattr(self.CommandingUpdateVariable,'items')
+					else self.CommandingUpdateVariable
 				)
 #</DefineClass>

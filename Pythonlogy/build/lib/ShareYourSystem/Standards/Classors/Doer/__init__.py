@@ -190,11 +190,12 @@ def do(
 
 	#debug
 	'''
-	print('Doer l.274 we are going to call the DoWrapMethod')
-	print('DoWrapMethod is ',DoWrapMethod)
+	print('Doer l.274 we are going to call the DoWrapUnboundMethod')
+	print('DoWrapUnboundMethod is ',DoWrapUnboundMethod)
+	print('_LiargVariablesList is ',_LiargVariablesList)
 	print('')
 	'''
-
+	
 	#Return the call of the defined do method
 	if len(DoneKwargDict)>0:
 		return DoWrapUnboundMethod(
@@ -600,6 +601,8 @@ DoStrsTuplesList=[
 	('Filterer','Filter','Filtering','Filterer'),
 	('Cooper','Coop','Cooping','Cooped'),
 	('Familiarizer','Familiarize','Familiarizing','Familiarized'),
+	('Teamer','Team','Teaming','Teamed'),
+	('Manager','Manage','Managing','Managed'),
 	('Noder','Node','Noding','Noded'),
 	('Outputer','Output','Outputing','Outputed'),
 	('Appender','Append','Appending','Appended'),

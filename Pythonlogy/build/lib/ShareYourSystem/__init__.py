@@ -681,6 +681,12 @@ def chunk(_LimitStrsList,_TextStr,**_KwargVariablesDict):
 	return getStrsListWithBeginStrAndEndStrAndStrsIntAndStr(
 		_LimitStrsList[0],_LimitStrsList[1],ChunksInt,_TextStr,**_KwargVariablesDict)
 
+def deprefix(_WordStr,_PrefixStr):
+	return _PrefixStr.join(_WordStr.split(_PrefixStr)[1:])
+
+def desuffix(_WordStr,_SuffixStr):
+	return _SuffixStr.join(_WordStr.split(_SuffixStr)[:-1])
+
 def groupby(_FunctionPointer,_List):
 	return getSplitListsListWithSplittedListAndFunctionPointer(_List,_FunctionPointer)
 

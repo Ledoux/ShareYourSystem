@@ -134,7 +134,7 @@ self.ParentedNodeCollectionStrsList=[self.NodedCollectionStr
                         '''
 
                         #set
-self.ParentedNodePathStr=Pather.PathingPrefixStr.join(ParentedNodePathStrsList)
+self.ParentedNodePathStr=Pather.PathPrefixStr.join(ParentedNodePathStrsList)
 
                 #Return self
                 #return self

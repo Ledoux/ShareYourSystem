@@ -9,7 +9,7 @@
 
 
 A Pather use its __setitem__ method for setting attributes in deeper levels thanks to 
-the PathingPrefixStr 
+the PathPrefixStr 
 
 """
 
@@ -25,7 +25,7 @@ import collections
 #</ImportSpecificModules>
 
 #<DefineLocals>
-PathingPrefixStr="/"
+PathPrefixStr="/"
 #</DefineLocals>
 
 #<DefineFunctions>
@@ -66,11 +66,11 @@ def getVariableWithDictatedVariableAndKeyVariable(_DictatedVariable,_KeyVariable
 def getPathedBackGetStrWithGetStr(_GetStr):
 
 	#Check
-	if PathingPrefixStr in _GetStr:
+	if PathPrefixStr in _GetStr:
 
 		#Get the path just before
-		return PathingPrefixStr.join(
-			_GetStr.split(PathingPrefixStr)[:-1]
+		return PathPrefixStr.join(
+			_GetStr.split(PathPrefixStr)[:-1]
 			)
 
 	else:
@@ -131,10 +131,10 @@ class PatherClass(BaseClass):
 		'''
 		
 		#Split
-		self.PathedKeyStrsList=self.PathingKeyStr.split(PathingPrefixStr)
+		self.PathedKeyStrsList=self.PathingKeyStr.split(PathPrefixStr)
 
 		#set
-		#self.PathedGetKeyStr=PathingPrefixStr.join(self.PathedKeyStrsList[1:])
+		#self.PathedGetKeyStr=PathPrefixStr.join(self.PathedKeyStrsList[1:])
 		self.PathedGetKeyStr=self.PathedKeyStrsList[1]
 
 		#debug
@@ -168,7 +168,7 @@ class PatherClass(BaseClass):
 
 			#Set
 			if len(self.PathedKeyStrsList)>2:
-				self.PathedChildKeyStr=PathingPrefixStr+PathingPrefixStr.join(
+				self.PathedChildKeyStr=PathPrefixStr+PathPrefixStr.join(
 					self.PathedKeyStrsList[2:])
 
 			#getitem
@@ -197,7 +197,7 @@ class PatherClass(BaseClass):
 		if type(
 			self.GettingKeyVariable
 		)==str and self.GettingKeyVariable.startswith(
-				PathingPrefixStr
+				PathPrefixStr
 			):
 
 			#debug
@@ -305,7 +305,7 @@ class PatherClass(BaseClass):
 		if type(
 			self.SettingKeyVariable
 		)==str and self.SettingKeyVariable.startswith(
-					PathingPrefixStr
+					PathPrefixStr
 				):
 
 			#debug
@@ -328,7 +328,7 @@ class PatherClass(BaseClass):
 
 			#set
 			#Direct update in the Child or go deeper with the ChildPathStr
-			if self.SettingKeyVariable[-1]==PathingPrefixStr: 
+			if self.SettingKeyVariable[-1]==PathPrefixStr: 
 				
 				#debug
 				'''
@@ -417,7 +417,7 @@ class PatherClass(BaseClass):
 				else:
 
 					#define
-					ChildSettingKeyStr=PathingPrefixStr+PathingPrefixStr.join(
+					ChildSettingKeyStr=PathPrefixStr+PathPrefixStr.join(
 						self.PathedKeyStrsList[2:]
 					)
 
@@ -474,12 +474,12 @@ def setWithPathVariableAndKeyVariable(_DictatedVariable,_KeyVariable,_ValueVaria
 		#set with a list
 		if type(_KeyVariable)==list:
 			if len(_KeyVariable)>0:
-				if _KeyVariable[0]==PathingPrefixStr:
+				if _KeyVariable[0]==PathPrefixStr:
 					if len(_KeyVariable)==1:
 
 						#debug
 						'''
-						print('_KeyVariable==[PathingPrefixStr]')
+						print('_KeyVariable==[PathPrefixStr]')
 						print('So just update')
 						print('')
 						'''
@@ -563,17 +563,17 @@ def setWithPathVariableAndKeyVariable(_DictatedVariable,_KeyVariable,_ValueVaria
 				return
 
 			#set deeply in the dict
-			elif _KeyVariable.startswith(PathingPrefixStr):
+			elif _KeyVariable.startswith(PathPrefixStr):
 
 				#Case of the dict or OrderedDict we have to convert in list to make the key been understood
 				if Type in [dict,collections.OrderedDict]:
 
 					#Split
-					_KeyVariable=_KeyVariable.split(PathingPrefixStr)[1:]
+					_KeyVariable=_KeyVariable.split(PathPrefixStr)[1:]
 
 					#debug
 					'''
-					print('_KeyVariable has PathingPrefixStrs so convert the _KeyVariable into a list')
+					print('_KeyVariable has PathPrefixStrs so convert the _KeyVariable into a list')
 					print(_KeyVariable)
 					print('')
 					'''
@@ -592,7 +592,7 @@ def setWithPathVariableAndKeyVariable(_DictatedVariable,_KeyVariable,_ValueVaria
 
 					#debug
 					'''
-					print('_KeyVariable has PathingPrefixStrs bu the _DictatedVariable knows how to deal with that')
+					print('_KeyVariable has PathPrefixStrs bu the _DictatedVariable knows how to deal with that')
 					'''
 
 					#This is an object that understandsa already how to do
@@ -605,7 +605,7 @@ def setWithPathVariableAndKeyVariable(_DictatedVariable,_KeyVariable,_ValueVaria
 
 				#debug
 				'''
-				print('_KeyVariable has no PathingPrefixStr so set direclty')
+				print('_KeyVariable has no PathPrefixStr so set direclty')
 				print(_KeyVariable)
 				print('')
 				'''

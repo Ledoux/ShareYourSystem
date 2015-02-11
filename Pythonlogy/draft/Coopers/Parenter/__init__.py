@@ -127,13 +127,13 @@ class ParenterClass(BaseClass):
 			'''
 			
 			#set
-			self.ParentedNodePathStr=Pather.PathingPrefixStr.join(
+			self.ParentedNodePathStr=Pather.PathPrefixStr.join(
 				SYS.unzip(ParentedTotalPathTuplesList,[1])
 			)
-			self.ParentedCollectionPathStr=Pather.PathingPrefixStr.join(
+			self.ParentedCollectionPathStr=Pather.PathPrefixStr.join(
 				SYS.unzip(ParentedTotalPathTuplesList,[0])
 			)
-			self.ParentedTotalPathStr=Pather.PathingPrefixStr.join(
+			self.ParentedTotalPathStr=Pather.PathPrefixStr.join(
 				map(
 					lambda __ParentedTotalPathTuple:
 					__ParentedTotalPathTuple[0]+__ParentedTotalPathTuple[1],

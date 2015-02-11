@@ -95,7 +95,7 @@ class PointerClass(BaseClass):
 		
 		#set
 		self.PointedLocalSetStr=self.PointingSetPathStr.split(
-			self.PointedPathBackStr+Pather.PathingPrefixStr)[-1]
+			self.PointedPathBackStr+Pather.PathPrefixStr)[-1]
 
 		#debug
 		'''
@@ -107,7 +107,7 @@ class PointerClass(BaseClass):
 		'''
 		
 		#set
-		self.SettingKeyVariable=self.PointedPathBackStr+Pather.PathingPrefixStr+PointingPrefixStr+self.PointedLocalSetStr+PointingSuffixStr
+		self.SettingKeyVariable=self.PointedPathBackStr+Pather.PathPrefixStr+PointingPrefixStr+self.PointedLocalSetStr+PointingSuffixStr
 
 		#debug
 		'''

@@ -335,11 +335,11 @@ SplittedStrsList[0].split(NodingPrefixGetStr)[1:])
                         #Append (or set if it is already in)
                         Pather.setWithPathVariableAndKeyVariable(
                                 self.NodedCollectionOrderedDict,
-                                Pather.PathingPrefixStr+SetKeyStr,
+                                Pather.PathPrefixStr+SetKeyStr,
                                 self.SettingValueVariable
                         )
 
-                        if Pather.PathingPrefixStr not in SetKeyStr:
+                        if Pather.PathPrefixStr not in SetKeyStr:
 
                                 #debug
                                 '''

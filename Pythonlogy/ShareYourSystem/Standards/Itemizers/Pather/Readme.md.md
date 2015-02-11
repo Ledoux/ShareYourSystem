@@ -7,7 +7,7 @@
 
 
 A Pather use its __setitem__ method for setting attributes in deeper levels
-thanks to the PathingPrefixStr
+thanks to the PathPrefixStr
 
 
 

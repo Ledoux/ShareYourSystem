@@ -7,7 +7,7 @@
 </DefineSource>
 
 
-An Applyier apply a function thanks to a ApplyingMethodStr and an ApplyingApplyDict.
+An Applyier apply a function thanks to a ApplyingMethodVariable and an ApplyingArgVariable.
 This property is going to be useful to begin to establish mappping methods and 
 commanding calls in deep structures.
 
@@ -26,15 +26,25 @@ import collections
 #</ImportSpecificModules>
 
 #<DefineLocals>
+ApplyMapPrefixStr="map*"
+ApplySetPrefixStr="apply*"
 class ApplyDictClass(collections.OrderedDict):
-	def __init__(self,_Dict=None):
+	def __init__(self,_DictVariable=None):
 
 		#Check
-		if _Dict==None:
-			_Dict={}
+		if _DictVariable==None:
+			_DictVariable={}
+		elif type(_DictVariable)==list:
+			_DictVariable={
+				'LiargVariablesList':_DictVariable
+			}
+		elif hasattr(_DictVariable,'items')==False:
+			_DictVariable={
+				'LiargVariablesList':[_DictVariable]
+			}
 
 		#call the parent init method
-		collections.OrderedDict.__init__(self,_Dict)
+		collections.OrderedDict.__init__(self,_DictVariable)
 
 		#define 
 		self.update(
@@ -45,7 +55,8 @@ class ApplyDictClass(collections.OrderedDict):
 		)
 
 		#update
-		self.update(_Dict)
+		self.update(_DictVariable)
+
 SYS.ApplyDictClass=ApplyDictClass
 #</DefineLocals>
 
@@ -55,19 +66,18 @@ class ApplyierClass(BaseClass):
 		
 	#Definition
 	RepresentingKeyStrsList=[
-								#'ApplyingMethodStr',
-								#'ApplyingApplyDict',
-								#'ApplyingIsBool',
+								#'ApplyingMethodVariable',
+								#'ApplyingArgVariable',
 								#'AppliedMethod',
 								#'AppliedOutputVariable'
 							]
 
 	def default_init(self,
-				_ApplyingMethodStr="",
-				_ApplyingApplyDict=None,
-				_ApplyingIsBool=False,
+				_ApplyingMethodVariable="",
+				_ApplyingArgVariable=None,
 				_AppliedMethod=None,
 				_AppliedOutputVariable=None,
+				_AppliedMapVariablesList=None,
 				**_KwargVariablesDict
 			):
 
@@ -78,63 +88,161 @@ class ApplyierClass(BaseClass):
 		""" """
 
 		#debug
-		'''
 		self.debug(
 					('self.',self,[
-									'ApplyingMethodStr',
-									'ApplyingApplyDict'
+									'ApplyingMethodVariable',
+									'ApplyingArgVariable'
 								])
 		)
-		'''
-		
-		#set
-		self.AppliedMethod=getattr(self,self.ApplyingMethodStr)
+	
+		#Check
+		if type(self.ApplyingArgVariable)!=SYS.ApplyDictClass:
 
-		#debug
-		''''
-		self.debug(
-					('self.',self,[
-									'AppliedMethod'
-								])
-			)
-		'''
+			#Check
+			if self.ApplyingMethodVariable in ['get','__getitem__']:
+
+				#Check
+				if type(self.ApplyingArgVariable)!=list:
+					self.ApplyingArgVariable=[self.ApplyingArgVariable]
+
+			#init
+			self.ApplyingArgVariable=SYS.ApplyDictClass(
+					{
+						'LiargVariablesList':self.ApplyingArgVariable
+					}
+				)
 
 		#Check
-		if self.AppliedMethod!=None:
+		if type(self.ApplyingMethodVariable)!=str:
 
-			#debug
-			'''
-			self.debug(
+			#Check
+			if type(self.ApplyingMethodVariable)==SYS.ApplyDictClass:
+
+				#apply
+				self.apply(
+						self.ApplyingMethodVariable['MethodStr'],
+						self.ApplyingMethodVariable
+					)
+
+				#return
+				return
+
+			elif hasattr(self.ApplyingMethodVariable,'items'):
+
+				#map 
+				map(
+						lambda __ItemTuple:
+						self.apply(
+							__ItemTuple[0],
+							__ItemTuple[1]
+						),
+						self.ApplyingMethodVariable.items()
+					)
+
+				#return
+				return
+
+			elif type(self.ApplyingMethodVariable)==list:
+
+				#debug
+				self.debug(
 						[
-							'AppliedMethod is good, We are going to apply',
-							('self.',self,['AppliedMethod','ApplyingApplyDict'])
+							'we do a map top map',
+							('self.',self,[
+									'ApplyingMethodVariable',
+									'ApplyingArgVariable'
+								])
 						]
 					)
-			'''
-			
-			if 'KwargVariablesDict' in self.ApplyingApplyDict:
 
-				#debug
-				'''
-				self.debug('We apply with a KwargVariablesDict')
-				'''
+				#map
+				self.ApplyiedMapVariablesList=map(
+						lambda __MethodVariable,__ArgVariable:
+						self.apply(
+							__MethodVariable,
+							__ArgVariable
+						),
+						self.ApplyingMethodVariable,
+						self.ApplyingArgVariable['LiargVariablesList']
+					)
 
-				#Call the AppliedMethod
-				self.AppliedOutputVariable=self.AppliedMethod(
-								*self.ApplyingApplyDict['LiargVariablesList'],
-								**self.ApplyingApplyDict['KwargVariablesDict']
-								) 
+				#return
+				return 
+
+		else:
+
+			#Check
+			if self.ApplyingMethodVariable.startswith(ApplyMapPrefixStr):
+
+				#apply a map to map
+				self.apply(
+						[
+							SYS.deprefix(
+								self.ApplyingMethodVariable,
+								ApplyMapPrefixStr
+							)
+						]*len(self.ApplyingArgVariable),
+						self.ApplyingArgVariable['LiargVariablesList']
+					)
+
+				#return 
+				return 
+
 			else:
 
+				#set
+				self.AppliedMethod=getattr(
+					self,
+					self.ApplyingMethodVariable
+				)
+
 				#debug
-				'''
-				self.debug('We apply without a KwargVariablesDict')
-				'''
-				
-				#Call
-				self.AppliedOutputVariable=self.AppliedMethod(
-					*self.ApplyingApplyDict['LiargVariablesList']
+				''''
+				self.debug(
+							('self.',self,[
+											'AppliedMethod'
+										])
 					)
+				'''
+
+				#Check
+				if self.AppliedMethod!=None:
+
+					#debug
+					self.debug(
+								[
+									'AppliedMethod is good, We are going to apply',
+									('self.',self,[
+										'AppliedMethod',
+										'ApplyingArgVariable'
+									])
+								]
+							)
+					
+					#Check
+					if len(self.ApplyingArgVariable['KwargVariablesDict'])>0:
+
+						#debug
+						'''
+						self.debug('We apply with a KwargVariablesDict')
+						'''
+
+						#Call the AppliedMethod
+						self.AppliedOutputVariable=self.AppliedMethod(
+							*self.ApplyingArgVariable['LiargVariablesList'],
+							**self.ApplyingArgVariable['KwargVariablesDict']
+						) 
+					else:
+
+						#debug
+						'''
+						self.debug('We apply without a KwargVariablesDict')
+						'''
+						
+						#Call
+						self.AppliedOutputVariable=self.AppliedMethod(
+							*self.ApplyingArgVariable['LiargVariablesList']
+						)
 
 	def mimic_set(self):
 
@@ -169,11 +277,29 @@ class ApplyierClass(BaseClass):
 				'''
 				
 				#Apply
-				self.ApplyingIsBool=False
 				self.apply(
 								self.SettingKeyVariable,
 								self.SettingValueVariable
 							)
+
+				#Return
+				OutputDict['HookingIsBool']=False
+				#<Hook>return OutputDict
+
+			elif type(
+				self.SettingKeyVariable
+				)==str and self.SettingKeyVariable.startswith(
+					ApplySetPrefixStr
+				):
+
+				#apply
+				self.apply(
+						SYS.deprefix(
+							self.SettingKeyVariable,
+							ApplySetPrefixStr
+						),
+						self.SettingValueVariable
+					)
 
 				#Return
 				OutputDict['HookingIsBool']=False

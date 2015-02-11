@@ -272,7 +272,7 @@ class NoderClass(BaseClass):
 			#Append (or set if it is already in)
 			Pather.setWithPathVariableAndKeyVariable(
 				self.NodedCollectionOrderedDict,
-				Pather.PathingPrefixStr+SettedKeyStr,
+				Pather.PathPrefixStr+SettedKeyStr,
 				self.SettingValueVariable
 			)
 

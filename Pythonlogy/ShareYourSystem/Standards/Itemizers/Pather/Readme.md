@@ -13,7 +13,7 @@ FrozenIsBool False
 >
 > A Pather use its __setitem__ method for setting attributes in deeper levels
 thanks to
-> the PathingPrefixStr
+> the PathPrefixStr
 >
 >
 
@@ -52,7 +52,7 @@ FrozenIsBool False
 
 A Pather use its __setitem__ method for setting attributes in deeper levels
 thanks to
-the PathingPrefixStr
+the PathPrefixStr
 
 """
 
@@ -68,7 +68,7 @@ import collections
 #</ImportSpecificModules>
 
 #<DefineLocals>
-PathingPrefixStr="/"
+PathPrefixStr="/"
 #</DefineLocals>
 
 #<DefineFunctions>
@@ -117,11 +117,11 @@ _DictatedVariable else None
 def getPathedBackGetStrWithGetStr(_GetStr):
 
         #Check
-        if PathingPrefixStr in _GetStr:
+        if PathPrefixStr in _GetStr:
 
                 #Get the path just before
-                return PathingPrefixStr.join(
-                        _GetStr.split(PathingPrefixStr)[:-1]
+                return PathPrefixStr.join(
+                        _GetStr.split(PathPrefixStr)[:-1]
                         )
 
         else:
@@ -182,10 +182,10 @@ class PatherClass(BaseClass):
                 '''
 
                 #Split
-self.PathedKeyStrsList=self.PathingKeyStr.split(PathingPrefixStr)
+self.PathedKeyStrsList=self.PathingKeyStr.split(PathPrefixStr)
 
                 #set
-#self.PathedGetKeyStr=PathingPrefixStr.join(self.PathedKeyStrsList[1:])
+#self.PathedGetKeyStr=PathPrefixStr.join(self.PathedKeyStrsList[1:])
                 self.PathedGetKeyStr=self.PathedKeyStrsList[1]
 
                 #debug
@@ -220,7 +220,7 @@ pathedvalue')
 
                         #Set
                         if len(self.PathedKeyStrsList)>2:
-self.PathedChildKeyStr=PathingPrefixStr+PathingPrefixStr.join(
+self.PathedChildKeyStr=PathPrefixStr+PathPrefixStr.join(
                                         self.PathedKeyStrsList[2:])
 
                         #getitem
@@ -248,7 +248,7 @@ self.PathedChildKeyStr=PathingPrefixStr+PathingPrefixStr.join(
                 OutputDict={'HookingIsBool':True}
 
                 #Check
-                if self.GettingKeyVariable.startswith(PathingPrefixStr):
+                if self.GettingKeyVariable.startswith(PathPrefixStr):
 
                         #debug
                         '''
@@ -353,7 +353,7 @@ self.debug(('self.',self,['SettingKeyVariable','SettingValueVariable']))
                 OutputDict={'HookingIsBool':True}
 
                 #Deep set
-                if self.SettingKeyVariable.startswith(PathingPrefixStr):
+                if self.SettingKeyVariable.startswith(PathPrefixStr):
 
                         #debug
                         '''
@@ -376,7 +376,7 @@ self.debug(('self.',self,['SettingKeyVariable','SettingValueVariable']))
                         #set
                         #Direct update in the Child or go deeper with the
 ChildPathStr
-                        if self.SettingKeyVariable[-1]==PathingPrefixStr:
+                        if self.SettingKeyVariable[-1]==PathPrefixStr:
 
                                 #debug
                                 '''
@@ -472,7 +472,7 @@ self[self.PathedGetKeyStr]=self.SettingValueVariable
 
                                         #set
                                         self.PathedGetValueVariable[
-PathingPrefixStr.join(self.PathedKeyStrsList[2:])
+PathPrefixStr.join(self.PathedKeyStrsList[2:])
                                         ]=self.SettingValueVariable
 
                         #Stop the setting
@@ -516,12 +516,12 @@ Type.__mro__:
                 #set with a list
                 if type(_KeyVariable)==list:
                         if len(_KeyVariable)>0:
-                                if _KeyVariable[0]==PathingPrefixStr:
+                                if _KeyVariable[0]==PathPrefixStr:
                                         if len(_KeyVariable)==1:
 
                                                 #debug
                                                 '''
-print('_KeyVariable==[PathingPrefixStr]')
+print('_KeyVariable==[PathPrefixStr]')
                                                 print('So just update')
                                                 print('')
                                                 '''
@@ -607,19 +607,19 @@ Function(*_ValueVariable['LiargVariablesList'])
                                 return
 
                         #set deeply in the dict
-                        elif _KeyVariable.startswith(PathingPrefixStr):
+                        elif _KeyVariable.startswith(PathPrefixStr):
 
                                 #Case of the dict or OrderedDict we have to
 convert in list to make the key been understood
                                 if Type in [dict,collections.OrderedDict]:
 
                                         #Split
-_KeyVariable=_KeyVariable.split(PathingPrefixStr)[1:]
+_KeyVariable=_KeyVariable.split(PathPrefixStr)[1:]
 
                                         #debug
                                         '''
                                         print('_KeyVariable has
-PathingPrefixStrs so convert the _KeyVariable into a list')
+PathPrefixStrs so convert the _KeyVariable into a list')
                                         print(_KeyVariable)
                                         print('')
                                         '''
@@ -639,7 +639,7 @@ PathingPrefixStrs so convert the _KeyVariable into a list')
                                         #debug
                                         '''
                                         print('_KeyVariable has
-PathingPrefixStrs bu the _DictatedVariable knows how to deal with that')
+PathPrefixStrs bu the _DictatedVariable knows how to deal with that')
                                         '''
 
                                         #This is an object that understandsa
@@ -653,7 +653,7 @@ _DictatedVariable[_KeyVariable]=_ValueVariable
 
                                 #debug
                                 '''
-                                print('_KeyVariable has no PathingPrefixStr so
+                                print('_KeyVariable has no PathPrefixStr so
 set direclty')
                                 print(_KeyVariable)
                                 print('')
