@@ -6,16 +6,13 @@ import ShareYourSystem as SYS
 MyTeamer=SYS.TeamerClass()
 
 #Note that just a get will create a Manager
-#print("MyTeamer['*Clients'] is ")
-#SYS._print(MyTeamer['*Clients'])
-
-
-print(SYS.ManagerClass.ManagingValueClass)
+print("MyTeamer['*Partners'] is ")
+SYS._print(MyTeamer['*Partners'])
 
 #Now build a longer Chain
-#MyTeamer['/*Clients/$First/*Banks']
+MyTeamer['/*Clients/$First/*Banks/$Nef']
 
 #print
-#print('MyTeamer is ')
-#SYS._print(MyTeamer)
+print('MyTeamer is ')
+SYS._print(MyTeamer)
 

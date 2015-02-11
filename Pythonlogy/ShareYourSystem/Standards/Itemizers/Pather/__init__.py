@@ -138,6 +138,7 @@ class PatherClass(BaseClass):
 		self.PathedGetKeyStr=self.PathedKeyStrsList[1]
 
 		#debug
+		'''
 		self.debug(
 					('self.',self,[
 									'PathingKeyStr',
@@ -145,6 +146,7 @@ class PatherClass(BaseClass):
 									'PathedGetKeyStr',
 								])
 				)
+		'''
 
 		#set the PathedGetValueVariable
 		if self.PathedGetKeyStr=="":
@@ -177,6 +179,7 @@ class PatherClass(BaseClass):
 
 
 		#debug
+		'''
 		self.debug(
 			[
 				'At the end of the path',
@@ -185,16 +188,19 @@ class PatherClass(BaseClass):
 							])
 			]
 		)
+		'''
 
 	def mimic_get(self):
 
 		#debug
+		'''
 		self.debug(
 			("self.",self,[
 					'GettingKeyVariable',
 					'NameStr'
 				])
 		)
+		'''
 
 		#Definition
 		OutputDict={'HookingIsBool':True}
@@ -248,6 +254,7 @@ class PatherClass(BaseClass):
 			else:
 
 				#debug
+				'''
 				self.debug(
 							[
 								'This is recursive get with ',
@@ -259,6 +266,7 @@ class PatherClass(BaseClass):
 								)
 							]
 						)
+				'''
 
 				#Get with the PathedChildKeyStr
 				self.GettedValueVariable=self.PathedGetValueVariable[
@@ -633,3 +641,5 @@ def setWithPathVariableAndKeyVariable(_DictatedVariable,_KeyVariable,_ValueVaria
 			_DictatedVariable[_KeyVariable]=_ValueVariable
 			return	
 #</DefineFunctions>
+
+

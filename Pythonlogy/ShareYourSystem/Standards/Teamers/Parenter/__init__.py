@@ -23,6 +23,7 @@ SYS.setSubModule(globals())
 #<ImportSpecificModules>
 import copy
 from ShareYourSystem.Standards.Itemizers import Pather
+from ShareYourSystem.Standards.Teamers import Manager,Teamer
 #</ImportSpecificModules>
 
 #<DefineClass>
@@ -61,41 +62,42 @@ class ParenterClass(BaseClass):
 	def do_parent(self):
 
 		#debug
-		'''
 		self.debug(('self.',self,[
-					
+					'ManagementPointDeriveTeamer',
+					'NameStr'
 				]))
-		'''
 
-		#Check of a parent pointer
-		if self.NodePointDeriveNoder!=None:
+		#Check
+		if self.ManagementPointDeriveTeamer!=None:
 
 			#debug
 			'''
-			self.debug('We are going to node the parent pointer')
+			self.debug('We are going to parent the parent teamer')
 			'''
 			
 			#Parent the parent maybe
 			if self.ParentingClimbBool:
 
 				#parent the parent
-				self.NodePointDeriveNoder.parent(
+				self.ManagementPointDeriveTeamer.parent(
 						self.ParentingTopGetVariable,
 						self.ParentingClimbBool
 					)
 
 			#set
-			self.ParentedDeriveTeamersList=[self.NodePointDeriveNoder
-			]+self.NodePointDeriveNoder.ParentedDeriveTeamersList
+			self.ParentedDeriveTeamersList=[
+				self.ManagementPointDeriveTeamer
+			]+self.ManagementPointDeriveTeamer.ParentedDeriveTeamersList
 
-			self.ParentedManagerKeyStrsList=[self.NodedCollectionStr
-			]+self.NodePointDeriveNoder.ParentedManagerKeyStrsList
+			self.ParentedManagerKeyStrsList=[
+				self.ManagementTeamKeyStr
+			]+self.ManagementPointDeriveTeamer.ParentedManagerKeyStrsList
 			self.ParentedManagerKeyStrsList.reverse()
 
 			#definition
 			ParentedTeamerPathStrsList=map(
 					lambda __ParentedDeriveTeamer:
-					__ParentedDeriveTeamer.NodeKeyStr,
+					__ParentedDeriveTeamer.ManagementKeyStr,
 					self.ParentedDeriveTeamersList
 				)
 			ParentedTeamerPathStrsList.reverse()
@@ -104,8 +106,8 @@ class ParenterClass(BaseClass):
 			ParentedTotalPathTuplesList=map(
 					lambda __ParentedDeriveTeamer:
 					(
-						Noder.NodingPrefixGetStr+__ParentedDeriveTeamer.NodeCollectionStr+Noder.NodingSuffixGetStr,
-						__ParentedDeriveTeamer.NodeKeyStr
+						Manager.ManagementChildPrefixStr+__ParentedDeriveTeamer.ManagementTeamKeyStr,
+						Teamer.TeamChildPrefixStr+__ParentedDeriveTeamer.ManagementKeyStr
 					),
 					self.ParentedDeriveTeamersList
 				)
@@ -139,17 +141,21 @@ class ParenterClass(BaseClass):
 				self.ParentedTopDeriveTeamerVariable=self
 
 			#Link
-			self.update(
-							zip(
-								self.ParentingTopGetVariable,
-								self.ParentedTopDeriveTeamerVariable.pick(
-										self.ParentingTopGetVariable
-									)
+			self.apply(
+						'map*set',
+						zip(
+							self.ParentingTopGetVariable,
+							self.ParentedTopDeriveTeamerVariable.apply(
+									'map*get',
+									self.ParentingTopGetVariable
 								)
-						)
+							)
+					)
 
 		else:
 			self.ParentedTopDeriveTeamerVariable=self
 
 #</DefineClass>
 
+#Set
+SYS.ManagerClass.ManagingValueClass=ParenterClass
