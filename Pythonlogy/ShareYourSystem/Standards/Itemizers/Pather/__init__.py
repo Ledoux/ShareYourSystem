@@ -194,7 +194,11 @@ class PatherClass(BaseClass):
 		OutputDict={'HookingIsBool':True}
 
 		#Check
-		if self.GettingKeyVariable.startswith(PathingPrefixStr):
+		if type(
+			self.GettingKeyVariable
+		)==str and self.GettingKeyVariable.startswith(
+				PathingPrefixStr
+			):
 
 			#debug
 			'''
@@ -287,14 +291,22 @@ class PatherClass(BaseClass):
 
 		#debug
 		'''
-		self.debug(('self.',self,['SettingKeyVariable','SettingValueVariable']))
+		self.debug(
+			('self.',self,[
+					'SettingKeyVariable',
+					'SettingValueVariable'
+				]))
 		'''
 
 		#Definition
 		OutputDict={'HookingIsBool':True}
 
 		#Deep set
-		if self.SettingKeyVariable.startswith(PathingPrefixStr):
+		if type(
+			self.SettingKeyVariable
+		)==str and self.SettingKeyVariable.startswith(
+					PathingPrefixStr
+				):
 
 			#debug
 			'''
@@ -313,7 +325,7 @@ class PatherClass(BaseClass):
 									]
 								))
 			'''
-			
+
 			#set
 			#Direct update in the Child or go deeper with the ChildPathStr
 			if self.SettingKeyVariable[-1]==PathingPrefixStr: 
@@ -382,11 +394,18 @@ class PatherClass(BaseClass):
 
 				#debug
 				'''
-				self.debug('we setitem here')
+				self.debug(
+					[
+						'we setitem here',
+						('self.',self,['PathedKeyStrsList'])
+					]
+				)
 				'''
-
+				
 				#Check
-				if self.PathedGetKeyStr!="" and len(self.PathedKeyStrsList)==2:
+				if self.PathedGetKeyStr!="" and len(
+					self.PathedKeyStrsList
+				)==2:
 
 					#debug
 					'''
@@ -397,14 +416,24 @@ class PatherClass(BaseClass):
 					self[self.PathedGetKeyStr]=self.SettingValueVariable
 				else:
 
+					#define
+					ChildSettingKeyStr=PathingPrefixStr+PathingPrefixStr.join(
+						self.PathedKeyStrsList[2:]
+					)
+
 					#debug
 					'''
-					self.debug('we setitem further')
+					self.debug(
+						[
+							'we setitem further',
+							'ChildSettingKeyStr is '+ChildSettingKeyStr
+						]
+					)
 					'''
-					
+
 					#set
 					self.PathedGetValueVariable[
-						PathingPrefixStr.join(self.PathedKeyStrsList[2:])
+						ChildSettingKeyStr
 					]=self.SettingValueVariable
 
 			#Stop the setting

@@ -502,7 +502,6 @@ class DoerClass(BaseClass):
 						locals()[DoDecorationMethodStr]
 					)
 
-
 			#Set maybe if not already
 			if hasattr(DoClass,'setDo')==False:
 
@@ -599,6 +598,8 @@ DoStrsTuplesList=[
 	('Linker','Link','Linking','Linked'),
 	('Weaver','Weave','Weaving','Weaved'),
 	('Filterer','Filter','Filtering','Filterer'),
+	('Cooper','Coop','Cooping','Cooped'),
+	('Familiarizer','Familiarize','Familiarizing','Familiarized'),
 	('Noder','Node','Noding','Noded'),
 	('Outputer','Output','Outputing','Outputed'),
 	('Appender','Append','Appending','Appended'),

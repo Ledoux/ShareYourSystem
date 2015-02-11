@@ -914,6 +914,9 @@ def lib():
 #<DefineLocals>
 SingularStrToPluralStrOrderedDict=dictify(ConceptStrsTuplesList,0,1)
 PluralStrToSingularStrOrderedDict=dictify(ConceptStrsTuplesList,1,0)
+
+class MapListClass(list):
+	pass
 #</DefineLocals>
 
 #<DefineClass>

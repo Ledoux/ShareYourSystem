@@ -178,7 +178,7 @@ class MimickerClass(BaseClass):
 		#Check
 		if self.MimickingDoMethodStr!="":
 
-			#observ
+			#observe
 			self.observe(True,self.MimickingDoMethodStr)
 
 			#set
@@ -283,8 +283,5 @@ class MimickerClass(BaseClass):
 						self.MimickedDecorationUnboundMethod
 					)
 		
-			#Return self
-			#return self
-
 #</DefineClass>
 

@@ -23,7 +23,7 @@ SYS.setSubModule(globals())
 #</ImportSpecificModules>
 
 #<DefineClass>
-@DecorationClass(**{'DoingGetBool':True})
+@DecorationClass()
 class SetterClass(BaseClass):
 
 	#Definition
@@ -42,7 +42,6 @@ class SetterClass(BaseClass):
 		#Call the parent init method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
-	#@Argumenter.ArgumenterClass(**{'ArgumentingDoStr':'Set'})
 	def __setitem__(self,_KeyVariable,_ValueVariable):
 		""" """
 
@@ -77,10 +76,29 @@ class SetterClass(BaseClass):
 		self.debug(("self.",self,['SettingKeyVariable','SettingValueVariable']))
 		'''
 		
-		#__setitem__ in the __dict__, this is an utility set
-		self.__dict__[self.SettingKeyVariable]=self.SettingValueVariable
+		#map
+		if type(self.SettingKeyVariable)==SYS.MapListClass:
 
-		#Return
-		return {'HookingIsBool':False}
+			#map
+			map(
+					lambda __MappedVariable:
+					self.__setitem__(
+						*__MappedVariable
+					),
+					self.SettingKeyVariable
+				)
+
+			#Return an output dict
+			return {"HookingIsBool":False}
+
+		else:
+
+			#__setitem__ in the __dict__, this is an utility set
+			self.__dict__[
+				self.SettingKeyVariable
+			]=self.SettingValueVariable
+
+			#Return
+			return {'HookingIsBool':False}
 
 #</DefineClass>

@@ -25,7 +25,7 @@ SYS.setSubModule(globals())
 #</ImportSpecificModules>
 
 #<DefineClass>
-@DecorationClass(**{'DoingGetBool':True})
+@DecorationClass()
 class GetterClass(BaseClass):
 	
 	#Definition
@@ -75,7 +75,22 @@ class GetterClass(BaseClass):
 		'''
 		
 		#Check
-		if type(self.GettingKeyVariable) in [str,unicode]:
+		if type(self.GettingKeyVariable)==SYS.MapListClass:
+
+			#map
+			self.GettedValueVariable=map(
+					lambda __MappedVariable:
+					self.__getitem__(
+						__MappedVariable
+					),
+					self.GettingKeyVariable
+				)
+
+			#Return an output dict
+			return {"HookingIsBool":False}
+
+		#Check
+		elif type(self.GettingKeyVariable) in [str,unicode]:
 
 			#Get safely the Value
 			if self.GettingKeyVariable in self.__dict__:

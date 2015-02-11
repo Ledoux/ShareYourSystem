@@ -1,15 +1,14 @@
 
 #ImportModules
 import ShareYourSystem as SYS
-import operator
 
 #Definition of an instance Concluder and make it print hello
 MyConcluder=SYS.ConcluderClass().conclude(
 	{'MyColorStr':'Black','MySuperInt':6},
 	[
-		('MyColorStr',operator.eq,"Black"),
-		('MySuperInt',operator.gt,3),
-		(1,operator.eq,1)
+		('MyColorStr',SYS.operator.eq,"Black"),
+		('MySuperInt',SYS.operator.gt,3),
+		(1,SYS.operator.eq,1)
 	]
 )
 		

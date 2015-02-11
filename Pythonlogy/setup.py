@@ -35,6 +35,7 @@ setup(
 			 		'ShareYourSystem.Standards.Classors.Mimicker',
 			 		'ShareYourSystem.Standards.Objects.Caller',
 			 		'ShareYourSystem.Standards.Classors.Classer',
+			 		'ShareYourSystem.Standards.Objects.Executer',
 			 		'ShareYourSystem.Standards.Objects.Rebooter',
 			 		'ShareYourSystem.Standards.Functers.Alerter',
 			 		'ShareYourSystem.Standards.Interfacers.Interfacer',
@@ -64,17 +65,38 @@ setup(
 			 		'ShareYourSystem.Standards.Itemizers.Itemizer',
 			 		'ShareYourSystem.Standards.Itemizers.Getter',
 			 		'ShareYourSystem.Standards.Itemizers.Setter',
-			 		'ShareYourSystem.Standards.Itemizers.Deleter',
+			 		'ShareYourSystem.Standards.Itemizers.Applyier',
 			 		'ShareYourSystem.Standards.Itemizers.Attributer',
 			 		'ShareYourSystem.Standards.Itemizers.Pather',
 			 		'ShareYourSystem.Standards.Itemizers.Grasper',
-			 		'ShareYourSystem.Standards.Itemizers.Executer',
-			 		'ShareYourSystem.Standards.Itemizers.Applyier',
-			 		'ShareYourSystem.Standards.Itemizers.Picker',
-			 		'ShareYourSystem.Standards.Itemizers.Gatherer',
-			 		'ShareYourSystem.Standards.Itemizers.Updater',
+			 		'ShareYourSystem.Standards.Itemizers.Commander',
 			 		'ShareYourSystem.Standards.Itemizers.Pointer',
 			 		'ShareYourSystem.Standards.Itemizers.Filterer',
+			 		'ShareYourSystem.Standards.Parenters.Parenter',
+			 		'ShareYourSystem.Standards.Parenters.Familiarizer',
+			 		'ShareYourSystem.Standards.Objects',
+			 		'ShareYourSystem.Standards.Classors',
+			 		'ShareYourSystem.Standards.Functers',
+			 		'ShareYourSystem.Standards.Interfacers',
+			 		'ShareYourSystem.Standards.Guiders',
+			 		'ShareYourSystem.Standards.Itemizers',
+			 		'ShareYourSystem.Standards.Walkers',
+			 		'ShareYourSystem.Standards.Parenters',
+			 		'ShareYourSystem.Standards'
+			 	]
+			 ,
+      	package_data={
+          'ShareYourSystem':[
+          		'Package.json'
+          ]
+		},
+		url='http://shareyoursystem.ouvaton.org',
+		version='1.0',
+    )
+
+
+
+"""
 			 		'ShareYourSystem.Standards.Noders.Noder',
 			 		'ShareYourSystem.Standards.Noders.Distinguisher',
 			 		'ShareYourSystem.Standards.Noders.Parenter',
@@ -84,6 +106,7 @@ setup(
 			 		'ShareYourSystem.Standards.Noders.Catcher',
 			 		'ShareYourSystem.Standards.Noders.Attentioner',
 			 		'ShareYourSystem.Standards.Noders.Coupler',
+			 		
 			 		'ShareYourSystem.Standards.Itemizers.Commander',
 			 		'ShareYourSystem.Standards.Walkers.Walker',
 			 		'ShareYourSystem.Standards.Walkers.Cumulater',
@@ -165,6 +188,7 @@ setup(
 			 		'ShareYourSystem.Standards.Itemizers',
 			 		'ShareYourSystem.Standards.Walkers',
 			 		'ShareYourSystem.Standards.Noders',
+			 		'ShareYourSystem.Standards.Parenters',
 			 		'ShareYourSystem.Standards.Modelers',
 			 		'ShareYourSystem.Standards.Viewers',
 			 		'ShareYourSystem.Standards.Controllers',
@@ -175,14 +199,4 @@ setup(
 			 		'ShareYourSystem.Specials.Muzikers',
 			 		'ShareYourSystem.Specials.Diffusers',
 			 		'ShareYourSystem.Specials'
-			 	]
-			 ,
-      	package_data={
-          'ShareYourSystem':[
-          		'Package.json'
-          ]
-		},
-		url='http://shareyoursystem.ouvaton.org',
-		version='1.0',
-    )
-
+"""

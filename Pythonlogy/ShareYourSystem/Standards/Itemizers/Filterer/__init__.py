@@ -30,15 +30,17 @@ class FiltererClass(BaseClass):
 	
 	#Definition
 	RepresentingKeyStrsList=[
-									'FilteringGetVariable',
-									'FilteredGetVariable',
-									'FilteredVariablesList'
+									'FilteringGraspVariable',
+									'FilteringGetKeyVariable',
+									'FilteredGraspVariable',
+									'FilteredGetValueVariable'
 								]
 
 	def default_init(self,
-				_FilteringGetVariable=None,
-				_FilteredGetVariable=None,
-				_FilteredVariablesList=None,
+				_FilteringGraspVariable=None,
+				_FilteringGetKeyVariable=None,
+				_FilteredGraspVariable=None,
+				_FilteredGetValueVariable=None,
 				**_KwargVariablesDict):
 
 		#Call the parent __init__ method
@@ -49,28 +51,28 @@ class FiltererClass(BaseClass):
 		#debug
 		'''
 		self.debug(('self.',self,[
-									'PickingKeyVariablesList',
 									'ConcludingConditionTuplesList',
-									'FilteringGetVariable'
+									'FilteringGraspVariable'
 								])
 				)
 		'''
 		
 		#Get
-		if type(self.FilteringGetVariable) in SYS.StrTypesList:
-			self.FilteredGetVariable=self[self.FilteringGetVariable]
-		else:
-			self.FilteredGetVariable=self.FilteringGetVariable
+		self.FilteredGraspVariable=self.grasp(
+			self.FilteringGraspVariable
+		).GraspedAnswerVariable
 
 		#Check
-		if self.conclude(self.FilteredGetVariable).ConcludedIsBool:
+		if self.conclude(
+			self.FilteredGraspVariable
+		).ConcludedIsBool:
 
 			#debug
 			'''
 			self.debug(
 					(
 						'self.',self,[
-										'PickingKeyVariablesList',
+										'FilteringGetKeyVariable',
 										'ConcludedConditionIsBoolsList',
 									]+SYS.unzip(
 										self.ConcludingConditionTuplesList,[0]
@@ -78,9 +80,11 @@ class FiltererClass(BaseClass):
 					)
 				)
 			'''
-
+			
 			#Pick
-			self.FilteredVariablesList=self.pick()
+			self.FilteredGetValueVariable=self.__getitem__(
+					self.FilteringGetKeyVariable
+				)
 
 
 #</DefineClass>

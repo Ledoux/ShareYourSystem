@@ -16,7 +16,7 @@ or a EachSetForAll (ie each set is a map of each).
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Noders.Attentioner"
+BaseModuleStr="ShareYourSystem.Standards.Itemizers.Grasper"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -30,19 +30,18 @@ class CommanderClass(BaseClass):
 
 	#Definition 
 	RepresentingKeyStrsList=[
+							#'CommandingGraspVariable',
 							#'CommandingUpdateList',
-							#'CommandingVariablesList',
-							'CommandingOrderStr',
-							'CommandingGatherIsBool'
+							'CommandingOrderStr'
 						]
 
-	def default_init(self,
+	def default_init(
+				self,
+				_CommandingGraspVariable=None,
 				_CommandingUpdateList=None,	
-				_CommandingVariablesList=None, 
 				_CommandingOrderStr="AllSetsForEach",				
-				_CommandingGatherIsBool=True,
 				**_KwargVariablesDict
-				):
+			):
 
 		#Call the parent __init__ method
 		BaseClass.__init__(self,**_KwargVariablesDict)
@@ -50,43 +49,36 @@ class CommanderClass(BaseClass):
 	def do_command(self):
 		"""Collect with _GatheringKeyVariablesList and do a all sets for each with _UpdatingItemVariable"""
 
-		#Check
-		if self.CommandingGatherIsBool:
-
-			#Get the GatheredVariablesList
-			self.gather()
-
-			#debug
-			'''
-			self.debug(
-							('self.',self,[
-									'CommandingUpdateList',
-									'GatheringVariablesList',
-									'GatheredVariablesList'
-									]
-							)
-						)
-			'''
-
-			#Check
-			if len(self.GatheredVariablesList)>0:
-
-				#Just keep the values
-				self.CommandingVariablesList=SYS.flat(SYS.unzip(self.GatheredVariablesList,[1]))
-
 		#debug
 		'''
-		self.debug(("self.",self,['CommandingVariablesList']))
+		self.debug(("self.",self,['CommandingGraspVariable']))
 		'''
+
+		#Check
+		if type(self.CommandingGraspVariable)!=list:
+			self.CommandingGraspVariable=[self.CommandingGraspVariable]
+
+		#map a grasp
+		self.CommandedGraspVariablesList=map(
+				lambda __CommandingGraspVariable:
+				self.grasp(
+					__CommandingGraspVariable
+				).GraspedAnswerVariable,
+				self.CommandingGraspVariable
+			)
 
 		#Check for the order
 		if self.CommandingOrderStr=="AllSetsForEach":
 
 			#For each __GatheredVariable it is updating with _UpdatingItemVariable
 			map(
-					lambda __CommandedVariable:
-					__CommandedVariable.update(self.CommandingUpdateList),
-					self.CommandingVariablesList
+					lambda __CommandedGraspVariable:
+					__CommandedGraspVariable.set(
+						SYS.MapListClass(
+							self.CommandingUpdateList
+						)
+					),
+					self.CommandedGraspVariablesList
 				)
 
 		elif self.CommandingOrderStr=="EachSetForAll":
@@ -95,10 +87,12 @@ class CommanderClass(BaseClass):
 			map(
 					lambda __SettingVariableTuple:
 					map(
-						lambda __CommandedVariable:
-						__CommandedVariable.__setitem__(*__SettingVariableTuple),
-						self.CommandingVariablesList
+						lambda __CommandedGraspVariable:
+						__CommandedGraspVariable.__setitem__(
+							*__SettingVariableTuple
 						),
+						self.CommandedGraspVariablesList
+					),
 					self.CommandingUpdateList.items() 
 					if hasattr(self.CommandingUpdateList,'items')
 					else self.CommandingUpdateList

@@ -3,10 +3,12 @@
 import ShareYourSystem as SYS
 
 #Explicit expression
-MyPather=SYS.PatherClass().__setitem__(
-	'MyStr',
-	'I am the parent'
+MyPather=SYS.PatherClass(
+	).__setitem__(
+		'MyStr',
+		'I am the parent'
 	)
+
 MyPather.__setitem__(
 	'ChildPather',
 	SYS.PatherClass()
@@ -18,11 +20,31 @@ MyPather.__setitem__(
 	'I am the child'
 )
 
+#print
+print('MyPather[\'/ChildPather\'] is ')
+SYS._print(
+			MyPather['/ChildPather'],
+			**{
+			'RepresentingBaseKeyStrsListBool':False,
+			'RepresentingAlineaIsBool':False
+			}
+		)
+
 #set with a deep deep short Str
 MyPather.__setitem__(
 	'/ChildPather/GrandChildPather',
 	SYS.PatherClass()
 )
+
+#print
+print('MyPather[\'/ChildPather/GrandChildPather\'] is ')
+SYS._print(
+			MyPather['/ChildPather/GrandChildPather'],
+			**{
+			'RepresentingBaseKeyStrsListBool':False,
+			'RepresentingAlineaIsBool':False
+			}
+		)
 
 #set with a deep short Str
 MyPather.__setitem__(
@@ -42,33 +64,15 @@ MyPather.__setitem__(
 	MyPather['/']
 )
 
+MyPather['/ChildPather/GrandChildPather/GrandParent']=3
 
-#Definition the AttestedStr
-SYS._attest(
-[
-	'MyPather is '+SYS._str(
+#print
+print('MyPather is ')
+SYS._print(
 			MyPather,
 			**{
 			'RepresentingBaseKeyStrsListBool':False,
 			'RepresentingAlineaIsBool':False
 			}
-		),
-	'MyPather[\'/ChildPather\'] is '+SYS._str(
-			MyPather['/ChildPather'],
-			**{
-			'RepresentingBaseKeyStrsListBool':False,
-			'RepresentingAlineaIsBool':False
-			}
-		),
-	'MyPather[\'/ChildPather/GrandChildPather\'] is '+SYS._str(
-			MyPather['/ChildPather/GrandChildPather'],
-			**{
-			'RepresentingBaseKeyStrsListBool':False,
-			'RepresentingAlineaIsBool':False
-			}
 		)
-	]
-) 
-	
-#Print
 

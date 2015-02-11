@@ -3,9 +3,14 @@
 import ShareYourSystem as SYS
 
 #Explicit expression
-MyGrasper=SYS.GrasperClass().__setitem__(
-	'ChildGrasper',
-	SYS.GrasperClass().__setitem__('MyStr',"hello")
+MyGrasper=SYS.GrasperClass(
+	).__setitem__(
+		'ChildGrasper',
+		SYS.GrasperClass(
+			).__setitem__(
+			'MyStr',
+			"hello"
+		)
 )
 
 #Return

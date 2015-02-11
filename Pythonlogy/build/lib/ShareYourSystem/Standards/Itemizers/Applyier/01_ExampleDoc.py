@@ -20,26 +20,26 @@ MyApplyier.apply(
 		{
 			'LiargVariablesList':[
 				'__setitem__',
-				{
-					'LiargVariablesList':
-					['MyNotLostStr','ben he']
-				}
+				SYS.ApplyDictClass(
+					{
+						'LiargVariablesList':
+						['MyNotLostStr','ben he']
+					}
+				)
 			]
 		}
 	)
 )
-		
-#Definition the AttestedStr
-SYS._attest(
-	[
-	'MyApplyier is '+SYS._str(
-			MyApplyier,
-			**{
-			'RepresentingBaseKeyStrsListBool':False,
-			'RepresentingAlineaIsBool':False
-			}
-		)
-	]
-) 
 
-#Print
+#With set
+MyApplyier['__setitem__']=SYS.ApplyDictClass(
+	{
+		'LiargVariablesList':
+		['MyFloat',0.2]
+	}
+)
+
+#print
+print('MyApplyier is ')
+SYS._print(MyApplyier)
+

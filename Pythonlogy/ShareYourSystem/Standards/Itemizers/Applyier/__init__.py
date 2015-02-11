@@ -7,7 +7,7 @@
 </DefineSource>
 
 
-An Applyier apply a function thanks to a ApplyingMethodStr and an ApplyingArgDict.
+An Applyier apply a function thanks to a ApplyingMethodStr and an ApplyingApplyDict.
 This property is going to be useful to begin to establish mappping methods and 
 commanding calls in deep structures.
 
@@ -15,7 +15,7 @@ commanding calls in deep structures.
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Itemizers.Executer"
+BaseModuleStr="ShareYourSystem.Standards.Itemizers.Setter"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -56,7 +56,7 @@ class ApplyierClass(BaseClass):
 	#Definition
 	RepresentingKeyStrsList=[
 								#'ApplyingMethodStr',
-								#'ApplyingArgDict',
+								#'ApplyingApplyDict',
 								#'ApplyingIsBool',
 								#'AppliedMethod',
 								#'AppliedOutputVariable'
@@ -64,7 +64,7 @@ class ApplyierClass(BaseClass):
 
 	def default_init(self,
 				_ApplyingMethodStr="",
-				_ApplyingArgDict=None,
+				_ApplyingApplyDict=None,
 				_ApplyingIsBool=False,
 				_AppliedMethod=None,
 				_AppliedOutputVariable=None,
@@ -82,7 +82,7 @@ class ApplyierClass(BaseClass):
 		self.debug(
 					('self.',self,[
 									'ApplyingMethodStr',
-									'ApplyingArgDict'
+									'ApplyingApplyDict'
 								])
 		)
 		'''
@@ -107,12 +107,12 @@ class ApplyierClass(BaseClass):
 			self.debug(
 						[
 							'AppliedMethod is good, We are going to apply',
-							('self.',self,['AppliedMethod','ApplyingArgDict'])
+							('self.',self,['AppliedMethod','ApplyingApplyDict'])
 						]
 					)
 			'''
 			
-			if 'KwargVariablesDict' in self.ApplyingArgDict:
+			if 'KwargVariablesDict' in self.ApplyingApplyDict:
 
 				#debug
 				'''
@@ -121,8 +121,8 @@ class ApplyierClass(BaseClass):
 
 				#Call the AppliedMethod
 				self.AppliedOutputVariable=self.AppliedMethod(
-								*self.ApplyingArgDict['LiargVariablesList'],
-								**self.ApplyingArgDict['KwargVariablesDict']
+								*self.ApplyingApplyDict['LiargVariablesList'],
+								**self.ApplyingApplyDict['KwargVariablesDict']
 								) 
 			else:
 
@@ -130,12 +130,10 @@ class ApplyierClass(BaseClass):
 				'''
 				self.debug('We apply without a KwargVariablesDict')
 				'''
-
-
-
+				
 				#Call
 				self.AppliedOutputVariable=self.AppliedMethod(
-					*self.ApplyingArgDict['LiargVariablesList']
+					*self.ApplyingApplyDict['LiargVariablesList']
 					)
 
 	def mimic_set(self):

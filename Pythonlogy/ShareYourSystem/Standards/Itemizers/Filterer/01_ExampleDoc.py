@@ -1,30 +1,34 @@
 
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Applyiers import Filterer
-import operator
 
 #Definition a Filter instance that is grouped
-MyFilterer=Filterer.FiltererClass().update(
-	[	
-		('NodeIndexInt',1),
-		('NodeKeyStr','MyFilterer'),
-		(
-			'ConcludingConditionTuplesList',[
+MyFilterer=SYS.FiltererClass(
+	).set(
+		SYS.MapListClass(
+			[	
+				('MyInt',1),
+				('MyStr',"hello"),
+				(
+					'ConcludingConditionTuplesList',
+					[
 						(
-							'NodeIndexInt',
+							'MyInt',
 							lambda _TestInt,_AttestInt:
-								operator.lt(_TestInt,_AttestInt)
+								SYS.operator.lt(_TestInt,_AttestInt)
 								if _TestInt!=None else False,
 							2
 						)
 					]
-				),
-		(
-			'PickingKeyVariablesList',['NodeKeyStr']
+				)
+			]
 		)
-	]
-).filter('/')
+	).filter(
+		#FilteringGraspVariable
+		'/',
+		#FilteringMapList
+		SYS.MapListClass(['MyStr'])
+	)
 
 		
 #Definition the AttestedStr

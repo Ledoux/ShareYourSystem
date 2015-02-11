@@ -14,7 +14,7 @@ The Rebooter
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Objects.Concluder"
+BaseModuleStr="ShareYourSystem.Standards.Objects.Executer"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>

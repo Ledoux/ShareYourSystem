@@ -15,7 +15,7 @@ from the propertized value setted at the level of the class
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Itemizers.Deleter"
+BaseModuleStr="ShareYourSystem.Standards.Itemizers.Applyier"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -57,9 +57,11 @@ class AttributerClass(BaseClass):
 			self.AttributingKeyStr.split(AttributingStartStr)[1:])
 
 		#Call the __setattr__ method
-		self.__setattr__(self.AttributedSetKeyStr,self.AttributingValueVariable)
+		self.__setattr__(
+			self.AttributedSetKeyStr,
+			self.AttributingValueVariable
+		)
 
-	#@Imitater.ImitaterClass()
 	def mimic_set(self):
 		""" """
 
@@ -72,7 +74,7 @@ class AttributerClass(BaseClass):
 		OutputDict={'HookingIsBool':True}
 
 		#Deep set
-		if self.SettingKeyVariable.startswith(AttributingStartStr):
+		if type(self.SettingKeyVariable)==str and self.SettingKeyVariable.startswith(AttributingStartStr):
 
 			#debug
 			'''
@@ -94,7 +96,6 @@ class AttributerClass(BaseClass):
 
 			#Stop the setting
 			OutputDict["HookingIsBool"]=False
-			#<Hook>return OutputDict
 
 		#Call the parent get method
 		if OutputDict['HookingIsBool']:

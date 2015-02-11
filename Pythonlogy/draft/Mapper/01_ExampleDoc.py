@@ -1,48 +1,40 @@
-
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Applyiers import Mapper
 
-#Definition a Getter
-MyMapper=Mapper.MapperClass().map(
-	'__setitem__',
-	[
-		{'LiargVariablesList':['MyStr',"Hello"]},
-		{'LiargVariablesList':['MyThirdStr',"GutenTag"]},
-		{'LiargVariablesList':['map',
-										{
-											'LiargVariablesList':
-											[
-												'__setitem__',
-												[
-													{
-														'LiargVariablesList':
-														['MyInt',0]
-													},
-													{
-														'LiargVariablesList':
-														['MyFloat',0.1]
-													}
-												]
-											]
-										}
-									
-							]},
-		{'LiargVariablesList':['MyNotLostStr',"ben he"]},
-	]
+#Definition 
+@SYS.MapperClass(**{
+		'MappingDoMethodStr':'make',
+		'MappingDoneStrsList':['MadeMyInt']
+	}
 )
+class MakerClass(SYS.InitiatorClass):
+
+	#Definition
+	RepresentingKeyStrsList=[
+								'MakingMyFloat',
+								'MadeMyInt'
+							]
+
+	def default_init(self,
+					_MakingMyFloat=0.,
+					_MadeMyInt=0,
+					**_KwarVariablesDict
+				):
+		SYS.InitiatorClass.__init__(self,**_KwarVariablesDict)
+
+	def do_make(self):
 		
-#Definition the AttestedStr
-SYS._attest(
-	[
-		'MyMapper is '+SYS._str(
-		MyMapper,
-		**{
-			'RepresentingBaseKeyStrsListBool':False
-		}
-		)
-	]
-)  
+		#print
+		print('I am in the do_make of the Maker')
 
-#Print
+		#cast
+		self.MadeMyInt=int(self.MakingMyFloat)
 
+#define
+MyMaker=MakerClass(
+	).make(
+		3.
+	)
+
+#print
+print('MyMaker.MadeMyInt is '+str(MyMaker.MadeMyInt))
