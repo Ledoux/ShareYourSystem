@@ -39,7 +39,8 @@ class CommanderClass(BaseClass):
 				self,
 				_CommandingGraspVariable=None,
 				_CommandingUpdateVariable=None,	
-				_CommandingOrderStr="AllUpdatesForEachGrasp",				
+				_CommandingOrderStr="AllUpdatesForEachGrasp",
+				_CommandedGraspVariablesList=None,				
 				**_KwargVariablesDict
 			):
 

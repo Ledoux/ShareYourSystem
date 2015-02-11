@@ -156,7 +156,7 @@ class ApplyierClass(BaseClass):
 					)
 
 				#map
-				self.ApplyiedMapVariablesList=map(
+				self.AppliedMapVariablesList=map(
 						lambda __MethodVariable,__ArgVariable:
 						self.apply(
 							__MethodVariable,
