@@ -5,4 +5,4 @@ FrozenIsBool True
 
 ##Example
 
-Apply can be direct
+Apply can be rigorous with an Apply Dict

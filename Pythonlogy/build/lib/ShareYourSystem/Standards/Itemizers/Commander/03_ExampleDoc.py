@@ -8,44 +8,39 @@ SYS.GrasperClass.ShareCountInt=0
 #Set
 CommandingUpdateList=[
 	(
-		'execute',
-		SYS.ApplyDictClass(
-			{
-				'LiargVariablesList':[
-					';'.join(
-						[
-							'self.ShareCountInt=self.__class__.ShareCountInt',
-							'self.__class__.ShareCountInt+=1'
-						]
-					)
-				]
-			}
+		'apply*execute',
+		';'.join(
+			[
+				'self.ShareCountInt=self.__class__.ShareCountInt',
+				'self.__class__.ShareCountInt+=1'
+			]
 		)
 	) for __Int in xrange(2)
 ]
 
 #define and command
 FirstCommander=SYS.CommanderClass(
-	).set(
-		SYS.MapListClass(
+	).apply(
+			'map*set',
 			[
 				('FirstGrasper',SYS.GrasperClass()),
 				('SecondGrasper',SYS.GrasperClass()),
 			]
-		)
 	).command(
-		#CommandingGraspVariablesList=None,
+		#CommandingGraspVariable,
 		[
 			'FirstGrasper','SecondGrasper'
 		],
-		#CommandingUpdateList,	
+		#CommandingSetVariable	
 		CommandingUpdateList
 	)
+
 
 #print
 print('FirstCommander is ')
 SYS._print(FirstCommander)
 
+"""
 #Init an int
 SYS.GrasperClass.ShareCountInt=0
 
@@ -73,4 +68,4 @@ SecondCommander=SYS.CommanderClass(
 print('SecondCommander is ')
 SYS._print(SecondCommander)	
 
-
+"""

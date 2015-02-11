@@ -75,6 +75,7 @@ class GetterClass(BaseClass):
 		'''
 		
 		#Check
+		'''
 		if type(self.GettingKeyVariable)==SYS.MapListClass:
 
 			#map
@@ -91,6 +92,9 @@ class GetterClass(BaseClass):
 
 		#Check
 		elif type(self.GettingKeyVariable) in [str,unicode]:
+		'''
+
+		if type(self.GettingKeyVariable) in [str,unicode]:
 
 			#Get safely the Value
 			if self.GettingKeyVariable in self.__dict__:

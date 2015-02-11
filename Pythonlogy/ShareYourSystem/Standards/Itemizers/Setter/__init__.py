@@ -77,6 +77,7 @@ class SetterClass(BaseClass):
 		'''
 		
 		#map
+		'''
 		if type(self.SettingKeyVariable)==SYS.MapListClass:
 
 			#map
@@ -90,15 +91,15 @@ class SetterClass(BaseClass):
 
 			#Return an output dict
 			return {"HookingIsBool":False}
-
 		else:
+		'''
 
-			#__setitem__ in the __dict__, this is an utility set
-			self.__dict__[
-				self.SettingKeyVariable
-			]=self.SettingValueVariable
+		#__setitem__ in the __dict__, this is an utility set
+		self.__dict__[
+			self.SettingKeyVariable
+		]=self.SettingValueVariable
 
-			#Return
-			return {'HookingIsBool':False}
+		#Return
+		return {'HookingIsBool':False}
 
 #</DefineClass>

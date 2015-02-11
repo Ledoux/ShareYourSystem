@@ -6,41 +6,35 @@ import ShareYourSystem as SYS
 SYS.GrasperClass.ShareCountInt=0
 
 #Set
-CommandingUpdateList=[
+CommandingSetVariable=[
 	(
-		'execute',
-		SYS.ApplyDictClass(
-			{
-				'LiargVariablesList':[
-					';'.join(
-						[
-							'self.ShareCountInt=self.__class__.ShareCountInt',
-							'self.__class__.ShareCountInt+=1'
-						]
-					)
-				]
-			}
+		'apply*execute',
+		';'.join(
+			[
+				'self.ShareCountInt=self.__class__.ShareCountInt',
+				'self.__class__.ShareCountInt+=1'
+			]
 		)
 	) for __Int in xrange(2)
 ]
 
 #define and command
 FirstCommander=SYS.CommanderClass(
-	).set(
-		SYS.MapListClass(
+	).apply(
+			'map*set',
 			[
 				('FirstGrasper',SYS.GrasperClass()),
 				('SecondGrasper',SYS.GrasperClass()),
 			]
-		)
 	).command(
-		#CommandingGraspVariablesList=None,
+		#CommandingGraspVariable,
 		[
 			'FirstGrasper','SecondGrasper'
 		],
-		#CommandingUpdateList,	
-		CommandingUpdateList
+		#CommandingSetVariable	
+		CommandingSetVariable
 	)
+
 
 #print
 print('FirstCommander is ')
@@ -51,22 +45,21 @@ SYS.GrasperClass.ShareCountInt=0
 
 #define and command
 SecondCommander=SYS.CommanderClass(
-	).set(
-		SYS.MapListClass(
-			[
+	).apply(
+		'map*set',
+		[
 				('FirstGrasper',SYS.GrasperClass()),
 				('SecondGrasper',SYS.GrasperClass()),
-			]
-		)
+		]
 	).command(
 		#CommandingGraspVariable (map or not),
 		[
 			'FirstGrasper','SecondGrasper'
 		],
 		#CommandingUpdateList	
-		CommandingUpdateList,
+		CommandingSetVariable,
 		#CommandingOrderStr
-		"EachSetForAll"	
+		"EachSetForAllGrasps"	
 	)
 
 #print

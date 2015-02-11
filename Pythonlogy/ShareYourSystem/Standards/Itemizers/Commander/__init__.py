@@ -31,16 +31,19 @@ class CommanderClass(BaseClass):
 	#Definition 
 	RepresentingKeyStrsList=[
 							#'CommandingGraspVariable',
-							#'CommandingUpdateVariable',
-							'CommandingOrderStr'
+							#'CommandingSetVariable',
+							'CommandingOrderStr',
+							#'CommandedGraspVariablesList',
+							#'CommandedSetVariablesList',
 						]
 
 	def default_init(
 				self,
 				_CommandingGraspVariable=None,
-				_CommandingUpdateVariable=None,	
-				_CommandingOrderStr="AllUpdatesForEachGrasp",
-				_CommandedGraspVariablesList=None,				
+				_CommandingSetVariable=None,	
+				_CommandingOrderStr="AllSetsForEachGrasp",
+				_CommandedGraspVariablesList=None,
+				_CommandedSetVariablesList=None,				
 				**_KwargVariablesDict
 			):
 
@@ -63,11 +66,17 @@ class CommanderClass(BaseClass):
 			]
 
 		#Check
-		if type(self.CommandingUpdateVariable)!=list:
+		if type(self.CommandingSetVariable)!=list:
 			
-			self.CommandingUpdateVariable=[
-				self.CommandingUpdateVariable
+			#list
+			self.CommandedSetVariablesList=[
+				self.CommandingSetVariable
 			]
+
+		else:
+
+			#alias
+			self.CommandedSetVariablesList=self.CommandingSetVariable
 
 		#map a grasp
 		self.CommandedGraspVariablesList=map(
@@ -79,33 +88,33 @@ class CommanderClass(BaseClass):
 			)
 
 		#Check for the order
-		if self.CommandingOrderStr=="AllUpdatesForEachGrasp":
+		if self.CommandingOrderStr=="AllSetsForEachGrasp":
 
-			#For each __GatheredVariable it is updating with _UpdatingItemVariable
+			#map
 			map(
 					lambda __CommandedGraspVariable:
-					__CommandedGraspVariable.set(
-						SYS.MapListClass(
-							self.CommandingUpdateVariable
-						)
+					map(
+						lambda __CommandedSetVariable:
+						__CommandedGraspVariable.set(
+							*__CommandedSetVariable
+						),
+						self.CommandedSetVariablesList
 					),
 					self.CommandedGraspVariablesList
 				)
 
-		elif self.CommandingOrderStr=="EachUpdateForAllGrasps":
+		elif self.CommandingOrderStr=="EachSetForAllGrasps":
 
-			#For each SettingTuple it is setted in _GatheredVariablesList
+			#map
 			map(
-					lambda __SettingVariableTuple:
+					lambda __CommandedSetVariable:
 					map(
 						lambda __CommandedGraspVariable:
-						__CommandedGraspVariable.__setitem__(
-							*__SettingVariableTuple
+						__CommandedGraspVariable.set(
+							*__CommandedSetVariable
 						),
 						self.CommandedGraspVariablesList
 					),
-					self.CommandingUpdateVariable.items() 
-					if hasattr(self.CommandingUpdateVariable,'items')
-					else self.CommandingUpdateVariable
+					self.CommandedSetVariablesList
 				)
 #</DefineClass>

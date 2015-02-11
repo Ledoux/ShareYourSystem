@@ -99,7 +99,9 @@ class ApplyierClass(BaseClass):
 		if type(self.ApplyingArgVariable)!=SYS.ApplyDictClass:
 
 			#Check
-			if self.ApplyingMethodVariable in ['get','__getitem__']:
+			if self.ApplyingMethodVariable in [
+				'get','__getitem__','execute'
+			]:
 
 				#Check
 				if type(self.ApplyingArgVariable)!=list:
@@ -247,9 +249,12 @@ class ApplyierClass(BaseClass):
 	def mimic_set(self):
 
 		#debug
-		'''
-		self.debug(('self.',self,['SettingKeyVariable','SettingValueVariable']))
-		'''
+		self.debug(
+			('self.',self,[
+					'SettingKeyVariable',
+					'SettingValueVariable'
+				]))
+
 		
 		#Definition
 		OutputDict={'HookingIsBool':True}
@@ -257,47 +262,44 @@ class ApplyierClass(BaseClass):
 		#Check
 		if self.SettingKeyVariable!="":
 
-			#Call for a hook
+			#Init
+			SettingKeyVariable=""
+
+			#Check
 			#if (self.SettingKeyVariable[0].isalpha() or self.SettingKeyVariable[:2]=="__"
 			#	) and self.SettingKeyVariable[0].lower()==self.SettingKeyVariable[0]:
 			if type(self.SettingValueVariable)==ApplyDictClass:
 
-				#debug
-				'''
-				self.debug(
-							[
-								('This is a set that calls a method so this is an apply...'),
-								('self.',self,[
-												'SettingKeyVariable',
-												'SettingValueVariable'
-												]
-								)
-							]
-						)
-				'''
-				
-				#Apply
-				self.apply(
-								self.SettingKeyVariable,
-								self.SettingValueVariable
-							)
+				#set
+				SettingKeyVariable=self.SettingKeyVariable
 
-				#Return
-				OutputDict['HookingIsBool']=False
-				#<Hook>return OutputDict
-
-			elif type(
+			#Check
+			if type(
 				self.SettingKeyVariable
 				)==str and self.SettingKeyVariable.startswith(
 					ApplySetPrefixStr
 				):
 
-				#apply
-				self.apply(
-						SYS.deprefix(
+				#debug
+				self.debug(
+					'We do an apply here with a deprefix settingkeyvariable'
+				)
+
+				#set
+				SettingKeyVariable=SYS.deprefix(
 							self.SettingKeyVariable,
 							ApplySetPrefixStr
-						),
+						)
+
+			#Check
+			if SettingKeyVariable!="":
+
+				#debug
+				self.debug('We do an apply with '+SettingKeyVariable)
+
+				#apply
+				self.apply(
+						SettingKeyVariable,
 						self.SettingValueVariable
 					)
 
