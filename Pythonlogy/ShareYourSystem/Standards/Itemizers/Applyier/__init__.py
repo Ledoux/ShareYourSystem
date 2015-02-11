@@ -176,6 +176,13 @@ class ApplyierClass(BaseClass):
 			#Check
 			if self.ApplyingMethodVariable.startswith(ApplyMapPrefixStr):
 
+				#Set
+				ApplyArgVariable=self.ApplyingArgVariable['LiargVariablesList']
+
+				#Check
+				if hasattr(ApplyArgVariable,'items'):
+					ApplyArgVariable=ApplyArgVariable.items()
+
 				#apply a map to map
 				self.apply(
 						[
@@ -184,7 +191,7 @@ class ApplyierClass(BaseClass):
 								ApplyMapPrefixStr
 							)
 						]*len(self.ApplyingArgVariable),
-						self.ApplyingArgVariable['LiargVariablesList']
+						ApplyArgVariable
 					)
 
 				#return 

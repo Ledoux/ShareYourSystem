@@ -1,18 +1,25 @@
 #ImportModules
 import ShareYourSystem as SYS
 
-#Define and manage
+#Define and manage without specifying the value class 
+#which is PointerClass if Teamer not imported else TeamerClass
 MyManager=SYS.ManagerClass(
 	).manage(
-		{
-			"$update":{
-			'First':SYS.FamiliarizerClass()
-			}
-		}
+		#ManagingKeyStr
+		'First'
+	)
+
+#Define and manage with specifying the Variable
+MyManager.manage(
+		#ManagingKeyStr
+		'Second',
+		#ManagingValueVariable
+		SYS.TeamerClass()
 	)
 
 #Set with a setitem access
-MyManager['$Second']=SYS.FamiliarizerClass()
+MyManager['$Third']=SYS.TeamerClass()
+
 
 #Print
 print('MyManager is ')

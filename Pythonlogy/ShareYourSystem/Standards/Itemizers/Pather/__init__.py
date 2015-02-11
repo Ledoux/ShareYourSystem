@@ -138,7 +138,6 @@ class PatherClass(BaseClass):
 		self.PathedGetKeyStr=self.PathedKeyStrsList[1]
 
 		#debug
-		'''
 		self.debug(
 					('self.',self,[
 									'PathingKeyStr',
@@ -146,7 +145,6 @@ class PatherClass(BaseClass):
 									'PathedGetKeyStr',
 								])
 				)
-		'''
 
 		#set the PathedGetValueVariable
 		if self.PathedGetKeyStr=="":
@@ -169,26 +167,34 @@ class PatherClass(BaseClass):
 			#Set
 			if len(self.PathedKeyStrsList)>2:
 				self.PathedChildKeyStr=PathPrefixStr+PathPrefixStr.join(
-					self.PathedKeyStrsList[2:])
+					self.PathedKeyStrsList[2:]
+				)
 
 			#getitem
-			self.PathedGetValueVariable=self[self.PathedGetKeyStr]
+			self.PathedGetValueVariable=self[
+				self.PathedGetKeyStr
+			]
+
 
 		#debug
-		'''
 		self.debug(
-					('self.',self,[
-									'PathedGetValueVariable'
-								])
-				)
-		'''
+			[
+				'At the end of the path',
+				('self.',self,[
+								'PathedGetValueVariable'
+							])
+			]
+		)
 
 	def mimic_get(self):
 
 		#debug
-		'''
-		self.debug(("self.",self,['GettingKeyVariable']))
-		'''
+		self.debug(
+			("self.",self,[
+					'GettingKeyVariable',
+					'NameStr'
+				])
+		)
 
 		#Definition
 		OutputDict={'HookingIsBool':True}
@@ -242,21 +248,22 @@ class PatherClass(BaseClass):
 			else:
 
 				#debug
-				'''
 				self.debug(
 							[
 								'This is recursive get with ',
 								('self.',self,[
 												'PathedGetValueVariable',
-												'PathedChildKeyStr'
+												'PathedChildKeyStr',
+												'NameStr'
 											]
 								)
 							]
 						)
-				'''
 
 				#Get with the PathedChildKeyStr
-				self.GettedValueVariable=self.PathedGetValueVariable[self.PathedChildKeyStr]
+				self.GettedValueVariable=self.PathedGetValueVariable[
+					self.PathedChildKeyStr
+				]
 
 			#Stop the getting
 			OutputDict['HookingIsBool']=False

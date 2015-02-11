@@ -54,14 +54,18 @@ class TeamerClass(BaseClass):
 	#Definition
 	RepresentingKeyStrsList=[
 								'TeamingKeyStr',
+								'TeamingValueVariable',
 								'TeamingManageVariable',
-								'TeamedDeriveParenterVariable'
+								'TeamingValueClass',
+								'TeamedValueVariable'
 							]
 
 	def default_init(self,
-				_TeamingKeyStr="",		
+				_TeamingKeyStr="",	
+				_TeamingValueVariable=None,	
 				_TeamingManageVariable=None,					
-				_TeamedDeriveParenterVariable=None, 																		
+				_TeamingValueClass=Manager.ManagerClass, 	
+				_TeamedValueVariable=None,																	
 				**_KwargVariablesDict
 			):
 
@@ -72,67 +76,137 @@ class TeamerClass(BaseClass):
 		self.TeamDict=TeamDictClass()
 
 		##########################
-		#init some parent attributes
+		#init some management attributes
 		#
 
-		self.ParentPointDeriveParenter=None
-		self.ChildKeyStr=""
+		#Init
+		self.ManagementKeyStr=""
 
-		##########################
-		#init some family attributes from the parent 
-		#
-
-		self.TeamPointDeriveTeamer=None
-		self.TeamKeyStr=""
+		#point
+		self.ManagementPointDeriveManager=None
 
 	
-	def do_familiarize(self):
+	def do_team(self):
 
 		#debug
-		'''
-		self.debug(("self.",self,['TeamingKeyStr']))
-		'''
+		self.debug(
+			('self.',self,[
+					'TeamingKeyStr',
+					'TeamingValueVariable'
+				])
+		)
 
-		#Get the TeamedStr
-		if self.TeamingKeyStr!="":
-		
-			#set the Teamed OrderedDict and KeyStr
-			TeamedDeriveParenterVariableKeyStr=self.TeamingKeyStr
+		#Check
+		if self.TeamingValueVariable==None:
 
 			#try to get
 			try:
 
 				#get
-				self.TeamedDeriveParenterVariable=self.TeamDict[
-					TeamedDeriveParenterVariableKeyStr
+				self.TeamedValueVariable=self.TeamDict[
+					self.TeamingKeyStr
 				]
+
+				#set
+				self.TeamedIsBool=True
 			
 			except KeyError:
 
-				#set
-				self.__setattr__(
-									TeamedDeriveParenterVariableKeyStr,
-									Parenter.ParenterClass()
-								)
+				#init
+				self.TeamedValueVariable=self.TeamingValueClass()
 
-				#get
-				self.TeamedDeriveParenterVariable=getattr(
+				#set
+				self.TeamedIsBool=False
+
+		else:
+
+			#init
+			self.TeamedIsBool=False
+
+			#alias
+			self.TeamedValueVariable=self.TeamingValueVariable
+
+		#Check
+		if self.TeamedIsBool==False:
+
+			#set in the __dict__
+			self.__setattr__(
+					TeamPrefixStr+self.TeamingKeyStr+type(
+						self.TeamedValueVariable
+					).NameStr,
+					self.TeamedValueVariable
+				)
+
+			#put in the dict
+			self.TeamDict[
+				self.TeamingKeyStr
+			]=self.TeamedValueVariable
+
+			##########################
+			#give some team attributes
+			#
+
+			#debug
+			'''
+			self.debug(
+				'We make point the teamed instance to self'
+			)
+			'''
+
+			#set
+			'''
+			self.TeamedValueVariable.point(
 					self,
-					TeamedDeriveParenterVariableKeyStr
+					'TeamPointDeriveTeamer'
 				)
+			'''
+			self.TeamedValueVariable.TeamPointDeriveTeamer=self
+				
+			#debug
+			'''
+			self.debug(
+				'Ok it is pointed'
+			)	
+			'''
 
-				#set an alias with the TeamingKeyStr
-				self.__setattr__(
-					self.TeamingKeyStr,
-					self.TeamedDeriveParenterVariable
+			#set
+			self.TeamedValueVariable.__setattr__(
+				'TeamKeyStr',
+				self.TeamingKeyStr
+			)
+
+
+	def mimic_get(self):
+
+		#Definition
+		OutputDict={'HookingIsBool':True}
+
+		#debug
+		self.debug(('self.',self,['GettingKeyVariable']))
+
+		#Check
+		if type(
+			self.GettingKeyVariable
+		)==str and self.GettingKeyVariable.startswith(TeamPrefixStr):
+
+			#debug
+			self.debug('We team here')
+
+			#team
+			self.GettedValueVariable=self.team(
+				SYS.deprefix(
+					self.GettingKeyVariable,
+					TeamPrefixStr
 				)
+			).TeamedValueVariable
 
-				#set
-				self.TeamDict[
-					TeamedDeriveParenterVariableKeyStr
-				]=self.TeamedDeriveParenterVariable
+			#Stop the setting
+			OutputDict["HookingIsBool"]=False 
 
-			
+		#Call the parent get method
+		if OutputDict['HookingIsBool']:
+			return BaseClass.get(self)
+
 	def mimic_set(self):
 
 		#Definition
@@ -146,35 +220,26 @@ class TeamerClass(BaseClass):
 			self.SettingKeyVariable
 		)==str and self.SettingKeyVariable.startswith(TeamPrefixStr):
 
-			#split
-			SplitList=self.SettingKeyVariable.split(Pather.PathPrefixStr)
+			#debug
+			self.debug('We team here')
 
-			#
-			'''
-			if len(SplitList)>1:
-				self.TeamingKeyStr=SplitList[0]
-			'''
+			#team
+			self.team(
+				SYS.deprefix(
+					self.SettingKeyVariable,
+					TeamPrefixStr
+				),
+				self.SettingValueVariable
+			)
 
-			else:
-
-				#debug
-				self.debug('We family here')
-
-				#family
-				self.familiarize(
-					SYS.deprefix(
-						self.SettingKeyVariable,
-						TeamPrefixStr
-					)
-				)
-
-				#Stop the setting
-				OutputDict["HookingIsBool"]=False 
+			#Stop the setting
+			OutputDict["HookingIsBool"]=False 
 
 		#Call the parent get method
 		if OutputDict['HookingIsBool']:
 			return BaseClass.set(self)
 
-
 #</DefineClass>
 
+#set
+SYS.ManagerClass.ManagingValueClass=TeamerClass

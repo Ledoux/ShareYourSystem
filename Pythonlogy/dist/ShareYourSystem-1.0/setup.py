@@ -74,6 +74,7 @@ setup(
 			 		'ShareYourSystem.Standards.Itemizers.Filterer',
 			 		'ShareYourSystem.Standards.Teamers.Teamer',
 			 		'ShareYourSystem.Standards.Teamers.Manager',
+			 		'ShareYourSystem.Standards.Teamers.Parenter',
 			 		'ShareYourSystem.Standards.Objects',
 			 		'ShareYourSystem.Standards.Classors',
 			 		'ShareYourSystem.Standards.Functers',

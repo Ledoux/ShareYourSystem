@@ -91,11 +91,14 @@ class PointerClass(BaseClass):
 		'''
 
 		#set
-		self.PointedPathBackStr=Pather.getPathedBackGetStrWithGetStr(self.PointingSetPathStr)
+		self.PointedPathBackStr=Pather.getPathedBackGetStrWithGetStr(
+			self.PointingSetPathStr
+		)
 		
 		#set
 		self.PointedLocalSetStr=self.PointingSetPathStr.split(
-			self.PointedPathBackStr+Pather.PathPrefixStr)[-1]
+			self.PointedPathBackStr+Pather.PathPrefixStr
+		)[-1]
 
 		#debug
 		'''

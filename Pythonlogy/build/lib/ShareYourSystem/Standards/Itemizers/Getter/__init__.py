@@ -70,9 +70,12 @@ class GetterClass(BaseClass):
 		""" """
 
 		#debug
-		'''
-		self.debug(("self.",self,['GettingKeyVariable']))
-		'''
+		self.debug(
+			("self.",self,[
+					'GettingKeyVariable',
+					'NameStr'
+				])
+		)
 		
 		#Check
 		'''

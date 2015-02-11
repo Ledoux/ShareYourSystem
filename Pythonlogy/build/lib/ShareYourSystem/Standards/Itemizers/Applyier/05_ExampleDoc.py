@@ -14,13 +14,22 @@ MyApplyier.apply(
 	]
 )
 
-#Special map option (like an update)
+#Special map option with TuplesList (like an update)
 MyApplyier.apply(
 	'map*set',
 	[
 		['MyFirstObject',SYS.ObjectClass()],
 		['MySecondObject',SYS.ObjectClass()]
 	]
+)
+
+#Special map option with a dict (like an update)
+MyApplyier.apply(
+	'map*set',
+	{
+		'MyFirstStr':"hello",
+		'MySecondStr':"salut"
+	}
 )
 
 #Special set apply because of the ApplyDictClass

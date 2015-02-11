@@ -2,31 +2,25 @@
 #ImportModules
 import ShareYourSystem as SYS
 
-#Definition of a Familiarizer instance
-MyFamiliarizer=SYS.FamiliarizerClass(
-	).familiarize(
-		'Children'
-	).command(
-		'Children',
-		[
-			(
-				'parent',
-				SYS.ApplyDictClass(
-					{
-						'LiargVariablesList':
-						[
-							'FirstChild',
-							SYS.FamiliarizerClass()
-						]
-					}
-				)
-			)
-		]
+#define and team
+MyTeamer=SYS.TeamerClass(
+	).team(
+		#TeamingKeyStr
+		"Employees"
 	)
 
-MyFamiliarizer['*Things/$Stuff']=SYS.FamiliarizerClass()
+#Define and team with specifying the Variable
+MyTeamer.team(
+		#TeamingKeyStr
+		'Partners',
+		#TeamingValueVariable
+		SYS.TeamerClass()
+	)
+
+#With a set
+MyTeamer['*Clients']=SYS.ManagerClass()
 
 #print
-print('MyFamiliarizer is ')
-SYS._print(MyFamiliarizer)
+print('MyTeamer is ')
+SYS._print(MyTeamer)
 

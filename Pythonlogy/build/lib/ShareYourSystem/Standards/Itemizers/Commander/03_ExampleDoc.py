@@ -6,7 +6,7 @@ import ShareYourSystem as SYS
 SYS.GrasperClass.ShareCountInt=0
 
 #Set
-CommandingUpdateList=[
+CommandingSetVariable=[
 	(
 		'apply*execute',
 		';'.join(
@@ -32,7 +32,7 @@ FirstCommander=SYS.CommanderClass(
 			'FirstGrasper','SecondGrasper'
 		],
 		#CommandingSetVariable	
-		CommandingUpdateList
+		CommandingSetVariable
 	)
 
 
@@ -40,32 +40,30 @@ FirstCommander=SYS.CommanderClass(
 print('FirstCommander is ')
 SYS._print(FirstCommander)
 
-"""
 #Init an int
 SYS.GrasperClass.ShareCountInt=0
 
 #define and command
 SecondCommander=SYS.CommanderClass(
-	).set(
-		SYS.MapListClass(
-			[
+	).apply(
+		'map*set',
+		[
 				('FirstGrasper',SYS.GrasperClass()),
 				('SecondGrasper',SYS.GrasperClass()),
-			]
-		)
+		]
 	).command(
 		#CommandingGraspVariable (map or not),
 		[
 			'FirstGrasper','SecondGrasper'
 		],
 		#CommandingUpdateList	
-		CommandingUpdateList,
+		CommandingSetVariable,
 		#CommandingOrderStr
-		"EachSetForAll"	
+		"EachSetForAllGrasps"	
 	)
 
 #print
 print('SecondCommander is ')
 SYS._print(SecondCommander)	
 
-"""
+

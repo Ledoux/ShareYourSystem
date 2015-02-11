@@ -24,11 +24,11 @@ SYS.setSubModule(globals())
 import copy
 import collections
 from ShareYourSystem.Standards.Itemizers import Pather
+from ShareYourSystem.Standards.Itemizers import Pointer
 #</ImportSpecificModules>
 
 #<DefineLocals>
 ManagementPrefixStr="$"
-
 class ManagementDictClass(collections.OrderedDict):
 	def __init__(self,_Dict=None):
 
@@ -51,96 +51,167 @@ class ManagerClass(BaseClass):
 
 	#Definition
 	RepresentingKeyStrsList=[
-								'ManagingUpdateVariable'
+								'ManagingKeyStr',
+								'ManagingValueVariable',
+								'ManagingValueClass',
+								'ManagedValueVariable'
 							]
 
-	def default_init(self,
-				_ManagingUpdateVariable=None,
-				**_KwargVariablesDict):	
+	def default_init(
+				self,
+				_ManagingKeyStr="",
+				_ManagingValueVariable=None,
+				_ManagingValueClass=Pointer.PointerClass,
+				_ManagedValueVariable=None,
+				**_KwargVariablesDict
+			):	
 
 		#Call the manage init method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
-		#Init the DeriveTeamersManagementDict
-		self.DeriveTeamersManagementDict=ManagementDictClass()
+		#Init the ManagementDict
+		self.ManagementDict=ManagementDictClass()
+
+		##########################
+		#init some team attributes
+		#
 
 		#Init
 		self.TeamKeyStr=""
 
 		#point
-		self.point(
-				None,
-				'TeamPointDeriveTeamer'
-			)
+		self.TeamPointDeriveTeamer=None
+
+	def mimic_apply(self):
+
+		#call the base method
+		BaseClass.apply(self)
 
 	def do_manage(self):
 
 		#debug
 		self.debug(
 			('self.',self,[
-					'ManagingUpdateVariable'
+					'ManagingKeyStr',
+					'ManagingValueVariable'
 				])
 		)
 
-		#set
-		if self.ManagingUpdateVariable.items():
+		#Check
+		if self.ManagingValueVariable==None:
 
-			filter(
-					lambda __ItemTuple:
-					__ItemTuple.startswith(
-						ManagementPrefixStr
-					),
-					self.ManagingUpdateVariable.items()
+			#try to get
+			try:
+
+				#get
+				self.ManagedValueVariable=self.ManagementDict[
+					self.ManagingKeyStr
+				]
+
+				#set
+				self.ManagedIsBool=True
+			
+			except KeyError:
+
+				#init
+				self.ManagedValueVariable=self.ManagingValueClass()
+
+				#set
+				self.ManagedIsBool=False
+
+		else:
+
+			#init
+			self.ManagedIsBool=False
+
+			#alias
+			self.ManagedValueVariable=self.ManagingValueVariable
+
+		#Check
+		if self.ManagedIsBool==False:
+
+			#set in the __dict__
+			self.__setattr__(
+					ManagementPrefixStr+self.ManagingKeyStr+type(
+						self.ManagedValueVariable
+					).NameStr,
+					self.ManagedValueVariable
 				)
 
+			#put in the dict
+			self.ManagementDict[
+				self.ManagingKeyStr
+			]=self.ManagedValueVariable
 
+			##########################
+			#give some manage attributes
+			#
 
-		self.ManagementDict[
-			self.ManagingKeyStr
-		]=self.ManagingValueVariable
-
-		##########################
-		#give some manage attributes
-		#
-
-		#set
-		self.ManagingValueVariable.point(
-				self,
-				'ManagementPointDeriveManager'
+			#debug
+			'''
+			self.debug(
+				'We make point the managed instance to self'
 			)
-		
-		#set
-		'''
-		self.ManagingValueVariable.__setattr__(
-			'ManagementDict',
-			self.ManagementDict
-		)
-		'''
+			'''
 
-		#set
-		self.ManagingValueVariable.__setattr__(
-			'ManagementKeyStr',
-			self.ManagingKeyStr
-		)
+			#set
+			'''
+			self.ManagingValueVariable.point(
+					self,
+					'ManagementPointDeriveManager'
+				)
+			'''
+			self.ManagedValueVariable.ManagementPointDeriveManager=self
 
-		##########################
-		#give some family attributes
-		#
-
-		#set
-		'''
-		self.ManagingValueVariable.__setattr__(
-			'TeamKeyStr',
-			self.TeamKeyStr
-		)
-		'''
-
-		#set 
-		self.ManagingValueVariable.point(
-				self.TeamPointDeriveTeamer,
-				'TeamPointDeriveTeamer'
+			#debug
+			'''
+			self.debug(
+				'Ok it is pointed'
 			)
-		
+			'''
+			
+			#set
+			self.ManagedValueVariable.__setattr__(
+				'ManagementKeyStr',
+				self.ManagingKeyStr
+			)
+
+	def mimic_get(self):
+
+		#Definition
+		OutputDict={'HookingIsBool':True}
+
+		#debug
+		self.debug(('self.',self,['GettingKeyVariable']))
+
+		#Check
+		if type(
+			self.GettingKeyVariable
+		)==str and self.GettingKeyVariable.startswith(ManagementPrefixStr):
+
+			#debug
+			self.debug('We manage here')
+
+			#team
+			self.GettedValueVariable=self.manage(
+				SYS.deprefix(
+					self.GettingKeyVariable,
+					ManagementPrefixStr
+				)
+			).ManagedValueVariable
+
+			#debug
+			self.debug(
+				('self.',self,['GettedValueVariable'])
+			)
+
+			#Stop the setting
+			OutputDict["HookingIsBool"]=False 
+
+		#Call the parent get method
+		if OutputDict['HookingIsBool']:
+			return BaseClass.get(self)
+
 	def mimic_set(self):
 
 		#Definition
@@ -152,7 +223,9 @@ class ManagerClass(BaseClass):
 		#Check
 		if type(
 			self.SettingKeyVariable
-		)==str and self.SettingKeyVariable.startswith(ManagementPrefixStr):
+		)==str and self.SettingKeyVariable.startswith(
+			ManagementPrefixStr
+		):
 
 			#debug
 			self.debug('We manage here')
