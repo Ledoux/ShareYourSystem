@@ -93,13 +93,9 @@ class CommanderClass(BaseClass):
 			#map
 			map(
 					lambda __CommandedGraspVariable:
-					map(
-						lambda __CommandedSetVariable:
-						__CommandedGraspVariable.set(
-							*__CommandedSetVariable
+					__CommandedGraspVariable['map*set'](
+							self.CommandedSetVariablesList
 						),
-						self.CommandedSetVariablesList
-					),
 					self.CommandedGraspVariablesList
 				)
 

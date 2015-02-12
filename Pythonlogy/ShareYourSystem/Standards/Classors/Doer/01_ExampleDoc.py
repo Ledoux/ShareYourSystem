@@ -17,7 +17,12 @@ class MakerClass(SYS.InitiatorClass):
 DefaultMaker=MakerClass()
 
 #Definition a special instance
-SpecialMaker=MakerClass(_MakingMyList=['hello'],**{'MakingMyInt':3})
+SpecialMaker=MakerClass(
+	_MakingSpecificList=['hello'],
+	**{
+		'MakingMyFloat':3.
+	}
+)
 
 #Definition the AttestedStr
 AttestingStrsList=[
@@ -26,31 +31,27 @@ AttestingStrsList=[
 		MakerClass.DoingAttributeVariablesOrderedDict),
 	'MakerClass.DoneAttributeVariablesOrderedDict is '+SYS._str(
 		MakerClass.DoneAttributeVariablesOrderedDict),
-	'MakerClass.MakingMyFloat is '+str(MakerClass.MakingMyFloat),
-	'MakerClass.MakingSpecificList is '+str(MakerClass.MakingSpecificList),
-	'MakerClass.MakingShareList is '+str(MakerClass.MakingShareList),
 	'What are you saying DefaultMaker ?',
 	'DefaultMaker.__dict__ is '+SYS._str(DefaultMaker.__dict__),
-	'DefaultMaker.MakingMyFloat is '+str(DefaultMaker.MakingMyFloat),
-	'DefaultMaker.MakingShareList is '+str(DefaultMaker.MakingShareList),
-	'DefaultMaker.MakingSpecificList is '+str(DefaultMaker.MakingSpecificList),
-	'DefaultMaker.MakingMyInt is '+str(DefaultMaker.MakingMyInt),
+	'DefaultMaker.getDo() is '+SYS._str(DefaultMaker.getDo()),
 	'What are you saying SpecialMaker ?',
 	'SpecialMaker.__dict__ is '+SYS._str(SpecialMaker.__dict__),
-	'SpecialMaker.MakingMyFloat is '+str(SpecialMaker.MakingMyFloat),
-	'SpecialMaker.MakingShareList is '+str(SpecialMaker.MakingShareList),
-	'SpecialMaker.MakingSpecificList is '+str(SpecialMaker.MakingSpecificList),
-	'SpecialMaker.MakingMyInt is '+str(SpecialMaker.MakingMyInt),
+	'SpecialMaker.getDo() is '+SYS._str(SpecialMaker.getDo())
 ]
 
-#Change a classed attribute
+#Change classed attributes
 MakerClass.MakingMyFloat=5.
+MakerClass.MakingMyInt=5
 
 #Add
 AttestingStrsList+=[
 		'After reset at the level of the class',
-		'DefaultMaker.MakingMyFloat is '+str(DefaultMaker.MakingMyFloat),
-		'SpecialMaker.MakingMyFloat is '+str(SpecialMaker.MakingMyFloat),
+		'What are you saying DefaultMaker ?',
+		'DefaultMaker.__dict__ is '+SYS._str(DefaultMaker.__dict__),
+		'DefaultMaker.getDo() is '+SYS._str(DefaultMaker.getDo()),
+		'What are you saying SpecialMaker ?',
+		'SpecialMaker.__dict__ is '+SYS._str(SpecialMaker.__dict__),
+		'SpecialMaker.getDo() is '+SYS._str(SpecialMaker.getDo())
 	]
 
 #Print

@@ -9,12 +9,12 @@ MyCommander=SYS.CommanderClass(
 		[
 			('MyStr',"hello"),
 			('MyInt',0),
-			('apply*get',"MyInt"),
+			('get',"MyInt"),
 			(
-				'apply*map*set',
+				'map*set',
 				[
-					['MyFirstBool',True],
-					['MySecondBool',False],
+					('MyFirstBool',True),
+					('MySecondBool',False),
 				]
 			)
 		]

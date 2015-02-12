@@ -2,13 +2,17 @@
 #ImportModules
 import ShareYourSystem as SYS
 
-#Definition a Getter
+#Define
 MyGetter=SYS.GetterClass()
+
+#set	
 MyGetter.MyInt=1
-		
-#print
-print('Get the MyInt returns '+str(MyGetter['MyInt']))
 
 #print
-print('Get the MyStr returns '+str(MyGetter['MyStr']))
+print('Get "MyInt" returns '+str(MyGetter['MyInt']))
 
+#print
+print('Get "MyStr" returns '+str(MyGetter['MyStr']))
+
+#print
+print('Get "itemize" returns '+SYS._str(MyGetter['itemize']))

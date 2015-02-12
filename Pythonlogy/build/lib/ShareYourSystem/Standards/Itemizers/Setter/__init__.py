@@ -20,6 +20,15 @@ SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
+def getMapList(_LiargVariablesList):
+
+	#Check
+	if hasattr(_LiargVariablesList[0],'items'):
+		return _LiargVariablesList[0].items()
+	else:
+		return _LiargVariablesList[0]
+def getLiargVariablesList(_ValueVariable):
+	return _ValueVariable
 #</ImportSpecificModules>
 
 #<DefineClass>
@@ -29,12 +38,14 @@ class SetterClass(BaseClass):
 	#Definition
 	RepresentingKeyStrsList=[
 									'SettingKeyVariable',
-									'SettingValueVariable'
+									'SettingValueVariable',
+									'SettingItemBool'
 								]
 
 	def default_init(self,
 						_SettingKeyVariable=None, 
-						_SettingValueVariable=None,  			
+						_SettingValueVariable=None, 
+						_SettingItemBool=True, 			
 						**_KwargVariablesDict
 					):
 		""" """		
@@ -73,33 +84,110 @@ class SetterClass(BaseClass):
 
 		#debug
 		'''
-		self.debug(("self.",self,['SettingKeyVariable','SettingValueVariable']))
+		self.debug(
+			("self.",self,[
+				'SettingKeyVariable',
+				'SettingValueVariable'
+			])
+		)	
 		'''
 		
-		#map
-		'''
-		if type(self.SettingKeyVariable)==SYS.MapListClass:
+		#itemize first
+		if self.SettingItemBool:
 
-			#map
-			map(
-					lambda __MappedVariable:
-					self.__setitem__(
-						*__MappedVariable
-					),
+			#debug
+			'''
+			self.debug('first we itemize')
+			'''
+
+			#itemize
+			self.itemize(
 					self.SettingKeyVariable
 				)
 
-			#Return an output dict
-			return {"HookingIsBool":False}
 		else:
+
+			#set
+			self.ItemizedValueMethod=None
+
+		#/############################
+		# Case of a method get 
+		#
+
+		#debug
+		'''
+		self.debug(
+				('self.',self,['ItemizedValueMethod'])
+			)
 		'''
 
-		#__setitem__ in the __dict__, this is an utility set
-		self.__dict__[
-			self.SettingKeyVariable
-		]=self.SettingValueVariable
+		#Check 
+		if self.ItemizedValueMethod!=None:
 
-		#Return
-		return {'HookingIsBool':False}
+			#get
+			SettedValueMethod=self[self.SettingKeyVariable]
+
+			#debug
+			self.debug('SettedValueMethod is '+str(SettedValueMethod))
+
+			#define
+			try:
+
+				#get
+				SettedLiargVariablesList=SettedValueMethod.im_func.DoClass.Module.getLiargVariablesList(
+					self.SettingValueVariable
+				)
+
+				'''
+				self.debug(
+						'SettedLiargVariablesList is '+str(SettedLiargVariablesList)
+					)
+				'''
+				
+				#get the method and put the value as arguments
+				SettedValueMethod(*SettedLiargVariablesList)
+
+			except:
+
+				#direct
+				SettedValueMethod(self.SettingValueVariable)
+
+			#debug
+			
+
+			#Stop the setting
+			return {"HookingIsBool":False}
+
+		#/############################
+		# Case of a non method get 
+		#
+
+		else:
+
+			#map
+			'''
+			if type(self.SettingKeyVariable)==SYS.MapListClass:
+
+				#map
+				map(
+						lambda __MappedVariable:
+						self.__setitem__(
+							*__MappedVariable
+						),
+						self.SettingKeyVariable
+					)
+
+				#Return an output dict
+				return {"HookingIsBool":False}
+			else:
+			'''
+
+			#__setitem__ in the __dict__, this is an utility set
+			self.__dict__[
+				self.SettingKeyVariable
+			]=self.SettingValueVariable
+
+			#Return
+			return {'HookingIsBool':False}
 
 #</DefineClass>

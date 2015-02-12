@@ -15,7 +15,7 @@ class MakerClass(Initiator.InitiatorClass):
 				_MadeMyInt=0,
 				_MadeMyList=None,
 				):
-		pass
+		Initiator.InitiatorClass.__init__(self)
 
 	def do_make(self):
 
@@ -35,18 +35,18 @@ MyMaker=MakerClass(
 	_MakingMyList=['hello'],
 	**{'MakingFirstInt':3}
 	).superDo_make(
-		3.,['bonjour'],
+		3.,
 		_SecondInt=5
 	)
 
-print('MyMaker is ')
-SYS._print(MyMaker)
+print('MyMaker.getDo() is ')
+SYS._print(MyMaker.getDo())
 
 print('we reset doing')
 MyMaker.setDoing(MakerClass)
 
-print('MyMaker after set doing is ')
-SYS._print(MyMaker)
+print('MyMaker.getDo() after set doing is ')
+SYS._print(MyMaker.getDo())
 
 #Add
 AttestingStrsList=[

@@ -1,38 +1,55 @@
 
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Standards.Itemizers import Itemizer
 
-class MakerClass(Itemizer.ItemizerClass):
+@SYS.ClasserClass()
+class MakerClass(SYS.ItemizerClass):
 	
-	def __getitem__(self,_KeyVariable):
+	def default_init(self,
+			_MakingMyFloat=0.,
+			_MadeMyInt=0
+		):
 
-		#Debug
-		print('_KeyVariable is ',_KeyVariable)
-		print('')
+		#call the init base method
+		SYS.ItemizerClass.__init__(self)
 
-		#return 
-		return object.__getattribute__(self,
-						'My'+str(_KeyVariable)+'Int'
-					)
+	def do_make(self):
 
-#Definition of a derive maker itemizer class
-MyMaker=MakerClass()
-MyMaker.My1Int=1
-		
-#Definition the AttestedStr
-SYS._attest(
-	[
-		'MyMaker is'+SYS._str(
-			MyMaker,
-			**{
-				'RepresentingAlineaIsBool':False,
-			}
-		),
-		'MyMaker[1] is '+str(MyMaker[1]),
-		#'MyMaker.Item_1 is '+str(MyMaker.Item_1),
-	]
-) 
+		#set
+		self.MadeMyInt=self.MakingMyFloat
 
-#Print
+#define and itemize just like a get
+MyMaker=MakerClass(
+	).itemize(
+		#ItemizingKeyVariable
+		'MakingMyFloat'
+	)
+
+#print
+print('MyMaker.getDo(SYS.ItemizerClass) for a simple get like is ')
+SYS._print(MyMaker.getDo(SYS.ItemizerClass))
+
+#define and itemize like a set
+MyMaker=MakerClass(
+	).itemize(
+		#ItemizingKeyVariable
+		'MakingMyFloat',
+		#ItemizingValueVariable
+		3.
+	)
+
+#print
+print('MyMaker.getDo(SYS.ItemizerClass) for a set like is ')
+SYS._print(MyMaker.getDo(SYS.ItemizerClass))
+
+#define and itemize
+MyMaker=MakerClass(
+	).itemize(
+		#ItemizingKeyVariable
+		'make'
+	)
+
+#print
+print('MyMaker.getDo(SYS.ItemizerClass) for a get method like is ')
+SYS._print(MyMaker.getDo(SYS.ItemizerClass))
 

@@ -586,8 +586,11 @@ ShareYourSystem/Standards/Itemizers/Itemizer/001_DocumentDoc.md
 ShareYourSystem/Standards/Itemizers/Itemizer/001_GithubDoc.md
 ShareYourSystem/Standards/Itemizers/Itemizer/00_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Itemizer/01_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Itemizer/02_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Itemizer/03_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Itemizer/Readme.md
 ShareYourSystem/Standards/Itemizers/Itemizer/__init__.py
+ShareYourSystem/Standards/Itemizers/Itemizer/draft/00_ExampleDoc copy.md
 ShareYourSystem/Standards/Itemizers/Pather/001_DocumentDoc.md
 ShareYourSystem/Standards/Itemizers/Pather/00_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Pather/01_ExampleDoc.py

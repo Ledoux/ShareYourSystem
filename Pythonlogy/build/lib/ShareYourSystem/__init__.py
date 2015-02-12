@@ -491,6 +491,35 @@ def getIsNoneBool(_Variable):
 def getLocalFolderPathStr(_ModuleVariable):
 	return ShareYourSystemLocalFolderPathStr+_ModuleVariable
 
+def getNone(_KeyVariable,_ValueVariable):
+	return None
+
+def pick(_Variable,_GetVariablesList,_GetMethodStr='getattr'):
+
+	#Check
+	if _GetMethodStr=='getattr':
+
+		#return 
+		return map(
+				lambda __GetVariable:
+				getattr(
+					_Variable,
+					__GetVariable
+				),
+				_GetVariablesList
+			)
+	elif _GetMethodStr=='__getitem__':
+
+		#return 
+		return map(
+				lambda __GetVariable:
+				_Variable[__GetVariable],
+				_GetVariablesList
+			)
+
+
+
+
 def _filter(_Function,_List):
 	if sys.version[0]==2:
 		return filter(_Function,_List)
@@ -583,6 +612,9 @@ def unzip(_TuplesList,_IndexesList):
 def dictify(_TuplesList,_KeyIndexInt,_ValueIndexInt):
 	TuplesList=unzip(_TuplesList,[_KeyIndexInt,_ValueIndexInt])
 	return collections.OrderedDict(zip(TuplesList[0],TuplesList[1]))
+
+def listify(_List):
+	return map(lambda __ElementVariable:[__ElementVariable],_List)
 
 def where(_DictsList,_TuplesList,**_KwargsDict):
 

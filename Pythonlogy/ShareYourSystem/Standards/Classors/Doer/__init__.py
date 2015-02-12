@@ -49,14 +49,46 @@ def callDo(_InstanceVariable):
 		_InstanceVariable.__class__.DoMethodStr
 	)()
 
+def getDoing(_InstanceVariable,_DoClassVariable=None):
+
+	#check
+	if type(_DoClassVariable) in SYS.StrTypesList:
+		_DoClassVariable=getattr(
+			SYS,
+			SYS.getClassStrWithNameStr(_DoClassVariable)
+	)
+	elif _DoClassVariable==None:
+		_DoClassVariable=_InstanceVariable.__class__
+
+	#Debug
+	"""
+	print('l 83 Doer')
+	print('_DoClassVariable is ',_DoClassVariable)
+	print('')
+	"""
+
+	#call
+	return dict(
+		zip(
+		_DoClassVariable.DoingAttributeVariablesOrderedDict.keys(),
+		map(
+				lambda __DoneKeyStr:
+				getattr(_InstanceVariable,__DoneKeyStr),
+				_DoClassVariable.DoingAttributeVariablesOrderedDict.keys()
+			)
+		)
+	)
+
 def setDoing(_InstanceVariable,_DoClassVariable=None,**_KwargVariablesDict):
 
 	#check
-	if _DoClassVariable in SYS.StrTypesList:
+	if type(_DoClassVariable) in SYS.StrTypesList:
 		_DoClassVariable=getattr(
 			SYS,
 			SYS.getClassStrWithNameStr(_DoClassVariable)
 		)
+	elif _DoClassVariable==None:
+		_DoClassVariable=_InstanceVariable.__class__
 		
 	#call
 	_InstanceVariable.setDefault(
@@ -68,18 +100,57 @@ def setDoing(_InstanceVariable,_DoClassVariable=None,**_KwargVariablesDict):
 	#return
 	return _InstanceVariable
 
-def setDone(_InstanceVariable,_DoClassVariable=None,**_KwargVariablesDict):
+def getDone(_InstanceVariable,_DoClassVariable=None):
 
 	#check
-	if _DoClassVariable in SYS.StrTypesList:
+	if type(_DoClassVariable) in SYS.StrTypesList:
 		_DoClassVariable=getattr(
 			SYS,
 			SYS.getClassStrWithNameStr(_DoClassVariable)
 	)
+	elif _DoClassVariable==None:
+		_DoClassVariable=_InstanceVariable.__class__
 
 	#Debug
 	"""
-	print('l 74 Doer')
+	print('l 83 Doer')
+	print('_DoClassVariable is ',_DoClassVariable)
+	print('')
+	"""
+
+	#call
+	return dict(
+		zip(
+		_DoClassVariable.DoneAttributeVariablesOrderedDict.keys(),
+		map(
+				lambda __DoneKeyStr:
+				getattr(_InstanceVariable,__DoneKeyStr),
+				_DoClassVariable.DoneAttributeVariablesOrderedDict.keys()
+			)
+		)
+	)
+
+def setDone(_InstanceVariable,_DoClassVariable=None,**_KwargVariablesDict):
+
+	#Debug
+	'''
+	print('l 137 Doer setDone before check')
+	print('_DoClassVariable is ',_DoClassVariable)
+	print('')
+	'''
+
+	#check
+	if type(_DoClassVariable) in SYS.StrTypesList:
+		_DoClassVariable=getattr(
+			SYS,
+			SYS.getClassStrWithNameStr(_DoClassVariable)
+		)
+	elif _DoClassVariable==None:
+		_DoClassVariable=_InstanceVariable.__class__
+
+	#Debug
+	"""
+	print('l 153 Doer')
 	print('_DoClassVariable is ',_DoClassVariable)
 	print('')
 	"""
@@ -93,6 +164,14 @@ def setDone(_InstanceVariable,_DoClassVariable=None,**_KwargVariablesDict):
 
 	#return 
 	return _InstanceVariable
+
+def getDo(_InstanceVariable,_DoClassVariable=None):
+	
+	#call
+	return dict(
+			_InstanceVariable.getDoing(_DoClassVariable),
+			**_InstanceVariable.getDone(_DoClassVariable)
+		)
 
 def setDo(_InstanceVariable,_DoClassVariable=None,**_KwargVariablesDict):
 
@@ -503,6 +582,9 @@ class DoerClass(BaseClass):
 						locals()[DoDecorationMethodStr]
 					)
 
+			#set a pointer to the fundamental class
+			locals()[DoDecorationMethodStr].DoClass=DoClass
+
 			#Set maybe if not already
 			if hasattr(DoClass,'setDo')==False:
 
@@ -515,7 +597,11 @@ class DoerClass(BaseClass):
 								__SetUnboundMethod.__name__,
 								__SetUnboundMethod
 							),
-					[setDo,setDoing,setDone,callDo]
+					[
+						getDo,getDoing,getDone,
+						setDo,setDoing,setDone,
+						callDo
+					]
 				)
 
 		#Add to the KeyStrsList

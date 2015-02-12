@@ -8,22 +8,7 @@ MyGetter.MyInt=1
 MyGetter.MyStr="hello"
 		
 #print
-'''
-print(
-	'__getitem__ ["MyInt","MyStr"] returns '+str(
-		MyGetter[
-			SYS.MapListClass(['MyInt','MyStr'])
-		]
-	)
-)
-'''
-print(
-	map(
-		lambda __GetKeyVariable:
-		MyGetter.get(__GetKeyVariable).GettedValueVariable,
-		['MyInt','MyStr']
-		)
-)
-
+print("MyGetter['map*get']('MyInt','MyStr').ItemizedMapVariablesList gives")
+print(MyGetter['map*get']('MyInt','MyStr').ItemizedMapVariablesList)
 
 

@@ -22,15 +22,7 @@ SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
-Itemizer=BaseModule
 #</ImportSpecificModules>
-
-#<DefineLocals>
-def getMapList(_LiargVariablesList):
-	return SYS.listify(_LiargVariablesList)
-def getLiargVariablesList(_ValueVariable):
-	return [_ValueVariable]
-#</DefineLocals>
 
 #<DefineClass>
 @DecorationClass()
@@ -39,13 +31,11 @@ class GetterClass(BaseClass):
 	#Definition
 	RepresentingKeyStrsList=[
 									'GettingKeyVariable',
-									'GettingItemBool',
 									'GettedValueVariable'
 								]
 
 	def default_init(self,
 						_GettingKeyVariable=None,
-						_GettingItemBool=True,
 						_GettedValueVariable=None,
 						**_KwargVariablesDict
 					):
@@ -80,96 +70,41 @@ class GetterClass(BaseClass):
 		""" """
 
 		#debug
-		'''
 		self.debug(
-			[
-				("self.",self,[
-						'GettingKeyVariable',
-						'NameStr'
-					]
-				)
-			]
+			("self.",self,[
+					'GettingKeyVariable',
+					'NameStr'
+				])
 		)
-		'''
-
+		
 		#itemize first
-		if self.GettingItemBool:
+		self.itemize(
+				self.GettingKeyVariable
+			)
 
-			#debug
-			'''
-			self.debug('first we itemize')
-			'''
 
-			#Check
-			if self.GettingKeyVariable==Itemizer.ItemMapPrefixStr+'get':
 
-				#set
-				self.ItemizingMapGetVariable='GettedValueVariable'
+		#Check
+		'''
+		if type(self.GettingKeyVariable)==SYS.MapListClass:
 
-			#itemize
-			self.itemize(
+			#map
+			self.GettedValueVariable=map(
+					lambda __MappedVariable:
+					self.__getitem__(
+						__MappedVariable
+					),
 					self.GettingKeyVariable
 				)
 
-			#Check
-			if self.GettingKeyVariable==Itemizer.ItemMapPrefixStr+'get':
-
-				#set
-				self.GettingItemBool=False
-
-		else:
-
-			#set
-			self.ItemizedValueMethod=None
-
-		
-
-		#/############################
-		# Case of a method get 
-		#
-
-		#debug
-		'''
-		self.debug(
-				('self.',self,['ItemizedValueMethod'])
-			)
-		'''
-
-		#Check 
-		if self.ItemizedValueMethod!=None:
-
-			#debug
-			'''
-			self.debug(
-				[
-					'This is a method get',
-					('self.',self,[
-						'ItemizedValueMethod',
-						'ItemizingMapGetVariable'
-						]
-					)
-				]
-			)
-			'''
-
-			#alias
-			self.GettedValueVariable=self.ItemizedValueMethod
-
-			#Stop the getting
+			#Return an output dict
 			return {"HookingIsBool":False}
 
-		#/############################
-		# Case of a non method get 
-		#
-
+		#Check
 		elif type(self.GettingKeyVariable) in [str,unicode]:
+		'''
 
-			#debug
-			'''
-			self.debug(
-					'This is a non method get'
-				)
-			'''
+		if type(self.GettingKeyVariable) in [str,unicode]:
 
 			#Get safely the Value
 			if self.GettingKeyVariable in self.__dict__:
@@ -188,7 +123,7 @@ class GetterClass(BaseClass):
 							]
 						)
 				'''
-
+				
 				#Stop the getting
 				return {"HookingIsBool":False}
 				

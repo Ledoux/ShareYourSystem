@@ -15,7 +15,7 @@ from the propertized value setted at the level of the class
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Itemizers.Applyier"
+BaseModuleStr="ShareYourSystem.Standards.Itemizers.Setter"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -33,10 +33,10 @@ class AttributerClass(BaseClass):
 
 	#Definition
 	RepresentingKeyStrsList=[
-									'AttributingKeyStr',
-									'AttributingValueVariable',
-									'AttributedSetKeyStr'
-								]
+								'AttributingKeyStr',
+								'AttributingValueVariable',
+								'AttributedSetKeyStr'
+							]
 
 	def default_init(self,  
 						_AttributingKeyStr="",

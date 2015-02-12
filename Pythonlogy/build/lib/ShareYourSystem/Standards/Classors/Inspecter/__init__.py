@@ -77,7 +77,8 @@ class InspecterClass(BaseClass):
 
 		#Add to the KeyStrsList
 		InspectedClass.KeyStrsList+=[
-									'InspectedArgumentDict',
+									'InspectedMethodDict',
+									'InspectedArgumentDict'
 								]
 
 #</Define_Class>
