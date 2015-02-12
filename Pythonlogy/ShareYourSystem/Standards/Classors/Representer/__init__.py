@@ -883,7 +883,7 @@ class RepresenterClass(BaseClass):
 
 		#Bound and set in the InspectedOrderedDict
 		RepresentedClass.__repr__=represent
-		RepresentedClass.InspectedArgumentDict['__repr__']=SYS.getArgumentDictWithFunction(
+		RepresentedClass.InspectedArgumentDict['__repr__']=SYS.ArgumentDict(
 			RepresentedClass.__repr__)
 
 #</DefineClass>

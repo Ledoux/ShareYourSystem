@@ -24,14 +24,8 @@ import collections
 import inspect
 #</ImportSpecificModules>
 
-#<DefineFunction>
-def getInspectedUnboundMethodsListWithClass(_Class):
-	return SYS._filter(
-			lambda __AttributeVariable:
-			type(__AttributeVariable).__name__=="function",
-			_Class.__dict__.values()
-			)
-#<DefineFunction>
+#<DefineLocals>
+#</DefineLocals>
 
 #<DefineClass>
 @DecorationClass()
@@ -64,17 +58,22 @@ class InspecterClass(BaseClass):
 		print('')
 		'''
 		
-		#Get the Args
+		#Get the Methods
+		InspectedClass.InspectedMethodDict=SYS.MethodDict(InspectedClass)
+
+		#dict
 		InspectedClass.InspectedArgumentDict=dict(
-								map(	
-									lambda __Function:
-									(
-										__Function.__name__,
-										SYS.getArgumentDictWithFunction(__Function)
-									),
-									getInspectedUnboundMethodsListWithClass(InspectedClass)
-								)
-							)
+			map(	
+					lambda __MethodItemTuple:
+					(
+						__MethodItemTuple[0],
+						SYS.ArgumentDict(
+							__MethodItemTuple[1]
+						)
+					),
+					InspectedClass.InspectedMethodDict.items()
+				)
+			)
 
 		#Add to the KeyStrsList
 		InspectedClass.KeyStrsList+=[

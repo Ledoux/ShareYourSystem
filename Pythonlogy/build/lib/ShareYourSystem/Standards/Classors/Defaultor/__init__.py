@@ -276,7 +276,7 @@ class DefaultorClass(BaseClass):
 			InitWrapUnboundMethod=getattr(_Class,DefaultWrapMethodStr) if hasattr(_Class,DefaultWrapMethodStr) else DefaultInitFunction
 
 			#set the DefaultDict
-			_Class.InitArgumentDict=SYS.getArgumentDictWithFunction(InitWrapUnboundMethod)
+			_Class.InitArgumentDict=SYS.ArgumentDict(InitWrapUnboundMethod)
 
 			#Definition the DefaultAttributeItemTuplesList
 			DefaultAttributeItemTuplesList=map(

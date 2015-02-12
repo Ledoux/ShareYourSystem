@@ -1,22 +1,26 @@
 #ImportModules
 import ShareYourSystem as SYS
 
-#Definition a FooClass decorated by the ClassorClass
+#define
 @SYS.InspecterClass()
 class MakerClass(SYS.InitiatorClass):
-	def make(self,
-			_MakingStr,
-			_MakingInt=0,
+
+	def default_init(self,
+			_MakingMyStr,
+			_MakingMyInt=0,
 			**_KwargVariablesDict
 		):
-		self.__class__.__bases__[0].__init__(self,**_KwargVariablesDict)
+		SYS.InitiatorClass.__init__(self,**_KwargVariablesDict)
 
-#Definition the AttestedStr
-SYS._attest(
-	[
-		'MakerClass.InspectedArgumentDict is '+SYS._str(MakerClass.InspectedArgumentDict)
-	]
-) 
+	def do_make(self):
 
+		#str
+		self.MadeMyStr=str(self.MakingMyStr)
+
+#print
+print('MakerClass.InspectedArgumentDict is ')
+SYS._print(
+		MakerClass.InspectedArgumentDict
+	)
+ 
 #Print
-

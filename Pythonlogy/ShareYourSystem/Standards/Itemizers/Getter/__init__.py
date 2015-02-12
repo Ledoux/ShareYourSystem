@@ -103,7 +103,9 @@ class GetterClass(BaseClass):
 			if self.GettingKeyVariable in self.__dict__:
 
 				#__getitem__ in the __dict__
-				self.GettedValueVariable=self.__dict__[self.GettingKeyVariable]
+				self.GettedValueVariable=self.__dict__[
+					self.GettingKeyVariable
+				]
 
 				#debug
 				'''
@@ -121,7 +123,9 @@ class GetterClass(BaseClass):
 			elif self.GettingKeyVariable in self.__class__.__dict__:
 
 				#__getitem__ in the __class__
-				self.GettedValueVariable=self.__class__.__dict__[self.GettingKeyVariable]
+				self.GettedValueVariable=self.__class__.__dict__[
+					self.GettingKeyVariable
+				]
 
 				#debug
 				'''

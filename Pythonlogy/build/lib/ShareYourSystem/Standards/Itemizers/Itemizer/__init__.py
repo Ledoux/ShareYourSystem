@@ -23,73 +23,41 @@ SYS.setSubModule(globals())
 #</ImportSpecificModules>
 
 #<DefineLocals>
-ItemizingPrefixStr="Item_"
+ItemizingMapPrefixStr="map_"
 #</DefineLocals>
 
 #<DefineClass>
 @DecorationClass()
 class ItemizerClass(BaseClass):
-	
-	pass
-	
-	"""
+
 	#Definition
 	RepresentingKeyStrsList=[
-									'ItemizingKeyVariable',
-									'ItemizedKeyVariable'
-								]
+								'ItemizingKeyVariable',
+								'ItemizedKeyVariable'
+							]
 
-	#@SYS.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':BaseClass.init}]})
 	def default_init(self,
 						_ItemizingKeyVariable=None,
-						_ItemizedKeyVariable=None,
+						_ItemizingValueVariable=None,
 						**_KwargVariablesDict
-					):
-		""" """		
+					):	
 
 		#Call the parent init method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
 	def do_itemize(self):
 
-		#Check
-		if self.ItemizingKeyVariable.startswith(ItemizingPrefixStr):
+		'''
+		if type(self.ItemizingKeyVariable)==str:
 
-			#split
-			self.ItemizedKeyVariable=ItemizingPrefixStr.join(
-				self.ItemizingKeyVariable.split(
-				ItemizingPrefixStr)[1:]
-			)
+			try:
+				self.ItemizedValueVariable=getattr(self,)
 
-			#debug
-			self.debug(
-						[
-							'go to a getitem get',
-							('self.',self,['ItemizingKeyVariable','ItemizedKeyVariable'])
-						]
-					)
+		if 
+		'''
 
-			#return	__getitem__
-			return self.__getitem__(self.ItemizedKeyVariable)
+		self.__class__.Inspected
 
-		else:
-
-			#debug
-			self.debug(
-						[
-							'classic object getattr...',
-							('self.',self,['ItemizingKeyVariable'])
-						]
-					)
-
-			#Return default getattr
-			return object.__getattribute__(self,self.ItemizingKeyVariable)
-
-	def __getattribute__(self,_KeyVariable):
-
-		#Itemize
-		return self.itemize(_KeyVariable)
-	"""
 
 #</DefineClass>
 

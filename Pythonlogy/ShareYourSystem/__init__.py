@@ -807,45 +807,6 @@ def getIndexTuplesList(__SizeTuple):
 		itertools.product(*map(xrange,__SizeTuple))
 	)
 
-
-def getArgumentDictWithFunction(_Function):
-
-	#Unpack
-	InputKeyStrList,ArgVariablesListKeyStr,KwargsVariablesDictKeyStr,DefaultVariablesList=inspect.getargspec(_Function)
-
-	#Init the Dict
-	ArgumentDict={}
-
-	#debug
-	'''
-	print('InputKeyStrList is',InputKeyStrList)
-	print('DefaultVariablesList is',DefaultVariablesList)
-	print('')
-	'''
-
-	#set
-	DefaultVariablesList=DefaultVariablesList if DefaultVariablesList!=None else []
-	
-	#Definition the DefaultIndexInt
-	ArgumentDict['DefaultIndexInt']=len(InputKeyStrList)-len(DefaultVariablesList)
-
-	#set the ArgumentOrderedDict
-	ArgumentDict.update([
-							('InputKeyStrsList',InputKeyStrList),
-							('LiargVariablesListKeyStr',ArgVariablesListKeyStr if ArgVariablesListKeyStr!=None else ""),
-							('KwargVariablesDictKeyStr',KwargsVariablesDictKeyStr if KwargsVariablesDictKeyStr!=None else ""),
-							('DefaultOrderedDict',collections.OrderedDict(
-								zip(
-									InputKeyStrList[ArgumentDict['DefaultIndexInt']:],
-									DefaultVariablesList
-									)
-								)
-							)
-						])
-
-	#Return
-	return ArgumentDict
-
 def getUnSerializedTuple(_Variable,_SerializedList):
 
 	#debug
@@ -923,6 +884,98 @@ PluralStrToSingularStrOrderedDict=dictify(ConceptStrsTuplesList,1,0)
 
 class MapListClass(list):
 	pass
+
+class MethodDict(collections.OrderedDict):
+
+	def __init__(self,_Class=None):
+
+		#set
+		self.Class=_Class
+
+		#init
+		collections.OrderedDict.__init__(self)
+
+		#init
+		self.MethodKeyStrsList=[]
+		self.UnboundMethodsList=[]
+
+		#Check
+		if _Class!=None:
+
+			#filter
+			self.MethodKeyStrsList=_filter(
+				lambda __KeyStr:
+				type(
+					getattr(
+						_Class,
+						__KeyStr
+					)
+				).__name__=='instancemethod',
+				dir(_Class)
+			)
+
+			#map
+			self.UnboundMethodsList=map(
+					lambda __MethodKeyStr:
+					getattr(_Class,__MethodKeyStr),
+					self.MethodKeyStrsList
+				)
+
+		#update
+		self.update(
+			zip(
+					self.MethodKeyStrsList,
+					self.UnboundMethodsList
+				)
+		)
+
+class ArgumentDict(collections.OrderedDict):
+
+	def __init__(self,_Function=None):
+
+		#set
+		self.Function=_Function
+
+		#init
+		collections.OrderedDict.__init__(self)
+
+		#Check
+		if _Function!=None:
+
+			#Unpack
+			InputKeyStrList,ArgVariablesListKeyStr,KwargsVariablesDictKeyStr,DefaultVariablesList=inspect.getargspec(
+				_Function
+			)
+
+			#debug
+			'''
+			print('InputKeyStrList is',InputKeyStrList)
+			print('DefaultVariablesList is',DefaultVariablesList)
+			print('')
+			'''
+
+			#set
+			DefaultVariablesList=DefaultVariablesList if DefaultVariablesList!=None else []
+		
+			#Definition the DefaultIndexInt
+			self['DefaultIndexInt']=len(InputKeyStrList)-len(DefaultVariablesList)
+
+			#set the ArgumentOrderedDict
+			self.update(
+				[
+					('InputKeyStrsList',InputKeyStrList),
+					('LiargVariablesListKeyStr',ArgVariablesListKeyStr if ArgVariablesListKeyStr!=None else ""),
+					('KwargVariablesDictKeyStr',KwargsVariablesDictKeyStr if KwargsVariablesDictKeyStr!=None else ""),
+					('DefaultOrderedDict',collections.OrderedDict(
+						zip(
+							InputKeyStrList[self['DefaultIndexInt']:],
+							DefaultVariablesList
+							)
+						)
+					),
+					('FunctionNameStr',_Function.__name__)
+				]
+			)
 #</DefineLocals>
 
 #<DefineClass>
