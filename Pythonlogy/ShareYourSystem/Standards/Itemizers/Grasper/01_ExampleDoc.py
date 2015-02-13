@@ -4,14 +4,10 @@ import ShareYourSystem as SYS
 
 #Explicit expression
 MyGrasper=SYS.GrasperClass(
-	).__setitem__(
-		'ChildGrasper',
-		SYS.GrasperClass(
-			).__setitem__(
-			'MyStr',
-			"hello"
-		)
-)
+	).set(
+		'/ChildGrasper/MyStr',
+		"hello"
+	)
 
 #Return
 SYS._attest(

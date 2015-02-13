@@ -65,7 +65,6 @@ setup(
 			 		'ShareYourSystem.Standards.Itemizers.Itemizer',
 			 		'ShareYourSystem.Standards.Itemizers.Getter',
 			 		'ShareYourSystem.Standards.Itemizers.Setter',
-			 		#'ShareYourSystem.Standards.Itemizers.Applyier',
 			 		'ShareYourSystem.Standards.Itemizers.Attributer',
 			 		'ShareYourSystem.Standards.Itemizers.Pather',
 			 		'ShareYourSystem.Standards.Itemizers.Grasper',

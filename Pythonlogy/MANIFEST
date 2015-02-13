@@ -549,8 +549,6 @@ ShareYourSystem/Standards/Itemizers/Commander/Test.py
 ShareYourSystem/Standards/Itemizers/Commander/__init__.py
 ShareYourSystem/Standards/Itemizers/Commander/draft/__init__ copy 2.py
 ShareYourSystem/Standards/Itemizers/Filterer/001_DocumentDoc.md
-ShareYourSystem/Standards/Itemizers/Filterer/001_GithubDoc.md
-ShareYourSystem/Standards/Itemizers/Filterer/002_GithubDoc.md
 ShareYourSystem/Standards/Itemizers/Filterer/01_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Filterer/Readme.md
 ShareYourSystem/Standards/Itemizers/Filterer/Test.py
@@ -560,6 +558,8 @@ ShareYourSystem/Standards/Itemizers/Getter/00_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Getter/01_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Getter/02_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Getter/03_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Getter/04_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Getter/05_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Getter/Readme.md
 ShareYourSystem/Standards/Itemizers/Getter/Test.py
 ShareYourSystem/Standards/Itemizers/Getter/__init__.py
@@ -583,6 +583,8 @@ ShareYourSystem/Standards/Itemizers/Itemizer/draft/00_ExampleDoc copy.md
 ShareYourSystem/Standards/Itemizers/Pather/001_DocumentDoc.md
 ShareYourSystem/Standards/Itemizers/Pather/00_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Pather/01_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Pather/02_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Pather/03_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Pather/Readme.md
 ShareYourSystem/Standards/Itemizers/Pather/Readme.md.md
 ShareYourSystem/Standards/Itemizers/Pather/Test.py

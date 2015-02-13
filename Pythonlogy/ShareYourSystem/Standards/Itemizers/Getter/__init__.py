@@ -40,12 +40,14 @@ class GetterClass(BaseClass):
 	RepresentingKeyStrsList=[
 									'GettingKeyVariable',
 									'GettingItemBool',
+									'GettingNewBool',
 									'GettedValueVariable'
 								]
 
 	def default_init(self,
 						_GettingKeyVariable=None,
 						_GettingItemBool=True,
+						_GettingNewBool=True,
 						_GettedValueVariable=None,
 						**_KwargVariablesDict
 					):
@@ -122,7 +124,8 @@ class GetterClass(BaseClass):
 			#set
 			self.ItemizedValueMethod=None
 
-		
+			#set
+			self.GettingItemBool=True
 
 		#/############################
 		# Case of a method get 
@@ -211,6 +214,41 @@ class GetterClass(BaseClass):
 
 				#Stop the getting
 				return {"HookingIsBool":False}
+
+			elif self.GettingNewBool:
+
+				#debug
+				self.debug(
+						[
+							'we are going to set a default value here',
+							('self.',self,['GettingKeyVariable'])
+						]
+					)
+
+				#get
+				GettedValueType=SYS.getTypeClassWithTypeStr(
+					SYS.getTypeStrWithKeyStr(
+						self.GettingKeyVariable)
+				)
+
+				#debug
+				self.debug('GettedValueType is '+str(GettedValueType))
+
+				#Check
+				if callable(GettedValueType):
+
+					#alias
+					self.GettedValueVariable=GettedValueType()
+
+					#set a default value
+					self.__setattr__(
+						self.GettingKeyVariable,
+						self.GettedValueVariable
+					)
+
+				#Stop the getting
+				return {"HookingIsBool":False}
+
 				
 		#set
 		self.GettedValueVariable=None

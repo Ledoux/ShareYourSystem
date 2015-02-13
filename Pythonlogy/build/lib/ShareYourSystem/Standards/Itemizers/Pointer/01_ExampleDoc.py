@@ -4,19 +4,12 @@ import ShareYourSystem as SYS
 
 #Explicit expression
 MyPointer=SYS.PointerClass(
-		).__setitem__(
-			'ChildPather',
-			SYS.PatherClass(
-				).__setitem__(
-					'GrandChildPather',
-					SYS.PatherClass()
-				)
+		).get(
+			'/ChildPather/GrandChildPather'
 		).point(
 			'/',
 			'/ChildPather/GrandChildPather/GrandParentPointer'
 		)
-
-
 
 #Return
 SYS._attest(

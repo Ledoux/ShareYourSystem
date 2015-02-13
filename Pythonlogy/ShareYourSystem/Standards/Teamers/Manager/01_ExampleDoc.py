@@ -20,6 +20,9 @@ MyManager.manage(
 #Set with a setitem access
 MyManager['$Third']=SYS.TeamerClass()
 
+#direct get
+print('MyManager.ThirdTeamer is ')
+print(MyManager.ThirdTeamer)
 
 #Print
 print('MyManager is ')

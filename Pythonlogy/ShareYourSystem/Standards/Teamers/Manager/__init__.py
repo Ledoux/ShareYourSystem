@@ -78,16 +78,11 @@ class ManagerClass(BaseClass):
 		#
 
 		#Init
-		self.TeamKeyStr=""
+		self.TeamKeyStr="Top"
 
 		#point
 		self.TeamPointDeriveTeamer=None
-
-	def mimic_apply(self):
-
-		#call the base method
-		BaseClass.apply(self)
-
+		
 	def do_manage(self):
 
 		#debug
@@ -135,7 +130,7 @@ class ManagerClass(BaseClass):
 
 			#set in the __dict__
 			self.__setattr__(
-					ManagementChildPrefixStr+self.ManagingKeyStr+type(
+					self.ManagingKeyStr+type(
 						self.ManagedValueVariable
 					).NameStr,
 					self.ManagedValueVariable

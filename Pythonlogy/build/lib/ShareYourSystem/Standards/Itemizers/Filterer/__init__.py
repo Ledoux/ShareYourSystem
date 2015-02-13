@@ -31,14 +31,14 @@ class FiltererClass(BaseClass):
 	#Definition
 	RepresentingKeyStrsList=[
 									'FilteringGraspVariable',
-									'FilteringGetKeyVariable',
+									'FilteringGetVariable',
 									'FilteredGraspVariable',
 									'FilteredGetValueVariable'
 								]
 
 	def default_init(self,
 				_FilteringGraspVariable=None,
-				_FilteringGetKeyVariable=None,
+				_FilteringGetVariable=None,
 				_FilteredGraspVariable=None,
 				_FilteredGetValueVariable=None,
 				**_KwargVariablesDict):
@@ -72,7 +72,7 @@ class FiltererClass(BaseClass):
 			self.debug(
 					(
 						'self.',self,[
-										'FilteringGetKeyVariable',
+										'FilteringGetVariable',
 										'ConcludedConditionIsBoolsList',
 									]+SYS.unzip(
 										self.ConcludingConditionTuplesList,[0]
@@ -80,11 +80,21 @@ class FiltererClass(BaseClass):
 					)
 				)
 			'''
-			
-			#Pick
-			self.FilteredGetValueVariable=self.__getitem__(
-					self.FilteringGetKeyVariable
-				)
+
+			#Check
+			if type(self.FilteringGetVariable)!=list:
+
+				#get
+				self.FilteredGetValueVariable=self.__getitem__(
+						self.FilteringGetVariable
+					)
+
+			else:
+
+				#map get
+				self.FilteredGetValueVariable=self['map*get'](
+						self.FilteringGetVariable
+					)
 
 
 #</DefineClass>

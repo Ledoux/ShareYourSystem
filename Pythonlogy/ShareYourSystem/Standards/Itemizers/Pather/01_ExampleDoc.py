@@ -64,8 +64,6 @@ MyPather.__setitem__(
 	MyPather['/']
 )
 
-MyPather['/ChildPather/GrandChildPather/GrandParent']=3
-
 #print
 print('MyPather is ')
 SYS._print(

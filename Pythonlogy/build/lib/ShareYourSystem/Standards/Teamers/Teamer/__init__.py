@@ -81,7 +81,7 @@ class TeamerClass(BaseClass):
 		#
 
 		#Init
-		self.ManagementKeyStr=""
+		self.ManagementKeyStr="Top"
 
 		#point
 		self.ManagementPointDeriveManager=None
@@ -91,7 +91,7 @@ class TeamerClass(BaseClass):
 		#
 
 		#Init
-		self.ManagementTeamKeyStr=""
+		self.ManagementTeamKeyStr="Tops"
 
 		#point
 		self.ManagementPointDeriveTeamer=None
@@ -144,7 +144,7 @@ class TeamerClass(BaseClass):
 
 			#set in the __dict__
 			self.__setattr__(
-					TeamChildPrefixStr+self.TeamingKeyStr+type(
+					self.TeamingKeyStr+type(
 						self.TeamedValueVariable
 					).NameStr,
 					self.TeamedValueVariable

@@ -37,9 +37,9 @@ class ParenterClass(BaseClass):
 								'ParentingTopGetVariable',
 								'ParentingClimbBool',
 								'ParentedDeriveTeamersList',
-								'ParentedManagerKeyStrsList',
-								'ParentedTeamerPathStr',
-								'ParentedManagerPathStr',
+								'ParentedManagementKeyStrsList',
+								'ParentedTeamPathStr',
+								'ParentedManagementPathStr',
 								'ParentedTotalPathStr',
 								'ParentedTopDeriveTeamerVariable'
 							]
@@ -48,9 +48,9 @@ class ParenterClass(BaseClass):
 				_ParentingTopGetVariable=None,
 				_ParentingClimbBool=True,
 				_ParentedDeriveTeamersList=None,
-				_ParentedManagerKeyStrsList=None,
-				_ParentedTeamerPathStr="",
-				_ParentedManagerPathStr="",
+				_ParentedManagementKeyStrsList=None,
+				_ParentedTeamPathStr="",
+				_ParentedManagementPathStr="",
 				_ParentedTotalPathStr="",
 				_ParentedTopDeriveTeamerVariable=None,
 				**_KwargVariablesDict
@@ -63,7 +63,7 @@ class ParenterClass(BaseClass):
 
 		#debug
 		self.debug(('self.',self,[
-					'ManagementPointDeriveTeamer',
+					#'ManagementPointDeriveTeamer',
 					'NameStr'
 				]))
 
@@ -78,59 +78,84 @@ class ParenterClass(BaseClass):
 			#Parent the parent maybe
 			if self.ParentingClimbBool:
 
+				#debug
+				self.debug('First we make parent the parent')
+
 				#parent the parent
 				self.ManagementPointDeriveTeamer.parent(
 						self.ParentingTopGetVariable,
 						self.ParentingClimbBool
 					)
 
-			#set
+				#debug
+				self.debug(
+						[
+							'Ok parent has parented',
+							('self.ManagementPointDeriveTeamer.',
+								self.ManagementPointDeriveTeamer,
+								['ParentedManagementKeyStrsList']
+							)
+						]
+					)
+
+			#add
 			self.ParentedDeriveTeamersList=[
 				self.ManagementPointDeriveTeamer
 			]+self.ManagementPointDeriveTeamer.ParentedDeriveTeamersList
 
-			self.ParentedManagerKeyStrsList=[
-				self.ManagementTeamKeyStr
-			]+self.ManagementPointDeriveTeamer.ParentedManagerKeyStrsList
-			self.ParentedManagerKeyStrsList.reverse()
+			#add
+			self.ParentedManagementKeyStrsList=[
+				self.ManagementKeyStr
+			]+self.ManagementPointDeriveTeamer.ParentedManagementKeyStrsList
+			self.ParentedManagementKeyStrsList.reverse()
+
+			#debug
+			self.debug(
+				('self.',self,['ParentedManagementKeyStrsList'])
+			)
 
 			#definition
-			ParentedTeamerPathStrsList=map(
+			ParentedTeamPathStrsList=map(
 					lambda __ParentedDeriveTeamer:
 					__ParentedDeriveTeamer.ManagementKeyStr,
 					self.ParentedDeriveTeamersList
 				)
-			ParentedTeamerPathStrsList.reverse()
+			ParentedTeamPathStrsList.reverse()
 
 			#definition
 			ParentedTotalPathTuplesList=map(
 					lambda __ParentedDeriveTeamer:
 					(
-						Manager.ManagementChildPrefixStr+__ParentedDeriveTeamer.ManagementTeamKeyStr,
-						Teamer.TeamChildPrefixStr+__ParentedDeriveTeamer.ManagementKeyStr
+						Teamer.TeamChildPrefixStr+__ParentedDeriveTeamer.ManagementTeamKeyStr
+						#if __ParentedDeriveTeamer.ManagementTeamKeyStr!=""
+						#else ""
+						,
+						Manager.ManagementChildPrefixStr+__ParentedDeriveTeamer.ManagementKeyStr
+						#if __ParentedDeriveTeamer.ManagementKeyStr!=""
+						#else ""
 					),
 					self.ParentedDeriveTeamersList
 				)
 			ParentedTotalPathTuplesList.reverse()
 
-			
 			#Debug
-			'''
 			self.debug('ParentedTotalPathTuplesList is '+str(ParentedTotalPathTuplesList))
-			'''
 			
 			#set
-			self.ParentedTeamerPathStr=Pather.PathPrefixStr.join(
+			self.ParentedTeamPathStr=Pather.PathPrefixStr+Pather.PathPrefixStr.join(
 				SYS.unzip(ParentedTotalPathTuplesList,[1])
 			)
-			self.ParentedManagerPathStr=Pather.PathPrefixStr.join(
+			self.ParentedManagementPathStr=Pather.PathPrefixStr+Pather.PathPrefixStr.join(
 				SYS.unzip(ParentedTotalPathTuplesList,[0])
 			)
-			self.ParentedTotalPathStr=Pather.PathPrefixStr.join(
+			self.ParentedTotalPathStr=Pather.PathPrefixStr+Pather.PathPrefixStr.join(
 				map(
 					lambda __ParentedTotalPathTuple:
-					__ParentedTotalPathTuple[0]+__ParentedTotalPathTuple[1],
-					ParentedTotalPathTuplesList
+					__ParentedTotalPathTuple[0
+					]+Pather.PathPrefixStr+__ParentedTotalPathTuple[1]
+					#if __ParentedTotalPathTuple[0]!=""
+					#else __ParentedTotalPathTuple[1]
+					,ParentedTotalPathTuplesList
 				)
 			)
 
@@ -140,17 +165,53 @@ class ParenterClass(BaseClass):
 			else:
 				self.ParentedTopDeriveTeamerVariable=self
 
-			#Link
-			self.apply(
-						'map*set',
-						zip(
-							self.ParentingTopGetVariable,
-							self.ParentedTopDeriveTeamerVariable.apply(
-									'map*get',
-									self.ParentingTopGetVariable
+			#debug
+			'''
+			self.debug(('self.',self,['ParentingTopGetVariable']))
+			'''
+			
+			#Check
+			if self.ParentingTopGetVariable!=None:
+
+				#Check
+				if type(self.ParentingTopGetVariable)==list:
+
+					#debug
+					'''
+					self.debug(
+							'This is a list'
+						)
+					'''
+					
+					#get
+					ParentedValueVariablesList=self.ParentedTopDeriveTeamerVariable[
+							'map*get'](
+											*self.ParentingTopGetVariable
+									).ItemizedMapVariablesList
+									
+					
+					#debug
+					'''
+					self.debug('ParentedValueVariablesList is '+str(ParentedValueVariablesList))
+					'''
+
+					#Link
+					self['map*set'](
+								zip(
+									self.ParentingTopGetVariable,
+									ParentedValueVariablesList
 								)
-							)
-					)
+						)
+
+				else:
+
+					#Link
+					self.set(
+							self.ParentingTopGetVariable,
+							self.ParentedTopDeriveTeamerVariable[
+								self.ParentingTopGetVariable
+							]
+						)
 
 		else:
 			self.ParentedTopDeriveTeamerVariable=self
