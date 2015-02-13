@@ -182,16 +182,19 @@ class SwitcherClass(BaseClass):
 						**{'ObservingWrapMethodStr':self.WatchedDecorationMethodStr}
 					)
 
+			#Define
+			SwitchedDecorationUnboundMethod=getattr(
+						self.DoClass,
+						self.BindedDecorationMethodStr
+					)
+
 			#Now make the amalgam
 			setattr(
 					self.DoClass,
 					self.SwitchingWrapMethodStr,
-					getattr(
-						self.DoClass,
-						self.BindedDecorationMethodStr
-					)
+					SwitchedDecorationUnboundMethod
 				)
-
+			
 			#Check
 			if hasattr(self.DoClass,'setSwitch')==False:
 				setattr(

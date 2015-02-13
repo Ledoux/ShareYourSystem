@@ -9,14 +9,14 @@ MyCommander=SYS.CommanderClass(
 		[
 			('MyStr',"hello"),
 			('MyInt',0),
-			('get',"MyInt"),
 			(
 				'map*set',
 				[
 					('MyFirstBool',True),
 					('MySecondBool',False),
 				]
-			)
+			),
+			('get',"MyInt")
 		]
 	)
 

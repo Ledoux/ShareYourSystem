@@ -236,7 +236,7 @@ class WatcherClass(BaseClass):
 						WatchedDoMethodStr,
 						self.BindedDecorationUnboundMethod
 					)
-
+				
 			else:
 
 				#set

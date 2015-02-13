@@ -124,17 +124,24 @@ class SetterClass(BaseClass):
 		#Check 
 		if self.ItemizedValueMethod!=None:
 
+			#debug
+			'''
+			self.debug('we are going to call the method but first get it')
+			'''
+
 			#get
 			SettedValueMethod=self[self.SettingKeyVariable]
 
 			#debug
+			'''
 			self.debug('SettedValueMethod is '+str(SettedValueMethod))
+			'''
 
 			#define
 			try:
 
 				#get
-				SettedLiargVariablesList=SettedValueMethod.im_func.DoClass.Module.getLiargVariablesList(
+				SettedLiargVariablesList=SettedValueMethod.im_func.BaseDoClass.Module.getLiargVariablesList(
 					self.SettingValueVariable
 				)
 
@@ -148,6 +155,11 @@ class SetterClass(BaseClass):
 				SettedValueMethod(*SettedLiargVariablesList)
 
 			except:
+
+				#debug
+				'''
+				self.debug('call the SettedValueMethod with self.SettingValueVariable directly')
+				'''
 
 				#direct
 				SettedValueMethod(self.SettingValueVariable)

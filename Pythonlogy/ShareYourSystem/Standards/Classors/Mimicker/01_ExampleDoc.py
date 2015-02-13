@@ -86,7 +86,12 @@ SYS._attest(
 	]
 ) 
 
-#Print
+#Check
+print('MakerClass.make.BaseDoClass is ')
+print(MakerClass.make.BaseDoClass)
+print('BuilderClass.make.BaseDoClass is ')
+print(BuilderClass.make.BaseDoClass)
+
 
 
 

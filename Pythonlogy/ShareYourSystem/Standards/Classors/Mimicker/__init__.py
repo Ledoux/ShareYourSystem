@@ -282,6 +282,9 @@ class MimickerClass(BaseClass):
 						self.MimickingDoMethodStr,
 						self.MimickedDecorationUnboundMethod
 					)
+
+			#set a pointer to the fundamental class
+			self.MimickedDecorationUnboundMethod.BaseDoClass=MimickedBaseClass
 		
 #</DefineClass>
 

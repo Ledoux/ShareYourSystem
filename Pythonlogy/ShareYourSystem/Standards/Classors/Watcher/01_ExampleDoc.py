@@ -57,4 +57,6 @@ SYS._attest(
 	]
 ) 
 
-#Print
+#Check that the watch_superDo_make has access to the BaseDoClass
+print('MakerClass.make.BaseDoClass is ')
+print(MakerClass.make.BaseDoClass)

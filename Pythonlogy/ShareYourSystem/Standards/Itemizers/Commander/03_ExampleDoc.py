@@ -8,7 +8,7 @@ SYS.GrasperClass.ShareCountInt=0
 #Set
 CommandingSetVariable=[
 	(
-		'apply*execute',
+		'execute',
 		';'.join(
 			[
 				'self.ShareCountInt=self.__class__.ShareCountInt',
@@ -20,8 +20,7 @@ CommandingSetVariable=[
 
 #define and command
 FirstCommander=SYS.CommanderClass(
-	).apply(
-			'map*set',
+	)['map*set'](
 			[
 				('FirstGrasper',SYS.GrasperClass()),
 				('SecondGrasper',SYS.GrasperClass()),
@@ -45,8 +44,7 @@ SYS.GrasperClass.ShareCountInt=0
 
 #define and command
 SecondCommander=SYS.CommanderClass(
-	).apply(
-		'map*set',
+	)['map*set'](
 		[
 				('FirstGrasper',SYS.GrasperClass()),
 				('SecondGrasper',SYS.GrasperClass()),

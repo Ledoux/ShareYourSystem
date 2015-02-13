@@ -530,17 +530,6 @@ ShareYourSystem/Standards/Itemizers/002_OuvatonDoc.md
 ShareYourSystem/Standards/Itemizers/1_GithubDoc.md
 ShareYourSystem/Standards/Itemizers/Readme.md
 ShareYourSystem/Standards/Itemizers/__init__.py
-ShareYourSystem/Standards/Itemizers/Applyier/001_DocumentDoc.md
-ShareYourSystem/Standards/Itemizers/Applyier/001_GithubDoc.md
-ShareYourSystem/Standards/Itemizers/Applyier/00_ExampleDoc.md
-ShareYourSystem/Standards/Itemizers/Applyier/01_ExampleDoc.py
-ShareYourSystem/Standards/Itemizers/Applyier/02_ExampleDoc.md
-ShareYourSystem/Standards/Itemizers/Applyier/03_ExampleDoc.py
-ShareYourSystem/Standards/Itemizers/Applyier/04_ExampleDoc.md
-ShareYourSystem/Standards/Itemizers/Applyier/05_ExampleDoc.py
-ShareYourSystem/Standards/Itemizers/Applyier/Readme.md
-ShareYourSystem/Standards/Itemizers/Applyier/Test.py
-ShareYourSystem/Standards/Itemizers/Applyier/__init__.py
 ShareYourSystem/Standards/Itemizers/Attributer/001_DocumentDoc.md
 ShareYourSystem/Standards/Itemizers/Attributer/001_GithubDoc.md
 ShareYourSystem/Standards/Itemizers/Attributer/002_GithubDoc.md

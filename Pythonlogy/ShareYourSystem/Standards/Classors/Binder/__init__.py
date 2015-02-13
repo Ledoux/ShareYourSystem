@@ -201,9 +201,17 @@ class BinderClass(BaseClass):
 						self.BindedDecorationUnboundMethod
 					)
 
+				#get
+				BindedWrapUnboundMethod=getattr(
+						self.DoClass,
+						self.ObservedWrapMethodStr
+					)
+
 				#Debug
 				'''
-				print('l 175 Binder')
+				print('l 212 Binder')
+				print('BindedWrapUnboundMethod is ')
+				print(BindedWrapUnboundMethod)
 				print('self.BindedDecorationMethodStr is ')
 				print(self.BindedDecorationMethodStr)
 				print('self.BindedDecorationUnboundMethod is ')
@@ -211,8 +219,13 @@ class BinderClass(BaseClass):
 				print('')
 				'''
 
-				#Return self
-				#return self
+				#link
+				try:
+					self.BindedDecorationUnboundMethod.BaseDoClass=BindedWrapUnboundMethod.BaseDoClass
+				except:
+					pass
+
+
 
 #</DefineClass>
 

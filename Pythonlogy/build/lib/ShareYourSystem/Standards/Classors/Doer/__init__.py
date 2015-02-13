@@ -583,7 +583,7 @@ class DoerClass(BaseClass):
 					)
 
 			#set a pointer to the fundamental class
-			locals()[DoDecorationMethodStr].DoClass=DoClass
+			locals()[DoDecorationMethodStr].BaseDoClass=DoClass
 
 			#Set maybe if not already
 			if hasattr(DoClass,'setDo')==False:

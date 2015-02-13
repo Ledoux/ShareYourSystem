@@ -102,16 +102,15 @@ class ItemizerClass(BaseClass):
 					self.debug(
 						[
 							'_MapLiargVariablesList is '+SYS._str(_MapLiargVariablesList),
-							('self.',self,[
-								'ItemizingMapGetVariable',
-								'ItemizedMapMethodStr'
-							])
+							'ItemizedMapMethodStr is '+ItemizedMapMethodStr,
+							'ItemizedMapMethod is '+str(ItemizedMapMethod),
+							'ItemizedMapMethod.im_func is '+str(ItemizedMapMethod.im_func)
 						]
 					)
 					'''
-					
+
 					#get
-					ItemizedMapClass=ItemizedMapMethod.im_func.DoClass
+					ItemizedMapClass=ItemizedMapMethod.im_func.BaseDoClass
 
 					#get
 					ItemizedMapList=ItemizedMapClass.Module.getMapList(
@@ -143,8 +142,7 @@ class ItemizerClass(BaseClass):
 						print('GetVariable is ')
 						print(GetVariable)
 						print('')
-					'''
-					
+					'''					
 
 					#Debug
 					'''

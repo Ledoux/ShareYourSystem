@@ -24,6 +24,28 @@ MySetter['map*set']={
 			'SecondObject':SYS.ObjectClass()
 		}
 
+#Set a map set
+MySetter.set(
+		'map*set',
+		{
+			'FirstInt':1,
+			'SecondInt':2
+		}
+	)
+
+#mapset a mapset
+MySetter['map*set'](
+	[
+		(
+			'map*set',
+			{
+				'FirstFloat':4.,
+				'SecondFloat':5.
+			}
+		)
+	]
+)
+
 #print
 print('MySetter is ')
 SYS._print(MySetter)
