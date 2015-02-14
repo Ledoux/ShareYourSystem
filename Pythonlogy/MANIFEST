@@ -596,11 +596,12 @@ ShareYourSystem/Standards/Itemizers/Pointer/Readme.md
 ShareYourSystem/Standards/Itemizers/Pointer/__init__.py
 ShareYourSystem/Standards/Itemizers/Setter/001_DocumentDoc.md
 ShareYourSystem/Standards/Itemizers/Setter/001_GithubDoc.md
-ShareYourSystem/Standards/Itemizers/Setter/002_GithubDoc.md
 ShareYourSystem/Standards/Itemizers/Setter/00_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Setter/01_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Setter/02_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Setter/03_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Setter/04_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Setter/05_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Setter/Readme.md
 ShareYourSystem/Standards/Itemizers/Setter/Test.py
 ShareYourSystem/Standards/Itemizers/Setter/__init__.py

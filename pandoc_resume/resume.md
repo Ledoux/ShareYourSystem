@@ -81,21 +81,21 @@ ShareYourSystem
 :    
 
     **Scientific data-mining application** <br> 
-    based on a Python-Javascript MVC framework <br>
-    Documentation : http://shareyoursystem.ouvaton.org/site <br>
-    Meteor GUI : http://shareyoursystem.meteor.com <br>
-    Git : https://github.com/Ledoux/ShareYourSystem <br>
+    based on a Python-Javascript hierarchic MVC framework <br>
+    see the [documentation](http://shareyoursystem.ouvaton.org/site), [Meteor GUI](http://shareyoursystem.meteor.com) (still under construction) <br>
+    It proposes a meta [object syntax](http://shareyoursystem.ouvaton.org/site/LibraryReference/Classors/), [Controller objects](http://shareyoursystem.ouvaton.org/site/LibraryReference/Storers/), [Model objects](http://shareyoursystem.ouvaton.org/site/LibraryReference/Databasers/) for synchronizing mongo and hdf5 databases client and server side, Viewer objects for their interactive UML representation through a Meteor patch. Applications to research by wrapping scientific tools like Brian for python neural networks simulations, or music analysis with vexflow and music21 are going to be soon published.
+    
 
-Informatic Tutorials 
+Web application toys
 :    
       
-    **ErwanLedoux Homepage** a basic php/html homepage 
+    **[ErwanLedoux Homepage](http://erwanledoux.ouvaton.org/)** a basic php/html homepage 
   
-    **NeuDraw**  a javascript application for drawing neurons in a canvas
+    **[NeuDraw](http://neudraw.ouvaton.org/)**  a javascript application for drawing neurons in a canvas
   
-    **Pasduforro** an ajax/MySQL application that lists some moves in forró
+    **[Pasduforro](http://pasduforro.ouvaton.org/)** an ajax/MySQL application that lists some moves in forró
   
-    **Scales** a Meteor application for building jazz voice leadings
+    **[Scales](http://shareyoursystem.meteor.org/Music)** a Meteor application for building jazz voice leadings (under construction)
 
 Talks
 --------------------

@@ -31,6 +31,10 @@ def getLiargVariablesList(_ValueVariable):
 	return _ValueVariable
 #</ImportSpecificModules>
 
+#<DefineLocals>
+SetEachPrefixStr="each*"
+#</DefineLocals>
+
 #<DefineClass>
 @DecorationClass()
 class SetterClass(BaseClass):
@@ -176,30 +180,76 @@ class SetterClass(BaseClass):
 
 		else:
 
-			#map
-			'''
-			if type(self.SettingKeyVariable)==SYS.MapListClass:
+			#Check
+			if type(self.SettingKeyVariable)==str and self.SettingKeyVariable.startswith(SetEachPrefixStr):
+
+				#get
+				SettedGetVariable=self[
+					SYS.deprefix(
+						self.SettingKeyVariable,
+						SetEachPrefixStr
+					)
+				]
+
+				#Check
+				if hasattr(SettedGetVariable,'values'):
+					SettedGetVariablesList=SettedGetVariable.values()
+				else:
+					SettedGetVariablesList=SettedGetVariable
+
+				#debug
+				'''
+				self.debug(
+					[
+						'SettedValueVariablesList is ',
+						SYS._str(SettedValueVariablesList)
+					]
+				)
+				'''
 
 				#map
 				map(
-						lambda __MappedVariable:
-						self.__setitem__(
-							*__MappedVariable
+						lambda __SettedGetVariable,__SettedValueVariable:
+						__SettedGetVariable.set(
+							*(
+								__SettedValueVariable.items()
+								if hasattr(__SettedValueVariable,'items')
+								else __SettedValueVariable
+							)
 						),
-						self.SettingKeyVariable
+						SettedGetVariablesList,
+						self.SettingValueVariable
 					)
 
-				#Return an output dict
-				return {"HookingIsBool":False}
+				#Return stop the setting
+				return {'HookingIsBool':False}
+
 			else:
-			'''
 
-			#__setitem__ in the __dict__, this is an utility set
-			self.__dict__[
-				self.SettingKeyVariable
-			]=self.SettingValueVariable
+				#map
+				'''
+				if type(self.SettingKeyVariable)==SYS.MapListClass:
 
-			#Return
-			return {'HookingIsBool':False}
+					#map
+					map(
+							lambda __MappedVariable:
+							self.__setitem__(
+								*__MappedVariable
+							),
+							self.SettingKeyVariable
+						)
+
+					#Return an output dict
+					return {"HookingIsBool":False}
+				else:
+				'''
+
+				#__setitem__ in the __dict__, this is an utility set
+				self.__dict__[
+					self.SettingKeyVariable
+				]=self.SettingValueVariable
+
+				#Return
+				return {'HookingIsBool':False}
 
 #</DefineClass>
