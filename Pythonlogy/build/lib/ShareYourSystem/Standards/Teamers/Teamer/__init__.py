@@ -29,7 +29,7 @@ from ShareYourSystem.Standards.Teamers import Manager
 #</ImportSpecificModules>
 
 #<DefineLocals>
-TeamChildPrefixStr='*'
+TeamChildPrefixStr='&'
 TeamParentManagerPrefixStr="<"
 class TeamDictClass(collections.OrderedDict):
 	def __init__(self,_Dict=None):
@@ -141,6 +141,22 @@ class TeamerClass(BaseClass):
 
 		#Check
 		if self.TeamedIsBool==False:
+
+			#/####################/#
+			# Case where it is a dict or tuples list like
+			# we wrap then in a manager new object
+
+			#Check
+			if hasattr(
+				self.TeamedValueVariable,
+				'items'
+			) or SYS.getIsTuplesListBool(self.TeamedValueVariable):
+
+				#init
+				self.TeamedValueVariable=Manager.ManagerClass(
+					)['map*set'](
+						self.TeamedValueVariable
+					)
 
 			#set in the __dict__
 			self.__setattr__(

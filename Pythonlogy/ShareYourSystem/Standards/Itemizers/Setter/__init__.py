@@ -181,7 +181,10 @@ class SetterClass(BaseClass):
 		else:
 
 			#Check
-			if type(self.SettingKeyVariable)==str and self.SettingKeyVariable.startswith(SetEachPrefixStr):
+			if type(self.SettingKeyVariable
+				)==str and self.SettingKeyVariable.startswith(
+				SetEachPrefixStr
+			):
 
 				#get
 				SettedGetVariable=self[
@@ -198,24 +201,26 @@ class SetterClass(BaseClass):
 					SettedGetVariablesList=SettedGetVariable
 
 				#debug
-				'''
 				self.debug(
 					[
-						'SettedValueVariablesList is ',
-						SYS._str(SettedValueVariablesList)
+						'SettedGetVariablesList is ',
+						SYS._str(SettedGetVariablesList),
+						('self.',self,['SettingValueVariable'])
 					]
 				)
-				'''
 
 				#map
 				map(
 						lambda __SettedGetVariable,__SettedValueVariable:
 						__SettedGetVariable.set(
-							*(
-								__SettedValueVariable.items()
-								if hasattr(__SettedValueVariable,'items')
-								else __SettedValueVariable
-							)
+							*__SettedValueVariable
+						)
+						if type(__SettedValueVariable) in [
+							list,tuple
+						] and len(__SettedValueVariable)==2
+						else
+						__SettedGetVariable['map*set'](
+							__SettedValueVariable
 						),
 						SettedGetVariablesList,
 						self.SettingValueVariable

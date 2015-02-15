@@ -15,8 +15,11 @@ MySetter=SYS.SetterClass(
 	).set(
 		'each*MyDict',
 		[
-			{'MyStr':"hello"},
-			{'MyInt':0}
+			{
+				'MyStr':"hello",
+				'MyInt':0
+			},
+			('MyFloat',5.)
 		]
 	)
 

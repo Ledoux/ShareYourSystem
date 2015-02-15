@@ -95,13 +95,7 @@ setup(
     )
 
 
-
 """
-			 		'ShareYourSystem.Standards.Noders.Noder',
-			 		'ShareYourSystem.Standards.Noders.Distinguisher',
-			 		'ShareYourSystem.Standards.Noders.Parenter',
-			 		'ShareYourSystem.Standards.Noders.Collecter',
-			 		'ShareYourSystem.Standards.Noders.Producer',
 			 		'ShareYourSystem.Standards.Noders.Arrayer',
 			 		'ShareYourSystem.Standards.Noders.Catcher',
 			 		'ShareYourSystem.Standards.Noders.Attentioner',

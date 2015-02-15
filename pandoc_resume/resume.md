@@ -53,14 +53,20 @@ Publications
 
 Journal Articles
 :    
-    
-    **Inferring synaptic connectivity of CA1 by computing transfer function** <br>
-    E. Ledoux and N. Brunel, in preparation 
+   
+    **Sustained oscillations in an antisymmetric neural rate model** <br>
+    C. Bimbard, E. Ledoux, S. Ostojic, in preparation <br>
 
-    **Transfer function of network with multiple types of interneurons** <br>
-    E. Ledoux and N. Brunel, in preparation 
- 
-    **Dynamics of networks of excitatory and inhibitory neurons in response to time-dependent inputs** <br>
+    **Predictive coding in sparse neural networks** <br>
+    E. Ledoux and S. Deneve, in preparation 
+
+    **Quantifying the speckles effect on the glutamate diffusion** <br>
+    E. Ledoux, B. Forget, V. Emiliani, in preparation <br>
+
+    **Inferring synaptic connectivity of CA1 by computing transfer function** <br>
+    E. Ledoux and N. Brunel, in preparation <br>
+
+    **[Dynamics of networks of excitatory and inhibitory neurons in response to time-dependent inputs](http://www.ncbi.nlm.nih.gov/pubmed/21647353)** <br>
     E. Ledoux and N. Brunel, Frontiers in Computational Neuroscience, 2011 
 
 Other
@@ -72,7 +78,13 @@ Other
     **Homeostasis in a pyloric network model based on constrained regulation of cellular properties** <br>
     E. Ledoux, Figures p.254 in Computational neuroscience in epilepsy, Ivan Soltesz and Kevin Staley, 2008 
 
-    **Abstrax articles**
+    **Comment révéler les communications scientifiques qui s'approprient le champ lexical du marketing ou celui des discours tautologiques ? **
+    [Qu’est ce qu’une science exacte ?](http://www.abstrax.fr/?p=658),
+    [Prêcher ou vulgariser, il faut choisir](http://www.abstrax.fr/?p=694),
+    [Parle-t-on toujours scientifiquement de la science ?](http://www.abstrax.fr/?p=669),
+    [La science est-elle forcément engagée ?](http://www.abstrax.fr/?p=922),
+    [Exemple d’un discours plaisant en neurosciences](http://www.abstrax.fr/?p=677),
+    [Quelques notions d’éthique en Neurosciences](http://www.abstrax.fr/?p=1064) 
 
 Applications
 --------------------
@@ -80,10 +92,10 @@ Applications
 ShareYourSystem
 :    
 
-    **Scientific data-mining application** <br> 
-    based on a Python-Javascript hierarchic MVC framework <br>
-    see the [documentation](http://shareyoursystem.ouvaton.org/site), [Meteor GUI](http://shareyoursystem.meteor.com) (still under construction) <br>
-    It proposes a meta [object syntax](http://shareyoursystem.ouvaton.org/site/LibraryReference/Classors/), [Controller objects](http://shareyoursystem.ouvaton.org/site/LibraryReference/Storers/), [Model objects](http://shareyoursystem.ouvaton.org/site/LibraryReference/Databasers/) for synchronizing mongo and hdf5 databases client and server side, Viewer objects for their interactive UML representation through a Meteor patch. Applications to research by wrapping scientific tools like Brian for python neural networks simulations, or music analysis with vexflow and music21 are going to be soon published.
+    **[Scientific data-mining application](http://shareyoursystem.ouvaton.org/site)** <br> 
+    based on a Python-Javascript hierarchic MVC framework (still under construction) <br>
+
+    It proposes a meta [object syntax](http://shareyoursystem.ouvaton.org/site/LibraryReference/Classors/) for making a source code and classes ontology more directly human-readable, [Model objects](http://shareyoursystem.ouvaton.org/site/LibraryReference/Databasers/) for synchronising mongo and hdf5 databases client and server-side, [Viewer objects](http://shareyoursystem.meteor.com/) for their interactive UML representation through a Meteor patch, [Controller objects](http://shareyoursystem.ouvaton.org/site/LibraryReference/Storers/) for establishing the interface between models and views, communication between python and js instances and the scope level for defining parameter and result variables characterising your scientific system. Applications to research by wrapping scientific tools like [Brian](http://briansimulator.org/) for python neural networks simulations, [vexflow](http://www.vexflow.com/)/[music21](http://web.mit.edu/music21/) for music analysis, or [hypothes.is](http://hypothes.is/) for supporting scientific web annotations are going to be soon published.
     
 
 Web application toys

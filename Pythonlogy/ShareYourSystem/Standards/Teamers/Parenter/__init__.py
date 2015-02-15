@@ -79,8 +79,10 @@ class ParenterClass(BaseClass):
 			if self.ParentingClimbBool:
 
 				#debug
+				'''
 				self.debug('First we make parent the parent')
-
+				'''
+				
 				#parent the parent
 				self.ManagementPointDeriveTeamer.parent(
 						self.ParentingTopGetVariable,

@@ -128,6 +128,22 @@ class ManagerClass(BaseClass):
 		#Check
 		if self.ManagedIsBool==False:
 
+			#/####################/#
+			# Case where it is a dict or tuples list like
+			# we wrap then in a teamer new object
+
+			#Check
+			if hasattr(
+				self.ManagedValueVariable,
+				'items'
+			) or SYS.getIsTuplesListBool(self.ManagedValueVariable):
+
+				#init
+				self.ManagedValueVariable=SYS.TeamerClass(
+					)['map*set'](
+						self.ManagedValueVariable
+					)
+
 			#set in the __dict__
 			self.__setattr__(
 					self.ManagingKeyStr+type(
@@ -228,9 +244,24 @@ class ManagerClass(BaseClass):
 			OutputDict["HookingIsBool"]=False 
 
 		#Check
+		elif self.GettingKeyVariable==ManagementChildPrefixStr:
+
+			#debug
+			'''
+			self.debug('We get all the children teams')
+			'''
+
+			#return
+			self.GettedValueVariable=self.ManagementDict
+
+			#Stop the getting
+			OutputDict["HookingIsBool"]=False 
+
 		elif type(
 			self.GettingKeyVariable
-		)==str and self.GettingKeyVariable.startswith(ManagementChildPrefixStr):
+		)==str and self.GettingKeyVariable.startswith(
+			ManagementChildPrefixStr
+		):
 
 			#debug
 			'''

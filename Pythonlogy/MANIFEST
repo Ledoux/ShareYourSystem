@@ -925,6 +925,10 @@ ShareYourSystem/Standards/Teamers/Manager/00_ExampleDoc.md
 ShareYourSystem/Standards/Teamers/Manager/01_ExampleDoc.py
 ShareYourSystem/Standards/Teamers/Manager/02_ExampleDoc.md
 ShareYourSystem/Standards/Teamers/Manager/03_ExampleDoc.py
+ShareYourSystem/Standards/Teamers/Manager/04_ExampleDoc.md
+ShareYourSystem/Standards/Teamers/Manager/05_ExampleDoc.py
+ShareYourSystem/Standards/Teamers/Manager/06_ExampleDoc.md
+ShareYourSystem/Standards/Teamers/Manager/07_ExampleDoc.py
 ShareYourSystem/Standards/Teamers/Manager/Readme.md
 ShareYourSystem/Standards/Teamers/Manager/Test.py
 ShareYourSystem/Standards/Teamers/Manager/__init__.py
@@ -942,6 +946,8 @@ ShareYourSystem/Standards/Teamers/Teamer/02_ExampleDoc.md
 ShareYourSystem/Standards/Teamers/Teamer/03_ExampleDoc.py
 ShareYourSystem/Standards/Teamers/Teamer/04_ExampleDoc.md
 ShareYourSystem/Standards/Teamers/Teamer/05_ExampleDoc.py
+ShareYourSystem/Standards/Teamers/Teamer/06_ExampleDoc.md
+ShareYourSystem/Standards/Teamers/Teamer/07_ExampleDoc.py
 ShareYourSystem/Standards/Teamers/Teamer/Readme.md
 ShareYourSystem/Standards/Teamers/Teamer/Test.py
 ShareYourSystem/Standards/Teamers/Teamer/__init__.py

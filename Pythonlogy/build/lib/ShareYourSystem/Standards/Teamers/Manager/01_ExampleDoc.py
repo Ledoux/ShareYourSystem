@@ -17,7 +17,7 @@ MyManager.manage(
 		SYS.TeamerClass()
 	)
 
-#Set with a setitem access
+#Set with a setitem access and the symbolic shortcut
 MyManager['$Third']=SYS.TeamerClass()
 
 #direct get
@@ -27,3 +27,10 @@ print(MyManager.ThirdTeamer)
 #Print
 print('MyManager is ')
 SYS._print(MyManager)
+
+#We can have all the ordereddict with the symbolic shortcut get
+#Print
+print("MyManager['$'] is ")
+SYS._print(MyManager['$'])
+
+
