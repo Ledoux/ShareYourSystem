@@ -13,7 +13,7 @@ Arrayer instances
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Itemizers.Setter"
+BaseModuleStr="ShareYourSystem.Standards.Itemizers.Conditioner"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -50,36 +50,35 @@ class ArrayerClass(BaseClass):
 			# Adapt the shape of the ValueVariable
 			#
 
+			#list default
+			ArrayedLocalValueVariablesList=[]
+			ArrayedDeepValueVariablesList=[]
+
 			#Check
-			if SYS.getIsTuplesListBool(self.ArrayingValueVariable[0]) or hasattr(
-				self.ArrayingValueVariable[0],'items'):
+			if self.ArrayingValueVariable!=None and len(self.ArrayingValueVariable)>0:
 
-			 	#debug
-			 	self.debug('This is an identical array setting')
+				#Check
+				if SYS.getIsTuplesListBool(self.ArrayingValueVariable[0]) or hasattr(
+					self.ArrayingValueVariable[0],'items'):
 
-			 	#list
-			 	ArrayedLocalValueVariablesList=[self.ArrayingValueVariable[0]]*len(
-			 		self.ArrayingKeyVariablesList
-			 	)
-			 	ArrayedDeepValueVariablesList=self.ArrayingValueVariable[1:]
+				 	#debug
+				 	self.debug('This is an identical array setting')
 
-			elif self.ArrayingValueVariable!=None and len(self.ArrayingValueVariable)>0:
+				 	#list
+				 	ArrayedLocalValueVariablesList=[self.ArrayingValueVariable[0]]*len(
+				 		self.ArrayingKeyVariablesList
+				 	)
+				 	ArrayedDeepValueVariablesList=self.ArrayingValueVariable[1:]
 
-				#debug
-			 	self.debug('This is an original setting')
+				elif self.ArrayingValueVariable!=None and len(self.ArrayingValueVariable)>0:
 
-			 	#split
-				ArrayedLocalValueVariablesList=self.ArrayingValueVariable[0]
-				ArrayedDeepValueVariablesList=self.ArrayingValueVariable[1:]
+					#debug
+				 	self.debug('This is an original setting')
 
-			else:
-
-				#debug
-			 	self.debug('There is no identical or original setting')
-
-			 	#list default
-				ArrayedLocalValueVariablesList=[]
-				ArrayedDeepValueVariablesList=[]
+				 	#split
+					ArrayedLocalValueVariablesList=self.ArrayingValueVariable[0]
+					ArrayedDeepValueVariablesList=self.ArrayingValueVariable[1:]
+			 	
 
 			#/####################/#
 			# Case where we have to set and then array deeper

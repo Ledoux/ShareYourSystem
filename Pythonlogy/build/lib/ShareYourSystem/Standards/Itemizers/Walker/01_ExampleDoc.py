@@ -6,22 +6,28 @@ import ShareYourSystem as SYS
 MyWalker=SYS.WalkerClass(
 	).array(
 		[
-			["AWalker","BWalker"],
-			["1Walker","2Walker"],
-			["aWalker","bWalker"]
+			["ATextWalker","BTextWalker"],
+			["1TextWalker","2TextWalker"],
+			["aTextWalker","bTextWalker"]
 		]
 	)	
-)
 
 #Walk inside the Tree in order to parent again because the tree was not yet completely setted when it was done
 MyWalker.walk(
 		#WalkingSocketDict
 		{
-			'BeforeUpdateList':
-			[
-
-			],
-			'GraspVariable':['<Walkers>']
+			'BeforeCommandVariable':
+			(
+				'/',
+				{
+					'MyInt':0
+				}
+			),
+			'RouteGetVariable':{
+				'ConditionTuplesList':[
+					('DictKeyStr',SYS.operator.contains,'Text')
+				]
+			}
 		}
 	)
 
@@ -29,5 +35,4 @@ MyWalker.walk(
 #print
 print('MyWalker is ')
 SYS._print(MyWalker)
-
 

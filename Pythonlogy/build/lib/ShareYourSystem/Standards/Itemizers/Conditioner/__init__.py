@@ -87,8 +87,19 @@ class ConditionerClass(BaseClass):
 		#Check
 		if self.ConditioningInstanceVariable!=None:
 
+			#debug
+			self.debug(
+				[
+					'self.ConditioningInstanceVariable!=None',
+					('self.',self,['ConditioningTestVariable'])
+				]
+			)
+
 			#Check
 			if self.ConditioningTestVariable in self.ConditioningTypesList:
+
+				#debug
+				self.debug('This is a call condition')
 
 				#call
 				self.ConditionedTestVariable=self.ConditioningTestVariable(
@@ -97,23 +108,43 @@ class ConditionerClass(BaseClass):
 
 			else:
 				
+				#debug
+				self.debug('Maybe it is get condition')
+
 				#try
 				if type(
 					self.ConditioningTestVariable
 				)==str or (
 				hasattr(
 					self.ConditioningTestVariable,'items'
-				) and 'GetKeyVariable' in self.ConditioningTestVariable or 'ConditionTuplesList' in self.ConditioningTestVariable
+				) and ('GetKeyVariable' in self.ConditioningTestVariable or 'ConditionTuplesList' in self.ConditioningTestVariable)
 				):
 
-					try:
-				
-						#get
-						self.ConditionedTestVariable=self.ConditioningInstanceVariable[
-							self.ConditioningTestVariable
-						]
+					#Check
+					if hasattr(self.ConditioningInstanceVariable,'__getitem__'):
 
-					except:
+						#debug
+						self.debug(
+							[
+								'This is a condition get',
+								('self.',self,['ConditioningInstanceVariable'])
+							]
+						)
+
+						#try
+						try:
+					
+							#get
+							self.ConditionedTestVariable=self.ConditioningInstanceVariable[
+								self.ConditioningTestVariable
+							]
+
+						except:
+
+							#pass
+							pass
+
+					else:
 
 						#debug
 						'''
@@ -129,6 +160,11 @@ class ConditionerClass(BaseClass):
 						#return 
 						return
 
+				else:
+
+					#set
+					self.ConditionedTestVariable=self.ConditioningTestVariable
+
 		#/####################/#
 		# Case where the InstanceVariable is None but... there is ConditioningTestVariable...
 		# it is necessary false if ConditioningTestVariable asks for a get or a call
@@ -140,7 +176,8 @@ class ConditionerClass(BaseClass):
 				)==str or (
 				hasattr(
 					self.ConditioningTestVariable,'items'
-					) and 'GetKeyVariable' in self.ConditioningTestVariable or 'ConditionTuplesList' in self.ConditioningTestVariable
+					) and (
+					'GetKeyVariable' in self.ConditioningTestVariable or 'ConditionTuplesList' in self.ConditioningTestVariable)
 				)
 			):
 
@@ -169,12 +206,20 @@ class ConditionerClass(BaseClass):
 		'''
 
 		#call
-		self.ConditionedIsBool=self.ConditioningGetBoolFunction(
-			self.ConditionedTestVariable,
-			self.ConditioningAttestVariable
-		)
+		try:
+
+			#call
+			self.ConditionedIsBool=self.ConditioningGetBoolFunction(
+				self.ConditionedTestVariable,
+				self.ConditioningAttestVariable
+			)
+		except:
+
+			#set
+			self.ConditionedIsBool=False
 
 		#debug
+		'''
 		self.debug(
 			('self.',self,[
 							'ConditioningInstanceVariable',
@@ -183,7 +228,8 @@ class ConditionerClass(BaseClass):
 							'ConditionedIsBool',
 						])
 		)
-		
+		'''
+
 	def mimic_get(self):
 
 		#debug
@@ -226,9 +272,11 @@ class ConditionerClass(BaseClass):
 			for __ConditionTestVariable in ConditionTestVariablesList:
 
 				#debug
+				'''
 				self.debug(
 						'__ConditionTestVariable is '+SYS._str(__ConditionTestVariable)
 					)
+				'''
 
 				#set
 				self.ConditioningInstanceVariable=__ConditionTestVariable
@@ -243,7 +291,9 @@ class ConditionerClass(BaseClass):
 					if self.ConditionedIsBool==False:
 
 						#debug
+						'''
 						self.debug('we break')
+						'''
 
 						#break
 						break
@@ -282,12 +332,14 @@ class ConditionerClass(BaseClass):
 			self.GettedValueVariable=GettedValueVariable
 
 			#debug
+			'''
 			self.debug(
 					[
 						'We have filtered',
 						('self.',self,['GettedValueVariable'])
 					]
 				)
+			'''
 
 			#stop the getting
 			return {"HookingIsBool":False}

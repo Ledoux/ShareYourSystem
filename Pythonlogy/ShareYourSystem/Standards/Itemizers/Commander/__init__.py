@@ -68,10 +68,18 @@ class CommanderClass(BaseClass):
 		#Check
 		if type(self.CommandingSetVariable)!=list:
 			
-			#list
-			self.CommandedSetVariablesList=[
-				self.CommandingSetVariable
-			]
+			#Check
+			if hasattr(self.CommandingSetVariable,'items'):
+
+				#items
+				self.CommandedSetVariablesList=self.CommandingSetVariable.items()
+
+			else:
+
+				#list
+				self.CommandedSetVariablesList=[
+					self.CommandingSetVariable
+				]
 
 		else:
 
@@ -90,10 +98,10 @@ class CommanderClass(BaseClass):
 
 			#map
 			map(
-					lambda __CommandedGraspVariable:
+					lambda __CommandedValueVariables:
 					map(
 						lambda __CommandedSetVariable:
-						__CommandedGraspVariable.set(
+						__CommandedValueVariables.set(
 							*__CommandedSetVariable
 						),
 						self.CommandedSetVariablesList
@@ -107,8 +115,8 @@ class CommanderClass(BaseClass):
 			map(
 					lambda __CommandedSetVariable:
 					map(
-						lambda __CommandedGraspVariable:
-						__CommandedGraspVariable.set(
+						lambda __CommandedValueVariables:
+						__CommandedValueVariables.set(
 							*__CommandedSetVariable
 						),
 						self.CommandedValueVariablesList

@@ -68,10 +68,18 @@ class CommanderClass(BaseClass):
 		#Check
 		if type(self.CommandingSetVariable)!=list:
 			
-			#list
-			self.CommandedSetVariablesList=[
-				self.CommandingSetVariable
-			]
+			#Check
+			if hasattr(self.CommandingSetVariable,'items'):
+
+				#items
+				self.CommandedSetVariablesList=self.CommandingSetVariable.items()
+
+			else:
+
+				#list
+				self.CommandedSetVariablesList=[
+					self.CommandingSetVariable
+				]
 
 		else:
 
