@@ -28,8 +28,7 @@ print(MyManager.ThirdTeamer)
 print('MyManager is ')
 SYS._print(MyManager)
 
-#We can have all the ordereddict with the symbolic shortcut get
-#Print
+#We can have all the ManagementDict with the symbolic shortcut get
 print("MyManager['$'] is ")
 SYS._print(MyManager['$'])
 

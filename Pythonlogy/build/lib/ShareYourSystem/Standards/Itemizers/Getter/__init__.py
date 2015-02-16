@@ -160,12 +160,13 @@ class GetterClass(BaseClass):
 
 			#Stop the getting
 			return {"HookingIsBool":False}
-
+		
 		#/############################
-		# Case of a non method get 
+		# Cases of a key str get 
 		#
 
-		elif type(self.GettingKeyVariable) in [str,unicode]:
+		#Check
+		if type(self.GettingKeyVariable) in [str,unicode]:
 
 			#debug
 			'''
@@ -224,7 +225,7 @@ class GetterClass(BaseClass):
 							('self.',self,['GettingKeyVariable'])
 						]
 					)
-
+				
 				#get
 				GettedValueType=SYS.getTypeClassWithTypeStr(
 					SYS.getTypeStrWithKeyStr(
@@ -232,7 +233,9 @@ class GetterClass(BaseClass):
 				)
 
 				#debug
+				'''
 				self.debug('GettedValueType is '+str(GettedValueType))
+				'''
 
 				#Check
 				if callable(GettedValueType):
@@ -249,7 +252,65 @@ class GetterClass(BaseClass):
 				#Stop the getting
 				return {"HookingIsBool":False}
 
-				
+
+		#/############################
+		# Cases of a dict GetKeyVariable get 
+		#
+
+		elif hasattr(self.GettingKeyVariable,'items'):
+
+			try:
+
+				#debug
+				self.debug('we get with the GetKeyVariable')
+
+				#get
+				self.GettedValueVariable=self[
+					self.GettingKeyVariable['GetKeyVariable']
+				]
+
+				#Stop the getting
+				return {"HookingIsBool":False}
+
+			except:
+
+				#debug
+				self.debug(
+					[
+						'we get with some conditions',
+						'self.GettingKeyVariable["ConditionTuplesList"] is ',
+						SYS._str(self.GettingKeyVariable['ConditionTuplesList'])
+					]
+				)
+
+				try:
+
+					#filter by concluding
+					self.GettedValueVariable=SYS.filterNone(
+						map(
+							lambda __ElementVariable:
+							__ElementVariable
+							if self.conclude(
+										__ElementVariable,
+										self.GettingKeyVariable['ConditionTuplesList']
+									).ConcludedIsBool
+							else None,
+							self.__dict__.values()
+						)
+					)
+
+					#Stop the getting
+					return {"HookingIsBool":False}
+
+				except:
+
+					#pass
+					pass
+
+
+			#Stop the getting
+			return {"HookingIsBool":False}
+
 		#set
 		self.GettedValueVariable=None
 

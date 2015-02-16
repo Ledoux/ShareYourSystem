@@ -2,19 +2,18 @@
 #ImportModules
 import ShareYourSystem as SYS
 
-#define and team
+#define and get two children
 MyManager=SYS.ManagerClass(
-	)['map*set'](
-		{
-			'$First':{
-				'MyInt':0
-			},
-			'$Second':{
-				'MyFloat':5.
-			}
-		}
-	)
+	)['map*get']('$First','$Second')
 
+MyManager['each*$']=[
+	{
+		'MyInt':0
+	},
+	{
+		'MyStr':"hello"
+	}
+]
 
 #print
 print('MyManager is ')

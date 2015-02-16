@@ -15,7 +15,7 @@ from the propertized value setted at the level of the class
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Itemizers.Setter"
+BaseModuleStr="ShareYourSystem.Standards.Itemizers.Arrayer"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>

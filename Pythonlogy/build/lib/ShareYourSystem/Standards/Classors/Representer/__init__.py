@@ -130,8 +130,18 @@ def getRepresentedStrWithDictatedVariable(
 
 	#Scan the Items (integrativ loop)
 	if type(_DictatedVariable)!=dict and hasattr(_DictatedVariable,"items"):
+		
+		#debug
+		print('l 135 Representer')
+		print('_DictatedVariable is ')
+		print(_DictatedVariable)
+		print('')
+
+		#items
 		RepresentedTuplesList=_DictatedVariable.items()
 	else:
+
+		#sort
 		RepresentedTuplesList=sorted(
 			_DictatedVariable.iteritems(), key=lambda key_value: key_value[0]
 		)
@@ -309,7 +319,7 @@ def getRepresentedStrWithVariable(_Variable,**_KwargVariablesDict):
 
 	#Dict types print
 	#if type(_Variable) in [dict,collections.OrderedDict]:
-	if hasattr(_Variable,'items'):
+	if hasattr(_Variable,'items') and type(_Variable)!=type:
 
 		#Increment the deep
 		_KwargVariablesDict['RepresentedDeepInt']+=1

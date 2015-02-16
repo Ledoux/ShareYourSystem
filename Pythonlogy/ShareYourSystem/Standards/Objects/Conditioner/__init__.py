@@ -32,13 +32,18 @@ class ConditionerClass(BaseClass):
 	RepresentingKeyStrsList=[
 									'ConditioningTestVariable',
 									'ConditioningGetBoolFunction',
-									'ConditionedIsBool'
+									'ConditioningAttestVariable',
+									'ConditioningInstanceVariable',
+									'ConditioningTypesList',
+									'ConditionedIsBool',
 								]
 	
 	def default_init(self,
 						_ConditioningTestVariable=None,
 						_ConditioningGetBoolFunction=None,
 						_ConditioningAttestVariable=None,
+						_ConditioningInstanceVariable=None,
+						_ConditioningTypesList=[type(len),type(type)],
 						_ConditionedIsBool=True,
 						**_KwargVariablesDict
 					):
@@ -47,6 +52,40 @@ class ConditionerClass(BaseClass):
 		BaseClass.__init__(self,**_KwargVariablesDict)
 		
 	def do_condition(self):
+
+		#debug
+		self.debug(
+				('self.',self,[
+					'ConditioningInstanceVariable',
+					'ConditioningTestVariable'
+				])
+			)
+
+		#Check
+		if self.ConditioningInstanceVariable!=None:
+
+			#Check
+			if self.ConditioningTestVariable in self.ConditioningTypesList:
+
+				#call
+				self.ConditioningTestVariable=self.ConditioningTestVariable(
+						self.ConditioningInstanceVariable
+					)
+
+			else:
+				
+				#try
+				try:
+
+					#get
+					self.ConditioningTestVariable=self.ConditioningInstanceVariable[
+						self.ConditioningTestVariable
+					]
+
+				except:
+
+					#pass
+					pass
 
 		#debug
 		'''

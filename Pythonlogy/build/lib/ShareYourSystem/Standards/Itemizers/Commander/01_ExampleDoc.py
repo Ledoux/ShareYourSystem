@@ -2,20 +2,15 @@
 #ImportModules
 import ShareYourSystem as SYS
 
-#define and command
+#define and command with one get key str
 MyCommander=SYS.CommanderClass(
 	).command(
+		#CommandingGetVariable
 		'/',
+		#CommandingSetVariable
 		[
 			('MyStr',"hello"),
-			('MyInt',0),
-			(
-				'map*set',
-				[
-					('MyFirstBool',True),
-					('MySecondBool',False),
-				]
-			),
+			('MyChildCommander',{}),
 			('get',"MyInt")
 		]
 	)
@@ -23,6 +18,22 @@ MyCommander=SYS.CommanderClass(
 #print
 print('MyCommander.GettedValueVariable is ')
 print(MyCommander.GettedValueVariable)
+
+#command several objects with a list
+MyCommander.command(
+		#CommandingGetVariable
+		['/','MyChildCommander'],
+		#CommandingSetVariable
+		[
+			(
+				'map*set',
+				[
+					('MyFirstBool',True),
+					('MySecondBool',False),
+				]
+			)
+		]
+	)
 
 #print
 print('MyCommander is ')

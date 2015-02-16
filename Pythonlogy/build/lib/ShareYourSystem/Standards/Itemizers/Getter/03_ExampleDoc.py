@@ -8,7 +8,7 @@ MyGetter.MyInt=1
 MyGetter.MyStr="hello"
 		
 #print
-print("MyGetter['map*get']('MyInt','MyStr').ItemizedMapVariablesList gives")
-print(MyGetter['map*get']('MyInt','MyStr').ItemizedMapVariablesList)
+print("MyGetter['map*get']('MyInt','MyStr').ItemizedMapValueVariablesList gives")
+print(MyGetter['map*get']('MyInt','MyStr').ItemizedMapValueVariablesList)
 
 

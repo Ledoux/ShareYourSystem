@@ -30,6 +30,7 @@ class ConcluderClass(BaseClass):
 	RepresentingKeyStrsList=[
 									'ConcludingTestVariable',
 									'ConcludingConditionTuplesList',
+									'ConcludingTypesList',
 									'ConcludedConditionIsBoolsList',
 									'ConcludedIsBool'
 								]
@@ -37,6 +38,7 @@ class ConcluderClass(BaseClass):
 	def default_init(self,
 				_ConcludingTestVariable=None,
 				_ConcludingConditionTuplesList=None,
+				_ConcludingTypesList=[type(len),type(type)],
 				_ConcludedConditionIsBoolsList=None,
 				_ConcludedIsBool=True,
 				**_KwargVariablesDict
@@ -53,19 +55,14 @@ class ConcluderClass(BaseClass):
 		self.debug(('self.',self,['ConcludingConditionTuplesList']))
 		'''
 		
-		#Apply __getitem__
+		#map condition
 		self.ConcludedConditionIsBoolsList=map(
 				lambda __ConcludingConditionTuple:
 				self.condition(
-						self.ConcludingTestVariable[
-							__ConcludingConditionTuple[0]
-						] 
-						if type(
-							__ConcludingConditionTuple[0]
-						) in SYS.StrTypesList 
-						else __ConcludingConditionTuple[0],
+						__ConcludingConditionTuple[0],
 						__ConcludingConditionTuple[1],
-						__ConcludingConditionTuple[2]
+						__ConcludingConditionTuple[2],
+						self.ConcludingTestVariable
 					).ConditionedIsBool,
 				self.ConcludingConditionTuplesList
 			)

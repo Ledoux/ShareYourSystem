@@ -33,6 +33,7 @@ def getLiargVariablesList(_ValueVariable):
 
 #<DefineLocals>
 SetEachPrefixStr="each*"
+SetAllPrefixStr="all*"
 #</DefineLocals>
 
 #<DefineClass>
@@ -43,13 +44,15 @@ class SetterClass(BaseClass):
 	RepresentingKeyStrsList=[
 									'SettingKeyVariable',
 									'SettingValueVariable',
-									'SettingItemBool'
+									'SettingItemBool',
+									'SettingNewBool'
 								]
 
 	def default_init(self,
 						_SettingKeyVariable=None, 
 						_SettingValueVariable=None, 
-						_SettingItemBool=True, 			
+						_SettingItemBool=True, 	
+						_SettingNewBool=True,		
 						**_KwargVariablesDict
 					):
 		""" """		
@@ -174,15 +177,19 @@ class SetterClass(BaseClass):
 			#Stop the setting
 			return {"HookingIsBool":False}
 
-		#/############################
+		#/####################/#
 		# Case of a non method get 
 		#
 
-		else:
+		elif type(self.SettingKeyVariable
+				)==str:
+
+			#/####################/#
+			# Case of each* set
+			#
 
 			#Check
-			if type(self.SettingKeyVariable
-				)==str and self.SettingKeyVariable.startswith(
+			if self.SettingKeyVariable.startswith(
 				SetEachPrefixStr
 			):
 
@@ -201,6 +208,7 @@ class SetterClass(BaseClass):
 					SettedGetVariablesList=SettedGetVariable
 
 				#debug
+				'''
 				self.debug(
 					[
 						'SettedGetVariablesList is ',
@@ -208,6 +216,7 @@ class SetterClass(BaseClass):
 						('self.',self,['SettingValueVariable'])
 					]
 				)
+				'''
 
 				#map
 				map(
@@ -229,7 +238,118 @@ class SetterClass(BaseClass):
 				#Return stop the setting
 				return {'HookingIsBool':False}
 
+			#/####################/#
+			# Case of all* set
+			#
+
+			#Check
+			elif self.SettingKeyVariable.startswith(
+				SetAllPrefixStr
+			):
+
+				#get
+				SettedGetVariable=self[
+					SYS.deprefix(
+						self.SettingKeyVariable,
+						SetAllPrefixStr
+					)
+				]
+
+				#Check
+				if hasattr(SettedGetVariable,'values'):
+					SettedGetVariablesList=SettedGetVariable.values()
+				else:
+					SettedGetVariablesList=SettedGetVariable
+
+				#debug
+				'''
+				self.debug(
+					[
+						'SettedGetVariablesList is ',
+						SYS._str(SettedGetVariablesList),
+						('self.',self,['SettingValueVariable'])
+					]
+				)
+				'''
+
+				#Check
+				if type(self.SettingValueVariable) in [
+							list,tuple
+						] and len(self.SettingValueVariable)==2:
+
+					#map
+					map(
+							lambda __SettedGetVariable:
+							__SettedGetVariable.set(
+								*self.SettingValueVariable
+							),
+							SettedGetVariablesList
+						)
+
+				else:
+
+						
+					#map
+					map(
+							lambda __SettedGetVariable:
+							__SettedGetVariable['map*set'](
+								self.SettingValueVariable
+							),
+							SettedGetVariablesList
+						)
+
+				#Return stop the setting
+				return {'HookingIsBool':False}
+
+				
+			#/####################/#
+			# Case of a set in the __dict__
+			#
+
 			else:
+
+				#/####################/#
+				# Case of an instancing set
+				#
+
+				#Check
+				if self.SettingNewBool:
+
+					#debug
+					self.debug(
+							[
+								'we check if we have to set a default value here',
+								('self.',self,['SettingKeyVariable'])
+							]
+						)
+
+					#get
+					SettedValueType=SYS.getTypeClassWithTypeStr(
+						SYS.getTypeStrWithKeyStr(
+							self.SettingKeyVariable)
+					)
+
+					#Check
+					if SettedValueType!=type(self.SettingValueVariable): 
+
+						#debug
+						self.debug(
+							[
+								'SettedValueType is '+str(SettedValueType)
+							]
+						)
+
+						#Check
+						if callable(SettedValueType):
+
+							#alias
+							self.SettingValueVariable=SettedValueType(
+								)['map*set'](
+								self.SettingValueVariable
+							)
+
+				#debug
+				self.debug('we just set in the __dict__')
 
 				#map
 				'''

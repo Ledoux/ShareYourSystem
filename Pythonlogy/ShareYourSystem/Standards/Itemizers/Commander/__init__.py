@@ -16,7 +16,7 @@ or a EachSetForAll (ie each set is a map of each).
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Itemizers.Grasper"
+BaseModuleStr="ShareYourSystem.Standards.Itemizers.Pather"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -30,19 +30,19 @@ class CommanderClass(BaseClass):
 
 	#Definition 
 	RepresentingKeyStrsList=[
-							#'CommandingGraspVariable',
+							#'CommandingGetVariable',
 							#'CommandingSetVariable',
 							'CommandingOrderStr',
-							#'CommandedGraspVariablesList',
+							#'CommandedValueVariablesList',
 							#'CommandedSetVariablesList',
 						]
 
 	def default_init(
 				self,
-				_CommandingGraspVariable=None,
+				_CommandingGetVariable=None,
 				_CommandingSetVariable=None,	
 				_CommandingOrderStr="AllSetsForEachGrasp",
-				_CommandedGraspVariablesList=None,
+				_CommandedValueVariablesList=None,
 				_CommandedSetVariablesList=None,				
 				**_KwargVariablesDict
 			):
@@ -55,14 +55,14 @@ class CommanderClass(BaseClass):
 
 		#debug
 		'''
-		self.debug(("self.",self,['CommandingGraspVariable']))
+		self.debug(("self.",self,['CommandingGetVariable']))
 		'''
 
 		#Check
-		if type(self.CommandingGraspVariable)!=list:
+		if type(self.CommandingGetVariable)!=list:
 			
-			self.CommandingGraspVariable=[
-				self.CommandingGraspVariable
+			self.CommandingGetVariable=[
+				self.CommandingGetVariable
 			]
 
 		#Check
@@ -79,12 +79,10 @@ class CommanderClass(BaseClass):
 			self.CommandedSetVariablesList=self.CommandingSetVariable
 
 		#map a grasp
-		self.CommandedGraspVariablesList=map(
-				lambda __CommandingGraspVariable:
-				self.grasp(
-					__CommandingGraspVariable
-				).GraspedAnswerVariable,
-				self.CommandingGraspVariable
+		self.CommandedValueVariablesList=map(
+				lambda __CommandingGetVariable:
+				self[__CommandingGetVariable],
+				self.CommandingGetVariable
 			)
 
 		#Check for the order
@@ -100,7 +98,7 @@ class CommanderClass(BaseClass):
 						),
 						self.CommandedSetVariablesList
 					),
-					self.CommandedGraspVariablesList
+					self.CommandedValueVariablesList
 				)
 
 		elif self.CommandingOrderStr=="EachSetForAllGrasps":
@@ -113,7 +111,7 @@ class CommanderClass(BaseClass):
 						__CommandedGraspVariable.set(
 							*__CommandedSetVariable
 						),
-						self.CommandedGraspVariablesList
+						self.CommandedValueVariablesList
 					),
 					self.CommandedSetVariablesList
 				)

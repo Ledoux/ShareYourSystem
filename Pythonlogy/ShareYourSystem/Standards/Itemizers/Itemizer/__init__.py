@@ -24,6 +24,7 @@ SYS.setSubModule(globals())
 
 #<DefineLocals>
 ItemMapPrefixStr="map*"
+ItemArrayPrefixStr="array*"
 #</DefineLocals>
 
 #<DefineClass>
@@ -39,7 +40,7 @@ class ItemizerClass(BaseClass):
 								'ItemizedValueMethod',
 								'ItemizedMethodStr',
 								'ItemizedValueVariable',
-								'ItemizedMapVariablesList'
+								'ItemizedMapValueVariablesList'
 							]
 
 	def default_init(self,
@@ -50,7 +51,7 @@ class ItemizerClass(BaseClass):
 						_ItemizedValueMethod=None,
 						_ItemizedMethodStr="",
 						_ItemizedValueVariable=None,
-						_ItemizedMapVariablesList=None,
+						_ItemizedMapValueVariablesList=None,
 						**_KwargVariablesDict
 					):	
 
@@ -77,7 +78,7 @@ class ItemizerClass(BaseClass):
 						ItemMapPrefixStr
 					)
 
-				#deprefix
+				#get
 				ItemizedMapMethod=getattr(
 						self,
 						ItemizedMapMethodStr
@@ -159,7 +160,7 @@ class ItemizerClass(BaseClass):
 					'''
 
 					#return
-					self.ItemizedMapVariablesList=map(
+					self.ItemizedMapValueVariablesList=map(
 						lambda __ElementVariable:
 						ItemizedGetMethod(
 							ItemizedMapMethod(

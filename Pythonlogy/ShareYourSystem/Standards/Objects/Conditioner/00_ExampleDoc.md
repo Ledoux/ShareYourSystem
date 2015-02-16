@@ -5,7 +5,5 @@ FrozenIsBool True
 
 ##Example
 
-Let's create an empty class, which will automatically receive
-special attributes from the decorating ClassorClass,
-specially the NameStr, that should be the ClassStr
-without the TypeStr in the end.
+We can check a simple condition of two ints to be equal
+and the bool is known with the ConditionedIsBool

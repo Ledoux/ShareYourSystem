@@ -21,6 +21,7 @@ SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
+from ShareYourSystem.Standards.Itemizers import Itemizer
 import collections
 #</ImportSpecificModules>
 
@@ -47,6 +48,9 @@ class GraspDictClass(collections.OrderedDict):
 		self.update(_KwargVariablesDict)
 
 SYS.GraspDictClass=GraspDictClass
+
+def getMapList(_LiargVariablesList):
+	return SYS.listify(_LiargVariablesList[0])
 #</DefineLocals>
 
 #<DefineClass>
@@ -119,7 +123,9 @@ class GrasperClass(BaseClass):
 				'''
 				
 				#The GraspDict has maybe a path str to get the thing
-				self.GraspedAnswerVariable=self[self.GraspingClueVariable['HintVariable']]
+				self.GraspedAnswerVariable=self[
+					self.GraspingClueVariable['HintVariable']
+				]
 
 			else:
 
@@ -136,6 +142,17 @@ class GrasperClass(BaseClass):
 			#It is already getted
 			self.GraspedAnswerVariable=self.GraspingClueVariable
 
+
+	def mimic_get(self):
+
+		#Check
+		if self.GettingKeyVariable==Itemizer.ItemMapPrefixStr+'grasp':
+
+			#set
+			self.ItemizingMapGetVariable='GraspedAnswerVariable'
+
+		#Call the base method
+		BaseClass.get(self)
 
 #</DefineClass>
 

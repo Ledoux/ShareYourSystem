@@ -530,6 +530,11 @@ ShareYourSystem/Standards/Itemizers/002_OuvatonDoc.md
 ShareYourSystem/Standards/Itemizers/1_GithubDoc.md
 ShareYourSystem/Standards/Itemizers/Readme.md
 ShareYourSystem/Standards/Itemizers/__init__.py
+ShareYourSystem/Standards/Itemizers/Arrayer/00_DocumentDoc.md
+ShareYourSystem/Standards/Itemizers/Arrayer/01_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Arrayer/02_DocumentDoc.md
+ShareYourSystem/Standards/Itemizers/Arrayer/03_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Arrayer/__init__.py
 ShareYourSystem/Standards/Itemizers/Attributer/001_DocumentDoc.md
 ShareYourSystem/Standards/Itemizers/Attributer/001_GithubDoc.md
 ShareYourSystem/Standards/Itemizers/Attributer/002_GithubDoc.md
@@ -560,17 +565,14 @@ ShareYourSystem/Standards/Itemizers/Getter/02_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Getter/03_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Getter/04_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Getter/05_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Getter/06_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Getter/07_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Getter/Readme.md
 ShareYourSystem/Standards/Itemizers/Getter/Test.py
 ShareYourSystem/Standards/Itemizers/Getter/__init__.py
 ShareYourSystem/Standards/Itemizers/Getter/draft/02_ExampleDoc copy.md
+ShareYourSystem/Standards/Itemizers/Getter/draft/06_ExampleDoc_copy.md
 ShareYourSystem/Standards/Itemizers/Getter/draft/Readme.ipynb copy
-ShareYourSystem/Standards/Itemizers/Grasper/001_DocumentDoc.md
-ShareYourSystem/Standards/Itemizers/Grasper/002_GithubDoc.md
-ShareYourSystem/Standards/Itemizers/Grasper/00_ExampleDoc.md
-ShareYourSystem/Standards/Itemizers/Grasper/01_ExampleDoc.py
-ShareYourSystem/Standards/Itemizers/Grasper/Readme.md
-ShareYourSystem/Standards/Itemizers/Grasper/__init__.py
 ShareYourSystem/Standards/Itemizers/Itemizer/001_DocumentDoc.md
 ShareYourSystem/Standards/Itemizers/Itemizer/001_GithubDoc.md
 ShareYourSystem/Standards/Itemizers/Itemizer/00_ExampleDoc.md
@@ -602,9 +604,20 @@ ShareYourSystem/Standards/Itemizers/Setter/02_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Setter/03_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Setter/04_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Setter/05_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Setter/06_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Setter/07_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Setter/08_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Setter/09_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Setter/Readme.md
 ShareYourSystem/Standards/Itemizers/Setter/Test.py
 ShareYourSystem/Standards/Itemizers/Setter/__init__.py
+ShareYourSystem/Standards/Itemizers/Setter/draft/08_ExampleDoc copy.md
+ShareYourSystem/Standards/Itemizers/Walker/001_DocumentDoc.md
+ShareYourSystem/Standards/Itemizers/Walker/00_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Walker/01_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Walker/Readme.md
+ShareYourSystem/Standards/Itemizers/Walker/Test.py
+ShareYourSystem/Standards/Itemizers/Walker/__init__.py
 ShareYourSystem/Standards/Modelers/001_DocumentDoc.md
 ShareYourSystem/Standards/Modelers/002_OuvatonDoc.md
 ShareYourSystem/Standards/Modelers/1_GithubDoc.md
@@ -847,6 +860,8 @@ ShareYourSystem/Standards/Objects/Concluder/__init__.py
 ShareYourSystem/Standards/Objects/Conditioner/001_DocumentDoc.md
 ShareYourSystem/Standards/Objects/Conditioner/00_ExampleDoc.md
 ShareYourSystem/Standards/Objects/Conditioner/01_ExampleDoc.py
+ShareYourSystem/Standards/Objects/Conditioner/02_ExampleDoc.md
+ShareYourSystem/Standards/Objects/Conditioner/03_ExampleDoc.py
 ShareYourSystem/Standards/Objects/Conditioner/Readme.md
 ShareYourSystem/Standards/Objects/Conditioner/__init__.py
 ShareYourSystem/Standards/Objects/Consoler/00_ExampleDoc.md
@@ -1020,9 +1035,3 @@ ShareYourSystem/Standards/Walkers/Visiter/001_DocumentDoc.md
 ShareYourSystem/Standards/Walkers/Visiter/01_ExampleDoc.py
 ShareYourSystem/Standards/Walkers/Visiter/Readme.md
 ShareYourSystem/Standards/Walkers/Visiter/__init__.py
-ShareYourSystem/Standards/Walkers/Walker/001_DocumentDoc.md
-ShareYourSystem/Standards/Walkers/Walker/00_ExampleDoc.md
-ShareYourSystem/Standards/Walkers/Walker/01_ExampleDoc.py
-ShareYourSystem/Standards/Walkers/Walker/Readme.md
-ShareYourSystem/Standards/Walkers/Walker/Test.py
-ShareYourSystem/Standards/Walkers/Walker/__init__.py
