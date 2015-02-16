@@ -13,7 +13,7 @@ An Executer can exec commands with the six.exec_ function
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Objects.Concluder"
+BaseModuleStr="ShareYourSystem.Standards.Objects.Debugger"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -23,7 +23,7 @@ import six
 #</ImportSpecificModules>
 
 #<DefineLocals>
-ExecutingPrefixStr="Exec_"
+ExecutionPrefixStr="Exec_"
 #</DefineLocals>
 
 #<DefineClass>
@@ -32,11 +32,11 @@ class ExecuterClass(BaseClass):
 	
 	#Definition
 	RepresentingKeyStrsList=[
-		'ExecutingPrefixStr'
+		'ExecutingCodeStr'
 	]
 
 	def default_init(self,
-				_ExecutingPrefixStr="" ,
+				_ExecutingCodeStr="" ,
 				**_KwargVariablesDict):
 
 		#Call the parent __init__ method
@@ -46,11 +46,11 @@ class ExecuterClass(BaseClass):
 
 		#debug
 		'''
-		self.debug(('self.',self,['ExecutingPrefixStr']))
+		self.debug(('self.',self,['ExecutingCodeStr']))
 		'''
 		
 		#Execute
-		six.exec_(self.ExecutingPrefixStr,locals())
+		six.exec_(self.ExecutingCodeStr,locals())
 
 
 #</DefineClass>

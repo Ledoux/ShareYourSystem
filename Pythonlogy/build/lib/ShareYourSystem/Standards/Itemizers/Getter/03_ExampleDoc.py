@@ -6,7 +6,7 @@ import ShareYourSystem as SYS
 MyGetter=SYS.GetterClass()
 MyGetter.MyInt=1
 MyGetter.MyStr="hello"
-		
+
 #print
 print("MyGetter['map*get']('MyInt','MyStr').ItemizedMapValueVariablesList gives")
 print(MyGetter['map*get']('MyInt','MyStr').ItemizedMapValueVariablesList)

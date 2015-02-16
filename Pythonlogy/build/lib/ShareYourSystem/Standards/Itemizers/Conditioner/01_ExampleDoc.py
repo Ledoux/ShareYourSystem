@@ -5,13 +5,11 @@ import ShareYourSystem as SYS
 MyConditioner=SYS.ConditionerClass(
 			).condition(
 				#ConditioningTestVariable
-				'MyInt',
+				3,
 				#ConditioningGetBoolFunction
 				lambda _TestVariable,_AttestVariable:_TestVariable==_AttestVariable,
 				#ConditioningAttestVariable
-				2,
-				#ConditioningInstanceVariable
-				{'MyInt':3}
+				2
 			)
 
 #print
@@ -19,5 +17,5 @@ print('MyConditioner is ')
 SYS._print(MyConditioner)
 
 #print
-print('MyConditioner.condition(type,_AttestVariable=dict) is ')
-SYS._print(MyConditioner.condition(type,_AttestVariable=dict))
+print('MyConditioner.condition(2).ConditionedIsBool is ')
+SYS._print(MyConditioner.condition(2).ConditionedIsBool)

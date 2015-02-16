@@ -8,7 +8,7 @@
 </DefineSource>
 
 
-A Filterer pick and 
+A Filterer pick and condition
 
 """
 

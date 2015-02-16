@@ -162,11 +162,10 @@ class ItemizerClass(BaseClass):
 					#return
 					self.ItemizedMapValueVariablesList=map(
 						lambda __ElementVariable:
-						ItemizedGetMethod(
+						ItemizedMapClass.getMapValueVariable(
 							ItemizedMapMethod(
 									*__ElementVariable 
-								),
-							self.ItemizingMapGetVariable
+								)
 						),
 						ItemizedMapList
 					)

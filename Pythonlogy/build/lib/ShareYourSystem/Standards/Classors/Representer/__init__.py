@@ -132,11 +132,13 @@ def getRepresentedStrWithDictatedVariable(
 	if type(_DictatedVariable)!=dict and hasattr(_DictatedVariable,"items"):
 		
 		#debug
+		'''
 		print('l 135 Representer')
 		print('_DictatedVariable is ')
 		print(_DictatedVariable)
 		print('')
-
+		'''
+		
 		#items
 		RepresentedTuplesList=_DictatedVariable.items()
 	else:

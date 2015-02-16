@@ -5,7 +5,7 @@ import collections
 #Define and set child setters in a child dict
 MySetter=SYS.SetterClass(
 	)['set'](
-		'MyDict',
+		'MyOrderedDict',
 		collections.OrderedDict(
 			{
 			'FirstSetter':SYS.SetterClass(),
@@ -13,7 +13,7 @@ MySetter=SYS.SetterClass(
 			}
 		)
 	).set(
-		'each*MyDict',
+		'each*MyOrderedDict',
 		[
 			{
 				'MyStr':"hello",

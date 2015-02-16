@@ -56,6 +56,11 @@ class GetterClass(BaseClass):
 		#Call the parent init method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
+	def getMapValueVariable(self):
+
+		#return
+		return self.GettedValueVariable
+
 	def __getitem__(self,_KeyVariable):
 		""" """
 
@@ -175,6 +180,10 @@ class GetterClass(BaseClass):
 				)
 			'''
 
+			#/############################
+			# Case of a get in the instance __dict__ 
+			#
+
 			#Get safely the Value
 			if self.GettingKeyVariable in self.__dict__:
 
@@ -195,7 +204,25 @@ class GetterClass(BaseClass):
 
 				#Stop the getting
 				return {"HookingIsBool":False}
-				
+			
+			#/############################
+			# Case of the __class__ get
+			#
+
+			#Check
+			elif self.GettingKeyVariable=='__class__':
+
+				#set
+				self.GettedValueVariable=self.__class__
+
+				#Stop the getting
+				return {"HookingIsBool":False}
+
+			#/############################
+			# Case of a get in the instance __dict__ 
+			#
+
+			#Check
 			elif self.GettingKeyVariable in self.__class__.__dict__:
 
 				#__getitem__ in the __class__
@@ -219,13 +246,15 @@ class GetterClass(BaseClass):
 			elif self.GettingNewBool:
 
 				#debug
+				'''
 				self.debug(
 						[
 							'we are going to set a default value here',
 							('self.',self,['GettingKeyVariable'])
 						]
 					)
-				
+				'''
+
 				#get
 				GettedValueType=SYS.getTypeClassWithTypeStr(
 					SYS.getTypeStrWithKeyStr(
@@ -249,6 +278,12 @@ class GetterClass(BaseClass):
 						self.GettedValueVariable
 					)
 
+					#add in the SettingValue
+					try:
+						self.GettedValueVariable.DictKeyStr=self.GettingKeyVariable
+					except:
+						pass
+
 				#Stop the getting
 				return {"HookingIsBool":False}
 
@@ -262,8 +297,10 @@ class GetterClass(BaseClass):
 			try:
 
 				#debug
+				'''
 				self.debug('we get with the GetKeyVariable')
-
+				'''
+				
 				#get
 				self.GettedValueVariable=self[
 					self.GettingKeyVariable['GetKeyVariable']
@@ -274,6 +311,10 @@ class GetterClass(BaseClass):
 
 			except:
 
+				#pass
+				pass
+
+				"""
 				#debug
 				self.debug(
 					[
@@ -306,7 +347,7 @@ class GetterClass(BaseClass):
 
 					#pass
 					pass
-
+				"""
 
 			#Stop the getting
 			return {"HookingIsBool":False}

@@ -1730,15 +1730,15 @@ div.output_prompt {
 FrozenIsBool False
 -->
 
-<h1 id="executer">Executer</h1>
+<h1 id="conditioner">Conditioner</h1>
 <h2 id="doc">Doc</h2>
 <hr>
 <blockquote>
-<p>An Executer can exec commands with the six.exec_ function</p>
+<p>The Conditioner</p>
 </blockquote>
 <hr>
 <p><small>
-View the Executer notebook on <a href="http://nbviewer.ipython.org/url/shareyoursystem.ouvaton.org/Executer.ipynb">NbViewer</a>
+View the Conditioner notebook on <a href="http://nbviewer.ipython.org/url/shareyoursystem.ouvaton.org/Conditioner.ipynb">NbViewer</a>
 </small></p>
 </div>
 </div>
@@ -1768,109 +1768,70 @@ FrozenIsBool False
 &lt;/DefineSource&gt;
 
 
-An Executer can exec commands with the six.exec_ function
+The Conditioner
+
 """
+
 
 #&lt;DefineAugmentation&gt;
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Itemizers.Sharer"
-DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
+BaseModuleStr="ShareYourSystem.Standards.Objects.Debugger"
+DecorationModuleStr="ShareYourSystem.Standards.Classors.Representer"
 SYS.setSubModule(globals())
 #&lt;/DefineAugmentation&gt;
 
 #&lt;ImportSpecificModules&gt;
-import six
+Representer=DecorationModule
 #&lt;/ImportSpecificModules&gt;
-
-#&lt;DefineLocals&gt;
-ExecutionPrefixStr="Exec_"
-#&lt;/DefineLocals&gt;
 
 #&lt;DefineClass&gt;
 @DecorationClass()
-class ExecuterClass(BaseClass):
+class ConditionerClass(BaseClass):
 
     #Definition
     RepresentingKeyStrsList=[
-                                    'ExecutionPrefixStr'
+                                    'ConditioningTestVariable',
+                                    'ConditioningGetBoolFunction',
+                                    'ConditionedIsBool'
                                 ]
 
     def default_init(self,
-                _ExecutionPrefixStr="" ,
-                **_KwargVariablesDict):
+                        _ConditioningTestVariable=None,
+                        _ConditioningGetBoolFunction=None,
+                        _ConditioningAttestVariable=None,
+                        _ConditionedIsBool=True,
+                        **_KwargVariablesDict
+                    ):
 
-        #Call the parent __init__ method
+        #Call the parent init method
         BaseClass.__init__(self,**_KwargVariablesDict)
 
-    #&lt;Hook&gt;@Hooker.HookerClass(**{'HookingBeforeCallingDictsList':[BaseClass.get]})
-    #@Imitater.ImitaterClass()
-    def mimic_get(self):
-
-        #Check
-        if self.GettingKeyVariable.startswith(ExecutionPrefixStr):
-
-            #Definition the ExecStr
-            self.ExecutionPrefixStr=ExecutionPrefixStr.join(
-                self.GettingKeyVariable.split(ExecutionPrefixStr)[1:])
-
-            #debug
-            '''
-            self.debug(('self.',self,['ExecutionPrefixStr']))
-            '''
-
-            #Put the output in a local Local Variable
-            self.execute()
+    #&lt;DefineDoMethod&gt;    
+    def do_condition(self):
 
         #debug
         '''
-        self.debug('BaseClass.get is '+str(BaseClass.get))
+        self.debug(('self.',self,[
+                                    'ConditioningTestVariable',
+                                    'ConditioningAttestVariable'
+                                ]))
         '''
 
-        #Call the parent get method
-        return BaseClass.get(self)
+        #call
+        self.ConditionedIsBool=self.ConditioningGetBoolFunction(
+            self.ConditioningTestVariable,
+            self.ConditioningAttestVariable
+        )
 
-    #&lt;Hook&gt;@Hooker.HookerClass(**{'HookingBeforeCallingDictsList':[BaseClass.set]})
-    #@Imitater.ImitaterClass()
-    def mimic_set(self):
-
-        #Check
-        if type(self.SettingValueVariable
-            ) in SYS.StrTypesList and self.SettingValueVariable.startswith(
-            ExecutionPrefixStr):
-
-            #Definition the ExecStr
-            self.ExecutionPrefixStr=ExecutionPrefixStr.join(
-                self.SettingValueVariable.split(ExecutionPrefixStr)[1:])
-
-            #debug
-            '''
-            self.debug(('self.',self,['ExecutionPrefixStr',"SettingValueVariable"]))
-            '''
-
-            #Put the output in a local Local Variable
-            self.execute()
-
-            #debug
-            '''
-            self.debug(('self.',self,['ExecutionPrefixStr',"SettingValueVariable"]))
-            '''
-
-        #Call the parent get method
-        BaseClass.set(self)
-
-
-    def do_execute(self):
-
-        #Execute
-        six.exec_(self.ExecutionPrefixStr,locals())
-
-        #Return self
-        #return self
+        #debug
+        '''
+        self.debug(('self.',self,['ConditionedIsBool']))
+        '''
 
 #&lt;/DefineClass&gt;
 </code></pre>
 <p><small>
-View the Executer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Itemizers/Executer" target="_blank">Github</a>
+View the Conditioner sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Objects/Conditioner" target="_blank">Github</a>
 </small></p>
 </div>
 </div>
@@ -1903,26 +1864,24 @@ In&nbsp;[3]:
 <div class="highlight"><pre><span class="c">#ImportModules</span>
 <span class="kn">import</span> <span class="nn">ShareYourSystem</span> <span class="kn">as</span> <span class="nn">SYS</span>
 <span class="kn">from</span> <span class="nn">ShareYourSystem.Standards.Classors</span> <span class="kn">import</span> <span class="n">Attester</span>
-<span class="kn">from</span> <span class="nn">ShareYourSystem.Standards.Itemizers</span> <span class="kn">import</span> <span class="n">Executer</span>
+<span class="kn">from</span> <span class="nn">ShareYourSystem.Standards.Objects</span> <span class="kn">import</span> <span class="n">Conditioner</span>
 
-<span class="c">#Definition and update with an exec Str</span>
-<span class="n">MyExecuter</span><span class="o">=</span><span class="n">Executer</span><span class="o">.</span><span class="n">ExecuterClass</span><span class="p">()</span>
-
-<span class="n">MySecondInt</span><span class="o">=</span><span class="n">MyExecuter</span><span class="o">.</span><span class="n">__setitem__</span><span class="p">(</span>
-    <span class="s">&#39;MySecondInt&#39;</span><span class="p">,</span>
-    <span class="s">&#39;Exec_self.SettingValueVariable=1+1&#39;</span>
-<span class="p">)</span><span class="o">.</span><span class="n">MySecondInt</span>
-
-<span class="c">#Exec is also possible in a getting</span>
-<span class="n">GettedValueVariable</span><span class="o">=</span><span class="n">MyExecuter</span><span class="p">[</span><span class="s">&#39;Exec_self.GettedValueVariable=self.MySecondInt-1&#39;</span><span class="p">]</span>
+<span class="c">#Definition of an instance Conditioner and make it print hello</span>
+<span class="n">MyConditioner</span><span class="o">=</span><span class="n">Conditioner</span><span class="o">.</span><span class="n">ConditionerClass</span><span class="p">(</span><span class="o">**</span><span class="p">{</span>
+        <span class="s">&#39;ConditioningGetBoolFunction&#39;</span><span class="p">:</span><span class="k">lambda</span> <span class="n">_TestVariable</span><span class="p">,</span><span class="n">_AttestVariable</span><span class="p">:</span><span class="n">_TestVariable</span><span class="o">==</span><span class="n">_AttestVariable</span><span class="p">,</span>
+        <span class="s">&#39;ConditioningAttestVariable&#39;</span><span class="p">:</span><span class="mi">2</span>
+    <span class="p">})</span>
+<span class="n">MyConditioner</span><span class="o">.</span><span class="n">condition</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">ConditionedIsBool</span>
     
 <span class="c">#Definition the AttestedStr</span>
 <span class="n">SYS</span><span class="o">.</span><span class="n">_attest</span><span class="p">(</span>
-    <span class="p">[</span>
-        <span class="s">&#39;MySecondInt is  &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">MySecondInt</span><span class="p">),</span>
-        <span class="s">&#39;GettedValueVariable is &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">GettedValueVariable</span><span class="p">)</span>
-    <span class="p">]</span>
-<span class="p">)</span> 
+                    <span class="p">[</span>
+                        <span class="s">&#39;MyConditioner.condition(3).ConditionedIsBool is &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span>
+                            <span class="n">MyConditioner</span><span class="o">.</span><span class="n">condition</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">ConditionedIsBool</span><span class="p">),</span>
+                        <span class="s">&#39;MyConditioner.condition(2).ConditionedIsBool is &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span>
+                            <span class="n">MyConditioner</span><span class="o">.</span><span class="n">condition</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">ConditionedIsBool</span><span class="p">)</span>
+                    <span class="p">]</span>
+                <span class="p">)</span> 
 
 <span class="c">#Print</span>
 </pre></div>
@@ -1942,11 +1901,11 @@ In&nbsp;[3]:
 
 *****Start of the Attest *****
 
-MySecondInt is  2
+MyConditioner.condition(3).ConditionedIsBool is False
 
 ------
 
-GettedValueVariable is None
+MyConditioner.condition(2).ConditionedIsBool is True
 
 *****End of the Attest *****
 

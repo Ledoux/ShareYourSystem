@@ -60,6 +60,11 @@ class SetterClass(BaseClass):
 		#Call the parent init method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
+	def getMapValueVariable(self):
+
+		#return None
+		return None
+
 	def __setitem__(self,_KeyVariable,_ValueVariable):
 		""" """
 
@@ -316,12 +321,17 @@ class SetterClass(BaseClass):
 				if self.SettingNewBool:
 
 					#debug
+					'''
 					self.debug(
 							[
 								'we check if we have to set a default value here',
-								('self.',self,['SettingKeyVariable'])
+								('self.',self,[
+									'SettingKeyVariable',
+									'SettingValueVariable'
+								])
 							]
 						)
+					'''
 
 					#get
 					SettedValueType=SYS.getTypeClassWithTypeStr(
@@ -333,14 +343,21 @@ class SetterClass(BaseClass):
 					if SettedValueType!=type(self.SettingValueVariable): 
 
 						#debug
+						'''
 						self.debug(
 							[
 								'SettedValueType is '+str(SettedValueType)
 							]
-						)
+						)	
+						'''
 
 						#Check
-						if callable(SettedValueType):
+						if SettedValueType!=None.__class__:
+
+							#debug
+							'''
+							self.debug('we wrap the setting value')
+							'''
 
 							#alias
 							self.SettingValueVariable=SettedValueType(
@@ -349,7 +366,17 @@ class SetterClass(BaseClass):
 							)
 
 				#debug
-				self.debug('we just set in the __dict__')
+				'''
+				self.debug(
+					[
+						'we just set in the __dict__',
+						('self.',self,[
+								'SettingKeyVariable',
+								'SettingValueVariable'
+							])
+					]
+				)
+				'''
 
 				#map
 				'''
@@ -373,6 +400,12 @@ class SetterClass(BaseClass):
 				self.__dict__[
 					self.SettingKeyVariable
 				]=self.SettingValueVariable
+
+				#add in the SettingValue
+				try:
+					self.SettingValueVariable.DictKeyStr=self.SettingKeyVariable
+				except:
+					pass
 
 				#Return
 				return {'HookingIsBool':False}

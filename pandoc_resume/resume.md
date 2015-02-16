@@ -5,6 +5,8 @@ Erwan Ledoux
 
 ----
 
+> <erwan.ledoux@ens.fr> • +06 32 15 09 28 • 30 years old\
+> 23, rue de Sambre et Meuse - 75010, Paris, FRANCE
  
 >   Main specialities : research in the theory 
 >   of neural networks, programming for the scientific 
@@ -12,41 +14,45 @@ Erwan Ledoux
 
 ----
 
-
-
 Education
 ---------
 
 2008-2011
 :   **PhD Computational Neuroscience** <br>
-     Université Paris Descartes
-
-    *Thesis title : Dynamic of neural networks and <br>
-    application to the oscillations in the hippocampus * <br>
-    (PhD advisor : Nicolas Brunel)
+     Université Paris Descartes <br>
+    
+    *Thesis : Dynamic of neural networks and <br>
+    application to the oscillations in the hippocampus, <br>
+    Centre de Neurophysique, Physiologie et Pathologie, <br>
+    UMR 8119, advisor : Nicolas Brunel *
 
 2004-2008
-:   **BA/MA Biology and BA in Physics** <br>
-    Ecole Normale Supérieure de Paris
+:   **Bachelor(L3)/Master(M2) Biology and Bachelor(L3) in Physics** <br>
+    ENS (Ecole Normale Supérieure) de la rue d'Ulm (Paris)
 
-    *Internship MA : Modeling homeostasis in the pyloric system <br>
-    Brandeis University (Waltham, USA, advisor : Eve Marder) *
+    *Internship Master 1 : Modeling homeostasis in the pyloric system, <br>
+    Brandeis University, Waltham, USA, Marder Lab, advisor : Eve Marder *
 
 2002-2004
-:   **Classes préparatoires BCPST** <br>
+:   **Preparatory class for high scientific school** <br>
     Lycée Henri IV (Paris)
+
+    *BCPST : Biologie Chimie Physique et Sciences de la Terre * 
 
 
 Work Experience
 ----------
 
 2013-2015 
-:    **Postdoctoral research in the Group For Neural Theory** <br>
-     Ecole Normale Supérieure de Paris
+:    **Postdoctoral research in the GNT (Group For Neural Theory)** <br>
+     Ecole Normale Supérieure de la rue d'Ulm <br>
+     LNC (Laboratoire de Neurosciences cognitives), Inserm U960
 
 2011-2013
-:    **Demi ATER in Physics** <br>
-     Université Paris Descartes
+:    **Reasearch and Teaching assistant (Demi ATER) in Physics** <br>
+     Université Paris Descartes <br>
+     Neurophotonics Laboratory, UMR 8154, UMR-S 603
+
 
 Publications 
 --------------------
@@ -103,7 +109,7 @@ Web application toys
       
     **[ErwanLedoux Homepage](http://erwanledoux.ouvaton.org/)** a basic php/html homepage 
   
-    **[NeuDraw](http://neudraw.ouvaton.org/)**  a javascript application for drawing neurons in a canvas
+    **[NeuDraw](http://neudraw.ouvaton.org/)**  a javascript application playing with jQuery for drawing neurons in a canvas
   
     **[Pasduforro](http://pasduforro.ouvaton.org/)** an ajax/MySQL application that lists some moves in forró
   
@@ -114,20 +120,20 @@ Talks
 
 **Organized Coding** <br>
 GNT meeting  <br>
-E.N.S. Paris, September 2015 
+ENS Paris, September 2015 
 
 **Modeling the global oscillations in CA1** <br>
 LNC meeting, and GNT meeting  <br>
-E.N.S. Paris, April 2014 
+ENS Paris, April 2014 
 
 **Predictive Spiking Network with sparse connectivity** <br>
 GNT meeting  <br>
-E.N.S. Paris, October 2013 
+ENS Paris, October 2013 
 
 **Modeling oscillations in the hippocampus** <br>
 Paris Area Computational Neuroscience Day 
 "Oscillations and Computation in the brain" <br>
-E.N.S. Paris, April 2012 
+ENS Paris, April 2012 
 
 **Inferring parameters of network connectivity from observed phase shifts between different classes of neurons during distinct oscillatory states in the hippocampus** <br>
 Poster session  <br>
@@ -135,11 +141,11 @@ Society For Neuroscience, San Diego, November 2010
 
 **When genes trigger agressive behaviour** <br>
 Workshop on Neuroethics, Paris Montagne (scientific mediation organization), <br>
-E.N.S. Paris, October 2010 
+ENS Paris, October 2010 
 
 **Role of inhibitory interneurons in shaping the response of networks to time-dependent inputs** <br>
 Cerebellum Group Meeting, <br>
-E.N.S. Paris, Mai 2010 
+ENS Paris, Mai 2010 
 
 **Dynamics of excitatory-inhibitory networks** <br>
 Third Computational Summer School, <br>
@@ -153,22 +159,22 @@ Teaching Experience
 --------------------
 
 **Tutorial class in Physics**
-  P1, PAES Med. Paris V, 2012 
+  P1, PAES (Première Année des Etudes de Santé) Paris V, 2012 
 
 **Tutorial class in Geometrical Optic**
   L1, Physics Paris V, 2012 
 
 **Scientific articles analysis**
-  D2, Med. Paris V, 2011 
+  D2, Medecine Paris V, 2011 
 
 **Mathematics for biologists**
-  M2, E.N.S. Paris, 2010-2011
+  M2, ENS Paris, 2010-2011
 
 **Practical class of Neurophysiology** 
-  L3, E.N.S. Paris, 2009-2011 
+  L3, ENS Paris, 2009-2011 
 
 **Introduction to programming in C** 
-  L2, U.P.M.C. Paris VI, 2009 
+  L2, UPMC (Université Pierre et Marie Curie) Paris VI, 2009 
 
 Knowledge
 ----------------------------------------
@@ -176,12 +182,7 @@ Knowledge
 Human Languages
 :    
 
-     English
-
-     German
-
-     Spanish
-
+     very good command in English, basic communication skills in German and Spanish
 
 Informatic Languages
 :    
@@ -190,9 +191,9 @@ Informatic Languages
     (numpy, scipy, matplotlib, scikit, pytable, brian, pymongo...)
   
     Javascript and the web specialized libraries <br>
-    (node, grunt, meteor, ember, underscore, raphael, reveal, vexflow...)
+    (node, grunt, jQuery, meteor, ember, underscore, raphael, reveal, vexflow...)
   
-    C/C++,Swig,R,Matlab
+    C/C++, Swig, R, Matlab
   
     MySQL, Mongodb, hdf5, JSON, yaml 
   
@@ -214,9 +215,4 @@ Music ability
 Organisation ability
 :    
 
-     GNT retreat
-
-----
-
-> <erwan.ledoux@ens.fr> • +06 32 15 09 28 • 30 years old\
-> 23, rue de Sambre et Meuse - Paris, FRANCE
+     Organizer of the [2014 GNT Lab Seminar](https://slides.com/eledoux/gnt-lab-retreat-2014/embed) 

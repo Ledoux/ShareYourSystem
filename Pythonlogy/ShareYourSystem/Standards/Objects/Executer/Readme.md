@@ -62,7 +62,7 @@ import six
 #</ImportSpecificModules>
 
 #<DefineLocals>
-ExecutingPrefixStr="Exec_"
+ExecutionPrefixStr="Exec_"
 #</DefineLocals>
 
 #<DefineClass>
@@ -71,11 +71,11 @@ class ExecuterClass(BaseClass):
 
         #Definition
         RepresentingKeyStrsList=[
-'ExecutingPrefixStr'
+'ExecutionPrefixStr'
                                                                 ]
 
         def default_init(self,
-                                _ExecutingPrefixStr="" ,
+                                _ExecutionPrefixStr="" ,
                                 **_KwargVariablesDict):
 
                 #Call the parent __init__ method
@@ -86,15 +86,15 @@ class ExecuterClass(BaseClass):
         def mimic_get(self):
 
                 #Check
-                if self.GettingKeyVariable.startswith(ExecutingPrefixStr):
+                if self.GettingKeyVariable.startswith(ExecutionPrefixStr):
 
                         #Definition the ExecStr
-                        self.ExecutingPrefixStr=ExecutingPrefixStr.join(
-self.GettingKeyVariable.split(ExecutingPrefixStr)[1:])
+                        self.ExecutionPrefixStr=ExecutionPrefixStr.join(
+self.GettingKeyVariable.split(ExecutionPrefixStr)[1:])
 
                         #debug
                         '''
-                        self.debug(('self.',self,['ExecutingPrefixStr']))
+                        self.debug(('self.',self,['ExecutionPrefixStr']))
                         '''
 
                         #Put the output in a local Local Variable
@@ -116,15 +116,15 @@ self.GettingKeyVariable.split(ExecutingPrefixStr)[1:])
                 if type(self.SettingValueVariable
                         ) in SYS.StrTypesList and
 self.SettingValueVariable.startswith(
-                        ExecutingPrefixStr):
+                        ExecutionPrefixStr):
 
                         #Definition the ExecStr
-                        self.ExecutingPrefixStr=ExecutingPrefixStr.join(
-self.SettingValueVariable.split(ExecutingPrefixStr)[1:])
+                        self.ExecutionPrefixStr=ExecutionPrefixStr.join(
+self.SettingValueVariable.split(ExecutionPrefixStr)[1:])
 
                         #debug
                         '''
-self.debug(('self.',self,['ExecutingPrefixStr',"SettingValueVariable"]))
+self.debug(('self.',self,['ExecutionPrefixStr',"SettingValueVariable"]))
                         '''
 
                         #Put the output in a local Local Variable
@@ -132,7 +132,7 @@ self.debug(('self.',self,['ExecutingPrefixStr',"SettingValueVariable"]))
 
                         #debug
                         '''
-self.debug(('self.',self,['ExecutingPrefixStr',"SettingValueVariable"]))
+self.debug(('self.',self,['ExecutionPrefixStr',"SettingValueVariable"]))
                         '''
 
                 #Call the parent get method
@@ -142,7 +142,7 @@ self.debug(('self.',self,['ExecutingPrefixStr',"SettingValueVariable"]))
         def do_execute(self):
 
                 #Execute
-                six.exec_(self.ExecutingPrefixStr,locals())
+                six.exec_(self.ExecutionPrefixStr,locals())
 
                 #Return self
                 #return self
