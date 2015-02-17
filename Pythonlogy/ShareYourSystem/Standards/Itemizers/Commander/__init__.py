@@ -32,18 +32,14 @@ class CommanderClass(BaseClass):
 	RepresentingKeyStrsList=[
 							#'CommandingGetVariable',
 							#'CommandingSetVariable',
-							'CommandingOrderStr',
-							#'CommandedValueVariablesList',
-							#'CommandedSetVariablesList',
+							'CommandingOrderStr'
 						]
 
 	def default_init(
 				self,
 				_CommandingGetVariable=None,
 				_CommandingSetVariable=None,	
-				_CommandingOrderStr="AllSetsForEachGrasp",
-				_CommandedValueVariablesList=None,
-				_CommandedSetVariablesList=None,				
+				_CommandingOrderStr="AllSetsForEachGrasp",			
 				**_KwargVariablesDict
 			):
 
@@ -53,17 +49,89 @@ class CommanderClass(BaseClass):
 	def do_command(self):
 		"""Collect with _GatheringKeyVariablesList and do a all sets for each with _UpdatingItemVariable"""
 
+	
+		#/####################/#
+		# Adapt the type for getting things to command
+		#
+
 		#debug
 		'''
-		self.debug(("self.",self,['CommandingGetVariable']))
+		self.debug(
+			[
+				'Adapt the type for getting things to command',
+				("self.",self,['CommandingGetVariable'])
+			]
+		)
 		'''
 
 		#Check
 		if type(self.CommandingGetVariable)!=list:
 			
-			self.CommandingGetVariable=[
-				self.CommandingGetVariable
+			#Check
+			if SYS.getIsGetDictBool(self.CommandingGetVariable)==False:
+
+				#just listify
+				self.CommandingGetVariable=[
+					self.CommandingGetVariable
+				]
+
+				#map a get
+				CommandedValueVariablesList=map(
+						lambda __CommandingGetVariable:
+						self[__CommandingGetVariable],
+						self.CommandingGetVariable
+					)
+
+			else:
+
+				#debug
+				'''
+				self.debug(
+					[
+						'it is a dictated dict, so get it first',
+						('self.',self,['CommandingGetVariable'])
+					]
+				)
+				'''
+				
+				#it is a dictated get
+				CommandedValueVariablesList=self[
+					self.CommandingGetVariable
+				]
+
+		else:
+
+			#map a get
+			CommandedValueVariablesList=map(
+					lambda __CommandingGetVariable:
+					self[__CommandingGetVariable],
+					self.CommandingGetVariable
+				)
+
+
+		#debug
+		'''
+		self.debug(
+				[
+					'in the end, CommandedValueVariablesList is ',
+					SYS._str(CommandedValueVariablesList)
+				]
+			)
+		'''
+
+		#/####################/#
+		# Adapt the type for setting things in the commanded variables
+		#
+
+		#debug
+		'''
+		self.debug(
+			[
+				'Adapt the type for setting things in the commanded variables',
+				("self.",self,['CommandingSetVariable'])
 			]
+		)
+		'''
 
 		#Check
 		if type(self.CommandingSetVariable)!=list:
@@ -72,41 +140,44 @@ class CommanderClass(BaseClass):
 			if hasattr(self.CommandingSetVariable,'items'):
 
 				#items
-				self.CommandedSetVariablesList=self.CommandingSetVariable.items()
+				CommandedSetVariablesList=self.CommandingSetVariable.items()
 
 			else:
 
 				#list
-				self.CommandedSetVariablesList=[
+				CommandedSetVariablesList=[
 					self.CommandingSetVariable
 				]
 
 		else:
 
 			#alias
-			self.CommandedSetVariablesList=self.CommandingSetVariable
+			CommandedSetVariablesList=self.CommandingSetVariable
 
-		#map a grasp
-		self.CommandedValueVariablesList=map(
-				lambda __CommandingGetVariable:
-				self[__CommandingGetVariable],
-				self.CommandingGetVariable
+		#debug
+		'''
+		self.debug(
+				[
+					'in the end, CommandedSetVariablesList is ',
+					SYS._str(CommandedSetVariablesList)
+				]
 			)
+		'''
 
 		#Check for the order
 		if self.CommandingOrderStr=="AllSetsForEachGrasp":
 
 			#map
 			map(
-					lambda __CommandedValueVariables:
+					lambda __CommandedValueVariable:
 					map(
 						lambda __CommandedSetVariable:
-						__CommandedValueVariables.set(
+						__CommandedValueVariable.set(
 							*__CommandedSetVariable
 						),
-						self.CommandedSetVariablesList
+						CommandedSetVariablesList
 					),
-					self.CommandedValueVariablesList
+					CommandedValueVariablesList
 				)
 
 		elif self.CommandingOrderStr=="EachSetForAllGrasps":
@@ -119,8 +190,8 @@ class CommanderClass(BaseClass):
 						__CommandedValueVariables.set(
 							*__CommandedSetVariable
 						),
-						self.CommandedValueVariablesList
+						CommandedValueVariablesList
 					),
-					self.CommandedSetVariablesList
+					CommandedSetVariablesList
 				)
 #</DefineClass>

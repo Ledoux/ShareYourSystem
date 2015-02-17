@@ -102,22 +102,35 @@ class WalkerClass(BaseClass):
 			self.WalkedTopOrderedDict['TopVariablesList']+=[self]
 
 		#An Update just before is possible
-		if 'BeforeCommandVariable' in self.WalkingSocketDict:
+		if 'BeforeCommandLiargVariablesList' in self.WalkingSocketDict:
 
 			#debug
 			'''
-			self.debug(('_SocketDict',_SocketDict,['BeforeCommandVariable']))
+			self.debug(
+					('self.WalkingSocketDict.',self.WalkingSocketDict,
+						['BeforeCommandLiargVariablesList']
+					)
+				)
 			'''
 
 			#command
-			self.command(*self.WalkingSocketDict['BeforeCommandVariable'])
+			self.command(
+				*self.WalkingSocketDict['BeforeCommandLiargVariablesList']
+			)
+
+			#debug
+			'''
+			self.debug(
+					'Ok we have before commanded'
+				)
+			'''
 
 		#Debug
 		'''
 		self.debug(('self.',self,['WalkingSocketDict']))
 		'''
 		
-		#Command a recursive order in other gathered variables
+		#Command a walk in variables getted with RouteGetVariable
 		self.command(
 						self.WalkingSocketDict['RouteGetVariable'],
 						[
@@ -129,17 +142,18 @@ class WalkerClass(BaseClass):
 					)
 
 		#An Update just after is possible
-		if 'AfterCommandVariable' in self.WalkingSocketDict:
+		if 'AfterCommandLiargVariablesList' in self.WalkingSocketDict:
 
 			#debug
 			'''
-			self.debug(('_SocketDict',_SocketDict,['AfterCommandVariable']))
+			self.debug(('self.WalkingSocketDict.',self.WalkingSocketDict,['AfterCommandLiargVariablesList']))
 			'''
 
 			#command
 			self.command(
-				self.WalkingSocketDict[
-				'AfterCommandVariable']
+				*self.WalkingSocketDict[
+					'AfterCommandLiargVariablesList'
+				]
 			)
 
 		#Retrieve the previous Path
@@ -152,6 +166,6 @@ class WalkerClass(BaseClass):
 		#Return self
 		if self.WalkingSocketDict['TopVariable']==self:
 			self.WalkedOrderedDict=WalkedTopOrderedDict
-			del self[WalkedTopOrderedDictKeyStr]
+			del self.__dict__[WalkedTopOrderedDictKeyStr]
 			return self
 #</DefineClass>

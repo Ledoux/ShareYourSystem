@@ -15,13 +15,14 @@ The Conditioner
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Itemizers.Setter"
+BaseModuleStr="ShareYourSystem.Standards.Itemizers.Executer"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
 import operator
+Executer=BaseModule
 #</ImportSpecificModules>
 
 #<DefineLocals>
@@ -42,6 +43,7 @@ class ConditionerClass(BaseClass):
 								'ConditioningAttestVariable',
 								'ConditioningInstanceVariable',
 								'ConditioningTypesList',
+								'ConditioningGetVariable',
 								'ConditionedTestVariable',
 								'ConditionedIsBool',
 							]
@@ -52,6 +54,7 @@ class ConditionerClass(BaseClass):
 						_ConditioningAttestVariable=None,
 						_ConditioningInstanceVariable=None,
 						_ConditioningTypesList=[type(len),type(type)],
+						_ConditioningGetVariable=Executer.ExecutionPrefixStr+'self.__dict__.values()',
 						_ConditionedTestVariable=None,
 						_ConditionedIsBool=True,
 						**_KwargVariablesDict
@@ -77,29 +80,34 @@ class ConditionerClass(BaseClass):
 				'We configure the ConditioningTestVariable',
 				('self.',self,[
 					'ConditioningInstanceVariable',
-					'ConditioningTestVariable'
+					'ConditioningTestVariable',
+					'ConditioningAttestVariable'
 					]
 				)
 			]
 		)
 		'''
-
+		
 		#Check
 		if self.ConditioningInstanceVariable!=None:
 
 			#debug
+			'''
 			self.debug(
 				[
 					'self.ConditioningInstanceVariable!=None',
 					('self.',self,['ConditioningTestVariable'])
 				]
-			)
+			)	
+			'''
 
 			#Check
 			if self.ConditioningTestVariable in self.ConditioningTypesList:
 
 				#debug
+				'''
 				self.debug('This is a call condition')
+				'''
 
 				#call
 				self.ConditionedTestVariable=self.ConditioningTestVariable(
@@ -109,7 +117,9 @@ class ConditionerClass(BaseClass):
 			else:
 				
 				#debug
+				'''
 				self.debug('Maybe it is get condition')
+				'''
 
 				#try
 				if type(
@@ -124,12 +134,14 @@ class ConditionerClass(BaseClass):
 					if hasattr(self.ConditioningInstanceVariable,'__getitem__'):
 
 						#debug
+						'''
 						self.debug(
 							[
 								'This is a condition get',
 								('self.',self,['ConditioningInstanceVariable'])
 							]
 						)
+						'''
 
 						#try
 						try:
@@ -141,8 +153,8 @@ class ConditionerClass(BaseClass):
 
 						except:
 
-							#pass
-							pass
+							#set
+							self.ConditionedTestVariable=None
 
 					else:
 
@@ -222,8 +234,8 @@ class ConditionerClass(BaseClass):
 		'''
 		self.debug(
 			('self.',self,[
-							'ConditioningInstanceVariable',
-							'ConditioningTestVariable',
+							#'ConditioningInstanceVariable',
+							#'ConditioningTestVariable',
 							'ConditionedTestVariable',
 							'ConditionedIsBool',
 						])
@@ -249,19 +261,29 @@ class ConditionerClass(BaseClass):
 			self.debug(
 						[
 							'We map condition here',
-							#('self.',self,['ConditioningTestVariable'])
+							('self.',self,[
+								#'ConditioningInstanceVariable',
+								#'ConditioningTestVariable',
+								'ConditioningGetVariable'
+							])
 						]
 					)
 			'''
 
 			#alias
 			ConditionTuplesList=self.GettingKeyVariable['ConditionTuplesList']
-			ConditionTestVariablesList=self.ConditioningInstanceVariable.__dict__.values()
+			
+			#get
+			ConditionTestVariablesList=self[
+				self.ConditioningGetVariable
+			]
 
 			#debug
 			'''
 			self.debug(
-				'ConditionTestVariablesList is '+SYS._str(ConditionTestVariablesList)
+				'ConditionTestVariablesList is '+SYS._str(
+					ConditionTestVariablesList
+				)
 			)
 			'''
 
@@ -302,12 +324,14 @@ class ConditionerClass(BaseClass):
 				if self.ConditionedIsBool:
 
 					#We append
+					'''
 					self.debug(
 							[	
 								'This __ConditionTestVariable is keeped',
 								SYS._str(__ConditionTestVariable)
 							]
 						)
+					'''
 
 					#append
 					GettedValueVariable.append(__ConditionTestVariable)

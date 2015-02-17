@@ -6,25 +6,17 @@ import ShareYourSystem as SYS
 MyWalker=SYS.WalkerClass(
 	).array(
 		[
-			["ATextWalker","BTextWalker"],
-			["1TextWalker","2TextWalker"],
-			["aTextWalker","bTextWalker"]
+			["ATextWalker"],
+			#["1TextWalker","2TextWalker"],
+			#["aTextWalker"]
 		]
 	)	
 
-
-SYS._print(MyWalker[{
-				'ConditionTuplesList':[
-					('DictKeyStr',SYS.operator.contains,'Text')
-				]
-			}])
-
-"""
 #Walk inside the Tree in order to parent again because the tree was not yet completely setted when it was done
 MyWalker.walk(
 		#WalkingSocketDict
 		{
-			'BeforeCommandVariable':
+			'BeforeCommandLiargVariablesList':
 			(
 				'/',
 				{
@@ -38,9 +30,8 @@ MyWalker.walk(
 			}
 		}
 	)
-"""
 
 #print
-#print('MyWalker is ')
-#SYS._print(MyWalker)
+print('MyWalker is ')
+SYS._print(MyWalker)
 

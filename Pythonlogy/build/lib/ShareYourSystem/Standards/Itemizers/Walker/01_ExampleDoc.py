@@ -6,9 +6,9 @@ import ShareYourSystem as SYS
 MyWalker=SYS.WalkerClass(
 	).array(
 		[
-			["ATextWalker","BTextWalker"],
-			["1TextWalker","2TextWalker"],
-			["aTextWalker","bTextWalker"]
+			["ATextWalker"],
+			#["1TextWalker","2TextWalker"],
+			#["aTextWalker"]
 		]
 	)	
 
@@ -16,7 +16,7 @@ MyWalker=SYS.WalkerClass(
 MyWalker.walk(
 		#WalkingSocketDict
 		{
-			'BeforeCommandVariable':
+			'BeforeCommandLiargVariablesList':
 			(
 				'/',
 				{
@@ -30,7 +30,6 @@ MyWalker.walk(
 			}
 		}
 	)
-
 
 #print
 print('MyWalker is ')

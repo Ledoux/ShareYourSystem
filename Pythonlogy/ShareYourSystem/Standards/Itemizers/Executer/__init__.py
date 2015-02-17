@@ -13,7 +13,7 @@ An Executer can exec commands with the six.exec_ function
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Objects.Debugger"
+BaseModuleStr="ShareYourSystem.Standards.Itemizers.Setter"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -23,7 +23,7 @@ import six
 #</ImportSpecificModules>
 
 #<DefineLocals>
-ExecutionPrefixStr="Exec_"
+ExecutionPrefixStr=">>"
 #</DefineLocals>
 
 #<DefineClass>
@@ -32,11 +32,13 @@ class ExecuterClass(BaseClass):
 	
 	#Definition
 	RepresentingKeyStrsList=[
-		'ExecutingCodeStr'
+		'ExecutingCodeStr',
+		'ExecutedLocalsDict'
 	]
 
 	def default_init(self,
 				_ExecutingCodeStr="" ,
+				_ExecutedLocalsDict=None,
 				**_KwargVariablesDict):
 
 		#Call the parent __init__ method
@@ -51,6 +53,43 @@ class ExecuterClass(BaseClass):
 		
 		#Execute
 		six.exec_(self.ExecutingCodeStr,locals())
+
+		#alias
+		self.ExecutedLocalsDict=locals()
+
+	def mimic_get(self):
+
+		#Check
+		if type(self.GettingKeyVariable
+			)==str and self.GettingKeyVariable.startswith(ExecutionPrefixStr):
+
+			#deprefix
+			ExecutedStr="ExecutedVariable="+SYS.deprefix(
+						self.GettingKeyVariable,
+						ExecutionPrefixStr
+					)
+
+			#debug
+			'''
+			self.debug('ExecutedStr is '+ExecutedStr)
+			'''
+
+			#execute
+			self.execute(
+					ExecutedStr
+				)
+
+			#alias
+			self.GettedValueVariable=self.ExecutedLocalsDict['ExecutedVariable']
+
+			#stop the getting
+			return {'HookingIsBool':False}
+
+		#Check
+		else:
+
+			#call the base method
+			BaseClass.get(self)
 
 
 #</DefineClass>

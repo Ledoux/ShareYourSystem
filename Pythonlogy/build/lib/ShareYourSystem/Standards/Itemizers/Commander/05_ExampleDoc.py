@@ -16,4 +16,3 @@ MyCommander=SYS.CommanderClass(
 #print
 print('MyCommander.GettedValueVariable is ')
 print(MyCommander.GettedValueVariable)
-

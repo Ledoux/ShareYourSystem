@@ -30,6 +30,7 @@ def getMapList(_LiargVariablesList):
 	return SYS.listify(_LiargVariablesList)
 def getLiargVariablesList(_ValueVariable):
 	return [_ValueVariable]
+GetDeletePrefixStr="-"
 #</DefineLocals>
 
 #<DefineClass>
@@ -82,7 +83,11 @@ class GetterClass(BaseClass):
 		
 		#return
 		return self.GettedValueVariable
-		
+	
+	#def __delitem__(self,_KeyVariable):
+
+
+
 	def do_get(self):
 		""" """
 
@@ -178,6 +183,25 @@ class GetterClass(BaseClass):
 			self.debug(
 					'This is a non method get'
 				)
+			'''
+
+			'''
+			#/############################
+			# Case of a delete in the instance __dict__ 
+			#
+
+			if self.GettingKeyVariable.startswith(GetDeletePrefixStr)
+
+				#delete
+				del self.__dict__[
+					SYS.deprefix(
+						self.GettingKeyVariable,
+						GetDeletePrefixStr
+					)
+				]
+
+				#Stop the getting
+				return {"HookingIsBool":False}
 			'''
 
 			#/############################

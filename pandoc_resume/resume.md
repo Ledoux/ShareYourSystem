@@ -27,7 +27,8 @@ Education
     UMR 8119, advisor : Nicolas Brunel *
 
 2004-2008
-:   **Bachelor(L3)/Master(M2) Biology and Bachelor(L3) in Physics** <br>
+:   **Master(M1,M2) in Neurosciences,** <br> 
+    **Bachelor(L3) in Physics, Bachelor(L3) in Biology** <br>
     ENS (Ecole Normale Supérieure) de la rue d'Ulm (Paris)
 
     *Internship Master 1 : Modeling homeostasis in the pyloric system, <br>

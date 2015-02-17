@@ -737,6 +737,23 @@ def getIsTuplesListBool(_TuplesList):
 	#Return False either
 	return False
 
+def getIsGetDictBool(_Dict):
+
+	#Check
+	if hasattr(_Dict,'items'):
+
+		#Check
+		if 'GetKeyVariable' in _Dict or 'ConditionTuplesList' in _Dict:
+
+			#return
+			return True
+
+	#return
+	return False
+
+
+
+
 def getSingularStrWithPluralStr(_PluralStr):
 	return _PluralStr[:-1]
 
