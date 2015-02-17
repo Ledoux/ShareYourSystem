@@ -376,6 +376,19 @@ class GetterClass(BaseClass):
 			#Stop the getting
 			return {"HookingIsBool":False}
 
+		#/############################
+		# Cases of a direct get 
+		#
+
+		elif hasattr(self.GettingKeyVariable,'MroClassesList'):
+
+			#set
+			self.GettedValueVariable=self.GettingKeyVariable
+
+			#Stop the getting
+			return {"HookingIsBool":False}
+
+
 		#set
 		self.GettedValueVariable=None
 

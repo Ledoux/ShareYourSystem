@@ -101,7 +101,7 @@ class WalkerClass(BaseClass):
 				self.WalkedTopOrderedDict['IndexInt'])]
 			self.WalkedTopOrderedDict['TopVariablesList']+=[self]
 
-		#An Update just before is possible
+		#A command just before is possible
 		if 'BeforeCommandLiargVariablesList' in self.WalkingSocketDict:
 
 			#debug
@@ -118,6 +118,8 @@ class WalkerClass(BaseClass):
 				*self.WalkingSocketDict['BeforeCommandLiargVariablesList']
 			)
 
+			
+
 			#debug
 			'''
 			self.debug(
@@ -130,9 +132,24 @@ class WalkerClass(BaseClass):
 		self.debug(('self.',self,['WalkingSocketDict']))
 		'''
 		
+		#get
+		WalkedValueVariable=self[
+			self.WalkingSocketDict['RouteGetVariable']
+		]
+
+		#filter self for the walk
+		if WalkedValueVariable==self:
+			WalkedValueVariable=[]
+		elif type(WalkedValueVariable)==list:
+			WalkedValueVariable=SYS._filter(
+				lambda __ElementVariable:
+				__ElementVariable!=self,
+				WalkedValueVariable
+			)
+
 		#Command a walk in variables getted with RouteGetVariable
 		self.command(
-						self.WalkingSocketDict['RouteGetVariable'],
+						WalkedValueVariable,
 						[
 							(
 								'walk',
@@ -140,13 +157,13 @@ class WalkerClass(BaseClass):
 							)
 						]
 					)
-
-		#An Update just after is possible
+		
+		#An command just after is possible
 		if 'AfterCommandLiargVariablesList' in self.WalkingSocketDict:
 
 			#debug
 			'''
-			self.debug(('_SocketDict',_SocketDict,['AfterCommandLiargVariablesList']))
+			self.debug(('self.WalkingSocketDict.',self.WalkingSocketDict,['AfterCommandLiargVariablesList']))
 			'''
 
 			#command
