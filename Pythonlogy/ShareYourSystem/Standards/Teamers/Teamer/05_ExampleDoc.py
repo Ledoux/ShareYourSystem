@@ -6,17 +6,17 @@ import ShareYourSystem as SYS
 MyTeamer=SYS.TeamerClass()
 
 #Build a longer Chain
-MyTeamer['/*Clients/$First/*Banks/$Nef']
+MyTeamer['/&Clients/$First/&Banks/$Nef']
 
 #print
-print("MyTeamer['/*Clients/$First/<Manager'] is ")
-SYS._print(MyTeamer['/*Clients/$First/<Manager'])
+print("MyTeamer['/&Clients/$First/<Manager'] is ")
+SYS._print(MyTeamer['/&Clients/$First/<Manager'])
 
 #print
-print("MyTeamer['/*Clients/$First/<Teamer'] is ")
-SYS._print(MyTeamer['/*Clients/$First/<Teamer'])
+print("MyTeamer['/&Clients/$First/<Teamer'] is ")
+SYS._print(MyTeamer['/&Clients/$First/<Teamer'])
 
 #print
-print("MyTeamer['/*Clients/$First/*Banks/<Teamer'] is ")
-SYS._print(MyTeamer['/*Clients/$First/*Banks/<Teamer'])
+print("MyTeamer['/&Clients/$First/&Banks/<Teamer'] is ")
+SYS._print(MyTeamer['/&Clients/$First/&Banks/<Teamer'])
 

@@ -1784,9 +1784,9 @@ from ShareYourSystem.Standards.Itemizers import Pather
 #&lt;/ImportSpecificModules&gt;
 
 #&lt;DefineLocals&gt;
-PointingPrefixStr=""
-PointingSuffixStr=""
-PointingBackStr="Back"
+PointPrefixStr=""
+PointSuffixStr=""
+PointBackStr="Back"
 #&lt;/DefineLocals&gt;
 
 #&lt;DefineClass&gt;
@@ -1867,7 +1867,7 @@ class PointerClass(BaseClass):
         '''
 
         #set
-        self.SettingKeyVariable=self.PointedPathBackStr+Pather.PathPrefixStr+PointingPrefixStr+self.PointedLocalSetStr+PointingSuffixStr
+        self.SettingKeyVariable=self.PointedPathBackStr+Pather.PathPrefixStr+PointPrefixStr+self.PointedLocalSetStr+PointSuffixStr
 
         #debug
         '''

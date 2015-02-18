@@ -7,13 +7,12 @@ MyPointer=SYS.PointerClass(
 		).get(
 			'/ChildPather/GrandChildPather'
 		).point(
-			#PointingToGetVariable
-			'/ChildPather/GrandChildPather'
-		).point(
-			#PointingToGetVariable
-			'/ChildPather/GrandChildPather',
-			#PointingToSetKeyVariable
-			'MyGrandChildPather'
+			#PointingGetVariable
+			'/',
+			#PointingSetPathStr
+			'/ChildPather/GrandChildPather/GrandParentPointer',
+			#PointingBackSetStr
+			
 		)
 
 #print

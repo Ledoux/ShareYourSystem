@@ -17,7 +17,7 @@ arborescent and (possibly circular) structures of objects.
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Itemizers.Filterer"
+BaseModuleStr="ShareYourSystem.Standards.Itemizers.Pointer"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>

@@ -14,7 +14,7 @@ A Pointer
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Itemizers.Commander"
+BaseModuleStr="ShareYourSystem.Standards.Itemizers.Walker"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -24,9 +24,9 @@ from ShareYourSystem.Standards.Itemizers import Pather
 #</ImportSpecificModules>
 
 #<DefineLocals>
-PointingPrefixStr=""
-PointingSuffixStr=""
-PointingBackStr="Back"
+PointPrefixStr=">"
+PointSuffixStr=""
+PointBackStr="Back"
 #</DefineLocals>
 
 #<DefineClass>
@@ -35,25 +35,18 @@ class PointerClass(BaseClass):
 
 	#Definition
 	RepresentingKeyStrsList=[
-								'PointingGetVariable',
-								'PointingSetPathStr',
-								'PointingBackSetStr',
-								'PointedGetVariable',
-								'PointedPathBackVariable',
-								'PointedLocalSetStr',
-								'PointedBackSetStr'
+								'PointingToGetVariable',
+								'PointingToSetKeyVariable',
+								'PointingBackSetKeyVariable',
+								'PointingBackBool'
 							]
 
 	def default_init(
 					self,		
-					_PointingGetVariable=None,
-					_PointingSetPathStr="",
-					_PointingBackSetStr="",
-					_PointedGetVariable=None,
-					_PointedPathBackVariable="",
-					_PointedPathBackStr="",
-					_PointedLocalSetStr="",
-					_PointedBackSetStr="",
+					_PointingToGetVariable=None,
+					_PointingToSetKeyVariable=None,
+					_PointingBackSetKeyVariable="",
+					_PointingBackBool=False,
 					**_KwargVariablesDict
 				):
 
@@ -62,101 +55,100 @@ class PointerClass(BaseClass):
 
 	def do_point(self):
 
+		#/###################/#
+		# First point TO like a classic set
+		#
+
 		#debug
 		'''
-		self.debug(('self.',self,[
-									'PointingGetVariable',
-									'PointingSetPathStr'
-								]))
+		self.debug(
+					('self.',self,[
+									'PointingToGetVariable',
+									'PointingToSetKeyVariable'None								'PointingFromGetVariable',
+								])
+					)
 		'''
 
 		#get
-		if type(self.PointingGetVariable) in SYS.StrTypesList:
-			self.PointedGetVariable=self[self.PointingGetVariable]
+		PointedToGetVariable=self[self.PointingToGetVariable]
+
+		#/####################/#
+		# Check for the SetKeyVariable
+		#
+
+		#Check
+		if self.PointingToSetKeyVariable==None:
+			PointedToSetKeyVariable=PointPrefixStr+str(
+					self.PointingToGetVariable
+				).replace('/','_')
 		else:
-			self.PointedGetVariable=self.PointingGetVariable
+			PointedToSetKeyVariable=self.PointingToSetKeyVariable
+
+		#debug
+		self.debug(
+				'PointedToSetKeyVariable is '+SYS._str(
+					PointedToSetKeyVariable
+				)
+			)
+
+		#set
+		self.set(
+				PointedToSetKeyVariable,
+				PointedToGetVariable
+			)
 
 		#debug
 		'''
 		self.debug(
 					[
 						'After getting',
-						('self.',self,[
-										'PointingGetVariable',
-										'PointedGetVariable'
-										]
+						('locals()["',locals(),[
+										'PointedToGetVariable',
+										],']
 									)
 					]
 				)
 		'''
 
-		#set
-		self.PointedPathBackStr=Pather.getPathedBackGetStrWithGetStr(
-			self.PointingSetPathStr
-		)
-		
-		#set
-		self.PointedLocalSetStr=self.PointingSetPathStr.split(
-			self.PointedPathBackStr+Pather.PathPrefixStr
-		)[-1]
+		#/###################/#
+		# Maybe do a back point
+		#
 
-		#debug
-		'''
-		self.debug(('self.',self,[
-									'PointingSetPathStr',
-									'PointedPathBackStr',
-									'PointedLocalSetStr'
-								]))
-		'''
-		
-		#set
-		self.SettingKeyVariable=self.PointedPathBackStr+Pather.PathPrefixStr+PointingPrefixStr+self.PointedLocalSetStr+PointingSuffixStr
+		#Check
+		if self.PointingBackBool:
 
-		#debug
-		'''
-		self.debug(('self.',self,['SettingKeyVariable']))
-		'''
-		
-		#set the point variable
-		self[
-				self.SettingKeyVariable
-			]=self.PointedGetVariable
+			#Check
+			if self.PointingBackSetKeyVariable==None:
+				
+				PointedKeyStrsList=PointedToSetKeyVariable.split('_').reverse()
 
-		#set a back pointer
-		if self.PointingBackSetStr!="":
+				#get the pathstr
+				PointedBackSetKeyVariable='_'.join(PointedKeyStrsList)
+
+			else:
+
+				#just alias
+				PointedBackSetKeyVariable=self.PointingBackSetKeyVariable
+
 
 			#debug
-			'''
 			self.debug(
-						[
-							'We point back here',
-							('self.',self,[
-												'PointingSetPathStr',
-												'PointingBackSetStr'
-										])
-						]
-					)
-			'''
-			
-			#Get
-			self.PointedPathBackVariable=Pather.getPathedBackVariableWithVariableAndGetStr(
-				self,
-				self.PointingSetPathStr
-			)
+					[
+						'we set the back',
+						'PointedBackSetKeyVariable is '+SYS._str(
+							PointedBackSetKeyVariable
+						),
+						'PointedToGetVariable is '+SYS._str(
+							PointedToGetVariable
+						)
+					]
+				)
 
-			#debug
-			'''
-			self.debug(('self.',self,[
-										'PointedGetVariable',
-										'PointedPathBackVariable',
-										'PointingBackSetStr'
-									]))
-			'''
-
-			#link
-			self.PointedGetVariable[
-				self.PointingBackSetStr
-			]=self.PointedPathBackVariable
+			#set
+			PointedToGetVariable.set(
+					PointedBackSetKeyVariable,
+					self
+				)
 
 
 #</DefineClass>

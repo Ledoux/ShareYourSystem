@@ -15,7 +15,7 @@ a child node could have. It acts only at one level.
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Itemizers.Filterer"
+BaseModuleStr="ShareYourSystem.Standards.Itemizers.Pointer"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -319,7 +319,7 @@ class ManagerClass(BaseClass):
 					ManagementChildPrefixStr
 				),
 				self.SettingValueVariable
-			)
+			)	
 
 			#Stop the setting
 			OutputDict["HookingIsBool"]=False 

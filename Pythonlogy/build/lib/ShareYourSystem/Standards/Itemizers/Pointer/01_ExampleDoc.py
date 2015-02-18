@@ -7,22 +7,16 @@ MyPointer=SYS.PointerClass(
 		).get(
 			'/ChildPather/GrandChildPather'
 		).point(
-			'/',
-			'/ChildPather/GrandChildPather/GrandParentPointer'
+			#PointingToGetVariable
+			'/ChildPather/GrandChildPather'
+		).point(
+			#PointingToGetVariable
+			'/ChildPather/GrandChildPather',
+			#PointingToSetKeyVariable
+			'MyGrandChildPather'
 		)
 
-#Return
-SYS._attest(
-	[
-	'MyPointer is '+SYS._str(
-			MyPointer,
-			**{
-				'RepresentingBaseKeyStrsListBool':False,
-				'RepresentingAlineaIsBool':False
-			}
-		)
-	]
-)
-
-#Print
+#print
+print('MyPointer is')
+SYS._print(MyPointer)
 

@@ -189,7 +189,7 @@ class ParenterClass(BaseClass):
 					ParentedValueVariablesList=self.ParentedTopDeriveTeamerVariable[
 							'map*get'](
 											*self.ParentingTopGetVariable
-									).ItemizedMapVariablesList
+									).ItemizedMapValueVariablesList
 									
 					
 					#debug

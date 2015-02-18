@@ -22,6 +22,11 @@ SYS.setSubModule(globals())
 import itertools
 #</ImportSpecificModules>
 
+#<DefineLocals>
+def getLiargVariablesList(_ValueVariable):
+	return _ValueVariable
+#</DefineLocals>
+
 #<DefineClass>
 @DecorationClass()
 class ArrayerClass(BaseClass):
@@ -46,83 +51,158 @@ class ArrayerClass(BaseClass):
 		#Check
 		if len(self.ArrayingKeyVariablesList)>0:
 
+			
 			#/####################/#
-			# Adapt the shape of the ValueVariable
+			# Is it going to be a set with several layers
 			#
 
-			#list default
-			ArrayedLocalValueVariablesList=[]
-			ArrayedDeepValueVariablesList=[]
+			#debug
+			self.debug(
+					[
+						'Is it going to be a set with several layers ?',
+						('self.',self,['ArrayingKeyVariablesList'])
+					]
+				)
 
 			#Check
-			if self.ArrayingValueVariable!=None and len(self.ArrayingValueVariable)>0:
+			if SYS.getIsListsListBool(self.ArrayingKeyVariablesList):
+
+				#debug
+				self.debug('set with several layers')
+
+				#/####################/#
+				# Adapt the shape of the ValueVariable
+				#
+
+				#list default
+				ArrayedLocalValueVariablesList=[]
+				ArrayedDeepValueVariablesList=[]
 
 				#Check
-				if SYS.getIsTuplesListBool(self.ArrayingValueVariable[0]) or hasattr(
-					self.ArrayingValueVariable[0],'items'):
+				if self.ArrayingValueVariable!=None and len(self.ArrayingValueVariable)>0:
 
-				 	#debug
-				 	self.debug('This is an identical array setting')
+					#Check
+					if SYS.getIsTuplesListBool(self.ArrayingValueVariable[0]) or hasattr(
+						self.ArrayingValueVariable[0],'items'):
 
-				 	#list
-				 	ArrayedLocalValueVariablesList=[self.ArrayingValueVariable[0]]*len(
-				 		self.ArrayingKeyVariablesList
-				 	)
-				 	ArrayedDeepValueVariablesList=self.ArrayingValueVariable[1:]
+					 	#debug
+					 	self.debug('This is an identical layered array setting')
 
-				elif self.ArrayingValueVariable!=None and len(self.ArrayingValueVariable)>0:
+					 	#list
+					 	ArrayedLocalValueVariablesList=[self.ArrayingValueVariable[0]]*len(
+					 		self.ArrayingKeyVariablesList
+					 	)
+					 	ArrayedDeepValueVariablesList=self.ArrayingValueVariable[1:]
 
-					#debug
-				 	self.debug('This is an original setting')
+					elif self.ArrayingValueVariable!=None and len(self.ArrayingValueVariable)>0:
 
-				 	#split
-					ArrayedLocalValueVariablesList=self.ArrayingValueVariable[0]
-					ArrayedDeepValueVariablesList=self.ArrayingValueVariable[1:]
-			 	
+						#debug
+					 	self.debug('This is an original layered setting')
+
+					 	#split
+						ArrayedLocalValueVariablesList=self.ArrayingValueVariable[0]
+						ArrayedDeepValueVariablesList=self.ArrayingValueVariable[1:]
+				 	
+
+				#debug
+				self.debug(
+					[
+						'ArrayedLocalValueVariablesList is '+str(
+							ArrayedLocalValueVariablesList),
+						'ArrayedDeepValueVariablesList is '+str(
+							ArrayedDeepValueVariablesList)
+					]
+				)
+
+
+				#/####################/#
+				# Case where we have to set and then array deeper
+				#
+
+				#Check
+				if len(self.ArrayingKeyVariablesList)>1:
+
+					#map
+					map(
+							lambda __ArrayingKeyVariable,__ArrayingLocalValueVariable:
+							self.set(
+									__ArrayingKeyVariable,
+									__ArrayingLocalValueVariable
+									if __ArrayingLocalValueVariable!=None
+									else {}
+								)[__ArrayingKeyVariable].array(
+									self.ArrayingKeyVariablesList[1:],
+									ArrayedDeepValueVariablesList
+								),
+							self.ArrayingKeyVariablesList[0],
+							ArrayedLocalValueVariablesList
+						)
+
+				#/####################/#
+				# Case where we have just to set
+				#
+
+				else:
+
+					#map
+					map(
+							lambda __ArrayingKeyVariable,__ArrayingLocalValueVariable:
+							self.set(
+									__ArrayingKeyVariable,
+									__ArrayingLocalValueVariable
+									if __ArrayingLocalValueVariable!=None
+									else {}
+								),
+							self.ArrayingKeyVariablesList[0],
+							ArrayedLocalValueVariablesList
+						)
 
 			#/####################/#
-			# Case where we have to set and then array deeper
-			#
-
-			#Check
-			if len(self.ArrayingKeyVariablesList)>1:
-
-				
-
-				#map
-				map(
-						lambda __ArrayingKeyVariable,__ArrayingLocalValueVariable:
-						self.set(
-								__ArrayingKeyVariable,
-								__ArrayingLocalValueVariable
-								if __ArrayingLocalValueVariable!=None
-								else {}
-							).SettingValueVariable.array(
-								self.ArrayingKeyVariablesList[1:],
-								ArrayedDeepValueVariablesList
-							),
-						self.ArrayingKeyVariablesList[0],
-						ArrayedLocalValueVariablesList
-					)
-
-			#/####################/#
-			# Case where we have just to set
+			# It is just one layer
 			#
 
 			else:
 
-				#map
-				map(
-						lambda __ArrayingKeyVariable,__ArrayingLocalValueVariable:
-						self.set(
-								__ArrayingKeyVariable,
-								__ArrayingLocalValueVariable
-								if __ArrayingLocalValueVariable!=None
-								else {}
-							),
-						self.ArrayingKeyVariablesList[0],
-						ArrayedLocalValueVariablesList
-					)
+				#/####################/#
+				# Adapt the shape of the ValueVariable
+				#
+
+				#list default
+				ArrayedLocalValueVariablesList=[]
+
+				#Check
+				if self.ArrayingValueVariable==None:
+
+					
+					#just a map get
+					self['map*get'](*self.ArrayingKeyVariablesList)
+				
+				#Check
+				elif type(self.ArrayingValueVariable)==list:
+
+					#debug
+					self.debug('This is an identical non layered setting')
+
+					#map set
+					self['map*set'](
+							zip(
+								self.ArrayingKeyVariablesList,
+								self.ArrayingValueVariable
+							)
+						)
+
+				else:
+	
+					#map set
+					self['map*set'](
+							zip(
+								self.ArrayingKeyVariablesList,
+								[self.ArrayingValueVariable]*len(self.ArrayingKeyVariablesList)
+							)
+						)
+
+					#debug
+					self.debug('This is an original non layered setting')
 
 		
 

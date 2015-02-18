@@ -7,8 +7,8 @@ MyWalker=SYS.WalkerClass(
 	).array(
 		[
 			["ATextWalker"],
-			#["1TextWalker","2TextWalker"],
-			#["aTextWalker"]
+			["1TextWalker","2TextWalker"],
+			["aTextWalker"]
 		]
 	)	
 

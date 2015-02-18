@@ -69,9 +69,9 @@ setup(
 			 		'ShareYourSystem.Standards.Itemizers.Commander',
 			 		'ShareYourSystem.Standards.Itemizers.Walker',
 			 		'ShareYourSystem.Standards.Itemizers.Pointer',
-			 		'ShareYourSystem.Standards.Itemizers.Filterer',
-			 		'ShareYourSystem.Standards.Teamers.Teamer',
+			 		#'ShareYourSystem.Standards.Itemizers.Filterer',
 			 		'ShareYourSystem.Standards.Teamers.Manager',
+			 		'ShareYourSystem.Standards.Teamers.Teamer',
 			 		'ShareYourSystem.Standards.Teamers.Parenter',
 			 		'ShareYourSystem.Standards.Objects',
 			 		'ShareYourSystem.Standards.Classors',
@@ -95,7 +95,6 @@ setup(
 
 
 """
-			 		'ShareYourSystem.Standards.Noders.Arrayer',
 			 		'ShareYourSystem.Standards.Noders.Catcher',
 			 		'ShareYourSystem.Standards.Noders.Attentioner',
 			 		'ShareYourSystem.Standards.Noders.Coupler',

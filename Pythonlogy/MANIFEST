@@ -534,6 +534,8 @@ ShareYourSystem/Standards/Itemizers/Arrayer/00_DocumentDoc.md
 ShareYourSystem/Standards/Itemizers/Arrayer/01_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Arrayer/02_DocumentDoc.md
 ShareYourSystem/Standards/Itemizers/Arrayer/03_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Arrayer/04_DocumentDoc.md
+ShareYourSystem/Standards/Itemizers/Arrayer/05_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Arrayer/__init__.py
 ShareYourSystem/Standards/Itemizers/Attributer/001_DocumentDoc.md
 ShareYourSystem/Standards/Itemizers/Attributer/001_GithubDoc.md
@@ -615,6 +617,10 @@ ShareYourSystem/Standards/Itemizers/Pather/__init__.py
 ShareYourSystem/Standards/Itemizers/Pointer/001_DocumentDoc.md
 ShareYourSystem/Standards/Itemizers/Pointer/00_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Pointer/01_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Pointer/02_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Pointer/03_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Pointer/04_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Pointer/05_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Pointer/Readme.md
 ShareYourSystem/Standards/Itemizers/Pointer/__init__.py
 ShareYourSystem/Standards/Itemizers/Setter/001_DocumentDoc.md
@@ -629,6 +635,8 @@ ShareYourSystem/Standards/Itemizers/Setter/06_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Setter/07_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Setter/08_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Setter/09_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Setter/10_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Setter/11_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Setter/Readme.md
 ShareYourSystem/Standards/Itemizers/Setter/Test.py
 ShareYourSystem/Standards/Itemizers/Setter/__init__.py
@@ -838,6 +846,8 @@ ShareYourSystem/Standards/Noders/Noder/Drafts/__init__ copy 2.py
 ShareYourSystem/Standards/Noders/Noder/Drafts/__init__ copy 3.py
 ShareYourSystem/Standards/Noders/Parenter/00_ExampleDoc.md
 ShareYourSystem/Standards/Noders/Parenter/01_ExampleDoc.py
+ShareYourSystem/Standards/Noders/Parenter/02_ExampleDoc.md
+ShareYourSystem/Standards/Noders/Parenter/03_ExampleDoc.py
 ShareYourSystem/Standards/Noders/Parenter/Readme.md
 ShareYourSystem/Standards/Noders/Parenter/Test.py
 ShareYourSystem/Standards/Noders/Parenter/__init__.py
@@ -944,6 +954,8 @@ ShareYourSystem/Standards/Teamers/Manager/__init__.py
 ShareYourSystem/Standards/Teamers/Manager/Tests/attest_path.txt
 ShareYourSystem/Standards/Teamers/Parenter/00_ExampleDoc.md
 ShareYourSystem/Standards/Teamers/Parenter/01_ExampleDoc.py
+ShareYourSystem/Standards/Teamers/Parenter/02_ExampleDoc.md
+ShareYourSystem/Standards/Teamers/Parenter/03_ExampleDoc.py
 ShareYourSystem/Standards/Teamers/Parenter/Readme.md
 ShareYourSystem/Standards/Teamers/Parenter/Test.py
 ShareYourSystem/Standards/Teamers/Parenter/__init__.py

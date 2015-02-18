@@ -8,7 +8,13 @@ MyPointer=SYS.PointerClass(
 			'/ChildPather/GrandChildPather'
 		).point(
 			#PointingToGetVariable
-			'/ChildPather/GrandChildPather'
+			'/ChildPather/GrandChildPather',
+			#PointingToSetKeyVariable
+			'MyGrandChildPather',
+			#PointingBackSetKeyVariable
+			'MyGrandParentPointer',
+			#PointingBackBool
+			True
 		).point(
 			#PointingToGetVariable
 			'/ChildPather/GrandChildPather',

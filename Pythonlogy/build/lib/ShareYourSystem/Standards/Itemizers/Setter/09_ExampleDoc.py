@@ -2,7 +2,7 @@
 import ShareYourSystem as SYS
 import collections
 
-#Define and automatically in a child setter
+#Define and automatically set in a child setter
 MySetter=SYS.SetterClass(
 	).set(
 		'MyChildSetter',

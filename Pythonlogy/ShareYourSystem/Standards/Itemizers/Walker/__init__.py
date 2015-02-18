@@ -137,7 +137,7 @@ class WalkerClass(BaseClass):
 			self.WalkingSocketDict['RouteGetVariable']
 		]
 
-		#filter self for the walk
+		#filter self for the walk to avoid circular call
 		if WalkedValueVariable==self:
 			WalkedValueVariable=[]
 		elif type(WalkedValueVariable)==list:
@@ -157,7 +157,7 @@ class WalkerClass(BaseClass):
 							)
 						]
 					)
-		
+
 		#An command just after is possible
 		if 'AfterCommandLiargVariablesList' in self.WalkingSocketDict:
 

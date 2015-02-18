@@ -728,9 +728,24 @@ def getIsTuplesListBool(_TuplesList):
 	if type(_TuplesList)==list:
 		return all(
 					map(
-							lambda _Tuple:
-							type(_Tuple)==tuple,
+							lambda __Tuple:
+							type(__Tuple)==tuple,
 							_TuplesList
+						)
+					)
+
+	#Return False either
+	return False
+
+def getIsListsListBool(_ListsList):
+
+	#Check for list of list
+	if type(_ListsList)==list:
+		return all(
+					map(
+							lambda __List:
+							type(__List)==list,
+							_ListsList
 						)
 					)
 

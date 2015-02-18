@@ -45,14 +45,16 @@ class SetterClass(BaseClass):
 									'SettingKeyVariable',
 									'SettingValueVariable',
 									'SettingItemBool',
-									'SettingNewBool'
+									'SettingNewBool',
+									'SettedValueVariable'
 								]
 
 	def default_init(self,
 						_SettingKeyVariable=None, 
 						_SettingValueVariable=None, 
 						_SettingItemBool=True, 	
-						_SettingNewBool=True,		
+						_SettingNewBool=True,	
+						_SettedValueVariable=None,
 						**_KwargVariablesDict
 					):
 		""" """		
@@ -95,14 +97,12 @@ class SetterClass(BaseClass):
 		""" """
 
 		#debug
-		'''
 		self.debug(
 			("self.",self,[
 				'SettingKeyVariable',
 				'SettingValueVariable'
 			])
 		)	
-		'''
 		
 		#itemize first
 		if self.SettingItemBool:
@@ -183,7 +183,7 @@ class SetterClass(BaseClass):
 			return {"HookingIsBool":False}
 
 		#/####################/#
-		# Case of a non method get 
+		# Case of a non method  with set with a set key str 
 		#
 
 		elif type(self.SettingKeyVariable
@@ -360,10 +360,24 @@ class SetterClass(BaseClass):
 							'''
 
 							#alias
-							self.SettingValueVariable=SettedValueType(
-								)['map*set'](
-								self.SettingValueVariable
-							)
+							try:
+
+								#map set
+								self.SettingValueVariable=SettedValueType(
+									)['map*set'](
+									self.SettingValueVariable
+								)
+
+							except:
+
+								#debug
+								self.debug(
+										[
+											'set failed because the suffix str indicates a different type from the value',
+											'SettedValueType is '+str(SettedValueType),
+											'type(self.SettingValueVariable) is '+str(type(self.SettingValueVariable))
+										]
+									)
 
 				#debug
 				'''
@@ -409,5 +423,22 @@ class SetterClass(BaseClass):
 
 				#Return
 				return {'HookingIsBool':False}
+
+		#/####################/#
+		# Case of a non method  with set with a set dict
+		#
+
+		elif hasattr(self.SettingKeyVariable,'items'):
+
+			#set
+			self.set(
+				self.SettingKeyVariable['SetKeyVariable'],
+				self.SettingValueVariable
+			)
+
+			#Return
+			return {'HookingIsBool':False}
+
+
 
 #</DefineClass>
