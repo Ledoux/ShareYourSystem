@@ -11,15 +11,15 @@ MyPointer=SYS.PointerClass(
 			'/ChildPather/GrandChildPather',
 			#PointingToSetKeyVariable
 			'MyGrandChildPather',
-			#PointingBackSetKeyVariable
-			'MyGrandParentPointer',
 			#PointingBackBool
-			True
+			_BackBool=True
 		).point(
 			#PointingToGetVariable
 			'/ChildPather/GrandChildPather',
 			#PointingToSetKeyVariable
-			'MyGrandChildPather'
+			'MyGrandChildPather',
+			#PointingBackSetKeyVariable
+			'MyGrandParentPointer',
 		)
 
 #print

@@ -15,7 +15,7 @@ a child node could have. It acts only at one level.
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Itemizers.Pointer"
+BaseModuleStr="ShareYourSystem.Standards.Teamers.Teamer"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -24,12 +24,11 @@ SYS.setSubModule(globals())
 import copy
 import collections
 from ShareYourSystem.Standards.Itemizers import Pather
-from ShareYourSystem.Standards.Itemizers import Pointer
+Teamer=BaseModule
 #</ImportSpecificModules>
 
 #<DefineLocals>
 ManagementChildPrefixStr="$"
-ManagementParentTeamerPrefixStr="<"
 class ManagementDictClass(collections.OrderedDict):
 	def __init__(self,_Dict=None):
 
@@ -62,7 +61,7 @@ class ManagerClass(BaseClass):
 				self,
 				_ManagingKeyStr="",
 				_ManagingValueVariable=None,
-				_ManagingValueClass=Pointer.PointerClass,
+				_ManagingValueClass=Teamer.TeamerClass,
 				_ManagedValueVariable=None,
 				**_KwargVariablesDict
 			):	
@@ -80,8 +79,10 @@ class ManagerClass(BaseClass):
 		#Init
 		self.TeamKeyStr="Top"
 
+		"""
 		#point
 		self.TeamPointDeriveTeamer=None
+		"""
 		
 	def do_manage(self):
 
@@ -160,29 +161,6 @@ class ManagerClass(BaseClass):
 			##########################
 			#give some manage attributes
 			#
-
-			#debug
-			'''
-			self.debug(
-				'We make point the managed instance to self'
-			)
-			'''
-
-			#set
-			'''
-			self.ManagingValueVariable.point(
-					self,
-					'ManagementPointDeriveManager'
-				)
-			'''
-			self.ManagedValueVariable.ManagementPointDeriveManager=self
-
-			#debug
-			'''
-			self.debug(
-				'Ok it is pointed'
-			)
-			'''
 			
 			#set
 			self.ManagedValueVariable.__setattr__(
@@ -193,29 +171,6 @@ class ManagerClass(BaseClass):
 			##########################
 			#give some team-manage attributes
 			#
-
-			#debug
-			'''
-			self.debug(
-				'We make point the managed instance to the parent team'
-			)
-			'''
-
-			#set
-			'''
-			self.ManagingValueVariable.point(
-					self[TeamParentPrefixStr+'Teamer'],
-					'ManagementPointDeriveManager'
-				)
-			'''
-			self.ManagedValueVariable.ManagementPointDeriveTeamer=self.TeamPointDeriveTeamer
-
-			#debug
-			'''
-			self.debug(
-				'Ok it is pointed'
-			)
-			'''
 			
 			#set
 			self.ManagedValueVariable.__setattr__(
@@ -233,18 +188,9 @@ class ManagerClass(BaseClass):
 		'''
 		self.debug(('self.',self,['GettingKeyVariable']))
 		'''
-		
+	
 		#Check
-		if self.GettingKeyVariable==ManagementParentTeamerPrefixStr+'Teamer':
-			
-			#alias
-			self.GettedValueVariable=self.TeamPointDeriveTeamer
-
-			#Stop the setting
-			OutputDict["HookingIsBool"]=False 
-
-		#Check
-		elif self.GettingKeyVariable==ManagementChildPrefixStr:
+		if self.GettingKeyVariable==ManagementChildPrefixStr:
 
 			#debug
 			'''
@@ -330,3 +276,5 @@ class ManagerClass(BaseClass):
 
 #</DefineClass>
 
+#set
+SYS.TeamerClass.TeamingValueClass=ManagerClass

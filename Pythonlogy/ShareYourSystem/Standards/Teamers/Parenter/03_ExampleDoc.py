@@ -4,10 +4,7 @@ import ShareYourSystem as SYS
 #
 MyParenter=SYS.ParenterClass(
 	).command(
-		'/&Nodes/$First',
-		[
-			('point','<Teamer')
-		]
+		'/&Nodes/$First',('point','/<Manager/$Second')
 	)
 
 

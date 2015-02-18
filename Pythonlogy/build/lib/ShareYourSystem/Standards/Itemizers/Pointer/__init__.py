@@ -24,9 +24,8 @@ from ShareYourSystem.Standards.Itemizers import Pather
 #</ImportSpecificModules>
 
 #<DefineLocals>
-PointPrefixStr=">"
-PointSuffixStr=""
-PointBackStr="Back"
+PointToPrefixStr=">"
+PointBackPreifxStr="Back"
 #</DefineLocals>
 
 #<DefineClass>
@@ -35,18 +34,20 @@ class PointerClass(BaseClass):
 
 	#Definition
 	RepresentingKeyStrsList=[
-								'PointingToGetVariable',
+								'PointingToGetKeyVariable',
 								'PointingToSetKeyVariable',
 								'PointingBackSetKeyVariable',
-								'PointingBackBool'
+								'PointingBackBool',
+								'PointedToGetValueVariable'
 							]
 
 	def default_init(
 					self,		
-					_PointingToGetVariable=None,
+					_PointingToGetKeyVariable=None,
 					_PointingToSetKeyVariable=None,
-					_PointingBackSetKeyVariable="",
+					_PointingBackSetKeyVariable=None,
 					_PointingBackBool=False,
+					_PointedToGetValueVariable=None,
 					**_KwargVariablesDict
 				):
 
@@ -63,14 +64,14 @@ class PointerClass(BaseClass):
 		'''
 		self.debug(
 					('self.',self,[
-									'PointingToGetVariable',
+									'PointingToGetKeyVariable',
 									'PointingToSetKeyVariable'None								'PointingFromGetVariable',
 								])
 					)
 		'''
 
 		#get
-		PointedToGetVariable=self[self.PointingToGetVariable]
+		PointedToGetValueVariable=self[self.PointingToGetKeyVariable]
 
 		#/####################/#
 		# Check for the SetKeyVariable
@@ -78,8 +79,8 @@ class PointerClass(BaseClass):
 
 		#Check
 		if self.PointingToSetKeyVariable==None:
-			PointedToSetKeyVariable=PointPrefixStr+str(
-					self.PointingToGetVariable
+			PointedToSetKeyVariable=str(
+					self.PointingToGetKeyVariable
 				).replace('/','_')
 		else:
 			PointedToSetKeyVariable=self.PointingToSetKeyVariable
@@ -94,7 +95,7 @@ class PointerClass(BaseClass):
 		#set
 		self.set(
 				PointedToSetKeyVariable,
-				PointedToGetVariable
+				PointedToGetValueVariable
 			)
 
 		#debug
@@ -103,7 +104,7 @@ class PointerClass(BaseClass):
 					[
 						'After getting',
 						('locals()["',locals(),[
-										'PointedToGetVariable',
+										'PointedToGetValueVariable',
 										],']
 									)
 					]
@@ -117,17 +118,55 @@ class PointerClass(BaseClass):
 		#Check
 		if self.PointingBackBool:
 
+			#debug
+			self.debug(
+					[
+						'We point back',
+						('self.',self,['PointingBackSetKeyVariable'])
+					]
+				)
+
 			#Check
 			if self.PointingBackSetKeyVariable==None:
 				
-				#get the pathstr
-				PointedBackSetKeyVariable="nn"
+				#debug
+				self.debug(
+					'PointedToSetKeyVariable is '+str(PointedToSetKeyVariable)
+				)
+
+				#/###################/#
+				# Case where the PointedToSetKeyVariable is derived from a pathsetstr
+				#
+
+				#split
+				PointedKeyStrsList=PointedToSetKeyVariable.split('_')
+				if len(PointedKeyStrsList)>1:
+
+					#remove the last
+					PointedKeyStrsList=PointedKeyStrsList[1:]
+
+					#reverse
+					PointedKeyStrsList.reverse()
+
+					#join
+					PointedBackSetKeyVariable='_'.join(PointedKeyStrsList)
+
+				#/###################/#
+				# else just take the id
+				#
+
+				else:
+
+					#set default
+					PointedBackSetKeyVariable=str(self.IdInt)
+
+				#add
+				PointedBackSetKeyVariable=PointedBackSetKeyVariable+self.NameStr
 
 			else:
 
 				#just alias
 				PointedBackSetKeyVariable=self.PointingBackSetKeyVariable
-
 
 			#debug
 			self.debug(
@@ -137,17 +176,94 @@ class PointerClass(BaseClass):
 							PointedBackSetKeyVariable
 						),
 						'PointedToGetVariable is '+SYS._str(
-							PointedToGetVariable
+							PointedToGetValueVariable
 						)
 					]
 				)
 
 			#set
-			PointedToGetVariable.set(
+			PointedToGetValueVariable.set(
 					PointedBackSetKeyVariable,
 					self
 				)
 
+		#alias
+		self.PointedToGetValueVariable=PointedToGetValueVariable
+
+	def mimic_get(self):
+
+		#debug
+		'''
+		self.debug(
+				('self.',self,[
+						'GettingKeyVariable',
+					])
+			)
+		'''
+
+		#Check
+		if type(self.GettingKeyVariable)==str and self.GettingKeyVariable.startswith(
+			PointToPrefixStr
+		):
+
+			#debug
+			self.debug(
+					'we point here'
+				)
+
+			#point
+			self.point(
+					SYS.deprefix(self.GettingKeyVariable,PointToPrefixStr)
+				)
+
+			#alias
+			self.GettedValueVariable=self.PointedToGetValueVariable
+
+			#return
+			return {'HookingIsBool':False}
+
+
+		else:
+
+			#call the base method
+			return BaseClass.get(self)
+
+	def mimic_set(self):
+
+		#debug
+		'''
+		self.debug(
+				('self.',self,[
+						'SettingKeyVariable',
+						'SettingValueVariable',
+					])
+			)
+		'''
+
+		#Check
+		if type(self.SettingKeyVariable)==str and self.SettingKeyVariable.startswith(
+			PointToPrefixStr
+		):
+
+			#debug
+			self.debug(
+					'we point here'
+				)
+
+			#point
+			self.point(
+					SYS.deprefix(self.SettingKeyVariable,PointToPrefixStr),
+					self.SettingValueVariable
+				)
+
+			#return
+			return {'HookingIsBool':False}
+
+
+		else:
+
+			#call the base method
+			return BaseClass.set(self)
 
 #</DefineClass>
 

@@ -952,10 +952,15 @@ ShareYourSystem/Standards/Teamers/Manager/Readme.md
 ShareYourSystem/Standards/Teamers/Manager/Test.py
 ShareYourSystem/Standards/Teamers/Manager/__init__.py
 ShareYourSystem/Standards/Teamers/Manager/Tests/attest_path.txt
+ShareYourSystem/Standards/Teamers/Manager/draft/__init__ copy 2.py
 ShareYourSystem/Standards/Teamers/Parenter/00_ExampleDoc.md
 ShareYourSystem/Standards/Teamers/Parenter/01_ExampleDoc.py
 ShareYourSystem/Standards/Teamers/Parenter/02_ExampleDoc.md
 ShareYourSystem/Standards/Teamers/Parenter/03_ExampleDoc.py
+ShareYourSystem/Standards/Teamers/Parenter/04_ExampleDoc.md
+ShareYourSystem/Standards/Teamers/Parenter/05_ExampleDoc.py
+ShareYourSystem/Standards/Teamers/Parenter/06_ExampleDoc.md
+ShareYourSystem/Standards/Teamers/Parenter/07_ExampleDoc.py
 ShareYourSystem/Standards/Teamers/Parenter/Readme.md
 ShareYourSystem/Standards/Teamers/Parenter/Test.py
 ShareYourSystem/Standards/Teamers/Parenter/__init__.py
@@ -965,15 +970,12 @@ ShareYourSystem/Standards/Teamers/Teamer/00_ExampleDoc.md
 ShareYourSystem/Standards/Teamers/Teamer/01_ExampleDoc.py
 ShareYourSystem/Standards/Teamers/Teamer/02_ExampleDoc.md
 ShareYourSystem/Standards/Teamers/Teamer/03_ExampleDoc.py
-ShareYourSystem/Standards/Teamers/Teamer/04_ExampleDoc.md
-ShareYourSystem/Standards/Teamers/Teamer/05_ExampleDoc.py
-ShareYourSystem/Standards/Teamers/Teamer/06_ExampleDoc.md
-ShareYourSystem/Standards/Teamers/Teamer/07_ExampleDoc.py
 ShareYourSystem/Standards/Teamers/Teamer/Readme.md
 ShareYourSystem/Standards/Teamers/Teamer/Test.py
 ShareYourSystem/Standards/Teamers/Teamer/__init__.py
-ShareYourSystem/Standards/Teamers/Teamer/Drafts/__init__ copy 2.py
-ShareYourSystem/Standards/Teamers/Teamer/Drafts/__init__ copy 3.py
+ShareYourSystem/Standards/Teamers/Teamer/draft/__init__ copy 2.py
+ShareYourSystem/Standards/Teamers/Teamer/draft/__init__ copy 3.py
+ShareYourSystem/Standards/Teamers/Teamer/draft/__init__ copy 4.py
 ShareYourSystem/Standards/Tutorials/Readme.md
 ShareYourSystem/Standards/Tutorials/__init__.py
 ShareYourSystem/Standards/Tutorials/Decrementer/00_ExampleDoc.md

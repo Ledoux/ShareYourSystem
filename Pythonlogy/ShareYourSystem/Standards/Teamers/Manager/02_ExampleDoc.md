@@ -5,4 +5,4 @@ FrozenIsBool True
 
 ##Example
 
-we can build automatically managed instances with just a get query
+we can build long chain automatically of teamers and managers

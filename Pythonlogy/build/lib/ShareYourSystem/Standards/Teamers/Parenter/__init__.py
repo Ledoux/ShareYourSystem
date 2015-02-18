@@ -59,6 +59,41 @@ class ParenterClass(BaseClass):
 		#Call the parent init method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
+		#/########################/#
+		#init some management attributes
+		#
+
+		#Init
+		#self.ParentTeamKeyStr="Top"
+
+		#/########################/#
+		#init some team-management attributes
+		#
+
+		#Init
+		#self.ParentManagementKeyStr="Tops"
+
+
+	def mimic_team(self):
+
+		
+
+		#call the base method
+		BaseClass.team(self)
+
+	"""
+	def mimic_get(self):
+		pass
+		#Check
+		if self.GettingKeyVariable==ManagementParentTeamerPrefixStr+'Teamer':
+			
+			#alias
+			self.GettedValueVariable=self.TeamPointDeriveTeamer
+
+			#Stop the setting
+			OutputDict["HookingIsBool"]=False 
+	"""
+
 	def do_parent(self):
 
 		#debug

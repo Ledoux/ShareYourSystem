@@ -5,5 +5,4 @@ FrozenIsBool True
 
 ##Example
 
-we can build automatically managed teams that contain themselves 
-child teams
+A just get query will also instances the child.

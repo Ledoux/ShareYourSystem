@@ -24,13 +24,11 @@ SYS.setSubModule(globals())
 
 #<ImportSpecificModules>
 import collections
-from ShareYourSystem.Standards.Itemizers import Pather
-from ShareYourSystem.Standards.Teamers import Manager
+from ShareYourSystem.Standards.Itemizers import Pather,Pointer
 #</ImportSpecificModules>
 
 #<DefineLocals>
 TeamChildPrefixStr='&'
-TeamParentManagerPrefixStr="<"
 class TeamDictClass(collections.OrderedDict):
 	def __init__(self,_Dict=None):
 
@@ -65,7 +63,7 @@ class TeamerClass(BaseClass):
 				_TeamingKeyStr="",	
 				_TeamingValueVariable=None,	
 				_TeamingManageVariable=None,					
-				_TeamingValueClass=Manager.ManagerClass, 	
+				_TeamingValueClass=Pointer.PointerClass, 	
 				_TeamedValueVariable=None,																	
 				**_KwargVariablesDict
 			):
@@ -76,27 +74,6 @@ class TeamerClass(BaseClass):
 		#init
 		self.TeamDict=TeamDictClass()
 
-		##########################
-		#init some management attributes
-		#
-
-		#Init
-		self.ManagementKeyStr="Top"
-
-		#point
-		self.ManagementPointDeriveManager=None
-
-		##########################
-		#init some team-management attributes
-		#
-
-		#Init
-		self.ManagementTeamKeyStr="Tops"
-
-		#point
-		self.ManagementPointDeriveTeamer=None
-
-	
 	def do_team(self):
 
 		#debug
@@ -216,28 +193,7 @@ class TeamerClass(BaseClass):
 		'''
 
 		#Check
-		if self.GettingKeyVariable==TeamParentManagerPrefixStr+'Manager':
-			
-			#alias
-			self.GettedValueVariable=self.ManagementPointDeriveManager
-
-			#Stop the setting
-			OutputDict["HookingIsBool"]=False 
-
-		#Check
-		if self.GettingKeyVariable==Manager.ManagementParentTeamerPrefixStr+'Teamer':
-			
-			#alias
-			if self.ManagementPointDeriveManager!=None:
-				self.GettedValueVariable=self.ManagementPointDeriveManager.TeamPointDeriveTeamer
-			else:
-				self.GettedValueVariable=None
-
-			#Stop the setting
-			OutputDict["HookingIsBool"]=False 
-
-		#Check
-		elif type(
+		if type(
 			self.GettingKeyVariable
 		)==str and self.GettingKeyVariable.startswith(TeamChildPrefixStr):
 
@@ -274,7 +230,9 @@ class TeamerClass(BaseClass):
 		#Check
 		if type(
 			self.SettingKeyVariable
-		)==str and self.SettingKeyVariable.startswith(TeamChildPrefixStr):
+		)==str and self.SettingKeyVariable.startswith(
+			TeamChildPrefixStr
+		):
 
 			#debug
 			'''
@@ -298,7 +256,3 @@ class TeamerClass(BaseClass):
 			return BaseClass.set(self)
 
 #</DefineClass>
-
-#set
-SYS.ManagerClass.ManagingValueClass=TeamerClass
-SYS.Manager.TeamChildPrefixStr=TeamChildPrefixStr
