@@ -33,7 +33,8 @@ class CommanderClass(BaseClass):
 							#'CommandingGetVariable',
 							#'CommandingSetVariable',
 							'CommandingOrderStr',
-							'CommandingWalkBool'
+							'CommandingBeforeWalkBool',
+							'CommandingAfterWalkBool'
 						]
 
 	def default_init(
@@ -41,7 +42,8 @@ class CommanderClass(BaseClass):
 				_CommandingGetVariable=None,
 				_CommandingSetVariable=None,	
 				_CommandingOrderStr="AllSetsForEachGrasp",
-				_CommandingWalkBool=False,			
+				_CommandingBeforeWalkBool=False,	
+				_CommandingAfterWalkBool=False,			
 				**_KwargVariablesDict
 			):
 
@@ -51,38 +53,29 @@ class CommanderClass(BaseClass):
 	def do_command(self):
 		"""Collect with _GatheringKeyVariablesList and do a all sets for each with _UpdatingItemVariable"""
 
-	
 		#/####################/#
 		# Adapt the type for getting things to command
 		#
 
 		#debug
-		'''
 		self.debug(
 			[
 				'Adapt the type for getting things to command',
-				("self.",self,['CommandingGetVariable'])
+				("self.",self,[
+								'CommandingGetVariable',
+								'CommandingSetVariable'
+							])
 			]
 		)
-		'''
 
 		#Check
 		if type(self.CommandingGetVariable)!=list:
 			
 			#Check
 			if SYS.getIsGetDictBool(self.CommandingGetVariable)==False:
-
-				#just listify
-				self.CommandingGetVariable=[
-					self.CommandingGetVariable
-				]
-
+				
 				#map a get
-				CommandedValueVariablesList=map(
-						lambda __CommandingGetVariable:
-						self[__CommandingGetVariable],
-						self.CommandingGetVariable
-					)
+				CommandedValueVariablesList=[self[self.CommandingGetVariable]]
 
 			else:
 
@@ -123,19 +116,68 @@ class CommanderClass(BaseClass):
 			)
 		'''
 
+		#/###################/#
+		# Check if we have to walk before
+		#
+
+		#Check
+		if self.CommandingBeforeWalkBool:
+
+			#debug
+			self.debug(
+				[
+					'we are going to walk before the command',
+					'CommandedValueVariablesList is '+SYS._str(CommandedValueVariablesList),
+					'self.getDoing().values() is '+SYS._str(self.getDoing().values())
+				]
+			)
+
+			#Debug
+			'''
+			for __CommandedValueVariable in CommandedValueVariablesList:
+
+				#debug
+				self.debug(
+					'__CommandedValueVariable is '+SYS._str( __CommandedValueVariable)
+				)
+
+				#set
+				__CommandedValueVariable.set(
+							'GettingNewBool',False
+						).command(
+							*self.getDoing().values()	
+						).set(
+							'GettingNewBool',True
+						)
+			'''
+
+			#map the recursion but pay watch to not set new things to walk in...it is an infinite walk either !
+			map(
+					lambda __CommandedValueVariable:
+					__CommandedValueVariable.set(
+							'GettingNewBool',False
+						).command(
+							*self.getDoing().values()	
+						).set(
+							'GettingNewBool',True
+						),
+					CommandedValueVariablesList
+				)
+
+		
+
 		#/####################/#
 		# Adapt the type for setting things in the commanded variables
 		#
 
 		#debug
-		'''
 		self.debug(
 			[
 				'Adapt the type for setting things in the commanded variables',
 				("self.",self,['CommandingSetVariable'])
 			]
 		)
-		'''
+
 
 		#Check
 		if type(self.CommandingSetVariable)!=list:
@@ -159,14 +201,16 @@ class CommanderClass(BaseClass):
 			CommandedSetVariablesList=self.CommandingSetVariable
 
 		#debug
-		'''
 		self.debug(
 				[
 					'in the end, CommandedSetVariablesList is ',
 					SYS._str(CommandedSetVariablesList)
 				]
 			)
-		'''
+
+		#/###################/#
+		# Ok now we command locally
+		#
 
 		#Check for the order
 		if self.CommandingOrderStr=="AllSetsForEachGrasp":
@@ -199,8 +243,12 @@ class CommanderClass(BaseClass):
 					CommandedSetVariablesList
 				)
 
+		#/###################/#
+		# And we check for a walk after
+		#
+
 		#Check
-		if self.CommandingWalkBool:
+		if self.CommandingAfterWalkBool:
 
 			#debug
 			self.debug(
@@ -223,10 +271,7 @@ class CommanderClass(BaseClass):
 				__CommandedValueVariable.set(
 							'GettingNewBool',False
 						).command(
-							self.CommandingGetVariable,
-							self.CommandingSetVariable,	
-							self.CommandingOrderStr,
-							self.CommandingWalkBool,	
+							*self.getDoing().values()	
 						).set(
 							'GettingNewBool',True
 						)
@@ -238,10 +283,7 @@ class CommanderClass(BaseClass):
 					__CommandedValueVariable.set(
 							'GettingNewBool',False
 						).command(
-							self.CommandingGetVariable,
-							self.CommandingSetVariable,	
-							self.CommandingOrderStr,
-							self.CommandingWalkBool,	
+							*self.getDoing().values()	
 						).set(
 							'GettingNewBool',True
 						),

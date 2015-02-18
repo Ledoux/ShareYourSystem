@@ -5,8 +5,8 @@ import ShareYourSystem as SYS
 MyParenter=SYS.ParenterClass(
 	).set('MyStr','hello')
 
-#parent then
-MyParenter['/&Children/$Child/&GrandChildren'].walk(
+#parent by a command (CommandingWalkBool is set to True by default in Parenter)
+MyParenter['/&Children/$Child/&GrandChildren'].command(
 		'^',
 		('parent',[])
 	)

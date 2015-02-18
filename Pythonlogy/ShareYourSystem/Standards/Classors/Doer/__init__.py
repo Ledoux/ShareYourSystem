@@ -68,7 +68,7 @@ def getDoing(_InstanceVariable,_DoClassVariable=None):
 	"""
 
 	#call
-	return dict(
+	return collections.OrderedDict(
 		zip(
 		_DoClassVariable.DoingAttributeVariablesOrderedDict.keys(),
 		map(
@@ -119,7 +119,7 @@ def getDone(_InstanceVariable,_DoClassVariable=None):
 	"""
 
 	#call
-	return dict(
+	return collections.OrderedDict(
 		zip(
 		_DoClassVariable.DoneAttributeVariablesOrderedDict.keys(),
 		map(
@@ -168,7 +168,7 @@ def setDone(_InstanceVariable,_DoClassVariable=None,**_KwargVariablesDict):
 def getDo(_InstanceVariable,_DoClassVariable=None):
 	
 	#call
-	return dict(
+	return collections.OrderedDict(
 			_InstanceVariable.getDoing(_DoClassVariable),
 			**_InstanceVariable.getDone(_DoClassVariable)
 		)
