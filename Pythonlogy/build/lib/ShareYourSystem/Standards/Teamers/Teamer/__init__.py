@@ -74,6 +74,9 @@ class TeamerClass(BaseClass):
 		#init
 		self.TeamDict=TeamDictClass()
 
+		#init
+		self.ManagementKeyStr=""
+
 	def do_team(self):
 
 		#debug
@@ -152,34 +155,8 @@ class TeamerClass(BaseClass):
 			#give some team attributes
 			#
 
-			#debug
-			'''
-			self.debug(
-				'We make point the teamed instance to self'
-			)
-			'''
-
 			#set
-			'''
-			self.TeamedValueVariable.point(
-					self,
-					'TeamPointDeriveTeamer'
-				)
-			'''
-			self.TeamedValueVariable.TeamPointDeriveTeamer=self
-				
-			#debug
-			'''
-			self.debug(
-				'Ok it is pointed'
-			)	
-			'''
-
-			#set
-			self.TeamedValueVariable.__setattr__(
-				'TeamKeyStr',
-				self.TeamingKeyStr
-			)
+			self.TeamedValueVariable.TeamKeyStr=self.TeamingKeyStr
 
 
 	def mimic_get(self):

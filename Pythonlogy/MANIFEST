@@ -553,6 +553,8 @@ ShareYourSystem/Standards/Itemizers/Commander/02_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Commander/03_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Commander/04_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Commander/05_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Commander/06_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Commander/07_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Commander/Readme.md
 ShareYourSystem/Standards/Itemizers/Commander/Test.py
 ShareYourSystem/Standards/Itemizers/Commander/__init__.py
@@ -957,14 +959,13 @@ ShareYourSystem/Standards/Teamers/Parenter/00_ExampleDoc.md
 ShareYourSystem/Standards/Teamers/Parenter/01_ExampleDoc.py
 ShareYourSystem/Standards/Teamers/Parenter/02_ExampleDoc.md
 ShareYourSystem/Standards/Teamers/Parenter/03_ExampleDoc.py
-ShareYourSystem/Standards/Teamers/Parenter/04_ExampleDoc.md
-ShareYourSystem/Standards/Teamers/Parenter/05_ExampleDoc.py
-ShareYourSystem/Standards/Teamers/Parenter/06_ExampleDoc.md
-ShareYourSystem/Standards/Teamers/Parenter/07_ExampleDoc.py
 ShareYourSystem/Standards/Teamers/Parenter/Readme.md
 ShareYourSystem/Standards/Teamers/Parenter/Test.py
 ShareYourSystem/Standards/Teamers/Parenter/__init__.py
 ShareYourSystem/Standards/Teamers/Parenter/Tests/attest_path.txt
+ShareYourSystem/Standards/Teamers/Parenter/draft/02_ExampleDoccopy.md
+ShareYourSystem/Standards/Teamers/Parenter/draft/04_ExampleDoccopy.md
+ShareYourSystem/Standards/Teamers/Parenter/draft/06_ExampleDoccopy.md
 ShareYourSystem/Standards/Teamers/Teamer/001_DocumentDoc.md
 ShareYourSystem/Standards/Teamers/Teamer/00_ExampleDoc.md
 ShareYourSystem/Standards/Teamers/Teamer/01_ExampleDoc.py

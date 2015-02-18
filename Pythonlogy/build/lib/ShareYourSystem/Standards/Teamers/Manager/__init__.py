@@ -77,12 +77,8 @@ class ManagerClass(BaseClass):
 		#
 
 		#Init
-		self.TeamKeyStr="Top"
+		self.TeamKeyStr=""
 
-		"""
-		#point
-		self.TeamPointDeriveTeamer=None
-		"""
 		
 	def do_manage(self):
 
@@ -163,20 +159,7 @@ class ManagerClass(BaseClass):
 			#
 			
 			#set
-			self.ManagedValueVariable.__setattr__(
-				'ManagementKeyStr',
-				self.ManagingKeyStr
-			)
-
-			##########################
-			#give some team-manage attributes
-			#
-			
-			#set
-			self.ManagedValueVariable.__setattr__(
-				'ManagementTeamKeyStr',
-				self.TeamKeyStr
-			)
+			self.ManagedValueVariable.ManagementKeyStr=self.ManagingKeyStr
 
 
 	def mimic_get(self):

@@ -32,14 +32,16 @@ class CommanderClass(BaseClass):
 	RepresentingKeyStrsList=[
 							#'CommandingGetVariable',
 							#'CommandingSetVariable',
-							'CommandingOrderStr'
+							'CommandingOrderStr',
+							'CommandingWalkBool'
 						]
 
 	def default_init(
 				self,
 				_CommandingGetVariable=None,
 				_CommandingSetVariable=None,	
-				_CommandingOrderStr="AllSetsForEachGrasp",			
+				_CommandingOrderStr="AllSetsForEachGrasp",
+				_CommandingWalkBool=False,			
 				**_KwargVariablesDict
 			):
 
@@ -108,6 +110,8 @@ class CommanderClass(BaseClass):
 					self.CommandingGetVariable
 				)
 
+		#filter
+		CommandedValueVariablesList=SYS.filterNone(CommandedValueVariablesList)
 
 		#debug
 		'''
@@ -194,4 +198,54 @@ class CommanderClass(BaseClass):
 					),
 					CommandedSetVariablesList
 				)
+
+		#Check
+		if self.CommandingWalkBool:
+
+			#debug
+			self.debug(
+				[
+					'we are going to walk the command',
+					'CommandedValueVariablesList is '+SYS._str(CommandedValueVariablesList)
+				]
+			)
+
+			#Debug
+			'''
+			for __CommandedValueVariable in CommandedValueVariablesList:
+
+				#debug
+				self.debug(
+					'__CommandedValueVariable is '+SYS._str( __CommandedValueVariable)
+				)
+
+				#set
+				__CommandedValueVariable.set(
+							'GettingNewBool',False
+						).command(
+							self.CommandingGetVariable,
+							self.CommandingSetVariable,	
+							self.CommandingOrderStr,
+							self.CommandingWalkBool,	
+						).set(
+							'GettingNewBool',True
+						)
+			'''
+
+			#map the recursion but pay watch to not set new things to walk in...it is an infinite walk either !
+			map(
+					lambda __CommandedValueVariable:
+					__CommandedValueVariable.set(
+							'GettingNewBool',False
+						).command(
+							self.CommandingGetVariable,
+							self.CommandingSetVariable,	
+							self.CommandingOrderStr,
+							self.CommandingWalkBool,	
+						).set(
+							'GettingNewBool',True
+						),
+					CommandedValueVariablesList
+				)
+
 #</DefineClass>
