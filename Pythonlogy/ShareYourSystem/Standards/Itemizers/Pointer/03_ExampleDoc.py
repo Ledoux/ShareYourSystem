@@ -6,18 +6,18 @@ import ShareYourSystem as SYS
 MyPointer=SYS.PointerClass(
 		).point(
 			#PointingToGetVariable
-			'/ChildPather/GrandChildPather',
+			'/FirstChildPointer/GrandChildPointer',
 			#PointingToSetKeyVariable
-			'MyGrandChildPather',
+			'FirstGrandChildPointer',
 			#PointingBackBool
 			_BackBool=True
 		).point(
 			#PointingToGetVariable
-			'/ChildPather/GrandChildPather',
+			'/SecondChildPointer/GrandChildPointer',
 			#PointingToSetKeyVariable
-			'MyGrandChildPather',
+			'SecondGrandChildPointer',
 			#PointingBackSetKeyVariable
-			'MyGrandParentPointer',
+			'MyGrandParentPointer'
 		)
 
 #print

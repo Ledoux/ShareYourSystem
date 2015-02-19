@@ -9,8 +9,13 @@ MyArrayer=SYS.ArrayerClass(
 		[{'MyStr':"hello"},{}]
 	)
 
+#Definition the AttestedStr
+print('MyArrayer is ')
+SYS._print(MyArrayer)
+
 #array identical
-MyArrayer.array(
+MyArrayer=SYS.ArrayerClass(
+	).array(
 		["aArrayer","bArrayer"],
 		{'MyInt':1}
 	)
@@ -18,4 +23,5 @@ MyArrayer.array(
 #Definition the AttestedStr
 print('MyArrayer is ')
 SYS._print(MyArrayer)
+
 

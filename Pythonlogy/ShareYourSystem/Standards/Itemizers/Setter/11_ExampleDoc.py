@@ -6,9 +6,30 @@ import ShareYourSystem as SYS
 MySetter=SYS.SetterClass(
 	).set(
 		{
-			'SetKeyVariable':"MyStr"
+			'GetKeyVariable':"MyStr"
 		},
 		"hello"
+	)
+
+#Define and set a dict
+MySetter=SYS.SetterClass(
+	).set(
+		{
+			'SetKeyVariable':"MyDict"
+		},
+		{'MyInt':0}
+	)
+
+#set a Setter that will be updated by the dict
+MySetter.set(
+		SYS.SetterClass(
+			)['map*set'](
+				{
+					'SetKeyVariable':"MySetter",
+					'MyInt':0
+				}
+			),
+		{'MyFloat':5.}
 	)
 
 #print

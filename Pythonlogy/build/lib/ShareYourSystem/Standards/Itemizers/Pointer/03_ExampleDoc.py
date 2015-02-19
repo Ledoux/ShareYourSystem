@@ -4,22 +4,20 @@ import ShareYourSystem as SYS
 
 #Explicit expression
 MyPointer=SYS.PointerClass(
-		).get(
-			'/ChildPather/GrandChildPather'
 		).point(
 			#PointingToGetVariable
-			'/ChildPather/GrandChildPather',
+			'/FirstChildPointer/GrandChildPointer',
 			#PointingToSetKeyVariable
-			'MyGrandChildPather',
+			'FirstGrandChildPointer',
 			#PointingBackBool
 			_BackBool=True
 		).point(
 			#PointingToGetVariable
-			'/ChildPather/GrandChildPather',
+			'/SecondChildPointer/GrandChildPointer',
 			#PointingToSetKeyVariable
-			'MyGrandChildPather',
+			'SecondGrandChildPointer',
 			#PointingBackSetKeyVariable
-			'MyGrandParentPointer',
+			'MyGrandParentPointer'
 		)
 
 #print

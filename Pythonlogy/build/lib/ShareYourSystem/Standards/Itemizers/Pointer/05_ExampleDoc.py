@@ -2,16 +2,40 @@
 #ImportModules
 import ShareYourSystem as SYS
 
-#Explicit expression
+#Define and shortcut point without SetKeyVariable
 MyPointer=SYS.PointerClass(
 		).get(
-			'*->/ChildPather/FirstGrandChildPather'
+			'->/ChildPointer/FirstGrandChildPointer'
+		).get(
+			'<->/ChildPointer/SecondGrandChildPointer'
+		)
+
+#print
+print('MyPointer is')
+SYS._print(MyPointer)
+
+#Define and shortcut point with SetKeyVariable
+MyPointer=SYS.PointerClass(
 		).set(
-			'*->/ChildPather/SecondGrandChildPather',
-			'MySecondGrandChildPather'
+			'->/ChildPointer/FirstGrandChildPointer',
+			'MySecondGrandChildPointer'
 		).set(
-			'*<->/ChildPather/SecondGrandChildPather',
-			'MySecondGrandChildPather'
+			'->/ChildPointer/SecondGrandChildPointer',
+			'/MySecondGrandChildPointer/'
+		)
+
+#print
+print('MyPointer is')
+SYS._print(MyPointer)
+
+#Define and shortcut back point with SetKeyVariable
+MyPointer=SYS.PointerClass(
+		).set(
+			'<->/ChildPointer/FirstGrandChildPointer',
+			('MyFirstGrandChildPointer','MyGrandParentPointer')
+		).set(
+			'<->/ChildPointer/SecondGrandChildPointer',
+			('/MySecondGrandChildPointer/','/MyGrandParentPointer/')
 		)
 
 #print

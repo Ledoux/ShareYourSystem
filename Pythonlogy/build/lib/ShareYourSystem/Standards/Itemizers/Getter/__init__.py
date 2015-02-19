@@ -318,11 +318,24 @@ class GetterClass(BaseClass):
 
 		elif hasattr(self.GettingKeyVariable,'items'):
 
+			#debug
+			self.debug(
+				[
+					'we get or set with an itemizable instance',
+					('self.',self,['GettingKeyVariable'])
+				]
+			)
+
+			#try
 			try:
 
 				#debug
 				'''
-				self.debug('we get with the GetKeyVariable')
+				self.debug(
+					[
+						'we get with the GetKeyVariable'
+					]	
+				)
 				'''
 				
 				#get
@@ -330,49 +343,34 @@ class GetterClass(BaseClass):
 					self.GettingKeyVariable['GetKeyVariable']
 				]
 
-				#Stop the getting
-				return {"HookingIsBool":False}
-
 			except:
 
-				#pass
-				pass
-
-				"""
 				#debug
 				self.debug(
 					[
-						'we get with some conditions',
-						'self.GettingKeyVariable["ConditionTuplesList"] is ',
-						SYS._str(self.GettingKeyVariable['ConditionTuplesList'])
+						'we get with the SetKeyVariable',
+						"self.GettingKeyVariable['SetKeyVariable'] is ",
+						str(
+							self.GettingKeyVariable['SetKeyVariable']
+						)
 					]
 				)
-
+				
+				#set
 				try:
-
-					#filter by concluding
-					self.GettedValueVariable=SYS.filterNone(
-						map(
-							lambda __ElementVariable:
-							__ElementVariable
-							if self.conclude(
-										__ElementVariable,
-										self.GettingKeyVariable['ConditionTuplesList']
-									).ConcludedIsBool
-							else None,
-							self.__dict__.values()
-						)
-					)
-
-					#Stop the getting
-					return {"HookingIsBool":False}
-
+					self[
+						self.GettingKeyVariable['SetKeyVariable']
+					]=self.GettingKeyVariable
 				except:
+					self.__setattr__(
+							self.GettingKeyVariable['SetKeyVariable'],
+							self.GettingKeyVariable
+						)
 
-					#pass
-					pass
-				"""
+				#alias
+				self.GettedValueVariable=self.GettingKeyVariable
 
+	
 			#Stop the getting
 			return {"HookingIsBool":False}
 

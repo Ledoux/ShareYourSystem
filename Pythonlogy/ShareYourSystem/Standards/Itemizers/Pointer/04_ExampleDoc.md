@@ -5,4 +5,4 @@ FrozenIsBool True
 
 ##Example
 
-There are the shorcut strs '*->','*<->' to direct point during a set method
+There are the shorcut strs '->','<->' to direct point during a set method

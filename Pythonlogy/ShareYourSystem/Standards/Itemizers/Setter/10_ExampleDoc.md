@@ -5,4 +5,4 @@ FrozenIsBool True
 
 ##Example
 
-We can set with a setkeyvariable as a dict like if it has the keystr "SetKeyVariable"
+We can have also the dict like setting with 'GetKeyVariable' and 'SetKeyVariable'

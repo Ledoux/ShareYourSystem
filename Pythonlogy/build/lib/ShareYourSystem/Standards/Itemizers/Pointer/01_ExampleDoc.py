@@ -2,18 +2,41 @@
 #ImportModules
 import ShareYourSystem as SYS
 
-#Explicit expression
+#Define and direct point with an automatic keystr
 MyPointer=SYS.PointerClass(
-		).get(
-			'/ChildPather/GrandChildPather'
 		).point(
 			#PointingToGetVariable
-			'/ChildPather/GrandChildPather'
-		).point(
+			'/ChildPointer/GrandChildPointer'
+		)
+
+#Point direct with a special Key str
+MyPointer.point(
 			#PointingToGetVariable
-			'/ChildPather/GrandChildPather',
+			'/ChildPointer/GrandChildPointer',
 			#PointingToSetKeyVariable
-			'MyGrandChildPather'
+			'GrandChildPointer'
+		)
+
+#print
+print('MyPointer is')
+SYS._print(MyPointer)
+
+
+#Point with a Pointer encapsulator
+MyPointer=SYS.PointerClass(
+	).point(
+			#PointingToGetVariable
+			'/ChildPointer/GrandChildPointer',
+			#PointingToSetKeyVariable
+			'/GrandChildPointer/GrandChildPointer'
+		)
+
+#Point with a Pointer encapsulator and without the keystr
+MyPointer.point(
+			#PointingToGetVariable
+			'/ChildPointer/GrandChildPointer',
+			#PointingToSetKeyVariable
+			'/CloneGrandChildPointer/'
 		)
 
 #print

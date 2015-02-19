@@ -4,18 +4,23 @@ import ShareYourSystem as SYS
 
 #Explicit expression
 MyPointer=SYS.PointerClass(
-		).get(
-			'*FirstLinkPointer>/ChildPather/FirstGrandChildPather'
+		).point(
+			'/ChildPather/FirstGrandChildPather',
+			'/MyGrandChildPointer/'
 		)
-		.set(
-			'*SecondLinkPointer>/ChildPather/SecondGrandChildPather',
-			'MySecondGrandChildPather'
-		).set(
-			'*<Pointer>/ChildPather/SecondGrandChildPather',
-			'MySecondGrandChildPather'
-		)
-
 
 #print
-print('MyPointer is')
+print("MyPointer['*MyGrandChildPointer'] is")
+SYS._print(MyPointer['*MyGrandChildPointer'])
+
+'''
+MyPointer['*MyGrandChildPointer']=SYS.PatherClass(
+	).set(
+		'MyStr',
+		"hello"
+	)
+
+#print
+print("MyPointer is")
 SYS._print(MyPointer)
+'''

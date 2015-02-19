@@ -174,6 +174,7 @@ class SetterClass(BaseClass):
 				'''
 
 				#direct
+				#SettedValueMethod(*self.SettingValueVariable)
 				SettedValueMethod(self.SettingValueVariable)
 
 			#debug
@@ -418,6 +419,7 @@ class SetterClass(BaseClass):
 				#add in the SettingValue
 				try:
 					self.SettingValueVariable.DictKeyStr=self.SettingKeyVariable
+					#self.SettingValueVariable.DictDeriveSetter=self
 				except:
 					pass
 
@@ -428,13 +430,36 @@ class SetterClass(BaseClass):
 		# Case of a non method  with set with a set dict
 		#
 
-		elif hasattr(self.SettingKeyVariable,'items'):
+		elif SYS.itemizable(self.SettingKeyVariable):
 
-			#set
-			self.set(
-				self.SettingKeyVariable['SetKeyVariable'],
-				self.SettingValueVariable
-			)
+			try:
+
+				#debug
+				self.debug(
+						'We set with a GetKeyVariable'
+					)
+
+				#set
+				self.set(
+					self.SettingKeyVariable['GetKeyVariable'],
+					self.SettingValueVariable
+				)
+
+			except:
+
+				#debug
+				self.debug(
+						'We set with a SetKeyVariable'
+					)
+
+				#set
+				self.set(
+					self.SettingKeyVariable['SetKeyVariable'],
+					SYS.update(
+						self.SettingKeyVariable,
+						self.SettingValueVariable
+					)
+				)
 
 			#Return
 			return {'HookingIsBool':False}

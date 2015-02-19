@@ -5,5 +5,5 @@ FrozenIsBool True
 
 ##Example
 
-Instead of a direct link, '-' can be replaced by the GetKeyStr
-of the encapsulator 
+And for getting the PointToVariable directly, we can use the *
+shortcut like in C...

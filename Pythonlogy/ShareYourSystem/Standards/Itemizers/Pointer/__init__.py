@@ -25,10 +25,11 @@ from ShareYourSystem.Standards.Itemizers import Pather
 
 #<DefineLocals>
 PointPrefixStr="*"
-PointDirectStr="-"
-PointToStr=">"
-PointFromStr="<"
+PointToStr="->"
+PointBackStr="<->"
 PointBackPrefixStr="Back"
+def getLiargVariablesList(_ValueVariable):
+	return _ValueVariable
 #</DefineLocals>
 
 #<DefineClass>
@@ -74,14 +75,16 @@ class PointerClass(BaseClass):
 		'''
 
 		#get
-		PointedToGetValueVariable=self[self.PointingToGetKeyVariable]
+		PointedToGetValueVariable=self[
+			self.PointingToGetKeyVariable
+		]
 
 		#/####################/#
 		# Check for the SetKeyVariable
 		#
 
 		#Check
-		if self.PointingToSetKeyVariable==None:
+		if self.PointingToSetKeyVariable in [None,""]:
 			PointedToSetKeyVariable=str(
 					self.PointingToGetKeyVariable
 				).replace('/','_')
@@ -95,11 +98,76 @@ class PointerClass(BaseClass):
 				)
 			)
 
-		#set
-		self.set(
-				PointedToSetKeyVariable,
-				PointedToGetValueVariable
+		#Check
+		if type(PointedToSetKeyVariable)==str and PointedToSetKeyVariable.startswith(
+			Pather.PathPrefixStr)==False:
+
+			#debug
+			self.debug('It is a direct path')
+
+			#set
+			self.set(
+					PointedToSetKeyVariable,
+					PointedToGetValueVariable
+				)
+
+		else:
+
+			#debug
+			self.debug('It is an encapsulate path')
+
+			#previous
+			PointedPreviousSetKeyStr,PointedKeyStr=SYS.previous(
+				PointedToSetKeyVariable
 			)
+
+			#debug
+			self.debug(
+				[
+					'PointedPreviousSetKeyStr is ',
+					PointedPreviousSetKeyStr,
+					'PointedKeyStr is ',
+					PointedKeyStr
+				]
+			)
+
+			#get
+			PointedGettedValueVariable=self[
+				PointedPreviousSetKeyStr
+			]
+
+			#Check
+			if PointedKeyStr!="":
+
+				#debug
+				self.debug(
+						'We just set normally'
+					)
+
+				#point
+				PointedGettedValueVariable.set(
+						PointedKeyStr,
+						PointedToGetValueVariable
+					)
+
+			else:
+
+				#debug
+				self.debug(
+						'We set the PointToVariable and PointFromVariable'
+					)
+
+				#point
+				PointedGettedValueVariable.set(
+						'PointToVariable',
+						PointedToGetValueVariable
+					)
+
+				#point
+				PointedGettedValueVariable.set(
+						'PointFromVariable',
+						self
+					)
 
 		#debug
 		'''
@@ -178,16 +246,17 @@ class PointerClass(BaseClass):
 						'PointedBackSetKeyVariable is '+SYS._str(
 							PointedBackSetKeyVariable
 						),
-						'PointedToGetVariable is '+SYS._str(
+						'PointedToGetValueVariable is '+SYS._str(
 							PointedToGetValueVariable
 						)
 					]
 				)
 
 			#set
-			PointedToGetValueVariable.set(
+			PointedToGetValueVariable.point(
+					self,
 					PointedBackSetKeyVariable,
-					self
+					_BackBool=False
 				)
 
 		#alias
@@ -205,15 +274,7 @@ class PointerClass(BaseClass):
 		'''
 
 		#Check
-		if type(self.GettingKeyVariable)==str and self.GettingKeyVariable.startswith(
-			PointPrefixStr
-		):
-
-			#deprefix
-			PointGetKeyStr=SYS.deprefix(
-								self.GettingKeyVariable,
-								PointPrefixStr
-							)
+		if type(self.GettingKeyVariable)==str:
 
 			#Check
 			if self.GettingKeyVariable.startswith(
@@ -229,7 +290,7 @@ class PointerClass(BaseClass):
 				self.point(
 						SYS.deprefix(
 							self.GettingKeyVariable,
-							PointToPrefixStr
+							PointToStr
 						)
 					)
 
@@ -239,14 +300,50 @@ class PointerClass(BaseClass):
 				#return
 				return {'HookingIsBool':False}
 
-			'''
 			elif self.GettingKeyVariable.startswith(
-					PointFromPrefixStr+PointToPrefixStr
+					PointBackStr
 				):
 
-				pass
-			'''
+				#debug
+				self.debug(
+						'we back point here'
+					)
 
+				#point
+				self.point(
+						SYS.deprefix(
+							self.GettingKeyVariable,
+							PointBackStr
+						),
+						_BackBool=True
+					)
+
+				#alias
+				self.GettedValueVariable=self.PointedToGetValueVariable
+
+				#return
+				return {'HookingIsBool':False}
+
+			elif self.GettingKeyVariable.startswith(
+					PointPrefixStr
+				):
+
+				#debug
+				self.debug(
+						'we get the encapsulate variable'
+					)
+
+				#deprefix
+				PointGetKeyStr=SYS.deprefix(
+					self.GettingKeyVariable,
+					PointPrefixStr
+				)
+
+				#get
+				self.GettedValueVariable=self[PointGetKeyStr]['PointToVariable']
+
+				#return
+				return {'HookingIsBool':False}
 
 		#call the base method
 		return BaseClass.get(self)
@@ -264,29 +361,72 @@ class PointerClass(BaseClass):
 		'''
 
 		#Check
-		if type(self.SettingKeyVariable)==str and self.SettingKeyVariable.startswith(
-			PointPrefixStr
-		):
+		if type(self.SettingKeyVariable)==str:
 
-			#debug
-			self.debug(
-					'we point here'
-				)
+			#Check
+			if self.SettingKeyVariable.startswith(PointToStr):
 
-			#point
-			self.point(
-					SYS.deprefix(self.SettingKeyVariable,PointPrefixStr),
-					self.SettingValueVariable
-				)
+				#debug
+				self.debug(
+						'we point just here'
+					)
 
-			#return
-			return {'HookingIsBool':False}
+				#point
+				self.point(
+						SYS.deprefix(
+							self.SettingKeyVariable,
+							PointToStr
+						),
+						self.SettingValueVariable
+					)
 
+				#return
+				return {'HookingIsBool':False}
 
-		else:
+			elif self.SettingKeyVariable.startswith(PointBackStr):
 
-			#call the base method
-			return BaseClass.set(self)
+				#debug
+				self.debug(
+						'we point back here'
+					)
+
+				#point
+				self.point(
+						SYS.deprefix(
+							self.SettingKeyVariable,
+							PointBackStr
+						),
+						self.SettingValueVariable[0],
+						_BackSetKeyVariable=self.SettingValueVariable[1],
+						_BackBool=True
+					)
+
+				#return
+				return {'HookingIsBool':False}
+
+			'''
+			elif self.SettingKeyVariable.startswith(PointPrefixStr):
+
+				#debug
+				self.debug(
+						'we set in the encapsulate'
+					)
+
+				#set
+				SettedValueVariable=self[
+						self.SettingKeyVariable
+					]
+
+				#alias
+				SettedValueVariable=self.SettingValueVariable
+					
+
+				#return
+				return {'HookingIsBool':False}
+			'''
+
+		#call the base method
+		return BaseClass.set(self)
 
 #</DefineClass>
 
