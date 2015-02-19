@@ -2,10 +2,8 @@
 #ImportModules
 import ShareYourSystem as SYS
 
-#Explicit expression
+#Define and direct point
 MyPointer=SYS.PointerClass(
-		).get(
-			'/ChildPather/GrandChildPather'
 		).point(
 			#PointingToGetVariable
 			'/ChildPather/GrandChildPather'
@@ -14,6 +12,14 @@ MyPointer=SYS.PointerClass(
 			'/ChildPather/GrandChildPather',
 			#PointingToSetKeyVariable
 			'MyGrandChildPather'
+		).point(
+			#PointingToGetVariable
+			'/ChildPather/GrandChildPather',
+			#PointingToSetKeyVariable
+			SYS.PointerClass(
+				).set(
+					'GetKeyVariable':"MyGrandParentPointer"
+				)
 		)
 
 #print

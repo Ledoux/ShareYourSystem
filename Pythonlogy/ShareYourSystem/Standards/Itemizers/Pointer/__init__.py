@@ -24,8 +24,11 @@ from ShareYourSystem.Standards.Itemizers import Pather
 #</ImportSpecificModules>
 
 #<DefineLocals>
-PointToPrefixStr=">"
-PointBackPreifxStr="Back"
+PointPrefixStr="*"
+PointDirectStr="-"
+PointToStr=">"
+PointFromStr="<"
+PointBackPrefixStr="Back"
 #</DefineLocals>
 
 #<DefineClass>
@@ -152,7 +155,7 @@ class PointerClass(BaseClass):
 					PointedBackSetKeyVariable='_'.join(PointedKeyStrsList)
 
 				#/###################/#
-				# else just take the id
+				# else just take the id and put a prefix
 				#
 
 				else:
@@ -161,7 +164,7 @@ class PointerClass(BaseClass):
 					PointedBackSetKeyVariable=str(self.IdInt)
 
 				#add
-				PointedBackSetKeyVariable=PointedBackSetKeyVariable+self.NameStr
+				PointedBackSetKeyVariable=PointBackPrefixStr+PointedBackSetKeyVariable+self.NameStr
 
 			else:
 
@@ -203,30 +206,50 @@ class PointerClass(BaseClass):
 
 		#Check
 		if type(self.GettingKeyVariable)==str and self.GettingKeyVariable.startswith(
-			PointToPrefixStr
+			PointPrefixStr
 		):
 
-			#debug
-			self.debug(
-					'we point here'
-				)
+			#deprefix
+			PointGetKeyStr=SYS.deprefix(
+								self.GettingKeyVariable,
+								PointPrefixStr
+							)
 
-			#point
-			self.point(
-					SYS.deprefix(self.GettingKeyVariable,PointToPrefixStr)
-				)
+			#Check
+			if self.GettingKeyVariable.startswith(
+				PointToStr
+			):
 
-			#alias
-			self.GettedValueVariable=self.PointedToGetValueVariable
+				#debug
+				self.debug(
+						'we point here'
+					)
 
-			#return
-			return {'HookingIsBool':False}
+				#point
+				self.point(
+						SYS.deprefix(
+							self.GettingKeyVariable,
+							PointToPrefixStr
+						)
+					)
+
+				#alias
+				self.GettedValueVariable=self.PointedToGetValueVariable
+
+				#return
+				return {'HookingIsBool':False}
+
+			'''
+			elif self.GettingKeyVariable.startswith(
+					PointFromPrefixStr+PointToPrefixStr
+				):
+
+				pass
+			'''
 
 
-		else:
-
-			#call the base method
-			return BaseClass.get(self)
+		#call the base method
+		return BaseClass.get(self)
 
 	def mimic_set(self):
 
@@ -242,7 +265,7 @@ class PointerClass(BaseClass):
 
 		#Check
 		if type(self.SettingKeyVariable)==str and self.SettingKeyVariable.startswith(
-			PointToPrefixStr
+			PointPrefixStr
 		):
 
 			#debug
@@ -252,7 +275,7 @@ class PointerClass(BaseClass):
 
 			#point
 			self.point(
-					SYS.deprefix(self.SettingKeyVariable,PointToPrefixStr),
+					SYS.deprefix(self.SettingKeyVariable,PointPrefixStr),
 					self.SettingValueVariable
 				)
 

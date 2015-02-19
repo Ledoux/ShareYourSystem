@@ -9,7 +9,6 @@ MyCommander=SYS.CommanderClass(
 		'/',
 		#CommandingSetVariable
 		[
-			('MyStr',"hello"),
 			('MyChildCommander',{}),
 			('get',"MyInt")
 		]
@@ -34,6 +33,12 @@ MyCommander.command(
 			)
 		]
 	)
+
+#Commanding by an implicit self set
+MyCommander.command(
+		[],('MyStr',"hello"),_BeforeSelfBool=True
+	)
+
 
 #print
 print('MyCommander is ')

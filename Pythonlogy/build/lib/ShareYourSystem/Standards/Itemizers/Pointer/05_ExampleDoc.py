@@ -5,9 +5,12 @@ import ShareYourSystem as SYS
 #Explicit expression
 MyPointer=SYS.PointerClass(
 		).get(
-			'>/ChildPather/FirstGrandChildPather'
+			'*->/ChildPather/FirstGrandChildPather'
 		).set(
-			'>/ChildPather/SecondGrandChildPather',
+			'*->/ChildPather/SecondGrandChildPather',
+			'MySecondGrandChildPather'
+		).set(
+			'*<->/ChildPather/SecondGrandChildPather',
 			'MySecondGrandChildPather'
 		)
 

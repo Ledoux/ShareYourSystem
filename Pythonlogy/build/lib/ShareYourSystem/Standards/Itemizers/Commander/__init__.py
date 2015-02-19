@@ -24,6 +24,12 @@ SYS.setSubModule(globals())
 #<ImportSpecificModules>
 #</ImportSpecificModules>
 
+#<DefineLocals>
+CommandPrefixStr="--"
+CommandWalkStr="..."
+CommandSelfStr="/"
+#</DefineLocals>
+
 #<DefineClass>
 @DecorationClass()
 class CommanderClass(BaseClass):
@@ -34,24 +40,169 @@ class CommanderClass(BaseClass):
 							#'CommandingSetVariable',
 							'CommandingOrderStr',
 							'CommandingBeforeWalkBool',
-							'CommandingAfterWalkBool'
+							'CommandingAfterWalkBool',
+							'CommandingBeforeSelfBool',
+							'CommandingAfterSelfBool'
 						]
 
 	def default_init(
 				self,
 				_CommandingGetVariable=None,
 				_CommandingSetVariable=None,	
-				_CommandingOrderStr="AllSetsForEachGrasp",
+				_CommandingOrderStr="AllSetsForEachGet",
 				_CommandingBeforeWalkBool=False,	
-				_CommandingAfterWalkBool=False,			
+				_CommandingAfterWalkBool=False,	
+				_CommandingBeforeSelfBool=False,
+				_CommandingAfterSelfBool=False,		
 				**_KwargVariablesDict
 			):
 
 		#Call the parent __init__ method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
+	def mimic_set(self):
+
+		#debug
+		'''
+		self.debug(
+				('self.',self,[
+						'SettingKeyVariable',
+						'SettingValueVariable'
+					])
+			)
+		'''
+
+		#Check
+		if type(self.SettingKeyVariable)==str:
+
+			#Check
+			if self.SettingKeyVariable.startswith(
+				CommandPrefixStr
+			):
+
+				#debug
+				'''
+				self.debug(
+						'We command here'
+					)
+				'''
+
+				#deprefix
+				CommandGetKeyStr=SYS.deprefix(
+					self.SettingKeyVariable,
+					CommandPrefixStr
+				)
+				
+				#Check
+				if CommandGetKeyStr.startswith(CommandWalkStr):
+
+					#debug
+					'''
+					self.debug(
+							'We command-walk here'
+						)
+					'''
+
+					#command
+					self.command(
+						SYS.deprefix(
+							CommandGetKeyStr,
+							CommandWalkStr
+						),
+						self.SettingValueVariable,
+						_AfterWalkBool=True
+					)
+
+					#stop the setting
+					return {'HookingIsBool':False}
+
+				elif CommandGetKeyStr.startswith(CommandSelfStr+CommandWalkStr):
+
+					#debug
+					'''
+					self.debug(
+							'We command-self-walk here'
+						)
+					'''
+
+					#command
+					self.command(
+						SYS.deprefix(
+							CommandGetKeyStr,
+							CommandSelfStr+CommandWalkStr
+						),
+						self.SettingValueVariable,
+						_AfterWalkBool=True,
+						_SelfBool=True
+					)
+
+					#stop the setting
+					return {'HookingIsBool':False}
+
+				else:
+
+					#command
+					self.command(
+						CommandGetKeyStr,
+						self.SettingValueVariable
+					)
+
+					#stop the setting
+					return {'HookingIsBool':False}
+
+			#Check
+			elif self.SettingKeyVariable.startswith(
+				CommandWalkStr+CommandPrefixStr
+			):
+
+				#debug
+				'''
+				self.debug(
+						'We walk-command here'
+					)
+				'''
+
+				#command
+				self.command(
+					SYS.deprefix(
+						self.SettingKeyVariable,
+						CommandWalkStr+CommandPrefixStr
+					),
+					self.SettingValueVariable,
+					_BeforeWalkBool=True
+				)
+
+				#stop the setting
+				return {'HookingIsBool':False}
+
+			#Check
+			elif self.SettingKeyVariable.startswith(
+				CommandSelfStr+CommandWalkStr+CommandPrefixStr
+			):
+
+				#command
+				self.command(
+					SYS.deprefix(
+						self.SettingKeyVariable,
+						CommandSelfStr+CommandWalkStr+CommandPrefixStr
+					),
+					self.SettingValueVariable,
+					_BeforeWalkBool=True,
+					_SelfBool=True
+				)
+
+				#stop the setting
+				return {'HookingIsBool':False}
+
+			#Call the base method
+			BaseClass.set(self)
+
+				
+
+
+
 	def do_command(self):
-		"""Collect with _GatheringKeyVariablesList and do a all sets for each with _UpdatingItemVariable"""
+		""" """
 
 		#/####################/#
 		# Adapt the type for getting things to command
@@ -128,7 +279,8 @@ class CommanderClass(BaseClass):
 				[
 					'we are going to walk before the command',
 					'CommandedValueVariablesList is '+SYS._str(CommandedValueVariablesList),
-					'self.getDoing().values() is '+SYS._str(self.getDoing().values())
+					'self.getDoing(SYS.CommanderClass).values() is '+SYS._str(self.getDoing(
+						SYS.CommanderClass).values())
 				]
 			)
 
@@ -151,13 +303,20 @@ class CommanderClass(BaseClass):
 						)
 			'''
 
+			#set
+			CommandedOrderedDict=self.getDoing(
+									SYS.CommanderClass
+								)
+			CommandedOrderedDict['CommandingBeforeSelfBool']=False
+			CommandedLiargVariablesList=CommandedOrderedDict.values()
+
 			#map the recursion but pay watch to not set new things to walk in...it is an infinite walk either !
 			map(
 					lambda __CommandedValueVariable:
 					__CommandedValueVariable.set(
 							'GettingNewBool',False
 						).command(
-							*self.getDoing().values()	
+							*CommandedLiargVariablesList	
 						).set(
 							'GettingNewBool',True
 						),
@@ -171,13 +330,14 @@ class CommanderClass(BaseClass):
 		#
 
 		#debug
+		'''
 		self.debug(
 			[
 				'Adapt the type for setting things in the commanded variables',
 				("self.",self,['CommandingSetVariable'])
 			]
 		)
-
+		'''
 
 		#Check
 		if type(self.CommandingSetVariable)!=list:
@@ -201,19 +361,32 @@ class CommanderClass(BaseClass):
 			CommandedSetVariablesList=self.CommandingSetVariable
 
 		#debug
+		'''
 		self.debug(
 				[
 					'in the end, CommandedSetVariablesList is ',
 					SYS._str(CommandedSetVariablesList)
 				]
 			)
+		'''
 
 		#/###################/#
 		# Ok now we command locally
 		#
 
+		#Check
+		if self.CommandingBeforeSelfBool:
+
+			#debug
+			self.debug(
+					'We command before self here'
+				)
+
+			#add
+			self['map*set'](CommandedSetVariablesList)
+
 		#Check for the order
-		if self.CommandingOrderStr=="AllSetsForEachGrasp":
+		if self.CommandingOrderStr=="AllSetsForEachGet":
 
 			#map
 			map(
@@ -228,7 +401,7 @@ class CommanderClass(BaseClass):
 					CommandedValueVariablesList
 				)
 
-		elif self.CommandingOrderStr=="EachSetForAllGrasps":
+		elif self.CommandingOrderStr=="EachSetForAllGets":
 
 			#map
 			map(
@@ -242,6 +415,17 @@ class CommanderClass(BaseClass):
 					),
 					CommandedSetVariablesList
 				)
+
+		#Check
+		if self.CommandingAfterSelfBool:
+
+			#debug
+			self.debug(
+					'We command after self here'
+				)
+
+			#add
+			self['map*set'](CommandedSetVariablesList)
 
 		#/###################/#
 		# And we check for a walk after
@@ -277,13 +461,20 @@ class CommanderClass(BaseClass):
 						)
 			'''
 
+			#set
+			CommandedOrderedDict=self.getDoing(
+									SYS.CommanderClass
+								)
+			CommandedOrderedDict['CommandingBeforeSelfBool']=False
+			CommandedLiargVariablesList=CommandedOrderedDict.values()
+
 			#map the recursion but pay watch to not set new things to walk in...it is an infinite walk either !
 			map(
 					lambda __CommandedValueVariable:
 					__CommandedValueVariable.set(
 							'GettingNewBool',False
 						).command(
-							*self.getDoing().values()	
+							*CommandedLiargVariablesList	
 						).set(
 							'GettingNewBool',True
 						),

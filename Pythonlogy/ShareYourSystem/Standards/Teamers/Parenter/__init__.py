@@ -77,7 +77,7 @@ class ParenterClass(BaseClass):
 		self.ParentedDeriveManagersList=[]
 
 		#set
-		self.CommandingBeforeWalkBool=True
+		#self.CommandingBeforeWalkBool=True
 
 	def mimic_team(self):
 
@@ -99,9 +99,21 @@ class ParenterClass(BaseClass):
 
 	def mimic_get(self):
 		
+		#debug
+		self.debug(
+				[
+					('self.',self,[
+							'GettingKeyVariable',
+						])
+				]
+			)
+
 		#Check
 		if self.GettingKeyVariable==ParentPreviousStr:
 			
+			#debug
+			self.debug('We get the previous parent')
+
 			#alias
 			self.GettedValueVariable=self.ParentDeriveTeamer
 
@@ -112,7 +124,7 @@ class ParenterClass(BaseClass):
 		elif self.GettingKeyVariable==ParentTopStr:
 			
 			#debug
-			self.debug('We get the top')
+			self.debug('We get the top parent')
 
 			#alias
 			self.GettedValueVariable=self.ParentedTopDeriveTeamerVariable

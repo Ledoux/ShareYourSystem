@@ -2,7 +2,7 @@
 #ImportModules
 import ShareYourSystem as SYS
 
-#Define
+#Define and set a dict
 MySetter=SYS.SetterClass(
 	).set(
 		{

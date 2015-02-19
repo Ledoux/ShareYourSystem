@@ -10,3 +10,6 @@ MyGetter.MyInt=1
 print('MyGetter[{"GetKeyVariable":"MyInt"}] is ')
 SYS._print(MyGetter[{"GetKeyVariable":"MyInt"}])
 
+#print
+print('MyGetter[{"SetKeyVariable":"MyDict"}] is ')
+SYS._print(MyGetter[{"SetKeyVariable":"MyDict"}])

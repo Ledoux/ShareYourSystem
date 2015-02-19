@@ -4,8 +4,6 @@ import ShareYourSystem as SYS
 
 #Explicit expression
 MyPointer=SYS.PointerClass(
-		).get(
-			'/ChildPather/GrandChildPather'
 		).point(
 			#PointingToGetVariable
 			'/ChildPather/GrandChildPather',

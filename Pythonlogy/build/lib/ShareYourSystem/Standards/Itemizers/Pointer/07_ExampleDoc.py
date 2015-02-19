@@ -5,14 +5,16 @@ import ShareYourSystem as SYS
 #Explicit expression
 MyPointer=SYS.PointerClass(
 		).get(
-			'*->/ChildPather/FirstGrandChildPather'
-		).set(
-			'*->/ChildPather/SecondGrandChildPather',
+			'*FirstLinkPointer>/ChildPather/FirstGrandChildPather'
+		)
+		.set(
+			'*SecondLinkPointer>/ChildPather/SecondGrandChildPather',
 			'MySecondGrandChildPather'
 		).set(
-			'*<->/ChildPather/SecondGrandChildPather',
+			'*<Pointer>/ChildPather/SecondGrandChildPather',
 			'MySecondGrandChildPather'
 		)
+
 
 #print
 print('MyPointer is')

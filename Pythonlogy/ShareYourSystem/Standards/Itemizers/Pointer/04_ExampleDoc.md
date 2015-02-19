@@ -5,4 +5,4 @@ FrozenIsBool True
 
 ##Example
 
-A point included in a set gives 
+There are the shorcut strs '*->','*<->' to direct point during a set method

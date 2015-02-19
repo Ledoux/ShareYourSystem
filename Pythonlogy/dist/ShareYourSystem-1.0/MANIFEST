@@ -555,6 +555,8 @@ ShareYourSystem/Standards/Itemizers/Commander/04_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Commander/05_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Commander/06_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Commander/07_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Commander/08_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Commander/09_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Commander/Readme.md
 ShareYourSystem/Standards/Itemizers/Commander/Test.py
 ShareYourSystem/Standards/Itemizers/Commander/__init__.py
@@ -623,6 +625,8 @@ ShareYourSystem/Standards/Itemizers/Pointer/02_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Pointer/03_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Pointer/04_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Pointer/05_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Pointer/06_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Pointer/07_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Pointer/Readme.md
 ShareYourSystem/Standards/Itemizers/Pointer/__init__.py
 ShareYourSystem/Standards/Itemizers/Setter/001_DocumentDoc.md

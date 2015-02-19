@@ -722,6 +722,9 @@ def desuffix(_WordStr,_SuffixStr):
 def groupby(_FunctionPointer,_List):
 	return getSplitListsListWithSplittedListAndFunctionPointer(_List,_FunctionPointer)
 
+def itemizable(_Variable):
+	return hasattr(_Variable,'items') or hasattr(_Variable,'__dict__')
+
 def getIsTuplesListBool(_TuplesList):
 
 	#Check for list of tuples
