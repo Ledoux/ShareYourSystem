@@ -373,5 +373,66 @@ class ConditionerClass(BaseClass):
 			#call the base method
 			BaseClass.get(self)
 
+	def mimic_set(self):
+
+		#Check
+		if hasattr(self.SettingKeyVariable,'items'
+			) and 'ConditionTuplesList' in self.SettingKeyVariable:
+
+			#set
+			ConditionTuplesList=self.SettingKeyVariable['ConditionTuplesList']
+
+			#debug
+			'''
+			self.debug(
+					[
+						'we set if the condition is satisfied',
+						'ConditionTuplesList is '+str(ConditionTuplesList)
+					]
+				)
+			'''
+			
+			#loop and break at the first false
+			for __ConditionTuple in ConditionTuplesList:
+
+				#condition
+				self.condition(*__ConditionTuple)
+
+				#Check
+				if self.ConditionedIsBool==False:
+
+					#debug
+					'''
+					self.debug('we break')
+					'''
+
+					#break
+					break
+
+			#append
+			if self.ConditionedIsBool:
+
+				#We append
+				'''
+				self.debug(
+						[	
+							'Ok we set'
+						]
+					)
+				'''
+
+				#append
+				self[
+					self.SettingKeyVariable['SetKeyVariable']
+				]=self.SettingValueVariable
+
+			#stop the setting
+			return {'HookingIsBool':False}
+
+
+		#call the base method
+		return BaseClass.set(self)
+
+
 #</DefineClass>
 

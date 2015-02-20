@@ -1,0 +1,129 @@
+# -*- coding: utf-8 -*-
+"""
+
+
+<DefineSource>
+@Date : Fri Nov 14 13:20:38 2014 \n
+@Author : Erwan Ledoux \n\n
+</DefineSource>
+
+
+A Networker recruits a bunch of concluded noded variables and makes them
+parent and connect. Note also that each networked derive Noders has some
+tag attributes such the NetworkKeyStr wich by default is the parented path str 
+plus the NodeKeyStr.
+
+"""
+
+#<DefineAugmentation>
+import ShareYourSystem as SYS
+BaseModuleStr="ShareYourSystem.Standards.Teamers.Parenter"
+DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
+SYS.setSubModule(globals())
+#</DefineAugmentation>
+
+#<ImportSpecificModules>
+#</ImportSpecificModules>
+
+#<DefineClass>
+@DecorationClass(**{
+	'ClassingSwitchMethodStrsList':["network"]
+	}
+)
+class NetworkerClass(BaseClass):
+	
+	#Definition
+	RepresentingKeyStrsList=[
+								'NetworkingTeamStr',
+								'NetworkingToStr',
+								'NetworkingFromStr',
+								'NetworkedDeriveConnectersList',
+								'NetworkedDerivePointersList',
+							]
+
+	def default_init(self,
+						_NetworkingTeamStr="Connections",
+						_NetworkingToStr="Post",
+						_NetworkingFromStr="Pre",
+						_NetworkedDeriveConnectersList=None,
+						_NetworkedDerivePointersList=None,
+						**_KwargVariablesDict
+					):
+
+		#Call the parent __init__ method
+		BaseClass.__init__(self,**_KwargVariablesDict)
+
+		#map
+		map(
+				lambda __KeyStr:
+				self.__setattr__(
+						__KeyStr,
+						""
+					),
+				map(
+						lambda __TagStr:
+						'Newtork'+__TagStr+'Str',
+						['Collection','Catch','Attention']
+					)
+			)
+
+	def do_network(self):	
+		
+
+		"""
+		#recruit first
+		if self.VisitingCollectionStrsList==None:
+			self.VisitingCollectionStrsList=[self.CollectingCollectionStr]
+
+		#debug
+		'''
+		self.debug(('self.',self,['VisitingCollectionStrsList']))
+		'''
+
+		#recruit
+		self.recruit()
+		self.NetworkedDeriveConnectersList=self.RecruitedFlatCumulateVariablesList
+
+		#debug
+		'''
+		self.debug(('self.',self,['NetworkedDeriveConnectersList']))
+		'''
+
+		#map a connect
+		self.NetworkedDerivePointersList=SYS.flat(
+			map(
+				lambda __NetworkedDeriveConnecter,__IndexInt:
+				__NetworkedDeriveConnecter.parent(
+					).connect(
+						_ConnectingCatchCollectionStr=self.NetworkingToStr+self.NetworkingTeamStr,
+						_ConnectingAttentionCollectionStr=self.NetworFromtionStr+self.NetworkingTeamStr
+					).update(
+						[
+							('NetworkCollectionStr',self.NetworkingTeamStr),
+							('NetworkCatchStr',self.NetworkingToStr),
+							('NetworkAttentionStr',self.NetworFromtionStr),
+							('NetworkIndexInt',__IndexInt),
+							(
+								'NetworkKeyStr',
+								__NetworkedDeriveConnecter.ParentedNodePathStr+'/'+__NetworkedDeriveConnecter.NodeKeyStr
+							),
+							(
+								'point',
+								SYS.ApplyDictClass(
+									{
+										'LiargVariablesList':
+										[
+											self,
+											'NetworkPointDeriveNetworker'
+										]
+									}
+								)
+							)
+						]
+					).ConnectedCatchDerivePointersList,
+				self.NetworkedDeriveConnectersList,
+				xrange(len(self.NetworkedDeriveConnectersList))
+			)
+		)
+		"""	
+#</DefineClass>

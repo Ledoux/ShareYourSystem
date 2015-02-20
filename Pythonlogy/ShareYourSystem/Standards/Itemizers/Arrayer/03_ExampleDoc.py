@@ -2,7 +2,24 @@
 #ImportModules
 import ShareYourSystem as SYS
 
-#produce
+#array
+MyArrayer=SYS.ArrayerClass(
+	).array(
+		[
+			["AArrayer","BArrayer"],
+			["1Arrayer","2Arrayer"],
+			["aArrayer"]
+		],
+		{
+			'MyStr':"hello"
+		}
+	)
+
+#print
+print('MyArrayer is ')
+SYS._print(MyArrayer)
+
+#array
 MyArrayer=SYS.ArrayerClass(
 	).array(
 		[
@@ -20,7 +37,7 @@ MyArrayer=SYS.ArrayerClass(
 		],
 	)
 
-#Definition the AttestedStr
+#print
 print('MyArrayer is ')
 SYS._print(MyArrayer)
 

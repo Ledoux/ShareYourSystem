@@ -24,6 +24,7 @@ import six
 
 #<DefineLocals>
 ExecutionPrefixStr=">>"
+ExecutionMethodStr="."
 #</DefineLocals>
 
 #<DefineClass>
@@ -33,7 +34,7 @@ class ExecuterClass(BaseClass):
 	#Definition
 	RepresentingKeyStrsList=[
 		'ExecutingCodeStr',
-		'ExecutedLocalsDict'
+		#'ExecutedLocalsDict'
 	]
 
 	def default_init(self,
@@ -90,6 +91,70 @@ class ExecuterClass(BaseClass):
 
 			#call the base method
 			BaseClass.get(self)
+
+	def mimic_set(self):
+
+		#/####################/#
+		# Case of call of a method
+		#
+
+		#Check
+		if ExecutionMethodStr in self.SettingKeyVariable:
+
+			#debug
+			'''
+			self.debug('we call a method of the SettingKeyVariable')
+			'''
+
+			#previous
+			GetKeyStr,MethodStr=SYS.previous(
+						self.SettingKeyVariable,
+						ExecutionMethodStr
+					)
+
+			#get t he method and call it
+			getattr(
+				self[GetKeyStr],
+				MethodStr	
+			)(*self.SettingValueVariable)
+
+			#stop the setting
+			return {'HookingIsBool':False}
+
+		elif type(self.SettingValueVariable
+			)==str and self.SettingValueVariable.startswith(ExecutionPrefixStr):
+
+			#debug
+			'''
+			self.debug('we execute here')
+			'''
+
+			#deprefix
+			ExecutedStr="ExecutedVariable="+SYS.deprefix(
+						self.SettingValueVariable,
+						ExecutionPrefixStr
+					)
+
+			#debug
+			'''
+			self.debug('ExecutedStr is '+ExecutedStr)
+			'''
+
+			#execute
+			self.execute(
+					ExecutedStr
+				)
+
+			#alias
+			self[self.SettingKeyVariable]=self.ExecutedLocalsDict['ExecutedVariable']
+
+			#stop the getting
+			return {'HookingIsBool':False}
+
+		#Call the parent method
+		BaseClass.set(self)
+
+
 
 
 #</DefineClass>

@@ -65,19 +65,24 @@ class PointerClass(BaseClass):
 		#
 
 		#debug
-		'''
 		self.debug(
 					('self.',self,[
 									'PointingToGetKeyVariable',
-									'PointingToSetKeyVariable'None								'PointingFromGetVariable',
+									'PointingToSetKeyVariable'
 								])
 					)
-		'''
 
 		#get
 		PointedToGetValueVariable=self[
 			self.PointingToGetKeyVariable
 		]
+
+		#debug
+		self.debug(
+				'PointedToGetValueVariable is '+str(
+					PointedToGetValueVariable
+				)
+			)
 
 		#/####################/#
 		# Check for the SetKeyVariable
@@ -265,13 +270,11 @@ class PointerClass(BaseClass):
 	def mimic_get(self):
 
 		#debug
-		'''
 		self.debug(
 				('self.',self,[
 						'GettingKeyVariable',
 					])
 			)
-		'''
 
 		#Check
 		if type(self.GettingKeyVariable)==str:

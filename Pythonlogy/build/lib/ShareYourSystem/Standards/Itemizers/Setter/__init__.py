@@ -27,6 +27,7 @@ def getMapList(_LiargVariablesList):
 		return _LiargVariablesList[0].items()
 	else:
 		return _LiargVariablesList[0]
+		
 def getLiargVariablesList(_ValueVariable):
 	return _ValueVariable
 #</ImportSpecificModules>
@@ -97,12 +98,14 @@ class SetterClass(BaseClass):
 		""" """
 
 		#debug
+		'''
 		self.debug(
 			("self.",self,[
 				'SettingKeyVariable',
 				'SettingValueVariable'
 			])
 		)	
+		'''
 		
 		#itemize first
 		if self.SettingItemBool:
@@ -307,7 +310,6 @@ class SetterClass(BaseClass):
 				#Return stop the setting
 				return {'HookingIsBool':False}
 
-				
 			#/####################/#
 			# Case of a set in the __dict__
 			#
