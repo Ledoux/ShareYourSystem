@@ -63,37 +63,92 @@ class ExecuterClass(BaseClass):
 
 	def mimic_get(self):
 
+		#debug
+		'''
+		self.debug(
+				('self.',self,['GettingKeyVariable'])
+			)
+		'''
+		
 		#Check
 		if type(self.GettingKeyVariable
-			)==str and self.GettingKeyVariable.startswith(ExecutionPrefixStr):
+			)==str:
 
-			#deprefix
-			ExecutedStr="ExecutedVariable="+SYS.deprefix(
-						self.GettingKeyVariable,
-						ExecutionPrefixStr
+			#Check
+			if self.GettingKeyVariable.startswith(ExecutionPrefixStr):
+
+				#deprefix
+				ExecutedStr="ExecutedVariable="+SYS.deprefix(
+							self.GettingKeyVariable,
+							ExecutionPrefixStr
+						)
+
+				#debug
+				'''
+				self.debug('ExecutedStr is '+ExecutedStr)
+				'''
+
+				#execute
+				self.execute(
+						ExecutedStr
 					)
 
-			#debug
-			'''
-			self.debug('ExecutedStr is '+ExecutedStr)
-			'''
+				#alias
+				self.GettedValueVariable=self.ExecutedLocalsDict['ExecutedVariable']
 
-			#execute
-			self.execute(
-					ExecutedStr
-				)
+				#stop the getting
+				return {'HookingIsBool':False}
 
-			#alias
-			self.GettedValueVariable=self.ExecutedLocalsDict['ExecutedVariable']
+			elif ExecutionDotStr in self.GettingKeyVariable:
 
-			#stop the getting
-			return {'HookingIsBool':False}
+				#debug
+				'''
+				self.debug('we get an attribute of the GettingKeyVariable')
+				'''
 
-		#Check
-		else:
+				#previous
+				GetKeyStr,AttributeStr=SYS.previous(
+							self.GettingKeyVariable,
+							ExecutionDotStr
+						)
 
-			#call the base method
-			BaseClass.get(self)
+				#get
+				GetValueVariable=self[GetKeyStr]
+
+				#get the get
+				AttributeValueVariable=getattr(
+						GetValueVariable,
+						AttributeStr	
+					)
+
+				#debug
+				'''
+				self.debug(
+						[
+							('self.',self,['GettingKeyVariable']),
+							'GetValueVariable is '+SYS._str(GetValueVariable),
+							'AttributeValueVariable is '+SYS._str(AttributeValueVariable)
+						]
+					)
+				'''
+
+				#call
+				if callable(AttributeValueVariable):
+
+					#get the method and call it
+					self.GettedValueVariable=AttributeValueVariable()
+
+				else:
+
+					#alias
+					self.GettedValueVariable=AttributeValueVariable
+
+				#stop the setting
+				return {'HookingIsBool':False}
+
+
+		#call the base method
+		BaseClass.get(self)
 
 	def mimic_set(self):
 
@@ -102,51 +157,7 @@ class ExecuterClass(BaseClass):
 		#
 
 		#Check
-		if ExecutionDotStr in self.SettingKeyVariable:
-
-			#debug
-			'''
-			self.debug('we get an attribute of the SettingKeyVariable')
-			'''
-
-			#previous
-			GetKeyStr,AttributeStr=SYS.previous(
-						self.SettingKeyVariable,
-						ExecutionDotStr
-					)
-
-			#get
-			GetValueVariable=self[GetKeyStr]
-
-			#get the get
-			AttributeValueVariable=getattr(
-					GetValueVariable,
-					AttributeStr	
-				)
-
-			#debug
-			self.debug(
-					[
-						'GetValueVariable is '+str(GetValueVariable),
-						'AttributeValueVariable is '+str(AttributeValueVariable)
-					]
-				)
-
-			#call
-			if callable(AttributeValueVariable):
-
-				#get t he method and call it
-				AttributeValueVariable(*self.SettingValueVariable)
-
-			else:
-
-				#alias
-				AttributeValueVariable=self.SettingValueVariable
-
-			#stop the setting
-			return {'HookingIsBool':False}
-
-		elif type(self.SettingValueVariable
+		if type(self.SettingValueVariable
 			)==str and self.SettingValueVariable.startswith(ExecutionPrefixStr):
 
 			#debug
@@ -176,10 +187,54 @@ class ExecuterClass(BaseClass):
 			#stop the getting
 			return {'HookingIsBool':False}
 
+		#Check
+		elif ExecutionDotStr in self.SettingKeyVariable:
+
+			#debug
+			'''
+			self.debug('we get an attribute of the SettingKeyVariable')
+			'''
+
+			#previous
+			GetKeyStr,AttributeStr=SYS.previous(
+						self.SettingKeyVariable,
+						ExecutionDotStr
+					)
+
+			#get
+			GetValueVariable=self[GetKeyStr]
+
+			#get the get
+			AttributeValueVariable=getattr(
+					GetValueVariable,
+					AttributeStr	
+				)
+
+			#debug
+			'''
+			self.debug(
+					[
+						'GetValueVariable is '+str(GetValueVariable),
+						'AttributeValueVariable is '+str(AttributeValueVariable)
+					]
+				)
+			'''
+			
+			#call
+			if callable(AttributeValueVariable):
+
+				#get t he method and call it
+				AttributeValueVariable(*self.SettingValueVariable)
+
+			else:
+
+				#alias
+				AttributeValueVariable=self.SettingValueVariable
+
+			#stop the setting
+			return {'HookingIsBool':False}
+
 		#Call the parent method
 		BaseClass.set(self)
-
-
-
 
 #</DefineClass>

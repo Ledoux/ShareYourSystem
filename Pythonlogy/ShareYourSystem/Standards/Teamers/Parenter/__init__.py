@@ -89,6 +89,7 @@ class ParenterClass(BaseClass):
 		self.TeamedValueVariable.ParentKeyStr=self.TeamingKeyStr
 
 		#Check
+		'''
 		if self.ParentKeyStr=='Top':
 
 			#debug
@@ -96,11 +97,12 @@ class ParenterClass(BaseClass):
 
 			#command
 			self.command(
-				'&',
-				#('parent',[])
-				{}
+				['TeamDict.values','ManagementDict.values'],
+				('parent',[]),
+				_AfterWalkBool=True
 			)
-
+		'''
+		
 	def mimic_manage(self):
 
 		#call the base method
@@ -110,22 +112,10 @@ class ParenterClass(BaseClass):
 		self.ManagedValueVariable.ParentDeriveTeamer=self
 		self.ManagedValueVariable.ParentKeyStr=self.ManagingKeyStr
 
-		#Check
-		if self.ParentKeyStr=='Top':
-
-			#command
-			'''
-			self.command(
-				['$','&'],
-				('parent',[])
-			)
-			'''
-
-			pass
-
 	def mimic_get(self):
 		
 		#debug
+		'''
 		self.debug(
 				[
 					('self.',self,[
@@ -133,6 +123,7 @@ class ParenterClass(BaseClass):
 						])
 				]
 			)
+		'''
 
 		#Check
 		if self.GettingKeyVariable==ParentPreviousStr:
@@ -294,9 +285,11 @@ class ParenterClass(BaseClass):
 				self.ParentedTopDeriveTeamerVariable=self
 
 			#debug
+			'''
 			self.debug(
 					('self.',self,['ParentedTopDeriveTeamerVariable'])
 				)
+			'''
 
 			#/####################/#
 			# Command things

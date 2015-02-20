@@ -270,11 +270,13 @@ class PointerClass(BaseClass):
 	def mimic_get(self):
 
 		#debug
+		'''
 		self.debug(
 				('self.',self,[
 						'GettingKeyVariable',
 					])
 			)
+		'''
 
 		#Check
 		if type(self.GettingKeyVariable)==str:
@@ -285,9 +287,11 @@ class PointerClass(BaseClass):
 			):
 
 				#debug
+				'''
 				self.debug(
 						'we point here'
 					)
+				'''
 
 				#point
 				self.point(
@@ -332,9 +336,11 @@ class PointerClass(BaseClass):
 				):
 
 				#debug
+				'''
 				self.debug(
 						'we get the encapsulate variable'
 					)
+				'''
 
 				#deprefix
 				PointGetKeyStr=SYS.deprefix(
@@ -370,9 +376,11 @@ class PointerClass(BaseClass):
 			if self.SettingKeyVariable.startswith(PointToStr):
 
 				#debug
+				'''
 				self.debug(
 						'we point just here'
 					)
+				'''
 
 				#point
 				self.point(
@@ -389,10 +397,12 @@ class PointerClass(BaseClass):
 			elif self.SettingKeyVariable.startswith(PointBackStr):
 
 				#debug
+				'''
 				self.debug(
 						'we point back here'
 					)
-
+				'''
+				
 				#point
 				self.point(
 						SYS.deprefix(

@@ -4,8 +4,12 @@ import ShareYourSystem as SYS
 #define structure
 MyParenter=SYS.ParenterClass(
 	).get(
-		'/&Children/$Loup'
-	)
+		'/&Children/$Aurelie/&GrandChildren/$Loup'
+	).command(
+				['TeamDict.values','ManagementDict.values'],
+				('parent',[]),
+				_AfterWalkBool=True
+			)
 
 #get faster the parent
 '''
@@ -16,4 +20,3 @@ SYS._print(MyParenter['/&Children/$Loup']['^'])
 #print
 print('MyParenter is ')
 SYS._print(MyParenter)
-

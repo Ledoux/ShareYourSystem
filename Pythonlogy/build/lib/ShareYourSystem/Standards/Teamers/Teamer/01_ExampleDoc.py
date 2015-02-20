@@ -25,6 +25,6 @@ print('MyTeamer is ')
 SYS._print(MyTeamer)
 
 #Shortcut for getting all the teamed instances
-print("MyTeamer['$'] is ")
-SYS._print(MyTeamer['$'])
+print("MyTeamer['&'] is ")
+SYS._print(MyTeamer['&'])
 
