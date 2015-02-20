@@ -70,15 +70,15 @@ class ConditionerClass(BaseClass):
 
         #Definition
         RepresentingKeyStrsList=[
-'ConditioningTestVariable',
+'ConditioningTestGetVariable',
 'ConditioningGetBoolFunction',
 'ConditionedIsBool'
                                                                 ]
 
         def default_init(self,
-                                                _ConditioningTestVariable=None,
+                                                _ConditioningTestGetVariable=None,
 _ConditioningGetBoolFunction=None,
-_ConditioningAttestVariable=None,
+_ConditioningAttestGetVariable=None,
                                                 _ConditionedIsBool=True,
                                                 **_KwargVariablesDict
                                         ):
@@ -92,15 +92,15 @@ _ConditioningAttestVariable=None,
                 #debug
                 '''
                 self.debug(('self.',self,[
-'ConditioningTestVariable',
-'ConditioningAttestVariable'
+'ConditioningTestGetVariable',
+'ConditioningAttestGetVariable'
                                                                 ]))
                 '''
 
                 #call
                 self.ConditionedIsBool=self.ConditioningGetBoolFunction(
-                        self.ConditioningTestVariable,
-                        self.ConditioningAttestVariable
+                        self.ConditioningTestGetVariable,
+                        self.ConditioningAttestGetVariable
                 )
 
                 #debug
@@ -143,7 +143,7 @@ from ShareYourSystem.Standards.Objects import Conditioner
 MyConditioner=Conditioner.ConditionerClass(**{
         'ConditioningGetBoolFunction':lambda
 _TestVariable,_AttestVariable:_TestVariable==_AttestVariable,
-        'ConditioningAttestVariable':2
+        'ConditioningAttestGetVariable':2
     })
 MyConditioner.condition(3).ConditionedIsBool
 

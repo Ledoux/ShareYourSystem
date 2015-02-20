@@ -4,14 +4,14 @@ import ShareYourSystem as SYS
 #Define and condition
 MyConditioner=SYS.ConditionerClass(
 			).condition(
-				#ConditioningTestVariable
+				#ConditioningTestGetVariable
 				'MyInt',
 				#ConditioningGetBoolFunction
 				lambda _TestVariable,_AttestVariable:_TestVariable==_AttestVariable,
-				#ConditioningAttestVariable
+				#ConditioningAttestGetVariable
 				2,
 				#ConditioningInstanceVariable
-				{'MyInt':3}
+				#{'MyInt':3}
 			)
 
 #print
@@ -20,10 +20,10 @@ SYS._print(MyConditioner)
 
 #condition ... it is going to try to get 2 in the dict 
 #and raise an error but then use 2 
-#as the self.ConditioningTestVariable
+#as the self.ConditioningTestGetVariable
 print('MyConditioner.condition(2) is ')
 SYS._print(MyConditioner.condition(2))
 
 #print
-print('MyConditioner.condition(type,_AttestVariable=dict) is ')
-SYS._print(MyConditioner.condition(type,_AttestVariable=dict))
+print('MyConditioner.condition(type,_AttestGetVariable=dict) is ')
+SYS._print(MyConditioner.condition(type,_AttestGetVariable=dict))

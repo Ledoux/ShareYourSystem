@@ -359,13 +359,15 @@ class SetterClass(BaseClass):
 						if SettedValueType!=None.__class__:
 
 							#debug
+							'''
 							self.debug(
 								[
 									'we wrap the setting value',
 									('self.',self,['SettingValueVariable'])
 								]
 							)
-
+							'''
+							
 							#alias
 							'''
 							try:

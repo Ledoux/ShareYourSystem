@@ -13,7 +13,7 @@ MyConditioner=SYS.ConditionerClass(
 		[
 			(type,SYS.operator.eq,SYS.ConditionerClass),
 			('MyInt',SYS.operator.eq,0),
-			('MyStr',SYS.operator.eq,"hello")
+			('MyStr',SYS.operator.eq,"<Direct>hello")
 		]
 	)
 

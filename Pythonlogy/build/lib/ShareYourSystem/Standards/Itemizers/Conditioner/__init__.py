@@ -40,24 +40,20 @@ class ConditionerClass(BaseClass):
 
 	#Definition
 	RepresentingKeyStrsList=[
-								'ConditioningTestVariable',
+								'ConditioningTestGetVariable',
 								'ConditioningGetBoolFunction',
-								'ConditioningAttestVariable',
-								'ConditioningInstanceVariable',
-								'ConditioningTypesList',
-								'ConditioningGetVariable',
-								'ConditionedTestVariable',
+								'ConditioningAttestGetVariable',
+								'ConditioningFunctionTypesList',
+								'ConditioningScanGetVariable',
 								'ConditionedIsBool',
 							]
 	
 	def default_init(self,
-						_ConditioningTestVariable=None,
+						_ConditioningTestGetVariable=None,
 						_ConditioningGetBoolFunction=None,
-						_ConditioningAttestVariable=None,
-						_ConditioningInstanceVariable=None,
-						_ConditioningTypesList=[type(len),type(type)],
-						_ConditioningGetVariable=Executer.ExecutionPrefixStr+'self.__dict__.values()',
-						_ConditionedTestVariable=None,
+						_ConditioningAttestGetVariable=None,
+						_ConditioningFunctionTypesList=[type(len),type(type)],
+						_ConditioningScanGetVariable=Executer.ExecutionPrefixStr+'self.__dict__.values()',
 						_ConditionedIsBool=True,
 						**_KwargVariablesDict
 					):
@@ -79,154 +75,80 @@ class ConditionerClass(BaseClass):
 		'''
 		self.debug(
 			[
-				'We configure the ConditioningTestVariable',
 				('self.',self,[
-					'ConditioningInstanceVariable',
-					'ConditioningTestVariable',
-					'ConditioningAttestVariable'
+					'ConditioningTestGetVariable',
+					'ConditioningAttestGetVariable'
 					]
 				)
 			]
 		)
 		'''
 		
+		#/###################/#
+		# Adapt the TestValueVariable
+		#
+
+		#get
+		try:
+			ConditionedTestValueVariable=self.ConditioningInstanceVariable[
+				self.ConditioningTestGetVariable
+			]
+		except:
+			ConditionedTestValueVariable=None
+		
 		#Check
-		if self.ConditioningInstanceVariable!=None:
-
-			#debug
-			'''
-			self.debug(
-				[
-					'self.ConditioningInstanceVariable!=None',
-					('self.',self,['ConditioningTestVariable'])
-				]
-			)	
-			'''
-
-			#Check
-			if self.ConditioningTestVariable in self.ConditioningTypesList:
-
-				#debug
-				'''
-				self.debug('This is a call condition')
-				'''
-
-				#call
-				self.ConditionedTestVariable=self.ConditioningTestVariable(
-						self.ConditioningInstanceVariable
-					)
-
-			else:
-				
-				#debug
-				'''
-				self.debug('Maybe it is get condition')
-				'''
-
-				#try
-				if type(
-					self.ConditioningTestVariable
-				)==str or (
-				hasattr(
-					self.ConditioningTestVariable,'items'
-				) and ('GetKeyVariable' in self.ConditioningTestVariable or 'ConditionTuplesList' in self.ConditioningTestVariable)
-				):
-
-					#Check
-					if hasattr(self.ConditioningInstanceVariable,'__getitem__'):
-
-						#debug
-						'''
-						self.debug(
-							[
-								'This is a condition get',
-								('self.',self,['ConditioningInstanceVariable'])
-							]
-						)
-						'''
-
-						#try
-						try:
-					
-							#get
-							self.ConditionedTestVariable=self.ConditioningInstanceVariable[
-								self.ConditioningTestVariable
-							]
-
-						except:
-
-							#set
-							self.ConditionedTestVariable=None
-
-					else:
-
-						#debug
-						'''
-						self.debug('The instance variable is something that cannot get')
-						'''
-
-						#set
-						self.ConditionedTestVariable=None
-
-						#set to false
-						self.ConditionedIsBool=False
-
-						#return 
-						return
-
-				else:
-
-					#set
-					self.ConditionedTestVariable=self.ConditioningTestVariable
-
-		#/####################/#
-		# Case where the InstanceVariable is None but... there is ConditioningTestVariable...
-		# it is necessary false if ConditioningTestVariable asks for a get or a call
-
-		#Check
-		elif self.ConditioningTestVariable in self.ConditioningTypesList or (
-			type(
-					self.ConditioningTestVariable
-				)==str or (
-				hasattr(
-					self.ConditioningTestVariable,'items'
-					) and (
-					'GetKeyVariable' in self.ConditioningTestVariable or 'ConditionTuplesList' in self.ConditioningTestVariable)
+		if ConditionedTestValueVariable in self.ConditioningFunctionTypesList:
+			
+			#call
+			ConditionedTestValueVariable=ConditionedTestValueVariable(
+					self
 				)
-			):
-
-			#set
-			self.ConditionedTestVariable=None
-
-			#set to false
-			self.ConditionedIsBool=False
-
-			#return 
-			return
-
 
 		#debug
-		'''
 		self.debug(
 			[
-				'We have configured the ConditioningTestVariable',
-				('self.',self,[
-									'ConditioningTestVariable',
-									'ConditioningAttestVariable'
-								]
-				)
+				'We have configured the ConditionedTestValueVariable',
+				'ConditionedTestValueVariable is '+str(ConditionedTestValueVariable)
 			]
 		)
-		'''
+
+		#/###################/#
+		# Adapt the AttestValueVariable
+		#
+
+		#get
+		try:
+			ConditionedAttestValueVariable=self.ConditioningInstanceVariable[
+				self.ConditioningAttestGetVariable
+			]
+		except:
+			ConditionedAttestValueVariable=None
+
+		#Check
+		if ConditionedAttestValueVariable in self.ConditioningFunctionTypesList:
+			
+			#call
+			ConditionedAttestValueVariable=ConditionedAttestValueVariable(
+					self
+				)
+
+		#debug
+		self.debug(
+			[
+				'We have configured the ConditionedAttestValueVariable',
+				'ConditionedAttestValueVariable is '+str(ConditionedAttestValueVariable)
+			]
+		)
 
 		#call
 		try:
 
 			#call
 			self.ConditionedIsBool=self.ConditioningGetBoolFunction(
-				self.ConditionedTestVariable,
-				self.ConditioningAttestVariable
+				ConditionedTestValueVariable,
+				ConditionedAttestValueVariable
 			)
+
 		except:
 
 			#set
@@ -236,9 +158,6 @@ class ConditionerClass(BaseClass):
 		'''
 		self.debug(
 			('self.',self,[
-							#'ConditioningInstanceVariable',
-							#'ConditioningTestVariable',
-							'ConditionedTestVariable',
 							'ConditionedIsBool',
 						])
 		)
@@ -256,59 +175,218 @@ class ConditionerClass(BaseClass):
 		#Check
 		if hasattr(
 			self.GettingKeyVariable,'items'
-		) and(
-		 'ConditionTuplesList' in self.GettingKeyVariable or ConditionShortKeyStr in self.GettingKeyVariable):
+		) and type(self.GettingKeyVariable)!=type:
 
-			#debug
-			'''
-			self.debug(
-						[
-							'We map condition here',
-							('self.',self,[
-								#'ConditioningInstanceVariable',
-								#'ConditioningTestVariable',
-								'ConditioningGetVariable'
-							])
-						]
-					)
-			'''
-
-			#alias
-			try:
-				ConditionTuplesList=self.GettingKeyVariable['ConditionTuplesList']
-			except:
-				ConditionTuplesList=self.GettingKeyVariable[ConditionShortKeyStr]
-
-			#get
-			ConditionTestVariablesList=self[
-				self.ConditioningGetVariable
-			]
-
-			#debug
-			'''
-			self.debug(
-				'ConditionTestVariablesList is '+SYS._str(
-					ConditionTestVariablesList
-				)
-			)
-			'''
-
-			#Init
-			GettedValueVariable=[]
-
-			#Debug
-			for __ConditionTestVariable in ConditionTestVariablesList:
+			#Check
+			if 'ConditionTuplesList' in self.GettingKeyVariable or ConditionShortKeyStr in self.GettingKeyVariable:
 
 				#debug
 				'''
 				self.debug(
-						'__ConditionTestVariable is '+SYS._str(__ConditionTestVariable)
+							[
+								'We map condition here',
+								('self.',self,[
+									'ConditioningTestGetVariable'
+								])
+							]
+						)
+				'''
+
+				#alias
+				try:
+					ConditionTuplesList=self.GettingKeyVariable['ConditionTuplesList']
+				except:
+					ConditionTuplesList=self.GettingKeyVariable[ConditionShortKeyStr]
+
+				#get
+				ConditionScanValueVariablesList=self[
+					self.ConditioningScanGetVariable
+				]
+
+				#debug
+				'''
+				self.debug(
+					'ConditionScanValueVariablesList is '+SYS._str(
+						ConditionScanValueVariablesList
+					)
+				)
+				'''
+
+				#Init
+				GettedValueVariable=[]
+
+				#Debug
+				for __ConditionTestVariable in ConditionScanValueVariablesList:
+
+					#debug
+					'''
+					self.debug(
+							'__ConditionTestVariable is '+SYS._str(__ConditionTestVariable)
+						)
+					'''
+
+					#set
+					self.ConditioningInstanceVariable=__ConditionTestVariable
+							
+					#loop and break at the first false
+					for __ConditionTuple in ConditionTuplesList:
+
+						#condition
+						self.condition(*__ConditionTuple)
+
+						#Check
+						if self.ConditionedIsBool==False:
+
+							#debug
+							'''
+							self.debug('we break')
+							'''
+
+							#break
+							break
+
+					#append
+					if self.ConditionedIsBool:
+
+						#We append
+						'''
+						self.debug(
+								[	
+									'This __ConditionTestVariable is keeped',
+									SYS._str(__ConditionTestVariable)
+								]
+							)
+						'''
+
+						#append
+						GettedValueVariable.append(__ConditionTestVariable)
+
+				'''
+				#map condition
+				self.GettedValueVariable=SYS._filter(
+						lambda __ConditionTestVariable:
+						all(
+								self.set(
+									'ConditioningInstanceVariable',
+									__ConditionTestVariable
+								)['map*condition'](
+								ConditionTuplesList
+							).ItemizedMapValueVariablesList
+						),
+						ConditionScanValueVariablesList
 					)
 				'''
 
 				#set
-				self.ConditioningInstanceVariable=__ConditionTestVariable
-						
+				self.GettedValueVariable=GettedValueVariable
+
+				#debug
+				'''
+				self.debug(
+						[
+							'We have filtered',
+							('self.',self,['GettedValueVariable'])
+						]
+					)
+				'''
+
+				#stop the getting
+				return {"HookingIsBool":False}
+
+		#call the base method
+		BaseClass.get(self)
+
+	def mimic_set(self):
+
+		#Check
+		if hasattr(self.SettingKeyVariable,'items'
+			) and type(self.SettingKeyVariable)!=type:
+
+				#Check
+				if 'ConditionTuplesList' in self.SettingKeyVariable or ConditionShortKeyStr in self.SettingKeyVariable:
+
+					#set
+					try:
+						ConditionTuplesList=self.SettingKeyVariable['ConditionTuplesList']
+					except:
+						ConditionTuplesList=self.SettingKeyVariable[ConditionShortKeyStr]
+
+					#debug
+					'''
+					self.debug(
+							[
+								'condition in the key',
+								'we set if the condition is satisfied',
+								'ConditionTuplesList is '+str(ConditionTuplesList)
+							]
+						)
+					'''
+					
+					#loop and break at the first false
+					for __ConditionTuple in ConditionTuplesList:
+
+						#condition
+						self.condition(*__ConditionTuple)
+
+						#Check
+						if self.ConditionedIsBool==False:
+
+							#debug
+							'''
+							self.debug('we break')
+							'''
+
+							#break
+							break
+
+					#append
+					if self.ConditionedIsBool:
+
+						#We append
+						'''
+						self.debug(
+								[	
+									'Ok we set'
+								]
+							)
+						'''
+
+						#append
+						try:
+							self[
+								self.SettingKeyVariable['SetKeyVariable']
+							]=self.SettingValueVariable
+						except:
+							self[
+								self.SettingKeyVariable[Setter.SetShortKeyStr]
+							]=self.SettingValueVariable
+
+					#stop the setting
+					return {'HookingIsBool':False}
+
+		#Check
+		elif hasattr(self.SettingValueVariable,'items') and type(self.SettingValueVariable)!=type: 
+
+			#Check
+			if 'ConditionTuplesList' in self.SettingValueVariable or ConditionShortKeyStr in self.SettingValueVariable:
+
+				#set
+				try:
+					ConditionTuplesList=self.SettingValueVariable['ConditionTuplesList']
+				except:
+					ConditionTuplesList=self.SettingValueVariable[ConditionShortKeyStr]
+
+				#debug
+				'''
+				self.debug(
+						[
+							'condition in the value',
+							'we set if the condition is satisfied',
+							'ConditionTuplesList is '+str(ConditionTuplesList)
+						]
+					)
+				'''
+				
 				#loop and break at the first false
 				for __ConditionTuple in ConditionTuplesList:
 
@@ -333,183 +411,23 @@ class ConditionerClass(BaseClass):
 					'''
 					self.debug(
 							[	
-								'This __ConditionTestVariable is keeped',
-								SYS._str(__ConditionTestVariable)
+								'Ok we set'
 							]
 						)
 					'''
 
 					#append
-					GettedValueVariable.append(__ConditionTestVariable)
+					try:
+						self[
+							self.SettingKeyVariable
+						]=self.SettingValueVariable['SetValueVariable']
+					except:
+						self[
+							self.SettingKeyVariable
+						]=self.SettingValueVariable[Setter.SetShortKeyStr]
 
-			'''
-			#map condition
-			self.GettedValueVariable=SYS._filter(
-					lambda __ConditionTestVariable:
-					all(
-							self.set(
-								'ConditioningInstanceVariable',
-								__ConditionTestVariable
-							)['map*condition'](
-							ConditionTuplesList
-						).ItemizedMapValueVariablesList
-					),
-					ConditionTestVariablesList
-				)
-			'''
-
-			#set
-			self.GettedValueVariable=GettedValueVariable
-
-			#debug
-			'''
-			self.debug(
-					[
-						'We have filtered',
-						('self.',self,['GettedValueVariable'])
-					]
-				)
-			'''
-
-			#stop the getting
-			return {"HookingIsBool":False}
-
-		else:
-
-			#call the base method
-			BaseClass.get(self)
-
-	def mimic_set(self):
-
-		#Check
-		if hasattr(self.SettingKeyVariable,'items'
-			) and (
-			'ConditionTuplesList' in self.SettingKeyVariable or ConditionShortKeyStr in self.SettingKeyVariable):
-
-			#set
-			try:
-				ConditionTuplesList=self.SettingKeyVariable['ConditionTuplesList']
-			except:
-				ConditionTuplesList=self.SettingKeyVariable[ConditionShortKeyStr]
-
-			#debug
-			'''
-			self.debug(
-					[
-						'condition in the key',
-						'we set if the condition is satisfied',
-						'ConditionTuplesList is '+str(ConditionTuplesList)
-					]
-				)
-			'''
-			
-			#loop and break at the first false
-			for __ConditionTuple in ConditionTuplesList:
-
-				#condition
-				self.condition(*__ConditionTuple)
-
-				#Check
-				if self.ConditionedIsBool==False:
-
-					#debug
-					'''
-					self.debug('we break')
-					'''
-
-					#break
-					break
-
-			#append
-			if self.ConditionedIsBool:
-
-				#We append
-				'''
-				self.debug(
-						[	
-							'Ok we set'
-						]
-					)
-				'''
-
-				#append
-				try:
-					self[
-						self.SettingKeyVariable['SetKeyVariable']
-					]=self.SettingValueVariable
-				except:
-					self[
-						self.SettingKeyVariable[Setter.SetShortKeyStr]
-					]=self.SettingValueVariable
-
-			#stop the setting
-			return {'HookingIsBool':False}
-
-		#Check
-		elif hasattr(self.SettingValueVariable,'items'
-			) and (
-			'ConditionTuplesList' in self.SettingValueVariable or ConditionShortKeyStr in self.SettingValueVariable
-			):
-
-			#set
-			try:
-				ConditionTuplesList=self.SettingValueVariable['ConditionTuplesList']
-			except:
-				ConditionTuplesList=self.SettingValueVariable[ConditionShortKeyStr]
-
-			#debug
-			'''
-			self.debug(
-					[
-						'condition in the value',
-						'we set if the condition is satisfied',
-						'ConditionTuplesList is '+str(ConditionTuplesList)
-					]
-				)
-			'''
-			
-			#loop and break at the first false
-			for __ConditionTuple in ConditionTuplesList:
-
-				#condition
-				self.condition(*__ConditionTuple)
-
-				#Check
-				if self.ConditionedIsBool==False:
-
-					#debug
-					'''
-					self.debug('we break')
-					'''
-
-					#break
-					break
-
-			#append
-			if self.ConditionedIsBool:
-
-				#We append
-				'''
-				self.debug(
-						[	
-							'Ok we set'
-						]
-					)
-				'''
-
-				#append
-				try:
-					self[
-						self.SettingKeyVariable
-					]=self.SettingValueVariable['SetValueVariable']
-				except:
-					self[
-						self.SettingKeyVariable
-					]=self.SettingValueVariable[Setter.SetShortKeyStr]
-
-			#stop the setting
-			return {'HookingIsBool':False}
-
+				#stop the setting
+				return {'HookingIsBool':False}
 
 		#call the base method
 		return BaseClass.set(self)

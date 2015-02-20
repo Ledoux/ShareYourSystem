@@ -31,6 +31,7 @@ def getMapList(_LiargVariablesList):
 def getLiargVariablesList(_ValueVariable):
 	return [_ValueVariable]
 GetDeletePrefixStr="-"
+GetDirectPrefixStr="<Direct>"
 GetShortKeyStr="#get"
 #</DefineLocals>
 
@@ -206,11 +207,31 @@ class GetterClass(BaseClass):
 			'''
 
 			#/############################
+			# Case of a direct str get 
+			#
+
+			if self.GettingKeyVariable.startswith(GetDirectPrefixStr):
+
+				#debug
+				'''
+				self.debug('This is a direct get of a str variable')
+				'''
+
+				#set
+				self.GettedValueVariable=SYS.deprefix(
+					self.GettingKeyVariable,
+					GetDirectPrefixStr
+				)
+
+				#Stop the getting
+				return {"HookingIsBool":False}
+
+			#/############################
 			# Case of a get in the instance __dict__ 
 			#
 
 			#Get safely the Value
-			if self.GettingKeyVariable in self.__dict__:
+			elif self.GettingKeyVariable in self.__dict__:
 
 				#__getitem__ in the __dict__
 				self.GettedValueVariable=self.__dict__[
@@ -314,18 +335,20 @@ class GetterClass(BaseClass):
 
 
 		#/############################
-		# Cases of a dict GetKeyVariable get 
+		# Cases of a dict GetVariable get 
 		#
 
-		elif hasattr(self.GettingKeyVariable,'items'):
+		elif hasattr(self.GettingKeyVariable,'items') and type(self.GettingKeyVariable)!=type:
 
 			#debug
+			'''
 			self.debug(
 				[
 					'we get or set with an itemizable instance',
 					('self.',self,['GettingKeyVariable'])
 				]
 			)
+			'''
 
 			#try
 			try:
@@ -334,18 +357,18 @@ class GetterClass(BaseClass):
 				'''
 				self.debug(
 					[
-						'we get with the GetKeyVariable'
+						'we get with the GetVariable'
 					]	
 				)
 				'''
 				
 				#get
 				self.GettedValueVariable=self[
-					self.GettingKeyVariable['GetKeyVariable']
+					self.GettingKeyVariable['GetVariable']
 				]
 
 				#del
-				del self.GettingKeyVariable['GetKeyVariable']
+				del self.GettingKeyVariable['GetVariable']
 
 			except:
 
@@ -381,14 +404,19 @@ class GetterClass(BaseClass):
 		# Cases of a direct get 
 		#
 
-		elif hasattr(self.GettingKeyVariable,'MroClassesList'):
+		#elif hasattr(self.GettingKeyVariable,'MroClassesList'):
+		if type(self.GettingKeyVariable)!=str:
+
+			#debug
+			'''
+			self.debug('This is a direct get of a non str variable')
+			'''
 
 			#set
 			self.GettedValueVariable=self.GettingKeyVariable
 
 			#Stop the getting
 			return {"HookingIsBool":False}
-
 
 		#set
 		self.GettedValueVariable=None

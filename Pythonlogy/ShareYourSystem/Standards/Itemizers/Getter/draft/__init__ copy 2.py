@@ -313,7 +313,7 @@ class GetterClass(BaseClass):
 
 
 		#/############################
-		# Cases of a dict GetKeyVariable get 
+		# Cases of a dict GetVariable get 
 		#
 
 		elif hasattr(self.GettingKeyVariable,'items'):
@@ -333,18 +333,18 @@ class GetterClass(BaseClass):
 				'''
 				self.debug(
 					[
-						'we get with the GetKeyVariable'
+						'we get with the GetVariable'
 					]	
 				)
 				'''
 				
 				#get
 				self.GettedValueVariable=self[
-					self.GettingKeyVariable['GetKeyVariable']
+					self.GettingKeyVariable['GetVariable']
 				]
 
 				#del
-				del self.GettingKeyVariable['GetKeyVariable']
+				del self.GettingKeyVariable['GetVariable']
 
 			except:
 
@@ -365,15 +365,15 @@ class GetterClass(BaseClass):
 				try:
 
 					#debug
-					self.debug('We get with the GetKeyVariable')
+					self.debug('We get with the GetVariable')
 
 					#get
 					self[
-						self.GettingKeyVariable['GetKeyVariable']
+						self.GettingKeyVariable['GetVariable']
 					]=self.GettingKeyVariable
 
 					#del
-					del self.GettingKeyVariable['GetKeyVariable']
+					del self.GettingKeyVariable['GetVariable']
 
 				except:
 

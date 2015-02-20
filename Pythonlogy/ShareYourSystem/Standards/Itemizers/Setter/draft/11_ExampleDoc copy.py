@@ -6,7 +6,7 @@ import ShareYourSystem as SYS
 MySetter=SYS.SetterClass(
 	).set(
 		{
-			'GetKeyVariable':"MyStr"
+			'GetVariable':"MyStr"
 		},
 		"hello"
 	)

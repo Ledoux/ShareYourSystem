@@ -4,11 +4,11 @@ import ShareYourSystem as SYS
 #Define and condition
 MyConditioner=SYS.ConditionerClass(
 			).condition(
-				#ConditioningTestVariable
+				#ConditioningTestGetVariable
 				3,
 				#ConditioningGetBoolFunction
 				lambda _TestVariable,_AttestVariable:_TestVariable==_AttestVariable,
-				#ConditioningAttestVariable
+				#ConditioningAttestGetVariable
 				2
 			)
 

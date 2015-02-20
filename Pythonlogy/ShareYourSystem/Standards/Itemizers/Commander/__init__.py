@@ -233,6 +233,7 @@ class CommanderClass(BaseClass):
 		#
 
 		#debug
+		'''
 		self.debug(
 			[
 				'Adapt the type for getting things to command',
@@ -242,32 +243,19 @@ class CommanderClass(BaseClass):
 							])
 			]
 		)
-
+		'''
+		
 		#Check
 		if type(self.CommandingGetVariable)!=list:
 			
+			#get
+			CommandedValueVariablesList=self[
+				self.CommandingGetVariable
+			]
+
 			#Check
-			if SYS.getIsGetDictBool(self.CommandingGetVariable)==False:
-				
-				#map a get
-				CommandedValueVariablesList=[self[self.CommandingGetVariable]]
-
-			else:
-
-				#debug
-				'''
-				self.debug(
-					[
-						'it is a dictated dict, so get it first',
-						('self.',self,['CommandingGetVariable'])
-					]
-				)
-				'''
-				
-				#it is a dictated get
-				CommandedValueVariablesList=self[
-					self.CommandingGetVariable
-				]
+			if type(CommandedValueVariablesList)!=list:
+				CommandedValueVariablesList=[CommandedValueVariablesList]
 
 		else:
 

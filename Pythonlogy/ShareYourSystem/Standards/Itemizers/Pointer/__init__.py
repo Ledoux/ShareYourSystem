@@ -38,7 +38,7 @@ class PointerClass(BaseClass):
 
 	#Definition
 	RepresentingKeyStrsList=[
-								'PointingToGetKeyVariable',
+								'PointingToGetVariable',
 								'PointingToSetKeyVariable',
 								'PointingBackSetKeyVariable',
 								'PointingBackBool',
@@ -47,7 +47,7 @@ class PointerClass(BaseClass):
 
 	def default_init(
 					self,		
-					_PointingToGetKeyVariable=None,
+					_PointingToGetVariable=None,
 					_PointingToSetKeyVariable=None,
 					_PointingBackSetKeyVariable=None,
 					_PointingBackBool=False,
@@ -67,14 +67,14 @@ class PointerClass(BaseClass):
 		#debug
 		self.debug(
 					('self.',self,[
-									'PointingToGetKeyVariable',
+									'PointingToGetVariable',
 									'PointingToSetKeyVariable'
 								])
 					)
 
 		#get
 		PointedToGetValueVariable=self[
-			self.PointingToGetKeyVariable
+			self.PointingToGetVariable
 		]
 
 		#debug
@@ -91,7 +91,7 @@ class PointerClass(BaseClass):
 		#Check
 		if self.PointingToSetKeyVariable in [None,""]:
 			PointedToSetKeyVariable=str(
-					self.PointingToGetKeyVariable
+					self.PointingToGetVariable
 				).replace('/','_')
 		else:
 			PointedToSetKeyVariable=self.PointingToSetKeyVariable

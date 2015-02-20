@@ -14,7 +14,10 @@ print('Get "MyInt" returns '+str(MyGetter['MyInt']))
 #print a method get
 print('Get "itemize" returns '+SYS._str(MyGetter['itemize']))
 
-#print a direct get
+#print a direct non str get
 YourGetter=SYS.GetterClass()
 YourGetter.MyStr="hello"
 print('Get YourGetter returns '+SYS._str(MyGetter[YourGetter]))
+
+#print a direct str get
+print('Get <Direct>salut returns '+SYS._str(MyGetter["<Direct>salut"]))

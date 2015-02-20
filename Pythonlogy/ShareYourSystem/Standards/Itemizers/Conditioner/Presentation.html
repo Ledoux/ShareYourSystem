@@ -1790,15 +1790,15 @@ class ConditionerClass(BaseClass):
 
     #Definition
     RepresentingKeyStrsList=[
-                                    'ConditioningTestVariable',
+                                    'ConditioningTestGetVariable',
                                     'ConditioningGetBoolFunction',
                                     'ConditionedIsBool'
                                 ]
 
     def default_init(self,
-                        _ConditioningTestVariable=None,
+                        _ConditioningTestGetVariable=None,
                         _ConditioningGetBoolFunction=None,
-                        _ConditioningAttestVariable=None,
+                        _ConditioningAttestGetVariable=None,
                         _ConditionedIsBool=True,
                         **_KwargVariablesDict
                     ):
@@ -1812,15 +1812,15 @@ class ConditionerClass(BaseClass):
         #debug
         '''
         self.debug(('self.',self,[
-                                    'ConditioningTestVariable',
-                                    'ConditioningAttestVariable'
+                                    'ConditioningTestGetVariable',
+                                    'ConditioningAttestGetVariable'
                                 ]))
         '''
 
         #call
         self.ConditionedIsBool=self.ConditioningGetBoolFunction(
-            self.ConditioningTestVariable,
-            self.ConditioningAttestVariable
+            self.ConditioningTestGetVariable,
+            self.ConditioningAttestGetVariable
         )
 
         #debug
@@ -1869,7 +1869,7 @@ In&nbsp;[3]:
 <span class="c">#Definition of an instance Conditioner and make it print hello</span>
 <span class="n">MyConditioner</span><span class="o">=</span><span class="n">Conditioner</span><span class="o">.</span><span class="n">ConditionerClass</span><span class="p">(</span><span class="o">**</span><span class="p">{</span>
         <span class="s">&#39;ConditioningGetBoolFunction&#39;</span><span class="p">:</span><span class="k">lambda</span> <span class="n">_TestVariable</span><span class="p">,</span><span class="n">_AttestVariable</span><span class="p">:</span><span class="n">_TestVariable</span><span class="o">==</span><span class="n">_AttestVariable</span><span class="p">,</span>
-        <span class="s">&#39;ConditioningAttestVariable&#39;</span><span class="p">:</span><span class="mi">2</span>
+        <span class="s">&#39;ConditioningAttestGetVariable&#39;</span><span class="p">:</span><span class="mi">2</span>
     <span class="p">})</span>
 <span class="n">MyConditioner</span><span class="o">.</span><span class="n">condition</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">ConditionedIsBool</span>
     

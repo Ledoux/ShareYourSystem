@@ -7,8 +7,8 @@ MyGetter=SYS.GetterClass()
 MyGetter.MyInt=1
 		
 #print
-print('MyGetter[{"GetKeyVariable":"MyInt"}] is ')
-SYS._print(MyGetter[{"GetKeyVariable":"MyInt"}])
+print('MyGetter[{"GetVariable":"MyInt"}] is ')
+SYS._print(MyGetter[{"GetVariable":"MyInt"}])
 
 #print
 print('MyGetter[{"#get":"MyInt"}] is ')
