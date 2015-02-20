@@ -28,6 +28,7 @@ from ShareYourSystem.Standards.Itemizers import Pather
 #<DefineLocals>
 ParentPreviousStr="^"
 ParentTopStr="Top"
+ParentAllStr="&$"
 #</DefineLocals>
 
 #<DefineClass>
@@ -45,8 +46,7 @@ class ParenterClass(BaseClass):
 								'ParentedDeriveManagersList',
 								'ParentedTotalPathStr',
 								'ParentedTeamPathStr',
-								'ParentedManagementPathStr',
-								'ParentedTopDeriveTeamerVariable'
+								'ParentedManagementPathStr'
 							]
 
 	def default_init(self,
@@ -58,12 +58,11 @@ class ParenterClass(BaseClass):
 				_ParentedTotalPathStr="",
 				_ParentedTeamPathStr="",
 				_ParentedManagementPathStr="",
-				_ParentedTopDeriveTeamerVariable=None,
 				**_KwargVariablesDict
 			):	
 
 		#Call the parent init method
-		BaseClas.__init__(self,**_KwargVariablesDict)
+		BaseClass.__init__(self,**_KwargVariablesDict)
 
 		#init
 		self.ParentKeyStr="Top"
@@ -78,79 +77,9 @@ class ParenterClass(BaseClass):
 
 		#set
 		#self.CommandingBeforeWalkBool=True
-
-	def mimic_team(self):
-
-		#call the base method
-		BaseClass.team(self)
-
-		#set
-		self.TeamedValueVariable.ParentDeriveTeamer=self
-		self.TeamedValueVariable.ParentKeyStr=self.TeamingKeyStr
-
-		#Check
-		'''
-		if self.ParentKeyStr=='Top':
-
-			#debug
-			self.debug('We are the top so we command a parent')
-
-			#command
-			self.command(
-				['TeamDict.values','ManagementDict.values'],
-				('parent',[]),
-				_AfterWalkBool=True
-			)
-		'''
-
-	def mimic_manage(self):
-
-		#call the base method
-		BaseClass.manage(self)
-
-		#set
-		self.ManagedValueVariable.ParentDeriveTeamer=self
-		self.ManagedValueVariable.ParentKeyStr=self.ManagingKeyStr
-
-	def mimic_get(self):
 		
-		#debug
-		'''
-		self.debug(
-				[
-					('self.',self,[
-							'GettingKeyVariable',
-						])
-				]
-			)
-		'''
-
-		#Check
-		if self.GettingKeyVariable==ParentPreviousStr:
-			
-			#debug
-			self.debug('We get the previous parent')
-
-			#alias
-			self.GettedValueVariable=self.ParentDeriveTeamer
-
-			#Stop the setting
-			return {"HookingIsBool":False}
-
-		#Check
-		elif self.GettingKeyVariable==ParentTopStr:
-			
-			#debug
-			self.debug('We get the top parent')
-
-			#alias
-			self.GettedValueVariable=self.ParentedTopDeriveTeamerVariable
-
-			#Stop the setting
-			return {"HookingIsBool":False}
-
-		#Call the base method
-		return BaseClass.get(self)
+		#set top
+		self.ParentTopDeriveTeamer=self
 
 	def do_parent(self):
 
@@ -280,14 +209,14 @@ class ParenterClass(BaseClass):
 
 			#Check
 			if len(self.ParentedTotalDeriveTeamersList)>0:
-				self.ParentedTopDeriveTeamerVariable=self.ParentedTotalDeriveTeamersList[-1]
-			else:
-				self.ParentedTopDeriveTeamerVariable=self
 
+				#last one
+				self.ParentTopDeriveTeamer=self.ParentedTotalDeriveTeamersList[-1]
+							
 			#debug
 			'''
 			self.debug(
-					('self.',self,['ParentedTopDeriveTeamerVariable'])
+					('self.',self,['ParentTopDeriveTeamer'])
 				)
 			'''
 
@@ -315,7 +244,7 @@ class ParenterClass(BaseClass):
 					'''
 					
 					#get
-					ParentedValueVariablesList=self.ParentedTopDeriveTeamerVariable[
+					ParentedValueVariablesList=self.ParentTopDeriveTeamer[
 							'map*get'](
 											*self.ParentingTopGetVariable
 									).ItemizedMapValueVariablesList
@@ -339,7 +268,7 @@ class ParenterClass(BaseClass):
 					#Link
 					self.set(
 							self.ParentingTopGetVariable,
-							self.ParentedTopDeriveTeamerVariable[
+							self.ParentTopDeriveTeamer[
 								self.ParentingTopGetVariable
 							]
 						)
@@ -347,7 +276,122 @@ class ParenterClass(BaseClass):
 		else:
 
 			#set
-			self.ParentedTopDeriveTeamerVariable=self
+			self.ParentTopDeriveTeamer=self
+
+	def mimic_team(self):
+
+		#call the base method
+		BaseClass.team(self)
+
+		#debug
+		'''
+		self.debug(
+				('self.',self,['TeamingKeyStr'])
+			)
+		'''
+		
+		#set
+		self.TeamedValueVariable.ParentDeriveTeamer=self
+		self.TeamedValueVariable.ParentKeyStr=self.TeamingKeyStr
+
+		#Check
+		'''
+		if self.ParentKeyStr=='Top':
+
+			#debug
+			self.debug('We are the top so we command a parent')
+
+			#command
+			self.command(
+				['TeamDict.values','ManagementDict.values'],
+				('parent',[]),
+				_AfterWalkBool=True
+			)
+		'''
+		
+	def mimic_manage(self):
+
+		#call the base method
+		BaseClass.manage(self)
+
+		#debug
+		'''
+		self.debug(
+				('self.',self,['ManagingKeyStr'])
+			)
+		'''
+
+		#set
+		self.ManagedValueVariable.ParentDeriveTeamer=self
+		self.ManagedValueVariable.ParentKeyStr=self.ManagingKeyStr
+
+	def mimic_get(self):
+		
+		#debug
+		'''
+		self.debug(
+				[
+					('self.',self,[
+							'GettingKeyVariable',
+						])
+				]
+			)
+		'''
+
+		#Check
+		if self.GettingKeyVariable==ParentPreviousStr:
+			
+			#debug
+			'''
+			self.debug('We get the previous parent')
+			'''
+
+			#alias
+			self.GettedValueVariable=self.ParentDeriveTeamer
+
+			#Stop the setting
+			return {"HookingIsBool":False}
+
+		#Check
+		elif self.GettingKeyVariable==ParentTopStr:
+			
+			#debug
+			'''
+			self.debug(
+				[
+					'We get the top parent',
+					('self.',self,['ParentTopDeriveTeamer'])
+				]
+			)
+			'''
+
+			#alias
+			self.GettedValueVariable=self.ParentTopDeriveTeamer
+
+			#Stop the setting
+			return {"HookingIsBool":False}
+
+		#Check
+		elif self.GettingKeyVariable==ParentAllStr:
+
+			#add
+			self.GettedValueVariable=self.ManagementDict.values()+self.TeamDict.values()
+
+			#Stop the setting
+			return {"HookingIsBool":False}
+
+		#debug
+		'''
+		self.debug(
+			[
+				'get with the base method',
+				'BaseClass is '+str(BaseClass)
+			]
+		)
+		'''
+
+		#Call the base method
+		return BaseClass.get(self)
 
 #</DefineClass>
 

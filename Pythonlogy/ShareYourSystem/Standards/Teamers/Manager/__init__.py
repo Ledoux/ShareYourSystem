@@ -136,7 +136,7 @@ class ManagerClass(BaseClass):
 			) or SYS.getIsTuplesListBool(self.ManagedValueVariable):
 
 				#init
-				self.ManagedValueVariable=SYS.TeamerClass(
+				self.ManagedValueVariable=self.ManagingValueClass(
 					)['map*set'](
 						self.ManagedValueVariable
 					)
@@ -250,11 +250,21 @@ class ManagerClass(BaseClass):
 			)	
 
 			#Stop the setting
-			OutputDict["HookingIsBool"]=False 
+			return {'HookingIsBool':False}
 
-		#Call the manage get method
-		if OutputDict['HookingIsBool']:
-			return BaseClass.set(self)
+		#debug
+		'''
+		self.debug(
+				[
+					'Call the base set method',
+					'BaseClass is '+str(BaseClass),
+					('self.',self,['SettingKeyVariable'])
+				]
+			)
+		'''
+		
+		#return 
+		return BaseClass.set(self)
 
 #</DefineClass>
 

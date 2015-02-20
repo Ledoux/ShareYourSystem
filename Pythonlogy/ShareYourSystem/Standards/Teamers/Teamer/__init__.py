@@ -133,7 +133,7 @@ class TeamerClass(BaseClass):
 			) or SYS.getIsTuplesListBool(self.TeamedValueVariable):
 
 				#init
-				self.TeamedValueVariable=Manager.ManagerClass(
+				self.TeamedValueVariable=self.TeamingValueClass(
 					)['map*set'](
 						self.TeamedValueVariable
 					)
@@ -187,7 +187,12 @@ class TeamerClass(BaseClass):
 
 				#debug
 				'''
-				self.debug('We team here')
+				self.debug(
+					[
+						'We team here',
+						('self.',self,['GettingKeyVariable'])
+					]
+				)
 				'''
 
 				#team
@@ -236,10 +241,18 @@ class TeamerClass(BaseClass):
 			)
 
 			#Stop the setting
-			OutputDict["HookingIsBool"]=False 
+			return {'HookingIsBool':False}
 
+		#debug
+		self.debug(
+				[
+					'Call the base set method',
+					'BaseClass is '+str(BaseClass),
+					('self.',self,['SettingKeyVariable'])
+				]
+			)
+		
 		#Call the parent get method
-		if OutputDict['HookingIsBool']:
-			return BaseClass.set(self)
+		return BaseClass.set(self)
 
 #</DefineClass>

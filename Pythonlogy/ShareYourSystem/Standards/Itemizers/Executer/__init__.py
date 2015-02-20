@@ -112,8 +112,26 @@ class ExecuterClass(BaseClass):
 							ExecutionDotStr
 						)
 
+				#debug
+				'''
+				self.debug(
+					[
+						'GetKeyStr is '+GetKeyStr,
+						'AttributeStr is '+AttributeStr,
+						'self is '+SYS._str(self)
+					]
+				)
+				'''
+				
 				#get
 				GetValueVariable=self[GetKeyStr]
+
+				#debug
+				self.debug(
+					[
+						'GetValueVariable is '+SYS._str(GetValueVariable)
+					]
+				)
 
 				#get the get
 				AttributeValueVariable=getattr(
@@ -200,6 +218,14 @@ class ExecuterClass(BaseClass):
 						self.SettingKeyVariable,
 						ExecutionDotStr
 					)
+
+			#debug
+			self.debug(
+					[
+						'GetKeyStr is '+GetKeyStr,
+						'AttributeStr is '+AttributeStr
+					]
+				)
 
 			#get
 			GetValueVariable=self[GetKeyStr]

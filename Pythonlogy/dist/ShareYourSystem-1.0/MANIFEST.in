@@ -1,3 +1,0 @@
-global-include *
-prune draft
-global-exclude *.pyc *.ipynb *.html *.hdf5 *.0 *.ns *.lock *copy.py *.DS_Store *.so

@@ -65,24 +65,28 @@ class PointerClass(BaseClass):
 		#
 
 		#debug
+		'''
 		self.debug(
 					('self.',self,[
 									'PointingToGetVariable',
 									'PointingToSetKeyVariable'
 								])
 					)
-
+		'''
+		
 		#get
 		PointedToGetValueVariable=self[
 			self.PointingToGetVariable
 		]
 
 		#debug
+		'''
 		self.debug(
 				'PointedToGetValueVariable is '+str(
 					PointedToGetValueVariable
 				)
 			)
+		'''
 
 		#/####################/#
 		# Check for the SetKeyVariable
@@ -97,18 +101,22 @@ class PointerClass(BaseClass):
 			PointedToSetKeyVariable=self.PointingToSetKeyVariable
 
 		#debug
+		'''
 		self.debug(
 				'PointedToSetKeyVariable is '+SYS._str(
 					PointedToSetKeyVariable
 				)
 			)
+		'''
 
 		#Check
 		if type(PointedToSetKeyVariable)==str and PointedToSetKeyVariable.startswith(
 			Pather.PathPrefixStr)==False:
 
 			#debug
+			'''
 			self.debug('It is a direct path')
+			'''
 
 			#set
 			self.set(
@@ -119,7 +127,9 @@ class PointerClass(BaseClass):
 		else:
 
 			#debug
+			'''
 			self.debug('It is an encapsulate path')
+			'''
 
 			#previous
 			PointedPreviousSetKeyStr,PointedKeyStr=SYS.previous(
@@ -195,20 +205,24 @@ class PointerClass(BaseClass):
 		if self.PointingBackBool:
 
 			#debug
+			'''
 			self.debug(
 					[
 						'We point back',
 						('self.',self,['PointingBackSetKeyVariable'])
 					]
 				)
+			'''
 
 			#Check
 			if self.PointingBackSetKeyVariable==None:
 				
 				#debug
+				'''
 				self.debug(
 					'PointedToSetKeyVariable is '+str(PointedToSetKeyVariable)
 				)
+				'''
 
 				#/###################/#
 				# Case where the PointedToSetKeyVariable is derived from a pathsetstr
@@ -245,6 +259,7 @@ class PointerClass(BaseClass):
 				PointedBackSetKeyVariable=self.PointingBackSetKeyVariable
 
 			#debug
+			'''
 			self.debug(
 					[
 						'we set the back',
@@ -256,6 +271,7 @@ class PointerClass(BaseClass):
 						)
 					]
 				)
+			'''
 
 			#set
 			PointedToGetValueVariable.point(
@@ -312,9 +328,11 @@ class PointerClass(BaseClass):
 				):
 
 				#debug
+				'''
 				self.debug(
 						'we back point here'
 					)
+				'''
 
 				#point
 				self.point(
@@ -437,6 +455,17 @@ class PointerClass(BaseClass):
 				#return
 				return {'HookingIsBool':False}
 			'''
+
+		#debug
+		'''
+		self.debug(
+				[
+					'Call the base set method',
+					'BaseClass is '+str(BaseClass),
+					('self.',self,['SettingKeyVariable'])
+				]
+			)
+		'''
 
 		#call the base method
 		return BaseClass.set(self)

@@ -323,6 +323,21 @@ class PatherClass(BaseClass):
 					PathPrefixStr
 				):
 
+			#deprefix
+			SetKeyVariable=SYS.deprefix(self.SettingKeyVariable,PathPrefixStr)
+
+			#Check
+			if PathPrefixStr not in SetKeyVariable:
+
+				#set
+				self.set(
+					SetKeyVariable,
+					self.SettingValueVariable
+				)
+
+				#stop the set
+				return {'HookingIsBool':False}
+
 			#debug
 			'''
 			self.debug('We are going to path')

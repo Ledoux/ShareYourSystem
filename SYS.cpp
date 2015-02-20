@@ -32,9 +32,15 @@ int main( int argc, char *argv[] )
 		}
 		
 		//Check
-		if(InputStr == "pythonlogize")
+		if(InputStr == "install")
 		{
 			system("cd /Users/ledoux/Documents/ShareYourSystem/Pythonlogy;sudo sh install.sh");
+		}
+
+		if(InputStr == "pip")
+		{
+			system("cd /Users/ledoux/Documents/ShareYourSystem/Pythonlogy;sudo sh install.sh");
+			system("cd /Users/ledoux/Documents/ShareYourSystem/Pythonlogy;sudo sh upload.sh");
 		}
 
 		else if(InputStr == "document")

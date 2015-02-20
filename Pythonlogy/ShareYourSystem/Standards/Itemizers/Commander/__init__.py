@@ -79,7 +79,7 @@ class CommanderClass(BaseClass):
 			]
 		)
 		'''
-		
+
 		#Check
 		if type(self.CommandingGetVariable)!=list:
 			
@@ -118,13 +118,15 @@ class CommanderClass(BaseClass):
 		CommandedValueVariablesList=SYS.filterNone(CommandedValueVariablesList)
 
 		#debug
+		'''
 		self.debug(
 				[
 					'in the end, CommandedValueVariablesList is ',
 					SYS._str(CommandedValueVariablesList)
 				]
 			)
-
+		'''
+		
 		#/###################/#
 		# Check if we have to walk before
 		#
@@ -500,7 +502,18 @@ class CommanderClass(BaseClass):
 				#stop the setting
 				return {'HookingIsBool':False}
 
-			#Call the base method
-			BaseClass.set(self)
+		#debug
+		'''
+		self.debug(
+				[
+					'Call the base set method',
+					'BaseClass is '+str(BaseClass),
+					('self.',self,['SettingKeyVariable'])
+				]
+			)
+		'''
+		
+		#Call the base method
+		BaseClass.set(self)
 
 #</DefineClass>

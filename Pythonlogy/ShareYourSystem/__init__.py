@@ -28,6 +28,7 @@ import sys
 #<DefineLocals>
 OuvatonUrlStr="http://shareyoursystem.ouvaton.org"
 ShareYourSystemLocalFolderPathStr='/Users/ledoux/Documents/ShareYourSystem/'
+ShareYourSystemLocalFolderPathStr=""
 OuvatonLocalFolderPathStr=ShareYourSystemLocalFolderPathStr+"Ouvaton/"
 PythonlogyLocalFolderPathStr=ShareYourSystemLocalFolderPathStr+'Pythonlogy/'
 GithubMasterUrlStr="https://github.com/Ledoux/ShareYourSystem/tree/master"
@@ -926,8 +927,11 @@ def setGUI(*_LiargVariablesList):
 
 def lib():
 
+	#join
+	SetupFilePathStr='/'.join(__file__.split('/')[:-1])+'/lib.py'
+
 	#open
-	SetupFile=open(PythonlogyLocalFolderPathStr+"setup.py",'r')
+	SetupFile=open(SetupFilePathStr,'r')
 
 	#chunk
 	InstalledPackageStr=chunk(

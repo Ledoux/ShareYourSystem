@@ -1,6 +1,7 @@
 #Definition Python Modules
 from distutils.core import setup
 import os
+import sys
 
 #Execute a Setup
 setup(
@@ -92,7 +93,7 @@ setup(
           ]
 		},
 		url='http://shareyoursystem.ouvaton.org',
-		version='1.0',
+		version='0.2',
     )
 
 

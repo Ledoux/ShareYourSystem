@@ -233,6 +233,16 @@ class GetterClass(BaseClass):
 			#Get safely the Value
 			elif self.GettingKeyVariable in self.__dict__:
 
+				#debug
+				'''
+				self.debug(
+					[
+						'self.GettingKeyVariable exists in the __dict__',
+						self.GettingKeyVariable
+					]
+				)
+				'''
+				
 				#__getitem__ in the __dict__
 				self.GettedValueVariable=self.__dict__[
 					self.GettingKeyVariable
