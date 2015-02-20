@@ -23,14 +23,10 @@ MyConditioner.get(
 		}
 	)
 
-
-'''
 #print
 print('get only the FirstChildConditionner gives')
 SYS._print(MyConditioner.GettedValueVariable)
-'''
 
-"""
 #get with the short str
 MyConditioner.get(
 		{
@@ -45,4 +41,4 @@ MyConditioner.get(
 #print
 print('get only the SecondChildConditionner gives')
 SYS._print(MyConditioner.GettedValueVariable)
-"""
+

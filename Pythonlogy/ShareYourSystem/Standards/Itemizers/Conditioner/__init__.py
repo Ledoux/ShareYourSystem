@@ -94,8 +94,13 @@ class ConditionerClass(BaseClass):
 				self.ConditioningTestGetVariable
 			]
 		except:
-			ConditionedTestValueVariable=None
-		
+
+			#set
+			self.ConditionedIsBool=False
+
+			#return
+			return 
+			
 		#Check
 		if ConditionedTestValueVariable in self.ConditioningFunctionTypesList:
 			
@@ -118,11 +123,18 @@ class ConditionerClass(BaseClass):
 
 		#get
 		try:
+
+			#get
 			ConditionedAttestValueVariable=self.ConditioningInstanceVariable[
 				self.ConditioningAttestGetVariable
 			]
 		except:
-			ConditionedAttestValueVariable=None
+
+			#set
+			self.ConditionedIsBool=False
+
+			#return 
+			return
 
 		#Check
 		if ConditionedAttestValueVariable in self.ConditioningFunctionTypesList:

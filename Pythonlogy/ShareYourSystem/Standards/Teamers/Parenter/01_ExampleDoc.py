@@ -7,10 +7,13 @@ MyParenter=SYS.ParenterClass(
 		'/&Children/$Loup'
 	)
 
+#get faster the parent
+'''
+print("Get the parent of MyParenter['/&Children/$Loup'] gives ")
+SYS._print(MyParenter['/&Children/$Loup']['^'])
+'''
+
 #print
 print('MyParenter is ')
 SYS._print(MyParenter)
 
-#get faster the parent
-print("Get the parent of MyParenter['/&Children/$Loup'] gives ")
-SYS._print(MyParenter['/&Children/$Loup']['^'])

@@ -60,6 +60,290 @@ class CommanderClass(BaseClass):
 		#Call the parent __init__ method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
+	def do_command(self):
+		""" """
+
+		#/####################/#
+		# Adapt the type for getting things to command
+		#
+
+		#debug
+		'''
+		self.debug(
+			[
+				'Adapt the type for getting things to command',
+				("self.",self,[
+								'CommandingGetVariable',
+								'CommandingSetVariable'
+							])
+			]
+		)
+		'''
+		
+		#Check
+		if type(self.CommandingGetVariable)!=list:
+			
+			#debug
+			'''
+			self.debug(
+				[
+					'We get nicely',
+					('self.',self,['CommandingGetVariable'])
+				]
+			)
+			'''
+
+			#get
+			CommandedValueVariablesList=self[
+				self.CommandingGetVariable
+			]
+
+			#Check
+			if type(CommandedValueVariablesList)!=list:
+				CommandedValueVariablesList=[CommandedValueVariablesList]
+
+		else:
+
+			#map a get
+			CommandedValueVariablesList=map(
+					lambda __CommandingGetVariable:
+					self[__CommandingGetVariable],
+					self.CommandingGetVariable
+				)
+
+		#flat maybe
+		CommandedValueVariablesList=SYS.flat(CommandedValueVariablesList)
+
+		#filter
+		CommandedValueVariablesList=SYS.filterNone(CommandedValueVariablesList)
+
+		#debug
+		'''
+		self.debug(
+				[
+					'in the end, CommandedValueVariablesList is ',
+					SYS._str(CommandedValueVariablesList)
+				]
+			)
+		'''
+
+		#/###################/#
+		# Check if we have to walk before
+		#
+
+		#Check
+		if self.CommandingBeforeWalkBool:
+
+			#debug
+			'''
+			self.debug(
+				[
+					'we are going to walk before the command',
+					'CommandedValueVariablesList is '+SYS._str(CommandedValueVariablesList),
+					'self.getDoing(SYS.CommanderClass).values() is '+SYS._str
+					(self.getDoing(
+						SYS.CommanderClass).values())
+				]
+			)
+			'''
+
+			#Debug
+			'''
+			for __CommandedValueVariable in CommandedValueVariablesList:
+
+				#debug
+				self.debug(
+					'__CommandedValueVariable is '+SYS._str( __CommandedValueVariable)
+				)
+
+				#set
+				__CommandedValueVariable.set(
+							'GettingNewBool',False
+						).command(
+							*self.getDoing().values()	
+						).set(
+							'GettingNewBool',True
+						)
+			'''
+
+			#set
+			CommandedOrderedDict=self.getDoing(
+									SYS.CommanderClass
+								)
+			CommandedOrderedDict['CommandingBeforeSelfBool']=False
+			CommandedLiargVariablesList=CommandedOrderedDict.values()
+
+			#map the recursion but pay watch to not set new things to walk in...it is an infinite walk either !
+			map(
+					lambda __CommandedValueVariable:
+					__CommandedValueVariable.set(
+							'GettingNewBool',False
+						).command(
+							*CommandedLiargVariablesList	
+						).set(
+							'GettingNewBool',True
+						),
+					CommandedValueVariablesList
+				)
+
+		#/####################/#
+		# Adapt the type for setting things in the commanded variables
+		#
+
+		#debug
+		'''
+		self.debug(
+			[
+				'Adapt the type for setting things in the commanded variables',
+				("self.",self,['CommandingSetVariable'])
+			]
+		)
+		'''
+
+		#Check
+		if type(self.CommandingSetVariable)!=list:
+			
+			#Check
+			if hasattr(self.CommandingSetVariable,'items'):
+
+				#items
+				CommandedSetVariablesList=self.CommandingSetVariable.items()
+
+			else:
+
+				#list
+				CommandedSetVariablesList=[
+					self.CommandingSetVariable
+				]
+
+		else:
+
+			#alias
+			CommandedSetVariablesList=self.CommandingSetVariable
+
+		#debug
+		'''
+		self.debug(
+				[
+					'in the end, CommandedSetVariablesList is ',
+					SYS._str(CommandedSetVariablesList)
+				]
+			)
+		'''
+
+		#/###################/#
+		# Ok now we command locally
+		#
+
+		#Check
+		if self.CommandingBeforeSelfBool:
+
+			#debug
+			self.debug(
+					'We command before self here'
+				)
+
+			#add
+			self['map*set'](CommandedSetVariablesList)
+
+		#Check for the order
+		if self.CommandingOrderStr=="AllSetsForEachGet":
+
+			#map
+			map(
+					lambda __CommandedValueVariable:
+					map(
+						lambda __CommandedSetVariable:
+						__CommandedValueVariable.set(
+							*__CommandedSetVariable
+						),
+						CommandedSetVariablesList
+					),
+					CommandedValueVariablesList
+				)
+
+		elif self.CommandingOrderStr=="EachSetForAllGets":
+
+			#map
+			map(
+					lambda __CommandedSetVariable:
+					map(
+						lambda __CommandedValueVariables:
+						__CommandedValueVariables.set(
+							*__CommandedSetVariable
+						),
+						CommandedValueVariablesList
+					),
+					CommandedSetVariablesList
+				)
+
+		#Check
+		if self.CommandingAfterSelfBool:
+
+			#debug
+			self.debug(
+					'We command after self here'
+				)
+
+			#add
+			self['map*set'](CommandedSetVariablesList)
+
+		#/###################/#
+		# And we check for a walk after
+		#
+
+		#Check
+		if self.CommandingAfterWalkBool:
+
+			#debug
+			'''
+			self.debug(
+				[
+					'we are going to walk the command',
+					'CommandedValueVariablesList is '+SYS._str(CommandedValueVariablesList)
+				]
+			)
+			'''
+			
+			#Debug
+			'''
+			for __CommandedValueVariable in CommandedValueVariablesList:
+
+				#debug
+				self.debug(
+					'__CommandedValueVariable is '+SYS._str( __CommandedValueVariable)
+				)
+
+				#set
+				__CommandedValueVariable.set(
+							'GettingNewBool',False
+						).command(
+							*self.getDoing().values()	
+						).set(
+							'GettingNewBool',True
+						)
+			'''
+
+			#set
+			CommandedOrderedDict=self.getDoing(
+									SYS.CommanderClass
+								)
+			CommandedOrderedDict['CommandingBeforeSelfBool']=False
+			CommandedLiargVariablesList=CommandedOrderedDict.values()
+
+			#map the recursion but pay watch to not set new things to walk in...it is an infinite walk either !
+			map(
+					lambda __CommandedValueVariable:
+					__CommandedValueVariable.set(
+							'GettingNewBool',False
+						).command(
+							*CommandedLiargVariablesList	
+						).set(
+							'GettingNewBool',True
+						),
+					CommandedValueVariablesList
+				)
+
 	def mimic_set(self):
 
 		#debug
@@ -220,278 +504,5 @@ class CommanderClass(BaseClass):
 
 			#Call the base method
 			BaseClass.set(self)
-
-				
-
-
-
-	def do_command(self):
-		""" """
-
-		#/####################/#
-		# Adapt the type for getting things to command
-		#
-
-		#debug
-		'''
-		self.debug(
-			[
-				'Adapt the type for getting things to command',
-				("self.",self,[
-								'CommandingGetVariable',
-								'CommandingSetVariable'
-							])
-			]
-		)
-		'''
-		
-		#Check
-		if type(self.CommandingGetVariable)!=list:
-			
-			#get
-			CommandedValueVariablesList=self[
-				self.CommandingGetVariable
-			]
-
-			#Check
-			if type(CommandedValueVariablesList)!=list:
-				CommandedValueVariablesList=[CommandedValueVariablesList]
-
-		else:
-
-			#map a get
-			CommandedValueVariablesList=map(
-					lambda __CommandingGetVariable:
-					self[__CommandingGetVariable],
-					self.CommandingGetVariable
-				)
-
-		#filter
-		CommandedValueVariablesList=SYS.filterNone(CommandedValueVariablesList)
-
-		#debug
-		'''
-		self.debug(
-				[
-					'in the end, CommandedValueVariablesList is ',
-					SYS._str(CommandedValueVariablesList)
-				]
-			)
-		'''
-
-		#/###################/#
-		# Check if we have to walk before
-		#
-
-		#Check
-		if self.CommandingBeforeWalkBool:
-
-			#debug
-			self.debug(
-				[
-					'we are going to walk before the command',
-					'CommandedValueVariablesList is '+SYS._str(CommandedValueVariablesList),
-					'self.getDoing(SYS.CommanderClass).values() is '+SYS._str
-					(self.getDoing(
-						SYS.CommanderClass).values())
-				]
-			)
-
-			#Debug
-			'''
-			for __CommandedValueVariable in CommandedValueVariablesList:
-
-				#debug
-				self.debug(
-					'__CommandedValueVariable is '+SYS._str( __CommandedValueVariable)
-				)
-
-				#set
-				__CommandedValueVariable.set(
-							'GettingNewBool',False
-						).command(
-							*self.getDoing().values()	
-						).set(
-							'GettingNewBool',True
-						)
-			'''
-
-			#set
-			CommandedOrderedDict=self.getDoing(
-									SYS.CommanderClass
-								)
-			CommandedOrderedDict['CommandingBeforeSelfBool']=False
-			CommandedLiargVariablesList=CommandedOrderedDict.values()
-
-			#map the recursion but pay watch to not set new things to walk in...it is an infinite walk either !
-			map(
-					lambda __CommandedValueVariable:
-					__CommandedValueVariable.set(
-							'GettingNewBool',False
-						).command(
-							*CommandedLiargVariablesList	
-						).set(
-							'GettingNewBool',True
-						),
-					CommandedValueVariablesList
-				)
-
-		
-
-		#/####################/#
-		# Adapt the type for setting things in the commanded variables
-		#
-
-		#debug
-		'''
-		self.debug(
-			[
-				'Adapt the type for setting things in the commanded variables',
-				("self.",self,['CommandingSetVariable'])
-			]
-		)
-		'''
-
-		#Check
-		if type(self.CommandingSetVariable)!=list:
-			
-			#Check
-			if hasattr(self.CommandingSetVariable,'items'):
-
-				#items
-				CommandedSetVariablesList=self.CommandingSetVariable.items()
-
-			else:
-
-				#list
-				CommandedSetVariablesList=[
-					self.CommandingSetVariable
-				]
-
-		else:
-
-			#alias
-			CommandedSetVariablesList=self.CommandingSetVariable
-
-		#debug
-		'''
-		self.debug(
-				[
-					'in the end, CommandedSetVariablesList is ',
-					SYS._str(CommandedSetVariablesList)
-				]
-			)
-		'''
-
-		#/###################/#
-		# Ok now we command locally
-		#
-
-		#Check
-		if self.CommandingBeforeSelfBool:
-
-			#debug
-			self.debug(
-					'We command before self here'
-				)
-
-			#add
-			self['map*set'](CommandedSetVariablesList)
-
-		#Check for the order
-		if self.CommandingOrderStr=="AllSetsForEachGet":
-
-			#map
-			map(
-					lambda __CommandedValueVariable:
-					map(
-						lambda __CommandedSetVariable:
-						__CommandedValueVariable.set(
-							*__CommandedSetVariable
-						),
-						CommandedSetVariablesList
-					),
-					CommandedValueVariablesList
-				)
-
-		elif self.CommandingOrderStr=="EachSetForAllGets":
-
-			#map
-			map(
-					lambda __CommandedSetVariable:
-					map(
-						lambda __CommandedValueVariables:
-						__CommandedValueVariables.set(
-							*__CommandedSetVariable
-						),
-						CommandedValueVariablesList
-					),
-					CommandedSetVariablesList
-				)
-
-		#Check
-		if self.CommandingAfterSelfBool:
-
-			#debug
-			self.debug(
-					'We command after self here'
-				)
-
-			#add
-			self['map*set'](CommandedSetVariablesList)
-
-		#/###################/#
-		# And we check for a walk after
-		#
-
-		#Check
-		if self.CommandingAfterWalkBool:
-
-			#debug
-			self.debug(
-				[
-					'we are going to walk the command',
-					'CommandedValueVariablesList is '+SYS._str(CommandedValueVariablesList)
-				]
-			)
-
-			#Debug
-			'''
-			for __CommandedValueVariable in CommandedValueVariablesList:
-
-				#debug
-				self.debug(
-					'__CommandedValueVariable is '+SYS._str( __CommandedValueVariable)
-				)
-
-				#set
-				__CommandedValueVariable.set(
-							'GettingNewBool',False
-						).command(
-							*self.getDoing().values()	
-						).set(
-							'GettingNewBool',True
-						)
-			'''
-
-			#set
-			CommandedOrderedDict=self.getDoing(
-									SYS.CommanderClass
-								)
-			CommandedOrderedDict['CommandingBeforeSelfBool']=False
-			CommandedLiargVariablesList=CommandedOrderedDict.values()
-
-			#map the recursion but pay watch to not set new things to walk in...it is an infinite walk either !
-			map(
-					lambda __CommandedValueVariable:
-					__CommandedValueVariable.set(
-							'GettingNewBool',False
-						).command(
-							*CommandedLiargVariablesList	
-						).set(
-							'GettingNewBool',True
-						),
-					CommandedValueVariablesList
-				)
 
 #</DefineClass>

@@ -28,6 +28,21 @@ MyCommander.command(
 				'map*set',
 				[
 					('MyFirstBool',True),
+				]
+			)
+		]
+	)
+
+#command several objects with get that returns each a list
+MyCommander.MyCommandersList=[SYS.CommanderClass(),SYS.CommanderClass()]
+MyCommander.command(
+		#CommandingGetVariable
+		['/','MyCommandersList'],
+		#CommandingSetVariable
+		[
+			(
+				'map*set',
+				[
 					('MySecondBool',False),
 				]
 			)

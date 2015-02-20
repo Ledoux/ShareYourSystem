@@ -184,7 +184,7 @@ class ManagerClass(BaseClass):
 			self.GettedValueVariable=self.ManagementDict
 
 			#Stop the getting
-			OutputDict["HookingIsBool"]=False 
+			return {'HookingIsBool':False}
 
 		elif type(
 			self.GettingKeyVariable
@@ -213,11 +213,10 @@ class ManagerClass(BaseClass):
 			'''
 
 			#Stop the getting
-			OutputDict["HookingIsBool"]=False 
+			return {'HookingIsBool':False}
 
 		#Call the parent get method
-		if OutputDict['HookingIsBool']:
-			return BaseClass.get(self)
+		return BaseClass.get(self)
 
 	def mimic_set(self):
 

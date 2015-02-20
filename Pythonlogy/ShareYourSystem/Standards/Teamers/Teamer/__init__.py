@@ -172,27 +172,37 @@ class TeamerClass(BaseClass):
 		#Check
 		if type(
 			self.GettingKeyVariable
-		)==str and self.GettingKeyVariable.startswith(TeamChildPrefixStr):
+		)==str:
 
-			#debug
-			'''
-			self.debug('We team here')
-			'''
+			#Check
+			if self.GettingKeyVariable==TeamChildPrefixStr:
 
-			#team
-			self.GettedValueVariable=self.team(
-				SYS.deprefix(
-					self.GettingKeyVariable,
-					TeamChildPrefixStr
-				)
-			).TeamedValueVariable
+				#return 
+				self.GettedValueVariable=self.TeamDict
 
-			#Stop the setting
-			OutputDict["HookingIsBool"]=False 
+				#Stop the setting
+				return {'HookingIsBool':False}
+
+			elif self.GettingKeyVariable.startswith(TeamChildPrefixStr):
+
+				#debug
+				'''
+				self.debug('We team here')
+				'''
+
+				#team
+				self.GettedValueVariable=self.team(
+					SYS.deprefix(
+						self.GettingKeyVariable,
+						TeamChildPrefixStr
+					)
+				).TeamedValueVariable
+
+				#Stop the setting
+				return {'HookingIsBool':False}
 
 		#Call the parent get method
-		if OutputDict['HookingIsBool']:
-			return BaseClass.get(self)
+		return BaseClass.get(self)
 
 	def mimic_set(self):
 

@@ -24,3 +24,7 @@ MyTeamer['&Clients']=SYS.PointerClass()
 print('MyTeamer is ')
 SYS._print(MyTeamer)
 
+#Shortcut for getting all the teamed instances
+print("MyTeamer['$'] is ")
+SYS._print(MyTeamer['$'])
+

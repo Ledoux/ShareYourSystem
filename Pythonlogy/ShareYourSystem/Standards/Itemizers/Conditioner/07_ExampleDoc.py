@@ -27,7 +27,6 @@ MyConditioner.get(
 print('get only the FirstChildConditionner gives')
 SYS._print(MyConditioner.GettedValueVariable)
 
-
 #get with the short str
 MyConditioner.get(
 		{
