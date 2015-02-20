@@ -52,6 +52,9 @@ class ExecuterClass(BaseClass):
 		self.debug(('self.',self,['ExecutingCodeStr']))
 		'''
 		
+		#give the sys
+		locals()['SYS']=SYS
+
 		#Execute
 		six.exec_(self.ExecutingCodeStr,locals())
 

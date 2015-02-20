@@ -343,9 +343,13 @@ class GetterClass(BaseClass):
 					self.GettingKeyVariable['GetKeyVariable']
 				]
 
+				#del
+				del self.GettingKeyVariable['GetKeyVariable']
+
 			except:
 
 				#debug
+				'''
 				self.debug(
 					[
 						'we get with the SetKeyVariable',
@@ -355,17 +359,35 @@ class GetterClass(BaseClass):
 						)
 					]
 				)
-				
+				'''
+
 				#set
 				try:
+
+					#debug
+					self.debug('We get with the SetKeyVariable')
+
+					#get
 					self[
 						self.GettingKeyVariable['SetKeyVariable']
 					]=self.GettingKeyVariable
+
+					#del
+					del self.GettingKeyVariable['SetKeyVariable']
+
 				except:
+
+					#debug
+					self.debug('We get with the SetKeyVariable')
+
+					#set
 					self.__setattr__(
 							self.GettingKeyVariable['SetKeyVariable'],
 							self.GettingKeyVariable
 						)
+
+					#del
+					del self.GettingKeyVariable['SetKeyVariable']
 
 				#alias
 				self.GettedValueVariable=self.GettingKeyVariable

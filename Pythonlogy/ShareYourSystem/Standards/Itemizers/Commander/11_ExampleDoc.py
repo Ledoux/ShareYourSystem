@@ -8,10 +8,16 @@ SYS.CommanderClass.CountInt=0
 #define and build a chain
 MyCommander=SYS.CommanderClass(
 	).array(
-		[['AArrayer','BArrayer'],['1Arrayer','2Arrayer']],
-		#{'MyInt':'>>self.__class__.CountInt+1'}
+		[['ACommander','BCommander'],['1Commander','2Commander']],
+		{'MyInt':'>>SYS.set(self.__class__,"CountInt",self.__class__.CountInt+1)'}
 	)
 
 #print
 print('MyCommander is ')
 SYS._print(MyCommander)
+
+
+
+
+
+

@@ -747,6 +747,18 @@ def update(_ItemizableVariable,_UpdateVariable):
 	#return
 	return _ItemizableVariable
 
+def set(_Variable,_KeyStr,_ValueVariable):
+
+	#set
+	setattr(
+			_Variable,
+			_KeyStr,
+			_ValueVariable
+		)
+
+	#return 
+	return getattr(_Variable,_KeyStr)
+
 def getIsTuplesListBool(_TuplesList):
 
 	#Check for list of tuples

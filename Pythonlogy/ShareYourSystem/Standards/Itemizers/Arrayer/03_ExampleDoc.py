@@ -11,7 +11,7 @@ MyArrayer=SYS.ArrayerClass(
 			["aArrayer"]
 		],
 		{
-			'MyStr':"hello"
+			'MyStr':"bonjour"
 		}
 	)
 

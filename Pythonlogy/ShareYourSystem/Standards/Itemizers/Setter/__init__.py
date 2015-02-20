@@ -358,19 +358,25 @@ class SetterClass(BaseClass):
 						if SettedValueType!=None.__class__:
 
 							#debug
-							'''
-							self.debug('we wrap the setting value')
-							'''
+							self.debug(
+								[
+									'we wrap the setting value',
+									('self.',self,['SettingValueVariable'])
+								]
+							)
 
 							#alias
+							'''
 							try:
+							'''
 
-								#map set
-								self.SettingValueVariable=SettedValueType(
-									)['map*set'](
-									self.SettingValueVariable
-								)
+							#map set
+							self.SettingValueVariable=SettedValueType(
+								)['map*set'](
+								self.SettingValueVariable
+							)
 
+							'''
 							except:
 
 								#debug
@@ -378,9 +384,11 @@ class SetterClass(BaseClass):
 										[
 											'set failed because the suffix str indicates a different type from the value',
 											'SettedValueType is '+str(SettedValueType),
-											'type(self.SettingValueVariable) is '+str(type(self.SettingValueVariable))
+											'type(self.SettingValueVariable) is '+str(
+												type(self.SettingValueVariable))
 										]
 									)
+							'''
 
 				#debug
 				'''
@@ -432,7 +440,15 @@ class SetterClass(BaseClass):
 		# Case of a non method  with set with a set dict
 		#
 
-		elif SYS.itemizable(self.SettingKeyVariable):
+		elif hasattr(self.SettingKeyVariable,'items'):
+
+			#debug
+			self.debug(
+					[
+						'SettingKeyVariable has items...',
+						('self.',self,['SettingKeyVariable'])
+					]
+				)
 
 			try:
 
@@ -446,6 +462,9 @@ class SetterClass(BaseClass):
 					self.SettingKeyVariable['GetKeyVariable'],
 					self.SettingValueVariable
 				)
+
+				#delete
+				del self.SettingKeyVariable['GetKeyVariable']
 
 			except:
 
@@ -462,6 +481,9 @@ class SetterClass(BaseClass):
 						self.SettingValueVariable
 					)
 				)
+
+				#delete
+				del self.SettingKeyVariable['SetKeyVariable']
 
 			#Return
 			return {'HookingIsBool':False}
