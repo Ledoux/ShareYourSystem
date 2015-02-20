@@ -24,7 +24,8 @@ SYS.setSubModule(globals())
 #</ImportSpecificModules>
 
 #<DefineLocals>
-AttributingStartStr='Attr_'
+AttributionInstancePrefixStr='<Instance>'
+AttributionClassPrefixStr='<Class>'
 #</DefineLocals>
 
 #<DefineClass>
@@ -35,13 +36,15 @@ class AttributerClass(BaseClass):
 	RepresentingKeyStrsList=[
 								'AttributingKeyStr',
 								'AttributingValueVariable',
-								'AttributedSetKeyStr'
+								'AttributingInstanceBool',
+								'AttributingClassBool'
 							]
 
 	def default_init(self,  
 						_AttributingKeyStr="",
-						_AttributingValueVariable=None,	
-						_AttributedSetKeyStr="",		
+						_AttributingValueVariable=None,
+						_AttributingInstanceBool=True,
+						_AttributingClassBool=False,			
 						**_KwargVariablesDict
 					):
 		""" """		
@@ -52,15 +55,65 @@ class AttributerClass(BaseClass):
 
 	def do_attribute(self):
 
-		#set
-		self.AttributedSetKeyStr=AttributingStartStr.join(
-			self.AttributingKeyStr.split(AttributingStartStr)[1:])
+		#Check
+		if self.AttributingInstanceBool:
 
-		#Call the __setattr__ method
-		self.__setattr__(
-			self.AttributedSetKeyStr,
-			self.AttributingValueVariable
-		)
+			#Call the set
+			self[self.AttributingKeyStr]=self.AttributingValueVariable
+
+		elif self.AttributingClassBool:
+
+			setattr(
+				self.__class__,
+				self.AttributingKeyStr,
+				self.AttributingValueVariable
+			)
+
+	def mimic_get(self):
+
+		#get
+		if type(self.GettingKeyVariable
+			)==str:
+
+			#Check
+			if self.GettingKeyVariable.startswith(AttributionInstancePrefixStr):
+
+				#debug
+				'''
+				self.debug('We are going to get into the instance')
+				'''
+
+				#get
+				self.GettedValueVariable=self.__dict__[
+					SYS.deprefix(
+						self.GettingKeyVariable,
+						AttributionInstancePrefixStr
+					)
+				]
+
+				#Stop the setting
+				return {'HookingIsBool':False}
+
+			elif self.GettingKeyVariable.startswith(AttributionClassPrefixStr):
+
+				#debug
+				'''
+				self.debug('We are going to get from the class')
+				'''
+
+				#Path
+				self.GettedValueVariable=self.__class__.__dict__[
+					SYS.deprefix(
+						self.GettingKeyVariable,
+						AttributionClassPrefixStr
+					)
+				]
+
+				#Stop the setting
+				return {'HookingIsBool':False}
+
+		#return 
+		return BaseClass.get(self)
 
 	def mimic_set(self):
 		""" """
@@ -70,52 +123,57 @@ class AttributerClass(BaseClass):
 		self.debug(('self.',self,['SettingKeyVariable','SettingValueVariable']))
 		'''
 
-		#Definition
-		OutputDict={'HookingIsBool':True}
+		#Check
+		if type(self.SettingKeyVariable
+			)==str:
 
-		#Deep set
-		if type(self.SettingKeyVariable)==str and self.SettingKeyVariable.startswith(AttributingStartStr):
+			#Check
+			if self.SettingKeyVariable.startswith(AttributionInstancePrefixStr):
 
-			#debug
-			'''
-			self.debug('We are going to share')
-			'''
+				#debug
+				'''
+				self.debug('We are going to attribute to the instance')
+				'''
 
-			#Path
-			self.attribute(self.SettingKeyVariable,self.SettingValueVariable)
-
-			#debug
-			'''
-			self.debug(('self.',self,[
-										"SharedKeyStr",
-										"SharedChildKeyStr",
-										"SharedValueVariable"
-									]
-								))
-			'''
-
-			#Stop the setting
-			OutputDict["HookingIsBool"]=False
-
-		#Call the parent get method
-		if OutputDict['HookingIsBool']:
-
-			#debug
-			'''
-			self.debug(
-						[
-							'BaseClass is '+str(BaseClass),
-							'BaseClass.set is '+str(BaseClass.set)
-						]
+				#Path
+				self.attribute(
+					SYS.deprefix(
+						self.SettingKeyVariable,
+						AttributionInstancePrefixStr
+					),
+					self.SettingValueVariable,
+					_InstanceBool=True,
+					_ClassBool=False
 				)
-			'''
-			
-			#Set and return 
-			return BaseClass.set(self)
-			
-		else:
 
-			#return
-			return OutputDict
+				#Stop the setting
+				return {'HookingIsBool':False}
+
+			elif self.SettingKeyVariable.startswith(AttributionClassPrefixStr):
+
+				#debug
+				'''
+				self.debug('We are going to attribute to the class')
+				'''
+
+				#Path
+				self.attribute(
+					SYS.deprefix(
+						self.SettingKeyVariable,
+						AttributionClassPrefixStr
+					),
+					self.SettingValueVariable,
+					_InstanceBool=False,
+					_ClassBool=True,
+				)
+
+				#Stop the setting
+				return {'HookingIsBool':False}
+
+			
+		#Set and return 
+		return BaseClass.set(self)
+			
+
 
 #</DefineClass>

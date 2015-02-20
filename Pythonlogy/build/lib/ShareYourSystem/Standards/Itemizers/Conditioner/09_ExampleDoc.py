@@ -21,13 +21,25 @@ MyConditioner.set(
 #set with condition satisfied
 MyConditioner.set(
 		{
-			'SetKeyVariable':"SecondStr",
+			'#set':"SecondStr",
 			'ConditionTuplesList':
 			[
 				('MyInt',SYS.operator.eq,1),
 			]
 		},
 		"bonjour"
+	)
+
+#the same but the condition is on the value
+MyConditioner.set(
+		"ThirdStr",
+		{
+			'#set':"allo !",
+			'#if':
+			[
+				('MyInt',SYS.operator.eq,1),
+			]
+		}
 	)
 
 #print

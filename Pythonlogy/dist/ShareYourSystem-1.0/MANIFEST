@@ -538,8 +538,6 @@ ShareYourSystem/Standards/Itemizers/Arrayer/04_DocumentDoc.md
 ShareYourSystem/Standards/Itemizers/Arrayer/05_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Arrayer/__init__.py
 ShareYourSystem/Standards/Itemizers/Attributer/001_DocumentDoc.md
-ShareYourSystem/Standards/Itemizers/Attributer/001_GithubDoc.md
-ShareYourSystem/Standards/Itemizers/Attributer/002_GithubDoc.md
 ShareYourSystem/Standards/Itemizers/Attributer/00_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Attributer/01_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Attributer/02_ExampleDoc.md
@@ -604,6 +602,7 @@ ShareYourSystem/Standards/Itemizers/Getter/__init__.py
 ShareYourSystem/Standards/Itemizers/Getter/draft/02_ExampleDoc copy.md
 ShareYourSystem/Standards/Itemizers/Getter/draft/06_ExampleDoc_copy.md
 ShareYourSystem/Standards/Itemizers/Getter/draft/Readme.ipynb copy
+ShareYourSystem/Standards/Itemizers/Getter/draft/__init__ copy 2.py
 ShareYourSystem/Standards/Itemizers/Itemizer/001_DocumentDoc.md
 ShareYourSystem/Standards/Itemizers/Itemizer/001_GithubDoc.md
 ShareYourSystem/Standards/Itemizers/Itemizer/00_ExampleDoc.md

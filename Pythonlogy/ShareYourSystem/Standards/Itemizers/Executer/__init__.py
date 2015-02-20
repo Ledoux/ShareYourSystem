@@ -24,7 +24,7 @@ import six
 
 #<DefineLocals>
 ExecutionPrefixStr=">>"
-ExecutionMethodStr="."
+ExecutionDotStr="."
 #</DefineLocals>
 
 #<DefineClass>
@@ -102,24 +102,46 @@ class ExecuterClass(BaseClass):
 		#
 
 		#Check
-		if ExecutionMethodStr in self.SettingKeyVariable:
+		if ExecutionDotStr in self.SettingKeyVariable:
 
 			#debug
 			'''
-			self.debug('we call a method of the SettingKeyVariable')
+			self.debug('we get an attribute of the SettingKeyVariable')
 			'''
 
 			#previous
-			GetKeyStr,MethodStr=SYS.previous(
+			GetKeyStr,AttributeStr=SYS.previous(
 						self.SettingKeyVariable,
-						ExecutionMethodStr
+						ExecutionDotStr
 					)
 
-			#get t he method and call it
-			getattr(
-				self[GetKeyStr],
-				MethodStr	
-			)(*self.SettingValueVariable)
+			#get
+			GetValueVariable=self[GetKeyStr]
+
+			#get the get
+			AttributeValueVariable=getattr(
+					GetValueVariable,
+					AttributeStr	
+				)
+
+			#debug
+			self.debug(
+					[
+						'GetValueVariable is '+str(GetValueVariable),
+						'AttributeValueVariable is '+str(AttributeValueVariable)
+					]
+				)
+
+			#call
+			if callable(AttributeValueVariable):
+
+				#get t he method and call it
+				AttributeValueVariable(*self.SettingValueVariable)
+
+			else:
+
+				#alias
+				AttributeValueVariable=self.SettingValueVariable
 
 			#stop the setting
 			return {'HookingIsBool':False}

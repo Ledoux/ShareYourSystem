@@ -31,6 +31,7 @@ def getMapList(_LiargVariablesList):
 def getLiargVariablesList(_ValueVariable):
 	return [_ValueVariable]
 GetDeletePrefixStr="-"
+GetShortKeyStr="#get"
 #</DefineLocals>
 
 #<DefineClass>
@@ -348,51 +349,31 @@ class GetterClass(BaseClass):
 
 			except:
 
-				#debug
-				'''
-				self.debug(
-					[
-						'we get with the SetKeyVariable',
-						"self.GettingKeyVariable['SetKeyVariable'] is ",
-						str(
-							self.GettingKeyVariable['SetKeyVariable']
-						)
-					]
-				)
-				'''
-
-				#set
 				try:
 
 					#debug
-					self.debug('We get with the SetKeyVariable')
-
+					'''
+					self.debug(
+						[
+							'we get with the GetShortKeyStr'
+						]	
+					)
+					'''
+					
 					#get
-					self[
-						self.GettingKeyVariable['SetKeyVariable']
-					]=self.GettingKeyVariable
+					self.GettedValueVariable=self[
+						self.GettingKeyVariable[GetShortKeyStr]
+					]
 
 					#del
-					del self.GettingKeyVariable['SetKeyVariable']
+					del self.GettingKeyVariable[GetShortKeyStr]
 
 				except:
 
-					#debug
-					self.debug('We get with the SetKeyVariable')
+					#pass
+					pass
 
-					#set
-					self.__setattr__(
-							self.GettingKeyVariable['SetKeyVariable'],
-							self.GettingKeyVariable
-						)
 
-					#del
-					del self.GettingKeyVariable['SetKeyVariable']
-
-				#alias
-				self.GettedValueVariable=self.GettingKeyVariable
-
-	
 			#Stop the getting
 			return {"HookingIsBool":False}
 

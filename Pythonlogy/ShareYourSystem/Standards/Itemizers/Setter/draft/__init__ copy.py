@@ -444,26 +444,19 @@ class SetterClass(BaseClass):
 		elif hasattr(self.SettingKeyVariable,'items'):
 
 			#debug
-			'''
 			self.debug(
 					[
 						'SettingKeyVariable has items...',
 						('self.',self,['SettingKeyVariable'])
 					]
 				)
-			'''
-			
+
 			try:
 
 				#debug
-				'''
 				self.debug(
-						[
-							'We set with a SetKeyVariable',
-							('self.',self,['SettingKeyVariable'])
-						]
+						'We set with a SetKeyVariable'
 					)
-				'''
 
 				#set
 				self.set(
@@ -471,23 +464,27 @@ class SetterClass(BaseClass):
 					self.SettingValueVariable
 				)
 
+				#delete
+				del self.SettingKeyVariable['SetKeyVariable']
+
 			except:
 
 				#debug
-				'''
 				self.debug(
-						[
-							'We set with a SetShortKeyStr',
-							('self.',self,['SettingKeyVariable'])
-						]
+						'We set with a SetKeyVariable'
 					)
-				'''
 
 				#set
 				self.set(
-					self.SettingKeyVariable[SetShortKeyStr],
-					self.SettingValueVariable
+					self.SettingKeyVariable['SetKeyVariable'],
+					SYS.update(
+						self.SettingKeyVariable,
+						self.SettingValueVariable
+					)
 				)
+
+				#delete
+				del self.SettingKeyVariable['SetKeyVariable']
 
 			#Return
 			return {'HookingIsBool':False}

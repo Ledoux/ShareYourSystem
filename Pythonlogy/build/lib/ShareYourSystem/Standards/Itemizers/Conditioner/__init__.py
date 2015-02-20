@@ -23,6 +23,7 @@ SYS.setSubModule(globals())
 #<ImportSpecificModules>
 import operator
 Executer=BaseModule
+from ShareYourSystem.Standards.Itemizers import Setter
 #</ImportSpecificModules>
 
 #<DefineLocals>
@@ -30,6 +31,7 @@ def getMapList(_LiargVariablesList):
 	return _LiargVariablesList[0]
 def getLiargVariablesList(_ValueVariable):
 	return [_ValueVariable]
+ConditionShortKeyStr="#if"
 #</DefineLocals>
 
 #<DefineClass>
@@ -254,7 +256,8 @@ class ConditionerClass(BaseClass):
 		#Check
 		if hasattr(
 			self.GettingKeyVariable,'items'
-		) and 'ConditionTuplesList' in self.GettingKeyVariable:
+		) and(
+		 'ConditionTuplesList' in self.GettingKeyVariable or ConditionShortKeyStr in self.GettingKeyVariable):
 
 			#debug
 			'''
@@ -271,8 +274,11 @@ class ConditionerClass(BaseClass):
 			'''
 
 			#alias
-			ConditionTuplesList=self.GettingKeyVariable['ConditionTuplesList']
-			
+			try:
+				ConditionTuplesList=self.GettingKeyVariable['ConditionTuplesList']
+			except:
+				ConditionTuplesList=self.GettingKeyVariable[ConditionShortKeyStr]
+
 			#get
 			ConditionTestVariablesList=self[
 				self.ConditioningGetVariable
@@ -377,15 +383,20 @@ class ConditionerClass(BaseClass):
 
 		#Check
 		if hasattr(self.SettingKeyVariable,'items'
-			) and 'ConditionTuplesList' in self.SettingKeyVariable:
+			) and (
+			'ConditionTuplesList' in self.SettingKeyVariable or ConditionShortKeyStr in self.SettingKeyVariable):
 
 			#set
-			ConditionTuplesList=self.SettingKeyVariable['ConditionTuplesList']
+			try:
+				ConditionTuplesList=self.SettingKeyVariable['ConditionTuplesList']
+			except:
+				ConditionTuplesList=self.SettingKeyVariable[ConditionShortKeyStr]
 
 			#debug
 			'''
 			self.debug(
 					[
+						'condition in the key',
 						'we set if the condition is satisfied',
 						'ConditionTuplesList is '+str(ConditionTuplesList)
 					]
@@ -422,9 +433,79 @@ class ConditionerClass(BaseClass):
 				'''
 
 				#append
-				self[
-					self.SettingKeyVariable['SetKeyVariable']
-				]=self.SettingValueVariable
+				try:
+					self[
+						self.SettingKeyVariable['SetKeyVariable']
+					]=self.SettingValueVariable
+				except:
+					self[
+						self.SettingKeyVariable[Setter.SetShortKeyStr]
+					]=self.SettingValueVariable
+
+			#stop the setting
+			return {'HookingIsBool':False}
+
+		#Check
+		elif hasattr(self.SettingValueVariable,'items'
+			) and (
+			'ConditionTuplesList' in self.SettingValueVariable or ConditionShortKeyStr in self.SettingValueVariable
+			):
+
+			#set
+			try:
+				ConditionTuplesList=self.SettingValueVariable['ConditionTuplesList']
+			except:
+				ConditionTuplesList=self.SettingValueVariable[ConditionShortKeyStr]
+
+			#debug
+			'''
+			self.debug(
+					[
+						'condition in the value',
+						'we set if the condition is satisfied',
+						'ConditionTuplesList is '+str(ConditionTuplesList)
+					]
+				)
+			'''
+			
+			#loop and break at the first false
+			for __ConditionTuple in ConditionTuplesList:
+
+				#condition
+				self.condition(*__ConditionTuple)
+
+				#Check
+				if self.ConditionedIsBool==False:
+
+					#debug
+					'''
+					self.debug('we break')
+					'''
+
+					#break
+					break
+
+			#append
+			if self.ConditionedIsBool:
+
+				#We append
+				'''
+				self.debug(
+						[	
+							'Ok we set'
+						]
+					)
+				'''
+
+				#append
+				try:
+					self[
+						self.SettingKeyVariable
+					]=self.SettingValueVariable['SetValueVariable']
+				except:
+					self[
+						self.SettingKeyVariable
+					]=self.SettingValueVariable[Setter.SetShortKeyStr]
 
 			#stop the setting
 			return {'HookingIsBool':False}

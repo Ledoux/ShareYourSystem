@@ -35,6 +35,7 @@ def getLiargVariablesList(_ValueVariable):
 #<DefineLocals>
 SetEachPrefixStr="each*"
 SetAllPrefixStr="all*"
+SetShortKeyStr="#set"
 #</DefineLocals>
 
 #<DefineClass>
@@ -443,47 +444,50 @@ class SetterClass(BaseClass):
 		elif hasattr(self.SettingKeyVariable,'items'):
 
 			#debug
+			'''
 			self.debug(
 					[
 						'SettingKeyVariable has items...',
 						('self.',self,['SettingKeyVariable'])
 					]
 				)
-
+			'''
+			
 			try:
 
 				#debug
+				'''
 				self.debug(
-						'We set with a GetKeyVariable'
+						[
+							'We set with a SetKeyVariable',
+							('self.',self,['SettingKeyVariable'])
+						]
 					)
-
-				#set
-				self.set(
-					self.SettingKeyVariable['GetKeyVariable'],
-					self.SettingValueVariable
-				)
-
-				#delete
-				del self.SettingKeyVariable['GetKeyVariable']
-
-			except:
-
-				#debug
-				self.debug(
-						'We set with a SetKeyVariable'
-					)
+				'''
 
 				#set
 				self.set(
 					self.SettingKeyVariable['SetKeyVariable'],
-					SYS.update(
-						self.SettingKeyVariable,
-						self.SettingValueVariable
-					)
+					self.SettingValueVariable
 				)
 
-				#delete
-				del self.SettingKeyVariable['SetKeyVariable']
+			except:
+
+				#debug
+				'''
+				self.debug(
+						[
+							'We set with a SetShortKeyStr',
+							('self.',self,['SettingKeyVariable'])
+						]
+					)
+				'''
+
+				#set
+				self.set(
+					self.SettingKeyVariable[SetShortKeyStr],
+					self.SettingValueVariable
+				)
 
 			#Return
 			return {'HookingIsBool':False}
