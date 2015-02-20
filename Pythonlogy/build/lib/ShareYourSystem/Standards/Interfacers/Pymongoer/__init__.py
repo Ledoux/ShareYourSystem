@@ -21,7 +21,6 @@ SYS.setSubModule(globals())
 
 #<ImportSpecificModules>
 import collections
-from pymongo import MongoClient
 import os
 #</ImportSpecificModules>
 
@@ -184,8 +183,12 @@ class PymongoerClass(BaseClass):
 		#connect
 		try:
 
+			#import
+			from pymongo import MongoClient
+
 			#init
 			self.PymongoneClientVariable=MongoClient(self.PymongoingUrlStr)
+			
 		except:
 
 			#debug

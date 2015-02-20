@@ -28,6 +28,7 @@ SYS.setSubModule(globals())
 CommandPrefixStr="--"
 CommandWalkStr="..."
 CommandSelfStr="/"
+CommandAddStr="+"
 #</DefineLocals>
 
 #<DefineClass>
@@ -343,6 +344,37 @@ class CommanderClass(BaseClass):
 						),
 					CommandedValueVariablesList
 				)
+
+	def mimic_get(self):
+
+		#debug
+		'''
+		self.debug(
+				('self.',self,[
+						'GettingKeyVariable',
+					])
+			)
+		'''
+
+		#Check
+		if type(self.GettingKeyVariable)==str:
+
+			#Check
+			if CommandAddStr in self.GettingKeyVariable:
+
+				#map get
+				self.GettedValueVariable=SYS.sum(
+					self[
+						'map*get'
+					](self.GettingKeyVariable.split(CommandAddStr))
+				)
+
+				#return
+				return {'HookingIsBool':False}
+
+		#return
+		return BaseClass.get(self)
+
 
 	def mimic_set(self):
 

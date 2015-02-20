@@ -28,7 +28,6 @@ import sys
 #<DefineLocals>
 OuvatonUrlStr="http://shareyoursystem.ouvaton.org"
 ShareYourSystemLocalFolderPathStr='/Users/ledoux/Documents/ShareYourSystem/'
-ShareYourSystemLocalFolderPathStr=""
 OuvatonLocalFolderPathStr=ShareYourSystemLocalFolderPathStr+"Ouvaton/"
 PythonlogyLocalFolderPathStr=ShareYourSystemLocalFolderPathStr+'Pythonlogy/'
 GithubMasterUrlStr="https://github.com/Ledoux/ShareYourSystem/tree/master"
@@ -544,15 +543,26 @@ def reverse(_List):
 	ReversedList.reverse()
 	return ReversedList
 
+def sum(_VariablesList):
+
+	#reduce
+	return functools.reduce(
+							lambda __List,__Variable:
+							__List+list(__Variable) 
+							if type(__Variable) in [list,tuple] 
+							else __List+[__Variable],
+							_VariablesList
+						)
+
 def flat(_VariablesList):
 	if len(_VariablesList)>0:
 		if type(_VariablesList[0])!=list:
 			_VariablesList[0]=[_VariablesList[0]]
 		return functools.reduce(
-									lambda __FlattedList,__AddedVariable:
-									__FlattedList+flat(list(__AddedVariable)) 
-									if type(__AddedVariable) in [list,tuple] 
-									else __FlattedList+[__AddedVariable],
+									lambda __List,__Variable:
+									__List+flat(list(__Variable)) 
+									if type(__Variable) in [list,tuple] 
+									else __List+[__Variable],
 									_VariablesList
 								)
 	else:

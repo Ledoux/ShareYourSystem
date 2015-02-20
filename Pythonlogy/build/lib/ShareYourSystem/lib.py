@@ -5,9 +5,17 @@ import sys
 
 #Execute a Setup
 setup(
+
+		#Author properties
 		author='Erwan Ledoux',
 		author_email='erwan.ledoux@ens.fr',
+
+		#Application properties
 		name='ShareYourSystem',
+		version='0.2',
+		url='http://shareyoursystem.ouvaton.org',
+
+		#Packages properties
 		packages=[
 					'ShareYourSystem',
 			 		'ShareYourSystem.Standards.Objects.Object',
@@ -87,13 +95,21 @@ setup(
 			 		'ShareYourSystem.Standards'
 			 	]
 			 ,
+
       	package_data={
           'ShareYourSystem':[
           		'Package.json'
           ]
 		},
-		url='http://shareyoursystem.ouvaton.org',
-		version='0.2',
+
+		# Dependent packages (distributions)
+   		install_requires=[
+        	"pymongo",
+        	"pyyaml",
+        	"pytables"
+    	],
+		
+
     )
 
 

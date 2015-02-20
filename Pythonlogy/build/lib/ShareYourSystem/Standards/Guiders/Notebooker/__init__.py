@@ -23,9 +23,8 @@ SYS.setSubModule(globals())
 import copy
 import os
 import sys
-
 from ShareYourSystem.Standards.Interfacers import Filer,Loader
-from ShareYourSystem.Guiders import Guider
+from ShareYourSystem.Standards.Guiders import Guider
 import importlib
 Celler=BaseModule
 #</ImportSpecificModules>

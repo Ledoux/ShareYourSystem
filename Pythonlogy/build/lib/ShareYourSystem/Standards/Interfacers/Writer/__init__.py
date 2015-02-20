@@ -20,8 +20,6 @@ SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
-import json
-import yaml
 #</ImportSpecificModules>
 
 #<DefineClass>
@@ -91,6 +89,9 @@ class WriterClass(BaseClass):
 
 		elif self.LoadingFormatStr=='json':
 
+			#import
+			import json
+			
 			#debug
 			'''
 			self.debug(
@@ -107,6 +108,9 @@ class WriterClass(BaseClass):
 			)
 
 		elif self.LoadingFormatStr=='yaml':
+
+			#import
+			import yaml
 
 			#debug
 			'''

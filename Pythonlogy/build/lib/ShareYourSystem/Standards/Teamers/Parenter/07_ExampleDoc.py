@@ -2,6 +2,10 @@
 #ImportModules
 import ShareYourSystem as SYS
 
+
+print(SYS.sum([[4,5],3,[7,7]]))
+
+"""
 #define and get two children
 MyParenter=SYS.ParenterClass(
 	).get(
@@ -30,4 +34,4 @@ MyParenter=SYS.ParenterClass(
 #print
 print('MyParenter.NeuronsList is ')
 SYS._print(MyParenter.NeuronsList)
-
+"""
