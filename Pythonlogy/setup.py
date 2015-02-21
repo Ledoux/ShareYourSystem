@@ -1,7 +1,36 @@
 #Definition Python Modules
 from distutils.core import setup
+from distutils.command.install import install
 import os
 import sys
+import importlib
+
+RequirePackageDict={
+	'yaml':'pyyaml',
+	'pymongo':'pymongo'
+}
+
+#Define
+class InstallClass(install):
+
+	def run(self):
+
+		#for
+		for __RequirePackageModuleStr,__RequirePackagePipStr in RequirePackageDict.items():
+
+			try:
+
+				#import
+				importlib.import_module(__RequirePackageModuleStr)
+				
+			except:
+
+				#print
+				print(__RequirePackageModuleStr+' is not installed...')
+				print('... so we try to pip install it')
+
+				#system
+				os.system('sudo pip install '+__RequirePackagePipStr)
 
 #Execute a Setup
 setup(
@@ -14,6 +43,9 @@ setup(
 		name='ShareYourSystem',
 		version='0.2',
 		url='http://shareyoursystem.ouvaton.org',
+
+		#Commnd
+		cmdclass={'install': InstallClass},
 
 		#Packages properties
 		packages=[
@@ -101,14 +133,6 @@ setup(
           		'Package.json'
           ]
 		},
-
-		# Dependent packages (distributions)
-   		install_requires=[
-        	"pymongo",
-        	"pyyaml",
-        	"pytables"
-    	],
-		
 
     )
 
