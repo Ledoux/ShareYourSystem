@@ -363,7 +363,7 @@ MyFactorizer=FactorizerClass().structure(
 ).network(
     **{
         'VisitingCollectionStrsList':['Datome','Component'],
-        'RecruitingConcludeConditionTuplesList':[
+        'RecruitingConcludeConditionVariable':[
             (
                 '__class__.__mro__',
                 operator.contains,Hierarchizer.HierarchizerClass

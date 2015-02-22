@@ -79,7 +79,7 @@ MyPredispiker=SYS.PredispikerClass(
 		]
 	).network(
 			**{
-				'RecruitingConcludeConditionTuplesList':[
+				'RecruitingConcludeConditionVariable':[
 					(
 						'MroClassesList',
 						operator.contains,

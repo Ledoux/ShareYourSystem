@@ -130,7 +130,7 @@ class MobilizerClass(BaseClass):
                 '''
 
                 #append
-                self.RecruitingConcludeConditionTuplesList.append(
+                self.RecruitingConcludeConditionVariable.append(
                                 (
                                         '__class__',
 getMobilizedIsBoolWithParentClassAndDeriveClassesList,
@@ -140,7 +140,7 @@ getMobilizedIsBoolWithParentClassAndDeriveClassesList,
 
                 #debug
                 '''
-self.debug(('self.',self,['RecruitingConcludeConditionTuplesList']))
+self.debug(('self.',self,['RecruitingConcludeConditionVariable']))
                 '''
 
                 #recruit
@@ -217,7 +217,7 @@ MyMobilizer.mobilize(
     ],
     **{
             'VisitingCollectionStrsList':['Mobilizome','Recruitome'],
-            'RecruitingConcludeConditionTuplesList':[
+            'RecruitingConcludeConditionVariable':[
             ('NodeIndexInt',lambda _TestInt,_AttestInt:
                 _TestInt!=None and operator.lt(_TestInt,_AttestInt),2)
             ]
@@ -325,7 +325,7 @@ GrandChildRecruiter
    /   /   /   /   /   /   /   /
 '<Spe><Class>RecruitedFlatCumulateVariablesList' : None
    /   /   /   /   /   /   /   /
-'<Spe><Class>RecruitingConcludeConditionTuplesList' : None
+'<Spe><Class>RecruitingConcludeConditionVariable' : None
    /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /  'FakeGrandChildVisiter' : < (VisiterClass),
 4555536720>

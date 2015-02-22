@@ -129,7 +129,7 @@ class ConditionerClass(BaseClass):
 				)==str or (
 				hasattr(
 					self.ConditioningTestGetVariable,'items'
-				) and ('GetVariable' in self.ConditioningTestGetVariable or 'ConditionTuplesList' in self.ConditioningTestGetVariable)
+				) and ('GetVariable' in self.ConditioningTestGetVariable or 'ConditionVariable' in self.ConditioningTestGetVariable)
 				):
 
 					#Check
@@ -191,7 +191,7 @@ class ConditionerClass(BaseClass):
 				hasattr(
 					self.ConditioningTestGetVariable,'items'
 					) and (
-					'GetVariable' in self.ConditioningTestGetVariable or 'ConditionTuplesList' in self.ConditioningTestGetVariable)
+					'GetVariable' in self.ConditioningTestGetVariable or 'ConditionVariable' in self.ConditioningTestGetVariable)
 				)
 			):
 
@@ -257,7 +257,7 @@ class ConditionerClass(BaseClass):
 		if hasattr(
 			self.GettingKeyVariable,'items'
 		) and(
-		 'ConditionTuplesList' in self.GettingKeyVariable or ConditionShortKeyStr in self.GettingKeyVariable):
+		 'ConditionVariable' in self.GettingKeyVariable or ConditionShortKeyStr in self.GettingKeyVariable):
 
 			#debug
 			'''
@@ -275,9 +275,9 @@ class ConditionerClass(BaseClass):
 
 			#alias
 			try:
-				ConditionTuplesList=self.GettingKeyVariable['ConditionTuplesList']
+				ConditionVariable=self.GettingKeyVariable['ConditionVariable']
 			except:
-				ConditionTuplesList=self.GettingKeyVariable[ConditionShortKeyStr]
+				ConditionVariable=self.GettingKeyVariable[ConditionShortKeyStr]
 
 			#get
 			ConditionTestVariablesList=self[
@@ -310,7 +310,7 @@ class ConditionerClass(BaseClass):
 				self.ConditioningInstanceVariable=__ConditionTestVariable
 						
 				#loop and break at the first false
-				for __ConditionTuple in ConditionTuplesList:
+				for __ConditionTuple in ConditionVariable:
 
 					#condition
 					self.condition(*__ConditionTuple)
@@ -351,7 +351,7 @@ class ConditionerClass(BaseClass):
 								'ConditioningInstanceVariable',
 								__ConditionTestVariable
 							)['map*condition'](
-							ConditionTuplesList
+							ConditionVariable
 						).ItemizedMapValueVariablesList
 					),
 					ConditionTestVariablesList
@@ -384,13 +384,13 @@ class ConditionerClass(BaseClass):
 		#Check
 		if hasattr(self.SettingKeyVariable,'items'
 			) and (
-			'ConditionTuplesList' in self.SettingKeyVariable or ConditionShortKeyStr in self.SettingKeyVariable):
+			'ConditionVariable' in self.SettingKeyVariable or ConditionShortKeyStr in self.SettingKeyVariable):
 
 			#set
 			try:
-				ConditionTuplesList=self.SettingKeyVariable['ConditionTuplesList']
+				ConditionVariable=self.SettingKeyVariable['ConditionVariable']
 			except:
-				ConditionTuplesList=self.SettingKeyVariable[ConditionShortKeyStr]
+				ConditionVariable=self.SettingKeyVariable[ConditionShortKeyStr]
 
 			#debug
 			'''
@@ -398,13 +398,13 @@ class ConditionerClass(BaseClass):
 					[
 						'condition in the key',
 						'we set if the condition is satisfied',
-						'ConditionTuplesList is '+str(ConditionTuplesList)
+						'ConditionVariable is '+str(ConditionVariable)
 					]
 				)
 			'''
 			
 			#loop and break at the first false
-			for __ConditionTuple in ConditionTuplesList:
+			for __ConditionTuple in ConditionVariable:
 
 				#condition
 				self.condition(*__ConditionTuple)
@@ -448,14 +448,14 @@ class ConditionerClass(BaseClass):
 		#Check
 		elif hasattr(self.SettingValueVariable,'items'
 			) and (
-			'ConditionTuplesList' in self.SettingValueVariable or ConditionShortKeyStr in self.SettingValueVariable
+			'ConditionVariable' in self.SettingValueVariable or ConditionShortKeyStr in self.SettingValueVariable
 			):
 
 			#set
 			try:
-				ConditionTuplesList=self.SettingValueVariable['ConditionTuplesList']
+				ConditionVariable=self.SettingValueVariable['ConditionVariable']
 			except:
-				ConditionTuplesList=self.SettingValueVariable[ConditionShortKeyStr]
+				ConditionVariable=self.SettingValueVariable[ConditionShortKeyStr]
 
 			#debug
 			'''
@@ -463,13 +463,13 @@ class ConditionerClass(BaseClass):
 					[
 						'condition in the value',
 						'we set if the condition is satisfied',
-						'ConditionTuplesList is '+str(ConditionTuplesList)
+						'ConditionVariable is '+str(ConditionVariable)
 					]
 				)
 			'''
 			
 			#loop and break at the first false
-			for __ConditionTuple in ConditionTuplesList:
+			for __ConditionTuple in ConditionVariable:
 
 				#condition
 				self.condition(*__ConditionTuple)

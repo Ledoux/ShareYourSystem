@@ -83,12 +83,12 @@ class ObserverClass(BaseClass):
 		self.ObservedMethodStr=self.ObservedTriggerMethodFunction.__name__
 		
 
-		ObservedConcludeConditionTuplesList=copy.deepcopy(
-			self.ConcludingConditionTuplesList
+		ObservedConcludeConditionVariable=copy.deepcopy(
+			self.ConcludingConditionVariable
 		)
 
 		#set
-		self.ObservedConcludeConditionTuplesListKeyStr=ObservingPrefixStr+self.ObservingTriggerMethodStr+"ConcludeConditionTuplesList"
+		self.ObservedConcludeConditionVariableKeyStr=ObservingPrefixStr+self.ObservingTriggerMethodStr+"ConcludeConditionVariable"
 
 		#Definition
 		def observe(*_ObservingLiargVariablesList,**_ObservingKwargVariablesDict):

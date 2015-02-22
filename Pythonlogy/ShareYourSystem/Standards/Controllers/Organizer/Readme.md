@@ -336,7 +336,7 @@ MyFactorizer=FactorizerClass().walk(
                     'VisitingCollectionStrsList':[
                         'Data','Component'
                     ],
-                    'RecruitingConcludeConditionTuplesList':[
+                    'RecruitingConcludeConditionVariable':[
                         (
                             '__class__.__mro__',
                             operator.contains,Hierarchizer.HierarchizerClass

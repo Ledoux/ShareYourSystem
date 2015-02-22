@@ -11,7 +11,7 @@ FrozenIsBool False
 
 > 
 > Findoer (sorry Finder is already an important module in python standards, so just to be sure to not override...)
-> instances helps to find in a hdf5 table RowedVariablesList corresponding to the FindingConditionTuplesList.
+> instances helps to find in a hdf5 table RowedVariablesList corresponding to the FindingConditionVariable.
 > 
 > 
 

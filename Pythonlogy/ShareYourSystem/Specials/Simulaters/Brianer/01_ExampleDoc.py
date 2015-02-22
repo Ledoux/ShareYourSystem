@@ -76,7 +76,7 @@ MyBrianer=SYS.BrianerClass(
 		]
 	).network(
 			**{
-				'RecruitingConcludeConditionTuplesList':[
+				'RecruitingConcludeConditionVariable':[
 					(
 						'MroClassesList',
 						operator.contains,

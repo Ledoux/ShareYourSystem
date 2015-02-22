@@ -47,7 +47,7 @@ class MultiplierClass(BaseClass):
 			
 
 	#@Triggerer.TriggererClass(**{
-	#								'TriggeringConditionTuplesList':[
+	#								'TriggeringConditionVariable':[
 	#									('SettingKeyVariable',(SYS.getIsInListBool,[
 	#										'MultiplyingFirstInt',
 	#										'MultiplyingSecondInt'

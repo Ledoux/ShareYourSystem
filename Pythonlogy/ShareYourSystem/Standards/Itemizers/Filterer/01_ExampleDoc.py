@@ -9,7 +9,7 @@ MyFilterer=SYS.FiltererClass(
 			('MyInt',1),
 			('MyStr',"hello"),
 			(
-				'ConcludingConditionTuplesList',
+				'ConcludingConditionVariable',
 				[
 					(
 						'MyInt',

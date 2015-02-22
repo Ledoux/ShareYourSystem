@@ -111,7 +111,7 @@ MyFactorizer=FactorizerClass(
 			'VisitingCollectionStrsList':[
 				'Models','Components'
 			],
-			'RecruitingConcludeConditionTuplesList':[
+			'RecruitingConcludeConditionVariable':[
 				(
 					'MroClassesList',
 					operator.contains,

@@ -349,7 +349,7 @@ self.JoinedRetrieveIndexesListGetStrsList,
 
                 #debug
                 '''
-                self.debug(('self.',self,['FindingConditionTuplesList']))
+                self.debug(('self.',self,['FindingConditionVariable']))
                 '''
 
                 #
@@ -393,7 +393,7 @@ JoinedFindFilterRowDictsListsList
                         '''
 
                         #Map
-                        JoinedFindingConditionTuplesList=map(
+                        JoinedFindingConditionVariable=map(
                                         lambda
 __JoinedRetrieveIndexesListColumnStr,__JoinedFindFilterRetrieveList:
                                         (
@@ -409,12 +409,12 @@ self.JoinedRetrieveIndexesListColumnStrsList,
 
                         #debug
                         '''
-                        self.debug('JoinedFindingConditionTuplesList is
-'+str(JoinedFindingConditionTuplesList))
+                        self.debug('JoinedFindingConditionVariable is
+'+str(JoinedFindingConditionVariable))
                         '''
 
                         #Add to the finding condition tuples
-self.FindingConditionTuplesList+=JoinedFindingConditionTuplesList
+self.FindingConditionVariable+=JoinedFindingConditionVariable
 
                         #Call the parent method
                         Featurer.FeaturerClass.find(self)
@@ -704,7 +704,7 @@ MyModulizer=ModulizerClass().structure(
 ).network(
     **{
         'VisitingCollectionStrsList':['Datome','Component'],
-        'RecruitingConcludeConditionTuplesList':[
+        'RecruitingConcludeConditionVariable':[
             (
                 '__class__.__mro__',
                 operator.contains,Joiner.JoinerClass

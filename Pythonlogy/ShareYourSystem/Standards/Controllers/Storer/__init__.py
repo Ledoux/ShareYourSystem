@@ -79,7 +79,7 @@ class StorerClass(BaseClass):
 							self.OrganizingModelsCollectionStr,
 							self.OrganizingComponentsCollectionStr
 						],
-						'RecruitingConcludeConditionTuplesList':[
+						'RecruitingConcludeConditionVariable':[
 							(
 								'MroClassesList',
 								operator.contains,Hierarchizer.HierarchizerClass

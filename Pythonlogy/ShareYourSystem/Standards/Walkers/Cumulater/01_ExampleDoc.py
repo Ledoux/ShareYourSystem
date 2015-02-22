@@ -34,7 +34,7 @@ MyCumulater.walk(
 		'BeforeUpdateList':
 		[
 			(
-				'ConcludingConditionTuplesList',[
+				'ConcludingConditionVariable',[
 					(
 						'NodeIndexInt',
 						lambda _TestInt,_AttestInt:

@@ -23,7 +23,7 @@ FrozenIsBool False
 
 
 Findoer (sorry Finder is already an important module in python standards, so just to be sure to not override...)
-instances helps to find in a hdf5 table RowedVariablesList corresponding to the FindingConditionTuplesList.
+instances helps to find in a hdf5 table RowedVariablesList corresponding to the FindingConditionVariable.
 
 """
 
@@ -46,13 +46,13 @@ class FindoerClass(BaseClass):
 	
 	#Definition
 	RepresentingKeyStrsList=[
-									'FindingConditionTuplesList',
+									'FindingConditionVariable',
 									'FoundRowDictsList',			
 									'FoundFilterRowDictsList'
 								]
 
 	def default_init(self,
-					_FindingConditionTuplesList=None,
+					_FindingConditionVariable=None,
 					_FoundRowDictsList=None,			
 					_FoundFilterRowDictsList=None, 
 					_FoundIsBool=False,
@@ -68,7 +68,7 @@ class FindoerClass(BaseClass):
 
 		#debug
 		'''
-		self.debug(("self.",self,['DatabasedKeyStr','FindingConditionTuplesList']))
+		self.debug(("self.",self,['DatabasedKeyStr','FindingConditionVariable']))
 		'''
 
 		#<NotHook>
@@ -107,7 +107,7 @@ class FindoerClass(BaseClass):
 		self.FoundFilterRowDictsList=SYS.filterNone(
 								SYS.where(
 											self.FoundRowDictsList,
-											self.FindingConditionTuplesList
+											self.FindingConditionVariable
 								)
 							)
 

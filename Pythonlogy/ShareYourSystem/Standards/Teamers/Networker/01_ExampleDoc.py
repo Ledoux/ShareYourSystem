@@ -32,7 +32,7 @@ MyNetworker=SYS.NetworkerClass(
 	).network(
 		**{
 			'VisitingCollectionStrsList':["Networkers","Connecters"],
-			'RecruitingConcludeConditionTuplesList':[
+			'RecruitingConcludeConditionVariable':[
 				('NameStr',operator.eq,'Connecter')
 			]
 		}

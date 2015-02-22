@@ -32,6 +32,9 @@ class InstallClass(install):
 				#system
 				os.system('sudo pip install '+__RequirePackagePipStr)
 
+		#call the base method
+		install.run(self)
+
 #Execute a Setup
 setup(
 
@@ -41,7 +44,7 @@ setup(
 
 		#Application properties
 		name='ShareYourSystem',
-		version='0.2',
+		version='0.0.0',
 		url='http://shareyoursystem.ouvaton.org',
 
 		#Commnd

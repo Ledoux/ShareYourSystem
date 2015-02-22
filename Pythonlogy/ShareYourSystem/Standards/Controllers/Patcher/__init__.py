@@ -48,7 +48,7 @@ class PatcherClass(BaseClass):
 		self.network(
 			**{
 				'VisitingCollectionStrsList':['Components'],
-				'RecruitingConcludeConditionTuplesList':[
+				'RecruitingConcludeConditionVariable':[
 					(
 						'MroClassesList',
 						operator.contains,

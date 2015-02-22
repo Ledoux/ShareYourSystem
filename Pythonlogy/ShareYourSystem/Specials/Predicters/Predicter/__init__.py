@@ -145,7 +145,7 @@ class PredicterClass(BaseClass):
 				]
 			).network(
 					**{
-						'RecruitingConcludeConditionTuplesList':[
+						'RecruitingConcludeConditionVariable':[
 							(
 								'MroClassesList',
 								operator.contains,

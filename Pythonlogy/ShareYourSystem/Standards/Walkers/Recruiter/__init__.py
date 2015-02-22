@@ -29,12 +29,12 @@ class RecruiterClass(BaseClass):
 	
 	#Definition
 	RepresentingKeyStrsList=[
-								'RecruitingConcludeConditionTuplesList',
+								'RecruitingConcludeConditionVariable',
 								'RecruitedFlatCumulateVariablesList'
 							]
 
 	def default_init(self,
-				_RecruitingConcludeConditionTuplesList=None,
+				_RecruitingConcludeConditionVariable=None,
 				_RecruitedFlatCumulateVariablesList=None,
 				**_KwargVariablesDict
 			):
@@ -54,8 +54,8 @@ class RecruiterClass(BaseClass):
 				'PickingKeyVariablesList',['/']
 			),
 			(
-				'ConcludingConditionTuplesList',
-				self.RecruitingConcludeConditionTuplesList
+				'ConcludingConditionVariable',
+				self.RecruitingConcludeConditionVariable
 			),
 			(
 				'cumulate',

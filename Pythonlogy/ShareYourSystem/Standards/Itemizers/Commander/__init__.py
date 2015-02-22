@@ -362,11 +362,23 @@ class CommanderClass(BaseClass):
 			#Check
 			if CommandAddStr in self.GettingKeyVariable:
 
+				#split
+				AddGetKeyStrsList=self.GettingKeyVariable.split(CommandAddStr)
+
+				#debug
+				self.debug(
+					[
+						'We add here',
+						'AddGetKeyStrsList is '+str(AddGetKeyStrsList) 
+					]
+				)
+
+
 				#map get
 				self.GettedValueVariable=SYS.sum(
 					self[
 						'map*get'
-					](self.GettingKeyVariable.split(CommandAddStr))
+					](AddGetKeyStrsList)
 				)
 
 				#return

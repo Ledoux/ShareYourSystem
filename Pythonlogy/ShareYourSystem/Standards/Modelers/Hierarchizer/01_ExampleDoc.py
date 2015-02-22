@@ -77,7 +77,7 @@ MySumer=SumerClass(
 		)
 	).network(
 		**{
-			'RecruitingConcludeConditionTuplesList':[
+			'RecruitingConcludeConditionVariable':[
 				(
 					'MroClassesList',
 					operator.contains,SYS.HierarchizerClass

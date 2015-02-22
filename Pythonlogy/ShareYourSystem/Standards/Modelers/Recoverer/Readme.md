@@ -14,7 +14,7 @@ FrozenIsBool False
 > Findoer (sorry Finder is already an important module in python standards, so
 just to be sure to not override...)
 > instances helps to find in a hdf5 table RowedVariablesList corresponding to
-the FindingConditionTuplesList.
+the FindingConditionVariable.
 >
 >
 
@@ -54,7 +54,7 @@ FrozenIsBool False
 Findoer (sorry Finder is already an important module in python standards, so
 just to be sure to not override...)
 instances helps to find in a hdf5 table RowedVariablesList corresponding to the
-FindingConditionTuplesList.
+FindingConditionVariable.
 
 """
 
@@ -243,7 +243,7 @@ MyStructurer.update(
 #Retrieve
 MyStructurer['<Datome>ThingsRecoverer'].recover(
                                                 **{
-'FindingConditionTuplesList':
+'FindingConditionVariable':
                                                         [
 ('MyInt',(operator.eq,1)),
 ('MyIntsList',(SYS.getIsEqualBool,[0,0,1]))

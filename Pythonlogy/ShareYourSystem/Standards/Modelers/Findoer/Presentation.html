@@ -1735,7 +1735,7 @@ FrozenIsBool False
 <hr>
 <blockquote>
 <p>Findoer (sorry Finder is already an important module in python standards, so just to be sure to not override...)
-instances helps to find in a hdf5 table RowedVariablesList corresponding to the FindingConditionTuplesList.</p>
+instances helps to find in a hdf5 table RowedVariablesList corresponding to the FindingConditionVariable.</p>
 </blockquote>
 <hr>
 <p><small>
@@ -1770,7 +1770,7 @@ FrozenIsBool False
 
 
 Findoer (sorry Finder is already an important module in python standards, so just to be sure to not override...)
-instances helps to find in a hdf5 table RowedVariablesList corresponding to the FindingConditionTuplesList.
+instances helps to find in a hdf5 table RowedVariablesList corresponding to the FindingConditionVariable.
 
 """
 
@@ -1793,13 +1793,13 @@ class FindoerClass(BaseClass):
 
     #Definition
     RepresentingKeyStrsList=[
-                                    'FindingConditionTuplesList',
+                                    'FindingConditionVariable',
                                     'FoundRowDictsList',            
                                     'FoundFilterRowDictsList'
                                 ]
 
     def default_init(self,
-                    _FindingConditionTuplesList=None,
+                    _FindingConditionVariable=None,
                     _FoundRowDictsList=None,            
                     _FoundFilterRowDictsList=None, 
                     _FoundIsBool=False,
@@ -1815,7 +1815,7 @@ class FindoerClass(BaseClass):
 
         #debug
         '''
-        self.debug(("self.",self,['DatabasedKeyStr','FindingConditionTuplesList']))
+        self.debug(("self.",self,['DatabasedKeyStr','FindingConditionVariable']))
         '''
 
         #&lt;NotHook&gt;
@@ -1854,7 +1854,7 @@ class FindoerClass(BaseClass):
         self.FoundFilterRowDictsList=SYS.filterNone(
                                 SYS.where(
                                             self.FoundRowDictsList,
-                                            self.FindingConditionTuplesList
+                                            self.FindingConditionVariable
                                 )
                             )
 
@@ -2035,7 +2035,7 @@ MyStructurer is &lt; (StructurerClass), 4565352272&gt;
    /   /   /   /   /)
    /   /   /   /]
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;_RowingGetStrsList&apos; : [&apos;MyInt&apos;, &apos;MyStr&apos;, &apos;MyIntsList&apos;]
-   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;FindingConditionTuplesList&apos; : 
+   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;FindingConditionVariable&apos; : 
    /   /   /   /[
    /   /   /   /  0 : 
    /   /   /   /   /(

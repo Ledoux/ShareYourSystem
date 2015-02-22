@@ -33,12 +33,12 @@ class MergerClass(BaseClass):
 	
 	#Definition
 	RepresentingKeyStrsList=[
-									'MergingConditionTuplesList',									
+									'MergingConditionVariable',									
 									'MergedRowedDictsList'
 								]
 
 	def default_init(self,
-					_MergingConditionTuplesList=None, 		
+					_MergingConditionVariable=None, 		
 					_MergedRowedDictsList=None,
 					**_KwargVariablesDict
 				):
@@ -67,7 +67,7 @@ class MergerClass(BaseClass):
 			self.debug(
 						('self.',self,[
 											'DatabasedKeyStr',
-											'MergingConditionTuplesList',
+											'MergingConditionVariable',
 											'TabularedTableKeyStrsList'
 										])
 					)
@@ -116,7 +116,7 @@ class MergerClass(BaseClass):
 			#Bind with MergedFilteredShapingDictsList
 			MergedFilteredShapingDictsList=SYS.where(
 										MergedShapingDictsList,
-										self.MergingConditionTuplesList
+										self.MergingConditionVariable
 										)
 
 			#debug

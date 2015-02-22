@@ -39,7 +39,7 @@ MyMobilizer.mobilize(
 	],
 	**{
 			'VisitingCollectionStrsList':['Mobilizers','Recruiters'],
-			'RecruitingConcludeConditionTuplesList':[
+			'RecruitingConcludeConditionVariable':[
 			('NodeIndexInt',lambda _TestInt,_AttestInt:
 				_TestInt!=None and operator.lt(_TestInt,_AttestInt),2)
 			]

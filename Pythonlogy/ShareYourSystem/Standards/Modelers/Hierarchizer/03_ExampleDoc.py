@@ -174,7 +174,7 @@ MyFactorizer=FactorizerClass(
 	).network(
 		**{
 			'VisitingCollectionStrsList':['Hierarchizers','Components'],
-			'RecruitingConcludeConditionTuplesList':[
+			'RecruitingConcludeConditionVariable':[
 				(
 					'MroClassesList',
 					operator.contains,SYS.HierarchizerClass

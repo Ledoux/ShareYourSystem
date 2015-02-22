@@ -65,7 +65,7 @@ MyConcluder is < (ConcluderClass), 4431763344>
    /   /  2 : True
    /   /]
    /  '<Spe><Instance>ConcludedIsBool' : True
-   /  '<Spe><Instance>ConcludingConditionTuplesList' :
+   /  '<Spe><Instance>ConcludingConditionVariable' :
    /   /[
    /   /  0 :
    /   /   /(

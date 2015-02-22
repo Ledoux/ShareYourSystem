@@ -172,7 +172,7 @@ class SwitcherClass(BaseClass):
 							TriggeredBeforeMethodStr,
 							Triggerer.TriggererClass(**
 								{
-									'TriggeringConditionTuplesList':[
+									'TriggeringConditionVariable':[
 															(
 																'SettingKeyVariable',
 																(operator.eq,self.SwitchedInstanceBoolKeyStr)
@@ -212,7 +212,7 @@ class SwitcherClass(BaseClass):
 							TriggeredAfterMethodStr,
 							Triggerer.TriggererClass(**
 								{
-									'TriggeringConditionTuplesList':[
+									'TriggeringConditionVariable':[
 															(
 																'SettingKeyVariable',
 																(operator.eq,self.SwitchedInstanceBoolKeyStr)

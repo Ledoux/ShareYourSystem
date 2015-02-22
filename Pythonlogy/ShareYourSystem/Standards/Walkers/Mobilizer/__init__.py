@@ -88,7 +88,7 @@ class MobilizerClass(BaseClass):
 		'''
 		
 		#append
-		self.RecruitingConcludeConditionTuplesList.append(
+		self.RecruitingConcludeConditionVariable.append(
 				(
 					'SelfClass',
 					getMobilizedIsBoolWithParentClassAndDeriveClassesList,
@@ -98,7 +98,7 @@ class MobilizerClass(BaseClass):
 
 		#debug
 		'''
-		self.debug(('self.',self,['RecruitingConcludeConditionTuplesList']))
+		self.debug(('self.',self,['RecruitingConcludeConditionVariable']))
 		'''
 
 		#recruit

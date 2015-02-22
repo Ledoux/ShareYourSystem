@@ -1810,7 +1810,7 @@ class FiltererClass(BaseClass):
         '''
         self.debug(('self.',self,[
                                     'PickingKeyVariablesList',
-                                    'ConcludingConditionTuplesList',
+                                    'ConcludingConditionVariable',
                                     'FilteringGetVariable'
                                 ])
                 )
@@ -1833,7 +1833,7 @@ class FiltererClass(BaseClass):
                                         'PickingKeyVariablesList',
                                         'ConcludedConditionIsBoolsList',
                                     ]+SYS.unzip(
-                                        self.ConcludingConditionTuplesList,[0]
+                                        self.ConcludingConditionVariable,[0]
                                     )
                     )
                 )
@@ -1870,7 +1870,7 @@ In&nbsp;[2]:
         <span class="p">(</span><span class="s">&#39;NodeIndexInt&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span>
         <span class="p">(</span><span class="s">&#39;NodeKeyStr&#39;</span><span class="p">,</span><span class="s">&#39;MyFilterer&#39;</span><span class="p">),</span>
         <span class="p">(</span>
-            <span class="s">&#39;ConcludingConditionTuplesList&#39;</span><span class="p">,[</span>
+            <span class="s">&#39;ConcludingConditionVariable&#39;</span><span class="p">,[</span>
                         <span class="p">(</span>
                             <span class="s">&#39;NodeIndexInt&#39;</span><span class="p">,</span>
                             <span class="k">lambda</span> <span class="n">_TestInt</span><span class="p">,</span><span class="n">_AttestInt</span><span class="p">:</span>

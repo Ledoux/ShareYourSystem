@@ -196,7 +196,7 @@ MyNetworker=Networker.NetworkerClass(
     }
 ).network(
     **{
-                'RecruitingConcludeConditionTuplesList':[
+                'RecruitingConcludeConditionVariable':[
                     ('__class__.NameStr',operator.eq,'Connecter')
                 ]
         }

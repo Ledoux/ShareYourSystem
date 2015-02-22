@@ -1790,12 +1790,12 @@ class RecruiterClass(BaseClass):
 
     #Definition
     RepresentingKeyStrsList=[
-                                    'RecruitingConcludeConditionTuplesList',
+                                    'RecruitingConcludeConditionVariable',
                                     'RecruitedFlatCumulateVariablesList'
                                 ]
 
     def default_init(self,
-                _RecruitingConcludeConditionTuplesList=None,
+                _RecruitingConcludeConditionVariable=None,
                 _RecruitedFlatCumulateVariablesList=None,
                 **_KwargVariablesDict
             ):
@@ -1815,8 +1815,8 @@ class RecruiterClass(BaseClass):
                 'PickingKeyVariablesList',['/']
             ),
             (
-                'ConcludingConditionTuplesList',
-                self.RecruitingConcludeConditionTuplesList
+                'ConcludingConditionVariable',
+                self.RecruitingConcludeConditionVariable
             ),
             ('cumulate',{'LiargVariablesList':[]})
         ]
@@ -1965,7 +1965,7 @@ MyRecruiter is &lt; (RecruiterClass), 4559760336&gt;
    /   /   /   /{ 
    /   /   /   /}
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;RecruitedFlatCumulateVariablesList&apos; : None
-   /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;RecruitingConcludeConditionTuplesList&apos; : None
+   /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;RecruitingConcludeConditionVariable&apos; : None
    /   /   /}
    /   /  &apos;SecondChildRecruiter&apos; : &lt; (RecruiterClass), 4559810640&gt;
    /   /   /{ 
@@ -1982,7 +1982,7 @@ MyRecruiter is &lt; (RecruiterClass), 4559760336&gt;
    /   /   /   /{ 
    /   /   /   /}
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;RecruitedFlatCumulateVariablesList&apos; : None
-   /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;RecruitingConcludeConditionTuplesList&apos; : None
+   /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;RecruitingConcludeConditionVariable&apos; : None
    /   /   /}
    /   /  &apos;ThirdChildRecruiter&apos; : &lt; (RecruiterClass), 4559810832&gt;
    /   /   /{ 
@@ -1999,7 +1999,7 @@ MyRecruiter is &lt; (RecruiterClass), 4559760336&gt;
    /   /   /   /{ 
    /   /   /   /}
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;RecruitedFlatCumulateVariablesList&apos; : None
-   /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;RecruitingConcludeConditionTuplesList&apos; : None
+   /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;RecruitingConcludeConditionVariable&apos; : None
    /   /   /}
    /   /}
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;RecruitedFlatCumulateVariablesList&apos; : 
@@ -2009,7 +2009,7 @@ MyRecruiter is &lt; (RecruiterClass), 4559760336&gt;
    /   /  2 : {...}&lt; (CumulaterClass), 4559760848&gt;
    /   /  3 : {...}&lt; (RecruiterClass), 4559810640&gt;
    /   /]
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;RecruitingConcludeConditionTuplesList&apos; : 
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;RecruitingConcludeConditionVariable&apos; : 
    /   /[
    /   /  0 : 
    /   /   /(

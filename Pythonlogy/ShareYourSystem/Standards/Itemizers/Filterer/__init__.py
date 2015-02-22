@@ -51,7 +51,7 @@ class FiltererClass(BaseClass):
 		#debug
 		'''
 		self.debug(('self.',self,[
-									'ConcludingConditionTuplesList',
+									'ConcludingConditionVariable',
 									'FilteringGraspVariable'
 								])
 				)
@@ -75,7 +75,7 @@ class FiltererClass(BaseClass):
 										'FilteringGetVariable',
 										'ConcludedConditionIsBoolsList',
 									]+SYS.unzip(
-										self.ConcludingConditionTuplesList,[0]
+										self.ConcludingConditionVariable,[0]
 									)
 					)
 				)

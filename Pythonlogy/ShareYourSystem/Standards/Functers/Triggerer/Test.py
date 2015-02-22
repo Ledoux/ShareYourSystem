@@ -7,7 +7,7 @@ from ShareYourSystem.Standards.Objects import Setter
 #Test
 class IncrementerClass(Setter.SetterClass):
 	
-	@Triggerer.TriggererClass(**{'TriggeringConditionTuplesList':[('SettingKeyVariable',(operator.eq,"Int"))]})
+	@Triggerer.TriggererClass(**{'TriggeringConditionVariable':[('SettingKeyVariable',(operator.eq,"Int"))]})
 	def increment(self,**_KwargVariablesDict):
 		
 		#Print
@@ -59,7 +59,7 @@ print(MyIncrementer)
 def setMyStr(_InstanceVariable):
 	_InstanceVariable.MyStr='Int is equal to '+str(_InstanceVariable.Int)+' here'
 MyIncrementer.__class__.setMyStr=Triggerer.TriggererClass(
-								**{'TriggeringConditionTuplesList':[('SettingKeyVariable',(operator.eq,"Int"))]}
+								**{'TriggeringConditionVariable':[('SettingKeyVariable',(operator.eq,"Int"))]}
 								)(setMyStr)
 MyIncrementer.setMyStr()
 

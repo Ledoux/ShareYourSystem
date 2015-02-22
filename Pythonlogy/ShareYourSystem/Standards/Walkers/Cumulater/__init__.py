@@ -58,7 +58,7 @@ class CumulaterClass(BaseClass):
 		'''
 		self.debug(
 					('self.',self,[
-							'ConcludingConditionTuplesList',
+							'ConcludingConditionVariable',
 							])
 				)
 		'''

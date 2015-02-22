@@ -2061,7 +2061,7 @@ class JoinerClass(BaseClass):
 
         #debug
         '''
-        self.debug(('self.',self,['FindingConditionTuplesList']))
+        self.debug(('self.',self,['FindingConditionVariable']))
         '''
 
         #
@@ -2100,7 +2100,7 @@ class JoinerClass(BaseClass):
             '''
 
             #Map
-            JoinedFindingConditionTuplesList=map(
+            JoinedFindingConditionVariable=map(
                     lambda __JoinedRetrieveIndexesListColumnStr,__JoinedFindFilterRetrieveList:
                     (
                         __JoinedRetrieveIndexesListColumnStr,
@@ -2115,11 +2115,11 @@ class JoinerClass(BaseClass):
 
             #debug
             '''
-            self.debug('JoinedFindingConditionTuplesList is '+str(JoinedFindingConditionTuplesList))
+            self.debug('JoinedFindingConditionVariable is '+str(JoinedFindingConditionVariable))
             '''
 
             #Add to the finding condition tuples
-            self.FindingConditionTuplesList+=JoinedFindingConditionTuplesList
+            self.FindingConditionVariable+=JoinedFindingConditionVariable
 
             #Call the parent method
             Featurer.FeaturerClass.find(self)
@@ -2405,7 +2405,7 @@ In&nbsp;[3]:
 <span class="p">)</span><span class="o">.</span><span class="n">network</span><span class="p">(</span>
     <span class="o">**</span><span class="p">{</span>
         <span class="s">&#39;VisitingCollectionStrsList&#39;</span><span class="p">:[</span><span class="s">&#39;Datome&#39;</span><span class="p">,</span><span class="s">&#39;Component&#39;</span><span class="p">],</span>
-        <span class="s">&#39;RecruitingConcludeConditionTuplesList&#39;</span><span class="p">:[</span>
+        <span class="s">&#39;RecruitingConcludeConditionVariable&#39;</span><span class="p">:[</span>
             <span class="p">(</span>
                 <span class="s">&#39;__class__.__mro__&#39;</span><span class="p">,</span>
                 <span class="n">operator</span><span class="o">.</span><span class="n">contains</span><span class="p">,</span><span class="n">Joiner</span><span class="o">.</span><span class="n">JoinerClass</span>

@@ -94,7 +94,7 @@ class BrianerClass(BaseClass):
 		#network first
 		self.network(
 			**{
-				'RecruitingConcludeConditionTuplesList':[
+				'RecruitingConcludeConditionVariable':[
 					(
 						'MroClassesList',
 						operator.contains,

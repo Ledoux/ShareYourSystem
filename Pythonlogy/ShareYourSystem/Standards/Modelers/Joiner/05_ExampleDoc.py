@@ -108,7 +108,7 @@ MyModulizer=ModulizerClass(
 	).network(
 		**{
 			'VisitingCollectionStrsList':['Joiners','Components'],
-			'RecruitingConcludeConditionTuplesList':[
+			'RecruitingConcludeConditionVariable':[
 				(
 					'MroClassesList',
 					operator.contains,SYS.JoinerClass

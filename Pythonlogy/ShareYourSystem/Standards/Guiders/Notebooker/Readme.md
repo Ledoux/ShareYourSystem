@@ -464,14 +464,14 @@ class ConcluderClass(BaseClass):
         #Definition
         RepresentingKeyStrsList=[
 'ConcludingTestVariable',
-'ConcludingConditionTuplesList',
+'ConcludingConditionVariable',
 'ConcludedConditionIsBoolsList',
 'ConcludedIsBool'
                                                                 ]
 
         def default_init(self,
                                 _ConcludingTestVariable=None,
-                                _ConcludingConditionTuplesList=None,
+                                _ConcludingConditionVariable=None,
                                 _ConcludedConditionIsBoolsList=None,
                                 _ConcludedIsBool=True,
                                 **_KwargVariablesDict
@@ -485,7 +485,7 @@ class ConcluderClass(BaseClass):
 
                 #debug
                 '''
-                self.debug(('self.',self,['ConcludingConditionTuplesList']))
+                self.debug(('self.',self,['ConcludingConditionVariable']))
                 '''
 
                 #Apply __getitem__
@@ -501,7 +501,7 @@ __ConcludingConditionTuple[0],
                                                 __ConcludingConditionTuple[1],
                                                 __ConcludingConditionTuple[2]
                                         ).ConditionedIsBool,
-                                self.ConcludingConditionTuplesList
+                                self.ConcludingConditionVariable
                         )
 
                 #all
@@ -577,7 +577,7 @@ Attest *****\n', '\n', 'MyConcluder is < (ConcluderClass), 4540622864>\n', '
 '<Spe><Instance>ConcludedConditionIsBoolsList' : \n", '   /   /[\n', '   /   /
 0 : True\n', '   /   /  1 : True\n', '   /   /  2 : True\n', '   /   /]\n', "
 /  '<Spe><Instance>ConcludedIsBool' : True\n", "   /
-'<Spe><Instance>ConcludingConditionTuplesList' : \n", '   /   /[\n', '   /   /
+'<Spe><Instance>ConcludingConditionVariable' : \n", '   /   /[\n', '   /   /
 0 : \n', '   /   /   /(\n', '   /   /   /  0 : MyColorStr\n', '   /   /   /  1 :
 <built-in function eq>\n', '   /   /   /  2 : Black\n', '   /   /   /)\n', '   /
 /  1 : \n', '   /   /   /(\n', '   /   /   /  0 : MySuperInt\n', '   /   /   /
@@ -614,21 +614,21 @@ tem.Classors.Tester"\nSYS.setSubModule(globals())\n#</DefineAugmentation>\n\n#<I
 mportSpecificModules>\n#</ImportSpecificModules>\n\n#<DefineClass>\n@DecorationC
 lass()\nclass ConcluderClass(BaseClass):\n\t\n\t#Definition\n\tRepresentingKeySt
 rsList=[\n\t\t\t\t\t\t\t\t\t\'ConcludingTestVariable\',\n\t\t\t\t\t\t\t\t\t\'Con
-cludingConditionTuplesList\',\n\t\t\t\t\t\t\t\t\t\'ConcludedConditionIsBoolsList
+cludingConditionVariable\',\n\t\t\t\t\t\t\t\t\t\'ConcludedConditionIsBoolsList
 \',\n\t\t\t\t\t\t\t\t\t\'ConcludedIsBool\'\n\t\t\t\t\t\t\t\t]\n\n\tdef default_i
 nit(self,\n\t\t\t\t_ConcludingTestVariable=None,\n\t\t\t\t_ConcludingConditionTu
 plesList=None,\n\t\t\t\t_ConcludedConditionIsBoolsList=None,\n\t\t\t\t_Concluded
 IsBool=True,\n\t\t\t\t**_KwargVariablesDict\n\t\t\t\t):\n\n\t\t#Call the parent
 init method\n\t\tBaseClass.__init__(self,**_KwargVariablesDict)\n\n\tdef
 do_conclude(self):\n\t\t""" """\n\n\t\t#debug\n\t\t\'\'\'\n\t\tself.debug((\'sel
-f.\',self,[\'ConcludingConditionTuplesList\']))\n\t\t\'\'\'\n\t\t\n\t\t#Apply
+f.\',self,[\'ConcludingConditionVariable\']))\n\t\t\'\'\'\n\t\t\n\t\t#Apply
 __getitem__\n\t\tself.ConcludedConditionIsBoolsList=map(\n\t\t\t\tlambda __Concl
 udingConditionTuple:\n\t\t\t\tself.condition(\n\t\t\t\t\t\tself.ConcludingTestVa
 riable[\n\t\t\t\t\t\t\t__ConcludingConditionTuple[0]\n\t\t\t\t\t\t] if
 type(\n\t\t\t\t\t\t\t__ConcludingConditionTuple[0])\n\t\t\t\t\t\tin
 SYS.StrTypesList else __ConcludingConditionTuple[0],\n\t\t\t\t\t\t__ConcludingCo
 nditionTuple[1],\n\t\t\t\t\t\t__ConcludingConditionTuple[2]\n\t\t\t\t\t).Conditi
-onedIsBool,\n\t\t\t\tself.ConcludingConditionTuplesList\n\t\t\t)\n\n\t\t#all\n\t
+onedIsBool,\n\t\t\t\tself.ConcludingConditionVariable\n\t\t\t)\n\n\t\t#all\n\t
 \tself.ConcludedIsBool=all(self.ConcludedConditionIsBoolsList)\n\n\t\t#Return
 self\n\t\t#return self\n#</DefineClass>\n\n```\n\n<small>\nView the Concluder
 sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Python

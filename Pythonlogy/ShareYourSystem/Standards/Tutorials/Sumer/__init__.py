@@ -47,7 +47,7 @@ class SumerClass(BaseClass):
 		BaseClass.__init__(self,**_KwargVariablesDict)
 						
 	@Triggerer.TriggererClass(**{
-									'TriggeringConditionTuplesList':[
+									'TriggeringConditionVariable':[
 										('SettingKeyVariable',(SYS.getIsInListBool,[
 											'SumingFirstInt',
 											'SumingSecondInt'

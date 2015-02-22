@@ -58,7 +58,7 @@ class FiltererClass(BaseClass):
 		#Check
 		if self.conclude(
 			self,
-			self.WalkingSocketDict['ConcludeConditionTuplesList']
+			self.WalkingSocketDict['ConcludeConditionVariable']
 		).ConcludedIsBool:
 
 			#debug
@@ -69,7 +69,7 @@ class FiltererClass(BaseClass):
 										'ConcludedConditionIsBoolsList',
 									]+SYS.unzip(
 										self.WalkingSocketDict[
-										'ConcludeConditionTuplesList'],[0]
+										'ConcludeConditionVariable'],[0]
 									)
 					)
 				)

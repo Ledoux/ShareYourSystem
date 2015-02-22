@@ -31,7 +31,7 @@ MyTransmitter=SYS.TransmitterClass(
 		)
 	).network(
 	**{
-				'RecruitingConcludeConditionTuplesList':[
+				'RecruitingConcludeConditionVariable':[
 					('__class__.NameStr',operator.eq,'Transmitter')
 				]
 		}
