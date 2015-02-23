@@ -33,9 +33,10 @@ def getLiargVariablesList(_ValueVariable):
 #</ImportSpecificModules>
 
 #<DefineLocals>
-SetEachPrefixStr="each*"
-SetAllPrefixStr="all*"
+SetEachPrefixStr="#each:"
+SetAllPrefixStr="#all:"
 SetShortKeyStr="#set"
+SetBoundPrefixStr="#bound:"
 #</DefineLocals>
 
 #<DefineClass>
@@ -195,7 +196,44 @@ class SetterClass(BaseClass):
 				)==str:
 
 			#/####################/#
-			# Case of each* set
+			# Case of #bound: set
+			#
+
+			#Check
+			if self.SettingKeyVariable.startswith(
+				SetBoundPrefixStr
+			):
+
+				#deprefix
+				SettedMethodStr=SYS.deprefix(
+						self.SettingKeyVariable,
+						SetBoundPrefixStr
+					)
+
+				#debug
+				self.debug(
+					[
+						'We bound here',
+						'SettedMethodStr is '+SettedMethodStr
+					]
+				)
+
+				#bound
+				setattr(
+					self.__class__,
+					SettedMethodStr,
+					self.SettingValueVariable
+				)
+
+				#call
+				self.SettingValueVariable(self)
+
+				#stop the setting
+				return {'HookingIsBool':False}
+
+
+			#/####################/#
+			# Case of #each: set
 			#
 
 			#Check
@@ -238,7 +276,7 @@ class SetterClass(BaseClass):
 							list,tuple
 						] and len(__SettedValueVariable)==2
 						else
-						__SettedGetVariable['map*set'](
+						__SettedGetVariable['#map:set'](
 							__SettedValueVariable
 						),
 						SettedGetVariablesList,
@@ -249,7 +287,7 @@ class SetterClass(BaseClass):
 				return {'HookingIsBool':False}
 
 			#/####################/#
-			# Case of all* set
+			# Case of #all: set
 			#
 
 			#Check
@@ -302,7 +340,7 @@ class SetterClass(BaseClass):
 					#map
 					map(
 							lambda __SettedGetVariable:
-							__SettedGetVariable['map*set'](
+							__SettedGetVariable['#map:set'](
 								self.SettingValueVariable
 							),
 							SettedGetVariablesList
@@ -375,7 +413,7 @@ class SetterClass(BaseClass):
 
 							#map set
 							self.SettingValueVariable=SettedValueType(
-								)['map*set'](
+								)['#map:set'](
 								self.SettingValueVariable
 							)
 
@@ -424,23 +462,55 @@ class SetterClass(BaseClass):
 				else:
 				'''
 
-				#__setitem__ in the __dict__, this is an utility set
-				self.__dict__[
-					self.SettingKeyVariable
-				]=self.SettingValueVariable
+				#Check
+				if hasattr(self.SettingValueVariable,'items'
+					) and SetShortKeyStr in self.SettingValueVariable:
 
-				#add in the SettingValue
-				try:
-					self.SettingValueVariable.DictKeyStr=self.SettingKeyVariable
-					#self.SettingValueVariable.DictDeriveSetter=self
-				except:
-					pass
+					#/####################/#
+					# Case of a non method with a set dict in the Value Variable
+					#
 
-				#Return
-				return {'HookingIsBool':False}
+					#debug
+					self.debug(
+							[
+								'SettingValueVariable has items and a #set...',
+								('self.',self,['SettingKeyVariable'])
+							]
+						)
+
+					#set
+					self.set(
+						self.SettingKeyVariable,
+						self.SettingValueVariable[SetShortKeyStr]
+					)
+
+					#Return
+					return {'HookingIsBool':False}
+
+				else:
+
+					#/####################/#
+					# Set in the __dict__ ... finally 
+					# But first check the special case of a dict set that is not a #set dict
+
+
+					#__setitem__ in the __dict__, this is an utility set
+					self.__dict__[
+						self.SettingKeyVariable
+					]=self.SettingValueVariable
+
+					#add in the SettingValue
+					try:
+						self.SettingValueVariable.DictKeyStr=self.SettingKeyVariable
+						#self.SettingValueVariable.DictDeriveSetter=self
+					except:
+						pass
+
+					#Return
+					return {'HookingIsBool':False}
 
 		#/####################/#
-		# Case of a non method  with set with a set dict
+		# Case of a non method set with a set dict in the Key Variable
 		#
 
 		elif hasattr(self.SettingKeyVariable,'items'):
@@ -454,45 +524,35 @@ class SetterClass(BaseClass):
 					]
 				)
 			'''
-			
-			try:
 
-				#debug
-				'''
-				self.debug(
-						[
-							'We set with a SetKeyVariable',
-							('self.',self,['SettingKeyVariable'])
-						]
-					)
-				'''
-
-				#set
-				self.set(
-					self.SettingKeyVariable['SetKeyVariable'],
-					self.SettingValueVariable
-				)
-
-			except:
-
-				#debug
-				'''
-				self.debug(
-						[
-							'We set with a SetShortKeyStr',
-							('self.',self,['SettingKeyVariable'])
-						]
-					)
-				'''
-
-				#set
-				self.set(
-					self.SettingKeyVariable[SetShortKeyStr],
-					self.SettingValueVariable
-				)
+			#set
+			self.set(
+				self.SettingKeyVariable[SetShortKeyStr],
+				self.SettingValueVariable
+			)
 
 			#Return
 			return {'HookingIsBool':False}
+
+
+		#/####################/#
+		# Case of a function set
+		#
+
+		elif callable(self.SettingKeyVariable):
+
+			#debug
+			self.debug(
+				[
+					'we call here',
+					('self.',self,['SettingKeyVariable'])
+				]
+			)
+
+			#call
+			self.SettingKeyVariable(
+					self.SettingValueVariable
+				)
 
 
 

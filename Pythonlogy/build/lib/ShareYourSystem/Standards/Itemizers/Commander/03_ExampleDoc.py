@@ -20,7 +20,7 @@ CommandingSetVariable=[
 
 #define and command
 FirstCommander=SYS.CommanderClass(
-	)['map*set'](
+	)['#map:set'](
 			[
 				('FirstPather',SYS.PatherClass()),
 				('SecondPather',SYS.PatherClass()),
@@ -44,7 +44,7 @@ SYS.PatherClass.ShareCountInt=0
 
 #define and command
 SecondCommander=SYS.CommanderClass(
-	)['map*set'](
+	)['#map:set'](
 		[
 				('FirstPather',SYS.PatherClass()),
 				('SecondPather',SYS.PatherClass()),

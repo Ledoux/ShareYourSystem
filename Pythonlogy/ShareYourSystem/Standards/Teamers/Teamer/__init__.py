@@ -134,7 +134,7 @@ class TeamerClass(BaseClass):
 
 				#init
 				self.TeamedValueVariable=self.TeamingValueClass(
-					)['map*set'](
+					)['#map:set'](
 						self.TeamedValueVariable
 					)
 
@@ -185,26 +185,53 @@ class TeamerClass(BaseClass):
 
 			elif self.GettingKeyVariable.startswith(TeamChildPrefixStr):
 
-				#debug
-				'''
-				self.debug(
-					[
-						'We team here',
-						('self.',self,['GettingKeyVariable'])
-					]
-				)
-				'''
-
-				#team
-				self.GettedValueVariable=self.team(
-					SYS.deprefix(
+				#deprefix
+				GetKeyStr=SYS.deprefix(
 						self.GettingKeyVariable,
 						TeamChildPrefixStr
 					)
-				).TeamedValueVariable
 
-				#Stop the setting
-				return {'HookingIsBool':False}
+				#Check
+				if GetKeyStr[0]!='.':
+
+					#debug
+					'''
+					self.debug(
+						[
+							'We team here',
+							('self.',self,['GettingKeyVariable'])
+						]
+					)
+					'''
+
+					#team
+					self.GettedValueVariable=self.team(
+						GetKeyStr
+					).TeamedValueVariable
+
+					#Stop the setting
+					return {'HookingIsBool':False}
+
+				else:
+
+					#debug
+					'''
+					self.debug(
+						[
+							'We team here',
+							('self.',self,['GettingKeyVariable'])
+						]
+					)
+					'''
+
+					#team
+					self.GettedValueVariable=getattr(
+						self.TeamDict,
+						GetKeyStr[1:]
+					)()
+
+					#Stop the setting
+					return {'HookingIsBool':False}
 
 		#Call the parent get method
 		return BaseClass.get(self)
@@ -244,6 +271,7 @@ class TeamerClass(BaseClass):
 			return {'HookingIsBool':False}
 
 		#debug
+		'''
 		self.debug(
 				[
 					'Call the base set method',
@@ -251,6 +279,7 @@ class TeamerClass(BaseClass):
 					('self.',self,['SettingKeyVariable'])
 				]
 			)
+		'''
 		
 		#Call the parent get method
 		return BaseClass.set(self)

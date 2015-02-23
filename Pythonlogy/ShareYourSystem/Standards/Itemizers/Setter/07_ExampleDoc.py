@@ -13,7 +13,7 @@ MySetter=SYS.SetterClass(
 			}
 		)
 	).set(
-		'all*MyOrderedDict',
+		'#all:MyOrderedDict',
 		{
 			'MyStr':"hello",
 			'MyInt':0

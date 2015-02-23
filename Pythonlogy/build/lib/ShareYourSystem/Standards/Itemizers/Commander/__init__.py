@@ -240,12 +240,14 @@ class CommanderClass(BaseClass):
 		if self.CommandingBeforeSelfBool:
 
 			#debug
+			'''
 			self.debug(
 					'We command before self here'
 				)
+			'''
 
 			#add
-			self['map*set'](CommandedSetVariablesList)
+			self['#map:set'](CommandedSetVariablesList)
 
 		#Check for the order
 		if self.CommandingOrderStr=="AllSetsForEachGet":
@@ -282,12 +284,14 @@ class CommanderClass(BaseClass):
 		if self.CommandingAfterSelfBool:
 
 			#debug
+			'''
 			self.debug(
 					'We command after self here'
 				)
+			'''
 
 			#add
-			self['map*set'](CommandedSetVariablesList)
+			self['#map:set'](CommandedSetVariablesList)
 
 		#/###################/#
 		# And we check for a walk after
@@ -360,27 +364,38 @@ class CommanderClass(BaseClass):
 		if type(self.GettingKeyVariable)==str:
 
 			#Check
-			if CommandAddStr in self.GettingKeyVariable:
+			if self.GettingKeyVariable.startswith(CommandAddStr):
 
-				
 				#split
-				AddGetKeyStrsList=self.GettingKeyVariable.split(CommandAddStr)
+				AddGetKeyStrsList=self.GettingKeyVariable.split(CommandAddStr)[1:]
 
 				#debug
+				'''
 				self.debug(
 					[
 						'We add here',
 						'AddGetKeyStrsList is '+str(AddGetKeyStrsList) 
 					]
 				)
-
+				'''
 
 				#map get
-				self.GettedValueVariable=SYS.sum(
-					self[
-						'map*get'
-					](AddGetKeyStrsList)
-				)
+				AddVariablesList=self[
+						'#map:get'
+					](*AddGetKeyStrsList).ItemizedMapValueVariablesList
+
+				#debug
+				'''
+				self.debug(
+					[
+						'We add here',
+						'AddVariablesList is '+SYS._str(AddVariablesList) 
+					]
+				)	
+				'''
+				
+				#map get
+				self.GettedValueVariable=SYS.sum(AddVariablesList)
 
 				#return
 				return {'HookingIsBool':False}

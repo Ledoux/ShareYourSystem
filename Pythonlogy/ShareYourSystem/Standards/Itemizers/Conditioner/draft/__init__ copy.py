@@ -350,7 +350,7 @@ class ConditionerClass(BaseClass):
 							self.set(
 								'ConditioningInstanceVariable',
 								__ConditionTestVariable
-							)['map*condition'](
+							)['#map:condition'](
 							ConditionVariable
 						).ItemizedMapValueVariablesList
 					),

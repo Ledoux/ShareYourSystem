@@ -13,7 +13,7 @@ MySetter=SYS.SetterClass(
 			}
 		)
 	).set(
-		'each*MyOrderedDict',
+		'#each:MyOrderedDict',
 		[
 			{
 				'MyStr':"hello",

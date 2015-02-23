@@ -7,7 +7,7 @@ SYS.AttributerClass.OneStr="hello"
 
 #define and set with attr
 MyAttributer=SYS.AttributerClass(
-	)['map*set'](
+	)['#map:set'](
 		{
 			'<Instance>MyInt':0,
 			'<Class>OurList':[5],

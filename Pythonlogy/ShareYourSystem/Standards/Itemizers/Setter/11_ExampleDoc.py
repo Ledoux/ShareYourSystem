@@ -6,17 +6,15 @@ import ShareYourSystem as SYS
 MySetter=SYS.SetterClass(
 	).set(
 		{
-			'SetKeyVariable':"MyStr"
+			'#set':"MyStr"
 		},
 		"hello"
 	)
 
 #Define and set a dict
 MySetter.set(
-		{
-			'#set':"MyDict"
-		},
-		{'MyInt':0}
+		"MyDict",
+		{'#set':{'MyInt':0}}
 	)
 
 

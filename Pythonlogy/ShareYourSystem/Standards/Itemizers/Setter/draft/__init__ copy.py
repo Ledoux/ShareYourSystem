@@ -33,8 +33,8 @@ def getLiargVariablesList(_ValueVariable):
 #</ImportSpecificModules>
 
 #<DefineLocals>
-SetEachPrefixStr="each*"
-SetAllPrefixStr="all*"
+SetEachPrefixStr="#each:"
+SetAllPrefixStr="#all:"
 SetShortKeyStr="#set"
 #</DefineLocals>
 
@@ -195,7 +195,7 @@ class SetterClass(BaseClass):
 				)==str:
 
 			#/####################/#
-			# Case of each* set
+			# Case of #each: set
 			#
 
 			#Check
@@ -238,7 +238,7 @@ class SetterClass(BaseClass):
 							list,tuple
 						] and len(__SettedValueVariable)==2
 						else
-						__SettedGetVariable['map*set'](
+						__SettedGetVariable['#map:set'](
 							__SettedValueVariable
 						),
 						SettedGetVariablesList,
@@ -249,7 +249,7 @@ class SetterClass(BaseClass):
 				return {'HookingIsBool':False}
 
 			#/####################/#
-			# Case of all* set
+			# Case of #all: set
 			#
 
 			#Check
@@ -302,7 +302,7 @@ class SetterClass(BaseClass):
 					#map
 					map(
 							lambda __SettedGetVariable:
-							__SettedGetVariable['map*set'](
+							__SettedGetVariable['#map:set'](
 								self.SettingValueVariable
 							),
 							SettedGetVariablesList
@@ -373,7 +373,7 @@ class SetterClass(BaseClass):
 
 							#map set
 							self.SettingValueVariable=SettedValueType(
-								)['map*set'](
+								)['#map:set'](
 								self.SettingValueVariable
 							)
 

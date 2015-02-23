@@ -9,7 +9,7 @@ MyConditioner.MyInt=1
 #set but condition not satisfied
 MyConditioner.set(
 		{
-			'SetKeyVariable':"FirstStr",
+			'#set':"FirstStr",
 			'#if':
 			[
 				('MyInt',SYS.operator.eq,2),
@@ -41,6 +41,7 @@ MyConditioner.set(
 			]
 		}
 	)
+
 
 #print
 print('MyConditioner is')

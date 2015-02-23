@@ -16,5 +16,5 @@ print('MySetter is ')
 SYS._print(MySetter)
 
 #print the Setter that has setted 
-print('MySetter.ChildSetter.DictDeriveSetter is ')
-SYS._print(MySetter.ChildSetter.DictDeriveSetter)
+#print('MySetter.ChildSetter.DictDeriveSetter is ')
+#SYS._print(MySetter.ChildSetter.DictDeriveSetter)

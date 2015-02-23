@@ -110,14 +110,12 @@ class ConditionerClass(BaseClass):
 				)
 
 		#debug
-		'''
 		self.debug(
 			[
 				'We have configured the ConditionedTestValueVariable',
 				'ConditionedTestValueVariable is '+str(ConditionedTestValueVariable)
 			]
 		)
-		'''
 
 		#/###################/#
 		# Adapt the AttestValueVariable
@@ -147,14 +145,12 @@ class ConditionerClass(BaseClass):
 				)
 
 		#debug
-		'''
 		self.debug(
 			[
 				'We have configured the ConditionedAttestValueVariable',
 				'ConditionedAttestValueVariable is '+str(ConditionedAttestValueVariable)
 			]
 		)
-		'''
 		
 		#call
 		try:
@@ -306,7 +302,7 @@ class ConditionerClass(BaseClass):
 								self.set(
 									'ConditioningInstanceVariable',
 									__ConditionTestVariable
-								)['map*condition'](
+								)['#map:condition'](
 								IfVariable
 							).ItemizedMapValueVariablesList
 						),
@@ -340,13 +336,10 @@ class ConditionerClass(BaseClass):
 			) and type(self.SettingKeyVariable)!=type:
 
 				#Check
-				if 'IfVariable' in self.SettingKeyVariable or ConditionShortKeyStr in self.SettingKeyVariable:
+				if 'IfVariable' in self.SettingKeyVariable:
 
 					#set
-					try:
-						IfVariable=self.SettingKeyVariable['IfVariable']
-					except:
-						IfVariable=self.SettingKeyVariable[ConditionShortKeyStr]
+					IfVariable=self.SettingKeyVariable[ConditionShortKeyStr]
 
 					#debug
 					'''
@@ -389,29 +382,22 @@ class ConditionerClass(BaseClass):
 						'''
 
 						#append
-						try:
-							self[
-								self.SettingKeyVariable['SetKeyVariable']
-							]=self.SettingValueVariable
-						except:
-							self[
-								self.SettingKeyVariable[Setter.SetShortKeyStr]
-							]=self.SettingValueVariable
+						self[
+							self.SettingKeyVariable[Setter.SetShortKeyStr]
+						]=self.SettingValueVariable
 
 					#stop the setting
 					return {'HookingIsBool':False}
 
 		#Check
-		elif hasattr(self.SettingValueVariable,'items') and type(self.SettingValueVariable)!=type: 
+		elif hasattr(self.SettingValueVariable,'items'
+			) and type(self.SettingValueVariable)!=type: 
 
 			#Check
-			if 'IfVariable' in self.SettingValueVariable or ConditionShortKeyStr in self.SettingValueVariable:
+			if ConditionShortKeyStr in self.SettingValueVariable:
 
 				#set
-				try:
-					IfVariable=self.SettingValueVariable['IfVariable']
-				except:
-					IfVariable=self.SettingValueVariable[ConditionShortKeyStr]
+				IfVariable=self.SettingValueVariable[ConditionShortKeyStr]
 
 				#debug
 				'''
@@ -423,7 +409,7 @@ class ConditionerClass(BaseClass):
 						]
 					)
 				'''
-				
+
 				#loop and break at the first false
 				for __ConditionVariable in IfVariable:
 
@@ -452,16 +438,11 @@ class ConditionerClass(BaseClass):
 							]
 						)
 					'''
-
+					
 					#append
-					try:
-						self[
-							self.SettingKeyVariable
-						]=self.SettingValueVariable['SetValueVariable']
-					except:
-						self[
-							self.SettingKeyVariable
-						]=self.SettingValueVariable[Setter.SetShortKeyStr]
+					self[
+						self.SettingKeyVariable
+					]=self.SettingValueVariable[Setter.SetShortKeyStr]
 
 				#stop the setting
 				return {'HookingIsBool':False}

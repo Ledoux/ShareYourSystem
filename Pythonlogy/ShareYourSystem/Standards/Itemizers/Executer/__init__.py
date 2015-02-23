@@ -127,11 +127,13 @@ class ExecuterClass(BaseClass):
 				GetValueVariable=self[GetKeyStr]
 
 				#debug
+				'''
 				self.debug(
 					[
 						'GetValueVariable is '+SYS._str(GetValueVariable)
 					]
 				)
+				'''
 
 				#get the get
 				AttributeValueVariable=getattr(
@@ -170,95 +172,109 @@ class ExecuterClass(BaseClass):
 
 	def mimic_set(self):
 
+		#Check
+		if type(self.SettingValueVariable
+			)==str:
+
+			#/####################/#
+			# Case of a call of an execution str
+			#
+
+			#Check
+			if self.SettingValueVariable.startswith(ExecutionPrefixStr):
+
+				#debug
+				'''
+				self.debug('we execute here')
+				'''
+
+				#deprefix
+				ExecutedStr="ExecutedVariable="+SYS.deprefix(
+							self.SettingValueVariable,
+							ExecutionPrefixStr
+						)
+
+				#debug
+				'''
+				self.debug('ExecutedStr is '+ExecutedStr)
+				'''
+
+				#execute
+				self.execute(
+						ExecutedStr
+					)
+
+				#alias
+				self[self.SettingKeyVariable]=self.ExecutedLocalsDict['ExecutedVariable']
+
+				#stop the getting
+				return {'HookingIsBool':False}
+
 		#/####################/#
-		# Case of call of a method
+		# Case of a call of a method of a child object
 		#
 
 		#Check
-		if type(self.SettingValueVariable
-			)==str and self.SettingValueVariable.startswith(ExecutionPrefixStr):
+		if type(self.SettingKeyVariable
+			)==str:
 
-			#debug
-			'''
-			self.debug('we execute here')
-			'''
+			#Check
+			if ExecutionDotStr in self.SettingKeyVariable:
 
-			#deprefix
-			ExecutedStr="ExecutedVariable="+SYS.deprefix(
-						self.SettingValueVariable,
-						ExecutionPrefixStr
+				#debug
+				'''
+				self.debug('we get an attribute of the SettingKeyVariable')
+				'''
+
+				#previous
+				GetKeyStr,AttributeStr=SYS.previous(
+							self.SettingKeyVariable,
+							ExecutionDotStr
+						)
+
+				#debug
+				'''
+				self.debug(
+						[
+							'GetKeyStr is '+GetKeyStr,
+							'AttributeStr is '+AttributeStr
+						]
+					)
+				'''
+
+				#get
+				GetValueVariable=self[GetKeyStr]
+
+				#get the get
+				AttributeValueVariable=getattr(
+						GetValueVariable,
+						AttributeStr	
 					)
 
-			#debug
-			'''
-			self.debug('ExecutedStr is '+ExecutedStr)
-			'''
-
-			#execute
-			self.execute(
-					ExecutedStr
-				)
-
-			#alias
-			self[self.SettingKeyVariable]=self.ExecutedLocalsDict['ExecutedVariable']
-
-			#stop the getting
-			return {'HookingIsBool':False}
-
-		#Check
-		elif ExecutionDotStr in self.SettingKeyVariable:
-
-			#debug
-			'''
-			self.debug('we get an attribute of the SettingKeyVariable')
-			'''
-
-			#previous
-			GetKeyStr,AttributeStr=SYS.previous(
-						self.SettingKeyVariable,
-						ExecutionDotStr
+				#debug
+				self.debug(
+						[
+							'GetValueVariable is '+str(GetValueVariable),
+							'AttributeValueVariable is '+str(AttributeValueVariable)
+						]
 					)
 
-			#debug
-			self.debug(
-					[
-						'GetKeyStr is '+GetKeyStr,
-						'AttributeStr is '+AttributeStr
-					]
-				)
+				#call
+				if callable(AttributeValueVariable):
 
-			#get
-			GetValueVariable=self[GetKeyStr]
+					#set
+					self[AttributeValueVariable]=self.SettingValueVariable
 
-			#get the get
-			AttributeValueVariable=getattr(
-					GetValueVariable,
-					AttributeStr	
-				)
+					#get the method and call it
+					#AttributeValueVariable(*LiargValueVariable)
 
-			#debug
-			'''
-			self.debug(
-					[
-						'GetValueVariable is '+str(GetValueVariable),
-						'AttributeValueVariable is '+str(AttributeValueVariable)
-					]
-				)
-			'''
-			
-			#call
-			if callable(AttributeValueVariable):
+				else:
 
-				#get t he method and call it
-				AttributeValueVariable(*self.SettingValueVariable)
+					#alias
+					AttributeValueVariable=LiargValueVariable
 
-			else:
-
-				#alias
-				AttributeValueVariable=self.SettingValueVariable
-
-			#stop the setting
-			return {'HookingIsBool':False}
+				#stop the setting
+				return {'HookingIsBool':False}
 
 		#Call the parent method
 		BaseClass.set(self)

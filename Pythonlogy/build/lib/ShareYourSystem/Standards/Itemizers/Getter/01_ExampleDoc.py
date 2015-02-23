@@ -20,7 +20,7 @@ YourGetter.MyStr="hello"
 print('Get YourGetter returns '+SYS._str(MyGetter[YourGetter]))
 
 #print a direct str get
-print('Get <Direct>salut returns '+SYS._str(MyGetter["<Direct>salut"]))
+print('Get #direct:salut returns '+SYS._str(MyGetter["#direct:salut"]))
 
 #print a direct str get
 print('Get GetClass(lambda self:self.MyInt+2) returns '+SYS._str(

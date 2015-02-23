@@ -2,14 +2,20 @@
 #ImportModules
 import ShareYourSystem as SYS
 
+
 MyParenter=SYS.ParenterClass(
-	).array(
-		[
-			['&Layers','$First']
-		]
+	).get(
+		'MyList'
+	).set(
+		'MyList.append',
+		{
+			'#set':[4]
+		}
 	)
 
-print(MyParenter['&+$'])
+#print
+print('MyParenter.MyList is ')
+SYS._print(MyParenter.MyList)
 
 
 """
@@ -25,15 +31,22 @@ MyParenter=SYS.ParenterClass(
 			['$E','$I']
 		]
 	).command(
-		'&$',
+		'+&.values+$.values',
 		{
 			'parent':[],
-			'/Top/NeuronsList.append':{
-				'#set':[">>self"],
-				'#if':[
-					('/^/ParentKeyStr',SYS.operator.eq,"Neurons")
-				]
-			}
+			'call#RecruitmentVariable':SYS.GetClass(
+					lambda _InstanceVariable:_InstanceVariable[
+						'/Top/NeuronsList'
+					].append(_InstanceVariable) 
+					if _InstanceVariable['/^/ParentKeyStr']=="Neurons"
+					else None
+				),
+			#'/Top/NeuronsList.append':{
+			#	'#set':[">>self"],
+			#	'#if':[
+			#		('/^/ParentKeyStr',SYS.operator.eq,"Neurons")
+			#	]
+			#}
 		},
 		_AfterWalkBool=True
 	)

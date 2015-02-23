@@ -28,3 +28,10 @@ SYS._print(MyTeamer)
 print("MyTeamer['&'] is ")
 SYS._print(MyTeamer['&'])
 
+#Shortcut for getting all the teamed instances
+print("MyTeamer['&.values'] is ")
+SYS._print(MyTeamer['&.values'])
+
+#Shortcut for getting all the teamed instances
+print("MyTeamer['&.keys'] is ")
+SYS._print(MyTeamer['&.keys'])

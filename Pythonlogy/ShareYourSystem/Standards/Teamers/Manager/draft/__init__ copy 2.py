@@ -142,7 +142,7 @@ class ManagerClass(BaseClass):
 
 				#init
 				self.ManagedValueVariable=SYS.TeamerClass(
-					)['map*set'](
+					)['#map:set'](
 						self.ManagedValueVariable
 					)
 

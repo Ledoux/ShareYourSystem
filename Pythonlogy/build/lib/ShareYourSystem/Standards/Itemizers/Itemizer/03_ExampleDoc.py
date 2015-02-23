@@ -30,7 +30,7 @@ def getMapList(_LiargVariablesList):
 MyMaker=MakerClass(
 	).itemize(
 		#ItemizingKeyVariable
-		'map*make',
+		'#map:make',
 		#ItemizingMapGetVariable
 		_MapGetVariable='MadeMyInt'
 	)
@@ -43,7 +43,7 @@ print(MyMaker.ItemizedValueMethod([3.,6.]).ItemizedMapVariablesList)
 MyMaker=MakerClass(
 	).itemize(
 		#ItemizingKeyVariable
-		'map*make',
+		'#map:make',
 		#ItemizingMapGetVariable
 		_MapGetVariable=['MadeMyInt','MakingMyFloat']
 	)

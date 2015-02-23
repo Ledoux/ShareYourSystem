@@ -576,6 +576,8 @@ ShareYourSystem/Standards/Itemizers/Conditioner/06_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Conditioner/07_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Conditioner/08_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Conditioner/09_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Conditioner/10_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Conditioner/11_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Conditioner/Readme.md
 ShareYourSystem/Standards/Itemizers/Conditioner/__init__.py
 ShareYourSystem/Standards/Itemizers/Executer/001_DocumentDoc.md
@@ -650,6 +652,8 @@ ShareYourSystem/Standards/Itemizers/Setter/08_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Setter/09_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Setter/10_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Setter/11_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Setter/12_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Setter/13_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Setter/Readme.md
 ShareYourSystem/Standards/Itemizers/Setter/Test.py
 ShareYourSystem/Standards/Itemizers/Setter/__init__.py

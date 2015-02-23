@@ -137,7 +137,7 @@ class ManagerClass(BaseClass):
 
 				#init
 				self.ManagedValueVariable=self.ManagingValueClass(
-					)['map*set'](
+					)['#map:set'](
 						self.ManagedValueVariable
 					)
 
@@ -192,28 +192,59 @@ class ManagerClass(BaseClass):
 			ManagementChildPrefixStr
 		):
 
-			#debug
-			'''
-			self.debug('We manage here')
-			'''
-
-			#team
-			self.GettedValueVariable=self.manage(
-				SYS.deprefix(
+			#deprefix
+			GetKeyStr=SYS.deprefix(
 					self.GettingKeyVariable,
 					ManagementChildPrefixStr
 				)
-			).ManagedValueVariable
 
-			#debug
-			'''
-			self.debug(
-				('self.',self,['GettedValueVariable'])
-			)
-			'''
+			#Check
+			if GetKeyStr[0]!='.':
 
-			#Stop the getting
-			return {'HookingIsBool':False}
+				#debug
+				'''
+				self.debug('We manage here')
+				'''
+
+				#team
+				self.GettedValueVariable=self.manage(
+					SYS.deprefix(
+						self.GettingKeyVariable,
+						ManagementChildPrefixStr
+					)
+				).ManagedValueVariable
+
+				#debug
+				'''
+				self.debug(
+					('self.',self,['GettedValueVariable'])
+				)
+				'''
+
+				#Stop the getting
+				return {'HookingIsBool':False}
+
+			#Check
+			else:
+
+				#debug
+				'''
+				self.debug(
+					[
+						'We team here',
+						('self.',self,['GettingKeyVariable'])
+					]
+				)
+				'''
+
+				#team
+				self.GettedValueVariable=getattr(
+					self.ManagementDict,
+					GetKeyStr[1:]
+				)()
+
+				#Stop the setting
+				return {'HookingIsBool':False}
 
 		#Call the parent get method
 		return BaseClass.get(self)

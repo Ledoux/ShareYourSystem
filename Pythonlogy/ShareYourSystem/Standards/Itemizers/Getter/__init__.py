@@ -59,8 +59,8 @@ class GetClass(object):
 
 
 SYS.GetClass=GetClass
-GetDeletePrefixStr="-"
-GetDirectPrefixStr="<Direct>"
+GetDeletePrefixStr="#delete:"
+GetDirectPrefixStr="#direct:"
 GetShortKeyStr="#get"
 #</DefineLocals>
 
@@ -116,7 +116,6 @@ class GetterClass(BaseClass):
 		return self.GettedValueVariable
 	
 	#def __delitem__(self,_KeyVariable):
-
 
 
 	def do_get(self):

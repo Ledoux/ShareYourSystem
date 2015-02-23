@@ -32,4 +32,8 @@ SYS._print(MyManager)
 print("MyManager['$'] is ")
 SYS._print(MyManager['$'])
 
+#We can have all the ManagementDict with the symbolic shortcut get
+print("MyManager['$.values'] is ")
+SYS._print(MyManager['$.values'])
+
 

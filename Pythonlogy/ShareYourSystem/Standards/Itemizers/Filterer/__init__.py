@@ -92,7 +92,7 @@ class FiltererClass(BaseClass):
 			else:
 
 				#map get
-				self.FilteredGetValueVariable=self['map*get'](
+				self.FilteredGetValueVariable=self['#map:get'](
 						self.FilteringGetVariable
 					)
 

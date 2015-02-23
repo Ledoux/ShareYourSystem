@@ -6,7 +6,7 @@ import ShareYourSystem as SYS
 MyConditioner=SYS.ConditionerClass()
 		
 #map get
-MyConditioner['map*get'](
+MyConditioner['#map:get'](
 	'FirstChildConditioner',
 	'SecondChildConditioner',
 	'FirstChildItemizer'
@@ -18,7 +18,7 @@ MyConditioner.get(
 			'#if':
 			[
 				(type,SYS.operator.eq,SYS.ConditionerClass),
-				('DictKeyStr',str.startswith,'<Direct>First'),
+				('DictKeyStr',str.startswith,'#direct:First'),
 				SYS.GetClass(lambda self:'Child' in self['DictKeyStr']),			
 			]
 		}
