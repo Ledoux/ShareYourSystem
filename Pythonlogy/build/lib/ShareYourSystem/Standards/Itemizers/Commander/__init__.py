@@ -22,6 +22,7 @@ SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
+from ShareYourSystem.Standards.Itemizers import Getter
 #</ImportSpecificModules>
 
 #<DefineLocals>
@@ -209,6 +210,15 @@ class CommanderClass(BaseClass):
 
 				#items
 				CommandedSetVariablesList=self.CommandingSetVariable.items()
+
+			elif type(self.CommandingSetVariable)==str and self.CommandingSetVariable.startswith(
+					Getter.GetCallPrefixStr
+				):
+
+				#list
+				CommandedSetVariablesList=[
+					('get',self.CommandingSetVariable)
+				]
 
 			else:
 

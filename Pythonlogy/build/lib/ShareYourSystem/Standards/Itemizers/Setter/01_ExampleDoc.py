@@ -42,6 +42,10 @@ MySetter.set(
 		MySetter.MyList.append,
 		[3]
 	)
+MySetter.set(
+		MySetter.MyList.append,
+		['#get:MyStr']
+	)
 
 #print
 print('MySetter is ')

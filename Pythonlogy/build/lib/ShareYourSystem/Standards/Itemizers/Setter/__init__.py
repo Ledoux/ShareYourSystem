@@ -20,6 +20,11 @@ SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
+Getter=BaseModule
+from ShareYourSystem.Standards.Itemizers import Itemizer
+#</ImportSpecificModules>
+
+#<DefineLocals>
 def getMapList(_LiargVariablesList):
 
 	#Check
@@ -30,13 +35,13 @@ def getMapList(_LiargVariablesList):
 		
 def getLiargVariablesList(_ValueVariable):
 	return _ValueVariable
-#</ImportSpecificModules>
-
-#<DefineLocals>
 SetEachPrefixStr="#each:"
 SetAllPrefixStr="#all:"
 SetShortKeyStr="#set"
 SetBoundPrefixStr="#bound:"
+SetSetterStr="<"
+SetMapGetShortKeyStr=Itemizer.ItemMapPrefixStr+'get'
+SetMapSetShortKeyStr=Itemizer.ItemMapPrefixStr+'set'
 #</DefineLocals>
 
 #<DefineClass>
@@ -211,12 +216,14 @@ class SetterClass(BaseClass):
 					)
 
 				#debug
+				'''
 				self.debug(
 					[
 						'We bound here',
 						'SettedMethodStr is '+SettedMethodStr
 					]
 				)
+				'''
 
 				#bound
 				setattr(
@@ -276,7 +283,7 @@ class SetterClass(BaseClass):
 							list,tuple
 						] and len(__SettedValueVariable)==2
 						else
-						__SettedGetVariable['#map:set'](
+						__SettedGetVariable[SetMapSetShortKeyStr](
 							__SettedValueVariable
 						),
 						SettedGetVariablesList,
@@ -340,7 +347,7 @@ class SetterClass(BaseClass):
 					#map
 					map(
 							lambda __SettedGetVariable:
-							__SettedGetVariable['#map:set'](
+							__SettedGetVariable[SetMapSetShortKeyStr](
 								self.SettingValueVariable
 							),
 							SettedGetVariablesList
@@ -354,6 +361,82 @@ class SetterClass(BaseClass):
 			#
 
 			else:
+
+				#/####################/#
+				# Case of a set with a set dict
+				#
+
+				#Check
+				if hasattr(
+						self.SettingValueVariable,'items'
+					):
+
+					#debug
+					self.debug(
+							[
+								'Check for a set value dict',
+								('self.',self,['SettingValueVariable'])
+							]
+						)
+
+					if Getter.GetShortKeyStr in self.SettingValueVariable:
+
+						#debug
+						self.debug(
+							[
+								'we set a value with a GetShortKeyStr inside',
+								('self.',self,['SettingValueVariable'])
+							]
+						)
+
+						#set
+						self[self.SettingKeyVariable]=self[
+							self.SettingValueVariable[Getter.GetShortKeyStr]
+						]
+
+						#Return
+						return {'HookingIsBool':False}
+
+					elif SetMapGetShortKeyStr in self.SettingValueVariable:
+
+						#debug
+						self.debug(
+							[
+								'we set a value with a map GetShortKeyStr inside',
+								('self.',self,['SettingValueVariable'])
+							]
+						)
+
+						#set
+						self[self.SettingKeyVariable]=self[
+							SetMapGetShortKeyStr
+						](
+							*self.SettingValueVariable[SetMapGetShortKeyStr]
+						).ItemizedMapValueVariablesList
+						
+
+						#Return
+						return {'HookingIsBool':False}
+
+					#Check
+					elif SetShortKeyStr in self.SettingValueVariable:
+
+						#debug
+						self.debug(
+							[
+								'we set a value with a SetShortKeyStr inside',
+								('self.',self,['SettingValueVariable'])
+							]
+						)
+
+						#set
+						self[
+							self.SettingKeyVariable
+						]=self.SettingValueVariable[SetShortKeyStr]
+
+						#Return
+						return {'HookingIsBool':False}
+
 
 				#/####################/#
 				# Case of an instancing set
@@ -412,10 +495,14 @@ class SetterClass(BaseClass):
 							'''
 
 							#map set
-							self.SettingValueVariable=SettedValueType(
-								)['#map:set'](
+							self[self.SettingKeyVariable]=SettedValueType(
+								)[SetMapSetShortKeyStr](
 								self.SettingValueVariable
 							)
+							#self.SettingValueVariable=SettedValueType(
+							#	)[SetMapSetShortKeyStr](
+							#	self.SettingValueVariable
+							#)
 
 							'''
 							except:
@@ -431,7 +518,8 @@ class SetterClass(BaseClass):
 									)
 							'''
 
-				
+							#Return
+							return {'HookingIsBool':False}
 
 				#/####################/#
 				# Set in the __dict__ ... finally 
@@ -449,36 +537,21 @@ class SetterClass(BaseClass):
 					]
 				)
 				'''
+				
+				#__setitem__ in the __dict__, this is an utility set
+				self.__dict__[
+					self.SettingKeyVariable
+				]=self.SettingValueVariable
 
-				#Check
-				if hasattr(
-						self.SettingValueVariable,'items'
-					) and SetShortKeyStr in self.SettingValueVariable:
+				#add in the SettingValue
+				try:
+					self.SettingValueVariable.DictKeyStr=self.SettingKeyVariable
+					self.SettingValueVariable.DictDeriveSetter=self
+				except:
+					pass
 
-					#debug
-					'''
-					self.debug('we set a value with a SetShortKeyStr inside')
-					'''
-
-					#set
-					self[self.SettingKeyVariable]=self.SettingValueVariable[SetShortKeyStr]
-
-				else:
-
-					#__setitem__ in the __dict__, this is an utility set
-					self.__dict__[
-						self.SettingKeyVariable
-					]=self.SettingValueVariable
-
-					#add in the SettingValue
-					try:
-						self.SettingValueVariable.DictKeyStr=self.SettingKeyVariable
-						#self.SettingValueVariable.DictDeriveSetter=self
-					except:
-						pass
-
-					#Return
-					return {'HookingIsBool':False}
+				#Return
+				return {'HookingIsBool':False}
 
 		#/####################/#
 		# Case of a non method set with a set dict in the Key Variable
@@ -520,72 +593,55 @@ class SetterClass(BaseClass):
 			self.debug(
 					[
 						'The key is callable',
-						('self.',self,['SettingValueVariable'])
+						('self.',self,['SettingValueVariable']),
+						'map get the values to have the liargvariables list'
 					]
 				)
 
-			#try
-			if hasattr(self.SettingValueVariable,'items'
-				) and SetShortKeyStr in self.SettingValueVariable:
+			#get
+			self.GettingNewBool=False
+			SettedLiargVariablesList=self[SetMapGetShortKeyStr](
+				*self.SettingValueVariable
+			).ItemizedMapValueVariablesList
+			self.GettingNewBool=True
 
-				#debug
-				self.debug(
-						'try with the #set in the value'
-					)
+			#debug
+			self.debug(
+				[
+					'we call here',
+					('self.',self,['SettingKeyVariable']),
+					'SettedLiargVariablesList is '+SYS._str(SettedLiargVariablesList)
+				]
+			)
 
-				#get
-				SettedLiargVariablesList=self['#map:get'](
-					*self.SettingValueVariable[SetShortKeyStr]
-				).ItemizedMapValueVariablesList
-
-				#debug
-				self.debug(
-						[
-							'SettingValueVariable has items and a #set...',
-							('self.',self,['SettingKeyVariable']),
-							'SettedLiargVariablesList is '+str(SettedLiargVariablesList)
-						]
-					)
-
-				#set
-				self.set(
-					self.SettingKeyVariable,
-					*self['#map:get'](SettedLiargVariablesList)
+			#call
+			self.SettingKeyVariable(
+					*SettedLiargVariablesList	
 				)
 
-				#Return
-				return {'HookingIsBool':False}
-
-			else:
-
-				#debug
-				self.debug(
-						'map get the values'
+			#debug
+			self.debug(
+					'self.SettingKeyVariable.__self__ is '+SYS._str(
+						self.SettingKeyVariable.__self__
 					)
-
-				#get
-				SettedLiargVariablesList=self['#map:get'](
-					*self.SettingValueVariable
-				).ItemizedMapValueVariablesList
-
-				#debug
-				self.debug(
-					[
-						'we call here',
-						('self.',self,['SettingKeyVariable']),
-						'SettedLiargVariablesList is '+str(SettedLiargVariablesList)
-					]
 				)
 
-				#call
-				self.SettingKeyVariable(
-						*SettedLiargVariablesList	
-					)
+			#Return
+			return {'HookingIsBool':False}
 
-				#Return
-				return {'HookingIsBool':False}
+	def mimic_get(self):
 
+		#Check
+		if self.GettingKeyVariable==SetSetterStr:
+
+			#get
+			self.GettedValueVariable=self.DictDeriveSetter
+
+			#return 
+			return {'HookingIsBool':False}
 		
+		#call the base method
+		return BaseClass.get(self)
 
 
 #</DefineClass>

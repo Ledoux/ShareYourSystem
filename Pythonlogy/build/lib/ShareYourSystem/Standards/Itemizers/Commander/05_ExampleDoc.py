@@ -9,10 +9,14 @@ MyCommander=SYS.CommanderClass(
 		'/',
 		#CommandingSetVariable
 		{
-			'MyInt':0	
+			'MyStr':"hello"	
 		}		
 	)
 
 #print
 print('MyCommander.GettedValueVariable is ')
 print(MyCommander.GettedValueVariable)
+
+#command with just one variable
+SYS.CommanderClass.printHello=lambda _SelfVariable:SYS._print(_SelfVariable.MyStr)
+MyCommander.command('/','#call:printHello')

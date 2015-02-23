@@ -8,10 +8,9 @@ MyExecuter=SYS.ExecuterClass(
 		'MyList'
 	).set(
 		'MyList.append',
-		[6]
-	).set(
-		'MyList.append',
-		['>>self.MyList.__getitem__(0)']
+		{
+			'#map:get':[6]
+		}
 	)
 
 #print

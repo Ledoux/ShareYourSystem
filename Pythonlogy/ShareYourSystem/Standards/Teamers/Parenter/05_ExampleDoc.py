@@ -1,23 +1,13 @@
-
 #ImportModules
 import ShareYourSystem as SYS
 
-#define and get two children
+#define structure
 MyParenter=SYS.ParenterClass(
-	).array(
-		['/&Neurons/$First','/&Neurons/$Second']
 	).command(
-		'/&Clients/$First',
-		(
-			'point',
-			[
-				'/^/&Neurons/$Second',
-				'/&Connections/$FirstToSecond/'
-			]
-		)
+		'/&Children/$Child/&GrandChildren',
+		('.../--^','#call:parent')
 	)
 
-#print
-print('MyParenter is ')
-SYS._print(MyParenter)
-
+#get faster the top parent
+print("Get the top parent of MyParenter['/&Children/$Child/&GrandChildren'] gives ")
+SYS._print(MyParenter['/&Children/$Child/&GrandChildren']['Top'])

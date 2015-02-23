@@ -17,6 +17,17 @@ MySetter.set(
 		{'#set':{'MyInt':0}}
 	)
 
+#Define and set a dict
+MySetter.set(
+		"MyCloneStr",
+		{'#get':'MyStr'}
+	)
+
+#Define and set a dict
+MySetter.set(
+		"MyList",
+		{'#map:get':['MyStr','MyInt']}
+	)
 
 #print
 print('MySetter is ')

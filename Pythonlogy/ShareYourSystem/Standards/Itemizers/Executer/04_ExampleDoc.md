@@ -5,4 +5,4 @@ FrozenIsBool True
 
 ##Example
 
-Check for get a method of a child object and liarg to it with a #set shortkeystr
+The second liarg argument can be directly a list that is going to be map getted to set the LiargVariablesList of the method

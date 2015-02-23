@@ -16,6 +16,7 @@ check if there is the corresponding GettingKeyStr.
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
+import types
 BaseModuleStr="ShareYourSystem.Standards.Itemizers.Itemizer"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
@@ -62,7 +63,9 @@ SYS.GetClass=GetClass
 GetDeletePrefixStr="#delete:"
 GetDirectPrefixStr="#direct:"
 GetUndirectPrefixKeyStr="#get:"
+GetCallPrefixStr="#call:"
 GetShortKeyStr="#get"
+GetMapShortKeyStr=Itemizer.ItemMapPrefixStr+'get'
 #</DefineLocals>
 
 #<DefineClass>
@@ -275,6 +278,41 @@ class GetterClass(BaseClass):
 				return {"HookingIsBool":False}
 
 			#/############################
+			# Case of a call str get 
+			#
+
+			if self.GettingKeyVariable.startswith(GetCallPrefixStr):
+
+				#get
+				GettedMethod=self[
+					SYS.deprefix(
+						self.GettingKeyVariable,
+						GetCallPrefixStr
+					)
+				]
+
+				#debug
+				self.debug(
+					[
+						'This is a call get of a str variable',
+						'GettedMethod is '+SYS._str(GettedMethod)
+					]
+				)
+
+				if type(GettedMethod)==types.MethodType:
+
+					#set
+					self.GettedValueVariable=GettedMethod()
+
+				else:
+
+					#set
+					self.GettedValueVariable=GettedMethod(self)
+
+				#Stop the getting
+				return {"HookingIsBool":False}
+
+			#/############################
 			# Case of a #get: str get 
 			#
 
@@ -403,10 +441,11 @@ class GetterClass(BaseClass):
 						self.GettingKeyVariable,
 						self.GettedValueVariable
 					)
-
+					
 					#add in the SettingValue
 					try:
 						self.GettedValueVariable.DictKeyStr=self.GettingKeyVariable
+						self.GettedValueVariable.DictDeriveSetter=self
 					except:
 						pass
 
@@ -431,55 +470,50 @@ class GetterClass(BaseClass):
 			)
 			'''
 
-			#try
-			try:
+			#Check
+			if GetShortKeyStr in self.GettingKeyVariable:
 
 				#debug
 				'''
 				self.debug(
 					[
-						'we get with the GetVariable'
+						'we get with the GetShortKeyStr'
 					]	
 				)
 				'''
 				
 				#get
 				self.GettedValueVariable=self[
-					self.GettingKeyVariable['GetVariable']
+					self.GettingKeyVariable[GetShortKeyStr]
 				]
 
-				#del
-				del self.GettingKeyVariable['GetVariable']
+				#Stop the getting
+				return {"HookingIsBool":False}
 
-			except:
+			#Check
+			elif GetMapShortKeyStr in self.GettingKeyVariable:
 
-				try:
+				#get
+				GettedLiargVariablesList=self.GettingKeyVariable[GetMapShortKeyStr]
 
-					#debug
-					'''
-					self.debug(
-						[
-							'we get with the GetShortKeyStr'
-						]	
-					)
-					'''
-					
-					#get
-					self.GettedValueVariable=self[
-						self.GettingKeyVariable[GetShortKeyStr]
-					]
+				#debug
+				self.debug(
+					[
+						'we get with the GetMapShortKeyStr',
+						('self.',self,['GettingKeyVariable']),
+						'GettedLiargVariablesList is '+SYS._str(GettedLiargVariablesList)
+					]	
+				)
+				
+				#get
+				self.GettedValueVariable=self[
+					GetMapShortKeyStr
+				](
+					*GettedLiargVariablesList
+				).ItemizedMapValueVariablesList
 
-					#del
-					del self.GettingKeyVariable[GetShortKeyStr]
-
-				except:
-
-					#pass
-					pass
-
-
-			#Stop the getting
-			return {"HookingIsBool":False}
+				#Stop the getting
+				return {"HookingIsBool":False}
 
 		#/############################
 		# Cases of a direct get 

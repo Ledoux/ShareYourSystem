@@ -23,20 +23,17 @@ MyParenter=SYS.ParenterClass(
 					) 
 					if _InstanceVariable['/^/ParentKeyStr']=="Neurons"
 					else None,
-			'/Top/LayersDict.__setitem__':{
-				'#set':["#get:ManagementKeyStr",">>self"],
-				'#if':[
-					('/^/ParentKeyStr',SYS.operator.eq,"#direct:Layers")
-				]
-			}
+			#'/Top/NeuronsList.append':{
+			#	'#set':[">>self"],
+			#	'#if':[
+			#		('/^/ParentKeyStr',SYS.operator.eq,"Neurons")
+			#	]
+			#}
 		},
 		_AfterWalkBool=True
 	)
 
 #print
-print('MyParenter.NeuronsDict.keys() is ')
-SYS._print(MyParenter.NeuronsDict.keys())
+print('MyParenter.NeuronsList is ')
+SYS._print(MyParenter.NeuronsList)
 
-#print
-print('MyParenter.LayersDict.keys() is ')
-SYS._print(MyParenter.LayersDict.keys())

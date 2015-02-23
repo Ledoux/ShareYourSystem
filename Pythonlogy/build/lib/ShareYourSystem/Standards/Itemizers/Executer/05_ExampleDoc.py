@@ -2,15 +2,16 @@
 #ImportModules
 import ShareYourSystem as SYS
 
-#Definition and update with an exec Str
+#Define and append in a list
 MyExecuter=SYS.ExecuterClass(
 	).get(
 		'MyList'
 	).set(
 		'MyList.append',
-		{
-			'#set':[6]
-		}
+		[6]
+	).set(
+		'MyList.append',
+		['>>self.MyList.__getitem__(0)']
 	)
 
 #print

@@ -26,5 +26,6 @@ print('Get #direct:salut returns '+SYS._str(MyGetter["#direct:salut"]))
 print('Get GetClass(lambda self:self.MyInt+2) returns '+SYS._str(
 	MyGetter[SYS.GetClass(lambda self:self.MyInt+2)]))
 
-
-
+#bound
+SYS.GetterClass.printHello=lambda _SelfVariable:SYS._print(_SelfVariable.MyInt)
+MyGetter['#call:printHello']

@@ -5,4 +5,5 @@ FrozenIsBool True
 
 ##Example
 
-With a parent structure we can make the top as a recruiter of things during a walk command
+Now we can set sup tree structures of things that can gives rich information
+to the top

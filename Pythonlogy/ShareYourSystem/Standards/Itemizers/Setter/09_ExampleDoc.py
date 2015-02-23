@@ -15,6 +15,10 @@ MySetter=SYS.SetterClass(
 print('MySetter is ')
 SYS._print(MySetter)
 
-#print the Setter that has setted 
-#print('MySetter.ChildSetter.DictDeriveSetter is ')
-#SYS._print(MySetter.ChildSetter.DictDeriveSetter)
+#print the ChildSetter keystr with which it was setted
+print('MySetter.ChildSetter.DictDeriveSetter is ')
+SYS._print(MySetter.ChildSetter.DictDeriveSetter)
+
+#print its setter
+print("MySetter.ChildSetter['<'] is ")
+SYS._print(MySetter.ChildSetter['<'])
