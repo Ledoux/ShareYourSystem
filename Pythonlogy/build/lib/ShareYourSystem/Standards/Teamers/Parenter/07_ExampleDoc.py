@@ -2,27 +2,8 @@
 #ImportModules
 import ShareYourSystem as SYS
 
-
-MyParenter=SYS.ParenterClass(
-	).get(
-		'MyList'
-	).set(
-		'MyList.append',
-		{
-			'#set':[4]
-		}
-	)
-
-#print
-print('MyParenter.MyList is ')
-SYS._print(MyParenter.MyList)
-
-
-"""
 #define and get two children
 MyParenter=SYS.ParenterClass(
-	).get(
-		'NeuronsList'
 	).array(
 		[
 			['&Layers'],
@@ -34,24 +15,28 @@ MyParenter=SYS.ParenterClass(
 		'+&.values+$.values',
 		{
 			'parent':[],
-			'call#RecruitmentVariable':SYS.GetClass(
-					lambda _InstanceVariable:_InstanceVariable[
-						'/Top/NeuronsList'
-					].append(_InstanceVariable) 
+			'#bound:recruit':lambda _InstanceVariable:_InstanceVariable[
+						'/Top/NeuronsDict'
+					].__setitem__(
+						_InstanceVariable.ManagementKeyStr,
+						_InstanceVariable
+					) 
 					if _InstanceVariable['/^/ParentKeyStr']=="Neurons"
-					else None
-				),
-			#'/Top/NeuronsList.append':{
-			#	'#set':[">>self"],
-			#	'#if':[
-			#		('/^/ParentKeyStr',SYS.operator.eq,"Neurons")
-			#	]
-			#}
+					else None,
+			'/Top/LayersDict.__setitem__':{
+				'#set':["#get:ManagementKeyStr",">>self"],
+				'#if':[
+					('/^/ParentKeyStr',SYS.operator.eq,"Layers")
+				]
+			}
 		},
 		_AfterWalkBool=True
 	)
 
 #print
-print('MyParenter.NeuronsList is ')
-SYS._print(MyParenter.NeuronsList)
-"""
+print('MyParenter.NeuronsDict.keys() is ')
+SYS._print(MyParenter.NeuronsDict.keys())
+
+#print
+print('MyParenter.LayersDict.keys() is ')
+SYS._print(MyParenter.LayersDict.keys())

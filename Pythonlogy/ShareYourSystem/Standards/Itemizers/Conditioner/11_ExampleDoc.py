@@ -9,7 +9,10 @@ MyConditioner=SYS.ConditionerClass(
 	).set(
 		'MyList.append',
 		{
-			'#set':[4]
+			'#set':[4],
+			'#if':[
+				(type,SYS.operator.eq,SYS.GetterClass)
+			]
 		}
 	)
 

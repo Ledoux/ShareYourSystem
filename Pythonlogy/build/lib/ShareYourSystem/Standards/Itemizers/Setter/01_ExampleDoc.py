@@ -40,7 +40,7 @@ MySetter.get(
 
 MySetter.set(
 		MySetter.MyList.append,
-		3
+		[3]
 	)
 
 #print

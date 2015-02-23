@@ -61,6 +61,7 @@ class GetClass(object):
 SYS.GetClass=GetClass
 GetDeletePrefixStr="#delete:"
 GetDirectPrefixStr="#direct:"
+GetUndirectPrefixKeyStr="#get:"
 GetShortKeyStr="#get"
 #</DefineLocals>
 
@@ -274,6 +275,28 @@ class GetterClass(BaseClass):
 				return {"HookingIsBool":False}
 
 			#/############################
+			# Case of a #get: str get 
+			#
+
+			elif self.GettingKeyVariable.startswith(GetUndirectPrefixKeyStr):
+
+				#debug
+				'''
+				self.debug('This is a undirect of a str variable')
+				'''
+
+				#set
+				self.GettedValueVariable=self[
+					SYS.deprefix(
+						self.GettingKeyVariable,
+						GetUndirectPrefixKeyStr
+					)
+				]
+
+				#Stop the getting
+				return {"HookingIsBool":False}
+
+			#/############################
 			# Case of a get in the instance __dict__ 
 			#
 
@@ -395,7 +418,8 @@ class GetterClass(BaseClass):
 		# Cases of a dict GetVariable get 
 		#
 
-		elif hasattr(self.GettingKeyVariable,'items') and type(self.GettingKeyVariable)!=type:
+		elif hasattr(self.GettingKeyVariable,'items'
+			) and type(self.GettingKeyVariable)!=type:
 
 			#debug
 			'''

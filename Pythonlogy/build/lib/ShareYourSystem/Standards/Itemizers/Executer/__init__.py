@@ -255,12 +255,21 @@ class ExecuterClass(BaseClass):
 				self.debug(
 						[
 							'GetValueVariable is '+str(GetValueVariable),
-							'AttributeValueVariable is '+str(AttributeValueVariable)
+							'AttributeValueVariable is '+str(AttributeValueVariable),
+							('self.',self,['SettingValueVariable'])
 						]
 					)
 
 				#call
 				if callable(AttributeValueVariable):
+
+					#debug
+					self.debug(
+						[
+							'we set call',
+							('self.',self,['SettingValueVariable'])
+						]
+					)
 
 					#set
 					self[AttributeValueVariable]=self.SettingValueVariable

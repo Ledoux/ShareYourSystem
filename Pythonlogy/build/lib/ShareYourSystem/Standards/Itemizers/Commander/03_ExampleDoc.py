@@ -57,7 +57,7 @@ SecondCommander=SYS.CommanderClass(
 		#CommandingUpdateList	
 		CommandingSetVariable,
 		#CommandingOrderStr
-		"EachSetForAllGrasps"	
+		"EachSetForAllGets"	
 	)
 
 #print
