@@ -50,4 +50,3 @@ MySetter.set(
 #print
 print('MySetter.GettedValueVariable is ')
 SYS._print(MySetter.GettedValueVariable)
-'''

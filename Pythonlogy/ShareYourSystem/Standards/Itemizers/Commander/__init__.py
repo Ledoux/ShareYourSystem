@@ -40,11 +40,11 @@ class CommanderClass(BaseClass):
 	RepresentingKeyStrsList=[
 							#'CommandingGetVariable',
 							#'CommandingSetVariable',
-							'CommandingOrderStr',
-							'CommandingBeforeWalkBool',
-							'CommandingAfterWalkBool',
-							'CommandingBeforeSelfBool',
-							'CommandingAfterSelfBool'
+							#'CommandingOrderStr',
+							#'CommandingBeforeWalkBool',
+							#'CommandingAfterWalkBool',
+							#'CommandingBeforeSelfBool',
+							#'CommandingAfterSelfBool'
 						]
 
 	def default_init(
@@ -94,7 +94,7 @@ class CommanderClass(BaseClass):
 				]
 			)
 			'''
-
+			
 			#get
 			CommandedValueVariablesList=self[
 				self.CommandingGetVariable
@@ -120,12 +120,14 @@ class CommanderClass(BaseClass):
 		CommandedValueVariablesList=SYS.filterNone(CommandedValueVariablesList)
 
 		#debug
+		'''
 		self.debug(
 				[
 					'in the end, CommandedValueVariablesList is ',
 					SYS._str(CommandedValueVariablesList)
 				]
 			)
+		'''
 		
 		#/###################/#
 		# Check if we have to walk before
@@ -209,7 +211,8 @@ class CommanderClass(BaseClass):
 				#items
 				CommandedSetVariablesList=self.CommandingSetVariable.items()
 
-			elif type(self.CommandingSetVariable)==str and self.CommandingSetVariable.startswith(
+			elif type(self.CommandingSetVariable
+				)==str and self.CommandingSetVariable.startswith(
 					Getter.GetCallPrefixStr
 				):
 
@@ -381,27 +384,27 @@ class CommanderClass(BaseClass):
 				'''
 				self.debug(
 					[
-						'We add here',
+						'We map get',
 						'AddGetKeyStrsList is '+str(AddGetKeyStrsList) 
 					]
 				)
 				'''
-
+				
 				#map get
 				AddVariablesList=self[
-						'#map@get'
+						Getter.GetMapStr
 					](*AddGetKeyStrsList).ItemizedMapValueVariablesList
 
 				#debug
 				'''
 				self.debug(
 					[
-						'We add here',
+						'We sum now',
 						'AddVariablesList is '+SYS._str(AddVariablesList) 
 					]
 				)	
 				'''
-				
+
 				#map get
 				self.GettedValueVariable=SYS.sum(AddVariablesList)
 

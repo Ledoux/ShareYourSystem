@@ -20,18 +20,20 @@ MyCommander=SYS.CommanderClass(
 		},
 		{
 			'execute':{
-				'#value:#get':">>self.__class__.GrabList.append(self)",
+				'#value':"self.__class__.GrabList.append(self.SetKeyStr)",
 				'#if':[
-					('MyInt',SYS.operator.lt,2)
+					('MyInt',SYS.operator.lt,3)
 				]
 			}
-		}
+		},
+		_AfterWalkBool=True
 	)
-
 
 #print
 print('MyCommander is GrabList')
 SYS._print(MyCommander.GrabList)
+
+
 
 
 

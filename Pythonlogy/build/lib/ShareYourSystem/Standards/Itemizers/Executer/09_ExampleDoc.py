@@ -7,7 +7,7 @@ MyExecuter=SYS.ExecuterClass(
 	).set(
 		'execute',
 		{
-			'#value':'>>self.MyInt=3'
+			'#value':'self.MyInt=3'
 		}
 	)
 

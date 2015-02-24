@@ -11,4 +11,8 @@ MyGetter.MyStr="hello"
 print("MyGetter['#map@get']('MyInt','MyStr').ItemizedMapValueVariablesList gives")
 print(MyGetter['#map@get']('MyInt','MyStr').ItemizedMapValueVariablesList)
 
+#print
+print("MyGetter['#map@get']('MyInt','MyStr').ItemizedMapValueVariablesList gives")
+print(MyGetter['#map@get']('MyInt','MyStr').ItemizedMapValueVariablesList)
+
 

@@ -82,6 +82,7 @@ class ConditionerClass(BaseClass):
 	def do_condition(self):
 
 		#debug
+		'''
 		self.debug(
 			[
 				('self.',self,[
@@ -91,7 +92,8 @@ class ConditionerClass(BaseClass):
 				)
 			]
 		)
-		
+		'''
+
 		#/###################/#
 		# Adapt the TestValueVariable
 		#
@@ -113,9 +115,11 @@ class ConditionerClass(BaseClass):
 			return 
 				
 		#debug
+		'''
 		self.debug(
 				'ConditionedTestValueVariable is '+SYS._str(ConditionedTestValueVariable)
 			)
+		'''
 
 		#Check
 		if ConditionedTestValueVariable in self.ConditioningFunctionTypesList:
@@ -131,12 +135,14 @@ class ConditionerClass(BaseClass):
 				)
 
 		#debug
+		'''
 		self.debug(
 			[
 				'We have configured the ConditionedTestValueVariable',
 				'ConditionedTestValueVariable is '+str(ConditionedTestValueVariable)
 			]
 		)
+		'''
 
 		#/###################/#
 		# Adapt the AttestValueVariable
@@ -154,6 +160,7 @@ class ConditionerClass(BaseClass):
 		except:
 
 			#debug
+			'''
 			self.debug(
 				[
 					'The get has not work for the Attest variable',
@@ -161,6 +168,7 @@ class ConditionerClass(BaseClass):
 					('self.',self,['ConditioningInstanceVariable'])
 				]
 			)
+			'''
 
 			#return 
 			if hasattr(self.ConditioningInstanceVariable,'items'
@@ -185,7 +193,9 @@ class ConditionerClass(BaseClass):
 			else:
 
 				#debug
+				'''
 				self.debug('It is a dict or list so just put the value')
+				'''
 
 				#alias
 				ConditionedAttestValueVariable=self.ConditioningAttestGetVariable	
@@ -200,13 +210,15 @@ class ConditionerClass(BaseClass):
 				)
 
 		#debug
+		'''
 		self.debug(
 			[
 				'We have configured the ConditionedAttestValueVariable',
 				'ConditionedAttestValueVariable is '+str(ConditionedAttestValueVariable)
 			]
 		)
-		
+		'''
+
 		#call
 		try:
 
@@ -219,12 +231,14 @@ class ConditionerClass(BaseClass):
 		except:
 
 			#debug
+			'''
 			self.debug(
 				[
 					'The get has not worked for the Attest variable',
 					' so check what it is'
 				]
 			)
+			'''
 
 			#return 
 			if hasattr(self.ConditioningInstanceVariable,'items'
@@ -232,12 +246,14 @@ class ConditionerClass(BaseClass):
 					list,tuple]:
 
 				#debug
+				'''
 				self.debug(
 					[
 						'It was not a dict or list so...',
 						'There is no reason that it doesnt get except if it false'
 					]
 				)
+				'''
 
 				#set
 				self.ConditionedIsBool=False
@@ -248,7 +264,9 @@ class ConditionerClass(BaseClass):
 			else:
 
 				#debug
+				'''
 				self.debug('It is a dict or list so just put the value')
+				'''
 
 				#alias
 				ConditionedTestValueVariable=self.ConditioningTestGetVariable	
@@ -573,6 +591,7 @@ class ConditionerClass(BaseClass):
 				if self.ConditionedIsBool:
 
 					#We append
+					'''
 					self.debug(
 							[	
 								'Ok we set',
@@ -582,6 +601,7 @@ class ConditionerClass(BaseClass):
 									TempSettingValueVariable)
 							]
 						)
+					'''
 
 					#/##################/#
 					# Copy the TempSettingValueVariable in order to remove the if item and
@@ -595,6 +615,7 @@ class ConditionerClass(BaseClass):
 				else:
 
 					#We append
+					'''
 					self.debug(
 							[	
 								'It is false we stop the setting',
@@ -604,7 +625,8 @@ class ConditionerClass(BaseClass):
 								])
 							]
 						)
-
+					'''
+					
 					#stop the setting
 					return {'HookingIsBool':False}
 

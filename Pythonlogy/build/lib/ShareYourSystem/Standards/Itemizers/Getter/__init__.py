@@ -136,13 +136,14 @@ class GetterClass(BaseClass):
 			[
 				("self.",self,[
 						'GettingKeyVariable',
-						'NameStr'
+						'NameStr',
+						'GettingItemBool'
 					]
 				)
 			]
 		)
 		'''
-
+		
 		#itemize first
 		if self.GettingItemBool:
 
@@ -152,7 +153,7 @@ class GetterClass(BaseClass):
 			'''
 
 			#Check
-			if self.GettingKeyVariable==Itemizer.ItemMapPrefixStr+'get':
+			if self.GettingKeyVariable==GetMapStr:
 
 				#set
 				self.ItemizingMapGetVariable='GettedValueVariable'
@@ -163,10 +164,10 @@ class GetterClass(BaseClass):
 				)
 
 			#Check
-			if self.GettingKeyVariable==Itemizer.ItemMapPrefixStr+'get':
-
-				#set
-				self.GettingItemBool=False
+			#if self.GettingKeyVariable==GetMapStr:
+			#
+			#	#set
+			#	self.GettingItemBool=False
 
 		else:
 
@@ -174,7 +175,7 @@ class GetterClass(BaseClass):
 			self.ItemizedValueMethod=None
 
 			#set
-			self.GettingItemBool=True
+			#self.GettingItemBool=True
 
 		#/############################
 		# Case of a method get 
@@ -482,6 +483,7 @@ class GetterClass(BaseClass):
 				if callable(GettedValueType):
 
 					#debug
+					'''
 					self.debug(
 						[
 							'We call here',
@@ -489,6 +491,7 @@ class GetterClass(BaseClass):
 							('self.',self,['GettingKeyVariable'])
 						]
 					)
+					'''
 					
 					#alias
 					self.GettedValueVariable=GettedValueType()
@@ -518,13 +521,15 @@ class GetterClass(BaseClass):
 			) and type(self.GettingKeyVariable)!=type:
 
 			#debug
+			'''
 			self.debug(
 				[
 					'we get or set with an itemizable instance',
 					('self.',self,['GettingKeyVariable'])
 				]
 			)
-
+			'''
+			
 			#Init
 			GettedReturnBool=False
 
@@ -618,9 +623,11 @@ class GetterClass(BaseClass):
 			if GetModifyGrabStr in GettedTempGettingKeyVariable:
 
 				#debug
+				'''
 				self.debug(
 						'We modify here '
 					)
+				'''
 
 				#call 
 				#self.GettedValueVariable=GettedTempGettingKeyVariable[

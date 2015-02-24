@@ -49,11 +49,13 @@ class ExecuterClass(BaseClass):
 	def do_execute(self):
 
 		#debug
+		'''
 		self.debug(
 			('self.',self,[
 					'ExecutingCodeStr'
 				])
 		)
+		'''
 		
 		#give the sys
 		locals()['SYS']=SYS
@@ -72,7 +74,7 @@ class ExecuterClass(BaseClass):
 				('self.',self,['GettingKeyVariable'])
 			)
 		'''
-		
+
 		#Check
 		if type(self.GettingKeyVariable
 			)==str:
@@ -108,9 +110,14 @@ class ExecuterClass(BaseClass):
 
 				#debug
 				'''
-				self.debug('we get an attribute of the GettingKeyVariable')
+				self.debug(
+					[
+						'we get an attribute of the GettingKeyVariable',
+						[('self.',self,['GettingKeyVariable'])]
+					]
+				)
 				'''
-
+				
 				#previous
 				GetKeyStr,AttributeStr=SYS.previous(
 							self.GettingKeyVariable,

@@ -170,6 +170,7 @@ class SetterClass(BaseClass):
 			#
 
 			#debug
+			'''
 			self.debug(
 					[
 						'SettedValueMethod is '+SYS._str(SettedValueMethod),
@@ -177,6 +178,7 @@ class SetterClass(BaseClass):
 						('self.',self,['SettingValueVariable'])
 					]
 				)
+			'''
 
 			#Temp
 			SettedTempSettingValueVariable=self.SettingValueVariable
@@ -599,13 +601,14 @@ class SetterClass(BaseClass):
 					if SettedValueType!=type(self.SettingValueVariable): 
 
 						#debug
+						'''
 						self.debug(
 							[
 								'SettedValueType is '+str(SettedValueType),
 								('self.',self,['SettingKeyVariable'])
 							]
 						)	
-
+						'''
 
 						#Check
 						if SettedValueType!=None.__class__:
@@ -650,7 +653,11 @@ class SetterClass(BaseClass):
 							'''
 
 							#debug
-							self.debug('Ok we have instanced')
+							'''
+							self.debug(
+								'Ok we have instanced'
+							)
+							'''
 
 							#Return
 							return {'HookingIsBool':False}
