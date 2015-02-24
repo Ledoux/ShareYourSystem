@@ -110,20 +110,20 @@ class NoderClass(BaseClass):
 		if self.NodingCollectionStr!="":
 		
 			#set the Noded OrderedDict and KeyStr
-			NodedCollectionOrderedDictKeyStr=self.NodingCollectionStr+'CollectionOrderedDict'
+			NodedCollectionOrderedSetKeyStr=self.NodingCollectionStr+'CollectionOrderedDict'
 			#self.NodeKeyStrKeyStr=self.NodedPrefixStr+'KeyStr'
 
 			try:
-				self.NodedCollectionOrderedDict=getattr(self,NodedCollectionOrderedDictKeyStr)
+				self.NodedCollectionOrderedDict=getattr(self,NodedCollectionOrderedSetKeyStr)
 			except AttributeError:
 				self.__setattr__(
-									NodedCollectionOrderedDictKeyStr,
+									NodedCollectionOrderedSetKeyStr,
 									collections.OrderedDict()
 								)
-				self.NodedCollectionOrderedDict=getattr(self,NodedCollectionOrderedDictKeyStr)
+				self.NodedCollectionOrderedDict=getattr(self,NodedCollectionOrderedSetKeyStr)
 
 			#set
-			self.CollectionsOrderedDict[NodedCollectionOrderedDictKeyStr]=self.NodedCollectionOrderedDict
+			self.CollectionsOrderedDict[NodedCollectionOrderedSetKeyStr]=self.NodedCollectionOrderedDict
 
 	def mimic_get(self):
 

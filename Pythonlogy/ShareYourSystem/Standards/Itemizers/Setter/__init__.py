@@ -43,7 +43,8 @@ SetKeyGrabStr=Getter.GetGrabStr
 SetValueGrabStr="#value"
 SetValueGrabPrefixStr=SetValueGrabStr+':'
 SetValueGetGrabStr=SetValueGrabPrefixStr+Getter.GetUndirectStr
-SetMapValueGetGrabStr=SetValueGrabPrefixStr+Itemizer.ItemMapPrefixStr+'get'
+SetMapStr=Itemizer.ItemMapPrefixStr+'set'
+SetMapValueGetGrabStr=SetValueGrabPrefixStr+Getter.GetMapStr
 #</DefineLocals>
 
 #<DefineClass>
@@ -52,14 +53,18 @@ class SetterClass(BaseClass):
 
 	#Definition
 	RepresentingKeyStrsList=[
-									'SettingKeyVariable',
-									'SettingValueVariable',
-									'SettingItemBool',
-									'SettingNewBool',
-									'SettedValueVariable'
-								]
+								'SetKeyStr',
+								#'SetDeriveSetter',
+								'SettingKeyVariable',
+								'SettingValueVariable',
+								#'SettingItemBool',
+								#'SettingNewBool',
+								'SettedValueVariable'
+							]
 
 	def default_init(self,
+						_SetKeyStr="",
+						_SetDeriveSetter=None,
 						_SettingKeyVariable=None, 
 						_SettingValueVariable=None, 
 						_SettingItemBool=True, 	
@@ -71,6 +76,10 @@ class SetterClass(BaseClass):
 
 		#Call the parent init method
 		BaseClass.__init__(self,**_KwargVariablesDict)
+
+		#Init
+		#self.SetKeyStr=""
+		#self.SetDeriveSetter=None
 
 	def getMapValueVariable(self):
 
@@ -264,26 +273,38 @@ class SetterClass(BaseClass):
 				SetEachPrefixStr
 			):
 
+				#temp
+				SettedTempSettingValueVariable=self.SettingValueVariable
+
 				#get
-				SettedGetVariable=self[
+				SettedEachGetVariable=self[
 					SYS.deprefix(
 						self.SettingKeyVariable,
 						SetEachPrefixStr
 					)
 				]
 
+				#debug
+				self.debug(
+					[
+						'We each here',
+						('self.',self,['SettingKeyVariable']),
+						'SettedEachGetVariable is '+str(SettedEachGetVariable)
+					]
+				)
+
 				#Check
-				if hasattr(SettedGetVariable,'values'):
-					SettedGetVariablesList=SettedGetVariable.values()
+				if hasattr(SettedEachGetVariable,'values'):
+					SettedEachGetVariablesList=SettedEachGetVariable.values()
 				else:
-					SettedGetVariablesList=SettedGetVariable
+					SettedEachGetVariablesList=SettedEachGetVariable
 
 				#debug
 				'''
 				self.debug(
 					[
-						'SettedGetVariablesList is ',
-						SYS._str(SettedGetVariablesList),
+						'SettedEachGetVariablesList is ',
+						SYS._str(SettedEachGetVariablesList),
 						('self.',self,['SettingValueVariable'])
 					]
 				)
@@ -299,11 +320,11 @@ class SetterClass(BaseClass):
 							list,tuple
 						] and len(__SettedValueVariable)==2
 						else
-						__SettedGetVariable[SetMapValueGetGrabStr](
+						__SettedGetVariable[SetMapStr](
 							__SettedValueVariable
 						),
-						SettedGetVariablesList,
-						self.SettingValueVariable
+						SettedEachGetVariablesList,
+						SettedTempSettingValueVariable
 					)
 
 				#Return stop the setting
@@ -363,7 +384,7 @@ class SetterClass(BaseClass):
 					#map
 					map(
 							lambda __SettedGetVariable:
-							__SettedGetVariable[SetMapValueGetGrabStr](
+							__SettedGetVariable[SetMapStr](
 								self.SettingValueVariable
 							),
 							SettedGetVariablesList
@@ -500,13 +521,13 @@ class SetterClass(BaseClass):
 					if SettedValueType!=type(self.SettingValueVariable): 
 
 						#debug
-						'''
 						self.debug(
 							[
-								'SettedValueType is '+str(SettedValueType)
+								'SettedValueType is '+str(SettedValueType),
+								('self.',self,['SettingKeyVariable'])
 							]
 						)	
-						'''
+
 
 						#Check
 						if SettedValueType!=None.__class__:
@@ -528,7 +549,7 @@ class SetterClass(BaseClass):
 
 							#map set
 							self[self.SettingKeyVariable]=SettedValueType(
-								)[SetMapValueGetGrabStr](
+								)[SetMapStr](
 								self.SettingValueVariable
 							)
 							#self.SettingValueVariable=SettedValueType(
@@ -549,6 +570,9 @@ class SetterClass(BaseClass):
 										]
 									)
 							'''
+
+							#debug
+							self.debug('Ok we have instanced')
 
 							#Return
 							return {'HookingIsBool':False}
@@ -577,8 +601,8 @@ class SetterClass(BaseClass):
 
 				#add in the SettingValue
 				try:
-					self.SettingValueVariable.DictKeyStr=self.SettingKeyVariable
-					self.SettingValueVariable.DictDeriveSetter=self
+					self.SettingValueVariable.SetKeyStr=self.SettingKeyVariable
+					self.SettingValueVariable.SetDeriveSetter=self
 				except:
 					pass
 
@@ -723,7 +747,7 @@ class SetterClass(BaseClass):
 		if self.GettingKeyVariable==SetSetterShortStr:
 
 			#get
-			self.GettedValueVariable=self.DictDeriveSetter
+			self.GettedValueVariable=self.SetDeriveSetter
 
 			#return 
 			return {'HookingIsBool':False}

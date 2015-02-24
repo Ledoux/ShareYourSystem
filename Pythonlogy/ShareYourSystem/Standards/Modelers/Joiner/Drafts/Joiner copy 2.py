@@ -96,9 +96,9 @@ class JoinerClass(SYS.FeaturerClass):
 				)
 
 				#Definition the JoinedOrderedDict
-				JoinedOrderedDictKeyStr=self.NodifiedNodedStr+'JoinedOrderedDict'
-				self.__setattr__(JoinedOrderedDictKeyStr,collections.OrderedDict())
-				JoinedOrderedDict=getattr(self,JoinedOrderedDictKeyStr)
+				JoinedOrderedSetKeyStr=self.NodifiedNodedStr+'JoinedOrderedDict'
+				self.__setattr__(JoinedOrderedSetKeyStr,collections.OrderedDict())
+				JoinedOrderedDict=getattr(self,JoinedOrderedSetKeyStr)
 				JoinedOrderedDict[self.JoinedJoinedListKeyStr]=[-1,-1]
 
 				#Init the JoinedList for each child
@@ -764,9 +764,9 @@ class JoinerClass(SYS.FeaturerClass):
 					self.JoinedJoinedList[1]=IndexInt
 
 			#Give to itself
-			JoinedOrderedDictKeyStr=self.JoinedNodifiedNodedStr+'JoinedOrderedDict'
-			if hasattr(self,JoinedOrderedDictKeyStr):
-				self.JoinedOrderedDict=getattr(self,JoinedOrderedDictKeyStr)
+			JoinedOrderedSetKeyStr=self.JoinedNodifiedNodedStr+'JoinedOrderedDict'
+			if hasattr(self,JoinedOrderedSetKeyStr):
+				self.JoinedOrderedDict=getattr(self,JoinedOrderedSetKeyStr)
 			if self.JoinedOrderedDict==None:
 				self.JoinedOrderedDict=collections.OrderedDict()
 			self.JoinedOrderedDict.__setitem__(
@@ -777,7 +777,7 @@ class JoinerClass(SYS.FeaturerClass):
 				ParentPointer=getattr(self,self.JoinedNodifiedNodedStr+'ParentPointer')
 				if ParentPointer!=None:
 					#Give to the Parent
-					JoinedOrderedDict=getattr(ParentPointer,JoinedOrderedDictKeyStr)
+					JoinedOrderedDict=getattr(ParentPointer,JoinedOrderedSetKeyStr)
 					JoinedOrderedDict[getattr(self,self.JoinedNodifiedNodedStr+'KeyStr'
 						)+self.JoinedJoinedListKeyStr]=self.JoinedJoinedList
 

@@ -31,8 +31,8 @@ def getMapList(_LiargVariablesList):
 	return _LiargVariablesList[0]
 def getLiargVariablesList(_ValueVariable):
 	return [_ValueVariable]
-ConditionGrabKeyStr="#filter"
-ConditionGrabKeyStr="#if"
+ConditionGrabFilterStr="#filter"
+ConditionGrabIfStr="#if"
 #</DefineLocals>
 
 #<DefineClass>
@@ -193,7 +193,7 @@ class ConditionerClass(BaseClass):
 		) and type(self.GettingKeyVariable)!=type:
 
 			#Check
-			if ConditionGrabKeyStr in self.GettingKeyVariable:
+			if ConditionGrabFilterStr in self.GettingKeyVariable:
 
 				#debug
 				'''
@@ -208,7 +208,7 @@ class ConditionerClass(BaseClass):
 				'''
 
 				#alias
-				IfVariable=self.GettingKeyVariable[ConditionGrabKeyStr]
+				FilterVariable=self.GettingKeyVariable[ConditionGrabFilterStr]
 
 				#get
 				ConditionScanValueVariablesList=self[
@@ -239,7 +239,7 @@ class ConditionerClass(BaseClass):
 					self.ConditioningInstanceVariable=__ConditionTestVariable
 							
 					#loop and break at the first false
-					for __ConditionVariable in IfVariable:
+					for __ConditionVariable in FilterVariable:
 
 						#Check
 						if type(__ConditionVariable)==SYS.GetClass:
@@ -342,13 +342,13 @@ class ConditionerClass(BaseClass):
 			) and type(self.SettingKeyVariable)!=type:
 
 				#Check
-				if ConditionGrabKeyStr in self.SettingKeyVariable:
+				if ConditionGrabFilterStr in self.SettingKeyVariable:
 
 					#Check
 					if self.ConditionedIfBool==False:
 
 						#set
-						IfVariable=self.SettingKeyVariable[ConditionGrabKeyStr]
+						IfVariable=self.SettingKeyVariable[ConditionGrabFilterStr]
 
 						#debug
 						'''
@@ -409,7 +409,7 @@ class ConditionerClass(BaseClass):
 			) and type(self.SettingValueVariable)!=type: 
 
 			#Check
-			if ConditionGrabKeyStr in self.SettingValueVariable:
+			if ConditionGrabIfStr in self.SettingValueVariable:
 
 				#/###################/#
 				# Maybe the condition was not yet check
@@ -419,7 +419,7 @@ class ConditionerClass(BaseClass):
 				if self.ConditionedIfBool==False:
 
 					#set
-					IfVariable=self.SettingValueVariable[ConditionGrabKeyStr]
+					IfVariable=self.SettingValueVariable[ConditionGrabIfStr]
 					SettingKeyVariable=self.SettingKeyVariable
 					SettingValueVariable=self.SettingValueVariable
 
@@ -467,7 +467,7 @@ class ConditionerClass(BaseClass):
 							)
 						
 						#delete
-						#del self.SettingValueVariable[ConditionGrabKeyStr]
+						#del self.SettingValueVariable[ConditionGrabFilterStr]
 						self.ConditionedIfBool=True
 
 						#append

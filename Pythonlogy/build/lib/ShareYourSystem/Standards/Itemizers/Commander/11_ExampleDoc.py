@@ -16,12 +16,14 @@ MyCommander=SYS.CommanderClass(
 print('\n\n\n\nEEEEE\n\n\n')
 
 SYS._print(
-	MyCommander[
-
+	map(
+		lambda _e:_e.SetKeyStr,
+		MyCommander[
 		{
 			'#filter':[(type,SYS.operator.eq,SYS.CommanderClass)]
 		}
 	]
+	)
 )
 
 

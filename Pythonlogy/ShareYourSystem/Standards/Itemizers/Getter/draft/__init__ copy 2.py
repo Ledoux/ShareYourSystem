@@ -304,7 +304,7 @@ class GetterClass(BaseClass):
 
 					#add in the SettingValue
 					try:
-						self.GettedValueVariable.DictKeyStr=self.GettingKeyVariable
+						self.GettedValueVariable.SetKeyStr=self.GettingKeyVariable
 					except:
 						pass
 

@@ -23,7 +23,6 @@ MySetter=SYS.SetterClass(
 		]
 	)
 
-
 #print
 print('MySetter is ')
 SYS._print(MySetter)

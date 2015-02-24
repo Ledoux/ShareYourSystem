@@ -192,7 +192,7 @@ MakerClass.InspectedArgumentDict is
    /   /   /{
    /   /   /}
    /   /  'InputKeyStrsList' : ['_InstanceVariable', '_MethodStr']
-   /   /  'KwargVariablesDictKeyStr' : _KwargVariablesDict
+   /   /  'KwargVariablesSetKeyStr' : _KwargVariablesDict
    /   /  'LiargVariablesListKeyStr' : _LiargVariablesList
    /   /}
    /  'callDo' :
@@ -202,7 +202,7 @@ MakerClass.InspectedArgumentDict is
    /   /   /{
    /   /   /}
    /   /  'InputKeyStrsList' : ['_InstanceVariable']
-   /   /  'KwargVariablesDictKeyStr' :
+   /   /  'KwargVariablesSetKeyStr' :
    /   /  'LiargVariablesListKeyStr' :
    /   /}
    /  'getClass' :
@@ -213,7 +213,7 @@ MakerClass.InspectedArgumentDict is
    /   /   /  '_ClassVariable' : None
    /   /   /}
    /   /  'InputKeyStrsList' : ['_InstanceVariable', '_ClassVariable']
-   /   /  'KwargVariablesDictKeyStr' :
+   /   /  'KwargVariablesSetKeyStr' :
    /   /  'LiargVariablesListKeyStr' :
    /   /}
    /  'setDefault' :
@@ -225,7 +225,7 @@ MakerClass.InspectedArgumentDict is
    /   /   /}
    /   /  'InputKeyStrsList' : ['_InstanceVariable', '_ClassVariable',
 '_AttributeKeyStrsList']
-   /   /  'KwargVariablesDictKeyStr' : _KwargVariablesDict
+   /   /  'KwargVariablesSetKeyStr' : _KwargVariablesDict
    /   /  'LiargVariablesListKeyStr' :
    /   /}
    /  'setDefaultMutable' :
@@ -237,7 +237,7 @@ MakerClass.InspectedArgumentDict is
    /   /   /}
    /   /  'InputKeyStrsList' : ['_InstanceVariable', '_ClassVariable',
 '_AttributeKeyStrsList']
-   /   /  'KwargVariablesDictKeyStr' : _KwargVariablesDict
+   /   /  'KwargVariablesSetKeyStr' : _KwargVariablesDict
    /   /  'LiargVariablesListKeyStr' :
    /   /}
    /  'setDo' :
@@ -248,7 +248,7 @@ MakerClass.InspectedArgumentDict is
    /   /   /  '_DoClassVariable' : None
    /   /   /}
    /   /  'InputKeyStrsList' : ['_InstanceVariable', '_DoClassVariable']
-   /   /  'KwargVariablesDictKeyStr' : _KwargVariablesDict
+   /   /  'KwargVariablesSetKeyStr' : _KwargVariablesDict
    /   /  'LiargVariablesListKeyStr' :
    /   /}
    /  'setDoing' :
@@ -259,7 +259,7 @@ MakerClass.InspectedArgumentDict is
    /   /   /  '_DoClassVariable' : None
    /   /   /}
    /   /  'InputKeyStrsList' : ['_InstanceVariable', '_DoClassVariable']
-   /   /  'KwargVariablesDictKeyStr' : _KwargVariablesDict
+   /   /  'KwargVariablesSetKeyStr' : _KwargVariablesDict
    /   /  'LiargVariablesListKeyStr' :
    /   /}
    /  'setDone' :
@@ -270,7 +270,7 @@ MakerClass.InspectedArgumentDict is
    /   /   /  '_DoClassVariable' : None
    /   /   /}
    /   /  'InputKeyStrsList' : ['_InstanceVariable', '_DoClassVariable']
-   /   /  'KwargVariablesDictKeyStr' : _KwargVariablesDict
+   /   /  'KwargVariablesSetKeyStr' : _KwargVariablesDict
    /   /  'LiargVariablesListKeyStr' :
    /   /}
    /  'superDefault_init' :
@@ -280,7 +280,7 @@ MakerClass.InspectedArgumentDict is
    /   /   /{
    /   /   /}
    /   /  'InputKeyStrsList' : ['_InstanceVariable']
-   /   /  'KwargVariablesDictKeyStr' : _KwargVariablesDict
+   /   /  'KwargVariablesSetKeyStr' : _KwargVariablesDict
    /   /  'LiargVariablesListKeyStr' : _LiargVariablesList
    /   /}
    /  'superDo_make' :
@@ -290,7 +290,7 @@ MakerClass.InspectedArgumentDict is
    /   /   /{
    /   /   /}
    /   /  'InputKeyStrsList' : ['_InstanceVariable']
-   /   /  'KwargVariablesDictKeyStr' : _KwargVariablesDict
+   /   /  'KwargVariablesSetKeyStr' : _KwargVariablesDict
    /   /  'LiargVariablesListKeyStr' : _LiargVariablesList
    /   /}
    /}

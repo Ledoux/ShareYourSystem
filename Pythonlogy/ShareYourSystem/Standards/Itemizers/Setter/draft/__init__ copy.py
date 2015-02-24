@@ -429,8 +429,8 @@ class SetterClass(BaseClass):
 
 				#add in the SettingValue
 				try:
-					self.SettingValueVariable.DictKeyStr=self.SettingKeyVariable
-					#self.SettingValueVariable.DictDeriveSetter=self
+					self.SettingValueVariable.SetKeyStr=self.SettingKeyVariable
+					#self.SettingValueVariable.SetDeriveSetter=self
 				except:
 					pass
 

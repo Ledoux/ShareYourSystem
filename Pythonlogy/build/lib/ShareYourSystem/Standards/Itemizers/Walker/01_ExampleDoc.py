@@ -25,7 +25,7 @@ MyWalker.walk(
 			),
 			'RouteGetVariable':{
 				'ConditionVariable':[
-					('DictKeyStr',SYS.operator.contains,'Text')
+					('SetKeyStr',SYS.operator.contains,'Text')
 				]
 			}
 		}

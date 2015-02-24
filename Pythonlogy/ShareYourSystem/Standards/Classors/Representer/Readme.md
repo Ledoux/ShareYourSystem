@@ -357,11 +357,11 @@ def getRepresentedStrWithVariable(_Variable,**_KwargVariablesDict):
         #               hasattr(_Variable.__class__,"InspectedOrderedDict")))
         #       if hasattr(_Variable.__class__,"InspectedOrderedDict"):
         #               print("_Variable.__class__.InspectedOrderedDict['__repr_
-_']['KwargVariablesDictKeyStr'] is "+str(
+_']['KwargVariablesSetKeyStr'] is "+str(
         #                       _Variable.__class__.InspectedOrderedDict['__repr
-__']['KwargVariablesDictKeyStr']))
+__']['KwargVariablesSetKeyStr']))
         #               print(_Variable.__class__.InspectedOrderedDict['__repr__
-']['KwargVariablesDictKeyStr'])
+']['KwargVariablesSetKeyStr'])
         print('')
         '''
 
@@ -531,7 +531,7 @@ RepresentedLocalAlineaStr+_Variable.replace("\n","\n"+RepresentedLocalAlineaStr)
                 _Variable.__class__,"InspectedArgumentDict"
                 ) and '__repr__' in _Variable.__class__.InspectedArgumentDict
 and _Variable.__class__.InspectedArgumentDict[
-                '__repr__']['KwargVariablesDictKeyStr']!="":
+                '__repr__']['KwargVariablesSetKeyStr']!="":
 
                 #debug
                 '''

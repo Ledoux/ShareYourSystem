@@ -309,9 +309,9 @@ def getRepresentedStrWithVariable(_Variable,**_KwargVariablesDict):
 	#	print('hasattr(_Variable.__class__,"InspectedOrderedDict") is '+str(
 	#		hasattr(_Variable.__class__,"InspectedOrderedDict")))
 	#	if hasattr(_Variable.__class__,"InspectedOrderedDict"):
-	#		print("_Variable.__class__.InspectedOrderedDict['__repr__']['KwargVariablesDictKeyStr'] is "+str(
-	#			_Variable.__class__.InspectedOrderedDict['__repr__']['KwargVariablesDictKeyStr']))	
-	#		print(_Variable.__class__.InspectedOrderedDict['__repr__']['KwargVariablesDictKeyStr'])
+	#		print("_Variable.__class__.InspectedOrderedDict['__repr__']['KwargVariablesSetKeyStr'] is "+str(
+	#			_Variable.__class__.InspectedOrderedDict['__repr__']['KwargVariablesSetKeyStr']))	
+	#		print(_Variable.__class__.InspectedOrderedDict['__repr__']['KwargVariablesSetKeyStr'])
 	print('')
 	'''
 
@@ -488,7 +488,7 @@ def getRepresentedStrWithVariable(_Variable,**_KwargVariablesDict):
 	elif hasattr(_Variable,"__repr__") and hasattr(
 		_Variable.__class__,"InspectedArgumentDict"
 		) and '__repr__' in _Variable.__class__.InspectedArgumentDict and _Variable.__class__.InspectedArgumentDict[
-		'__repr__']['KwargVariablesDictKeyStr']!="":
+		'__repr__']['KwargVariablesSetKeyStr']!="":
 
 		#debug
 		'''

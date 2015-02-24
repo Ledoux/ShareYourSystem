@@ -21,7 +21,7 @@ def getDefaultedOrderedDictWithMethodFunction(_MethodFunction):
 
 		#Inspect to get the DefaultInputStrList
 
-		InputStrList,ArgVariablesListKeyStr,KwargsVariablesDictKeyStr,DefaultStrsList=inspect.getargspec(
+		InputStrList,ArgVariablesListKeyStr,KwargsVariablesSetKeyStr,DefaultStrsList=inspect.getargspec(
 			)
 
 		#debug

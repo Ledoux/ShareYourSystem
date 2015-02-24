@@ -9,7 +9,7 @@ MyCommander=SYS.CommanderClass(
 		'/',
 		#CommandingSetVariable
 		[
-			('MyChildCommander',{}),
+			('ChildCommander',{}),
 			('get',"MyInt")
 		]
 	)
@@ -21,7 +21,7 @@ print(MyCommander.GettedValueVariable)
 #command several objects with a list
 MyCommander.command(
 		#CommandingGetVariable
-		['/','MyChildCommander'],
+		['/','ChildCommander'],
 		#CommandingSetVariable
 		[
 			(
@@ -53,7 +53,6 @@ MyCommander.command(
 MyCommander.command(
 		[],('MyStr',"hello"),_BeforeSelfBool=True
 	)
-
 
 #print
 print('MyCommander is ')

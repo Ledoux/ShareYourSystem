@@ -9,7 +9,7 @@ SYS.PatherClass.ShareCountInt=0
 CommandingSetVariable=[
 	(
 		'execute',
-		"#direct:"+';'.join(
+		';'.join(
 			[
 				'self.ShareCountInt=self.__class__.ShareCountInt',
 				'self.__class__.ShareCountInt+=1'

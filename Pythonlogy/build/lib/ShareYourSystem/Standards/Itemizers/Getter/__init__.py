@@ -68,7 +68,8 @@ GetCallPrefixStr="#call:"
 GetGrabStr="#key"
 GetUndirectGrabPrefixStr=GetGrabStr+':'
 GetUndirectGrabStr=GetUndirectGrabPrefixStr+GetUndirectStr
-GetMapUndirectGrabStr=GetUndirectGrabPrefixStr+Itemizer.ItemMapPrefixStr+'get'
+GetMapStr=Itemizer.ItemMapPrefixStr+'get'
+GetMapUndirectGrabStr=GetUndirectGrabPrefixStr+GetMapStr
 #</DefineLocals>
 
 #<DefineClass>
@@ -480,7 +481,6 @@ class GetterClass(BaseClass):
 				if callable(GettedValueType):
 
 					#debug
-					'''
 					self.debug(
 						[
 							'We call here',
@@ -488,7 +488,6 @@ class GetterClass(BaseClass):
 							('self.',self,['GettingKeyVariable'])
 						]
 					)
-					'''
 					
 					#alias
 					self.GettedValueVariable=GettedValueType()
@@ -501,8 +500,8 @@ class GetterClass(BaseClass):
 					
 					#add in the SettingValue
 					try:
-						self.GettedValueVariable.DictKeyStr=self.GettingKeyVariable
-						self.GettedValueVariable.DictDeriveSetter=self
+						self.GettedValueVariable.SetKeyStr=self.GettingKeyVariable
+						self.GettedValueVariable.SetDeriveSetter=self
 					except:
 						pass
 

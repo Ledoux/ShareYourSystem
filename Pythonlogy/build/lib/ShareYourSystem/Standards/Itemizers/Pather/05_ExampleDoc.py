@@ -10,10 +10,7 @@ MyPather=SYS.PatherClass(
 
 MyPather.ChildPather.set(
 		'/</IdIntsDict.__setitem__',
-		(
-			'#direct:MyChildPather',
-			'/~/IdInt'
-		)
+		{'#value:#map@get':['#direct:MyChildPather','/~/IdInt']}
 	)
 
 #print

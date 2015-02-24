@@ -1041,7 +1041,7 @@ class ArgumentDict(collections.OrderedDict):
 		if _Function!=None:
 
 			#Unpack
-			InputKeyStrList,ArgVariablesListKeyStr,KwargsVariablesDictKeyStr,DefaultVariablesList=inspect.getargspec(
+			InputKeyStrList,ArgVariablesListKeyStr,KwargsVariablesSetKeyStr,DefaultVariablesList=inspect.getargspec(
 				_Function
 			)
 
@@ -1063,7 +1063,7 @@ class ArgumentDict(collections.OrderedDict):
 				[
 					('InputKeyStrsList',InputKeyStrList),
 					('LiargVariablesListKeyStr',ArgVariablesListKeyStr if ArgVariablesListKeyStr!=None else ""),
-					('KwargVariablesDictKeyStr',KwargsVariablesDictKeyStr if KwargsVariablesDictKeyStr!=None else ""),
+					('KwargVariablesSetKeyStr',KwargsVariablesSetKeyStr if KwargsVariablesSetKeyStr!=None else ""),
 					('DefaultOrderedDict',collections.OrderedDict(
 						zip(
 							InputKeyStrList[self['DefaultIndexInt']:],

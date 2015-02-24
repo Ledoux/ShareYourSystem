@@ -16,9 +16,10 @@ print('MySetter is ')
 SYS._print(MySetter)
 
 #print the ChildSetter keystr with which it was setted
-print('MySetter.ChildSetter.DictDeriveSetter is ')
-SYS._print(MySetter.ChildSetter.DictDeriveSetter)
+print('MySetter.ChildSetter.SetDeriveSetter is ')
+SYS._print(MySetter.ChildSetter.SetDeriveSetter)
 
 #print its setter
 print("MySetter.ChildSetter['<'] is ")
 SYS._print(MySetter.ChildSetter['<'])
+
