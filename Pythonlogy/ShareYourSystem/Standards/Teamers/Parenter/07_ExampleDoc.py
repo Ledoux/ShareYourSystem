@@ -29,12 +29,11 @@ MyParenter=SYS.ParenterClass(
 			'/Top/LayersDict.__setitem__':{
 				'#value:#map@get':["/~/ManagementKeyStr",">>self"],
 				'#if':[
-					('/^/ParentKeyStr',SYS.operator.eq,"#direct:Layers")
+					('/~/^/ParentKeyStr',SYS.operator.eq,"#direct:Layers")
 				]
 			}
 		}
 	)
-
 
 #print
 print('MyParenter.NeuronsDict.keys() is ')

@@ -22,7 +22,7 @@ SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
-from ShareYourSystem.Standards.Itemizers import Getter
+from ShareYourSystem.Standards.Itemizers import Getter,Setter
 #</ImportSpecificModules>
 
 #<DefineLocals>
@@ -94,7 +94,7 @@ class CommanderClass(BaseClass):
 				]
 			)
 			'''
-			
+
 			#get
 			CommandedValueVariablesList=self[
 				self.CommandingGetVariable
@@ -258,7 +258,7 @@ class CommanderClass(BaseClass):
 			'''
 
 			#add
-			self['#map@set'](CommandedSetVariablesList)
+			self[Setter.SetMapStr](CommandedSetVariablesList)
 
 		#Check for the order
 		if self.CommandingOrderStr=="AllSetsForEachGet":
@@ -302,7 +302,7 @@ class CommanderClass(BaseClass):
 			'''
 
 			#add
-			self['#map@set'](CommandedSetVariablesList)
+			self[Setter.SetMapStr](CommandedSetVariablesList)
 
 		#/###################/#
 		# And we check for a walk after

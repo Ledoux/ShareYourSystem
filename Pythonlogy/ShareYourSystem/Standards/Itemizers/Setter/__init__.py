@@ -735,6 +735,7 @@ class SetterClass(BaseClass):
 			#
 
 			#debug
+			'''
 			self.debug(
 					[
 						'The key is callable',
@@ -745,7 +746,8 @@ class SetterClass(BaseClass):
 						'map get the values to have the liargvariables list'
 					]
 				)
-
+			'''
+			
 			#Check
 			if type(self.SettingValueVariable) in [tuple,list]:
 
@@ -777,6 +779,7 @@ class SetterClass(BaseClass):
 					)
 
 				#debug
+				'''
 				self.debug(
 						[
 							'This is a get dict ',
@@ -784,6 +787,7 @@ class SetterClass(BaseClass):
 							('self.',self,['SettingValueVariable'])
 						]
 					)
+				'''
 
 				#get
 				SettedLiargVariablesList=self.TempSetVariable if type(
@@ -803,6 +807,7 @@ class SetterClass(BaseClass):
 				SettedLiargVariablesList=[self.SettingValueVariable]
 
 			#debug
+			'''
 			self.debug(
 				[
 					'we call here',
@@ -810,6 +815,7 @@ class SetterClass(BaseClass):
 					'SettedLiargVariablesList is '+SYS._str(SettedLiargVariablesList)
 				]
 			)
+			'''
 
 			#call
 			self.SettingKeyVariable(
@@ -817,11 +823,13 @@ class SetterClass(BaseClass):
 				)
 
 			#debug
+			'''
 			self.debug(
 					'self.SettingKeyVariable.__self__ is '+SYS._str(
 						self.SettingKeyVariable.__self__
 					)
 				)
+			'''
 
 			#Return
 			return {'HookingIsBool':False}

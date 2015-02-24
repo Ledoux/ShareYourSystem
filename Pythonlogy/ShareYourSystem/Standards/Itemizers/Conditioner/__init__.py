@@ -87,13 +87,14 @@ class ConditionerClass(BaseClass):
 			[
 				('self.',self,[
 					'ConditioningTestGetVariable',
-					'ConditioningAttestGetVariable'
+					'ConditioningAttestGetVariable',
+					'ConditioningInstanceVariable'
 					]
 				)
 			]
 		)
 		'''
-
+		
 		#/###################/#
 		# Adapt the TestValueVariable
 		#
@@ -108,11 +109,47 @@ class ConditionerClass(BaseClass):
 
 		except:
 
-			#set
-			self.ConditionedIsBool=False
 
-			#return
-			return 
+			#debug
+			'''
+			self.debug(
+				[
+					'The get has not worked for the Test variable',
+					'so check what it is',
+					('self.',self,['ConditioningInstanceVariable'])
+				]
+			)
+			'''
+
+			#return 
+			if hasattr(self.ConditioningInstanceVariable,'items'
+				)==False and type(self.ConditioningInstanceVariable) not in [
+					list,tuple]:
+
+				#debug
+				self.debug(
+					[
+						'It was not a dict or list so...',
+						'there is no reason that it doesnt get except if it false'
+					]
+				)
+
+
+				#set
+				self.ConditionedIsBool=False
+
+				#return
+				return
+
+			else:
+
+				#debug
+				'''
+				self.debug('It is a dict or list so just put the value')
+				'''
+
+				#alias
+				ConditionedTestValueVariable=self.ConditioningTestGetVariable
 				
 		#debug
 		'''
@@ -125,9 +162,11 @@ class ConditionerClass(BaseClass):
 		if ConditionedTestValueVariable in self.ConditioningFunctionTypesList:
 			
 			#debug
+			'''
 			self.debug(
 					'We test with a function'
 				)
+			'''
 
 			#call
 			ConditionedTestValueVariable=ConditionedTestValueVariable(
@@ -163,7 +202,7 @@ class ConditionerClass(BaseClass):
 			'''
 			self.debug(
 				[
-					'The get has not work for the Attest variable',
+					'The get has not worked for the Attest variable',
 					'so check what it is',
 					('self.',self,['ConditioningInstanceVariable'])
 				]
@@ -231,47 +270,14 @@ class ConditionerClass(BaseClass):
 		except:
 
 			#debug
-			'''
 			self.debug(
-				[
-					'The get has not worked for the Attest variable',
-					' so check what it is'
-				]
-			)
-			'''
-
-			#return 
-			if hasattr(self.ConditioningInstanceVariable,'items'
-				)==False and type(self.ConditioningInstanceVariable) not in [
-					list,tuple]:
-
-				#debug
-				'''
-				self.debug(
-					[
-						'It was not a dict or list so...',
-						'There is no reason that it doesnt get except if it false'
-					]
+					'The condition test has no worked'
 				)
-				'''
 
-				#set
-				self.ConditionedIsBool=False
+			#set
+			self.ConditionedIsBool=False
 
-				#return 
-				return 
-
-			else:
-
-				#debug
-				'''
-				self.debug('It is a dict or list so just put the value')
-				'''
-
-				#alias
-				ConditionedTestValueVariable=self.ConditioningTestGetVariable	
-			
-
+		
 		#debug
 		'''
 		self.debug(
@@ -573,8 +579,39 @@ class ConditionerClass(BaseClass):
 				#loop and break at the first false
 				for __ConditionVariable in IfVariable:
 
-					#condition
-					self.condition(*__ConditionVariable)
+					#Check
+					if type(__ConditionVariable)==SYS.GetClass:
+
+						#set
+						__ConditionVariable.SelfVariable=__ConditionTestVariable
+
+						#debug
+						'''
+						self.debug(
+							[
+								'we call a get function',
+								'__ConditionVariable is '+str(__ConditionVariable)
+							]
+						)
+						'''
+
+						#get
+						self.ConditionedIsBool=self[__ConditionVariable]
+
+					elif type(__ConditionVariable)==tuple:
+
+						#debug
+						'''
+						self.debug('we condition here')
+						'''
+
+						#condition
+						self.condition(*__ConditionVariable)
+
+					else:
+
+						#set
+						self.ConditionedIsBool=__ConditionVariable
 
 					#Check
 					if self.ConditionedIsBool==False:
