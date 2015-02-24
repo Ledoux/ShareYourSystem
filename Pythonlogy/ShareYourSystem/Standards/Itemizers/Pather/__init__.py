@@ -26,7 +26,8 @@ import collections
 
 #<DefineLocals>
 PathPrefixStr="/"
-PathOriginStr=""
+PathOriginStr="~"
+PathPreviousStr=".."
 #</DefineLocals>
 
 #<DefineFunctions>
@@ -125,6 +126,7 @@ class PatherClass(BaseClass):
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
 		#init
+		self.PathPreviousDerivePather=None
 		self.PathOriginDerivePather=None
 
 	def do_path(self):
@@ -180,6 +182,17 @@ class PatherClass(BaseClass):
 			self.PathedGetValueVariable=self[
 				self.PathedGetKeyStr
 			]
+
+			#Set the previous
+			try:
+				#set
+				self.PathedGetValueVariable.PathPreviousDerivePather=self
+			
+			except:
+
+				#pass
+				pass
+			
 
 			#Set the origin
 			try:
@@ -239,8 +252,31 @@ class PatherClass(BaseClass):
 			#Check
 			if self.GettingKeyVariable==PathOriginStr:
 
+				#debug
+				'''
+				self.debug('We get the origin here ')
+				'''
+
 				#alias
 				self.GettedValueVariable=self.PathOriginDerivePather
+
+				#return 
+				return {'HookingIsBool':False}
+
+			#/####################/#
+			# Case of getting the previous pather
+			#
+
+			#Check
+			if self.GettingKeyVariable==PathPreviousStr:
+
+				#debug
+				'''
+				self.debug('We get the origin here ')
+				'''
+				
+				#alias
+				self.GettedValueVariable=self.PathPreviousDerivePather
 
 				#return 
 				return {'HookingIsBool':False}

@@ -20,7 +20,8 @@ MyConditioner.get(
 				(type,SYS.operator.eq,SYS.ConditionerClass),
 				('DictKeyStr',str.startswith,'#direct:First'),
 				SYS.GetClass(lambda self:'Child' in self['DictKeyStr']),			
-			]
+			],
+			'#scan':'__dict__.values'
 		}
 	)
 

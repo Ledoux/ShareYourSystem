@@ -7,14 +7,9 @@ MyExecuter=SYS.ExecuterClass(
 	).get(
 		'MyList'
 	).set(
-		'MyList.append',
-		{
-			'#map@get':[6]
-		}
-	).set(
 		'MyDict.__setitem__',
 		{
-			'#map@get':['#direct:MyCloneList','MyList']
+			'#value:#map@get':['#direct:MyCloneList','MyList']
 		}
 	)
 

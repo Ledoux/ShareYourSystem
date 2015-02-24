@@ -14,6 +14,12 @@ MySetter=SYS.SetterClass(
 
 #Define and set with a #value dict for the ValueVariable
 MySetter.set(
+		"RedirectStr",
+		{'#value':'MyStr'}
+	)
+
+#Define and set with a #value dict for the ValueVariable
+MySetter.set(
 		"MyDict",
 		{'#value':{'MyInt':0}}
 	)
@@ -27,7 +33,19 @@ MySetter.set(
 #Define and set with a #value:#map@get dict for the ValueVariable
 MySetter.set(
 		"MyList",
-		{'#value:#map@get':['MyStr','MyInt']}
+		{'#value:#map@get':['MyStr','MyInt','#direct:FooStr']}
+	)
+
+#Define and set with a #value:#map@get dict for the ValueVariable
+MySetter.set(
+		MySetter.MyList.append,
+		{'#value':'MyStr'}
+	)
+
+#Define and set with a #value:#map@get dict for the ValueVariable
+MySetter.set(
+		MySetter.MyList.append,
+		{'#value:#map@get':['MyInt']}
 	)
 
 #print

@@ -479,6 +479,17 @@ class GetterClass(BaseClass):
 				#Check
 				if callable(GettedValueType):
 
+					#debug
+					'''
+					self.debug(
+						[
+							'We call here',
+							'GettedValueType is '+str(GettedValueType),
+							('self.',self,['GettingKeyVariable'])
+						]
+					)
+					'''
+					
 					#alias
 					self.GettedValueVariable=GettedValueType()
 

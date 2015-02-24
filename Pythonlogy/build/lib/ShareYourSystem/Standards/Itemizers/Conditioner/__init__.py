@@ -31,8 +31,8 @@ def getMapList(_LiargVariablesList):
 	return _LiargVariablesList[0]
 def getLiargVariablesList(_ValueVariable):
 	return [_ValueVariable]
-ConditionGetShortKeyStr="#filter"
-ConditionSetShortKeyStr="#if"
+ConditionGrabKeyStr="#filter"
+ConditionGrabKeyStr="#if"
 #</DefineLocals>
 
 #<DefineClass>
@@ -193,7 +193,7 @@ class ConditionerClass(BaseClass):
 		) and type(self.GettingKeyVariable)!=type:
 
 			#Check
-			if ConditionGetShortKeyStr in self.GettingKeyVariable:
+			if ConditionGrabKeyStr in self.GettingKeyVariable:
 
 				#debug
 				'''
@@ -208,7 +208,7 @@ class ConditionerClass(BaseClass):
 				'''
 
 				#alias
-				IfVariable=self.GettingKeyVariable[ConditionGetShortKeyStr]
+				IfVariable=self.GettingKeyVariable[ConditionGrabKeyStr]
 
 				#get
 				ConditionScanValueVariablesList=self[
@@ -332,6 +332,7 @@ class ConditionerClass(BaseClass):
 
 	def mimic_set(self):
 
+		"""
 		#/###################/#
 		# Condition in the Key Variable
 		#
@@ -341,13 +342,13 @@ class ConditionerClass(BaseClass):
 			) and type(self.SettingKeyVariable)!=type:
 
 				#Check
-				if ConditionSetShortKeyStr in self.SettingKeyVariable:
+				if ConditionGrabKeyStr in self.SettingKeyVariable:
 
 					#Check
 					if self.ConditionedIfBool==False:
 
 						#set
-						IfVariable=self.SettingKeyVariable[ConditionSetShortKeyStr]
+						IfVariable=self.SettingKeyVariable[ConditionGrabKeyStr]
 
 						#debug
 						'''
@@ -397,17 +398,18 @@ class ConditionerClass(BaseClass):
 
 						#stop the setting
 						return {'HookingIsBool':False}
+		"""
 
 		#/###################/#
 		# Condition in the Value Variable
 		#
 
 		#Check
-		elif hasattr(self.SettingValueVariable,'items'
+		if hasattr(self.SettingValueVariable,'items'
 			) and type(self.SettingValueVariable)!=type: 
 
 			#Check
-			if ConditionSetShortKeyStr in self.SettingValueVariable:
+			if ConditionGrabKeyStr in self.SettingValueVariable:
 
 				#/###################/#
 				# Maybe the condition was not yet check
@@ -417,7 +419,7 @@ class ConditionerClass(BaseClass):
 				if self.ConditionedIfBool==False:
 
 					#set
-					IfVariable=self.SettingValueVariable[ConditionSetShortKeyStr]
+					IfVariable=self.SettingValueVariable[ConditionGrabKeyStr]
 					SettingKeyVariable=self.SettingKeyVariable
 					SettingValueVariable=self.SettingValueVariable
 
@@ -465,7 +467,7 @@ class ConditionerClass(BaseClass):
 							)
 						
 						#delete
-						#del self.SettingValueVariable[ConditionSetShortKeyStr]
+						#del self.SettingValueVariable[ConditionGrabKeyStr]
 						self.ConditionedIfBool=True
 
 						#append

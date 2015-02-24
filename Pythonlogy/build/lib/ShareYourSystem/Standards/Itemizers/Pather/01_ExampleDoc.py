@@ -38,13 +38,7 @@ MyPather.__setitem__(
 
 #print
 print('MyPather[\'/ChildPather/GrandChildPather\'] is ')
-SYS._print(
-			MyPather['/ChildPather/GrandChildPather'],
-			**{
-			'RepresentingBaseKeyStrsListBool':False,
-			'RepresentingAlineaIsBool':False
-			}
-		)
+SYS._print(MyPather['/ChildPather/GrandChildPather'])
 
 #set with a deep short Str
 MyPather.__setitem__(
@@ -66,11 +60,5 @@ MyPather.__setitem__(
 
 #print
 print('MyPather is ')
-SYS._print(
-			MyPather,
-			**{
-			'RepresentingBaseKeyStrsListBool':False,
-			'RepresentingAlineaIsBool':False
-			}
-		)
+SYS._print(MyPather)
 

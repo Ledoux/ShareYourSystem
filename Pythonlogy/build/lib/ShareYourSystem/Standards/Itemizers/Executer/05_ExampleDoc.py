@@ -11,7 +11,9 @@ MyExecuter=SYS.ExecuterClass(
 		[6]
 	).set(
 		'MyList.append',
-		['>>self.MyList.__getitem__(0)']
+		{
+			'#value:#get':'>>self.MyList.__getitem__(0)'
+		}
 	)
 
 #print

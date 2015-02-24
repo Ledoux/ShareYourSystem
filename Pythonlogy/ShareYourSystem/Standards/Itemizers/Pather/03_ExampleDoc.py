@@ -2,6 +2,7 @@
 #ImportModules
 import ShareYourSystem as SYS
 
+
 #Explicit expression
 MyPather=SYS.PatherClass(
 	).set(
@@ -13,4 +14,6 @@ MyPather=SYS.PatherClass(
 print("MyPather['/ChildPather/GrandChildPather/~] is ")
 SYS._print(MyPather['/ChildPather/GrandChildPather/~'])
 
-
+#print
+print("MyPather['/ChildPather/GrandChildPather/..] is ")
+SYS._print(MyPather['/ChildPather/GrandChildPather/..'])

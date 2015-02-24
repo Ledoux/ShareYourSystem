@@ -388,28 +388,29 @@ class SetterClass(BaseClass):
 					):
 
 					#debug
+					'''
 					self.debug(
 							[
 								'Check for a set value dict',
 								('self.',self,['SettingValueVariable'])
 							]
 						)
-
+					'''
 
 					if SetValueGrabStr in self.SettingValueVariable:
 
 						#debug
+						'''
 						self.debug(
 							[
 								'we set a value with a SetValueGrabStr inside',
 								('self.',self,['SettingValueVariable'])
 							]
 						)
+						'''
 
 						#set
-						self[self.SettingKeyVariable]=self[
-							self.SettingValueVariable[SetValueGrabStr]
-						]
+						self[self.SettingKeyVariable]=self.SettingValueVariable[SetValueGrabStr]
 
 						#Return
 						return {'HookingIsBool':False}
@@ -417,12 +418,14 @@ class SetterClass(BaseClass):
 					elif SetMapValueGetGrabStr in self.SettingValueVariable:
 
 						#debug
+						'''
 						self.debug(
 							[
 								'we set a value with a map SetMapValueGetGrabStr inside',
 								('self.',self,['SettingValueVariable'])
 							]
 						)
+						'''
 
 						#set
 						self[self.SettingKeyVariable]=self[
@@ -447,6 +450,7 @@ class SetterClass(BaseClass):
 						]
 
 						#debug
+						'''
 						self.debug(
 							[
 								'we set a value with a SetValueGetGrabStr inside',
@@ -455,6 +459,7 @@ class SetterClass(BaseClass):
 									SettedGrabValueVariable)
 							]
 						)
+						'''
 
 						#set
 						self[
@@ -590,6 +595,7 @@ class SetterClass(BaseClass):
 			SettedGetKeyVariable=self[self.SettingKeyVariable]
 
 			#debug
+			'''
 			self.debug(
 					[
 						'SettingKeyVariable has items...',
@@ -597,6 +603,7 @@ class SetterClass(BaseClass):
 						'SettedGetKeyVariable is '+SYS._str(SettedGetKeyVariable)
 					]
 				)
+			'''
 
 			#set
 			self.set(
@@ -631,7 +638,7 @@ class SetterClass(BaseClass):
 				)
 
 			#Check
-			if type(self.SettingValueVariable)in [tuple,list]:
+			if type(self.SettingValueVariable) in [tuple,list]:
 
 				#/###################/
 				# map get with the PathDerivePather
@@ -651,8 +658,30 @@ class SetterClass(BaseClass):
 				# dict get with the PathDerivePather
 				#
 
+				#Temp
+				SettedSettingKeyVariable=self.SettingKeyVariable
+
+				#call a set to active the #value get
+				self.set(
+						'TempSetVariable',
+						self.SettingValueVariable
+					)
+
+				#debug
+				self.debug(
+						[
+							'This is a get dict ',
+							'self.TempSetVariable is '+SYS._str(self.TempSetVariable),
+							('self.',self,['SettingValueVariable'])
+						]
+					)
+
 				#get
-				SettedLiargVariablesList=self[self.SettingValueVariable]
+				SettedLiargVariablesList=self.TempSetVariable if type(
+					self.TempSetVariable)==list else [self.TempSetVariable]
+
+				#reupdate
+				self.SettingKeyVariable=SettedSettingKeyVariable
 
 			else:
 
