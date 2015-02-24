@@ -144,8 +144,8 @@ class DebuggerClass(BaseClass):
 							"superDo_debug",
 							"do",
 							"watch",
-							"switch"
-
+							"switch",
+							"mimic"
 						],
 						_DebuggingNotFrameCodeStrsList=[
 							"<string>"

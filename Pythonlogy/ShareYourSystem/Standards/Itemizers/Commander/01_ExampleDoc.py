@@ -25,7 +25,7 @@ MyCommander.command(
 		#CommandingSetVariable
 		[
 			(
-				'#map:set',
+				'#map@set',
 				[
 					('MyFirstBool',True),
 				]
@@ -41,7 +41,7 @@ MyCommander.command(
 		#CommandingSetVariable
 		[
 			(
-				'#map:set',
+				'#map@set',
 				[
 					('MySecondBool',False),
 				]

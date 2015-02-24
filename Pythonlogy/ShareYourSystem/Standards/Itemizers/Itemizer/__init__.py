@@ -23,7 +23,7 @@ SYS.setSubModule(globals())
 #</ImportSpecificModules>
 
 #<DefineLocals>
-ItemMapPrefixStr="#map:"
+ItemMapPrefixStr="#map@"
 #</DefineLocals>
 
 #<DefineClass>

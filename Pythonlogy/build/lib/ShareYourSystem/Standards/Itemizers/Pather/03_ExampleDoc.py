@@ -10,12 +10,7 @@ MyPather=SYS.PatherClass(
 	)
 
 #print
-print('MyPather is ')
-SYS._print(
-			MyPather,
-			**{
-			'RepresentingBaseKeyStrsListBool':False,
-			'RepresentingAlineaIsBool':False
-			}
-		)
+print("MyPather['/ChildPather/GrandChildPather/~] is ")
+SYS._print(MyPather['/ChildPather/GrandChildPather/~'])
+
 

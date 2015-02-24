@@ -13,29 +13,36 @@ MyParenter=SYS.ParenterClass(
 		]
 	).command(
 		'+&.values+$.values',
-		{
-			'parent':[],
-			'#bound:recruit':lambda _InstanceVariable:_InstanceVariable[
-						'/Top/NeuronsDict'
-					].__setitem__(
-						_InstanceVariable.ManagementKeyStr,
-						_InstanceVariable
-					) 
-					if _InstanceVariable['/^/ParentKeyStr']=="Neurons"
-					else None,
-			'/Top/LayersDict.__setitem__':{
-				'#set':["#get:ManagementKeyStr",">>self"],
-				'#if':[
-					('/^/ParentKeyStr',SYS.operator.eq,"#direct:Layers")
-				]
-			}
-		},
+		'parent',
 		_AfterWalkBool=True
 	)
 
+
+'''
+	.command(
+		'+&.values+$.values',
+		{
+			'#bound:recruit':lambda _InstanceVariable:_InstanceVariable[
+					'/Top/NeuronsDict'
+				].__setitem__(
+					_InstanceVariable.ManagementKeyStr,
+					_InstanceVariable
+				) 
+				if _InstanceVariable['/^/ParentKeyStr']=="Layers"
+				else None,
+			#'/Top/LayersDict.__setitem__':{
+			#	'#map@get':["ManagementKeyStr",">>self"],
+			#	'#if':[
+			#		('/^/ParentKeyStr',SYS.operator.eq,"#direct:Layers")
+			#	]
+			#}
+		},
+	)
+'''
+
 #print
-print('MyParenter.NeuronsDict.keys() is ')
-SYS._print(MyParenter.NeuronsDict.keys())
+#print('MyParenter.NeuronsDict.keys() is ')
+#SYS._print(MyParenter.NeuronsDict.keys())
 
 #print
 print('MyParenter.LayersDict.keys() is ')

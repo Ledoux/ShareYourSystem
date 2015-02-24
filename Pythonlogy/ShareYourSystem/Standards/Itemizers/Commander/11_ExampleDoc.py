@@ -11,13 +11,28 @@ MyCommander=SYS.CommanderClass(
 	).array(
 		[['ACommander','BCommander'],['1Commander','2Commander']],
 		{'MyInt':'>>SYS.set(self.__class__,"CountInt",self.__class__.CountInt+1)'}
-	).command(
+	)
+
+print('\n\n\n\nEEEEE\n\n\n')
+
+SYS._print(
+	MyCommander[
+
 		{
-			'#if':[(type,SYS.operator.eq,SYS.CommanderClass)]
+			'#filter':[(type,SYS.operator.eq,SYS.CommanderClass)]
+		}
+	]
+)
+
+
+"""
+	.command(
+		{
+			'#filter':[(type,SYS.operator.eq,SYS.CommanderClass)]
 		},
 		{
 			'execute':{
-				'#set':">>self.__class__.GrabList.append(self)",
+				'#get':">>self.__class__.GrabList.append(self)",
 				'#if':[
 					('MyInt',SYS.operator.lt,2)
 				]
@@ -25,10 +40,11 @@ MyCommander=SYS.CommanderClass(
 		}
 	)
 
+
 #print
 print('MyCommander is GrabList')
 SYS._print(MyCommander.GrabList)
-
+"""
 
 
 

@@ -753,7 +753,7 @@ def update(_ItemizableVariable,_UpdateVariable):
 	if hasattr(_ItemizableVariable,'items'):
 		_ItemizableVariable.update(_UpdateVariable)
 	else:
-		_ItemizableVariable['#map:set'](_UpdateVariable)
+		_ItemizableVariable['#map@set'](_UpdateVariable)
 
 	#return
 	return _ItemizableVariable

@@ -4,7 +4,7 @@ import ShareYourSystem as SYS
 
 #Define and set a dict
 MySetter=SYS.SetterClass(
-	)['#map:set'](
+	)['#map@set'](
 		{
 			'MyStr':"hello",
 			'#bound:printHello':lambda _SelfVariable:SYS._print(_SelfVariable.MyStr)

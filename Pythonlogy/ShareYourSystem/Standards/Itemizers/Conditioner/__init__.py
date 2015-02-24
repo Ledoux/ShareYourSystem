@@ -31,7 +31,8 @@ def getMapList(_LiargVariablesList):
 	return _LiargVariablesList[0]
 def getLiargVariablesList(_ValueVariable):
 	return [_ValueVariable]
-ConditionShortKeyStr="#if"
+ConditionGetShortKeyStr="#filter"
+ConditionSetShortKeyStr="#if"
 #</DefineLocals>
 
 #<DefineClass>
@@ -46,6 +47,7 @@ class ConditionerClass(BaseClass):
 								'ConditioningFunctionTypesList',
 								'ConditioningScanGetVariable',
 								'ConditionedIsBool',
+								'ConditionedIfBool'
 							]
 	
 	def default_init(self,
@@ -55,6 +57,7 @@ class ConditionerClass(BaseClass):
 						_ConditioningFunctionTypesList=[type(len),type(type)],
 						_ConditioningScanGetVariable=Executer.ExecutionPrefixStr+'self.__dict__.values()',
 						_ConditionedIsBool=True,
+						_ConditionedIfBool=False,
 						**_KwargVariablesDict
 					):
 		
@@ -190,7 +193,7 @@ class ConditionerClass(BaseClass):
 		) and type(self.GettingKeyVariable)!=type:
 
 			#Check
-			if ConditionShortKeyStr in self.GettingKeyVariable:
+			if ConditionGetShortKeyStr in self.GettingKeyVariable:
 
 				#debug
 				'''
@@ -205,7 +208,7 @@ class ConditionerClass(BaseClass):
 				'''
 
 				#alias
-				IfVariable=self.GettingKeyVariable[ConditionShortKeyStr]
+				IfVariable=self.GettingKeyVariable[ConditionGetShortKeyStr]
 
 				#get
 				ConditionScanValueVariablesList=self[
@@ -228,11 +231,9 @@ class ConditionerClass(BaseClass):
 				for __ConditionTestVariable in ConditionScanValueVariablesList:
 
 					#debug
-					'''
 					self.debug(
 							'__ConditionTestVariable is '+SYS._str(__ConditionTestVariable)
 						)
-					'''
 
 					#set
 					self.ConditioningInstanceVariable=__ConditionTestVariable
@@ -302,7 +303,7 @@ class ConditionerClass(BaseClass):
 								self.set(
 									'ConditioningInstanceVariable',
 									__ConditionTestVariable
-								)['#map:condition'](
+								)['#map@condition'](
 								IfVariable
 							).ItemizedMapValueVariablesList
 						),
@@ -331,27 +332,107 @@ class ConditionerClass(BaseClass):
 
 	def mimic_set(self):
 
+		#/###################/#
+		# Condition in the Key Variable
+		#
+
 		#Check
 		if hasattr(self.SettingKeyVariable,'items'
 			) and type(self.SettingKeyVariable)!=type:
 
 				#Check
-				if 'IfVariable' in self.SettingKeyVariable:
+				if ConditionSetShortKeyStr in self.SettingKeyVariable:
+
+					#Check
+					if self.ConditionedIfBool==False:
+
+						#set
+						IfVariable=self.SettingKeyVariable[ConditionSetShortKeyStr]
+
+						#debug
+						'''
+						self.debug(
+								[
+									'condition in the key',
+									'we set if the condition is satisfied',
+									'IfVariable is '+str(IfVariable)
+								]
+							)
+						'''
+						
+						#loop and break at the first false
+						for __ConditionVariable in IfVariable:
+
+							#condition
+							self.condition(*__ConditionVariable)
+
+							#Check
+							if self.ConditionedIsBool==False:
+
+								#debug
+								'''
+								self.debug('we break')
+								'''
+
+								#break
+								break
+
+						#append
+						if self.ConditionedIsBool:
+
+							#We append
+							self.debug(
+									[	
+										'Ok we set'
+									]
+								)
+
+							#set
+							self.ConditionedIfBool=True
+
+							#append
+							self[
+								self.SettingKeyVariable[Setter.SetShortKeyStr]
+							]=self.SettingValueVariable
+
+						#stop the setting
+						return {'HookingIsBool':False}
+
+		#/###################/#
+		# Condition in the Value Variable
+		#
+
+		#Check
+		elif hasattr(self.SettingValueVariable,'items'
+			) and type(self.SettingValueVariable)!=type: 
+
+			#Check
+			if ConditionSetShortKeyStr in self.SettingValueVariable:
+
+				#/###################/#
+				# Maybe the condition was not yet check
+				#
+
+				#Check
+				if self.ConditionedIfBool==False:
 
 					#set
-					IfVariable=self.SettingKeyVariable[ConditionShortKeyStr]
+					IfVariable=self.SettingValueVariable[ConditionSetShortKeyStr]
+					SettingKeyVariable=self.SettingKeyVariable
+					SettingValueVariable=self.SettingValueVariable
+
 
 					#debug
 					'''
 					self.debug(
 							[
-								'condition in the key',
+								'condition in the value',
 								'we set if the condition is satisfied',
 								'IfVariable is '+str(IfVariable)
 							]
 						)
 					'''
-					
+
 					#loop and break at the first false
 					for __ConditionVariable in IfVariable:
 
@@ -373,79 +454,27 @@ class ConditionerClass(BaseClass):
 					if self.ConditionedIsBool:
 
 						#We append
-						'''
 						self.debug(
 								[	
-									'Ok we set'
+									'Ok we set',
+									('self.',self,[
+										'SettingKeyVariable',
+										'SettingValueVariable'
+									])
 								]
 							)
-						'''
+						
+						#delete
+						#del self.SettingValueVariable[ConditionSetShortKeyStr]
+						self.ConditionedIfBool=True
 
 						#append
 						self[
-							self.SettingKeyVariable[Setter.SetShortKeyStr]
-						]=self.SettingValueVariable
+							SettingKeyVariable
+						]=SettingValueVariable
 
-					#stop the setting
-					return {'HookingIsBool':False}
-
-		#Check
-		elif hasattr(self.SettingValueVariable,'items'
-			) and type(self.SettingValueVariable)!=type: 
-
-			#Check
-			if ConditionShortKeyStr in self.SettingValueVariable:
-
-				#set
-				IfVariable=self.SettingValueVariable[ConditionShortKeyStr]
-
-				#debug
-				'''
-				self.debug(
-						[
-							'condition in the value',
-							'we set if the condition is satisfied',
-							'IfVariable is '+str(IfVariable)
-						]
-					)
-				'''
-
-				#loop and break at the first false
-				for __ConditionVariable in IfVariable:
-
-					#condition
-					self.condition(*__ConditionVariable)
-
-					#Check
-					if self.ConditionedIsBool==False:
-
-						#debug
-						'''
-						self.debug('we break')
-						'''
-
-						#break
-						break
-
-				#append
-				if self.ConditionedIsBool:
-
-					#We append
-					'''
-					self.debug(
-							[	
-								'Ok we set'
-							]
-						)
-					'''
-					
-					#append
-					self[
-						self.SettingKeyVariable
-					]=self.SettingValueVariable[Setter.SetShortKeyStr]
-
-				#stop the setting
-				return {'HookingIsBool':False}
+						#stop the setting
+						return {'HookingIsBool':False}
 
 		#call the base method
 		return BaseClass.set(self)

@@ -9,7 +9,7 @@ SYS.PatherClass.ShareCountInt=0
 CommandingSetVariable=[
 	(
 		'execute',
-		';'.join(
+		"#direct:"+';'.join(
 			[
 				'self.ShareCountInt=self.__class__.ShareCountInt',
 				'self.__class__.ShareCountInt+=1'
@@ -20,7 +20,7 @@ CommandingSetVariable=[
 
 #define and command
 FirstCommander=SYS.CommanderClass(
-	)['#map:set'](
+	)['#map@set'](
 			[
 				('FirstPather',SYS.PatherClass()),
 				('SecondPather',SYS.PatherClass()),
@@ -34,7 +34,6 @@ FirstCommander=SYS.CommanderClass(
 		CommandingSetVariable
 	)
 
-
 #print
 print('FirstCommander is ')
 SYS._print(FirstCommander)
@@ -44,7 +43,7 @@ SYS.PatherClass.ShareCountInt=0
 
 #define and command
 SecondCommander=SYS.CommanderClass(
-	)['#map:set'](
+	)['#map@set'](
 		[
 				('FirstPather',SYS.PatherClass()),
 				('SecondPather',SYS.PatherClass()),
@@ -63,5 +62,4 @@ SecondCommander=SYS.CommanderClass(
 #print
 print('SecondCommander is ')
 SYS._print(SecondCommander)	
-
 

@@ -113,7 +113,7 @@ class SetterClass(BaseClass):
 			])
 		)	
 		'''
-		
+
 		#itemize first
 		if self.SettingItemBool:
 
@@ -155,8 +155,21 @@ class SetterClass(BaseClass):
 			SettedValueMethod=self[self.SettingKeyVariable]
 
 			#debug
+			self.debug(
+					('self.',self,['SettingValueVariable'])
+				)
+
+			#get the 
+			SettedLiargVariable=self[self.SettingValueVariable]
+
+			#debug
 			'''
-			self.debug('SettedValueMethod is '+str(SettedValueMethod))
+			self.debug(
+				[
+					'SettedValueMethod is '+SYS._str(SettedValueMethod),
+					'SettedLiargVariable is '+SYS._str(SettedLiargVariable)
+				]
+			)
 			'''
 
 			#define
@@ -164,7 +177,7 @@ class SetterClass(BaseClass):
 
 				#get
 				SettedLiargVariablesList=SettedValueMethod.im_func.BaseDoClass.Module.getLiargVariablesList(
-					self.SettingValueVariable
+					SettedLiargVariable
 				)
 
 				'''
@@ -176,6 +189,9 @@ class SetterClass(BaseClass):
 				#get the method and put the value as arguments
 				SettedValueMethod(*SettedLiargVariablesList)
 
+				#Stop the setting
+				return {"HookingIsBool":False}
+
 			except:
 
 				#debug
@@ -185,13 +201,10 @@ class SetterClass(BaseClass):
 
 				#direct
 				#SettedValueMethod(*self.SettingValueVariable)
-				SettedValueMethod(self.SettingValueVariable)
-
-			#debug
+				SettedValueMethod(SettedLiargVariable)
 			
-
-			#Stop the setting
-			return {"HookingIsBool":False}
+				#Stop the setting
+				return {"HookingIsBool":False}
 
 		#/####################/#
 		# Case of a non method  with set with a set key str 
@@ -593,17 +606,45 @@ class SetterClass(BaseClass):
 			self.debug(
 					[
 						'The key is callable',
-						('self.',self,['SettingValueVariable']),
+						('self.',self,[
+							'SettingValueVariable',
+							'PathDerivePather'
+						]),
 						'map get the values to have the liargvariables list'
 					]
 				)
 
-			#get
-			self.GettingNewBool=False
-			SettedLiargVariablesList=self[SetMapGetShortKeyStr](
-				*self.SettingValueVariable
-			).ItemizedMapValueVariablesList
-			self.GettingNewBool=True
+			#Check
+			if type(self.SettingValueVariable)in [tuple,list]:
+
+				#/###################/
+				# map get with the PathDerivePather
+				#
+
+				#get
+				self.GettingNewBool=False
+				SettedLiargVariablesList=self[SetMapGetShortKeyStr](
+					*self.SettingValueVariable
+				).ItemizedMapValueVariablesList
+				self.GettingNewBool=True
+
+			elif hasattr(self.SettingValueVariable,'items'):
+
+				#/###################/
+				# dict get with the PathDerivePather
+				#
+
+				#get
+				SettedLiargVariablesList=self[self.SettingValueVariable]
+
+			else:
+
+				#/###################/
+				# list and get
+				#
+
+				#get
+				SettedLiargVariablesList=[self[self.SettingValueVariable]]
 
 			#debug
 			self.debug(

@@ -20,6 +20,7 @@ SYS.setSubModule(globals())
 
 #<ImportSpecificModules>
 import six
+from ShareYourSystem.Standards.Itemizers import Getter
 #</ImportSpecificModules>
 
 #<DefineLocals>
@@ -48,9 +49,11 @@ class ExecuterClass(BaseClass):
 	def do_execute(self):
 
 		#debug
-		'''
-		self.debug(('self.',self,['ExecutingCodeStr']))
-		'''
+		self.debug(
+			('self.',self,[
+					'ExecutingCodeStr'
+				])
+		)
 		
 		#give the sys
 		locals()['SYS']=SYS
@@ -99,7 +102,9 @@ class ExecuterClass(BaseClass):
 				#stop the getting
 				return {'HookingIsBool':False}
 
-			elif ExecutionDotStr in self.GettingKeyVariable:
+			elif self.GettingKeyVariable.startswith(
+					Getter.GetDirectPrefixStr
+				)==False and ExecutionDotStr in self.GettingKeyVariable:
 
 				#debug
 				'''

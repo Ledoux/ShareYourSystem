@@ -134,7 +134,7 @@ class TeamerClass(BaseClass):
 
 				#init
 				self.TeamedValueVariable=self.TeamingValueClass(
-					)['#map:set'](
+					)['#map@set'](
 						self.TeamedValueVariable
 					)
 

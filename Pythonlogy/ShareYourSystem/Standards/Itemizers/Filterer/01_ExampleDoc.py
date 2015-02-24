@@ -4,7 +4,7 @@ import ShareYourSystem as SYS
 
 #Definition a Filter instance that is grouped
 MyFilterer=SYS.FiltererClass(
-	)['#map:set'](
+	)['#map@set'](
 		[	
 			('MyInt',1),
 			('MyStr',"hello"),

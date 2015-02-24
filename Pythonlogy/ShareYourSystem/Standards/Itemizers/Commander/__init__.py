@@ -257,7 +257,7 @@ class CommanderClass(BaseClass):
 			'''
 
 			#add
-			self['#map:set'](CommandedSetVariablesList)
+			self['#map@set'](CommandedSetVariablesList)
 
 		#Check for the order
 		if self.CommandingOrderStr=="AllSetsForEachGet":
@@ -301,7 +301,7 @@ class CommanderClass(BaseClass):
 			'''
 
 			#add
-			self['#map:set'](CommandedSetVariablesList)
+			self['#map@set'](CommandedSetVariablesList)
 
 		#/###################/#
 		# And we check for a walk after
@@ -391,7 +391,7 @@ class CommanderClass(BaseClass):
 
 				#map get
 				AddVariablesList=self[
-						'#map:get'
+						'#map@get'
 					](*AddGetKeyStrsList).ItemizedMapValueVariablesList
 
 				#debug

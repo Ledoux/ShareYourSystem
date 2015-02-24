@@ -219,7 +219,7 @@ class ArrayerClass(BaseClass):
 
 					
 					#just a map get
-					self['#map:get'](*self.ArrayingKeyVariablesList)
+					self['#map@get'](*self.ArrayingKeyVariablesList)
 				
 				#Check
 				elif type(self.ArrayingValueVariable)==list:
@@ -228,7 +228,7 @@ class ArrayerClass(BaseClass):
 					self.debug('This is an identical non layered setting')
 
 					#map set
-					self['#map:set'](
+					self['#map@set'](
 							zip(
 								self.ArrayingKeyVariablesList,
 								self.ArrayingValueVariable
@@ -238,7 +238,7 @@ class ArrayerClass(BaseClass):
 				else:
 	
 					#map set
-					self['#map:set'](
+					self['#map@set'](
 							zip(
 								self.ArrayingKeyVariablesList,
 								[self.ArrayingValueVariable]*len(self.ArrayingKeyVariablesList)

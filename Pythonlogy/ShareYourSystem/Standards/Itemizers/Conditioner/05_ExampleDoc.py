@@ -4,12 +4,12 @@ import ShareYourSystem as SYS
 
 #Define
 MyConditioner=SYS.ConditionerClass(
-	)['#map:set'](
+	)['#map@set'](
 		{
 			'MyInt':0,
 			'MyStr':"hello"	
 		}
-	)['#map:condition'](
+	)['#map@condition'](
 		[
 			(type,SYS.operator.eq,SYS.ConditionerClass),
 			('MyInt',SYS.operator.eq,0),

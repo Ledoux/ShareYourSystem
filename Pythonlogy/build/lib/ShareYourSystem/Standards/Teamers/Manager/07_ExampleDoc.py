@@ -4,7 +4,7 @@ import ShareYourSystem as SYS
 
 #define and get two children
 MyManager=SYS.ManagerClass(
-	)['#map:get']('$First','$Second')
+	)['#map@get']('$First','$Second')
 
 MyManager['#each:$']=[
 	{

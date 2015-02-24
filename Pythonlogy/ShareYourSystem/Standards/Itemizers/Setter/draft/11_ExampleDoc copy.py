@@ -23,7 +23,7 @@ MySetter=SYS.SetterClass(
 #set a Setter that will be updated by the dict
 MySetter.set(
 		SYS.SetterClass(
-			)['#map:set'](
+			)['#map@set'](
 				{
 					'SetKeyVariable':"MySetter",
 					'MyInt':0

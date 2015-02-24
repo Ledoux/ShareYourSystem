@@ -238,7 +238,7 @@ class SetterClass(BaseClass):
 							list,tuple
 						] and len(__SettedValueVariable)==2
 						else
-						__SettedGetVariable['#map:set'](
+						__SettedGetVariable['#map@set'](
 							__SettedValueVariable
 						),
 						SettedGetVariablesList,
@@ -302,7 +302,7 @@ class SetterClass(BaseClass):
 					#map
 					map(
 							lambda __SettedGetVariable:
-							__SettedGetVariable['#map:set'](
+							__SettedGetVariable['#map@set'](
 								self.SettingValueVariable
 							),
 							SettedGetVariablesList
@@ -373,7 +373,7 @@ class SetterClass(BaseClass):
 
 							#map set
 							self.SettingValueVariable=SettedValueType(
-								)['#map:set'](
+								)['#map@set'](
 								self.SettingValueVariable
 							)
 

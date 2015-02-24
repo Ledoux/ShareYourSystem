@@ -26,6 +26,7 @@ import collections
 
 #<DefineLocals>
 PathPrefixStr="/"
+PathOriginStr=""
 #</DefineLocals>
 
 #<DefineFunctions>
@@ -123,6 +124,9 @@ class PatherClass(BaseClass):
 		#Call the parent init method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
+		#init
+		self.PathOriginDerivePather=None
+
 	def do_path(self):
 
 		#debug
@@ -177,6 +181,24 @@ class PatherClass(BaseClass):
 				self.PathedGetKeyStr
 			]
 
+			#Set the origin
+			try:
+
+				#Check
+				if self.PathOriginDerivePather!=None:
+
+					#set
+					self.PathedGetValueVariable.PathOriginDerivePather=self.PathOriginDerivePather
+
+				else:
+
+					#set
+					self.PathedGetValueVariable.PathOriginDerivePather=self
+
+			except:
+
+				#pass
+				pass
 
 		#debug
 		'''
@@ -208,77 +230,96 @@ class PatherClass(BaseClass):
 		#Check
 		if type(
 			self.GettingKeyVariable
-		)==str and self.GettingKeyVariable.startswith(
+		)==str:
+
+			#/####################/#
+			# Case of getting the origin of the path
+			#
+
+			#Check
+			if self.GettingKeyVariable==PathOriginStr:
+
+				#alias
+				self.GettedValueVariable=self.PathOriginDerivePather
+
+				#return 
+				return {'HookingIsBool':False}
+
+			#/####################/#
+			# Case of walking through the path
+			#
+
+			elif self.GettingKeyVariable.startswith(
 				PathPrefixStr
 			):
 
-			#debug
-			'''
-			self.debug('We path here')
-			'''
+				#debug
+				'''
+				self.debug('We path here')
+				'''
 
-			#Path
-			self.path(self.GettingKeyVariable)
-
-			#debug
-			'''
-			self.debug(('self.',self,[
-										"PathedKeyStrsList",
-										"PathedGetKeyStr",
-										"PathedGetValueVariable"
-									]
-								))
-			'''
-
-			#Check
-			if self.PathedGetKeyStr=="":
+				#Path
+				self.path(self.GettingKeyVariable)
 
 				#debug
 				'''
-				self.debug('This is a local already self get ')
+				self.debug(('self.',self,[
+											"PathedKeyStrsList",
+											"PathedGetKeyStr",
+											"PathedGetValueVariable"
+										]
+									))
 				'''
 
-				#Direct get
-				self.GettedValueVariable=self.PathedGetValueVariable
+				#Check
+				if self.PathedGetKeyStr=="":
 
-			elif self.PathedGetKeyStr!="" and len(self.PathedKeyStrsList)==2:
+					#debug
+					'''
+					self.debug('This is a local already self get ')
+					'''
 
-				#debug
-				'''
-				self.debug('This is a local already get ')
-				'''
+					#Direct get
+					self.GettedValueVariable=self.PathedGetValueVariable
 
-				#Return the first level
-				self.GettedValueVariable=self.PathedGetValueVariable
+				elif self.PathedGetKeyStr!="" and len(self.PathedKeyStrsList)==2:
 
-			else:
+					#debug
+					'''
+					self.debug('This is a local already get ')
+					'''
 
-				#debug
-				'''
-				self.debug(
-							[
-								'This is recursive get with ',
-								('self.',self,[
-												'PathedGetValueVariable',
-												'PathedChildKeyStr',
-												'NameStr'
-											]
-								)
-							]
-						)
-				'''
+					#Return the first level
+					self.GettedValueVariable=self.PathedGetValueVariable
 
-				#Get with the PathedChildKeyStr
-				self.GettedValueVariable=self.PathedGetValueVariable[
-					self.PathedChildKeyStr
-				]
+				else:
 
-			#Stop the getting
-			OutputDict['HookingIsBool']=False
-			#<Hook>return OutputDict
+					#debug
+					'''
+					self.debug(
+								[
+									'This is recursive get with ',
+									('self.',self,[
+													'PathedGetValueVariable',
+													'PathedChildKeyStr',
+													'NameStr'
+												]
+									)
+								]
+							)
+					'''
 
-			#Return
-			return OutputDict
+					#Get with the PathedChildKeyStr
+					self.GettedValueVariable=self.PathedGetValueVariable[
+						self.PathedChildKeyStr
+					]
+
+				#Stop the getting
+				OutputDict['HookingIsBool']=False
+				#<Hook>return OutputDict
+
+				#Return
+				return OutputDict
 
 		#Call the parent get method
 		if OutputDict['HookingIsBool']:

@@ -9,11 +9,11 @@ MyPather=SYS.PatherClass(
 	)
 
 MyPather.ChildPather.set(
-		'/</MyDict.__setitem__',
-		[
+		'/</IdIntsDict.__setitem__',
+		(
 			'#direct:MyChildPather',
-			'>>self'
-		]
+			'/~/IdInt'
+		)
 	)
 
 #print

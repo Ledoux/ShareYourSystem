@@ -26,7 +26,7 @@ MySetter.set(
 #Define and set a dict
 MySetter.set(
 		"MyList",
-		{'#map:get':['MyStr','MyInt']}
+		{'#map@get':['MyStr','MyInt']}
 	)
 
 #print

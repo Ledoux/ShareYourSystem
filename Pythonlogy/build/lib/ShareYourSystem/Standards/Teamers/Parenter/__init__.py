@@ -245,7 +245,7 @@ class ParenterClass(BaseClass):
 					
 					#get
 					ParentedValueVariablesList=self.ParentTopDeriveTeamer[
-							'#map:get'](
+							'#map@get'](
 											*self.ParentingTopGetVariable
 									).ItemizedMapValueVariablesList
 									
@@ -256,7 +256,7 @@ class ParenterClass(BaseClass):
 					'''
 
 					#Link
-					self['#map:set'](
+					self['#map@set'](
 								zip(
 									self.ParentingTopGetVariable,
 									ParentedValueVariablesList

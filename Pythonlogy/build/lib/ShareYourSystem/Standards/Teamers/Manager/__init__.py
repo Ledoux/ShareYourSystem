@@ -137,7 +137,7 @@ class ManagerClass(BaseClass):
 
 				#init
 				self.ManagedValueVariable=self.ManagingValueClass(
-					)['#map:set'](
+					)['#map@set'](
 						self.ManagedValueVariable
 					)
 

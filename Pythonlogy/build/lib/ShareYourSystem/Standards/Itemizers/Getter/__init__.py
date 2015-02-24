@@ -62,10 +62,14 @@ class GetClass(object):
 SYS.GetClass=GetClass
 GetDeletePrefixStr="#delete:"
 GetDirectPrefixStr="#direct:"
-GetUndirectPrefixKeyStr="#get:"
+GetUndirectStr="#get"
+GetUndirectPrefixStr=GetUndirectStr+":"
 GetCallPrefixStr="#call:"
-GetShortKeyStr="#get"
-GetMapShortKeyStr=Itemizer.ItemMapPrefixStr+'get'
+GetShortKeyStr="#key"
+GetUndirectShortKeyPrefixStr=GetShortKeyStr+':'
+GetUndirectShortKeyStr=GetUndirectShortKeyPrefixStr+GetUndirectStr
+GetMapUndirectShortKeyStr=GetUndirectShortKeyPrefixStr+Itemizer.ItemMapPrefixStr+'get'
+print(GetMapUndirectShortKeyStr)
 #</DefineLocals>
 
 #<DefineClass>
@@ -292,13 +296,15 @@ class GetterClass(BaseClass):
 				]
 
 				#debug
+				'''
 				self.debug(
 					[
 						'This is a call get of a str variable',
 						'GettedMethod is '+SYS._str(GettedMethod)
 					]
 				)
-
+				'''
+				
 				if type(GettedMethod)==types.MethodType:
 
 					#set
@@ -316,20 +322,61 @@ class GetterClass(BaseClass):
 			# Case of a #get: str get 
 			#
 
-			elif self.GettingKeyVariable.startswith(GetUndirectPrefixKeyStr):
+			elif self.GettingKeyVariable.startswith(GetUndirectPrefixStr):
+
+				#deprefix
+				GettedKeyStr=SYS.deprefix(
+						self.GettingKeyVariable,
+						GetUndirectPrefixStr
+					)
 
 				#debug
 				'''
-				self.debug('This is a undirect of a str variable')
+				self.debug(
+					[
+						'This is a undirect of a str variable',
+						'GettedKeyStr is '+GettedKeyStr
+					]
+				)
 				'''
 
-				#set
-				self.GettedValueVariable=self[
-					SYS.deprefix(
-						self.GettingKeyVariable,
-						GetUndirectPrefixKeyStr
-					)
-				]
+				#Check
+				if GetUndirectPrefixStr in GettedKeyStr:
+
+					#split
+					GettedKeyStrsList=GettedKeyStr.split(GetUndirectPrefixStr)
+
+					#define
+					GettedRecursiveKeyStr=''.join(GettedKeyStrsList[:-1])+self[GettedKeyStrsList[-1]]
+
+					#debug
+					'''
+					self.debug(
+							[
+								'This is a recursive undirect get',
+								'GettedRecursiveKeyStr is '+GettedRecursiveKeyStr
+							]
+						)
+					'''
+
+					#set
+					self.GettedValueVariable=self[
+						GetUndirectPrefixStr+GettedRecursiveKeyStr
+					]
+
+				else:
+
+					#debug
+					'''
+					self.debug(
+							'This is one level undirect get'
+						)
+					'''
+
+					#set
+					self.GettedValueVariable=self[
+						self[GettedKeyStr]
+					]
 
 				#Stop the getting
 				return {"HookingIsBool":False}
@@ -490,24 +537,57 @@ class GetterClass(BaseClass):
 				#Stop the getting
 				return {"HookingIsBool":False}
 
-			#Check
-			elif GetMapShortKeyStr in self.GettingKeyVariable:
+			elif GetUndirectShortKeyStr in self.GettingKeyVariable:
 
 				#get
-				GettedLiargVariablesList=self.GettingKeyVariable[GetMapShortKeyStr]
+				GettedKeyStr=self.GettingKeyVariable[GetUndirectShortKeyStr]
 
 				#debug
+				'''
 				self.debug(
 					[
-						'we get with the GetMapShortKeyStr',
+						'we get with the GetUndirectShortKeyStr',
+						('self.',self,['GettingKeyVariable']),
+						'GettedKeyStr is '+GettedKeyStr
+					]	
+				)
+				'''
+
+				#get get
+				self.GettedValueVariable=self[
+					self[
+							GettedKeyStr
+						]
+				]
+
+				#Stop the getting
+				return {"HookingIsBool":False}
+
+			#Check
+			elif GetMapUndirectShortKeyStr in self.GettingKeyVariable:
+
+				#get
+				GettedLiargVariablesList=self.GettingKeyVariable[
+					GetMapUndirectShortKeyStr
+				]
+
+				#debug
+				'''
+				self.debug(
+					[
+						'we get with the GetMapUndirectShortKeyStr',
 						('self.',self,['GettingKeyVariable']),
 						'GettedLiargVariablesList is '+SYS._str(GettedLiargVariablesList)
 					]	
 				)
+				'''
 				
 				#get
 				self.GettedValueVariable=self[
-					GetMapShortKeyStr
+					SYS.deprefix(
+						GetMapUndirectShortKeyStr,
+						GetUndirectShortKeyPrefixStr
+					)
 				](
 					*GettedLiargVariablesList
 				).ItemizedMapValueVariablesList

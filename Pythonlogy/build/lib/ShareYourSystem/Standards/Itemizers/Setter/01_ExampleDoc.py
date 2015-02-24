@@ -37,7 +37,14 @@ SYS._print(MySetter)
 MySetter.get(
 		'MyList'
 	)
-
+MySetter.set(
+		MySetter.MyList.append,
+		78
+	)
+MySetter.set(
+		MySetter.MyList.append,
+		'MyStr'
+	)
 MySetter.set(
 		MySetter.MyList.append,
 		[3]
@@ -45,6 +52,12 @@ MySetter.set(
 MySetter.set(
 		MySetter.MyList.append,
 		['#get:MyStr']
+	)
+MySetter.set(
+		MySetter.MyList.append,
+		{
+			'#map@get':[7]
+		}
 	)
 
 #print

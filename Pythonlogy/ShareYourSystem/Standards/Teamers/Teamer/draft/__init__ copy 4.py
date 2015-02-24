@@ -155,7 +155,7 @@ class TeamerClass(BaseClass):
 
 				#init
 				self.TeamedValueVariable=Manager.ManagerClass(
-					)['#map:set'](
+					)['#map@set'](
 						self.TeamedValueVariable
 					)
 
