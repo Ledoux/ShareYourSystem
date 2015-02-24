@@ -60,16 +60,15 @@ class GetClass(object):
 
 
 SYS.GetClass=GetClass
+GetUndirectStr="#get"
 GetDeletePrefixStr="#delete:"
 GetDirectPrefixStr="#direct:"
-GetUndirectStr="#get"
 GetUndirectPrefixStr=GetUndirectStr+":"
 GetCallPrefixStr="#call:"
-GetShortKeyStr="#key"
-GetUndirectShortKeyPrefixStr=GetShortKeyStr+':'
-GetUndirectShortKeyStr=GetUndirectShortKeyPrefixStr+GetUndirectStr
-GetMapUndirectShortKeyStr=GetUndirectShortKeyPrefixStr+Itemizer.ItemMapPrefixStr+'get'
-print(GetMapUndirectShortKeyStr)
+GetGrabStr="#key"
+GetUndirectGrabPrefixStr=GetGrabStr+':'
+GetUndirectGrabStr=GetUndirectGrabPrefixStr+GetUndirectStr
+GetMapUndirectGrabStr=GetUndirectGrabPrefixStr+Itemizer.ItemMapPrefixStr+'get'
 #</DefineLocals>
 
 #<DefineClass>
@@ -518,35 +517,35 @@ class GetterClass(BaseClass):
 			'''
 
 			#Check
-			if GetShortKeyStr in self.GettingKeyVariable:
+			if GetGrabStr in self.GettingKeyVariable:
 
 				#debug
 				'''
 				self.debug(
 					[
-						'we get with the GetShortKeyStr'
+						'we get with the GetGrabStr'
 					]	
 				)
 				'''
 				
 				#get
 				self.GettedValueVariable=self[
-					self.GettingKeyVariable[GetShortKeyStr]
+					self.GettingKeyVariable[GetGrabStr]
 				]
 
 				#Stop the getting
 				return {"HookingIsBool":False}
 
-			elif GetUndirectShortKeyStr in self.GettingKeyVariable:
+			elif GetUndirectGrabStr in self.GettingKeyVariable:
 
 				#get
-				GettedKeyStr=self.GettingKeyVariable[GetUndirectShortKeyStr]
+				GettedKeyStr=self.GettingKeyVariable[GetUndirectGrabStr]
 
 				#debug
 				'''
 				self.debug(
 					[
-						'we get with the GetUndirectShortKeyStr',
+						'we get with the GetUndirectGrabStr',
 						('self.',self,['GettingKeyVariable']),
 						'GettedKeyStr is '+GettedKeyStr
 					]	
@@ -564,18 +563,18 @@ class GetterClass(BaseClass):
 				return {"HookingIsBool":False}
 
 			#Check
-			elif GetMapUndirectShortKeyStr in self.GettingKeyVariable:
+			elif GetMapUndirectGrabStr in self.GettingKeyVariable:
 
 				#get
 				GettedLiargVariablesList=self.GettingKeyVariable[
-					GetMapUndirectShortKeyStr
+					GetMapUndirectGrabStr
 				]
 
 				#debug
 				'''
 				self.debug(
 					[
-						'we get with the GetMapUndirectShortKeyStr',
+						'we get with the GetMapUndirectGrabStr',
 						('self.',self,['GettingKeyVariable']),
 						'GettedLiargVariablesList is '+SYS._str(GettedLiargVariablesList)
 					]	
@@ -585,8 +584,8 @@ class GetterClass(BaseClass):
 				#get
 				self.GettedValueVariable=self[
 					SYS.deprefix(
-						GetMapUndirectShortKeyStr,
-						GetUndirectShortKeyPrefixStr
+						GetMapUndirectGrabStr,
+						GetUndirectGrabPrefixStr
 					)
 				](
 					*GettedLiargVariablesList

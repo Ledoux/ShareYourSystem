@@ -35,13 +35,15 @@ def getMapList(_LiargVariablesList):
 		
 def getLiargVariablesList(_ValueVariable):
 	return _ValueVariable
+SetSetterShortStr="<"
 SetEachPrefixStr="#each:"
 SetAllPrefixStr="#all:"
-SetShortKeyStr="#set"
 SetBoundPrefixStr="#bound:"
-SetSetterStr="<"
-SetMapGetShortKeyStr=Itemizer.ItemMapPrefixStr+'get'
-SetMapSetShortKeyStr=Itemizer.ItemMapPrefixStr+'set'
+SetKeyGrabStr=Getter.GetGrabStr
+SetValueGrabStr="#value"
+SetValueGrabPrefixStr=SetValueGrabStr+':'
+SetValueGetGrabStr=SetValueGrabPrefixStr+Getter.GetUndirectStr
+SetMapValueGetGrabStr=SetValueGrabPrefixStr+Itemizer.ItemMapPrefixStr+'get'
 #</DefineLocals>
 
 #<DefineClass>
@@ -160,7 +162,8 @@ class SetterClass(BaseClass):
 				)
 
 			#get the 
-			SettedLiargVariable=self[self.SettingValueVariable]
+			#SettedLiargVariable=self[self.SettingValueVariable]
+			SettedLiargVariable=self.SettingValueVariable
 
 			#debug
 			'''
@@ -296,7 +299,7 @@ class SetterClass(BaseClass):
 							list,tuple
 						] and len(__SettedValueVariable)==2
 						else
-						__SettedGetVariable[SetMapSetShortKeyStr](
+						__SettedGetVariable[SetMapValueGetGrabStr](
 							__SettedValueVariable
 						),
 						SettedGetVariablesList,
@@ -360,7 +363,7 @@ class SetterClass(BaseClass):
 					#map
 					map(
 							lambda __SettedGetVariable:
-							__SettedGetVariable[SetMapSetShortKeyStr](
+							__SettedGetVariable[SetMapValueGetGrabStr](
 								self.SettingValueVariable
 							),
 							SettedGetVariablesList
@@ -392,39 +395,43 @@ class SetterClass(BaseClass):
 							]
 						)
 
-					if Getter.GetShortKeyStr in self.SettingValueVariable:
+
+					if SetValueGrabStr in self.SettingValueVariable:
 
 						#debug
 						self.debug(
 							[
-								'we set a value with a GetShortKeyStr inside',
+								'we set a value with a SetValueGrabStr inside',
 								('self.',self,['SettingValueVariable'])
 							]
 						)
 
 						#set
 						self[self.SettingKeyVariable]=self[
-							self.SettingValueVariable[Getter.GetShortKeyStr]
+							self.SettingValueVariable[SetValueGrabStr]
 						]
 
 						#Return
 						return {'HookingIsBool':False}
 
-					elif SetMapGetShortKeyStr in self.SettingValueVariable:
+					elif SetMapValueGetGrabStr in self.SettingValueVariable:
 
 						#debug
 						self.debug(
 							[
-								'we set a value with a map GetShortKeyStr inside',
+								'we set a value with a map SetMapValueGetGrabStr inside',
 								('self.',self,['SettingValueVariable'])
 							]
 						)
 
 						#set
 						self[self.SettingKeyVariable]=self[
-							SetMapGetShortKeyStr
+							SYS.deprefix(
+								SetMapValueGetGrabStr,
+								SetValueGrabPrefixStr
+							)
 						](
-							*self.SettingValueVariable[SetMapGetShortKeyStr]
+							*self.SettingValueVariable[SetMapValueGetGrabStr]
 						).ItemizedMapValueVariablesList
 						
 
@@ -432,20 +439,27 @@ class SetterClass(BaseClass):
 						return {'HookingIsBool':False}
 
 					#Check
-					elif SetShortKeyStr in self.SettingValueVariable:
+					elif SetValueGetGrabStr in self.SettingValueVariable:
+
+						#Get 
+						SettedGrabValueVariable=self[
+							self.SettingValueVariable[SetValueGetGrabStr]
+						]
 
 						#debug
 						self.debug(
 							[
-								'we set a value with a SetShortKeyStr inside',
-								('self.',self,['SettingValueVariable'])
+								'we set a value with a SetValueGetGrabStr inside',
+								('self.',self,['SettingValueVariable']),
+								'SettedGrabValueVariable is '+SYS._str(
+									SettedGrabValueVariable)
 							]
 						)
 
 						#set
 						self[
 							self.SettingKeyVariable
-						]=self.SettingValueVariable[SetShortKeyStr]
+						]=SettedGrabValueVariable
 
 						#Return
 						return {'HookingIsBool':False}
@@ -509,11 +523,11 @@ class SetterClass(BaseClass):
 
 							#map set
 							self[self.SettingKeyVariable]=SettedValueType(
-								)[SetMapSetShortKeyStr](
+								)[SetMapValueGetGrabStr](
 								self.SettingValueVariable
 							)
 							#self.SettingValueVariable=SettedValueType(
-							#	)[SetMapSetShortKeyStr](
+							#	)[SetMapValueGetGrabStr](
 							#	self.SettingValueVariable
 							#)
 
@@ -572,19 +586,21 @@ class SetterClass(BaseClass):
 
 		elif hasattr(self.SettingKeyVariable,'items'):
 
+			#get
+			SettedGetKeyVariable=self[self.SettingKeyVariable]
+
 			#debug
-			'''
 			self.debug(
 					[
 						'SettingKeyVariable has items...',
-						('self.',self,['SettingKeyVariable'])
+						('self.',self,['SettingKeyVariable']),
+						'SettedGetKeyVariable is '+SYS._str(SettedGetKeyVariable)
 					]
 				)
-			'''
 
 			#set
 			self.set(
-				self.SettingKeyVariable[SetShortKeyStr],
+				SettedGetKeyVariable,
 				self.SettingValueVariable
 			)
 
@@ -622,11 +638,12 @@ class SetterClass(BaseClass):
 				#
 
 				#get
-				self.GettingNewBool=False
-				SettedLiargVariablesList=self[SetMapGetShortKeyStr](
-					*self.SettingValueVariable
-				).ItemizedMapValueVariablesList
-				self.GettingNewBool=True
+				#self.GettingNewBool=False
+				#SettedLiargVariablesList=self[SetMapGetGrabStr](
+				#	*self.SettingValueVariable
+				#).ItemizedMapValueVariablesList
+				#self.GettingNewBool=True
+				SettedLiargVariablesList=self.SettingValueVariable
 
 			elif hasattr(self.SettingValueVariable,'items'):
 
@@ -644,7 +661,8 @@ class SetterClass(BaseClass):
 				#
 
 				#get
-				SettedLiargVariablesList=[self[self.SettingValueVariable]]
+				#SettedLiargVariablesList=[self[self.SettingValueVariable]]
+				SettedLiargVariablesList=[self.SettingValueVariable]
 
 			#debug
 			self.debug(
@@ -673,7 +691,7 @@ class SetterClass(BaseClass):
 	def mimic_get(self):
 
 		#Check
-		if self.GettingKeyVariable==SetSetterStr:
+		if self.GettingKeyVariable==SetSetterShortStr:
 
 			#get
 			self.GettedValueVariable=self.DictDeriveSetter

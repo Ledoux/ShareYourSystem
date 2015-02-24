@@ -2,31 +2,32 @@
 #ImportModules
 import ShareYourSystem as SYS
 
-#Define and set a dict
+#Define and set with #key dict for the KeyVariable
 MySetter=SYS.SetterClass(
 	).set(
-		{
-			'#set':"MyStr"
-		},
+		'MyStr',
+		'HelloStr'
+	).set(
+		{'#key':"MyStr"},
 		"hello"
 	)
 
-#Define and set a dict
+#Define and set with a #value dict for the ValueVariable
 MySetter.set(
 		"MyDict",
-		{'#set':{'MyInt':0}}
+		{'#value':{'MyInt':0}}
 	)
 
-#Define and set a dict
+#Define and set with a #value:#get dict for the ValueVariable
 MySetter.set(
 		"MyCloneStr",
-		{'#get':'MyStr'}
+		{'#value:#get':'MyStr'}
 	)
 
-#Define and set a dict
+#Define and set with a #value:#map@get dict for the ValueVariable
 MySetter.set(
 		"MyList",
-		{'#map@get':['MyStr','MyInt']}
+		{'#value:#map@get':['MyStr','MyInt','#direct:FooStr']}
 	)
 
 #print
