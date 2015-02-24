@@ -45,6 +45,7 @@ SetValueGrabPrefixStr=SetValueGrabStr+':'
 SetValueGetGrabStr=SetValueGrabPrefixStr+Getter.GetUndirectStr
 SetMapStr=Itemizer.ItemMapPrefixStr+'set'
 SetMapValueGetGrabStr=SetValueGrabPrefixStr+Getter.GetMapStr
+SetModifyGrabStr='#set'
 #</DefineLocals>
 
 #<DefineClass>
@@ -847,6 +848,9 @@ class SetterClass(BaseClass):
 		
 		#call the base method
 		return BaseClass.get(self)
+
+
+
 
 
 #</DefineClass>

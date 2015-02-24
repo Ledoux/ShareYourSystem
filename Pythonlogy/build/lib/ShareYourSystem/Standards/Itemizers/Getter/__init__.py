@@ -71,6 +71,8 @@ GetUndirectGrabPrefixStr=GetGrabStr+':'
 GetUndirectGrabStr=GetUndirectGrabPrefixStr+GetUndirectStr
 GetMapStr=Itemizer.ItemMapPrefixStr+'get'
 GetMapUndirectGrabStr=GetUndirectGrabPrefixStr+GetMapStr
+GetSetGrabStr='#set'
+GetMapSetGrabStr=Itemizer.ItemMapPrefixStr+'set'
 #</DefineLocals>
 
 #<DefineClass>
@@ -636,6 +638,51 @@ class GetterClass(BaseClass):
 				self.GettedValueVariable=self[
 					GettedTempGettingKeyVariable[GetModifyGrabStr]
 				]
+
+			if GetSetGrabStr in GettedTempGettingKeyVariable:
+
+				#debug
+				'''
+				self.debug(
+						'We set here in the GettedValueVariable'
+					)
+				'''
+
+				#get
+				SetVariable=GettedTempGettingKeyVariable[GetSetGrabStr]
+
+				#set
+				self.GettedValueVariable[
+					SetVariable[0]
+				]=SetVariable[1]
+
+			elif GetMapSetGrabStr in GettedTempGettingKeyVariable:
+
+				#debug
+				'''
+				self.debug(
+						'We map a set here in the GettedValueVariable'
+					)
+				'''
+
+				#get
+				SetVariable=GettedTempGettingKeyVariable[GetMapSetGrabStr]
+
+				#Check
+				if hasattr(SetVariable,'items'):
+					SetVariablesList=SetVariable.items()
+				else:
+					SetVariablesList=SetVariable
+
+				#set
+				map(
+						lambda __SetVariable:
+						self.GettedValueVariable.__setitem__(
+								__SetVariable[0],
+								__SetVariable[1]
+							),
+						SetVariablesList
+					)
 
 			#Check
 			if GettedReturnBool:

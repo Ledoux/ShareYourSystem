@@ -540,6 +540,8 @@ ShareYourSystem/Standards/Itemizers/Arrayer/02_DocumentDoc.md
 ShareYourSystem/Standards/Itemizers/Arrayer/03_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Arrayer/04_DocumentDoc.md
 ShareYourSystem/Standards/Itemizers/Arrayer/05_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Arrayer/06_DocumentDoc.md
+ShareYourSystem/Standards/Itemizers/Arrayer/07_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Arrayer/__init__.py
 ShareYourSystem/Standards/Itemizers/Attributer/001_DocumentDoc.md
 ShareYourSystem/Standards/Itemizers/Attributer/00_ExampleDoc.md
@@ -610,6 +612,8 @@ ShareYourSystem/Standards/Itemizers/Getter/06_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Getter/07_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Getter/08_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Getter/09_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Getter/10_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Getter/11_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Getter/Readme.md
 ShareYourSystem/Standards/Itemizers/Getter/Test.py
 ShareYourSystem/Standards/Itemizers/Getter/__init__.py
@@ -666,6 +670,8 @@ ShareYourSystem/Standards/Itemizers/Setter/12_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Setter/13_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Setter/14_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Setter/15_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Setter/16_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Setter/17_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Setter/Readme.md
 ShareYourSystem/Standards/Itemizers/Setter/Test.py
 ShareYourSystem/Standards/Itemizers/Setter/__init__.py
@@ -1005,6 +1011,8 @@ ShareYourSystem/Standards/Teamers/Parenter/04_ExampleDoc.md
 ShareYourSystem/Standards/Teamers/Parenter/05_ExampleDoc.py
 ShareYourSystem/Standards/Teamers/Parenter/06_ExampleDoc.md
 ShareYourSystem/Standards/Teamers/Parenter/07_ExampleDoc.py
+ShareYourSystem/Standards/Teamers/Parenter/08_ExampleDoc.md
+ShareYourSystem/Standards/Teamers/Parenter/09_ExampleDoc.py
 ShareYourSystem/Standards/Teamers/Parenter/Readme.md
 ShareYourSystem/Standards/Teamers/Parenter/Test.py
 ShareYourSystem/Standards/Teamers/Parenter/__init__.py
