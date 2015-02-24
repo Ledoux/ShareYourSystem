@@ -40,15 +40,31 @@ MyConditioner.set(
 		{
 			'#filter':
 			[
-				(0,str.startswith,'First')
-				#(type,SYS.operator.eq,SYS.ConditionerClass),
-				#('SetKeyStr',str.startswith,'#direct:First'),
-				#SYS.GetClass(lambda self:'Child' in self['SetKeyStr']),			
+				True		
 			],
 			'#scan':'>>self.MyDict.items()'
+		}
+	).set(
+		'GettedValueVariable',
+		'>>dict(self.GettedValueVariable).values()'
+	)
+
+#print
+print('get all the objects gives')
+SYS._print(MyConditioner.GettedValueVariable)
+
+#filter again
+MyConditioner.get(
+		{
+			'#filter':
+			[
+				(0,str.startswith,'First')		
+			],
+			'#scan':'>>self.MyDict.items()',
+			'#modify':'>>dict(self.GettedValueVariable).values()'
 		}
 	)
 
 #print
-print('get only the FirstObject gives')
+print('get just the first object gives')
 SYS._print(MyConditioner.GettedValueVariable)

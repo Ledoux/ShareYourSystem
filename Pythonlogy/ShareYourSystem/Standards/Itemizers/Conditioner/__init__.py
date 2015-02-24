@@ -21,10 +21,11 @@ SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
-import operator
 Executer=BaseModule
-from ShareYourSystem.Standards.Itemizers import Setter
+from ShareYourSystem.Standards.Itemizers import Getter,Setter
+import operator
 import types
+import copy
 #</ImportSpecificModules>
 
 #<DefineLocals>
@@ -49,8 +50,7 @@ class ConditionerClass(BaseClass):
 								'ConditioningInstanceVariable',
 								'ConditioningFunctionTypesList',
 								'ConditioningScanGetVariable',
-								'ConditionedIsBool',
-								'ConditionedIfBool'
+								'ConditionedIsBool'
 							]
 	
 	def default_init(self,
@@ -65,7 +65,6 @@ class ConditionerClass(BaseClass):
 						],
 						_ConditioningScanGetVariable=Executer.ExecutionPrefixStr+'self.__dict__.values()',
 						_ConditionedIsBool=True,
-						_ConditionedIfBool=False,
 						**_KwargVariablesDict
 					):
 		
@@ -361,7 +360,7 @@ class ConditionerClass(BaseClass):
 							#get
 							self.ConditionedIsBool=self[__ConditionVariable]
 
-						else:
+						elif type(__ConditionVariable)==tuple:
 
 							#debug
 							'''
@@ -370,6 +369,11 @@ class ConditionerClass(BaseClass):
 
 							#condition
 							self.condition(*__ConditionVariable)
+
+						else:
+
+							#set
+							self.ConditionedIsBool=__ConditionVariable
 
 						#Check
 						if self.ConditionedIsBool==False:
@@ -414,8 +418,19 @@ class ConditionerClass(BaseClass):
 					)
 				'''
 
+				#/##################/#
+				# Copy the TempGettingKeyVariable in order to add a key item and
+				# continue then the get process
+
 				#set
-				self.GettedValueVariable=GettedValueVariable
+				#self.GettedValueVariable=GettedValueVariable
+				#self.GettingKeyVariable=
+				#self.GettedValueVariable=self[
+				#]
+				self.GettingKeyVariable=copy.copy(
+					TempGettingKeyVariable
+				)
+				self.GettingKeyVariable[Getter.GetGrabStr]=GettedValueVariable
 
 				#debug
 				'''
@@ -428,7 +443,7 @@ class ConditionerClass(BaseClass):
 				'''
 
 				#stop the getting
-				return {"HookingIsBool":False}
+				#return {"HookingIsBool":False}
 
 		#call the base method
 		BaseClass.get(self)
@@ -518,68 +533,80 @@ class ConditionerClass(BaseClass):
 				# Maybe the condition was not yet check
 				#
 
-				#Check
-				if self.ConditionedIfBool==False:
+				#set
+				IfVariable=self.SettingValueVariable[ConditionGrabIfStr]
+				TempSettingKeyVariable=self.SettingKeyVariable
+				TempSettingValueVariable=self.SettingValueVariable
 
-					#set
-					IfVariable=self.SettingValueVariable[ConditionGrabIfStr]
-					SettingKeyVariable=self.SettingKeyVariable
-					SettingValueVariable=self.SettingValueVariable
+				#debug
+				'''
+				self.debug(
+						[
+							'condition in the value',
+							'we set if the condition is satisfied',
+							'IfVariable is '+str(IfVariable)
+						]
+					)
+				'''
 
+				#reset
+				self.ConditioningInstanceVariable=self
 
-					#debug
-					'''
+				#loop and break at the first false
+				for __ConditionVariable in IfVariable:
+
+					#condition
+					self.condition(*__ConditionVariable)
+
+					#Check
+					if self.ConditionedIsBool==False:
+
+						#debug
+						'''
+						self.debug('we break')
+						'''
+
+						#break
+						break
+
+				#append
+				if self.ConditionedIsBool:
+
+					#We append
 					self.debug(
-							[
-								'condition in the value',
-								'we set if the condition is satisfied',
-								'IfVariable is '+str(IfVariable)
+							[	
+								'Ok we set',
+								'TempSettingKeyVariable is '+str(
+									TempSettingKeyVariable),
+								'TempSettingValueVariable is '+str(
+									TempSettingValueVariable)
 							]
 						)
-					'''
 
-					#loop and break at the first false
-					for __ConditionVariable in IfVariable:
+					#/##################/#
+					# Copy the TempSettingValueVariable in order to remove the if item and
+					# continue then the set process
 
-						#condition
-						self.condition(*__ConditionVariable)
+					self.SettingValueVariable=copy.copy(
+						TempSettingValueVariable
+					)
+					del self.SettingValueVariable[ConditionGrabIfStr]
 
-						#Check
-						if self.ConditionedIsBool==False:
+				else:
 
-							#debug
-							'''
-							self.debug('we break')
-							'''
+					#We append
+					self.debug(
+							[	
+								'It is false we stop the setting',
+								('self.',self,[
+									'SettingKeyVariable',
+									'SettingValueVariable'
+								])
+							]
+						)
 
-							#break
-							break
-
-					#append
-					if self.ConditionedIsBool:
-
-						#We append
-						self.debug(
-								[	
-									'Ok we set',
-									('self.',self,[
-										'SettingKeyVariable',
-										'SettingValueVariable'
-									])
-								]
-							)
-						
-						#delete
-						#del self.SettingValueVariable[ConditionGrabFilterStr]
-						self.ConditionedIfBool=True
-
-						#append
-						self[
-							SettingKeyVariable
-						]=SettingValueVariable
-
-						#stop the setting
-						return {'HookingIsBool':False}
+					#stop the setting
+					return {'HookingIsBool':False}
 
 		#call the base method
 		return BaseClass.set(self)

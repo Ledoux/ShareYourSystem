@@ -120,14 +120,12 @@ class CommanderClass(BaseClass):
 		CommandedValueVariablesList=SYS.filterNone(CommandedValueVariablesList)
 
 		#debug
-		'''
 		self.debug(
 				[
 					'in the end, CommandedValueVariablesList is ',
 					SYS._str(CommandedValueVariablesList)
 				]
 			)
-		'''
 		
 		#/###################/#
 		# Check if we have to walk before

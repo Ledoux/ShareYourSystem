@@ -65,6 +65,7 @@ GetDeletePrefixStr="#delete:"
 GetDirectPrefixStr="#direct:"
 GetUndirectPrefixStr=GetUndirectStr+":"
 GetCallPrefixStr="#call:"
+GetModifyGrabStr="#modify"
 GetGrabStr="#key"
 GetUndirectGrabPrefixStr=GetGrabStr+':'
 GetUndirectGrabStr=GetUndirectGrabPrefixStr+GetUndirectStr
@@ -517,17 +518,21 @@ class GetterClass(BaseClass):
 			) and type(self.GettingKeyVariable)!=type:
 
 			#debug
-			'''
 			self.debug(
 				[
 					'we get or set with an itemizable instance',
 					('self.',self,['GettingKeyVariable'])
 				]
 			)
-			'''
+
+			#Init
+			GettedReturnBool=False
+
+			#Temp
+			GettedTempGettingKeyVariable=self.GettingKeyVariable
 
 			#Check
-			if GetGrabStr in self.GettingKeyVariable:
+			if GetGrabStr in GettedTempGettingKeyVariable:
 
 				#debug
 				'''
@@ -540,16 +545,16 @@ class GetterClass(BaseClass):
 				
 				#get
 				self.GettedValueVariable=self[
-					self.GettingKeyVariable[GetGrabStr]
+					GettedTempGettingKeyVariable[GetGrabStr]
 				]
 
-				#Stop the getting
-				return {"HookingIsBool":False}
+				#set
+				GettedReturnBool=True	
 
-			elif GetUndirectGrabStr in self.GettingKeyVariable:
+			elif GetUndirectGrabStr in GettedTempGettingKeyVariable:
 
 				#get
-				GettedKeyStr=self.GettingKeyVariable[GetUndirectGrabStr]
+				GettedKeyStr=GettedTempGettingKeyVariable[GetUndirectGrabStr]
 
 				#debug
 				'''
@@ -569,14 +574,15 @@ class GetterClass(BaseClass):
 						]
 				]
 
-				#Stop the getting
-				return {"HookingIsBool":False}
+				#set
+				GettedReturnBool=True	
+
 
 			#Check
-			elif GetMapUndirectGrabStr in self.GettingKeyVariable:
+			elif GetMapUndirectGrabStr in GettedTempGettingKeyVariable:
 
 				#get
-				GettedLiargVariablesList=self.GettingKeyVariable[
+				GettedLiargVariablesList=GettedTempGettingKeyVariable[
 					GetMapUndirectGrabStr
 				]
 
@@ -600,6 +606,32 @@ class GetterClass(BaseClass):
 				](
 					*GettedLiargVariablesList
 				).ItemizedMapValueVariablesList
+
+				#set
+				GettedReturnBool=True				
+
+			#/##################/#
+			# Case of a modification 
+			#
+
+			#Check
+			if GetModifyGrabStr in GettedTempGettingKeyVariable:
+
+				#debug
+				self.debug(
+						'We modify here '
+					)
+
+				#call 
+				#self.GettedValueVariable=GettedTempGettingKeyVariable[
+				#		GetModifyGrabStr
+				#]()
+				self.GettedValueVariable=self[
+					GettedTempGettingKeyVariable[GetModifyGrabStr]
+				]
+
+			#Check
+			if GettedReturnBool:
 
 				#Stop the getting
 				return {"HookingIsBool":False}
