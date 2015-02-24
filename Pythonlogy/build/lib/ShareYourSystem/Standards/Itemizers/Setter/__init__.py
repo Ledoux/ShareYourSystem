@@ -165,14 +165,92 @@ class SetterClass(BaseClass):
 			#get
 			SettedValueMethod=self[self.SettingKeyVariable]
 
+			#/####################/#
+			# Check for the value in order to adapt the liarg
+			#
+
 			#debug
 			self.debug(
-					('self.',self,['SettingValueVariable'])
+					[
+						'SettedValueMethod is '+SYS._str(SettedValueMethod),
+						'Before calling the itemized method, we adapt the liarg',
+						('self.',self,['SettingValueVariable'])
+					]
 				)
+
+			#Temp
+			SettedTempSettingValueVariable=self.SettingValueVariable
+
+			#Check
+			if hasattr(
+					SettedTempSettingValueVariable,'items'
+				):
+
+				#debug
+				'''
+				self.debug(
+						[
+							'Check for a set value dict',
+						]
+					)
+				'''
+
+				if SetValueGrabStr in SettedTempSettingValueVariable:
+
+					#debug
+					'''
+					self.debug(
+						[
+							'we itemize with a value with a SetValueGrabStr inside',
+							'SettedTempSettingValueVariable is '+SYS._str(SettedTempSettingValueVariable)
+						]
+					)
+					'''
+
+					#set
+					SettedTempSettingValueVariable=SettedTempSettingValueVariable[SetValueGrabStr]
+
+				elif SetMapValueGetGrabStr in SettedTempSettingValueVariable:
+
+					#debug
+					'''
+					self.debug(
+						[
+							'we set a value with a map SetMapValueGetGrabStr inside',
+						]
+					)
+					'''
+
+					#set
+					SettedTempSettingValueVariable=self[
+						SYS.deprefix(
+							SetMapValueGetGrabStr,
+							SetValueGrabPrefixStr
+						)
+					](
+						*SettedTempSettingValueVariable[SetMapValueGetGrabStr]
+					).ItemizedMapValueVariablesList
+					
+				#Check
+				elif SetValueGetGrabStr in SettedTempSettingValueVariable:
+
+					#Get 
+					SettedTempSettingValueVariable=self[
+						SettedTempSettingValueVariable[SetValueGetGrabStr]
+					]
+
+					#debug
+					'''
+					self.debug(
+						[
+							'we set a value with a SetValueGetGrabStr inside',
+						]
+					)
+					'''
 
 			#get the 
 			#SettedLiargVariable=self[self.SettingValueVariable]
-			SettedLiargVariable=self.SettingValueVariable
+			SettedLiargVariable=SettedTempSettingValueVariable
 
 			#debug
 			'''

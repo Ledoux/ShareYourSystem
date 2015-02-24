@@ -8,6 +8,14 @@ MySetter=SYS.SetterClass(
 		'MyInt',
 		0
 	)
+
+#Define and set with a set dict
+MySetter=SYS.SetterClass(
+	).set(
+		'MyInt',
+		0
+	)
+
 #we can set ... a set
 MySetter.set(
 		'set',
@@ -42,3 +50,4 @@ MySetter.set(
 #print
 print('MySetter.GettedValueVariable is ')
 SYS._print(MySetter.GettedValueVariable)
+'''
