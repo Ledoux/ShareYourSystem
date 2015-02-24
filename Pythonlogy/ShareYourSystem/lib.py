@@ -6,8 +6,11 @@ import sys
 import importlib
 
 RequirePackageDict={
-	'yaml':'pyyaml',
-	'pymongo':'pymongo'
+	#'inflect':'sudo pip install inflect',
+	#'yaml':'sudo pip install pyyaml',
+	#'pymongo':'sudo pip install pymongo',
+	#'tables':'sudo pip install tables',
+	#'brian2':'sudo pip install brian2'
 }
 
 #Define
@@ -30,7 +33,7 @@ class InstallClass(install):
 				print('... so we try to pip install it')
 
 				#system
-				os.system('sudo pip install '+__RequirePackagePipStr)
+				os.system(__RequirePackagePipStr)
 
 		#call the base method
 		install.run(self)

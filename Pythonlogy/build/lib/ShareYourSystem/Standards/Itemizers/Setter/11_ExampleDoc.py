@@ -36,7 +36,6 @@ MySetter.set(
 		{'#value:#map@get':['MyStr','MyInt','#direct:FooStr']}
 	)
 
-"""
 #Define and set with a #value:#map@get dict for the ValueVariable
 MySetter.set(
 		MySetter.MyList.append,
@@ -48,7 +47,7 @@ MySetter.set(
 		MySetter.MyList.append,
 		{'#value:#map@get':['MyInt']}
 	)
-"""
+
 #print
 print('MySetter is ')
 SYS._print(MySetter)

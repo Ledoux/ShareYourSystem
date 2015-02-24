@@ -24,6 +24,7 @@ SYS.setSubModule(globals())
 import operator
 Executer=BaseModule
 from ShareYourSystem.Standards.Itemizers import Setter
+import types
 #</ImportSpecificModules>
 
 #<DefineLocals>
@@ -32,6 +33,7 @@ def getMapList(_LiargVariablesList):
 def getLiargVariablesList(_ValueVariable):
 	return [_ValueVariable]
 ConditionGrabFilterStr="#filter"
+ConditionGrabScanStr="#scan"
 ConditionGrabIfStr="#if"
 #</DefineLocals>
 
@@ -44,6 +46,7 @@ class ConditionerClass(BaseClass):
 								'ConditioningTestGetVariable',
 								'ConditioningGetBoolFunction',
 								'ConditioningAttestGetVariable',
+								'ConditioningInstanceVariable',
 								'ConditioningFunctionTypesList',
 								'ConditioningScanGetVariable',
 								'ConditionedIsBool',
@@ -54,7 +57,12 @@ class ConditionerClass(BaseClass):
 						_ConditioningTestGetVariable=None,
 						_ConditioningGetBoolFunction=None,
 						_ConditioningAttestGetVariable=None,
-						_ConditioningFunctionTypesList=[type(len),type(type)],
+						_ConditioningInstanceVariable=None,
+						_ConditioningFunctionTypesList=[
+							type(len),
+							type,
+							types.FunctionType
+						],
 						_ConditioningScanGetVariable=Executer.ExecutionPrefixStr+'self.__dict__.values()',
 						_ConditionedIsBool=True,
 						_ConditionedIfBool=False,
@@ -75,7 +83,6 @@ class ConditionerClass(BaseClass):
 	def do_condition(self):
 
 		#debug
-		'''
 		self.debug(
 			[
 				('self.',self,[
@@ -85,7 +92,6 @@ class ConditionerClass(BaseClass):
 				)
 			]
 		)
-		'''
 		
 		#/###################/#
 		# Adapt the TestValueVariable
@@ -93,9 +99,12 @@ class ConditionerClass(BaseClass):
 
 		#get
 		try:
+
+			#get
 			ConditionedTestValueVariable=self.ConditioningInstanceVariable[
 				self.ConditioningTestGetVariable
 			]
+
 		except:
 
 			#set
@@ -103,13 +112,23 @@ class ConditionerClass(BaseClass):
 
 			#return
 			return 
-			
+				
+		#debug
+		self.debug(
+				'ConditionedTestValueVariable is '+SYS._str(ConditionedTestValueVariable)
+			)
+
 		#Check
 		if ConditionedTestValueVariable in self.ConditioningFunctionTypesList:
 			
+			#debug
+			self.debug(
+					'We test with a function'
+				)
+
 			#call
 			ConditionedTestValueVariable=ConditionedTestValueVariable(
-					self
+					self.ConditioningInstanceVariable
 				)
 
 		#debug
@@ -131,20 +150,54 @@ class ConditionerClass(BaseClass):
 			ConditionedAttestValueVariable=self.ConditioningInstanceVariable[
 				self.ConditioningAttestGetVariable
 			]
+
+
 		except:
 
-			#set
-			self.ConditionedIsBool=False
+			#debug
+			self.debug(
+				[
+					'The get has not work for the Attest variable',
+					'so check what it is',
+					('self.',self,['ConditioningInstanceVariable'])
+				]
+			)
 
 			#return 
-			return
+			if hasattr(self.ConditioningInstanceVariable,'items'
+				)==False and type(self.ConditioningInstanceVariable) not in [
+					list,tuple]:
+
+				#debug
+				self.debug(
+					[
+						'It was not a dict or list so...',
+						'there is no reason that it doesnt get except if it false'
+					]
+				)
+
+
+				#set
+				self.ConditionedIsBool=False
+
+				#return
+				return
+
+			else:
+
+				#debug
+				self.debug('It is a dict or list so just put the value')
+
+				#alias
+				ConditionedAttestValueVariable=self.ConditioningAttestGetVariable	
+			
 
 		#Check
 		if ConditionedAttestValueVariable in self.ConditioningFunctionTypesList:
 			
 			#call
 			ConditionedAttestValueVariable=ConditionedAttestValueVariable(
-					self
+					self.ConditioningInstanceVariable
 				)
 
 		#debug
@@ -166,8 +219,41 @@ class ConditionerClass(BaseClass):
 
 		except:
 
-			#set
-			self.ConditionedIsBool=False
+			#debug
+			self.debug(
+				[
+					'The get has not worked for the Attest variable',
+					' so check what it is'
+				]
+			)
+
+			#return 
+			if hasattr(self.ConditioningInstanceVariable,'items'
+				)==False and type(self.ConditioningInstanceVariable) not in [
+					list,tuple]:
+
+				#debug
+				self.debug(
+					[
+						'It was not a dict or list so...',
+						' there is no reason that it doesnt get except if it false'
+					]
+				)
+
+				#set
+				self.ConditionedIsBool=False
+
+				#return 
+				return 
+
+			else:
+
+				#debug
+				self.debug('It is a dict or list so just put the value')
+
+				#alias
+				ConditionedTestValueVariable=self.ConditioningTestGetVariable	
+			
 
 		#debug
 		'''
@@ -195,6 +281,9 @@ class ConditionerClass(BaseClass):
 			#Check
 			if ConditionGrabFilterStr in self.GettingKeyVariable:
 
+				#temp
+				TempGettingKeyVariable=self.GettingKeyVariable
+
 				#debug
 				'''
 				self.debug(
@@ -210,10 +299,20 @@ class ConditionerClass(BaseClass):
 				#alias
 				FilterVariable=self.GettingKeyVariable[ConditionGrabFilterStr]
 
-				#get
-				ConditionScanValueVariablesList=self[
-					self.ConditioningScanGetVariable
-				]
+				#Check
+				if ConditionGrabScanStr in TempGettingKeyVariable:
+
+					#get
+					ConditionScanValueVariablesList=self[
+						TempGettingKeyVariable[ConditionGrabScanStr]
+					]
+
+				else:
+
+					#get
+					ConditionScanValueVariablesList=self[
+						self.ConditioningScanGetVariable
+					]
 
 				#debug
 				'''
@@ -231,9 +330,11 @@ class ConditionerClass(BaseClass):
 				for __ConditionTestVariable in ConditionScanValueVariablesList:
 
 					#debug
+					'''
 					self.debug(
 							'__ConditionTestVariable is '+SYS._str(__ConditionTestVariable)
 						)
+					'''
 
 					#set
 					self.ConditioningInstanceVariable=__ConditionTestVariable
@@ -248,12 +349,14 @@ class ConditionerClass(BaseClass):
 							__ConditionVariable.SelfVariable=__ConditionTestVariable
 
 							#debug
+							'''
 							self.debug(
 								[
 									'we call a get function',
 									'__ConditionVariable is '+str(__ConditionVariable)
 								]
 							)
+							'''
 
 							#get
 							self.ConditionedIsBool=self[__ConditionVariable]
