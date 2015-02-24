@@ -1,12 +1,10 @@
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Standards.Classors import Doer,Attester 
-from ShareYourSystem.Standards.Objects import Initiator
 import numpy as np
 
-#Definition a MakerClass decorated by the DefaultorClass
-@Doer.DoerClass()
-class MakerClass(Initiator.InitiatorClass):
+#Define
+@SYS.DoerClass()
+class MakerClass(SYS.ObjectClass):
 
 	def default_init(self,
 				_MakingMyFloat=1.,
@@ -46,7 +44,7 @@ MyMaker=MakerClass(
 	)
 
 #Add
-AttestingStrsList+=[
+print("\n".join([
 		'After the make ',
 		'MyMaker.MakingMyFloat is '+str(MyMaker.MakingMyFloat),
 		#Special numpy variables also...check Doer l 431 to compare them to None...
@@ -57,11 +55,5 @@ AttestingStrsList+=[
 		'MyMaker.MadeMyInt is '+str(MyMaker.MadeMyInt),
 		'MyMaker.MadeMyList is '+str(MyMaker.MadeMyList)
 	]
+))
 
-#Print
-#print(AttestingStrsList)
-
-#Definition
-SYS._attest(AttestingStrsList)
-
-#Print

@@ -29,8 +29,8 @@ SYS.setSubModule(globals())
 #<ImportSpecificModules>
 import collections
 import six
-from ShareYourSystem.Standards.Objects import Initiator
 Classor=BaseModule
+from ShareYourSystem.Standards.Objects import Object
 #</ImportSpecificModules>
 
 #<DefineLocals>
@@ -80,7 +80,7 @@ def setDefaultMutable(
 
 	#Check
 	if _AttributeKeyStrsList==None:
-		_AttributeKeyStrsList=DefaultClass.DefaultSetKeyStrsList
+		_AttributeKeyStrsList=DefaultClass.DefaultSpecificKeyStrsList
 		
 	#map an init for the mutable variables by detecting them at the level of the class : they are None
 	TypeClassesList=map(
@@ -139,7 +139,7 @@ def setDefault(
 
 	#Check
 	if _AttributeKeyStrsList==None:
-		_AttributeKeyStrsList=_ClassVariable.DefaultSetKeyStrsList
+		_AttributeKeyStrsList=_ClassVariable.DefaultSpecificKeyStrsList
 
 	#check
 	if 'DefaultNotSetKeyStrsList' in _KwargVariablesDict:
@@ -212,7 +212,7 @@ def initDefault(_InstanceVariable,*_LiargVariablesList,**_KwargVariablesDict):
 	'''
 
 	#Call the init method of the Initiator
-	Initiator.InitiatorClass.__init__(
+	Object.ObjectClass.__init__(
 		_InstanceVariable,**InitKwargVariablesDict)
 
 	#get
@@ -314,16 +314,15 @@ class DefaultorClass(BaseClass):
 					_Class.DefaultAttributeVariablesOrderedDict.items()
 				)
 
-			#set the DefaultSetKeyStrsList
-			#_Class.DefaultSetKeyStrsList=SYS.unzip(_Class.DefaultAttributeItemTuplesList,[0])
-			_Class.DefaultSetKeyStrsList=_Class.DefaultAttributeVariablesOrderedDict.keys()
+			#set the DefaultSpecificKeyStrsList
+			_Class.DefaultSpecificKeyStrsList=_Class.DefaultAttributeVariablesOrderedDict.keys()
 
 			#Get the BaseKeyStrsList
-			_Class.DefaultBaseSetKeyStrsList=list(
+			_Class.DefaultBaseKeyStrsList=list(
 								SYS.collect(
 											_Class,
 											'__bases__',
-											'DefaultSetKeyStrsList'
+											'DefaultSpecificKeyStrsList'
 								)
 			)
 			
@@ -390,7 +389,6 @@ class DefaultorClass(BaseClass):
 										'DefaultAttributeVariablesOrderedDict',
 										'InitArgumentDict'
 									]
-
 		#Return 
 		return _Class
 

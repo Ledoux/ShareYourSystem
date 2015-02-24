@@ -1,11 +1,9 @@
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Standards.Classors import Doer,Attester 
-from ShareYourSystem.Standards.Objects import Initiator
 
-#Definition a MakerClass decorated by the DefaultorClass
-@Doer.DoerClass()
-class MakerClass(Initiator.InitiatorClass):
+#Define
+@SYS.DoerClass()
+class MakerClass(SYS.ObjectClass):
 
 	def default_init(self,
 				_MakingMyFloat=1.,
@@ -15,7 +13,7 @@ class MakerClass(Initiator.InitiatorClass):
 				_MadeMyInt=0,
 				_MadeMyList=None,
 				):
-		Initiator.InitiatorClass.__init__(self)
+		SYS.ObjectClass.__init__(self)
 
 	def do_make(self):
 
@@ -26,9 +24,6 @@ class MakerClass(Initiator.InitiatorClass):
 
 		#set
 		self.MadeMyInt=int(self.MakingMyFloat)
-
-		#Return self
-		#return self
 	
 #Definition of an instance and make
 MyMaker=MakerClass(
@@ -40,21 +35,15 @@ MyMaker=MakerClass(
 	)
 
 print('MyMaker.getDo() is ')
-SYS._print(MyMaker.getDo())
+print(MyMaker.getDo())
 
 print('we reset doing')
 MyMaker.setDoing(MakerClass)
 
 print('MyMaker.getDo() after set doing is ')
-SYS._print(MyMaker.getDo())
+print(MyMaker.getDo())
 
 #Add
-AttestingStrsList=[
-		'MyMaker.__dict__ is '+SYS._str(MyMaker.__dict__,
-			**{'RepresentingAlineaIsBool':False})
-	]
+print('MyMaker.__dict__ is '+str(MyMaker.__dict__))
 
-#Definition
-SYS._attest(AttestingStrsList)
 
-#Print

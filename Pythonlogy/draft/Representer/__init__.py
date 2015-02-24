@@ -672,12 +672,25 @@ class RepresenterClass(BaseClass):
 		print('')
 		'''
 
+		#Check
+		'''
 		if hasattr(RepresentedClass,'RepresentingKeyStrsList')==False or (
 			len(RepresentedClass.__bases__)>0 and hasattr(RepresentedClass.__bases__[0
 			],'RepresentingKeyStrsList') and RepresentedClass.__bases__[0
 			].RepresentingKeyStrsList==RepresentedClass.RepresentingKeyStrsList):
+			
+			#init
 			RepresentedClass.RepresentingKeyStrsList=[]
-				
+		'''
+
+		RepresentedClass.RepresentingKeyStrsList=RepresentedClass.DefaultSetKeyStrsList
+
+		#init
+		#RepresentedClass.RepresentingSkipKeyStrsList=None
+
+		#init
+		#RepresentedClass.RepresentingForceKeyStrsList=None
+
 		#set the BaseKeyStrsList
 		KeyStrsSet=set(
 			SYS.collect(
@@ -712,11 +725,14 @@ class RepresenterClass(BaseClass):
 		#Add to the KeyStrsList
 		RepresentedClass.KeyStrsList+=[
 									'RepresentingKeyStrsList',
+									'RepresentingSkipKeyStrsList',
+									'RepresentingForceKeyStrsList',
 									'RepresentedBaseKeyStrsList',
 									'RepresentedSpecificKeyStrsList',
-									'RepresentedNotSpecificKeyStrsList'
+									'RepresentedNotSpecificKeyStrsList',
 								]
 
+		"""
 		#Definition the representing methods
 		def represent(_InstanceVariable,**_KwargVariablesDict):
 	
@@ -773,36 +789,53 @@ class RepresenterClass(BaseClass):
 										RepresentedClass.RepresentedBaseKeyStrsList
 									)
 
-			"""
-			RepresentedTuplesList+=map(
-										lambda __NewItemTuple:
-										(
-											("<Spe><Instance>"
-											if __NewItemTuple[0] in RepresentedClass.DefaultSetKeyStrsList+RepresentedClass.DefaultBaseSetKeyStrsList
-											else "<New><Instance>")+__NewItemTuple[0],
-											__NewItemTuple[1]
-										),
-										_InstanceVariable.__dict__.items()
-									)
-			"""
-
 			#Represent the NewInstanceKeyStrs in the __dict__
 			if 'RepresentingNewInstanceKeyStrsListBool' not in _KwargVariablesDict or _KwargVariablesDict[
 			'RepresentingNewInstanceKeyStrsListBool']:
 				
-				RepresentedNewInstanceKeyStrsList=SYS._filter(
+				#filter
+				RepresentedNewInstanceTuplesList=SYS._filter(
 											lambda __NewItemTuple:
 											__NewItemTuple[0] not in RepresentedClass.DefaultSetKeyStrsList+RepresentedClass.DefaultBaseSetKeyStrsList,
 											_InstanceVariable.__dict__.items()
 										)
 
+				
+				#Debug
+				'''
+				print('RepresentedNewInstanceTuplesList is ')
+				print(RepresentedNewInstanceTuplesList)
+				print('RepresentedClass.RepresentingSkipKeyStrsList is ')
+				print(RepresentedClass.RepresentingSkipKeyStrsList)
+				print('')
+				'''
+
+				#Check
+				if _InstanceVariable.RepresentingSkipKeyStrsList==None:
+					_InstanceVariable.RepresentingSkipKeyStrsList=[]
+
+				#filter
+				RepresentedNewInstanceTuplesList=SYS._filter(
+						lambda __RepresentedNewInstanceTuple:
+						__RepresentedNewInstanceTuple[0] not in _InstanceVariable.RepresentingSkipKeyStrsList,
+						RepresentedNewInstanceTuplesList
+					)
+
+				#Debug
+				'''
+				print('RepresentedNewInstanceTuplesList is ')
+				print(RepresentedNewInstanceTuplesList)
+				print('')
+				'''
+
+				#map
 				RepresentedTuplesList+=map(
 											lambda __NewItemTuple:
 											(
 												"<New><Instance>"+__NewItemTuple[0],
 												__NewItemTuple[1]
 											),
-											RepresentedNewInstanceKeyStrsList
+											RepresentedNewInstanceTuplesList
 										)
 
 			#Represent the NewClassKeyStrs in the _RepresentedClass__.__dict__
@@ -865,14 +898,34 @@ class RepresenterClass(BaseClass):
 						(
 							"<Spe><Instance>"+__RepresentingKeyStr,
 							_InstanceVariable.__dict__[__RepresentingKeyStr]
-						) if __RepresentingKeyStr in _InstanceVariable.__dict__
-						else (
-							"<Base><Class>"+__RepresentingKeyStr,
-							getattr(_InstanceVariable,__RepresentingKeyStr)
+						) 
+						if __RepresentingKeyStr in _InstanceVariable.__dict__ and __RepresentingKeyStr not in RepresentedClass.DefaultSetKeyStrsList
+						else(
+								(
+									"<Base><Instance>"+__RepresentingKeyStr,
+									_InstanceVariable.__dict__[__RepresentingKeyStr]
+								) 
+								if __RepresentingKeyStr in _InstanceVariable.__dict__ and __RepresentingKeyStr in RepresentedClass.DefaultBaseSetKeyStrsList
+								else
+								(
+									(
+										"<Base><Class>"+__RepresentingKeyStr,
+										getattr(_InstanceVariable,__RepresentingKeyStr)
+									)
+									if __RepresentingKeyStr not in _InstanceVariable.__dict__
+									else
+									(
+										"<New><Instance>"+__RepresentingKeyStr,
+										_InstanceVariable.__dict__[__RepresentingKeyStr]
+									)
+								)
 						),
-						_KwargVariablesDict['RepresentingKeyStrsList']
+						_KwargVariablesDict['RepresentingKeyStrsList'
+						]+_InstanceVariable.RepresentingForceKeyStrsList
 					)
 						
+
+
 			#Append
 			global RepresentedAlreadyIdIntsList
 
@@ -892,11 +945,12 @@ class RepresenterClass(BaseClass):
 							dict(RepresentedTuplesList),
 							**_KwargVariablesDict
 						)
+		"""
 
 		#Bound and set in the InspectedOrderedDict
-		RepresentedClass.__repr__=represent
-		RepresentedClass.InspectedArgumentDict['__repr__']=SYS.ArgumentDict(
-			RepresentedClass.__repr__)
+		#RepresentedClass.__repr__=represent
+		#RepresentedClass.InspectedArgumentDict['__repr__']=SYS.ArgumentDict(
+		#	RepresentedClass.__repr__)
 
 #</DefineClass>
 

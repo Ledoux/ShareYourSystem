@@ -3,7 +3,7 @@ import ShareYourSystem as SYS
 
 #Definition a FooClass decorated by the DefaultorClass
 @SYS.DefaultorClass()
-class FooClass(SYS.InitiatorClass):
+class FooClass(SYS.ObjectClass):
 
 	def default_init(self,
 						Int,
@@ -12,7 +12,8 @@ class FooClass(SYS.InitiatorClass):
 									'DefaultingSetType':int
 								}
 				):
-		
+		#call the base method
+		SYS.ObjectClass.__init__(self)
 		#Definition an attribute
 		self.MyStr='I am a Foo with MyFloat equal to '+str(self.MyFloat)+' and Int equal to '+str(Int)
 
@@ -26,7 +27,8 @@ SpecialFoo=FooClass(
 			)
 
 #Definition the AttestedStr
-AttestingStrsList=[
+print("\n".join(
+		[
 		'FooClass.__init__ is '+str(FooClass.__init__),
 		'FooClass has some special attributes',
 		#'FooClass.InitArgumentDict is '+SYS._str(FooClass.InitArgumentDict),
@@ -42,23 +44,21 @@ AttestingStrsList=[
 		'SpecialFoo.__dict__ is '+str(SpecialFoo.__dict__),
 		'SpecialFoo.MyFloat is '+str(SpecialFoo.MyFloat),
 		'DefaultFoo.MyInt is '+str(SpecialFoo.MyInt)
-	]
+		]
+	)
+)
 
 #Change a classed attribute
 FooClass.MyFloat=5
 
 #Add
-AttestingStrsList+=[
+print("\n"+"\n".join(
+		[
 		'After reset at the level of the class',
 		'DefaultFoo.MyFloat is '+str(DefaultFoo.MyFloat),
 		'SpecialFoo.MyFloat is '+str(SpecialFoo.MyFloat),
-	]
+		]
+	)
+)
 
-#Print
-#print(AttestingStrsList)
-
-#Definition
-SYS._attest(AttestingStrsList)
-
-#Print
 

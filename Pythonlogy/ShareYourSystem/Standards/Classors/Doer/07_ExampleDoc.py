@@ -1,18 +1,16 @@
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Standards.Classors import Doer,Attester 
-from ShareYourSystem.Standards.Objects import Initiator
 
-#Definition a MakerClass decorated by the DefaultorClass
-@Doer.DoerClass()
-class MakerClass(Initiator.InitiatorClass):
+#Define
+@SYS.DoerClass()
+class MakerClass(SYS.ObjectClass):
 
 	def default_init(self,
 				_MakingMyFloat=0.,
-				_MadeShareInitiator=Initiator.InitiatorClass(),
-				_MadeSpecificInitiator=None
+				_MadeShareObject=SYS.ObjectClass(),
+				_MadeSpecificObject=None
 				):
-		pass
+		SYS.ObjectClass.__init__(self)
 
 	def do_make(self):
 
@@ -21,27 +19,21 @@ class MakerClass(Initiator.InitiatorClass):
 		print('')
 
 		#set
-		self.MadeSpecificInitiator.MyInt=int(self.MakingMyFloat)
+		self.MadeSpecificObject.MyInt=int(self.MakingMyFloat)
 
 		#Return self
 		#return self
 	
 #Definition of an instance and make
-MakerClass.MadeShareInitiator.MyInt=5
+MakerClass.MadeShareObject.MyInt=5
 MyMaker=MakerClass().make(3.)
 
 #Add
-AttestingStrsList=[
+print("\n".join([
 		'After the make ',
-		'MakerClass.MadeSpecificInitiator is '+str(MakerClass.MadeSpecificInitiator),
-		'MyMaker.MadeShareInitiator.__dict__ is '+str(MyMaker.MadeShareInitiator.__dict__),
-		'MyMaker.MadeSpecificInitiator.__dict__ is '+str(MyMaker.MadeSpecificInitiator.__dict__)
-	]
+		'MakerClass.MadeSpecificObject is '+str(MakerClass.MadeSpecificObject),
+		'MyMaker.MadeShareObject.__dict__ is '+str(MyMaker.MadeShareObject.__dict__),
+		'MyMaker.MadeSpecificObject.__dict__ is '+str(MyMaker.MadeSpecificObject.__dict__)
+	]))
 
-#Print
-#print(AttestingStrsList)
 
-#Definition
-SYS._attest(AttestingStrsList)
-
-#Print

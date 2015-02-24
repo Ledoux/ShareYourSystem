@@ -3,7 +3,7 @@ import ShareYourSystem as SYS
 
 #Definition a MakerClass decorated by the DefaultorClass
 @SYS.DoerClass()
-class MakerClass(SYS.InitiatorClass):
+class MakerClass(SYS.ObjectClass):
 
 	def default_init(self,
 				_MakingMyFloat=1.,
@@ -11,7 +11,7 @@ class MakerClass(SYS.InitiatorClass):
 				_MakingRestrictList=None,
 				_MakingMyInt={'DefaultingSetType':int}
 				):
-		pass
+		SYS.ObjectClass.__init__(self)
 
 	def do_make(self):
 
@@ -26,18 +26,11 @@ class MakerClass(SYS.InitiatorClass):
 		#return self
 		
 #Definition the AttestedStr
-AttestingStrsList=[
+print("\n".join([
 	'MakerClass.do_make is '+str(MakerClass.do_make),
 	'MakerClass.doWithmake is '+str(MakerClass.superDo_make),
 	'MakerClass.make is '+str(MakerClass.make),
 	'MakerClass.callDo is '+str(MakerClass.callDo),
-]
+]))
 
-#Print
-#print(AttestingStrsList)
-
-#Definition
-SYS._attest(AttestingStrsList)
-
-#Print
 

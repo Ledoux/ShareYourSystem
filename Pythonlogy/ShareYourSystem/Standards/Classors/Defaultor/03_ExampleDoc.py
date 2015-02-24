@@ -4,14 +4,14 @@ import numpy as np
 
 #Definition a FooClass decorated by the DefaultorClass
 @SYS.DefaultorClass()
-class FooClass(SYS.InitiatorClass):
+class FooClass(SYS.ObjectClass):
 
 	def default_init(self,
 						_MyFirstList=[],
 						_MyArray=None,
 						_MySecondList=None,
 				):
-		pass
+		SYS.ObjectClass.__init__(self)
 
 #Definition a default instance that will take its values from the default classed attributes
 DefaultFoo=FooClass()
@@ -29,8 +29,8 @@ SpecialFoo=FooClass(
 			**{'MyInt':3}
 			)
 
-#Definition the AttestedStr
-AttestingStrsList=[
+#print
+print("\n".join([
 		'FooClass has some special attributes',
 		#'FooClass.InitArgumentDict is '+SYS._str(FooClass.InitArgumentDict),
 		'FooClass.DefaultAttributeVariablesOrderedDict is '+str(
@@ -46,12 +46,7 @@ AttestingStrsList=[
 		'SpecialFoo.MyFirstList is '+str(SpecialFoo.MyFirstList),
 		'SpecialFoo.MySecondList is '+str(SpecialFoo.MySecondList),
 	]
+	)
+)
 
-#Print
-#print(AttestingStrsList)
-
-#Definition
-SYS._attest(AttestingStrsList)
-
-#Print
 

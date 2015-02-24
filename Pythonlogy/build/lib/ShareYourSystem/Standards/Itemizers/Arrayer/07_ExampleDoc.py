@@ -2,9 +2,6 @@
 #ImportModules
 import ShareYourSystem as SYS
 
-from ShareYourSystem.Standards.Itemizers import Arrayer
-
-"""
 #array original
 MyArrayer=SYS.ArrayerClass(
 	).array(
@@ -17,7 +14,7 @@ MyArrayer=SYS.ArrayerClass(
 				},
 				{
 					'#key':'2Arrayer',
-					'#map@set':{'MyInt':"hello"}
+					'#map@set':{'MyInt':2}
 				}
 			]
 		]
@@ -27,4 +24,3 @@ MyArrayer=SYS.ArrayerClass(
 print('MyArrayer is ')
 SYS._print(MyArrayer)
 
-"""

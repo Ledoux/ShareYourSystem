@@ -106,14 +106,18 @@ class PatherClass(BaseClass):
 
 	#Definition
 	RepresentingKeyStrsList=[
-									'PathingKeyStr',
-									'PathedKeyStrsList',
-									'PathedGetKeyStr',
-									'PathedChildKeyStr',
+									#'PathPreviousDerivePatherVariable',
+									#'PathOriginDerivePatherVariable',
+									#'PathingKeyStr',
+									#'PathedKeyStrsList',
+									#'PathedGetKeyStr',
+									#'PathedChildKeyStr',
 									#'PathedGetValueVariable'
 								]
 
 	def default_init(self,
+				_PathPreviousDerivePatherVariable=None,
+				_PathOriginDerivePatherVariable=None,
 				_PathingKeyStr="", 				
 				_PathedKeyStrsList=None, 		
 				_PathedGetKeyStr="", 						
@@ -126,8 +130,7 @@ class PatherClass(BaseClass):
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
 		#init
-		self.PathPreviousDerivePather=None
-		self.PathOriginDerivePather=None
+		
 
 	def do_path(self):
 
@@ -186,7 +189,7 @@ class PatherClass(BaseClass):
 			#Set the previous
 			try:
 				#set
-				self.PathedGetValueVariable.PathPreviousDerivePather=self
+				self.PathedGetValueVariable.PathPreviousDerivePatherVariable=self
 			
 			except:
 
@@ -198,15 +201,15 @@ class PatherClass(BaseClass):
 			try:
 
 				#Check
-				if self.PathOriginDerivePather!=None:
+				if self.PathOriginDerivePatherVariable!=None:
 
 					#set
-					self.PathedGetValueVariable.PathOriginDerivePather=self.PathOriginDerivePather
+					self.PathedGetValueVariable.PathOriginDerivePatherVariable=self.PathOriginDerivePatherVariable
 
 				else:
 
 					#set
-					self.PathedGetValueVariable.PathOriginDerivePather=self
+					self.PathedGetValueVariable.PathOriginDerivePatherVariable=self
 
 			except:
 
@@ -258,7 +261,7 @@ class PatherClass(BaseClass):
 				'''
 
 				#alias
-				self.GettedValueVariable=self.PathOriginDerivePather
+				self.GettedValueVariable=self.PathOriginDerivePatherVariable
 
 				#return 
 				return {'HookingIsBool':False}
@@ -276,7 +279,7 @@ class PatherClass(BaseClass):
 				'''
 				
 				#alias
-				self.GettedValueVariable=self.PathPreviousDerivePather
+				self.GettedValueVariable=self.PathPreviousDerivePatherVariable
 
 				#return 
 				return {'HookingIsBool':False}

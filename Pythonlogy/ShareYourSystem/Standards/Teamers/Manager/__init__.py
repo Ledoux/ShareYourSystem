@@ -51,18 +51,26 @@ class ManagerClass(BaseClass):
 
 	#Definition
 	RepresentingKeyStrsList=[
-								'ManagingKeyStr',
-								'ManagingValueVariable',
-								'ManagingValueClass',
-								'ManagedValueVariable'
+								'TeamKeyStr',
+								'ManagementDict',
+								#'ManagingKeyStr',
+								#'ManagingValueVariable',
+								#'ManagingValueClass',
+								#'ManagedValueVariable',
+								#'ManagedIsBool',
+								#'ManagedOnceBool'
 							]
 
 	def default_init(
 				self,
+				_TeamKeyStr="",
+				_ManagementDict=None,
 				_ManagingKeyStr="",
 				_ManagingValueVariable=None,
 				_ManagingValueClass=Teamer.TeamerClass,
 				_ManagedValueVariable=None,
+				_ManagedIsBool=False,
+				_ManagedOnceBool=False,
 				**_KwargVariablesDict
 			):	
 
@@ -71,16 +79,32 @@ class ManagerClass(BaseClass):
 
 		#Init the ManagementDict
 		self.ManagementDict=ManagementDictClass()
-
-		##########################
-		#init some team attributes
-		#
-
-		#Init
-		self.TeamKeyStr=""
-
 		
 	def do_manage(self):
+
+		#Check
+		if self.ManagedOnceBool==False:
+
+			#add
+			if self.RepresentingSkipKeyStrsList==None:
+				self.RepresentingSkipKeyStrsList=['RepresentingForceKeyStrsList']
+			else:
+				self.RepresentingSkipKeyStrsList+=['RepresentingForceKeyStrsList']
+
+			#add
+			if self.RepresentingForceKeyStrsList==None:
+				self.RepresentingForceKeyStrsList=[
+									'TeamKeyStr',
+									'ManagementDict'
+								]
+			else:
+				self.RepresentingForceKeyStrsList+=[
+									'TeamKeyStr',
+									'ManagementDict'
+								]
+
+			#set True
+			self.ManagedOnceBool=True
 
 		#debug
 		'''
@@ -141,13 +165,19 @@ class ManagerClass(BaseClass):
 						self.ManagedValueVariable
 					)
 
+			#define the keystr to define in the dict
+			ManagedKeyStr=self.ManagingKeyStr+type(
+						self.ManagedValueVariable
+					).NameStr
+
 			#set in the __dict__
 			self.__setattr__(
-					self.ManagingKeyStr+type(
-						self.ManagedValueVariable
-					).NameStr,
+					ManagedKeyStr,
 					self.ManagedValueVariable
 				)
+
+			#add in the RepresentingSkipKeyStrsList to not be seen in the repr
+			self.RepresentingSkipKeyStrsList.append(ManagedKeyStr)
 
 			#put in the dict
 			self.ManagementDict[

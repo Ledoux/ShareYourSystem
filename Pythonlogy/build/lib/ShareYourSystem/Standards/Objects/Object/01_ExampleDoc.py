@@ -2,11 +2,16 @@
 #ImportModules
 import ShareYourSystem as SYS
 
-#Definition a Getter
-MyObject=SYS.ObjectClass()
+#Need to define before either it is not setted
+SYS.ObjectClass.MyInt=0
+
+#Define an Object
+MyObject=SYS.ObjectClass(**{'MyInt':4})
 		
-#Definition the AttestedStr
+#print
 print('MyObject is '+str(MyObject)) 
 
-#Print
+#print
+print('MyObject.__dict__ is '+str(MyObject.__dict__)) 
+
 

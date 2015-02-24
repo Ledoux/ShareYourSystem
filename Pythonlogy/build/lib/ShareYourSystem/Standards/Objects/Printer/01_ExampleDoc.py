@@ -1,15 +1,12 @@
 #ImportModules
 import ShareYourSystem as SYS
 
-#Definition of an instance Printer and make it print hello
-MyPrinter=SYS.PrinterClass()._print('hello')
-		
-#Definition the AttestedStr
-SYS._attest(
-	[
-		'MyPrinter is '+SYS._str(MyPrinter)
-	]
-) 
+#Define et print
+MyPrinter=SYS.PrinterClass(
+	)._print('hello')
+	
+MyPrinter.MyInt=0
 
-#Print
-
+#print itself
+print('print it self gives')
+print(MyPrinter)

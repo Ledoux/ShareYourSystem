@@ -27,9 +27,25 @@ import sys
 #@DecorationClass
 class ObjectClass(object):
 
-	#Definition 	
-	IdInt=-1
-	SysStr=""
+	def __init__(self,**_KwargVariablesDict):
+		
+		#debug
+		'''
+		print('_KwargVariablesDict is ',_KwargVariablesDict)
+		print('')
+		'''
+
+		#Map the update
+		map(
+				lambda __ItemTuple:
+				self.__setattr__(__ItemTuple[0],__ItemTuple[1]) 
+				#If we want to not set the items setted during hooks and that are not specified...
+				if hasattr(self,__ItemTuple[0]) else None
+				,_KwargVariablesDict.iteritems()
+			)
+
+		#call the base method
+		object.__init__(self)
 
 #</DefineClass>
 

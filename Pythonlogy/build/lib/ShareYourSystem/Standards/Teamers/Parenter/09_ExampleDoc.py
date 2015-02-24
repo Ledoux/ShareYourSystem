@@ -6,12 +6,24 @@ import ShareYourSystem as SYS
 MyParenter=SYS.ParenterClass(
 	).array(
 		[
-			['&Layers'],
-			['$First','$Second'],
 			['&Neurons'],
-			['$E','$I']
+			[
+				{
+					'#key':"$E",
+					'#map@set':{
+						'&Connections':{
+							'$EtoI':{
+
+							}
+						}
+					}
+				}
+			]	
 		]
-	).command(
+	)
+
+"""
+	.command(
 		'+&.values+$.values',
 		'#call:parent',
 		_AfterWalkBool=True
@@ -34,11 +46,9 @@ MyParenter=SYS.ParenterClass(
 			}
 		}
 	)
+"""
 
 #print
-print('MyParenter.NeuronsDict.keys() is ')
-SYS._print(MyParenter.NeuronsDict.keys())
+print('MyParenter is ')
+SYS._print(MyParenter)
 
-#print
-print('MyParenter.LayersDict.keys() is ')
-SYS._print(MyParenter.LayersDict.keys())

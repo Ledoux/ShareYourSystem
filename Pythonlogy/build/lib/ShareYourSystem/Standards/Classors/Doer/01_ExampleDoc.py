@@ -3,7 +3,7 @@ import ShareYourSystem as SYS
 
 #Definition a MakerClass decorated by the DefaultorClass
 @SYS.DoerClass()
-class MakerClass(SYS.InitiatorClass):
+class MakerClass(SYS.ObjectClass):
 
 	def default_init(self,
 				_MakingMyFloat=1.,
@@ -11,7 +11,7 @@ class MakerClass(SYS.InitiatorClass):
 				_MakingSpecificList=None,
 				_MakingMyInt={'DefaultingSetType':int}
 				):
-		pass
+		SYS.ObjectClass.__init__(self)
 
 #Definition a default instance
 DefaultMaker=MakerClass()
@@ -25,40 +25,37 @@ SpecialMaker=MakerClass(
 )
 
 #Definition the AttestedStr
-AttestingStrsList=[
+print("\n".join(
+	[
 	'MakerClass has some special attributes',
-	'MakerClass.DoingAttributeVariablesOrderedDict is '+SYS._str(
+	'MakerClass.DoingAttributeVariablesOrderedDict is '+str(
 		MakerClass.DoingAttributeVariablesOrderedDict),
-	'MakerClass.DoneAttributeVariablesOrderedDict is '+SYS._str(
+	'MakerClass.DoneAttributeVariablesOrderedDict is '+str(
 		MakerClass.DoneAttributeVariablesOrderedDict),
 	'What are you saying DefaultMaker ?',
-	'DefaultMaker.__dict__ is '+SYS._str(DefaultMaker.__dict__),
-	'DefaultMaker.getDo() is '+SYS._str(DefaultMaker.getDo()),
+	'DefaultMaker.__dict__ is '+str(DefaultMaker.__dict__),
+	'DefaultMaker.getDo() is '+str(DefaultMaker.getDo()),
 	'What are you saying SpecialMaker ?',
-	'SpecialMaker.__dict__ is '+SYS._str(SpecialMaker.__dict__),
-	'SpecialMaker.getDo() is '+SYS._str(SpecialMaker.getDo())
-]
+	'SpecialMaker.__dict__ is '+str(SpecialMaker.__dict__),
+	'SpecialMaker.getDo() is '+str(SpecialMaker.getDo())
+	]
+))
 
 #Change classed attributes
 MakerClass.MakingMyFloat=5.
 MakerClass.MakingMyInt=5
 
 #Add
-AttestingStrsList+=[
+print("\n"+"\n".join(
+	[
 		'After reset at the level of the class',
 		'What are you saying DefaultMaker ?',
-		'DefaultMaker.__dict__ is '+SYS._str(DefaultMaker.__dict__),
-		'DefaultMaker.getDo() is '+SYS._str(DefaultMaker.getDo()),
+		'DefaultMaker.__dict__ is '+str(DefaultMaker.__dict__),
+		'DefaultMaker.getDo() is '+str(DefaultMaker.getDo()),
 		'What are you saying SpecialMaker ?',
-		'SpecialMaker.__dict__ is '+SYS._str(SpecialMaker.__dict__),
-		'SpecialMaker.getDo() is '+SYS._str(SpecialMaker.getDo())
+		'SpecialMaker.__dict__ is '+str(SpecialMaker.__dict__),
+		'SpecialMaker.getDo() is '+str(SpecialMaker.getDo())
 	]
+))
 
-#Print
-#print(AttestingStrsList)
-
-#Definition
-SYS._attest(AttestingStrsList)
-
-#Print
 

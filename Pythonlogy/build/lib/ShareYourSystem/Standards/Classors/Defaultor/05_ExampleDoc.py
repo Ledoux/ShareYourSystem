@@ -3,29 +3,25 @@ import ShareYourSystem as SYS
 
 #Definition a FooClass decorated by the DefaultorClass
 @SYS.DefaultorClass()
-class FooClass(SYS.InitiatorClass):
+class FooClass(SYS.ObjectClass):
 
 	def default_init(self,
-						_MyShareInitiator=SYS.InitiatorClass()
+						_ShareObject=SYS.ObjectClass()
 				):
-		pass
+		SYS.ObjectClass.__init__(self)
 
 #Definition 
-FooClass.MyShareInitiator.MyInt=2
+FooClass.ShareObject.MyInt=2
 MyFirstFoo=FooClass()
 MySecondFoo=FooClass()
 
 #Definition the AttestedStr
-AttestingStrsList=[
-		'MyFirstFoo.MyShareInitiator.__dict__ is ',str(
-			MyFirstFoo.MyShareInitiator.__dict__)
+print("\n".join(
+	[
+		'MyFirstFoo.ShareObject.__dict__ is ',str(
+			MyFirstFoo.ShareObject.__dict__)
 	]
+	)
+)
 
-#Print
-#print(AttestingStrsList)
-
-#Definition
-SYS._attest(AttestingStrsList)
-
-#Print
 

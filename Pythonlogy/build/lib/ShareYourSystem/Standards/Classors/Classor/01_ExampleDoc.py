@@ -6,13 +6,7 @@ import ShareYourSystem as SYS
 class FooClass(object):
 	pass
 
-#Definition the AttestedStr
-SYS._attest(
-	[
-		'FooClass.KeyStrsList is '+str(FooClass.KeyStrsList),
-		'FooClass.NameStr is '+FooClass.NameStr,
-		'FooClass.DeriveClassor is '+str(FooClass.DeriveClassor)	
-	]
-) 
-
-#Print
+#print
+print('FooClass.KeyStrsList is '+str(FooClass.KeyStrsList))
+print('FooClass.NameStr is '+FooClass.NameStr)
+print('FooClass.DeriveClassor is '+str(FooClass.DeriveClassor))

@@ -52,19 +52,25 @@ class TeamerClass(BaseClass):
 
 	#Definition
 	RepresentingKeyStrsList=[
-								'TeamingKeyStr',
-								'TeamingValueVariable',
-								'TeamingManageVariable',
-								'TeamingValueClass',
-								'TeamedValueVariable'
+								'ManagementKeyStr',
+								'TeamDict',
+								#'TeamingKeyStr',
+								#'TeamingValueVariable',
+								#'TeamingManageVariable',
+								#'TeamingValueClass',
+								#'TeamedValueVariable',
+								#'TeamedOnceBool'
 							]
 
 	def default_init(self,
+				_ManagementKeyStr="",
+				_TeamDict=None,
 				_TeamingKeyStr="",	
 				_TeamingValueVariable=None,	
 				_TeamingManageVariable=None,					
 				_TeamingValueClass=Pointer.PointerClass, 	
-				_TeamedValueVariable=None,																	
+				_TeamedValueVariable=None,	
+				_TeamedOnceBool=False,																
 				**_KwargVariablesDict
 			):
 
@@ -74,10 +80,35 @@ class TeamerClass(BaseClass):
 		#init
 		self.TeamDict=TeamDictClass()
 
-		#init
-		self.ManagementKeyStr=""
-
 	def do_team(self):
+
+		#Check
+		if self.TeamedOnceBool==False:
+
+			#add
+			if self.RepresentingForceKeyStrsList==None:
+
+				#add
+				if self.RepresentingSkipKeyStrsList==None:
+					self.RepresentingSkipKeyStrsList=['RepresentingForceKeyStrsList']
+				else:
+					self.RepresentingSkipKeyStrsList+=['RepresentingForceKeyStrsList']
+
+				#set
+				self.RepresentingForceKeyStrsList=[
+									'ManagementKeyStr',
+									'TeamDict'
+								]
+			else:
+
+				#add
+				self.RepresentingForceKeyStrsList+=[
+									'ManagementKeyStr',
+									'TeamDict'
+								]
+
+			#set True
+			self.TeamedOnceBool=True
 
 		#debug
 		'''
@@ -138,13 +169,19 @@ class TeamerClass(BaseClass):
 						self.TeamedValueVariable
 					)
 
+			#define the keystr to define in the dict
+			TeamedKeyStr=self.TeamingKeyStr+type(
+						self.TeamedValueVariable
+					).NameStr
+
 			#set in the __dict__
 			self.__setattr__(
-					self.TeamingKeyStr+type(
-						self.TeamedValueVariable
-					).NameStr,
+					TeamedKeyStr,
 					self.TeamedValueVariable
 				)
+
+			#add in the RepresentingSkipKeyStrsList to not be seen in the repr
+			self.RepresentingSkipKeyStrsList.append(TeamedKeyStr)
 
 			#put in the dict
 			self.TeamDict[

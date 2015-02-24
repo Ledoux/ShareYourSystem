@@ -17,7 +17,7 @@ other attributes that can be provided by other decorating Classes.
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Objects.Initiator"
+BaseModuleStr="ShareYourSystem.Standards.Objects.Object"
 DecorationModuleStr=""
 SYS.setSubModule(globals())
 #</DefineAugmentation>

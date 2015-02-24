@@ -39,17 +39,23 @@ class ParenterClass(BaseClass):
 
 	#Definition
 	RepresentingKeyStrsList=[
-								'ParentingTopGetVariable',
-								'ParentingClimbBool',
-								'ParentedTotalDeriveTeamersList',
-								'ParentedDeriveTeamersList',
-								'ParentedDeriveManagersList',
+								#'ParentKeyStr',
+								#'ParentDeriveTeamerVariable',
+								#'ParentTopDeriveTeamerVariable',
+								#'ParentingTopGetVariable',
+								#'ParentingClimbBool',
+								#'ParentedTotalDeriveTeamersList',
+								#'ParentedDeriveTeamersList',
+								#'ParentedDeriveManagersList',
 								'ParentedTotalPathStr',
-								'ParentedTeamPathStr',
-								'ParentedManagementPathStr'
+								#'ParentedTeamPathStr',
+								#'ParentedManagementPathStr'
 							]
 
 	def default_init(self,
+				_ParentKeyStr="Top",
+				_ParentDeriveTeamerVariable=None,
+				_ParentTopDeriveTeamerVariable=None,
 				_ParentingTopGetVariable=None,
 				_ParentingClimbBool=True,
 				_ParentedTotalDeriveTeamersList=None,
@@ -65,21 +71,12 @@ class ParenterClass(BaseClass):
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
 		#init
-		self.ParentKeyStr="Top"
-
-		#init
-		self.ParentDeriveTeamer=None
-
-		#init
 		self.ParentedTotalDeriveTeamersList=[]
 		self.ParentedDeriveTeamersList=[]
 		self.ParentedDeriveManagersList=[]
-
-		#set
-		#self.CommandingBeforeWalkBool=True
 		
 		#set top
-		self.ParentTopDeriveTeamer=self
+		self.ParentTopDeriveTeamerVariable=self
 
 	def do_parent(self):
 
@@ -92,7 +89,7 @@ class ParenterClass(BaseClass):
 		'''
 
 		#get 
-		ParentedDeriveTeamerVariable=self.ParentDeriveTeamer
+		ParentedDeriveTeamerVariable=self.ParentDeriveTeamerVariable
 
 		#Check
 		if ParentedDeriveTeamerVariable!=None:
@@ -211,12 +208,12 @@ class ParenterClass(BaseClass):
 			if len(self.ParentedTotalDeriveTeamersList)>0:
 
 				#last one
-				self.ParentTopDeriveTeamer=self.ParentedTotalDeriveTeamersList[-1]
+				self.ParentTopDeriveTeamerVariable=self.ParentedTotalDeriveTeamersList[-1]
 							
 			#debug
 			'''
 			self.debug(
-					('self.',self,['ParentTopDeriveTeamer'])
+					('self.',self,['ParentTopDeriveTeamerVariable'])
 				)
 			'''
 
@@ -244,7 +241,7 @@ class ParenterClass(BaseClass):
 					'''
 					
 					#get
-					ParentedValueVariablesList=self.ParentTopDeriveTeamer[
+					ParentedValueVariablesList=self.ParentTopDeriveTeamerVariable[
 							'#map@get'](
 											*self.ParentingTopGetVariable
 									).ItemizedMapValueVariablesList
@@ -268,7 +265,7 @@ class ParenterClass(BaseClass):
 					#Link
 					self.set(
 							self.ParentingTopGetVariable,
-							self.ParentTopDeriveTeamer[
+							self.ParentTopDeriveTeamerVariable[
 								self.ParentingTopGetVariable
 							]
 						)
@@ -276,7 +273,7 @@ class ParenterClass(BaseClass):
 		else:
 
 			#set
-			self.ParentTopDeriveTeamer=self
+			self.ParentTopDeriveTeamerVariable=self
 
 	def mimic_team(self):
 
@@ -291,7 +288,7 @@ class ParenterClass(BaseClass):
 		'''
 		
 		#set
-		self.TeamedValueVariable.ParentDeriveTeamer=self
+		self.TeamedValueVariable.ParentDeriveTeamerVariable=self
 		self.TeamedValueVariable.ParentKeyStr=self.TeamingKeyStr
 
 		#Check
@@ -322,7 +319,7 @@ class ParenterClass(BaseClass):
 		'''
 
 		#set
-		self.ManagedValueVariable.ParentDeriveTeamer=self
+		self.ManagedValueVariable.ParentDeriveTeamerVariable=self
 		self.ManagedValueVariable.ParentKeyStr=self.ManagingKeyStr
 
 	def mimic_get(self):
@@ -347,7 +344,7 @@ class ParenterClass(BaseClass):
 			'''
 
 			#alias
-			self.GettedValueVariable=self.ParentDeriveTeamer
+			self.GettedValueVariable=self.ParentDeriveTeamerVariable
 
 			#Stop the setting
 			return {"HookingIsBool":False}
@@ -360,13 +357,13 @@ class ParenterClass(BaseClass):
 			self.debug(
 				[
 					'We get the top parent',
-					('self.',self,['ParentTopDeriveTeamer'])
+					('self.',self,['ParentTopDeriveTeamerVariable'])
 				]
 			)
 			'''
 
 			#alias
-			self.GettedValueVariable=self.ParentTopDeriveTeamer
+			self.GettedValueVariable=self.ParentTopDeriveTeamerVariable
 
 			#Stop the setting
 			return {"HookingIsBool":False}
