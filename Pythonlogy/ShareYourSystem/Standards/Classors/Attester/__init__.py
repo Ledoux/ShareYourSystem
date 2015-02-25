@@ -19,7 +19,7 @@ of the modules.
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Classors.Representer"
+BaseModuleStr="ShareYourSystem.Standards.Classors.Inspecter"
 DecorationModuleStr=BaseModuleStr
 SYS.setSubModule(globals())
 #</DefineAugmentation>

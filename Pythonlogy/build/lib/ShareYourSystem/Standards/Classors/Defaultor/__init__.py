@@ -41,7 +41,7 @@ DefaultWrapMethodStr='default_init'
 DefaultDecorationMethodStr="superDefault_init"
 #</DefineLocals>
 
-#<DefineFunctions>
+#<DefineLocals>
 def DefaultInitFunction(
 	_InstanceVariable,
 	*_LiargVariablesList,
@@ -233,9 +233,9 @@ def initDefault(_InstanceVariable,*_LiargVariablesList,**_KwargVariablesDict):
 	except:
 		DefaultWrapUnboundMethod(_InstanceVariable,*_LiargVariablesList)
 
-#<DefineFunctions>
+#<DefineLocals>
 
-#<Define_Class>
+#<DefineClass>
 @DecorationClass()
 class DefaultorClass(BaseClass):
 
@@ -387,12 +387,14 @@ class DefaultorClass(BaseClass):
 			_Class.KeyStrsList+=[
 										#'DefaultAttributeItemTuplesList',
 										'DefaultAttributeVariablesOrderedDict',
-										'InitArgumentDict'
-									]
+										'InitArgumentDict',
+										'DefaultBaseKeyStrsList',
+										'DefaultSpecificKeyStrsList'
+								]
 		#Return 
 		return _Class
 
-#</Define_Class>
+#</DefineClass>
 
 
 

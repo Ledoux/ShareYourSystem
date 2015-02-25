@@ -926,6 +926,10 @@ ShareYourSystem/Standards/Objects/Printer/001_DocumentDoc.md
 ShareYourSystem/Standards/Objects/Printer/002_GithubDoc.md
 ShareYourSystem/Standards/Objects/Printer/00_ExampleDoc.md
 ShareYourSystem/Standards/Objects/Printer/01_ExampleDoc.py
+ShareYourSystem/Standards/Objects/Printer/02_ExampleDoc.md
+ShareYourSystem/Standards/Objects/Printer/03_ExampleDoc.py
+ShareYourSystem/Standards/Objects/Printer/04_ExampleDoc.md
+ShareYourSystem/Standards/Objects/Printer/05_ExampleDoc.py
 ShareYourSystem/Standards/Objects/Printer/Readme.md
 ShareYourSystem/Standards/Objects/Printer/Test.py
 ShareYourSystem/Standards/Objects/Printer/__init__.py

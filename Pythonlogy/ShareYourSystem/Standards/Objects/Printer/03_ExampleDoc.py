@@ -30,11 +30,6 @@ TuplesList=[
 			]
 
 #Definition the AttestedStr
-SYS._attest(
-	[
-		'Dict is'+SYS._str(Dict),
-		'TuplesList is'+SYS._str(TuplesList)
-	]
-) 
+print('Dict is'+SYS._str(Dict))
+print('TuplesList is'+SYS._str(TuplesList))
 
-#Print

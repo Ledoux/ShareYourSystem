@@ -24,8 +24,6 @@ SYS.setSubModule(globals())
 #<ImportSpecificModules>
 import inspect
 import collections
-
-from ShareYourSystem.Standards.Objects import Initiator
 #</ImportSpecificModules>
 
 #<DefineLocals>

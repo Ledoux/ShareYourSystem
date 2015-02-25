@@ -100,9 +100,6 @@ class ClassorClass(BaseClass):
 		#Give a Pointer to the Hooker
 		setattr(_Class,'DeriveClassor',self)
 
-		#set the KeyStrsList
-		_Class.KeyStrsList=SYS.getKeyStrsListWithClass(_Class)
-
 		#set to the SYS the module
 		if len(SYS.NameStrsList)==0:
 			setattr(SYS,self.NameStr,sys.modules[self.__class__.__module__])
@@ -159,6 +156,9 @@ class ClassorClass(BaseClass):
 					)
 				)
 			
+		#set the KeyStrsList
+		_Class.KeyStrsList=SYS.getKeyStrsListWithClass(_Class)+['KeyStrsList']
+
 		#Return 
 		return _Class
 		

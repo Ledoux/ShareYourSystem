@@ -1141,12 +1141,12 @@ class ShareYourSystem():
 			'''
 
 			#Check for special methods
-			if _KeyVariable in ['_print','_str','_attest','_test']:
-				from ShareYourSystem.Standards.Classors import Tester
+			if _KeyVariable in ['_print','_str']:
+				from ShareYourSystem.Standards.Objects import Printer
 				return getattr(WrapModule,_KeyVariable)
 
 			#Check
-			elif _KeyVariable.endswith('Class'):
+			if _KeyVariable.endswith('Class'):
 
 				#Debug
 				'''

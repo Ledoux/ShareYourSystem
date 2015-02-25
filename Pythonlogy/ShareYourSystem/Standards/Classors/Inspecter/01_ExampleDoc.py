@@ -3,14 +3,14 @@ import ShareYourSystem as SYS
 
 #define
 @SYS.InspecterClass()
-class MakerClass(SYS.InitiatorClass):
+class MakerClass(SYS.ObjectClass):
 
 	def default_init(self,
 			_MakingMyStr,
 			_MakingMyInt=0,
 			**_KwargVariablesDict
 		):
-		SYS.InitiatorClass.__init__(self,**_KwargVariablesDict)
+		SYS.ObjectClass.__init__(self,**_KwargVariablesDict)
 
 	def do_make(self):
 

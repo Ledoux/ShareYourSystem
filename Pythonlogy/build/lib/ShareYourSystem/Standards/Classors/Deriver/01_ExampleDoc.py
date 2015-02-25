@@ -4,7 +4,7 @@ import ShareYourSystem as SYS
 
 #Definition of a MakerClass decorated by a DoerClass instance
 @SYS.DoerClass()
-class MakerClass(SYS.InitiatorClass):
+class MakerClass(SYS.ObjectClass):
 	pass
 
 #Definition of a derived BuilderClass decorated by a Deriver
@@ -16,10 +16,5 @@ class BuilderClass(MakerClass):
 #print('MakerClass.DerivedClassesList is '+str(MakerClass.DerivedClassesList))
 
 #Definition the AttestedStr
-SYS._attest(
-	[
-		'MakerClass.DerivedClassesList is '+str(MakerClass.DerivedClassesList)
-	]
-) 
+print('MakerClass.DerivedClassesList is '+str(MakerClass.DerivedClassesList)) 
 
-#Print

@@ -367,7 +367,7 @@ class DoerClass(BaseClass):
 			)
 		
 		#set a lists that will contain the tempory setting items during a call of the <do> method in the instance
-		DoClass.DoHistoryOrderedDict=collections.OrderedDict()
+		#DoClass.DoHistoryOrderedDict=collections.OrderedDict()
 
 		#Check
 		if hasattr(DoClass,'DefaultAttributeVariablesOrderedDict'):
@@ -612,11 +612,14 @@ class DoerClass(BaseClass):
 								'DoingStr',
 								'DoneAttributeVariablesOrderedDict',
 								'DoingAttributeVariablesOrderedDict',
+								'DoMethodStr',
+								'DoHistoryOrderedDict',
 								DoExecStrKeyStr,
 								'DoingGetBool',
 								'DoTempAttributeItemTuplesList',
 								'DoTempNotAttributeItemTupleItemsList'
-						]			
+						]+DoClass.DoingAttributeVariablesOrderedDict.keys(
+							)+DoClass.DoneAttributeVariablesOrderedDict.keys()
 #</DefineClass>
 
 
