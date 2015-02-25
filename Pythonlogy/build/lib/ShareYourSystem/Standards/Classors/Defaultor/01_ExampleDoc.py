@@ -26,7 +26,7 @@ SpecialFoo=FooClass(
 			**{'MyInt':3}
 			)
 
-#Definition the AttestedStr
+#print
 print("\n".join(
 		[
 		'FooClass.__init__ is '+str(FooClass.__init__),
@@ -47,6 +47,7 @@ print("\n".join(
 		]
 	)
 )
+'''
 
 #Change a classed attribute
 FooClass.MyFloat=5

@@ -10,6 +10,8 @@ setup.py
 upload.sh
 ShareYourSystem/00_ExampleDoc.md
 ShareYourSystem/01_ExampleDoc.py
+ShareYourSystem/02_ExampleDoc.md
+ShareYourSystem/03_ExampleDoc.py
 ShareYourSystem/Readme.md
 ShareYourSystem/__init__.py
 ShareYourSystem/lib.py

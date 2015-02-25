@@ -1,9 +1,9 @@
 #ImportModules
 import ShareYourSystem as SYS
 
-#Represent a simple object
+#Define
 @SYS.DoerClass()
-class MakerClass(SYS.ObjectClass):
+class MakerClass(SYS.PrinterClass):
 
 	RepresentingKeyStrsList=['MadeMyInt']
 
@@ -11,10 +11,14 @@ class MakerClass(SYS.ObjectClass):
 						_MakingMyFloat=0.,  
 						_MadeMyInt=0
 					):
-		SYS.ObjectClass.__init__(self)
+		SYS.PrinterClass.__init__(self)
 	
 #Definition a simple instance
 SimpleMaker=MakerClass(_MakingMyFloat=2.)
+
+#print
+print('SimpleMaker is '+SYS._str(SimpleMaker))
+print('')
 
 #Represent a structured instance
 ParentMaker=MakerClass()
@@ -23,6 +27,11 @@ ParentMaker.CircularChildMaker=MakerClass()
 ParentMaker.CircularChildMaker.ParentMaker=ParentMaker
 ParentMaker.CircularChildMaker.SelfMaker=ParentMaker.CircularChildMaker
 
+#print
+print('ParentMaker is '+SYS._str(ParentMaker))
+print('')
+
+'''
 #Definition a derived class from the MakerClass
 @SYS.DoerClass()
 class BuilderClass(MakerClass):
@@ -33,18 +42,11 @@ class BuilderClass(MakerClass):
 						_BuildingMyStr='hello',  
 						_BuiltMyStr='None'
 					):
-		pass
+		MakerClass.__init__(self)
 
 #Definition a simple instance
 SimpleBuilder=BuilderClass(_MakingMyFloat=2.)
 
-#Definition the AttestedStr
-SYS._print(
-	[
-		'SimpleMaker is '+SYS._str(SimpleMaker),
-		'ParentMaker is '+SYS._str(ParentMaker),
-		'SimpleBuilder is '+SYS._str(SimpleBuilder)
-	]
-) 
-
-
+#print
+print('SimpleBuilder is '+SYS._str(SimpleBuilder)) 
+'''

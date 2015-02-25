@@ -630,6 +630,7 @@ class PrinterClass(BaseClass):
 						_PrintingBaseBool=False,
 						_PrintingNewInstanceBool=True,
 						_PrintingNewClassBool=True,
+						_PrintingOutBool=True,
 						_PrintedStr="",
 						**_KwargVariablesDict
 					):
@@ -646,6 +647,7 @@ class PrinterClass(BaseClass):
 									'PrintingBaseBool',
 									'PrintingNewInstanceBool',
 									'PrintingNewClassBool',
+									'PrintingOutBool',
 									'PrintedStr'
 								]
 							)
@@ -656,7 +658,7 @@ class PrinterClass(BaseClass):
 	def __repr__(self,**_KwargVariablesDict):
 
 		#return 
-		return self._print(self).PrintedStr
+		return self._print(self,_OutBool=False).PrintedStr
 
 	def do__print(self,**_KwargVariablesDict):
 
@@ -670,12 +672,10 @@ class PrinterClass(BaseClass):
 		if self.PrintingVariable!=self:
 
 			#print
-			print(
-				getPrintStr(
+			self.PrintedStr=getPrintStr(
 					self.PrintingVariable,
 					**_KwargVariablesDict
 				)
-			)
 
 		else:
 
@@ -833,6 +833,10 @@ class PrinterClass(BaseClass):
 						dict(PrintedTuplesList),
 						**_KwargVariablesDict
 					)
+
+		#Check
+		if self.PrintingOutBool:
+			print(self.PrintedStr)
 		
 #</DefineClass>
 

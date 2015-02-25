@@ -494,6 +494,20 @@ def getLocalFolderPathStr(_ModuleVariable):
 def getNone(_KeyVariable,_ValueVariable):
 	return None
 
+def indent(_Variable):
+	if hasattr(_Variable,'items')==False:
+		_Variable=_Variable.__dict__
+	import json
+	return json.dumps(
+			dict(
+				zip(
+						_Variable.keys(),
+						map(str,_Variable.values())
+					)
+			),
+				indent=2
+		)
+
 def pick(_Variable,_GetVariablesList,_GetMethodStr='getattr'):
 
 	#Check
