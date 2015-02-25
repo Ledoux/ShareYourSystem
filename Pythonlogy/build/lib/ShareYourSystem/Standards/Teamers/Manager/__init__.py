@@ -58,7 +58,7 @@ class ManagerClass(BaseClass):
 				_ManagingValueClass=Teamer.TeamerClass,
 				_ManagedValueVariable=None,
 				_ManagedIsBool=False,
-				_ManagedOnceBool=False
+				_ManagedOnceBool=False,
 				**_KwargVariablesDict
 			):	
 
@@ -89,7 +89,7 @@ class ManagerClass(BaseClass):
 			self.PrintingInstanceForceKeyStrsList.extend(
 				[
 					'ManagementDict',
-					'TeamKeyStr'
+					#'TeamKeyStr'
 				]
 			)
 			self.ManagedOnceBool=True

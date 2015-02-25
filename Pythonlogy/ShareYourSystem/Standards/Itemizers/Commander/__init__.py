@@ -30,6 +30,90 @@ CommandPrefixStr="--"
 CommandWalkStr="..."
 CommandSelfStr="/"
 CommandAddStr="+"
+
+def CommandGetList(list):
+
+	def __init__(self,_ListVariable,_GetterVariable):
+		
+		#call the base 
+		list.__init__(self)
+
+		#Check
+		if type(_ListVariable)!=list:
+			
+			#debug
+			'''
+			self.debug(
+				[
+					'We get nicely',
+					('self.',self,['CommandingGetVariable'])
+				]
+			)
+			'''
+
+			#get
+			ValueVariable=_GetterVariable[
+					_ListVariable
+				]
+
+			#Check
+			if type(ValueVariable)!=list:
+				self.append(ValueVariable)
+
+		else:
+
+			#map a get
+			ValueVariable=map(
+					lambda __ElementVariable:
+					_GetterVariable[__ElementVariable],
+					_ListVariable
+				)
+
+		#flat maybe
+		ValueVariable=SYS.flat(ValueVariable)
+
+		#filter
+		self.extend(SYS.filterNone(ValueVariable))
+
+
+class CommandSetList(list):
+
+	def __init__(self,_ListVariable):
+
+		#call the base 
+		list.__init__(self)
+
+		#Check
+		if type(_ListVariable)!=list:
+			
+			#Check
+			if hasattr(_ListVariable,'items'):
+
+				#items
+				self.extend(_ListVariable.items())
+
+			elif type(_Variable
+				)==str and _Variable.startswith(
+					Getter.GetCallPrefixStr
+				):
+
+				#list
+				self.append(
+					('get',_ListVariable)
+				)
+
+			else:
+
+				#list
+				self.append(
+					_ListVariable
+				)
+
+		else:
+
+			#alias
+			self.extend(_ListVariable.__iter__)
+
 #</DefineLocals>
 
 #<DefineClass>

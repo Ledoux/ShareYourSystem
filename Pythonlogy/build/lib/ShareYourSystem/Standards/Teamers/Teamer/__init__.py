@@ -90,7 +90,7 @@ class TeamerClass(BaseClass):
 			self.PrintingInstanceForceKeyStrsList.extend(
 				[
 					'TeamDict',
-					'ManagementKeyStr'
+					#'ManagementKeyStr'
 				]
 			)
 			self.TeamedOnceBool=True

@@ -43,12 +43,18 @@ class ParenterClass(BaseClass):
 				_ParentTopDeriveTeamerVariable=None,
 				_ParentingTopGetVariable=None,
 				_ParentingClimbBool=True,
+				_ParentingTriggerVariable=None,
 				_ParentedTotalDeriveTeamersList=None,
 				_ParentedDeriveTeamersList=None,
 				_ParentedDeriveManagersList=None,
 				_ParentedTotalPathStr="",
 				_ParentedTeamPathStr="",
 				_ParentedManagementPathStr="",
+				_ParentedIsBool={
+							'DefaultingSetType':property,
+							'PropertizingInitVariable':False,
+							'PropertizingDocStr':'I am '
+							},
 				**_KwargVariablesDict
 			):	
 
@@ -374,6 +380,18 @@ class ParenterClass(BaseClass):
 
 		#Call the base method
 		return BaseClass.get(self)
+
+
+	def setParentedIsBool(self,_SettingValueVariable):
+
+		#set the value of the "hidden" property variable
+		self._ParentedIsBool=_SettingValueVariable
+
+		#trigger
+		self.set(self.ParentingTriggerVariable)
+
+		
+		self[Setter.SetMapStr](self.ParentingTriggerVariable)
 
 #</DefineClass>
 

@@ -36,4 +36,3 @@ SYS._print(MyManager['$'])
 print("MyManager['$.values'] is ")
 SYS._print(MyManager['$.values'])
 
-

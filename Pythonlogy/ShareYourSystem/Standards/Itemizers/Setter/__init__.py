@@ -355,6 +355,7 @@ class SetterClass(BaseClass):
 				]
 
 				#debug
+				'''
 				self.debug(
 					[
 						'We each here',
@@ -362,7 +363,8 @@ class SetterClass(BaseClass):
 						'SettedEachGetVariable is '+str(SettedEachGetVariable)
 					]
 				)
-
+				'''
+				
 				#Check
 				if hasattr(SettedEachGetVariable,'values'):
 					SettedEachGetVariablesList=SettedEachGetVariable.values()

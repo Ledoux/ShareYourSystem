@@ -788,25 +788,43 @@ class PrinterClass(BaseClass):
 			#Represent the NewClassKeyStrs in the _self.__class____.__dict__
 			if self.PrintingNewClassBool:
 
-				PrintedTuplesList+=map(
-					lambda __NewKeyStr:
-					(
-						"<New><Class>"+__NewKeyStr,
-						self.__class__.__dict__[__NewKeyStr]
-					),
-					SYS._filter(
+				PrintedNewClassKeyStrsList=SYS._filter(
 						lambda __KeyStr:
 						__KeyStr not in self.__class__.KeyStrsList and __KeyStr not in self.__dict__,
 						SYS.getKeyStrsListWithClass(
 							self.__class__
 						)
 					)
+
+				PrintedNewClassKeyStrsList=SYS._filter(
+						lambda __NewClassKeyStr:
+						__NewClassKeyStr not in list(
+						self.PrintingInstanceSkipKeyStrsList)+list(
+						self.PrintingClassSkipKeyStrsList),
+						PrintedNewClassKeyStrsList
+					)
+
+				PrintedTuplesList+=map(
+					lambda __NewKeyStr:
+					(
+						"<New><Class>"+__NewKeyStr,
+						self.__class__.__dict__[__NewKeyStr]
+					),
+					PrintedNewClassKeyStrsList
 				)
 			
 			#/###################/#
 			# Print force key strs
 			#
 
+			#Debug
+			'''
+			print('Printer l 811')
+			print('We add some forced Key Strs')
+			print('')
+			'''
+			
+			#map
 			PrintedTuplesList+=map(
 					lambda __PrintingKeyStr:
 					(
@@ -844,7 +862,7 @@ class PrinterClass(BaseClass):
 
 			#debug
 			'''
-			print('Represener l.629')
+			print('Printer l.629')
 			print('id(self) is ',id(self))
 			print('self not in PrintAlreadyIdIntsList is ',str(
 				self not in PrintAlreadyIdIntsList))

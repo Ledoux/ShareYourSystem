@@ -196,11 +196,17 @@ class WatcherClass(BaseClass):
 				self.WatchedDoBoolKeyStr+='With'+self.DoClass.NameStr
 				self.WatchedDoBoolKeyStr+='Bool'
 
+				#set
 				WatchedIsInitBool=True
+
+				#Check
 				if hasattr(self.DoClass,'ResetDoBoolKeyStr'):
 					if self.WatchedDoBoolKeyStr!=self.DoClass.ResetDoBoolKeyStr:
 						WatchedIsInitBool=False
+
+				#Check
 				if WatchedIsInitBool:
+
 					#WARNING this cancels the reset property binding before
 					#Set already in the class
 					setattr(
@@ -208,6 +214,25 @@ class WatcherClass(BaseClass):
 							self.WatchedDoBoolKeyStr,
 							False
 						)
+
+					#append in the skip repr
+					if hasattr(self.DoClass,'PrintingClassSkipKeyStrsList'):
+
+						#extend
+						self.DoClass.PrintingClassSkipKeyStrsList.append(
+									self.WatchedDoBoolKeyStr
+						)
+
+						#Debug
+						'''
+						print('Defaultor l 233')
+						print('self.DoClass is ')
+						print(self.DoClass)
+						print('self.DoClass.PrintingClassSkipKeyStrsList is ')
+						print(self.DoClass.PrintingClassSkipKeyStrsList)
+						print('')
+						'''
+
 
 				#Debug
 				'''

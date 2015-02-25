@@ -13,7 +13,6 @@ MyParenter=SYS.ParenterClass(
 					'#map@set':{
 						'&Connections':{
 							'$EtoI':{
-
 							}
 						}
 					}
