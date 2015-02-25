@@ -40,8 +40,8 @@ class ParenterClass(BaseClass):
 				_ParentKeyStr="Top",
 				_ParentDeriveTeamerVariable=None,
 				_ParentTopDeriveTeamerVariable=None,
-				_ParentingDownBool=False,
-				_ParentingUpBool=False,
+				_ParentingTopGetVariable=None,
+				_ParentingClimbBool=True,
 				_ParentingTriggerVariable=None,
 				_ParentedTotalDeriveTeamersList=None,
 				_ParentedDeriveTeamersList=None,
@@ -66,144 +66,209 @@ class ParenterClass(BaseClass):
 
 	def do_parent(self):
 
-		#Check
-		if self.ParentingDownBool:
-			
-			#command
-			self.command(
-					'+&.values+$.values',
-					'#call:parent',
-					_AfterWalkBool=True,
-					_BeforeSelfBool=True
-				)
+		#debug
+		'''
+		self.debug(('self.',self,[
+					#'ManagementPointDeriveTeamer',
+					'NameStr'
+				]))
+		'''
+
+		#get 
+		ParentedDeriveTeamerVariable=self.ParentDeriveTeamerVariable
 
 		#Check
-		if self.ParentingUpBool:
-			
-			#command
-			self.command(
-					'^',
-					'#call:parent',
-					_BeforeWalkBool=True,
-					_AfterSelfBool=True
-				)
+		if ParentedDeriveTeamerVariable!=None:
 
-		#Check
-		if self.ParentingDownBool==False or self.ParentingUpBool==False:
+			#/####################/#
+			# Check if we have to climb to parent the parent
+			#
 
 			#debug
 			'''
-			self.debug(('self.',self,[
-						#'ManagementPointDeriveTeamer',
-						'NameStr'
-					]))
+			self.debug('We are going to parent the parent')
 			'''
-
-			#get 
-			ParentedDeriveTeamerVariable=self.ParentDeriveTeamerVariable
-
-			#Check
-			if ParentedDeriveTeamerVariable!=None:
-
-				#/####################/#
-				# Now build the chain of Teamers and Managers
-				#
-
-				#add
-				self.ParentedTotalDeriveTeamersList=[
-					ParentedDeriveTeamerVariable
-				]+ParentedDeriveTeamerVariable.ParentedTotalDeriveTeamersList
-
-				#add
-				if self.TeamTagStr=="":
-
-					#add
-					self.ParentedDeriveTeamersList=[
-						ParentedDeriveTeamerVariable
-					]+ParentedDeriveTeamerVariable.ParentedDeriveTeamersList
-
-					#set
-					self.ParentedDeriveManagersList=ParentedDeriveTeamerVariable.ParentedDeriveManagersList
-
-				else:
-
-					#add
-					self.ParentedDeriveManagersList=[
-						ParentedDeriveTeamerVariable
-					]+ParentedDeriveTeamerVariable.ParentedDeriveManagersList
-
-					#set
-					self.ParentedDeriveTeamersList=ParentedDeriveTeamerVariable.ParentedDeriveTeamersList
-
-				#map 
-				[
-					self.ParentedTotalPathStr,
-					self.ParentedTeamPathStr,
-					self.ParentedManagementPathStr,
-				]=map(
-					lambda __ParentedList:
-					Pather.PathPrefixStr+Pather.PathPrefixStr.join(
-						SYS.reverse(
-							map(
-								lambda __ParentedDeriveTeamer:
-								__ParentedDeriveTeamer.ParentKeyStr,
-								__ParentedList
-							)
-						)
-					),
-					map(
-						lambda __KeyStr:
-						getattr(self,__KeyStr),
-						[
-							'ParentedTotalDeriveTeamersList',
-							'ParentedDeriveTeamersList',
-							'ParentedDeriveManagersList',
-						]
-					)
-				)
+			
+			"""
+			#Parent the parent maybe
+			if self.ParentingClimbBool:
 
 				#debug
 				'''
-				self.debug(
-						("self.",self,[
-								'ParentedTotalPathStr',
-								'ParentedTeamPathStr',
-								'ParentedManagementPathStr'
-							]
-						)
-					)
+				self.debug('First we make parent the parent')
 				'''
 				
-				#/####################/#
-				# Set the top teamer variable
-				#
+				#parent the parent
+				ParentedDeriveTeamerVariable.parent(
+						self.ParentingTopGetVariable,
+						self.ParentingClimbBool
+					)
 
-				#Check
-				if len(self.ParentedTotalDeriveTeamersList)>0:
-
-					#last one
-					self.ParentTopDeriveTeamerVariable=self.ParentedTotalDeriveTeamersList[-1]
-								
 				#debug
 				'''
 				self.debug(
-						('self.',self,['ParentTopDeriveTeamerVariable'])
+						[
+							'Ok parent has parented',
+							'ParentedDeriveTeamerVariable is '+SYS._str(
+								ParentedDeriveTeamerVariable
+							)
+						]
 					)
 				'''
+			"""
+
+			#/####################/#
+			# Now build the chain of Teamers and Managers
+			#
+
+			#add
+			self.ParentedTotalDeriveTeamersList=[
+				ParentedDeriveTeamerVariable
+			]+ParentedDeriveTeamerVariable.ParentedTotalDeriveTeamersList
+
+			#add
+			if self.TeamTagStr=="":
+
+				#add
+				self.ParentedDeriveTeamersList=[
+					ParentedDeriveTeamerVariable
+				]+ParentedDeriveTeamerVariable.ParentedDeriveTeamersList
+
+				#set
+				self.ParentedDeriveManagersList=ParentedDeriveTeamerVariable.ParentedDeriveManagersList
 
 			else:
 
+				#add
+				self.ParentedDeriveManagersList=[
+					ParentedDeriveTeamerVariable
+				]+ParentedDeriveTeamerVariable.ParentedDeriveManagersList
+
 				#set
-				self.ParentTopDeriveTeamerVariable=self
+				self.ParentedDeriveTeamersList=ParentedDeriveTeamerVariable.ParentedDeriveTeamersList
+
+			#map 
+			[
+				self.ParentedTotalPathStr,
+				self.ParentedTeamPathStr,
+				self.ParentedManagementPathStr,
+			]=map(
+				lambda __ParentedList:
+				Pather.PathPrefixStr+Pather.PathPrefixStr.join(
+					SYS.reverse(
+						map(
+							lambda __ParentedDeriveTeamer:
+							__ParentedDeriveTeamer.ParentKeyStr,
+							__ParentedList
+						)
+					)
+				),
+				map(
+					lambda __KeyStr:
+					getattr(self,__KeyStr),
+					[
+						'ParentedTotalDeriveTeamersList',
+						'ParentedDeriveTeamersList',
+						'ParentedDeriveManagersList',
+					]
+				)
+			)
+
+			#debug
+			'''
+			self.debug(
+					("self.",self,[
+							'ParentedTotalPathStr',
+							'ParentedTeamPathStr',
+							'ParentedManagementPathStr'
+						]
+					)
+				)
+			'''
+			
+			#/####################/#
+			# Set the top teamer variable
+			#
+
+			#Check
+			if len(self.ParentedTotalDeriveTeamersList)>0:
+
+				#last one
+				self.ParentTopDeriveTeamerVariable=self.ParentedTotalDeriveTeamersList[-1]
+							
+			#debug
+			'''
+			self.debug(
+					('self.',self,['ParentTopDeriveTeamerVariable'])
+				)
+			'''
 
 			#/####################/#
-			# Adapt the shape of the ParentedTriggerVariablesList
-			# for the trigger
+			# Command things
+			#
 
-			#init
-			self.ParentedTriggerVariablesList=SYS.SetList(
-					self.ParentingTriggerVariable
-				)
+			#debug
+			'''
+			self.debug(('self.',self,['ParentingTopGetVariable']))
+			'''
+
+			"""
+			#Check
+			if self.ParentingTopGetVariable!=None:
+
+				#Check
+				if type(self.ParentingTopGetVariable)==list:
+
+					#debug
+					'''
+					self.debug(
+							'This is a list'
+						)
+					'''
+					
+					#get
+					ParentedValueVariablesList=self.ParentTopDeriveTeamerVariable[
+							'#map@get'](
+											*self.ParentingTopGetVariable
+									).ItemizedMapValueVariablesList
+									
+					
+					#debug
+					'''
+					self.debug('ParentedValueVariablesList is '+str(ParentedValueVariablesList))
+					'''
+
+					#Link
+					self['#map@set'](
+								zip(
+									self.ParentingTopGetVariable,
+									ParentedValueVariablesList
+								)
+						)
+
+				else:
+
+					#Link
+					self.set(
+							self.ParentingTopGetVariable,
+							self.ParentTopDeriveTeamerVariable[
+								self.ParentingTopGetVariable
+							]
+						)
+			"""
+		else:
+
+			#set
+			self.ParentTopDeriveTeamerVariable=self
+
+		#/####################/#
+		# Adapt the shape of the ParentedTriggerVariablesList
+		# for the trigger
+
+		#init
+		self.ParentedTriggerVariablesList=SYS.SetList(
+				self.ParentingTriggerVariable
+			)
 
 	def mimic_team(self):
 
@@ -297,7 +362,16 @@ class ParenterClass(BaseClass):
 
 			#Stop the setting
 			return {"HookingIsBool":False}
-			
+
+		#Check
+		elif self.GettingKeyVariable==ParentAllStr:
+
+			#add
+			self.GettedValueVariable=self.ManagementDict.values()+self.TeamDict.values()
+
+			#Stop the setting
+			return {"HookingIsBool":False}
+
 		#debug
 		'''
 		self.debug(
@@ -371,6 +445,7 @@ ParenterClass.PrintingClassSkipKeyStrsList.extend(
 			'ParentKeyStr',
 			'ParentDeriveTeamerVariable',
 			'ParentTopDeriveTeamerVariable',
+			'ParentingClimbBool',
 			'ParentedTotalDeriveTeamersList',
 			'ParentedDeriveTeamersList',
 			'ParentedDeriveManagersList',

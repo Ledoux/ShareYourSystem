@@ -11,14 +11,22 @@ MyParenter=SYS.ParenterClass(
 				{
 					'#key':"$E",
 					'#map@set':{
-						'&Connections':{
+						'&PostConnections':{
 							'$EtoI':{
+								'ParentingTriggerVariable':
+								{
+									#'<->/^/^/$I/&PreConnections':None
+									'MyInt':0
+								}
 							}
 						}
 					}
 				}
 			]	
 		]
+	).command(
+		'+&.values+$.values',
+		'#call:parent'
 	)
 
 """

@@ -5,4 +5,4 @@ FrozenIsBool True
 
 ##Example
 
-We begin to go to structures that can connect each other
+Note that there is shortcuts like in the argument for parenting down and up
