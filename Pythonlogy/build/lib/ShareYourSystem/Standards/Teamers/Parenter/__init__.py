@@ -22,7 +22,7 @@ SYS.setSubModule(globals())
 
 #<ImportSpecificModules>
 import copy
-from ShareYourSystem.Standards.Itemizers import Pather
+from ShareYourSystem.Standards.Itemizers import Setter,Pather
 #</ImportSpecificModules>
 
 #<DefineLocals>
@@ -50,6 +50,7 @@ class ParenterClass(BaseClass):
 				_ParentedTotalPathStr="",
 				_ParentedTeamPathStr="",
 				_ParentedManagementPathStr="",
+				_ParentedTriggerVariablesList=None,
 				**_KwargVariablesDict
 			):	
 
@@ -261,6 +262,15 @@ class ParenterClass(BaseClass):
 			#set
 			self.ParentTopDeriveTeamerVariable=self
 
+		#/####################/#
+		# Adapt the shape of the ParentedTriggerVariablesList
+		# for the trigger
+
+		#init
+		self.ParentedTriggerVariablesList=SYS.SetList(
+				self.ParentingTriggerVariable
+			)
+
 	def mimic_team(self):
 
 		#call the base method
@@ -396,20 +406,18 @@ class ParenterClass(BaseClass):
 			self.debug(
 				[
 					'We have parented here !',
-					('self.',self,['ParentedTotalPathStr'])
+					('self.',self,['ParentedTotalPathStr']),
+					'we launch the trigger'
 				]
 			)
+
+			#trigger map@set
+			self[Setter.SetMapStr](self.ParentedTriggerVariablesList)
 			
 		else:
 
 			#debug
 			self.debug('We have switched the parent here !')
-
-		#trigger
-		self.set(self.ParentingTriggerVariable)
-
-		#map@set
-		self[Setter.SetMapStr](self.ParentingTriggerVariable)
 
 	def delWatchAfterParentWithParenterBool(self):
 		self.__delattr__('_WatchAfterParentWithParenterBool')

@@ -46,6 +46,7 @@ SetValueGetGrabStr=SetValueGrabPrefixStr+Getter.GetUndirectStr
 SetMapStr=Itemizer.ItemMapPrefixStr+'set'
 SetMapValueGetGrabStr=SetValueGrabPrefixStr+Getter.GetMapStr
 SetModifyGrabStr='#set'
+SetUndirectPrefixStr=Getter.GetUndirectPrefixStr
 #</DefineLocals>
 
 #<DefineClass>
@@ -292,7 +293,8 @@ class SetterClass(BaseClass):
 		# Case of a non method  with set with a set key str 
 		#
 
-		elif type(self.SettingKeyVariable
+		elif type(
+			self.SettingKeyVariable
 				)==str:
 
 			#/####################/#
@@ -472,11 +474,77 @@ class SetterClass(BaseClass):
 			else:
 
 				#/####################/#
+				# Case of a set with a #get in the value
+				#
+
+				if type(
+					self.SettingValueVariable
+				)==str and self.SettingValueVariable.startswith(SetUndirectPrefixStr):
+
+					#deprefix
+					SettedKeyStr=SYS.deprefix(
+							self.SettingValueVariable,
+							SetUndirectPrefixStr
+						)
+
+					#debug
+					'''
+					self.debug(
+						[
+							'This is a undirect of a str variable',
+							'SettedKeyStr is '+SettedKeyStr
+						]
+					)
+					'''
+
+					#Check
+					if SetUndirectPrefixStr in SettedKeyStr:
+
+						#split
+						SettedKeyStrsList=SettedKeyStr.split(SetUndirectPrefixStr)
+
+						#define
+						SettedRecursiveKeyStr=''.join(
+							SettedKeyStrsList[:-1])+self[SettedKeyStrsList[-1]]
+
+						#debug
+						'''
+						self.debug(
+								[
+									'This is a recursive undirect set',
+									'SettedRecursiveKeyStr is '+SettedRecursiveKeyStr
+								]
+							)
+						'''
+
+						#set
+						self[
+							self.SettingKeyVariable
+						]=SetUndirectPrefixStr+SettedRecursiveKeyStr
+
+					else:
+
+						#debug
+						'''
+						self.debug(
+								'This is one level undirect set'
+							)
+						'''
+
+						#set
+						self[
+							self.SettingKeyVariable
+						]=self[SettedKeyStr]
+
+					#Stop the getting
+					return {"HookingIsBool":False}
+
+				#/####################/#
 				# Case of a set with a set dict
 				#
 
 				#Check
-				if hasattr(
+				elif hasattr(
 						self.SettingValueVariable,'items'
 					):
 

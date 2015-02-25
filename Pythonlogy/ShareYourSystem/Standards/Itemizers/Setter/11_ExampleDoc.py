@@ -12,6 +12,18 @@ MySetter=SYS.SetterClass(
 		"hello"
 	)
 
+#Define and set with a #get in the value
+MySetter.set(
+		"FirstCloneMyStr",
+		'#get:MyStr'
+	)
+
+#Define and set with a recursive #get in the value
+MySetter.set(
+		"FirstCloneHelloStr",
+		'#get:#get:MyStr'
+	)
+
 #Define and set with a #value dict for the ValueVariable
 MySetter.set(
 		"RedirectStr",
@@ -26,7 +38,7 @@ MySetter.set(
 
 #Define and set with a #value:#get dict for the ValueVariable
 MySetter.set(
-		"MyCloneStr",
+		"SecondCloneStr",
 		{'#value:#get':'MyStr'}
 	)
 

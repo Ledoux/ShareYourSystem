@@ -7,7 +7,10 @@ MyParenter=SYS.ParenterClass(
 		'/&Children/$Aurelie/&GrandChildren/$Loup'
 	).command(
 				['TeamDict.values','ManagementDict.values'],
-				'#call:parent',
+				[
+					#('ParentingTriggerVariable',{'DeepInt':'#}),
+					('parent',[])
+				],
 				_AfterWalkBool=True,
 				_BeforeSelfBool=True
 			)
