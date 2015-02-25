@@ -13,7 +13,6 @@ MyParenter=SYS.ParenterClass(
 					'#map@set':{
 						'&Connections':{
 							'$EtoI':{
-
 							}
 						}
 					}
@@ -33,13 +32,13 @@ MyParenter=SYS.ParenterClass(
 			'#bound:recruit':lambda _InstanceVariable:_InstanceVariable[
 					'/Top/NeuronsDict'
 				].__setitem__(
-					_InstanceVariable.ManagementKeyStr,
+					_InstanceVariable.ManagementTagStr,
 					_InstanceVariable
 				) 
 				if _InstanceVariable['/^/ParentKeyStr']=="Neurons"
 				else None,
 			'/Top/LayersDict.__setitem__':{
-				'#value:#map@get':["/~/ManagementKeyStr",">>self"],
+				'#value:#map@get':["/~/ManagementTagStr",">>self"],
 				'#if':[
 					('/~/^/ParentKeyStr',SYS.operator.eq,"#direct:Layers")
 				]

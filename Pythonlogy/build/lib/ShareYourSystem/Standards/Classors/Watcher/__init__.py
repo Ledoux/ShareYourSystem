@@ -44,23 +44,6 @@ def getIsBoolWithItemTupleAndPrefixStr(_ItemTuple,_PrefixStr):
 	
 	#Return
 	return _ItemTuple[0].split('>')[-1].startswith(_PrefixStr)
-OldRepresentFunction=copy.copy(Printer.represent)
-def represent(_Variable,**_KwargVariablesDict):
-	return OldRepresentFunction(
-		_Variable,
-		**dict(
-			_KwargVariablesDict,
-			**{
-				'RepresentingNotConcludeTuplesList':
-				[
-					(getIsBoolWithItemTupleAndPrefixStr,'_Watch'),
-					(getIsBoolWithItemTupleAndPrefixStr,'Watch')
-				]
-			}
-		)
-	)
-represent.__name__="Watcher@represent"
-Printer.represent=represent
 #</SetRepresent>
 
 #<DefineFunctions>
@@ -91,7 +74,7 @@ def watch(_InstanceVariable,*_LiargVariablesList,**_KwargVariablesDict):
 	
 	#Set in the _InstanceVariable
 	_InstanceVariable.__setattr__(
-			_KwargVariablesDict['WatchDoBoolKeyStr'],
+			_KwargVariablesDict['WatchBeforeDoBoolKeyStr'],
 			True
 		)
 
@@ -105,18 +88,33 @@ def watch(_InstanceVariable,*_LiargVariablesList,**_KwargVariablesDict):
 	)
 
 	#del
+	WatchAfterDoBoolKeyStr=_KwargVariablesDict['WatchAfterDoBoolKeyStr']
 	map(
 			lambda __KeyStr:
 			_KwargVariablesDict.__delitem__(__KeyStr),
-			['BindObserveWrapMethodStr','BindDoClassStr','WatchDoBoolKeyStr']
+			[
+				'BindObserveWrapMethodStr',
+				'BindDoClassStr',
+				'WatchBeforeDoBoolKeyStr',
+				'WatchAfterDoBoolKeyStr'
+			]
 		)
 
 	#Call
-	return WrapUnboundMethod(
+	OutputVariable=WrapUnboundMethod(
 		_InstanceVariable,
 		*_LiargVariablesList,
 		**_KwargVariablesDict
 	)
+
+	#Set in the _InstanceVariable
+	_InstanceVariable.__setattr__(
+			WatchAfterDoBoolKeyStr,
+			True
+		)
+
+	#return
+	return OutputVariable
 
 #</DefineFunctions>
 
@@ -124,16 +122,10 @@ def watch(_InstanceVariable,*_LiargVariablesList,**_KwargVariablesDict):
 @DecorationClass()
 class WatcherClass(BaseClass):
 
-	#Definition 
-	RepresentingKeyStrsList=[	
-		'WatchingIsBool',	
-		'WatchedDoBoolKeyStr',
-		'WatchedDecorationMethodStr'
-	]
-
 	def default_init(self,		
 						_WatchingIsBool=False,
-						_WatchedDoBoolKeyStr="",
+						_WatchedBeforeDoBoolKeyStr="",
+						_WatchedAfterDoBoolKeyStr="",
 						_WatchedDecorationMethodStr="",
 						**_KwargVariablesDict
 				):
@@ -192,35 +184,93 @@ class WatcherClass(BaseClass):
 				#Define
 				WatchedDoMethodStr=self.WatchedWrapMethodStr
 				WatchedDoStr=WatchedDoMethodStr[0].upper()+WatchedDoMethodStr[1:]
-				self.WatchedDoBoolKeyStr=WatchingPrefixKeyStr+WatchedDoStr
-				self.WatchedDoBoolKeyStr+='With'+self.DoClass.NameStr
-				self.WatchedDoBoolKeyStr+='Bool'
+				self.WatchedBeforeDoBoolKeyStr=WatchingPrefixKeyStr+'Before'+WatchedDoStr
+				self.WatchedBeforeDoBoolKeyStr+='With'+self.DoClass.NameStr
+				self.WatchedBeforeDoBoolKeyStr+='Bool'
+				self.WatchedAfterDoBoolKeyStr=WatchingPrefixKeyStr+'After'+WatchedDoStr
+				self.WatchedAfterDoBoolKeyStr+='With'+self.DoClass.NameStr
+				self.WatchedAfterDoBoolKeyStr+='Bool'
 
 				#set
 				WatchedIsInitBool=True
 
 				#Check
 				if hasattr(self.DoClass,'ResetDoBoolKeyStr'):
-					if self.WatchedDoBoolKeyStr!=self.DoClass.ResetDoBoolKeyStr:
+					if self.WatchedBeforeDoBoolKeyStr!=self.DoClass.ResetDoBoolKeyStr:
 						WatchedIsInitBool=False
 
 				#Check
 				if WatchedIsInitBool:
 
 					#WARNING this cancels the reset property binding before
-					#Set already in the class
-					setattr(
-							self.DoClass,
-							self.WatchedDoBoolKeyStr,
-							False
-						)
+					#Set already in the class but also check if a property was not already setted
+					if hasattr(self.DoClass,self.WatchedBeforeDoBoolKeyStr)==False:
 
+						#Debug
+						'''
+						print('Watcher')
+						print('self.DoClass is '+str(self.DoClass))
+						print('self.WatchedBeforeDoBoolKeyStr is '+self.WatchedBeforeDoBoolKeyStr)
+						print('Set it to False')
+						print('')
+						'''
+
+						#set
+						setattr(
+								self.DoClass,
+								self.WatchedBeforeDoBoolKeyStr,
+								False
+							)
+
+					else:
+
+						#Debug
+						'''
+						print('There is already a property here for ')
+						print('self.DoClass is '+str(self.DoClass))
+						print('self.WatchedBeforeDoBoolKeyStr is '+self.WatchedBeforeDoBoolKeyStr)
+						print('')
+						'''
+
+					#WARNING this cancels the reset property binding before
+					#Set already in the class but also check if a property was not already setted
+					if hasattr(self.DoClass,self.WatchedAfterDoBoolKeyStr)==False:
+
+						#Debug
+						'''
+						print('Watcher')
+						print('self.DoClass is '+str(self.DoClass))
+						print('self.WatchedAfterDoBoolKeyStr is '+self.WatchedAfterDoBoolKeyStr)
+						print('Set it to False')
+						print('')
+						'''
+
+						#set
+						setattr(
+								self.DoClass,
+								self.WatchedAfterDoBoolKeyStr,
+								False
+							)
+						
+					else:
+
+						#Debug
+						'''
+						print('There is already a property here for ')
+						print('self.DoClass is '+str(self.DoClass))
+						print('self.WatchedAfterDoBoolKeyStr is '+self.WatchedAfterDoBoolKeyStr)
+						print('')
+						'''
+						
 					#append in the skip repr
 					if hasattr(self.DoClass,'PrintingClassSkipKeyStrsList'):
 
 						#extend
-						self.DoClass.PrintingClassSkipKeyStrsList.append(
-									self.WatchedDoBoolKeyStr
+						self.DoClass.PrintingClassSkipKeyStrsList.extend(
+							[
+								self.WatchedBeforeDoBoolKeyStr,
+								self.WatchedAfterDoBoolKeyStr
+							]
 						)
 
 						#Debug
@@ -239,7 +289,7 @@ class WatcherClass(BaseClass):
 				print('l 145 Watcher')
 				print('WatchedDoMethodStr is ',WatchedDoMethodStr)
 				print('WatchedDoStr is ',WatchedDoStr)
-				print('self.WatchedDoBoolKeyStr is ',self.WatchedDoBoolKeyStr)
+				print('self.WatchedBeforeDoBoolKeyStr is ',self.WatchedBeforeDoBoolKeyStr)
 				print('')
 				'''
 
@@ -249,7 +299,10 @@ class WatcherClass(BaseClass):
 							watch,
 							"",
 							watch.__name__,
-							[('WatchDoBoolKeyStr',self.WatchedDoBoolKeyStr)],
+							[
+								('WatchBeforeDoBoolKeyStr',self.WatchedBeforeDoBoolKeyStr),
+								('WatchAfterDoBoolKeyStr',self.WatchedAfterDoBoolKeyStr)
+							],
 							**{'ObservingWrapMethodStr':self.ObservedWrapMethodStr}
 						)
 

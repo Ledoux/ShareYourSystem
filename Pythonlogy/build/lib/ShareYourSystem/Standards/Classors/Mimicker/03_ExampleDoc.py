@@ -117,13 +117,13 @@ SYS._print(MyBuilder,**{
 	'RepresentingKeyStrsList':[
 	'MakingMyFloat',
 	'MadeMyInt',
-	'WatchMakeWithMakerBool']
+	'WatchBeforeMakeWithMakerBool']
 })
 
 #Definition the AttestedStr
 SYS._attest(
 	[
-		'BuilderClass.WatchMakeWithMakerBool is '+str(BuilderClass.WatchMakeWithMakerBool),
+		'BuilderClass.WatchBeforeMakeWithMakerBool is '+str(BuilderClass.WatchBeforeMakeWithMakerBool),
 		'BuilderClass.make is '+str(BuilderClass.make),
 		'MyBuilder is '+SYS._str(
 			MyBuilder,**{

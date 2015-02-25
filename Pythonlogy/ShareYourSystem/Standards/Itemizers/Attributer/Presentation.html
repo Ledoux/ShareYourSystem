@@ -1797,13 +1797,13 @@ class AttributerClass(BaseClass):
     RepresentingKeyStrsList=[
                                     'AttributingKeyStr',
                                     'AttributingValueVariable',
-                                    'AttributedSetKeyStr'
+                                    'AttributedSetTagStr'
                                 ]
 
     def default_init(self,  
                         _AttributingKeyStr="",
                         _AttributingValueVariable=None,    
-                        _AttributedSetKeyStr="",        
+                        _AttributedSetTagStr="",        
                         **_KwargVariablesDict
                     ):
         """ """        
@@ -1815,11 +1815,11 @@ class AttributerClass(BaseClass):
     def do_attribute(self):
 
         #set
-        self.AttributedSetKeyStr=AttributingStartStr.join(
+        self.AttributedSetTagStr=AttributingStartStr.join(
             self.AttributingKeyStr.split(AttributingStartStr)[1:])
 
         #Call the __setattr__ method
-        self.__setattr__(self.AttributedSetKeyStr,self.AttributingValueVariable)
+        self.__setattr__(self.AttributedSetTagStr,self.AttributingValueVariable)
 
     #@Imitater.ImitaterClass()
     def mimic_set(self):
@@ -1938,7 +1938,7 @@ MyAttributer is &lt; (AttributerClass), 4555207120&gt;
    /{ 
    /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4555207120
    /  &apos;&lt;New&gt;&lt;Instance&gt;MyInt&apos; : 0
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;AttributedSetKeyStr&apos; : MyInt
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;AttributedSetTagStr&apos; : MyInt
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;AttributingKeyStr&apos; : Attr_MyInt
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;AttributingValueVariable&apos; : 0
    /}

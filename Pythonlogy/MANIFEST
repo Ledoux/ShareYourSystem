@@ -12,6 +12,10 @@ ShareYourSystem/00_ExampleDoc.md
 ShareYourSystem/01_ExampleDoc.py
 ShareYourSystem/02_ExampleDoc.md
 ShareYourSystem/03_ExampleDoc.py
+ShareYourSystem/04_ExampleDoc.md
+ShareYourSystem/05_ExampleDoc.py
+ShareYourSystem/06_ExampleDoc.md
+ShareYourSystem/07_ExampleDoc.py
 ShareYourSystem/Readme.md
 ShareYourSystem/__init__.py
 ShareYourSystem/lib.py
@@ -248,6 +252,8 @@ ShareYourSystem/Standards/Classors/Switcher/001_DocumentDoc.md
 ShareYourSystem/Standards/Classors/Switcher/002_GithubDoc.md
 ShareYourSystem/Standards/Classors/Switcher/00_ExampleDoc.md
 ShareYourSystem/Standards/Classors/Switcher/01_ExampleDoc.py
+ShareYourSystem/Standards/Classors/Switcher/02_ExampleDoc.md
+ShareYourSystem/Standards/Classors/Switcher/03_ExampleDoc.py
 ShareYourSystem/Standards/Classors/Switcher/Readme.md
 ShareYourSystem/Standards/Classors/Switcher/__init__.py
 ShareYourSystem/Standards/Classors/Switcher/Drafts/__init__ copy 2.py
@@ -554,6 +560,7 @@ ShareYourSystem/Standards/Itemizers/Commander/Readme.md
 ShareYourSystem/Standards/Itemizers/Commander/Test.py
 ShareYourSystem/Standards/Itemizers/Commander/__init__.py
 ShareYourSystem/Standards/Itemizers/Commander/draft/__init__ copy 2.py
+ShareYourSystem/Standards/Itemizers/Commander/draft/__init__ copy 3.py
 ShareYourSystem/Standards/Itemizers/Conditioner/001_DocumentDoc.md
 ShareYourSystem/Standards/Itemizers/Conditioner/00_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Conditioner/01_ExampleDoc.py

@@ -45,7 +45,7 @@ class MakerClass(SYS.DebuggerClass):
 
 #Call the make1
 MyMaker=MakerClass()
-MyMaker.DictKeyStr="MyMaker"
+MyMaker.MyTagStr="MyMaker"
 MyMaker.make1()
 
 #Call the make1 but with also showing the frame of the argumentinf function

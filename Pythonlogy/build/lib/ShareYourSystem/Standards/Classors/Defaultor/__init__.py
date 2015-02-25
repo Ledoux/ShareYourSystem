@@ -142,12 +142,12 @@ def setDefault(
 		_AttributeKeyStrsList=_ClassVariable.DefaultSpecificKeyStrsList
 
 	#check
-	if 'DefaultNotSetKeyStrsList' in _KwargVariablesDict:
+	if 'DefaultNotSetTagStrsList' in _KwargVariablesDict:
 
 		#filter
 		_AttributeKeyStrsList=SYS._filter(
 				lambda __AttributeKeyStr:
-				__AttributeKeyStr not in _KwargVariablesDict['DefaultNotSetKeyStrsList'],
+				__AttributeKeyStr not in _KwargVariablesDict['DefaultNotSetTagStrsList'],
 				_AttributeKeyStrsList
 			)
 		

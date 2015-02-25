@@ -271,9 +271,9 @@ class DebuggerClass(BaseClass):
 				DebuggedStr+=DebuggingWhoStr+'I am with '+str(
 					SYS._filter(
 								lambda __ItemTuple:
-								__ItemTuple[0].endswith('KeyStr')
-								and __ItemTuple[0] not in self.__class__.DefaultBaseKeyStrsList
-											+self.__class__.DefaultSpecificKeyStrsList,
+								__ItemTuple[0].endswith('TagStr'),
+								#and __ItemTuple[0] not in self.__class__.DefaultBaseKeyStrsList
+								#			+self.__class__.DefaultSpecificKeyStrsList,
 								self.__dict__.items()
 							)
 					)+DebuggingWhoStr

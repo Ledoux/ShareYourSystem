@@ -123,15 +123,15 @@ class PointerClass(BaseClass):
 			'''
 
 			#previous
-			PointedPreviousSetKeyStr,PointedKeyStr=SYS.previous(
+			PointedPreviousSetTagStr,PointedKeyStr=SYS.previous(
 				PointedToSetKeyVariable
 			)
 
 			#debug
 			self.debug(
 				[
-					'PointedPreviousSetKeyStr is ',
-					PointedPreviousSetKeyStr,
+					'PointedPreviousSetTagStr is ',
+					PointedPreviousSetTagStr,
 					'PointedKeyStr is ',
 					PointedKeyStr
 				]
@@ -139,7 +139,7 @@ class PointerClass(BaseClass):
 
 			#get
 			PointedGettedValueVariable=self[
-				PointedPreviousSetKeyStr
+				PointedPreviousSetTagStr
 			]
 
 			#Check

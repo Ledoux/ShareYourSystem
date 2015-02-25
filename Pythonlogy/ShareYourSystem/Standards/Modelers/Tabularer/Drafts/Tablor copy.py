@@ -76,9 +76,9 @@ class TablerClass(
 		DoneTabularingStr=SYS.getDoneStrWithDoStr(_TabularingStr)
 		
 		#Check that the DatabasedOrderedDict exists 
-		DatabasedOrderedSetKeyStr="Databased"+DoneTabularingStr+"OrderedDict"
-		if hasattr(self,DatabasedOrderedSetKeyStr):
-			DatabasedOrderedDict=getattr(self,DatabasedOrderedSetKeyStr)
+		DatabasedOrderedSetTagStr="Databased"+DoneTabularingStr+"OrderedDict"
+		if hasattr(self,DatabasedOrderedSetTagStr):
+			DatabasedOrderedDict=getattr(self,DatabasedOrderedSetTagStr)
 
 			#Hdformat maybe if it was not done
 			if hasattr(self,'HdformatedFileVariable')==None:
@@ -86,9 +86,9 @@ class TablerClass(
 			print("iiii",self)
 
 			#Check that the TabularedTablesOrderedDict exists 
-			TabularedTablesOrderedSetKeyStr="Tabulared"+DoneTabularingStr+"OrderedDict"
-			if hasattr(self,TabularedTablesOrderedSetKeyStr):
-				TabularedTablesOrderedDict=getattr(self,TabularedTablesOrderedSetKeyStr)
+			TabularedTablesOrderedSetTagStr="Tabulared"+DoneTabularingStr+"OrderedDict"
+			if hasattr(self,TabularedTablesOrderedSetTagStr):
+				TabularedTablesOrderedDict=getattr(self,TabularedTablesOrderedSetTagStr)
 
 				#Definition the DatabasingJoinStr
 				DatabasingJoinStr=SYS.Modeler.DatabasingJoinStr
@@ -161,8 +161,8 @@ class TablerClass(
 
 
 		else:
-			print('WARNING tabular method : not such DatabasedOrderedSetKeyStr ',
-				DatabasedOrderedSetKeyStr)
+			print('WARNING tabular method : not such DatabasedOrderedSetTagStr ',
+				DatabasedOrderedSetTagStr)
 
 		#Return self
 		return self
@@ -177,8 +177,8 @@ class TablerClass(
 			if TableStr not in TabularedTablesOrderedDict:
 
 				#Build maybe the model
-				DatabasedOrderedSetKeyStr="Databased"+DoneTabularingStr+"OrderedDict"
-				DatabasedOrderedDict=getattr(self,DatabasedOrderedSetKeyStr)
+				DatabasedOrderedSetTagStr="Databased"+DoneTabularingStr+"OrderedDict"
+				DatabasedOrderedDict=getattr(self,DatabasedOrderedSetTagStr)
 				if TableStr not in DatabasedOrderedDict:
 					self.model(_CalibratingStr)
 
@@ -195,8 +195,8 @@ class TablerClass(
 
 		else:
 
-			print('WARNING calibrate method : not such TabularedTablesOrderedSetKeyStr ',
-						TabularedTablesOrderedSetKeyStr)
+			print('WARNING calibrate method : not such TabularedTablesOrderedSetTagStr ',
+						TabularedTablesOrderedSetTagStr)
 		'''
 	"""
 

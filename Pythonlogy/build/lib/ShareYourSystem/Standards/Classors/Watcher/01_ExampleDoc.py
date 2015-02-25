@@ -37,25 +37,18 @@ class MakerClass(SYS.ObjectClass):
 MyMaker=MakerClass()
 
 #Print
-print('Before make, MyMaker is ')
-SYS._print(MyMaker)
+print('Before make, MyMaker.__dict__ is ')
+SYS._print(MyMaker.__dict__)
 
 #make once
 MyMaker.make(3.)
 
-#Print
-print('After the first make, MyMaker is ')
-SYS._print(MyMaker)
+#print
+print('After the first make, MyMaker.__dict__ is ')
+SYS._print(MyMaker.__dict__)
 
-#Definition the AttestedStr
-SYS._attest(
-	[
-		'MakerClass.make is '+str(MakerClass.make),
-		'MyMaker is '+SYS._str(
-			MyMaker,**{'RepresentingAlineaIsBool':False}
-		)
-	]
-) 
+#print
+print('MakerClass.make is '+str(MakerClass.make))
 
 #Check that the watch_superDo_make has access to the BaseDoClass
 print('MakerClass.make.BaseDoClass is ')

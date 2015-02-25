@@ -51,7 +51,7 @@ class ManagerClass(BaseClass):
 
 	def default_init(
 				self,
-				_TeamKeyStr="",
+				_TeamTagStr="",
 				_ManagementDict=None,
 				_ManagingKeyStr="",
 				_ManagingValueVariable=None,
@@ -89,7 +89,7 @@ class ManagerClass(BaseClass):
 			self.PrintingInstanceForceKeyStrsList.extend(
 				[
 					'ManagementDict',
-					#'TeamKeyStr'
+					#'TeamTagStr'
 				]
 			)
 			self.ManagedOnceBool=True
@@ -171,7 +171,7 @@ class ManagerClass(BaseClass):
 			#
 			
 			#set
-			self.ManagedValueVariable.ManagementKeyStr=self.ManagingKeyStr
+			self.ManagedValueVariable.ManagementTagStr=self.ManagingKeyStr
 
 
 	def mimic_get(self):
@@ -181,9 +181,11 @@ class ManagerClass(BaseClass):
 
 		#debug
 		'''
-		self.debug(('self.',self,['GettingKeyVariable']))
+		self.debug(
+			('self.',self,['GettingKeyVariable'])
+		)
 		'''
-	
+		
 		#Check
 		if self.GettingKeyVariable==ManagementChildPrefixStr:
 
@@ -317,7 +319,7 @@ SYS.TeamerClass.TeamingValueClass=ManagerClass
 #</DefinePrint>
 ManagerClass.PrintingClassSkipKeyStrsList.extend(
 	[
-		'TeamKeyStr',
+		'TeamTagStr',
 		'ManagementDict',
 		'ManagingKeyStr',
 		'ManagingValueVariable',

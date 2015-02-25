@@ -5,12 +5,6 @@ import ShareYourSystem as SYS
 @SYS.DoerClass()
 class MakerClass(SYS.ObjectClass):
 
-	#Definition
-	RepresentingKeyStrsList=[
-								'MakingMyFloat',
-								'MadeMyInt'
-							]
-
 	def default_init(self,
 					_MakingMyFloat=0.,
 					_MadeMyInt=0,
@@ -31,10 +25,6 @@ class MakerClass(SYS.ObjectClass):
 	'MimickingDoMethodStr':'make'
 })
 class BuilderClass(MakerClass):
-
-	#Definition
-	RepresentingKeyStrsList=[
-							]
 
 	def default_init(self,
 					**_KwarVariablesDict

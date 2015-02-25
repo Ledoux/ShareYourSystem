@@ -50,11 +50,6 @@ class ParenterClass(BaseClass):
 				_ParentedTotalPathStr="",
 				_ParentedTeamPathStr="",
 				_ParentedManagementPathStr="",
-				_ParentedIsBool={
-							'DefaultingSetType':property,
-							'PropertizingInitVariable':False,
-							'PropertizingDocStr':'I am '
-							},
 				**_KwargVariablesDict
 			):	
 
@@ -132,7 +127,7 @@ class ParenterClass(BaseClass):
 			]+ParentedDeriveTeamerVariable.ParentedTotalDeriveTeamersList
 
 			#add
-			if self.TeamKeyStr=="":
+			if self.TeamTagStr=="":
 
 				#add
 				self.ParentedDeriveTeamersList=[
@@ -381,17 +376,51 @@ class ParenterClass(BaseClass):
 		#Call the base method
 		return BaseClass.get(self)
 
+	def getWatchAfterParentWithParenterBool(self):
 
-	def setParentedIsBool(self,_SettingValueVariable):
+		#try
+		try:
+			return getattr(self,'_WatchAfterParentWithParenterBool')
+		except:
+			return False
+
+	def setWatchAfterParentWithParenterBool(self,_SettingValueVariable):
 
 		#set the value of the "hidden" property variable
-		self._ParentedIsBool=_SettingValueVariable
+		self._WatchAfterParentWithParenterBool=_SettingValueVariable
+
+		#Check
+		if _SettingValueVariable:
+
+			#debug
+			self.debug(
+				[
+					'We have parented here !',
+					('self.',self,['ParentedTotalPathStr'])
+				]
+			)
+			
+		else:
+
+			#debug
+			self.debug('We have switched the parent here !')
 
 		#trigger
 		self.set(self.ParentingTriggerVariable)
 
-		
+		#map@set
 		self[Setter.SetMapStr](self.ParentingTriggerVariable)
+
+	def delWatchAfterParentWithParenterBool(self):
+		self.__delattr__('_WatchAfterParentWithParenterBool')
+
+	WatchAfterParentWithParenterBool=property(
+			getWatchAfterParentWithParenterBool,
+			setWatchAfterParentWithParenterBool,
+			delWatchAfterParentWithParenterBool,
+			'WatchAfterParentWithParenterBool is now reactive !'
+		)
+
 
 #</DefineClass>
 
@@ -412,7 +441,7 @@ ParenterClass.PrintingClassSkipKeyStrsList.extend(
 			'ParentedDeriveManagersList',
 			#'ParentedTotalPathStr',
 			'ParentedTeamPathStr',
-			'ParentedManagementPathStr'
+			'ParentedManagementPathStr',
 	]
 )
 #<DefinePrint>

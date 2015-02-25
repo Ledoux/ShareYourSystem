@@ -66,14 +66,14 @@ class NoderClass(BaseClass):
 			self.NodedPrefixStr='Noded'+self.NodingCollectionStr
 
 			#set the Noded OrderedDict and KeyStr
-			NodedOrderedSetKeyStr=self.NodedPrefixStr+'OrderedDict'
+			NodedOrderedSetTagStr=self.NodedPrefixStr+'OrderedDict'
 			self.NodedKeyStrKeyStr=self.NodedPrefixStr+'KeyStr'
 
 			try:
-				self.NodedOrderedDict=getattr(self,NodedOrderedSetKeyStr)
+				self.NodedOrderedDict=getattr(self,NodedOrderedSetTagStr)
 			except AttributeError:
-				self.__setattr__(NodedOrderedSetKeyStr,collections.OrderedDict())
-				self.NodedOrderedDict=getattr(self,NodedOrderedSetKeyStr)
+				self.__setattr__(NodedOrderedSetTagStr,collections.OrderedDict())
+				self.NodedOrderedDict=getattr(self,NodedOrderedSetTagStr)
 
 			try:
 				self.NodingCollectionStr=getattr(self,self.NodedKeyStrKeyStr)

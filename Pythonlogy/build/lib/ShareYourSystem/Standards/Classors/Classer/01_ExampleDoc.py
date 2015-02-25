@@ -8,7 +8,7 @@ import operator
 		'make'
 	]
 })
-class MakerClass(SYS.InitiatorClass):
+class MakerClass(SYS.ObjectClass):
 
 	#Definition
 	RepresentingKeyStrsList=[
@@ -21,7 +21,7 @@ class MakerClass(SYS.InitiatorClass):
 					_MadeMyInt=0,
 					**_KwarVariablesDict
 				):
-		SYS.InitiatorClass.__init__(self,**_KwarVariablesDict)
+		SYS.ObjectClass.__init__(self,**_KwarVariablesDict)
 
 	def do_make(self):
 		
@@ -39,10 +39,6 @@ class MakerClass(SYS.InitiatorClass):
 }
 )
 class BuilderClass(MakerClass):
-
-	#Definition
-	RepresentingKeyStrsList=[
-							]
 
 	def default_init(self,
 					**_KwarVariablesDict
@@ -67,81 +63,47 @@ class BuilderClass(MakerClass):
 MyBuilder=BuilderClass()
 
 #Print
-print('Before make, MyBuilder is ')
-SYS._print(MyBuilder,**{
-	'RepresentingKeyStrsList':[
-	'MakingMyFloat',
-	'MadeMyInt'
-	]
-})
+print('Before make, MyBuilder.__dict__ is ')
+SYS._print(MyBuilder.__dict__)
 
 #make once
 MyBuilder.make(3.)
 
 #Print
-print('After the first make, MyBuilder is ')
-SYS._print(MyBuilder,**{
-	'RepresentingKeyStrsList':[
-	'MakingMyFloat',
-	'MadeMyInt'
-	]
-})
-
+print('After the first make, MyBuilder.__dict__ is ')
+SYS._print(MyBuilder.__dict__)
 
 #make again
 MyBuilder.make(5.)
 
 #Print
-print('After the second make, MyBuilder is ')
-SYS._print(MyBuilder,**{
-	'RepresentingKeyStrsList':[
-	'MakingMyFloat',
-	'MadeMyInt',
-	]
-})
+print('After the second make, MyBuilder.__dict__ is ')
+SYS._print(MyBuilder.__dict__)
 
 #make again
-print('Now we switch')
+print('Now we switch all')
 MyBuilder.setSwitch('Builder',['Make'])
 MyBuilder.callAllMro('setSwitch',['Make'])
 
 #Print
-print('After the switch MyBuilder is ')
-SYS._print(MyBuilder,**{
-	'RepresentingKeyStrsList':[
-	'MakingMyFloat',
-	'MadeMyInt'
-	]
-})
+print('After the switch MyBuilder.__dict__ is ')
+SYS._print(MyBuilder.__dict__)
 
 #make again
 MyBuilder.make(7.)
 
 #Print
-print('After the third make, MyBuilder is ')
-SYS._print(MyBuilder,**{
-	'RepresentingKeyStrsList':[
-	'MakingMyFloat',
-	'MadeMyInt'
-	]
-})
+print('After the third make, MyBuilder.__dict__ is ')
+SYS._print(MyBuilder.__dict__)
 
 #Definition the AttestedStr
 SYS._attest(
 	[
-		'BuilderClass.WatchMakeWithMakerBool is '+str(BuilderClass.WatchMakeWithMakerBool),
+		'BuilderClass.WatchBeforeMakeWithMakerBool is '+str(BuilderClass.WatchBeforeMakeWithMakerBool),
 		'BuilderClass.make is '+str(BuilderClass.make),
 		'BuilderClass.build is '+str(BuilderClass.build),
-		'MyBuilder is '+SYS._str(
-		MyBuilder,
-		**{
-			'RepresentingBaseKeyStrsListBool':False,
-			'RepresentingAlineaIsBool':False,
-			'RepresentingKeyStrsList':[
-				'MakingMyFloat',
-				'MadeMyInt',
-			]
-		}
+		'MyBuilder.__dict__ is '+SYS._str(
+			MyBuilder.__dict__
 		)
 	]
 ) 

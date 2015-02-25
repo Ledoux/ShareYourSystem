@@ -18,8 +18,8 @@ MyConditioner.get(
 			'#filter':
 			[
 				(type,SYS.operator.eq,SYS.ConditionerClass),
-				('SetKeyStr',str.startswith,'#direct:First'),
-				SYS.GetClass(lambda self:'Child' in self['SetKeyStr']),			
+				('SetTagStr',str.startswith,'#direct:First'),
+				SYS.GetClass(lambda self:'Child' in self['SetTagStr']),			
 			],
 			'#scan':'>>self.__dict__.values()'
 		}

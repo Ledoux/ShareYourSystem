@@ -452,32 +452,32 @@ self.FindingConditionVariable+=JoinedFindingConditionVariable
                                 )
                 '''
                 #set
-                JoinedAttentionCollectionOrderedSetKeyStr=self.JoiningAttention
+                JoinedAttentionCollectionOrderedSetTagStr=self.JoiningAttention
 Str+self.JoiningCollectionStr+"CollectionOrderedDict"
 
                 #check
                 if hasattr(
                         self,
-                        JoinedAttentionCollectionOrderedSetKeyStr
+                        JoinedAttentionCollectionOrderedSetTagStr
                 ):
 
                         #get
                         self.JoinedAttentionCollectionOrderedDict=getattr(
                                 self,
-                                JoinedAttentionCollectionOrderedSetKeyStr
+                                JoinedAttentionCollectionOrderedSetTagStr
                         )
 
                 #set
-                JoinedCatchCollectionOrderedSetKeyStr=self.JoiningCatchStr+self
+                JoinedCatchCollectionOrderedSetTagStr=self.JoiningCatchStr+self
 .JoiningCollectionStr+"CollectionOrderedDict"
 
                 #check
-                if hasattr(self,JoinedCatchCollectionOrderedSetKeyStr):
+                if hasattr(self,JoinedCatchCollectionOrderedSetTagStr):
 
                         #get
                         self.JoinedCatchCollectionOrderedDict=getattr(
                                 self,
-                                JoinedCatchCollectionOrderedSetKeyStr
+                                JoinedCatchCollectionOrderedSetTagStr
                         )
 
                         #model and link all the catched joiners

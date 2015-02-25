@@ -78,7 +78,7 @@ class ManagerClass(BaseClass):
 		#
 
 		#Init
-		self.TeamKeyStr="Top"
+		self.TeamTagStr="Top"
 
 		"""
 		#point
@@ -188,7 +188,7 @@ class ManagerClass(BaseClass):
 			
 			#set
 			self.ManagedValueVariable.__setattr__(
-				'ManagementKeyStr',
+				'ManagementTagStr',
 				self.ManagingKeyStr
 			)
 
@@ -221,8 +221,8 @@ class ManagerClass(BaseClass):
 			
 			#set
 			self.ManagedValueVariable.__setattr__(
-				'ManagementTeamKeyStr',
-				self.TeamKeyStr
+				'ManagementTeamTagStr',
+				self.TeamTagStr
 			)
 
 

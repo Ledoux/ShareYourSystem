@@ -429,7 +429,7 @@ class SetterClass(BaseClass):
 
 				#add in the SettingValue
 				try:
-					self.SettingValueVariable.SetKeyStr=self.SettingKeyVariable
+					self.SettingValueVariable.SetTagStr=self.SettingKeyVariable
 					#self.SettingValueVariable.SetDeriveSetter=self
 				except:
 					pass

@@ -80,13 +80,13 @@ class AttributerClass(BaseClass):
         RepresentingKeyStrsList=[
 'AttributingKeyStr',
 'AttributingValueVariable',
-'AttributedSetKeyStr'
+'AttributedSetTagStr'
                                                                 ]
 
         def default_init(self,
                                                 _AttributingKeyStr="",
                                                 _AttributingValueVariable=None,
-                                                _AttributedSetKeyStr="",
+                                                _AttributedSetTagStr="",
                                                 **_KwargVariablesDict
                                         ):
                 """ """
@@ -98,11 +98,11 @@ class AttributerClass(BaseClass):
         def do_attribute(self):
 
                 #set
-                self.AttributedSetKeyStr=AttributingStartStr.join(
+                self.AttributedSetTagStr=AttributingStartStr.join(
                         self.AttributingKeyStr.split(AttributingStartStr)[1:])
 
                 #Call the __setattr__ method
-self.__setattr__(self.AttributedSetKeyStr,self.AttributingValueVariable)
+self.__setattr__(self.AttributedSetTagStr,self.AttributingValueVariable)
 
         #@Imitater.ImitaterClass()
         def mimic_set(self):
@@ -216,7 +216,7 @@ MyAttributer is < (AttributerClass), 4554376528>
    /{
    /  '<New><Instance>IdInt' : 4554376528
    /  '<New><Instance>MyInt' : 0
-   /  '<Spe><Instance>AttributedSetKeyStr' : MyInt
+   /  '<Spe><Instance>AttributedSetTagStr' : MyInt
    /  '<Spe><Instance>AttributingKeyStr' : Attr_MyInt
    /  '<Spe><Instance>AttributingValueVariable' : 0
    /}

@@ -71,42 +71,11 @@ class CommanderClass(BaseClass):
 		)
 		'''
 
-		#Check
-		if type(self.CommandingGetVariable)!=list:
-			
-			#debug
-			'''
-			self.debug(
-				[
-					'We get nicely',
-					('self.',self,['CommandingGetVariable'])
-				]
-			)
-			'''
-
-			#get
-			CommandedValueVariablesList=self[
-				self.CommandingGetVariable
-			]
-
-			#Check
-			if type(CommandedValueVariablesList)!=list:
-				CommandedValueVariablesList=[CommandedValueVariablesList]
-
-		else:
-
-			#map a get
-			CommandedValueVariablesList=map(
-					lambda __CommandingGetVariable:
-					self[__CommandingGetVariable],
-					self.CommandingGetVariable
-				)
-
-		#flat maybe
-		CommandedValueVariablesList=SYS.flat(CommandedValueVariablesList)
-
-		#filter
-		CommandedValueVariablesList=SYS.filterNone(CommandedValueVariablesList)
+		#init
+		CommandedValueVariablesList=SYS.GetList(
+			self.CommandingGetVariable,
+			self
+		)
 
 		#debug
 		'''
@@ -117,7 +86,7 @@ class CommanderClass(BaseClass):
 				]
 			)
 		'''
-		
+
 		#/###################/#
 		# Check if we have to walk before
 		#
@@ -191,36 +160,8 @@ class CommanderClass(BaseClass):
 		)
 		'''
 
-		#Check
-		if type(self.CommandingSetVariable)!=list:
-			
-			#Check
-			if hasattr(self.CommandingSetVariable,'items'):
-
-				#items
-				CommandedSetVariablesList=self.CommandingSetVariable.items()
-
-			elif type(self.CommandingSetVariable
-				)==str and self.CommandingSetVariable.startswith(
-					Getter.GetCallPrefixStr
-				):
-
-				#list
-				CommandedSetVariablesList=[
-					('get',self.CommandingSetVariable)
-				]
-
-			else:
-
-				#list
-				CommandedSetVariablesList=[
-					self.CommandingSetVariable
-				]
-
-		else:
-
-			#alias
-			CommandedSetVariablesList=self.CommandingSetVariable
+		#inits
+		CommandedSetVariablesList=SYS.SetList(self.CommandingSetVariable)
 
 		#debug
 		'''
@@ -231,7 +172,7 @@ class CommanderClass(BaseClass):
 				]
 			)
 		'''
-
+		
 		#/###################/#
 		# Ok now we command locally
 		#

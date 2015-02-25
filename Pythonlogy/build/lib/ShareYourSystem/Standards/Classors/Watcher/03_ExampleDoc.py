@@ -8,7 +8,7 @@ import ShareYourSystem as SYS
 	#'ObservingWrapMethodStr':'superDo_make'
 	'ObservingWrapMethodStr':'make'
 	})
-class MakerClass(SYS.InitiatorClass):
+class MakerClass(SYS.ObjectClass):
 
 	#Definition
 	RepresentingKeyStrsList=[
@@ -20,7 +20,7 @@ class MakerClass(SYS.InitiatorClass):
 				_MakingMyFloat=1.,
 				_MadeMyInt=0
 				):
-		SYS.InitiatorClass.__init__(self)
+		SYS.ObjectClass.__init__(self)
 
 	def do_make(self):
 

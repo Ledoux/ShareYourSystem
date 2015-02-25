@@ -35,7 +35,7 @@ class CollecterClass(BaseClass):
 									'CollectingNodeVariable',
 									'CollectedGetStr',
 									'CollectedSuffixStr',
-									'CollectedSetKeyStr'
+									'CollectedSetTagStr'
 								]
 
 	def default_init(self,
@@ -44,7 +44,7 @@ class CollecterClass(BaseClass):
 						_CollectingNodeVariable=None,
 						_CollectedGetStr="",
 						_CollectedSuffixStr="",
-						_CollectedSetKeyStr="",
+						_CollectedSetTagStr="",
 						**_KwargVariablesDict
 					):
 
@@ -73,15 +73,15 @@ class CollecterClass(BaseClass):
 			self.CollectedSuffixStr=CollectedTypeStr[0].upper()+CollectedTypeStr[1:]
 
 		#set
-		self.CollectedSetKeyStr=self.CollectedGetStr+self.CollectingNodeKeyStr+self.CollectedSuffixStr
+		self.CollectedSetTagStr=self.CollectedGetStr+self.CollectingNodeKeyStr+self.CollectedSuffixStr
 
 		#debug
 		'''
-		self.debug(('self.',self,['CollectedSetKeyStr']))
+		self.debug(('self.',self,['CollectedSetTagStr']))
 		'''
 		
 		#node
-		self[self.CollectedSetKeyStr]=self.CollectingNodeVariable
+		self[self.CollectedSetTagStr]=self.CollectingNodeVariable
 
 #</DefineClass>
 

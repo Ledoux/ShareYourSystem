@@ -10,12 +10,6 @@ import ShareYourSystem as SYS
 })
 class MakerClass(SYS.ObjectClass):
 
-	#Definition
-	RepresentingKeyStrsList=[
-								'MakingMyFloat',
-								'MadeMyInt'
-							]
-
 	def default_init(self,
 				_MakingMyFloat=1.,
 				_MadeMyInt=0
@@ -36,47 +30,43 @@ class MakerClass(SYS.ObjectClass):
 MyMaker=MakerClass()
 
 #Print
-print('Before make, MyMaker is ')
-SYS._print(MyMaker)
+print('Before make, MyMaker.__dict__ is ')
+SYS._print(MyMaker.__dict__)
 
 #make once
 MyMaker.make(3.)
 
 #Print
-print('After the first make, MyMaker is ')
-SYS._print(MyMaker)
+print('After the first make, MyMaker.__dict__ is ')
+SYS._print(MyMaker.__dict__)
 
 #make again
 MyMaker.make(5.)
 
 #Print
-print('After the second make, MyMaker is ')
-SYS._print(MyMaker)
+print('After the second make, MyMaker.__dict__ is ')
+SYS._print(MyMaker.__dict__)
 
 #make again
 print('Now we switch')
 MyMaker.setSwitch()
 
 #Print
-print('After the switch MyMaker is ')
-SYS._print(MyMaker)
+print('After the switch MyMaker.__dict__ is ')
+SYS._print(MyMaker.__dict__)
 
 #make again
 MyMaker.make(7.)
 
 #Print
-print('After the third make, MyMaker is ')
-SYS._print(MyMaker)
+print('After the third make, MyMaker.__dict__ is ')
+SYS._print(MyMaker.__dict__)
 
-#Define
-print('\n'.join(
-	[
-		'MakerClass.make is '+str(MakerClass.make),
-		'MyMaker is '+SYS._str(
-			MyMaker,**{'RepresentingAlineaIsBool':False}
-		),
-	]
-))
+#print
+print('MakerClass.make is '+str(MakerClass.make))
+
+#print
+print('MyMaker.__dict__ is '+SYS._str(MyMaker.__dict__))
 
 
 

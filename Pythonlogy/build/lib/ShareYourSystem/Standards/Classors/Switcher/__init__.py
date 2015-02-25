@@ -46,7 +46,17 @@ def setSwitch(_InstanceVariable,_ClassVariable=None,_DoStrsList=None):
 	map(
 			lambda __MethodStr:
 			_InstanceVariable.__setattr__(
-				'Watch'+__MethodStr+'With'+SwitchClass.NameStr+'Bool',
+				'WatchBefore'+__MethodStr+'With'+SwitchClass.NameStr+'Bool',
+				False
+			),
+			_DoStrsList,
+		)
+
+	#map
+	map(
+			lambda __MethodStr:
+			_InstanceVariable.__setattr__(
+				'WatchAfter'+__MethodStr+'With'+SwitchClass.NameStr+'Bool',
 				False
 			),
 			_DoStrsList,
@@ -81,12 +91,12 @@ def switch(_InstanceVariable,*_LiargVariablesList,**_KwargVariablesDict):
 	"""
 
 	#Check
-	if hasattr(_InstanceVariable,_KwargVariablesDict['WatchDoBoolKeyStr']):
+	if hasattr(_InstanceVariable,_KwargVariablesDict['WatchBeforeDoBoolKeyStr']):
 
 		#get
 		WatchDoBool=getattr(
 				_InstanceVariable,
-				_KwargVariablesDict['WatchDoBoolKeyStr']
+				_KwargVariablesDict['WatchBeforeDoBoolKeyStr']
 				)
 
 		#Switch
@@ -106,7 +116,11 @@ def switch(_InstanceVariable,*_LiargVariablesList,**_KwargVariablesDict):
 	map(
 			lambda __KeyStr:
 			_KwargVariablesDict.__delitem__(__KeyStr),
-			['BindObserveWrapMethodStr','BindDoClassStr','WatchDoBoolKeyStr']
+			[
+				'BindObserveWrapMethodStr',
+				'BindDoClassStr',
+				'WatchBeforeDoBoolKeyStr'
+			]
 		)
 
 	#Call
@@ -178,7 +192,7 @@ class SwitcherClass(BaseClass):
 						switch,
 						"",
 						switch.__name__,
-						[('WatchDoBoolKeyStr',self.WatchedDoBoolKeyStr)],
+						[('WatchBeforeDoBoolKeyStr',self.WatchedBeforeDoBoolKeyStr)],
 						**{'ObservingWrapMethodStr':self.WatchedDecorationMethodStr}
 					)
 

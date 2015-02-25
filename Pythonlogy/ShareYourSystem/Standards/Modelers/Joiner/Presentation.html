@@ -2157,30 +2157,30 @@ class JoinerClass(BaseClass):
                 )
         '''
         #set
-        JoinedAttentionCollectionOrderedSetKeyStr=self.JoiningAttentionStr+self.JoiningCollectionStr+"CollectionOrderedDict"
+        JoinedAttentionCollectionOrderedSetTagStr=self.JoiningAttentionStr+self.JoiningCollectionStr+"CollectionOrderedDict"
 
         #check
         if hasattr(
             self,
-            JoinedAttentionCollectionOrderedSetKeyStr
+            JoinedAttentionCollectionOrderedSetTagStr
         ):
 
             #get
             self.JoinedAttentionCollectionOrderedDict=getattr(
                 self,
-                JoinedAttentionCollectionOrderedSetKeyStr
+                JoinedAttentionCollectionOrderedSetTagStr
             )
 
         #set
-        JoinedCatchCollectionOrderedSetKeyStr=self.JoiningCatchStr+self.JoiningCollectionStr+"CollectionOrderedDict"
+        JoinedCatchCollectionOrderedSetTagStr=self.JoiningCatchStr+self.JoiningCollectionStr+"CollectionOrderedDict"
 
         #check
-        if hasattr(self,JoinedCatchCollectionOrderedSetKeyStr):
+        if hasattr(self,JoinedCatchCollectionOrderedSetTagStr):
 
             #get
             self.JoinedCatchCollectionOrderedDict=getattr(
                 self,
-                JoinedCatchCollectionOrderedSetKeyStr
+                JoinedCatchCollectionOrderedSetTagStr
             )
 
             #model and link all the catched joiners

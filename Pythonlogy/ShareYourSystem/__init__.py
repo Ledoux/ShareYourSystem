@@ -1045,8 +1045,125 @@ def lib():
 SingularStrToPluralStrOrderedDict=dictify(ConceptStrsTuplesList,0,1)
 PluralStrToSingularStrOrderedDict=dictify(ConceptStrsTuplesList,1,0)
 
-class MapListClass(list):
-	pass
+class GetList(list):
+
+	def __init__(self,_ListVariable=None,_GetterVariable=None):
+		
+		#call the base 
+		list.__init__(self)
+
+		#init
+		self.ListVariable=_ListVariable
+		self.GetterVariable=_GetterVariable
+
+		#init
+		if self.ListVariable==None:
+			self.ListVariable=[]
+
+		#Check
+		if type(self.ListVariable)!=list:
+			
+			#debug
+			'''
+			self.debug(
+				[
+					'We get nicely',
+					('self.',self,['CommandingGetVariable'])
+				]
+			)
+			'''
+
+			#Check
+			if self.GetterVariable!=None:
+
+				#get
+				ValueVariable=self.GetterVariable[
+						self.ListVariable
+					]
+			else:
+
+				#alias
+				ValueVariable=self.ListVariable
+
+			#Check
+			if type(ValueVariable)!=list:
+				ValueVariable=[ValueVariable]
+
+		else:
+
+			#Check
+			if self.GetterVariable!=None:
+
+				#map a get
+				ValueVariable=map(
+						lambda __ElementVariable:
+						self.GetterVariable[__ElementVariable],
+						self.ListVariable
+					)
+			else:
+
+				#alias
+				ValueVariable=self.ListVariable
+
+		#Debug
+		'''
+		print('SYS GetList')
+		print('ValueVariable is ')
+		print(ValueVariable)
+		print('')
+		'''
+
+		#flat maybe
+		ValueVariable=flat(ValueVariable)
+
+		#filter
+		self.extend(filterNone(ValueVariable))
+
+class SetList(list):
+
+	def __init__(self,_ListVariable=None):
+
+		#call the base 
+		list.__init__(self)
+
+		#init
+		self.ListVariable=_ListVariable
+
+		#init
+		if self.ListVariable==None:
+			self.ListVariable=[]
+
+		#Check
+		if type(self.ListVariable)!=list:
+			
+			#Check
+			if hasattr(self.ListVariable,'items'):
+
+				#items
+				self.extend(self.ListVariable.items())
+
+			elif type(self.ListVariable
+				)==str :
+			#and self.ListVariable.startswith(
+			#		sys.modules['ShareYourSystem'].Getter.GetCallPrefixStr
+			#	):
+
+				#list
+				self.append(
+					('get',self.ListVariable)
+				)
+
+			else:
+
+				#list
+				self.append(
+					self.ListVariable
+				)
+
+		else:
+
+			#alias
+			self.extend(self.ListVariable.__iter__())
 
 class MethodDict(collections.OrderedDict):
 
@@ -1106,7 +1223,7 @@ class ArgumentDict(collections.OrderedDict):
 		if _Function!=None:
 
 			#Unpack
-			InputKeyStrList,ArgVariablesListKeyStr,KwargsVariablesSetKeyStr,DefaultVariablesList=inspect.getargspec(
+			InputKeyStrList,ArgVariablesListKeyStr,KwargsVariablesSetTagStr,DefaultVariablesList=inspect.getargspec(
 				_Function
 			)
 
@@ -1128,7 +1245,7 @@ class ArgumentDict(collections.OrderedDict):
 				[
 					('InputKeyStrsList',InputKeyStrList),
 					('LiargVariablesListKeyStr',ArgVariablesListKeyStr if ArgVariablesListKeyStr!=None else ""),
-					('KwargVariablesSetKeyStr',KwargsVariablesSetKeyStr if KwargsVariablesSetKeyStr!=None else ""),
+					('KwargVariablesSetTagStr',KwargsVariablesSetTagStr if KwargsVariablesSetTagStr!=None else ""),
 					('DefaultOrderedDict',collections.OrderedDict(
 						zip(
 							InputKeyStrList[self['DefaultIndexInt']:],

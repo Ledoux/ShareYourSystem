@@ -53,7 +53,7 @@ SetModifyGrabStr='#set'
 class SetterClass(BaseClass):
 
 	def default_init(self,
-						_SetKeyStr="",
+						_SetTagStr="",
 						_SetDeriveSetter=None,
 						_SettingKeyVariable=None, 
 						_SettingValueVariable=None, 
@@ -68,7 +68,7 @@ class SetterClass(BaseClass):
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
 		#Init
-		#self.SetKeyStr=""
+		#self.SetTagStr=""
 		#self.SetDeriveSetter=None
 
 	def getMapValueVariable(self):
@@ -678,7 +678,7 @@ class SetterClass(BaseClass):
 
 				#add in the SettingValue
 				try:
-					self.SettingValueVariable.SetKeyStr=self.SettingKeyVariable
+					self.SettingValueVariable.SetTagStr=self.SettingKeyVariable
 					self.SettingValueVariable.SetDeriveSetter=self
 				except:
 					pass
@@ -844,7 +844,7 @@ class SetterClass(BaseClass):
 #</DefinePrint>
 SetterClass.PrintingClassSkipKeyStrsList.extend(
 	[
-		'SetKeyStr',
+		'SetTagStr',
 		'SetDeriveSetter',
 		'SettingKeyVariable',
 		'SettingValueVariable',

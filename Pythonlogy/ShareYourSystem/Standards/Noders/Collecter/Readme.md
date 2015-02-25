@@ -75,7 +75,7 @@ class CollecterClass(BaseClass):
 'CollectingNodeVariable',
 'CollectedGetStr',
 'CollectedSuffixStr',
-'CollectedSetKeyStr'
+'CollectedSetTagStr'
                                                                 ]
 
         #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{'CallingVariable':
@@ -86,7 +86,7 @@ BaseClass.__init__}]})
                                                 _CollectingNodeVariable=None,
                                                 _CollectedGetStr="",
                                                 _CollectedSuffixStr="",
-                                                _CollectedSetKeyStr="",
+                                                _CollectedSetTagStr="",
                                                 **_KwargVariablesDict
                                         ):
 
@@ -116,16 +116,16 @@ CollectedTypeStr=type(self.CollectingNodeVariable).__name__
 self.CollectedSuffixStr=CollectedTypeStr[0].upper()+CollectedTypeStr[1:]
 
                 #set
-                self.CollectedSetKeyStr=self.CollectedGetStr+self.CollectingNode
+                self.CollectedSetTagStr=self.CollectedGetStr+self.CollectingNode
 KeyStr+self.CollectedSuffixStr
 
                 #debug
                 '''
-                self.debug(('self.',self,['CollectedSetKeyStr']))
+                self.debug(('self.',self,['CollectedSetTagStr']))
                 '''
 
                 #node
-                self[self.CollectedSetKeyStr]=self.CollectingNodeVariable
+                self[self.CollectedSetTagStr]=self.CollectingNodeVariable
 
 #</DefineClass>
 
@@ -227,7 +227,7 @@ MyCollecter is < (CollecterClass), 4555207312>
    /   /   /}
    /   /}
    /  '<Spe><Instance>CollectedGetStr' : <Nodome>
-   /  '<Spe><Instance>CollectedSetKeyStr' : <Nodome>SecondNoder
+   /  '<Spe><Instance>CollectedSetTagStr' : <Nodome>SecondNoder
    /  '<Spe><Instance>CollectedSuffixStr' : Noder
    /  '<Spe><Instance>CollectingCollectionStr' : Nodome
    /  '<Spe><Instance>CollectingNodeKeyStr' : Second

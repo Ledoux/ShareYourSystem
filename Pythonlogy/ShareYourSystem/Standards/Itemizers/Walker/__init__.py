@@ -67,12 +67,12 @@ class WalkerClass(BaseClass):
 									}
 								)
 
-			#Definition WalkedTopOrderedSetKeyStr
-			WalkedTopOrderedSetKeyStr='Walked'+WalkingStr+IdStr+WalkingStr+'OrderedDict'
+			#Definition WalkedTopOrderedSetTagStr
+			WalkedTopOrderedSetTagStr='Walked'+WalkingStr+IdStr+WalkingStr+'OrderedDict'
 
 			#set the corresponding WalkedOrderedDict
 			self.__setattr__(
-								WalkedTopOrderedSetKeyStr,
+								WalkedTopOrderedSetTagStr,
 								collections.OrderedDict(**
 									{
 										'IndexInt':-1,
@@ -85,16 +85,16 @@ class WalkerClass(BaseClass):
 			#Alias this Dict
 			self.WalkedTopOrderedDict=getattr(
 				self,
-				WalkedTopOrderedSetKeyStr
+				WalkedTopOrderedSetTagStr
 			)
 
 		else:
 
 			#Get the information at the top
-			WalkedTopOrderedSetKeyStr='Walked'+WalkingStr+self.WalkingSocketDict['IdStr']+WalkingStr+'OrderedDict'
+			WalkedTopOrderedSetTagStr='Walked'+WalkingStr+self.WalkingSocketDict['IdStr']+WalkingStr+'OrderedDict'
 			self.WalkedTopOrderedDict=getattr(
 				self.WalkingSocketDict['TopVariable'],
-				WalkedTopOrderedSetKeyStr
+				WalkedTopOrderedSetTagStr
 			)
 			self.WalkedTopOrderedDict['IndexInt']+=1
 			self.WalkedTopOrderedDict['TopIntsList']+=[str(
@@ -183,6 +183,6 @@ class WalkerClass(BaseClass):
 		#Return self
 		if self.WalkingSocketDict['TopVariable']==self:
 			self.WalkedOrderedDict=WalkedTopOrderedDict
-			del self.__dict__[WalkedTopOrderedSetKeyStr]
+			del self.__dict__[WalkedTopOrderedSetTagStr]
 			return self
 #</DefineClass>

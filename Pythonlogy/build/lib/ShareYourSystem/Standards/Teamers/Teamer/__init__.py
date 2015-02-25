@@ -51,7 +51,7 @@ SYS.TeamDictClass=TeamDictClass
 class TeamerClass(BaseClass):
 
 	def default_init(self,
-				_ManagementKeyStr="",
+				_ManagementTagStr="",
 				_TeamDict=None,
 				_TeamingKeyStr="",	
 				_TeamingValueVariable=None,	
@@ -90,7 +90,7 @@ class TeamerClass(BaseClass):
 			self.PrintingInstanceForceKeyStrsList.extend(
 				[
 					'TeamDict',
-					#'ManagementKeyStr'
+					#'ManagementTagStr'
 				]
 			)
 			self.TeamedOnceBool=True
@@ -168,7 +168,7 @@ class TeamerClass(BaseClass):
 			#
 
 			#set
-			self.TeamedValueVariable.TeamKeyStr=self.TeamingKeyStr
+			self.TeamedValueVariable.TeamTagStr=self.TeamingKeyStr
 
 
 	def mimic_get(self):
@@ -302,7 +302,7 @@ class TeamerClass(BaseClass):
 #</DefinePrint>
 TeamerClass.PrintingClassSkipKeyStrsList.extend(
 	[
-		'ManagementKeyStr',
+		'ManagementTagStr',
 		'TeamDict',
 		'TeamingKeyStr',
 		'TeamingValueVariable',

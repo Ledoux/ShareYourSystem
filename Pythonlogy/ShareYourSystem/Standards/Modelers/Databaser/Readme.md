@@ -333,7 +333,7 @@ MyCollecter is < (CollecterClass), 4563976464>
    /  '<New><Instance>NodePointDeriveNoder' : None
    /  '<New><Instance>NodePointOrderedDict' : None
    /  '<Spe><Instance>CollectedGetStr' : <Datome>
-   /  '<Spe><Instance>CollectedSetKeyStr' : <Datome>ThingsModeler
+   /  '<Spe><Instance>CollectedSetTagStr' : <Datome>ThingsModeler
    /  '<Spe><Instance>CollectedSuffixStr' : Modeler
    /  '<Spe><Instance>CollectingCollectionStr' : Datome
    /  '<Spe><Instance>CollectingNodeKeyStr' : Things

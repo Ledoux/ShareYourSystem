@@ -107,17 +107,17 @@ class NoderClass(BaseClass):
 		if self.NodingCollectionStr!="":
 		
 			#set the Noded OrderedDict and KeyStr
-			NodedCollectionOrderedSetKeyStr=self.NodingCollectionStr+'CollectionOrderedDict'
+			NodedCollectionOrderedSetTagStr=self.NodingCollectionStr+'CollectionOrderedDict'
 			#self.NodeKeyStrKeyStr=self.NodedPrefixStr+'KeyStr'
 
 			try:
-				self.NodedCollectionOrderedDict=getattr(self,NodedCollectionOrderedSetKeyStr)
+				self.NodedCollectionOrderedDict=getattr(self,NodedCollectionOrderedSetTagStr)
 			except AttributeError:
 				self.__setattr__(
-									NodedCollectionOrderedSetKeyStr,
+									NodedCollectionOrderedSetTagStr,
 									collections.OrderedDict()
 								)
-				self.NodedCollectionOrderedDict=getattr(self,NodedCollectionOrderedSetKeyStr)
+				self.NodedCollectionOrderedDict=getattr(self,NodedCollectionOrderedSetTagStr)
 
 			'''
 			try:
@@ -328,21 +328,21 @@ class NoderClass(BaseClass):
 					)
 
 			#Definition the KeyStr
-			SetKeyStr=NodingSuffixGetStr.join(SplittedStrsList[1:])
+			SetTagStr=NodingSuffixGetStr.join(SplittedStrsList[1:])
 
 			#debug
 			'''
-			self.debug('SetKeyStr is '+SetKeyStr)
+			self.debug('SetTagStr is '+SetTagStr)
 			'''
 
 			#Append (or set if it is already in)
 			Pather.setWithPathVariableAndKeyVariable(
 				self.NodedCollectionOrderedDict,
-				Pather.PathPrefixStr+SetKeyStr,
+				Pather.PathPrefixStr+SetTagStr,
 				self.SettingValueVariable
 			)
 
-			if Pather.PathPrefixStr not in SetKeyStr:
+			if Pather.PathPrefixStr not in SetTagStr:
 
 				#debug
 				'''
@@ -369,7 +369,7 @@ class NoderClass(BaseClass):
 					)
 					NodedMethod(
 						NodingCollectionPrefixStr+'KeyStr',
-						SetKeyStr
+						SetTagStr
 					)
 					self.SettingValueVariable.point(
 							self.NodedCollectionOrderedDict,
