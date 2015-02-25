@@ -7,7 +7,7 @@ import operator
 	'ObservingIsBool':True,
 	'ObservingWrapMethodStr':'make'
 })
-class MakerClass(SYS.InitiatorClass):
+class MakerClass(SYS.ObjectClass):
 
 	#Definition
 	RepresentingKeyStrsList=[
@@ -20,7 +20,7 @@ class MakerClass(SYS.InitiatorClass):
 					_MadeMyInt=0,
 					**_KwarVariablesDict
 				):
-		self.__class__.__bases__[0].__init__(self,**_KwarVariablesDict)
+		SYS.ObjectClass.__init__(self,**_KwarVariablesDict)
 
 	def do_make(self):
 		

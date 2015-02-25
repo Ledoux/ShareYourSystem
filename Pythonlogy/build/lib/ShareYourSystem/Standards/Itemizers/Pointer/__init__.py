@@ -36,15 +36,6 @@ def getLiargVariablesList(_ValueVariable):
 @DecorationClass()
 class PointerClass(BaseClass):
 
-	#Definition
-	RepresentingKeyStrsList=[
-								'PointingToGetVariable',
-								'PointingToSetKeyVariable',
-								'PointingBackSetKeyVariable',
-								'PointingBackBool',
-								'PointedToGetValueVariable'
-							]
-
 	def default_init(
 					self,		
 					_PointingToGetVariable=None,
@@ -248,7 +239,7 @@ class PointerClass(BaseClass):
 				else:
 
 					#set default
-					PointedBackSetKeyVariable=str(self.IdInt)
+					PointedBackSetKeyVariable=str(self.PrintIdInt)
 
 				#add
 				PointedBackSetKeyVariable=PointBackPrefixStr+PointedBackSetKeyVariable+self.NameStr
@@ -472,3 +463,14 @@ class PointerClass(BaseClass):
 
 #</DefineClass>
 
+#</DefinePrint>
+PointerClass.PrintingClassSkipKeyStrsList.extend(
+	[
+		'PointingToGetVariable',
+		'PointingToSetKeyVariable',
+		'PointingBackSetKeyVariable',
+		'PointingBackBool',
+		'PointedToGetValueVariable'
+	]
+)
+#<DefinePrint>

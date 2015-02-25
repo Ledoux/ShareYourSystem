@@ -1,10 +1,9 @@
 #ImportModules
 import ShareYourSystem as SYS
-import operator
 
 #Definition 
 @SYS.DoerClass()
-class MakerClass(SYS.InitiatorClass):
+class MakerClass(SYS.ObjectClass):
 
 	#Definition
 	RepresentingKeyStrsList=[
@@ -17,7 +16,7 @@ class MakerClass(SYS.InitiatorClass):
 					_MadeMyInt=0,
 					**_KwarVariablesDict
 				):
-		SYS.InitiatorClass.__init__(self,**_KwarVariablesDict)
+		SYS.ObjectClass.__init__(self,**_KwarVariablesDict)
 
 	def do_make(self):
 		

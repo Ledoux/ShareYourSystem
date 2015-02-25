@@ -49,18 +49,6 @@ SYS.ManagementDictClass=ManagementDictClass
 @DecorationClass()
 class ManagerClass(BaseClass):
 
-	#Definition
-	RepresentingKeyStrsList=[
-								'TeamKeyStr',
-								'ManagementDict',
-								#'ManagingKeyStr',
-								#'ManagingValueVariable',
-								#'ManagingValueClass',
-								#'ManagedValueVariable',
-								#'ManagedIsBool',
-								#'ManagedOnceBool'
-							]
-
 	def default_init(
 				self,
 				_TeamKeyStr="",
@@ -70,7 +58,7 @@ class ManagerClass(BaseClass):
 				_ManagingValueClass=Teamer.TeamerClass,
 				_ManagedValueVariable=None,
 				_ManagedIsBool=False,
-				_ManagedOnceBool=False,
+				_ManagedOnceBool=False
 				**_KwargVariablesDict
 			):	
 
@@ -82,30 +70,6 @@ class ManagerClass(BaseClass):
 		
 	def do_manage(self):
 
-		#Check
-		if self.ManagedOnceBool==False:
-
-			#add
-			if self.RepresentingSkipKeyStrsList==None:
-				self.RepresentingSkipKeyStrsList=['RepresentingForceKeyStrsList']
-			else:
-				self.RepresentingSkipKeyStrsList+=['RepresentingForceKeyStrsList']
-
-			#add
-			if self.RepresentingForceKeyStrsList==None:
-				self.RepresentingForceKeyStrsList=[
-									'TeamKeyStr',
-									'ManagementDict'
-								]
-			else:
-				self.RepresentingForceKeyStrsList+=[
-									'TeamKeyStr',
-									'ManagementDict'
-								]
-
-			#set True
-			self.ManagedOnceBool=True
-
 		#debug
 		'''
 		self.debug(
@@ -115,6 +79,24 @@ class ManagerClass(BaseClass):
 				])
 		)
 		'''
+
+		#/###################/#
+		# Force the repr with the ManagementDict
+		#
+
+		#Check
+		if self.ManagedOnceBool==False:
+			self.PrintingInstanceForceKeyStrsList.extend(
+				[
+					'ManagementDict',
+					'TeamKeyStr'
+				]
+			)
+			self.ManagedOnceBool=True
+
+		#/###################/#
+		# Add this managed variable
+		#
 
 		#Check
 		if self.ManagingValueVariable==None:
@@ -177,7 +159,7 @@ class ManagerClass(BaseClass):
 				)
 
 			#add in the RepresentingSkipKeyStrsList to not be seen in the repr
-			self.RepresentingSkipKeyStrsList.append(ManagedKeyStr)
+			self.PrintingInstanceSkipKeyStrsList.append(ManagedKeyStr)
 
 			#put in the dict
 			self.ManagementDict[
@@ -331,3 +313,18 @@ class ManagerClass(BaseClass):
 
 #set
 SYS.TeamerClass.TeamingValueClass=ManagerClass
+
+#</DefinePrint>
+ManagerClass.PrintingClassSkipKeyStrsList.extend(
+	[
+		'TeamKeyStr',
+		'ManagementDict',
+		'ManagingKeyStr',
+		'ManagingValueVariable',
+		'ManagingValueClass',
+		'ManagedValueVariable',
+		'ManagedIsBool',
+		'ManagedOnceBool'
+	]
+)
+#<DefinePrint>

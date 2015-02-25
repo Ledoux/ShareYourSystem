@@ -298,9 +298,9 @@ def getPrintStr(_Variable,**_KwargVariablesDict):
 	#	print('hasattr(_Variable.__class__,"InspectedOrderedDict") is '+str(
 	#		hasattr(_Variable.__class__,"InspectedOrderedDict")))
 	#	if hasattr(_Variable.__class__,"InspectedOrderedDict"):
-	#		print("_Variable.__class__.InspectedOrderedDict['__repr__']['KwargVariablesSetKeyStr'] is "+str(
-	#			_Variable.__class__.InspectedOrderedDict['__repr__']['KwargVariablesSetKeyStr']))	
-	#		print(_Variable.__class__.InspectedOrderedDict['__repr__']['KwargVariablesSetKeyStr'])
+	#		print("_Variable.__class__.InspectedOrderedDict['__repr__']['KwargVariablesListKeyStr'] is "+str(
+	#			_Variable.__class__.InspectedOrderedDict['__repr__']['KwargVariablesListKeyStr']))	
+	#		print(_Variable.__class__.InspectedOrderedDict['__repr__']['KwargVariablesListKeyStr'])
 	print('')
 	'''
 
@@ -478,9 +478,9 @@ def getPrintStr(_Variable,**_KwargVariablesDict):
 	#elif hasattr(_Variable,"__repr__") and hasattr(
 	#	_Variable.__class__,"InspectedArgumentDict"
 	#	) and '__repr__' in _Variable.__class__.InspectedArgumentDict and _Variable.__class__.InspectedArgumentDict[
-	#	'__repr__']['KwargVariablesSetKeyStr']!="":
+	#	'__repr__']['KwargVariablesListKeyStr']!="":
 	elif hasattr(_Variable.__class__,'__mro__'
-		) and Object.ObjectClass in _Variable.__class__.__mro__:
+		) and SYS.PrinterClass in _Variable.__class__.__mro__:
 
 		#debug
 		'''
@@ -624,9 +624,12 @@ SYS._print = __main__print
 class PrinterClass(BaseClass):
 
 	def default_init(self,
+						_PrintIdInt=0,
 						_PrintingVariable=None,
-						_PrintingSkipKeyStrsSet=None,
-						_PrintingForceKeyStrsSet=None,
+						_PrintingInstanceSkipKeyStrsList=None,
+						_PrintingInstanceForceKeyStrsList=None,
+						_PrintingClassSkipKeyStrsList=[],
+						_PrintingClassForceKeyStrsList=[],
 						_PrintingBaseBool=False,
 						_PrintingNewInstanceBool=True,
 						_PrintingNewClassBool=True,
@@ -638,27 +641,17 @@ class PrinterClass(BaseClass):
 		#Call the parent init method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
-		#init
-		self.PrintingSkipKeyStrsSet=set(
-								[
-									'PrintingVariable',
-									'PrintingSkipKeyStrsSet',
-									'PrintingForceKeyStrsSet',
-									'PrintingBaseBool',
-									'PrintingNewInstanceBool',
-									'PrintingNewClassBool',
-									'PrintingOutBool',
-									'PrintedStr'
-								]
-							)
+		#id
+		self.PrintIdInt=id(self)
 
 		#init
-		self.PrintingForceKeyStrsSet=set()
-		
+		self.PrintingInstanceSkipKeyStrsList=[]
+		self.PrintingInstanceForceKeyStrsList=[]
+			
 	def __repr__(self,**_KwargVariablesDict):
 
 		#return 
-		return self._print(self,_OutBool=False).PrintedStr
+		return self._print(self,_OutBool=False,**_KwargVariablesDict).PrintedStr
 
 	def do__print(self,**_KwargVariablesDict):
 
@@ -689,10 +682,16 @@ class PrinterClass(BaseClass):
 											]))
 			'''
 
-			#filter
+			#/###################/#
+			# Print the Default Key Strs... form the Instance or the still the Class
+			#
+
+			#filter the skip key strs
 			PrintedDefaultSpecificKeyStrsList=SYS._filter(
 					lambda __DefaultSpecificKeyStr:
-					__DefaultSpecificKeyStr not in self.PrintingSkipKeyStrsSet, 
+					__DefaultSpecificKeyStr not in list(
+						self.PrintingInstanceSkipKeyStrsList)+list(
+						self.PrintingClassSkipKeyStrsList), 
 					self.__class__.DefaultSpecificKeyStrsList
 				)
 
@@ -710,13 +709,28 @@ class PrinterClass(BaseClass):
 										PrintedDefaultSpecificKeyStrsList
 								)
 
+			#/###################/#
+			# Print the Default Base Key Strs... form the Instance or the still the Class
+			#
+
 			#Represent the BaseKeyStrs
 			if self.PrintingBaseBool:
 				
+				#Debug
+				'''
+				print('Printer l 723')
+				print('We print the bases')
+				print('self.__class__.DefaultBaseKeyStrsList is ')
+				print(self.__class__.DefaultBaseKeyStrsList)
+				print('')
+				'''
+
 				#filter
 				PrintedDefaultBaseKeyStrsList=SYS._filter(
 						lambda __DefaultSpecificKeyStr:
-						__DefaultSpecificKeyStr not in self.PrintingSkipKeyStrsSet, 
+						__DefaultSpecificKeyStr not in list(
+							self.PrintingInstanceSkipKeyStrsList
+						)+list(self.PrintingClassSkipKeyStrsList), 
 						self.__class__.DefaultBaseKeyStrsList
 					)
 					
@@ -733,6 +747,10 @@ class PrinterClass(BaseClass):
 										PrintedDefaultBaseKeyStrsList
 									)
 
+			#/###################/#
+			# Print the New key strs in the instance
+			#
+
 			#print the NewInstanceKeyStrs in the __dict__
 			if self.PrintingNewInstanceBool:
 				
@@ -747,7 +765,9 @@ class PrinterClass(BaseClass):
 				#filter
 				PrintedNewInstanceTuplesList=SYS._filter(
 						lambda __PrintedNewInstanceTuple:
-						__PrintedNewInstanceTuple[0] not in self.PrintingSkipKeyStrsSet,
+						__PrintedNewInstanceTuple[0] not in list(
+							self.PrintingInstanceSkipKeyStrsList)+list(
+							self.PrintingClassSkipKeyStrsList),
 						PrintedNewInstanceTuplesList
 					)
 
@@ -760,6 +780,10 @@ class PrinterClass(BaseClass):
 					),
 					PrintedNewInstanceTuplesList
 				)
+
+			#/###################/#
+			# Print the New key strs in the class
+			#
 
 			#Represent the NewClassKeyStrs in the _self.__class____.__dict__
 			if self.PrintingNewClassBool:
@@ -779,9 +803,9 @@ class PrinterClass(BaseClass):
 					)
 				)
 			
-			#Check
-			if 'PrintingKeyStrsList' not in _KwargVariablesDict:
-				_KwargVariablesDict['PrintingKeyStrsList']=[]
+			#/###################/#
+			# Print force key strs
+			#
 
 			PrintedTuplesList+=map(
 					lambda __PrintingKeyStr:
@@ -789,13 +813,13 @@ class PrinterClass(BaseClass):
 						"<Spe><Instance>"+__PrintingKeyStr,
 						self.__dict__[__PrintingKeyStr]
 					) 
-					if __PrintingKeyStr in self.__dict__ and __PrintingKeyStr not in self.__class__.DefaultSetKeyStrsList
+					if __PrintingKeyStr in self.__dict__ and __PrintingKeyStr not in self.__class__.DefaultSpecificKeyStrsList
 					else(
 							(
 								"<Base><Instance>"+__PrintingKeyStr,
 								self.__dict__[__PrintingKeyStr]
 							) 
-							if __PrintingKeyStr in self.__dict__ and __PrintingKeyStr in self.__class__.DefaultBaseSetKeyStrsList
+							if __PrintingKeyStr in self.__dict__ and __PrintingKeyStr in self.__class__.DefaultBaseKeyStrsList
 							else
 							(
 								(
@@ -810,8 +834,9 @@ class PrinterClass(BaseClass):
 								)
 							)
 					),
-					_KwargVariablesDict['PrintingKeyStrsList'
-					]+list(self.PrintingForceKeyStrsSet)
+					list(
+						self.PrintingInstanceForceKeyStrsList
+					)+list(self.PrintingClassForceKeyStrsList)
 				)
 						
 			#Append
@@ -840,3 +865,20 @@ class PrinterClass(BaseClass):
 		
 #</DefineClass>
 
+#<DefinePrint>
+PrinterClass.PrintingClassSkipKeyStrsList.extend(
+	[
+		'PrintIdInt',
+		'PrintingVariable',
+		'PrintingInstanceSkipKeyStrsList',
+		'PrintingInstanceForceKeyStrsList',
+		'PrintingClassSkipKeyStrsList',
+		'PrintingClassForceKeyStrsList',
+		'PrintingBaseBool',
+		'PrintingNewInstanceBool',
+		'PrintingNewClassBool',
+		'PrintingOutBool',
+		'PrintedStr'
+	]
+)
+#</DefinePrint>

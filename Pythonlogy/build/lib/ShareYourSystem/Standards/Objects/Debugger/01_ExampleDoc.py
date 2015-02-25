@@ -1,11 +1,9 @@
 # ImportModules
-from ShareYourSystem.Standards.Classors import Doer
-from ShareYourSystem.Standards.Classors.Representer import _print
-from ShareYourSystem.Standards.Objects import Debugger
+import ShareYourSystem as SYS
 
 #Definition a debugging make class
-@Doer.DoerClass()
-class MakerClass(Debugger.DebuggerClass):
+@SYS.DoerClass()
+class MakerClass(SYS.DebuggerClass):
 
 	def make1(self):
 
@@ -47,6 +45,7 @@ class MakerClass(Debugger.DebuggerClass):
 
 #Call the make1
 MyMaker=MakerClass()
+MyMaker.DictKeyStr="MyMaker"
 MyMaker.make1()
 
 #Call the make1 but with also showing the frame of the argumentinf function

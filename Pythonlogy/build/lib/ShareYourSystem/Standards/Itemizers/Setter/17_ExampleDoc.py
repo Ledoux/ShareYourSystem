@@ -6,7 +6,7 @@ import ShareYourSystem as SYS
 MySetter=SYS.SetterClass(
 	).get(
 		{
-			'#key':'ChildSetter'
+			'#key':'ChildSetter',
 			'#set':('MyInt',0)
 		}
 	)

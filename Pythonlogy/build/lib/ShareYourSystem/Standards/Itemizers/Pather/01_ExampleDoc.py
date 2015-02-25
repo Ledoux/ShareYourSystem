@@ -22,13 +22,7 @@ MyPather.__setitem__(
 
 #print
 print('MyPather[\'/ChildPather\'] is ')
-SYS._print(
-			MyPather['/ChildPather'],
-			**{
-			'RepresentingBaseKeyStrsListBool':False,
-			'RepresentingAlineaIsBool':False
-			}
-		)
+SYS._print(MyPather['/ChildPather'])
 
 #set with a deep deep short Str
 MyPather.__setitem__(

@@ -104,17 +104,6 @@ def getPathedBackVariableWithVariableAndGetStr(_Variable,_GetStr):
 @DecorationClass()
 class PatherClass(BaseClass):
 
-	#Definition
-	RepresentingKeyStrsList=[
-									#'PathPreviousDerivePatherVariable',
-									#'PathOriginDerivePatherVariable',
-									#'PathingKeyStr',
-									#'PathedKeyStrsList',
-									#'PathedGetKeyStr',
-									#'PathedChildKeyStr',
-									#'PathedGetValueVariable'
-								]
-
 	def default_init(self,
 				_PathPreviousDerivePatherVariable=None,
 				_PathOriginDerivePatherVariable=None,
@@ -737,4 +726,16 @@ def setWithPathVariableAndKeyVariable(_DictatedVariable,_KeyVariable,_ValueVaria
 			return	
 #</DefineFunctions>
 
-
+#</DefinePrint>
+PatherClass.PrintingClassSkipKeyStrsList.extend(
+	[
+		'PathPreviousDerivePatherVariable',
+		'PathOriginDerivePatherVariable',
+		'PathingKeyStr',
+		'PathedKeyStrsList',
+		'PathedGetKeyStr',
+		'PathedChildKeyStr',
+		'PathedGetValueVariable'
+	]
+)
+#<DefinePrint>

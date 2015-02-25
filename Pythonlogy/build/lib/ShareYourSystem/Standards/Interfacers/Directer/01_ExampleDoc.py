@@ -27,7 +27,8 @@ def move(_LiargVariablesList,_FolderPathStr,_FileKeyStrsList):
 	os.popen('mv '+_FolderPathStr+'/00_ExampleCell.md '+_FolderPathStr+'/00_ExampleDoc.md')
 	os.popen('mv '+_FolderPathStr+'/01_ExampleCell.py '+_FolderPathStr+'/01_ExampleDoc.py')
 
-MyDirecter=Directer.DirecterClass().direct(
+MyDirecter=SYS.DirecterClass(
+	).direct(
 			delete,
 			[],
 			**{

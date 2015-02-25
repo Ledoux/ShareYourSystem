@@ -22,7 +22,8 @@ SYS.setSubModule(globals())
 #<ImportSpecificModules>
 import operator
 import copy
-from ShareYourSystem.Standards.Classors import Doer,Observer,Representer
+from ShareYourSystem.Standards.Classors import Doer,Observer
+from ShareYourSystem.Standards.Objects import Printer
 Binder=BaseModule
 #</ImportSpecificModules>
 
@@ -43,7 +44,7 @@ def getIsBoolWithItemTupleAndPrefixStr(_ItemTuple,_PrefixStr):
 	
 	#Return
 	return _ItemTuple[0].split('>')[-1].startswith(_PrefixStr)
-OldRepresentFunction=copy.copy(Representer.represent)
+OldRepresentFunction=copy.copy(Printer.represent)
 def represent(_Variable,**_KwargVariablesDict):
 	return OldRepresentFunction(
 		_Variable,
@@ -59,7 +60,7 @@ def represent(_Variable,**_KwargVariablesDict):
 		)
 	)
 represent.__name__="Watcher@represent"
-Representer.represent=represent
+Printer.represent=represent
 #</SetRepresent>
 
 #<DefineFunctions>

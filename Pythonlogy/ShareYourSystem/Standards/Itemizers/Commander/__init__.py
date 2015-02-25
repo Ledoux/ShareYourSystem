@@ -36,17 +36,6 @@ CommandAddStr="+"
 @DecorationClass()
 class CommanderClass(BaseClass):
 
-	#Definition 
-	RepresentingKeyStrsList=[
-							#'CommandingGetVariable',
-							#'CommandingSetVariable',
-							#'CommandingOrderStr',
-							#'CommandingBeforeWalkBool',
-							#'CommandingAfterWalkBool',
-							#'CommandingBeforeSelfBool',
-							#'CommandingAfterSelfBool'
-						]
-
 	def default_init(
 				self,
 				_CommandingGetVariable=None,
@@ -588,3 +577,18 @@ class CommanderClass(BaseClass):
 		BaseClass.set(self)
 
 #</DefineClass>
+
+
+#</DefinePrint>
+CommanderClass.PrintingClassSkipKeyStrsList.extend(
+	[
+		'CommandingGetVariable',
+		'CommandingSetVariable',
+		'CommandingOrderStr',
+		'CommandingBeforeWalkBool',
+		'CommandingAfterWalkBool',
+		'CommandingBeforeSelfBool',
+		'CommandingAfterSelfBool'
+	]
+)
+#<DefinePrint>

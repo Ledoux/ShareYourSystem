@@ -1,17 +1,14 @@
 #ImportModules
-import operator
 import ShareYourSystem as SYS
-from ShareYourSystem.Standards.Classors import Binder
-from ShareYourSystem.Standards.Objects import Initiator
 
 #Definition a MakerClass decorated by the BinderClass
-@Binder.BinderClass(**{
+@SYS.BinderClass(**{
 	'ObservingWrapMethodStr':'make',
 	'BindingIsBool':True,
 	'BindingDecorationMethodStr':'foo',
 	'BindingItemTuplesList':[('MyFooInt',1)]
 })
-class MakerClass(Initiator.InitiatorClass):
+class MakerClass(SYS.ObjectClass):
 
 	#Definition
 	RepresentingKeyStrsList=[
@@ -24,7 +21,7 @@ class MakerClass(Initiator.InitiatorClass):
 					_MadeMyInt=0,
 					**_KwarVariablesDict
 				):
-		pass
+		SYS.ObjectClass.__init__(self)
 
 	#Definition a Binding function
 	def foo(self,*_LiargVariablesList,**_KwargVariablesDict):

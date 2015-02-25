@@ -208,10 +208,6 @@ class ItemizerClass(BaseClass):
 
 			#alias
 			self.ItemizedValueVariable=self.ItemizingValueVariable
-
-
-
-
 #</DefineClass>
 
 

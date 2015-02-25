@@ -32,20 +32,19 @@ class DirecterClass(BaseClass):
 	RepresentingKeyStrsList=[
 									'DirectingCallbackFunction',
 									'DirectingLiargVariablesList',
-									'DirectingFilterFunctionPointer'
+									'DirectingFilterFunctionVariable'
 								]
 
 	def default_init(self,
 						_DirectingCallbackFunction=None,
 						_DirectingLiargVariablesList=None,
-						_DirectingFilterFunctionPointer=None,
+						_DirectingFilterFunctionVariable=None,
 						**_KwargVariablesDict
 					):
 
 		#Call the parent __init__ method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
-	#@Argumenter.ArgumenterClass()
 	def do_direct(self):
 
 		#Call the folder method before
@@ -125,10 +124,10 @@ class DirecterClass(BaseClass):
 		'''
 
 		#Filter again maybe
-		if self.DirectingFilterFunctionPointer!=None:
+		if self.DirectingFilterFunctionVariable!=None:
 			DirectedFolderKeyStrsList=SYS._filter(
 						lambda __DirectedFolderKeyStr:
-						self.DirectingFilterFunctionPointer(
+						self.DirectingFilterFunctionVariable(
 							self,__DirectedFolderKeyStr),
 						DirectedFolderKeyStrsList
 			)

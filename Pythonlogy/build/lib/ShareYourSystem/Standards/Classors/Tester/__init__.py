@@ -30,7 +30,7 @@ import os
 import sys
 import unittest
 import ShareYourSystem as SYS
-from ShareYourSystem.Standards.Classors import Representer
+from ShareYourSystem.Standards.Objects import Printer
 Attester=BaseModule
 #</ImportSpecificModules>
 
@@ -58,6 +58,14 @@ def setTestFunctionWithFolderPathStrAndAttestUnboundMethod(
 	#Define
 	def test(_InstanceVariable):
 
+		#Debug
+		'''
+		print('Tester l 62')
+		print('_FolderPathStr is '+_FolderPathStr)
+		print('AttestUnboundMethodStr is '+AttestUnboundMethodStr)
+		print('')
+		'''
+		
 		#Get the AssertedStr
 		File=open(_FolderPathStr+AttestUnboundMethodStr+'.txt','r')
 		AttestStr=File.read()
@@ -75,9 +83,9 @@ def setTestFunctionWithFolderPathStrAndAttestUnboundMethod(
 					)
 
 		#Bind with TestStr setting
-		Representer.RepresentingIdBool=False
-		TestStr=Representer.getRepresentedStrWithVariable(TestVariable)
-		Representer.RepresentingIdBool=True
+		Printer.RepresentingIdBool=False
+		TestStr=Printer.getPrintStr(TestVariable)
+		Printer.RepresentingIdBool=True
 
 		#Represent maybe
 		if TestModule.TestingPrintIsBool:
@@ -149,6 +157,13 @@ class TesterClass(BaseClass):
 		if hasattr(self.DerivedModule,'TestingPrintIsBool')==False:
 			self.DerivedModule.TestingPrintIsBool=True
 		self.DerivedModule.TestedOrderedDict=collections.OrderedDict()
+
+		#Debug
+		'''
+		print('Tester l 160')
+		print('self.AttestingFolderPathStr is '+self.AttestingFolderPathStr)
+		print('')
+		'''
 
 		#set the tests for each asserting function
 		map(

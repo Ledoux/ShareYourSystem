@@ -52,17 +52,6 @@ SetModifyGrabStr='#set'
 @DecorationClass()
 class SetterClass(BaseClass):
 
-	#Definition
-	RepresentingKeyStrsList=[
-								'SetKeyStr',
-								#'SetDeriveSetter',
-								'SettingKeyVariable',
-								'SettingValueVariable',
-								#'SettingItemBool',
-								#'SettingNewBool',
-								'SettedValueVariable'
-							]
-
 	def default_init(self,
 						_SetKeyStr="",
 						_SetDeriveSetter=None,
@@ -848,9 +837,18 @@ class SetterClass(BaseClass):
 		
 		#call the base method
 		return BaseClass.get(self)
-
-
-
-
-
 #</DefineClass>
+
+#</DefinePrint>
+SetterClass.PrintingClassSkipKeyStrsList.extend(
+	[
+		'SetKeyStr',
+		'SetDeriveSetter',
+		'SettingKeyVariable',
+		'SettingValueVariable',
+		'SettingItemBool',
+		'SettingNewBool',
+		'SettedValueVariable'
+	]
+)
+#<DefinePrint>

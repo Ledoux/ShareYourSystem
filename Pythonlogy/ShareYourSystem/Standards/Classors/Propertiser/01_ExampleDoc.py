@@ -1,9 +1,9 @@
 #ImportModules
 import ShareYourSystem as SYS
 
-#Definition a MakerClass decorated by the PropertiserClass
+#Define
 @SYS.PropertiserClass()
-class MakerClass(SYS.InitiatorClass):
+class MakerClass(SYS.ObjectClass):
 
 	def default_init(self,
 			_MakingMyFloat={
@@ -19,7 +19,7 @@ class MakerClass(SYS.InitiatorClass):
 			_MakingMyInt={'DefaultingSetType':int},
 			_MadeMyInt=0	
 		):
-		pass
+		SYS.ObjectClass.__init__(self)
 
 	#Definition a binding function
 	def setMakingMyFloat(self,_SettingValueVariable):
@@ -47,7 +47,7 @@ DefaultMaker=MakerClass()
 SpecialMaker=MakerClass(_MakingMyFloat=5,_MakingMyList=[4])
 
 #Definition the AttestedStr
-SYS._attest(
+print('\n'.join(
 	[
 		'MakerClass.PropertizedDefaultTuplesList is '+SYS._str(
 			MakerClass.PropertizedDefaultTuplesList),
@@ -62,6 +62,7 @@ SYS._attest(
 		'SpecialMaker.MakingMyList is '+str(SpecialMaker.MakingMyList),
 		'SpecialMaker.MadeMyInt is '+str(SpecialMaker.MadeMyInt),
 	]
+	)
 ) 
 
 #Print

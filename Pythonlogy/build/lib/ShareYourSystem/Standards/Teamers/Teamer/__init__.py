@@ -50,18 +50,6 @@ SYS.TeamDictClass=TeamDictClass
 @DecorationClass()
 class TeamerClass(BaseClass):
 
-	#Definition
-	RepresentingKeyStrsList=[
-								'ManagementKeyStr',
-								'TeamDict',
-								#'TeamingKeyStr',
-								#'TeamingValueVariable',
-								#'TeamingManageVariable',
-								#'TeamingValueClass',
-								#'TeamedValueVariable',
-								#'TeamedOnceBool'
-							]
-
 	def default_init(self,
 				_ManagementKeyStr="",
 				_TeamDict=None,
@@ -70,6 +58,7 @@ class TeamerClass(BaseClass):
 				_TeamingManageVariable=None,					
 				_TeamingValueClass=Pointer.PointerClass, 	
 				_TeamedValueVariable=None,	
+				_TeamedIsBool=False,
 				_TeamedOnceBool=False,																
 				**_KwargVariablesDict
 			):
@@ -82,34 +71,6 @@ class TeamerClass(BaseClass):
 
 	def do_team(self):
 
-		#Check
-		if self.TeamedOnceBool==False:
-
-			#add
-			if self.RepresentingForceKeyStrsList==None:
-
-				#add
-				if self.RepresentingSkipKeyStrsList==None:
-					self.RepresentingSkipKeyStrsList=['RepresentingForceKeyStrsList']
-				else:
-					self.RepresentingSkipKeyStrsList+=['RepresentingForceKeyStrsList']
-
-				#set
-				self.RepresentingForceKeyStrsList=[
-									'ManagementKeyStr',
-									'TeamDict'
-								]
-			else:
-
-				#add
-				self.RepresentingForceKeyStrsList+=[
-									'ManagementKeyStr',
-									'TeamDict'
-								]
-
-			#set True
-			self.TeamedOnceBool=True
-
 		#debug
 		'''
 		self.debug(
@@ -119,6 +80,20 @@ class TeamerClass(BaseClass):
 				])
 		)
 		'''
+
+		#/###################/#
+		# Force the repr with the ManagementDict
+		#
+
+		#Check
+		if self.TeamedOnceBool==False:
+			self.PrintingInstanceForceKeyStrsList.extend(
+				[
+					'TeamDict',
+					'ManagementKeyStr'
+				]
+			)
+			self.TeamedOnceBool=True
 
 		#Check
 		if self.TeamingValueVariable==None:
@@ -181,7 +156,7 @@ class TeamerClass(BaseClass):
 				)
 
 			#add in the RepresentingSkipKeyStrsList to not be seen in the repr
-			self.RepresentingSkipKeyStrsList.append(TeamedKeyStr)
+			self.PrintingInstanceSkipKeyStrsList.append(TeamedKeyStr)
 
 			#put in the dict
 			self.TeamDict[
@@ -322,3 +297,20 @@ class TeamerClass(BaseClass):
 		return BaseClass.set(self)
 
 #</DefineClass>
+
+
+#</DefinePrint>
+TeamerClass.PrintingClassSkipKeyStrsList.extend(
+	[
+		'ManagementKeyStr',
+		'TeamDict',
+		'TeamingKeyStr',
+		'TeamingValueVariable',
+		'TeamingManageVariable',
+		'TeamingValueClass',
+		'TeamedValueVariable',
+		'TeamedIsBool',
+		'TeamedOnceBool'
+	]
+)
+#<DefinePrint>

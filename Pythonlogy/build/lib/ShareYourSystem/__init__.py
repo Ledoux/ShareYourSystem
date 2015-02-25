@@ -71,6 +71,7 @@ ConceptStrsTuplesList=[
 	('Muziker','Muzikers')
 ]
 
+PythonSet=set
 #</DefineLocals>
 
 #<DefineFunctions>
@@ -493,6 +494,56 @@ def getLocalFolderPathStr(_ModuleVariable):
 
 def getNone(_KeyVariable,_ValueVariable):
 	return None
+
+def add(_VariableA,_VariableB):
+
+	#Debug
+	'''
+	print('SYS l 500 ')
+	print('add')
+	print('type(_VariableA) is '+str(type(_VariableA)))
+	print('')
+	'''
+
+	#Check
+	if hasattr(_VariableA,'__add__'):
+
+		#Debug
+		'''
+		print('SYS l 502')
+		print('_VariableA has __add__')
+		print('')
+		'''
+
+		#set
+		_VariableA=_VariableA.__add__(_VariableB)
+
+		#return 
+		return _VariableA
+
+	elif type(_VariableA)==PythonSet:
+
+		#Debug
+		'''
+		print('SYS l 512')
+		print('_VariableA is a set')
+		print('_VariableB is ')
+		print(_VariableB)
+		print('')
+		'''
+
+		#set
+		_VariableA=_VariableA.union(_VariableB)
+		
+		#Debug
+		'''
+		print('_VariableA is after union')
+		print(_VariableA)
+		print('')
+		'''
+		
+		#return
+		return _VariableA
 
 def indent(_Variable):
 	if hasattr(_Variable,'items')==False:

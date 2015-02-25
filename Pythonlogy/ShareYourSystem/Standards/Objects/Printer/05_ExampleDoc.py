@@ -5,8 +5,6 @@ import ShareYourSystem as SYS
 @SYS.DoerClass()
 class MakerClass(SYS.PrinterClass):
 
-	RepresentingKeyStrsList=['MadeMyInt']
-
 	def default_init(self,
 						_MakingMyFloat=0.,  
 						_MadeMyInt=0
@@ -31,7 +29,6 @@ ParentMaker.CircularChildMaker.SelfMaker=ParentMaker.CircularChildMaker
 print('ParentMaker is '+SYS._str(ParentMaker))
 print('')
 
-'''
 #Definition a derived class from the MakerClass
 @SYS.DoerClass()
 class BuilderClass(MakerClass):
@@ -49,4 +46,4 @@ SimpleBuilder=BuilderClass(_MakingMyFloat=2.)
 
 #print
 print('SimpleBuilder is '+SYS._str(SimpleBuilder)) 
-'''
+

@@ -27,7 +27,7 @@ SYS.setSubModule(globals())
 #<ImportSpecificModules>
 import os
 import sys
-Representer=DecorationModule
+from ShareYourSystem.Standards.Objects import Printer
 #</ImportSpecificModules>
 
 #<DefineLocals>
@@ -42,9 +42,9 @@ def writeAttestedStrWithFolderPathStrAndMethodStrAndAttestVariable(
 	_FolderPathStr,_MethodStr,_AttestVariable):
 
 	#Bind with TestedStr setting
-	Representer.RepresentingIdBool=False
-	AttestedStr=Representer.getRepresentedStrWithVariable(_AttestVariable)
-	Representer.RepresentingIdBool=True
+	Printer.PrintIdBool=False
+	AttestedStr=Printer.getPrintStr(_AttestVariable)
+	Printer.PrintIdBool=True
 
 	#Debug
 	'''
@@ -70,8 +70,8 @@ def getAttestedStrWithStrsList(_StrsList):
 	global AttestingBeginStr,AttestingJumpStr,AttestingEndStr
 
 	#Reinit the alinea
-	Representer.RepresentedAlineaStr=""
-	Representer.RepresentedAlreadyVariablesList=[]
+	Printer.RepresentedAlineaStr=""
+	Printer.RepresentedAlreadyVariablesList=[]
 
 	#Init AttestedStr
 	AttestedStr=AttestingBeginStr
@@ -80,7 +80,7 @@ def getAttestedStrWithStrsList(_StrsList):
 	AttestedStr+=AttestingJumpStr.join(
 		map(
 			lambda __Str:
-			Representer.represent(str(__Str),**{'RepresentingAlineaIsBool':False}),
+			Printer.represent(str(__Str),**{'PrintAlineaIsBool':False}),
 			_StrsList
 		)
 	)
@@ -94,17 +94,17 @@ def getAttestedStrWithStrsList(_StrsList):
 #Definition an attest function for the classing class
 def setAttest(_InstanceVariable,_AttestFolderPathStr="",**_KwargVariablesDict):
 
+	#Debug
+	'''
+	print('l 92 Attester setAttest')
+	print('_AttestFolderPathStr is ',_AttestFolderPathStr)
+	print('')
+	'''
+	
 	#Set
 	if _AttestFolderPathStr=="": 	
 		_AttestFolderPathStr=_InstanceVariable.__class__.DeriveClassor.AttestingFolderPathStr
 	_InstanceVariable.__class__.DeriveClassor.AttestingFolderPathStr=_AttestFolderPathStr
-
-	#Debug
-	'''
-	print('l 92 Attester')
-	print('AttestedFolderPathStr is ',AttestedFolderPathStr)
-	print('')
-	'''
 
 	#Write the TestedStr made by each function and append an equivalent test method into the test ordered dict
 	map(
@@ -123,7 +123,7 @@ def setAttest(_InstanceVariable,_AttestFolderPathStr="",**_KwargVariablesDict):
 class AttesterClass(BaseClass):
 
 	#Definition
-	RepresentingKeyStrsList=[
+	PrintKeyStrsList=[
 							'AttestingFolderPathStr',
 							'AttestedMethodStrsList'
 						]
@@ -154,7 +154,7 @@ class AttesterClass(BaseClass):
 		if self.AttestingFolderPathStr=="":
 
 			#In the gl
-			self.AttestingFolderPathStr=SYS.ShareYourSystemLocalFolderPathStr+self.DoClass.__module__.replace(
+			self.AttestingFolderPathStr=SYS.PythonlogyLocalFolderPathStr+self.DoClass.__module__.replace(
 				'.','/')+'/Attests/'
 
 		#debug

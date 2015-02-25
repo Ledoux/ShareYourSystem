@@ -23,15 +23,14 @@ debugging instance identity.
 #<DefineAugmentation>
 import ShareYourSystem as SYS
 BaseModuleStr="ShareYourSystem.Standards.Objects.Printer"
-DecorationModuleStr="ShareYourSystem.Standards.Classors.Representer"
+DecorationModuleStr="ShareYourSystem.Standards.Classors.Inspecter"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
 import collections
 import inspect
-
-Representer=DecorationModule
+Printer=BaseModule
 #</ImportSpecificModules>
 
 #<DefineLocals>
@@ -114,7 +113,7 @@ def getDebuggedStrWithPrintVariable(_PrintVariable):
 @DecorationClass()
 class DebuggerClass(BaseClass):
 	
-	RepresentingKeyStrsList=[
+	DefaultSpecificKeyStrsList=[
 								'DebuggingPrintStr',
 								'DebuggingIdentityBool',
 								'DebuggingFrameBool',
@@ -254,7 +253,7 @@ class DebuggerClass(BaseClass):
 								)+DebuggedBackFrameStr+DebuggingHeadSuffixStr
 
 			#Update the RepresentingDict
-			Representer.RepresentedAlineaStr=''.join(
+			Printer.PrintAlineaStr=''.join(
 				[DebuggingElementStr]*(len(self.DebuggedFramesList)-1))
 
 			#debug
@@ -273,8 +272,8 @@ class DebuggerClass(BaseClass):
 					SYS._filter(
 								lambda __ItemTuple:
 								__ItemTuple[0].endswith('KeyStr')
-								and __ItemTuple[0] not in self.__class__.RepresentedBaseKeyStrsList
-											+self.__class__.RepresentingKeyStrsList,
+								and __ItemTuple[0] not in self.__class__.DefaultBaseKeyStrsList
+											+self.__class__.DefaultSpecificKeyStrsList,
 								self.__dict__.items()
 							)
 					)+DebuggingWhoStr
@@ -288,14 +287,14 @@ class DebuggerClass(BaseClass):
 
 			#Print
 			self._print(
-							DebuggedStr+Representer.RepresentedAlineaStr,
+							DebuggedStr+Printer.PrintAlineaStr,
 							**{
 								#'RepresentedDeepInt':1
 							}
 						)
 
 			#Reinit
-			#Representer.RepresentedAlineaStr=""
+			#Printer.PrintAlineaStr=""
 			
 			#Return 
 			#return self

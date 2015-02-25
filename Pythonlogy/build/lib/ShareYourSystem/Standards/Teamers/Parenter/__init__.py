@@ -37,21 +37,6 @@ ParentAllStr="&$"
 )
 class ParenterClass(BaseClass):
 
-	#Definition
-	RepresentingKeyStrsList=[
-								#'ParentKeyStr',
-								#'ParentDeriveTeamerVariable',
-								#'ParentTopDeriveTeamerVariable',
-								#'ParentingTopGetVariable',
-								#'ParentingClimbBool',
-								#'ParentedTotalDeriveTeamersList',
-								#'ParentedDeriveTeamersList',
-								#'ParentedDeriveManagersList',
-								'ParentedTotalPathStr',
-								#'ParentedTeamPathStr',
-								#'ParentedManagementPathStr'
-							]
-
 	def default_init(self,
 				_ParentKeyStr="Top",
 				_ParentDeriveTeamerVariable=None,
@@ -396,3 +381,20 @@ class ParenterClass(BaseClass):
 SYS.ManagerClass.ManagingValueClass=ParenterClass
 SYS.TeamerClass.TeamingValueClass=ParenterClass
 
+#</DefinePrint>
+ParenterClass.PrintingClassSkipKeyStrsList.extend(
+	[
+			'ParentKeyStr',
+			'ParentDeriveTeamerVariable',
+			'ParentTopDeriveTeamerVariable',
+			'ParentingTopGetVariable',
+			'ParentingClimbBool',
+			'ParentedTotalDeriveTeamersList',
+			'ParentedDeriveTeamersList',
+			'ParentedDeriveManagersList',
+			#'ParentedTotalPathStr',
+			'ParentedTeamPathStr',
+			'ParentedManagementPathStr'
+	]
+)
+#<DefinePrint>

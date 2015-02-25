@@ -58,7 +58,6 @@ class GetClass(object):
 			self.SelfVariable
 		)
 
-
 SYS.GetClass=GetClass
 GetUndirectStr="#get"
 GetDeletePrefixStr="#delete:"
@@ -79,14 +78,6 @@ GetMapSetGrabStr=Itemizer.ItemMapPrefixStr+'set'
 @DecorationClass()
 class GetterClass(BaseClass):
 	
-	#Definition
-	RepresentingKeyStrsList=[
-									'GettingKeyVariable',
-									'GettingItemBool',
-									'GettingNewBool',
-									'GettedValueVariable'
-								]
-
 	def default_init(self,
 						_GettingKeyVariable=None,
 						_GettingItemBool=True,
@@ -725,4 +716,13 @@ class GetterClass(BaseClass):
 
 #</DefineClass>
 
-
+#</DefinePrint>
+GetterClass.PrintingClassSkipKeyStrsList.extend(
+	[
+		'GettingKeyVariable',
+		'GettingItemBool',
+		'GettingNewBool',
+		'GettedValueVariable'
+	]
+)
+#<DefinePrint>

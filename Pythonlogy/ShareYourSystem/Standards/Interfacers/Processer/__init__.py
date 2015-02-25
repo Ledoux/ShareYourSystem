@@ -15,7 +15,7 @@ The Processer
 #<DefineAugmentation>
 import ShareYourSystem as SYS
 BaseModuleStr="ShareYourSystem.Standards.Interfacers.Capturer"
-DecorationModuleStr="ShareYourSystem.Standards.Classors.Representer"
+DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
 
