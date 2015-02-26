@@ -10,7 +10,7 @@ MyCommander=SYS.CommanderClass(
 		#CommandingSetVariable
 		[
 			('ChildCommander',{}),
-			('get',"MyInt")
+			"MyInt"
 		]
 	)
 

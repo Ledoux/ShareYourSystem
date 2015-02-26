@@ -333,11 +333,12 @@ class ParenterClass(BaseClass):
 				[
 					'We have parented here !',
 					('self.',self,['ParentedTotalPathStr']),
-					'we launch the trigger'
+					'we launch the trigger',
+					('self.',self,['ParentedTriggerVariablesList'])
 				]
 			)
 			'''
-
+			
 			#trigger map@set
 			self[Setter.SetMapStr](self.ParentedTriggerVariablesList)
 			

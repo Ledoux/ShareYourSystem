@@ -650,8 +650,15 @@ class PrinterClass(BaseClass):
 			
 	def __repr__(self,**_KwargVariablesDict):
 
+		RepresentStr=self._print(
+			self,
+			_OutBool=False,
+			**_KwargVariablesDict
+			).PrintedStr
+		self.PrintingOutBool=True
+
 		#return 
-		return self._print(self,_OutBool=False,**_KwargVariablesDict).PrintedStr
+		return RepresentStr
 
 	def do__print(self,**_KwargVariablesDict):
 

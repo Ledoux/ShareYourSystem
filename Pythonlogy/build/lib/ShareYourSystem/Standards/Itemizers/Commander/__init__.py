@@ -160,7 +160,7 @@ class CommanderClass(BaseClass):
 		)
 		'''
 
-		#inits
+		#init
 		CommandedSetVariablesList=SYS.SetList(self.CommandingSetVariable)
 
 		#debug

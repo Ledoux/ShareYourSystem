@@ -112,18 +112,7 @@ def getDebuggedStrWithPrintVariable(_PrintVariable):
 #<DefineClass>
 @DecorationClass()
 class DebuggerClass(BaseClass):
-	
-	DefaultSpecificKeyStrsList=[
-								'DebuggingPrintStr',
-								'DebuggingIdentityBool',
-								'DebuggingFrameBool',
-								'DebuggingBacksInt'								
-								'DebuggingNotFrameFunctionStrsList',
-								'DebuggingNotFrameModuleStrsList',
-								'DebuggingIsBool', 													
-								'DebuggedFramesList'
-							]
-
+		
 	def default_init(self,
 						_DebuggingPrintStr="",
 						_DebuggingIdentityBool=True,
@@ -159,12 +148,17 @@ class DebuggerClass(BaseClass):
 
 	def do_debug(self):
 
+		#Debug
 		'''
-		#Special keywords args
-		if self.DebuggingPrintVariable=='<DoingVariables>':
-			self.debug(('self.',self,self.__class__.DoingAttributeVariablesOrderedDict.keys()))
+		print('Debuggger l 152')
+		print('We debug here')
+		print('self.DebuggingPrintStr is ')
+		print(self.DebuggingPrintStr)
+		print('self.DebuggingIsBool is ')
+		print(self.DebuggingIsBool)
+		print('')
 		'''
-
+		
 		#Check
 		if self.DebuggingIsBool:
 
@@ -285,19 +279,31 @@ class DebuggerClass(BaseClass):
 			#add the end
 			DebuggedStr+=DebuggingEndStr
 
+			#Debug
+			'''
+			print('Debugger l 281')
+			print('we print here')
+			print('')
+			'''
+
 			#Print
 			self._print(
 							DebuggedStr+Printer.PrintAlineaStr,
-							**{
-								#'RepresentedDeepInt':1
-							}
 						)
-
-			#Reinit
-			#Printer.PrintAlineaStr=""
-			
-			#Return 
-			#return self
 
 #</DefineClass>
 
+#</DefinePrint>
+DebuggerClass.PrintingClassSkipKeyStrsList.extend(
+	[
+		'DebuggingPrintStr',
+		'DebuggingIdentityBool',
+		'DebuggingFrameBool',
+		'DebuggingBacksInt'								
+		'DebuggingNotFrameFunctionStrsList',
+		'DebuggingNotFrameModuleStrsList',
+		'DebuggingIsBool', 													
+		'DebuggedFramesList'
+	]
+)
+#<DefinePrint>
