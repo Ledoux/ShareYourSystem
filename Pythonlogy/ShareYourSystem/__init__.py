@@ -610,14 +610,21 @@ def reverse(_List):
 
 def sum(_VariablesList):
 
-	#reduce
-	return functools.reduce(
-							lambda __List,__Variable:
-							__List+list(__Variable) 
-							if type(__Variable) in [list,tuple] 
-							else __List+[__Variable],
-							_VariablesList
-						)
+	#Check
+	if len(_VariablesList)>0:
+
+		#reduce
+		return functools.reduce(
+								lambda __List,__Variable:
+								__List+list(__Variable) 
+								if type(__Variable) in [list,tuple] 
+								else __List+[__Variable],
+								_VariablesList
+							)
+	else:
+
+		#return
+		return []
 
 def flat(_VariablesList):
 	if len(_VariablesList)>0:
@@ -1179,6 +1186,18 @@ class MethodDict(collections.OrderedDict):
 
 		#Check
 		if _Class!=None:
+
+			"""
+			print(
+				"\n".join(
+					map(
+						lambda __KeyStr:
+						str((__KeyStr,type(getattr(_Class,__KeyStr)))),
+						dir(_Class)
+					)
+				)
+			)
+			"""
 
 			#filter
 			self.MethodKeyStrsList=_filter(

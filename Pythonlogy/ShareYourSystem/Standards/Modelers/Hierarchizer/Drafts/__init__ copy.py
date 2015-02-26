@@ -87,12 +87,12 @@ class HierarchizerClass(BaseClass):
 		
 		#debug
 		'''
-		self.debug('Add in the DatabasingSealTuplesList')
+		self.debug('Add in the ModelingSealTuplesList')
 		'''
 		
 		#set
 		if len(self.HierarchizedRetrieveIndexesListColumnStrsList)>0:
-			self.DatabasingSealTuplesList=map(
+			self.ModelingSealTuplesList=map(
 				lambda __HierarchizedRetrieveIndexesListGetStr,__HierarchizedRetrieveIndexesListColumnStr:
 				(
 					__HierarchizedRetrieveIndexesListGetStr,
@@ -101,11 +101,11 @@ class HierarchizerClass(BaseClass):
 				),
 				self.HierarchizedRetrieveIndexesListGetStrsList,
 				self.HierarchizedRetrieveIndexesListColumnStrsList
-			)+self.DatabasingSealTuplesList
+			)+self.ModelingSealTuplesList
 
 		#debug
 		'''
-		self.debug(('self.',self,['DatabasingSealTuplesList']))
+		self.debug(('self.',self,['ModelingSealTuplesList']))
 		'''
 
 		#<NotHook>
@@ -230,7 +230,7 @@ class HierarchizerClass(BaseClass):
 		self.debug([
 						('Before updating the RowingGetStrsList'),
 						#('self.',self,['NodePointDeriveNoder'])
-						('model first to set the DatabasedGetStrToColumStr')
+						('model first to set the ModeledGetStrToColumStr')
 					]
 				)
 		'''
@@ -357,11 +357,11 @@ class HierarchizerClass(BaseClass):
 		'''
 
 		if self.HierarchizingDatabaseNodeStr=="":
-			self.HierarchizingDatabaseNodeStr=self.DatabasingNodeStr
+			self.HierarchizingDatabaseNodeStr=self.ModelingNodeStr
 
 		#Init a default value
 		if self.HierarchizingDatabaseKeyStr=="":
-			self.HierarchizingDatabaseKeyStr=self.DatabasedCollectionKeyStr
+			self.HierarchizingDatabaseKeyStr=self.ModeledCollectionKeyStr
 
 		#Check
 		if self.HierarchizingNodeStr!="":
@@ -433,7 +433,7 @@ class HierarchizerClass(BaseClass):
 				#set
 				self.HierarchizedRetrieveIndexesListGetStrsList=map(
 						lambda __HierarchizedKeyStr:
-						'Hierarchized'+self.DatabasingNodeStr+self.DatabasedCollectionKeyStr+'To'+__HierarchizedKeyStr+'RetrieveIndexesList',
+						'Hierarchized'+self.ModelingNodeStr+self.ModeledCollectionKeyStr+'To'+__HierarchizedKeyStr+'RetrieveIndexesList',
 						self.HierarchizedKeyStrsList
 					)
 				

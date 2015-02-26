@@ -45,8 +45,8 @@ class ShaperClass(BaseClass):
 									'ShapedStr',									
 									'ShapedVariablePointer', 						
 									'ShapedDimensionVariablesList', 							
-									'ShapedDatabasingSealTuplesList', 					
-									'ShapedNotDatabasingSealTuplesList',  				
+									'ShapedModelingSealTuplesList', 					
+									'ShapedNotModelingSealTuplesList',  				
 									'ShapedGettingStrsList', 					
 									'ShapedColClassAndGettingStrTuplesList'
 								]
@@ -56,8 +56,8 @@ class ShaperClass(BaseClass):
 					_ShapedStr="",									
 					_ShapedVariablePointer=None, 						
 					_ShapedDimensionVariablesList=None, 							
-					_ShapedDatabasingSealTuplesList=None, 					
-					_ShapedNotDatabasingSealTuplesList=None,  				
+					_ShapedModelingSealTuplesList=None, 					
+					_ShapedNotModelingSealTuplesList=None,  				
 					_ShapedGettingStrsList=None, 					
 					_ShapedColClassAndGettingStrTuplesList=None, 			
 					**_KwargVariablesDict):
@@ -87,31 +87,31 @@ class ShaperClass(BaseClass):
 		#</NotHook>
 		'''
 
-		#Get the new DatabasedKeyStr
+		#Get the new ModeledKeyStr
 		if self.ShapedStr!="":
 
 			#debug
 			'''
 			self.debug(
 						[
-							'We set the new DatabasedKeyStr',
+							'We set the new ModeledKeyStr',
 							('self.',self,['ShapedStr','ModeledSuffixStr'])
 						]
 					)
 			'''
 
 			#set
-			self.DatabasedKeyStr=self.ShapedStr+ShapingJoiningStr+self.ModeledSuffixStr
+			self.ModeledKeyStr=self.ShapedStr+ShapingJoiningStr+self.ModeledSuffixStr
 
 		else:
-			self.DatabasedKeyStr=self.ModeledSuffixStr
+			self.ModeledKeyStr=self.ModeledSuffixStr
 
 		#debug
 		'''
 		self.debug(
 					[
-						'We set the new DatabasedKeyStr',
-						('self.',self,['ShapedStr','DatabasedKeyStr'])
+						'We set the new ModeledKeyStr',
+						('self.',self,['ShapedStr','ModeledKeyStr'])
 					]
 				)	
 		'''
@@ -121,24 +121,24 @@ class ShaperClass(BaseClass):
 		self.debug(
 					[
 						'We have to check if this model was already defined',
-						'self.DatabasedKeyStr is '+str(self.DatabasedKeyStr),
-						"self.DatabasedModelClassesOrderedDict.keys() is "+str(
-							self.DatabasedModelClassesOrderedDict.keys())
+						'self.ModeledKeyStr is '+str(self.ModeledKeyStr),
+						"self.ModeledDescriptionClassesOrderedDict.keys() is "+str(
+							self.ModeledDescriptionClassesOrderedDict.keys())
 					]
 				)
 		'''
 
 		#Check
-		if self.DatabasedModelClassesOrderedDict==None:
-			self.DatabasedModelClassesOrderedDict=collections.OrderedDict()
-		if self.DatabasedKeyStr in self.DatabasedModelClassesOrderedDict:
+		if self.ModeledDescriptionClassesOrderedDict==None:
+			self.ModeledDescriptionClassesOrderedDict=collections.OrderedDict()
+		if self.ModeledKeyStr in self.ModeledDescriptionClassesOrderedDict:
 
 			#debug
 			'''
 			self.debug('Yes it is already modeled')
 			'''
 
-			#set DatabasedBool to True
+			#set ModeledBool to True
 			self.SwitchingModelBool=True
 
 		else:
@@ -148,7 +148,7 @@ class ShaperClass(BaseClass):
 			self.debug('Nope, ModeleIsBool has to be False')
 			'''
 
-			#set and DatabasedKeyStr
+			#set and ModeledKeyStr
 			self['SwitchingModelBool']=False
 
 			#debug
@@ -167,7 +167,7 @@ class ShaperClass(BaseClass):
 			'''
 
 			#set also the ShapingColumningTuplesList inside of the ColumningTuplesList
-			self.DatabasingSealTuplesList=self.ShapedNotDatabasingSealTuplesList+map(
+			self.ModelingSealTuplesList=self.ShapedNotModelingSealTuplesList+map(
 					lambda __ShapedGettingStr,__ShapedColClassAndGettingStrTuple:
 					(
 						__ShapedGettingStr,
@@ -181,8 +181,8 @@ class ShaperClass(BaseClass):
 
 			#debug
 			'''
-			self.debug("Now self.DatabasingSealTuplesList is "+str(
-				self.DatabasingSealTuplesList))
+			self.debug("Now self.ModelingSealTuplesList is "+str(
+				self.ModelingSealTuplesList))
 			'''
 
 		'''
@@ -347,7 +347,7 @@ class ShaperClass(BaseClass):
 			'''
 
 			#set again the ColumnTuplesList
-			self.DatabasingSealTuplesList=copy.copy(self.ShapedCopyDatabasingSealTuplesList)
+			self.ModelingSealTuplesList=copy.copy(self.ShapedCopyModelingSealTuplesList)
 
 			#Reset some bools
 			map(
@@ -390,8 +390,8 @@ class ShaperClass(BaseClass):
 		if self.ShapedColClassAndGettingStrTuplesList==None:
 			self.ShapedColClassAndGettingStrTuplesList=[]
 
-		#set the ShapedOldDatabasingSealTuplesList
-		self.ShapedCopyDatabasingSealTuplesList=copy.copy(self.DatabasingSealTuplesList)
+		#set the ShapedOldModelingSealTuplesList
+		self.ShapedCopyModelingSealTuplesList=copy.copy(self.ModelingSealTuplesList)
 
 		#debug
 		'''
@@ -400,17 +400,17 @@ class ShaperClass(BaseClass):
 
 		#Unpack
 		[
-			self.ShapedDatabasingSealTuplesList,
-			self.ShapedNotDatabasingSealTuplesList
+			self.ShapedModelingSealTuplesList,
+			self.ShapedNotModelingSealTuplesList
 		]=SYS.groupby(
 					lambda __ColumnTuple:
 					type(__ColumnTuple[1])==tuple,
-					self.DatabasingSealTuplesList,
+					self.ModelingSealTuplesList,
 				)
 
 		#set the ShapedGettingStrsList and ShapedColClassAndGettingStrTuplesList
 		FilteredList=map(list,
-				SYS.unzip(self.ShapedDatabasingSealTuplesList,[0,1])
+				SYS.unzip(self.ShapedModelingSealTuplesList,[0,1])
 			)
 		if len(FilteredList)>0:
 			[
@@ -422,7 +422,7 @@ class ShaperClass(BaseClass):
 		'''
 		self.debug(
 					('self.',self,[
-									'ShapedNotDatabasingSealTuplesList',
+									'ShapedNotModelingSealTuplesList',
 									'ShapedGettingStrsList',
 									'ShapedColClassAndGettingStrTuplesList'
 								]
@@ -457,7 +457,7 @@ class ShaperClass(BaseClass):
 				)
 			)
 
-		#Bind with DatabasedShapedStr setting
+		#Bind with ModeledShapedStr setting
 		self.ShapedStr=ShapingJoiningStr.join(
 									map(
 											lambda __ShapingGettingStr,__ShapedVariable:

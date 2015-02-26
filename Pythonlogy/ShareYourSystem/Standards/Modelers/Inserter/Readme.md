@@ -98,7 +98,7 @@ class InserterClass(
 
                 #Bind
                 self.InsertedNotRowGetStrsList=list(set(SYS.unzip(
-                        self.DatabasingSealTuplesList,[0]
+                        self.ModelingSealTuplesList,[0]
                 ))-set(self.RowingGetStrsList))
 
                 #set
@@ -224,8 +224,8 @@ row',
 '+str(self.TabledTable.colnames),
 'InsertedItemTuplesList is '+str(InsertedItemTuplesList),
 'self.TabledTable is '+str(dir(self.TabledTable)),
-'self.DatabasedModelClass is '+(str(self.DatabasedModelClass.columns) if
-hasattr(self.DatabasedModelClass,'columns') else ""),
+'self.ModeledDescriptionClass is '+(str(self.ModeledDescriptionClass.columns) if
+hasattr(self.ModeledDescriptionClass,'columns') else ""),
                                                                 'Row is
 '+str(dir(Row)),
                                                                 'Row.table is
@@ -313,7 +313,7 @@ MyStructurer=Structurer.StructurerClass().collect(
     Inserter.InserterClass().update(
         [
             (
-                'Attr_DatabasingSealTuplesList',
+                'Attr_ModelingSealTuplesList',
                 [
                     #GetStr #ColumnStr #Col
                     ('MyInt','MyInt',tables.Int64Col()),
@@ -390,7 +390,7 @@ MyStructurer is < (StructurerClass), 4563962256>
 4563962256>
    /   /   /  '<New><Instance>NodePointOrderedDict' : {...}< (OrderedDict),
 4563687232>
-   /   /   /  '<New><Instance>_DatabasingSealTuplesList' :
+   /   /   /  '<New><Instance>_ModelingSealTuplesList' :
    /   /   /   /[
    /   /   /   /  0 :
    /   /   /   /   /(

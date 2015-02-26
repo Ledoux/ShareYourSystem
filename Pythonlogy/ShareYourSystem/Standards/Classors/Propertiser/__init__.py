@@ -16,7 +16,7 @@ with high controlling features thanks to the binding
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Classors.Deriver"
+BaseModuleStr="ShareYourSystem.Standards.Classors.Inspecter"
 DecorationModuleStr=BaseModuleStr
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -27,8 +27,9 @@ import collections
 #</ImportSpecificModules>
 
 #<DefineLocals>
-PropertizingGetStr="_"
-PropertizingRepresentationStr="p:"
+PropertyGetStr="_"
+PropertyRepresentationStr="p:"
+PropertyPrefixStr="propertize_"
 #</DefineLocals>
 
 #<DefineFunctions>
@@ -37,7 +38,7 @@ def getPropertizedTupleWithItemTupleAndClass(_ItemTuple,_Class):
 	#Get the KeyStr, and the ValueVariable that should be a dict
 	PropertizedKeyStr=_ItemTuple[0]
 	PropertizedValueVariable=_ItemTuple[1]
-	PropertizedHideKeyStr=PropertizingGetStr+PropertizedKeyStr
+	PropertizedHideKeyStr=PropertyGetStr+PropertizedKeyStr
 
 	#Check that this is a property yet or not
 	if type(PropertizedValueVariable)!=property:
@@ -45,8 +46,14 @@ def getPropertizedTupleWithItemTupleAndClass(_ItemTuple,_Class):
 		#Init
 		PropertizedValueVariable=property()
 
+		#/###################/#
+		# Prepare the get property
+		#
+
 		#Definition the get function
-		PropertizedGetFunctionStr='get'+PropertizedKeyStr
+		PropertizedGetFunctionStr=PropertyPrefixStr+'get'+PropertizedKeyStr
+
+		#Check
 		if hasattr(_Class,PropertizedGetFunctionStr):
 
 			#Check for an already defined method
@@ -59,8 +66,12 @@ def getPropertizedTupleWithItemTupleAndClass(_ItemTuple,_Class):
 				return getattr(self,PropertizedHideKeyStr)
 			PropertizedGetFunction.__name__=PropertizedGetFunctionStr
 
+		#/###################/#
+		# Prepare the set property
+		#
+
 		#Definition the set function
-		PropertizedSetFunctionStr='set'+PropertizedKeyStr
+		PropertizedSetFunctionStr=PropertyPrefixStr+'set'+PropertizedKeyStr
 
 		#Check
 		if hasattr(_Class,PropertizedSetFunctionStr):
@@ -72,11 +83,16 @@ def getPropertizedTupleWithItemTupleAndClass(_ItemTuple,_Class):
 			#Definition a default one
 			def PropertizedSetFunction(self,_SettingValueVariable):
 				self.__setattr__(PropertizedHideKeyStr,_SettingValueVariable)
-			PropertizedSetFunction.__name__='set'+PropertizedKeyStr
+			PropertizedSetFunction.__name__=PropertizedSetFunctionStr
 
+		#/###################/#
+		# Prepare the del property
+		#
 
 		#Definition the del function
-		PropertizedDelFunctionStr='del'+PropertizedKeyStr
+		PropertizedDelFunctionStr=PropertyPrefixStr+'del'+PropertizedKeyStr
+
+		#Check
 		if hasattr(_Class,PropertizedDelFunctionStr):
 
 			#Check for an already defined method
@@ -87,7 +103,36 @@ def getPropertizedTupleWithItemTupleAndClass(_ItemTuple,_Class):
 			#Definition a default one
 			def PropertizedDelFunction(self):
 				self.__delattr__(PropertizedHideKeyStr)
-			PropertizedDelFunction.__name__='del'+PropertizedKeyStr
+			PropertizedDelFunction.__name__=PropertizedDelFunctionStr
+
+		#Define in the class...
+		map(
+			lambda __PropertizedFunction:
+			setattr(
+				_Class,
+				__PropertizedFunction.__name__,
+				__PropertizedFunction
+			),
+			[
+				PropertizedGetFunction,
+				PropertizedSetFunction,
+				PropertizedDelFunction
+			]
+		)
+
+		#Define in the special dict...
+		map(
+			lambda __Function:
+			_Class.PropertizeMethodsDict.__setitem__(
+				__Function.__name__,
+				__Function
+			),
+			[
+				PropertizedGetFunction,
+				PropertizedSetFunction,
+				PropertizedDelFunction
+			]
+		)
 
 		#Redefine
 		PropertizedValueVariable=property(
@@ -169,12 +214,19 @@ class PropertiserClass(BaseClass):
 		print('')
 		'''
 		
+		#init
+		PropertizedClass.PropertizeMethodsDict={}
+
 		#debug
 		'''
 		print('Propertiser l.47 default method')
 		print('Class is ',Class)
 		print('')
 		'''
+
+		#/###################/#
+		# Check for new properties in the default dict
+		#
 
 		#Check
 		if hasattr(PropertizedClass,"DefaultAttributeVariablesOrderedDict"):
@@ -203,12 +255,12 @@ class PropertiserClass(BaseClass):
 			print('')
 			'''
 
-			#set at the level of the class the PropertizingGetStr+KeyStr
+			#set at the level of the class the PropertyGetStr+KeyStr
 			map(	
 					lambda __PropertizedDefaultTuple:
 					setattr(
 								PropertizedClass,
-								PropertizingGetStr+__PropertizedDefaultTuple[0],
+								PropertyGetStr+__PropertizedDefaultTuple[0],
 								getPropertizedVariableWithItemTuple(__PropertizedDefaultTuple)
 							),
 					PropertizedClass.PropertizedDefaultTuplesList
@@ -240,15 +292,75 @@ class PropertiserClass(BaseClass):
 					PropertizedClass.PropertizedDefaultTuplesList
 				)
 
-			
-
 			#Add to the KeyStrsList
 			PropertizedClass.KeyStrsList+=[
 										"PropertizedDefaultTuplesList"
 									]
 
-		
 
+		#/###################/#
+		# Check for overriden propertize_ methods 
+		#
+
+		#filter
+		PropertizedNewMethodDict=dict(
+			SYS._filter(
+				lambda __MethodItemTuple:
+				__MethodItemTuple[0].startswith(PropertyPrefixStr
+					) and (
+					getattr(
+						PropertizedClass.__bases__[0],
+						__MethodItemTuple[0]
+					)!=__MethodItemTuple[1]
+					if hasattr(PropertizedClass.__bases__[0],
+						__MethodItemTuple[0]
+					) else True
+				),
+				PropertizedClass.InspectedMethodDict.items()
+			)
+		)
+
+		#Debug
+		print('Propertizer l 369')
+		print('PropertizedClass is ')
+		print(PropertizedClass)
+		print('PropertizedMethodDict is')
+		print(SYS.indent(PropertizedNewMethodDict))
+		print('')
+
+		#map
+		PropertizedKeyStrsList=map(
+				lambda __PropertizedKeyStr:
+				SYS.deprefix(
+					__PropertizedKeyStr,
+					PropertyPrefixStr
+				)[3:],
+				PropertizedNewMethodDict.keys()
+			)
+
+		#map reset the properties
+		map(
+				lambda __PropertizedKeyStr:
+				setattr(
+						PropertizedClass,
+						__PropertizedKeyStr,
+						property(
+								getattr(
+									PropertizedClass,
+									PropertyPrefixStr+'get'+__PropertizedKeyStr
+								),
+								getattr(
+									PropertizedClass,
+									PropertyPrefixStr+'set'+__PropertizedKeyStr
+								),
+								getattr(
+									PropertizedClass,
+									PropertyPrefixStr+'del'+__PropertizedKeyStr
+								)
+							)
+					),
+				PropertizedKeyStrsList
+			)
 
 #</Define_Class>
 

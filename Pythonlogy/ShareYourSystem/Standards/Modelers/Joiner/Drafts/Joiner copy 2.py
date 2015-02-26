@@ -23,8 +23,8 @@ class JoinerClass(SYS.FeaturerClass):
 		self.JoinedNodifiedOrderedDict=collections.OrderedDict()	#<NotRepresented>
 		self.JoinedOrderedDict=collections.OrderedDict() 			#<NotRepresented>
 		self.JoinedJoinedListKeyStr=""							#<NotRepresented>
-		self.JoinedDatabasedKeyStr=""								#<NotRepresented>
-		self.JoinedDatabasedDict={}									#<NotRepresented>
+		self.JoinedModeledKeyStr=""								#<NotRepresented>
+		self.JoinedModeledDict={}									#<NotRepresented>
 		self.JoinedTabularedTable=None      						#<NotRepresented>
 		self.JoinedJoinedList=[-1,-1]								#<NotRepresented>
 		self.JoinedRetrievingIndexesListsList=[]							#<NotRepresented>
@@ -32,14 +32,14 @@ class JoinerClass(SYS.FeaturerClass):
 		self.JoinedNodifiedNodedStr=""							#<NotRepresented>
 		self.JoinedNodifiedNodingStr=""							#<NotRepresented>
 		self.JoinedModelStr=""									#<NotRepresented>
-		self.JoinedDatabasedStr=""									#<NotRepresented>
+		self.JoinedModeledStr=""									#<NotRepresented>
 		self.JoinedRowedDictsList=[] 								#<NotRepresented>
 		self.JoinedFilteredMergedRowedDictsListTuplesList=[]		#<NotRepresented>
 		#</DefineSpecificDo>
 
 		#self.RepresentingKeyVariablesList+=['RowedIdentifiedOrderedDict','RowedNotIdentifiedOrderedDict']
 
-	def modelAfter(self,**_DatabasingVariablesDict):
+	def modelAfter(self,**_ModelingVariablesDict):
 
 		#debug
 		'''
@@ -48,32 +48,32 @@ class JoinerClass(SYS.FeaturerClass):
 		'''
 
 		#Join maybe
-		if 'JoiningTuple' in self.DatabasedDict:
+		if 'JoiningTuple' in self.ModeledDict:
 
 			#debug
 			'''
-			print("self.DatabasedDict['JoiningTuple'] is ",self.DatabasedDict['JoiningTuple'])
+			print("self.ModeledDict['JoiningTuple'] is ",self.ModeledDict['JoiningTuple'])
 			print()
 			'''
 
-			#Definition the JoinedDatabasedStr
-			JoinedDatabasedStr=SYS.getDoneStrWithDoStr(self.DatabasedDict['JoiningTuple'][1])
+			#Definition the JoinedModeledStr
+			JoinedModeledStr=SYS.getDoneStrWithDoStr(self.ModeledDict['JoiningTuple'][1])
 
 			#Add a JoinedList for the join with the joining table at this level
-			self.JoinedJoinedListKeyStr=JoinedDatabasedStr+'JoinedList'
-			self.DatabasedModelClass.columns[self.JoinedJoinedListKeyStr]=tables.Int64Col(shape=2)
+			self.JoinedJoinedListKeyStr=JoinedModeledStr+'JoinedList'
+			self.ModeledDescriptionClass.columns[self.JoinedJoinedListKeyStr]=tables.Int64Col(shape=2)
 			
 			#Nodify with the JoiningNodifiedStr
-			if self.DatabasedDict['JoiningTuple'][0]!="":
+			if self.ModeledDict['JoiningTuple'][0]!="":
 
 				#debug
 				'''
-				print('Joiner we are going to nodify the ',self.DatabasedDict['JoiningTuple'][0])
+				print('Joiner we are going to nodify the ',self.ModeledDict['JoiningTuple'][0])
 				print('')
 				'''
 				
 				#Nodify
-				self.nodify(self.DatabasedDict['JoiningTuple'][0])
+				self.nodify(self.ModeledDict['JoiningTuple'][0])
 
 				#set the JoinedNodifiedKeyStrKeyStrsList
 				JoinedNodifiedKeyStrsList=map(
@@ -88,8 +88,8 @@ class JoinerClass(SYS.FeaturerClass):
 				#set the Cols for the joined children 
 				map(
 					lambda __NodifiedKeyStrKeyStr:
-					self.DatabasedModelClass.columns.__setitem__(
-						self.NodifiedNodedStr+__NodifiedKeyStrKeyStr+JoinedDatabasedStr+'JoinedList',
+					self.ModeledDescriptionClass.columns.__setitem__(
+						self.NodifiedNodedStr+__NodifiedKeyStrKeyStr+JoinedModeledStr+'JoinedList',
 						tables.Int64Col(shape=2)
 					),
 					JoinedNodifiedKeyStrsList
@@ -114,7 +114,7 @@ class JoinerClass(SYS.FeaturerClass):
 	def rowAfter(self,**_LocalRowingVariablesList):
 
 		#Join maybe
-		if 'JoiningTuple' in self.DatabasedDict:
+		if 'JoiningTuple' in self.ModeledDict:
 			
 			#Join
 			if 'IsJoiningBool' not in _LocalRowingVariablesList or _LocalRowingVariablesList['IsJoiningBool']:
@@ -145,14 +145,14 @@ class JoinerClass(SYS.FeaturerClass):
 		'''
 		
 		#Insert the joined stuff if they are not yet
-		if 'JoiningTuple' in self.DatabasedDict:
+		if 'JoiningTuple' in self.ModeledDict:
 
 			#We need maybe to join if it was not already rowed
 			if 'IsRowedBool' in _LocalInsertingVariablesList and _LocalInsertingVariablesList['IsRowedBool']==False:
 				self.join("")
 
 			#Definition the NodifyingStr
-			#NodifyingStr=self.DatabasedDict['JoiningTuple'][0]
+			#NodifyingStr=self.ModeledDict['JoiningTuple'][0]
 			#NodifiedStr=SYS.getDoneStrWithDoStr(NodifyingStr)
 			
 			#debug
@@ -206,7 +206,7 @@ class JoinerClass(SYS.FeaturerClass):
 					].insert(_LocalInsertingVariablesList['InsertingStr'])
 					if __NodifiedKeyStr!=""
 					else
-					self.insert(self.JoinedDatabasedDict['ModelStr']),
+					self.insert(self.JoinedModeledDict['ModelStr']),
 					NodifiedKeyStrsList
 				)
 			
@@ -239,35 +239,35 @@ class JoinerClass(SYS.FeaturerClass):
 
 		#debug
 		print('Joiner retrieveBefore method')
-		print("self.DatabasedDict['RetrievingIndexesListsList'] is ")
-		SYS._print(self.DatabasedDict['RetrievingIndexesListsList'])
+		print("self.ModeledDict['RetrievingIndexesListsList'] is ")
+		SYS._print(self.ModeledDict['RetrievingIndexesListsList'])
 		print('')
 
 		#Check that there is the RetrievingIndexesListsList
-		if 'RetrievingIndexesListsList' in self.DatabasedDict:	
+		if 'RetrievingIndexesListsList' in self.ModeledDict:	
 
 			#Join before
 			self.join()
 
 			'''
 
-			#set the self.JoinedRetrievingIndexesListsList and self.DatabasedDict['RetrievingIndexesListsList']
+			#set the self.JoinedRetrievingIndexesListsList and self.ModeledDict['RetrievingIndexesListsList']
 			[
 				self.JoinedRetrievingIndexesListsList,
-				self.DatabasedDict['RetrievingIndexesListsList']
+				self.ModeledDict['RetrievingIndexesListsList']
 			]=SYS.groupby(
 							lambda __Tuple:
 							SYS.getCommonPrefixStrWithStrsList(
 									[__Tuple[0],JoinStr]
 								)==JoinStr,
-							self.DatabasedDict['RetrievingIndexesListsList']
+							self.ModeledDict['RetrievingIndexesListsList']
 						)
 
 			#debug
 			print('self.JoinedRetrievingIndexesListsList is ')
 			SYS._print(self.JoinedRetrievingIndexesListsList)
-			print("self.DatabasedDict['RetrievingIndexesListsList'] is ")
-			SYS._print(self.DatabasedDict['RetrievingIndexesListsList'])
+			print("self.ModeledDict['RetrievingIndexesListsList'] is ")
+			SYS._print(self.ModeledDict['RetrievingIndexesListsList'])
 			print('')
 
 			JoinedSortedDict=SYS.getSortedDictWithSortedTuplesList(
@@ -285,7 +285,7 @@ class JoinerClass(SYS.FeaturerClass):
 										map(
 												lambda __JoinedSplittedRetrievingIndexesList:
 												(
-													#KeyStr for the DatabasedDict getting
+													#KeyStr for the ModeledDict getting
 													SYS.Node.DeepShortStr.join(
 														map(
 																lambda __KeyStr:
@@ -330,7 +330,7 @@ class JoinerClass(SYS.FeaturerClass):
 			print('')
 
 			#set the MergedRowedDictsListsList
-			self.JoinedJoinedListKeyStr=self.JoinedDatabasedStr+'JoinedList'
+			self.JoinedJoinedListKeyStr=self.JoinedModeledStr+'JoinedList'
 			MergedRowedDictsListsTuplesList=map(
 									lambda __AppendingGettingStr,__Joiner:
 									(
@@ -498,7 +498,7 @@ class JoinerClass(SYS.FeaturerClass):
 				map(
 						lambda __JoinedJoiner:
 						__JoinedJoiner.__setitem__(
-								'/App_Model_'+self.DatabasedDict['DatabasingStr']+'Dict/RetrievingIndexesListsList',
+								'/App_Model_'+self.ModeledDict['ModelingStr']+'Dict/RetrievingIndexesListsList',
 								[
 									(
 										JoinStr+self.JoinedJoinedListKeyStr,
@@ -513,7 +513,7 @@ class JoinerClass(SYS.FeaturerClass):
 										)
 									)
 								]
-						).recover(self.DatabasedKeyStr),
+						).recover(self.ModeledKeyStr),
 						ChildJoinersList
 					)
 
@@ -608,7 +608,7 @@ class JoinerClass(SYS.FeaturerClass):
 		else:
 
 			#set again the _ModelStr
-			_ModelStr=self.DatabasedDict['ModelStr']
+			_ModelStr=self.ModeledDict['ModelStr']
 
 		#Init maybe the _LocalJoiningVariablesDict
 		if 'IsJoiningBool' not in _LocalJoiningVariablesDict:
@@ -629,10 +629,10 @@ class JoinerClass(SYS.FeaturerClass):
 		if 'JoiningTuple' not in _LocalJoiningVariablesDict:
 
 			#Case where there are joins
-			if 'JoiningTuple' in self.DatabasedDict:
+			if 'JoiningTuple' in self.ModeledDict:
 
 				#set to the _LocalJoiningVariablesDict
-				_LocalJoiningVariablesDict['JoiningTuple']=self.DatabasedDict['JoiningTuple']
+				_LocalJoiningVariablesDict['JoiningTuple']=self.ModeledDict['JoiningTuple']
 
 				#Maybe we have to structure
 				if self.IsGroupedBool==False:
@@ -645,7 +645,7 @@ class JoinerClass(SYS.FeaturerClass):
 					'''
 					
 					#Structure
-					self.structure(self.DatabasedDict['JoiningTuple'][0])
+					self.structure(self.ModeledDict['JoiningTuple'][0])
 
 			else:
 
@@ -688,24 +688,24 @@ class JoinerClass(SYS.FeaturerClass):
 			print('We have the right to join !')
 			print("_LocalJoiningVariablesDict['IsJoiningBool']",
 				_LocalJoiningVariablesDict['IsJoiningBool'])
-			print('self.DatabasedDict is ',self.DatabasedDict)
+			print('self.ModeledDict is ',self.ModeledDict)
 			print('')
 			'''
 
 			#Tabular for the _JoiningRowingStr if JoiningTuple is not None
 			if _LocalJoiningVariablesDict['JoiningTuple'][1]!=None:
 				self.JoinedModelStr=_LocalJoiningVariablesDict['JoiningTuple'][1]
-				self.JoinedDatabasedStr=SYS.getDoneStrWithDoStr(self.JoinedModelStr)
+				self.JoinedModeledStr=SYS.getDoneStrWithDoStr(self.JoinedModelStr)
 				self.tabular(self.JoinedModelStr)
-				self.JoinedDatabasedDict=copy.copy(self.DatabasedDict)
-				self.JoinedDatabasedKeyStr=self.DatabasedKeyStr
+				self.JoinedModeledDict=copy.copy(self.ModeledDict)
+				self.JoinedModeledKeyStr=self.ModeledKeyStr
 				self.JoinedJoinedList[0]=self.ShapedTabularedInt
 				self.JoinedTabularedTable=self.TabularedTable
 
 			#debug
 			'''
-			print('self.JoinedDatabasedDict is ',self.JoinedDatabasedDict)
-			print('self.JoinedDatabasedKeyStr is ',self.JoinedDatabasedKeyStr)
+			print('self.JoinedModeledDict is ',self.JoinedModeledDict)
+			print('self.JoinedModeledKeyStr is ',self.JoinedModeledKeyStr)
 			print('self.JoinedJoinedList is ',self.JoinedJoinedList)
 			print('')
 			'''
@@ -714,10 +714,10 @@ class JoinerClass(SYS.FeaturerClass):
 			if _LocalJoiningVariablesDict['IsCheckingJoiningBool'] and self.JoinedJoinedList[1]==-1:
 
 				#Definition the GettingStrsList and the GettedVariablesList
-				if 'ColumningTuplesList' in self.JoinedDatabasedDict:
+				if 'ColumningTuplesList' in self.JoinedModeledDict:
 
 					#Get the GettingStrsList and GettedVariablesList
-					GettingStrsList=SYS.unzip(self.JoinedDatabasedDict['ColumningTuplesList'],[0])
+					GettingStrsList=SYS.unzip(self.JoinedModeledDict['ColumningTuplesList'],[0])
 					GettedVariablesList=self.pick(GettingStrsList)
 
 					#debug
@@ -783,12 +783,12 @@ class JoinerClass(SYS.FeaturerClass):
 
 			#debug
 			'''
-			print('JoinedDatabasedDict is ',JoinedDatabasedDict)
+			print('JoinedModeledDict is ',JoinedModeledDict)
 			print('JoinedList is ',JoinedList)
 			print('')
 			'''
 
-			#Tabular again to set again the DatabasedDict
+			#Tabular again to set again the ModeledDict
 			self.tabular(_ModelStr)
 				
 		else:
@@ -806,7 +806,7 @@ class JoinerClass(SYS.FeaturerClass):
 			map(
 					lambda __JoiningObjects:
 					__JoiningObjects.join(
-											self.DatabasedDict['ModelStr'],
+											self.ModeledDict['ModelStr'],
 											**_LocalJoiningVariablesDict
 										),
 					self.JoinedNodifiedOrderedDict.values()
@@ -819,7 +819,7 @@ class JoinerClass(SYS.FeaturerClass):
 			'''
 
 			self.join(
-						self.DatabasedDict['ModelStr'],
+						self.ModeledDict['ModelStr'],
 						**dict(
 								_LocalJoiningVariablesDict,**{'IsJoiningBool':True}
 							)

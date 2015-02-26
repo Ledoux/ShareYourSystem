@@ -68,7 +68,7 @@ class FindoerClass(BaseClass):
 
 		#debug
 		'''
-		self.debug(("self.",self,['DatabasedKeyStr','FindingConditionVariable']))
+		self.debug(("self.",self,['ModeledKeyStr','FindingConditionVariable']))
 		'''
 
 		#<NotHook>

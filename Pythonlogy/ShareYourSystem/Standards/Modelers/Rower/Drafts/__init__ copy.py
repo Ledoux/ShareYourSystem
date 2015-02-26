@@ -85,7 +85,7 @@ class RowerClass(
 					lambda __GettingStr:
 					__GettingStr not in self.RowedIdentifiedGettingStrsList,
 					SYS.unzip(
-						self.DatabasingSealTuplesList,[0]
+						self.ModelingSealTuplesList,[0]
 						)
 				)
 

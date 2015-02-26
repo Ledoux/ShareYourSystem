@@ -97,3 +97,18 @@ class PopulaterClass(BaseClass):
 
 
 #</DefineClass>
+
+#</DefinePrint>
+ParenterClass.PrintingClassSkipKeyStrsList.extend(
+	[
+		'PopulatingUnitsInt',
+		'PopulatingEventCollectionStr',
+		'PopulatingStateCollectionStr',
+		'PopulatedEventDeriveMonitersList',
+		'PopulatedStateDeriveMonitersList',
+		'PopulatedPreviousDerivePopulaterVariable',
+		'PopulatedStartUnitInt',
+		'PopulatedEndUnitInt'
+	]
+)
+#<DefinePrint>

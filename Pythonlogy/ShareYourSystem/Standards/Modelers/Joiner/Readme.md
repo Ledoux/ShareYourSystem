@@ -138,12 +138,12 @@ _JoinedRetrieveIndexesListColumnStrsList=None,
 
                 #debug
                 '''
-                self.debug('Add in the DatabasingSealTuplesList')
+                self.debug('Add in the ModelingSealTuplesList')
                 '''
 
                 #set
                 if len(self.JoinedRetrieveIndexesListColumnStrsList)>0:
-                        self.DatabasingSealTuplesList=map(
+                        self.ModelingSealTuplesList=map(
                                 lambda
 __JoinedRetrieveIndexesListGetStr,__JoinedRetrieveIndexesListColumnStr:
                                 (
@@ -153,13 +153,13 @@ __JoinedRetrieveIndexesListGetStr,__JoinedRetrieveIndexesListColumnStr:
                                 ),
                                 self.JoinedRetrieveIndexesListGetStrsList,
                                 self.JoinedRetrieveIndexesListColumnStrsList
-                        )+self.DatabasingSealTuplesList
+                        )+self.ModelingSealTuplesList
 
                 #debug
                 '''
                 self.debug(
                                         [
-('self.',self,['DatabasingSealTuplesList']),
+('self.',self,['ModelingSealTuplesList']),
                                                 'Now call the parent model
 method'
                                         ]
@@ -233,12 +233,12 @@ __JoinedRetrieveIndexesListGetStr,__JoinedInsertIndexInt:
 RowingGetStrsList'),
 #('self.',self,['NodePointDeriveNoder'])
                                                 ('model first to set the
-DatabasedGetStrToColumStr')
+ModeledGetStrToColumStr')
                                         ]
                                 )
                 '''
 
-                #Model first to set the DatabasedGetStrToColumStr
+                #Model first to set the ModeledGetStrToColumStr
                 #self.model()
 
                 #Add in the RowingGetStrsList
@@ -636,7 +636,7 @@ class MultiplierClass(Structurer.StructurerClass):
                         Joiner.JoinerClass().update(
                             [
                                 (
-                                    'Attr_DatabasingSealTuplesList',
+                                    'Attr_ModelingSealTuplesList',
                                     [
 ('MultiplyingFirstInt','MultiplyingFirstInt',tables.Int64Col()),
 ('MultiplyingSecondInt','MultiplyingSecondInt',tables.Int64Col())
@@ -681,7 +681,7 @@ class ModulizerClass(Structurer.StructurerClass):
                     Joiner.JoinerClass().update(
                         [
                             (
-                                'Attr_DatabasingSealTuplesList',
+                                'Attr_ModelingSealTuplesList',
                                 [
 ('ModulizingPowerFloat','ModulizingPowerFloat',tables.Float64Col())
                                 ]
@@ -1002,7 +1002,7 @@ ImageMultiplier
    /   /   /   /   /   /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /   /   /   /   /
-'<New><Instance>_DatabasingSealTuplesList' :
+'<New><Instance>_ModelingSealTuplesList' :
    /   /   /   /   /   /   /   /   /   /   /   /[
    /   /   /   /   /   /   /   /   /   /   /   /  0 :
    /   /   /   /   /   /   /   /   /   /   /   /   /(
@@ -1057,7 +1057,7 @@ CatchToPointVariable
 CatchToPointVariable
    /   /   /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /   /   /}
-   /   /   /   /   /   /   /   /  '<New><Instance>_DatabasingSealTuplesList' :
+   /   /   /   /   /   /   /   /  '<New><Instance>_ModelingSealTuplesList' :
    /   /   /   /   /   /   /   /   /[
    /   /   /   /   /   /   /   /   /  0 :
    /   /   /   /   /   /   /   /   /   /(
@@ -1136,7 +1136,7 @@ CatchToPointVariable
 CatchToPointVariable
    /   /   /   /   /   /   /}
    /   /   /   /   /   /}
-   /   /   /   /   /  '<New><Instance>_DatabasingSealTuplesList' :
+   /   /   /   /   /  '<New><Instance>_ModelingSealTuplesList' :
    /   /   /   /   /   /[
    /   /   /   /   /   /  0 :
    /   /   /   /   /   /   /(

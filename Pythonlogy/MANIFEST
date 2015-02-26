@@ -134,7 +134,6 @@ ShareYourSystem/Specials/Simulaters/Runner/01_ExampleCell.py
 ShareYourSystem/Specials/Simulaters/Runner/Readme.md
 ShareYourSystem/Specials/Simulaters/Runner/__init__.py
 ShareYourSystem/Specials/Simulaters/Simulater/001_DocumentDoc.md
-ShareYourSystem/Specials/Simulaters/Simulater/002_GithubDoc.md
 ShareYourSystem/Specials/Simulaters/Simulater/01_ExampleCell.py
 ShareYourSystem/Specials/Simulaters/Simulater/Readme.md
 ShareYourSystem/Specials/Simulaters/Simulater/__init__.py
@@ -244,6 +243,8 @@ ShareYourSystem/Standards/Classors/Propertiser/001_DocumentDoc.md
 ShareYourSystem/Standards/Classors/Propertiser/002_GithubDoc.md
 ShareYourSystem/Standards/Classors/Propertiser/00_ExampleDoc.md
 ShareYourSystem/Standards/Classors/Propertiser/01_ExampleDoc.py
+ShareYourSystem/Standards/Classors/Propertiser/02_ExampleDoc.md
+ShareYourSystem/Standards/Classors/Propertiser/03_ExampleDoc.py
 ShareYourSystem/Standards/Classors/Propertiser/Install.py
 ShareYourSystem/Standards/Classors/Propertiser/Readme.md
 ShareYourSystem/Standards/Classors/Propertiser/Test.py
@@ -670,24 +671,11 @@ ShareYourSystem/Standards/Itemizers/Setter/Readme.md
 ShareYourSystem/Standards/Itemizers/Setter/Test.py
 ShareYourSystem/Standards/Itemizers/Setter/__init__.py
 ShareYourSystem/Standards/Itemizers/Setter/draft/08_ExampleDoc copy.md
-ShareYourSystem/Standards/Itemizers/Walker/001_DocumentDoc.md
-ShareYourSystem/Standards/Itemizers/Walker/00_ExampleDoc.md
-ShareYourSystem/Standards/Itemizers/Walker/01_ExampleDoc.py
-ShareYourSystem/Standards/Itemizers/Walker/Readme.md
-ShareYourSystem/Standards/Itemizers/Walker/Test.py
-ShareYourSystem/Standards/Itemizers/Walker/__init__.py
 ShareYourSystem/Standards/Modelers/001_DocumentDoc.md
 ShareYourSystem/Standards/Modelers/002_OuvatonDoc.md
 ShareYourSystem/Standards/Modelers/1_GithubDoc.md
 ShareYourSystem/Standards/Modelers/Readme.md
 ShareYourSystem/Standards/Modelers/__init__.py
-ShareYourSystem/Standards/Modelers/Databaser/001_DocumentDoc.md
-ShareYourSystem/Standards/Modelers/Databaser/00_ExampleDoc.md
-ShareYourSystem/Standards/Modelers/Databaser/01_ExampleDoc.py
-ShareYourSystem/Standards/Modelers/Databaser/Install.py
-ShareYourSystem/Standards/Modelers/Databaser/Readme.md
-ShareYourSystem/Standards/Modelers/Databaser/Test.py
-ShareYourSystem/Standards/Modelers/Databaser/__init__.py
 ShareYourSystem/Standards/Modelers/Findoer/001_DocumentDoc.md
 ShareYourSystem/Standards/Modelers/Findoer/002_GithubDoc.md
 ShareYourSystem/Standards/Modelers/Findoer/00_ExampleDoc.md
@@ -744,9 +732,11 @@ ShareYourSystem/Standards/Modelers/Merger/Readme.md
 ShareYourSystem/Standards/Modelers/Merger/Test.py
 ShareYourSystem/Standards/Modelers/Merger/__init__.py
 ShareYourSystem/Standards/Modelers/Modeler/001_DocumentDoc.md
-ShareYourSystem/Standards/Modelers/Modeler/002_GithubDoc.md
 ShareYourSystem/Standards/Modelers/Modeler/00_ExampleDoc.md
 ShareYourSystem/Standards/Modelers/Modeler/01_ExampleDoc.py
+ShareYourSystem/Standards/Modelers/Modeler/02_ExampleDoc.md
+ShareYourSystem/Standards/Modelers/Modeler/03_ExampleDoc.py
+ShareYourSystem/Standards/Modelers/Modeler/Install.py
 ShareYourSystem/Standards/Modelers/Modeler/Readme.md
 ShareYourSystem/Standards/Modelers/Modeler/Test.py
 ShareYourSystem/Standards/Modelers/Modeler/__init__.py
@@ -968,13 +958,6 @@ ShareYourSystem/Standards/Objects/Swiger/Modules/12b_IntegrateAndFireTransferFun
 ShareYourSystem/Standards/Objects/Swiger/Modules/12b_IntegrateAndFireTransferFunctionSwig/Makefile
 ShareYourSystem/Standards/Objects/Swiger/Modules/12b_IntegrateAndFireTransferFunctionSwig/Readme.txt
 ShareYourSystem/Standards/Teamers/__init__.py
-ShareYourSystem/Standards/Teamers/Connecter/001_DocumentDoc.md
-ShareYourSystem/Standards/Teamers/Connecter/00_ExampleDoc.md
-ShareYourSystem/Standards/Teamers/Connecter/01_ExampleDoc.py
-ShareYourSystem/Standards/Teamers/Connecter/02_ExampleDoc.md
-ShareYourSystem/Standards/Teamers/Connecter/03_ExampleDoc.py
-ShareYourSystem/Standards/Teamers/Connecter/Readme.md
-ShareYourSystem/Standards/Teamers/Connecter/__init__.py
 ShareYourSystem/Standards/Teamers/Manager/00_ExampleDoc.md
 ShareYourSystem/Standards/Teamers/Manager/01_ExampleDoc.py
 ShareYourSystem/Standards/Teamers/Manager/02_ExampleDoc.md
@@ -988,14 +971,6 @@ ShareYourSystem/Standards/Teamers/Manager/Test.py
 ShareYourSystem/Standards/Teamers/Manager/__init__.py
 ShareYourSystem/Standards/Teamers/Manager/Tests/attest_path.txt
 ShareYourSystem/Standards/Teamers/Manager/draft/__init__ copy 2.py
-ShareYourSystem/Standards/Teamers/Networker/001_GithubDoc.md
-ShareYourSystem/Standards/Teamers/Networker/00_ExampleDoc.md
-ShareYourSystem/Standards/Teamers/Networker/01_ExampleDoc.py
-ShareYourSystem/Standards/Teamers/Networker/02_DocumentDoc.md
-ShareYourSystem/Standards/Teamers/Networker/03_ExampleDoc.py
-ShareYourSystem/Standards/Teamers/Networker/Readme.md
-ShareYourSystem/Standards/Teamers/Networker/Test.py
-ShareYourSystem/Standards/Teamers/Networker/__init__.py
 ShareYourSystem/Standards/Teamers/Parenter/00_ExampleDoc.md
 ShareYourSystem/Standards/Teamers/Parenter/01_ExampleDoc.py
 ShareYourSystem/Standards/Teamers/Parenter/02_ExampleDoc.md
@@ -1005,8 +980,11 @@ ShareYourSystem/Standards/Teamers/Parenter/05_ExampleDoc.py
 ShareYourSystem/Standards/Teamers/Parenter/06_ExampleDoc.md
 ShareYourSystem/Standards/Teamers/Parenter/07_ExampleDoc.py
 ShareYourSystem/Standards/Teamers/Parenter/08_ExampleDoc.md
+ShareYourSystem/Standards/Teamers/Parenter/09_ExampleDoc.py
 ShareYourSystem/Standards/Teamers/Parenter/10_ExampleDoc.md
 ShareYourSystem/Standards/Teamers/Parenter/11_ExampleDoc.py
+ShareYourSystem/Standards/Teamers/Parenter/12_ExampleDoc.md
+ShareYourSystem/Standards/Teamers/Parenter/13_ExampleDoc.py
 ShareYourSystem/Standards/Teamers/Parenter/Readme.md
 ShareYourSystem/Standards/Teamers/Parenter/Test.py
 ShareYourSystem/Standards/Teamers/Parenter/__init__.py
@@ -1036,6 +1014,8 @@ ShareYourSystem/Standards/Teamers/Teamer/__init__.py
 ShareYourSystem/Standards/Teamers/Teamer/draft/__init__ copy 2.py
 ShareYourSystem/Standards/Teamers/Teamer/draft/__init__ copy 3.py
 ShareYourSystem/Standards/Teamers/Teamer/draft/__init__ copy 4.py
+ShareYourSystem/Standards/Tutorials/00_ExampleDoc.md
+ShareYourSystem/Standards/Tutorials/01_ExampleDoc.py
 ShareYourSystem/Standards/Tutorials/Readme.md
 ShareYourSystem/Standards/Tutorials/__init__.py
 ShareYourSystem/Standards/Tutorials/Decrementer/00_ExampleDoc.md

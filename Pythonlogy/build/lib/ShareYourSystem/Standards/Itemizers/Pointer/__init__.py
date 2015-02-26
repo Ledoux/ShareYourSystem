@@ -14,7 +14,7 @@ A Pointer
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Itemizers.Walker"
+BaseModuleStr="ShareYourSystem.Standards.Itemizers.Commander"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>

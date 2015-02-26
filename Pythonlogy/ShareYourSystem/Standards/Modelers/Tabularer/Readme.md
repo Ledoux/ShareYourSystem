@@ -102,8 +102,8 @@ class TabularerClass(
                 self.debug(
                                 [
                                         ('self.',self,[
-'DatabasingSealTuplesList',
-                                                        'DatabasedModelClass',
+'ModelingSealTuplesList',
+                                                        'ModeledDescriptionClass',
 'WatchModelWithModelerBool',
 'WatchModelWithJoinerBool'
                                                 ]),
@@ -121,9 +121,9 @@ class TabularerClass(
                 '''
                 self.debug(
                                         [
-('self.',self,['DatabasingSealTuplesList','DatabasedModelClass']),
-('self.DatabasedPointDeriveStorer!=None is
-'+str(self.DatabasedPointDeriveStorer!=None))
+('self.',self,['ModelingSealTuplesList','ModeledDescriptionClass']),
+('self.ModeledPointDeriveStorer!=None is
+'+str(self.ModeledPointDeriveStorer!=None))
                                         ]
                                 )
                 '''
@@ -145,7 +145,7 @@ self.ModeledPointDeriveControllerVariable.hdformat()
 #self.ModeledPointDeriveControllerVariable.structure()
 
                         #Link
-                        self.TabularedTopFileVariable=self.DatabasedPointDer
+                        self.TabularedTopFileVariable=self.ModeledPointDer
 iveStorerVariable.HdformatedFileVariable
 self.GroupedPathStr=self.ModeledPointDeriveControllerVariable.GroupedPathStr
 
@@ -153,8 +153,8 @@ self.GroupedPathStr=self.ModeledPointDeriveControllerVariable.GroupedPathStr
                         '''
                         self.debug(('self.',self,[
 'HdformatedFileVariable',
-'DatabasingSealTuplesList',
-'DatabasedModelClass'
+'ModelingSealTuplesList',
+'ModeledDescriptionClass'
                                                                         ]))
                         '''
 
@@ -267,7 +267,7 @@ MyStructurer=Structurer.StructurerClass().collect(
     "Datome",
     "Things",
     Tabularer.TabularerClass().__setitem__(
-        'Attr_DatabasingSealTuplesList',
+        'Attr_ModelingSealTuplesList',
         [
             #GetStr #ColumnStr #Col
             ('MyInt','MyInt',tables.Int64Col()),
@@ -324,7 +324,7 @@ MyStructurer is < (StructurerClass), 4563976400>
 4563976400>
    /   /   /  '<New><Instance>NodePointOrderedDict' : {...}< (OrderedDict),
 4561219120>
-   /   /   /  '<New><Instance>_DatabasingSealTuplesList' :
+   /   /   /  '<New><Instance>_ModelingSealTuplesList' :
    /   /   /   /[
    /   /   /   /  0 :
    /   /   /   /   /(

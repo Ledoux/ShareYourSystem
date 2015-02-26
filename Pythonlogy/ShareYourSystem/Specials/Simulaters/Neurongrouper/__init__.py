@@ -27,18 +27,6 @@ from ShareYourSystem.Specials.Simulaters import Synapser
 @DecorationClass()
 class NeurongrouperClass(BaseClass):
 	
-	#Definition
-	RepresentingKeyStrsList=[
-								'NeurongroupingKwargVariablesDict',
-								'NeurongroupingVariableStrToGetStrDict',
-								'NeurongroupedPostModelInsertStrsList',
-								'NeurongroupedPostModelAddDict',
-								'NeurongroupedEquationStrsList',
-								'NeurongroupedBrianVariable',
-								'NeurongroupedSpikeMonitorsList',
-								'NeurongroupedStateMonitorsList'
-							]
-
 	def default_init(self,
 						_NeurongroupingKwargVariablesDict=None,
 						_NeurongroupingVariableStrToGetStrDict=None,
@@ -238,3 +226,18 @@ class NeurongrouperClass(BaseClass):
 			)
 
 #</DefineClass>
+
+#</DefinePrint>
+ParenterClass.PrintingClassSkipKeyStrsList.extend(
+	[
+		'NeurongroupingKwargVariablesDict',
+		'NeurongroupingVariableStrToGetStrDict',
+		'NeurongroupedPostModelInsertStrsList',
+		'NeurongroupedPostModelAddDict',
+		'NeurongroupedEquationStrsList',
+		'NeurongroupedBrianVariable',
+		'NeurongroupedSpikeMonitorsList',
+		'NeurongroupedStateMonitorsList'
+	]
+)
+#<DefinePrint>

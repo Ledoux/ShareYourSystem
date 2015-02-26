@@ -14,7 +14,7 @@ an inspection of all defined methods.
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Classors.Propertiser"
+BaseModuleStr="ShareYourSystem.Standards.Classors.Deriver"
 DecorationModuleStr=BaseModuleStr
 SYS.setSubModule(globals())
 #</DefineAugmentation>

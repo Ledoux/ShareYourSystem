@@ -1,8 +1,27 @@
 
 #ImportModules
-import ShareYourSystem as SYS
+#import ShareYourSystem as SYS
+
+from ShareYourSystem.Standards.Itemizers import Getter
 
 
+def foo():
+	pass
+	
+
+
+
+
+#print(foo.__doc__)
+
+
+
+
+
+
+
+
+"""
 import scipy.optimize
 import numpy as np
 
@@ -91,5 +110,5 @@ CountIntsList=map(lambda __LoopInt:count(__LoopInt,1000),LoopIntsList)
 print(CountIntsList)
 #pyplot.plot(LoopIntsList,map(lambda __LoopInt:count(__LoopInt,1000),LoopIntsList))
 #pyplot.show()
-
+"""
 

@@ -1,6 +1,7 @@
 #ImportModules
 import ShareYourSystem as SYS
 
+"""
 #define
 @SYS.InspecterClass()
 class MakerClass(SYS.ObjectClass):
@@ -24,3 +25,18 @@ SYS._print(
 	)
  
 #Print
+"""
+
+
+
+class A():
+
+	def a(self):pass
+
+class B(A):
+
+	def a(self):pass
+
+
+print(B.a==A.a)
+

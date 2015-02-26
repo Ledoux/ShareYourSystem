@@ -66,7 +66,7 @@ class StructurerClass(BaseClass):
 		if self.PymongoingDatabaseKeyStr!="":
 
 			#set
-			self.DatabasingMongoBool=True
+			self.ModelingMongoBool=True
 
 			#pymongo first
 			self.pymongo()
@@ -75,7 +75,7 @@ class StructurerClass(BaseClass):
 		if self.HdformatingFileKeyStr!="":
 
 			#set
-			self.DatabasingHdfBool=True
+			self.ModelingHdfBool=True
 
 			#hdformat first
 			self.hdformat()

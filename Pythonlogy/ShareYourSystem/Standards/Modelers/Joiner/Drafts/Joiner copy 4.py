@@ -17,7 +17,7 @@ JoinDeepStr='/'
 class JoinerClass(SYS.FeaturerClass):
 	
 	#<DefineHookMethods>
-	def modelAfter(self,**_DatabasingVariablesDict):
+	def modelAfter(self,**_ModelingVariablesDict):
 
 		#debug
 		self.debug('Start of the method')
@@ -25,7 +25,7 @@ class JoinerClass(SYS.FeaturerClass):
 		#debug
 		self.debug(
 					[
-						"self.DatabasedDict['ModelStr'] is "+str(self.DatabasedDict['ModelStr']),
+						"self.ModeledDict['ModelStr'] is "+str(self.ModeledDict['ModelStr']),
 						"We are going to join..."
 					]
 				)
@@ -33,8 +33,8 @@ class JoinerClass(SYS.FeaturerClass):
 		#Definition the JoinedOrderedDict
 		JoinedOrderedDict=collections.OrderedDict()
 
-		#set in DatabasedDict
-		self.DatabasedDict['JoinedOrderedDict']=JoinedOrderedDict
+		#set in ModeledDict
+		self.ModeledDict['JoinedOrderedDict']=JoinedOrderedDict
 
 		#Call the join method
 		self.join()
@@ -43,40 +43,40 @@ class JoinerClass(SYS.FeaturerClass):
 		self.debug(
 					[
 						"Ok joined was done",
-						"self.DatabasedDict['ModelStr'] is "+str(self.DatabasedDict['ModelStr'])
+						"self.ModeledDict['ModelStr'] is "+str(self.ModeledDict['ModelStr'])
 					]
 				)
 
-		#Model if there is a JoinedDatabasedDict
-		if self.DatabasedDict['JoinedDatabasedDict']!={}:
+		#Model if there is a JoinedModeledDict
+		if self.ModeledDict['JoinedModeledDict']!={}:
 
-			#set an alias for the DatabasedModelClass
-			DatabasedModelClass=self.DatabasedDict['DatabasedModelClass']
+			#set an alias for the ModeledDescriptionClass
+			ModeledDescriptionClass=self.ModeledDict['ModeledDescriptionClass']
 
 			#Alias
-			JoinedRetrievingIndexesListKeyStr=self.DatabasedDict['JoinedRetrievingIndexesListKeyStr']
+			JoinedRetrievingIndexesListKeyStr=self.ModeledDict['JoinedRetrievingIndexesListKeyStr']
 
 			#set the columns
-			DatabasedModelClass.columns[JoinedRetrievingIndexesListKeyStr]=tables.Int64Col(shape=2)
+			ModeledDescriptionClass.columns[JoinedRetrievingIndexesListKeyStr]=tables.Int64Col(shape=2)
 			
 			#Alias
-			JoinedNodifiedNodeStr=self.DatabasedDict['JoinedNodifiedNodeStr']
+			JoinedNodifiedNodeStr=self.ModeledDict['JoinedNodifiedNodeStr']
 
 			#Nodify with the JoinedNodifiedNodeStr
 			if JoinedNodifiedNodeStr!="":
 
 				#debug
-				self.debug('In the DatabasedModelClass we add the joined columns')
+				self.debug('In the ModeledDescriptionClass we add the joined columns')
 
 				#Alias
-				JoinedNodifiedNodedStr=self.DatabasedDict['JoinedNodifiedNodedStr']
-				JoinedDatabasedStr=self.DatabasedDict['JoinedDatabasedDict']['ModelStr']
+				JoinedNodifiedNodedStr=self.ModeledDict['JoinedNodifiedNodedStr']
+				JoinedModeledStr=self.ModeledDict['JoinedModeledDict']['ModelStr']
 
 				#set the JoinedNodifiedRetrievingIndexesListKeyStrsList
 				JoinedNodifiedRetrievingIndexesListKeyStrsList=map(
 					lambda __NodifiedKeyStrKeyStr:
 					JoinedNodifiedNodedStr+__NodifiedKeyStrKeyStr+JoinedRetrievingIndexesListKeyStr,
-					self.DatabasedDict['JoinedNodifiedOrderedDict'].keys()
+					self.ModeledDict['JoinedNodifiedOrderedDict'].keys()
 				)
 
 				#debug
@@ -86,18 +86,18 @@ class JoinerClass(SYS.FeaturerClass):
 				#set the Cols for the joined children 
 				map(
 					lambda __JoinedNodifiedRetrievingIndexesListKeyStr:
-					DatabasedModelClass.columns.__setitem__(
+					ModeledDescriptionClass.columns.__setitem__(
 						__JoinedNodifiedRetrievingIndexesListKeyStr,
 						tables.Int64Col(shape=2)
 					),
 					JoinedNodifiedRetrievingIndexesListKeyStrsList
 				)
 
-		#Put them in the DatabasedDict
+		#Put them in the ModeledDict
 		LocalVars=vars()
 		map(
 				lambda __GettingStr:
-				self.DatabasedDict.__setitem__(__GettingStr,LocalVars[__GettingStr]),
+				self.ModeledDict.__setitem__(__GettingStr,LocalVars[__GettingStr]),
 				[
 					'JoinedOrderedDict'
 				]
@@ -130,7 +130,7 @@ class JoinerClass(SYS.FeaturerClass):
 			map(
 					lambda __Variable:
 					__Variable.row(ModelStr),
-					self.DatabasedDict['JoinedNodifiedOrderedDict'].values()
+					self.ModeledDict['JoinedNodifiedOrderedDict'].values()
 				)
 
 			#debug
@@ -143,32 +143,32 @@ class JoinerClass(SYS.FeaturerClass):
 		#debug
 		self.debug(
 					[
-						"self.DatabasedDict['ModelStr'] is "+str(self.DatabasedDict['ModelStr'])
+						"self.ModeledDict['ModelStr'] is "+str(self.ModeledDict['ModelStr'])
 						"We are going to check if the joined model is already inserted...",
-						"First look if JoinedDatabasedDict!={} is "+str(len(JoinedDatabasedDict)>0)
+						"First look if JoinedModeledDict!={} is "+str(len(JoinedModeledDict)>0)
 					]
 				)
 
 		#Alias
-		JoinedDatabasedDict=self.DatabasedDict['JoinedDatabasedDict']
+		JoinedModeledDict=self.ModeledDict['JoinedModeledDict']
 
 		#Check
-		if len(JoinedDatabasedDict)>0:
+		if len(JoinedModeledDict)>0:
 
 			#debug
-			self.debug("Ok there is some not empty JoinedDatabasedDict here")
+			self.debug("Ok there is some not empty JoinedModeledDict here")
 
 			#set JoinedRetrievingIndexesListKeyStr
-			JoinedRetrievingIndexesListKeyStr=self.DatabasedDict['JoinedRetrievingIndexesListKeyStr']
+			JoinedRetrievingIndexesListKeyStr=self.ModeledDict['JoinedRetrievingIndexesListKeyStr']
 
 			#Definition the GettingStrsList and the GettedVariablesList
-			if 'ColumningTuplesList' in JoinedDatabasedDict:
+			if 'ColumningTuplesList' in JoinedModeledDict:
 
 				#debug
 				self.debug('Check that this joined row is a new row in the table or not')
 
 				#Get the GettingStrsList and GettedVariablesList
-				GettingStrsList=SYS.unzip(JoinedDatabasedDict['ColumningTuplesList'],[0])
+				GettingStrsList=SYS.unzip(JoinedModeledDict['ColumningTuplesList'],[0])
 				GettedVariablesList=self.pick(GettingStrsList)
 
 				#Check if it was already rowed
@@ -182,7 +182,7 @@ class JoinerClass(SYS.FeaturerClass):
 									GettedVariablesList
 								)
 						),
-						JoinedDatabasedDict['TabledTable'].iterrows()
+						JoinedModeledDict['TabledTable'].iterrows()
 					)					
 
 				#debug
@@ -204,14 +204,14 @@ class JoinerClass(SYS.FeaturerClass):
 				self.debug('So the corresponding RowInt is '+str(RowInt))
 
 				#set the RowInt
-				self.DatabasedDict['JoinedOrderedDict'][JoinedRetrievingIndexesListKeyStr][1]=RowInt
+				self.ModeledDict['JoinedOrderedDict'][JoinedRetrievingIndexesListKeyStr][1]=RowInt
 
 
 			#Alias
-			JoinedOrderedDict=self.DatabasedDict['JoinedOrderedDict']
-			JoinedRetrievingIndexesList=self.DatabasedDict['JoinedOrderedDict'][JoinedRetrievingIndexesListKeyStr]
-			JoinedNodifiedNodeStr=self.DatabasedDict['JoinedNodifiedNodeStr']
-			JoinedNodifiedNodedStr=self.DatabasedDict['JoinedNodifiedNodedStr']
+			JoinedOrderedDict=self.ModeledDict['JoinedOrderedDict']
+			JoinedRetrievingIndexesList=self.ModeledDict['JoinedOrderedDict'][JoinedRetrievingIndexesListKeyStr]
+			JoinedNodifiedNodeStr=self.ModeledDict['JoinedNodifiedNodeStr']
+			JoinedNodifiedNodedStr=self.ModeledDict['JoinedNodifiedNodedStr']
 
 			#Give the JoinedRetrievingIndexesList to itself
 			JoinedOrderedDict.__setitem__(
@@ -234,7 +234,7 @@ class JoinerClass(SYS.FeaturerClass):
 										JoinedNodifiedNodedStr+'ParentPointer'
 							)
 				if ParentPointer!=None:
-					ParentPointer['App_Model_'+DatabasingStr+'Dict']['JoinedOrderedDict'][
+					ParentPointer['App_Model_'+ModelingStr+'Dict']['JoinedOrderedDict'][
 							getattr(
 									self,
 									JoinedNodifiedNodedStr+'KeyStr'
@@ -242,7 +242,7 @@ class JoinerClass(SYS.FeaturerClass):
 							]=JoinedRetrievingIndexesList
 
 			#Update the self.RowedIdentifiedOrderedDic
-			self.DatabasedDict['RowedIdentifiedOrderedDict'].update(JoinedOrderedDict)
+			self.ModeledDict['RowedIdentifiedOrderedDict'].update(JoinedOrderedDict)
 
 		#debug
 		self.debug('End of the method')
@@ -255,7 +255,7 @@ class JoinerClass(SYS.FeaturerClass):
 		#debug
 		self.debug(	
 					[
-						"self.DatabasedDict['ModelStr'] is "+str(self.DatabasedDict['ModelStr']),
+						"self.ModeledDict['ModelStr'] is "+str(self.ModeledDict['ModelStr']),
 						'self.StructuredKeyStr is '+str(self.StructuredKeyStr) if hasattr(self,"StructuredKeyStr") else ''
 					]
 				)
@@ -264,14 +264,14 @@ class JoinerClass(SYS.FeaturerClass):
 		NotRowedTuplesList=filter(
 				lambda __JoiningTuple:
 				__JoiningTuple[1][0]<0 or __JoiningTuple[1][1]<0,
-				self.DatabasedDict['JoinedOrderedDict'].items()
+				self.ModeledDict['JoinedOrderedDict'].items()
 			)
 
 		#debug
 		self.debug('NotRowedTuplesList is '+str(NotRowedTuplesList))
 
 		#Alias
-		ModelStr=self.DatabasedDict['ModelStr']
+		ModelStr=self.ModeledDict['ModelStr']
 
 		'''
 		#IsNodingInsertingBool
@@ -289,7 +289,7 @@ class JoinerClass(SYS.FeaturerClass):
 			map(
 					lambda __Variable:
 					__Variable.insert(ModelStr),
-					self.DatabasedDict['JoinedNodifiedOrderedDict'].values()
+					self.ModeledDict['JoinedNodifiedOrderedDict'].values()
 				)
 
 			#debug
@@ -297,13 +297,13 @@ class JoinerClass(SYS.FeaturerClass):
 						[
 							'The noded children have inserted',
 							'Now look at the joined model',
-							('self.DatabasedDict',self.DatabasedDict,['JoinedModelStr'])
+							('self.ModeledDict',self.ModeledDict,['JoinedModelStr'])
 						]
 					)
 		'''
 
 		#insert the joined model
-		if self.DatabasedDict['JoinedModelStr']!="":
+		if self.ModeledDict['JoinedModelStr']!="":
 
 			#debug
 			self.debug(
@@ -313,23 +313,23 @@ class JoinerClass(SYS.FeaturerClass):
 						]
 					)
 
-			#Copy the DatabasedDict
-			CopiedDatabasedDict=copy.copy(self.DatabasedDict)
+			#Copy the ModeledDict
+			CopiedModeledDict=copy.copy(self.ModeledDict)
 
 			#Insert
-			self.insert(self.DatabasedDict['JoinedModelStr'],**{'IsNodingInsertingBool':False})
+			self.insert(self.ModeledDict['JoinedModelStr'],**{'IsNodingInsertingBool':False})
 
 			#debug
 			self.debug('Insert self with the joined model was done')
 		
-			#Reset the self.DatabasedDict
-			self.DatabasedDict=CopiedDatabasedDict
+			#Reset the self.ModeledDict
+			self.ModeledDict=CopiedModeledDict
 
 			#set the JoinedRetrievingIndexesListKeyStr
-			JoinedRetrievingIndexesListKeyStr=self.DatabasedDict['JoinedDatabasedDict']['DatabasedStr']+'RetrievingIndexesList'
+			JoinedRetrievingIndexesListKeyStr=self.ModeledDict['JoinedModeledDict']['ModeledStr']+'RetrievingIndexesList'
 
 			#Alias
-			JoinedOrderedDict=self.DatabasedDict['JoinedOrderedDict']
+			JoinedOrderedDict=self.ModeledDict['JoinedOrderedDict']
 
 			#It is going to be inserted so update the self.JoinedRetrievingIndexesList to the last row index
 			if JoinedOrderedDict[JoinedRetrievingIndexesListKeyStr][1]==-1:
@@ -337,7 +337,7 @@ class JoinerClass(SYS.FeaturerClass):
 				#debug
 				self.debug(
 							[
-								'This is a new row so we just set the RowInt of the <JoinedDatabasedStr>RetrievingIndexesList',
+								'This is a new row so we just set the RowInt of the <JoinedModeledStr>RetrievingIndexesList',
 								'To the size of the table',
 								'JoinedOrderedDict[JoinedRetrievingIndexesListKeyStr] is '+str(
 									JoinedOrderedDict[JoinedRetrievingIndexesListKeyStr])
@@ -345,7 +345,7 @@ class JoinerClass(SYS.FeaturerClass):
 						)
 
 				#Update the corresponding RetrievingIndexesList
-				JoinedOrderedDict[JoinedRetrievingIndexesListKeyStr][1]=self.DatabasedDict['JoinedDatabasedDict']['TabledTable'].nrows-1
+				JoinedOrderedDict[JoinedRetrievingIndexesListKeyStr][1]=self.ModeledDict['JoinedModeledDict']['TabledTable'].nrows-1
 
 				#debug
 				self.debug('Now JoinedOrderedDict[JoinedRetrievingIndexesListKeyStr] is '+str(
@@ -354,8 +354,8 @@ class JoinerClass(SYS.FeaturerClass):
 			#Get the JoinedRetrievingIndexesList
 			JoinedRetrievingIndexesListsList=map(
 								lambda __InsertingVariable:
-								__InsertingVariable.DatabasedDict['JoinedOrderedDict'][JoinedRetrievingIndexesListKeyStr],
-								self.DatabasedDict['JoinedNodifiedOrderedDict'].values()
+								__InsertingVariable.ModeledDict['JoinedOrderedDict'][JoinedRetrievingIndexesListKeyStr],
+								self.ModeledDict['JoinedNodifiedOrderedDict'].values()
 							)
 
 		else:
@@ -367,17 +367,17 @@ class JoinerClass(SYS.FeaturerClass):
 		self.debug(
 					[
 						'self.StructuredKeyStr is '+str(self.StructuredKeyStr) if hasattr(self,'StructuredKeyStr') else '',
-						"self.DatabasedDict['ModelStr'] is "+str(self.DatabasedDict['ModelStr']),
+						"self.ModeledDict['ModelStr'] is "+str(self.ModeledDict['ModelStr']),
 						'We add in the RowedIdentifiedOrderedDict the Joined JoinedRetrievingIndexesLists',
-						"self.DatabasedDict['RowedIdentifiedOrderedDict'] is "+str(
-								self.DatabasedDict['RowedIdentifiedOrderedDict']),
+						"self.ModeledDict['RowedIdentifiedOrderedDict'] is "+str(
+								self.ModeledDict['RowedIdentifiedOrderedDict']),
 						"NotRowedTuplesList is "+str(NotRowedTuplesList),
 						"JoinedRetrievingIndexesListsList is "+str(JoinedRetrievingIndexesListsList)
 					]
 		)
 
 		#Alias
-		RowedIdentifiedOrderedDict=self.DatabasedDict['RowedIdentifiedOrderedDict']
+		RowedIdentifiedOrderedDict=self.ModeledDict['RowedIdentifiedOrderedDict']
 
 		#Just change the __RowInt
 		map(
@@ -398,10 +398,10 @@ class JoinerClass(SYS.FeaturerClass):
 		self.debug('Start of the method')
 
 		#debug
-		self.debug("self.DatabasedDict['RetrievingIndexesList'] is "+str(self.DatabasedDict['RetrievingIndexesList']))
+		self.debug("self.ModeledDict['RetrievingIndexesList'] is "+str(self.ModeledDict['RetrievingIndexesList']))
 
 		#Alias
-		RetrievedTuplesList=self.DatabasedDict['RetrievedTuplesList']
+		RetrievedTuplesList=self.ModeledDict['RetrievedTuplesList']
 
 		#debug	
 		DebuggedStr='RetrievedTuplesList is '+str(RetrievedTuplesList)
@@ -412,11 +412,11 @@ class JoinerClass(SYS.FeaturerClass):
 
 			#Get the Index 
 			RetrievingIndexesListIndexInt=SYS.unzip(RetrievedTuplesList,[0]).index(
-				self.DatabasedDict['JoinedRetrievingIndexesListKeyStr'])
+				self.ModeledDict['JoinedRetrievingIndexesListKeyStr'])
 
 			#set and retrieve for the joined model
-			self.DatabasedDict['RetrievingIndexesList']=RetrievedTuplesList[RetrievingIndexesListIndexInt][1]
-			self.retrieve(self.DatabasedDict['JoinedDatabasedDict']['ModelStr'])
+			self.ModeledDict['RetrievingIndexesList']=RetrievedTuplesList[RetrievingIndexesListIndexInt][1]
+			self.retrieve(self.ModeledDict['JoinedModeledDict']['ModelStr'])
 
 		#debug
 		self.debug('End of the method')
@@ -427,13 +427,13 @@ class JoinerClass(SYS.FeaturerClass):
 		self.debug('Find the joined model')
 
 		#Alias
-		JoinedModelStr=self.DatabasedDict['JoinedModelStr']
+		JoinedModelStr=self.ModeledDict['JoinedModelStr']
 
 		#Check that JoinedModelStr is good
 		if JoinedModelStr!="":
 
-			#Copy the DatabasedDict
-			CopiedDatabasedDict=copy.copy(self.DatabasedDict)
+			#Copy the ModeledDict
+			CopiedModeledDict=copy.copy(self.ModeledDict)
 
 			#debug
 			self.debug(
@@ -444,10 +444,10 @@ class JoinerClass(SYS.FeaturerClass):
 					)
 
 			#Find
-			self.DatabasedDict=self.DatabasedDict['JoinedDatabasedDict']
+			self.ModeledDict=self.ModeledDict['JoinedModeledDict']
 			self.find()
-			JoinedDatabasedDict=self.DatabasedDict
-			self.DatabasedDict=CopiedDatabasedDict
+			JoinedModeledDict=self.ModeledDict
+			self.ModeledDict=CopiedModeledDict
 
 			#debug
 			self.debug(
@@ -461,7 +461,7 @@ class JoinerClass(SYS.FeaturerClass):
 			self.debug('Ok we have found the joined model')
 
 			#Copy the FoundFilteredRowedDictsList
-			JoinedFoundFilteredRowedDictsList=JoinedDatabasedDict['FoundFilteredRowedDictsList']
+			JoinedFoundFilteredRowedDictsList=JoinedModeledDict['FoundFilteredRowedDictsList']
 
 			#debug
 			self.debug(
@@ -472,7 +472,7 @@ class JoinerClass(SYS.FeaturerClass):
 			)
 
 			#Alias
-			JoinedRetrievingIndexesListKeyStr=self.DatabasedDict['JoinedRetrievingIndexesListKeyStr']
+			JoinedRetrievingIndexesListKeyStr=self.ModeledDict['JoinedRetrievingIndexesListKeyStr']
 
 			#Make the TabledInt and the RowInt as a <JoinedModelStr>RetrievingIndexesList
 			map(
@@ -522,15 +522,15 @@ class JoinerClass(SYS.FeaturerClass):
 		self.debug(
 					[
 						'Joiner findbefore is over',
-						('self.DatabasedDict',self.DatabasedDict,['ModelStr','FoundRowDictsList'])
+						('self.ModeledDict',self.ModeledDict,['ModelStr','FoundRowDictsList'])
 					]
 				)
 
-		#Put them in the DatabasedDict
+		#Put them in the ModeledDict
 		LocalVars=vars()
 		map(
 				lambda __GettingStr:
-				self.DatabasedDict.__setitem__(__GettingStr,LocalVars[__GettingStr]),
+				self.ModeledDict.__setitem__(__GettingStr,LocalVars[__GettingStr]),
 				[
 					'JoinedFindingTuplesList',
 				]
@@ -549,30 +549,30 @@ class JoinerClass(SYS.FeaturerClass):
 					[
 						('Are we going to do a where with the FoundFilteredRowedDictsList and the '),
 						('filtering JoinedFindingTuplesList?'),
-						('self.DatabasedDict ',self.DatabasedDict,[
+						('self.ModeledDict ',self.ModeledDict,[
 																'ModelStr',
 																'FoundFilteredRowedDictsList'
 																]),
-						("'JoinedFindingTuplesList' in self.DatabasedDict is "+str(
-							'JoinedFindingTuplesList' in self.DatabasedDict))
+						("'JoinedFindingTuplesList' in self.ModeledDict is "+str(
+							'JoinedFindingTuplesList' in self.ModeledDict))
 					]
 			)
 
-		if 'JoinedFindingTuplesList' in self.DatabasedDict:
+		if 'JoinedFindingTuplesList' in self.ModeledDict:
 
 			#debug
 			self.debug(
 						[
 							'Ok we are going to do the where',
-							"self.DatabasedDict['JoinedFindingTuplesList'] is "+str(
-								self.DatabasedDict['JoinedFindingTuplesList'])
+							"self.ModeledDict['JoinedFindingTuplesList'] is "+str(
+								self.ModeledDict['JoinedFindingTuplesList'])
 						]
 					)
 
 			#Where
-			self.DatabasedDict['FoundFilteredRowedDictsList']=SYS.filterNone(SYS.where(
-							self.DatabasedDict['FoundFilteredRowedDictsList'],
-							self.DatabasedDict['JoinedFindingTuplesList']
+			self.ModeledDict['FoundFilteredRowedDictsList']=SYS.filterNone(SYS.where(
+							self.ModeledDict['FoundFilteredRowedDictsList'],
+							self.ModeledDict['JoinedFindingTuplesList']
 							)
 			)
 
@@ -583,7 +583,7 @@ class JoinerClass(SYS.FeaturerClass):
 		self.debug(
 					[
 						'After intersection',
-						('self.DatabasedDict ',self.DatabasedDict,[
+						('self.ModeledDict ',self.ModeledDict,[
 															'ModelStr',
 															'FoundFilteredRowedDictsList'
 															]
@@ -602,7 +602,7 @@ class JoinerClass(SYS.FeaturerClass):
 		#debug
 		self.debug(
 					[
-						('self.DatabasedDict ',self.DatabasedDict,[
+						('self.ModeledDict ',self.ModeledDict,[
 															'ModelStr',
 															'FoundFilteredRowedDictsList'
 															]
@@ -611,7 +611,7 @@ class JoinerClass(SYS.FeaturerClass):
 				)
 
 		#Alias
-		FoundFilteredRowedDictsList=self.DatabasedDict['FoundFilteredRowedDictsList']
+		FoundFilteredRowedDictsList=self.ModeledDict['FoundFilteredRowedDictsList']
 
 		#debug
 		self.debug(
@@ -630,8 +630,8 @@ class JoinerClass(SYS.FeaturerClass):
 			JoinedRecoveredDict=FoundFilteredRowedDictsList[0]
 
 			#Alias
-			JoinedNodifiedOrderedDict=self.DatabasedDict['JoinedNodifiedOrderedDict']
-			JoinedRetrievingIndexesListKeyStr=self.DatabasedDict['JoinedRetrievingIndexesListKeyStr']
+			JoinedNodifiedOrderedDict=self.ModeledDict['JoinedNodifiedOrderedDict']
+			JoinedRetrievingIndexesListKeyStr=self.ModeledDict['JoinedRetrievingIndexesListKeyStr']
 			
 			#debug
 			self.debug(
@@ -655,15 +655,15 @@ class JoinerClass(SYS.FeaturerClass):
 				JoinedNodifiedKeyStr=self.JoinedNodifiedNodedStr+'KeyStr'
 
 				#Alias
-				ModelStr=self.DatabasedDict['ModelStr']
-				DatabasingStr=self.DatabasedDict['DatabasingStr']
-				JoinedNodifiedNodedStr=self.DatabasedDict['JoinedNodifiedNodedStr']
+				ModelStr=self.ModeledDict['ModelStr']
+				ModelingStr=self.ModeledDict['ModelingStr']
+				JoinedNodifiedNodedStr=self.ModeledDict['JoinedNodifiedNodedStr']
 
 				#Map a Recover
 				map(
 						lambda __JoinedJoiner:
 						__JoinedJoiner.__setitem__(
-								'/App_Model_'+DatabasingStr+'Dict/FindingTuplesList',
+								'/App_Model_'+ModelingStr+'Dict/FindingTuplesList',
 								[
 									(
 										JoinStr+JoinedRetrievingIndexesListKeyStr,
@@ -697,13 +697,13 @@ class JoinerClass(SYS.FeaturerClass):
 					)
 
 			#set RetrievingIndexesList in the model and retrieve
-			self['App_Model_'+self.DatabasedDict['JoinedDatabasedDict']['DatabasingStr']+'Dict']['RetrievingIndexesList']=JoinedRecoveredDict[
+			self['App_Model_'+self.ModeledDict['JoinedModeledDict']['ModelingStr']+'Dict']['RetrievingIndexesList']=JoinedRecoveredDict[
 						JoinedRetrievingIndexesListKeyStr
 						]
-			CopiedDatabasedDict=copy.copy(self.DatabasedDict)
-			self.DatabasedDict=self.DatabasedDict['JoinedDatabasedDict']
+			CopiedModeledDict=copy.copy(self.ModeledDict)
+			self.ModeledDict=self.ModeledDict['JoinedModeledDict']
 			self.retrieve('')
-			self.DatabasedDict=CopiedDatabasedDict
+			self.ModeledDict=CopiedModeledDict
 
 			#debug
 			self.debug('Ok the joined model was retrieved')
@@ -739,18 +739,18 @@ class JoinerClass(SYS.FeaturerClass):
 				)
 
 		#Check
-		if 'JoiningTuple' not in self.DatabasedDict:
-			self.DatabasedDict['JoiningTuple']=("","")
+		if 'JoiningTuple' not in self.ModeledDict:
+			self.ModeledDict['JoiningTuple']=("","")
 
 		#set JoinedNodifiedNodeStr and JoinedModelStr
-		JoinedNodifiedNodeStr=self.DatabasedDict['JoiningTuple'][0]
-		JoinedModelStr=self.DatabasedDict['JoiningTuple'][1]
+		JoinedNodifiedNodeStr=self.ModeledDict['JoiningTuple'][0]
+		JoinedModelStr=self.ModeledDict['JoiningTuple'][1]
 
-		#Put them in the DatabasedDict
+		#Put them in the ModeledDict
 		LocalVars=vars()
 		map(
 				lambda __GettingStr:
-				self.DatabasedDict.__setitem__(__GettingStr,LocalVars[__GettingStr]),
+				self.ModeledDict.__setitem__(__GettingStr,LocalVars[__GettingStr]),
 				[
 					'JoinedNodifiedNodeStr',
 					'JoinedModelStr'
@@ -761,7 +761,7 @@ class JoinerClass(SYS.FeaturerClass):
 		if 'JoiningTuple' not in _JoiningVariablesDict:
 
 			#set to the _JoiningVariablesDict
-			_JoiningVariablesDict['JoiningTuple']=self.DatabasedDict['JoiningTuple']
+			_JoiningVariablesDict['JoiningTuple']=self.ModeledDict['JoiningTuple']
 
 			#Maybe we have to structure
 			if self.IsGroupedBool==False:
@@ -801,11 +801,11 @@ class JoinerClass(SYS.FeaturerClass):
 			JoinedNodifiedNodedStr=""
 			JoinedNodifiedNodingStr=""
 
-		#Put them in the DatabasedDict
+		#Put them in the ModeledDict
 		LocalVars=vars()
 		map(
 				lambda __GettingStr:
-				self.DatabasedDict.__setitem__(__GettingStr,LocalVars[__GettingStr]),
+				self.ModeledDict.__setitem__(__GettingStr,LocalVars[__GettingStr]),
 				[
 					'JoinedNodifiedOrderedDict',
 					'JoinedNodifiedNodedStr',
@@ -820,7 +820,7 @@ class JoinerClass(SYS.FeaturerClass):
 		if JoinedModelStr!="":
 
 			#set a copy of it
-			LastDatabasedDict=copy.copy(self.DatabasedDict)
+			LastModeledDict=copy.copy(self.ModeledDict)
 
 			#debug
 			self.debug(
@@ -841,11 +841,11 @@ class JoinerClass(SYS.FeaturerClass):
 						]
 					)
 
-			#Copy the DatabasedDict
-			JoinedDatabasedDict=copy.copy(self.DatabasedDict)
+			#Copy the ModeledDict
+			JoinedModeledDict=copy.copy(self.ModeledDict)
 
-			#Reset the DatabasedDict to the original
-			self.DatabasedDict=LastDatabasedDict
+			#Reset the ModeledDict to the original
+			self.ModeledDict=LastModeledDict
 
 		else:
 
@@ -853,27 +853,27 @@ class JoinerClass(SYS.FeaturerClass):
 			self.debug('We dont need to table because this model has not a joined model')
 
 			#Init an empty dict
-			JoinedDatabasedDict={}
+			JoinedModeledDict={}
 
 		#set a link
-		self.DatabasedDict['JoinedDatabasedDict']=JoinedDatabasedDict
+		self.ModeledDict['JoinedModeledDict']=JoinedModeledDict
 
 		#Check
-		if JoinedDatabasedDict!={}:
+		if JoinedModeledDict!={}:
 
 			#debug
 			self.debug('We are building the JoinedRetrievingIndexesList and give him the TabledInt')
 
 			#set the JoinedRetrievingIndexesListKeyStr
-			JoinedRetrievingIndexesListKeyStr=JoinedDatabasedDict['DatabasedStr']+'RetrievingIndexesList'
-			self.DatabasedDict['JoinedRetrievingIndexesListKeyStr']=JoinedRetrievingIndexesListKeyStr
+			JoinedRetrievingIndexesListKeyStr=JoinedModeledDict['ModeledStr']+'RetrievingIndexesList'
+			self.ModeledDict['JoinedRetrievingIndexesListKeyStr']=JoinedRetrievingIndexesListKeyStr
 
-			#set in the DatabasedDict
-			self.DatabasedDict['JoinedOrderedDict'][JoinedRetrievingIndexesListKeyStr]=[JoinedDatabasedDict['TabledInt'],-1]
+			#set in the ModeledDict
+			self.ModeledDict['JoinedOrderedDict'][JoinedRetrievingIndexesListKeyStr]=[JoinedModeledDict['TabledInt'],-1]
 
 			#debug
-			self.debug("OK self.DatabasedDict['JoinedOrderedDict' is so "+str(
-				self.DatabasedDict['JoinedOrderedDict']))
+			self.debug("OK self.ModeledDict['JoinedOrderedDict' is so "+str(
+				self.ModeledDict['JoinedOrderedDict']))
 			
 		#debug
 		self.debug('End of the method')

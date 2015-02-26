@@ -26,14 +26,6 @@ SYS.setSubModule(globals())
 @DecorationClass()
 class SimulaterClass(BaseClass):
 	
-	#Definition
-	RepresentingKeyStrsList=[
-		'SimulatingStopTimeFloat',
-		'SimulatingInitFloatsArray',
-		'SimulatingStepTimeFloat',
-		'SimulatingStartTimeFloat'
-	]
-
 	def default_init(self,
 						_SimulatingStopTimeFloat=100.,
 						_SimulatingInitFloatsArray=None,
@@ -64,7 +56,17 @@ class SimulaterClass(BaseClass):
 
 					]))
 		'''
-		#Return self
-		#return self
+		pass
 
 #</DefineClass>
+
+#</DefinePrint>
+ParenterClass.PrintingClassSkipKeyStrsList.extend(
+	[
+		'SimulatingStopTimeFloat',
+		'SimulatingInitFloatsArray',
+		'SimulatingStepTimeFloat',
+		'SimulatingStartTimeFloat'
+	]
+)
+#<DefinePrint>

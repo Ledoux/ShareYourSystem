@@ -20,7 +20,6 @@ SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
-from ShareYourSystem.Standards.Noders import Noder
 from ShareYourSystem.Specials.Simulaters import Neurongrouper,Synapser
 import operator
 from brian2 import ms
@@ -37,23 +36,7 @@ from brian2 import ms
 	'ClassingSwitchMethodStrsList':['brian']
 })
 class BrianerClass(BaseClass):
-	
-	#Definition
-	RepresentingKeyStrsList=[
-							'BrianingTimeDimensionVariable',
-							'BrianingPrintRunIsBool',
-							'BrianedNetworkVariable',
-							'BrianedDeriveNeurongroupersList',
-							'BrianedDeriveSynapsersList',
-							'BrianedStepTimeFloatsList',
-							'BrianedClocksList',
-							'BrianedSimulationClock',
-							'BrianedNeuronGroupsList',
-							'BrianedStateMonitorsList',
-							'BrianedSpikeMonitorsList',
-							'BrianedSynapsesList'
-						]
-
+		
 	def default_init(self,
 						_BrianingTimeDimensionVariable=None,
 						_BrianingPrintRunIsBool=True,
@@ -328,3 +311,24 @@ class BrianerClass(BaseClass):
 			self.BrianedNetworkVariable.add(printControl);
 		"""
 #</DefineClass>
+
+
+
+#</DefinePrint>
+ParenterClass.PrintingClassSkipKeyStrsList.extend(
+	[
+		'BrianingTimeDimensionVariable',
+		'BrianingPrintRunIsBool',
+		'BrianedNetworkVariable',
+		'BrianedDeriveNeurongroupersList',
+		'BrianedDeriveSynapsersList',
+		'BrianedStepTimeFloatsList',
+		'BrianedClocksList',
+		'BrianedSimulationClock',
+		'BrianedNeuronGroupsList',
+		'BrianedStateMonitorsList',
+		'BrianedSpikeMonitorsList',
+		'BrianedSynapsesList'
+	]
+)
+#<DefinePrint>

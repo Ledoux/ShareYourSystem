@@ -64,26 +64,26 @@ class RetrieverClass(BaseClass):
 		#Call the parent init method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
-	def setDatabasingSealTuplesList(self,_SettingValueVariable):
+	def setModelingSealTuplesList(self,_SettingValueVariable):
 
 		#debug
 		'''
-		self.debug('Before we call the parent setDatabasingSealTuplesList method ')
+		self.debug('Before we call the parent setModelingSealTuplesList method ')
 		'''
 
 		#Hook
-		BaseClass.setDatabasingSealTuplesList(self,_SettingValueVariable)
+		BaseClass.setModelingSealTuplesList(self,_SettingValueVariable)
 
 		#Bind with RetrievedColumnStrToGetStrOrderedDict setting
 		if self.RetrievedColumnStrToGetStrOrderedDict==None:
 			self.RetrievedColumnStrToGetStrOrderedDict=collections.OrderedDict()
 		map(
-			lambda __DatabasingColumnTuple:
+			lambda __ModelingColumnTuple:
 			self.RetrievedColumnStrToGetStrOrderedDict.__setitem__(
-				__DatabasingColumnTuple[1],
-				__DatabasingColumnTuple[0]
+				__ModelingColumnTuple[1],
+				__ModelingColumnTuple[0]
 			),
-			self.DatabasingSealTuplesList
+			self.ModelingSealTuplesList
 		)
 
 		#Init
@@ -95,11 +95,11 @@ class RetrieverClass(BaseClass):
 		self.debug(('self.',self,['RetrievedColumnStrToGetStrOrderedDict']))
 		'''
 		
-	DatabasingSealTuplesList=property(
-									BaseClass.DatabasingSealTuplesList.fget,
-									setDatabasingSealTuplesList,
-									BaseClass.DatabasingSealTuplesList.fdel,
-									BaseClass.DatabasingSealTuplesList.__doc__
+	ModelingSealTuplesList=property(
+									BaseClass.ModelingSealTuplesList.fget,
+									setModelingSealTuplesList,
+									BaseClass.ModelingSealTuplesList.fdel,
+									BaseClass.ModelingSealTuplesList.__doc__
 								)
 	
 	#@Hooker.HookerClass(**{'HookingAfterVariablesList':[{"CallingMethodStr":"table"}]})

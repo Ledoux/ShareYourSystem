@@ -23,22 +23,22 @@ class JoinerClass(SYS.TablerClass):
 	def tabularAfter(self,**_TabularingVariablesDict):
 
 		#Maybe it is joined
-		if 'JoinedOrderedDict' in self.DatabasedDict:
+		if 'JoinedOrderedDict' in self.ModeledDict:
 			
-			self.join(self.DatabasedDict['JoiningStr'])
+			self.join(self.ModeledDict['JoiningStr'])
 
 			'''
 			self.TabularedRowedTuplesList+=zip( 
 												map(
 														lambda __JoiningChildObjects:
-														'DatabasedJoinList'+getattr(
+														'ModeledJoinList'+getattr(
 																__JoiningChildObjects,
 																DoneJoiningKeyStrKeyStr
 															),
-														self.DatabasedDict['JoinedOrderedDict'].values()
+														self.ModeledDict['JoinedOrderedDict'].values()
 													),
-												self.JoinedDatabasedFeaturedIntsTuplesList
-											)+[('DatabasedJoinList',self.DatabasedJoinList)]
+												self.JoinedModeledFeaturedIntsTuplesList
+											)+[('ModeledJoinList',self.ModeledJoinList)]
 			'''
 			
 			pass

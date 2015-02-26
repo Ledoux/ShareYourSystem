@@ -32,7 +32,7 @@ class InserterClass(
 
 		#debug
 		self.debug(
-					('self.',self,['DatabasingModelStr','RowedIdentifiedOrderedDict'])
+					('self.',self,['ModelingModelStr','RowedIdentifiedOrderedDict'])
 				)
 
 		#<NotHook>
@@ -156,7 +156,7 @@ def attest_insert():
 							'<Database>MyInserter',
 							InserterClass().update(
 								[
-									('DatabasingSealTuplesList',
+									('ModelingSealTuplesList',
 										[
 											('MyInt',tables.Int64Col()),
 											('MyStr',tables.StrCol(10)),

@@ -137,9 +137,9 @@ class OrganizerClass(BaseClass):
 						Hierarchizer.HierarchizerClass().update(
 							[
 								(
-									'Attr_DatabasingSealTuplesList',
+									'Attr_ModelingSealTuplesList',
 									map(
-										Modeler.getDatabasingColumnTupleWithGetKeyStr,
+										Modeler.getModelingColumnTupleWithGetKeyStr,
 										self.OrganizingInKeyStrsList
 									)
 								),
@@ -159,9 +159,9 @@ class OrganizerClass(BaseClass):
 						Hierarchizer.HierarchizerClass().update(
 							[
 								(
-									'Attr_DatabasingSealTuplesList',
+									'Attr_ModelingSealTuplesList',
 									map(
-										Modeler.getDatabasingColumnTupleWithGetKeyStr,
+										Modeler.getModelingColumnTupleWithGetKeyStr,
 										self.OrganizingOutKeyStrsList
 									)
 								),

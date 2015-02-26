@@ -336,7 +336,9 @@ class WatcherClass(BaseClass):
 						self.DoClass.PrintingClassSkipKeyStrsList.extend(
 							[
 								self.WatchedBeforeDoBoolKeyStr,
-								self.WatchedAfterDoBoolKeyStr
+								self.WatchedAfterDoBoolKeyStr,
+								Propertiser.PropertyGetStr+self.WatchedBeforeDoBoolKeyStr,
+								Propertiser.PropertyGetStr+self.WatchedAfterDoBoolKeyStr
 							]
 						)
 

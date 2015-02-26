@@ -1815,7 +1815,7 @@ class TablerClass(
 
         #debug
         '''
-        self.debug(('self.',self,['DatabasingSealTuplesList']))
+        self.debug(('self.',self,['ModelingSealTuplesList']))
         '''
 
         #&lt;NotHook&gt;
@@ -1829,8 +1829,8 @@ class TablerClass(
                     [
                         'We are going to look if this is a new table or not...In order to index it',
                         ('self.',self,[
-                                            'DatabasedKeyStr',
-                                            'DatabasedModelClass',
+                                            'ModeledKeyStr',
+                                            'ModeledDescriptionClass',
                                             'TabularedTableKeyStrsList',
                                             'TabularedSuffixStr',
                                             'TabledKeyStr'
@@ -1970,13 +1970,13 @@ class TablerClass(
                 self.TabledTable=self.TabularedTopFileVariable.create_table(
                                             self.TabularedGroupVariable,
                                             self.TabledKeyStr,
-                                            self.DatabasedModelClass,
-                                            self.DatabasedModelClass.__doc__ 
-                                            if self.DatabasedModelClass.__doc__!=None 
-                                            else "This is the "+self.DatabasedModelClass.__name__
+                                            self.ModeledDescriptionClass,
+                                            self.ModeledDescriptionClass.__doc__ 
+                                            if self.ModeledDescriptionClass.__doc__!=None 
+                                            else "This is the "+self.ModeledDescriptionClass.__name__
                                         )
 
-                #Append in the self.DatabasedDict['TabularedTableKeyStrsList']
+                #Append in the self.ModeledDict['TabularedTableKeyStrsList']
                 self.TabularedTableKeyStrsList.append(self.TabledKeyStr)
 
             else:
@@ -2061,7 +2061,7 @@ In&nbsp;[3]:
     <span class="s">&quot;Datome&quot;</span><span class="p">,</span>
     <span class="s">&quot;Things&quot;</span><span class="p">,</span>
     <span class="n">Tabler</span><span class="o">.</span><span class="n">TablerClass</span><span class="p">()</span><span class="o">.</span><span class="n">__setitem__</span><span class="p">(</span>
-        <span class="s">&#39;Attr_DatabasingSealTuplesList&#39;</span><span class="p">,</span>
+        <span class="s">&#39;Attr_ModelingSealTuplesList&#39;</span><span class="p">,</span>
         <span class="p">[</span>
             <span class="c">#GetStr #ColumnStr #Col</span>
             <span class="p">(</span><span class="s">&#39;MyInt&#39;</span><span class="p">,</span><span class="s">&#39;MyInt&#39;</span><span class="p">,</span><span class="n">tables</span><span class="o">.</span><span class="n">Int64Col</span><span class="p">()),</span>
@@ -2121,7 +2121,7 @@ MyStructurer is &lt; (StructurerClass), 4565343056&gt;
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeKeyStr&apos; : ThingsTabler
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (StructurerClass), 4565343056&gt;
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4565726744&gt;
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;_DatabasingSealTuplesList&apos; : 
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;_ModelingSealTuplesList&apos; : 
    /   /   /   /[
    /   /   /   /  0 : 
    /   /   /   /   /(

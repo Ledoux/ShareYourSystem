@@ -37,7 +37,11 @@ ParentTopStr="Top"
 class ParenterClass(BaseClass):
 
 	def default_init(self,
-				_ParentKeyStr="Top",
+				_ParentKeyStr={
+					'DefaultingSetType':property,
+					'PropertizingInitVariable':"Top",
+					'PropertizingDocStr':'I am reactive when I know my parent !'
+				},
 				_ParentDeriveTeamerVariable=None,
 				_ParentTopDeriveTeamerVariable=None,
 				_ParentingDownBool=False,
@@ -354,12 +358,16 @@ ParenterClass.PrintingClassSkipKeyStrsList.extend(
 			'ParentKeyStr',
 			'ParentDeriveTeamerVariable',
 			'ParentTopDeriveTeamerVariable',
+			'ParentingDownBool',
+			'ParentingUpBool',
+			#'ParentingTriggerVariable',
 			'ParentedTotalDeriveTeamersList',
 			'ParentedDeriveTeamersList',
 			'ParentedDeriveManagersList',
 			#'ParentedTotalPathStr',
 			'ParentedTeamPathStr',
 			'ParentedManagementPathStr',
+			'ParentedTriggerVariablesList'
 	]
 )
 #<DefinePrint>

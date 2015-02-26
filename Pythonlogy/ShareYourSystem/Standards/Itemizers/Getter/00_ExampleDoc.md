@@ -5,4 +5,4 @@ FrozenIsBool True
 
 ##Example
 
-Let's get
+Let's test some basic gets with the object MyGetter...

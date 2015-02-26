@@ -1,6 +1,5 @@
 #ImportModules
 import ShareYourSystem as SYS
-import operator
 
 #Definition
 MyBrianer=SYS.BrianerClass(

@@ -97,7 +97,7 @@ class TablerClass(
 
                 #debug
                 '''
-                self.debug(('self.',self,['DatabasingSealTuplesList']))
+                self.debug(('self.',self,['ModelingSealTuplesList']))
                 '''
 
                 #<NotHook>
@@ -112,8 +112,8 @@ class TablerClass(
                                                 'We are going to look if this is
 a new table or not...In order to index it',
                                                 ('self.',self,[
-        'DatabasedKeyStr',
-        'DatabasedModelClass',
+        'ModeledKeyStr',
+        'ModeledDescriptionClass',
         'TabularedTableKeyStrsList',
         'TabularedSuffixStr',
         'TabledKeyStr'
@@ -264,14 +264,14 @@ exists',
 self.TabledTable=self.TabularedTopFileVariable.create_table(
         self.TabularedGroupVariable,
         self.TabledKeyStr,
-        self.DatabasedModelClass,
-        self.DatabasedModelClass.__doc__
-        if self.DatabasedModelClass.__doc__!=None
-        else "This is the "+self.DatabasedModelClass.__name__
+        self.ModeledDescriptionClass,
+        self.ModeledDescriptionClass.__doc__
+        if self.ModeledDescriptionClass.__doc__!=None
+        else "This is the "+self.ModeledDescriptionClass.__name__
 )
 
                                 #Append in the
-self.DatabasedDict['TabularedTableKeyStrsList']
+self.ModeledDict['TabularedTableKeyStrsList']
 self.TabularedTableKeyStrsList.append(self.TabledKeyStr)
 
                         else:
@@ -351,7 +351,7 @@ MyStructurer=Structurer.StructurerClass().collect(
     "Datome",
     "Things",
     Tabler.TablerClass().__setitem__(
-        'Attr_DatabasingSealTuplesList',
+        'Attr_ModelingSealTuplesList',
         [
             #GetStr #ColumnStr #Col
             ('MyInt','MyInt',tables.Int64Col()),
@@ -408,7 +408,7 @@ MyStructurer is < (StructurerClass), 4563970960>
 4563970960>
    /   /   /  '<New><Instance>NodePointOrderedDict' : {...}< (OrderedDict),
 4561445832>
-   /   /   /  '<New><Instance>_DatabasingSealTuplesList' :
+   /   /   /  '<New><Instance>_ModelingSealTuplesList' :
    /   /   /   /[
    /   /   /   /  0 :
    /   /   /   /   /(

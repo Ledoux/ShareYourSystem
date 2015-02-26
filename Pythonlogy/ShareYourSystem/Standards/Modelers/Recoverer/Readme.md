@@ -203,7 +203,7 @@ MyStructurer=Structurer.StructurerClass().collect(
     Recoverer.RecovererClass().update(
         [
             (
-                'Attr_DatabasingSealTuplesList',
+                'Attr_ModelingSealTuplesList',
                 [
                     #GetStr #ColumnStr #Col
                     ('MyInt','MyInt',tables.Int64Col()),
@@ -297,7 +297,7 @@ MyStructurer is < (StructurerClass), 4563970576>
 4563970576>
    /   /   /  '<New><Instance>NodePointOrderedDict' : {...}< (OrderedDict),
 4564034208>
-   /   /   /  '<New><Instance>_DatabasingSealTuplesList' :
+   /   /   /  '<New><Instance>_ModelingSealTuplesList' :
    /   /   /   /[
    /   /   /   /  0 :
    /   /   /   /   /(

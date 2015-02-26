@@ -7,7 +7,7 @@ import sys
 #</ImportSpecificModules>
 
 #<DefineLocals>
-DatabasingJoinStr=SYS.Modeler.DatabasingJoinStr
+ModelingJoinStr=SYS.Modeler.ModelingJoinStr
 #</DefineLocals>
 
 #<DefineClass>
@@ -29,31 +29,31 @@ class TablerClass(
 		#self.IsRowingBool=True
 		#</DefineSpecificDo>
 
-		self.RepresentingKeyVariablesList+=['DatabasedOrderedDict']
+		self.RepresentingKeyVariablesList+=['ModeledOrderedDict']
 
 	#</DefineHookMethods>
 
 	#<DefineMethod>
-	def modelAfter(self,**_DatabasingVariablesList):
+	def modelAfter(self,**_ModelingVariablesList):
 
 		#debug
 		print('Tabler modelAfter method')
-		print(self.DatabasedDict)
+		print(self.ModeledDict)
 
 		#Definition the ModelClass
-		ModelClass=self.DatabasedDict['ModelClassesOrderedDict'][self.DatabasedDict['ShapingStr']]
+		ModelClass=self.ModeledDict['ModelClassesOrderedDict'][self.ModeledDict['ShapingStr']]
 
 		#Definition the TableStr
-		TableStr=DatabasingJoinStr.join(
-						ModelClass.__name__.split(DatabasingJoinStr)[1:-1]
-					)+DatabasingJoinStr+'Table'
+		TableStr=ModelingJoinStr.join(
+						ModelClass.__name__.split(ModelingJoinStr)[1:-1]
+					)+ModelingJoinStr+'Table'
 
 		#Definition the TablePathStr
 		TablePathStr=self.GroupedPathStr+'/'+TableStr
 
 		#Create the Table if not already
 		if TablePathStr not in self.HdformatedFileVariable:
-			self.DatabasedDict['Table']=self.HdformatedFileVariable.create_table(
+			self.ModeledDict['Table']=self.HdformatedFileVariable.create_table(
 												self.HdformatedFileVariable.getNode(self.GroupedPathStr),
 												TableStr,
 												ModelClass,
@@ -62,7 +62,7 @@ class TablerClass(
 												else "This is the "+ModelClass.__name__
 									)
 		else:
-			self.DatabasedDict['Table']=self.HdformatedFileVariable.getNode(
+			self.ModeledDict['Table']=self.HdformatedFileVariable.getNode(
 				TablePathStr)
 		
 	"""					
@@ -75,10 +75,10 @@ class TablerClass(
 		#Definition the DoneTabularingStr
 		DoneTabularingStr=SYS.getDoneStrWithDoStr(_TabularingStr)
 		
-		#Check that the DatabasedOrderedDict exists 
-		DatabasedOrderedSetTagStr="Databased"+DoneTabularingStr+"OrderedDict"
-		if hasattr(self,DatabasedOrderedSetTagStr):
-			DatabasedOrderedDict=getattr(self,DatabasedOrderedSetTagStr)
+		#Check that the ModeledOrderedDict exists 
+		ModeledOrderedSetTagStr="Modeled"+DoneTabularingStr+"OrderedDict"
+		if hasattr(self,ModeledOrderedSetTagStr):
+			ModeledOrderedDict=getattr(self,ModeledOrderedSetTagStr)
 
 			#Hdformat maybe if it was not done
 			if hasattr(self,'HdformatedFileVariable')==None:
@@ -90,38 +90,38 @@ class TablerClass(
 			if hasattr(self,TabularedTablesOrderedSetTagStr):
 				TabularedTablesOrderedDict=getattr(self,TabularedTablesOrderedSetTagStr)
 
-				#Definition the DatabasingJoinStr
-				DatabasingJoinStr=SYS.Modeler.DatabasingJoinStr
+				#Definition the ModelingJoinStr
+				ModelingJoinStr=SYS.Modeler.ModelingJoinStr
 
 				#debug
-				#print('DatabasingJoinStr is : ',DatabasingJoinStr)
+				#print('ModelingJoinStr is : ',ModelingJoinStr)
 
 				#Create the table or get it and set it again
 				map(
-						lambda __TableStrAndTableGroupedPathStrTuple,__DatabasedModelClass:
+						lambda __TableStrAndTableGroupedPathStrTuple,__ModeledDescriptionClass:
 						TabularedTablesOrderedDict.__setitem__(
-							DatabasingJoinStr.join(
-								__TableStrAndTableGroupedPathStrTuple[0].split(DatabasingJoinStr)[:-1]
+							ModelingJoinStr.join(
+								__TableStrAndTableGroupedPathStrTuple[0].split(ModelingJoinStr)[:-1]
 								),
 							self.HdformatedFileVariable.create_table(
 											self.HdformatedFileVariable.getNode(self.GroupedPathStr),
 											__TableStrAndTableGroupedPathStrTuple[0],
-											__DatabasedModelClass,
-											__DatabasedModelClass.__doc__ 
-											if __DatabasedModelClass.__doc__!=None 
-											else "This is the "+__DatabasedModelClass.__name__
+											__ModeledDescriptionClass,
+											__ModeledDescriptionClass.__doc__ 
+											if __ModeledDescriptionClass.__doc__!=None 
+											else "This is the "+__ModeledDescriptionClass.__name__
 								)
 						) 
 						if __TableStrAndTableGroupedPathStrTuple[1] not in self.HdformatedFileVariable
 						else
 						#Get the Node and set it to the TabularedDict
 						TabularedTablesOrderedDict.__setitem__(
-								DatabasingJoinStr.join(
-								__TableStrAndTableGroupedPathStrTuple[0].split(DatabasingJoinStr)[:-1]
+								ModelingJoinStr.join(
+								__TableStrAndTableGroupedPathStrTuple[0].split(ModelingJoinStr)[:-1]
 								),
 								self.HdformatedFileVariable.getNode(__TableStrAndTableGroupedPathStrTuple[1])
 							),
-						#Map on (__TableStr,__TableGroupedPathStr),__DatabasedModelClass
+						#Map on (__TableStr,__TableGroupedPathStr),__ModeledDescriptionClass
 						map(
 							lambda __TableStr:
 							(
@@ -132,11 +132,11 @@ class TablerClass(
 							map(
 								lambda __ClassKeyStr:
 								#'Class'.join(__ClassKeyStr.split('Class')[:-1])+'Table'
-								__ClassKeyStr+DatabasingJoinStr+DoneTabularingStr+'Table'
-								,DatabasedOrderedDict.keys()
+								__ClassKeyStr+ModelingJoinStr+DoneTabularingStr+'Table'
+								,ModeledOrderedDict.keys()
 								)	
 						),
-						DatabasedOrderedDict.values()
+						ModeledOrderedDict.values()
 					)
 
 				#Do a smart joining link to the corresponding OrderedDict
@@ -161,8 +161,8 @@ class TablerClass(
 
 
 		else:
-			print('WARNING tabular method : not such DatabasedOrderedSetTagStr ',
-				DatabasedOrderedSetTagStr)
+			print('WARNING tabular method : not such ModeledOrderedSetTagStr ',
+				ModeledOrderedSetTagStr)
 
 		#Return self
 		return self
@@ -171,15 +171,15 @@ class TablerClass(
 	"""
 		'''
 			#debug
-			#print('DatabasedGettingStrsList is ',DatabasedGettingStrsList)
+			#print('ModeledGettingStrsList is ',ModeledGettingStrsList)
 
 			#Build the Table of it doesn't exist yet
 			if TableStr not in TabularedTablesOrderedDict:
 
 				#Build maybe the model
-				DatabasedOrderedSetTagStr="Databased"+DoneTabularingStr+"OrderedDict"
-				DatabasedOrderedDict=getattr(self,DatabasedOrderedSetTagStr)
-				if TableStr not in DatabasedOrderedDict:
+				ModeledOrderedSetTagStr="Modeled"+DoneTabularingStr+"OrderedDict"
+				ModeledOrderedDict=getattr(self,ModeledOrderedSetTagStr)
+				if TableStr not in ModeledOrderedDict:
 					self.model(_CalibratingStr)
 
 				#Tabular
@@ -189,7 +189,7 @@ class TablerClass(
 			#print('TabularedTablesOrderedDict is ',TabularedTablesOrderedDict)
 
 			#Definition the Table
-			self.TabularedCalibratedModelClass=DatabasedOrderedDict[TableStr]
+			self.TabularedCalibratedModelClass=ModeledOrderedDict[TableStr]
 			self.TabularedCalibratedTable=TabularedTablesOrderedDict[TableStr]
 			self.TabularedCalibratedKeyStr=TableStr
 
@@ -248,15 +248,15 @@ class TablerClass(
 			#set the TabularedRowedPointer
 			self.TabularedRowedPointer=self.TabularedCalibratedTable.row
 
-			#Get the DatabasingTuplesList
-			DatabasingTuplesList=self.DatabasingDict[
+			#Get the ModelingTuplesList
+			ModelingTuplesList=self.ModelingDict[
 				SYS.getDoingStrWithDoStr(_RowingVariablesDict['RowingStr'])+'TuplesList'
 				]
 
 			#Get the InsertingTuplesList
 			self.TabularedRowedTuplesList=zip(
-									SYS.unzip(DatabasingTuplesList,[0]),
-									self.pick(SYS.unzip(DatabasingTuplesList,[0]))
+									SYS.unzip(ModelingTuplesList,[0]),
+									self.pick(SYS.unzip(ModelingTuplesList,[0]))
 								)
 
 	def insert(self):
@@ -289,13 +289,13 @@ class TablerClass(
 			else:
 				JoiningOrderedDict={}
 
-			#Get the DatabasingTuplesList
-			DatabasingTuplesList=self.DatabasingDict[DoingDatabasingStr+'TuplesList']
+			#Get the ModelingTuplesList
+			ModelingTuplesList=self.ModelingDict[DoingModelingStr+'TuplesList']
 
 			#Get the InsertingTuplesList
 			InsertingTuplesList=zip(
-									SYS.unzip(DatabasingTuplesList,[0]),
-									self.pick(SYS.unzip(DatabasingTuplesList,[0]))
+									SYS.unzip(ModelingTuplesList,[0]),
+									self.pick(SYS.unzip(ModelingTuplesList,[0]))
 								)
 
 			#If it is an output add the joins
@@ -315,8 +315,8 @@ class TablerClass(
 												),
 												JoiningOrderedDict.values()
 											),
-										self.JoinedDatabasedFeaturedIntsTuplesList
-									)+[('DatabasedFeaturedIntsTuple',self.DatabasedFeaturedIntsTuple)]
+										self.JoinedModeledFeaturedIntsTuplesList
+									)+[('ModeledFeaturedIntsTuple',self.ModeledFeaturedIntsTuple)]
 	'''
 
 

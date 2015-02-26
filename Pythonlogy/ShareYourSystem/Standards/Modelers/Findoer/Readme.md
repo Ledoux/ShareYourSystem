@@ -100,7 +100,7 @@ class FindoerClass(BaseClass):
 
                 #debug
                 '''
-self.debug(("self.",self,['DatabasedKeyStr','FindingConditionVariable']))
+self.debug(("self.",self,['ModeledKeyStr','FindingConditionVariable']))
                 '''
 
                 #<NotHook>
@@ -200,7 +200,7 @@ MyStructurer=Structurer.StructurerClass().collect(
     Findoer.FindoerClass().update(
         [
             (
-                'Attr_DatabasingSealTuplesList',
+                'Attr_ModelingSealTuplesList',
                 [
                     #GetStr #ColumnStr #Col
                     ('MyInt','MyInt',tables.Int64Col()),
@@ -290,7 +290,7 @@ MyStructurer is < (StructurerClass), 4559346064>
 4559346064>
    /   /   /  '<New><Instance>NodePointOrderedDict' : {...}< (OrderedDict),
 4563689008>
-   /   /   /  '<New><Instance>_DatabasingSealTuplesList' :
+   /   /   /  '<New><Instance>_ModelingSealTuplesList' :
    /   /   /   /[
    /   /   /   /  0 :
    /   /   /   /   /(

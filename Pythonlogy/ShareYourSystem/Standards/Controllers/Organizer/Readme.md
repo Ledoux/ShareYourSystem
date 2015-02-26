@@ -170,9 +170,9 @@ r+self.OrganizingInStr+'Hierarchizer'
 Hierarchizer.HierarchizerClass().update(
                                                         [
                                                                 (
-'Attr_DatabasingSealTuplesList',
+'Attr_ModelingSealTuplesList',
                                                                         map(
-Modeler.getDatabasingColumnTupleWithGetKeyStr,
+Modeler.getModelingColumnTupleWithGetKeyStr,
 self.OrganizingInKeyStrsList
                                                                         )
                                                                 ),
@@ -192,9 +192,9 @@ self.OrganizedInConnectAttentionGetStrsList
 Hierarchizer.HierarchizerClass().update(
                                                         [
                                                                 (
-'Attr_DatabasingSealTuplesList',
+'Attr_ModelingSealTuplesList',
                                                                         map(
-Modeler.getDatabasingColumnTupleWithGetKeyStr,
+Modeler.getModelingColumnTupleWithGetKeyStr,
 self.OrganizingOutKeyStrsList
                                                                         )
                                                                 ),
@@ -652,7 +652,7 @@ ResultsHierarchizer
    /   /   /   /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /   /   /   /  '<New><Instance>TagStr' : Networked
    /   /   /   /   /   /   /   /   /   /
-'<New><Instance>_DatabasingSealTuplesList' :
+'<New><Instance>_ModelingSealTuplesList' :
    /   /   /   /   /   /   /   /   /   /   /[
    /   /   /   /   /   /   /   /   /   /   /  0 :
    /   /   /   /   /   /   /   /   /   /   /   /(
@@ -814,7 +814,7 @@ ParametersHierarchizer
    /   /   /   /   /   /   /   /   /   /   /   /   /   /
 '<New><Instance>TagStr' : Networked
    /   /   /   /   /   /   /   /   /   /   /   /   /   /
-'<New><Instance>_DatabasingSealTuplesList' :
+'<New><Instance>_ModelingSealTuplesList' :
    /   /   /   /   /   /   /   /   /   /   /   /   /   /   /[
    /   /   /   /   /   /   /   /   /   /   /   /   /   /   /  0 :
    /   /   /   /   /   /   /   /   /   /   /   /   /   /   /   /(
@@ -925,7 +925,7 @@ YSumer
    /   /   /   /   /   /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /   /   /   /   /
-'<New><Instance>_DatabasingSealTuplesList' :
+'<New><Instance>_ModelingSealTuplesList' :
    /   /   /   /   /   /   /   /   /   /   /   /[
    /   /   /   /   /   /   /   /   /   /   /   /  0 :
    /   /   /   /   /   /   /   /   /   /   /   /   /(
@@ -983,7 +983,7 @@ CatchToPointVariable
 CatchToPointVariable
    /   /   /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /   /   /}
-   /   /   /   /   /   /   /   /  '<New><Instance>_DatabasingSealTuplesList' :
+   /   /   /   /   /   /   /   /  '<New><Instance>_ModelingSealTuplesList' :
    /   /   /   /   /   /   /   /   /[
    /   /   /   /   /   /   /   /   /  0 :
    /   /   /   /   /   /   /   /   /   /(
@@ -1102,7 +1102,7 @@ CatchToPointVariable
    /   /   /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /   /  '<New><Instance>TagStr' : Networked
-   /   /   /   /   /   /   /   /  '<New><Instance>_DatabasingSealTuplesList' :
+   /   /   /   /   /   /   /   /  '<New><Instance>_ModelingSealTuplesList' :
    /   /   /   /   /   /   /   /   /[
    /   /   /   /   /   /   /   /   /  0 :
    /   /   /   /   /   /   /   /   /   /(
@@ -1141,7 +1141,7 @@ CatchToPointVariable
 CatchToPointVariable
    /   /   /   /   /   /   /}
    /   /   /   /   /   /}
-   /   /   /   /   /  '<New><Instance>_DatabasingSealTuplesList' :
+   /   /   /   /   /  '<New><Instance>_ModelingSealTuplesList' :
    /   /   /   /   /   /[
    /   /   /   /   /   /  0 :
    /   /   /   /   /   /   /(

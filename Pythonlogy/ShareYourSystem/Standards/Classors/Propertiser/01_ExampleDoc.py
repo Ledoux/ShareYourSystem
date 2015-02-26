@@ -22,7 +22,7 @@ class MakerClass(SYS.ObjectClass):
 		SYS.ObjectClass.__init__(self)
 
 	#Definition a binding function
-	def setMakingMyFloat(self,_SettingValueVariable):
+	def propertize_setMakingMyFloat(self,_SettingValueVariable):
 
 		#Print
 		#print('I am going to make the job directly !')
@@ -34,7 +34,7 @@ class MakerClass(SYS.ObjectClass):
 		self.MadeMyInt=int(self._MakingMyFloat)
 
 	#Definition a binding function
-	def setMakingMyList(self,_SettingValueVariable):
+	def propertize_setMakingMyList(self,_SettingValueVariable):
 
 		#set the value of the "hidden" property variable
 		self._MakingMyList=_SettingValueVariable+['Hellllllo']

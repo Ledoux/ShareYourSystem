@@ -88,10 +88,10 @@ class JoinerClass(BaseClass):
 		#</NotHook>
 		
 		#debug
-		self.debug('Add in the DatabasingSealTuplesList')
+		self.debug('Add in the ModelingSealTuplesList')
 
 		#set
-		self.DatabasingSealTuplesList+=map(
+		self.ModelingSealTuplesList+=map(
 				lambda __JoinedRetrieveIndexesListGetStr,__JoinedRetrieveIndexesListColumnStr:
 				(
 					__JoinedRetrieveIndexesListGetStr,
@@ -103,7 +103,7 @@ class JoinerClass(BaseClass):
 			)
 
 		#debug
-		self.debug(('self.',self,['DatabasingSealTuplesList']))
+		self.debug(('self.',self,['ModelingSealTuplesList']))
 
 		#<NotHook>
 		#join and model first
@@ -257,7 +257,7 @@ class JoinerClass(BaseClass):
 			)
 
 			#Alias
-			JoinedRetrievingIndexesListKeyStr=self.DatabasedDict['JoinedRetrievingIndexesListKeyStr']
+			JoinedRetrievingIndexesListKeyStr=self.ModeledDict['JoinedRetrievingIndexesListKeyStr']
 
 			#Make the TabledInt and the RowInt as a <JoiningDatabaseKeyStr>RetrievingIndexesList
 			map(
@@ -306,15 +306,15 @@ class JoinerClass(BaseClass):
 		#debug
 		self.debug(
 					[
-						('self.DatabasedDict',self.DatabasedDict,['ModelStr','FoundRowDictsList'])
+						('self.ModeledDict',self.ModeledDict,['ModelStr','FoundRowDictsList'])
 					]
 				)
 
-		#Put them in the DatabasedDict
+		#Put them in the ModeledDict
 		LocalVars=vars()
 		map(
 				lambda __GettingStr:
-				self.DatabasedDict.__setitem__(__GettingStr,LocalVars[__GettingStr]),
+				self.ModeledDict.__setitem__(__GettingStr,LocalVars[__GettingStr]),
 				[
 					'JoinedFindingTuplesList',
 				]
@@ -327,30 +327,30 @@ class JoinerClass(BaseClass):
 					[
 						('Are we going to do a where with the FoundFilteredRowedDictsList and the '),
 						('filtering JoinedFindingTuplesList?'),
-						('self.DatabasedDict ',self.DatabasedDict,[
+						('self.ModeledDict ',self.ModeledDict,[
 																'ModelStr',
 																'FoundFilteredRowedDictsList'
 																]),
-						("'JoinedFindingTuplesList' in self.DatabasedDict is "+str(
-							'JoinedFindingTuplesList' in self.DatabasedDict))
+						("'JoinedFindingTuplesList' in self.ModeledDict is "+str(
+							'JoinedFindingTuplesList' in self.ModeledDict))
 					]
 			)
 
-		if 'JoinedFindingTuplesList' in self.DatabasedDict:
+		if 'JoinedFindingTuplesList' in self.ModeledDict:
 
 			#debug
 			self.debug(
 						[
 							'Ok we are going to do the where',
-							"self.DatabasedDict['JoinedFindingTuplesList'] is "+str(
-								self.DatabasedDict['JoinedFindingTuplesList'])
+							"self.ModeledDict['JoinedFindingTuplesList'] is "+str(
+								self.ModeledDict['JoinedFindingTuplesList'])
 						]
 					)
 
 			#Where
-			self.DatabasedDict['FoundFilteredRowedDictsList']=SYS.filterNone(SYS.where(
-							self.DatabasedDict['FoundFilteredRowedDictsList'],
-							self.DatabasedDict['JoinedFindingTuplesList']
+			self.ModeledDict['FoundFilteredRowedDictsList']=SYS.filterNone(SYS.where(
+							self.ModeledDict['FoundFilteredRowedDictsList'],
+							self.ModeledDict['JoinedFindingTuplesList']
 							)
 			)
 
@@ -361,7 +361,7 @@ class JoinerClass(BaseClass):
 		self.debug(
 					[
 						'After intersection',
-						('self.DatabasedDict ',self.DatabasedDict,[
+						('self.ModeledDict ',self.ModeledDict,[
 															'ModelStr',
 															'FoundFilteredRowedDictsList'
 															]
@@ -380,7 +380,7 @@ class JoinerClass(BaseClass):
 		self.debug(
 					[
 						('self.',self,[
-											'DatabasingModelStr',
+											'ModelingModelStr',
 											'FoundFilteredRowedDictsList'
 											]
 										)
@@ -404,7 +404,7 @@ class JoinerClass(BaseClass):
 			JoinedRecoveredDict=self.FoundFilteredRowedDictsList[0]
 
 			#Alias
-			JoinedRetrievingIndexesListKeyStr=self.DatabasedDict['JoinedRetrievingIndexesListKeyStr']
+			JoinedRetrievingIndexesListKeyStr=self.ModeledDict['JoinedRetrievingIndexesListKeyStr']
 				
 		else:
 
@@ -459,7 +459,7 @@ class JoinerClass(BaseClass):
 
 			self.JoinedRetrieveIndexesListGetStrsList=map(
 					lambda __JoiningDatabaseKeyStr:
-					'Joined'+self.DatabasingKeyStr+'To'+__JoiningDatabaseKeyStr+'RetrieveIndexesList',
+					'Joined'+self.ModelingKeyStr+'To'+__JoiningDatabaseKeyStr+'RetrieveIndexesList',
 					self.JoiningDownGetKeyStrsList
 				)
 			

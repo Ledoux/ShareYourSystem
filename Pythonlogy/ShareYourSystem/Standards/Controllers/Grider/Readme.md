@@ -480,7 +480,7 @@ inform.py <module>
 
                                         l.60 :
                                         *****
-                                        I am with [('DatabasingKeyStr',
+                                        I am with [('ModelingKeyStr',
 'ParametersHierarchizer'), ('NodeKeyStr', 'ParametersHierarchizer')]
                                         *****
                                         self.AttentioningCollectionStr is
@@ -506,7 +506,7 @@ inform.py <module>
 
                                         l.60 :
                                         *****
-                                        I am with [('DatabasingKeyStr',
+                                        I am with [('ModelingKeyStr',
 'ParametersHierarchizer'), ('NodeKeyStr', 'ParametersHierarchizer')]
                                         *****
                                         self.AttentioningCollectionStr is
@@ -532,7 +532,7 @@ inform.py <module>
 
                                         l.60 :
                                         *****
-                                        I am with [('DatabasingKeyStr',
+                                        I am with [('ModelingKeyStr',
 'ResultsHierarchizer'), ('NodeKeyStr', 'ResultsHierarchizer')]
                                         *****
                                         self.AttentioningCollectionStr is
@@ -558,7 +558,7 @@ inform.py <module>
 
                                         l.60 :
                                         *****
-                                        I am with [('DatabasingKeyStr',
+                                        I am with [('ModelingKeyStr',
 'ResultsHierarchizer'), ('NodeKeyStr', 'ResultsHierarchizer')]
                                         *****
                                         self.AttentioningCollectionStr is
@@ -584,7 +584,7 @@ inform.py <module>
 
                                         l.60 :
                                         *****
-                                        I am with [('DatabasingKeyStr',
+                                        I am with [('ModelingKeyStr',
 'ResultsHierarchizer'), ('NodeKeyStr', 'ResultsHierarchizer')]
                                         *****
                                         self.AttentioningCollectionStr is
@@ -778,7 +778,7 @@ ResultsHierarchizer
    /   /   /   /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /   /   /   /  '<New><Instance>TagStr' : Networked
    /   /   /   /   /   /   /   /   /   /
-'<New><Instance>_DatabasingSealTuplesList' :
+'<New><Instance>_ModelingSealTuplesList' :
    /   /   /   /   /   /   /   /   /   /   /[
    /   /   /   /   /   /   /   /   /   /   /  0 :
    /   /   /   /   /   /   /   /   /   /   /   /(
@@ -951,7 +951,7 @@ ParametersHierarchizer
    /   /   /   /   /   /   /   /   /   /   /   /   /   /
 '<New><Instance>TagStr' : Networked
    /   /   /   /   /   /   /   /   /   /   /   /   /   /
-'<New><Instance>_DatabasingSealTuplesList' :
+'<New><Instance>_ModelingSealTuplesList' :
    /   /   /   /   /   /   /   /   /   /   /   /   /   /   /[
    /   /   /   /   /   /   /   /   /   /   /   /   /   /   /  0 :
    /   /   /   /   /   /   /   /   /   /   /   /   /   /   /   /(
@@ -1076,7 +1076,7 @@ YSumer
    /   /   /   /   /   /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /   /   /   /   /
-'<New><Instance>_DatabasingSealTuplesList' :
+'<New><Instance>_ModelingSealTuplesList' :
    /   /   /   /   /   /   /   /   /   /   /   /[
    /   /   /   /   /   /   /   /   /   /   /   /  0 :
    /   /   /   /   /   /   /   /   /   /   /   /   /(
@@ -1134,7 +1134,7 @@ CatchToPointVariable
 CatchToPointVariable
    /   /   /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /   /   /}
-   /   /   /   /   /   /   /   /  '<New><Instance>_DatabasingSealTuplesList' :
+   /   /   /   /   /   /   /   /  '<New><Instance>_ModelingSealTuplesList' :
    /   /   /   /   /   /   /   /   /[
    /   /   /   /   /   /   /   /   /  0 :
    /   /   /   /   /   /   /   /   /   /(
@@ -1280,7 +1280,7 @@ CatchToPointVariable
 CatchToPointVariable
    /   /   /   /   /   /   /}
    /   /   /   /   /   /}
-   /   /   /   /   /  '<New><Instance>_DatabasingSealTuplesList' :
+   /   /   /   /   /  '<New><Instance>_ModelingSealTuplesList' :
    /   /   /   /   /   /[
    /   /   /   /   /   /  0 :
    /   /   /   /   /   /   /(

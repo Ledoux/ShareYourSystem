@@ -64,7 +64,7 @@ class RecovererClass(
 		if _ModelStr!="":
 			self.find(_ModelStr)
 		else:
-			_ModelStr=self.DatabasedDatabasingStr
+			_ModelStr=self.ModeledModelingStr
 			
 		#Refresh the attributes 
 		LocalRecoveringVariablesDict=dict(
