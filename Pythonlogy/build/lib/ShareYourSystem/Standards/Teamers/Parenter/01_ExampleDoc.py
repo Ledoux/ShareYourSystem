@@ -12,7 +12,7 @@ MyParenter=SYS.ParenterClass(
 				'ParentingTriggerVariable',
 				{'DeepInt':'#get:>>len(self.ParentedTotalPathStr.split("/"))'}
 			),
-			('parent',[])
+			'#call:parent'
 		],
 		_AfterWalkBool=True,
 		_BeforeSelfBool=True

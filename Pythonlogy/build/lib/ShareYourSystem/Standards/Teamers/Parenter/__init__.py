@@ -311,14 +311,6 @@ class ParenterClass(BaseClass):
 		#Call the base method
 		return BaseClass.get(self)
 
-	def getWatchAfterParentWithParenterBool(self):
-
-		#try
-		try:
-			return getattr(self,'_WatchAfterParentWithParenterBool')
-		except:
-			return False
-
 	def setWatchAfterParentWithParenterBool(self,_SettingValueVariable):
 
 		#set the value of the "hidden" property variable
@@ -333,12 +325,11 @@ class ParenterClass(BaseClass):
 				[
 					'We have parented here !',
 					('self.',self,['ParentedTotalPathStr']),
-					'we launch the trigger',
-					('self.',self,['ParentedTriggerVariablesList'])
+					'we launch the trigger'
 				]
 			)
 			'''
-			
+
 			#trigger map@set
 			self[Setter.SetMapStr](self.ParentedTriggerVariablesList)
 			
@@ -349,15 +340,6 @@ class ParenterClass(BaseClass):
 			self.debug('We have switched the parent here !')
 			'''
 
-	def delWatchAfterParentWithParenterBool(self):
-		self.__delattr__('_WatchAfterParentWithParenterBool')
-
-	WatchAfterParentWithParenterBool=property(
-			getWatchAfterParentWithParenterBool,
-			setWatchAfterParentWithParenterBool,
-			delWatchAfterParentWithParenterBool,
-			'WatchAfterParentWithParenterBool is now reactive !'
-		)
 
 
 #</DefineClass>

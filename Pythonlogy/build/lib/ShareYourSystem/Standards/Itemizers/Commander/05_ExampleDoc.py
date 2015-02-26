@@ -15,8 +15,8 @@ MyCommander=SYS.CommanderClass(
 	)
 
 #print
-print('MyCommander is ')
-SYS._print(MyCommander)
+print('MyCommander.GettedValueVariable is ')
+print(MyCommander.GettedValueVariable)
 
 #command with just one variable
 SYS.CommanderClass.printHello=lambda _SelfVariable:SYS._print(

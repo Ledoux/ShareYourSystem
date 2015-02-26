@@ -1144,18 +1144,18 @@ class SetList(list):
 
 			else:
 
-				#append with a get
+				#list
 				self.append(
 					('get',self.ListVariable)
 				)
 
 		else:
 
-			#Check if it is not just a tuples list but maybe a list of tuple and one value
+			#adapt
 			self.ListVariable=map(
 					lambda __ElementVariable:
 					__ElementVariable
-					if type(__ElementVariable) in [tuple,list]
+					if type(__ElementVariable) in [list,tuple]
 					else ('get',__ElementVariable),
 					self.ListVariable
 				)

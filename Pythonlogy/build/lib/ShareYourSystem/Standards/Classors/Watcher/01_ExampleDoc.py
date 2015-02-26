@@ -25,12 +25,33 @@ class MakerClass(SYS.ObjectClass):
 	def do_make(self):
 
 		#print
-		print('self.MakingMyFloat is '+str(self.MakingMyFloat))
-		print('self.MadeMyInt is '+str(self.MadeMyInt))
-		print('')
+		#print('self.MakingMyFloat is '+str(self.MakingMyFloat))
+		#print('self.MadeMyInt is '+str(self.MadeMyInt))
+		#print('')
 
 		#Cast
 		self.MadeMyInt=int(self.MakingMyFloat)
+
+	def setWatchAfterMakeWithMakerBool(self,_SettingValueVariable):
+
+		#set
+		self._WatchAfterMakeWithMakerBool=_SettingValueVariable
+
+		#Check
+		if _SettingValueVariable:
+
+			#debug
+			print('\n**We have Made here !**')
+			print('self.MakingMyFloat is '+str(self.MakingMyFloat))
+			print('self.MadeMyInt is '+str(self.MadeMyInt))
+			print('')
+
+		else:
+
+			#debug
+			print(
+				'\n**We have switch the Make here !**\n'
+			)
 
 
 #Definition an instance

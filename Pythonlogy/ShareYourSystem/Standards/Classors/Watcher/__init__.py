@@ -22,7 +22,7 @@ SYS.setSubModule(globals())
 #<ImportSpecificModules>
 import operator
 import copy
-from ShareYourSystem.Standards.Classors import Doer,Observer
+from ShareYourSystem.Standards.Classors import Doer,Propertiser,Observer
 from ShareYourSystem.Standards.Objects import Printer
 Binder=BaseModule
 #</ImportSpecificModules>
@@ -215,11 +215,44 @@ class WatcherClass(BaseClass):
 						print('')
 						'''
 
+						'''
+						#If we want just to init it as a Bool....
 						#set
 						setattr(
 								self.DoClass,
 								self.WatchedBeforeDoBoolKeyStr,
 								False
+							)
+						'''
+
+						#...Better to init it as a property to facilite the reactivity setting after
+						[PropertizedKeyStr,PropertizedValueVariable]=Propertiser.getPropertizedTupleWithItemTupleAndClass(
+							(
+								self.WatchedBeforeDoBoolKeyStr,
+								{
+									'DefaultingSetType':property,
+									'PropertizingInitVariable':False,
+									'PropertizingDocStr':'I am watching before'
+								}
+							),
+							self.DoClass
+						)
+
+						#Debug
+						'''
+						print('Watcher l 235')
+						print('PropertizedKeyStr is ')
+						print(PropertizedKeyStr)
+						print('PropertizedValueVariable is ')
+						print(PropertizedValueVariable)
+						print('')
+						'''
+						
+						#set
+						setattr(
+								self.DoClass,
+								PropertizedKeyStr,
+								PropertizedValueVariable
 							)
 
 					else:
@@ -246,10 +279,44 @@ class WatcherClass(BaseClass):
 						'''
 
 						#set
+						#If we want just to init it as a Bool....
+						'''
 						setattr(
 								self.DoClass,
 								self.WatchedAfterDoBoolKeyStr,
 								False
+							)
+						'''
+
+						#...Better to init it as a property to facilite the reactivity setting after
+						[PropertizedKeyStr,PropertizedValueVariable
+						]=Propertiser.getPropertizedTupleWithItemTupleAndClass(
+							(
+								self.WatchedAfterDoBoolKeyStr,
+								{
+									'DefaultingSetType':property,
+									'PropertizingInitVariable':False,
+									'PropertizingDocStr':'I am watching after'
+								}
+							),
+							self.DoClass
+						)
+
+						#Debug
+						'''
+						print('Watcher l304')
+						print('PropertizedKeyStr is ')
+						print(PropertizedKeyStr)
+						print('PropertizedValueVariable is ')
+						print(PropertizedValueVariable)
+						print('')
+						'''
+
+						#set
+						setattr(
+								self.DoClass,
+								PropertizedKeyStr,
+								PropertizedValueVariable
 							)
 						
 					else:

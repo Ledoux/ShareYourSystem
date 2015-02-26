@@ -1142,25 +1142,23 @@ class SetList(list):
 				#items
 				self.extend(self.ListVariable.items())
 
-			elif type(self.ListVariable
-				)==str :
-			#and self.ListVariable.startswith(
-			#		sys.modules['ShareYourSystem'].Getter.GetCallPrefixStr
-			#	):
+			else:
 
 				#list
 				self.append(
 					('get',self.ListVariable)
 				)
 
-			else:
+		else:
 
-				#list
-				self.append(
+			#adapt
+			self.ListVariable=map(
+					lambda __ElementVariable:
+					__ElementVariable
+					if type(__ElementVariable) in [list,tuple]
+					else ('get',__ElementVariable),
 					self.ListVariable
 				)
-
-		else:
 
 			#alias
 			self.extend(self.ListVariable.__iter__())

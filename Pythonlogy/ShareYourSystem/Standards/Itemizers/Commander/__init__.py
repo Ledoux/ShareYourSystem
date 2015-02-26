@@ -164,14 +164,12 @@ class CommanderClass(BaseClass):
 		CommandedSetVariablesList=SYS.SetList(self.CommandingSetVariable)
 
 		#debug
-		'''
 		self.debug(
 				[
 					'in the end, CommandedSetVariablesList is ',
 					SYS._str(CommandedSetVariablesList)
 				]
 			)
-		'''
 		
 		#/###################/#
 		# Ok now we command locally

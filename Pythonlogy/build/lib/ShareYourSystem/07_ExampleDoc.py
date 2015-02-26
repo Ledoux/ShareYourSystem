@@ -21,8 +21,7 @@ print(MySetList)
 MySetList=SYS.SetList(
 	[
 		('MyStr',"hello"),
-		'#call:parent',
-		('MyInt',0),
+		('MyInt',0)
 	]
 )
 
