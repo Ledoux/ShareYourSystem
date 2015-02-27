@@ -654,6 +654,31 @@ def flat(_VariablesList):
 	else:
 		return _VariablesList
 
+def path(_PathStrsList):
+
+	#Reduce
+	PathStr=functools.reduce(
+			lambda _TotalPathStr,_PathStr:
+			_TotalPathStr+_PathStr 
+			if (len(_TotalPathStr)>0 and _TotalPathStr[-1]=='/') and (len(_PathStr)>0 and _PathStr[0]!='/'
+				) or (len(_TotalPathStr)>0 and _TotalPathStr[-1]!='/') and (len(_PathStr)>0 and _PathStr[0]=='/')
+			else 
+			_TotalPathStr[:-1]+_PathStr 
+			if (len(_TotalPathStr)>0 and _TotalPathStr[-1]=='/') and (len(_PathStr)>0 and _PathStr[0]=='/'
+				)
+			else _TotalPathStr+'/'+_PathStr 
+			if '/' not in [_PathStr,_TotalPathStr]
+			else "",
+			_PathStrsList
+			)
+
+	#Maybe add / at the beginning
+	if (len(PathStr)>0 and PathStr[0]!='/') or PathStr=="":
+		PathStr='/'+PathStr
+
+	#Return
+	return PathStr
+
 def collect(_Variable,_WalkingKeyStr,_GettingKeyStr):
 
 	#Get the collectedListsList

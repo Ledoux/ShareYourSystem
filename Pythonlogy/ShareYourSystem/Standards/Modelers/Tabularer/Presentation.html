@@ -1864,7 +1864,7 @@ class TabularerClass(
 
             #Link
             self.TabularedTopFileVariable=self.ModeledDeriveControllerVariable.HdformatedFileVariable
-            self.GroupedPathStr=self.ModeledDeriveControllerVariable.GroupedPathStr
+            self.HdfGroupPathStr=self.ModeledDeriveControllerVariable.HdfGroupPathStr
 
             #debug
             '''
@@ -1883,14 +1883,14 @@ class TabularerClass(
                 self.debug(
                             [    
                                 'Looking for names of tables here',
-                                ('self.',self,['GroupedPathStr'])
+                                ('self.',self,['HdfGroupPathStr'])
                             ]
                         )
                 '''
 
                 #Definition Tabulared attributes
                 self.TabularedGroupVariable=self.TabularedTopFileVariable.getNode(
-                    self.GroupedPathStr)
+                    self.HdfGroupPathStr)
 
                 #debug
                 '''

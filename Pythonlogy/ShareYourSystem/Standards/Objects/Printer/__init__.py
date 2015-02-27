@@ -115,13 +115,17 @@ def getDictStr(
 	PrintedDictStr="\n"+LocalPrintAlineaStr+"{ "
 
 	#Scan the Items (integrativ loop)
-	if type(_DictatedVariable)!=dict and hasattr(_DictatedVariable,"items"):
+	if type(_DictatedVariable)!=dict and hasattr(
+		_DictatedVariable,"items"
+	):
 		
 		#debug
 		'''
 		print('l 135 Printer')
 		print('_DictatedVariable is ')
 		print(_DictatedVariable)
+		print('type(_DictatedVariable) is ')
+		print(type(_DictatedVariable))
 		print('')
 		'''
 		
@@ -308,9 +312,18 @@ def getPrintStr(_Variable,**_KwargVariablesDict):
 	if type(_Variable)==None.__class__:
 		return "None"
 
+	#Special mongo database case
+	elif type(_Variable).__name__=="Database":
+
+		#get
+		PrinterStr=getPointerStr(_Variable)
+
+		#return
+		return PrinterStr
+
 	#Dict types print
 	#if type(_Variable) in [dict,collections.OrderedDict]:
-	if hasattr(_Variable,'items') and type(_Variable)!=type:
+	elif hasattr(_Variable,'items') and type(_Variable)!=type:
 
 		#Increment the deep
 		_KwargVariablesDict['PrintDeepInt']+=1
@@ -349,8 +362,6 @@ def getPrintStr(_Variable,**_KwargVariablesDict):
 						**_KwargVariablesDict
 			)
 
-			
-			
 		else:
 
 			#Return the circular Str

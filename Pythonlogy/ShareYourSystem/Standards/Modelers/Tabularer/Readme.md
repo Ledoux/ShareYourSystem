@@ -147,7 +147,7 @@ self.ModeledDeriveControllerVariable.hdformat()
                         #Link
                         self.TabularedTopFileVariable=self.ModeledPointDer
 iveStorerVariable.HdformatedFileVariable
-self.GroupedPathStr=self.ModeledDeriveControllerVariable.GroupedPathStr
+self.HdfGroupPathStr=self.ModeledDeriveControllerVariable.HdfGroupPathStr
 
                         #debug
                         '''
@@ -167,14 +167,14 @@ self.GroupedPathStr=self.ModeledDeriveControllerVariable.GroupedPathStr
                                                         [
                                                                 'Looking for
 names of tables here',
-('self.',self,['GroupedPathStr'])
+('self.',self,['HdfGroupPathStr'])
                                                         ]
                                                 )
                                 '''
 
                                 #Definition Tabulared attributes
 self.TabularedGroupVariable=self.TabularedTopFileVariable.getNode(
-                                        self.GroupedPathStr)
+                                        self.HdfGroupPathStr)
 
                                 #debug
                                 '''

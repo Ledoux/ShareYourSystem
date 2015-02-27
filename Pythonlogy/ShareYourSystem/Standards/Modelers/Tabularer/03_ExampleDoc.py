@@ -6,26 +6,25 @@ import tables
 #Definition 
 MyController=SYS.ControllerClass(
 		**{
-			'HdformatingFileKeyStr':"Things.hdf5",
-			'FolderingPathStr':SYS.Tabularer.LocalFolderPathStr
+			'FolderingPathStr':SYS.Tabularer.LocalFolderPathStr,
+			'ControllingModelClassVariable':SYS.TabularerClass
 		}
-	).collect(
-		"Tabularers",
-		"Things",
-		SYS.TabularerClass().__setitem__(
-			'Attr_ModelingDescriptionTuplesList',
+	).set(
+		'/&Models/$Things',
+		{
+			'ModelingDescriptionTuplesList':
 			[
 				#GetStr #ColumnStr #Col
 				('MyInt','MyInt',tables.Int64Col()),
 				('MyStr','MyStr',tables.StringCol(10)),
-				('MyIntsList','MyIntsList',(tables.Int64Col(shape=3)))
+				('MyIntsList','MyIntsList',tables.Int64Col(shape=3))
 			]	
-		)
+		}
 	)
 
-#Build a structure with a database
-MyController['<Tabularers>ThingsTabularer'].tabular()
-		
+#tabular
+MyController['/&Models/$Things'].tabular()
+	
 #Definition the AttestedStr
 SYS._attest(
 	[
@@ -43,5 +42,4 @@ SYS._attest(
 #close
 MyController.close()
 
-#Print
 

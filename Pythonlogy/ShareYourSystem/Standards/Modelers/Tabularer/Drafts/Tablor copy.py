@@ -49,12 +49,12 @@ class TablerClass(
 					)+ModelingJoinStr+'Table'
 
 		#Definition the TablePathStr
-		TablePathStr=self.GroupedPathStr+'/'+TableStr
+		TablePathStr=self.HdfGroupPathStr+'/'+TableStr
 
 		#Create the Table if not already
 		if TablePathStr not in self.HdformatedFileVariable:
 			self.ModeledDict['Table']=self.HdformatedFileVariable.create_table(
-												self.HdformatedFileVariable.getNode(self.GroupedPathStr),
+												self.HdformatedFileVariable.getNode(self.HdfGroupPathStr),
 												TableStr,
 												ModelClass,
 												ModelClass.__doc__ 
@@ -70,7 +70,7 @@ class TablerClass(
 
 		#debug
 		print('tabular method')
-		print('self.GroupedPathStr is ',self.GroupedPathStr)
+		print('self.HdfGroupPathStr is ',self.HdfGroupPathStr)
 		
 		#Definition the DoneTabularingStr
 		DoneTabularingStr=SYS.getDoneStrWithDoStr(_TabularingStr)
@@ -98,36 +98,36 @@ class TablerClass(
 
 				#Create the table or get it and set it again
 				map(
-						lambda __TableStrAndTableGroupedPathStrTuple,__ModeledDescriptionClass:
+						lambda __TableStrAndTableHdfGroupPathStrTuple,__ModeledDescriptionClass:
 						TabularedTablesOrderedDict.__setitem__(
 							ModelingJoinStr.join(
-								__TableStrAndTableGroupedPathStrTuple[0].split(ModelingJoinStr)[:-1]
+								__TableStrAndTableHdfGroupPathStrTuple[0].split(ModelingJoinStr)[:-1]
 								),
 							self.HdformatedFileVariable.create_table(
-											self.HdformatedFileVariable.getNode(self.GroupedPathStr),
-											__TableStrAndTableGroupedPathStrTuple[0],
+											self.HdformatedFileVariable.getNode(self.HdfGroupPathStr),
+											__TableStrAndTableHdfGroupPathStrTuple[0],
 											__ModeledDescriptionClass,
 											__ModeledDescriptionClass.__doc__ 
 											if __ModeledDescriptionClass.__doc__!=None 
 											else "This is the "+__ModeledDescriptionClass.__name__
 								)
 						) 
-						if __TableStrAndTableGroupedPathStrTuple[1] not in self.HdformatedFileVariable
+						if __TableStrAndTableHdfGroupPathStrTuple[1] not in self.HdformatedFileVariable
 						else
 						#Get the Node and set it to the TabularedDict
 						TabularedTablesOrderedDict.__setitem__(
 								ModelingJoinStr.join(
-								__TableStrAndTableGroupedPathStrTuple[0].split(ModelingJoinStr)[:-1]
+								__TableStrAndTableHdfGroupPathStrTuple[0].split(ModelingJoinStr)[:-1]
 								),
-								self.HdformatedFileVariable.getNode(__TableStrAndTableGroupedPathStrTuple[1])
+								self.HdformatedFileVariable.getNode(__TableStrAndTableHdfGroupPathStrTuple[1])
 							),
-						#Map on (__TableStr,__TableGroupedPathStr),__ModeledDescriptionClass
+						#Map on (__TableStr,__TableHdfGroupPathStr),__ModeledDescriptionClass
 						map(
 							lambda __TableStr:
 							(
 								__TableStr,
 								SYS.getPastedPathStrWithPathStrsList(
-									[self.GroupedPathStr,__TableStr])
+									[self.HdfGroupPathStr,__TableStr])
 							),
 							map(
 								lambda __ClassKeyStr:
@@ -151,7 +151,7 @@ class TablerClass(
 						,filter(
 								lambda __Node:
 								type(__Node)==tables.table.Table,
-								self.HdformatedFileVariable.getNode(self.GroupedPathStr)._f_iterNodes()
+								self.HdformatedFileVariable.getNode(self.HdfGroupPathStr)._f_iterNodes()
 						)
 					)
 				

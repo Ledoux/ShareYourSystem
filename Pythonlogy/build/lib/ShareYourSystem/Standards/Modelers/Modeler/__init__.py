@@ -149,8 +149,8 @@ class ModelerClass(BaseClass):
 		)
 		'''
 
-		#get
-		self.ModeledDeriveControllerVariable=self['^']
+		#get the parent-parent Teamer
+		self.ModeledDeriveControllerVariable=self['/^/^']
 
 		#Check
 		if len(self.ModelingDescriptionTuplesList)>0:
@@ -219,28 +219,6 @@ class ModelerClass(BaseClass):
 
 		#model
 		self.model()
-
-
-	'''
-	def propertize_setModelingDescriptionTuplesList(self,_SettingValueVariable):
-
-		#call the parent base
-		self._ModelingDescriptionTuplesList=_SettingValueVariable
-
-		#debug
-		self.debug(
-			[
-				'There are ModelingDescriptionTuplesList',
-				'We model here',
-				('self.',self,['WatchBeforeModelWithModelerBool'])
-			]
-		)
-
-		self.setSwitch()
-
-		#model
-		self.model()
-	'''
 
 #</DefineClass>
 

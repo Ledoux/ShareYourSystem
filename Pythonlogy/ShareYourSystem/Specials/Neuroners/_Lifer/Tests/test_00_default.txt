@@ -7,7 +7,7 @@
    /'<NotSpe>GroupedFilePointer' : < (NoneType) >
    /'<NotSpe>GroupedGrandParentPointersList' : []
    /'<NotSpe>GroupedKeyString' : 
-   /'<NotSpe>GroupedPathString' : /
+   /'<NotSpe>HdfGroupPathString' : /
    /'<NotSpe>StructuredGrandParentPointersList' : []
    /'<NotSpe>StructuredInt' : -1
    /'<NotSpe>StructuredKeyString' : 

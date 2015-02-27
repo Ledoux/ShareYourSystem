@@ -5,6 +5,8 @@ import ShareYourSystem as SYS
 MyController=SYS.ControllerClass(
 	).get(
 		'/&Children/$Loup/'
+	).parent(
+		_DownBool=True
 	)
 
 #print

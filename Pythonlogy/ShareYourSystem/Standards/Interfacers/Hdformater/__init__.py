@@ -33,15 +33,8 @@ import sys
 })
 class HdformaterClass(BaseClass):
 	
-	#Definition
-	RepresentingKeyStrsList=[
-								'HdformatingFileKeyStr',
-								'HdformatingModuleStr',
-								'HdformatedFileVariable',
-								'HdformatedConsoleStr'
-							]
-
 	def default_init(self,
+			_HdfPathStr='/',
 			_HdformatingFileKeyStr="", 
 			_HdformatingModuleStr="tables",			
 			_HdformatedFileVariable=None, 
@@ -136,3 +129,14 @@ class HdformaterClass(BaseClass):
 
 #</DefineClass>
 
+
+#</DefinePrint>
+HdformaterClass.PrintingClassSkipKeyStrsList.extend(
+	[
+		'HdformatingFileKeyStr',
+		'HdformatingModuleStr',
+		'HdformatedFileVariable',
+		'HdformatedConsoleStr'
+	]
+)
+#<DefinePrint>

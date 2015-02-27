@@ -25,17 +25,16 @@ import os
 #</ImportSpecificModules>
 
 #<DefineFunctions>
-def getRepresentedCollectionItemTuple(_CollectionItemTuple):
+def getPrintManagerItemTuple(_ManagerItemTuple):
 
 	#Debug
-	'''
-	print('_CollectionItemTuple[0] is ')
-	print(_CollectionItemTuple[0])
+	print('Pymongoer l 31')
+	print('_ManagerItemTuple is ')
+	print(_ManagerItemTuple)
 	print('')
-	'''
 
 	#filter
-	RepresentedCollectionList=filter(
+	PrintCollectionList=filter(
 		lambda __PymongoviewDict:
 		len(__PymongoviewDict)>0,
 		SYS.filterNone(
@@ -47,7 +46,7 @@ def getRepresentedCollectionItemTuple(_CollectionItemTuple):
 							'pymongoview'
 						) 
 					else None,
-					_CollectionItemTuple[1].items()
+					_ManagerItemTuple[1].ManagementDict.items()
 				)
 			)
 	)
@@ -55,24 +54,24 @@ def getRepresentedCollectionItemTuple(_CollectionItemTuple):
 
 	#Debug
 	'''
-	print('RepresentedCollectionList is ')
-	print(RepresentedCollectionList)
+	print('PrintCollectionList is ')
+	print(PrintCollectionList)
 	print('')
 	'''
 
 	#Check
-	if len(RepresentedCollectionList)>0:
+	if len(PrintCollectionList)>0:
 		return (
-			_CollectionItemTuple[0],
-			RepresentedCollectionList
+			_ManagerItemTuple[0],
+			PrintCollectionList
 		)
 	else:
 		return None
 
-def getRepresentedDatabaseOrderedDict(_Database):
+def getPrintDatabaseDict(_Database):
 
 	#map
-	RepresentedDatabaseDict=collections.OrderedDict(
+	PrintDatabaseOrderedDictDict=collections.OrderedDict(
 		SYS.filterNone
 		(
 			map(
@@ -103,23 +102,25 @@ def getRepresentedDatabaseOrderedDict(_Database):
 	if 'ParentDerivePymongoer' in _Database.__dict__:
 
 		#Debug
+		'''
 		print('_Database.ParentDerivePymongoer is '+SYS._str(_Database.__dict__[
 			'ParentDerivePymongoer']))
 		print('')
+		'''
 
 		#update
-		RepresentedDatabaseDict.update(
+		PrintDatabaseOrderedDictDict.update(
 			collections.OrderedDict(
 				filter(
 					lambda __ItemTuple:
 					len(__ItemTuple[1])>0,
 					SYS.filterNone(	
 						map(
-							lambda __CollectionItemTuple:
-							getRepresentedCollectionItemTuple(__CollectionItemTuple),
+							lambda __ManagerItemTuple:
+							getPrintManagerItemTuple(__ManagerItemTuple),
 							_Database.__dict__[
 								'ParentDerivePymongoer'
-							].CollectionsOrderedDict.items()
+							].TeamDict.items()
 						)
 					)
 				)
@@ -127,7 +128,7 @@ def getRepresentedDatabaseOrderedDict(_Database):
 		)
 
 	#return 
-	return {_Database._Database__name:RepresentedDatabaseDict}
+	return {_Database._Database__name:PrintDatabaseOrderedDictDict}
 
 
 #</DefineFunctions>
@@ -328,7 +329,7 @@ class PymongoerClass(BaseClass):
 			'''
 
 			#return
-			return getRepresentedDatabaseOrderedDict(
+			return getPrintDatabaseDict(
 							Database
 						)
 

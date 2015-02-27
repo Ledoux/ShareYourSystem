@@ -73,6 +73,7 @@ class TabularerClass(
 		self.model()
 
 		#debug
+		'''
 		self.debug(
 					[
 						('self.',self,[
@@ -81,7 +82,8 @@ class TabularerClass(
 						)
 					]
 				)
-
+		'''
+		
 		#Check
 		if self.ModeledDeriveControllerVariable!=None:
 
@@ -148,7 +150,7 @@ class TabularerClass(
 					'''
 
 					#set
-					self.TabularedMongoDatabaseKeyStr=self.ModeledDeriveControllerVariable.getDatabaseKeyStr()
+					self.TabularedMongoDatabaseKeyStr=self.ModeledDeriveControllerVariable.ControlModelStr
 
 					#set
 					self.ModeledDeriveControllerVariable.PymongoingDatabaseKeyStr=self.TabularedMongoDatabaseKeyStr
@@ -249,7 +251,7 @@ class TabularerClass(
 				'''
 				
 				#set 
-				self.GroupedPathStr=self.ModeledDeriveControllerVariable.GroupedPathStr
+				self.HdfGroupPathStr=self.ModeledDeriveControllerVariable.HdfGroupPathStr
 
 				#set
 				self.TabularedHdfSuffixStr='Model'.join(
@@ -288,14 +290,14 @@ class TabularerClass(
 					self.debug(
 								[	
 									'Looking for names of tables here',
-									('self.',self,['GroupedPathStr'])
+									('self.',self,['HdfGroupPathStr'])
 								]
 							)
 					'''
 
 					#Definition Tabulared attributes
 					self.TabularedHdfGroupVariable=self.TabularedHdfTopFileVariable.getNode(
-						self.GroupedPathStr
+						self.HdfGroupPathStr
 					)
 
 					#debug
