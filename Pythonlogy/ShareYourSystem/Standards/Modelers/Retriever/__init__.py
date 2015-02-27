@@ -193,11 +193,11 @@ class RetrieverClass(BaseClass):
 			'''
 
 			#Update
-			self.ModeledPointDeriveControllerVariable.update(
+			self.ModeledDeriveControllerVariable.update(
 				self.RetrievedPickOrderedDict.items(),
 				#**{'RestrictingIsBool':True}
 			)
-			self.ModeledPointDeriveControllerVariable.RestrictingIsBool=False
+			self.ModeledDeriveControllerVariable.RestrictingIsBool=False
 
 
 #</DefineClass>

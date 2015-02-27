@@ -96,16 +96,14 @@ class ModelerClass(BaseClass):
 	
 	def default_init(
 					self,
-					_ModelingDescriptionTuplesList={
-						'DefaultValueType':property,
-						'PropertyInitVariable':[],
-						'PropertyDocStr':''
-					}, 	
+					_ModelingDescriptionTuplesList=None, 	
 					_ModelingMongoBool=False,
 					_ModelingHdfBool=False,							
 					_ModeledDescriptionClassesOrderedDict=None,																
 					_ModeledDescriptionClass=None, 													
 					_ModeledKeyStr="",
+					_ModeledSuffixStr="",
+					_ModeledDeriveControllerVariable=None,
 					**_KwargVariablesDict
 				):
 
@@ -115,12 +113,14 @@ class ModelerClass(BaseClass):
 	def do_model(self):
 		""" """
 
-		#debug
-		self.debug(
-			[
-				('self.',self,['ModelingDescriptionTuplesList'])
-			]
-		)
+		#Debug
+		'''
+		self.debug('model start')
+		'''
+		
+		#/###################/#
+		# Define the ModeledKeyStr and the ModeledDeriveControllerVariable
+		#
 
 		#set a name if it was not already
 		if self.ModeledKeyStr=="":
@@ -133,6 +133,25 @@ class ModelerClass(BaseClass):
 			#Link set
 			self.ModeledKeyStr=self.ManagementTagStr
 
+			#set
+			self.ModeledSuffixStr=self.ModeledKeyStr+'Model'
+
+		#/###################/#
+		# Check if it is a hdf or mongo model
+		#
+
+		#debug
+		'''
+		self.debug(
+			[
+				('self.',self,['ModelingDescriptionTuplesList'])
+			]
+		)
+		'''
+
+		#get
+		self.ModeledDeriveControllerVariable=self['^']
+
 		#Check
 		if len(self.ModelingDescriptionTuplesList)>0:
 			self.ModelingHdfBool=True
@@ -140,6 +159,10 @@ class ModelerClass(BaseClass):
 		else:
 			self.ModelingHdfBool=False
 			self.ModelingMongoBool=True
+
+		#/###################/#
+		# Special case of hdf when we have to define Model Description class
+		#
 
 		#Check
 		if self.ModelingHdfBool:
@@ -185,20 +208,24 @@ class ModelerClass(BaseClass):
 		BaseClass.propertize_setParentKeyStr(self,_SettingValueVariable)
 
 		#debug
+		'''
 		self.debug(
 			[
 				'We know the ParentKeyStr',
 				'We model here',
 			]
 		)
+		'''
 
 		#model
 		self.model()
 
+
+	'''
 	def propertize_setModelingDescriptionTuplesList(self,_SettingValueVariable):
 
 		#call the parent base
-		BaseClass.propertize_setModelingDescriptionTuplesList(self,_SettingValueVariable)
+		self._ModelingDescriptionTuplesList=_SettingValueVariable
 
 		#debug
 		self.debug(
@@ -213,7 +240,7 @@ class ModelerClass(BaseClass):
 
 		#model
 		self.model()
-
+	'''
 
 #</DefineClass>
 
@@ -227,7 +254,9 @@ ModelerClass.PrintingClassSkipKeyStrsList.extend(
 		'ModelingHdfBool',									
 		'ModeledDescriptionClassesOrderedDict',																
 		#'ModeledDescriptionClass', 													
-		'ModeledKeyStr'
+		'ModeledKeyStr',
+		'ModeledSuffixStr',
+		'ModeledDeriveControllerVariable',
 	]
 )
 #<DefinePrint>

@@ -162,7 +162,7 @@ class InserterClass(
 					self.InsertedMongoNotRowPickOrderedDict.update(
 					zip(
 						self.InsertedNotRowGetStrsList,
-						self.ModeledPointDeriveControllerVariable.pick(
+						self.ModeledDeriveControllerVariable.pick(
 							self.InsertedNotRowGetStrsList
 							)
 						)
@@ -239,7 +239,7 @@ class InserterClass(
 					self.InsertedHdfNotRowPickOrderedDict.update(
 					zip(
 						self.InsertedNotRowGetStrsList,
-						self.ModeledPointDeriveControllerVariable.pick(
+						self.ModeledDeriveControllerVariable.pick(
 							self.InsertedNotRowGetStrsList
 							)
 						)

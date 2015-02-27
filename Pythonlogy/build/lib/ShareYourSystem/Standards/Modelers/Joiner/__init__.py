@@ -181,7 +181,7 @@ class JoinerClass(BaseClass):
 			map(
 					lambda __JoinedRetrieveIndexesListGetStr,__JoinedInsertIndexInt:
 					getattr(
-						self.ModeledPointDeriveControllerVariable,
+						self.ModeledDeriveControllerVariable,
 						__JoinedRetrieveIndexesListGetStr
 						).__setitem__(
 							1,
@@ -197,7 +197,7 @@ class JoinerClass(BaseClass):
 			map(
 					lambda __JoinedRetrieveIndexesListGetStr,__JoinedInsertIndexInt:
 					getattr(
-						self.ModeledPointDeriveControllerVariable,
+						self.ModeledDeriveControllerVariable,
 						__JoinedRetrieveIndexesListGetStr
 						).__setitem__(
 							1,
@@ -304,7 +304,7 @@ class JoinerClass(BaseClass):
 					lambda __JoinedRetrieveIndexesListGetStr,__JoinedCatchDeriveJoiner:
 					__JoinedCatchDeriveJoiner.retrieve(
 						getattr(
-							self.ModeledPointDeriveControllerVariable,
+							self.ModeledDeriveControllerVariable,
 							__JoinedRetrieveIndexesListGetStr
 						)
 					),
@@ -468,9 +468,9 @@ class JoinerClass(BaseClass):
 					lambda __JoinedCatchDeriveJoiner:
 					"Join"+''.join(
 						[
-							__JoinedCatchDeriveJoiner.ModeledPointDeriveControllerVariable.NodeKeyStr
-							if __JoinedCatchDeriveJoiner.ModeledPointDeriveControllerVariable.NodeKeyStr!="" 
-							else 'Top'+__JoinedCatchDeriveJoiner.ModeledPointDeriveControllerVariable.__class__.NameStr,
+							__JoinedCatchDeriveJoiner.ModeledDeriveControllerVariable.NodeKeyStr
+							if __JoinedCatchDeriveJoiner.ModeledDeriveControllerVariable.NodeKeyStr!="" 
+							else 'Top'+__JoinedCatchDeriveJoiner.ModeledDeriveControllerVariable.__class__.NameStr,
 							__JoinedCatchDeriveJoiner.ModeledSuffixStr
 						]
 					)+"RetrieveIndexesList",
@@ -487,14 +487,14 @@ class JoinerClass(BaseClass):
 					lambda __JoinedCatchDeriveJoiner:
 					"Joined"+''.join(
 						[
-							self.ModeledPointDeriveControllerVariable.NodeKeyStr
-							if self.ModeledPointDeriveControllerVariable.NodeKeyStr!="" 
-							else 'Top'+self.ModeledPointDeriveControllerVariable.__class__.NameStr,
+							self.ModeledDeriveControllerVariable.NodeKeyStr
+							if self.ModeledDeriveControllerVariable.NodeKeyStr!="" 
+							else 'Top'+self.ModeledDeriveControllerVariable.__class__.NameStr,
 							self.ModeledSuffixStr,
 							'To',
-							__JoinedCatchDeriveJoiner.ModeledPointDeriveControllerVariable.NodeKeyStr
-							if __JoinedCatchDeriveJoiner.ModeledPointDeriveControllerVariable.NodeKeyStr!="" 
-							else 'Top'+__JoinedCatchDeriveJoiner.ModeledPointDeriveControllerVariable.__class__.NameStr,
+							__JoinedCatchDeriveJoiner.ModeledDeriveControllerVariable.NodeKeyStr
+							if __JoinedCatchDeriveJoiner.ModeledDeriveControllerVariable.NodeKeyStr!="" 
+							else 'Top'+__JoinedCatchDeriveJoiner.ModeledDeriveControllerVariable.__class__.NameStr,
 							__JoinedCatchDeriveJoiner.ModeledSuffixStr
 						]
 					)+"RetrieveIndexesList",
@@ -522,7 +522,7 @@ class JoinerClass(BaseClass):
 
 
 			#Table all the joined databasers and init the corresponding JoinedRetrieveIndexesList in the NodePointDeriveNoder
-			self.ModeledPointDeriveControllerVariable.update(
+			self.ModeledDeriveControllerVariable.update(
 				zip(
 						self.JoinedRetrieveIndexesListGetStrsList,
 						map(

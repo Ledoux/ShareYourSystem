@@ -122,18 +122,18 @@ class TabularerClass(
                 self.debug(
                                         [
 ('self.',self,['ModelingDescriptionTuplesList','ModeledDescriptionClass']),
-('self.ModeledPointDeriveStorer!=None is
-'+str(self.ModeledPointDeriveStorer!=None))
+('self.ModeledDeriveControllerVariable!=None is
+'+str(self.ModeledDeriveControllerVariable!=None))
                                         ]
                                 )
                 '''
 
                 #Maybe we have to hdformat first
-                if self.ModeledPointDeriveControllerVariable!=None:
+                if self.ModeledDeriveControllerVariable!=None:
 
                         #Check
                         if
-self.ModeledPointDeriveControllerVariable.HdformatedFileVariable==None:
+self.ModeledDeriveControllerVariable.HdformatedFileVariable==None:
 
                                 #debug
                                 '''
@@ -141,13 +141,13 @@ self.ModeledPointDeriveControllerVariable.HdformatedFileVariable==None:
                                 '''
 
                                 #Hdformat
-self.ModeledPointDeriveControllerVariable.hdformat()
-#self.ModeledPointDeriveControllerVariable.structure()
+self.ModeledDeriveControllerVariable.hdformat()
+#self.ModeledDeriveControllerVariable.structure()
 
                         #Link
                         self.TabularedTopFileVariable=self.ModeledPointDer
 iveStorerVariable.HdformatedFileVariable
-self.GroupedPathStr=self.ModeledPointDeriveControllerVariable.GroupedPathStr
+self.GroupedPathStr=self.ModeledDeriveControllerVariable.GroupedPathStr
 
                         #debug
                         '''

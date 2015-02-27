@@ -68,22 +68,22 @@ class TabularerClass(
 				]
 			)
 		'''
-		
+
 		#model
 		self.model()
 
 		#debug
-		'''
 		self.debug(
 					[
-						('self.',self,['ModelingDescriptionTuplesList','ModeledDescriptionClass']),
-						('self.ModeledPointDeriveStorer!=None is '+str(self.ModeledPointDeriveStorer!=None))
+						('self.',self,[
+							'ModeledDeriveControllerVariable'
+							]
+						)
 					]
 				)
-		'''
-		
+
 		#Check
-		if self.ModeledPointDeriveControllerVariable!=None:
+		if self.ModeledDeriveControllerVariable!=None:
 
 			#debug
 			'''
@@ -93,6 +93,13 @@ class TabularerClass(
 			#Check
 			if self.ModelingMongoBool:
 
+				#debug
+				'''
+				self.debug(
+						'We tabular mongo here'
+					)
+				'''
+
 				#set
 				self.TabularedMongoSuffixStr='Model'.join(
 					self.ModeledSuffixStr.split('Model')[:-1]
@@ -100,13 +107,19 @@ class TabularerClass(
 
 				#debug
 				'''
-				self.debug(('self.',self,[
-					'PymongoneClientVariable'
-				]))
+				self.debug(
+					[
+						('self.',self,[
+								'PymongoneClientVariable',
+								'TabularedMongoSuffixStr'
+							]
+						)
+					]
+				)
 				'''
-				
+
 				#Check
-				if self.ModeledPointDeriveControllerVariable.PymongoneClientVariable==None:
+				if self.ModeledDeriveControllerVariable.PymongoneClientVariable==None:
 
 					#debug
 					'''
@@ -114,19 +127,10 @@ class TabularerClass(
 					'''
 
 					#pymongo
-					self.ModeledPointDeriveControllerVariable.pymongo()
+					self.ModeledDeriveControllerVariable.pymongo()
 
 				#Link
-				self.TabularedMongoTopClientVariable=self.ModeledPointDeriveControllerVariable.PymongoneClientVariable
-				
-				#debug
-				'''
-				self.debug(('self.',self,[
-											'HdformatedTopDatabaseVariable',
-											'ModelingDescriptionTuplesList',
-											'ModeledDescriptionClass'
-										]))
-				'''
+				self.TabularedMongoTopClientVariable=self.ModeledDeriveControllerVariable.PymongoneClientVariable
 				
 				#Check
 				if self.TabularedMongoTopClientVariable!=None:
@@ -137,19 +141,17 @@ class TabularerClass(
 								[	
 									'Looking for names of collections here',
 									('self.',self,[
-										'ParentedNodePathStr',
 										'TabularedMongoTopClientVariable'
 										]),
-									'self.ModeledPointDeriveControllerVariable.ParentedNodePathStr is '+self.ModeledPointDeriveControllerVariable.ParentedNodePathStr
 								]
 							)
 					'''
 
 					#set
-					self.TabularedMongoDatabaseKeyStr=self.ModeledPointDeriveControllerVariable.getDatabaseKeyStr()
+					self.TabularedMongoDatabaseKeyStr=self.ModeledDeriveControllerVariable.getDatabaseKeyStr()
 
 					#set
-					self.ModeledPointDeriveControllerVariable.PymongoingDatabaseKeyStr=self.TabularedMongoDatabaseKeyStr
+					self.ModeledDeriveControllerVariable.PymongoingDatabaseKeyStr=self.TabularedMongoDatabaseKeyStr
 
 					#set
 					self.TabularedMongoLocalDatabaseVariable=self.TabularedMongoTopClientVariable[
@@ -173,10 +175,10 @@ class TabularerClass(
 					#set
 					self.TabularedMongoLocalDatabaseVariable.__dict__[
 						'ParentDerivePymongoer'
-					]=self.ModeledPointDeriveControllerVariable
+					]=self.ModeledDeriveControllerVariable
 
 					#alias
-					self.ModeledPointDeriveControllerVariable.Database=self.TabularedMongoLocalDatabaseVariable
+					self.ModeledDeriveControllerVariable.Database=self.TabularedMongoLocalDatabaseVariable
 
 					#debug
 					'''
@@ -247,7 +249,7 @@ class TabularerClass(
 				'''
 				
 				#set 
-				self.GroupedPathStr=self.ModeledPointDeriveControllerVariable.GroupedPathStr
+				self.GroupedPathStr=self.ModeledDeriveControllerVariable.GroupedPathStr
 
 				#set
 				self.TabularedHdfSuffixStr='Model'.join(
@@ -255,7 +257,7 @@ class TabularerClass(
 				)+'Table'
 
 				#Check
-				if self.ModeledPointDeriveControllerVariable.HdformatedFileVariable==None:
+				if self.ModeledDeriveControllerVariable.HdformatedFileVariable==None:
 
 					#debug
 					'''
@@ -263,11 +265,11 @@ class TabularerClass(
 					'''
 
 					#Hdformat
-					self.ModeledPointDeriveControllerVariable.hdformat()
-					#self.ModeledPointDeriveControllerVariable.structure()
+					self.ModeledDeriveControllerVariable.hdformat()
+					#self.ModeledDeriveControllerVariable.structure()
 				
 				#Link
-				self.TabularedHdfTopFileVariable=self.ModeledPointDeriveControllerVariable.HdformatedFileVariable
+				self.TabularedHdfTopFileVariable=self.ModeledDeriveControllerVariable.HdformatedFileVariable
 				
 				#debug
 				'''

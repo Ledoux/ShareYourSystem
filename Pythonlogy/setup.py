@@ -111,7 +111,6 @@ setup(
 			 		'ShareYourSystem.Standards.Itemizers.Executer',
 			 		'ShareYourSystem.Standards.Itemizers.Conditioner',
 			 		'ShareYourSystem.Standards.Itemizers.Arrayer',
-			 		'ShareYourSystem.Standards.Itemizers.Attributer',
 			 		'ShareYourSystem.Standards.Itemizers.Pather',
 			 		'ShareYourSystem.Standards.Itemizers.Commander',
 			 		'ShareYourSystem.Standards.Itemizers.Pointer',

@@ -27,6 +27,7 @@ SYS.setSubModule(globals())
 class ControllerClass(BaseClass):
 
 	def default_init(self,
+				_DatabaseTagStr="Top",
 				_ControllingModelClassVariable=None,
 				_ControllingViewClassVariable=None,
 				**_KwargVariablesDict
@@ -37,7 +38,6 @@ class ControllerClass(BaseClass):
 
 	def do_control(self):
 		pass
-
 
 	def mimic_team(self):
 
@@ -61,17 +61,34 @@ class ControllerClass(BaseClass):
 				
 				#Check
 				if self.ControllingModelClassVariable==None:
-					self.ControllingModelClassVariable=SYS.ModelerClass
+					self.ControllingModelClassVariable=SYS.HierarchizerClass
 
 				#alias
 				self.TeamedValueVariable.ManagingValueClass=self.ControllingModelClassVariable
 
+	def propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable):
+
+		#call the base method
+		BaseClass.propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable)
+
+		#get
+		self.DatabaseTagStr=(
+				self.ParentedTotalPathStr+'/'+self.ManagementTagStr
+			).replace('/','_')
+
+		#remove
+		if self.DatabaseTagStr[0]=='_':
+			self.DatabaseTagStr=self.DatabaseTagStr[1:]
+
 #</DefineClass>
 
+#Set
+SYS.ManagerClass.ManagingValueClass=ControllerClass
 
 #</DefinePrint>
 ControllerClass.PrintingClassSkipKeyStrsList.extend(
 	[
+		#'DatabaseTagStr',
 		'ControllingModelClassVariable',
 		'ControllingViewClassVariable'
 	]

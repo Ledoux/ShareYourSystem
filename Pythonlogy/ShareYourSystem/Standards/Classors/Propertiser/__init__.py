@@ -290,10 +290,12 @@ class PropertiserClass(BaseClass):
 				)
 
 			#debug
+			'''
 			print('Propertiser l 293')
 			print('After set PropertizedClass.PropertizedDefaultTuplesList is ',
 				PropertizedClass.PropertizedDefaultTuplesList)
 			print('')
+			'''
 			
 			#Reset at the level of the class the properties
 			map(	

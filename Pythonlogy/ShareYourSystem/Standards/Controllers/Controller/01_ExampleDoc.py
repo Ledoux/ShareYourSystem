@@ -2,7 +2,12 @@
 import ShareYourSystem as SYS
 
 #Define
-MyController=SYS.ControllerClass()
+MyController=SYS.ControllerClass(
+	).get(
+		'/&Children/$Loup/'
+	).parent(
+		_DownBool=True
+	)
 
 #print
 print('MyController is ')

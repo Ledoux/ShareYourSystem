@@ -5,6 +5,9 @@ import ShareYourSystem as SYS
 
 #Define
 MyController=SYS.ControllerClass(
+		**{
+			'ControllingModelClassVariable':SYS.ModelerClass
+		}
 	).set(
 		'/&Models/$Things',
 		{

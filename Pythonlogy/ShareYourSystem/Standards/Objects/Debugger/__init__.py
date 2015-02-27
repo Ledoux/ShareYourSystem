@@ -165,6 +165,16 @@ class DebuggerClass(BaseClass):
 			self.debug(('self.',self,self.__class__.DoingAttributeVariablesOrderedDict.keys()))
 		'''
 
+		#Debug
+		'''
+		print(
+				'Debugger l 170'
+			)
+		print('Start debug')
+		print('self.DebuggingIsBool is '+str(self.DebuggingIsBool))
+		print('')
+		'''
+		
 		#Check
 		if self.DebuggingIsBool:
 
@@ -284,7 +294,7 @@ class DebuggerClass(BaseClass):
 
 			#add the end
 			DebuggedStr+=DebuggingEndStr
-
+			
 			#Print
 			self._print(
 							DebuggedStr+Printer.PrintAlineaStr,
@@ -293,11 +303,6 @@ class DebuggerClass(BaseClass):
 							}
 						)
 
-			#Reinit
-			#Printer.PrintAlineaStr=""
-			
-			#Return 
-			#return self
 
 #</DefineClass>
 

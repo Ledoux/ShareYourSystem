@@ -138,16 +138,6 @@ def getRepresentedDatabaseOrderedDict(_Database):
 })
 class PymongoerClass(BaseClass):
 	
-	#Definition
-	RepresentingKeyStrsList=[
-			'PymongoingUrlStr',
-			'PymongoingKillBool',
-			'PymongoneFolderPathStr',
-			'PymongonePopenVariable',
-			'PymongoneClientVariable',
-			'PymongoneDatabaseVariable'
-		]
-
 	def default_init(self,		
 			_PymongoingUrlStr='mongodb://localhost:27017/',
 			_PymongoingKillBool=True,
@@ -176,6 +166,11 @@ class PymongoerClass(BaseClass):
 		#folder
 		self.folder()
 
+		#import
+		'''
+		self.debug('import pymongo')
+		'''
+
 		#kill all a possible old mongod process
 		if self.PymongoingKillBool:
 			self.kill()
@@ -184,7 +179,17 @@ class PymongoerClass(BaseClass):
 		try:
 
 			#import
+			'''
+			self.debug('import pymongo')
+			'''
+
+			#import
 			from pymongo import MongoClient
+
+			#debug
+			'''
+			self.debug('try to connect to MongoClient')
+			'''
 
 			#init
 			self.PymongoneClientVariable=MongoClient(self.PymongoingUrlStr)
@@ -228,7 +233,8 @@ class PymongoerClass(BaseClass):
 			import time
 			PymongoneConnectBool=False
 			PymongoneCountInt=0
-			while PymongoneConnectBool==False and PymongoneCountInt<20:
+			while PymongoneConnectBool==False and PymongoneCountInt<5:
+
 				try:
 
 					#connect
@@ -239,6 +245,17 @@ class PymongoerClass(BaseClass):
 						PymongoneConnectBool=True
 
 				except:
+
+					#debug
+					'''
+					self.debug(
+						[
+							'Connection to MongoClient failed at the PymongoneCountInt='+str(
+								PymongoneCountInt),
+							('self.',self,['PymongoneClientVariable'])
+						]
+					)
+					'''
 
 					#say that it is not setted
 					PymongoneConnectBool=False
@@ -255,21 +272,7 @@ class PymongoerClass(BaseClass):
 				]
 			)
 			'''
-
-	def getDatabaseKeyStr(self):
-
-		#get
-		_DatabaseKeyStr=(
-				self.ParentedNodePathStr+'/'+self.NodeKeyStr
-			).replace('/','_')
-
-		#remove
-		if _DatabaseKeyStr[0]=='_':
-			_DatabaseKeyStr=_DatabaseKeyStr[1:]
-
-		#return 
-		return _DatabaseKeyStr
-
+			
 	def pymongoview(self,_DatabaseKeyStr=""):
 
 		#debug
@@ -345,9 +348,22 @@ class PymongoerClass(BaseClass):
 			'''
 			
 			#kill but before wait a bit to be sure that the db has time to refresh
-			import time
-			time.sleep(5)
+			SYS.stdout('Kill the mongod popen variable')
+			SYS.wait(3)
 			self.PymongonePopenVariable.kill()
+			SYS.stdout('It is killed')
 
 #</DefineClass>
 
+#</DefinePrint>
+PymongoerClass.PrintingClassSkipKeyStrsList.extend(
+	[
+		'PymongoingUrlStr',
+		'PymongoingKillBool',
+		'PymongoneFolderPathStr',
+		'PymongonePopenVariable',
+		'PymongoneClientVariable',
+		'PymongoneDatabaseVariable'
+	]
+)
+#<DefinePrint>

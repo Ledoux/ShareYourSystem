@@ -191,11 +191,11 @@ class RowerClass(
 		self.table()
 		
 		#Check	
-		if self.ModeledPointDeriveControllerVariable!=None:
+		if self.ModeledDeriveControllerVariable!=None:
 			
 			#debug
 			'''
-			self.ModeledPointDeriveControllerVariable.debug('ParentSpeaking...')
+			self.ModeledDeriveControllerVariable.debug('ParentSpeaking...')
 			'''
 
 			#Check
@@ -205,7 +205,7 @@ class RowerClass(
 				self.RowedMongoPickOrderedDict.update(
 					zip(
 						self.RowingGetStrsList,
-						self.ModeledPointDeriveControllerVariable.pick(
+						self.ModeledDeriveControllerVariable.pick(
 							self.RowingGetStrsList
 						)
 					)
@@ -283,7 +283,7 @@ class RowerClass(
 				self.RowedHdfPickOrderedDict.update(
 					zip(
 						self.RowedHdfColumnStrsList,
-						self.ModeledPointDeriveControllerVariable.pick(
+						self.ModeledDeriveControllerVariable.pick(
 							self.RowingGetStrsList
 						)
 					)

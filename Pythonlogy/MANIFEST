@@ -510,6 +510,8 @@ ShareYourSystem/Standards/Interfacers/Pymongoer/03_ExampleDoc.py
 ShareYourSystem/Standards/Interfacers/Pymongoer/ProcessTemp.sh
 ShareYourSystem/Standards/Interfacers/Pymongoer/ProcessTemp.txt
 ShareYourSystem/Standards/Interfacers/Pymongoer/__init__.py
+ShareYourSystem/Standards/Interfacers/Pymongoer/data/db/journal/j._0
+ShareYourSystem/Standards/Interfacers/Pymongoer/data/db/journal/lsn
 ShareYourSystem/Standards/Interfacers/Statuser/001_DocumentDoc.md
 ShareYourSystem/Standards/Interfacers/Statuser/002_GithubDoc.md
 ShareYourSystem/Standards/Interfacers/Statuser/01_ExampleDoc.py
@@ -539,13 +541,6 @@ ShareYourSystem/Standards/Itemizers/Arrayer/05_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Arrayer/06_DocumentDoc.md
 ShareYourSystem/Standards/Itemizers/Arrayer/07_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Arrayer/__init__.py
-ShareYourSystem/Standards/Itemizers/Attributer/001_DocumentDoc.md
-ShareYourSystem/Standards/Itemizers/Attributer/00_ExampleDoc.md
-ShareYourSystem/Standards/Itemizers/Attributer/01_ExampleDoc.py
-ShareYourSystem/Standards/Itemizers/Attributer/02_ExampleDoc.md
-ShareYourSystem/Standards/Itemizers/Attributer/03_ExampleDoc.py
-ShareYourSystem/Standards/Itemizers/Attributer/Readme.md
-ShareYourSystem/Standards/Itemizers/Attributer/__init__.py
 ShareYourSystem/Standards/Itemizers/Commander/001_DocumentDoc.md
 ShareYourSystem/Standards/Itemizers/Commander/00_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Commander/01_ExampleDoc.py
@@ -664,6 +659,8 @@ ShareYourSystem/Standards/Itemizers/Setter/14_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Setter/15_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Setter/16_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Setter/17_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Setter/18_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Setter/19_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Setter/Readme.md
 ShareYourSystem/Standards/Itemizers/Setter/Test.py
 ShareYourSystem/Standards/Itemizers/Setter/__init__.py
@@ -794,7 +791,6 @@ ShareYourSystem/Standards/Modelers/Tabularer/Readme.md
 ShareYourSystem/Standards/Modelers/Tabularer/Test.py
 ShareYourSystem/Standards/Modelers/Tabularer/__init__.py
 ShareYourSystem/Standards/Modelers/Tabularer/data/db/journal/j._0
-ShareYourSystem/Standards/Modelers/Tabularer/data/db/journal/lsn
 ShareYourSystem/Standards/Objects/001_DocumentDoc.md
 ShareYourSystem/Standards/Objects/002_OuvatonDoc.md
 ShareYourSystem/Standards/Objects/1_GithubDoc.md

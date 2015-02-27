@@ -650,8 +650,14 @@ class PrinterClass(BaseClass):
 			
 	def __repr__(self,**_KwargVariablesDict):
 
+		#get
+		PrintStr=self._print(self,_OutBool=False,**_KwargVariablesDict).PrintedStr
+
+		#reset
+		self.PrintingOutBool=True
+
 		#return 
-		return self._print(self,_OutBool=False,**_KwargVariablesDict).PrintedStr
+		return PrintStr
 
 	def do__print(self,**_KwargVariablesDict):
 
@@ -709,7 +715,9 @@ class PrinterClass(BaseClass):
 													self.__class__,__SpecificKeyStr
 												))==property and getattr(
 													self.__class__,'_'+__SpecificKeyStr
-												)!=getattr(self,'_'+__SpecificKeyStr)
+												)!=getattr(self,'_'+__SpecificKeyStr) and (
+												'_'+__SpecificKeyStr not in self.PrintingClassSkipKeyStrsList and __SpecificKeyStr not in self.PrintingInstanceSkipKeyStrsList
+												)
 												else
 												"<Class>"
 												)

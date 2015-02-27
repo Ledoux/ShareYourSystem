@@ -15,7 +15,7 @@ the PathPrefixStr
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Itemizers.Attributer"
+BaseModuleStr="ShareYourSystem.Standards.Itemizers.Arrayer"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>

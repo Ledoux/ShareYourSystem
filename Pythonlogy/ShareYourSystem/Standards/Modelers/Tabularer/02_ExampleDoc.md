@@ -5,4 +5,4 @@ FrozenIsBool True
 
 ##Example
 
-Trying with mongodb
+Trying with pytable

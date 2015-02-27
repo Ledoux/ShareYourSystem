@@ -545,6 +545,20 @@ def add(_VariableA,_VariableB):
 		#return
 		return _VariableA
 
+
+def stdout(_PrintStr):
+	sys.stdout.write(_PrintStr+'\n')
+	sys.stdout.flush()
+
+def wait(_SecondInt):
+	import time
+	for __IndexInt in xrange(_SecondInt):
+		sys.stdout.write('...'+str(_SecondInt-__IndexInt)+'s')
+		sys.stdout.flush()
+		time.sleep(1)
+	sys.stdout.write('\n')
+	sys.stdout.flush()
+
 def indent(_Variable):
 	if hasattr(_Variable,'items')==False:
 		_Variable=_Variable.__dict__
