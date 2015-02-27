@@ -45,7 +45,7 @@ class FooClass(Initiator.InitiatorClass):
                                                 _MyFloat=1.,
                                                 _MyList=[],
                                                 _MyInt={
-'DefaultingSetType':int
+'DefaultValueType':int
                                                                 }
                                 ):
 

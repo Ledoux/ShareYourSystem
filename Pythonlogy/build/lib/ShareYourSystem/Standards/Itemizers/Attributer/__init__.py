@@ -55,14 +55,30 @@ class AttributerClass(BaseClass):
 
 	def do_attribute(self):
 
+		#debug
+		self.debug(
+				('self.',self,['AttributingKeyStr','AttributingValueVariable'])
+			)
+
 		#Check
 		if self.AttributingInstanceBool:
+
+			#debug
+			self.debug(
+					'We set attribute in the instance here'
+				)
 
 			#Call the set
 			self[self.AttributingKeyStr]=self.AttributingValueVariable
 
 		elif self.AttributingClassBool:
 
+			#debug
+			self.debug(
+					'We set attribute in the class here'
+				)
+
+			#set
 			setattr(
 				self.__class__,
 				self.AttributingKeyStr,

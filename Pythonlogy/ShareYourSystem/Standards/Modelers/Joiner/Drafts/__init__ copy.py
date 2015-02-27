@@ -88,10 +88,10 @@ class JoinerClass(BaseClass):
 		#</NotHook>
 		
 		#debug
-		self.debug('Add in the ModelingSealTuplesList')
+		self.debug('Add in the ModelingDescriptionTuplesList')
 
 		#set
-		self.ModelingSealTuplesList+=map(
+		self.ModelingDescriptionTuplesList+=map(
 				lambda __JoinedRetrieveIndexesListGetStr,__JoinedRetrieveIndexesListColumnStr:
 				(
 					__JoinedRetrieveIndexesListGetStr,
@@ -103,7 +103,7 @@ class JoinerClass(BaseClass):
 			)
 
 		#debug
-		self.debug(('self.',self,['ModelingSealTuplesList']))
+		self.debug(('self.',self,['ModelingDescriptionTuplesList']))
 
 		#<NotHook>
 		#join and model first

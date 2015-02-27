@@ -1828,9 +1828,9 @@ class RowerClass(
     def default_init(
                     self,
                     _RowingGetStrsList={
-                            'DefaultingSetType':property,
-                            'PropertizingInitVariable':[],
-                            'PropertizingDocStr':''
+                            'DefaultValueType':property,
+                            'PropertyInitVariable':[],
+                            'PropertyDocStr':''
                     },
                     _RowedGetStrToColumnStrOrderedDict=None,
                     _RowedColumnStrsList=None,                                                                
@@ -1844,28 +1844,28 @@ class RowerClass(
         #Call the parent init method
         BaseClass.__init__(self,**_KwargVariablesDict)
 
-    def setModelingSealTuplesList(self,_SettingValueVariable):
+    def setModelingDescriptionTuplesList(self,_SettingValueVariable):
 
         #debug
         '''
         self.debug(
                     [
-                        'Before setting ModelingSealTuplesList',
-                        ('self.',self,['ModelingSealTuplesList']),
+                        'Before setting ModelingDescriptionTuplesList',
+                        ('self.',self,['ModelingDescriptionTuplesList']),
                         '_SettingValueVariable is '+str(_SettingValueVariable)
                     ]
                 )
         '''
 
         #set
-        self._ModelingSealTuplesList=_SettingValueVariable
+        self._ModelingDescriptionTuplesList=_SettingValueVariable
 
         #debug
         '''
         self.debug(
                     [
                         'After',
-                        ('self.',self,['ModelingSealTuplesList']),
+                        ('self.',self,['ModelingDescriptionTuplesList']),
                         'We bind with RowedGetStrToColumnStrOrderedDict setting',
                     ]
                 )
@@ -1876,7 +1876,7 @@ class RowerClass(
                 map(
                     lambda _ModelingSealTuple:
                     (_ModelingSealTuple[0],_ModelingSealTuple[1]),
-                    self._ModelingSealTuplesList
+                    self._ModelingDescriptionTuplesList
                     )
                 )
 
@@ -1889,11 +1889,11 @@ class RowerClass(
                 )
         '''
 
-    ModelingSealTuplesList=property(
-                                    BaseClass.ModelingSealTuplesList.fget,
-                                    setModelingSealTuplesList,
-                                    BaseClass.ModelingSealTuplesList.fdel,
-                                    BaseClass.ModelingSealTuplesList.__doc__
+    ModelingDescriptionTuplesList=property(
+                                    BaseClass.ModelingDescriptionTuplesList.fget,
+                                    setModelingDescriptionTuplesList,
+                                    BaseClass.ModelingDescriptionTuplesList.fdel,
+                                    BaseClass.ModelingDescriptionTuplesList.__doc__
                                 )
 
     def setRowingGetStrsList(self,_SettingValueVariable):
@@ -2053,7 +2053,7 @@ In&nbsp;[3]:
     <span class="n">Rower</span><span class="o">.</span><span class="n">RowerClass</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
         <span class="p">[</span>
             <span class="p">(</span>
-                <span class="s">&#39;Attr_ModelingSealTuplesList&#39;</span><span class="p">,</span>
+                <span class="s">&#39;Attr_ModelingDescriptionTuplesList&#39;</span><span class="p">,</span>
                 <span class="p">[</span>
                     <span class="c">#GetStr #ColumnStr #Col</span>
                     <span class="p">(</span><span class="s">&#39;MyInt&#39;</span><span class="p">,</span><span class="s">&#39;MyInt&#39;</span><span class="p">,</span><span class="n">tables</span><span class="o">.</span><span class="n">Int64Col</span><span class="p">()),</span>
@@ -2121,7 +2121,7 @@ MyStructurer is &lt; (StructurerClass), 4565342480&gt;
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeKeyStr&apos; : ThingsRower
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (StructurerClass), 4565342480&gt;
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4565727336&gt;
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;_ModelingSealTuplesList&apos; : 
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;_ModelingDescriptionTuplesList&apos; : 
    /   /   /   /[
    /   /   /   /  0 : 
    /   /   /   /   /(

@@ -6,24 +6,21 @@ import ShareYourSystem as SYS
 @SYS.ClasserClass()
 class MakerClass(SYS.AttributerClass):
 
-	#Definition
-	RepresentingKeyStrsList=[
-							'MakingIntsList',
-							'MadeSumInt'
-						]
-
 	def default_init(self,
 			_MakingIntsList={
-							'DefaultingSetType':property,
-							'PropertizingInitVariable':[],
-							'PropertizingDocStr':'I am doing the thing here'
+							'DefaultValueType':property,
+							'PropertyInitVariable':None,
+							'PropertyDocStr':'I am doing the thing here'
 							},
 			_MadeSumInt=0	
 		):
 		pass
 
 	#Definition a binding function
-	def setMakingIntsList(self,_SettingValueVariable):
+	def propertize_setMakingIntsList(self,_SettingValueVariable):
+
+		#debug
+		self.debug('MakingIntsList is setted !')
 
 		#set the value of the "hidden" property variable
 		self._MakingIntsList=_SettingValueVariable
@@ -33,8 +30,17 @@ class MakerClass(SYS.AttributerClass):
 
 #define and set
 MyMaker=MakerClass(
-	).__setitem__(
-		'Attr_MakingIntsList',
+	)
+
+#print(MakerClass.)
+
+#print
+print('MyMaker before set is ')
+SYS._print(MyMaker)
+
+#set
+MyMaker.__setitem__(
+		'MakingIntsList',
 		[3,4]
 	)
 
@@ -42,3 +48,4 @@ MyMaker=MakerClass(
 print('MyMaker is ')
 SYS._print(MyMaker)
 
+print(MyMaker.__class__.MakingIntsList)

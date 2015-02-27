@@ -7,16 +7,16 @@ class MakerClass(SYS.ObjectClass):
 
 	def default_init(self,
 			_MakingMyFloat={
-							'DefaultingSetType':property,
-							'PropertizingInitVariable':3.,
-							'PropertizingDocStr':'I am doing the thing here'
+							'DefaultValueType':property,
+							'PropertyInitVariable':3.,
+							'PropertyDocStr':'I am doing the thing here'
 							},
 			_MakingMyList={
-							'DefaultingSetType':property,
-							'PropertizingInitVariable':[],
-							'PropertizingDocStr':'I am doing the thing here'
+							'DefaultValueType':property,
+							'PropertyInitVariable':[],
+							'PropertyDocStr':'I am doing the thing here'
 							},
-			_MakingMyInt={'DefaultingSetType':int},
+			_MakingMyInt={'DefaultValueType':int},
 			_MadeMyInt=0	
 		):
 		SYS.ObjectClass.__init__(self)

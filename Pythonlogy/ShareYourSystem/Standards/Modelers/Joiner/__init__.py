@@ -88,7 +88,7 @@ class JoinerClass(BaseClass):
 		
 		#debug
 		'''
-		self.debug('Add in the ModelingSealTuplesList')
+		self.debug('Add in the ModelingDescriptionTuplesList')
 		'''
 		
 		#set
@@ -101,7 +101,7 @@ class JoinerClass(BaseClass):
 				import tables
 
 				#add
-				self.ModelingSealTuplesList=map(
+				self.ModelingDescriptionTuplesList=map(
 					lambda __JoinedRetrieveIndexesListGetStr,__JoinedRetrieveIndexesListColumnStr:
 					(
 						__JoinedRetrieveIndexesListGetStr,
@@ -110,13 +110,13 @@ class JoinerClass(BaseClass):
 					),
 					self.JoinedRetrieveIndexesListGetStrsList,
 					self.JoinedRetrieveIndexesListColumnStrsList
-				)+self.ModelingSealTuplesList
+				)+self.ModelingDescriptionTuplesList
 
 		#debug
 		'''
 		self.debug(
 					[	
-						('self.',self,['ModelingSealTuplesList']),
+						('self.',self,['ModelingDescriptionTuplesList']),
 						'Now call the parent model method'
 					]
 				)
@@ -171,7 +171,7 @@ class JoinerClass(BaseClass):
 			)
 
 		#Check
-		if len(self.ModelingSealTuplesList)>0:
+		if len(self.ModelingDescriptionTuplesList)>0:
 			self.JoiningDatabaseStr='hdf'
 
 		#Check
@@ -512,7 +512,7 @@ class JoinerClass(BaseClass):
 			'''
 
 			#Check
-			if len(self.ModelingSealTuplesList)>0:
+			if len(self.ModelingDescriptionTuplesList)>0:
 				self.ModelingHdfBool=True
 				self.JoiningDatabaseStr="hdf"
 				JoinedTabledIndexIntKeyStr='TabledHdfIndexInt'

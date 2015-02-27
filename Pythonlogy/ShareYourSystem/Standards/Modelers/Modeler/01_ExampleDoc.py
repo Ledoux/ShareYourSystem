@@ -10,7 +10,7 @@ MyController=SYS.ControllerClass(
 
 
 #print
-SYS._print('MyController is ')
-print(MyController)
+print('MyController is ')
+SYS._print(MyController)
 
 

@@ -21,7 +21,6 @@ class MakerClass(SYS.ObjectClass):
 		):
 		SYS.ObjectClass.__init__(self)
 
-	#Definition a binding function
 	def propertize_setMakingMyFloat(self,_SettingValueVariable):
 
 		#Print
@@ -33,34 +32,47 @@ class MakerClass(SYS.ObjectClass):
 		#Bind with MadeInt setting
 		self.MadeMyInt=int(self._MakingMyFloat)
 
-	#Definition a binding function
 	def propertize_setMakingMyList(self,_SettingValueVariable):
 
 		#set the value of the "hidden" property variable
 		self._MakingMyList=_SettingValueVariable+['Hellllllo']
 
 
-#Definition a default instance 
-DefaultMaker=MakerClass()
+#Define
+@SYS.PropertiserClass()
+class BuilderClass(MakerClass):
+
+	def default_init(
+						self
+					):
+		SYS.MakerClass.__init__(self)
+
+	def propertize_setMakingMyList(self,_SettingValueVariable):
+
+		#call the base method
+		MakerClass.propertize_setMakingMyList(self,_SettingValueVariable)
+
+		#set the value of the "hidden" property variable
+		self._MakingMyList+=['Build en plus !']
+
+	#We need here to redefine
+	MakingMyList=property(
+			MakerClass.MakingMyList.fget,
+			propertize_setMakingMyList,
+			MakerClass.MakingMyList.fdel
+		)
 
 #Definition a special instance
-SpecialMaker=MakerClass(_MakingMyFloat=5,_MakingMyList=[4])
+SpecialBuilder=BuilderClass(_MakingMyFloat=5,_MakingMyList=[4])
 
 #Definition the AttestedStr
 print('\n'.join(
 	[
-		'MakerClass.PropertizedDefaultTuplesList is '+SYS._str(
-			MakerClass.PropertizedDefaultTuplesList),
-		'What are you saying DefaultMaker ?',
-		'DefaultMaker.__dict__ is '+str(DefaultMaker.__dict__),
-		'DefaultMaker.MakingMyFloat is '+str(DefaultMaker.MakingMyFloat),
-		'DefaultMaker.MakingMyList is '+str(DefaultMaker.MakingMyList),
-		'DefaultMaker.MadeMyInt is '+str(DefaultMaker.MadeMyInt),
-		'What are you saying SpecialMaker ?',
-		'SpecialMaker.__dict__ is '+str(SpecialMaker.__dict__),
-		'SpecialMaker.MakingMyFloat is '+str(SpecialMaker.MakingMyFloat),
-		'SpecialMaker.MakingMyList is '+str(SpecialMaker.MakingMyList),
-		'SpecialMaker.MadeMyInt is '+str(SpecialMaker.MadeMyInt),
+		'What are you saying SpecialBuilder ?',
+		'SpecialBuilder.__dict__ is '+str(SpecialBuilder.__dict__),
+		'SpecialBuilder.MakingMyFloat is '+str(SpecialBuilder.MakingMyFloat),
+		'SpecialBuilder.MakingMyList is '+str(SpecialBuilder.MakingMyList),
+		'SpecialBuilder.MadeMyInt is '+str(SpecialBuilder.MadeMyInt),
 	]
 	)
 ) 

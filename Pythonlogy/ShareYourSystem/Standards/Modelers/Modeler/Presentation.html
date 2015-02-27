@@ -1835,7 +1835,7 @@ class ModelerClass(BaseClass):
 
     #Definition
     RepresentingKeyStrsList=[
-                                    'ModelingSealTuplesList',                                     
+                                    'ModelingDescriptionTuplesList',                                     
                                     'ModeledDescriptionClassesOrderedDict',                                                                
                                     'ModeledDescriptionClass',                                                     
                                     'ModeledKeyStr'
@@ -1843,10 +1843,10 @@ class ModelerClass(BaseClass):
 
     def default_init(
                     self,
-                    _ModelingSealTuplesList={
-                                'DefaultingSetType':property,
-                                'PropertizingInitVariable':[],
-                                'PropertizingDocStr':''
+                    _ModelingDescriptionTuplesList={
+                                'DefaultValueType':property,
+                                'PropertyInitVariable':[],
+                                'PropertyDocStr':''
                         },                                 
                     _ModeledDescriptionClassesOrderedDict=None,                                                                
                     _ModeledDescriptionClass=None,                                                     
@@ -1862,7 +1862,7 @@ class ModelerClass(BaseClass):
 
         #debug
         '''
-        self.debug(('self.',self,['ModelingSealTuplesList']))
+        self.debug(('self.',self,['ModelingDescriptionTuplesList']))
         '''
 
         #&lt;NotHook&gt;
@@ -1899,7 +1899,7 @@ class ModelerClass(BaseClass):
                     __ModelingColumnTuple[1],
                     __ModelingColumnTuple[2]
                     ),
-                self.ModelingSealTuplesList
+                self.ModelingDescriptionTuplesList
             )
 
         #Give a name
@@ -2019,7 +2019,7 @@ MyCollecter is &lt; (CollecterClass), 4565029840&gt;
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodeKeyStr&apos; : ThingsModeler
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (CollecterClass), 4565029840&gt;
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4565725560&gt;
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;_ModelingSealTuplesList&apos; : 
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;_ModelingDescriptionTuplesList&apos; : 
    /   /   /   /[
    /   /   /   /  0 : 
    /   /   /   /   /(
@@ -2040,7 +2040,7 @@ MyCollecter is &lt; (CollecterClass), 4565029840&gt;
    /   /   /   /   /  2 : Int64Col(shape=(3,), dflt=0, pos=None)
    /   /   /   /   /)
    /   /   /   /]
-   /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;ModelingSealTuplesList&apos; : {...}&lt; (list), 4559840176&gt;
+   /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;ModelingDescriptionTuplesList&apos; : {...}&lt; (list), 4559840176&gt;
    /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;ModeledDescriptionClass&apos; : &lt;class &apos;tables.description.ThingsModelerModelClass&apos;&gt;
    /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;ModeledDescriptionClassesOrderedDict&apos; : 
    /   /   /   /{ 

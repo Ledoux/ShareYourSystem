@@ -8,7 +8,7 @@ class MakerClass(SYS.ObjectClass):
 	def default_init(self,
 				_MakingMyFloat=1.,
 				_MakingMyList=None,
-				_MakingFirstInt={'DefaultingSetType':int},
+				_MakingFirstInt={'DefaultValueType':int},
 				_MakingSecondInt=0,
 				_MadeMyInt=0,
 				_MadeMyList=None,

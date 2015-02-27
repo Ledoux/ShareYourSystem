@@ -11,7 +11,7 @@ class FooClass(SYS.ObjectClass):
 						_MyFirstSpecificList=None,
 						_MySecondSpecificList=None,
 						_MyInt={
-									'DefaultingSetType':int
+									'DefaultValueType':int
 								}
 				):
 		SYS.ObjectClass.__init__(self)

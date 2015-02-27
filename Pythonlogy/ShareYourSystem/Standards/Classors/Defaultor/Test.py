@@ -21,7 +21,7 @@ class MakerClass(Initiator.InitiatorClass):
 						_MakingFloat=1.,
 						_MakingList=[],
 						_MakingInt={
-										'DefaultingSetType':int
+										'DefaultValueType':int
 									},
 						_MadeInt=0	
 				):

@@ -45,8 +45,8 @@ class ShaperClass(BaseClass):
 									'ShapedStr',									
 									'ShapedVariablePointer', 						
 									'ShapedDimensionVariablesList', 							
-									'ShapedModelingSealTuplesList', 					
-									'ShapedNotModelingSealTuplesList',  				
+									'ShapedModelingDescriptionTuplesList', 					
+									'ShapedNotModelingDescriptionTuplesList',  				
 									'ShapedGettingStrsList', 					
 									'ShapedColClassAndGettingStrTuplesList'
 								]
@@ -56,8 +56,8 @@ class ShaperClass(BaseClass):
 					_ShapedStr="",									
 					_ShapedVariablePointer=None, 						
 					_ShapedDimensionVariablesList=None, 							
-					_ShapedModelingSealTuplesList=None, 					
-					_ShapedNotModelingSealTuplesList=None,  				
+					_ShapedModelingDescriptionTuplesList=None, 					
+					_ShapedNotModelingDescriptionTuplesList=None,  				
 					_ShapedGettingStrsList=None, 					
 					_ShapedColClassAndGettingStrTuplesList=None, 			
 					**_KwargVariablesDict):
@@ -167,7 +167,7 @@ class ShaperClass(BaseClass):
 			'''
 
 			#set also the ShapingColumningTuplesList inside of the ColumningTuplesList
-			self.ModelingSealTuplesList=self.ShapedNotModelingSealTuplesList+map(
+			self.ModelingDescriptionTuplesList=self.ShapedNotModelingDescriptionTuplesList+map(
 					lambda __ShapedGettingStr,__ShapedColClassAndGettingStrTuple:
 					(
 						__ShapedGettingStr,
@@ -181,8 +181,8 @@ class ShaperClass(BaseClass):
 
 			#debug
 			'''
-			self.debug("Now self.ModelingSealTuplesList is "+str(
-				self.ModelingSealTuplesList))
+			self.debug("Now self.ModelingDescriptionTuplesList is "+str(
+				self.ModelingDescriptionTuplesList))
 			'''
 
 		'''
@@ -347,7 +347,7 @@ class ShaperClass(BaseClass):
 			'''
 
 			#set again the ColumnTuplesList
-			self.ModelingSealTuplesList=copy.copy(self.ShapedCopyModelingSealTuplesList)
+			self.ModelingDescriptionTuplesList=copy.copy(self.ShapedCopyModelingDescriptionTuplesList)
 
 			#Reset some bools
 			map(
@@ -390,8 +390,8 @@ class ShaperClass(BaseClass):
 		if self.ShapedColClassAndGettingStrTuplesList==None:
 			self.ShapedColClassAndGettingStrTuplesList=[]
 
-		#set the ShapedOldModelingSealTuplesList
-		self.ShapedCopyModelingSealTuplesList=copy.copy(self.ModelingSealTuplesList)
+		#set the ShapedOldModelingDescriptionTuplesList
+		self.ShapedCopyModelingDescriptionTuplesList=copy.copy(self.ModelingDescriptionTuplesList)
 
 		#debug
 		'''
@@ -400,17 +400,17 @@ class ShaperClass(BaseClass):
 
 		#Unpack
 		[
-			self.ShapedModelingSealTuplesList,
-			self.ShapedNotModelingSealTuplesList
+			self.ShapedModelingDescriptionTuplesList,
+			self.ShapedNotModelingDescriptionTuplesList
 		]=SYS.groupby(
 					lambda __ColumnTuple:
 					type(__ColumnTuple[1])==tuple,
-					self.ModelingSealTuplesList,
+					self.ModelingDescriptionTuplesList,
 				)
 
 		#set the ShapedGettingStrsList and ShapedColClassAndGettingStrTuplesList
 		FilteredList=map(list,
-				SYS.unzip(self.ShapedModelingSealTuplesList,[0,1])
+				SYS.unzip(self.ShapedModelingDescriptionTuplesList,[0,1])
 			)
 		if len(FilteredList)>0:
 			[
@@ -422,7 +422,7 @@ class ShaperClass(BaseClass):
 		'''
 		self.debug(
 					('self.',self,[
-									'ShapedNotModelingSealTuplesList',
+									'ShapedNotModelingDescriptionTuplesList',
 									'ShapedGettingStrsList',
 									'ShapedColClassAndGettingStrTuplesList'
 								]

@@ -1895,7 +1895,7 @@ class ShaperClass(BaseClass):
             self.ModeledDescriptionClassesOrderedDict=collections.OrderedDict()
 
         #Unnzip
-        ModeledGetKeyStrsList=SYS.unzip(self.ModelingSealTuplesList,[0])
+        ModeledGetKeyStrsList=SYS.unzip(self.ModelingDescriptionTuplesList,[0])
 
         #debug
         '''
@@ -1907,22 +1907,22 @@ class ShaperClass(BaseClass):
                 )    
         '''
 
-        ShapedModelingSealTuplesList=map(
-                self.ModelingSealTuplesList.__getitem__,
+        ShapedModelingDescriptionTuplesList=map(
+                self.ModelingDescriptionTuplesList.__getitem__,
                 self.ShapedIndexIntsList
             )
 
         #debug
         '''
         self.debug(
-                    'ShapedModelingSealTuplesList is '+str(ShapedModelingSealTuplesList)
+                    'ShapedModelingDescriptionTuplesList is '+str(ShapedModelingDescriptionTuplesList)
                 )
         '''    
 
         #set the shaping cols
         map(
                 lambda __ShapedIndexInt,__ShapedModelingSealTuple:
-                self.ModelingSealTuplesList.__setitem__(
+                self.ModelingDescriptionTuplesList.__setitem__(
                     __ShapedIndexInt,
                     __ShapedModelingSealTuple
                 ),
@@ -1937,15 +1937,15 @@ class ShaperClass(BaseClass):
                             __ShapedSealDimensionGetKeyStrsList)
                         )
                     ),
-                    ShapedModelingSealTuplesList,
+                    ShapedModelingDescriptionTuplesList,
                     self.ShapedSealDimensionGetKeyStrsListsList    
                 )
             )
 
         #debug    
         '''        
-        self.debug("Now self.ModelingSealTuplesList is "+str(
-            self.ModelingSealTuplesList))
+        self.debug("Now self.ModelingDescriptionTuplesList is "+str(
+            self.ModelingDescriptionTuplesList))
         '''
 
         #&lt;NotHook&gt;
@@ -2133,7 +2133,7 @@ class ShaperClass(BaseClass):
         '''
 
         #Definition
-        ModeledGetKeyStrsList=SYS.unzip(self.ModelingSealTuplesList,[0])
+        ModeledGetKeyStrsList=SYS.unzip(self.ModelingDescriptionTuplesList,[0])
 
         #set
         self.ShapedIndexIntsList=map(
@@ -2223,7 +2223,7 @@ In&nbsp;[3]:
     <span class="s">&quot;Things&quot;</span><span class="p">,</span>
     <span class="n">Shaper</span><span class="o">.</span><span class="n">ShaperClass</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
         <span class="p">[</span>
-            <span class="p">(</span><span class="s">&#39;Attr_ModelingSealTuplesList&#39;</span><span class="p">,</span>
+            <span class="p">(</span><span class="s">&#39;Attr_ModelingDescriptionTuplesList&#39;</span><span class="p">,</span>
                 <span class="p">[</span>
                     <span class="p">(</span><span class="s">&#39;MyInt&#39;</span><span class="p">,</span><span class="s">&#39;MyInt&#39;</span><span class="p">,</span><span class="n">tables</span><span class="o">.</span><span class="n">Int64Col</span><span class="p">()),</span>
                     <span class="p">(</span><span class="s">&#39;MyStr&#39;</span><span class="p">,</span><span class="s">&#39;MyStr&#39;</span><span class="p">,</span><span class="n">tables</span><span class="o">.</span><span class="n">StringCol</span><span class="p">(</span><span class="mi">10</span><span class="p">)),</span>
@@ -2316,7 +2316,7 @@ MyStructurer is &lt; (StructurerClass), 4565342480&gt;
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointDeriveNoder&apos; : {...}&lt; (StructurerClass), 4565342480&gt;
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;NodePointOrderedDict&apos; : {...}&lt; (OrderedDict), 4565359288&gt;
    /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;ShapedErrorBool&apos; : True
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;_ModelingSealTuplesList&apos; : 
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;_ModelingDescriptionTuplesList&apos; : 
    /   /   /   /[
    /   /   /   /  0 : 
    /   /   /   /   /(

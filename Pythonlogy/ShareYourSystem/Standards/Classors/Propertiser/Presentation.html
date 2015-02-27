@@ -1858,8 +1858,8 @@ def getPropertizedTupleWithItemTupleAndClass(_ItemTuple,_Class):
                             PropertizedGetFunction,
                             PropertizedSetFunction,
                             PropertizedDelFunction,
-                            _ItemTuple[1]['PropertizingDocStr'
-                            ]if 'PropertizingDocStr' in _ItemTuple[1]
+                            _ItemTuple[1]['PropertyDocStr'
+                            ]if 'PropertyDocStr' in _ItemTuple[1]
                             else "This is here a property but with no more details..."
                         )
 
@@ -1872,8 +1872,8 @@ def getPropertizedTupleWithItemTupleAndClass(_ItemTuple,_Class):
 def getPropertizedVariableWithItemTuple(_ItemTuple):
 
     #Maybe it is already defined
-    if 'PropertizingInitVariable' in _ItemTuple[1]:
-        return _ItemTuple[1]['PropertizingInitVariable']
+    if 'PropertyInitVariable' in _ItemTuple[1]:
+        return _ItemTuple[1]['PropertyInitVariable']
     else:
 
         #Return the default one associated with the type
@@ -1955,9 +1955,9 @@ class PropertiserClass(BaseClass):
                 type(__DefaultSetTuple[1]
                     )==property or (
                     hasattr(__DefaultSetTuple[1],'items'
-                        ) and 'DefaultingSetType' in __DefaultSetTuple[1
+                        ) and 'DefaultValueType' in __DefaultSetTuple[1
                     ] and __DefaultSetTuple[1
-                    ]['DefaultingSetType']==property),
+                    ]['DefaultValueType']==property),
                 PropertizedClass.DefaultAttributeVariablesOrderedDict.items()
             )
 
@@ -2058,16 +2058,16 @@ In&nbsp;[3]:
 
     <span class="k">def</span> <span class="nf">default_init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
             <span class="n">_MakingMyFloat</span><span class="o">=</span><span class="p">{</span>
-                            <span class="s">&#39;DefaultingSetType&#39;</span><span class="p">:</span><span class="nb">property</span><span class="p">,</span>
-                            <span class="s">&#39;PropertizingInitVariable&#39;</span><span class="p">:</span><span class="mf">3.</span><span class="p">,</span>
-                            <span class="s">&#39;PropertizingDocStr&#39;</span><span class="p">:</span><span class="s">&#39;I am doing the thing here&#39;</span>
+                            <span class="s">&#39;DefaultValueType&#39;</span><span class="p">:</span><span class="nb">property</span><span class="p">,</span>
+                            <span class="s">&#39;PropertyInitVariable&#39;</span><span class="p">:</span><span class="mf">3.</span><span class="p">,</span>
+                            <span class="s">&#39;PropertyDocStr&#39;</span><span class="p">:</span><span class="s">&#39;I am doing the thing here&#39;</span>
                             <span class="p">},</span>
             <span class="n">_MakingMyList</span><span class="o">=</span><span class="p">{</span>
-                            <span class="s">&#39;DefaultingSetType&#39;</span><span class="p">:</span><span class="nb">property</span><span class="p">,</span>
-                            <span class="s">&#39;PropertizingInitVariable&#39;</span><span class="p">:[],</span>
-                            <span class="s">&#39;PropertizingDocStr&#39;</span><span class="p">:</span><span class="s">&#39;I am doing the thing here&#39;</span>
+                            <span class="s">&#39;DefaultValueType&#39;</span><span class="p">:</span><span class="nb">property</span><span class="p">,</span>
+                            <span class="s">&#39;PropertyInitVariable&#39;</span><span class="p">:[],</span>
+                            <span class="s">&#39;PropertyDocStr&#39;</span><span class="p">:</span><span class="s">&#39;I am doing the thing here&#39;</span>
                             <span class="p">},</span>
-            <span class="n">_MakingMyInt</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;DefaultingSetType&#39;</span><span class="p">:</span><span class="nb">int</span><span class="p">},</span>
+            <span class="n">_MakingMyInt</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;DefaultValueType&#39;</span><span class="p">:</span><span class="nb">int</span><span class="p">},</span>
             <span class="n">_MadeMyInt</span><span class="o">=</span><span class="mi">0</span>
         <span class="p">):</span>
         <span class="k">pass</span>

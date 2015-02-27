@@ -96,11 +96,11 @@ class ModelerClass(BaseClass):
 	
 	def default_init(
 					self,
-					_ModelingSealTuplesList={
-								'DefaultingSetType':property,
-								'PropertizingInitVariable':[],
-								'PropertizingDocStr':''
-						}, 	
+					_ModelingDescriptionTuplesList={
+						'DefaultValueType':property,
+						'PropertyInitVariable':[],
+						'PropertyDocStr':''
+					}, 	
 					_ModelingMongoBool=False,
 					_ModelingHdfBool=False,							
 					_ModeledDescriptionClassesOrderedDict=None,																
@@ -116,12 +116,11 @@ class ModelerClass(BaseClass):
 		""" """
 
 		#debug
-		'''
-		self.debug(('self.',self,['ModelingSealTuplesList']))
-		'''
-
-		#model first
-		self.model()
+		self.debug(
+			[
+				('self.',self,['ModelingDescriptionTuplesList'])
+			]
+		)
 
 		#set a name if it was not already
 		if self.ModeledKeyStr=="":
@@ -135,7 +134,7 @@ class ModelerClass(BaseClass):
 			self.ModeledKeyStr=self.ManagementTagStr
 
 		#Check
-		if len(self.ModelingSealTuplesList)>0:
+		if len(self.ModelingDescriptionTuplesList)>0:
 			self.ModelingHdfBool=True
 			self.ModelingMongoBool=False
 		else:
@@ -166,7 +165,7 @@ class ModelerClass(BaseClass):
 						__ModelingColumnTuple[1],
 						__ModelingColumnTuple[2]
 						),
-					self.ModelingSealTuplesList
+					self.ModelingDescriptionTuplesList
 				)
 
 			#Give a name
@@ -180,16 +179,41 @@ class ModelerClass(BaseClass):
 			#set the ModeledDescriptionClass
 			self.ModeledDescriptionClass=DescriptionClass
 
-	def setParentKeyStr(self,_SettingValueVariable):
+	def propertize_setParentKeyStr(self,_SettingValueVariable):
 
 		#call the parent base
-		BaseClass.setParentKeyStr(_SettingValueVariable)
+		BaseClass.propertize_setParentKeyStr(self,_SettingValueVariable)
 
 		#debug
-		self.debug('We model here')
+		self.debug(
+			[
+				'We know the ParentKeyStr',
+				'We model here',
+			]
+		)
 
 		#model
 		self.model()
+
+	def propertize_setModelingDescriptionTuplesList(self,_SettingValueVariable):
+
+		#call the parent base
+		BaseClass.propertize_setModelingDescriptionTuplesList(self,_SettingValueVariable)
+
+		#debug
+		self.debug(
+			[
+				'There are ModelingDescriptionTuplesList',
+				'We model here',
+				('self.',self,['WatchBeforeModelWithModelerBool'])
+			]
+		)
+
+		self.setSwitch()
+
+		#model
+		self.model()
+
 
 #</DefineClass>
 
@@ -197,8 +221,8 @@ class ModelerClass(BaseClass):
 #</DefinePrint>
 ModelerClass.PrintingClassSkipKeyStrsList.extend(
 	[
-		'ModelingSealTuplesList', 
-		'_ModelingSealTuplesList', 
+		'ModelingDescriptionTuplesList', 
+		'_ModelingDescriptionTuplesList', 
 		'ModelingMongoBool',
 		'ModelingHdfBool',									
 		'ModeledDescriptionClassesOrderedDict',																

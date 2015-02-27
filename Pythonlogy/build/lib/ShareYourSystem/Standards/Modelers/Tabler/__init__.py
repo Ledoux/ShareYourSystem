@@ -60,7 +60,7 @@ class TablerClass(
 
 		#debug
 		'''
-		self.debug(('self.',self,['ModelingSealTuplesList']))
+		self.debug(('self.',self,['ModelingDescriptionTuplesList']))
 		'''
 
 		#tabular first

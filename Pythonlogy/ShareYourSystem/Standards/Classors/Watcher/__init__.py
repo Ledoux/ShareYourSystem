@@ -238,9 +238,9 @@ class WatcherClass(BaseClass):
 							(
 								self.WatchedBeforeDoBoolKeyStr,
 								{
-									'DefaultingSetType':property,
-									'PropertizingInitVariable':False,
-									'PropertizingDocStr':'I am watching before'
+									'DefaultValueType':property,
+									'PropertyInitVariable':False,
+									'PropertyDocStr':'I am watching before'
 								}
 							),
 							self.DoClass
@@ -303,9 +303,9 @@ class WatcherClass(BaseClass):
 							(
 								self.WatchedAfterDoBoolKeyStr,
 								{
-									'DefaultingSetType':property,
-									'PropertizingInitVariable':False,
-									'PropertizingDocStr':'I am watching after'
+									'DefaultValueType':property,
+									'PropertyInitVariable':False,
+									'PropertyDocStr':'I am watching after'
 								}
 							),
 							self.DoClass

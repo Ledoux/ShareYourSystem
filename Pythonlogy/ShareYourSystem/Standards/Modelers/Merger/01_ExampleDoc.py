@@ -16,7 +16,7 @@ MyController=Controller.ControllerClass(
 	"Things",
 	Merger.MergerClass().update(
 		[
-			('Attr_ModelingSealTuplesList',
+			('Attr_ModelingDescriptionTuplesList',
 				[
 					('MyInt','MyInt',tables.Int64Col()),
 					('MyStr','MyStr',tables.StringCol(10)),

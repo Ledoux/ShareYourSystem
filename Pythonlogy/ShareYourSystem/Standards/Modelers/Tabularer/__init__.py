@@ -59,7 +59,7 @@ class TabularerClass(
 		self.debug(
 				[
 					('self.',self,[
-							'ModelingSealTuplesList',
+							'ModelingDescriptionTuplesList',
 							'ModeledDescriptionClass',
 							'WatchModelWithModelerBool',
 							'WatchModelWithJoinerBool'
@@ -76,7 +76,7 @@ class TabularerClass(
 		'''
 		self.debug(
 					[
-						('self.',self,['ModelingSealTuplesList','ModeledDescriptionClass']),
+						('self.',self,['ModelingDescriptionTuplesList','ModeledDescriptionClass']),
 						('self.ModeledPointDeriveStorer!=None is '+str(self.ModeledPointDeriveStorer!=None))
 					]
 				)
@@ -123,7 +123,7 @@ class TabularerClass(
 				'''
 				self.debug(('self.',self,[
 											'HdformatedTopDatabaseVariable',
-											'ModelingSealTuplesList',
+											'ModelingDescriptionTuplesList',
 											'ModeledDescriptionClass'
 										]))
 				'''
@@ -273,7 +273,7 @@ class TabularerClass(
 				'''
 				self.debug(('self.',self,[
 											'HdformatedTopFileVariable',
-											'ModelingSealTuplesList',
+											'ModelingDescriptionTuplesList',
 											'ModeledDescriptionClass'
 										]))
 				'''

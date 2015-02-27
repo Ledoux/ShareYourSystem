@@ -18,9 +18,9 @@ class MakerClass(Initiator.InitiatorClass):
 	def default_init(self,
 						Int,
 						_MakingFloat={
-										'DefaultingSetType':property,
-										'PropertizingInitVariable':3.,
-										'PropertizingDocStr':"This is the making float"
+										'DefaultValueType':property,
+										'PropertyInitVariable':3.,
+										'PropertyDocStr':"This is the making float"
 										},
 						_MakingList=[],
 						_MadeInt=0	

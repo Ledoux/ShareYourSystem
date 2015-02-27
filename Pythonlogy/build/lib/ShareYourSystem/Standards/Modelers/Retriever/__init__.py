@@ -51,15 +51,15 @@ class RetrieverClass(BaseClass):
 		#Call the parent init method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
-	def setModelingSealTuplesList(self,_SettingValueVariable):
+	def setModelingDescriptionTuplesList(self,_SettingValueVariable):
 
 		#debug
 		'''
-		self.debug('Before we call the parent setModelingSealTuplesList method ')
+		self.debug('Before we call the parent setModelingDescriptionTuplesList method ')
 		'''
 
 		#Hook
-		BaseClass.setModelingSealTuplesList(self,_SettingValueVariable)
+		BaseClass.setModelingDescriptionTuplesList(self,_SettingValueVariable)
 
 		#Bind with RetrievedColumnStrToGetStrOrderedDict setting
 		if self.RetrievedColumnStrToGetStrOrderedDict==None:
@@ -72,7 +72,7 @@ class RetrieverClass(BaseClass):
 				__ModelingColumnTuple[1],
 				__ModelingColumnTuple[0]
 			),
-			self.ModelingSealTuplesList
+			self.ModelingDescriptionTuplesList
 		)
 
 		#Init
@@ -84,11 +84,11 @@ class RetrieverClass(BaseClass):
 		self.debug(('self.',self,['RetrievedColumnStrToGetStrOrderedDict']))
 		'''
 		
-	ModelingSealTuplesList=property(
-									BaseClass.ModelingSealTuplesList.fget,
-									setModelingSealTuplesList,
-									BaseClass.ModelingSealTuplesList.fdel,
-									BaseClass.ModelingSealTuplesList.__doc__
+	ModelingDescriptionTuplesList=property(
+									BaseClass.ModelingDescriptionTuplesList.fget,
+									setModelingDescriptionTuplesList,
+									BaseClass.ModelingDescriptionTuplesList.fdel,
+									BaseClass.ModelingDescriptionTuplesList.__doc__
 								)
 	
 	def do_retrieve(self):
@@ -109,7 +109,7 @@ class RetrieverClass(BaseClass):
 		self.table()
 
 		#Check
-		if len(self.ModelingSealTuplesList)>0:
+		if len(self.ModelingDescriptionTuplesList)>0:
 			self.RetrievingDatabaseStr='hdf'
 
 		#debug

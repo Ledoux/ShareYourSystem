@@ -246,7 +246,7 @@ MyStructurer=Structurer.StructurerClass().collect(
     "Things",
     Merger.MergerClass().update(
         [
-            ('Attr_ModelingSealTuplesList',
+            ('Attr_ModelingDescriptionTuplesList',
                 [
                     ('MyInt','MyInt',tables.Int64Col()),
                     ('MyStr','MyStr',tables.StringCol(10)),
@@ -342,7 +342,7 @@ MyStructurer is < (StructurerClass), 4564328080>
    /   /   /  '<New><Instance>NodePointOrderedDict' : {...}< (OrderedDict),
 4563600032>
    /   /   /  '<New><Instance>ShapedErrorBool' : True
-   /   /   /  '<New><Instance>_ModelingSealTuplesList' :
+   /   /   /  '<New><Instance>_ModelingDescriptionTuplesList' :
    /   /   /   /[
    /   /   /   /  0 :
    /   /   /   /   /(

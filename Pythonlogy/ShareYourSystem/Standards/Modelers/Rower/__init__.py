@@ -70,9 +70,9 @@ class RowerClass(
 	def default_init(
 					self,
 					_RowingGetStrsList={
-							'DefaultingSetType':property,
-							'PropertizingInitVariable':[],
-							'PropertizingDocStr':''
+							'DefaultValueType':property,
+							'PropertyInitVariable':[],
+							'PropertyDocStr':''
 					},
 					_RowedGetStrToColumnStrOrderedDict=None,
 					_RowedHdfColumnStrsList=None,
@@ -90,28 +90,28 @@ class RowerClass(
 		#Call the parent init method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 		
-	def setModelingSealTuplesList(self,_SettingValueVariable):
+	def setModelingDescriptionTuplesList(self,_SettingValueVariable):
 
 		#debug
 		'''
 		self.debug(
 					[
-						'Before setting ModelingSealTuplesList',
-						('self.',self,['ModelingSealTuplesList']),
+						'Before setting ModelingDescriptionTuplesList',
+						('self.',self,['ModelingDescriptionTuplesList']),
 						'_SettingValueVariable is '+str(_SettingValueVariable)
 					]
 				)
 		'''
 
 		#set
-		self._ModelingSealTuplesList=_SettingValueVariable
+		self._ModelingDescriptionTuplesList=_SettingValueVariable
 
 		#debug
 		'''
 		self.debug(
 					[
 						'After',
-						('self.',self,['ModelingSealTuplesList']),
+						('self.',self,['ModelingDescriptionTuplesList']),
 						'We bind with RowedGetStrToColumnStrOrderedDict setting',
 					]
 				)
@@ -125,7 +125,7 @@ class RowerClass(
 						_ModelingSealTuple[0],
 						_ModelingSealTuple[1]
 					),
-					self._ModelingSealTuplesList
+					self._ModelingDescriptionTuplesList
 					)
 				)
 
@@ -138,11 +138,11 @@ class RowerClass(
 				)
 		'''
 
-	ModelingSealTuplesList=property(
-			BaseClass.ModelingSealTuplesList.fget,
-			setModelingSealTuplesList,
-			BaseClass.ModelingSealTuplesList.fdel,
-			BaseClass.ModelingSealTuplesList.__doc__
+	ModelingDescriptionTuplesList=property(
+			BaseClass.ModelingDescriptionTuplesList.fget,
+			setModelingDescriptionTuplesList,
+			BaseClass.ModelingDescriptionTuplesList.fdel,
+			BaseClass.ModelingDescriptionTuplesList.__doc__
 		)
 
 	def setRowingGetStrsList(self,_SettingValueVariable):
@@ -156,7 +156,7 @@ class RowerClass(
 		self._RowingGetStrsList=_SettingValueVariable
 
 		#Check
-		if len(self.ModelingSealTuplesList)>0:
+		if len(self.ModelingDescriptionTuplesList)>0:
 			self.ModelingHdfBool=True
 
 		#Check

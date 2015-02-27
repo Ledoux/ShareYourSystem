@@ -108,9 +108,9 @@ class RowerClass(
         def default_init(
                                         self,
                                         _RowingGetStrsList={
-'DefaultingSetType':property,
-'PropertizingInitVariable':[],
-                                                        'PropertizingDocStr':''
+'DefaultValueType':property,
+'PropertyInitVariable':[],
+                                                        'PropertyDocStr':''
                                         },
                                         _RowedGetStrToColumnStrOrderedDict=None,
                                         _RowedColumnStrsList=None,
@@ -124,15 +124,15 @@ class RowerClass(
                 #Call the parent init method
                 BaseClass.__init__(self,**_KwargVariablesDict)
 
-        def setModelingSealTuplesList(self,_SettingValueVariable):
+        def setModelingDescriptionTuplesList(self,_SettingValueVariable):
 
                 #debug
                 '''
                 self.debug(
                                         [
                                                 'Before setting
-ModelingSealTuplesList',
-('self.',self,['ModelingSealTuplesList']),
+ModelingDescriptionTuplesList',
+('self.',self,['ModelingDescriptionTuplesList']),
                                                 '_SettingValueVariable is
 '+str(_SettingValueVariable)
                                         ]
@@ -140,14 +140,14 @@ ModelingSealTuplesList',
                 '''
 
                 #set
-                self._ModelingSealTuplesList=_SettingValueVariable
+                self._ModelingDescriptionTuplesList=_SettingValueVariable
 
                 #debug
                 '''
                 self.debug(
                                         [
                                                 'After',
-('self.',self,['ModelingSealTuplesList']),
+('self.',self,['ModelingDescriptionTuplesList']),
                                                 'We bind with
 RowedGetStrToColumnStrOrderedDict setting',
                                         ]
@@ -159,7 +159,7 @@ RowedGetStrToColumnStrOrderedDict setting',
                                 map(
                                         lambda _ModelingSealTuple:
 (_ModelingSealTuple[0],_ModelingSealTuple[1]),
-                                        self._ModelingSealTuplesList
+                                        self._ModelingDescriptionTuplesList
                                         )
                                 )
 
@@ -172,11 +172,11 @@ RowedGetStrToColumnStrOrderedDict setting',
                                 )
                 '''
 
-        ModelingSealTuplesList=property(
-BaseClass.ModelingSealTuplesList.fget,
-setModelingSealTuplesList,
-BaseClass.ModelingSealTuplesList.fdel,
-BaseClass.ModelingSealTuplesList.__doc__
+        ModelingDescriptionTuplesList=property(
+BaseClass.ModelingDescriptionTuplesList.fget,
+setModelingDescriptionTuplesList,
+BaseClass.ModelingDescriptionTuplesList.fdel,
+BaseClass.ModelingDescriptionTuplesList.__doc__
                                                                 )
 
         def setRowingGetStrsList(self,_SettingValueVariable):
@@ -331,7 +331,7 @@ MyStructurer=Structurer.StructurerClass().collect(
     Rower.RowerClass().update(
         [
             (
-                'Attr_ModelingSealTuplesList',
+                'Attr_ModelingDescriptionTuplesList',
                 [
                     #GetStr #ColumnStr #Col
                     ('MyInt','MyInt',tables.Int64Col()),
@@ -396,7 +396,7 @@ MyStructurer is < (StructurerClass), 4563969424>
 4563969424>
    /   /   /  '<New><Instance>NodePointOrderedDict' : {...}< (OrderedDict),
 4563600032>
-   /   /   /  '<New><Instance>_ModelingSealTuplesList' :
+   /   /   /  '<New><Instance>_ModelingDescriptionTuplesList' :
    /   /   /   /[
    /   /   /   /  0 :
    /   /   /   /   /(

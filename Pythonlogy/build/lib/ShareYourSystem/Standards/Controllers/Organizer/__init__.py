@@ -122,7 +122,7 @@ class OrganizerClass(BaseClass):
 					).update(
 						[
 							(
-								'Attr_ModelingSealTuplesList',
+								'Attr_ModelingDescriptionTuplesList',
 								map(
 									Databaser.getModelingColumnTupleWithGetKeyStr,
 									self.OrganizingInKeyStrsList
@@ -147,7 +147,7 @@ class OrganizerClass(BaseClass):
 					).update(
 						[
 							(
-								'Attr_ModelingSealTuplesList',
+								'Attr_ModelingDescriptionTuplesList',
 								map(
 									Databaser.getModelingColumnTupleWithGetKeyStr,
 									self.OrganizingOutKeyStrsList

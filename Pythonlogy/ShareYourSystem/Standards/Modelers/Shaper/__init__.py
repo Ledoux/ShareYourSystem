@@ -133,7 +133,7 @@ class ShaperClass(BaseClass):
 			self.ModeledDescriptionClassesOrderedDict=collections.OrderedDict()
 
 		#Unnzip
-		ModeledGetKeyStrsList=SYS.unzip(self.ModelingSealTuplesList,[0])
+		ModeledGetKeyStrsList=SYS.unzip(self.ModelingDescriptionTuplesList,[0])
 
 		#debug
 		'''
@@ -145,22 +145,22 @@ class ShaperClass(BaseClass):
 				)	
 		'''
 
-		ShapedModelingSealTuplesList=map(
-				self.ModelingSealTuplesList.__getitem__,
+		ShapedModelingDescriptionTuplesList=map(
+				self.ModelingDescriptionTuplesList.__getitem__,
 				self.ShapedIndexIntsList
 			)
 
 		#debug
 		'''
 		self.debug(
-					'ShapedModelingSealTuplesList is '+str(ShapedModelingSealTuplesList)
+					'ShapedModelingDescriptionTuplesList is '+str(ShapedModelingDescriptionTuplesList)
 				)
 		'''	
 
 		#set the shaping cols
 		map(
 				lambda __ShapedIndexInt,__ShapedModelingSealTuple:
-				self.ModelingSealTuplesList.__setitem__(
+				self.ModelingDescriptionTuplesList.__setitem__(
 					__ShapedIndexInt,
 					__ShapedModelingSealTuple
 				),
@@ -175,15 +175,15 @@ class ShaperClass(BaseClass):
 							__ShapedSealDimensionGetKeyStrsList)
 						)
 					),
-					ShapedModelingSealTuplesList,
+					ShapedModelingDescriptionTuplesList,
 					self.ShapedSealDimensionGetKeyStrsListsList	
 				)
 			)
 
 		#debug	
 		'''		
-		self.debug("Now self.ModelingSealTuplesList is "+str(
-			self.ModelingSealTuplesList))
+		self.debug("Now self.ModelingDescriptionTuplesList is "+str(
+			self.ModelingDescriptionTuplesList))
 		'''
 		
 		#database then
@@ -367,7 +367,7 @@ class ShaperClass(BaseClass):
 			'''
 
 			#Definition
-			ModeledGetKeyStrsList=SYS.unzip(self.ModelingSealTuplesList,[0])
+			ModeledGetKeyStrsList=SYS.unzip(self.ModelingDescriptionTuplesList,[0])
 
 			#set
 			self.ShapedIndexIntsList=map(

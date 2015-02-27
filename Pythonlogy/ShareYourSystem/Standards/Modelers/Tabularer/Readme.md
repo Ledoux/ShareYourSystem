@@ -102,7 +102,7 @@ class TabularerClass(
                 self.debug(
                                 [
                                         ('self.',self,[
-'ModelingSealTuplesList',
+'ModelingDescriptionTuplesList',
                                                         'ModeledDescriptionClass',
 'WatchModelWithModelerBool',
 'WatchModelWithJoinerBool'
@@ -121,7 +121,7 @@ class TabularerClass(
                 '''
                 self.debug(
                                         [
-('self.',self,['ModelingSealTuplesList','ModeledDescriptionClass']),
+('self.',self,['ModelingDescriptionTuplesList','ModeledDescriptionClass']),
 ('self.ModeledPointDeriveStorer!=None is
 '+str(self.ModeledPointDeriveStorer!=None))
                                         ]
@@ -153,7 +153,7 @@ self.GroupedPathStr=self.ModeledPointDeriveControllerVariable.GroupedPathStr
                         '''
                         self.debug(('self.',self,[
 'HdformatedFileVariable',
-'ModelingSealTuplesList',
+'ModelingDescriptionTuplesList',
 'ModeledDescriptionClass'
                                                                         ]))
                         '''
@@ -267,7 +267,7 @@ MyStructurer=Structurer.StructurerClass().collect(
     "Datome",
     "Things",
     Tabularer.TabularerClass().__setitem__(
-        'Attr_ModelingSealTuplesList',
+        'Attr_ModelingDescriptionTuplesList',
         [
             #GetStr #ColumnStr #Col
             ('MyInt','MyInt',tables.Int64Col()),
@@ -324,7 +324,7 @@ MyStructurer is < (StructurerClass), 4563976400>
 4563976400>
    /   /   /  '<New><Instance>NodePointOrderedDict' : {...}< (OrderedDict),
 4561219120>
-   /   /   /  '<New><Instance>_ModelingSealTuplesList' :
+   /   /   /  '<New><Instance>_ModelingDescriptionTuplesList' :
    /   /   /   /[
    /   /   /   /  0 :
    /   /   /   /   /(

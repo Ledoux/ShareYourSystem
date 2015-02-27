@@ -247,6 +247,8 @@ ShareYourSystem/Standards/Classors/Propertiser/00_ExampleDoc.md
 ShareYourSystem/Standards/Classors/Propertiser/01_ExampleDoc.py
 ShareYourSystem/Standards/Classors/Propertiser/02_ExampleDoc.md
 ShareYourSystem/Standards/Classors/Propertiser/03_ExampleDoc.py
+ShareYourSystem/Standards/Classors/Propertiser/04_ExampleDoc.md
+ShareYourSystem/Standards/Classors/Propertiser/05_ExampleDoc.py
 ShareYourSystem/Standards/Classors/Propertiser/Install.py
 ShareYourSystem/Standards/Classors/Propertiser/Readme.md
 ShareYourSystem/Standards/Classors/Propertiser/Test.py
@@ -525,9 +527,7 @@ ShareYourSystem/Standards/Interfacers/Writer/Readme.md
 ShareYourSystem/Standards/Interfacers/Writer/Test.py
 ShareYourSystem/Standards/Interfacers/Writer/__init__.py
 ShareYourSystem/Standards/Itemizers/001_DocumentDoc.md
-ShareYourSystem/Standards/Itemizers/001_GithubDoc.md
 ShareYourSystem/Standards/Itemizers/002_OuvatonDoc.md
-ShareYourSystem/Standards/Itemizers/1_GithubDoc.md
 ShareYourSystem/Standards/Itemizers/Readme.md
 ShareYourSystem/Standards/Itemizers/__init__.py
 ShareYourSystem/Standards/Itemizers/Arrayer/00_DocumentDoc.md
@@ -593,11 +593,6 @@ ShareYourSystem/Standards/Itemizers/Executer/09_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Executer/Readme.md
 ShareYourSystem/Standards/Itemizers/Executer/Test.py
 ShareYourSystem/Standards/Itemizers/Executer/__init__.py
-ShareYourSystem/Standards/Itemizers/Filterer/001_DocumentDoc.md
-ShareYourSystem/Standards/Itemizers/Filterer/01_ExampleDoc.py
-ShareYourSystem/Standards/Itemizers/Filterer/Readme.md
-ShareYourSystem/Standards/Itemizers/Filterer/Test.py
-ShareYourSystem/Standards/Itemizers/Filterer/__init__.py
 ShareYourSystem/Standards/Itemizers/Getter/001_DocumentDoc.md
 ShareYourSystem/Standards/Itemizers/Getter/00_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Getter/01_ExampleDoc.py

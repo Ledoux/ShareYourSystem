@@ -200,7 +200,7 @@ MyStructurer=Structurer.StructurerClass().collect(
     Findoer.FindoerClass().update(
         [
             (
-                'Attr_ModelingSealTuplesList',
+                'Attr_ModelingDescriptionTuplesList',
                 [
                     #GetStr #ColumnStr #Col
                     ('MyInt','MyInt',tables.Int64Col()),
@@ -290,7 +290,7 @@ MyStructurer is < (StructurerClass), 4559346064>
 4559346064>
    /   /   /  '<New><Instance>NodePointOrderedDict' : {...}< (OrderedDict),
 4563689008>
-   /   /   /  '<New><Instance>_ModelingSealTuplesList' :
+   /   /   /  '<New><Instance>_ModelingDescriptionTuplesList' :
    /   /   /   /[
    /   /   /   /  0 :
    /   /   /   /   /(

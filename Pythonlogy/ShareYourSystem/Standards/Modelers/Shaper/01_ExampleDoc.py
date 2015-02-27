@@ -14,7 +14,7 @@ MyController=SYS.ControllerClass(
 		"Things",
 		SYS.ShaperClass().update(
 			[
-				('Attr_ModelingSealTuplesList',
+				('Attr_ModelingDescriptionTuplesList',
 					[
 						('MyInt','MyInt',tables.Int64Col()),
 						('MyStr','MyStr',tables.StringCol(10)),

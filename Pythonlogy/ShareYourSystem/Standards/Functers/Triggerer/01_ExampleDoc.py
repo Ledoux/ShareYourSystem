@@ -11,7 +11,7 @@ class MakerClass(Initiator.InitiatorClass):
 	def __init__(self,
 				_MakingMyFloat=1.,
 				_MakingMyList=None,
-				_MakingMyInt={'DefaultingSetType':int},
+				_MakingMyInt={'DefaultValueType':int},
 				_MadeMyInt=0):
 		Initiator.InitiatorClass.__init__(self)
 

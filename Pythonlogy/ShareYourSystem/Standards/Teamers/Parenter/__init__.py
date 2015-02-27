@@ -38,9 +38,9 @@ class ParenterClass(BaseClass):
 
 	def default_init(self,
 				_ParentKeyStr={
-					'DefaultingSetType':property,
-					'PropertizingInitVariable':"Top",
-					'PropertizingDocStr':'I am reactive when I know my parent !'
+					'DefaultValueType':property,
+					'PropertyInitVariable':"Top",
+					'PropertyDocStr':'I am reactive when I know my parent !'
 				},
 				_ParentDeriveTeamerVariable=None,
 				_ParentTopDeriveTeamerVariable=None,

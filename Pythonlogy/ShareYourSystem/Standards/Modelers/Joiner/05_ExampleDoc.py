@@ -30,7 +30,7 @@ class MultiplierClass(SYS.ControllerClass):
 						SYS.JoinerClass().update(
 							[
 								(
-									'Attr_ModelingSealTuplesList',
+									'Attr_ModelingDescriptionTuplesList',
 									[
 										('MultiplyingFirstInt','MultiplyingFirstInt',tables.Int64Col()),
 										('MultiplyingSecondInt','MultiplyingSecondInt',tables.Int64Col())
@@ -75,7 +75,7 @@ class ModulizerClass(SYS.ControllerClass):
 					SYS.JoinerClass().update(
 						[
 							(
-								'Attr_ModelingSealTuplesList',
+								'Attr_ModelingDescriptionTuplesList',
 								[
 									('ModulizingPowerFloat','ModulizingPowerFloat',tables.Float64Col())
 								]

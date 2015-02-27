@@ -15,7 +15,7 @@ MyController=SYS.ControllerClass(
 	SYS.RecovererClass().update(
 		[
 			(
-				'Attr_ModelingSealTuplesList',
+				'Attr_ModelingDescriptionTuplesList',
 				[
 					#GetStr #ColumnStr #Col
 					('MyInt','MyInt',tables.Int64Col()),

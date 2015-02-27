@@ -1859,12 +1859,12 @@ class JoinerClass(BaseClass):
 
         #debug
         '''
-        self.debug('Add in the ModelingSealTuplesList')
+        self.debug('Add in the ModelingDescriptionTuplesList')
         '''
 
         #set
         if len(self.JoinedRetrieveIndexesListColumnStrsList)&gt;0:
-            self.ModelingSealTuplesList=map(
+            self.ModelingDescriptionTuplesList=map(
                 lambda __JoinedRetrieveIndexesListGetStr,__JoinedRetrieveIndexesListColumnStr:
                 (
                     __JoinedRetrieveIndexesListGetStr,
@@ -1873,13 +1873,13 @@ class JoinerClass(BaseClass):
                 ),
                 self.JoinedRetrieveIndexesListGetStrsList,
                 self.JoinedRetrieveIndexesListColumnStrsList
-            )+self.ModelingSealTuplesList
+            )+self.ModelingDescriptionTuplesList
 
         #debug
         '''
         self.debug(
                     [    
-                        ('self.',self,['ModelingSealTuplesList']),
+                        ('self.',self,['ModelingDescriptionTuplesList']),
                         'Now call the parent model method'
                     ]
                 )
@@ -2337,7 +2337,7 @@ In&nbsp;[3]:
                         <span class="n">Joiner</span><span class="o">.</span><span class="n">JoinerClass</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
                             <span class="p">[</span>
                                 <span class="p">(</span>
-                                    <span class="s">&#39;Attr_ModelingSealTuplesList&#39;</span><span class="p">,</span>
+                                    <span class="s">&#39;Attr_ModelingDescriptionTuplesList&#39;</span><span class="p">,</span>
                                     <span class="p">[</span>
                                         <span class="p">(</span><span class="s">&#39;MultiplyingFirstInt&#39;</span><span class="p">,</span><span class="s">&#39;MultiplyingFirstInt&#39;</span><span class="p">,</span><span class="n">tables</span><span class="o">.</span><span class="n">Int64Col</span><span class="p">()),</span>
                                         <span class="p">(</span><span class="s">&#39;MultiplyingSecondInt&#39;</span><span class="p">,</span><span class="s">&#39;MultiplyingSecondInt&#39;</span><span class="p">,</span><span class="n">tables</span><span class="o">.</span><span class="n">Int64Col</span><span class="p">())</span>
@@ -2382,7 +2382,7 @@ In&nbsp;[3]:
                     <span class="n">Joiner</span><span class="o">.</span><span class="n">JoinerClass</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
                         <span class="p">[</span>
                             <span class="p">(</span>
-                                <span class="s">&#39;Attr_ModelingSealTuplesList&#39;</span><span class="p">,</span>
+                                <span class="s">&#39;Attr_ModelingDescriptionTuplesList&#39;</span><span class="p">,</span>
                                 <span class="p">[</span>
                                     <span class="p">(</span><span class="s">&#39;ModulizingPowerFloat&#39;</span><span class="p">,</span><span class="s">&#39;ModulizingPowerFloat&#39;</span><span class="p">,</span><span class="n">tables</span><span class="o">.</span><span class="n">Float64Col</span><span class="p">())</span>
                                 <span class="p">]</span>
@@ -2638,7 +2638,7 @@ MyModulizer is &lt; (ModulizerClass), 4565351120&gt;
    /   /   /   /   /   /   /   /   /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;PointingSetPathStr&apos; : CatchToPointVariable
    /   /   /   /   /   /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /   /   /   /   /   /}
-   /   /   /   /   /   /   /   /   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;_ModelingSealTuplesList&apos; : 
+   /   /   /   /   /   /   /   /   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;_ModelingDescriptionTuplesList&apos; : 
    /   /   /   /   /   /   /   /   /   /   /   /[
    /   /   /   /   /   /   /   /   /   /   /   /  0 : 
    /   /   /   /   /   /   /   /   /   /   /   /   /(
@@ -2675,7 +2675,7 @@ MyModulizer is &lt; (ModulizerClass), 4565351120&gt;
    /   /   /   /   /   /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;PointingSetPathStr&apos; : CatchToPointVariable
    /   /   /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /   /   /}
-   /   /   /   /   /   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;_ModelingSealTuplesList&apos; : 
+   /   /   /   /   /   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;_ModelingDescriptionTuplesList&apos; : 
    /   /   /   /   /   /   /   /   /[
    /   /   /   /   /   /   /   /   /  0 : 
    /   /   /   /   /   /   /   /   /   /(
@@ -2720,7 +2720,7 @@ MyModulizer is &lt; (ModulizerClass), 4565351120&gt;
    /   /   /   /   /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;PointingSetPathStr&apos; : CatchToPointVariable
    /   /   /   /   /   /   /}
    /   /   /   /   /   /}
-   /   /   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;_ModelingSealTuplesList&apos; : 
+   /   /   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;_ModelingDescriptionTuplesList&apos; : 
    /   /   /   /   /   /[
    /   /   /   /   /   /  0 : 
    /   /   /   /   /   /   /(

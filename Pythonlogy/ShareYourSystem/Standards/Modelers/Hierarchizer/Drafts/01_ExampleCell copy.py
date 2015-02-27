@@ -32,7 +32,7 @@ class MultiplierClass(Storer.StorerClass):
 						Hierarchizer.HierarchizerClass().update(
 							[
 								(
-									'Attr_ModelingSealTuplesList',
+									'Attr_ModelingDescriptionTuplesList',
 									[
 										('MultiplyingFirstInt','MultiplyingFirstInt',tables.Int64Col()),
 										('MultiplyingSecondInt','MultiplyingSecondInt',tables.Int64Col())
@@ -77,7 +77,7 @@ class ModulizerClass(Storer.StorerClass):
 					Hierarchizer.HierarchizerClass().update(
 						[
 							(
-								'Attr_ModelingSealTuplesList',
+								'Attr_ModelingDescriptionTuplesList',
 								[
 									('ModulizingPowerFloat','ModulizingPowerFloat',tables.Float64Col())
 								]

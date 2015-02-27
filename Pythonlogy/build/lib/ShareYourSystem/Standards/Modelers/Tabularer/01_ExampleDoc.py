@@ -13,7 +13,7 @@ MyController=SYS.ControllerClass(
 		"Tabularers",
 		"Things",
 		SYS.TabularerClass().__setitem__(
-			'Attr_ModelingSealTuplesList',
+			'Attr_ModelingDescriptionTuplesList',
 			[
 				#GetStr #ColumnStr #Col
 				('MyInt','MyInt',tables.Int64Col()),

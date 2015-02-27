@@ -700,10 +700,20 @@ class PrinterClass(BaseClass):
 										lambda __SpecificKeyStr:
 										(
 											"<Spe>"+("<Instance>"
-											if __SpecificKeyStr in self.__dict__
-											else "<Class>"
-											)+__SpecificKeyStr
-											,
+											if __SpecificKeyStr in self.__dict__ 
+											else (
+												"<Instance>_"
+												if hasattr(
+														self.__class__,__SpecificKeyStr
+												) and type(getattr(
+													self.__class__,__SpecificKeyStr
+												))==property and getattr(
+													self.__class__,'_'+__SpecificKeyStr
+												)!=getattr(self,'_'+__SpecificKeyStr)
+												else
+												"<Class>"
+												)
+											)+__SpecificKeyStr,
 											getattr(self,__SpecificKeyStr)
 										),
 										PrintedDefaultSpecificKeyStrsList

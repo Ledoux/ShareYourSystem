@@ -138,12 +138,12 @@ _JoinedRetrieveIndexesListColumnStrsList=None,
 
                 #debug
                 '''
-                self.debug('Add in the ModelingSealTuplesList')
+                self.debug('Add in the ModelingDescriptionTuplesList')
                 '''
 
                 #set
                 if len(self.JoinedRetrieveIndexesListColumnStrsList)>0:
-                        self.ModelingSealTuplesList=map(
+                        self.ModelingDescriptionTuplesList=map(
                                 lambda
 __JoinedRetrieveIndexesListGetStr,__JoinedRetrieveIndexesListColumnStr:
                                 (
@@ -153,13 +153,13 @@ __JoinedRetrieveIndexesListGetStr,__JoinedRetrieveIndexesListColumnStr:
                                 ),
                                 self.JoinedRetrieveIndexesListGetStrsList,
                                 self.JoinedRetrieveIndexesListColumnStrsList
-                        )+self.ModelingSealTuplesList
+                        )+self.ModelingDescriptionTuplesList
 
                 #debug
                 '''
                 self.debug(
                                         [
-('self.',self,['ModelingSealTuplesList']),
+('self.',self,['ModelingDescriptionTuplesList']),
                                                 'Now call the parent model
 method'
                                         ]
@@ -636,7 +636,7 @@ class MultiplierClass(Structurer.StructurerClass):
                         Joiner.JoinerClass().update(
                             [
                                 (
-                                    'Attr_ModelingSealTuplesList',
+                                    'Attr_ModelingDescriptionTuplesList',
                                     [
 ('MultiplyingFirstInt','MultiplyingFirstInt',tables.Int64Col()),
 ('MultiplyingSecondInt','MultiplyingSecondInt',tables.Int64Col())
@@ -681,7 +681,7 @@ class ModulizerClass(Structurer.StructurerClass):
                     Joiner.JoinerClass().update(
                         [
                             (
-                                'Attr_ModelingSealTuplesList',
+                                'Attr_ModelingDescriptionTuplesList',
                                 [
 ('ModulizingPowerFloat','ModulizingPowerFloat',tables.Float64Col())
                                 ]
@@ -1002,7 +1002,7 @@ ImageMultiplier
    /   /   /   /   /   /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /   /   /   /   /
-'<New><Instance>_ModelingSealTuplesList' :
+'<New><Instance>_ModelingDescriptionTuplesList' :
    /   /   /   /   /   /   /   /   /   /   /   /[
    /   /   /   /   /   /   /   /   /   /   /   /  0 :
    /   /   /   /   /   /   /   /   /   /   /   /   /(
@@ -1057,7 +1057,7 @@ CatchToPointVariable
 CatchToPointVariable
    /   /   /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /   /   /}
-   /   /   /   /   /   /   /   /  '<New><Instance>_ModelingSealTuplesList' :
+   /   /   /   /   /   /   /   /  '<New><Instance>_ModelingDescriptionTuplesList' :
    /   /   /   /   /   /   /   /   /[
    /   /   /   /   /   /   /   /   /  0 :
    /   /   /   /   /   /   /   /   /   /(
@@ -1136,7 +1136,7 @@ CatchToPointVariable
 CatchToPointVariable
    /   /   /   /   /   /   /}
    /   /   /   /   /   /}
-   /   /   /   /   /  '<New><Instance>_ModelingSealTuplesList' :
+   /   /   /   /   /  '<New><Instance>_ModelingDescriptionTuplesList' :
    /   /   /   /   /   /[
    /   /   /   /   /   /  0 :
    /   /   /   /   /   /   /(

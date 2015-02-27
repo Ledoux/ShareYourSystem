@@ -177,7 +177,7 @@ self.ModeledKeyStr=self.ShapedStr+ShapingJoiningStr+self.ModeledSuffixStr
                         self.ModeledDescriptionClassesOrderedDict=collections.OrderedDict()
 
                 #Unnzip
-                ModeledGetKeyStrsList=SYS.unzip(self.ModelingSealTuplesList,[0])
+                ModeledGetKeyStrsList=SYS.unzip(self.ModelingDescriptionTuplesList,[0])
 
                 #debug
                 '''
@@ -190,16 +190,16 @@ shaping cols'),
                                 )
                 '''
 
-                ShapedModelingSealTuplesList=map(
-                                self.ModelingSealTuplesList.__getitem__,
+                ShapedModelingDescriptionTuplesList=map(
+                                self.ModelingDescriptionTuplesList.__getitem__,
                                 self.ShapedIndexIntsList
                         )
 
                 #debug
                 '''
                 self.debug(
-                                        'ShapedModelingSealTuplesList is
-'+str(ShapedModelingSealTuplesList)
+                                        'ShapedModelingDescriptionTuplesList is
+'+str(ShapedModelingDescriptionTuplesList)
                                 )
                 '''
 
@@ -207,7 +207,7 @@ shaping cols'),
                 map(
                                 lambda
 __ShapedIndexInt,__ShapedModelingSealTuple:
-                                self.ModelingSealTuplesList.__setitem__(
+                                self.ModelingDescriptionTuplesList.__setitem__(
                                         __ShapedIndexInt,
                                         __ShapedModelingSealTuple
                                 ),
@@ -223,15 +223,15 @@ shape=self.NodePointDeriveNoder.pick(
 __ShapedSealDimensionGetKeyStrsList)
                                                 )
                                         ),
-                                        ShapedModelingSealTuplesList,
+                                        ShapedModelingDescriptionTuplesList,
 self.ShapedSealDimensionGetKeyStrsListsList
                                 )
                         )
 
                 #debug
                 '''
-                self.debug("Now self.ModelingSealTuplesList is "+str(
-                        self.ModelingSealTuplesList))
+                self.debug("Now self.ModelingDescriptionTuplesList is "+str(
+                        self.ModelingDescriptionTuplesList))
                 '''
 
                 #<NotHook>
@@ -426,7 +426,7 @@ self.ShapedSealDimensionGetKeyStrsListsList
                 '''
 
                 #Definition
-                ModeledGetKeyStrsList=SYS.unzip(self.ModelingSealTuplesList,[0])
+                ModeledGetKeyStrsList=SYS.unzip(self.ModelingDescriptionTuplesList,[0])
 
                 #set
                 self.ShapedIndexIntsList=map(
@@ -511,7 +511,7 @@ MyStructurer=Structurer.StructurerClass().collect(
     "Things",
     Shaper.ShaperClass().update(
         [
-            ('Attr_ModelingSealTuplesList',
+            ('Attr_ModelingDescriptionTuplesList',
                 [
                     ('MyInt','MyInt',tables.Int64Col()),
                     ('MyStr','MyStr',tables.StringCol(10)),
@@ -601,7 +601,7 @@ MyStructurer is < (StructurerClass), 4563996560>
    /   /   /  '<New><Instance>NodePointOrderedDict' : {...}< (OrderedDict),
 4563689008>
    /   /   /  '<New><Instance>ShapedErrorBool' : True
-   /   /   /  '<New><Instance>_ModelingSealTuplesList' :
+   /   /   /  '<New><Instance>_ModelingDescriptionTuplesList' :
    /   /   /   /[
    /   /   /   /  0 :
    /   /   /   /   /(

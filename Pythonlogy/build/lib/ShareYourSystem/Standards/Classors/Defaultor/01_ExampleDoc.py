@@ -9,7 +9,7 @@ class FooClass(SYS.ObjectClass):
 						Int,
 						_MyFloat=1.,
 						_MyInt={
-									'DefaultingSetType':int
+									'DefaultValueType':int
 								}
 				):
 		#call the base method
@@ -47,7 +47,6 @@ print("\n".join(
 		]
 	)
 )
-'''
 
 #Change a classed attribute
 FooClass.MyFloat=5

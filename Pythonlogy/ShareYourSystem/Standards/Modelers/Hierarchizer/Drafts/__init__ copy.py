@@ -87,12 +87,12 @@ class HierarchizerClass(BaseClass):
 		
 		#debug
 		'''
-		self.debug('Add in the ModelingSealTuplesList')
+		self.debug('Add in the ModelingDescriptionTuplesList')
 		'''
 		
 		#set
 		if len(self.HierarchizedRetrieveIndexesListColumnStrsList)>0:
-			self.ModelingSealTuplesList=map(
+			self.ModelingDescriptionTuplesList=map(
 				lambda __HierarchizedRetrieveIndexesListGetStr,__HierarchizedRetrieveIndexesListColumnStr:
 				(
 					__HierarchizedRetrieveIndexesListGetStr,
@@ -101,11 +101,11 @@ class HierarchizerClass(BaseClass):
 				),
 				self.HierarchizedRetrieveIndexesListGetStrsList,
 				self.HierarchizedRetrieveIndexesListColumnStrsList
-			)+self.ModelingSealTuplesList
+			)+self.ModelingDescriptionTuplesList
 
 		#debug
 		'''
-		self.debug(('self.',self,['ModelingSealTuplesList']))
+		self.debug(('self.',self,['ModelingDescriptionTuplesList']))
 		'''
 
 		#<NotHook>

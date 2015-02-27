@@ -118,7 +118,7 @@ class ModelerClass(BaseClass):
 
         #Definition
         RepresentingKeyStrsList=[
-'ModelingSealTuplesList',
+'ModelingDescriptionTuplesList',
 'ModeledDescriptionClassesOrderedDict',
 'ModeledDescriptionClass',
 'ModeledKeyStr'
@@ -126,10 +126,10 @@ class ModelerClass(BaseClass):
 
         def default_init(
                                         self,
-                                        _ModelingSealTuplesList={
-'DefaultingSetType':property,
-'PropertizingInitVariable':[],
-'PropertizingDocStr':''
+                                        _ModelingDescriptionTuplesList={
+'DefaultValueType':property,
+'PropertyInitVariable':[],
+'PropertyDocStr':''
                                                 },
                                         _ModeledDescriptionClassesOrderedDict=None,
                                         _ModeledDescriptionClass=None,
@@ -145,7 +145,7 @@ class ModelerClass(BaseClass):
 
                 #debug
                 '''
-                self.debug(('self.',self,['ModelingSealTuplesList']))
+                self.debug(('self.',self,['ModelingDescriptionTuplesList']))
                 '''
 
                 #<NotHook>
@@ -183,7 +183,7 @@ self.debug(('self.',self,['ModeledGetStrToColumnStrOrderedDict']))
                                         __ModelingColumnTuple[1],
                                         __ModelingColumnTuple[2]
                                         ),
-                                self.ModelingSealTuplesList
+                                self.ModelingDescriptionTuplesList
                         )
 
                 #Give a name
@@ -294,7 +294,7 @@ MyCollecter is < (CollecterClass), 4563976464>
 4563976464>
    /   /   /  '<New><Instance>NodePointOrderedDict' : {...}< (OrderedDict),
 4563600032>
-   /   /   /  '<New><Instance>_ModelingSealTuplesList' :
+   /   /   /  '<New><Instance>_ModelingDescriptionTuplesList' :
    /   /   /   /[
    /   /   /   /  0 :
    /   /   /   /   /(
@@ -315,7 +315,7 @@ MyCollecter is < (CollecterClass), 4563976464>
    /   /   /   /   /  2 : Int64Col(shape=(3,), dflt=0, pos=None)
    /   /   /   /   /)
    /   /   /   /]
-   /   /   /  '<Spe><Class>ModelingSealTuplesList' : {...}< (list), 4559830048>
+   /   /   /  '<Spe><Class>ModelingDescriptionTuplesList' : {...}< (list), 4559830048>
    /   /   /  '<Spe><Instance>ModeledDescriptionClass' : <class
 'tables.description.ThingsModelerModelClass'>
    /   /   /  '<Spe><Instance>ModeledDescriptionClassesOrderedDict' :

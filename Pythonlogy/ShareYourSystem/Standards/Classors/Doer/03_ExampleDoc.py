@@ -9,7 +9,7 @@ class MakerClass(SYS.ObjectClass):
 				_MakingMyFloat=1.,
 				_MakingShareList=['bonjour'],
 				_MakingRestrictList=None,
-				_MakingMyInt={'DefaultingSetType':int}
+				_MakingMyInt={'DefaultValueType':int}
 				):
 		SYS.ObjectClass.__init__(self)
 

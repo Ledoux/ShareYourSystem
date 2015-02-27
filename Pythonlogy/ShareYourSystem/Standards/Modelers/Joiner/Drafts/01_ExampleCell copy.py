@@ -28,7 +28,7 @@ MySumer=Sumer.SumerClass().update(
 		'<Database>ParametersFeaturer',
 		Featurer.FeaturerClass().update(
 			[
-				('Attr_ModelingSealTuplesList',
+				('Attr_ModelingDescriptionTuplesList',
 					[
 						#GetStr #ColumnStr #Col
 						('SumingFirstInt','SumingFirstInt',tables.Int64Col()),
@@ -43,7 +43,7 @@ MySumer=Sumer.SumerClass().update(
 		'<Database>ResultsJoiner',
 		Joiner.JoinerClass().update(
 			[
-				('Attr_ModelingSealTuplesList',
+				('Attr_ModelingDescriptionTuplesList',
 					[
 						#GetStr #ColumnStr #Col
 						('SumedTotalInt','SumedTotalInt',tables.Int64Col()),

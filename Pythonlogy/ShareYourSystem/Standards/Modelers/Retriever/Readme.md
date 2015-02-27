@@ -92,16 +92,16 @@ _RetrievedColumnStrToGetStrOrderedDict=None,
                 #Call the parent init method
                 BaseClass.__init__(self,**_KwargVariablesDict)
 
-        def setModelingSealTuplesList(self,_SettingValueVariable):
+        def setModelingDescriptionTuplesList(self,_SettingValueVariable):
 
                 #debug
                 '''
-                self.debug('Before we call the parent setModelingSealTuplesList
+                self.debug('Before we call the parent setModelingDescriptionTuplesList
 method ')
                 '''
 
                 #Hook
-                BaseClass.setModelingSealTuplesList(self,_SettingValueVariable)
+                BaseClass.setModelingDescriptionTuplesList(self,_SettingValueVariable)
 
                 #Bind with RetrievedColumnStrToGetStrOrderedDict setting
                 if self.RetrievedColumnStrToGetStrOrderedDict==None:
@@ -112,7 +112,7 @@ self.RetrievedColumnStrToGetStrOrderedDict=collections.OrderedDict()
                                 __ModelingColumnTuple[1],
                                 __ModelingColumnTuple[0]
                         ),
-                        self.ModelingSealTuplesList
+                        self.ModelingDescriptionTuplesList
                 )
 
                 #Init
@@ -124,11 +124,11 @@ self.RetrievedColumnStrToGetStrOrderedDict=collections.OrderedDict()
 self.debug(('self.',self,['RetrievedColumnStrToGetStrOrderedDict']))
                 '''
 
-        ModelingSealTuplesList=property(
-BaseClass.ModelingSealTuplesList.fget,
-setModelingSealTuplesList,
-BaseClass.ModelingSealTuplesList.fdel,
-BaseClass.ModelingSealTuplesList.__doc__
+        ModelingDescriptionTuplesList=property(
+BaseClass.ModelingDescriptionTuplesList.fget,
+setModelingDescriptionTuplesList,
+BaseClass.ModelingDescriptionTuplesList.fdel,
+BaseClass.ModelingDescriptionTuplesList.__doc__
                                                                 )
 
         #@Hooker.HookerClass(**{'HookingAfterVariablesList':[{"CallingMethodStr"
@@ -273,7 +273,7 @@ MyStructurer=Structurer.StructurerClass().collect(
     Retriever.RetrieverClass().update(
         [
             (
-                'Attr_ModelingSealTuplesList',
+                'Attr_ModelingDescriptionTuplesList',
                 [
                     #GetStr #ColumnStr #Col
                     ('MyInt','MyInt',tables.Int64Col()),
@@ -355,7 +355,7 @@ MyStructurer is < (StructurerClass), 4563994000>
 4563994000>
    /   /   /  '<New><Instance>NodePointOrderedDict' : {...}< (OrderedDict),
 4561445536>
-   /   /   /  '<New><Instance>_ModelingSealTuplesList' :
+   /   /   /  '<New><Instance>_ModelingDescriptionTuplesList' :
    /   /   /   /[
    /   /   /   /  0 :
    /   /   /   /   /(

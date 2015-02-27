@@ -143,8 +143,8 @@ def getPropertizedTupleWithItemTupleAndClass(_ItemTuple,_Class):
 							PropertizedGetFunction,
 							PropertizedSetFunction,
 							PropertizedDelFunction,
-							_ItemTuple[1]['PropertizingDocStr'
-							]if 'PropertizingDocStr' in _ItemTuple[1]
+							_ItemTuple[1]['PropertyDocStr'
+							]if 'PropertyDocStr' in _ItemTuple[1]
 							else "This is here a property but with no more details..."
 						)
 
@@ -157,8 +157,8 @@ def getPropertizedTupleWithItemTupleAndClass(_ItemTuple,_Class):
 def getPropertizedVariableWithItemTuple(_ItemTuple):
 
 	#Maybe it is already defined
-	if 'PropertizingInitVariable' in _ItemTuple[1]:
-		return _ItemTuple[1]['PropertizingInitVariable']
+	if 'PropertyInitVariable' in _ItemTuple[1]:
+		return _ItemTuple[1]['PropertyInitVariable']
 	else:
 
 		#Return the default one associated with the type
@@ -217,9 +217,9 @@ class PropertiserClass(BaseClass):
 														type(__DefaultSetTuple[1]
 															)==property or (
 															hasattr(__DefaultSetTuple[1],'items'
-																) and 'DefaultingSetType' in __DefaultSetTuple[1
+																) and 'DefaultValueType' in __DefaultSetTuple[1
 															] and __DefaultSetTuple[1
-															]['DefaultingSetType']==property),
+															]['DefaultValueType']==property),
 														_Class.DefaultAttributeItemTuplesList
 													)
 

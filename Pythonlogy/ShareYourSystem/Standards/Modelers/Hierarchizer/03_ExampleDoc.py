@@ -32,7 +32,7 @@ class SumerClass(SYS.ControllerClass):
 				SYS.HierarchizerClass().update(
 					[
 						(
-							'Attr_ModelingSealTuplesList',
+							'Attr_ModelingDescriptionTuplesList',
 							[
 								('SumingFirstInt','SumingFirstInt',tables.Int64Col()),
 								('SumingSecondInt','SumingSecondInt',tables.Int64Col())
@@ -50,7 +50,7 @@ class SumerClass(SYS.ControllerClass):
 			SYS.HierarchizerClass().update(
 				[
 					(
-						'Attr_ModelingSealTuplesList',
+						'Attr_ModelingDescriptionTuplesList',
 						[
 							('SumedTotalInt','SumedTotalInt',tables.Int64Col())
 						]
@@ -109,7 +109,7 @@ class FactorizerClass(SYS.ControllerClass):
 					SYS.HierarchizerClass().update(
 						[
 							(
-								'Attr_ModelingSealTuplesList',
+								'Attr_ModelingDescriptionTuplesList',
 								[
 									('FactorizingPowerFloat','FactorizingPowerFloat',tables.Float64Col())
 								]
@@ -132,7 +132,7 @@ class FactorizerClass(SYS.ControllerClass):
 			SYS.HierarchizerClass().update(
 				[
 					(
-						'Attr_ModelingSealTuplesList',
+						'Attr_ModelingDescriptionTuplesList',
 						[
 							('FactorizedTotalFloat','FactorizedTotalFloat',tables.Float64Col())
 						]

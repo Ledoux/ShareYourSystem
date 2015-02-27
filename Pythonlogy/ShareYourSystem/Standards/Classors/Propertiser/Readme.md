@@ -141,8 +141,8 @@ PropertizedDelFunction=getattr(_Class,PropertizedDelFunctionStr)
                                                         PropertizedGetFunction,
                                                         PropertizedSetFunction,
                                                         PropertizedDelFunction,
-_ItemTuple[1]['PropertizingDocStr'
-                                                        ]if 'PropertizingDocStr'
+_ItemTuple[1]['PropertyDocStr'
+                                                        ]if 'PropertyDocStr'
 in _ItemTuple[1]
                                                         else "This is here a
 property but with no more details..."
@@ -157,8 +157,8 @@ property but with no more details..."
 def getPropertizedVariableWithItemTuple(_ItemTuple):
 
         #Maybe it is already defined
-        if 'PropertizingInitVariable' in _ItemTuple[1]:
-                return _ItemTuple[1]['PropertizingInitVariable']
+        if 'PropertyInitVariable' in _ItemTuple[1]:
+                return _ItemTuple[1]['PropertyInitVariable']
         else:
 
                 #Return the default one associated with the type
@@ -243,10 +243,10 @@ PropertizedClass.PropertizedDefaultTuplesList=SYS._filter(
                                 type(__DefaultSetTuple[1]
                                         )==property or (
                                         hasattr(__DefaultSetTuple[1],'items'
-                                                ) and 'DefaultingSetType' in
+                                                ) and 'DefaultValueType' in
 __DefaultSetTuple[1
                                         ] and __DefaultSetTuple[1
-                                        ]['DefaultingSetType']==property),
+                                        ]['DefaultValueType']==property),
 PropertizedClass.DefaultAttributeVariablesOrderedDict.items()
                         )
 
@@ -348,16 +348,16 @@ class MakerClass(Initiator.InitiatorClass):
 
     def default_init(self,
             _MakingMyFloat={
-                            'DefaultingSetType':property,
-                            'PropertizingInitVariable':3.,
-                            'PropertizingDocStr':'I am doing the thing here'
+                            'DefaultValueType':property,
+                            'PropertyInitVariable':3.,
+                            'PropertyDocStr':'I am doing the thing here'
                             },
             _MakingMyList={
-                            'DefaultingSetType':property,
-                            'PropertizingInitVariable':[],
-                            'PropertizingDocStr':'I am doing the thing here'
+                            'DefaultValueType':property,
+                            'PropertyInitVariable':[],
+                            'PropertyDocStr':'I am doing the thing here'
                             },
-            _MakingMyInt={'DefaultingSetType':int},
+            _MakingMyInt={'DefaultValueType':int},
             _MadeMyInt=0
         ):
         pass

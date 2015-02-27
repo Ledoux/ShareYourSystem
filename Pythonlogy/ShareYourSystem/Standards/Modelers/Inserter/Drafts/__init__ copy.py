@@ -156,7 +156,7 @@ def attest_insert():
 							'<Database>MyInserter',
 							InserterClass().update(
 								[
-									('ModelingSealTuplesList',
+									('ModelingDescriptionTuplesList',
 										[
 											('MyInt',tables.Int64Col()),
 											('MyStr',tables.StrCol(10)),

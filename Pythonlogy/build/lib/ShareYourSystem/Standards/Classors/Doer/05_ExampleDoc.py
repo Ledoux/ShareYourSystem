@@ -10,7 +10,7 @@ class MakerClass(SYS.ObjectClass):
 				_MakingMyFloat=1.,
 				_MakingMyArray=None,
 				_MakingMyList=None,
-				_MakingFirstInt={'DefaultingSetType':int},
+				_MakingFirstInt={'DefaultValueType':int},
 				_MakingSecondInt=0,
 				_MadeMyInt=0,
 				_MadeMyList=None,

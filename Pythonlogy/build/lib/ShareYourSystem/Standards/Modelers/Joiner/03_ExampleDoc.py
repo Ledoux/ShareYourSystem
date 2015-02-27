@@ -47,7 +47,7 @@ MySumer=SumerClass(
 		SYS.JoinerClass().update(
 			[
 				(
-					'Attr_ModelingSealTuplesList',
+					'Attr_ModelingDescriptionTuplesList',
 					[
 						('SumingFirstInt','SumingFirstInt',tables.Int64Col()),
 						('SumingSecondInt','SumingSecondInt',tables.Int64Col())
@@ -62,7 +62,7 @@ MySumer=SumerClass(
 		SYS.JoinerClass().update(
 			[
 				(
-					'Attr_ModelingSealTuplesList',
+					'Attr_ModelingDescriptionTuplesList',
 					[
 						('SumedTotalInt','SumedTotalInt',tables.Int64Col())
 					]

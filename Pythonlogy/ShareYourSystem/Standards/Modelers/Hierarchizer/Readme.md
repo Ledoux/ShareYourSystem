@@ -225,7 +225,7 @@ class SumerClass(Structurer.StructurerClass):
                 Hierarchizer.HierarchizerClass().update(
                     [
                         (
-                            'Attr_ModelingSealTuplesList',
+                            'Attr_ModelingDescriptionTuplesList',
                             [
 ('SumingFirstInt','SumingFirstInt',tables.Int64Col()),
 ('SumingSecondInt','SumingSecondInt',tables.Int64Col())
@@ -243,7 +243,7 @@ class SumerClass(Structurer.StructurerClass):
             Hierarchizer.HierarchizerClass().update(
                 [
                     (
-                        'Attr_ModelingSealTuplesList',
+                        'Attr_ModelingDescriptionTuplesList',
                         [
                             ('SumedTotalInt','SumedTotalInt',tables.Int64Col())
                         ]
@@ -302,7 +302,7 @@ class FactorizerClass(Structurer.StructurerClass):
                     Hierarchizer.HierarchizerClass().update(
                         [
                             (
-                                'Attr_ModelingSealTuplesList',
+                                'Attr_ModelingDescriptionTuplesList',
                                 [
 ('FactorizingPowerFloat','FactorizingPowerFloat',tables.Float64Col())
                                 ]
@@ -325,7 +325,7 @@ class FactorizerClass(Structurer.StructurerClass):
             Hierarchizer.HierarchizerClass().update(
                 [
                     (
-                        'Attr_ModelingSealTuplesList',
+                        'Attr_ModelingDescriptionTuplesList',
                         [
 ('FactorizedTotalFloat','FactorizedTotalFloat',tables.Float64Col())
                         ]
@@ -731,7 +731,7 @@ ResultsHierarchizer
    /   /   /   /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /   /   /   /  '<New><Instance>TagStr' : Networked
    /   /   /   /   /   /   /   /   /   /
-'<New><Instance>_ModelingSealTuplesList' :
+'<New><Instance>_ModelingDescriptionTuplesList' :
    /   /   /   /   /   /   /   /   /   /   /[
    /   /   /   /   /   /   /   /   /   /   /  0 :
    /   /   /   /   /   /   /   /   /   /   /   /(
@@ -893,7 +893,7 @@ ParametersHierarchizer
    /   /   /   /   /   /   /   /   /   /   /   /   /   /
 '<New><Instance>TagStr' : Networked
    /   /   /   /   /   /   /   /   /   /   /   /   /   /
-'<New><Instance>_ModelingSealTuplesList' :
+'<New><Instance>_ModelingDescriptionTuplesList' :
    /   /   /   /   /   /   /   /   /   /   /   /   /   /   /[
    /   /   /   /   /   /   /   /   /   /   /   /   /   /   /  0 :
    /   /   /   /   /   /   /   /   /   /   /   /   /   /   /   /(
@@ -1004,7 +1004,7 @@ YSumer
    /   /   /   /   /   /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /   /   /   /   /
-'<New><Instance>_ModelingSealTuplesList' :
+'<New><Instance>_ModelingDescriptionTuplesList' :
    /   /   /   /   /   /   /   /   /   /   /   /[
    /   /   /   /   /   /   /   /   /   /   /   /  0 :
    /   /   /   /   /   /   /   /   /   /   /   /   /(
@@ -1062,7 +1062,7 @@ CatchToPointVariable
 CatchToPointVariable
    /   /   /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /   /   /}
-   /   /   /   /   /   /   /   /  '<New><Instance>_ModelingSealTuplesList' :
+   /   /   /   /   /   /   /   /  '<New><Instance>_ModelingDescriptionTuplesList' :
    /   /   /   /   /   /   /   /   /[
    /   /   /   /   /   /   /   /   /  0 :
    /   /   /   /   /   /   /   /   /   /(
@@ -1145,7 +1145,7 @@ CatchToPointVariable
 CatchToPointVariable
    /   /   /   /   /   /   /}
    /   /   /   /   /   /}
-   /   /   /   /   /  '<New><Instance>_ModelingSealTuplesList' :
+   /   /   /   /   /  '<New><Instance>_ModelingDescriptionTuplesList' :
    /   /   /   /   /   /[
    /   /   /   /   /   /  0 :
    /   /   /   /   /   /   /(

@@ -97,7 +97,7 @@ class TablerClass(
 
                 #debug
                 '''
-                self.debug(('self.',self,['ModelingSealTuplesList']))
+                self.debug(('self.',self,['ModelingDescriptionTuplesList']))
                 '''
 
                 #<NotHook>
@@ -351,7 +351,7 @@ MyStructurer=Structurer.StructurerClass().collect(
     "Datome",
     "Things",
     Tabler.TablerClass().__setitem__(
-        'Attr_ModelingSealTuplesList',
+        'Attr_ModelingDescriptionTuplesList',
         [
             #GetStr #ColumnStr #Col
             ('MyInt','MyInt',tables.Int64Col()),
@@ -408,7 +408,7 @@ MyStructurer is < (StructurerClass), 4563970960>
 4563970960>
    /   /   /  '<New><Instance>NodePointOrderedDict' : {...}< (OrderedDict),
 4561445832>
-   /   /   /  '<New><Instance>_ModelingSealTuplesList' :
+   /   /   /  '<New><Instance>_ModelingDescriptionTuplesList' :
    /   /   /   /[
    /   /   /   /  0 :
    /   /   /   /   /(

@@ -34,7 +34,7 @@ from ShareYourSystem.Standards.Objects import Object
 #</ImportSpecificModules>
 
 #<DefineLocals>
-DefaultingStr="_"
+DefaultPrefixStr="_"
 DefaultDecorationMethodStr="default_init"
 DefaultAttributePrefixStr='_'
 DefaultWrapMethodStr='default_init'
@@ -55,8 +55,8 @@ def getDefaultedValueVariableWithSetVariable(_SetVariable):
 	if hasattr(_SetVariable,'items'):
 
 		#If it is direct a call of a type without extra argument then instancify
-		if 'DefaultingSetType' in _SetVariable and len(_SetVariable)==1:
-			DefaultedValueVariable=_SetVariable['DefaultingSetType']()
+		if 'DefaultValueType' in _SetVariable and len(_SetVariable)==1:
+			DefaultedValueVariable=_SetVariable['DefaultValueType']()
 			return DefaultedValueVariable 
 	
 	#Return direct the Variable
@@ -195,8 +195,8 @@ def initDefault(_InstanceVariable,*_LiargVariablesList,**_KwargVariablesDict):
 		map(
 			lambda __SettingItemTuple:
 			(
-				DefaultingStr.join(__SettingItemTuple[0].split(DefaultingStr)[1:]) 
-				if __SettingItemTuple[0].startswith(DefaultingStr)
+				DefaultPrefixStr.join(__SettingItemTuple[0].split(DefaultPrefixStr)[1:]) 
+				if __SettingItemTuple[0].startswith(DefaultPrefixStr)
 				else __SettingItemTuple[0],
 				__SettingItemTuple[1]
 			),
@@ -282,8 +282,8 @@ class DefaultorClass(BaseClass):
 			DefaultAttributeItemTuplesList=map(
 					lambda __DefaultSetItemTuple:
 					(
-						DefaultingStr.join(
-						__DefaultSetItemTuple[0].split(DefaultingStr)[1:]
+						DefaultPrefixStr.join(
+						__DefaultSetItemTuple[0].split(DefaultPrefixStr)[1:]
 						),
 						getDefaultedValueVariableWithSetVariable(
 								__DefaultSetItemTuple[1]
@@ -291,7 +291,7 @@ class DefaultorClass(BaseClass):
 					),
 					SYS._filter(
 								lambda __DefaultItemTuple:
-								__DefaultItemTuple[0].startswith(DefaultingStr),
+								__DefaultItemTuple[0].startswith(DefaultPrefixStr),
 								_Class.InitArgumentDict['DefaultOrderedDict'].items()
 							)
 			)

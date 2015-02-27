@@ -38,9 +38,9 @@ class CapturerClass(BaseClass):
 
 	def default_init(self,
 						_CapturingStopBool={
-								'DefaultingSetType':property,
-								'PropertizingInitVariable':False,
-								'PropertizingDocStr':''
+								'DefaultValueType':property,
+								'PropertyInitVariable':False,
+								'PropertyDocStr':''
 						},
 						_CapturedStdoutVariable=sys.stdout,
 						_CapturedPrintStrsList=None,

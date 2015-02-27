@@ -723,8 +723,37 @@ class SetterClass(BaseClass):
 							return {'HookingIsBool':False}
 
 				#/####################/#
+				# Check that it is not a property
+				#
+
+				#Check
+				if hasattr(self.__class__,self.SettingKeyVariable):
+
+					#get
+					SettedPropertyValueVariable=getattr(self.__class__,self.SettingKeyVariable)
+					
+					#Check
+					if type(SettedPropertyValueVariable)==property:
+
+						#debug
+						'''
+						self.debug('It is a property set')
+						'''
+
+						#set the property
+						setattr(
+								self,
+								self.SettingKeyVariable,
+								self.SettingValueVariable
+							)
+
+						#Return
+						return {'HookingIsBool':False}
+
+
+				#/####################/#
 				# Set in the __dict__ ... finally 
-				# But first check the special case of a dict set that is not a #set dict
+				# 
 
 				#debug
 				'''
@@ -743,6 +772,10 @@ class SetterClass(BaseClass):
 				self.__dict__[
 					self.SettingKeyVariable
 				]=self.SettingValueVariable
+
+				#/####################/#
+				# GIve maybe some things to the setted value 
+				# 
 
 				#add in the SettingValue
 				try:

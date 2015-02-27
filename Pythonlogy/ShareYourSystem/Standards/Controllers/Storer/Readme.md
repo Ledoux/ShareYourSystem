@@ -553,7 +553,7 @@ ResultsHierarchizer
    /   /   /   /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /   /   /   /  '<New><Instance>TagStr' : Networked
    /   /   /   /   /   /   /   /   /   /
-'<New><Instance>_ModelingSealTuplesList' :
+'<New><Instance>_ModelingDescriptionTuplesList' :
    /   /   /   /   /   /   /   /   /   /   /[
    /   /   /   /   /   /   /   /   /   /   /  0 :
    /   /   /   /   /   /   /   /   /   /   /   /(
@@ -715,7 +715,7 @@ ParametersHierarchizer
    /   /   /   /   /   /   /   /   /   /   /   /   /   /
 '<New><Instance>TagStr' : Networked
    /   /   /   /   /   /   /   /   /   /   /   /   /   /
-'<New><Instance>_ModelingSealTuplesList' :
+'<New><Instance>_ModelingDescriptionTuplesList' :
    /   /   /   /   /   /   /   /   /   /   /   /   /   /   /[
    /   /   /   /   /   /   /   /   /   /   /   /   /   /   /  0 :
    /   /   /   /   /   /   /   /   /   /   /   /   /   /   /   /(
@@ -826,7 +826,7 @@ YSumer
    /   /   /   /   /   /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /   /   /   /   /
-'<New><Instance>_ModelingSealTuplesList' :
+'<New><Instance>_ModelingDescriptionTuplesList' :
    /   /   /   /   /   /   /   /   /   /   /   /[
    /   /   /   /   /   /   /   /   /   /   /   /  0 :
    /   /   /   /   /   /   /   /   /   /   /   /   /(
@@ -884,7 +884,7 @@ CatchToPointVariable
 CatchToPointVariable
    /   /   /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /   /   /}
-   /   /   /   /   /   /   /   /  '<New><Instance>_ModelingSealTuplesList' :
+   /   /   /   /   /   /   /   /  '<New><Instance>_ModelingDescriptionTuplesList' :
    /   /   /   /   /   /   /   /   /[
    /   /   /   /   /   /   /   /   /  0 :
    /   /   /   /   /   /   /   /   /   /(
@@ -967,7 +967,7 @@ CatchToPointVariable
 CatchToPointVariable
    /   /   /   /   /   /   /}
    /   /   /   /   /   /}
-   /   /   /   /   /  '<New><Instance>_ModelingSealTuplesList' :
+   /   /   /   /   /  '<New><Instance>_ModelingDescriptionTuplesList' :
    /   /   /   /   /   /[
    /   /   /   /   /   /  0 :
    /   /   /   /   /   /   /(

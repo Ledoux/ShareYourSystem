@@ -62,7 +62,7 @@ class InserterClass(
 		self.InsertedNotRowGetStrsList=list(
 				set(
 					SYS.unzip(
-					self.ModelingSealTuplesList,[0]
+					self.ModelingDescriptionTuplesList,[0]
 				)
 			)-set(
 				self.RowingGetStrsList
