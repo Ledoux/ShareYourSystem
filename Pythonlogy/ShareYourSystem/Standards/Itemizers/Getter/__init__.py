@@ -431,10 +431,24 @@ class GetterClass(BaseClass):
 			#Check
 			elif self.GettingKeyVariable in self.__class__.__dict__:
 
-				#__getitem__ in the __class__
-				self.GettedValueVariable=self.__class__.__dict__[
+				#get
+				GettedClassValueVariable=self.__class__.__dict__[
 					self.GettingKeyVariable
 				]
+
+				#/############################
+				# Case of a get of a property
+				#
+
+				if type(GettedClassValueVariable)==property:
+
+					#get by the reactive getattr
+					self.GettedValueVariable=getattr(self,self.GettingKeyVariable)
+
+				else:
+
+					#__getitem__ in the __class__
+					self.GettedValueVariable=self.GettingKeyVariable
 
 				#debug
 				'''

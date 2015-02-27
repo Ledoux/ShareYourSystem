@@ -1149,6 +1149,11 @@ class SetList(list):
 				#items
 				self.extend(self.ListVariable.items())
 
+			elif type(self.ListVariable)==tuple and len(self.ListVariable)==2:
+
+				#append the tuple
+				self.append(self.ListVariable)
+
 			else:
 
 				#list
