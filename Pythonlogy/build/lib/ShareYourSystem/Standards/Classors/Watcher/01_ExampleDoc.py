@@ -10,12 +10,6 @@ import ShareYourSystem as SYS
 	})
 class MakerClass(SYS.ObjectClass):
 
-	#Definition
-	RepresentingKeyStrsList=[
-								'MakingMyFloat',
-								'MadeMyInt'
-							]
-
 	def default_init(self,
 				_MakingMyFloat=1.,
 				_MadeMyInt=0

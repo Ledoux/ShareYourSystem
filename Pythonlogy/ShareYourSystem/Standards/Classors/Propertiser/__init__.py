@@ -105,6 +105,14 @@ def getPropertizedTupleWithItemTupleAndClass(_ItemTuple,_Class):
 				self.__delattr__(PropertizedHideKeyStr)
 			PropertizedDelFunction.__name__=PropertizedDelFunctionStr
 
+		#Debug
+		'''
+		print('Propertizer l 109')
+		print('PropertizedGetFunction is ')
+		print(PropertizedGetFunction)
+		print('')
+		'''
+		
 		#Define in the class...
 		map(
 			lambda __PropertizedFunction:
@@ -123,7 +131,7 @@ def getPropertizedTupleWithItemTupleAndClass(_ItemTuple,_Class):
 		#Define in the special dict...
 		map(
 			lambda __Function:
-			_Class.PropertizeMethodsDict.__setitem__(
+			_Class.PropertyMethodsDict.__setitem__(
 				__Function.__name__,
 				__Function
 			),
@@ -177,11 +185,11 @@ class PropertiserClass(BaseClass):
 
 		#debug
 		'''
-		print('Defaultor l.31 __call__ method')
+		print('Propetizer l.179 __call__ method')
 		print('_Class is ',_Class)
 		print('')
 		'''
-
+		
 		#Call the parent init method
 		BaseClass.__call__(self,_Class)
 
@@ -215,7 +223,12 @@ class PropertiserClass(BaseClass):
 		'''
 		
 		#init
-		PropertizedClass.PropertizeMethodsDict={}
+		PropertizedClass.PropertyMethodsDict={}
+
+		#Add to the KeyStrsList
+		PropertizedClass.KeyStrsList+=[
+										"PropertyMethodsDict"
+									]
 
 		#debug
 		'''
@@ -296,71 +309,6 @@ class PropertiserClass(BaseClass):
 			PropertizedClass.KeyStrsList+=[
 										"PropertizedDefaultTuplesList"
 									]
-
-
-		#/###################/#
-		# Check for overriden propertize_ methods 
-		#
-
-		#filter
-		PropertizedNewMethodDict=dict(
-			SYS._filter(
-				lambda __MethodItemTuple:
-				__MethodItemTuple[0].startswith(PropertyPrefixStr
-					) and (
-					getattr(
-						PropertizedClass.__bases__[0],
-						__MethodItemTuple[0]
-					)!=__MethodItemTuple[1]
-					if hasattr(PropertizedClass.__bases__[0],
-						__MethodItemTuple[0]
-					) else True
-				),
-				PropertizedClass.InspectedMethodDict.items()
-			)
-		)
-
-		#Debug
-		print('Propertizer l 369')
-		print('PropertizedClass is ')
-		print(PropertizedClass)
-		print('PropertizedMethodDict is')
-		print(SYS.indent(PropertizedNewMethodDict))
-		print('')
-
-		#map
-		PropertizedKeyStrsList=map(
-				lambda __PropertizedKeyStr:
-				SYS.deprefix(
-					__PropertizedKeyStr,
-					PropertyPrefixStr
-				)[3:],
-				PropertizedNewMethodDict.keys()
-			)
-
-		#map reset the properties
-		map(
-				lambda __PropertizedKeyStr:
-				setattr(
-						PropertizedClass,
-						__PropertizedKeyStr,
-						property(
-								getattr(
-									PropertizedClass,
-									PropertyPrefixStr+'get'+__PropertizedKeyStr
-								),
-								getattr(
-									PropertizedClass,
-									PropertyPrefixStr+'set'+__PropertizedKeyStr
-								),
-								getattr(
-									PropertizedClass,
-									PropertyPrefixStr+'del'+__PropertizedKeyStr
-								)
-							)
-					),
-				PropertizedKeyStrsList
-			)
 
 #</Define_Class>
 

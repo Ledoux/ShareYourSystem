@@ -21,16 +21,12 @@ SYS.setSubModule(globals())
 
 #<ImportSpecificModules>
 Mimicker=BaseModule
+from ShareYourSystem.Standards.Classors import Propertiser
 #</ImportSpecificModules>
 
 #<Define_Class>
 @DecorationClass()
 class ClasserClass(BaseClass):
-
-	#Definition 
-	RepresentingKeyStrsList=[
-						'ClassingSwitchMethodStrsList'
-					]
 
 	def default_init(self,	
 						_ClassingSwitchMethodStrsList=None,	
@@ -117,6 +113,73 @@ class ClasserClass(BaseClass):
 					__ClassingSwitchUnboundMethodStr
 				),
 				self.ClassingSwitchMethodStrsList
+			)
+
+		#/###################/#
+		# Check for overriden propertize_ methods 
+		#
+
+		#filter
+		ClassedPropertyNewMethodDict=dict(
+			SYS._filter(
+				lambda __MethodItemTuple:
+				__MethodItemTuple[0].startswith(
+						Propertiser.PropertyPrefixStr
+					) and (
+					getattr(
+						self.DoClass.__bases__[0],
+						__MethodItemTuple[0]
+					)!=__MethodItemTuple[1]
+					if hasattr(self.DoClass.__bases__[0],
+						__MethodItemTuple[0]
+					) else True
+				),
+				self.DoClass.InspectedMethodDict.items()
+			)
+		)
+
+		#Debug
+		'''
+		print('Classer l 147')
+		print('self.DoClass is ')
+		print(self.DoClass)
+		print('ClassedPropertyNewMethodDict is')
+		print(SYS.indent(ClassedPropertyNewMethodDict))
+		print('')
+		'''
+		
+		#map
+		ClassedPropertyKeyStrsList=map(
+				lambda __PropertizedKeyStr:
+				SYS.deprefix(
+					__PropertizedKeyStr,
+					Propertiser.PropertyPrefixStr
+				)[3:],
+				ClassedPropertyNewMethodDict.keys()
+			)
+
+		#map reset the properties
+		map(
+				lambda __PropertyKeyStr:
+				setattr(
+						self.DoClass,
+						__PropertyKeyStr,
+						property(
+								getattr(
+									self.DoClass,
+									Propertiser.PropertyPrefixStr+'get'+__PropertyKeyStr
+								),
+								getattr(
+									self.DoClass,
+									Propertiser.PropertyPrefixStr+'set'+__PropertyKeyStr
+								),
+								getattr(
+									self.DoClass,
+									Propertiser.PropertyPrefixStr+'del'+__PropertyKeyStr
+								)
+							)
+					),
+				ClassedPropertyKeyStrsList
 			)
 #</DefineClass>
 

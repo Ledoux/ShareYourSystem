@@ -34,14 +34,6 @@ def observe(_InstanceVariable,**_KwargVariablesDict):
 @DecorationClass()
 class ObserverClass(BaseClass):
 	
-	#Definition 
-	RepresentingKeyStrsList=[
-						'ObservingIsBool',
-						'ObservingWrapMethodStr',
-						'ObservedWrapUnboundMethod',
-						'ObservedWrapMethodStr'
-	]
-
 	def default_init(self,
 					_ObservingIsBool=False,
 					_ObservingWrapMethodStr="",	
@@ -55,6 +47,13 @@ class ObserverClass(BaseClass):
 
 	def __call__(self,_Class):
 
+		#debug
+		'''
+		print('Observer l.54 __call__ method')
+		print('_Class is ',_Class)
+		print('')
+		'''
+		
 		#Call the parent init method
 		BaseClass.__call__(self,_Class)
 

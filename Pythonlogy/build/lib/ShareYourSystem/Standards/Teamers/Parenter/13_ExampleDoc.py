@@ -12,10 +12,10 @@ class MakerClass(SYS.ParenterClass):
 					):
 		SYS.ParenterClass.__init__(self)
 		
-	def setParentKeyStr(self,_SettingValueVariable):
+	def propertize_setParentKeyStr(self,_SettingValueVariable):
 		
 		#set
-		SYS.ParenterClass.setParentKeyStr(self,_SettingValueVariable)
+		SYS.ParenterClass.propertize_setParentKeyStr(self,_SettingValueVariable)
 
 		#debug
 		self.debug(
@@ -40,10 +40,10 @@ SYS._print(MyMaker)
 @SYS.ClasserClass()
 class BuilderClass(MakerClass):
 
-	def setParentKeyStr(self,_SettingValueVariable):
+	def propertize_setParentKeyStr(self,_SettingValueVariable):
 		
 		#call the base method
-		MakerClass.setParentKeyStr(self,_SettingValueVariable)
+		MakerClass.propertize_setParentKeyStr(self,_SettingValueVariable)
 
 		#debug
 		self.debug(

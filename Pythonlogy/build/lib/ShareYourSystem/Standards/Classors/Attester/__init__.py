@@ -19,7 +19,7 @@ of the modules.
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Classors.Inspecter"
+BaseModuleStr="ShareYourSystem.Standards.Classors.Propertiser"
 DecorationModuleStr=BaseModuleStr
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -139,6 +139,13 @@ class AttesterClass(BaseClass):
 
 	def __call__(self,_Class):
 
+		#debug
+		'''
+		print('Attester l.143 __call__ method')
+		print('_Class is ',_Class)
+		print('')
+		'''
+		
 		#Call the parent init method
 		BaseClass.__call__(self,_Class)
 

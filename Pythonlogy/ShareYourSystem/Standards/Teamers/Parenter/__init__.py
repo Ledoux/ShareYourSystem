@@ -315,7 +315,7 @@ class ParenterClass(BaseClass):
 		#Call the base method
 		return BaseClass.get(self)
 
-	def setWatchAfterParentWithParenterBool(self,_SettingValueVariable):
+	def propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable):
 
 		#set the value of the "hidden" property variable
 		self._WatchAfterParentWithParenterBool=_SettingValueVariable
@@ -343,6 +343,8 @@ class ParenterClass(BaseClass):
 			'''
 			self.debug('We have switched the parent here !')
 			'''
+
+
 
 
 

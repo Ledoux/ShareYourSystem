@@ -142,6 +142,13 @@ class TesterClass(BaseClass):
 
 	def __call__(self,_Class):
 
+		#debug
+		'''
+		print('Tester l.146 __call__ method')
+		print('_Class is ',_Class)
+		print('')
+		'''
+		
 		#Call the parent init method
 		BaseClass.__call__(self,_Class)
 

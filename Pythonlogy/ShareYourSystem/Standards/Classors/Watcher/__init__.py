@@ -135,6 +135,13 @@ class WatcherClass(BaseClass):
 
 	def __call__(self,_Class):
 
+		#debug
+		'''
+		print('Watcher l.139 __call__ method')
+		print('_Class is ',_Class)
+		print('')
+		'''
+		
 		#Call the parent method
 		Observer.ObserverClass.__bases__[0].__call__(self,_Class)
 
@@ -226,7 +233,8 @@ class WatcherClass(BaseClass):
 						'''
 
 						#...Better to init it as a property to facilite the reactivity setting after
-						[PropertizedKeyStr,PropertizedValueVariable]=Propertiser.getPropertizedTupleWithItemTupleAndClass(
+						[PropertizedKeyStr,PropertizedValueVariable
+						]=Propertiser.getPropertizedTupleWithItemTupleAndClass(
 							(
 								self.WatchedBeforeDoBoolKeyStr,
 								{
@@ -289,7 +297,8 @@ class WatcherClass(BaseClass):
 						'''
 
 						#...Better to init it as a property to facilite the reactivity setting after
-						[PropertizedKeyStr,PropertizedValueVariable
+						[
+							PropertizedKeyStr,PropertizedValueVariable
 						]=Propertiser.getPropertizedTupleWithItemTupleAndClass(
 							(
 								self.WatchedAfterDoBoolKeyStr,

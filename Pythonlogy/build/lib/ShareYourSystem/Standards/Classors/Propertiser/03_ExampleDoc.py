@@ -55,6 +55,13 @@ class BuilderClass(MakerClass):
 		#set the value of the "hidden" property variable
 		self._MakingMyList+=['Build en plus !']
 
+	#We need here to redefine
+	MakingMyList=property(
+			MakerClass.MakingMyList.fget,
+			propertize_setMakingMyList,
+			MakerClass.MakingMyList.fdel
+		)
+
 #Definition a special instance
 SpecialBuilder=BuilderClass(_MakingMyFloat=5,_MakingMyList=[4])
 
