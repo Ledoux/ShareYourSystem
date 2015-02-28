@@ -1,4 +1,1 @@
-  501  4973   199   0  5:09PM ??         0:00.25 /usr/local/Cellar/python/2.7.9/Frameworks/Python.framework/Versions/2.7/Resources/Python.app/Contents/MacOS/Python /Users/ledoux/Documents/ShareYourSystem/Pythonlogy/ShareYourSystem/Standards/Interfacers/Processer/03_ExampleDoc.py
-  501  4986  4973   0  5:09PM ??         0:00.00 sh /Users/ledoux/Documents/ShareYourSystem/Pythonlogy/ShareYourSystem/Standards/Interfacers/Processer/ProcessTemp.sh
-  501  4987  4986   0  5:09PM ??         0:00.00 sh /Users/ledoux/Documents/ShareYourSystem/Pythonlogy/ShareYourSystem/Standards/Interfacers/Processer/ProcessTemp.sh
-  501  4989  4987   0  5:09PM ??         0:00.00 grep Python
+

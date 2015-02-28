@@ -5,8 +5,6 @@ import ShareYourSystem as SYS
 MyProcesser=SYS.ProcesserClass(
 	).get(
 		'$which python'
-	).process(
-		_ActionStr='kill'
 	)
 
 #Define

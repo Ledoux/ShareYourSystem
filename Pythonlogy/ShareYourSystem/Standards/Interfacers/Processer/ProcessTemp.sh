@@ -1,2 +1,2 @@
-OUTPUT="$(which python )"
-echo "${OUTPUT}" > /Users/ledoux/Documents/ShareYourSystem/Pythonlogy/ShareYourSystem/Standards/Interfacers/Processer/ProcessTemp.txt
+OUTPUT="$(kill 4991)"
+echo "${OUTPUT}" > ProcessTemp.txt

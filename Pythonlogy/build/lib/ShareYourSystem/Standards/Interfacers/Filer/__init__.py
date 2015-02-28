@@ -79,7 +79,8 @@ class FilerClass(BaseClass):
 						'FilingKeyStr',
 						'FiledPathStr',
 						'FilingModeStr',
-						'FilingFormatStr
+						'FilingFormatStr',
+						'FiledHardVariable'
 					])
 			)
 			'''
@@ -125,7 +126,10 @@ class FilerClass(BaseClass):
 				'''
 
 				#Open
-				self.FiledHardVariable=open(self.FiledPathStr,self.FilingModeStr)
+				self.FiledHardVariable=open(
+					self.FiledPathStr,
+					self.FilingModeStr
+				)
 
 		#Check
 		else:
@@ -156,7 +160,7 @@ class FilerClass(BaseClass):
 					]
 				)
 			'''
-
+			
 			#Check
 			if self.FilingFormatStr in ['txt','sh']:
 

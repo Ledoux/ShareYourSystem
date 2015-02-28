@@ -5,8 +5,6 @@ import ShareYourSystem as SYS
 MyProcesser=SYS.ProcesserClass(
 	).get(
 		'$which python'
-	).process(
-		_ActionStr='kill'
 	)
 
 #Define
@@ -21,7 +19,6 @@ print("SYS.Processer.status('Python')is ")
 print(SYS.Processer.status('Python'))
 
 #Define and kill all the python processes except itself
-'''
 MyProcesser=SYS.ProcesserClass(
 	).get(
 		'$kill '+SYS.Processer.status(
@@ -29,4 +26,3 @@ MyProcesser=SYS.ProcesserClass(
 					**{'PythonSkipSelfBool':True}
 				)
 		)
-'''
