@@ -22,22 +22,12 @@ MyController=SYS.ControllerClass(
 		}
 	)
 
-#tabular
-MyController['/&Models/$Things'].tabular()
-	
 #Definition the AttestedStr
-SYS._attest(
-	[
-		'MyController is '+SYS._str(
-		MyController,
-		**{
-			'RepresentingBaseKeyStrsListBool':False,
-			'RepresentingAlineaIsBool':False
-		}
-		),
-		'hdf5 file is : '+MyController.hdfview()
-	]
-) 
+print('MyController is ')
+SYS._print(MyController)
+
+#view
+print('hdf5 file is : \n'+SYS._str(MyController.hdfview()))
 
 #close
 MyController.close()

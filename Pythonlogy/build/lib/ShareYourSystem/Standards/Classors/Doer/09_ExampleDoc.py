@@ -3,7 +3,7 @@ import ShareYourSystem as SYS
 
 #Define
 @SYS.DoerClass()
-class MakerClass(SYS.ObjectClass):
+class MakerClass(object):
 
 	def default_init(self,
 				_MakingMyFloat=1.,
@@ -13,7 +13,7 @@ class MakerClass(SYS.ObjectClass):
 				_MadeMyInt=0,
 				_MadeMyList=None,
 				):
-		SYS.ObjectClass.__init__(self)
+		object.__init__(self)
 
 	def do_make(self):
 

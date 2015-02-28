@@ -1,38 +1,33 @@
 
 #ImportModules
 import ShareYourSystem as SYS
+import tables
 
-#Definition of a Controller instance with a noded datar
+#Definition 
 MyController=SYS.ControllerClass(
 		**{
-			'FolderingPathStr':SYS.Tabler.LocalFolderPathStr
+			'FolderingPathStr':SYS.Tabler.LocalFolderPathStr,
+			'ControllingModelClassVariable':SYS.TablerClass
 		}
-	).collect(
-		"Tablers",
-		"Things",
-		SYS.TablerClass()
+	).set(
+		'/&Models/$Things',
+		{
+			'ModelingDescriptionTuplesList':
+			[
+				#GetStr #ColumnStr #Col
+				('MyInt','MyInt',tables.Int64Col()),
+				('MyStr','MyStr',tables.StringCol(10)),
+				('MyIntsList','MyIntsList',tables.Int64Col(shape=3))
+			]	
+		}
 	)
 
-#Tabular in it
-MyController['<Tablers>ThingsTabler'].table(
-)
-		
 #Definition the AttestedStr
-SYS._attest(
-	[
-		'MyController is '+SYS._str(
-		MyController,
-		**{
-			'RepresentingBaseKeyStrsListBool':False,
-			'RepresentingAlineaIsBool':False
-		}
-		)
-	]
-) 
+print('MyController is ')
+SYS._print(MyController)
 
-#print
-print('mongo db is : \n'+SYS._str(MyController.pymongoview()))
+#view
+print('hdf5 file is : \n'+SYS._str(MyController.hdfview()))
 
 #close
 MyController.close()
-

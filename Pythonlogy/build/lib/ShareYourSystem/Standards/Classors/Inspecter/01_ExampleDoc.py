@@ -1,17 +1,16 @@
 #ImportModules
 import ShareYourSystem as SYS
 
-"""
 #define
 @SYS.InspecterClass()
-class MakerClass(SYS.ObjectClass):
+class MakerClass(object):
 
 	def default_init(self,
 			_MakingMyStr,
 			_MakingMyInt=0,
 			**_KwargVariablesDict
 		):
-		SYS.ObjectClass.__init__(self,**_KwargVariablesDict)
+		object.__init__(self,**_KwargVariablesDict)
 
 	def do_make(self):
 
@@ -20,23 +19,9 @@ class MakerClass(SYS.ObjectClass):
 
 #print
 print('MakerClass.InspectedArgumentDict is ')
-SYS._print(
+print(SYS.indent(
 		MakerClass.InspectedArgumentDict
 	)
+)
  
-#Print
-"""
-
-
-
-class A():
-
-	def a(self):pass
-
-class B(A):
-
-	def a(self):pass
-
-
-print(B.a==A.a)
 

@@ -33,16 +33,6 @@ class TablerClass(
 					BaseClass,
 				):
 	
-	#Definition
-	RepresentingKeyStrsList=[
-					'TabledMongoKeyStr', 	
-					'TabledHdfKeyStr', 
-					'TabledMongoIndexInt', 	
-					'TabledHdfIndexInt', 			
-					'TabledMongoCollection', 	
-					'TabledHdfTable' 
-		]
-
 	def default_init(self,
 						_TabledMongoKeyStr="", 	
 						_TabledHdfKeyStr="", 
@@ -62,9 +52,6 @@ class TablerClass(
 		'''
 		self.debug(('self.',self,['ModelingDescriptionTuplesList']))
 		'''
-
-		#tabular first
-		self.tabular()
 
 		#debug
 		'''
@@ -393,12 +380,14 @@ class TablerClass(
 			self.debug(
 						[
 							'Here we create the table or get it depending if it is new or not',
-							'self.TabledHdfKeyStr is '+self.TabledHdfKeyStr,
-							'self.TabularedHdfTopFileVariable!=None is '+str(self.TabularedHdfTopFileVariable!=None)
+							('self.',self,[
+								'TabledHdfKeyStr',
+								'TabularedHdfTopFileVariable'
+								])
 						]
 					)
 			'''
-
+			
 			#Check
 			if self.TabledHdfKeyStr!="" and self.TabularedHdfTopFileVariable!=None:
 
@@ -483,6 +472,31 @@ class TablerClass(
 					)
 			'''
 
+	def mimic_tabular(self):
 
+		#call the tabular method
+		BaseClass.tabular(self)
+
+		#debug
+		'''
+		self.debug('We have tabulared here, now table')
+		'''
+		
+		#table
+		self.table()
 
 #</DefineClass>
+
+
+#</DefinePrint>
+TablerClass.PrintingClassSkipKeyStrsList.extend(
+	[
+		'TabledMongoKeyStr', 	
+		'TabledHdfKeyStr', 
+		#'TabledMongoIndexInt', 	
+		#'TabledHdfIndexInt', 			
+		'TabledMongoCollection', 	
+		'TabledHdfTable' 
+	]
+)
+#<DefinePrint>

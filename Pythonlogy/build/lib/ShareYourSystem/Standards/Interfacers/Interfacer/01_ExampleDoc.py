@@ -4,16 +4,7 @@ import ShareYourSystem as SYS
 #Definition 
 MyInterfacer=SYS.InterfacerClass()
 	
-#Definition the AttestedStr
-SYS._attest(
-	[
-		'MyInterfacer is '+SYS._str(
-			MyInterfacer,
-			**{
-			'RepresentingAlineaIsBool':False
-			})
-	]
-) 
-
-#Print
+#print
+print('MyInterfacer.__dict__ is ')
+print(SYS.indent(MyInterfacer.__dict__))
 

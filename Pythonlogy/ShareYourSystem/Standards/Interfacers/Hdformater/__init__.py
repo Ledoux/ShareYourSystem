@@ -34,7 +34,11 @@ import sys
 class HdformaterClass(BaseClass):
 	
 	def default_init(self,
-			_HdfPathStr='/',
+			_HdfGroupPathStr={
+				'DefaultValueType':property,
+				'PropertyInitVariable':'/',
+				'PropertyDocStr':'I set a path of groups'
+			},
 			_HdformatingFileKeyStr="", 
 			_HdformatingModuleStr="tables",			
 			_HdformatedFileVariable=None, 
@@ -49,9 +53,11 @@ class HdformaterClass(BaseClass):
 	def do_hdformat(self):
 
 		#debug
+		'''
 		self.debug(('self.',self,[
 									'HdformatingFileKeyStr'
 								]))
+		'''
 		
 		#Check
 		if self.HdformatedFileVariable==None:
@@ -126,6 +132,54 @@ class HdformaterClass(BaseClass):
 		#Close the HdformatedFileVariable
 		if self.HdformatedFileVariable!=None:
 			self.HdformatedFileVariable.close()
+
+	def propertize_setHdfGroupPathStr(self,_SettingValueVariable):
+
+		#Check
+		if _SettingValueVariable[0]!='/':
+			_SettingValueVariable='/'+_SettingValueVariable
+
+		#set
+		self._HdfGroupPathStr=_SettingValueVariable
+
+		#Debug
+		'''
+		self.debug(
+				[
+					'We have setted a HdfGroupPathStr',
+					('self.',self,[
+						'HdformatedFileVariable',
+						'_HdfGroupPathStr'
+					])
+				]
+			)
+		'''
+		
+		#Check if the Path exists
+		if self._HdfGroupPathStr not in self.HdformatedFileVariable:
+
+			#set all the intermediate Paths before
+			PathStrsList=self._HdfGroupPathStr.split('/')[1:]
+			ParsingChildPathStr="/"
+
+			#set the PathStr from the top to the down (integrativ loop)
+			for __ChildPathStr in PathStrsList:
+
+				#Go deeper
+				NewParsingChildPathStr=ParsingChildPathStr+__ChildPathStr
+
+				#Create the group if not already
+				if NewParsingChildPathStr not in self.HdformatedFileVariable:
+					if self.HdformatingModuleStr=="tables":
+						self.HdformatedFileVariable.create_group(
+							ParsingChildPathStr,__ChildPathStr
+						)
+					elif self.HdformatingModuleStr=="h5py":
+						Group=self.HdformatedFileVariable[ParsingChildPathStr]
+						Group.create_group(__ChildPathStr)
+				
+				#Prepare the next group	
+				ParsingChildPathStr=NewParsingChildPathStr+'/'
 
 #</DefineClass>
 

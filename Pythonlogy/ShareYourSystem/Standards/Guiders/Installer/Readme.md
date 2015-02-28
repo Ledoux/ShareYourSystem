@@ -339,7 +339,7 @@ MyInstaller is < (InstallerClass), 4540624784>
 'ShareYourSystem.Standards.Classors.Classor', 'ShareYourSystem.Standards.Classors.Defaultor',
 'ShareYourSystem.Standards.Classors.Doer', 'ShareYourSystem.Standards.Classors.Deriver',
 'ShareYourSystem.Standards.Classors.Propertiser', 'ShareYourSystem.Standards.Classors.Inspecter',
-'ShareYourSystem.Standards.Classors.Representer', 'ShareYourSystem.Standards.Objects.Printer',
+'ShareYourSystem.Standards.Classors.Representer', 'ShareYourSystem.Standards.Interfacers.Printer',
 'ShareYourSystem.Standards.Objects.Debugger', 'ShareYourSystem.Functers.Functer',
 'ShareYourSystem.Standards.Classors.Attester', 'ShareYourSystem.Standards.Classors.Tester',
 'ShareYourSystem.Functers.Functer', 'ShareYourSystem.Functers.Hooker',

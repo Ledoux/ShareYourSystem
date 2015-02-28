@@ -3,7 +3,7 @@ import ShareYourSystem as SYS
 
 #Define
 @SYS.ClasserClass()
-class MakerClass(SYS.ObjectClass):
+class MakerClass(object):
 
 	def default_init(self,
 			_MakingMyFloat={
@@ -19,7 +19,7 @@ class MakerClass(SYS.ObjectClass):
 			_MakingMyInt={'DefaultValueType':int},
 			_MadeMyInt=0	
 		):
-		SYS.ObjectClass.__init__(self)
+		object.__init__(self)
 
 	def propertize_setMakingMyFloat(self,_SettingValueVariable):
 

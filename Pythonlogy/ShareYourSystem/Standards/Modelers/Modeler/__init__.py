@@ -96,7 +96,11 @@ class ModelerClass(BaseClass):
 	
 	def default_init(
 					self,
-					_ModelingDescriptionTuplesList=None, 	
+					_ModelingDescriptionTuplesList={
+						'DefaultValueType':property,
+						'PropertyInitVariable':[],
+						'PropertyDocStr':'I described variables for stroing them in hdf'
+					}, 	
 					_ModelingMongoBool=False,
 					_ModelingHdfBool=False,							
 					_ModeledDescriptionClassesOrderedDict=None,																

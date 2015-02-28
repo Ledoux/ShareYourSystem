@@ -3,14 +3,14 @@ import ShareYourSystem as SYS
 
 #Define
 @SYS.DoerClass()
-class MakerClass(SYS.ObjectClass):
+class MakerClass(object):
 
 	def default_init(self,
 				_MakingMyFloat=0.,
-				_MadeShareObject=SYS.ObjectClass(),
-				_MadeSpecificObject=None
+				_MadeShareClassor=SYS.ClassorClass(),
+				_MadeSpecificClassor=None
 				):
-		SYS.ObjectClass.__init__(self)
+		object.__init__(self)
 
 	def do_make(self):
 
@@ -19,21 +19,21 @@ class MakerClass(SYS.ObjectClass):
 		print('')
 
 		#set
-		self.MadeSpecificObject.MyInt=int(self.MakingMyFloat)
+		self.MadeSpecificClassor.MyInt=int(self.MakingMyFloat)
 
 		#Return self
 		#return self
 	
 #Definition of an instance and make
-MakerClass.MadeShareObject.MyInt=5
+MakerClass.MadeShareClassor.MyInt=5
 MyMaker=MakerClass().make(3.)
 
 #Add
 print("\n".join([
 		'After the make ',
-		'MakerClass.MadeSpecificObject is '+str(MakerClass.MadeSpecificObject),
-		'MyMaker.MadeShareObject.__dict__ is '+str(MyMaker.MadeShareObject.__dict__),
-		'MyMaker.MadeSpecificObject.__dict__ is '+str(MyMaker.MadeSpecificObject.__dict__)
+		'MakerClass.MadeSpecificClassor is '+str(MakerClass.MadeSpecificClassor),
+		'MyMaker.MadeShareClassor.__dict__ is '+str(MyMaker.MadeShareClassor.__dict__),
+		'MyMaker.MadeSpecificClassor.__dict__ is '+str(MyMaker.MadeSpecificClassor.__dict__)
 	]))
 
 

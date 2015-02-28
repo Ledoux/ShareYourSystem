@@ -4,7 +4,7 @@ import ShareYourSystem as SYS
 
 #Definition of a MakerClass decorated by a DoerClass instance
 @SYS.DoerClass()
-class MakerClass(SYS.ObjectClass):
+class MakerClass(object):
 	pass
 
 #Definition of a derived BuilderClass decorated by a Deriver

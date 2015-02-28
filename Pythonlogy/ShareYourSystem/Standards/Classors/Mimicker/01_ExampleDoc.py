@@ -3,14 +3,14 @@ import ShareYourSystem as SYS
 
 #Definition 
 @SYS.DoerClass()
-class MakerClass(SYS.ObjectClass):
+class MakerClass(object):
 
 	def default_init(self,
 					_MakingMyFloat=0.,
 					_MadeMyInt=0,
 					**_KwarVariablesDict
 				):
-		SYS.ObjectClass.__init__(self,**_KwarVariablesDict)
+		object.__init__(self,**_KwarVariablesDict)
 
 	def do_make(self):
 		

@@ -2,7 +2,7 @@
 #ImportModules
 import ShareYourSystem as SYS
 
-@SYS.ClasserClass()
+@SYS.InspecterClass()
 class MakerClass(SYS.ItemizerClass):
 	
 	def default_init(self,
@@ -18,37 +18,26 @@ class MakerClass(SYS.ItemizerClass):
 		#set
 		self.MadeMyInt=(int)(self.MakingMyFloat)
 
-#Define how to map the make
+#Define how to get a list from the args in the ItemizedValueMethod
+#(Module definition level)
 def getMapList(_LiargVariablesList):
 	return map(
 		lambda __Variable:
 		[__Variable],
 		_LiargVariablesList[0]
 	)
+#Define what to outpu from the instance 
+#(Class definition level)
+MakerClass.getMapValueVariable=lambda _SelfVariable:_SelfVariable.MadeMyInt
 
 #define and itemize just like a get
 MyMaker=MakerClass(
 	).itemize(
 		#ItemizingKeyVariable
 		'#map@make',
-		#ItemizingMapGetVariable
-		_MapGetVariable='MadeMyInt'
 	)
 
 #show the map
-print("MyMaker.ItemizedValueMethod([3.,6.]).ItemizedMapVariablesList is ")
-print(MyMaker.ItemizedValueMethod([3.,6.]).ItemizedMapVariablesList)
-
-#define and itemize just like a get but with a map query
-MyMaker=MakerClass(
-	).itemize(
-		#ItemizingKeyVariable
-		'#map@make',
-		#ItemizingMapGetVariable
-		_MapGetVariable=['MadeMyInt','MakingMyFloat']
-	)
-
-#show the map
-print("MyMaker.ItemizedValueMethod([3.,6.]).ItemizedMapVariablesList is ")
-print(MyMaker.ItemizedValueMethod([3.,6.]).ItemizedMapVariablesList)
+print("MyMaker.ItemizedValueMethod([3.,6.]).ItemizedMapValueVariablesList is ")
+print(MyMaker.ItemizedValueMethod([3.,6.]).ItemizedMapValueVariablesList)
 

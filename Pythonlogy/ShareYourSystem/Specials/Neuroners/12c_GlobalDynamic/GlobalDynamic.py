@@ -3,7 +3,7 @@ import ShareYourSystem as SYS
 #</Import Modules>
 
 #<DefineClass>
-class GlobalDynamicClass(SYS.ObjectClass):
+class GlobalDynamicClass(object):
 
 	#<DefineHookMethods>
 	def initAfter(self):

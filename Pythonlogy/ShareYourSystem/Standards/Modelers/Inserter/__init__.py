@@ -22,6 +22,7 @@ SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
+from ShareYourSystem.Standards.Itemizers import Getter
 #</ImportSpecificModules>
 
 #<DefineClass>
@@ -30,16 +31,6 @@ class InserterClass(
 					BaseClass,
 				):
 	
-	#Definition
-	RepresentingKeyStrsList=[									
-								'InsertedNotRowGetStrsList',
-								'InsertedNotRowColumnStrsList',
-								'InsertedMongoNotRowPickOrderedDict',
-								'InsertedHdfNotRowPickOrderedDict',
-								'InsertedIndexInt',
-								'InsertedItemTuplesList'
-							]
-
 	def default_init(self,
 					_InsertedNotRowGetStrsList=None,
 					_InsertedNotRowColumnStrsList=None,
@@ -53,10 +44,10 @@ class InserterClass(
 		#Call the parent init method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 			
-	def setRowingGetStrsList(self,_SettingValueVariable):
+	def propertize_setRowingGetStrsList(self,_SettingValueVariable):
 		
 		#Hook
-		BaseClass.setRowingGetStrsList(self,_SettingValueVariable)
+		BaseClass.propertize_setRowingGetStrsList(self,_SettingValueVariable)
 
 		#Bind 
 		self.InsertedNotRowGetStrsList=list(
@@ -76,13 +67,6 @@ class InserterClass(
 				self.RowedGetStrToColumnStrOrderedDict[__NotRowGetStr],
 				self.InsertedNotRowGetStrsList
 			)
-
-	RowingGetStrsList=property(
-		BaseClass.RowingGetStrsList.fget,
-		setRowingGetStrsList,
-		BaseClass.RowingGetStrsList.fdel,
-		BaseClass.RowingGetStrsList.__doc__
-	)
 
 	def do_insert(self,**_KwargVariablesDict):
 		""" """
@@ -162,7 +146,8 @@ class InserterClass(
 					self.InsertedMongoNotRowPickOrderedDict.update(
 					zip(
 						self.InsertedNotRowGetStrsList,
-						self.ModeledDeriveControllerVariable.pick(
+						self.ModeledDeriveControllerVariable[
+						Getter.GetMapStr](
 							self.InsertedNotRowGetStrsList
 							)
 						)
@@ -239,7 +224,8 @@ class InserterClass(
 					self.InsertedHdfNotRowPickOrderedDict.update(
 					zip(
 						self.InsertedNotRowGetStrsList,
-						self.ModeledDeriveControllerVariable.pick(
+						self.ModeledDeriveControllerVariable[
+						Getter.GetMapStr](
 							self.InsertedNotRowGetStrsList
 							)
 						)
@@ -304,7 +290,18 @@ class InserterClass(
 						)
 				'''
 				pass
-				
-		
-
+			
 #</DefineClass>
+
+#</DefinePrint>
+InserterClass.PrintingClassSkipKeyStrsList.extend(
+	[
+		'InsertedNotRowGetStrsList',
+		'InsertedNotRowColumnStrsList',
+		'InsertedMongoNotRowPickOrderedDict',
+		'InsertedHdfNotRowPickOrderedDict',
+		'InsertedIndexInt',
+		'InsertedItemTuplesList'
+	]
+)
+#<DefinePrint>

@@ -1,67 +1,50 @@
 
 #ImportModules
-import tables
 import ShareYourSystem as SYS
 
-#Definition of a Controller instance with a noded datar
+#Definition 
 MyController=SYS.ControllerClass(
 		**{
-			'HdformatingFileKeyStr':"Things.hdf5",
-			'FolderingPathStr':SYS.Inserter.LocalFolderPathStr
+			'FolderingPathStr':SYS.Inserter.LocalFolderPathStr,
+			'ControllingModelClassVariable':SYS.InserterClass
 		}
-	).collect(
-		"Inserters",
-		"Things",
-		SYS.InserterClass().update(
-		[
-			(
-				'Attr_ModelingDescriptionTuplesList',
-				[
-					#GetStr #ColumnStr #Col
-					('MyInt','MyInt',tables.Int64Col()),
-					('MyStr','MyStr',tables.StringCol(10)),
-					('MyIntsList','MyIntsList',(tables.Int64Col(shape=3)))
-				]
-			),
-			('Attr_RowingGetStrsList',['MyInt'])	
-		]
+	).set(
+		'/&Models/$Things',
+		{
+			'RowingGetStrsList':[
+					'MyInt',
+					'MyStr'
+			]
+		}
+	)['#map@set'](
+		{
+			'MyInt':0,
+			'MyStr':"hello",
+			'MyIntsList':[2,4,1]
+		}
+	).command(
+		'/&Models/$Things',
+		'#call:insert'
+	)['#map@set'](
+		{
+			'MyInt':0,
+			'MyStr':"bonjour",
+			'MyIntsList':[2,4,1]
+		}
+	).command(
+		'/&Models/$Things',
+		['#call:insert']
 	)
-)
+	
+#print
+print('mongo db is : \n'+SYS._str(MyController.pymongoview()))
 
-#Definition a structure with a db
-MyController.update(
-			[
-				('MyInt',1),
-				('MyStr',"bonjour"),
-				('MyIntsList',[2,4,6])
-			]
-).command(
-	_UpdateList=[('insert',SYS.ApplyDictClass({'LiargVariablesList':[]}))],
-	**{'GatheringVariablesList':['<Inserters>ThingsInserter']}		
-).update(
-			[
-				('MyInt',0),
-				('MyStr',"hello"),
-				('MyIntsList',[0,0,0])
-			]
-).command(
-	_UpdateList=[('insert',SYS.ApplyDictClass({'LiargVariablesList':[]}))],		
-)
+#print
+print('MyController is ')
+SYS._print(MyController)
 
-#Definition the AttestedStr
-SYS._attest(
-	[
-		'MyController is '+SYS._str(
-		MyController,
-		**{
-			'RepresentingBaseKeyStrsListBool':False,
-			'RepresentingAlineaIsBool':False
-		}
-		),
-		'hdf5 file is : '+MyController.hdfview()
-	]
-) 
-
-#close
+#Print
 MyController.close()
+
+
 

@@ -8,8 +8,8 @@ MyController=SYS.ControllerClass(
 			'FolderingPathStr':SYS.Tabularer.LocalFolderPathStr,
 			'ControllingModelClassVariable':SYS.TabularerClass
 		}
-	).command(
-		'/&Models/$Things','#call:tabular'
+	).get(
+		'/&Models/$Things'
 	)
 
 

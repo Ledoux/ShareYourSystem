@@ -8,7 +8,7 @@ import ShareYourSystem as SYS
 	'BindingDecorationMethodStr':'foo',
 	'BindingItemTuplesList':[('MyFooInt',1)]
 })
-class MakerClass(SYS.ObjectClass):
+class MakerClass(object):
 
 	#Definition
 	RepresentingKeyStrsList=[
@@ -21,7 +21,7 @@ class MakerClass(SYS.ObjectClass):
 					_MadeMyInt=0,
 					**_KwarVariablesDict
 				):
-		SYS.ObjectClass.__init__(self)
+		object.__init__(self)
 
 	#Definition a Binding function
 	def foo(self,*_LiargVariablesList,**_KwargVariablesDict):

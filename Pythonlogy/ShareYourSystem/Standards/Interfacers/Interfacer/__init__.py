@@ -14,8 +14,8 @@ The Interfacer
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Objects.Rebooter"
-DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
+BaseModuleStr=""
+DecorationModuleStr="ShareYourSystem.Standards.Classors.Doer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
 
@@ -28,19 +28,14 @@ import os
 
 #<DefineClass>
 @DecorationClass()
-class InterfacerClass(BaseClass):
+class InterfacerClass(object):
 	
-	#Definition
-	RepresentingKeyStrsList=[
-								]
-
-
 	def default_init(self,
 						**_KwargVariablesDict
 					):
 
 		#Call the parent __init__ method
-		BaseClass.__init__(self,**_KwargVariablesDict)
+		object.__init__(self,**_KwargVariablesDict)
 
 	def do_interface(self,**_KwargVariablesDict):
 

@@ -5,4 +5,4 @@ FrozenIsBool True
 
 ##Example
 
-Try with tables
+Try with mongo

@@ -3,7 +3,7 @@ import ShareYourSystem as SYS
 
 #Definition a FooClass decorated by the DefaultorClass
 @SYS.DefaultorClass()
-class FooClass(SYS.ObjectClass):
+class FooClass(object):
 
 	def default_init(self,
 						Int,
@@ -13,7 +13,8 @@ class FooClass(SYS.ObjectClass):
 								}
 				):
 		#call the base method
-		SYS.ObjectClass.__init__(self)
+		object.__init__(self)
+		
 		#Definition an attribute
 		self.MyStr='I am a Foo with MyFloat equal to '+str(self.MyFloat)+' and Int equal to '+str(Int)
 

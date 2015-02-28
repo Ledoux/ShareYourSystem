@@ -14,7 +14,7 @@ Decrementer...
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Objects.Printer"
+BaseModuleStr="ShareYourSystem.Standards.Interfacers.Printer"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Tester"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -26,12 +26,6 @@ AttestingFunctionStrsList=['attest_decrement']
 #<DefineClass>
 @DecorationClass()
 class DecrementerClass(BaseClass):
-
-	RepresentingKeyStrsList=[
-								'DecrementingStartInt',
-								'DecrementingStartIsBool',
-								'DecrementedNextInt'
-							]
 
 	def default_init(self,
 					_DecrementingStartInt=0,

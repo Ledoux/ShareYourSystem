@@ -30,7 +30,7 @@ import os
 import sys
 import unittest
 import ShareYourSystem as SYS
-from ShareYourSystem.Standards.Objects import Printer
+from ShareYourSystem.Standards.Interfacers import Printer
 Attester=BaseModule
 #</ImportSpecificModules>
 

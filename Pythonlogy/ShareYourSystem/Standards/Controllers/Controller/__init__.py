@@ -85,62 +85,8 @@ class ControllerClass(BaseClass):
 			self.ControlModelStr=self.ControlModelStr[1:]
 
 		#Create a group in the hdf5 file if it is with hdf
-		if self.HdformatedFileVariable!=None:
-
-			#debug
-			'''
-			self.debug(
-						[
-							'UppestGroupedParentVariable.HdfGroupPathStr is '+UppestGroupedParentVariable.HdfGroupPathStr,
-							('self.',self,[
-										'ParentedNodePathStr',
-										'NodedKeyStr'
-									])
-						]
-					)
-			'''
-
-			#set the HdfGroupPathStr
-			if self.ParentedTopDeriveParenterVariable==self:
-				self.HdfGroupPathStr="/"
-			else:
-				self.HdfGroupPathStr=getHdfGroupPathStrWithPathStrsList(
-					[
-						self.ParentedTopDeriveParenterVariable.HdfGroupPathStr,
-						self.ParentedNodePathStr,
-						self.NodeKeyStr
-					]
-				)
-
-			#debug
-			'''
-			self.debug(('self.',self,['HdfGroupPathStr']))
-			'''
+		self.HdformatedFileVariable=self.ParentedTopDeriveParenterVariable.HdformatedFileVariable
 			
-			#Check if the Path exists
-			if self.HdfGroupPathStr not in self.HdformatedFileVariable:
-
-				#set all the intermediate Paths before
-				PathStrsList=self.HdfGroupPathStr.split('/')[1:]
-				ParsingChildPathStr="/"
-
-				#set the PathStr from the top to the down (integrativ loop)
-				for __ChildPathStr in PathStrsList:
-
-					#Go deeper
-					NewParsingChildPathStr=ParsingChildPathStr+__ChildPathStr
-
-					#Create the group if not already
-					if NewParsingChildPathStr not in self.HdformatedFileVariable:
-						if self.HdformatingModuleStr=="tables":
-							self.HdformatedFileVariable.create_group(
-								ParsingChildPathStr,__ChildPathStr)
-						elif self.HdformatingModuleStr=="h5py":
-							Group=self.HdformatedFileVariable[ParsingChildPathStr]
-							Group.create_group(__ChildPathStr)
-					
-					#Prepare the next group	
-					ParsingChildPathStr=NewParsingChildPathStr+'/'
 
 #</DefineClass>
 

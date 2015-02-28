@@ -10,19 +10,17 @@ MyHdformater=SYS.HdformaterClass(
 		**{
 			'FolderingPathStr':SYS.Hdformater.LocalFolderPathStr
 		}
-)
+	)
+
+#Set reactively groups inside
+MyHdformater.HdfGroupPathStr='/ChildGroup/GrandChildGroup'
 
 #Definition the AttestedStr
-SYS._attest(
-	[
-		'MyHdformater.HdformatedConsoleStr is '+str(
-			MyHdformater.hdfview()
-		)
-	]
-) 
+print('MyHdformater.HdformatedConsoleStr is ')
+SYS._print(MyHdformater.hdfview())
 
 #close
-MyHdformater.hdfclose()
+MyHdformater.close()
 
 
 

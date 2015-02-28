@@ -33,8 +33,8 @@ SYS._print(MyConditioner.GettedValueVariable)
 MyConditioner.set(
 		'MyDict',
 		{
-			'FirstObject':SYS.ObjectClass(),
-			'SecondObject':SYS.ObjectClass()
+			'FirstObject':object(),
+			'SecondObject':object()
 		}
 	).get(
 		{

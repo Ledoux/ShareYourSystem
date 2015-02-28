@@ -23,7 +23,7 @@ SYS.setSubModule(globals())
 import operator
 import copy
 from ShareYourSystem.Standards.Classors import Doer,Propertiser,Observer
-from ShareYourSystem.Standards.Objects import Printer
+from ShareYourSystem.Standards.Interfacers import Printer
 Binder=BaseModule
 #</ImportSpecificModules>
 

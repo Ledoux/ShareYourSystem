@@ -14,7 +14,7 @@ An Itemizer...
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Interfacers.Pymongoer"
+BaseModuleStr="ShareYourSystem.Standards.Interfacers.Debugger"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -29,18 +29,6 @@ ItemMapPrefixStr="#map@"
 #<DefineClass>
 @DecorationClass()
 class ItemizerClass(BaseClass):
-
-	#Definition
-	RepresentingKeyStrsList=[
-								'ItemizingKeyVariable',
-								'ItemizingValueVariable',
-								'ItemizingMapGetVariable',
-								'ItemizedKeyStr',
-								'ItemizedValueMethod',
-								'ItemizedMethodStr',
-								'ItemizedValueVariable',
-								'ItemizedMapValueVariablesList'
-							]
 
 	def default_init(self,
 						_ItemizingKeyVariable=None,
@@ -211,3 +199,17 @@ class ItemizerClass(BaseClass):
 #</DefineClass>
 
 
+#</DefinePrint>
+ItemizerClass.PrintingClassSkipKeyStrsList.extend(
+	[
+		'ItemizingKeyVariable',
+		'ItemizingValueVariable',
+		'ItemizingMapGetVariable',
+		'ItemizedKeyStr',
+		'ItemizedValueMethod',
+		'ItemizedMethodStr',
+		'ItemizedValueVariable',
+		'ItemizedMapValueVariablesList'
+	]
+)
+#<DefinePrint>

@@ -1385,7 +1385,7 @@ class ShareYourSystem():
 
 			#Check for special methods
 			if _KeyVariable in ['_print','_str']:
-				from ShareYourSystem.Standards.Objects import Printer
+				from ShareYourSystem.Standards.Interfacers import Printer
 				return getattr(WrapModule,_KeyVariable)
 
 			#Check

@@ -30,7 +30,6 @@ SYS.setSubModule(globals())
 import collections
 import six
 Classor=BaseModule
-from ShareYourSystem.Standards.Objects import Object
 #</ImportSpecificModules>
 
 #<DefineLocals>
@@ -211,9 +210,17 @@ def initDefault(_InstanceVariable,*_LiargVariablesList,**_KwargVariablesDict):
 	print('')
 	'''
 
-	#Call the init method of the Initiator
-	Object.ObjectClass.__init__(
-		_InstanceVariable,**InitKwargVariablesDict)
+	#Update and call the init method of a python object 
+	map(
+			lambda __ItemTuple:
+			_InstanceVariable.__setattr__(__ItemTuple[0],__ItemTuple[1]) 
+			#If we want to not set the items setted during hooks and that are not specified...
+			if hasattr(_InstanceVariable,__ItemTuple[0]) else None
+			,InitKwargVariablesDict.iteritems()
+		)
+
+	#call the base method
+	object.__init__(_InstanceVariable)
 
 	#get
 	DefaultClass=getattr(SYS,_KwargVariablesDict['DefaultClassStr'])

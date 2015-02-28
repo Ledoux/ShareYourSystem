@@ -1,54 +1,35 @@
 
 #ImportModules
 import ShareYourSystem as SYS
-import tables
 
-#Definition of a Controller instance with a noded datar
+#Definition 
 MyController=SYS.ControllerClass(
 		**{
-			'HdformatingFileKeyStr':"Things.hdf5",
-			'FolderingPathStr':SYS.Rower.LocalFolderPathStr
+			'FolderingPathStr':SYS.Rower.LocalFolderPathStr,
+			'ControllingModelClassVariable':SYS.RowerClass
 		}
-	).collect(
-		"Rowers",
-		"Things",
-		SYS.RowerClass().update(
-			[
-				(
-					'Attr_ModelingDescriptionTuplesList',
-					[
-						#GetStr #ColumnStr #Col
-						('MyInt','MyInt',tables.Int64Col()),
-						('MyStr','MyStr',tables.StringCol(10)),
-						('MyIntsList','MyIntsList',(tables.Int64Col(shape=3)))
-					]
-				),
-				('Attr_RowingGetStrsList',['MyInt'])	
-			]
-		)
+	).get(
+		'/&Models/$Things'
+	)['#map@set'](
+		{
+			'MyInt':0,
+			'MyStr':"hello",
+			'MyIntsList':[2,4,1]
+		}
+	).command(
+		'/&Models/$Things',
+		'#call:row'
 	)
+	
+#print
+print('mongo db is : \n'+SYS._str(MyController.pymongoview()))
 
-#Tabular in it
-MyController.update(								
-[
-	('MyInt',0),
-	('MyStr',"hello"),
-	('MyIntsList',[2,4,1])
-])['<Rowers>ThingsRower'].row()
-		
-#Definition the AttestedStr
-SYS._attest(
-	[
-		'MyController is '+SYS._str(
-		MyController,
-		**{
-			'RepresentingBaseKeyStrsListBool':False,
-			'RepresentingAlineaIsBool':False
-		}
-		),
-		'hdf5 file is : '+MyController.hdfview()
-	]
-) 
+#print
+print('MyController is ')
+SYS._print(MyController)
 
-#close
+#Print
 MyController.close()
+
+
+

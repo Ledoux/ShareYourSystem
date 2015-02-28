@@ -4,7 +4,7 @@ import numpy as np
 
 #Define
 @SYS.DoerClass()
-class MakerClass(SYS.ObjectClass):
+class MakerClass(object):
 
 	def default_init(self,
 				_MakingMyFloat=1.,
@@ -15,7 +15,7 @@ class MakerClass(SYS.ObjectClass):
 				_MadeMyInt=0,
 				_MadeMyList=None,
 				):
-		pass
+		object.__init__(self)
 
 	def do_make(self):
 

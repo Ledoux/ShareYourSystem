@@ -6,7 +6,7 @@ import ShareYourSystem as SYS
 	'SwitchingIsBool':True,
 	'SwitchingWrapMethodStr':'make'
 })
-class MakerClass(SYS.ObjectClass):
+class MakerClass(object):
 
 	#Definition
 	RepresentingKeyStrsList=[
@@ -18,7 +18,7 @@ class MakerClass(SYS.ObjectClass):
 				_MakingMyFloat=1.,
 				_MadeMyInt=0
 				):
-		SYS.ObjectClass.__init__(self)
+		object.__init__(self)
 
 	def do_make(self):
 

@@ -4,14 +4,14 @@ import numpy as np
 
 #Definition a FooClass decorated by the DefaultorClass
 @SYS.DefaultorClass()
-class FooClass(SYS.ObjectClass):
+class FooClass(object):
 
 	def default_init(self,
 						_MyFirstList=[],
 						_MyArray=None,
 						_MySecondList=None,
 				):
-		SYS.ObjectClass.__init__(self)
+		object.__init__(self)
 
 #Definition a default instance that will take its values from the default classed attributes
 DefaultFoo=FooClass()

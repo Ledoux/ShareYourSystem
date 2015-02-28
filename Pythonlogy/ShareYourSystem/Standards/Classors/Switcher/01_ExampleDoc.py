@@ -8,13 +8,13 @@ import ShareYourSystem as SYS
 	#'ObservingWrapMethodStr':'superDo_make'
 	'SwitchingWrapMethodStr':'make'
 })
-class MakerClass(SYS.ObjectClass):
+class MakerClass(object):
 
 	def default_init(self,
 				_MakingMyFloat=1.,
 				_MadeMyInt=0
 				):
-		SYS.ObjectClass.__init__(self)
+		object.__init__(self)
 
 	def do_make(self):
 

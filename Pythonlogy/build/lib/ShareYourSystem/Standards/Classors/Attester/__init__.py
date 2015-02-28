@@ -27,7 +27,7 @@ SYS.setSubModule(globals())
 #<ImportSpecificModules>
 import os
 import sys
-from ShareYourSystem.Standards.Objects import Printer
+from ShareYourSystem.Standards.Interfacers import Printer
 #</ImportSpecificModules>
 
 #<DefineLocals>

@@ -3,7 +3,7 @@ import ShareYourSystem as SYS
 
 #Definition a FooClass decorated by the DefaultorClass
 @SYS.DefaultorClass()
-class FooClass(SYS.ObjectClass):
+class FooClass(object):
 
 	def default_init(self,
 						_MyFloat=1.,
@@ -14,7 +14,7 @@ class FooClass(SYS.ObjectClass):
 									'DefaultValueType':int
 								}
 				):
-		SYS.ObjectClass.__init__(self)
+		object.__init__(self)
 
 #Definition 
 MyFoo=FooClass(**{'MyFloat':5.,'MyInt':9})

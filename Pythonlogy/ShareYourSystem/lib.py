@@ -56,55 +56,25 @@ setup(
 		#Packages properties
 		packages=[
 					'ShareYourSystem',
-			 		'ShareYourSystem.Standards.Objects.Object',
 			 		'ShareYourSystem.Standards.Classors.Classor',
 			 		'ShareYourSystem.Standards.Classors.Defaultor',
 			 		'ShareYourSystem.Standards.Classors.Doer',
-			 		'ShareYourSystem.Standards.Objects.Printer',
+			 		'ShareYourSystem.Standards.Interfacers.Interfacer',
+			 		'ShareYourSystem.Standards.Interfacers.Printer',
+			 		'ShareYourSystem.Standards.Interfacers.Debugger',
 			 		'ShareYourSystem.Standards.Classors.Deriver',
 			 		'ShareYourSystem.Standards.Classors.Inspecter',
 			 		'ShareYourSystem.Standards.Classors.Propertiser',
-			 		'ShareYourSystem.Standards.Objects.Debugger',
-			 		'ShareYourSystem.Standards.Functers.Functer',
 			 		'ShareYourSystem.Standards.Tutorials.Incrementer',
 			 		'ShareYourSystem.Standards.Classors.Attester',
 			 		'ShareYourSystem.Standards.Tutorials.Decrementer',
 			 		'ShareYourSystem.Standards.Classors.Tester',
-			 		'ShareYourSystem.Standards.Functers.Functer',
-			 		'ShareYourSystem.Standards.Functers.Hooker',
-			 		'ShareYourSystem.Standards.Functers.Triggerer',
 			 		'ShareYourSystem.Standards.Classors.Observer',
 			 		'ShareYourSystem.Standards.Classors.Binder',
 			 		'ShareYourSystem.Standards.Classors.Watcher',
 			 		'ShareYourSystem.Standards.Classors.Switcher',
 			 		'ShareYourSystem.Standards.Classors.Mimicker',
 			 		'ShareYourSystem.Standards.Classors.Classer',
-			 		'ShareYourSystem.Standards.Objects.Rebooter',
-			 		'ShareYourSystem.Standards.Functers.Alerter',
-			 		'ShareYourSystem.Standards.Interfacers.Interfacer',
-			 		'ShareYourSystem.Standards.Interfacers.Folderer',
-			 		'ShareYourSystem.Standards.Objects.Packager',
-			 		'ShareYourSystem.Standards.Objects.Consoler',
-			 		'ShareYourSystem.Standards.Objects.Swiger',
-			 		'ShareYourSystem.Standards.Interfacers.Filer',
-			 		'ShareYourSystem.Standards.Interfacers.Closer',
-			 		'ShareYourSystem.Standards.Interfacers.Loader',
-			 		'ShareYourSystem.Standards.Interfacers.Writer',
-			 		'ShareYourSystem.Standards.Interfacers.Deployer',
-			 		'ShareYourSystem.Standards.Interfacers.Hdformater',
-			 		'ShareYourSystem.Standards.Interfacers.Pymongoer',
-			 		'ShareYourSystem.Standards.Interfacers.Capturer',
-			 		'ShareYourSystem.Standards.Interfacers.Processer',
-			 		'ShareYourSystem.Standards.Interfacers.Statuser',
-			 		'ShareYourSystem.Standards.Interfacers.Killer',
-			 		'ShareYourSystem.Standards.Interfacers.Directer',
-			 		'ShareYourSystem.Standards.Guiders.Guider',
-			 		'ShareYourSystem.Standards.Guiders.Scriptbooker',
-			 		'ShareYourSystem.Standards.Guiders.Celler',
-			 		'ShareYourSystem.Standards.Guiders.Notebooker',
-			 		'ShareYourSystem.Standards.Guiders.Nbconverter',
-			 		'ShareYourSystem.Standards.Guiders.Installer',
-			 		'ShareYourSystem.Standards.Guiders.Documenter',
 			 		'ShareYourSystem.Standards.Itemizers.Itemizer',
 			 		'ShareYourSystem.Standards.Itemizers.Getter',
 			 		'ShareYourSystem.Standards.Itemizers.Setter',
@@ -114,9 +84,54 @@ setup(
 			 		'ShareYourSystem.Standards.Itemizers.Pather',
 			 		'ShareYourSystem.Standards.Itemizers.Commander',
 			 		'ShareYourSystem.Standards.Itemizers.Pointer',
-			 		'ShareYourSystem.Standards.Teamers.Teamer',
-			 		'ShareYourSystem.Standards.Teamers.Manager',
-			 		'ShareYourSystem.Standards.Teamers.Parenter',
+			 		'ShareYourSystem.Standards.Itemizers.Teamer',
+			 		'ShareYourSystem.Standards.Itemizers.Manager',
+			 		'ShareYourSystem.Standards.Itemizers.Parenter',
+			 		'ShareYourSystem.Standards.Classors',
+			 		'ShareYourSystem.Standards.Interfacers',
+			 		'ShareYourSystem.Standards.Tutorials',
+			 		'ShareYourSystem.Standards.Itemizers',
+			 		'ShareYourSystem.Standards',
+			 		
+			 		
+			 	]
+			 ,
+
+      	package_data={
+          'ShareYourSystem':[
+          		'Package.json'
+          ]
+		},
+
+    )
+
+"""
+			 		'ShareYourSystem.Standards.Objects.Folderer',
+			 		'ShareYourSystem.Standards.Objects.Packager',
+			 		'ShareYourSystem.Standards.Objects.Consoler',
+			 		'ShareYourSystem.Standards.Objects.Filer',
+			 		'ShareYourSystem.Standards.Objects.Closer',
+			 		'ShareYourSystem.Standards.Objects.Loader',
+			 		'ShareYourSystem.Standards.Objects.Writer',
+			 		'ShareYourSystem.Standards.Objects.Deployer',
+			 		'ShareYourSystem.Standards.Objects.Capturer',
+			 		'ShareYourSystem.Standards.Objects.Processer',
+			 		'ShareYourSystem.Standards.Objects.Statuser',
+			 		'ShareYourSystem.Standards.Objects.Killer',
+			 		'ShareYourSystem.Standards.Objects.Directer',
+			 		'ShareYourSystem.Standards.Objects.Hdformater',
+			 		'ShareYourSystem.Standards.Objects.Pymongoer',
+			 		'ShareYourSystem.Standards.Objects.Swiger',
+			 		'ShareYourSystem.Standards.Guiders.Guider',
+			 		'ShareYourSystem.Standards.Guiders.Scriptbooker',
+			 		'ShareYourSystem.Standards.Guiders.Celler',
+			 		'ShareYourSystem.Standards.Guiders.Notebooker',
+			 		'ShareYourSystem.Standards.Guiders.Nbconverter',
+			 		'ShareYourSystem.Standards.Guiders.Installer',
+			 		'ShareYourSystem.Standards.Guiders.Documenter',
+
+
+
 			 		'ShareYourSystem.Standards.Controllers.Controller',
 			 		'ShareYourSystem.Standards.Controllers.Organizer',
 			 		'ShareYourSystem.Standards.Controllers.Storer',
@@ -136,7 +151,7 @@ setup(
 			 		'ShareYourSystem.Standards.Classors',
 			 		'ShareYourSystem.Standards.Tutorials',
 			 		'ShareYourSystem.Standards.Functers',
-			 		'ShareYourSystem.Standards.Interfacers',
+			 		'ShareYourSystem.Standards.Objects',
 			 		'ShareYourSystem.Standards.Guiders',
 			 		'ShareYourSystem.Standards.Itemizers',
 			 		'ShareYourSystem.Standards.Teamers',
@@ -146,17 +161,7 @@ setup(
 			 		#'ShareYourSystem.Specials.Simulaters.Simulater',
 			 		#'ShareYourSystem.Standards.Simulaters'
 			 		#'ShareYourSystem.Standards'
-			 	]
-			 ,
-
-      	package_data={
-          'ShareYourSystem':[
-          		'Package.json'
-          ]
-		},
-
-    )
-
+"""
 
 """
 			 		
@@ -222,7 +227,7 @@ setup(
 			 		'ShareYourSystem.Standards.Objects',
 			 		'ShareYourSystem.Standards.Classors',
 			 		'ShareYourSystem.Standards.Functers',
-			 		'ShareYourSystem.Standards.Interfacers',
+			 		'ShareYourSystem.Standards.Objects',
 			 		'ShareYourSystem.Standards.Guiders',
 			 		'ShareYourSystem.Standards.Itemizers',
 			 		'ShareYourSystem.Standards.Walkers',

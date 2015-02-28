@@ -115,7 +115,7 @@ class DeriverClass(BaseClass):
 			#Append to the parent class 
 			if hasattr(DerivedBaseClass,'DerivedClassesList'):
 				DerivedBaseClass.DerivedClassesList.append(DoClass)
-			else:
+			elif DerivedBaseClass!=object:
 				DerivedBaseClass.DerivedClassesList=[DoClass]
 
 			#Add to the KeyStrsList

@@ -2,7 +2,7 @@
 #ImportModules
 import ShareYourSystem as SYS
 
-@SYS.ClasserClass()
+@SYS.InspecterClass()
 class MakerClass(SYS.ItemizerClass):
 	
 	def default_init(self,
@@ -27,7 +27,7 @@ MyMaker=MakerClass(
 
 #print
 print('MyMaker.getDo(SYS.ItemizerClass) for a simple get like is ')
-SYS._print(MyMaker.getDo(SYS.ItemizerClass))
+print(SYS.indent(MyMaker.getDo(SYS.ItemizerClass)))
 
 #define and itemize like a set
 MyMaker=MakerClass(
@@ -40,7 +40,7 @@ MyMaker=MakerClass(
 
 #print
 print('MyMaker.getDo(SYS.ItemizerClass) for a set like is ')
-SYS._print(MyMaker.getDo(SYS.ItemizerClass))
+print(SYS.indent(MyMaker.getDo(SYS.ItemizerClass)))
 
 #define and itemize
 MyMaker=MakerClass(
@@ -51,5 +51,5 @@ MyMaker=MakerClass(
 
 #print
 print('MyMaker.getDo(SYS.ItemizerClass) for a get method like is ')
-SYS._print(MyMaker.getDo(SYS.ItemizerClass))
+print(SYS.indent(MyMaker.getDo(SYS.ItemizerClass)))
 

@@ -227,7 +227,7 @@ SYS._attest(
 *****Start of the Attest *****
 
 MakerClass.DerivedClassesList is [<class
-'ShareYourSystem.Standards.Objects.Printer.PrinterClass'>, <class
+'ShareYourSystem.Standards.Interfacers.Printer.PrinterClass'>, <class
 'ShareYourSystem.Standards.Objects.Debugger.DebuggerClass'>, <class
 'ShareYourSystem.Standards.Objects.Conditioner.ConditionerClass'>, <class
 'ShareYourSystem.Standards.Objects.Concluder.ConcluderClass'>, <class

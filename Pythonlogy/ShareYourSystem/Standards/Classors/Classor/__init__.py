@@ -17,9 +17,6 @@ other attributes that can be provided by other decorating Classes.
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Objects.Object"
-DecorationModuleStr=""
-SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
@@ -31,7 +28,7 @@ ClassDecorationStr="Cls@"
 LocalModuleFolderPathStrAndModuleStrTuplesList=[]
 #</DefineLocals>
 
-#<DefineFunctions>
+#<DefineLocals>
 def getClass(_InstanceVariable,_ClassVariable=None):
 
 	#Check
@@ -68,11 +65,10 @@ def callAllMro(_InstanceVariable,_MethodStr,*_LiargVariablesList,**_KwargVariabl
 	
 	#return 
 	return _InstanceVariable
-#</DefineFunctions>
+#</DefineLocals>
 
 #<DefineClass>
-#@DecorationClass
-class ClassorClass(BaseClass):
+class ClassorClass(object):
 
 	#set the Local NameStr
 	NameStr="Classor"
@@ -82,8 +78,17 @@ class ClassorClass(BaseClass):
 		#set the NameStr
 		self.NameStr=SYS.getNameStrWithClassStr(self.__class__.__name__)
 
-		#Call the parent init method
-		BaseClass.__init__(self,**_KwargVariablesDict)
+		#Map the update
+		map(
+				lambda __ItemTuple:
+				self.__setattr__(__ItemTuple[0],__ItemTuple[1]) 
+				#If we want to not set the items setted during hooks and that are not specified...
+				if hasattr(self,__ItemTuple[0]) else None
+				,_KwargVariablesDict.iteritems()
+			)
+
+		#call the base method
+		object.__init__(self)
 
 	def __call__(self,_Class):
 

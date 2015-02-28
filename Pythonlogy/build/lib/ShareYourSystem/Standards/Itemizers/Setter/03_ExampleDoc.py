@@ -20,8 +20,8 @@ MySetter['#map@set'](
 
 #Define and map set 
 MySetter['#map@set']={
-			'FirstObject':SYS.ObjectClass(),
-			'SecondObject':SYS.ObjectClass()
+			'FirstObject':object(),
+			'SecondObject':object()
 		}
 
 #Set a map set

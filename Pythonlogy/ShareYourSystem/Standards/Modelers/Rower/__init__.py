@@ -23,6 +23,7 @@ SYS.setSubModule(globals())
 #<ImportSpecificModules>
 import collections
 import copy
+from ShareYourSystem.Standards.Itemizers import Getter
 #</ImportSpecificModules>
 
 #<DefineFunctions>
@@ -52,21 +53,6 @@ class RowerClass(
 					BaseClass
 				):
 	
-	#Definition
-	RepresentingKeyStrsList=[
-								'RowingGetStrsList',
-								'RowedGetStrToColumnStrOrderedDict',
-								'RowedHdfColumnStrsList',	
-								'RowedMongoPickOrderedDict',																									
-								'RowedHdfPickOrderedDict',
-								'RowedMongoIsBoolsList',
-								'RowedHdfIsBoolsList',
-								'RowedMongoIsBool',
-								'RowedHdfIsBool',
-								'RowedMongoIndexInt',
-								'RowedHdfIndexInt'
-							]
-
 	def default_init(
 					self,
 					_RowingGetStrsList={
@@ -90,7 +76,7 @@ class RowerClass(
 		#Call the parent init method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 		
-	def setModelingDescriptionTuplesList(self,_SettingValueVariable):
+	def propertize_setModelingDescriptionTuplesList(self,_SettingValueVariable):
 
 		#debug
 		'''
@@ -104,7 +90,7 @@ class RowerClass(
 		'''
 
 		#set
-		self._ModelingDescriptionTuplesList=_SettingValueVariable
+		BaseClass.propertize_setModelingDescriptionTuplesList(self,_SettingValueVariable)
 
 		#debug
 		'''
@@ -138,14 +124,7 @@ class RowerClass(
 				)
 		'''
 
-	ModelingDescriptionTuplesList=property(
-			BaseClass.ModelingDescriptionTuplesList.fget,
-			setModelingDescriptionTuplesList,
-			BaseClass.ModelingDescriptionTuplesList.fdel,
-			BaseClass.ModelingDescriptionTuplesList.__doc__
-		)
-
-	def setRowingGetStrsList(self,_SettingValueVariable):
+	def propetize_setRowingGetStrsList(self,_SettingValueVariable):
 		
 		#debug
 		'''
@@ -186,10 +165,12 @@ class RowerClass(
 
 	def do_row(self):
 		""""""
-	
-		#table then
-		self.table()
 		
+		#debug
+		'''
+		self.debug('We row here')
+		'''
+
 		#Check	
 		if self.ModeledDeriveControllerVariable!=None:
 			
@@ -205,20 +186,26 @@ class RowerClass(
 				self.RowedMongoPickOrderedDict.update(
 					zip(
 						self.RowingGetStrsList,
-						self.ModeledDeriveControllerVariable.pick(
+						self.ModeledDeriveControllerVariable[Getter.GetMapStr](
 							self.RowingGetStrsList
 						)
 					)
 				)
 
 				#debug
-				self.debug(('self.',self,[
+				'''
+				self.debug(
+					[
+						('self.',self,[
 										'RowedMongoPickOrderedDict',
 										'TabledMongoCollection'
-									]))
-
-				#debug
-				self.debug('list(self.TabledMongoCollection.find()) is '+SYS._str(list(self.TabledMongoCollection.find())))
+									]
+						),
+						'list(self.TabledMongoCollection.find()) is '+SYS._str(
+							list(self.TabledMongoCollection.find()))
+					]
+				)
+				'''
 
 				#Check if it was already rowed
 				self.RowedMongoIsBoolsList=map(
@@ -237,9 +224,11 @@ class RowerClass(
 					)
 
 				#debug
+				'''
 				self.debug(('self.',self,[
 						'RowedMongoIsBoolsList'
 					]))
+				'''
 
 				#set
 				if len(self.RowedMongoIsBoolsList)==0:
@@ -273,17 +262,28 @@ class RowerClass(
 
 				#debug
 				'''
-				self.debug(('self.',self,[
-					'RowingGetStrsList',
-					'RowedHdfColumnStrsList'
-					]))
+				self.debug('This is a hdf row here')
+				'''
+
+				#/#################/#
+				# Pick the values to be rowed in the hdf variables
+				#
+
+				#debug
+				'''
+				self.debug(
+					('self.',self,[
+						'RowingGetStrsList',
+						'RowedHdfColumnStrsList'
+						])
+				)
 				'''
 
 				#Update
 				self.RowedHdfPickOrderedDict.update(
 					zip(
 						self.RowedHdfColumnStrsList,
-						self.ModeledDeriveControllerVariable.pick(
+						self.ModeledDeriveControllerVariable[Getter.GetMapStr](
 							self.RowingGetStrsList
 						)
 					)
@@ -291,10 +291,13 @@ class RowerClass(
 
 				#debug
 				'''
-				self.debug(('self.',self,[
+				self.debug(
+					('self.',self,[
 										'RowedHdfPickOrderedDict',
 										'TabledHdfTable'
-							]))
+							]
+					)
+				)
 				'''
 				
 				#Check if it was already rowed
@@ -315,7 +318,11 @@ class RowerClass(
 
 				#debug
 				'''
-				self.debug(('self.',self,['RowedHdfIsBoolsList']))
+				self.debug(
+					[
+						('self.',self,['RowedHdfIsBoolsList'])
+					]
+				)	
 				'''
 
 				#set
@@ -334,9 +341,29 @@ class RowerClass(
 
 				#debug
 				'''
-				self.debug(('self.',self,['RowedHdfIsBool','RowedHdfIndexInt']))
+				self.debug(
+					[
+						('self.',self,['RowedHdfIsBool','RowedHdfIndexInt'])
+					]
+				)
 				'''
-
-			
-		
+				
 #</DefineClass>
+
+#</DefinePrint>
+RowerClass.PrintingClassSkipKeyStrsList.extend(
+	[
+		'RowingGetStrsList',
+		'RowedGetStrToColumnStrOrderedDict',
+		'RowedHdfColumnStrsList',	
+		'RowedMongoPickOrderedDict',																									
+		'RowedHdfPickOrderedDict',
+		'RowedMongoIsBoolsList',
+		'RowedHdfIsBoolsList',
+		'RowedMongoIsBool',
+		'RowedHdfIsBool',
+		'RowedMongoIndexInt',
+		'RowedHdfIndexInt'
+	]
+)
+#<DefinePrint>

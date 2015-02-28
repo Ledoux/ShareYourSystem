@@ -3,7 +3,7 @@ import ShareYourSystem as SYS
 
 #Definition a MakerClass decorated by the DefaultorClass
 @SYS.DoerClass()
-class MakerClass(SYS.ObjectClass):
+class MakerClass(object):
 
 	def default_init(self,
 				_MakingMyFloat=1.,
@@ -11,7 +11,7 @@ class MakerClass(SYS.ObjectClass):
 				_MakingSpecificList=None,
 				_MakingMyInt={'DefaultValueType':int}
 				):
-		SYS.ObjectClass.__init__(self)
+		object.__init__(self)
 
 #Definition a default instance
 DefaultMaker=MakerClass()

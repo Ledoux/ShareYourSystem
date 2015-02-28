@@ -69,9 +69,6 @@ class TabularerClass(
 			)
 		'''
 
-		#model
-		self.model()
-
 		#debug
 		'''
 		self.debug(
@@ -250,9 +247,6 @@ class TabularerClass(
 				self.debug('We tabular for hdf here...')
 				'''
 				
-				#set 
-				self.HdfGroupPathStr=self.ModeledDeriveControllerVariable.HdfGroupPathStr
-
 				#set
 				self.TabularedHdfSuffixStr='Model'.join(
 					self.ModeledSuffixStr.split('Model')[:-1]
@@ -261,27 +255,41 @@ class TabularerClass(
 				#Check
 				if self.ModeledDeriveControllerVariable.HdformatedFileVariable==None:
 
+					#Check
+					if self.ModeledDeriveControllerVariable.HdformatingFileKeyStr=='':
+
+						#set
+						self.ModeledDeriveControllerVariable.HdformatingFileKeyStr=self.ModeledDeriveControllerVariable.ControlModelStr+'.hdf5'
+
 					#debug
 					'''
-					self.debug('We have to hdformat first...')
+					self.debug(
+						[
+							'We have to hdformat first...',
+							'self.ModeledDeriveControllerVariable.HdformatingFileKeyStr is ',
+							self.ModeledDeriveControllerVariable.HdformatingFileKeyStr
+						]
+					)
 					'''
 
 					#Hdformat
 					self.ModeledDeriveControllerVariable.hdformat()
-					#self.ModeledDeriveControllerVariable.structure()
-				
+					
+				#Set
+				self.ModeledDeriveControllerVariable.HdfGroupPathStr=self.ModeledDeriveControllerVariable.ControlModelStr
+
 				#Link
 				self.TabularedHdfTopFileVariable=self.ModeledDeriveControllerVariable.HdformatedFileVariable
 				
 				#debug
-				'''
 				self.debug(('self.',self,[
-											'HdformatedTopFileVariable',
-											'ModelingDescriptionTuplesList',
-											'ModeledDescriptionClass'
+											'TabularedHdfTopFileVariable'
 										]))
-				'''
 				
+				#/#################/#
+				# Check for all the tables alreday defined here
+				#
+
 				#Check
 				if self.TabularedHdfTopFileVariable!=None:
 
@@ -339,6 +347,20 @@ class TabularerClass(
 												'TabularedHdfKeyStrsList'
 												]))
 					'''	
+
+	def mimic_model(self):
+
+		#model first
+		BaseClass.model(self)
+
+		#debug
+		'''
+		self.debug('We have modeled here, now tabular')
+		'''
+		
+		#tabular then
+		self.tabular()
+
 #</DefineClass>
 
 #</DefinePrint>

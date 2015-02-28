@@ -14,7 +14,7 @@ Incrementer is a super complicated object toy for incrementing an Int
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Objects.Printer"
+BaseModuleStr="ShareYourSystem.Standards.Interfacers.Printer"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Attester"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -22,12 +22,6 @@ SYS.setSubModule(globals())
 #<DefineClass>
 @DecorationClass()
 class IncrementerClass(BaseClass):
-
-	RepresentingKeyStrsList=[
-								'IncrementingStartInt',
-								'IncrementingStartIsBool',
-								'IncrementedNextInt'
-							]
 
 	def default_init(
 				self,
