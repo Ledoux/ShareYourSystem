@@ -1,2 +1,2 @@
-OUTPUT="$(kill 4991)"
-echo "${OUTPUT}" > ProcessTemp.txt
+OUTPUT="$(ps -ef | grep mongod)"
+echo "${OUTPUT}" > /Users/ledoux/Documents/ShareYourSystem/Pythonlogy/ShareYourSystem/Standards/Interfacers/Processer/ProcessTemp.txt

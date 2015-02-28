@@ -506,9 +506,7 @@ ShareYourSystem/Standards/Interfacers/Processer/Readme.md
 ShareYourSystem/Standards/Interfacers/Processer/__init__.py
 ShareYourSystem/Standards/Interfacers/Pymongoer/00_ExampleDoc.md
 ShareYourSystem/Standards/Interfacers/Pymongoer/01_ExampleDoc.py
-ShareYourSystem/Standards/Interfacers/Pymongoer/03_ExampleDoc.py
 ShareYourSystem/Standards/Interfacers/Pymongoer/ProcessTemp.sh
-ShareYourSystem/Standards/Interfacers/Pymongoer/ProcessTemp.txt
 ShareYourSystem/Standards/Interfacers/Pymongoer/__init__.py
 ShareYourSystem/Standards/Interfacers/Pymongoer/data/db/journal/j._0
 ShareYourSystem/Standards/Interfacers/Pymongoer/data/db/journal/lsn

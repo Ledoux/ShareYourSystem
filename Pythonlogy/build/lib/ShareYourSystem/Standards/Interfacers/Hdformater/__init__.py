@@ -15,7 +15,7 @@ to a method.
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Interfacers.Filer"
+BaseModuleStr="ShareYourSystem.Standards.Interfacers.Pymongoer"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -136,7 +136,7 @@ class HdformaterClass(BaseClass):
 		BaseClass.file(self)
 
 		#Check
-		if self.FilingActionStr=='close': 
+		if self.FilingModeStr=='c': 
 
 			#Close the HdformatedFileVariable
 			if self.HdformatedFileVariable!=None:

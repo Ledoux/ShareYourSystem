@@ -14,7 +14,7 @@ An Pymongoer
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Interfacers.Killer"
+BaseModuleStr="ShareYourSystem.Standards.Interfacers.Processer"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -143,7 +143,6 @@ class PymongoerClass(BaseClass):
 			_PymongoingUrlStr='mongodb://localhost:27017/',
 			_PymongoingKillBool=True,
 			_PymongoneFolderPathStr="",
-			_PymongonePopenVariable=None,
 			_PymongoneClientVariable=None,
 			_PymongoneDatabaseVariable=None,
 			**_KwargVariablesDict
@@ -151,9 +150,6 @@ class PymongoerClass(BaseClass):
 
 		#Call the parent __init__ method
 		BaseClass.__init__(self,**_KwargVariablesDict)
-
-		#set
-		self.StatusingProcessStr="mongod"
 
 	def do_pymongo(self):
 
@@ -174,7 +170,24 @@ class PymongoerClass(BaseClass):
 
 		#kill all a possible old mongod process
 		if self.PymongoingKillBool:
-			self.kill()
+
+			#status
+			PymongoneIdStr=SYS.status(
+							'mongod'
+						)
+
+			#debug
+			'''
+			self.debug('PymongoneIdStr is '+PymongoneIdStr)
+			'''
+
+			#Check
+			if PymongoneIdStr!="":
+	
+				#kill
+				os.popen(
+					'kill '+PymongoneIdStr
+				)
 
 		#connect
 		try:
@@ -211,22 +224,15 @@ class PymongoerClass(BaseClass):
 				os.popen('mkdir '+self.FolderingPathStr+'data/db')
 
 			#popen
-			import subprocess
-			self.PymongonePopenVariable = subprocess.Popen(
-					[
-						'/usr/local/bin/mongod',
-						'--dbpath',
-						self.PymongoneFolderPathStr
-					], 
-					shell=False,
-                   	stdout=subprocess.PIPE,
-                   	stdin=subprocess.PIPE
-            )
-
+			self.process(
+					'/usr/local/bin/mongod --dbpath '+self.PymongoneFolderPathStr,
+					True
+				)
+	
 			#debug
 			'''
 			self.debug(
-				('self.',self,['PymongonePopenVariable'])
+				('self.',self,['ProcessedPopenVariable'])
 			)
 			'''
 
@@ -338,25 +344,6 @@ class PymongoerClass(BaseClass):
 			#return empty
 			return {}
 		
-	def mimic_file(self):
-
-		#Call the Base method
-		BaseClass.file(self)
-
-		#kill the process
-		if self.PymongonePopenVariable!=None and self.FilingModeStr=='c':
-
-			#debug
-			'''
-			self.debug('kill the mongod popen variable')
-			'''
-			
-			#kill but before wait a bit to be sure that the db has time to refresh
-			SYS.stdout('Kill the mongod popen variable')
-			SYS.wait(3)
-			self.PymongonePopenVariable.kill()
-			SYS.stdout('It is killed')
-
 #</DefineClass>
 
 #</DefinePrint>
@@ -365,7 +352,6 @@ PymongoerClass.PrintingClassSkipKeyStrsList.extend(
 		'PymongoingUrlStr',
 		'PymongoingKillBool',
 		'PymongoneFolderPathStr',
-		'PymongonePopenVariable',
 		'PymongoneClientVariable',
 		'PymongoneDatabaseVariable'
 	]

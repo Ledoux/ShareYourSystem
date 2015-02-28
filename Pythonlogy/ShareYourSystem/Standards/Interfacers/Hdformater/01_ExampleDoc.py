@@ -20,7 +20,7 @@ print('MyHdformater.HdformatedConsoleStr is ')
 SYS._print(MyHdformater.hdfview())
 
 #close
-MyHdformater.close()
+MyHdformater.file(_FilingModeStr='c')
 
 
 

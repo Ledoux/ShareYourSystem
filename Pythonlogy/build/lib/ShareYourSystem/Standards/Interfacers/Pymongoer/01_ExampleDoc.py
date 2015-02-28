@@ -25,6 +25,5 @@ SYS._print(
 )
 
 #close
-MyPymongoer.close()
-
+MyPymongoer.process(_ActionStr='kill')
 

@@ -34,8 +34,11 @@ class ProcesserClass(BaseClass):
 	
 	def default_init(self,
 						_ProcessingBashStr="",
+						_ProcessingDirectStr=False,
 						_ProcessingActionStr="open",
+						_ProcessingTimeInt=1,
 						_ProcessedBashStr="",
+						_ProcessedPopenVariable=None,
 						**_KwargVariablesDict
 					):
 		
@@ -47,112 +50,139 @@ class ProcesserClass(BaseClass):
 		#/##################/#
 		# Check for open
 		#
+		
 
 		#Check
 		if self.ProcessingActionStr=='open':
 
-			#Define
-			ProcessedBashPathStr=self.FolderingPathStr+ProcessFileStr+'.txt'
-
-			#Check
-			if os.path.isfile(ProcessedBashPathStr):
-
-				#debug
-				'''
-				self.debug('delete the previous')
-				'''
-				
-				#rm
-				os.popen('rm '+ProcessedBashPathStr)
-
-			#set
-			self.ProcessedBashStr='OUTPUT="$('+self.ProcessingBashStr+')"\n'
-			self.ProcessedBashStr+='echo "${OUTPUT}" > '+ProcessedBashPathStr
-
-			#debug
-			'''
-			self.debug(
-					[
-						'We write the sh bash script',
-						('self.',self,['ProcessedBashStr'])
-					]
-				)
-			'''
-
-			#write
-			self.file(
-					ProcessFileStr+'.sh',
-					'w',
-					_WriteVariable=self.ProcessedBashStr
-				).file(
-					_ModeStr='c'
-				)
-
-			#debug
-			'''
-			self.debug(
-				[
-					'We call the supprocess',
-					('self.',self,[
-										'FiledPathStr',
-									])
-				]
-			)
-			'''
-
-			#popen
+			#import
 			import subprocess
-			self.ProcessedPopenVariable = subprocess.Popen(
-					[
-						'sh',
-						self.FiledPathStr,
-					], 
-					shell=False,
-	               	stdout=subprocess.PIPE,
-	               	stdin=subprocess.PIPE
-	        )
 
-			#debug
-			'''
-			self.debug(
-				[
-					'We read the output',
-				]
-			)
-			'''
+			if self.ProcessingDirectStr:
 
-			#wait for connect
-			import time
-			ProcessedReadBool=False
-			ProcessedCountInt=0
-			while ProcessedReadBool==False and ProcessedCountInt<5:
+				#/##################/#
+				# Direct case 
+				#
 
-				try:
+				#popen
+				self.ProcessedPopenVariable = subprocess.Popen(
+						self.ProcessingBashStr.split(' '), 
+						shell=False,
+		               	stdout=subprocess.PIPE,
+		               	stdin=subprocess.PIPE
+		        )
 
-					#read
-					self.ProcessedBashStr=self.file(
-								ProcessFileStr+'.txt',
-								'r'
-							).FiledReadVariable
+			else:
+				
+				#/##################/#
+				# Indirect case where we build a sh file and put in a text
+				#
 
-					#set
-					ProcessedReadBool=True
+				#Define
+				ProcessedBashPathStr=self.FolderingPathStr+ProcessFileStr+'.txt'
 
-				except:
+				#Check
+				if os.path.isfile(ProcessedBashPathStr):
 
 					#debug
 					'''
-					self.debug(
+					self.debug('delete the previous')
+					'''
+					
+					#rm
+					os.popen('rm '+ProcessedBashPathStr)
+
+				#set
+				self.ProcessedBashStr='OUTPUT="$('+self.ProcessingBashStr+')"\n'
+				self.ProcessedBashStr+='echo "${OUTPUT}" > '+ProcessedBashPathStr
+
+				#debug
+				'''
+				self.debug(
 						[
-							'File read not work'
+							'We write the sh bash script',
+							('self.',self,['ProcessedBashStr'])
 						]
 					)
-					'''
+				'''
 
-					#say that it is not setted
-					ProcessedReadBool=False
-					ProcessedCountInt+=1
-					time.sleep(0.2)
+				#write
+				self.file(
+						ProcessFileStr+'.sh',
+						'w',
+						_WriteVariable=self.ProcessedBashStr
+					).file(
+						_ModeStr='c'
+					)
+
+				#debug
+				'''
+				self.debug(
+					[
+						'We call the supprocess',
+						('self.',self,[
+											'FiledPathStr',
+										])
+					]
+				)
+				'''
+
+				#kill the previous maybe
+				if self.ProcessedPopenVariable!=None:
+					self.ProcessedPopenVariable.kill()
+
+				#popen
+				self.ProcessedPopenVariable = subprocess.Popen(
+						[
+							'sh',
+							self.FiledPathStr,
+						], 
+						shell=False,
+		               	stdout=subprocess.PIPE,
+		               	stdin=subprocess.PIPE
+		        )
+
+				#debug
+				'''
+				self.debug(
+					[
+						'We read the output',
+					]
+				)
+				'''
+
+				#wait for connect
+				import time
+				ProcessedReadBool=False
+				ProcessedCountInt=0
+				while ProcessedReadBool==False and ProcessedCountInt<5:
+
+					try:
+
+						#read
+						self.ProcessedBashStr=self.file(
+									ProcessFileStr+'.txt',
+									'r'
+								).FiledReadVariable
+
+						#set
+						ProcessedReadBool=True
+
+					except:
+
+						#debug
+						'''
+						self.debug(
+							[
+								'File read not work'
+							]
+						)
+						'''
+
+						#say that it is not setted
+						ProcessedReadBool=False
+						ProcessedCountInt+=1
+						time.sleep(0.2)
 
 		#/##################/#
 		# Check for kill
@@ -170,7 +200,7 @@ class ProcesserClass(BaseClass):
 				
 				#kill but before wait a bit to be sure that the db has time to refresh
 				SYS.stdout('Kill the popen variable')
-				SYS.wait(1)
+				SYS.wait(self.ProcessingTimeInt)
 				self.ProcessedPopenVariable.kill()
 				SYS.stdout('It is killed')
 
@@ -245,6 +275,13 @@ def status(_ProcessStr,**_KwargVariablesDict):
 	print('')
 	'''
 
+	#filter the grep command process
+	LineStrsList=SYS._filter(
+			lambda __LineStr:
+			'grep' not in __LineStr,
+			SnapshotStr.split('\n')
+		)
+
 	#map
 	if _ProcessStr=='Python':
 
@@ -252,12 +289,9 @@ def status(_ProcessStr,**_KwargVariablesDict):
 		LineStrsList=SYS._filter(
 				lambda __LineStr:
 				SYS.PythonPathStr in __LineStr,
-				SnapshotStr.split('\n')
+				LineStrsList
 			)
-	else:
 
-		#split
-		LineStrsList=SnapshotStr.split('\n')
 
 	#debug
 	'''
@@ -303,3 +337,16 @@ def status(_ProcessStr,**_KwargVariablesDict):
 
 SYS.status=status
 #</DefineLocals>
+
+#</DefinePrint>
+ProcesserClass.PrintingClassSkipKeyStrsList.extend(
+	[
+		'ProcessingBashStr',
+		'ProcessingDirectStr',
+		'ProcessingActionStr',
+		'ProcessingTimeInt',
+		'ProcessedBashStr',
+		'ProcessedPopenVariable',
+	]
+)
+#<DefinePrint>

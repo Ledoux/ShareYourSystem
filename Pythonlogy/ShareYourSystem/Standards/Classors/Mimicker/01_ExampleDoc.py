@@ -52,7 +52,7 @@ SYS._print(MyBuilder,**{
 })
 
 #make once
-MyBuilder.make(3.)
+MyBuilder.make(_MyFloat=3.)
 
 #Print
 print('After the first make, MyBuilder is ')
@@ -61,19 +61,11 @@ SYS._print(MyBuilder,**{
 })
 
 #Definition the AttestedStr
-SYS._attest(
-	[
-		'BuilderClass.make is '+str(BuilderClass.make),
-		'MyBuilder is '+SYS._str(
-		MyBuilder,
-		**{
-			'RepresentingBaseKeyStrsListBool':False,
-			'RepresentingAlineaIsBool':False,
-			'RepresentingKeyStrsList':['MakingMyFloat','MadeMyInt']
-		}
-		)
-	]
-) 
+print('BuilderClass.make is '+str(BuilderClass.make))
+
+#print
+print('MyBuilder.__dict__ is ')
+print(SYS.indent(MyBuilder.__dict__))
 
 #Check
 print('MakerClass.make.BaseDoClass is ')

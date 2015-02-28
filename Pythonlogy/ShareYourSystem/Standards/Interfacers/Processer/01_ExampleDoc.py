@@ -6,6 +6,8 @@ MyProcesser=SYS.ProcesserClass(
 	).process(
 		#ProcessingBashStr
 		'which python ',
+		#ProcessingDirectStr
+		False,
 		**{
 			'FolderingPathStr':SYS.Processer.LocalFolderPathStr
 		}
