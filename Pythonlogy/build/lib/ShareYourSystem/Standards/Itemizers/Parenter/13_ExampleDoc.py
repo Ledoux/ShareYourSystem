@@ -56,7 +56,7 @@ class BuilderClass(MakerClass):
 #Define
 MyBuilder=BuilderClass(
 	).set(
-		'&Things',BuilderClass()
+		'-Things',BuilderClass()
 	)
 
 #print

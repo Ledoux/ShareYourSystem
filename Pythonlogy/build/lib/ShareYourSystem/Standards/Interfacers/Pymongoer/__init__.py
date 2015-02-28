@@ -344,7 +344,7 @@ class PymongoerClass(BaseClass):
 		BaseClass.file(self)
 
 		#kill the process
-		if self.PymongonePopenVariable!=None:
+		if self.PymongonePopenVariable!=None and self.FilingModeStr=='c':
 
 			#debug
 			'''

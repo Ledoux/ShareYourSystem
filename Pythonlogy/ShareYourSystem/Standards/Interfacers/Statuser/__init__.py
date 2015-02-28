@@ -23,6 +23,69 @@ SYS.setSubModule(globals())
 import os
 #</ImportSpecificModules>
 
+#<DefineLocals>
+def status(_ProcessStr):
+
+	#call
+	SnapshotStr=self.process(
+		"ps -ef | grep "+_ProcessStr
+	).ProcessedBashStr
+
+	#Debug
+	'''
+	print('Processer')
+	print('SnapshotStr is '+SnapshotStr)
+	print('')
+	'''
+
+	#map
+	if _ProcessStr=='Python':
+
+		#filter
+		LineStrsList=SYS._filter(
+				lambda __LineStr:
+				SYS.PythonPathStr in __LineStr,
+				SnapshotStr.split('\n')
+			)
+	else:
+
+		#split
+		LineStrsList=SnapshotStr.split('\n')
+
+	#debug
+	'''
+	print('Processer')
+	print('LineStrsList is ')
+	print(LineStrsList)
+	print('')
+	'''
+	
+	#filter
+	LineStrsList=SYS._filter(
+			lambda __LineStr:
+			__LineStr!='',
+			LineStrsList
+		)
+
+	#call
+	IdStrsList=map(
+		lambda __LineStr:
+		__LineStr.split()[1],
+		LineStrsList	
+	)
+
+	#debug
+	'''
+	print('Processer')
+	print('IdStrsList is ')
+	print(IdStrsList)
+	print('')
+	'''
+
+	return ' '.join(map(str,IdStrsList))
+SYS.status=status
+#</DefineLocals>
+
 #<DefineClass>
 @DecorationClass()
 class StatuserClass(BaseClass):

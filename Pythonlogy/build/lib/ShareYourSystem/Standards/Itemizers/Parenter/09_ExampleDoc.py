@@ -13,7 +13,6 @@ MyParenter=SYS.ParenterClass(
 print('MyParenter is ')
 SYS._print(MyParenter)
 
-'''
 #define structure
 MyParenter=SYS.ParenterClass(
 	).get(
@@ -24,4 +23,3 @@ MyParenter=SYS.ParenterClass(
 #print
 print('MyParenter is ')
 SYS._print(MyParenter)
-'''

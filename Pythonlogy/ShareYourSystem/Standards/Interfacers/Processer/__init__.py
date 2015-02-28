@@ -24,7 +24,8 @@ import os
 #</ImportSpecificModules>
 
 #<DefineLocals>
-ProcessingFileStr="ProcessTemp"
+ProcessFileStr="ProcessTemp"
+ProcessPrefixStr="$"
 #</DefineLocals>
 
 #<DefineClass>
@@ -33,6 +34,7 @@ class ProcesserClass(BaseClass):
 	
 	def default_init(self,
 						_ProcessingBashStr="",
+						_ProcessingActionStr="open",
 						_ProcessedBashStr="",
 						**_KwargVariablesDict
 					):
@@ -42,38 +44,108 @@ class ProcesserClass(BaseClass):
 			
 	def do_process(self):
 
-		#file
-		self.file(ProcessingFileStr+'.sh','w')
+		#/##################/#
+		# Check for open
+		#
 
-		#Define
-		ProcessedBashPathStr=self.FolderingPathStr+ProcessingFileStr+'.txt'
+		#Check
+		if self.ProcessingActionStr=='open':
 
-		#set
-		self.ProcessedBashStr='OUTPUT="$('+self.ProcessingBashStr+')"\n'
-		self.ProcessedBashStr+='echo "${OUTPUT}" > '+ProcessedBashPathStr
+			#Define
+			ProcessedBashPathStr=self.FolderingPathStr+ProcessFileStr+'.txt'
 
-		#write
-		self.file(
-			_ModeStr='w',
-			_WriteVariable=self.ProcessedBashStr
-		)
-		self.FiledHardVariable.close()
+			#set
+			self.ProcessedBashStr='OUTPUT="$('+self.ProcessingBashStr+')"\n'
+			self.ProcessedBashStr+='echo "${OUTPUT}" > '+ProcessedBashPathStr
 
-		#debug
-		'''
-		self.debug(('self.',self,[
-									'FiledPathStr',
-								]))
-		'''
-		
-		#popen
-		os.popen('sh '+self.FiledPathStr)
+			#debug
+			'''
+			self.debug(
+					('self.',self,['ProcessedBashStr'])
+				)
+			'''
 
-		#load
-		self.ProcessedBashStr=self.file(
-					ProcessingFileStr+'.txt',
-					'r'
-				).FiledReadVariable
+			#write
+			self.file(
+					ProcessFileStr+'.sh',
+					'w',
+					_WriteVariable=self.ProcessedBashStr
+				).file(
+					_ModeStr='c'
+				)
+
+			#debug
+			'''
+			self.debug(('self.',self,[
+										'FiledPathStr',
+									]))
+			'''
+			
+			#popen
+			import subprocess
+			self.ProcessedPopenVariable = subprocess.Popen(
+					[
+						'sh',
+						'self.FiledPathStr',
+					], 
+					shell=False,
+	               	stdout=subprocess.PIPE,
+	               	stdin=subprocess.PIPE
+	        )
+
+			#load
+			self.ProcessedBashStr=self.file(
+						ProcessFileStr+'.txt',
+						'r'
+					).FiledReadVariable
+
+		#/##################/#
+		# Check for kill
+		#
+
+		elif self.ProcessingActionStr=='kill':
+
+			#kill the process
+			if self.ProcessedPopenVariable!=None:
+
+				#debug
+				'''
+				self.debug('kill the popen variable')
+				'''
+				
+				#kill but before wait a bit to be sure that the db has time to refresh
+				SYS.stdout('Kill the popen variable')
+				SYS.wait(1)
+				self.ProcessedPopenVariable.kill()
+				SYS.stdout('It is killed')
+
+	def mimic_get(self):
+
+		#Check
+		if type(self.GettingKeyVariable)==str:
+
+			#Check
+			if self.GettingKeyVariable.startswith(ProcessPrefixStr):
+
+				#deprefix
+				GetProcessBashStr=SYS.deprefix(
+						self.GettingKeyVariable,
+						ProcessPrefixStr
+					)
+
+				#process
+				self.process(
+						GetProcessBashStr
+					)
+
+				#set
+				self.GettedValueVariable=self.ProcessedBashStr
+
+				#stop
+				return {'HookingIsBool':False}
+
+		#Cal the base method
+		BaseClass.get(self)
 
 #</DefineClass>
 
@@ -86,3 +158,93 @@ ProcesserClass.PrintingClassSkipKeyStrsList.extend(
 )
 #<DefinePrint>
 
+#<DefineLocals>
+def status(_ProcessStr,**_KwargVariablesDict):
+
+	#Check
+	if 'PythonSkipSelfBool' not in _KwargVariablesDict:
+		PythonSkipSelfBool=False
+	else:
+		PythonSkipSelfBool=_KwargVariablesDict['PythonSkipSelfBool' ]
+
+	#Debug
+	'''
+	print('Processer')
+	print('_ProcessStr is '+_ProcessStr)
+	print('')
+	'''
+
+	#call
+	SnapshotStr=ProcesserClass(
+		).process(
+			"ps -ef | grep "+_ProcessStr,
+			**{
+				'FolderingPathStr':SYS.Processer.LocalFolderPathStr
+			}
+		).ProcessedBashStr
+
+	#Debug
+	'''
+	print('Processer')
+	print('SnapshotStr is '+SnapshotStr)
+	print('')
+	'''
+
+	#map
+	if _ProcessStr=='Python':
+
+		#filter
+		LineStrsList=SYS._filter(
+				lambda __LineStr:
+				SYS.PythonPathStr in __LineStr,
+				SnapshotStr.split('\n')
+			)
+	else:
+
+		#split
+		LineStrsList=SnapshotStr.split('\n')
+
+	#debug
+	'''
+	print('Processer')
+	print('LineStrsList is ')
+	print(LineStrsList)
+	print('')
+	'''
+	
+	#filter
+	LineStrsList=SYS._filter(
+			lambda __LineStr:
+			__LineStr!='',
+			LineStrsList
+		)
+
+	#call
+	IdStrsList=map(
+		lambda __LineStr:
+		__LineStr.split()[1],
+		LineStrsList	
+	)
+
+	#Check
+	if _ProcessStr=='Python' and PythonSkipSelfBool:
+
+		#Check
+		if len(IdStrsList)>0:
+			IdStrsList=sorted(IdStrsList)[:-1]
+		else:
+			IdStrsList=[]
+
+	#debug
+	'''
+	print('Processer')
+	print('IdStrsList is ')
+	print(IdStrsList)
+	print('')
+	'''
+
+	#return
+	return ' '.join(map(str,IdStrsList))
+
+SYS.status=status
+#</DefineLocals>
