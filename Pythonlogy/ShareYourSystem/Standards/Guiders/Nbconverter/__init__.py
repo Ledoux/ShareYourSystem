@@ -79,7 +79,7 @@ class NbconverterClass(BaseClass):
 
 		#debug
 		'''
-		self.debug(('self.',self,['FiledFileVariable']))
+		self.debug(('self.',self,['FiledHardVariable']))
 		'''
 
 		#Check
@@ -130,7 +130,7 @@ class NbconverterClass(BaseClass):
 				self.NotebookedCodeDict,**{
 					'LoadingFormatStr':'json'
 				}
-			).FiledFileVariable.close()
+			).FiledHardVariable.close()
 
 			#debug
 			'''

@@ -266,7 +266,7 @@ self.NotebookedCodeDict['worksheets'][0]['cells'])
                                 self.write(self.NotebookedCodeDict)
 
                                 #Close
-                                self.FiledFileVariable.close()
+                                self.FiledHardVariable.close()
 
 
                 #Return self

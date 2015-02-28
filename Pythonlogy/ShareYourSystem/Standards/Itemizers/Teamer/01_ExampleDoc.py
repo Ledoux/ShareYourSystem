@@ -18,20 +18,20 @@ MyTeamer.team(
 	)
 
 #With a set
-MyTeamer['&Clients']=SYS.PointerClass()
+MyTeamer['-Clients']=SYS.PointerClass()
 
 #print
 print('MyTeamer is ')
 SYS._print(MyTeamer)
 
 #Shortcut for getting all the teamed instances
-print("MyTeamer['&'] is ")
-SYS._print(MyTeamer['&'])
+print("MyTeamer['-'] is ")
+SYS._print(MyTeamer['-'])
 
 #Shortcut for getting all the teamed instances
-print("MyTeamer['&.values'] is ")
-SYS._print(MyTeamer['&.values'])
+print("MyTeamer['-.values'] is ")
+SYS._print(MyTeamer['-.values'])
 
 #Shortcut for getting all the teamed instances
-print("MyTeamer['&.keys'] is ")
-SYS._print(MyTeamer['&.keys'])
+print("MyTeamer['-.keys'] is ")
+SYS._print(MyTeamer['-.keys'])

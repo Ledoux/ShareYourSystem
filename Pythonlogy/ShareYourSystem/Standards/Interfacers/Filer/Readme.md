@@ -11,7 +11,7 @@ FrozenIsBool False
 
 
 >
-> The Filer is a quick object for opening a FiledFileVariable and safely using
+> The Filer is a quick object for opening a FiledHardVariable and safely using
 (read,write)
 > it depending on the FiledModeStr.
 >
@@ -50,7 +50,7 @@ FrozenIsBool False
 </DefineSource>
 
 
-The Filer is a quick object for opening a FiledFileVariable and safely using
+The Filer is a quick object for opening a FiledHardVariable and safely using
 (read,write)
 it depending on the FiledModeStr.
 
@@ -80,7 +80,7 @@ class FilerClass(BaseClass):
                                                                 'FilingKeyStr',
                                                                 'FilingModeStr',
                                                                 'FiledPathStr',
-'FiledFileVariable'
+'FiledHardVariable'
                                                         ]
 
 
@@ -88,7 +88,7 @@ class FilerClass(BaseClass):
                                                 _FilingKeyStr="",
                                                 _FilingModeStr='r',
                                                 _FiledPathStr="",
-                                                _FiledFileVariable=None,
+                                                _FiledHardVariable=None,
                                                 **_KwargVariablesDict
                                         ):
 
@@ -117,28 +117,28 @@ self.debug(('self.',self,['FilingKeyStr','FiledPathStr','FilingModeStr']))
                 '''
 
                 #Close before if we chaneg the mode
-                if self.FiledFileVariable!=None:
+                if self.FiledHardVariable!=None:
 
                         #Check
-                        if self.FiledFileVariable==self.FiledPathStr:
+                        if self.FiledHardVariable==self.FiledPathStr:
 
                                 #Return if it is the same mode already
                                 if
-self.FiledFileVariable.mode==self.FilingModeStr:
+self.FiledHardVariable.mode==self.FilingModeStr:
                                         return self
 
                                 #Check
-                                if self.FiledFileVariable.mode!='c':
+                                if self.FiledHardVariable.mode!='c':
                                         if ('w' in self.FilingModeStr and
-self.FiledFileVariable.mode=='r'
+self.FiledHardVariable.mode=='r'
                                                 ) or ('r'==self.FilingModeStr
-and 'w' in self.FiledFileVariable.mode):
-                                                self.FiledFileVariable.close()
+and 'w' in self.FiledHardVariable.mode):
+                                                self.FiledHardVariable.close()
 
                         else:
 
                                 #Close
-                                self.FiledFileVariable.close()
+                                self.FiledHardVariable.close()
 
 
 
@@ -152,7 +152,7 @@ os.path.isfile(self.FiledPathStr):
                         '''
 
                         #Open
-self.FiledFileVariable=open(self.FiledPathStr,self.FilingModeStr)
+self.FiledHardVariable=open(self.FiledPathStr,self.FilingModeStr)
 
                 else:
 
@@ -162,7 +162,7 @@ self.FiledFileVariable=open(self.FiledPathStr,self.FilingModeStr)
                         '''
 
                         #Open
-self.FiledFileVariable=open(self.FiledPathStr,self.FilingModeStr)
+self.FiledHardVariable=open(self.FiledPathStr,self.FilingModeStr)
 
                 #Return self
                 #return self
@@ -206,7 +206,7 @@ MyFiler=Filer.FilerClass().file('MyFile.txt','w',
 )
 
 #close
-MyFiler.FiledFileVariable.close()
+MyFiler.FiledHardVariable.close()
 
 #Definition the AttestedStr
 SYS._attest(
@@ -232,7 +232,7 @@ SYS._attest(
 MyFiler is < (FilerClass), 4540265936>
    /{
    /  '<New><Instance>IdInt' : 4540265936
-   /  '<Spe><Instance>FiledFileVariable' : <closed file '/Users/ledoux/Documents
+   /  '<Spe><Instance>FiledHardVariable' : <closed file '/Users/ledoux/Documents
 /ShareYourSystem/Pythonlogy/ShareYourSystem/Interfacers/Filer/MyFile.txt', mode
 'w' at 0x10e66bed0>
    /  '<Spe><Instance>FiledPathStr' : /Users/ledoux/Documents/ShareYourSystem/Py

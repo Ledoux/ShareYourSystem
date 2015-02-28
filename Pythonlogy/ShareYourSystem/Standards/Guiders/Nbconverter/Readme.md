@@ -121,7 +121,7 @@ _NbconvertingFormatStr="Markdown",
 
                 #debug
                 '''
-                self.debug(('self.',self,['FiledFileVariable']))
+                self.debug(('self.',self,['FiledHardVariable']))
                 '''
 
                 #Check
@@ -175,7 +175,7 @@ self.NbconvertingFileKeyStr.replace('.md','.ipynb'),
                                 self.NotebookedCodeDict,**{
                                         'LoadingFormatStr':'json'
                                 }
-                        ).FiledFileVariable.close()
+                        ).FiledHardVariable.close()
 
                         #debug
                         '''

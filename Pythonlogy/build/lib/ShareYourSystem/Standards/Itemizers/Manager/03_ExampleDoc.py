@@ -5,7 +5,7 @@ import ShareYourSystem as SYS
 #define and 
 MyManager=SYS.ManagerClass(
 	).get(
-		'/$First/&Employees/$Designer'
+		'/-First/|Employees/-Designer'
 	)
 
 #print

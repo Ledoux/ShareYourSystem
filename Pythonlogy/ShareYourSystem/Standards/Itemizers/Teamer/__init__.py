@@ -28,7 +28,7 @@ from ShareYourSystem.Standards.Itemizers import Pather,Pointer
 #</ImportSpecificModules>
 
 #<DefineLocals>
-TeamChildPrefixStr='&'
+TeamChildPrefixStr='-'
 class TeamDictClass(collections.OrderedDict):
 	def __init__(self,_Dict=None):
 

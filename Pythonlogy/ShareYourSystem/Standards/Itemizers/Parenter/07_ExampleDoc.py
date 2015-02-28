@@ -6,17 +6,17 @@ import ShareYourSystem as SYS
 MyParenter=SYS.ParenterClass(
 	).array(
 		[
-			['&Layers'],
-			['$First','$Second'],
-			['&Neurons'],
-			['$E','$I']
+			['-Layers'],
+			['|First','|Second'],
+			['-Neurons'],
+			['|E','|I']
 		]
 	).command(
-		'+&.values+$.values',
+		'+-.values+|.values',
 		'#call:parent',
 		_AfterWalkBool=True
 	).command(
-		'+&.values+$.values',
+		'+-.values+|.values',
 		{
 			'#bound:recruit':lambda _InstanceVariable:_InstanceVariable[
 					'/Top/NeuronsDict'

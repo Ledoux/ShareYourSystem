@@ -25,41 +25,67 @@ from ShareYourSystem.Standards.Classors import Doer,Observer
 #</ImportSpecificModules>
 
 #<DefineFunctions>
-def setSwitch(_InstanceVariable,_ClassVariable=None,_DoStrsList=None):
+def setSwitch(
+			_InstanceVariable,
+			_DoerVariable=None,
+			_DoVariable=None,
+			_HookVariable=None
+		):
 
 	#Debug
 	'''
 	print('l 31 setSwitch')
-	print('_DoStrsList is ',_DoStrsList)
+	print('_DoVariable is ',_DoVariable)
 	print('_InstanceVariable.__class__.NameStr is ',_InstanceVariable.__class__.NameStr)
 	print('')
 	'''
 
+	#Adapt the shape
+	if type(_DoerVariable)!=list:
+		if _DoerVariable==None:
+			_DoerVariable=_InstanceVariable.__class__
+		DoerClassVariablesList=[_DoerVariable]
+	if type(_DoVariable)!=list:
+		if _DoVariable==None:
+			_DoVariable=_InstanceVariable.DoStr
+		DoStrsList=[_DoVariable]
+	if type(_HookVariable)!=list:
+		if _HookVariable==None:
+			HookStrsList=['Before','After']
+		else:
+			HookStrsList=[_HookVariable]
+
 	#get
-	SwitchClass=_InstanceVariable.getClass(_ClassVariable)
+	SwitchClassesList=map(
+		lambda __DoerVariable:
+		_InstanceVariable.getClass(__DoerVariable),
+		DoerClassVariablesList
+	)
 
-	#check
-	if _DoStrsList==None:
-		_DoStrsList=[SwitchClass.DoStr]
-	
-	#map
-	map(
-			lambda __MethodStr:
-			_InstanceVariable.__setattr__(
-				'WatchBefore'+__MethodStr+'With'+SwitchClass.NameStr+'Bool',
-				False
-			),
-			_DoStrsList,
-		)
+	#Debug
+	'''
+	print('l 51 Switcher')
+	print('SwitchClassesList is ')
+	print(SwitchClassesList)
+	print('')
+	'''
 
 	#map
 	map(
-			lambda __MethodStr:
-			_InstanceVariable.__setattr__(
-				'WatchAfter'+__MethodStr+'With'+SwitchClass.NameStr+'Bool',
-				False
+		lambda __HookStr:
+		map(
+			lambda __SwitchClass:
+			map(
+					lambda __MethodStr:
+					_InstanceVariable.__setattr__(
+						'Watch'+__HookStr+__MethodStr[0].upper()+__MethodStr[1:]+'With'+__SwitchClass.NameStr+'Bool',
+						False
+					),
+					DoStrsList,
+				),
+			SwitchClassesList
 			),
-			_DoStrsList,
+		HookStrsList
 		)
 
 	#return 

@@ -18,7 +18,7 @@ MyManager.manage(
 	)
 
 #Set with a setitem access and the symbolic shortcut
-MyManager['$Third']=SYS.TeamerClass()
+MyManager['|Third']=SYS.TeamerClass()
 
 #direct get
 print('MyManager.ThirdTeamer is ')
@@ -29,10 +29,10 @@ print('MyManager is ')
 SYS._print(MyManager)
 
 #We can have all the ManagementDict with the symbolic shortcut get
-print("MyManager['$'] is ")
-SYS._print(MyManager['$'])
+print("MyManager['|'] is ")
+SYS._print(MyManager['|'])
 
 #We can have all the ManagementDict with the symbolic shortcut get
-print("MyManager['$.values'] is ")
-SYS._print(MyManager['$.values'])
+print("MyManager['|.values'] is ")
+SYS._print(MyManager['|.values'])
 

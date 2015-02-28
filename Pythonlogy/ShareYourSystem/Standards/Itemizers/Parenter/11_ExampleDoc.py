@@ -6,16 +6,16 @@ import ShareYourSystem as SYS
 MyParenter=SYS.ParenterClass(
 	).array(
 		[
-			['&Neurons'],
+			['-Neurons'],
 			[
 				{
-					'#key':"$E",
+					'#key':"|E",
 					'#map@set':{
-						'&PostConnections':{
-							'$EtoI':{
+						'-PostConnections':{
+							'|EtoI':{
 								'ParentingTriggerVariable':
 								[
-									'<->/^/^/$I/&PreConnections'
+									'<->/^/^/|I/-PreConnections'
 								]
 							}
 						}

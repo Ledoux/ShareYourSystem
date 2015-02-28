@@ -1996,14 +1996,14 @@ def do_guide(self):
                 )
 
         #Check
-        if self.FiledFileVariable.mode==&#39;wt&#39;:
+        if self.FiledHardVariable.mode==&#39;wt&#39;:
 
             #Definition
             GuidingTextStrKeyStr=&#39;Guiding&#39;+self.GuidingPageStr+self.GuidingScriptStr+&#39;TextStr&#39;
 
             #debug
             &#39;&#39;&#39;
-            print(&#39;self.FiledFileVariable is &#39;,self.FiledFileVariable)
+            print(&#39;self.FiledHardVariable is &#39;,self.FiledHardVariable)
             print(&#39;&#39;)
             &#39;&#39;&#39;
 
@@ -2068,7 +2068,7 @@ def do_guide(self):
             self.write(GuidedTextStr,**{&#39;LoadingFormatStr&#39;:&#39;txt&#39;})
 
             #Close
-            self.FiledFileVariable.close()
+            self.FiledHardVariable.close()
 </code></pre><h1 id="-defineclass-"></DefineClass></h1>
 <p>```</p>
 <p><small>

@@ -5,7 +5,7 @@ import ShareYourSystem as SYS
 #define and team
 MyManager=SYS.ManagerClass(
 	).set(
-		'$Thing',
+		'-Thing',
 		{
 			'MyInt':0
 		}

@@ -235,7 +235,7 @@ class NotebookerClass(BaseClass):
 				self.write(self.NotebookedCodeDict)
 
 				#Close
-				self.FiledFileVariable.close()
+				self.FiledHardVariable.close()
 
 
 		#Return self

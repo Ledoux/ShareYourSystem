@@ -22,7 +22,8 @@ SYS.setSubModule(globals())
 
 #<ImportSpecificModules>
 import copy
-from ShareYourSystem.Standards.Itemizers import Setter,Pather
+from ShareYourSystem.Standards.Itemizers import Setter,Pather,Teamer
+Manager=BaseModule
 #</ImportSpecificModules>
 
 #<DefineLocals>
@@ -75,7 +76,7 @@ class ParenterClass(BaseClass):
 			
 			#command
 			self.command(
-					'+&.values+$.values',
+					'+'+Teamer.TeamChildPrefixStr+'.values+'+Manager.ManagementChildPrefixStr+'.values',
 					'#call:parent',
 					_AfterWalkBool=True,
 					_BeforeSelfBool=True

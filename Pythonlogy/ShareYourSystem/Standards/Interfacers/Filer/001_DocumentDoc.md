@@ -10,7 +10,7 @@ FrozenIsBool False
 
 
 > 
-> The Filer is a quick object for opening a FiledFileVariable and safely using (read,write) 
+> The Filer is a quick object for opening a FiledHardVariable and safely using (read,write) 
 > it depending on the FiledModeStr.
 > 
 > 

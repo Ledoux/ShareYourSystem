@@ -259,6 +259,8 @@ ShareYourSystem/Standards/Classors/Switcher/00_ExampleDoc.md
 ShareYourSystem/Standards/Classors/Switcher/01_ExampleDoc.py
 ShareYourSystem/Standards/Classors/Switcher/02_ExampleDoc.md
 ShareYourSystem/Standards/Classors/Switcher/03_ExampleDoc.py
+ShareYourSystem/Standards/Classors/Switcher/04_ExampleDoc.md
+ShareYourSystem/Standards/Classors/Switcher/05_ExampleDoc.py
 ShareYourSystem/Standards/Classors/Switcher/Readme.md
 ShareYourSystem/Standards/Classors/Switcher/__init__.py
 ShareYourSystem/Standards/Classors/Switcher/Drafts/__init__ copy 2.py
@@ -402,13 +404,6 @@ ShareYourSystem/Standards/Interfacers/Capturer/00_ExampleDoc.md
 ShareYourSystem/Standards/Interfacers/Capturer/01_ExampleDoc.py
 ShareYourSystem/Standards/Interfacers/Capturer/Readme.md
 ShareYourSystem/Standards/Interfacers/Capturer/__init__.py
-ShareYourSystem/Standards/Interfacers/Closer/001_DocumentDoc.md
-ShareYourSystem/Standards/Interfacers/Closer/002_GithubDoc.md
-ShareYourSystem/Standards/Interfacers/Closer/00_ExampleDoc.md
-ShareYourSystem/Standards/Interfacers/Closer/01_ExampleDoc.py
-ShareYourSystem/Standards/Interfacers/Closer/MyFile.txt
-ShareYourSystem/Standards/Interfacers/Closer/Readme.md
-ShareYourSystem/Standards/Interfacers/Closer/__init__.py
 ShareYourSystem/Standards/Interfacers/Consoler/00_ExampleDoc.md
 ShareYourSystem/Standards/Interfacers/Consoler/01_ExampleDoc.py
 ShareYourSystem/Standards/Interfacers/Consoler/__init__.py
@@ -435,7 +430,13 @@ ShareYourSystem/Standards/Interfacers/Filer/001_DocumentDoc.md
 ShareYourSystem/Standards/Interfacers/Filer/002_GithubDoc.md
 ShareYourSystem/Standards/Interfacers/Filer/00_ExampleDoc.md
 ShareYourSystem/Standards/Interfacers/Filer/01_ExampleDoc.py
-ShareYourSystem/Standards/Interfacers/Filer/MyFile.txt
+ShareYourSystem/Standards/Interfacers/Filer/02_ExampleDoc.md
+ShareYourSystem/Standards/Interfacers/Filer/03_ExampleDoc.py
+ShareYourSystem/Standards/Interfacers/Filer/04_ExampleDoc.md
+ShareYourSystem/Standards/Interfacers/Filer/05_ExampleDoc.py
+ShareYourSystem/Standards/Interfacers/Filer/MyOpenedFile.txt
+ShareYourSystem/Standards/Interfacers/Filer/MyReadedFile.txt
+ShareYourSystem/Standards/Interfacers/Filer/MyWrittenFile.txt
 ShareYourSystem/Standards/Interfacers/Filer/Readme
 ShareYourSystem/Standards/Interfacers/Filer/Readme.ipynb.md
 ShareYourSystem/Standards/Interfacers/Filer/Readme.md
@@ -474,14 +475,6 @@ ShareYourSystem/Standards/Interfacers/Killer/ProcessTemp.txt
 ShareYourSystem/Standards/Interfacers/Killer/Readme.md
 ShareYourSystem/Standards/Interfacers/Killer/Test.py
 ShareYourSystem/Standards/Interfacers/Killer/__init__.py
-ShareYourSystem/Standards/Interfacers/Loader/001_DocumentDoc.md
-ShareYourSystem/Standards/Interfacers/Loader/002_GithubDoc.md
-ShareYourSystem/Standards/Interfacers/Loader/00_ExampleDoc.md
-ShareYourSystem/Standards/Interfacers/Loader/01_ExampleDoc.py
-ShareYourSystem/Standards/Interfacers/Loader/MyFile.txt
-ShareYourSystem/Standards/Interfacers/Loader/Readme.md
-ShareYourSystem/Standards/Interfacers/Loader/Test.py
-ShareYourSystem/Standards/Interfacers/Loader/__init__.py
 ShareYourSystem/Standards/Interfacers/Object/001_DocumentDoc.md
 ShareYourSystem/Standards/Interfacers/Object/00_ExampleDoc.md
 ShareYourSystem/Standards/Interfacers/Object/01_ExampleDoc.py
@@ -554,14 +547,6 @@ ShareYourSystem/Standards/Interfacers/Swiger/Modules/12b_IntegrateAndFireTransfe
 ShareYourSystem/Standards/Interfacers/Swiger/Modules/12b_IntegrateAndFireTransferFunctionSwig/IntegrateAndFireTransferFunctionSwig.py
 ShareYourSystem/Standards/Interfacers/Swiger/Modules/12b_IntegrateAndFireTransferFunctionSwig/Makefile
 ShareYourSystem/Standards/Interfacers/Swiger/Modules/12b_IntegrateAndFireTransferFunctionSwig/Readme.txt
-ShareYourSystem/Standards/Interfacers/Writer/001_DocumentDoc.md
-ShareYourSystem/Standards/Interfacers/Writer/002_GithubDoc.md
-ShareYourSystem/Standards/Interfacers/Writer/00_ExampleDoc.md
-ShareYourSystem/Standards/Interfacers/Writer/01_ExampleDoc.py
-ShareYourSystem/Standards/Interfacers/Writer/MyFile.txt
-ShareYourSystem/Standards/Interfacers/Writer/Readme.md
-ShareYourSystem/Standards/Interfacers/Writer/Test.py
-ShareYourSystem/Standards/Interfacers/Writer/__init__.py
 ShareYourSystem/Standards/Itemizers/001_DocumentDoc.md
 ShareYourSystem/Standards/Itemizers/002_OuvatonDoc.md
 ShareYourSystem/Standards/Itemizers/Readme.md

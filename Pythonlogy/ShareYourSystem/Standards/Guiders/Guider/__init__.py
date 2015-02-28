@@ -261,14 +261,14 @@ class GuiderClass(BaseClass):
 					)
 
 			#Check
-			if self.FiledFileVariable.mode=='wt':
+			if self.FiledHardVariable.mode=='wt':
 
 				#Definition
 				GuidingTextStrKeyStr='Guiding'+self.GuidingPageStr+self.GuidingScriptStr+'TextStr'
 
 				#debug
 				'''
-				print('self.FiledFileVariable is ',self.FiledFileVariable)
+				print('self.FiledHardVariable is ',self.FiledHardVariable)
 				print('')
 				'''
 
@@ -333,7 +333,7 @@ class GuiderClass(BaseClass):
 				self.write(GuidedTextStr,**{'LoadingFormatStr':'txt'})
 
 				#Close
-				self.FiledFileVariable.close()
+				self.FiledHardVariable.close()
 		
 #</DefineClass>
 

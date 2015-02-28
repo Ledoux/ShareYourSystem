@@ -2,7 +2,8 @@
 import ShareYourSystem as SYS
 
 #Definition a Statuser
-MyStatuser=SYS.StatuserClass().status('mongod')
+MyStatuser=SYS.StatuserClass(
+	).status('mongod')
 
 #Definition the AttestedStr
 SYS._attest(

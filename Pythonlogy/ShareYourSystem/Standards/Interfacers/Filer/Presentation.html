@@ -1734,7 +1734,7 @@ FrozenIsBool False
 <h2 id="doc">Doc</h2>
 <hr>
 <blockquote>
-<p>The Filer is a quick object for opening a FiledFileVariable and safely using (read,write) 
+<p>The Filer is a quick object for opening a FiledHardVariable and safely using (read,write) 
 it depending on the FiledModeStr.</p>
 </blockquote>
 <hr>
@@ -1769,7 +1769,7 @@ FrozenIsBool False
 &lt;/DefineSource&gt;
 
 
-The Filer is a quick object for opening a FiledFileVariable and safely using (read,write) 
+The Filer is a quick object for opening a FiledHardVariable and safely using (read,write) 
 it depending on the FiledModeStr.
 
 """
@@ -1798,7 +1798,7 @@ class FilerClass(BaseClass):
                                 'FilingKeyStr',
                                 'FilingModeStr',
                                 'FiledPathStr',
-                                'FiledFileVariable'
+                                'FiledHardVariable'
                             ]
 
 
@@ -1806,7 +1806,7 @@ class FilerClass(BaseClass):
                         _FilingKeyStr="",
                         _FilingModeStr='r',
                         _FiledPathStr="",
-                        _FiledFileVariable=None,
+                        _FiledHardVariable=None,
                         **_KwargVariablesDict
                     ):
 
@@ -1835,25 +1835,25 @@ class FilerClass(BaseClass):
         '''
 
         #Close before if we chaneg the mode
-        if self.FiledFileVariable!=None:
+        if self.FiledHardVariable!=None:
 
             #Check
-            if self.FiledFileVariable==self.FiledPathStr:
+            if self.FiledHardVariable==self.FiledPathStr:
 
                 #Return if it is the same mode already
-                if self.FiledFileVariable.mode==self.FilingModeStr:
+                if self.FiledHardVariable.mode==self.FilingModeStr:
                     return self
 
                 #Check
-                if self.FiledFileVariable.mode!='c':
-                    if ('w' in self.FilingModeStr and self.FiledFileVariable.mode=='r'
-                        ) or ('r'==self.FilingModeStr and 'w' in self.FiledFileVariable.mode):
-                        self.FiledFileVariable.close()
+                if self.FiledHardVariable.mode!='c':
+                    if ('w' in self.FilingModeStr and self.FiledHardVariable.mode=='r'
+                        ) or ('r'==self.FilingModeStr and 'w' in self.FiledHardVariable.mode):
+                        self.FiledHardVariable.close()
 
             else:
 
                 #Close
-                self.FiledFileVariable.close()
+                self.FiledHardVariable.close()
 
 
 
@@ -1866,7 +1866,7 @@ class FilerClass(BaseClass):
             '''
 
             #Open
-            self.FiledFileVariable=open(self.FiledPathStr,self.FilingModeStr)
+            self.FiledHardVariable=open(self.FiledPathStr,self.FilingModeStr)
 
         else:
 
@@ -1876,7 +1876,7 @@ class FilerClass(BaseClass):
             '''
 
             #Open
-            self.FiledFileVariable=open(self.FiledPathStr,self.FilingModeStr)
+            self.FiledHardVariable=open(self.FiledPathStr,self.FilingModeStr)
 
         #Return self
         #return self
@@ -1927,7 +1927,7 @@ In&nbsp;[3]:
 <span class="p">)</span>
 
 <span class="c">#close</span>
-<span class="n">MyFiler</span><span class="o">.</span><span class="n">FiledFileVariable</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="n">MyFiler</span><span class="o">.</span><span class="n">FiledHardVariable</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
 <span class="c">#Definition the AttestedStr</span>
 <span class="n">SYS</span><span class="o">.</span><span class="n">_attest</span><span class="p">(</span>
@@ -1958,7 +1958,7 @@ In&nbsp;[3]:
 MyFiler is &lt; (FilerClass), 4554249616&gt;
    /{ 
    /  &apos;&lt;New&gt;&lt;Instance&gt;IdInt&apos; : 4554249616
-   /  &apos;&lt;Spe&gt;&lt;Instance&gt;FiledFileVariable&apos; : &lt;closed file &apos;/Users/ledoux/Documents/ShareYourSystem/Pythonlogy/ShareYourSystem/Interfacers/Filer/MyFile.txt&apos;, mode &apos;w&apos; at 0x10e66b420&gt;
+   /  &apos;&lt;Spe&gt;&lt;Instance&gt;FiledHardVariable&apos; : &lt;closed file &apos;/Users/ledoux/Documents/ShareYourSystem/Pythonlogy/ShareYourSystem/Interfacers/Filer/MyFile.txt&apos;, mode &apos;w&apos; at 0x10e66b420&gt;
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;FiledPathStr&apos; : /Users/ledoux/Documents/ShareYourSystem/Pythonlogy/ShareYourSystem/Interfacers/Filer/MyFile.txt
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;FilingKeyStr&apos; : MyFile.txt
    /  &apos;&lt;Spe&gt;&lt;Instance&gt;FilingModeStr&apos; : w

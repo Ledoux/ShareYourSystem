@@ -101,10 +101,10 @@ ProcessedBashPathStr=self.FolderingPathStr+ProcessingFileStr+'.txt'
 '+ProcessedBashPathStr
 
                 #write
-                self.FiledFileVariable.write(
+                self.FiledHardVariable.write(
                         self.ProcessedBashStr
                 )
-                self.FiledFileVariable.close()
+                self.FiledHardVariable.close()
 
                 #debug
                 '''

@@ -28,7 +28,7 @@ Teamer=BaseModule
 #</ImportSpecificModules>
 
 #<DefineLocals>
-ManagementChildPrefixStr="$"
+ManagementChildPrefixStr="|"
 class ManagementDictClass(collections.OrderedDict):
 	def __init__(self,_Dict=None):
 
