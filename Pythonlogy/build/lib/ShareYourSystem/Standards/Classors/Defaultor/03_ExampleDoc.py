@@ -13,6 +13,18 @@ class FooClass(object):
 				):
 		object.__init__(self)
 
+#print
+print("\n".join([
+		'FooClass has some special attributes',
+		#'FooClass.InitArgumentDict is '+SYS._str(FooClass.InitArgumentDict),
+		'FooClass.DefaultAttributeVariablesOrderedDict is '+str(
+			FooClass.DefaultAttributeVariablesOrderedDict),
+		'FooClass.MyFirstList is '+str(FooClass.MyFirstList),
+		'FooClass.MySecondList is '+str(FooClass.MySecondList),
+		]
+	)
+)
+
 #Definition a default instance that will take its values from the default classed attributes
 DefaultFoo=FooClass()
 
@@ -22,6 +34,16 @@ DefaultFoo.MyFirstList.append('hello')
 #Note: if you write DefaultFoo.MyFirstList=['hello'], 
 #then it will set it as a new list in the __dict__ of the DefaultFoo.
 
+#print
+print("\n"+"\n".join([
+		'What are you saying DefaultFoo ?',
+		'DefaultFoo.__dict__ is '+str(DefaultFoo.__dict__),
+		'DefaultFoo.MyFirstList is '+str(DefaultFoo.MyFirstList),
+		'DefaultFoo.MySecondList is '+str(DefaultFoo.MySecondList),
+	]
+	)
+)
+
 #Definition a special instance that sets in its __dict__
 SpecialFoo=FooClass(
 			_MyArray=np.array([4]),
@@ -30,22 +52,12 @@ SpecialFoo=FooClass(
 			)
 
 #print
-print("\n".join([
-		'FooClass has some special attributes',
-		#'FooClass.InitArgumentDict is '+SYS._str(FooClass.InitArgumentDict),
-		'FooClass.DefaultAttributeVariablesOrderedDict is '+str(
-			FooClass.DefaultAttributeVariablesOrderedDict),
-		'FooClass.MyFirstList is '+str(FooClass.MyFirstList),
-		'FooClass.MySecondList is '+str(FooClass.MySecondList),
-		'What are you saying DefaultFoo ?',
-		'DefaultFoo.__dict__ is '+str(DefaultFoo.__dict__),
-		'DefaultFoo.MyFirstList is '+str(DefaultFoo.MyFirstList),
-		'DefaultFoo.MySecondList is '+str(DefaultFoo.MySecondList),
+print("\n"+"\n".join([		
 		'What are you saying SpecialFoo ?',
 		'SpecialFoo.__dict__ is '+str(SpecialFoo.__dict__),
 		'SpecialFoo.MyFirstList is '+str(SpecialFoo.MyFirstList),
 		'SpecialFoo.MySecondList is '+str(SpecialFoo.MySecondList),
-	]
+		]
 	)
 )
 

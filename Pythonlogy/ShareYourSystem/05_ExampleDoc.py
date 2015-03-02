@@ -9,7 +9,12 @@ print('MyGetList is ')
 print(MyGetList)
 
 #Init
-MyGetList=SYS.GetList('MyInt',{'MyInt':4})
+MyGetList=SYS.GetList(
+	#ListVariable
+	'MyInt',
+	#GetterVariable
+	{'MyInt':4}
+)
 
 #print
 print('MyGetList is ')
@@ -28,3 +33,25 @@ MyGetList=SYS.GetList(['rrr',3])
 #print
 print('MyGetList is ')
 print(MyGetList)
+
+#Init
+MyGetList=SYS.GetList(['GetterClass'],SYS)
+
+#print
+print('MyGetList is ')
+print(MyGetList)
+
+#Init
+MyGetList=SYS.GetList('GetterClass',SYS)
+
+#print
+print('MyGetList is ')
+print(MyGetList)
+
+#Init
+MyGetList=SYS.GetList(None,SYS)
+
+#print
+print('MyGetList is ')
+print(MyGetList)
+

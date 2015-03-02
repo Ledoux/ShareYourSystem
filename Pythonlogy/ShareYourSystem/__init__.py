@@ -1091,6 +1091,62 @@ def lib():
 SingularStrToPluralStrOrderedDict=dictify(ConceptStrsTuplesList,0,1)
 PluralStrToSingularStrOrderedDict=dictify(ConceptStrsTuplesList,1,0)
 
+class ClassesList(list):
+
+	def __init__(self,_ClassVariable=None):
+		
+		#call the base 
+		list.__init__(self)
+
+		#/#################/#
+		# Adapt the shape of the args
+		#
+
+		#Check
+		if type(_ClassVariable)!=list:
+
+			#Check
+			if _ClassVariable==None:
+
+				#/#################/#
+				# Give all the mro doer
+				#
+
+				#alias
+				self.extend(_InstanceVariable.__class__.MroDoerClassesList)
+
+			elif type(_ClassVariable)==str:
+				
+				#get
+				_ClassVariable=getattr(
+						sys.modules['ShareYourSystem'],
+						getClassStrWithNameStr(_ClassVariable)
+				)
+
+				#listify
+				self.append(_ClassVariable)
+
+			else:
+
+				#listify
+				self.append(_ClassVariable)
+
+		else:
+
+			#map
+			_ClassVariable=map(
+					lambda __ElementVariable:
+					getattr(
+						sys.modules['ShareYourSystem'],
+						getClassStrWithNameStr(__ElementVariable)
+					) if type(__ElementVariable)==str else __ElementVariable,
+					_ClassVariable
+				)
+
+			#extend
+			self.extend(_ClassVariable)
+
+
 class GetList(list):
 
 	def __init__(self,_ListVariable=None,_GetterVariable=None):
@@ -1101,6 +1157,18 @@ class GetList(list):
 		#init
 		self.ListVariable=_ListVariable
 		self.GetterVariable=_GetterVariable
+
+		#Check
+		if hasattr(self.GetterVariable,'__getitem__'):
+			GetMethod=getattr(
+				self.GetterVariable,
+				'__getitem__'
+			)
+		else:
+			GetMethod=lambda __KeyVariable:getattr(
+				self.GetterVariable,
+				__KeyVariable
+			) if type(__KeyVariable)==str else __KeyVariable
 
 		#init
 		if self.ListVariable==None:
@@ -1123,9 +1191,9 @@ class GetList(list):
 			if self.GetterVariable!=None:
 
 				#get
-				ValueVariable=self.GetterVariable[
+				ValueVariable=GetMethod(
 						self.ListVariable
-					]
+					)
 			else:
 
 				#alias
@@ -1143,7 +1211,7 @@ class GetList(list):
 				#map a get
 				ValueVariable=map(
 						lambda __ElementVariable:
-						self.GetterVariable[__ElementVariable],
+						GetMethod(__ElementVariable),
 						self.ListVariable
 					)
 			else:

@@ -34,10 +34,19 @@ print('MyMaker before switch is ')
 SYS._print(MyMaker)
 
 #switch
-MyMaker.set(
-		'setSwitch',
-		[MakerClass,'make']
-	).make(
+MyMaker['#map@set'](
+		[
+			('setSwitch',[MakerClass,'make']),
+			('setDoing',MakerClass),
+		]
+	)
+
+#print
+print('MyMaker after switch and reset is ')
+SYS._print(MyMaker)
+
+#make
+MyMaker.make(
 		7.
 	)
 

@@ -12,7 +12,6 @@ class FooClass(object):
 		object.__init__(self)
 
 #Definition 
-
 FooClass.ShareClassor.MyInt=2
 MyFirstFoo=FooClass()
 MySecondFoo=FooClass()

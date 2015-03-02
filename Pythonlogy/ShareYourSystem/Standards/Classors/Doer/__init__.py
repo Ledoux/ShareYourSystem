@@ -52,29 +52,31 @@ def callDo(_InstanceVariable):
 def getDoing(_InstanceVariable,_DoClassVariable=None):
 
 	#check
-	if type(_DoClassVariable) in SYS.StrTypesList:
-		_DoClassVariable=getattr(
-			SYS,
-			SYS.getClassStrWithNameStr(_DoClassVariable)
-	)
-	elif _DoClassVariable==None:
-		_DoClassVariable=_InstanceVariable.__class__
+	DoClassesList=SYS.GetList(_DoClassVariable,SYS)
+	if len(DoClassesList)==0:
+		DoClassesList=_InstanceVariable.__class__.MroDoerClassesList
 
 	#Debug
 	"""
 	print('l 83 Doer')
-	print('_DoClassVariable is ',_DoClassVariable)
+	print('DoClassesList is ',DoClassesList)
 	print('')
 	"""
 
 	#call
 	return collections.OrderedDict(
-		zip(
-		_DoClassVariable.DoingAttributeVariablesOrderedDict.keys(),
-		map(
-				lambda __DoneKeyStr:
-				getattr(_InstanceVariable,__DoneKeyStr),
-				_DoClassVariable.DoingAttributeVariablesOrderedDict.keys()
+		SYS.sum(
+			map(
+				lambda __DoClass:
+				zip(
+					__DoClass.DoingAttributeVariablesOrderedDict.keys(),
+				map(
+						lambda __DoneKeyStr:
+						getattr(_InstanceVariable,__DoneKeyStr),
+						__DoClass.DoingAttributeVariablesOrderedDict.keys()
+					)
+				),
+				DoClassesList
 			)
 		)
 	)
@@ -82,13 +84,9 @@ def getDoing(_InstanceVariable,_DoClassVariable=None):
 def setDoing(_InstanceVariable,_DoClassVariable=None,**_KwargVariablesDict):
 
 	#check
-	if type(_DoClassVariable) in SYS.StrTypesList:
-		_DoClassVariable=getattr(
-			SYS,
-			SYS.getClassStrWithNameStr(_DoClassVariable)
-		)
-	elif _DoClassVariable==None:
-		_DoClassVariable=_InstanceVariable.__class__
+	DoClassesList=SYS.GetList(_DoClassVariable,SYS)
+	if len(DoClassesList)==0:
+		DoClassesList=_InstanceVariable.__class__.MroDoerClassesList
 		
 	#call
 	_InstanceVariable.setDefault(
@@ -595,9 +593,21 @@ class DoerClass(BaseClass):
 			#set a pointer to the fundamental class
 			locals()[DoDecorationMethodStr].BaseDoClass=DoClass
 
-			#Set maybe if not already
+			#/####################/#
+			# Set maybe if not already the setDo methods
+			#
+
+			#Check
 			if hasattr(DoClass,'setDo')==False:
 
+				#Debug
+				'''
+				print('Doer l 602')
+				print('DoClass is')
+				print(DoClass)
+				print('')
+				'''
+				
 				#map
 				map(
 					lambda __SetUnboundMethod:
@@ -614,6 +624,24 @@ class DoerClass(BaseClass):
 					]
 				)
 
+			#/####################/#
+			# Give a list of all the mro Doer and the do possible
+			#
+
+			#set a DoMethodStrsList
+			if hasattr(DoClass.__bases__[0],'MroDoerClassesList'):
+				DoClass.MroDoerClassesList=DoClass.__bases__[0
+				].MroDoerClassesList+[DoClass]
+			else:
+				DoClass.MroDoerClassesList=[DoClass]
+
+			#set a DoMethodStrsList
+			if hasattr(DoClass.__bases__[0],'DoMethodStrsList'):
+				DoClass.DoMethodStrsList=DoClass.__bases__[0
+				].DoMethodStrsList+[DoMethodStr]
+			else:
+				DoClass.DoMethodStrsList=[DoMethodStr]
+
 		#Add to the KeyStrsList
 		DoClass.KeyStrsList+=[
 								'DoerStr',
@@ -627,7 +655,8 @@ class DoerClass(BaseClass):
 								DoExecStrKeyStr,
 								'DoingGetBool',
 								'DoTempAttributeItemTuplesList',
-								'DoTempNotAttributeItemTupleItemsList'
+								'DoTempNotAttributeItemTupleItemsList',
+								'DoMethodStrsList'
 						]+DoClass.DoingAttributeVariablesOrderedDict.keys(
 							)+DoClass.DoneAttributeVariablesOrderedDict.keys()
 #</DefineClass>

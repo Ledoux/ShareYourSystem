@@ -64,24 +64,44 @@ def getDefaultedValueVariableWithSetVariable(_SetVariable):
 def setDefaultMutable(
 	_InstanceVariable,
 	_ClassVariable,
-	_AttributeKeyStrsList=None,
+	_AttributeKeyVariable=None,
 	**_KwargVariablesDict
 ):
 	
+	#get
+	DefaultClassesList=SYS.GetList(_ClassVariable,SYS)
+
 	#Set
 	if 'ForceSetIsBool' in _KwargVariablesDict:
 		ForceSetIsBool=_KwargVariablesDict['ForceSetIsBool']
 	else:
 		ForceSetIsBool=False
 
-	#get
-	DefaultClass=_InstanceVariable.getClass(_ClassVariable)
+	#/#################/#
+	# Get all the attribute to default set again and filter 
+	# the ones that have not the right
+	#
 
 	#Check
-	if _AttributeKeyStrsList==None:
-		_AttributeKeyStrsList=DefaultClass.DefaultSpecificKeyStrsList
+	if _AttributeKeyVariable==None:
+		AttributeKeyStrsList=SYS.sum(
+			map(
+				lambda __DefaultClass:
+				__DefaultClass.DefaultSpecificKeyStrsList,
+				DefaultClassesList
+			)
+		)
+	elif type(_AttributeKeyVariable)!=list:
+		AttributeKeyStrsList=[AttributeKeyVariable]
+	else:
+		AttributeKeyStrsList=_AttributeKeyVariable
 		
-	#map an init for the mutable variables by detecting them at the level of the class : they are None
+	#/################/#
+	# map an init for the mutable variables by detecting them at the level of the class 
+	# they are None
+	#
+
+	#map
 	TypeClassesList=map(
 			lambda __AttributeKeyStr:
 			SYS.getTypeClassWithTypeStr(
@@ -97,18 +117,22 @@ def setDefaultMutable(
 					if ForceSetIsBool==False 
 					else True
 				)
-			and getattr(DefaultClass,__AttributeKeyStr)==None
+			and getattr(
+				_InstanceVariable.__class__,
+				__AttributeKeyStr
+			)==None
 			else None.__class__,
-			_AttributeKeyStrsList
+			AttributeKeyStrsList
 	)
 
 	#debug
 	'''
-	print('l 83 Defaultor')
+	print('l 122 Defaultor')
+	print('AttributeKeyStrsList is '+str(AttributeKeyStrsList))
 	print('TypeClassesList is '+str(TypeClassesList))
 	print('')
 	'''
-	
+
 	#set in the instance
 	map(
 			lambda __AttributeKeyStr,__TypeClass:
@@ -119,7 +143,7 @@ def setDefaultMutable(
 			)
 			if __TypeClass!=None.__class__ 
 			else None,
-			_AttributeKeyStrsList,
+			AttributeKeyStrsList,
 			TypeClassesList
 	)
 
@@ -129,34 +153,57 @@ def setDefaultMutable(
 def setDefault(
 	_InstanceVariable,
 	_ClassVariable,
-	_AttributeKeyStrsList=None,
+	_AttributeKeyVariable=None,
 	**_KwargVariablesDict
 ):
 	
+	#/#################/#
+	# Get all the default classes
+	#
+
 	#get
-	DefaultClass=_InstanceVariable.getClass(_ClassVariable)
+	DefaultClassesList=SYS.GetList(_ClassVariable,SYS)
+
+	#Debug
+	print('setDefault l 168')
+	print('DefaultClassesList is ')
+	print(DefaultClassesList)
+	print('')
+
+	#/#################/#
+	# Get all the attribute to default set again and filter 
+	# the ones that have not the right
+	#
 
 	#Check
-	if _AttributeKeyStrsList==None:
-		_AttributeKeyStrsList=_ClassVariable.DefaultSpecificKeyStrsList
+	if _AttributeKeyVariable==None:
+		AttributeKeyStrsList=SYS.sum(
+			map(
+				lambda __DefaultClass:
+				__DefaultClass.DefaultSpecificKeyStrsList,
+				DefaultClassesList
+			)
+		)
+	elif type(_AttributeKeyVariable)!=list:
+		AttributeKeyStrsList=[_AttributeKeyVariable]
+	else:
+		AttributeKeyStrsList=_AttributeKeyVariable
 
-	#check
+	#Check
 	if 'DefaultNotSetTagStrsList' in _KwargVariablesDict:
 
 		#filter
-		_AttributeKeyStrsList=SYS._filter(
+		AttributeKeyStrsList=SYS._filter(
 				lambda __AttributeKeyStr:
 				__AttributeKeyStr not in _KwargVariablesDict['DefaultNotSetTagStrsList'],
-				_AttributeKeyStrsList
+				AttributeKeyStrsList
 			)
 		
 	#Debug
-	'''
-	print('Defaultor l 62')
-	print('_AttributeKeyStrsList is ')
-	print(_AttributeKeyStrsList)
+	print('Defaultor l 194')
+	print('AttributeKeyStrsList is ')
+	print(AttributeKeyStrsList)
 	print('')
-	'''
 
 	#map a set for all the class attributes into the instance
 	map(
@@ -165,15 +212,21 @@ def setDefault(
 			(
 				__AttributeKeyStr,
 				getattr(
-						DefaultClass,
+						_InstanceVariable.__class__,
 						__AttributeKeyStr
 					)
 			),
-			_AttributeKeyStrsList
+			AttributeKeyStrsList
 		)
 
 	#set
-	setDefaultMutable(_InstanceVariable,DefaultClass,_AttributeKeyStrsList)
+	'''
+	setDefaultMutable(
+		_InstanceVariable,
+		DefaultClassesList,
+		AttributeKeyStrsList
+	)
+	'''
 
 	#return 
 	return _InstanceVariable

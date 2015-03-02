@@ -42,19 +42,58 @@ def setSwitch(
 	print('')
 	'''
 	
-	#Adapt the shape
+	#/#################/#
+	# Adapt the shape of the args
+	#
+
+	#Check
 	if type(_DoerVariable)!=list:
+
+		#Check
 		if _DoerVariable==None:
-			_DoerVariable=_InstanceVariable.__class__
-		DoerClassVariablesList=[_DoerVariable]
+
+			#/#################/#
+			# Give all the mro doer
+			#
+
+			#alias
+			DoerClassVariablesList=_InstanceVariable.__class__.MroDoerClassesList
+
+		else:
+		
+			#listify
+			DoerClassVariablesList=[_DoerVariable]
+
 	else:
+
+		#just alias
 		DoerClassVariablesList=_DoerVariable
+
+	#Check
 	if type(_DoVariable)!=list:
+
+		#Check
 		if _DoVariable==None:
-			_DoVariable=_InstanceVariable.DoStr
-		DoStrsList=[_DoVariable]
+
+			#/#################/#
+			# Give all the do method str
+			#
+
+			#alias
+			DoStrsList=_InstanceVariable.DoMethodStrsList
+
+		else:
+		
+			#listify
+			DoStrsList=[_DoVariable]
+
+
 	else:
+
+		#just alias
 		DoStrsList=_DoVariable
+
+	#Check
 	if type(_HookVariable)!=list:
 		if _HookVariable==None:
 			HookStrsList=['Before','After']

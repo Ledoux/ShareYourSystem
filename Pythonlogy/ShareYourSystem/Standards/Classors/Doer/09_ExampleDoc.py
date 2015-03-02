@@ -36,7 +36,7 @@ MyMaker=MakerClass(
 
 #print
 print('MyMaker.getDo() is ')
-print(MyMaker.getDo())
+print(SYS.indent(MyMaker.getDo()))
 print('')
 
 #print
@@ -46,7 +46,7 @@ print('')
 
 #print
 print('MyMaker.getDo() after set doing is ')
-print(MyMaker.getDo())
+print(SYS.indent(MyMaker.getDo()))
 print('')
 
 #Add
