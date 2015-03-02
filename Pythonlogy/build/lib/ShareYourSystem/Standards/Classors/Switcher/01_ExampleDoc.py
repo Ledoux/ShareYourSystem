@@ -69,4 +69,3 @@ print('MakerClass.make is '+str(MakerClass.make))
 print('MyMaker.__dict__ is '+SYS._str(MyMaker.__dict__))
 
 
-

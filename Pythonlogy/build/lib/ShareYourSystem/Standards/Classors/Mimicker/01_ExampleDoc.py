@@ -7,6 +7,8 @@ class MakerClass(object):
 
 	def default_init(self,
 					_MakingMyFloat=0.,
+					_MakingFirstInt=0,
+					_MakingSecondInt=1,
 					_MadeMyInt=0,
 					**_KwarVariablesDict
 				):
@@ -46,34 +48,28 @@ class BuilderClass(MakerClass):
 MyBuilder=BuilderClass()
 
 #Print
-print('Before make, MyBuilder is ')
-SYS._print(MyBuilder,**{
-	'RepresentingKeyStrsList':['MakingMyFloat','MadeMyInt']
-})
+print('Before make, MyBuilder.__dict__ is ')
+print(SYS.indent(MyBuilder.__dict__))
 
 #make once
-MyBuilder.make(3.)
+MyBuilder.make(
+	3.,
+	_FirstInt=2,
+	**{
+		'MakingSecondInt':5
+	}
+)
 
 #Print
-print('After the first make, MyBuilder is ')
-SYS._print(MyBuilder,**{
-	'RepresentingKeyStrsList':['MakingMyFloat','MadeMyInt']
-})
+print('After the first make, MyBuilder.__dict__ is ')
+print(SYS.indent(MyBuilder.__dict__))
 
 #Definition the AttestedStr
-SYS._attest(
-	[
-		'BuilderClass.make is '+str(BuilderClass.make),
-		'MyBuilder is '+SYS._str(
-		MyBuilder,
-		**{
-			'RepresentingBaseKeyStrsListBool':False,
-			'RepresentingAlineaIsBool':False,
-			'RepresentingKeyStrsList':['MakingMyFloat','MadeMyInt']
-		}
-		)
-	]
-) 
+print('BuilderClass.make is '+str(BuilderClass.make))
+
+#print
+print('MyBuilder.__dict__ is ')
+print(SYS.indent(MyBuilder.__dict__))
 
 #Check
 print('MakerClass.make.BaseDoClass is ')

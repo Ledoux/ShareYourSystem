@@ -12,6 +12,7 @@ class MakerClass(object):
 				_MakingMyList=None,
 				_MakingFirstInt={'DefaultValueType':int},
 				_MakingSecondInt=0,
+				_MakingThirdInt=1,
 				_MadeMyInt=0,
 				_MadeMyList=None,
 				):
@@ -40,7 +41,8 @@ MyMaker=MakerClass(
 	).superDo_make(
 		3.,
 		np.array([5]),
-		_SecondInt=5
+		_SecondInt=5,
+		**{'MakingThirdInt':6}
 	)
 
 #Add
@@ -52,6 +54,7 @@ print("\n".join([
 		'MyMaker.MakingMyList is '+str(MyMaker.MakingMyList),
 		'MyMaker.MakingFirstInt is '+str(MyMaker.MakingFirstInt),
 		'MyMaker.MakingSecondInt is '+str(MyMaker.MakingSecondInt),
+		'MyMaker.MakingThirdInt is '+str(MyMaker.MakingThirdInt),
 		'MyMaker.MadeMyInt is '+str(MyMaker.MadeMyInt),
 		'MyMaker.MadeMyList is '+str(MyMaker.MadeMyList)
 	]

@@ -64,77 +64,44 @@ class BuilderClass(MakerClass):
 MyBuilder=BuilderClass()
 
 #Print
-print('Before make, MyBuilder is ')
-SYS._print(MyBuilder,**{
-	'RepresentingKeyStrsList':[
-	'MakingMyFloat',
-	'MadeMyInt']
-})
+print('Before make, MyBuilder.__dict__ is ')
+print(SYS.indent(MyBuilder.__dict__))
 
 #make once
 MyBuilder.make(3.)
 
 #Print
 print('After the first make, MyBuilder is ')
-SYS._print(MyBuilder,**{
-	'RepresentingKeyStrsList':[
-	'MakingMyFloat',
-	'MadeMyInt',
-	]
-})
+print(SYS.indent(MyBuilder.__dict__))
 
 #make again
 MyBuilder.make(5.)
 
 #Print
 print('After the second make, MyBuilder is ')
-SYS._print(MyBuilder,**{
-	'RepresentingKeyStrsList':[
-	'MakingMyFloat',
-	'MadeMyInt',
-	]
-})
+print(SYS.indent(MyBuilder.__dict__))
 
 #make again
 print('Now we switch')
 MyBuilder.setSwitch('Maker',['Make'])
 
+"""
 #Print
 print('After the switch MyBuilder is ')
-SYS._print(MyBuilder,**{
-	'RepresentingKeyStrsList':[
-	'MakingMyFloat',
-	'MadeMyInt'
-	]
-})
+print(SYS.indent(MyBuilder.__dict__))
 
 #make again
 MyBuilder.make(7.)
 
 #Print
 print('After the third make, MyBuilder is ')
-SYS._print(MyBuilder,**{
-	'RepresentingKeyStrsList':[
-	'MakingMyFloat',
-	'MadeMyInt',
-	'WatchBeforeMakeWithMakerBool']
-})
+print(SYS.indent(MyBuilder.__dict__))
 
 #Definition the AttestedStr
-SYS._attest(
-	[
-		'BuilderClass.WatchBeforeMakeWithMakerBool is '+str(BuilderClass.WatchBeforeMakeWithMakerBool),
-		'BuilderClass.make is '+str(BuilderClass.make),
-		'MyBuilder is '+SYS._str(
-			MyBuilder,**{
-			'RepresentingAlineaIsBool':False,
-			'RepresentingKeyStrsList':[
-			'MakingMyFloat',
-			'MadeMyInt'
-			]
-		}
-		),
-	]
-) 
+print('BuilderClass.WatchBeforeMakeWithMakerBool is '+str(
+	BuilderClass.WatchBeforeMakeWithMakerBool))
+print('BuilderClass.make is '+str(BuilderClass.make))
+print('MyBuilder is ')
+print(SYS.indent(MyBuilder.__dict__))
 
-#Print
+"""

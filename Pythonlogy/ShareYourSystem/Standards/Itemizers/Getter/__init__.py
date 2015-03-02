@@ -233,8 +233,14 @@ class GetterClass(BaseClass):
 			#debug
 			'''
 			self.debug(
-					'This is a non method get'
-				)
+					[	
+						'This is a non method get',
+						('self.',self,[
+							'GettingKeyVariable',
+							'GettingNewBool'
+						])
+					]
+			)
 			'''
 
 			'''
@@ -431,6 +437,14 @@ class GetterClass(BaseClass):
 			#Check
 			elif self.GettingKeyVariable in self.__class__.__dict__:
 
+				#debug
+				self.debug(
+						[
+							'this is in a class __dict__',
+							('self.',self,['GettingKeyVariable'])
+						]
+					)
+
 				#get
 				GettedClassValueVariable=self.__class__.__dict__[
 					self.GettingKeyVariable
@@ -448,7 +462,7 @@ class GetterClass(BaseClass):
 				else:
 
 					#__getitem__ in the __class__
-					self.GettedValueVariable=self.GettingKeyVariable
+					self.GettedValueVariable=GettedClassValueVariable
 
 				#debug
 				'''
@@ -482,15 +496,17 @@ class GetterClass(BaseClass):
 				)
 
 				#debug
-				'''
-				self.debug('GettedValueType is '+str(GettedValueType))
-				'''
+				self.debug(
+					[
+						'GettedValueType is '+str(GettedValueType),
+						('self.',self,['GettingKeyVariable'])
+					]
+				)
 
 				#Check
 				if callable(GettedValueType):
 
 					#debug
-					'''
 					self.debug(
 						[
 							'We call here',
@@ -498,7 +514,6 @@ class GetterClass(BaseClass):
 							('self.',self,['GettingKeyVariable'])
 						]
 					)
-					'''
 					
 					#alias
 					self.GettedValueVariable=GettedValueType()

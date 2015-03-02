@@ -35,25 +35,33 @@ def setSwitch(
 	#Debug
 	'''
 	print('l 31 setSwitch')
+	print('_DoerVariable is ',_DoerVariable)
 	print('_DoVariable is ',_DoVariable)
-	print('_InstanceVariable.__class__.NameStr is ',_InstanceVariable.__class__.NameStr)
+	print('_HookVariable is ',_HookVariable)
+	#print('_InstanceVariable.__class__.NameStr is ',_InstanceVariable.__class__.NameStr)
 	print('')
 	'''
-
+	
 	#Adapt the shape
 	if type(_DoerVariable)!=list:
 		if _DoerVariable==None:
 			_DoerVariable=_InstanceVariable.__class__
 		DoerClassVariablesList=[_DoerVariable]
+	else:
+		DoerClassVariablesList=_DoerVariable
 	if type(_DoVariable)!=list:
 		if _DoVariable==None:
 			_DoVariable=_InstanceVariable.DoStr
 		DoStrsList=[_DoVariable]
+	else:
+		DoStrsList=_DoVariable
 	if type(_HookVariable)!=list:
 		if _HookVariable==None:
 			HookStrsList=['Before','After']
 		else:
 			HookStrsList=[_HookVariable]
+	else:
+		HookStrsList=_HookVariable
 
 	#get
 	SwitchClassesList=map(
@@ -237,10 +245,25 @@ class SwitcherClass(BaseClass):
 			
 			#Check
 			if hasattr(self.DoClass,'setSwitch')==False:
+
+				#set
 				setattr(
 						self.DoClass,
 						setSwitch.__name__,
 						setSwitch
 					)
+
+				#get the unbound
+				setSwitchUnboundMethod=getattr(
+					self.DoClass,
+					setSwitch.__name__
+				)
+
+				#add in the inspect
+				self.DoClass.InspectedMethodDict[setSwitch.__name__]=setSwitchUnboundMethod
+				self.DoClass.InspectedArgumentDict[setSwitch.__name__]=SYS.ArgumentDict(
+							setSwitchUnboundMethod
+						)
+
 #</DefineClass>
 

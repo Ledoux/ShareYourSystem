@@ -9,7 +9,7 @@ MyController=SYS.ControllerClass(
 			'ControllingModelClassVariable':SYS.InserterClass
 		}
 	).set(
-		'/&Models/$Things',
+		'/-Models/|Things',
 		{
 			'RowingGetStrsList':[
 					'MyInt',
@@ -23,7 +23,7 @@ MyController=SYS.ControllerClass(
 			'MyIntsList':[2,4,1]
 		}
 	).command(
-		'/&Models/$Things',
+		'/-Models/|Things',
 		'#call:insert'
 	)['#map@set'](
 		{
@@ -32,7 +32,7 @@ MyController=SYS.ControllerClass(
 			'MyIntsList':[2,4,1]
 		}
 	).command(
-		'/&Models/$Things',
+		'/-Models/|Things',
 		['#call:insert']
 	)
 	
@@ -44,7 +44,7 @@ print('MyController is ')
 SYS._print(MyController)
 
 #Print
-MyController.close()
+MyController.process(_ActionStr='kill')
 
 
 

@@ -31,12 +31,6 @@ def getLiargVariablesList(_ValueVariable):
 @DecorationClass()
 class ArrayerClass(BaseClass):
 	
-	#Definition
-	RepresentingKeyStrsList=[	
-								'ArrayingKeyVariablesList',
-								'ArrayingValueVariable',
-							]
-
 	def default_init(self,
 						_ArrayingKeyVariablesList=None,
 						_ArrayingValueVariable=None,
@@ -252,4 +246,13 @@ class ArrayerClass(BaseClass):
 		
 
 #</DefineClass>
+
+#</DefinePrint>
+ArrayerClass.PrintingClassSkipKeyStrsList.extend(
+	[
+		'ArrayingKeyVariablesList',
+		'ArrayingValueVariable',
+	]
+)
+#<DefinePrint>
 

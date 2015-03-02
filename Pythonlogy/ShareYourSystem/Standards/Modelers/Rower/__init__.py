@@ -187,7 +187,7 @@ class RowerClass(
 					zip(
 						self.RowingGetStrsList,
 						self.ModeledDeriveControllerVariable[Getter.GetMapStr](
-							self.RowingGetStrsList
+							*self.RowingGetStrsList
 						)
 					)
 				)
@@ -284,22 +284,27 @@ class RowerClass(
 					zip(
 						self.RowedHdfColumnStrsList,
 						self.ModeledDeriveControllerVariable[Getter.GetMapStr](
-							self.RowingGetStrsList
-						)
+							*self.RowingGetStrsList
+						).ItemizedMapValueVariablesList
 					)
 				)
 
 				#debug
-				'''
 				self.debug(
-					('self.',self,[
-										'RowedHdfPickOrderedDict',
-										'TabledHdfTable'
-							]
-					)
+					[
+						'Ok we have almost end the row',
+						('self.',self,[
+									'RowedHdfPickOrderedDict',
+								]
+						),
+						'Check now if it is a new row'
+					]
 				)
-				'''
 				
+				#/#################/#
+				# Check if it is a new row
+				#
+
 				#Check if it was already rowed
 				self.RowedHdfIsBoolsList=map(
 						lambda __Row:

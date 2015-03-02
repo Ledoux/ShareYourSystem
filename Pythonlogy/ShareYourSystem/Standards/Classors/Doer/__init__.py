@@ -197,6 +197,10 @@ def do(
 		**_KwargVariablesDict
 	):
 
+	#/################/#
+	# Prepare the call of the do method
+	#
+
 	#Define
 	DoDecorationMethodStr=_KwargVariablesDict['DoDecorationMethodStr']
 	DoMethodStr=DoDecorationMethodStr.split(
@@ -214,15 +218,19 @@ def do(
 	del _KwargVariablesDict['DoDecorationMethodStr']
 	del _KwargVariablesDict['DoClassStr']
 
+	#/################/#
+	# Look in the Kwarg if there were specifications of doing attributes
+	#
+
 	#debug
 	'''
-	print('Doer l.112 inside of the function DoFunction')
-	print('InstanceVariable is ',_InstanceVariable)
+	print('Doer l.219 inside of the function DoFunction')
+	#print('InstanceVariable is ',_InstanceVariable)
 	print('_LiargVariablesList is ',_LiargVariablesList)
 	print('_KwargVariablesDict is ',_KwargVariablesDict)
 	print('')
 	'''
-	
+
 	#Definition of the DoKwargTuplesList
 	DoKwargTuplesList=map(
 		lambda __KwargTuple:
@@ -234,6 +242,14 @@ def do(
 		else __KwargTuple,
 		_KwargVariablesDict.items()
 	)
+
+	#Debug
+	'''
+	print('Doer l 239 ')
+	print('DoKwargTuplesList is')
+	print(DoKwargTuplesList)
+	print('')
+	'''
 
 	#Check
 	if len(DoKwargTuplesList)>0:
@@ -394,6 +410,11 @@ class DoerClass(BaseClass):
 				DoClass.DefaultAttributeVariablesOrderedDict.items()
 				)
 			)
+			DoClass.DoingDeprefixAttributeStrsList=map(
+					lambda __KeyStr:
+					DoingAttributePrefixStr+SYS.deprefix(__KeyStr,DoingStr),
+					DoClass.DoingAttributeVariablesOrderedDict.keys()
+				)
 
 			#Definition
 			DoWrapMethodStr=DoingWrapPrefixStr+DoMethodStr
@@ -449,19 +470,29 @@ class DoerClass(BaseClass):
 				)
 			"""
 
+			#/#################/#
+			# Define the shape of the args
+			#
+
 			#Definition of the ExecStr that will define the function
 			DoDecorationMethodStr=DoingDecorationPrefixStr+DoingDecorationTagStr+DoingDecorationSuffixStr+DoMethodStr
 			DoExecStr="def "+DoDecorationMethodStr+"(_InstanceVariable,"
 			DoExecStr+=",".join(
 				map(
-					lambda __KeyStr:
-					DoingAttributePrefixStr+__KeyStr+"=None",
-					DoClass.DoingAttributeVariablesOrderedDict.keys()
+					lambda __DoingDeprefixAttributeStr:
+					#DoingAttributePrefixStr+__KeyStr+"=None",
+					__DoingDeprefixAttributeStr+"=None",
+					#DoClass.DoingAttributeVariablesOrderedDict.keys()
+					DoClass.DoingDeprefixAttributeStrsList
 				)
 			)
 			DoExecStr+="," if DoExecStr[-1]!="," else ""
 			DoExecStr+="*_LiargVariablesList,"
 			DoExecStr+="**_KwargVariablesDict):\n\t"
+
+			#/#################/#
+			# Set the doing variables
+			#
 
 			#Debug part
 			#DoExecStr+='\n\tprint("In '+DoDecorationMethodStr+' with '+DoWrapMethod.__name__+' ") '
@@ -478,41 +509,20 @@ class DoerClass(BaseClass):
 			DoExecStr+='\n\tprint("_KwargVariablesDict is ",_KwargVariablesDict);\n\t'
 			'''
 
-			#Set the doing variables
-			"""
-			DoExecStr+="\n\t#set the doing variables"
-			DoExecStr+="\n\tDoHistoryOrderedDict=_InstanceVariable.__class__.DoHistoryOrderedDict"
-			DoExecStr+="\n\tif '"+DoDecorationMethodStr+"' not in DoHistoryOrderedDict:DoHistoryOrderedDict['"+DoDecorationMethodStr+"']=SYS.collections.OrderedDict()"
-			DoExecStr+="\n\tDoneSpecificAttributesOrderedDict=DoHistoryOrderedDict['"+DoDecorationMethodStr+"']"
+			#join
 			DoExecStr+=("\n"+";\n".join(
-			map(
-				lambda __KeyStr:
-				"\n".join(
-					[
-						"\tif "+DoingAttributePrefixStr+__KeyStr+"!=None:",
-						"\t\t_InstanceVariable."+__KeyStr+"="+DoingAttributePrefixStr+__KeyStr,
-						"\t\tDoneSpecificAttributesOrderedDict['"+__KeyStr+"']="+DoingAttributePrefixStr+__KeyStr,
-						"\telse:",
-						"\t\tDoneSpecificAttributesOrderedDict['"+__KeyStr+"']=None"
-					]
-				),
-				DoClass.DoingAttributeVariablesOrderedDict.keys()
-				)
-			)+";\n") if len(
-				DoClass.DoingAttributeVariablesOrderedDict.keys()
-			)>0 else ''
-			"""
-
-			DoExecStr+=("\n"+";\n".join(
-			map(
-				lambda __KeyStr:
-				"\n".join(
-					[
-						"\tif type("+DoingAttributePrefixStr+__KeyStr+")!=None.__class__:",
-						"\t\t_InstanceVariable."+__KeyStr+"="+DoingAttributePrefixStr+__KeyStr,
-					]
-				),
-				DoClass.DoingAttributeVariablesOrderedDict.keys()
+				map(
+					lambda __KeyStr,__DoingDeprefixAttributeStr:
+					"\n".join(
+						[
+							#"\tif type("+DoingAttributePrefixStr+__KeyStr+")!=None.__class__:",
+							#"\t\t_InstanceVariable."+__KeyStr+"="+DoingAttributePrefixStr+__KeyStr,
+							"\tif type("+__DoingDeprefixAttributeStr+")!=None.__class__:",
+							"\t\t_InstanceVariable."+__KeyStr+"="+__DoingDeprefixAttributeStr,
+						]
+					),
+					DoClass.DoingAttributeVariablesOrderedDict.keys(),
+					DoClass.DoingDeprefixAttributeStrsList
 				)
 			)+";\n") if len(
 				DoClass.DoingAttributeVariablesOrderedDict.keys()
@@ -544,12 +554,12 @@ class DoerClass(BaseClass):
 
 			#Debug
 			'''
-			print('Doer l 438')
+			print('Doer l 546')
 			print('DoExecStr is ')
 			print(DoExecStr)
 			print('')
 			'''
-
+			
 			#exec
 			six.exec_(DoExecStr)
 

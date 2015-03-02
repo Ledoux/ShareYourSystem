@@ -34,16 +34,22 @@ MyMaker=MakerClass(
 		_SecondInt=5
 	)
 
+#print
 print('MyMaker.getDo() is ')
 print(MyMaker.getDo())
+print('')
 
+#print
 print('we reset doing')
 MyMaker.setDoing(MakerClass)
+print('')
 
+#print
 print('MyMaker.getDo() after set doing is ')
 print(MyMaker.getDo())
+print('')
 
 #Add
-print('MyMaker.__dict__ is '+str(MyMaker.__dict__))
+print('MyMaker.__dict__ is '+SYS.indent(MyMaker.__dict__))
 
 

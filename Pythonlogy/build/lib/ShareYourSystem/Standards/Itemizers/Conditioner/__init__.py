@@ -41,23 +41,12 @@ ConditionGrabIfStr="#if"
 #<DefineClass>
 @DecorationClass()
 class ConditionerClass(BaseClass):
-
-	#Definition
-	RepresentingKeyStrsList=[
-								'ConditioningTestGetVariable',
-								'ConditioningGetBoolFunction',
-								'ConditioningAttestGetVariable',
-								'ConditioningInstanceVariable',
-								'ConditioningFunctionTypesList',
-								'ConditioningScanGetVariable',
-								'ConditionedIsBool'
-							]
 	
 	def default_init(self,
 						_ConditioningTestGetVariable=None,
 						_ConditioningGetBoolFunction=None,
 						_ConditioningAttestGetVariable=None,
-						_ConditioningInstanceVariable=None,
+						_ConditioningScopeVariable=None,
 						_ConditioningFunctionTypesList=[
 							type(len),
 							type,
@@ -72,7 +61,7 @@ class ConditionerClass(BaseClass):
 		BaseClass.__init__(self,**_KwargVariablesDict)
 		
 		#Set to itself as a default
-		self.ConditioningInstanceVariable=self
+		self.ConditioningScopeVariable=self
 
 	def getMapValueVariable(self):
 
@@ -88,7 +77,7 @@ class ConditionerClass(BaseClass):
 				('self.',self,[
 					'ConditioningTestGetVariable',
 					'ConditioningAttestGetVariable',
-					'ConditioningInstanceVariable'
+					'ConditioningScopeVariable'
 					]
 				)
 			]
@@ -103,7 +92,7 @@ class ConditionerClass(BaseClass):
 		try:
 
 			#get
-			ConditionedTestValueVariable=self.ConditioningInstanceVariable[
+			ConditionedTestValueVariable=self.ConditioningScopeVariable[
 				self.ConditioningTestGetVariable
 			]
 
@@ -116,14 +105,14 @@ class ConditionerClass(BaseClass):
 				[
 					'The get has not worked for the Test variable',
 					'so check what it is',
-					('self.',self,['ConditioningInstanceVariable'])
+					('self.',self,['ConditioningScopeVariable'])
 				]
 			)
 			'''
 
 			#return 
-			if hasattr(self.ConditioningInstanceVariable,'items'
-				)==False and type(self.ConditioningInstanceVariable) not in [
+			if hasattr(self.ConditioningScopeVariable,'items'
+				)==False and type(self.ConditioningScopeVariable) not in [
 					list,tuple]:
 
 				#debug
@@ -170,7 +159,7 @@ class ConditionerClass(BaseClass):
 
 			#call
 			ConditionedTestValueVariable=ConditionedTestValueVariable(
-					self.ConditioningInstanceVariable
+					self.ConditioningScopeVariable
 				)
 
 		#debug
@@ -191,7 +180,7 @@ class ConditionerClass(BaseClass):
 		try:
 
 			#get
-			ConditionedAttestValueVariable=self.ConditioningInstanceVariable[
+			ConditionedAttestValueVariable=self.ConditioningScopeVariable[
 				self.ConditioningAttestGetVariable
 			]
 
@@ -204,14 +193,14 @@ class ConditionerClass(BaseClass):
 				[
 					'The get has not worked for the Attest variable',
 					'so check what it is',
-					('self.',self,['ConditioningInstanceVariable'])
+					('self.',self,['ConditioningScopeVariable'])
 				]
 			)
 			'''
 
 			#return 
-			if hasattr(self.ConditioningInstanceVariable,'items'
-				)==False and type(self.ConditioningInstanceVariable) not in [
+			if hasattr(self.ConditioningScopeVariable,'items'
+				)==False and type(self.ConditioningScopeVariable) not in [
 					list,tuple]:
 
 				#debug
@@ -245,7 +234,7 @@ class ConditionerClass(BaseClass):
 			
 			#call
 			ConditionedAttestValueVariable=ConditionedAttestValueVariable(
-					self.ConditioningInstanceVariable
+					self.ConditioningScopeVariable
 				)
 
 		#debug
@@ -360,7 +349,7 @@ class ConditionerClass(BaseClass):
 					'''
 
 					#set
-					self.ConditioningInstanceVariable=__ConditionTestVariable
+					self.ConditioningScopeVariable=__ConditionTestVariable
 							
 					#loop and break at the first false
 					for __ConditionVariable in FilterVariable:
@@ -432,7 +421,7 @@ class ConditionerClass(BaseClass):
 						lambda __ConditionTestVariable:
 						all(
 								self.set(
-									'ConditioningInstanceVariable',
+									'ConditioningScopeVariable',
 									__ConditionTestVariable
 								)['#map@condition'](
 								IfVariable
@@ -574,7 +563,7 @@ class ConditionerClass(BaseClass):
 				'''
 
 				#reset
-				self.ConditioningInstanceVariable=self
+				self.ConditioningScopeVariable=self
 
 				#loop and break at the first false
 				for __ConditionVariable in IfVariable:
@@ -670,6 +659,20 @@ class ConditionerClass(BaseClass):
 		#call the base method
 		return BaseClass.set(self)
 
-
 #</DefineClass>
+
+
+#</DefinePrint>
+ConditionerClass.PrintingClassSkipKeyStrsList.extend(
+	[
+		'ConditioningTestGetVariable',
+		'ConditioningGetBoolFunction',
+		'ConditioningAttestGetVariable',
+		'ConditioningScopeVariable',
+		'ConditioningFunctionTypesList',
+		'ConditioningScanGetVariable',
+		'ConditionedIsBool'
+	]
+)
+#<DefinePrint>
 

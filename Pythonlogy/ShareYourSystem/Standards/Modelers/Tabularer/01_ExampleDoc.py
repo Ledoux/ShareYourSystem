@@ -9,15 +9,15 @@ MyController=SYS.ControllerClass(
 			'ControllingModelClassVariable':SYS.TabularerClass
 		}
 	).get(
-		'/&Models/$Things'
+		'/-Models/|Things'
 	)
 
 
 #Build a structure with a database
-MyController['/&Models/$Things'].TabularedMongoLocalDatabaseVariable.TestsCollection.remove(
+MyController['/-Models/|Things'].TabularedMongoLocalDatabaseVariable.TestsCollection.remove(
 	{}
 )
-MyController['/&Models/$Things'].TabularedMongoLocalDatabaseVariable.TestsCollection.insert(
+MyController['/-Models/|Things'].TabularedMongoLocalDatabaseVariable.TestsCollection.insert(
 	{'MyStr':"hello"}
 )
 
@@ -28,6 +28,6 @@ print('mongo db is : \n'+SYS._str(MyController.pymongoview()))
 print('MyController is ')
 SYS._print(MyController)
 
-#Print
-MyController.close()
+#kill
+MyController.process(_ActionStr='kill')
 

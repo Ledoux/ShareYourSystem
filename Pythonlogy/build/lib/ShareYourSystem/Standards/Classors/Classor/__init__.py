@@ -31,6 +31,14 @@ LocalModuleFolderPathStrAndModuleStrTuplesList=[]
 #<DefineLocals>
 def getClass(_InstanceVariable,_ClassVariable=None):
 
+	#Debug
+	'''
+	print('Classor l 35')
+	print('_ClassVariable is ')
+	print(_ClassVariable)
+	print('')
+	'''
+	
 	#Check
 	if type(_ClassVariable) in SYS.StrTypesList:
 		if _ClassVariable=="":

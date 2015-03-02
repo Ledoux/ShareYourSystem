@@ -2,15 +2,17 @@
 import ShareYourSystem as SYS
 
 #Define and map set with a dict
-MySetter=SYS.SetterClass(
-	)['#map@set'](
+MySetter=SYS.SetterClass()
+
+#set with map set
+MySetter['#map@set'](
 		{
 			'MyInt':0,
 			'MyStr':"hello"
 		}
 	)
 
-#Define and map set with a tuples list
+#map set with a tuples list
 MySetter['#map@set'](
 		[
 			('MyFloat',2.),
@@ -18,7 +20,7 @@ MySetter['#map@set'](
 		]
 	)
 
-#Define and map set 
+#map set 
 MySetter['#map@set']={
 			'FirstObject':object(),
 			'SecondObject':object()

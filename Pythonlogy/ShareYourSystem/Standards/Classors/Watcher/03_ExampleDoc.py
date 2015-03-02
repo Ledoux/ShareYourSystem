@@ -67,13 +67,7 @@ print('After the first make, MyBuilder is ')
 SYS._print(MyBuilder)
 
 #Definition the AttestedStr
-SYS._attest(
-	[
-		'BuilderClass.make is '+str(BuilderClass.make),
-		'MyBuilder is '+SYS._str(
-			MyBuilder,**{'RepresentingAlineaIsBool':False}
-		)
-	]
-) 
+print('BuilderClass.make is '+str(BuilderClass.make))
+print('MyBuilder.__dict__ is ')
+print(SYS.indent(MyBuilder.__dict__))
 
-#Print

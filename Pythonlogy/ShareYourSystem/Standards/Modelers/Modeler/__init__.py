@@ -16,7 +16,7 @@ types in the databased structures.
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Teamers.Parenter"
+BaseModuleStr="ShareYourSystem.Standards.Itemizers.Parenter"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -154,7 +154,9 @@ class ModelerClass(BaseClass):
 		'''
 
 		#get the parent-parent Teamer
-		self.ModeledDeriveControllerVariable=self['/^/^']
+		if self.ParentDeriveTeamerVariable!=None:
+			if self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable!=None:
+				self.ModeledDeriveControllerVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
 
 		#Check
 		if len(self.ModelingDescriptionTuplesList)>0:

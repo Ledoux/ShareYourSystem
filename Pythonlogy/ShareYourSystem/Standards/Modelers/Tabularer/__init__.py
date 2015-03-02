@@ -305,7 +305,7 @@ class TabularerClass(
 
 					#Definition Tabulared attributes
 					self.TabularedHdfGroupVariable=self.TabularedHdfTopFileVariable.getNode(
-						self.HdfGroupPathStr
+						self.ModeledDeriveControllerVariable.HdfGroupPathStr
 					)
 
 					#debug

@@ -144,13 +144,13 @@ class InserterClass(
 
 					#Pick and update				
 					self.InsertedMongoNotRowPickOrderedDict.update(
-					zip(
-						self.InsertedNotRowGetStrsList,
-						self.ModeledDeriveControllerVariable[
-						Getter.GetMapStr](
-							self.InsertedNotRowGetStrsList
+						zip(
+								self.InsertedNotRowGetStrsList,
+								self.ModeledDeriveControllerVariable[
+								Getter.GetMapStr](
+									*self.InsertedNotRowGetStrsList
+								).ItemizedMapValueVariablesList
 							)
-						)
 					)
 
 					#debug
@@ -216,26 +216,31 @@ class InserterClass(
 					Row=self.TabledHdfTable.row
 
 					#debug
-					'''
-					self.debug(('self.',self,['InsertedNotRowPickOrderedDict']))
-					'''
+					self.debug(
+						[
+							'We pick in the controller the values',
+							('self.',self,[
+								'InsertedNotRowGetStrsList'
+							])
+						]
+					)
 					
 					#Pick and update				
 					self.InsertedHdfNotRowPickOrderedDict.update(
-					zip(
-						self.InsertedNotRowGetStrsList,
-						self.ModeledDeriveControllerVariable[
-						Getter.GetMapStr](
-							self.InsertedNotRowGetStrsList
+						zip(
+								self.InsertedNotRowGetStrsList,
+								self.ModeledDeriveControllerVariable[
+								Getter.GetMapStr](
+									*self.InsertedNotRowGetStrsList
+									).ItemizedMapValueVariablesList
 							)
-						)
 					)
 
 					#debug
 					'''
 					self.debug(('self.',self,[
 												'RowedPickOrderedDict',
-												'InsertedNotRowPickOrderedDict'
+												'InsertedHdfNotRowPickOrderedDict'
 											]))
 					'''
 

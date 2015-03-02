@@ -90,9 +90,9 @@ class ItemizerClass(BaseClass):
 					self.debug(
 						[
 							'_MapLiargVariablesList is '+SYS._str(_MapLiargVariablesList),
-							'ItemizedMapMethodStr is '+ItemizedMapMethodStr,
-							'ItemizedMapMethod is '+str(ItemizedMapMethod),
-							'ItemizedMapMethod.im_func is '+str(ItemizedMapMethod.im_func)
+							#'ItemizedMapMethodStr is '+ItemizedMapMethodStr,
+							#'ItemizedMapMethod is '+str(ItemizedMapMethod),
+							#'ItemizedMapMethod.im_func is '+str(ItemizedMapMethod.im_func)
 						]
 					)
 					'''
@@ -136,16 +136,16 @@ class ItemizerClass(BaseClass):
 					'''
 					self.debug(
 						[
-							('self.',self,['ItemizedMapMethodStr']),
+							'ItemizedMapMethod is '+SYS._str(ItemizedMapMethod),
 							#'self.ItemizedMapMethod.__name__ is '+self.ItemizedMapMethod.__name__,
 							#'self.__class__.InspectedArgumentDict[self.ItemizedMapMethod.__name__] is ',
 							#SYS._str(self.__class__.InspectedArgumentDict[self.ItemizedMapMethod.__name__])
-							'ItemizedMapClass is '+str(ItemizedMapClass),
-							'ItemizedMapList is '+str(ItemizedMapList)
+							#'ItemizedMapClass is '+str(ItemizedMapClass),
+							'ItemizedMapList is '+SYS._str(ItemizedMapList)
 						]
 					)
 					'''
-
+					
 					#return
 					self.ItemizedMapValueVariablesList=map(
 						lambda __ElementVariable:

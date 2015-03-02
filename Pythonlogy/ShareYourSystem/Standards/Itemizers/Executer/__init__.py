@@ -31,12 +31,6 @@ ExecutionDotStr="."
 #<DefineClass>
 @DecorationClass()
 class ExecuterClass(BaseClass):
-	
-	#Definition
-	RepresentingKeyStrsList=[
-		'ExecutingCodeStr',
-		#'ExecutedLocalsDict'
-	]
 
 	def default_init(self,
 				_ExecutingCodeStr="" ,
@@ -305,3 +299,12 @@ class ExecuterClass(BaseClass):
 		BaseClass.set(self)
 
 #</DefineClass>
+
+#</DefinePrint>
+ExecuterClass.PrintingClassSkipKeyStrsList.extend(
+	[
+		'ExecutingCodeStr',
+		'ExecutedLocalsDict'
+	]
+)
+#<DefinePrint>

@@ -4,7 +4,7 @@ import ShareYourSystem as SYS
 
 #Definition a MakerClass
 @SYS.ClasserClass()
-class MakerClass(SYS.AttributerClass):
+class MakerClass(SYS.SetterClass):
 
 	def default_init(self,
 			_MakingIntsList={

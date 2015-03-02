@@ -10,7 +10,7 @@ MyController=SYS.ControllerClass(
 			'ControllingModelClassVariable':SYS.InserterClass
 		}
 	).set(
-		'/&Models/$Things',
+		'/-Models/|Things',
 		{
 			'ModelingDescriptionTuplesList':
 			[
@@ -31,8 +31,20 @@ MyController=SYS.ControllerClass(
 			'MyIntsList':[2,4,1]
 		}
 	).command(
-		'/&Models/$Things',
+		'/-Models/|Things',
 		'#call:insert'
+	)['#map@set'](
+		{
+			'MyInt':0,
+			'MyStr':"bonjour",
+			'MyIntsList':[2,4,1]
+		}
+	).command(
+		'/-Models/|Things',
+		[
+			('setSwitch',[SYS.RowerClass,'row']),
+			'#call:insert'
+		]
 	)
 
 #print
@@ -43,45 +55,7 @@ SYS._print(MyController)
 print('hdf5 file is : \n'+SYS._str(MyController.hdfview()))
 
 #close
-MyController.close()
+MyController.file(_ModeStr='c')
 
+'''
 
-
-"""
-#Definition a structure with a db
-MyController.update(
-			[
-				('MyInt',1),
-				('MyStr',"bonjour"),
-				('MyIntsList',[2,4,6])
-			]
-).command(
-	_UpdateList=[('insert',SYS.ApplyDictClass({'LiargVariablesList':[]}))],
-	**{'GatheringVariablesList':['<Inserters>ThingsInserter']}		
-).update(
-			[
-				('MyInt',0),
-				('MyStr',"hello"),
-				('MyIntsList',[0,0,0])
-			]
-).command(
-	_UpdateList=[('insert',SYS.ApplyDictClass({'LiargVariablesList':[]}))],		
-)
-
-#Definition the AttestedStr
-SYS._attest(
-	[
-		'MyController is '+SYS._str(
-		MyController,
-		**{
-			'RepresentingBaseKeyStrsListBool':False,
-			'RepresentingAlineaIsBool':False
-		}
-		),
-		'hdf5 file is : '+MyController.hdfview()
-	]
-) 
-
-#close
-MyController.close()
-"""

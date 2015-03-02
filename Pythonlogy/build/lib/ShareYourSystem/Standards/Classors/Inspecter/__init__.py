@@ -74,7 +74,7 @@ class InspecterClass(BaseClass):
 					InspectedClass.InspectedMethodDict.items()
 				)
 			)
-
+		
 		#Add to the KeyStrsList
 		InspectedClass.KeyStrsList+=[
 									'InspectedMethodDict',

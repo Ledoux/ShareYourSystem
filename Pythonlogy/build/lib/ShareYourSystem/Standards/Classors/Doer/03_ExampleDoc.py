@@ -21,9 +21,6 @@ class MakerClass(object):
 
 		#set
 		self.MadeMyInt=int(self.MakingMyFloat)
-
-		#Return self
-		#return self
 		
 #Definition the AttestedStr
 print("\n".join([

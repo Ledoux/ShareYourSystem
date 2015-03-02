@@ -9,7 +9,7 @@ MyController=SYS.ControllerClass(
 			'ControllingModelClassVariable':SYS.RowerClass
 		}
 	).get(
-		'/&Models/$Things'
+		'/-Models/|Things'
 	)['#map@set'](
 		{
 			'MyInt':0,
@@ -17,7 +17,7 @@ MyController=SYS.ControllerClass(
 			'MyIntsList':[2,4,1]
 		}
 	).command(
-		'/&Models/$Things',
+		'/-Models/|Things',
 		'#call:row'
 	)
 	
@@ -29,7 +29,7 @@ print('MyController is ')
 SYS._print(MyController)
 
 #Print
-MyController.close()
+MyController.process(_ActionStr='kill')
 
 
 

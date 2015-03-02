@@ -14,7 +14,7 @@ A Controller
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Teamers.Parenter"
+BaseModuleStr="ShareYourSystem.Standards.Interfacers.Hdformater"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -85,7 +85,7 @@ class ControllerClass(BaseClass):
 			self.ControlModelStr=self.ControlModelStr[1:]
 
 		#Create a group in the hdf5 file if it is with hdf
-		self.HdformatedFileVariable=self.ParentedTopDeriveParenterVariable.HdformatedFileVariable
+		self.HdformatedFileVariable=self.ParentTopDeriveTeamerVariable.HdformatedFileVariable
 			
 
 #</DefineClass>

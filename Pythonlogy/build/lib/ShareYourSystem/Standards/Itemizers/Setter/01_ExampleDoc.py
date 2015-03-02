@@ -22,6 +22,14 @@ MySetter.set(
 		('MyStr',"hello")
 	)
 
+MySetter.set(
+		'set',
+		{
+			'#liarg':['MyOtherStr'],
+			'#kwarg':{'SettingValueVariable':"bonjour"}
+		}
+	)
+
 #Note that we can call also a direct explicit function
 MySetter.get(
 		'MyList'
@@ -46,7 +54,7 @@ MySetter.set(
 		'get',
 		'MyInt'
 	)
-		
+	
 #print
 print('MySetter.GettedValueVariable is ')
 SYS._print(MySetter.GettedValueVariable)

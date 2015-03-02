@@ -13,6 +13,17 @@ class MakerClass(object):
 				):
 		object.__init__(self)
 
+#print at the class level
+print("\n".join(
+	[
+		'MakerClass has some special attributes',
+		'MakerClass.DoingAttributeVariablesOrderedDict is '+SYS.indent(
+			MakerClass.DoingAttributeVariablesOrderedDict),
+		'MakerClass.DoneAttributeVariablesOrderedDict is '+SYS.indent(
+			MakerClass.DoneAttributeVariablesOrderedDict)
+	])
+)
+
 #Definition a default instance
 DefaultMaker=MakerClass()
 
@@ -24,22 +35,19 @@ SpecialMaker=MakerClass(
 	}
 )
 
-#Definition the AttestedStr
-print("\n".join(
-	[
-	'MakerClass has some special attributes',
-	'MakerClass.DoingAttributeVariablesOrderedDict is '+str(
-		MakerClass.DoingAttributeVariablesOrderedDict),
-	'MakerClass.DoneAttributeVariablesOrderedDict is '+str(
-		MakerClass.DoneAttributeVariablesOrderedDict),
-	'What are you saying DefaultMaker ?',
-	'DefaultMaker.__dict__ is '+str(DefaultMaker.__dict__),
-	'DefaultMaker.getDo() is '+str(DefaultMaker.getDo()),
-	'What are you saying SpecialMaker ?',
-	'SpecialMaker.__dict__ is '+str(SpecialMaker.__dict__),
-	'SpecialMaker.getDo() is '+str(SpecialMaker.getDo())
-	]
-))
+#print
+print(
+	'\n'+'\n'.join(
+		[
+			'What are you saying DefaultMaker ?',
+			'DefaultMaker.__dict__ is '+str(DefaultMaker.__dict__),
+			'DefaultMaker.getDo() is '+str(DefaultMaker.getDo()),
+			'What are you saying SpecialMaker ?',
+			'SpecialMaker.__dict__ is '+str(SpecialMaker.__dict__),
+			'SpecialMaker.getDo() is '+str(SpecialMaker.getDo())
+		]
+	)
+)
 
 #Change classed attributes
 MakerClass.MakingMyFloat=5.

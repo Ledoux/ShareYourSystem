@@ -5,7 +5,7 @@ Erwan Ledoux
 
 ----
 
-> <erwan.ledoux@ens.fr> • +06 32 15 09 28 • 30 years old\
+> <erwan.ledoux@ens.fr> • +336 32 15 09 28 • 30 years old\
 > 23, rue de Sambre et Meuse - 75010, Paris, FRANCE
  
 >   Main specialities : research in the theory 
@@ -102,7 +102,7 @@ ShareYourSystem
     **[Scientific data-mining application](http://shareyoursystem.ouvaton.org/site)** <br> 
     based on a Python-Javascript hierarchic MVC framework (still under construction) <br>
 
-    It proposes a meta [object syntax](http://shareyoursystem.ouvaton.org/site/LibraryReference/Classors/) for making a source code and classes ontology more directly human-readable, [Model objects](http://shareyoursystem.ouvaton.org/site/LibraryReference/Databasers/) for synchronising mongo and hdf5 databases client and server-side, [Viewer objects](http://shareyoursystem.meteor.com/) for their interactive UML representation through a Meteor patch, [Controller objects](http://shareyoursystem.ouvaton.org/site/LibraryReference/Storers/) for establishing the interface between models and views, communication between python and js instances and the scope level for defining parameter and result variables characterising your scientific system. Applications to research by wrapping scientific tools like [Brian](http://briansimulator.org/) for python neural networks simulations, [vexflow](http://www.vexflow.com/)/[music21](http://web.mit.edu/music21/) for music analysis, or [hypothes.is](http://hypothes.is/) for supporting scientific web annotations are going to be soon published.
+    It proposes a meta [object syntax](http://shareyoursystem.ouvaton.org/site/LibraryReference/Classors/) for making a source code and classes ontology more directly human-readable, [Model objects](http://shareyoursystem.ouvaton.org/site/LibraryReference/Databasers/) for synchronising mongo and hdf5 databases client and server-side, [Viewer objects](http://shareyoursystem.meteor.com/Interface) for their interactive UML representation through a Meteor patch, [Controller objects](http://shareyoursystem.ouvaton.org/site/LibraryReference/Storers/) for establishing the interface between models and views, communication between python and js instances and the scope level for defining parameter and result variables characterising your scientific system. Applications to research by wrapping scientific tools like [Brian](http://briansimulator.org/) for python neural networks simulations, [vexflow](http://www.vexflow.com/)/[music21](http://web.mit.edu/music21/) for music analysis, or [hypothes.is](http://hypothes.is/) for supporting scientific web annotations are going to be soon published.
     
 
 Web application toys
@@ -114,7 +114,7 @@ Web application toys
   
     **[Pasduforro](http://pasduforro.ouvaton.org/)** an ajax/MySQL application that lists some moves in forró
   
-    **[Scales](http://shareyoursystem.meteor.org/Music)** a Meteor application for building jazz voice leadings (under construction)
+    **[Scales](http://shareyoursystem.meteor.com/Music)** a Meteor application for building jazz voice leadings (under construction)
 
 Talks
 --------------------

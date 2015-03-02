@@ -717,6 +717,8 @@ ShareYourSystem/Standards/Itemizers/Setter/16_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Setter/17_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Setter/18_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Setter/19_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Setter/20_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Setter/21_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Setter/Readme.md
 ShareYourSystem/Standards/Itemizers/Setter/Test.py
 ShareYourSystem/Standards/Itemizers/Setter/__init__.py
@@ -768,7 +770,6 @@ ShareYourSystem/Standards/Modelers/Inserter/Readme.md
 ShareYourSystem/Standards/Modelers/Inserter/Test.py
 ShareYourSystem/Standards/Modelers/Inserter/__init__.py
 ShareYourSystem/Standards/Modelers/Inserter/data/db/journal/j._0
-ShareYourSystem/Standards/Modelers/Inserter/data/db/journal/lsn
 ShareYourSystem/Standards/Modelers/Joiner/001_DocumentDoc.md
 ShareYourSystem/Standards/Modelers/Joiner/00_ExampleDoc.md
 ShareYourSystem/Standards/Modelers/Joiner/01_ExampleDoc.py
@@ -825,11 +826,10 @@ ShareYourSystem/Standards/Modelers/Rower/00_ExampleDoc.md
 ShareYourSystem/Standards/Modelers/Rower/01_ExampleDoc.py
 ShareYourSystem/Standards/Modelers/Rower/02_ExampleDoc.md
 ShareYourSystem/Standards/Modelers/Rower/03_ExampleDoc.py
-ShareYourSystem/Standards/Modelers/Rower/ProcessTemp.sh
-ShareYourSystem/Standards/Modelers/Rower/ProcessTemp.txt
 ShareYourSystem/Standards/Modelers/Rower/Readme.md
 ShareYourSystem/Standards/Modelers/Rower/Test.py
 ShareYourSystem/Standards/Modelers/Rower/__init__.py
+ShareYourSystem/Standards/Modelers/Rower/data/db/journal/j._0
 ShareYourSystem/Standards/Modelers/Shaper/001_DocumentDoc.md
 ShareYourSystem/Standards/Modelers/Shaper/00_ExampleDoc.md
 ShareYourSystem/Standards/Modelers/Shaper/01_ExampleDoc.py
@@ -858,7 +858,6 @@ ShareYourSystem/Standards/Modelers/Tabularer/Readme.md
 ShareYourSystem/Standards/Modelers/Tabularer/Test.py
 ShareYourSystem/Standards/Modelers/Tabularer/__init__.py
 ShareYourSystem/Standards/Modelers/Tabularer/data/db/journal/j._0
-ShareYourSystem/Standards/Modelers/Tabularer/data/db/journal/lsn
 ShareYourSystem/Standards/Tutorials/00_ExampleDoc.md
 ShareYourSystem/Standards/Tutorials/01_ExampleDoc.py
 ShareYourSystem/Standards/Tutorials/Readme.md

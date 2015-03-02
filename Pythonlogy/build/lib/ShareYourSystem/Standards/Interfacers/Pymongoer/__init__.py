@@ -28,11 +28,13 @@ import os
 def getPrintManagerItemTuple(_ManagerItemTuple):
 
 	#Debug
+	'''
 	print('Pymongoer l 31')
 	print('_ManagerItemTuple is ')
 	print(_ManagerItemTuple)
 	print('')
-
+	'''
+	
 	#filter
 	PrintCollectionList=filter(
 		lambda __PymongoviewDict:
