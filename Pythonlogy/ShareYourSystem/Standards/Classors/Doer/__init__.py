@@ -63,7 +63,7 @@ def getDoing(_InstanceVariable,_DoClassVariable=None):
 	print('')
 	"""
 
-	#call
+	#return
 	return collections.OrderedDict(
 		SYS.sum(
 			map(
@@ -88,27 +88,30 @@ def setDoing(_InstanceVariable,_DoClassVariable=None,**_KwargVariablesDict):
 	if len(DoClassesList)==0:
 		DoClassesList=_InstanceVariable.__class__.MroDoerClassesList
 		
-	#call
-	_InstanceVariable.setDefault(
-		_DoClassVariable,
-		_DoClassVariable.DoingAttributeVariablesOrderedDict.keys(),
-		**_KwargVariablesDict
-	)
-
+	#map
+	map(
+			lambda __DoClass:
+			_InstanceVariable.setDefault(
+				__DoClass,
+				__DoClass.DoingAttributeVariablesOrderedDict.keys(),
+				**dict(
+					_KwargVariablesDict,
+					**{'DefaultMutableBool':True}
+				)
+			),
+			DoClassesList
+		)
+	
 	#return
 	return _InstanceVariable
 
 def getDone(_InstanceVariable,_DoClassVariable=None):
 
 	#check
-	if type(_DoClassVariable) in SYS.StrTypesList:
-		_DoClassVariable=getattr(
-			SYS,
-			SYS.getClassStrWithNameStr(_DoClassVariable)
-	)
-	elif _DoClassVariable==None:
-		_DoClassVariable=_InstanceVariable.__class__
-
+	DoClassesList=SYS.GetList(_DoClassVariable,SYS)
+	if len(DoClassesList)==0:
+		DoClassesList=_InstanceVariable.__class__.MroDoerClassesList
+		
 	#Debug
 	"""
 	print('l 83 Doer')
@@ -116,14 +119,20 @@ def getDone(_InstanceVariable,_DoClassVariable=None):
 	print('')
 	"""
 
-	#call
+	#return
 	return collections.OrderedDict(
-		zip(
-		_DoClassVariable.DoneAttributeVariablesOrderedDict.keys(),
-		map(
-				lambda __DoneKeyStr:
-				getattr(_InstanceVariable,__DoneKeyStr),
-				_DoClassVariable.DoneAttributeVariablesOrderedDict.keys()
+		SYS.sum(
+			map(
+				lambda __DoClass:
+				zip(
+					__DoClass.DoneAttributeVariablesOrderedDict.keys(),
+				map(
+						lambda __DoneKeyStr:
+						getattr(_InstanceVariable,__DoneKeyStr),
+						__DoClass.DoneAttributeVariablesOrderedDict.keys()
+					)
+				),
+				DoClassesList
 			)
 		)
 	)
@@ -138,13 +147,10 @@ def setDone(_InstanceVariable,_DoClassVariable=None,**_KwargVariablesDict):
 	'''
 
 	#check
-	if type(_DoClassVariable) in SYS.StrTypesList:
-		_DoClassVariable=getattr(
-			SYS,
-			SYS.getClassStrWithNameStr(_DoClassVariable)
-		)
-	elif _DoClassVariable==None:
-		_DoClassVariable=_InstanceVariable.__class__
+	DoClassesList=SYS.GetList(_DoClassVariable,SYS)
+	if len(DoClassesList)==0:
+		DoClassesList=_InstanceVariable.__class__.MroDoerClassesList
+		
 
 	#Debug
 	"""
@@ -153,12 +159,19 @@ def setDone(_InstanceVariable,_DoClassVariable=None,**_KwargVariablesDict):
 	print('')
 	"""
 
-	#call
-	_InstanceVariable.setDefault(
-		_DoClassVariable,
-		_DoClassVariable.DoneAttributeVariablesOrderedDict.keys(),
-		**_KwargVariablesDict
-	)
+	#map
+	map(
+			lambda __DoClass:
+			_InstanceVariable.setDefault(
+				__DoClass,
+				__DoClass.DoneAttributeVariablesOrderedDict.keys(),
+				**dict(
+					_KwargVariablesDict,
+					**{'DefaultMutableBool':True}
+				)
+			),
+			DoClassesList
+		)
 
 	#return 
 	return _InstanceVariable

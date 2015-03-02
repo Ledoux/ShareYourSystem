@@ -7,6 +7,7 @@ class MakerClass(object):
 
 	def default_init(self,
 				_MakingMyFloat=0.,
+				_MakingFirstList=None
 				):
 		object.__init__(self)
 
@@ -32,10 +33,14 @@ MyBuilder=BuilderClass(
 	)
 
 #print
+print('MyBuilder.getDo() is')
+print(SYS.indent(MyBuilder.getDo()))
+
+#print
 print('MyBuilder.__dict__ is')
 print(SYS.indent(MyBuilder.__dict__))
 
-#reset
+#reset everything
 MyBuilder.setDoing()
 
 #print

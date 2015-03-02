@@ -27,6 +27,17 @@ print("\n".join(
 #Definition a default instance
 DefaultMaker=MakerClass()
 
+#print
+print(
+	'\n'+'\n'.join(
+		[
+			'What are you saying DefaultMaker ?',
+			'DefaultMaker.__dict__ is '+SYS.indent(DefaultMaker.__dict__),
+			'DefaultMaker.getDo() is '+SYS.indent(DefaultMaker.getDo()),
+		]
+	)
+)
+
 #Definition a special instance
 SpecialMaker=MakerClass(
 	_MakingSpecificList=['hello'],
@@ -39,31 +50,14 @@ SpecialMaker=MakerClass(
 print(
 	'\n'+'\n'.join(
 		[
-			'What are you saying DefaultMaker ?',
-			'DefaultMaker.__dict__ is '+str(DefaultMaker.__dict__),
-			'DefaultMaker.getDo() is '+str(DefaultMaker.getDo()),
 			'What are you saying SpecialMaker ?',
-			'SpecialMaker.__dict__ is '+str(SpecialMaker.__dict__),
-			'SpecialMaker.getDo() is '+str(SpecialMaker.getDo())
+			'SpecialMaker.__dict__ is '+SYS.indent(SpecialMaker.__dict__),
+			'SpecialMaker.getDo() is '+SYS.indent(SpecialMaker.getDo())
 		]
 	)
 )
 
-#Change classed attributes
-MakerClass.MakingMyFloat=5.
-MakerClass.MakingMyInt=5
 
-#Add
-print("\n"+"\n".join(
-	[
-		'After reset at the level of the class',
-		'What are you saying DefaultMaker ?',
-		'DefaultMaker.__dict__ is '+str(DefaultMaker.__dict__),
-		'DefaultMaker.getDo() is '+str(DefaultMaker.getDo()),
-		'What are you saying SpecialMaker ?',
-		'SpecialMaker.__dict__ is '+str(SpecialMaker.__dict__),
-		'SpecialMaker.getDo() is '+str(SpecialMaker.getDo())
-	]
-))
+
 
 

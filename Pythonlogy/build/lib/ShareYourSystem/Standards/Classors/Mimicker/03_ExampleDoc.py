@@ -83,7 +83,7 @@ print(SYS.indent(MyBuilder.__dict__))
 
 #make again
 print('Now we switch')
-MyBuilder.setSwitch('Maker',['Make'])
+MyBuilder.setSwitch(_DoMethodVariable=['make'])
 
 """
 #Print

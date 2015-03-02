@@ -27,8 +27,8 @@ from ShareYourSystem.Standards.Classors import Doer,Observer
 #<DefineFunctions>
 def setSwitch(
 			_InstanceVariable,
-			_DoerVariable=None,
-			_DoVariable=None,
+			_DoMethodVariable=None,
+			_DoerClassVariable=None,
 			_HookVariable=None
 		):
 
@@ -43,37 +43,14 @@ def setSwitch(
 	'''
 	
 	#/#################/#
-	# Adapt the shape of the args
+	# Adapt the shape of the do method str to switch
 	#
 
 	#Check
-	if type(_DoerVariable)!=list:
+	if type(_DoMethodVariable)!=list:
 
 		#Check
-		if _DoerVariable==None:
-
-			#/#################/#
-			# Give all the mro doer
-			#
-
-			#alias
-			DoerClassVariablesList=_InstanceVariable.__class__.MroDoerClassesList
-
-		else:
-		
-			#listify
-			DoerClassVariablesList=[_DoerVariable]
-
-	else:
-
-		#just alias
-		DoerClassVariablesList=_DoerVariable
-
-	#Check
-	if type(_DoVariable)!=list:
-
-		#Check
-		if _DoVariable==None:
+		if _DoMethodVariable==None:
 
 			#/#################/#
 			# Give all the do method str
@@ -85,13 +62,41 @@ def setSwitch(
 		else:
 		
 			#listify
-			DoStrsList=[_DoVariable]
+			DoMethodStrsList=[_DoMethodVariable]
 
 
 	else:
 
 		#just alias
-		DoStrsList=_DoVariable
+		DoMethodStrsList=_DoMethodVariable
+
+	#/#################/#
+	# Adapt the shape of the mro doer to switch
+	#
+
+	#Check
+	DoerClassesList=SYS.GetList(_DoerClassVariable)
+	if _DoerClassVariable==None:
+
+		#/#################/#
+		# by default this is all the mro doer that have all the do method
+		#
+
+		DoerClassesList=SYS._filter(
+			lambda __MroDoerClass:
+			all(
+				map(
+					lambda __DoMethodStr:
+					hasattr(__MroDoerClass,__DoMethodStr),
+					DoMethodStrsList
+				)
+			),
+			_InstanceVariable.__class__.MroDoerClassesList
+		)
+
+	#/#################/#
+	# Adapt the shape of the hook strs
+	#
 
 	#Check
 	if type(_HookVariable)!=list:
@@ -102,35 +107,36 @@ def setSwitch(
 	else:
 		HookStrsList=_HookVariable
 
-	#get
-	SwitchClassesList=map(
-		lambda __DoerVariable:
-		_InstanceVariable.getClass(__DoerVariable),
-		DoerClassVariablesList
-	)
+
+	#/#################/#
+	# Now map the switch
+	#
 
 	#Debug
-	'''
-	print('l 51 Switcher')
-	print('SwitchClassesList is ')
-	print(SwitchClassesList)
+	print('l 92 Switcher')
+	print('DoMethodStrsList is')
+	print(DoMethodStrsList)
+	print('DoerClassesList is ')
+	print(DoerClassesList)
+	print('HookStrsList is ')
+	print(HookStrsList)
 	print('')
-	'''
 
 	#map
 	map(
 		lambda __HookStr:
 		map(
-			lambda __SwitchClass:
+			lambda __DoerClass:
 			map(
-					lambda __MethodStr:
+					lambda __DoMethodStr:
 					_InstanceVariable.__setattr__(
-						'Watch'+__HookStr+__MethodStr[0].upper()+__MethodStr[1:]+'With'+__SwitchClass.NameStr+'Bool',
+						'Watch'+__HookStr+__DoMethodStr[0].upper(
+							)+__DoMethodStr[1:]+'With'+__DoerClass.NameStr+'Bool',
 						False
 					),
-					DoStrsList,
+					DoMethodStrsList,
 				),
-			SwitchClassesList
+			DoerClassesList
 			),
 		HookStrsList
 		)

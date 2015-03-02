@@ -25,45 +25,25 @@ class FeeClass(FooClass):
 				):
 		FooClass.__init__(self)
 
+#put in the SYS scope
+SYS.FeeClass=FeeClass
+
 #Definition 
-MyFee=FeeClass(**{'MyFloat':5.,'MyInt':9,'MyBool':False})
+MyFee=FeeClass(**{
+	'MyFloat':5.,
+	'MyInt':9,
+	'MyBool':False
+})
 
 #Before default
 print('Before setDefault MyFee.__dict__ is')
 print(SYS.indent(MyFee.__dict__))
 
-#default
+#default and also init the mutable variables
 MyFee.setDefault(
 	#ClassVariable,
 	[FooClass,'FeeClass'],
-	#AttributeKeyStrsList,
-	'MyFloat'
-)
-
-#After default
-print('\nAfter setDefault MyFee.__dict__ is')
-print(SYS.indent(MyFee.__dict__))
-
-#default
-MyFee.setDefault(
-	#ClassVariable
-	#it can be a Class, ClassKeyStr or [Class]
-	FooClass,
-	#AttributeKeyStrsList 
-	#it can be just a KeyStr a [<KeyStr>] and if None it is all the KeyStr from all the Classes
-	['MyFloat','MyFirstSpecificList']
-)
-
-#append to the share list
-MyFee.MyShareList.append(8)
-
-#After default
-print('\nAfter setDefault MyFee.__dict__ is')
-print(SYS.indent(MyFee.__dict__))
-
-#define
-print('\nFooClass.DefaultAttributeVariablesOrderedDict is '+SYS.indent(
-			FooClass.DefaultAttributeVariablesOrderedDict)
+	**{'DefaultMutableBool':True}
 )
 
 #print

@@ -194,8 +194,9 @@ ShareYourSystem/Standards/Classors/Defaultor/Install.py
 ShareYourSystem/Standards/Classors/Defaultor/Readme.md
 ShareYourSystem/Standards/Classors/Defaultor/Test.py
 ShareYourSystem/Standards/Classors/Defaultor/__init__.py
-ShareYourSystem/Standards/Classors/Defaultor/Drafts/02_ExampleReadmeCell.md
-ShareYourSystem/Standards/Classors/Defaultor/Drafts/03_ExampleReadmeCell.py
+ShareYourSystem/Standards/Classors/Defaultor/draft/02_ExampleReadmeCell.md
+ShareYourSystem/Standards/Classors/Defaultor/draft/03_ExampleReadmeCell.py
+ShareYourSystem/Standards/Classors/Defaultor/draft/__init__ copy 2.py
 ShareYourSystem/Standards/Classors/Deriver/001_DocumentDoc.md
 ShareYourSystem/Standards/Classors/Deriver/00_ExampleDoc.md
 ShareYourSystem/Standards/Classors/Deriver/01_ExampleDoc.py

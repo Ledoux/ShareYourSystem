@@ -29,16 +29,21 @@ class FeeClass(FooClass):
 SYS.FeeClass=FeeClass
 
 #Definition 
-MyFee=FeeClass(**{'MyFloat':5.,'MyInt':9,'MyBool':False})
+MyFee=FeeClass(**{
+	'MyFloat':5.,
+	'MyInt':9,
+	'MyBool':False
+})
 
 #Before default
 print('Before setDefault MyFee.__dict__ is')
 print(SYS.indent(MyFee.__dict__))
 
-#default
+#default and also init the mutable variables
 MyFee.setDefault(
 	#ClassVariable,
 	[FooClass,'FeeClass'],
+	**{'DefaultMutableBool':True}
 )
 
 #print
