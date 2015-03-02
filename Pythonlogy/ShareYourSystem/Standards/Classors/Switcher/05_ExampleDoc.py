@@ -39,6 +39,10 @@ class BuilderClass(MakerClass):
 		#Cast
 		self.BuiltMyStr='My MadeMyInt is '+str(self.MadeMyInt)
 
+#print 
+print('BuilderClass.SwitchedMethodDict is ')
+print(SYS.indent(BuilderClass.SwitchedMethodDict))
+
 #Definition an instance
 MyBuilder=BuilderClass()
 
@@ -77,7 +81,7 @@ SYS._print(MyBuilder.__dict__)
 
 #Switch by default it is just the last Name and the the last do in the mro
 print('Now we switch')
-MyBuilder.setSwitch(MakerClass,'make','Before')
+MyBuilder.setSwitch('make',MakerClass,'Before')
 
 #Print
 print('After the switch MyBuilder.__dict__ is ')

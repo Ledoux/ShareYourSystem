@@ -21,6 +21,7 @@ SYS.setSubModule(globals())
 
 #<ImportSpecificModules>
 import operator
+import copy
 from ShareYourSystem.Standards.Classors import Doer,Observer
 #</ImportSpecificModules>
 
@@ -57,7 +58,14 @@ def setSwitch(
 			#
 
 			#alias
-			DoStrsList=_InstanceVariable.DoMethodStrsList
+			#DoMethodStrsList=_InstanceVariable.DoMethodStrsList
+
+			#/#################/#
+			# Give just the last DoMethodStr
+			#
+
+			#listify
+			DoMethodStrsList=[_InstanceVariable.__class__.DoMethodStr]
 
 		else:
 		
@@ -79,19 +87,27 @@ def setSwitch(
 	if _DoerClassVariable==None:
 
 		#/#################/#
-		# by default this is all the mro doer that have all the do method
-		#
+		# by default this is all the mro doer that have all the switch do method
+		# so do the intersection
 
-		DoerClassesList=SYS._filter(
-			lambda __MroDoerClass:
-			all(
+		print(
+
+				'JJJ',
 				map(
 					lambda __DoMethodStr:
-					hasattr(__MroDoerClass,__DoMethodStr),
+					set(_InstanceVariable.__class__.SwitchedMethodDict[__DoMethodStr]),
 					DoMethodStrsList
 				)
-			),
-			_InstanceVariable.__class__.MroDoerClassesList
+			)
+
+		DoerClassesList=list(
+			set.intersection(*
+				map(
+					lambda __DoMethodStr:
+					set(_InstanceVariable.__class__.SwitchedMethodDict[__DoMethodStr]),
+					DoMethodStrsList
+				)
+			)
 		)
 
 	#/#################/#
@@ -307,8 +323,35 @@ class SwitcherClass(BaseClass):
 				#add in the inspect
 				self.DoClass.InspectedMethodDict[setSwitch.__name__]=setSwitchUnboundMethod
 				self.DoClass.InspectedArgumentDict[setSwitch.__name__]=SYS.ArgumentDict(
-							setSwitchUnboundMethod
-						)
+					setSwitchUnboundMethod
+				)
+
+			#Check
+			if hasattr(self.DoClass,'SwitchedMethodDict')==False:
+
+				#init
+				self.DoClass.SwitchedMethodDict={
+					self.SwitchingWrapMethodStr:[self.DoClass]
+				}
+
+			else:
+
+				#copy
+				self.DoClass.SwitchedMethodDict=copy.copy(
+					self.DoClass.__bases__[0].SwitchedMethodDict
+				)
+
+				#update
+				if setSwitch.__name__ in self.DoClass.SwitchedMethodDict:
+					self.DoClass.SwitchedMethodDict[
+						self.SwitchingWrapMethodStr
+					].append(self.DoClass)
+				else:
+					self.DoClass.SwitchedMethodDict[
+						self.SwitchingWrapMethodStr
+					]=[self.DoClass]
+
+
 
 #</DefineClass>
 
