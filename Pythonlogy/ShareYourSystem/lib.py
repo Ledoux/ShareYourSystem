@@ -98,15 +98,22 @@ setup(
 			 		'ShareYourSystem.Standards.Modelers.Tabler',
 			 		'ShareYourSystem.Standards.Modelers.Rower',
 			 		'ShareYourSystem.Standards.Modelers.Inserter',
+			 		'ShareYourSystem.Standards.Modelers.Retriever',
+			 		'ShareYourSystem.Standards.Modelers.Findoer',
+			 		'ShareYourSystem.Standards.Modelers.Recoverer',
+			 		#'ShareYourSystem.Standards.Controllers.Storer',
 			 		#'ShareYourSystem.Standards.Controllers.Organizer',
 			 		#'ShareYourSystem.Standards.Controllers.Storer',
+			 		'ShareYourSystem.Specials.Predicters.Predirater',
 			 		'ShareYourSystem.Standards.Classors',
 			 		'ShareYourSystem.Standards.Interfacers',
 			 		'ShareYourSystem.Standards.Tutorials',
 			 		'ShareYourSystem.Standards.Itemizers',
 			 		'ShareYourSystem.Standards.Controllers',
 			 		'ShareYourSystem.Standards.Modelers',
+			 		'ShareYourSystem.Specials.Predicters',
 			 		'ShareYourSystem.Standards',
+			 		'ShareYourSystem.Specials',
 			 		
 			 		
 			 	]

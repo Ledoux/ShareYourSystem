@@ -95,41 +95,39 @@ class ManagerClass(BaseClass):
 			self.ManagedOnceBool=True
 
 		#/###################/#
-		# Add this managed variable
+		# Is it a new managed value
 		#
 
+		#in
+		self.ManagedIsBool=self.ManagingKeyStr in self.ManagementDict
+
 		#Check
-		if self.ManagingValueVariable==None:
+		if self.ManagedIsBool==False:
 
-			#try to get
-			try:
+			#/####################/#
+			# do we have to init 
+			#
 
-				#get
-				self.ManagedValueVariable=self.ManagementDict[
-					self.ManagingKeyStr
+			#debug
+			'''
+			self.debug(
+				[
+					'This is a new managed value',
+					('self.',self,['ManagingKeyStr'])
 				]
-
-				#set
-				self.ManagedIsBool=True
+			)
+			'''
 			
-			except KeyError:
+			#Check
+			if self.ManagingValueVariable==None:
 
 				#init
 				self.ManagedValueVariable=self.ManagingValueClass()
 
-				#set
-				self.ManagedIsBool=False
+			else:
 
-		else:
-
-			#init
-			self.ManagedIsBool=False
-
-			#alias
-			self.ManagedValueVariable=self.ManagingValueVariable
-
-		#Check
-		if self.ManagedIsBool==False:
+				#alias
+				self.ManagedValueVariable=self.ManagingValueVariable
 
 			#/####################/#
 			# Case where it is a dict or tuples list like
@@ -172,6 +170,15 @@ class ManagerClass(BaseClass):
 			
 			#set
 			self.ManagedValueVariable.ManagementTagStr=self.ManagingKeyStr
+
+		else:
+
+			##########################
+			# just get
+			#
+
+			#get
+			self.ManagedValueVariable=self.ManagementDict[self.ManagingKeyStr]
 
 
 	def mimic_get(self):

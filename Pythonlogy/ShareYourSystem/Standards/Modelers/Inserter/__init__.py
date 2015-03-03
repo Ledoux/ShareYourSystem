@@ -22,6 +22,7 @@ SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
+Rower=BaseModule
 from ShareYourSystem.Standards.Itemizers import Getter
 #</ImportSpecificModules>
 
@@ -64,18 +65,25 @@ class InserterClass(
 		if self.ModelingHdfBool:
 			self.InsertedNotRowColumnStrsList=map(
 				lambda __NotRowGetStr:
-				self.RowedGetStrToColumnStrOrderedDict[__NotRowGetStr],
+				self.RowGetStrToColumnStrOrderedDict[__NotRowGetStr],
 				self.InsertedNotRowGetStrsList
 			)
 
 	def do_insert(self,**_KwargVariablesDict):
 		""" """
 
+		#/################/#
+		# Check the row before
+		#
+
 		#debug
 		'''
 		self.debug('row maybe before...')
 		'''
 		
+		#reset
+		self.setDone(Rower.RowerClass)
+
 		#row first
 		self.row()
 
@@ -121,8 +129,28 @@ class InserterClass(
 		#Check
 		if self.ModelingMongoBool:
 
+			#/#################/#
+			# Check if the row is unique
+			#
+
+			#Debug
+			'''
+			self.debug(
+				[
+					'We are going to row mongo',
+					('self.',self,[
+						'RowedMongoIsBoolsList'
+						]),
+					'self.TabledMongoCollection.find().count() is '+str(
+						self.TabledMongoCollection.find().count()),
+					'len(self.RowedMongoIsBoolsList) is '+str(len(self.RowedMongoIsBoolsList))
+				]
+			)
+			'''
+			
 			#Append and row if it is new
-			if self.RowedMongoIsBool==False:
+			if self.RowedMongoIsBool==False and self.TabledMongoCollection.find(
+				).count()==len(self.RowedMongoIsBoolsList):
 
 				#Check
 				if self.TabledMongoCollection!=None:
@@ -195,13 +223,27 @@ class InserterClass(
 		#Check
 		if self.ModelingHdfBool:
 
+			#/#################/#
+			# Check if the row is unique
+			#
+
 			#Debug
 			'''
-			self.debug(('self.',self,['RowedHdfIsBool']))
+			self.debug(
+				[
+					'We are going to row hdf',
+					('self.',self,[
+						'RowedHdfIsBool'
+						]),
+					'len(self.RowedHdfIsBoolsList) is '+str(len(self.RowedHdfIsBoolsList)),
+					'self.TabledHdfTable.nrows is '+str(self.TabledHdfTable.nrows)
+				]
+			)
 			'''
 
 			#Append and row if it is new
-			if self.RowedHdfIsBool==False:
+			if self.RowedHdfIsBool==False and len(
+				self.RowedHdfIsBoolsList)==self.TabledHdfTable.nrows:
 
 				#Check
 				if self.TabledHdfTable!=None:
@@ -216,6 +258,7 @@ class InserterClass(
 					Row=self.TabledHdfTable.row
 
 					#debug
+					'''
 					self.debug(
 						[
 							'We pick in the controller the values',
@@ -224,7 +267,8 @@ class InserterClass(
 							])
 						]
 					)
-					
+					'''
+
 					#Pick and update				
 					self.InsertedHdfNotRowPickOrderedDict.update(
 						zip(
@@ -295,7 +339,14 @@ class InserterClass(
 						)
 				'''
 				pass
-			
+
+		#/################/#
+		# setSwitch row
+		#
+		
+		#setSwitch row
+		self.setSwitch('row')
+
 #</DefineClass>
 
 #</DefinePrint>

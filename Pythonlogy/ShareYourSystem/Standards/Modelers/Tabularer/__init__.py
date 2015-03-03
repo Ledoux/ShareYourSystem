@@ -282,9 +282,11 @@ class TabularerClass(
 				self.TabularedHdfTopFileVariable=self.ModeledDeriveControllerVariable.HdformatedFileVariable
 				
 				#debug
+				'''
 				self.debug(('self.',self,[
 											'TabularedHdfTopFileVariable'
 										]))
+				'''
 				
 				#/#################/#
 				# Check for all the tables alreday defined here

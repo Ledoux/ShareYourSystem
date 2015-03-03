@@ -223,8 +223,16 @@ class ParenterClass(BaseClass):
 		'''
 		
 		#set
-		self.TeamedValueVariable.ParentDeriveTeamerVariable=self
-		self.TeamedValueVariable.ParentKeyStr=self.TeamingKeyStr
+		try:
+
+			#Check
+			if self.TeamedValueVariable.ParentDeriveTeamerVariable!=self:
+				self.TeamedValueVariable.ParentDeriveTeamerVariable=self
+				self.TeamedValueVariable.ParentKeyStr=self.TeamingKeyStr
+		except:
+
+			#pass
+			pass
 
 		#Check
 		'''
@@ -253,9 +261,19 @@ class ParenterClass(BaseClass):
 			)
 		'''
 
-		#set
-		self.ManagedValueVariable.ParentDeriveTeamerVariable=self
-		self.ManagedValueVariable.ParentKeyStr=self.ManagingKeyStr
+		try:
+
+			#Check
+			if self.ManagedValueVariable.ParentDeriveTeamerVariable!=self:
+
+				#set
+				self.ManagedValueVariable.ParentDeriveTeamerVariable=self
+				self.ManagedValueVariable.ParentKeyStr=self.ManagingKeyStr
+
+		except:
+
+			#pass
+			pass
 
 	def mimic_get(self):
 		

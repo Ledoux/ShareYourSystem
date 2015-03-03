@@ -12,8 +12,8 @@ MyController=SYS.ControllerClass(
 		'/-Models/|Things',
 		{
 			'RowingGetStrsList':[
-					'MyInt',
-					'MyStr'
+				'MyInt',
+				'MyStr'
 			]
 		}
 	)['#map@set'](
@@ -33,7 +33,7 @@ MyController=SYS.ControllerClass(
 		}
 	).command(
 		'/-Models/|Things',
-		['#call:insert']
+		'#call:insert'
 	)
 	
 #print

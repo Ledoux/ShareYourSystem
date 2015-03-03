@@ -28,8 +28,11 @@ class ControllerClass(BaseClass):
 
 	def default_init(self,
 				_ControlModelStr="Top",
+				_ControllingMethodStr="",
+				_ControllingManagingKeyStr="",
 				_ControllingModelClassVariable=None,
 				_ControllingViewClassVariable=None,
+				_ControlledDeriveManagerVariable=None,
 				**_KwargVariablesDict
 			):
 
@@ -37,7 +40,27 @@ class ControllerClass(BaseClass):
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
 	def do_control(self):
-		pass
+		
+		#debug
+		'''
+		self.debug(
+				[
+					'We control here'
+				]
+			)
+		'''
+
+		#Check
+		if self.ControllingMethodStr=='insert':
+			
+			#get
+			self.ControlledDeriveManagerVariable=self.TeamDict[
+				'Models'][self.ControllingManagingKeyStr]
+
+			#insert and row
+			self.ControlledDeriveManagerVariable.insert()
+			self.ControlledDeriveManagerVariable.setSwitch('row')
+			
 
 	def mimic_team(self):
 
@@ -97,8 +120,11 @@ SYS.ManagerClass.ManagingValueClass=ControllerClass
 ControllerClass.PrintingClassSkipKeyStrsList.extend(
 	[
 		#'ControlModelStr',
+		'ControllingMethodStr',
+		'ControllingManagingKeyStr',
 		'ControllingModelClassVariable',
-		'ControllingViewClassVariable'
+		'ControllingViewClassVariable',
+		'ControlledDeriveManagerVariable'
 	]
 )
 #<DefinePrint>

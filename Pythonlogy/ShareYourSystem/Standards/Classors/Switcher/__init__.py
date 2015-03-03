@@ -64,8 +64,16 @@ def setSwitch(
 			# Give just the last DoMethodStr
 			#
 
-			#listify
-			DoMethodStrsList=[_InstanceVariable.__class__.DoMethodStr]
+			#Check
+			if _InstanceVariable.__class__.DoMethodStr in _InstanceVariable.__class__.SwitchedMethodDict:
+			
+				#listify
+				DoMethodStrsList=[_InstanceVariable.__class__.DoMethodStr]
+
+			else:
+
+				#listify
+				DoMethodStrsList=[]
 
 		else:
 		
@@ -90,25 +98,24 @@ def setSwitch(
 		# by default this is all the mro doer that have all the switch do method
 		# so do the intersection
 
-		print(
+		#Check
+		if len(DoMethodStrsList)>0:
 
-				'JJJ',
-				map(
-					lambda __DoMethodStr:
-					set(_InstanceVariable.__class__.SwitchedMethodDict[__DoMethodStr]),
-					DoMethodStrsList
+			#intersection
+			DoerClassesList=list(
+				set.intersection(*
+					map(
+						lambda __DoMethodStr:
+						set(_InstanceVariable.__class__.SwitchedMethodDict[__DoMethodStr]),
+						DoMethodStrsList
+					)
 				)
 			)
 
-		DoerClassesList=list(
-			set.intersection(*
-				map(
-					lambda __DoMethodStr:
-					set(_InstanceVariable.__class__.SwitchedMethodDict[__DoMethodStr]),
-					DoMethodStrsList
-				)
-			)
-		)
+		else:
+
+			#init
+			DoerClassesList=[]
 
 	#/#################/#
 	# Adapt the shape of the hook strs
@@ -129,7 +136,8 @@ def setSwitch(
 	#
 
 	#Debug
-	print('l 92 Switcher')
+	'''
+	print('l 139 Switcher')
 	print('DoMethodStrsList is')
 	print(DoMethodStrsList)
 	print('DoerClassesList is ')
@@ -137,7 +145,8 @@ def setSwitch(
 	print('HookStrsList is ')
 	print(HookStrsList)
 	print('')
-
+	'''
+	
 	#map
 	map(
 		lambda __HookStr:

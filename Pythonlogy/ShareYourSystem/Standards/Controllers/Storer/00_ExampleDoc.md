@@ -5,5 +5,4 @@ FrozenIsBool True
 
 ##Example
 
-Let's do all at the same time :
-Results-Parameters join and hierarchic joins.
+Let's store with a mongo database.

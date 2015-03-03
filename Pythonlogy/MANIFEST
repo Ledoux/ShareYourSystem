@@ -80,6 +80,9 @@ ShareYourSystem/Specials/Predicters/__init__.py
 ShareYourSystem/Specials/Predicters/Predicter/00_ExampleDoc.md
 ShareYourSystem/Specials/Predicters/Predicter/01_ExampleDoc.py
 ShareYourSystem/Specials/Predicters/Predicter/__init__.py
+ShareYourSystem/Specials/Predicters/Predirater/00_ExampleDoc.md
+ShareYourSystem/Specials/Predicters/Predirater/01_ExampleDoc.py
+ShareYourSystem/Specials/Predicters/Predirater/__init__.py
 ShareYourSystem/Specials/Predicters/Predispiker/00_ExampleDoc.md
 ShareYourSystem/Specials/Predicters/Predispiker/01_ExampleDoc.py
 ShareYourSystem/Specials/Predicters/Predispiker/__init__.py
@@ -307,6 +310,8 @@ ShareYourSystem/Standards/Controllers/Controller/00_ExampleDoc.md
 ShareYourSystem/Standards/Controllers/Controller/01_ExampleDoc.py
 ShareYourSystem/Standards/Controllers/Controller/02_ExampleDoc.md
 ShareYourSystem/Standards/Controllers/Controller/03_ExampleDoc.py
+ShareYourSystem/Standards/Controllers/Controller/04_ExampleDoc.md
+ShareYourSystem/Standards/Controllers/Controller/05_ExampleDoc.py
 ShareYourSystem/Standards/Controllers/Controller/Readme.md
 ShareYourSystem/Standards/Controllers/Controller/Test.py
 ShareYourSystem/Standards/Controllers/Controller/__init__.py
@@ -335,6 +340,10 @@ ShareYourSystem/Standards/Controllers/Patcher/__init__.py
 ShareYourSystem/Standards/Controllers/Storer/001_DocumentDoc.md
 ShareYourSystem/Standards/Controllers/Storer/00_ExampleDoc.md
 ShareYourSystem/Standards/Controllers/Storer/01_ExampleDoc.py
+ShareYourSystem/Standards/Controllers/Storer/02_ExampleDoc.md
+ShareYourSystem/Standards/Controllers/Storer/03_ExampleDoc.py
+ShareYourSystem/Standards/Controllers/Storer/05_ExampleDoc.md
+ShareYourSystem/Standards/Controllers/Storer/06_ExampleDoc.py
 ShareYourSystem/Standards/Controllers/Storer/Readme.md
 ShareYourSystem/Standards/Controllers/Storer/__init__.py
 ShareYourSystem/Standards/Controllers/Systemer/00_ExampleDoc.md

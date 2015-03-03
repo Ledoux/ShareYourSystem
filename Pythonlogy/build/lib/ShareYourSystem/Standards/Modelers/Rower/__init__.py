@@ -55,13 +55,13 @@ class RowerClass(
 	
 	def default_init(
 					self,
+					_RowGetStrToColumnStrOrderedDict=None,
+					_RowHdfColumnStrsList=None,
 					_RowingGetStrsList={
 							'DefaultValueType':property,
 							'PropertyInitVariable':[],
 							'PropertyDocStr':''
 					},
-					_RowedGetStrToColumnStrOrderedDict=None,
-					_RowedHdfColumnStrsList=None,
 					_RowedMongoPickOrderedDict=None, 																
 					_RowedHdfPickOrderedDict=None,
 					_RowedMongoIsBoolsList=None,	 
@@ -98,13 +98,13 @@ class RowerClass(
 					[
 						'After',
 						('self.',self,['ModelingDescriptionTuplesList']),
-						'We bind with RowedGetStrToColumnStrOrderedDict setting',
+						'We bind with RowGetStrToColumnStrOrderedDict setting',
 					]
 				)
 		'''
 
-		#Bind with RowedGetStrToColumnStrOrderedDict setting
-		self.RowedGetStrToColumnStrOrderedDict=collections.OrderedDict(
+		#Bind with RowGetStrToColumnStrOrderedDict setting
+		self.RowGetStrToColumnStrOrderedDict=collections.OrderedDict(
 				map(
 					lambda _ModelingSealTuple:
 					(
@@ -119,12 +119,12 @@ class RowerClass(
 		'''
 		self.debug(
 					[
-						('self.',self,['RowedGetStrToColumnStrOrderedDict'])
+						('self.',self,['RowGetStrToColumnStrOrderedDict'])
 					]
 				)
 		'''
 
-	def propetize_setRowingGetStrsList(self,_SettingValueVariable):
+	def propertize_setRowingGetStrsList(self,_SettingValueVariable):
 		
 		#debug
 		'''
@@ -145,22 +145,22 @@ class RowerClass(
 			'''
 			self.debug(
 							[
-								'bind with RowedHdfColumnStrsList setting',
-								('self.',self,['RowedGetStrToColumnStrOrderedDict'])
+								'bind with RowHdfColumnStrsList setting',
+								('self.',self,['RowGetStrToColumnStrOrderedDict'])
 							]
 						)
 			'''
 			
 			#Bind with 
-			self.RowedHdfColumnStrsList=map(
+			self.RowHdfColumnStrsList=map(
 					lambda __RowingGetStr:
-					self.RowedGetStrToColumnStrOrderedDict[__RowingGetStr],
+					self.RowGetStrToColumnStrOrderedDict[__RowingGetStr],
 					_SettingValueVariable
 				)
 
 			#debug
 			'''
-			self.debug(('self.',self,['RowedHdfColumnStrsList']))
+			self.debug(('self.',self,['RowHdfColumnStrsList']))
 			'''
 
 	def do_row(self):
@@ -188,7 +188,7 @@ class RowerClass(
 						self.RowingGetStrsList,
 						self.ModeledDeriveControllerVariable[Getter.GetMapStr](
 							*self.RowingGetStrsList
-						)
+						).ItemizedMapValueVariablesList
 					)
 				)
 
@@ -274,7 +274,7 @@ class RowerClass(
 				self.debug(
 					('self.',self,[
 						'RowingGetStrsList',
-						'RowedHdfColumnStrsList'
+						'RowHdfColumnStrsList'
 						])
 				)
 				'''
@@ -282,7 +282,7 @@ class RowerClass(
 				#Update
 				self.RowedHdfPickOrderedDict.update(
 					zip(
-						self.RowedHdfColumnStrsList,
+						self.RowHdfColumnStrsList,
 						self.ModeledDeriveControllerVariable[Getter.GetMapStr](
 							*self.RowingGetStrsList
 						).ItemizedMapValueVariablesList
@@ -290,6 +290,7 @@ class RowerClass(
 				)
 
 				#debug
+				'''
 				self.debug(
 					[
 						'Ok we have almost end the row',
@@ -300,6 +301,7 @@ class RowerClass(
 						'Check now if it is a new row'
 					]
 				)
+				'''
 				
 				#/#################/#
 				# Check if it is a new row
@@ -359,8 +361,8 @@ class RowerClass(
 RowerClass.PrintingClassSkipKeyStrsList.extend(
 	[
 		'RowingGetStrsList',
-		'RowedGetStrToColumnStrOrderedDict',
-		'RowedHdfColumnStrsList',	
+		'RowGetStrToColumnStrOrderedDict',
+		'RowHdfColumnStrsList',	
 		'RowedMongoPickOrderedDict',																									
 		'RowedHdfPickOrderedDict',
 		'RowedMongoIsBoolsList',

@@ -41,10 +41,7 @@ MyController=SYS.ControllerClass(
 		}
 	).command(
 		'/-Models/|Things',
-		[
-			('setSwitch',[SYS.RowerClass,'row']),
-			'#call:insert'
-		]
+		'#call:insert'
 	)
 
 #print

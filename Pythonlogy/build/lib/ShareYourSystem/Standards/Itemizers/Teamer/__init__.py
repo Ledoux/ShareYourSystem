@@ -95,38 +95,41 @@ class TeamerClass(BaseClass):
 			)
 			self.TeamedOnceBool=True
 
+		
+		#/###################/#
+		# Is it a new teamed value
+		#
+
+		#in
+		self.TeamedIsBool=self.TeamingKeyStr in self.TeamDict
+
 		#Check
-		if self.TeamingValueVariable==None:
+		if self.TeamedIsBool==False:
 
-			#try to get
-			try:
-
-				#get
-				self.TeamedValueVariable=self.TeamDict[
-					self.TeamingKeyStr
+			#debug
+			'''
+			self.debug(
+				[
+					'This is a new teamed value',
+					('self.',self,['TeamingKeyStr'])
 				]
+			)
+			'''
 
-				#set
-				self.TeamedIsBool=True
-			
-			except KeyError:
+			#/####################/#
+			# do we have to init 
+			#
+
+			#Check
+			if self.TeamingValueVariable==None:
 
 				#init
 				self.TeamedValueVariable=self.TeamingValueClass()
 
-				#set
-				self.TeamedIsBool=False
+			else:
 
-		else:
-
-			#init
-			self.TeamedIsBool=False
-
-			#alias
-			self.TeamedValueVariable=self.TeamingValueVariable
-
-		#Check
-		if self.TeamedIsBool==False:
+				#alias
+				self.TeamedValueVariable=self.TeamingValueVariable
 
 			#/####################/#
 			# Case where it is a dict or tuples list like
@@ -169,6 +172,15 @@ class TeamerClass(BaseClass):
 
 			#set
 			self.TeamedValueVariable.TeamTagStr=self.TeamingKeyStr
+
+		else:
+
+			##########################
+			# just get
+			#
+
+			#get
+			self.TeamedValueVariable=self.TeamDict[self.TeamingKeyStr]
 
 
 	def mimic_get(self):

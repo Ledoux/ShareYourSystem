@@ -11,6 +11,10 @@ MySetter=SYS.SetterClass(
 		}
 	)
 
+#Note just that a numpy array can be setted in a list... SuffixStr
+import numpy
+MySetter['MyList']=numpy.array([1,4])
+
 #print
 print('MySetter is ')
 SYS._print(MySetter)
@@ -22,4 +26,7 @@ SYS._print(MySetter.ChildSetter.SetDeriveSetter)
 #print its setter
 print("MySetter.ChildSetter['<'] is ")
 SYS._print(MySetter.ChildSetter['<'])
+
+
+
 

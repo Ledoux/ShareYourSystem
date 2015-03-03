@@ -1,7 +1,6 @@
 #ImportModules
 import ShareYourSystem as SYS
 
-"""
 #define structure
 MyParenter=SYS.ParenterClass(
 	).get(
@@ -14,7 +13,7 @@ MyParenter=SYS.ParenterClass(
 				{'DeepInt':'#get:>>self[\'DeepInt\']+len(self.ParentedTotalPathStr.split("/"))'}
 			),
 			'#call:parent',
-			('setSwitch',[SYS.ParenterClass,'parent']),
+			('setSwitch',['parent']),
 			'#call:parent',
 		],
 		_AfterWalkBool=True,
@@ -24,4 +23,4 @@ MyParenter=SYS.ParenterClass(
 #print
 print('MyParenter is ')
 SYS._print(MyParenter)
-"""
+

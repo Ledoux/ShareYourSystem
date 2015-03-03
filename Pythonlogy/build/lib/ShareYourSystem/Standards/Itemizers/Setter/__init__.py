@@ -75,6 +75,7 @@ SetMapKwargGetGrabPrefixStr=SetKwargGrabPrefixStr+Getter.GetMapStr+':'
 SetMapKwargGetKeyGrabStr=SetMapKwargGetGrabPrefixStr+'#key'
 SetMapKwargGetValueGrabStr=SetMapKwargGetGrabPrefixStr+'#value'
 SetMapKwargGetKeyValueGrabStr=SetMapKwargGetGrabPrefixStr+'#key:value'
+SetListTypesSet=set(['list','ndarray'])
 #</DefineLocals>
 
 #<DefineClass>
@@ -445,13 +446,15 @@ class SetterClass(BaseClass):
 			except:
 
 				#debug
+				'''
 				self.debug(
 					[
 						'call the SettedValueMethod with self.SettingValueVariable directly',
 						'SettedLiargVariable is '+SYS._str(SettedLiargVariable)
 					]
 				)
-
+				'''
+				
 				#Check
 				if hasattr(SettedLiargVariable,'items'):
 					SettedLiargVariable=SettedLiargVariable.items()
@@ -842,70 +845,88 @@ class SetterClass(BaseClass):
 							self.SettingKeyVariable)
 					)
 
+					#type
+					SettedSettingValueVariableType=type(self.SettingValueVariable)
+
 					#Check
-					if SettedValueType!=type(self.SettingValueVariable): 
+					if SettedValueType!=SettedSettingValueVariableType:
 
 						#debug
 						'''
 						self.debug(
-							[
-								'SettedValueType is '+str(SettedValueType),
-								('self.',self,['SettingKeyVariable'])
-							]
-						)	
+								[
+									'Check that the type is not a lst and a numpy array'
+								]
+							)
 						'''
-
+						
 						#Check
-						if SettedValueType!=None.__class__:
+						if set([
+							SettedValueType.__name__,
+							SettedSettingValueVariableType.__name__
+						])!=SetListTypesSet:
 
 							#debug
 							'''
 							self.debug(
 								[
-									'we wrap the setting value',
-									('self.',self,['SettingValueVariable'])
+									'SettedValueType is '+str(SettedValueType),
+									('self.',self,['SettingKeyVariable'])
 								]
-							)
-							'''
-							
-							#alias
-							'''
-							try:
+							)	
 							'''
 
-							#map set
-							self[self.SettingKeyVariable]=SettedValueType(
-								)[SetMapStr](
-								self.SettingValueVariable
-							)
-							#self.SettingValueVariable=SettedValueType(
-							#	)[SetMapValueGetGrabStr](
-							#	self.SettingValueVariable
-							#)
-
-							'''
-							except:
+							#Check
+							if SettedValueType!=None.__class__:
 
 								#debug
+								'''
 								self.debug(
-										[
-											'set failed because the suffix str indicates a different type from the value',
-											'SettedValueType is '+str(SettedValueType),
-											'type(self.SettingValueVariable) is '+str(
-												type(self.SettingValueVariable))
-										]
-									)
-							'''
+									[
+										'we wrap the setting value',
+										('self.',self,['SettingValueVariable'])
+									]
+								)
+								'''
+								
+								#alias
+								'''
+								try:
+								'''
 
-							#debug
-							'''
-							self.debug(
-								'Ok we have instanced'
-							)
-							'''
+								#map set
+								self[self.SettingKeyVariable]=SettedValueType(
+									)[SetMapStr](
+									self.SettingValueVariable
+								)
+								#self.SettingValueVariable=SettedValueType(
+								#	)[SetMapValueGetGrabStr](
+								#	self.SettingValueVariable
+								#)
 
-							#Return
-							return {'HookingIsBool':False}
+								'''
+								except:
+
+									#debug
+									self.debug(
+											[
+												'set failed because the suffix str indicates a different type from the value',
+												'SettedValueType is '+str(SettedValueType),
+												'type(self.SettingValueVariable) is '+str(
+													type(self.SettingValueVariable))
+											]
+										)
+								'''
+
+								#debug
+								'''
+								self.debug(
+									'Ok we have instanced'
+								)
+								'''
+
+								#Return
+								return {'HookingIsBool':False}
 
 				#/####################/#
 				# Check that it is not a property
