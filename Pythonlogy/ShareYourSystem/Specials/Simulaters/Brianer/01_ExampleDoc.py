@@ -1,14 +1,13 @@
 #ImportModules
 import ShareYourSystem as SYS
 
+
 #Definition
 MyBrianer=SYS.BrianerClass(
 	).array(
-		['-Neurongroupers/E','-Neurongroupers/I'],
-		SYS.NeurongrouperClass,
-		#Here are defined the brian classic shared arguments for each pop
+		['/-Populations/|E','/-Populations/|I'],
 		{
-			'NeurongroupingKwargVariablesDict':
+			'NeurongroupingBrianKwargVariablesDict':
 			{
 				'model':
 				'''
@@ -19,100 +18,76 @@ MyBrianer=SYS.BrianerClass(
 				'threshold':'v>-50*mV',
 				'reset':'v=-60*mV'
 			},
-			'produce':
-			SYS.ApplyDictClass(
-				{
-					'LiargVariablesList':
-						[
-							"SpikeMoniters",
-							['Spike'],
-							SYS.MoniterClass
-						]
-				}
-			)		
+			'get':'/-Spikes/|Run'		
 		}
-	).__setitem__(
-		'Dis_<Neurongroupers>',
-		#Here are defined the brian classic specific arguments for each pop
+	).set(
+		'#each:/-Populations/|',
 		[
 			{
-				'PopulatingUnitsInt':3200,
-				'ConnectingGraspClueVariablesList':
-				map(
-					lambda __PrefixStr:
-					SYS.GraspDictClass(
-						{
-							'HintVariable':'/NodePointDeriveNoder/<Neurongroupers>'+__PrefixStr+'Neurongrouper',
-							'SynapsingKwargVariablesDict':
+				'SimulatingUnitsInt':3200,
+				'command':[
+					'-Posts',
+					map(
+						lambda __KeyStr:
+						(
+							'|Eto'+__KeyStr,
 							{
-								'pre':'ge+=1.62*mV',
-							},
-							'SynapsingProbabilityVariable':0.02
-						}
-					),
-					['E','I']
-				)
+								'ParentingTriggerVariable':
+								[
+									'<->/^/^/|I/-PreConnections',
+									(
+										'BrianSynapsingKwargVariablesDict',
+										{
+											'pre':'ge+=1.62*mV',
+										}
+									),
+									('SynapsingProbabilityVariable',0.02)
+								]
+							}
+						),
+						['E','I']
+					)	
+				]
 			},
 			{
-				'PopulatingUnitsInt':800,
-				'ConnectingGraspClueVariablesList':
-				map(
-					lambda __PrefixStr:
-					SYS.GraspDictClass(
-						{
-							'HintVariable':'/NodePointDeriveNoder/<Neurongroupers>'+__PrefixStr+'Neurongrouper',
-							'SynapsingKwargVariablesDict':
+				'SimulatingUnitsInt':800,
+				'command':[
+					'-Posts',
+					map(
+						lambda __KeyStr:
+						(
+							'|Eto'+__KeyStr,
 							{
-								'pre':'gi-=9*mV'
-							},
-							'SynapsingProbabilityVariable':0.02
-						}
-					),
-					['E','I']
-				)
-			}
-		]
-	).network(
-			**{
-				'RecruitingConcludeConditionVariable':[
-					(
-						'MroClassesList',
-						operator.contains,
-						SYS.NeurongrouperClass
-					)
+								'ParentingTriggerVariable':
+								[
+									'<->/^/^/|I/-PreConnections',
+									(
+										'BrianSynapsingKwargVariablesDict',
+										{
+											'pre':'gi-=9*mV',
+										}
+									),
+									('SynapsingProbabilityVariable',0.02)
+								]
+							}
+						),
+						['E','I']
+					)	
 				]
 			}
-		).brian()
-
-
-#Definition the AttestedStr
-SYS._attest(
-	[
-		'MyBrianer is '+SYS._str(
-		MyBrianer,
-		**{
-			'RepresentingBaseKeyStrsList':False,
-			'RepresentingAlineaIsBool':False
-		}
-		),
-	]
-) 
-
-#Definition the AttestedStr
-'''
-SYS._print(
-		[
-			"MyBrianer['<Neurongroupers>ENeurongrouper'].NeurongroupedBrianVariable.equations is ",
-			MyBrianer['<Neurongroupers>ENeurongrouper'].NeurongroupedBrianVariable.equations.__dict__
 		]
+	).parent(
+		_DownBool=True
 	)
-SYS._print(
-	[
-		"MyBrianer['<Neurongroupers>INeurongrouper'].NeurongroupedBrianVariable.equations is ",
-		MyBrianer['<Neurongroupers>INeurongrouper'].NeurongroupedBrianVariable.equations.__dict__
-	]
-)
-'''
+
+#print
+print('MyBrianer is ')
+SYS._print(MyBrianer) 
+
+"""
+	.brian(
+	)
+
 
 
 #init
@@ -126,17 +101,14 @@ map(
 	MyBrianer.BrianedNeuronGroupsList
 )
 
-
 #run
 MyBrianer.run(300)
 
 #plot
-ME=MyBrianer['<Neurongroupers>ENeurongrouper']['<SpikeMoniters>SpikeMoniter'].SpikeMonitor
-MI=MyBrianer['<Neurongroupers>INeurongrouper']['<SpikeMoniters>SpikeMoniter'].SpikeMonitor
+ME=MyBrianer['/-Populations/|E/-Spikes/|Run'].SpikeMonitor
+MI=MyBrianer['/-Populations/|I/-Spikes/|Run'].SpikeMonitor
 from matplotlib import pyplot
 pyplot.plot(ME.t/brian2.ms, ME.i, 'r.')
 pyplot.plot(MI.t/brian2.ms, ME.source.N+MI.i, 'b.')
 pyplot.show()
-
-#Print
-
+"""

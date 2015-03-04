@@ -3,7 +3,7 @@ import ShareYourSystem as SYS
 
 #Define
 @SYS.DoerClass()
-class MakerClass(object):
+class MakerClass(SYS.PrinterClass):
 
 	def default_init(self,
 				_MakingMyFloat=1.,
@@ -24,7 +24,32 @@ class MakerClass(object):
 
 		#set
 		self.MadeMyInt=int(self.MakingMyFloat)
-	
+
+
+MyMaker=SYS.MakerClass(
+	).make(
+		2.,
+		**{'MakingSecondInt':5}
+	)
+
+
+print(MyMaker)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"""	
 #Definition of an instance and make
 MyMaker=MakerClass(
 	_MakingMyList=['hello'],
@@ -51,5 +76,5 @@ print('')
 
 #Add
 print('MyMaker.__dict__ is '+SYS.indent(MyMaker.__dict__))
-
+"""
 

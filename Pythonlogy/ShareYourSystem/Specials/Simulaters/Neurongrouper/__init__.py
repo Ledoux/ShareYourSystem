@@ -23,12 +23,20 @@ SYS.setSubModule(globals())
 from ShareYourSystem.Specials.Simulaters import Synapser
 #</ImportSpecificModules>
 
+#<DefineLocals>
+NeurongroupPreTeamKeyStr='Pres'
+NeurongroupPostTeamKeyStr='Posts'
+NeurongroupSpikeTeamKeyStr='Spikes'
+NeurongroupStateTeamKeyStr='States'
+#</DefineLocals>
+
 #<DefineClass>
 @DecorationClass()
 class NeurongrouperClass(BaseClass):
 	
 	def default_init(self,
-						_NeurongroupingKwargVariablesDict=None,
+						_NeurongroupDeriveBrianerVariable=None,
+						_NeurongroupingBrianKwargDict=None,
 						_NeurongroupingVariableStrToGetStrDict=None,
 						_NeurongroupedPostModelInsertStrsList=None,
 						_NeurongroupedPostModelAddDict=None,
@@ -42,31 +50,36 @@ class NeurongrouperClass(BaseClass):
 		#Call the parent __init__ method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
-		#set
-		self.CatchingDerivePointerClass=Synapser.SynapserClass
+		#team
+		map(
+				lambda __KeyStr:
+				self.team(__KeyStr),
+				[
+					NeurongroupPreTeamKeyStr,
+					NeurongroupPostTeamKeyStr,
+					NeurongroupSpikeTeamKeyStr,
+					NeurongroupStateTeamKeyStr
+				]
 
-		#
-		self.node('PostConnecters')
-		self.node('PreConnecters')
+			)
 
 	def do_neurongroup(
 				self
 			):	
 
-		#populate before
-		self.populate()
-
 		#debug
+		'''
 		self.debug(('self.',self,[
-							'NeurongroupingKwargVariablesDict'
+							'NeurongroupingBrianKwargDict'
 							]))
+		'''
 
 		#maybe should import
 		from brian2 import NeuronGroup,SpikeMonitor,StateMonitor
 
 		#Check
-		if 'N' not in self.NeurongroupingKwargVariablesDict:
-			self.NeurongroupingKwargVariablesDict['N']=self.SimulatingUnitsInt
+		if 'N' not in self.NeurongroupingBrianKwargDict:
+			self.NeurongroupingBrianKwargDict['N']=self.SimulatingUnitsInt
 
 		#add the synaptic model strs
 		'''
@@ -80,7 +93,7 @@ class NeurongrouperClass(BaseClass):
 					map(
 						lambda __PreConnecter:
 						__PreConnecter.PostModelInsertStrsList,
-						self.PreConnectersCollectionOrderedDict.values()
+						self.TeamDict[NeurongroupPostTeamKeyStr].ManagementDict.values()
 					)
 				)
 			)
@@ -115,7 +128,7 @@ class NeurongrouperClass(BaseClass):
 						),
 						__PreConnecter.PostModelAddDict.items()
 				),
-				self.PreConnectersCollectionOrderedDict.values()
+				self.TeamDict[NeurongroupPreTeamKeyStr].ManagementDict.values()
 			)
 
 		#debug
@@ -127,15 +140,15 @@ class NeurongrouperClass(BaseClass):
 		'''
 
 		#Check
-		if 'model' not in self.NeurongroupingKwargVariablesDict:
-			self.NeurongroupingKwargVariablesDict['model']=''
+		if 'model' not in self.NeurongroupingBrianKwargDict:
+			self.NeurongroupingBrianKwargDict['model']=''
 			
 		#add synaptic model variables
 		map(
 				lambda __NeurongroupedPostModelInsertStr:
-				self.NeurongroupingKwargVariablesDict.__setitem__(
+				self.NeurongroupingBrianKwargDict.__setitem__(
 					'model',
-					self.NeurongroupingKwargVariablesDict['model'
+					self.NeurongroupingBrianKwargDict['model'
 					]+'\n'+__NeurongroupedPostModelInsertStr
 				),
 				self.NeurongroupedPostModelInsertStrsList
@@ -146,7 +159,7 @@ class NeurongrouperClass(BaseClass):
 				lambda __KeyStr:
 				SYS.chunk(
 					['d'+__KeyStr+'/dt',')/'],
-					self.NeurongroupingKwargVariablesDict['model'],
+					self.NeurongroupingBrianKwargDict['model'],
 				)[0],
 				self.NeurongroupedPostModelAddDict.keys()
 			)
@@ -154,9 +167,9 @@ class NeurongrouperClass(BaseClass):
 		#map
 		map(
 				lambda __NeurongroupedEquationStr,__AddStrsList:
-				self.NeurongroupingKwargVariablesDict.__setitem__(
+				self.NeurongroupingBrianKwargDict.__setitem__(
 					'model',
-					self.NeurongroupingKwargVariablesDict['model'].replace(
+					self.NeurongroupingBrianKwargDict['model'].replace(
 						__NeurongroupedEquationStr,
 						__NeurongroupedEquationStr+'+'+'+'.join(__AddStrsList)
 					)
@@ -169,13 +182,13 @@ class NeurongrouperClass(BaseClass):
 		'''
 		self.debug(('self.',self,[
 							'NeurongroupedEquationStrsList',
-							'NeurongroupingKwargVariablesDict'
+							'NeurongroupingBrianKwargDict'
 							]))
 		'''
 
 		#init
 		self.NeurongroupedBrianVariable=NeuronGroup(
-			**self.NeurongroupingKwargVariablesDict 
+			**self.NeurongroupingBrianKwargDict 
 		)
 
 		#debug
@@ -201,36 +214,88 @@ class NeurongrouperClass(BaseClass):
 
 		#map
 		self.NeurongroupedSpikeMonitorsList=map(
-						lambda __PopulatedEventDeriveMoniter:
-						__PopulatedEventDeriveMoniter.__setitem__(
+						lambda __DeriveMoniter:
+						__DeriveMoniter.__setitem__(
 							'SpikeMonitor',
 							SpikeMonitor(
 								self.NeurongroupedBrianVariable
 							)
 						).SpikeMonitor,
-						self.PopulatedEventDeriveMonitersList
+						self.TeamDict[NeurongroupSpikeTeamKeyStr].ManagementDict.values()
 					)
+
+		#debug
+		'''
+		self.debug(
+			[
+				('self.',self,[
+					'NeurongroupedSpikeMonitorsList'
+					])
+			]
+		)
+		'''
 
 		#map
 		self.NeurongroupedStateMonitorsList=map(
-				lambda __PopulatedStateDeriveMoniter:
-				__PopulatedStateDeriveMoniter.__setitem__(
+				lambda __DeriveMoniter:
+				__DeriveMoniter.__setitem__(
 					'StateMonitor',
 					StateMonitor(
 						self.NeurongroupedBrianVariable,
-						__PopulatedStateDeriveMoniter.MoniteringVariableStr,
-						__PopulatedStateDeriveMoniter.MoniteringRecordTimeIndexIntsArray
+						__DeriveMoniter.MoniteringVariableStr,
+						__DeriveMoniter.MoniteringRecordTimeIndexIntsArray
 					)
 				).StateMonitor,
-				self.PopulatedStateDeriveMonitersList
+				self.TeamDict[NeurongroupStateTeamKeyStr].ManagementDict.values()
 			)
+
+		#debug
+		'''
+		self.debug(('self.',self,['NeurongroupedStateMonitorsList']))
+		'''
+
+	"""
+	def propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable):
+
+		#debug
+		self.debug(
+			[
+				'We have grand parents',
+				'map(type,self.ParentedDeriveTeamersList) is '+str(
+					map(type,self.ParentedDeriveTeamersList))
+			]	
+		)
+
+		#Check
+		if type(self.ParentTopDeriveTeamerVariable)==SYS.BrianerClass:
+
+			#alias
+			self.NeurongroupDeriveBrianerVariable=self.ParentTopDeriveTeamerVariable
+		else:
+
+			#index
+			self.NeurongroupDeriveBrianerVariable=self.ParentedDeriveTeamersList[
+				map(
+					type,
+					self.ParentedDeriveTeamersList
+				).index(SYS.BrianerClass)
+			]
+
+		#manage self
+		self.NeurongroupDeriveBrianerVariable.TeamDict[
+			self.ParentTopDeriveTeamerVariable.Module.BrianPopulationTeamKeyStr
+		].manage(self)
+
+		#call the base method
+		BaseClass.propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable)
+	"""
 
 #</DefineClass>
 
 #</DefinePrint>
 NeurongrouperClass.PrintingClassSkipKeyStrsList.extend(
 	[
-		'NeurongroupingKwargVariablesDict',
+		'NeurongroupingBrianKwargDict',
 		'NeurongroupingVariableStrToGetStrDict',
 		'NeurongroupedPostModelInsertStrsList',
 		'NeurongroupedPostModelAddDict',

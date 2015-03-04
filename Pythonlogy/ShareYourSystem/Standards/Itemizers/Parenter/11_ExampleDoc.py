@@ -11,7 +11,7 @@ MyParenter=SYS.ParenterClass(
 				{
 					'#key':"|E",
 					'#map@set':{
-						'-PostConnections':{
+						'-Posts':{
 							'|EtoI':{
 								'ParentingTriggerVariable':
 								[

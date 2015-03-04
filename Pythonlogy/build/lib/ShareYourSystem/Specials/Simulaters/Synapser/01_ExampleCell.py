@@ -2,10 +2,10 @@
 #ImportModules
 import ShareYourSystem as SYS
 
-#Definition an instance
+#Define
 MySynapser=SYS.SynapserClass(
 	)
 		
-#Definition the AttestedStr
+#Define
 print('MySynapser is ')
 SYS._print(MySynapser)

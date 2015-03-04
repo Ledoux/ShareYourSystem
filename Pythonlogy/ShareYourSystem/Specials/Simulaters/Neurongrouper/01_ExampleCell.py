@@ -4,15 +4,8 @@ import ShareYourSystem as SYS
 
 #Definition an instance
 MyNeurongrouper=SYS.NeurongrouperClass(
-	**{
-			#either set with N in the NeuronGroup Kwarg 
-			#or here at the populating level
-			#'PopulatingUnitsInt':100
-		}
-	).collect(
-		'SpikeMoniters',
-		'MySpikes',
-		SYS.MoniterClass()
+	).get(
+		'/-Spikes/|Run'
 	).neurongroup(
 		{
 			'N':100,
@@ -26,17 +19,8 @@ MyNeurongrouper=SYS.NeurongrouperClass(
 	)
 		
 #Definition the AttestedStr
-SYS._attest(
-	[
-		'MyNeurongrouper is '+SYS._str(
-		MyNeurongrouper,
-		**{
-			'RepresentingBaseKeyStrsListBool':False,
-			'RepresentingAlineaIsBool':False
-		}
-		),
-	]
-) 
+print('MyNeurongrouper is ')
+SYS._print(MyNeurongrouper) 
 
 #Print
 from brian2 import Network,ms,mV

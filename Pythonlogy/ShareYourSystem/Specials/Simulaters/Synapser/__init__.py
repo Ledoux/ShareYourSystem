@@ -14,7 +14,7 @@ A Synapser
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Itemizers.Pointer"
+BaseModuleStr="ShareYourSystem.Standards.Controllers.Controller"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -28,7 +28,7 @@ import numpy as np
 class SynapserClass(BaseClass):
 	
 	def default_init(self,
-						_SynapsingKwargVariablesDict=None,
+						_SynapsingBrianKwargDict=None,
 						_SynapsingProbabilityVariable=None,
 						_SynapsingTagStr="",
 						_SynapsingWeigthSymbolStr="",
@@ -54,8 +54,8 @@ class SynapserClass(BaseClass):
 		'''
 		self.debug(
 			[
-				"self.SynapsingKwargVariablesDict['source'].clock is ",
-				self.SynapsingKwargVariablesDict['source'].clock
+				"self.SynapsingBrianKwargDict['source'].clock is ",
+				self.SynapsingBrianKwargDict['source'].clock
 			]
 		)
 		'''
@@ -65,7 +65,7 @@ class SynapserClass(BaseClass):
 
 			#divide
 			DelayEquationsInt=(int)(
-				_DelayVariable/self.SynapsingKwargVariablesDict['source'].clock.dt
+				_DelayVariable/self.SynapsingBrianKwargDict['source'].clock.dt
 			)
 
 		else:
@@ -76,7 +76,7 @@ class SynapserClass(BaseClass):
 				[
 					"float of dt is ",
 					float(
-						self.SynapsingKwargVariablesDict['source'].clock.dt
+						self.SynapsingBrianKwargDict['source'].clock.dt
 					)
 				]
 			)
@@ -85,7 +85,7 @@ class SynapserClass(BaseClass):
 			#divide and put that in ms...(rough)
 			DelayEquationsInt=(int)(
 				_DelayVariable*0.001/float(
-					self.SynapsingKwargVariablesDict['source'].clock.dt
+					self.SynapsingBrianKwargDict['source'].clock.dt
 				)
 			)
 
@@ -112,7 +112,7 @@ class SynapserClass(BaseClass):
 		)
 
 		#custom
-		self.SynapsingKwargVariablesDict['source'].custom_operation(
+		self.SynapsingBrianKwargDict['source'].custom_operation(
 				self.SynapsedCustomOperationStr
 			)
 
@@ -159,13 +159,13 @@ class SynapserClass(BaseClass):
 		#debug
 		'''
 		self.debug(('self.',self,[
-								'SynapsingKwargVariablesDict'
+								'SynapsingBrianKwargDict'
 								]))
 		'''
 		
 		#init
 		self.SynapsedBrianVariable=Synapses(
-				**self.SynapsingKwargVariablesDict
+				**self.SynapsingBrianKwargDict
 			)
 
 		#connect
@@ -221,7 +221,7 @@ class SynapserClass(BaseClass):
 #</DefinePrint>
 SynapserClass.PrintingClassSkipKeyStrsList.extend(
 	[
-		'SynapsingKwargVariablesDict',
+		'SynapsingBrianKwargDict',
 		'SynapsingProbabilityVariable',
 		'SynapsingTagStr',
 		'SynapsingWeigthSymbolStr',
@@ -230,6 +230,7 @@ SynapserClass.PrintingClassSkipKeyStrsList.extend(
 		'SynapsedBrianVariable',
 		'SynapsedCustomOperationStr',
 		'SynapsedDelayStateStrsList'
+		'SynapsedWeigthFloatsArray'
 	]
 )
 #<DefinePrint>

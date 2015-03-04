@@ -28,7 +28,7 @@ class MakerClass(SYS.ParenterClass):
 #Define
 MyMaker=MakerClass(
 	).set(
-		'&Things',MakerClass()
+		'-Things',MakerClass()
 	)
 
 #print

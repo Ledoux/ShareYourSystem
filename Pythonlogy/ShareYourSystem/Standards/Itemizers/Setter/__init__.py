@@ -567,23 +567,17 @@ class SetterClass(BaseClass):
 					[
 						'SettedEachGetVariablesList is ',
 						SYS._str(SettedEachGetVariablesList),
-						('self.',self,['SettingValueVariable'])
+						'SettedTempLiargSettingValueVariable is ',
+						SYS._str(SettedTempLiargSettingValueVariable)
 					]
 				)
 				'''
-
+				
 				#map
 				map(
 						lambda __SettedGetVariable,__SettedValueVariable:
-						__SettedGetVariable.set(
-							*__SettedValueVariable
-						)
-						if type(__SettedValueVariable) in [
-							list,tuple
-						] and len(__SettedValueVariable)==2
-						else
 						__SettedGetVariable[SetMapStr](
-							__SettedValueVariable
+							SYS.SetList(__SettedValueVariable)
 						),
 						SettedEachGetVariablesList,
 						SettedTempLiargSettingValueVariable

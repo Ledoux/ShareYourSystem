@@ -29,6 +29,7 @@ from brian2 import ms
 #</DefineFunctions>
 
 #<DefineLocals>
+BrianPopulationTeamKeyStr="Populations"
 #</DefineLocals>
 
 #<DefineClass>
@@ -56,6 +57,15 @@ class BrianerClass(BaseClass):
 		#Call the parent __init__ method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
+		#team
+		self.team(
+			BrianPopulationTeamKeyStr,
+			{
+				'ManagingValueClass':Neurongrouper.NeurongrouperClass
+			}
+		)
+
+	"""
 	def mimic_run(self):
 
 		#parent method
@@ -71,31 +81,41 @@ class BrianerClass(BaseClass):
 
 		#debug
 		self.debug('We stop running in brian')
+	"""
 
 	def do_brian(self):	
 
-		#network first
-		self.network(
-			**{
-				'RecruitingConcludeConditionVariable':[
-					(
-						'MroClassesList',
-						operator.contains,
-						Neurongrouper.NeurongrouperClass
-					)
-				]
-			}
-		)
+		#/###################/#
+		# Flat the neurongroups and connections
+		#
 
-		#link
-		self.BrianedDeriveNeurongroupersList=self.NetworkedDeriveConnectersList
-		self.BrianedDeriveSynapsersList=self.NetworkedDerivePointersList
+		#get
+		self.BrianedDeriveNeurongroupersList=self.TeamDict[
+			BrianPopulationTeamKeyStr
+		].ManagementDict.values()
+
+		#flat
+		self.BrianedDeriveSynapsersList=SYS.flat(
+				map(
+					lambda __BrianedDeriveNeurongrouper:
+					__BrianedDeriveNeurongrouper.TeamDict[
+						Neurongrouper.NeurongroupPostTeamKeyStr
+					].ManagementDict.values(),
+					self.BrianedDeriveNeurongroupersList
+				)
+			)
+
 
 		#debug
-		'''
-		self.debug(('self',self,['BrianedDeriveSynapsersList']))
-		'''
-		
+		"""
+		self.debug(
+			[
+				'map(self.BrianedDeriveSynapsersList)'
+				('self',self,['BrianedDeriveSynapsersList'])
+			]
+		)
+		"""
+
 		"""
 		#populate
 		map(
@@ -171,12 +191,11 @@ class BrianerClass(BaseClass):
 		#map populate and neurongroup
 		self.BrianedNeuronGroupsList=map(
 			lambda __BrianedDeriveNeurongrouper:
-			__BrianedDeriveNeurongrouper.populate(
-				).neurongroup(
+			__BrianedDeriveNeurongrouper.neurongroup(
 					dict(
 						{
 							'clock':self.BrianedSimulationClock,
-							'N':__BrianedDeriveNeurongrouper.PopulatingUnitsInt,
+							'N':__BrianedDeriveNeurongrouper.SimulatingUnitsInt,
 							#Don't forget to replace the '/' by '_' because brian doesn't like them
 							'name':__BrianedDeriveNeurongrouper.NetworkKeyStr.replace(
 								'/','_')
@@ -231,14 +250,6 @@ class BrianerClass(BaseClass):
 			]
 		)
 		'''
-
-
-		print(map(
-			lambda __BrianedDeriveSynapser:
-			__BrianedDeriveSynapser.SynapsingKwargVariablesDict,
-			self.BrianedDeriveSynapsersList
-			)
-		)
 
 		#map synapse
 		self.BrianedSynapsesList=map(

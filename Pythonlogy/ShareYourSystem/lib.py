@@ -1,3 +1,9 @@
+"""
+
+
+"""
+
+
 #Definition Python Modules
 from distutils.core import setup
 from distutils.command.install import install
@@ -44,6 +50,8 @@ setup(
 		#Author properties
 		author='Erwan Ledoux',
 		author_email='erwan.ledoux@ens.fr',
+
+		#license
 
 		#Application properties
 		name='ShareYourSystem',
