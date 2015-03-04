@@ -76,6 +76,161 @@ class JoinerClass(BaseClass):
 		#Call the parent init method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 		
+	def do_join(	
+				self
+			):
+
+		#model first
+		self.model()
+
+		#Check
+		if self.JoiningCollectionStr=="":
+			self.JoiningCollectionStr=self.NetworkCollectionStr
+		if self.JoiningCatchStr=="":
+			self.JoiningCatchStr=self.NetworkCatchStr
+		if self.JoiningAttentionStr=="":
+			self.JoiningAttentionStr=self.NetworkAttentionStr
+
+		#debug
+		'''
+		self.debug(
+					('self.',self,[
+									'JoiningCollectionStr',
+									'JoiningCatchStr',
+									'JoiningAttentionStr'
+								])
+				)
+		'''
+		#set
+		JoinedAttentionCollectionOrderedSetTagStr=self.JoiningAttentionStr+self.JoiningCollectionStr+"CollectionOrderedDict"
+
+		#check
+		if hasattr(
+			self,
+			JoinedAttentionCollectionOrderedSetTagStr
+		):
+
+			#get
+			self.JoinedAttentionCollectionOrderedDict=getattr(
+				self,
+				JoinedAttentionCollectionOrderedSetTagStr
+			)
+
+		#set
+		JoinedCatchCollectionOrderedSetTagStr=self.JoiningCatchStr+self.JoiningCollectionStr+"CollectionOrderedDict"
+
+		#check
+		if hasattr(self,JoinedCatchCollectionOrderedSetTagStr):
+
+			#get
+			self.JoinedCatchCollectionOrderedDict=getattr(
+				self,
+				JoinedCatchCollectionOrderedSetTagStr
+			)
+
+			#model and link all the catched joiners
+			self.JoinedCatchDeriveJoinersList=map(
+					lambda __JoinedCatchDeriveJoiner:
+					#__JoinedCatchDeriveJoiner.__setitem__(
+					#	'InsertIsBool',
+					#	False
+					#).CatchToPointVariable.model(
+					#),
+					__JoinedCatchDeriveJoiner.CatchToPointVariable.model(),
+					self.JoinedCatchCollectionOrderedDict.values()
+				)
+
+			#debug
+			'''
+			self.debug(('self.',self,['JoinedCatchCollectionOrderedDict']))
+			'''
+
+			#set
+			self.JoinedRetrieveIndexesListColumnStrsList=map(
+					lambda __JoinedCatchDeriveJoiner:
+					"Join"+''.join(
+						[
+							__JoinedCatchDeriveJoiner.ModelDeriveControllerVariable.NodeKeyStr
+							if __JoinedCatchDeriveJoiner.ModelDeriveControllerVariable.NodeKeyStr!="" 
+							else 'Top'+__JoinedCatchDeriveJoiner.ModelDeriveControllerVariable.__class__.NameStr,
+							__JoinedCatchDeriveJoiner.ModeledSuffixStr
+						]
+					)+"RetrieveIndexesList",
+					self.JoinedCatchDeriveJoinersList,
+				)
+
+			#debug
+			'''
+			self.debug(('self.',self,['JoinedRetrieveIndexesListColumnStrsList']))
+			'''
+
+			#set
+			self.JoinedRetrieveIndexesListGetStrsList=map(
+					lambda __JoinedCatchDeriveJoiner:
+					"Joined"+''.join(
+						[
+							self.ModelDeriveControllerVariable.NodeKeyStr
+							if self.ModelDeriveControllerVariable.NodeKeyStr!="" 
+							else 'Top'+self.ModelDeriveControllerVariable.__class__.NameStr,
+							self.ModeledSuffixStr,
+							'To',
+							__JoinedCatchDeriveJoiner.ModelDeriveControllerVariable.NodeKeyStr
+							if __JoinedCatchDeriveJoiner.ModelDeriveControllerVariable.NodeKeyStr!="" 
+							else 'Top'+__JoinedCatchDeriveJoiner.ModelDeriveControllerVariable.__class__.NameStr,
+							__JoinedCatchDeriveJoiner.ModeledSuffixStr
+						]
+					)+"RetrieveIndexesList",
+					self.JoinedCatchDeriveJoinersList,
+				)
+			
+			#debug
+			'''
+			self.debug(
+						[
+							('self.',self,['JoinedRetrieveIndexesListGetStrsList']),
+							'Table the joined databases'
+						]
+					)
+			'''
+
+			#Check
+			if len(self.ModelingDescriptionTuplesList)>0:
+				self.ModelingHdfBool=True
+				self.JoiningDatabaseStr="hdf"
+				JoinedTabledIndexIntKeyStr='TabledHdfIndexInt'
+			else:
+				self.JoiningDatabaseStr="mongo"
+				JoinedTabledIndexIntKeyStr='TabledMongoIndexInt'
+
+
+			#Table all the joined databasers and init the corresponding JoinedRetrieveIndexesList in the NodePointDeriveNoder
+			self.ModelDeriveControllerVariable.update(
+				zip(
+						self.JoinedRetrieveIndexesListGetStrsList,
+						map(
+							lambda __JoinedCatchDeriveJoiner:
+							[
+								__JoinedCatchDeriveJoiner.table(
+									)[
+										JoinedTabledIndexIntKeyStr
+									],
+								-1
+							],
+							self.JoinedCatchDeriveJoinersList
+						)
+					)
+			)
+
+			#debug
+			'''
+			self.debug(
+						('self.',self,[
+										'JoinedRetrieveIndexesListColumnStrsList',
+										'JoinedRetrieveIndexesListGetStrsList'
+									])
+			)
+			'''
+
 	def mimic_database(self):
 
 		#debug
@@ -181,7 +336,7 @@ class JoinerClass(BaseClass):
 			map(
 					lambda __JoinedRetrieveIndexesListGetStr,__JoinedInsertIndexInt:
 					getattr(
-						self.ModeledDeriveControllerVariable,
+						self.ModelDeriveControllerVariable,
 						__JoinedRetrieveIndexesListGetStr
 						).__setitem__(
 							1,
@@ -197,7 +352,7 @@ class JoinerClass(BaseClass):
 			map(
 					lambda __JoinedRetrieveIndexesListGetStr,__JoinedInsertIndexInt:
 					getattr(
-						self.ModeledDeriveControllerVariable,
+						self.ModelDeriveControllerVariable,
 						__JoinedRetrieveIndexesListGetStr
 						).__setitem__(
 							1,
@@ -304,7 +459,7 @@ class JoinerClass(BaseClass):
 					lambda __JoinedRetrieveIndexesListGetStr,__JoinedCatchDeriveJoiner:
 					__JoinedCatchDeriveJoiner.retrieve(
 						getattr(
-							self.ModeledDeriveControllerVariable,
+							self.ModelDeriveControllerVariable,
 							__JoinedRetrieveIndexesListGetStr
 						)
 					),
@@ -394,157 +549,23 @@ class JoinerClass(BaseClass):
 			#Call the parent method
 			BaseClass.find(self).FoundFilterRowDictsList
 
-	def do_join(	
-				self
-			):
-
-		#model first
-		self.model()
-
-		#Check
-		if self.JoiningCollectionStr=="":
-			self.JoiningCollectionStr=self.NetworkCollectionStr
-		if self.JoiningCatchStr=="":
-			self.JoiningCatchStr=self.NetworkCatchStr
-		if self.JoiningAttentionStr=="":
-			self.JoiningAttentionStr=self.NetworkAttentionStr
-
-		#debug
-		'''
-		self.debug(
-					('self.',self,[
-									'JoiningCollectionStr',
-									'JoiningCatchStr',
-									'JoiningAttentionStr'
-								])
-				)
-		'''
-		#set
-		JoinedAttentionCollectionOrderedSetTagStr=self.JoiningAttentionStr+self.JoiningCollectionStr+"CollectionOrderedDict"
-
-		#check
-		if hasattr(
-			self,
-			JoinedAttentionCollectionOrderedSetTagStr
-		):
-
-			#get
-			self.JoinedAttentionCollectionOrderedDict=getattr(
-				self,
-				JoinedAttentionCollectionOrderedSetTagStr
-			)
-
-		#set
-		JoinedCatchCollectionOrderedSetTagStr=self.JoiningCatchStr+self.JoiningCollectionStr+"CollectionOrderedDict"
-
-		#check
-		if hasattr(self,JoinedCatchCollectionOrderedSetTagStr):
-
-			#get
-			self.JoinedCatchCollectionOrderedDict=getattr(
-				self,
-				JoinedCatchCollectionOrderedSetTagStr
-			)
-
-			#model and link all the catched joiners
-			self.JoinedCatchDeriveJoinersList=map(
-					lambda __JoinedCatchDeriveJoiner:
-					#__JoinedCatchDeriveJoiner.__setitem__(
-					#	'InsertIsBool',
-					#	False
-					#).CatchToPointVariable.model(
-					#),
-					__JoinedCatchDeriveJoiner.CatchToPointVariable.model(),
-					self.JoinedCatchCollectionOrderedDict.values()
-				)
-
-			#debug
-			'''
-			self.debug(('self.',self,['JoinedCatchCollectionOrderedDict']))
-			'''
-
-			#set
-			self.JoinedRetrieveIndexesListColumnStrsList=map(
-					lambda __JoinedCatchDeriveJoiner:
-					"Join"+''.join(
-						[
-							__JoinedCatchDeriveJoiner.ModeledDeriveControllerVariable.NodeKeyStr
-							if __JoinedCatchDeriveJoiner.ModeledDeriveControllerVariable.NodeKeyStr!="" 
-							else 'Top'+__JoinedCatchDeriveJoiner.ModeledDeriveControllerVariable.__class__.NameStr,
-							__JoinedCatchDeriveJoiner.ModeledSuffixStr
-						]
-					)+"RetrieveIndexesList",
-					self.JoinedCatchDeriveJoinersList,
-				)
-
-			#debug
-			'''
-			self.debug(('self.',self,['JoinedRetrieveIndexesListColumnStrsList']))
-			'''
-
-			#set
-			self.JoinedRetrieveIndexesListGetStrsList=map(
-					lambda __JoinedCatchDeriveJoiner:
-					"Joined"+''.join(
-						[
-							self.ModeledDeriveControllerVariable.NodeKeyStr
-							if self.ModeledDeriveControllerVariable.NodeKeyStr!="" 
-							else 'Top'+self.ModeledDeriveControllerVariable.__class__.NameStr,
-							self.ModeledSuffixStr,
-							'To',
-							__JoinedCatchDeriveJoiner.ModeledDeriveControllerVariable.NodeKeyStr
-							if __JoinedCatchDeriveJoiner.ModeledDeriveControllerVariable.NodeKeyStr!="" 
-							else 'Top'+__JoinedCatchDeriveJoiner.ModeledDeriveControllerVariable.__class__.NameStr,
-							__JoinedCatchDeriveJoiner.ModeledSuffixStr
-						]
-					)+"RetrieveIndexesList",
-					self.JoinedCatchDeriveJoinersList,
-				)
-			
-			#debug
-			'''
-			self.debug(
-						[
-							('self.',self,['JoinedRetrieveIndexesListGetStrsList']),
-							'Table the joined databases'
-						]
-					)
-			'''
-
-			#Check
-			if len(self.ModelingDescriptionTuplesList)>0:
-				self.ModelingHdfBool=True
-				self.JoiningDatabaseStr="hdf"
-				JoinedTabledIndexIntKeyStr='TabledHdfIndexInt'
-			else:
-				self.JoiningDatabaseStr="mongo"
-				JoinedTabledIndexIntKeyStr='TabledMongoIndexInt'
-
-
-			#Table all the joined databasers and init the corresponding JoinedRetrieveIndexesList in the NodePointDeriveNoder
-			self.ModeledDeriveControllerVariable.update(
-				zip(
-						self.JoinedRetrieveIndexesListGetStrsList,
-						map(
-							lambda __JoinedCatchDeriveJoiner:
-							[
-								__JoinedCatchDeriveJoiner.table(
-									)[
-										JoinedTabledIndexIntKeyStr
-									],
-								-1
-							],
-							self.JoinedCatchDeriveJoinersList
-						)
-					)
-			)
-
-			#debug
-			self.debug(
-						('self.',self,[
-										'JoinedRetrieveIndexesListColumnStrsList',
-										'JoinedRetrieveIndexesListGetStrsList'
-									])
-			)
 #</DefineClass>
 
+
+#</DefinePrint>
+JoinerClass.PrintingClassSkipKeyStrsList.extend(
+	[
+		'JoiningCollectionStr',
+		'JoiningCatchStr',
+		'JoiningAttentionStr',
+		'JoiningFindBeforeBool',
+		'JoiningDatabaseStr',
+		'JoinedCatchCollectionOrderedDict',
+		'JoinedCatchDeriveJoinersList',
+		'JoinedRetrieveIndexesListGetStrsList',
+		'JoinedRetrieveIndexesListColumnStrsList',
+		'JoinedMongoInsertIndexIntsList',
+		'JoinedHdfInsertIndexIntsList'
+	]
+)
+#<DefinePrint>

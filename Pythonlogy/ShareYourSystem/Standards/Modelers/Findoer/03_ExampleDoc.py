@@ -19,8 +19,8 @@ MyController=SYS.ControllerClass(
 				('MyIntsList','MyIntsList',tables.Int64Col(shape=3))
 			],
 			'RowingGetStrsList':[
-					'MyInt',
-					'MyStr'
+				'MyInt',
+				'MyStr'
 			]	
 		}
 	)['#map@set'](
@@ -34,9 +34,9 @@ MyController=SYS.ControllerClass(
 		'#call:insert'
 	)['#map@set'](
 		{
-			'MyInt':0,
+			'MyInt':5,
 			'MyStr':"bonjour",
-			'MyIntsList':[2,4,1]
+			'MyIntsList':[0,0,1]
 		}
 	).command(
 		'/-Models/|Things',
@@ -45,10 +45,13 @@ MyController=SYS.ControllerClass(
 			(
 				'find',
 				[
+					#FindingWhereVariable
 					[
-						('MyInt',(SYS.operator.eq,1)),
-						('MyIntsList',(SYS.getIsEqualBool,[0,0,1]))
-					]
+						('MyInt',(SYS.operator.eq,0)),
+						('MyIntsList',(SYS.getIsEqualBool,[2,4,1]))
+					],
+					#FindingRecoverBool
+					True
 				]
 			)
 		]

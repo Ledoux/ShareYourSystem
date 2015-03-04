@@ -32,6 +32,7 @@ class FindoerClass(BaseClass):
 	
 	def default_init(self,
 					_FindingWhereVariable=None,
+					_FindingRecoverBool=False,
 					_FoundMongoRowDictsList=None,	
 					_FoundHdfRowDictsList=None,			
 					_FoundFilterRowDictsList=None, 
@@ -47,43 +48,68 @@ class FindoerClass(BaseClass):
 
 		#debug
 		'''
-		self.debug(("self.",self,['ModeledKeyStr','FindingWhereVariable']))
+		self.debug(
+			[
+				'we are going to find',
+				("self.",self,[
+						'FindingWhereVariable'
+					])
+			]
+		)
 		'''
 
 		#/###################/#
 		# Case of mongo
 		#
 
-		#Check
-		if self.ModelingMongoBool:
-
-			#Take the first one in the list
-			self.FoundMongoRowDictsList=list(
-				self.TabledMongoCollection.find(
-					self.FindingWhereVariable
-				)
-			)
-			
-			#set
-			self.FoundMongoIsBool=True
+		#If the FoundMongoIsBool was not yet setted
+		if self.FoundMongoIsBool==False:
 
 			#debug
+			'''
 			self.debug(
-						[
-							("self.",self,['FoundMongoRowDictsList'])
-						]
+				[
+					'FoundMongoRowDictsList was not yet setted'
+				]
+			)
+			'''
+			
+			#Check
+			if self.ModelingMongoBool:
+
+				#find in the list
+				self.FoundMongoRowDictsList=list(
+					self.TabledMongoCollection.find(
+						self.FindingWhereVariable
 					)
+				)
+				
+				#set
+				self.FoundMongoIsBool=True
+
+				#debug
+				'''
+				self.debug(
+							[
+								("self.",self,['FoundMongoRowDictsList'])
+							]
+						)
+				'''
 
 		#/###################/#
 		# Case of hdf
 		#
 
-		#If the FoundRowedTuplesList was not yet setted
+		#If the FoundHdfIsBool was not yet setted
 		if self.FoundHdfIsBool==False:
 
 			#debug
 			'''
-			self.debug('FoundHdfRowDictsList was not yet setted')
+			self.debug(
+				[
+					'FoundHdfRowDictsList was not yet setted',
+				]
+			)
 			'''
 
 			#Check
@@ -128,17 +154,56 @@ class FindoerClass(BaseClass):
 				)
 		'''
 
+		#/##################/#
+		# Maybe recover
+		#
+
+		#Check
+		if self.FindingRecoverBool:
+
+			#Check
+			if len(self.FoundMongoRowDictsList)==1:
+
+				#get
+				self.FoundRecoverDict=self.FoundMongoRowDictsList[0]
+
+			elif len(self.FoundHdfRowDictsList)==1:
+
+				#get
+				self.FoundRecoverDict=self.FoundHdfRowDictsList[0]
+
+			#debug
+			'''
+			self.debug(
+						[
+							'Now we update with the self.RecoveredDict',
+							'self.RecoveredDict is '+str(self.RecoveredDict)
+						]
+					)
+			'''
+
+			#set the RetrievingIndexesList and retrieve
+			self.RetrievingIndexesList=(
+											0,
+											self.FoundRecoverDict['RowInt']
+										)
+		
+			#Now we can retrieve
+			self.retrieve()
+
 #</DefineClass>
 
 #</DefinePrint>
 FindoerClass.PrintingClassSkipKeyStrsList.extend(
 	[
 		'FindingWhereVariable',
-		'FoundMongoRowDictsList',	
-		'FoundHdfRowDictsList',			
+		'FindingRecoverBool',
+		#'FoundMongoRowDictsList',	
+		#'FoundHdfRowDictsList',			
 		'FoundFilterRowDictsList',
 		'FoundMongoIsBool',
-		'FoundHdfIsBool'
+		'FoundHdfIsBool',
+		'FoundRecoverDict'
 	]
 )
 #<DefinePrint>

@@ -96,18 +96,19 @@ class ModelerClass(BaseClass):
 	
 	def default_init(
 					self,
+					_ModelKeyStrsList=None,
+					_ModelDeriveControllerVariable=None,
+					_ModelTagStr="",
 					_ModelingDescriptionTuplesList={
 						'DefaultValueType':property,
 						'PropertyInitVariable':[],
-						'PropertyDocStr':'I described variables for stroing them in hdf'
+						'PropertyDocStr':'I described variables for storing them in hdf'
 					}, 	
-					_ModelingMongoBool=False,
-					_ModelingHdfBool=False,							
+					_ModelingMongoBool=True,
+					_ModelingHdfBool=False,	
+					_ModeledDescriptionKeyStr="",						
 					_ModeledDescriptionClassesOrderedDict=None,																
 					_ModeledDescriptionClass=None, 													
-					_ModeledKeyStr="",
-					_ModeledSuffixStr="",
-					_ModeledDeriveControllerVariable=None,
 					**_KwargVariablesDict
 				):
 
@@ -123,48 +124,11 @@ class ModelerClass(BaseClass):
 		'''
 		
 		#/###################/#
-		# Define the ModeledKeyStr and the ModeledDeriveControllerVariable
+		# Define the ModeledKeyStr 
 		#
 
-		#set a name if it was not already
-		if self.ModeledKeyStr=="":
-
-			#debug
-			'''
-			self.debug(('self.',self,['ModelingKeyStr']))
-			'''
-
-			#Link set
-			self.ModeledKeyStr=self.ManagementTagStr
-
-			#set
-			self.ModeledSuffixStr=self.ModeledKeyStr+'Model'
-
-		#/###################/#
-		# Check if it is a hdf or mongo model
-		#
-
-		#debug
-		'''
-		self.debug(
-			[
-				('self.',self,['ModelingDescriptionTuplesList'])
-			]
-		)
-		'''
-
-		#get the parent-parent Teamer
-		if self.ParentDeriveTeamerVariable!=None:
-			if self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable!=None:
-				self.ModeledDeriveControllerVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
-
-		#Check
-		if len(self.ModelingDescriptionTuplesList)>0:
-			self.ModelingHdfBool=True
-			self.ModelingMongoBool=False
-		else:
-			self.ModelingHdfBool=False
-			self.ModelingMongoBool=True
+		if self.ModeledDescriptionKeyStr=='':
+			self.ModeledDescriptionKeyStr=self.ModelTagStr
 
 		#/###################/#
 		# Special case of hdf when we have to define Model Description class
@@ -183,9 +147,12 @@ class ModelerClass(BaseClass):
 				RowInt=tables.Int64Col()
 
 			#debug
-			'''
-			self.debug(('self.',self,['ModeledGetStrToColumnStrOrderedDict']))
-			'''
+			self.debug(
+				[
+					'We add descriptions in the description Class',
+					('self.',self,['ModelingDescriptionTuplesList'])
+				]
+			)
 			
 			#set the cols in the ModelClass
 			map(
@@ -198,12 +165,12 @@ class ModelerClass(BaseClass):
 				)
 
 			#Give a name
-			DescriptionClass.__name__=SYS.getClassStrWithNameStr(self.ModeledKeyStr)
+			DescriptionClass.__name__=SYS.getClassStrWithNameStr(self.ModelTagStr)
 
 			#set the ModelClass
 			if self.ModeledDescriptionClassesOrderedDict==None:
 				self.ModeledDescriptionClassesOrderedDict=collections.OrderedDict()
-			self.ModeledDescriptionClassesOrderedDict[self.ModeledKeyStr]=DescriptionClass
+			self.ModeledDescriptionClassesOrderedDict[self.ModelTagStr]=DescriptionClass
 
 			#set the ModeledDescriptionClass
 			self.ModeledDescriptionClass=DescriptionClass
@@ -223,8 +190,72 @@ class ModelerClass(BaseClass):
 		)
 		'''
 
+		#/#################/#
+		# Give some things from the controller
+		#
+
+		#get the parent-parent Teamer
+		if self.ParentDeriveTeamerVariable!=None:
+			if self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable!=None:
+				self.ModelDeriveControllerVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
+
+		#Link set
+		self.ModelTagStr=self.ManagementTagStr+'Model'
+
+		#debug
+		'''
+		self.debug(
+				[
+					'We have setted the ModelDeriveControllerVariable',
+					('self.',self,[
+						'ModelDeriveControllerVariable',
+						'ModelTagStr'
+					])
+				]
+			)
+		'''
+
 		#model
 		self.model()
+
+
+	def propertize_setModelingDescriptionTuplesList(self,_SettingValueVariable):
+
+		#set
+		self._ModelingDescriptionTuplesList=_SettingValueVariable
+
+		#check
+		if self.ModelKeyStrsList==None:
+			self.ModelKeyStrsList=[]
+
+		#extend
+		self.ModelKeyStrsList.extend(
+			SYS.unzip(
+				_SettingValueVariable,
+				[0]
+			)
+		)
+
+		#/###################/#
+		# Check if it is a hdf or mongo model
+		#
+
+		#debug
+		'''
+		self.debug(
+			[
+				('self.',self,['ModelingDescriptionTuplesList'])
+			]
+		)
+		'''
+
+		#Check
+		if len(self.ModelingDescriptionTuplesList)>0:
+			self.ModelingHdfBool=True
+			self.ModelingMongoBool=False
+		else:
+			self.ModelingHdfBool=False
+			self.ModelingMongoBool=True
 
 #</DefineClass>
 
@@ -232,15 +263,14 @@ class ModelerClass(BaseClass):
 #</DefinePrint>
 ModelerClass.PrintingClassSkipKeyStrsList.extend(
 	[
+		#'ModelKeyStrsList',	
 		'ModelingDescriptionTuplesList', 
 		'_ModelingDescriptionTuplesList', 
 		'ModelingMongoBool',
-		'ModelingHdfBool',									
+		'ModelingHdfBool',							
 		'ModeledDescriptionClassesOrderedDict',																
 		#'ModeledDescriptionClass', 													
-		'ModeledKeyStr',
-		'ModeledSuffixStr',
-		'ModeledDeriveControllerVariable',
+		'ModelDeriveControllerVariable',
 	]
 )
 #<DefinePrint>

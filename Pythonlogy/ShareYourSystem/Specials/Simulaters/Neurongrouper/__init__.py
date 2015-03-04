@@ -14,7 +14,7 @@ A Neurongrouper
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Specials.Simulaters.Populater"
+BaseModuleStr="ShareYourSystem.Specials.Simulaters.Simulater"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -66,7 +66,7 @@ class NeurongrouperClass(BaseClass):
 
 		#Check
 		if 'N' not in self.NeurongroupingKwargVariablesDict:
-			self.NeurongroupingKwargVariablesDict['N']=self.PopulatingUnitsInt
+			self.NeurongroupingKwargVariablesDict['N']=self.SimulatingUnitsInt
 
 		#add the synaptic model strs
 		'''
@@ -228,7 +228,7 @@ class NeurongrouperClass(BaseClass):
 #</DefineClass>
 
 #</DefinePrint>
-ParenterClass.PrintingClassSkipKeyStrsList.extend(
+NeurongrouperClass.PrintingClassSkipKeyStrsList.extend(
 	[
 		'NeurongroupingKwargVariablesDict',
 		'NeurongroupingVariableStrToGetStrDict',

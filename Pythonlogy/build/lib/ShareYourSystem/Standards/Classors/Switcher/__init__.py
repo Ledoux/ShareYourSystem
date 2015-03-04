@@ -270,6 +270,9 @@ class SwitcherClass(BaseClass):
 		#Check
 		if self.SwitchingIsBool:
 
+			#alias
+			SwitchedClass=self.DoClass
+
 			#Debug
 			'''
 			print('l 195 Switcher')
@@ -302,13 +305,13 @@ class SwitcherClass(BaseClass):
 
 			#Define
 			SwitchedDecorationUnboundMethod=getattr(
-						self.DoClass,
+						SwitchedClass,
 						self.BindedDecorationMethodStr
 					)
 
 			#Now make the amalgam
 			setattr(
-					self.DoClass,
+					SwitchedClass,
 					self.SwitchingWrapMethodStr,
 					SwitchedDecorationUnboundMethod
 				)
@@ -318,47 +321,52 @@ class SwitcherClass(BaseClass):
 
 				#set
 				setattr(
-						self.DoClass,
+						SwitchedClass,
 						setSwitch.__name__,
 						setSwitch
 					)
 
 				#get the unbound
 				setSwitchUnboundMethod=getattr(
-					self.DoClass,
+					SwitchedClass,
 					setSwitch.__name__
 				)
 
 				#add in the inspect
-				self.DoClass.InspectedMethodDict[setSwitch.__name__]=setSwitchUnboundMethod
-				self.DoClass.InspectedArgumentDict[setSwitch.__name__]=SYS.ArgumentDict(
+				SwitchedClass.InspectedMethodDict[setSwitch.__name__]=setSwitchUnboundMethod
+				SwitchedClass.InspectedArgumentDict[setSwitch.__name__]=SYS.ArgumentDict(
 					setSwitchUnboundMethod
 				)
 
 			#Check
-			if hasattr(self.DoClass,'SwitchedMethodDict')==False:
+			if hasattr(SwitchedClass,'SwitchedMethodDict')==False:
 
 				#init
-				self.DoClass.SwitchedMethodDict={
+				SwitchedClass.SwitchedMethodDict={
 					self.SwitchingWrapMethodStr:[self.DoClass]
 				}
 
 			else:
 
 				#copy
-				self.DoClass.SwitchedMethodDict=copy.copy(
+				SwitchedClass.SwitchedMethodDict=copy.copy(
 					self.DoClass.__bases__[0].SwitchedMethodDict
 				)
 
 				#update
 				if setSwitch.__name__ in self.DoClass.SwitchedMethodDict:
-					self.DoClass.SwitchedMethodDict[
+					SwitchedClass.SwitchedMethodDict[
 						self.SwitchingWrapMethodStr
-					].append(self.DoClass)
+					].append(SwitchedClass)
 				else:
 					self.DoClass.SwitchedMethodDict[
 						self.SwitchingWrapMethodStr
-					]=[self.DoClass]
+					]=[SwitchedClass]
+
+			#Add to the KeyStrsList
+			SwitchedClass.KeyStrsList+=[
+									'SwitchedMethodDict'
+								]
 
 
 

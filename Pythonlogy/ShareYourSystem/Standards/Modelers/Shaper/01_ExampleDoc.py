@@ -3,75 +3,64 @@
 import ShareYourSystem as SYS
 import tables
 
-#Definition a structure
+SYS._print(SYS.ShaperClass.SwitchedMethodDict)
+
+"""
+#Definition 
 MyController=SYS.ControllerClass(
 		**{
-			'HdformatingFileKeyStr':"Things.hdf5",
-			'FolderingPathStr':SYS.Shaper.LocalFolderPathStr
+			'FolderingPathStr':SYS.Shaper.LocalFolderPathStr,
+			'ControllingModelClassVariable':SYS.ShaperClass
 		}
-	).collect(
-		"Shapers",
-		"Things",
-		SYS.ShaperClass().update(
+	).set(
+		'/-Models/|Things',
+		{
+			'ModelingDescriptionTuplesList':
 			[
-				('Attr_ModelingDescriptionTuplesList',
-					[
-						('MyInt','MyInt',tables.Int64Col()),
-						('MyStr','MyStr',tables.StringCol(10)),
-						('MyIntsList','MyIntsList',tables.Int64Col(shape=[3]))
-					]
-				),
-				('Attr_RowingGetStrsList',
-					['MyInt','MyStr']
-				),
-				('ShapingDimensionTuplesList',
-					[
-						('MyIntsList',['UnitsInt'])
-					]
-				)
+				#GetStr #ColumnStr #Col
+				('MyInt','MyInt',tables.Int64Col()),
+				('MyStr','MyStr',tables.StringCol(10)),
+				('MyIntsList','MyIntsList',(tables.Int64Col,['UnitsInt']))
+			],
+			'RowingGetStrsList':[
+					'MyInt',
+					'MyStr'
 			]
-		)
-	)
-
-MyController.update(
-	[
-		('MyInt',0),
-		('MyStr',"hello"),
-		('UnitsInt',3),
-		('MyIntsList',[0,0,1])
-	]
-)['<Shapers>ThingsShaper'].insert()
-
-MyController.update(
-	[
-		('MyInt',1),
-		('MyStr',"bonjour"),
-		('MyIntsList',[0,0,1])
-	]
-)['<Shapers>ThingsShaper'].insert()
-
-
-MyController.update(
-	[
-		('MyInt',1),
-		('MyStr',"ola"),
-		('MyIntsList',[0,1])
-	]
-)['<Shapers>ThingsShaper'].insert()
-
-#Definition the AttestedStr
-SYS._attest(
-	[
-		'MyController is '+SYS._str(
-		MyController,
-		**{
-			'RepresentingAlineaIsBool':False,
-			'RepresentingBaseKeyStrsListBool':False
 		}
-		),
-		'hdf5 file is : '+MyController.hdfview().hdfclose().HdformatedConsoleStr
-	]
-) 
+	)['#map@set'](
+		{
+			'MyInt':0,
+			'MyStr':"hello",
+			'MyIntsList':[2,4,1]
+		}
+	).command(
+		'/-Models/|Things',
+		'#call:insert'
+	)
+"""
 
-#Print
+"""
+	['#map@set'](
+		{
+			'MyInt':1,
+			'MyStr':"ola",
+			'MyIntsList':[0,1]
+		}
+	).command(
+		'/-Models/|Things',
+		'#call:insert'
+	)
+"""
 
+"""
+#print
+print('MyController is ')
+SYS._print(MyController)
+
+#view
+print('hdf5 file is : \n'+SYS._str(MyController.hdfview()))
+
+#close
+MyController.file(_ModeStr='c')
+
+"""

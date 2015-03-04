@@ -5,7 +5,5 @@ FrozenIsBool True
 
 ##Example
 
-Let's create an empty class, which will automatically receive
-special attributes from the decorating ClassorClass,
-specially the NameStr, that should be the ClassStr
-without the TypeStr in the end.
+Let's model and insert data into an hdf structure that can shape for you.
+We just mention GetKeyStr in the localisation of the shape.

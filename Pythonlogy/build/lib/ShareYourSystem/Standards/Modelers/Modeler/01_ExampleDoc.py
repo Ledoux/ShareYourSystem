@@ -17,8 +17,11 @@ MyController=SYS.ControllerClass(
 		**{
 			'ControllingModelClassVariable':SYS.ModelerClass
 		}
-	).get(
-		'/-Models/|Stuff'
+	).set(
+		'/-Models/|Things',
+		{
+			'ModelingKeyStrsList':['MyInt','MyStr','MyIntsList']	
+		}
 	)
 
 #print
@@ -27,5 +30,5 @@ SYS._print(MyController)
 
 #print
 print('The Modeler object has a key for getting faster the related controller')
-SYS._print(MyController['/-Models/|Stuff'].ModeledDeriveControllerVariable)
+SYS._print(MyController['/-Models/|Things'].ModelDeriveControllerVariable)
 

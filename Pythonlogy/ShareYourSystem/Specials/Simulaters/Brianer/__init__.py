@@ -14,7 +14,7 @@ A Brianer
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Specials.Simulaters.Runner"
+BaseModuleStr="ShareYourSystem.Specials.Simulaters.Simulater"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -312,10 +312,8 @@ class BrianerClass(BaseClass):
 		"""
 #</DefineClass>
 
-
-
 #</DefinePrint>
-ParenterClass.PrintingClassSkipKeyStrsList.extend(
+BrianerClass.PrintingClassSkipKeyStrsList.extend(
 	[
 		'BrianingTimeDimensionVariable',
 		'BrianingPrintRunIsBool',

@@ -13,7 +13,7 @@ A Moniter
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Noders.Structurer"
+BaseModuleStr="ShareYourSystem.Standards.Controllers.Controller"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -24,17 +24,6 @@ SYS.setSubModule(globals())
 #<DefineClass>
 @DecorationClass()
 class MoniterClass(BaseClass):
-
-	#Definition
-	RepresentingKeyStrsList=[
-								'MoniteringRecordTimeIndexIntsArray',
-								'MoniteringSampleTimeIndexIntsArray',
-								'MoniteringVariableStr',
-								'MoniteringVariableIndexIntsArray',
-								'MoniteringDerivePopulaterVariable',
-								'MoniteredTempVariablesArray',
-								'MoniteredTotalVariablesArray'
-							]
 	
 	def default_init(self,
 						_MoniteringRecordTimeIndexIntsArray=None,
@@ -119,3 +108,16 @@ class MoniterClass(BaseClass):
 		
 #</DefineClass>
 
+#</DefinePrint>
+MoniterClass.PrintingClassSkipKeyStrsList.extend(
+	[
+		'MoniteringRecordTimeIndexIntsArray',
+		'MoniteringSampleTimeIndexIntsArray',
+		'MoniteringVariableStr',
+		'MoniteringVariableIndexIntsArray',
+		'MoniteringDerivePopulaterVariable',
+		'MoniteredTempVariablesArray',
+		'MoniteredTotalVariablesArray'
+	]
+)
+#<DefinePrint>

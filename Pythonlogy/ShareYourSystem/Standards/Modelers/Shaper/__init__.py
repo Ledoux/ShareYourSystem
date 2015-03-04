@@ -17,7 +17,7 @@ size to store again.
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Modelers.Recoverer"
+BaseModuleStr="ShareYourSystem.Standards.Modelers.Findoer"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -26,12 +26,13 @@ SYS.setSubModule(globals())
 import copy
 import collections
 import numpy
-from ShareYourSystem.Standards.Modelers import Databaser,Tabularer,Tabler,Inserter
+from ShareYourSystem.Standards.Modelers import Modeler,Tabularer,Tabler
+from ShareYourSystem.Standards.Itemizers import Getter,Setter
 #</ImportSpecificModules>
 
 #<DefineLocals>
-ShapingJoiningStr='__'
-ShapingTuplingStr='_'
+ShapeJoiningStr='__'
+ShapeTuplingStr='_'
 #</DefineLocals>
 
 #<DefineClass>
@@ -40,196 +41,410 @@ ShapingTuplingStr='_'
 		'ClassingSwitchMethodStrsList':[
 			'shape',
 			'model',
-			'database',
 			'tabular'
 		]
 	}
 )
 class ShaperClass(BaseClass):
-	
-	#Definition
-	RepresentingKeyStrsList=[
-								'ShapingDimensionTuplesList',
-								'ShapedSealGetKeyStrsList',	
-								'ShapedSealDimensionGetKeyStrsListsList',
-								'ShapedIndexIntsList',														
-								'ShapedDimensionGetKeyStrsList',	
-								'ShapedDimensionIntsList',							
-								'ShapedStr'
-							]
 
 	def default_init(self,
 					_ShapingDimensionTuplesList=None,										
-					_ShapedSealGetKeyStrsList=None, 
-					_ShapedSealDimensionGetKeyStrsListsList=None,  
+					_ShapedDescriptionGetKeyStrsList=None, 
+					_ShapedDescriptionDimensionGetKeyStrsListsList=None,
+					_ShapedDescriptionDimensionIntsListsList=None,  
 					_ShapedIndexIntsList=None,
 					_ShapedDimensionGetKeyStrsList=None, 
 					_ShapedDimensionIntsList=None,
-					_ShapedStr="",							
-					**_KwargVariablesDict):
+					_ShapedStr="",					
+					**_KwargVariablesDict
+				):
 
 		#Call the parent init method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
-	def mimic_database(self):
+	def do_shape(self):
+
+		#/################/#
+		# Pick the shape ints and their get key strs
+		#
 
 		#debug
-		'''
 		self.debug(
 					[
-						'self.shape is '+SYS._str(self.shape)
-					]
-			)
-		'''
-		
-		#<NotHook>
-		#database and shape first
-		'''
-		self.debug('We database first')
-		'''
-		self.model()
-		'''
-		self.debug(
-					[
-						'We shape first',
-						'self.shape is '+str(self.shape)
+						'We shape here',
+						("self.",self,['ShapingDimensionTuplesList'])
 					]
 				)
-		'''
-		self.shape()
-		#</NotHook>
-
-		#Get the new ModeledKeyStr
-		if self.ShapedStr!="":
-
-			#debug
-			'''
-			self.debug(
-						[
-							'We set the new ModeledKeyStr',
-							('self.',self,['ShapedStr','ModeledSuffixStr'])
-						]
-					)
-			'''
-
-			#set
-			self.ModeledKeyStr=self.ShapedStr+ShapingJoiningStr+self.ModeledSuffixStr
-
-		else:
-			self.ModeledKeyStr=self.ModeledSuffixStr
-
-		#debug
-		'''
-		self.debug(
-					[
-						'We set the new ModeledKeyStr',
-						('self.',self,['ShapedStr','ModeledKeyStr'])
-					]
-				)	
-		'''
 
 		#Check
-		if self.ModeledDescriptionClassesOrderedDict==None:
-			self.ModeledDescriptionClassesOrderedDict=collections.OrderedDict()
+		if len(self.ShapingDimensionTuplesList)>0:
 
-		#Unnzip
-		ModeledGetKeyStrsList=SYS.unzip(self.ModelingDescriptionTuplesList,[0])
+			#set
+			[
+				self.ShapedDescriptionGetKeyStrsList,
+				ShapedDescriptionDimensionGetTuplesList 
+				
+			]=SYS.unzip(self.ShapingDimensionTuplesList,[0,1])
 
-		#debug
-		'''
-		self.debug(
-					[
-						('Now change the shape of the shaping cols'),
-						('self.',self,['ShapedSealDimensionGetKeyStrsListsList'])
-					]
-				)	
-		'''
-
-		ShapedModelingDescriptionTuplesList=map(
-				self.ModelingDescriptionTuplesList.__getitem__,
-				self.ShapedIndexIntsList
-			)
-
-		#debug
-		'''
-		self.debug(
-					'ShapedModelingDescriptionTuplesList is '+str(ShapedModelingDescriptionTuplesList)
-				)
-		'''	
-
-		#set the shaping cols
-		map(
-				lambda __ShapedIndexInt,__ShapedModelingSealTuple:
-				self.ModelingDescriptionTuplesList.__setitem__(
-					__ShapedIndexInt,
-					__ShapedModelingSealTuple
-				),
-				self.ShapedIndexIntsList,
-				map(
-					lambda __ShapedModelingSealTuple,__ShapedSealDimensionGetKeyStrsList:
-					(
-						__ShapedModelingSealTuple[0],
-						__ShapedModelingSealTuple[1],
-						__ShapedModelingSealTuple[2].__class__(
-						shape=self.NodePointDeriveNoder.pick(
-							__ShapedSealDimensionGetKeyStrsList)
-						)
-					),
-					ShapedModelingDescriptionTuplesList,
-					self.ShapedSealDimensionGetKeyStrsListsList	
-				)
-			)
-
-		#debug	
-		'''		
-		self.debug("Now self.ModelingDescriptionTuplesList is "+str(
-			self.ModelingDescriptionTuplesList))
-		'''
-		
-		#database then
-		Databaser.DatabaserClass.database(self)
-
-	def mimic_tabular(self):
-
-
-		#tabular first
-		Tabularer.TabularerClass.tabular(self)
-
-		#debug
-		'''
-		self.debug(
-					[
-						'We add the ShapedStr to the TabularedSuffix Str ?',
-						('self.',self,[
-											'TabularedSuffixStr',
-											'ShapedStr'
-										])
-					]
-				)
-		'''
-
-		#Add the ShapedStr
-		if self.ShapedStr!="":
+			#list
+			self.ShapedDescriptionGetKeyStrsList=list(self.ShapedDescriptionGetKeyStrsList)
 
 			#debug
-			'''
-			self.debug(' ShapingJoiningStr not in self.TabularedSuffixStr is '+str( ShapingJoiningStr not in self.TabularedSuffixStr))
-			'''
+			self.debug(
+				[
+					'ShapedDescriptionDimensionGetTuplesList is ',
+					str(ShapedDescriptionDimensionGetTuplesList)
+				]
+			)
 
-			if ShapingJoiningStr not in self.TabularedSuffixStr:
+			#unzip
+			self.ShapedDescriptionDimensionGetKeyStrsListsList=SYS.unzip(
+					list(ShapedDescriptionDimensionGetTuplesList),[1]
+				)
+
+			#debug
+			self.debug(
+				[
+					('self.',self,['ShapedDescriptionDimensionGetKeyStrsListsList'])
+				]
+			)
+
+			#get the corresponding real dimensions
+			self.ShapedDescriptionDimensionIntsListsList=map(
+					lambda __ShapedDescriptionDimensionGetKeyStrsList:
+					self.ModelDeriveControllerVariable[Getter.GetMapStr](
+						*__ShapedDescriptionDimensionGetKeyStrsList
+					).ItemizedMapValueVariablesList,
+					self.ShapedDescriptionDimensionGetKeyStrsListsList
+				)
+
+			#debug
+			self.debug(
+				[
+					('self.',self,['ShapedDescriptionDimensionIntsListsList'])
+				]
+			)
+
+		else:
+
+			#Default
+			self.ShapedDescriptionGetKeyStrsList=[]
+			self.ShapedDimensionGetKeyStrsList=[]
+			self.ShapedDescriptionDimensionGetKeyStrsListsList=[]
+
+		#debug
+		self.debug(
+			[
+				("self.",self,[
+									'ShapedDescriptionGetKeyStrsList',
+									'ShapedDescriptionDimensionGetKeyStrsListsList',
+									'ShapedDescriptionDimensionIntsListsList'
+								])
+			]
+		)
+
+		#/################/#
+		# Find where in the description tuokes list it has to be modified and
+		#
+
+		#Definition
+		ModeledGetKeyStrsList=SYS.unzip(self.ModelingDescriptionTuplesList,[0])
+
+		#set
+		self.ShapedIndexIntsList=map(
+				lambda __ShapedDescriptionGetKeyStr:
+				ModeledGetKeyStrsList.index(__ShapedDescriptionGetKeyStr),
+				self.ShapedDescriptionGetKeyStrsList
+			)
+
+		#debug
+		'''
+		self.debug(
+				[
+					'Check if we know already the modeler',
+					'self.ModelDeriveControllerVariable!=None is '+str(
+						self.ModelDeriveControllerVariable!=None
+					)
+				]
+			)
+		'''
+
+		#/################/#
+		# set flat all the get key str for the shaping int 
+		#
+
+		#Check
+		if self.ModelDeriveControllerVariable!=None:
+
+			#Flat and set
+			self.ShapedDimensionGetKeyStrsList=list(
+				set(
+					SYS.flat(
+						self.ShapedDescriptionDimensionGetKeyStrsListsList
+						)
+					)
+				)
+
+			#Pick
+			self.ShapedDimensionIntsList=self.ModelDeriveControllerVariable[Getter.GetMapStr
+			](
+				*self.ShapedDimensionGetKeyStrsList
+			).ItemizedMapValueVariablesList
+
+		else:
+
+			#Default
+			self.ShapedDimensionIntsList=[]
+					
+
+		#/################/#
+		# map a join str with this
+		#
+
+		#debug
+		'''
+		self.debug(("self.",self,['ShapedDimensionIntsList']))
+		'''
+
+		#Bind with ModeledShapedStr setting
+		self.ShapedStr=ShapeJoiningStr.join(
+			map(
+					lambda __ShapedDescriptionGetKeyStr,__ShapedDimensionVariable:
+					ShapeJoiningStr+str(
+						__ShapedDescriptionGetKeyStr
+						)+ShapeTuplingStr+str(
+						__ShapedDimensionVariable),
+					self.ShapedDimensionGetKeyStrsList,
+					self.ShapedDimensionIntsList
+				)
+		)
+
+		#debug 
+		'''
+		self.debug(
+			[
+				('self.',self,['ShapedStr'])
+			]
+		)
+		'''
+
+	def mimic_model(self):
+
+		#/#################/#
+		# Check if we have to shape before
+		#
+
+		#debug
+		self.debug(
+					[	
+						'Do we have to shape before model',
+						('self.',self,['ModelingHdfBool'])
+					]
+			)
+	
+		#Check
+		if self.ModelingHdfBool:
+
+			#shape
+			self.shape()
+
+			#/#################/#
+			# Adapt the name of the descriptionmodel given the shape
+			#
+
+			#debug
+			self.debug(
+					[
+						'Ok we have shaped',
+						('self.',self,['ShapedStr'])
+					]
+				)
+
+			#Get the new ModeledKeyStr
+			if self.ShapedStr!="":
 
 				#debug
 				'''
-				self.debug('Yes we add')
+				self.debug(
+							[
+								'We set the new ModeledDescriptionKeyStr',
+								('self.',self,['ShapedStr','ModelTagStr'])
+							]
+						)
 				'''
 
-				#Add
-				self.TabularedSuffixStr=self.ShapedStr+ShapingJoiningStr+self.TabularedSuffixStr
+				#set
+				self.ModeledDescriptionKeyStr=self.ShapedStr+ShapeJoiningStr+self.ModelTagStr
+
+			else:
+				self.ModeledDescriptionKeyStr=self.ModeledSuffixStr
 
 			#debug
-			'''
-			self.debug("self.TabularedSuffixStr is "+self.TabularedSuffixStr)
-			'''
+			self.debug(
+						[
+							'We set the new ModeledDescriptionKeyStr',
+							('self.',self,['ShapedStr','ModeledDescriptionKeyStr'])
+						]
+					)	
+
+
+			#/#################/#
+			# Set the good format for the Description tuples list
+			#
+
+			#Unnzip
+			ModeledGetKeyStrsList=SYS.unzip(self.ModelingDescriptionTuplesList,[0])
+
+			#debug
+			self.debug(
+						[
+							('Now change the shape of the shaping cols'),
+							('self.',self,[
+								'ModelingDescriptionTuplesList',
+								'ShapedIndexIntsList'
+								])
+						]
+					)	
+
+			#map
+			ShapedModelingDescriptionTuplesList=map(
+					self.ModelingDescriptionTuplesList.__getitem__,
+					self.ShapedIndexIntsList
+				)
+
+			#debug
+			self.debug(
+					[
+						'ShapedModelingDescriptionTuplesList is '+str(
+							ShapedModelingDescriptionTuplesList
+						),
+						('self.',self,['ShapedDescriptionDimensionIntsListsList'])
+					]
+				)
+
+			#map
+			ModeledShapeDescriptionTuplesList=map(
+					lambda __ShapedModelingDescriptionTuple,__ShapedDescriptionDimensionIntsList:
+					(
+						__ShapedModelingDescriptionTuple[0],
+						__ShapedModelingDescriptionTuple[1],
+						__ShapedModelingDescriptionTuple[2][0](
+							shape=__ShapedDescriptionDimensionIntsList
+						)
+					),
+					ShapedModelingDescriptionTuplesList,
+					self.ShapedDescriptionDimensionIntsListsList
+				)
+
+			#debug
+			self.debug(
+					[
+						'ModeledShapeDescriptionTuplesList is '+str(
+							ModeledShapeDescriptionTuplesList)
+					]
+				)
+
+			#set the shaping cols
+			map(
+					lambda __ShapedIndexInt,__ShapedModelingDescriptionTuple:
+					self.ModelingDescriptionTuplesList.__setitem__(
+						__ShapedIndexInt,
+						__ShapedModelingDescriptionTuple
+					),
+					self.ShapedIndexIntsList,
+					ModeledShapeDescriptionTuplesList
+				)
+
+			#debug	
+			self.debug(
+				[
+					"After the shape",
+					"Now self.ModelingDescriptionTuplesList is "+SYS._str(
+					self.ModelingDescriptionTuplesList)
+				]
+			)
+		
+		#/#################/#
+		# base method
+		#
+
+		#debug
+		self.debug(
+				'Now we call the base model method'
+			)
+
+		#model then
+		BaseClass.model(self)
+
+	def mimic_tabular(self):
+
+		#/#################/#
+		# first tabular
+		#
+
+		#debug
+		self.debug(
+				'First we tabular with the base'
+			)
+
+		#tabular Tabularer method first
+		Tabularer.TabularerClass.tabular(self)
+
+		#Check
+		if self.ModelingHdfBool:
+		
+			#/#################/#
+			# Now adapt also the name of the tables
+			#
+
+			#debug
+			self.debug(
+						[
+							'We add the ShapedStr to the TabularedSuffix Str ?',
+							('self.',self,[
+												'ShapedStr',
+												'TabularedHdfSuffixStr'
+											])
+						]
+					)
+
+			#Add the ShapedStr
+			if self.ShapedStr!="":
+
+				#debug
+				'''
+				self.debug(
+					[
+						' ShapeJoiningStr not in self.TabularedSuffixStr is '+str(
+							ShapeJoiningStr not in self.TabularedSuffixStr))
+					]
+				)
+				'''
+
+				#Check
+				if ShapeJoiningStr not in self.TabularedHdfSuffixStr:
+
+					#debug
+					'''
+					self.debug('Yes we add')
+					'''
+
+					#Add
+					self.TabularedHdfSuffixStr=self.ShapedStr+ShapeJoiningStr+self.TabularedHdfSuffixStr
+
+				#debug
+				self.debug(
+					[
+						('self.',self,['TabularedHdfSuffixStr'])
+					]
+				)
+
+		#/##################/#
+		# Rehook with the table process
+		#
+
+		#then table
+		BaseClass.table(self)
 
 	def mimic_insert(self):
 
@@ -255,22 +470,23 @@ class ShaperClass(BaseClass):
 
 			#Definition the InsertedOldDimensionIntsListsList
 			InsertedOldDimensionIntsList=map(
-					lambda __ShapedSealDimensionGetKeyStrsList:
-					self.NodePointDeriveNoder.pick(
-						__ShapedSealDimensionGetKeyStrsList),
-					self.ShapedSealDimensionGetKeyStrsListsList
-					)
+					lambda __ShapedDescriptionDimensionGetKeyStrsList:
+					self.ModelDeriveControllerVariable[Getter.GetMapStr](
+						__ShapedDescriptionDimensionGetKeyStrsList
+					).ItemizedMapValueVariablesList,
+					self.ShapedDescriptionDimensionGetKeyStrsListsList
+				)
 
 			#Definition the InsertedNewDimensionIntsListsList
 			InsertedNewDimensionIntsListsList=map(
-												lambda __ShapedSealGetKeyStr:
-												list(
-														numpy.shape(
-															self.NodePointDeriveNoder[__ShapedSealGetKeyStr]
-														)
-												),
-												self.ShapedSealGetKeyStrsList
-											)
+				lambda __ShapedDescriptionGetKeyStr:
+				list(
+						numpy.shape(
+							self.ModelDeriveControllerVariable[__ShapedDescriptionGetKeyStr]
+						)
+				),
+				self.ShapedDescriptionGetKeyStrsList
+			)
 
 			#debug
 			'''
@@ -282,29 +498,47 @@ class ShaperClass(BaseClass):
 
 			#set the shaping attributes to their new values
 			map(
-					lambda __ShapedSealDimensionGetKeyStrsList,__InsertedOldDimensionList,__InsertedNewDimensionList:
+					lambda __ShapedDescriptionDimensionGetKeyStrsList,__InsertedOldDimensionList,__InsertedNewDimensionList:
 					self.__setitem__(
 						'ShapedErrorBool',
 						True
-						).NodePointDeriveNoder.update(
+						).ModelDeriveControllerVariable[Setter.SetMapStr](
 						zip(
-							__ShapedSealDimensionGetKeyStrsList,
+							__ShapedDescriptionDimensionGetKeyStrsList,
 							__InsertedNewDimensionList
 							)
 					) if __InsertedNewDimensionList!=__InsertedOldDimensionList
 					else None,
-					self.ShapedSealDimensionGetKeyStrsListsList,
+					self.ShapedDescriptionDimensionGetKeyStrsListsList,
 					InsertedOldDimensionIntsList,
 					InsertedNewDimensionIntsListsList
 					)
 
 			#debug
-			'''
-			self.debug('We reset some methods')
-			'''
+			self.debug(
+				[
+					'We reset some methods',
+					('self.',self,['SwitchedMethodDict'])
+				]
+			)
 
 			#reboot
-			self.reboot(['Model','Shape','Tabular','Table'])
+			self.setSwitch(
+				[
+					'model',
+					'shape',
+					'tabular',
+					'table'
+				]
+			)
+			self.setDone(
+				[
+					Modeler.ModelerClass,
+					Tabularer.TabularerClass,
+					Tabler.TableClass,
+					SYS.ShaperClass
+				]
+			)
 			
 
 			#Table
@@ -317,100 +551,45 @@ class ShaperClass(BaseClass):
 
 			#insert first
 			BaseClass.insert(self)
-	
-	def do_shape(self):
 
-		#Check
-		if self.ModelingHdfBool:
+	def propertize_setModelingDescriptionTuplesList(self,_SettingValueVariable):
 
-			#debug
-			'''
-			self.debug(
-						[
-							'We shape here',
-							#("self.",self,['ShapingDimensionTuplesList'])
-						]
-					)
-			'''
+		#set
+		BaseClass.propertize_setModelingDescriptionTuplesList(self,_SettingValueVariable)
 
-			#Check
-			if len(self.ShapingDimensionTuplesList)>0:
-
-				#set
-				[
-					self.ShapedSealGetKeyStrsList,
-					self.ShapedSealDimensionGetKeyStrsListsList
-				]=SYS.unzip(self.ShapingDimensionTuplesList,[0,1])
-
-				#Flat and set
-				self.ShapedDimensionGetKeyStrsList=list(
-					set(
-						SYS.flat(
-							self.ShapedSealDimensionGetKeyStrsListsList
-							)
-						)
-					)
-
-			else:
-
-				#Default
-				self.ShapedSealGetKeyStrsList=[]
-				self.ShapedDimensionGetKeyStrsList=[]
-				self.ShapedSealDimensionGetKeyStrsListsList=[]
-
-			#debug
-			'''
-			self.debug(("self.",self,[
-										'ShapedSealGetKeyStrsList',
-										'ShapedDimensionGetKeyStrsList'
-									]))
-			'''
-
-			#Definition
-			ModeledGetKeyStrsList=SYS.unzip(self.ModelingDescriptionTuplesList,[0])
-
-			#set
-			self.ShapedIndexIntsList=map(
-					lambda __ShapedSealGetKeyStr:
-					ModeledGetKeyStrsList.index(__ShapedSealGetKeyStr),
-					self.ShapedSealGetKeyStrsList
-				)
-
-			#Check
-			if hasattr(self,'NodePointDeriveNoder') and self.NodePointDeriveNoder!=None:
-
-				#Pick
-				self.ShapedDimensionIntsList=self.NodePointDeriveNoder.pick(
-					self.ShapedDimensionGetKeyStrsList
-				)
-
-			else:
-
-				#Default
-				self.ShapedDimensionIntsList=[]
-						
-
-			#debug
-			'''
-			self.debug(("self.",self,['ShapedDimensionIntsList']))
-			'''
-
-			#Bind with ModeledShapedStr setting
-			self.ShapedStr=ShapingJoiningStr.join(
-										map(
-												lambda __ShapedSealGetKeyStr,__ShapedDimensionVariable:
-												ShapingJoiningStr+str(
-													__ShapedSealGetKeyStr
-													)+ShapingTuplingStr+str(
-													__ShapedDimensionVariable),
-												self.ShapedDimensionGetKeyStrsList,
-												self.ShapedDimensionIntsList
-											)
+		#filter
+		self.ShapingDimensionTuplesList=map(
+			lambda __DescriptionTuple:
+			(__DescriptionTuple[0], __DescriptionTuple[2]),
+			SYS._filter(
+				lambda __DescriptionTuple:
+				type(__DescriptionTuple[2]) in [list,tuple],
+				_SettingValueVariable
 			)
+		)
 
-			#debug 
-			'''
-			self.debug(('self.',self,['ShapedStr']))
-			'''
+		#debug
+		'''
+		self.debug(
+				[
+					'We have setted the ShapingDimensionTuplesList',
+					('self.',self,['ShapingDimensionTuplesList'])
+				]
+			)
+		'''
 #</DefineClass>
 
+
+#</DefinePrint>
+ShaperClass.PrintingClassSkipKeyStrsList.extend(
+	[
+		'ShapingDimensionTuplesList',
+		'ShapedDescriptionGetKeyStrsList',	
+		'ShapedDescriptionDimensionIntsListsList',
+		'ShapedIndexIntsList',														
+		'ShapedDimensionGetKeyStrsList',	
+		'ShapedDimensionIntsList',							
+		'ShapedStr'
+	]
+)
+#<DefinePrint>

@@ -185,11 +185,11 @@ class RetrieverClass(BaseClass):
 			'''
 
 			#Update
-			self.ModeledDeriveControllerVariable[Setter.SetMapStr](
+			self.ModelDeriveControllerVariable[Setter.SetMapStr](
 				self.RetrievedPickOrderedDict.items(),
 				#**{'RestrictingIsBool':True}
 			)
-			self.ModeledDeriveControllerVariable.RestrictingIsBool=False
+			self.ModelDeriveControllerVariable.RestrictingIsBool=False
 
 
 #</DefineClass>

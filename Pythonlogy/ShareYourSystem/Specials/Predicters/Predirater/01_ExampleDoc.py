@@ -6,7 +6,7 @@ import ShareYourSystem as SYS
 MyPredirater=SYS.PrediraterClass(
 	).predirate(
 		10,
-		3
+		1
 	)
 
 #print

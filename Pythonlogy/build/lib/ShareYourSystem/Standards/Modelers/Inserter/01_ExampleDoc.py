@@ -11,6 +11,11 @@ MyController=SYS.ControllerClass(
 	).set(
 		'/-Models/|Things',
 		{
+			'ModelKeyStrsList':[
+				'MyInt',
+				'MyStr',
+				'MyIntsList'
+			],
 			'RowingGetStrsList':[
 				'MyInt',
 				'MyStr'
@@ -27,9 +32,9 @@ MyController=SYS.ControllerClass(
 		'#call:insert'
 	)['#map@set'](
 		{
-			'MyInt':0,
+			'MyInt':5,
 			'MyStr':"bonjour",
-			'MyIntsList':[2,4,1]
+			'MyIntsList':[0,0,1]
 		}
 	).command(
 		'/-Models/|Things',

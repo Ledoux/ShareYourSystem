@@ -74,7 +74,7 @@ class TabularerClass(
 		self.debug(
 					[
 						('self.',self,[
-							'ModeledDeriveControllerVariable'
+							'ModelDeriveControllerVariable'
 							]
 						)
 					]
@@ -82,11 +82,11 @@ class TabularerClass(
 		'''
 		
 		#Check
-		if self.ModeledDeriveControllerVariable!=None:
+		if self.ModelDeriveControllerVariable!=None:
 
 			#debug
 			'''
-			self.debug(('self.',self,['ModeledSuffixStr']))
+			self.debug(('self.',self,['ModelTagStr']))
 			'''
 			
 			#Check
@@ -100,9 +100,7 @@ class TabularerClass(
 				'''
 
 				#set
-				self.TabularedMongoSuffixStr='Model'.join(
-					self.ModeledSuffixStr.split('Model')[:-1]
-				)+'Collection'
+				self.TabularedMongoSuffixStr=self.ModelTagStr+'Collection'
 
 				#debug
 				'''
@@ -118,7 +116,7 @@ class TabularerClass(
 				'''
 
 				#Check
-				if self.ModeledDeriveControllerVariable.PymongoneClientVariable==None:
+				if self.ModelDeriveControllerVariable.PymongoneClientVariable==None:
 
 					#debug
 					'''
@@ -126,10 +124,10 @@ class TabularerClass(
 					'''
 
 					#pymongo
-					self.ModeledDeriveControllerVariable.pymongo()
+					self.ModelDeriveControllerVariable.pymongo()
 
 				#Link
-				self.TabularedMongoTopClientVariable=self.ModeledDeriveControllerVariable.PymongoneClientVariable
+				self.TabularedMongoTopClientVariable=self.ModelDeriveControllerVariable.PymongoneClientVariable
 				
 				#Check
 				if self.TabularedMongoTopClientVariable!=None:
@@ -147,10 +145,10 @@ class TabularerClass(
 					'''
 
 					#set
-					self.TabularedMongoDatabaseKeyStr=self.ModeledDeriveControllerVariable.ControlModelStr
+					self.TabularedMongoDatabaseKeyStr=self.ModelDeriveControllerVariable.ControlModelStr
 
 					#set
-					self.ModeledDeriveControllerVariable.PymongoingDatabaseKeyStr=self.TabularedMongoDatabaseKeyStr
+					self.ModelDeriveControllerVariable.PymongoingDatabaseKeyStr=self.TabularedMongoDatabaseKeyStr
 
 					#set
 					self.TabularedMongoLocalDatabaseVariable=self.TabularedMongoTopClientVariable[
@@ -174,10 +172,10 @@ class TabularerClass(
 					#set
 					self.TabularedMongoLocalDatabaseVariable.__dict__[
 						'ParentDerivePymongoer'
-					]=self.ModeledDeriveControllerVariable
+					]=self.ModelDeriveControllerVariable
 
 					#alias
-					self.ModeledDeriveControllerVariable.Database=self.TabularedMongoLocalDatabaseVariable
+					self.ModelDeriveControllerVariable.Database=self.TabularedMongoLocalDatabaseVariable
 
 					#debug
 					'''
@@ -248,38 +246,36 @@ class TabularerClass(
 				'''
 				
 				#set
-				self.TabularedHdfSuffixStr='Model'.join(
-					self.ModeledSuffixStr.split('Model')[:-1]
-				)+'Table'
+				self.TabularedHdfSuffixStr=self.ModelTagStr+'Table'
 
 				#Check
-				if self.ModeledDeriveControllerVariable.HdformatedFileVariable==None:
+				if self.ModelDeriveControllerVariable.HdformatedFileVariable==None:
 
 					#Check
-					if self.ModeledDeriveControllerVariable.HdformatingFileKeyStr=='':
+					if self.ModelDeriveControllerVariable.HdformatingFileKeyStr=='':
 
 						#set
-						self.ModeledDeriveControllerVariable.HdformatingFileKeyStr=self.ModeledDeriveControllerVariable.ControlModelStr+'.hdf5'
+						self.ModelDeriveControllerVariable.HdformatingFileKeyStr=self.ModelDeriveControllerVariable.ControlModelStr+'.hdf5'
 
 					#debug
 					'''
 					self.debug(
 						[
 							'We have to hdformat first...',
-							'self.ModeledDeriveControllerVariable.HdformatingFileKeyStr is ',
-							self.ModeledDeriveControllerVariable.HdformatingFileKeyStr
+							'self.ModelDeriveControllerVariable.HdformatingFileKeyStr is ',
+							self.ModelDeriveControllerVariable.HdformatingFileKeyStr
 						]
 					)
 					'''
 
 					#Hdformat
-					self.ModeledDeriveControllerVariable.hdformat()
+					self.ModelDeriveControllerVariable.hdformat()
 					
 				#Set
-				self.ModeledDeriveControllerVariable.HdfGroupPathStr=self.ModeledDeriveControllerVariable.ControlModelStr
+				self.ModelDeriveControllerVariable.HdfGroupPathStr=self.ModelDeriveControllerVariable.ControlModelStr
 
 				#Link
-				self.TabularedHdfTopFileVariable=self.ModeledDeriveControllerVariable.HdformatedFileVariable
+				self.TabularedHdfTopFileVariable=self.ModelDeriveControllerVariable.HdformatedFileVariable
 				
 				#debug
 				'''
@@ -307,7 +303,7 @@ class TabularerClass(
 
 					#Definition Tabulared attributes
 					self.TabularedHdfGroupVariable=self.TabularedHdfTopFileVariable.getNode(
-						self.ModeledDeriveControllerVariable.HdfGroupPathStr
+						self.ModelDeriveControllerVariable.HdfGroupPathStr
 					)
 
 					#debug
@@ -356,9 +352,11 @@ class TabularerClass(
 		BaseClass.model(self)
 
 		#debug
-		'''
-		self.debug('We have modeled here, now tabular')
-		'''
+		self.debug(
+			[
+				'We have modeled here, now tabular'
+			]
+		)
 		
 		#tabular then
 		self.tabular()
@@ -373,8 +371,8 @@ TabularerClass.PrintingClassSkipKeyStrsList.extend(
 		'TabularedHdfTopFileVariable',
 		'TabularedMongoTopClientVariable',
 		'TabularedMongoLocalDatabaseVariable',									
-		'TabularedMongoSuffixStr',
-		'TabularedHdfSuffixStr',																
+		#'TabularedMongoSuffixStr',
+		#'TabularedHdfSuffixStr',																
 		'TabularedMongoKeyStrsList',
 		'TabularedHdfKeyStrsList', 	
 		'TabularedMongoCollectionsOrderedDict',												

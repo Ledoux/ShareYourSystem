@@ -27,19 +27,6 @@ import numpy as np
 @DecorationClass()
 class SynapserClass(BaseClass):
 	
-	#Definition
-	RepresentingKeyStrsList=[
-									'SynapsingKwargVariablesDict',
-									'SynapsingProbabilityVariable',
-									'SynapsingTagStr',
-									'SynapsingWeigthSymbolStr',
-									'SynapsingWeigthFloatsArray',
-									'SynapsingDelayDict',
-									'SynapsedBrianVariable',
-									'SynapsedCustomOperationStr',
-									'SynapsedDelayStateStrsList'
-							]
-
 	def default_init(self,
 						_SynapsingKwargVariablesDict=None,
 						_SynapsingProbabilityVariable=None,
@@ -60,8 +47,6 @@ class SynapserClass(BaseClass):
 
 		#Call the parent __init__ method
 		BaseClass.__init__(self,**_KwargVariablesDict)
-
-
 
 	def setDelay(self,_SymbolStr,_DelayVariable):
 
@@ -231,7 +216,20 @@ class SynapserClass(BaseClass):
 					])
 			)
 
-
-
-
 #</DefineClass>
+
+#</DefinePrint>
+SynapserClass.PrintingClassSkipKeyStrsList.extend(
+	[
+		'SynapsingKwargVariablesDict',
+		'SynapsingProbabilityVariable',
+		'SynapsingTagStr',
+		'SynapsingWeigthSymbolStr',
+		'SynapsingWeigthFloatsArray',
+		'SynapsingDelayDict',
+		'SynapsedBrianVariable',
+		'SynapsedCustomOperationStr',
+		'SynapsedDelayStateStrsList'
+	]
+)
+#<DefinePrint>

@@ -77,8 +77,13 @@ class PrediraterClass(BaseClass):
 						_PrediratedTimeFloatsArray=None,
 						_PrediratedCommandFloatsArray=None,
 						_PrediratedJacobianFloatsArray=None,
-						_PrediratedInputWeigthFloatsArray=None,
+						_PrediratedDecoderWeigthFloatsArray=None,
+						_PrediratedInputRandomFloatsArray=None,
+						_PrediratedInputPerturbativeFloatsArray=None,
 						_PrediratedNullFloatsArray=None,
+						_PrediratedLateralWeigthFloatsArray=None,
+						_PrediratedLateralRandomFloatsArray=None,
+						_PrediratedLateralPerturbativeFloatsArray=None,
 						_PrediratedInitialSensorFloatsArray=None,
 						_PrediratedInitialRateFloatsArray=None,
 						_PrediratedSensorFloatsArray=None,
@@ -147,11 +152,11 @@ class PrediraterClass(BaseClass):
 		'''
 
 		#/#################/#
-		# Rate care : Prepare the input weigth and the null matrix
+		# Rate care : Prepare the input weigth, null matrix, exact and perturbativ matrix
 		#
 
 		#random
-		self.PrediratedInputWeigthFloatsArray=scipy.stats.uniform.rvs(
+		self.PrediratedDecoderWeigthFloatsArray=scipy.stats.uniform.rvs(
 			size=(
 				self.PrediratingSensorUnitsInt,
 				self.PrediratingRateUnitsInt
@@ -160,16 +165,16 @@ class PrediraterClass(BaseClass):
 		
 		#find the null space
 		self.PrediratedNullFloatsArray=getNullFloatsArray(
-			self.PrediratedInputWeigthFloatsArray
+			self.PrediratedDecoderWeigthFloatsArray
 		)
 
 		#debug
 		'''
-		PrediratedProductArray=np.dot(self.PrediratedInputWeigthFloatsArray,self.PrediratedNullFloatsArray)
+		PrediratedProductArray=np.dot(self.PrediratedDecoderWeigthFloatsArray,self.PrediratedNullFloatsArray)
 		self.debug(
 				[
 					('self.',self,[
-						'PrediratedInputWeigthFloatsArray',
+						'PrediratedDecoderWeigthFloatsArray',
 						'PrediratingRateUnitsInt'
 						]
 					),
@@ -177,6 +182,40 @@ class PrediraterClass(BaseClass):
 				]
 			)
 		'''
+
+		#random
+		self.PrediratedInputRandomFloatsArray=scipy.stats.uniform.rvs(
+			size=(
+				np.shape(self.PrediratedNullFloatsArray)[1],
+				self.PrediratingSensorUnitsInt
+			)
+		)
+
+		#dot
+		self.PrediratedInputPerturbativeFloatsArray=0.*np.dot(
+				self.PrediratedNullFloatsArray,
+				self.PrediratedInputRandomFloatsArray
+			)
+
+		#dot
+		self.PrediratedExactLateralWeigthFloatsArray=np.dot(
+				self.PrediratedDecoderWeigthFloatsArray.T,
+				self.PrediratedDecoderWeigthFloatsArray
+			)
+
+		#random
+		self.PrediratedLateralRandomFloatsArray=scipy.stats.uniform.rvs(
+			size=(
+				self.PrediratingRateUnitsInt,
+				self.PrediratingRateUnitsInt
+			)
+		)
+
+		#dot
+		self.PrediratedLateralPerturbativeWeigthFloatsArray=0.*np.dot(
+				np.shape(self.PrediratedNullFloatsArray)[1],
+				self.PrediratedLateralRandomFloatsArray
+			)
 
 		#/#################/#
 		# Prepare the initial conditions
@@ -203,6 +242,15 @@ class PrediraterClass(BaseClass):
 				(self.PrediratingRateUnitsInt,len(self.PrediratedTimeFloatsArray))
 			)
 		self.PrediratedRateFloatsArray[:,0]=PrediratedInitialRateFloatsArray
+
+		#init decoder
+		self.PrediratedDecoderFloatsArray=np.zeros(
+				(self.PrediratingSensorUnitsInt,len(self.PrediratedTimeFloatsArray))
+			)
+		self.PrediratedDecoderFloatsArray[:,0]=np.dot(
+				self.PrediratedDecoderWeigthFloatsArray,
+				PrediratedInitialRateFloatsArray
+			)
 
 		#/#################/#
 		# integrativ Loop
@@ -251,14 +299,39 @@ class PrediraterClass(BaseClass):
 			# Rate part
 			#
 
-			#Current
-			self.PrediratedCurrentFloatsArray=0
+			#Input Current
+			PrediratedRateCurrentFloatsArray=np.dot(
+				self.PrediratedDecoderWeigthFloatsArray.T+self.PrediratedInputPerturbativeFloatsArray,
+				self.PrediratedCommandFloatsArray[:,__IndexInt]
+			)
 
+			#Lateral Current
+			PrediratedRateCurrentFloatsArray-=np.dot(
+				self.PrediratedExactLateralWeigthFloatsArray+self.PrediratedLateralPerturbativeWeigthFloatsArray,
+				self.PrediratedRateFloatsArray[:,__IndexInt-1]
+			)
+			
 			#Euler
 			self.PrediratedRateFloatsArray[
 				:,
 				__IndexInt
-			]=self.PrediratedRateFloatsArray[:,__IndexInt-1]+0
+			]=self.PrediratedRateFloatsArray[
+				:,
+				__IndexInt-1
+			]+PrediratedRateCurrentFloatsArray*self.PrediratingStepTimeFloat
+
+			#/#################/#
+			# Decoder part
+			#
+
+			self.PrediratedDecoderFloatsArray[
+				:,
+				__IndexInt
+			]=np.dot(
+					self.PrediratedDecoderWeigthFloatsArray,
+					self.PrediratedRateFloatsArray[:,__IndexInt-1]
+				)
+
 
 		#/#################/#
 		# Plot
@@ -275,14 +348,16 @@ class PrediraterClass(BaseClass):
 		#init
 		pyplot.figure()
 
-		#Command
+		#Command and sensors
 		PrediratedSensorAxis=pyplot.subplot(3,1,1)
 		map(
 				lambda __IndexInt:
 				PrediratedSensorAxis.plot(
 						self.PrediratedTimeFloatsArray,
 						self.PrediratedCommandFloatsArray[__IndexInt]
-					),
+					)
+				if __IndexInt<len(self.PrediratedCommandFloatsArray)
+				else None,
 				[0]
 			)
 		map(
@@ -292,11 +367,59 @@ class PrediraterClass(BaseClass):
 						self.PrediratedSensorFloatsArray[__IndexInt,:],
 						color='g',
 						linewidth=3
-					),
+					)
+				if __IndexInt<len(self.PrediratedSensorFloatsArray)
+				else None,
 				[0,1]
 			)
+		PrediratedSensorAxis.set_xlim([0.,self.PrediratingRunTimeFloat])
 		PrediratedSensorAxis.set_ylim([-0.1,3.])
 
+		#rates
+		PrediratedRateAxis=pyplot.subplot(3,1,2)
+		map(
+				lambda __IndexInt:
+				PrediratedRateAxis.plot(
+						self.PrediratedTimeFloatsArray,
+						self.PrediratedRateFloatsArray[__IndexInt,:],
+						color='b',
+						linewidth=3
+					)
+				if __IndexInt<len(self.PrediratedRateFloatsArray)
+				else None,
+				[0,1]
+			)
+		PrediratedRateAxis.set_xlim([0.,self.PrediratingRunTimeFloat])
+		PrediratedRateAxis.set_ylim([-0.1,1.])
+
+		#decoder
+		PrediratedDecoderAxis=pyplot.subplot(3,1,3)
+		map(
+				lambda __IndexInt:
+				PrediratedDecoderAxis.plot(
+						self.PrediratedTimeFloatsArray,
+						self.PrediratedSensorFloatsArray[__IndexInt],
+						color='g',
+						linewidth=3
+					)
+				if __IndexInt<len(self.PrediratedSensorFloatsArray)
+				else None,
+				[0,1]
+			)
+		map(
+				lambda __IndexInt:
+				PrediratedDecoderAxis.plot(
+						self.PrediratedTimeFloatsArray,
+						self.PrediratedDecoderFloatsArray[__IndexInt,:],
+						color='r',
+						linewidth=3
+					)
+				if __IndexInt<len(self.PrediratedDecoderFloatsArray)
+				else None,
+				[0,1]
+			)
+		PrediratedDecoderAxis.set_xlim([0.,self.PrediratingRunTimeFloat])
+		PrediratedDecoderAxis.set_ylim([-0.1,3.])
 
 		#show
 		pyplot.show()
@@ -315,7 +438,13 @@ PrediraterClass.PrintingClassSkipKeyStrsList.extend(
 		'PrediratedTimeFloatsArray',
 		'PrediratedCommandFloatsArray',
 		'PrediratedJacobianFloatsArray',
-		'PrediratedInputWeigthFloatsArray',
+		'PrediratedDecoderWeigthFloatsArray',
+		'PrediratedInputRandomFloatsArray',
+		'PrediratedInputPerturbativeFloatsArray',
+		'PrediratedDecoderWeigthFloatsArray',
+		'PrediratedLateralRandomFloatsArray',
+		'PrediratedExactLateralWeigthFloatsArray',
+		'PrediratedLateralPerturbativeWeigthFloatsArray',
 		'PrediratedNullFloatsArray',
 		'PrediratedInitialSensorFloatsArray',
 		'PrediratedInitialRateFloatsArray',

@@ -271,6 +271,10 @@ class TablerClass(
 		#Check
 		if self.ModelingHdfBool:
 
+			#/################/#
+			# Refind all the names of the tables
+			#
+
 			#debug
 			'''
 			self.debug(
@@ -298,10 +302,12 @@ class TablerClass(
 			)
 
 			#debug
-			'''
 			self.debug(('vars ',vars(),['TabledHdfList']))
-			'''
 			
+			#/##################/#
+			# Find if there are already some tables here and deduce the index of the table
+			#
+
 			#Unpack if it is possible
 			if len(TabledHdfList)>0:
 
@@ -363,6 +369,18 @@ class TablerClass(
 
 				#Strify
 				TabledHdfIndexStr="0"
+
+			#/##################/#
+			# set the table key str
+			#
+
+			#debug
+			self.debug(
+					[
+						'We set the table key str',
+						('self.',self,['TabledHdfKeyStr'])
+					]
+				)
 
 			#Bind with TabledHdfKeyStr setting
 			self.TabledHdfKeyStr=TablingOrderStr+TabledHdfIndexStr+TablingOrderStr+self.TabularedHdfSuffixStr
@@ -482,6 +500,9 @@ class TablerClass(
 		self.debug('We have tabulared here, now table')
 		'''
 		
+		#Check
+		#if 'HookTableBool' not in _KwargVariablesDict or _KwargVariablesDict['HookTableBool']:
+	
 		#table
 		self.table()
 

@@ -502,11 +502,11 @@ self.debug(('self.',self,['JoinedCatchCollectionOrderedDict']))
                                         lambda __JoinedCatchDeriveJoiner:
                                         "Join"+''.join(
                                                 [
-__JoinedCatchDeriveJoiner.ModeledDeriveControllerVariable.NodeKeyStr
+__JoinedCatchDeriveJoiner.ModelDeriveControllerVariable.NodeKeyStr
                                                         if
-__JoinedCatchDeriveJoiner.ModeledDeriveControllerVariable.NodeKeyStr!=""
+__JoinedCatchDeriveJoiner.ModelDeriveControllerVariable.NodeKeyStr!=""
                                                         else 'Top'+__JoinedCatch
-DeriveJoiner.ModeledDeriveControllerVariable.__class__.NameStr,
+DeriveJoiner.ModelDeriveControllerVariable.__class__.NameStr,
 __JoinedCatchDeriveJoiner.ModeledSuffixStr
                                                 ]
                                         )+"RetrieveIndexesList",
@@ -523,18 +523,18 @@ self.debug(('self.',self,['JoinedRetrieveIndexesListColumnStrsList']))
                                         lambda __JoinedCatchDeriveJoiner:
                                         "Joined"+''.join(
                                                 [
-self.ModeledDeriveControllerVariable.NodeKeyStr
+self.ModelDeriveControllerVariable.NodeKeyStr
                                                         if
-self.ModeledDeriveControllerVariable.NodeKeyStr!=""
+self.ModelDeriveControllerVariable.NodeKeyStr!=""
                                                         else
-'Top'+self.ModeledDeriveControllerVariable.__class__.NameStr,
+'Top'+self.ModelDeriveControllerVariable.__class__.NameStr,
                                                         self.ModeledSuffixStr,
                                                         'To',
-__JoinedCatchDeriveJoiner.ModeledDeriveControllerVariable.NodeKeyStr
+__JoinedCatchDeriveJoiner.ModelDeriveControllerVariable.NodeKeyStr
                                                         if
-__JoinedCatchDeriveJoiner.ModeledDeriveControllerVariable.NodeKeyStr!=""
+__JoinedCatchDeriveJoiner.ModelDeriveControllerVariable.NodeKeyStr!=""
                                                         else 'Top'+__JoinedCatch
-DeriveJoiner.ModeledDeriveControllerVariable.__class__.NameStr,
+DeriveJoiner.ModelDeriveControllerVariable.__class__.NameStr,
 __JoinedCatchDeriveJoiner.ModeledSuffixStr
                                                 ]
                                         )+"RetrieveIndexesList",
@@ -554,7 +554,7 @@ databases'
 
                         #Table all the joined databasers and init the
 corresponding JoinedRetrieveIndexesList in the NodePointDeriveNoder
-                        self.ModeledDeriveControllerVariable.update(
+                        self.ModelDeriveControllerVariable.update(
                                 zip(
 self.JoinedRetrieveIndexesListGetStrsList,
                                                 map(

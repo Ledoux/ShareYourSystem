@@ -3,9 +3,8 @@ import ShareYourSystem as SYS
 
 #Definition
 MyBrianer=SYS.BrianerClass(
-	).produce(
-		"Neurongroupers",
-		['E','I'],
+	).array(
+		['-Neurongroupers/E','-Neurongroupers/I'],
 		SYS.NeurongrouperClass,
 		#Here are defined the brian classic shared arguments for each pop
 		{

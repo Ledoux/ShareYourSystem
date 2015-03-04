@@ -38,17 +38,10 @@ class SimulaterClass(BaseClass):
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
 
-
-	def simulate_integrate(self):
-		self.integrate()
-
-	def simulate_pydelay(self):
-		self.pydelay()
-
 	def do_simulate(
-				self,
-				**_KwargVariablesDict
-			):	
+			self,
+			**_KwargVariablesDict
+		):	
 
 		#debug
 		'''
@@ -58,10 +51,18 @@ class SimulaterClass(BaseClass):
 		'''
 		pass
 
+	
+	def simulate_integrate(self):
+		self.integrate()
+
+	def simulate_pydelay(self):
+		self.pydelay()
+
+
 #</DefineClass>
 
 #</DefinePrint>
-ParenterClass.PrintingClassSkipKeyStrsList.extend(
+SimulaterClass.PrintingClassSkipKeyStrsList.extend(
 	[
 		'SimulatingStopTimeFloat',
 		'SimulatingInitFloatsArray',

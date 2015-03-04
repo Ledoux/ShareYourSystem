@@ -51,15 +51,10 @@ class InserterClass(
 		BaseClass.propertize_setRowingGetStrsList(self,_SettingValueVariable)
 
 		#Bind 
-		self.InsertedNotRowGetStrsList=list(
-				set(
-					SYS.unzip(
-					self.ModelingDescriptionTuplesList,[0]
-				)
+		self.InsertedNotRowGetStrsList=set(self.ModelKeyStrsList
 			)-set(
 				self.RowingGetStrsList
 			)
-		)
 
 		#set
 		if self.ModelingHdfBool:
@@ -174,8 +169,9 @@ class InserterClass(
 					self.InsertedMongoNotRowPickOrderedDict.update(
 						zip(
 								self.InsertedNotRowGetStrsList,
-								self.ModeledDeriveControllerVariable[
-								Getter.GetMapStr](
+								self.ModelDeriveControllerVariable[
+									Getter.GetMapStr
+								](
 									*self.InsertedNotRowGetStrsList
 								).ItemizedMapValueVariablesList
 							)
@@ -273,7 +269,7 @@ class InserterClass(
 					self.InsertedHdfNotRowPickOrderedDict.update(
 						zip(
 								self.InsertedNotRowGetStrsList,
-								self.ModeledDeriveControllerVariable[
+								self.ModelDeriveControllerVariable[
 								Getter.GetMapStr](
 									*self.InsertedNotRowGetStrsList
 									).ItemizedMapValueVariablesList

@@ -8,8 +8,11 @@ MyController=SYS.ControllerClass(
 			'FolderingPathStr':SYS.Rower.LocalFolderPathStr,
 			'ControllingModelClassVariable':SYS.RowerClass
 		}
-	).get(
-		'/-Models/|Things'
+	).set(
+		'/-Models/|Things',
+		{
+			'ModelingKeyStrsList':['MyInt','MyStr','MyIntsList']	
+		}
 	)['#map@set'](
 		{
 			'MyInt':0,

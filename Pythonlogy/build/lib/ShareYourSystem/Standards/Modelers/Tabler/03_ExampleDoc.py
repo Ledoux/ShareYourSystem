@@ -10,7 +10,7 @@ MyController=SYS.ControllerClass(
 			'ControllingModelClassVariable':SYS.TablerClass
 		}
 	).set(
-		'/&Models/$Things',
+		'/-Models/|Things',
 		{
 			'ModelingDescriptionTuplesList':
 			[
@@ -30,4 +30,4 @@ SYS._print(MyController)
 print('hdf5 file is : \n'+SYS._str(MyController.hdfview()))
 
 #close
-MyController.close()
+MyController.file(_ModeStr='c')

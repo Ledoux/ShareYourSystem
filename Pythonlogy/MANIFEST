@@ -131,11 +131,6 @@ ShareYourSystem/Specials/Simulaters/Rater/002_GithubDoc.md
 ShareYourSystem/Specials/Simulaters/Rater/01_ExampleCell.py
 ShareYourSystem/Specials/Simulaters/Rater/Readme.md
 ShareYourSystem/Specials/Simulaters/Rater/__init__.py
-ShareYourSystem/Specials/Simulaters/Runner/001_DocumentDoc.md
-ShareYourSystem/Specials/Simulaters/Runner/002_GithubDoc.md
-ShareYourSystem/Specials/Simulaters/Runner/01_ExampleCell.py
-ShareYourSystem/Specials/Simulaters/Runner/Readme.md
-ShareYourSystem/Specials/Simulaters/Runner/__init__.py
 ShareYourSystem/Specials/Simulaters/Simulater/001_DocumentDoc.md
 ShareYourSystem/Specials/Simulaters/Simulater/01_ExampleCell.py
 ShareYourSystem/Specials/Simulaters/Simulater/Readme.md
@@ -819,12 +814,6 @@ ShareYourSystem/Standards/Modelers/Modeler/Install.py
 ShareYourSystem/Standards/Modelers/Modeler/Readme.md
 ShareYourSystem/Standards/Modelers/Modeler/Test.py
 ShareYourSystem/Standards/Modelers/Modeler/__init__.py
-ShareYourSystem/Standards/Modelers/Recoverer/001_DocumentDoc.md
-ShareYourSystem/Standards/Modelers/Recoverer/00_ExampleDoc.md
-ShareYourSystem/Standards/Modelers/Recoverer/01_ExampleDoc.py
-ShareYourSystem/Standards/Modelers/Recoverer/Readme.md
-ShareYourSystem/Standards/Modelers/Recoverer/Test.py
-ShareYourSystem/Standards/Modelers/Recoverer/__init__.py
 ShareYourSystem/Standards/Modelers/Retriever/001_DocumentDoc.md
 ShareYourSystem/Standards/Modelers/Retriever/002_GithubDoc.md
 ShareYourSystem/Standards/Modelers/Retriever/00_ExampleDoc.md
@@ -836,7 +825,6 @@ ShareYourSystem/Standards/Modelers/Retriever/ProcessTemp.txt
 ShareYourSystem/Standards/Modelers/Retriever/Readme.md
 ShareYourSystem/Standards/Modelers/Retriever/Test.py
 ShareYourSystem/Standards/Modelers/Retriever/__init__.py
-ShareYourSystem/Standards/Modelers/Retriever/data/db/journal/j._0
 ShareYourSystem/Standards/Modelers/Rower/001_DocumentDoc.md
 ShareYourSystem/Standards/Modelers/Rower/00_ExampleDoc.md
 ShareYourSystem/Standards/Modelers/Rower/01_ExampleDoc.py
@@ -846,6 +834,7 @@ ShareYourSystem/Standards/Modelers/Rower/Readme.md
 ShareYourSystem/Standards/Modelers/Rower/Test.py
 ShareYourSystem/Standards/Modelers/Rower/__init__.py
 ShareYourSystem/Standards/Modelers/Rower/data/db/journal/j._0
+ShareYourSystem/Standards/Modelers/Rower/data/db/journal/lsn
 ShareYourSystem/Standards/Modelers/Shaper/001_DocumentDoc.md
 ShareYourSystem/Standards/Modelers/Shaper/00_ExampleDoc.md
 ShareYourSystem/Standards/Modelers/Shaper/01_ExampleDoc.py
@@ -874,6 +863,7 @@ ShareYourSystem/Standards/Modelers/Tabularer/Readme.md
 ShareYourSystem/Standards/Modelers/Tabularer/Test.py
 ShareYourSystem/Standards/Modelers/Tabularer/__init__.py
 ShareYourSystem/Standards/Modelers/Tabularer/data/db/journal/j._0
+ShareYourSystem/Standards/Modelers/Tabularer/data/db/journal/lsn
 ShareYourSystem/Standards/Tutorials/00_ExampleDoc.md
 ShareYourSystem/Standards/Tutorials/01_ExampleDoc.py
 ShareYourSystem/Standards/Tutorials/Readme.md

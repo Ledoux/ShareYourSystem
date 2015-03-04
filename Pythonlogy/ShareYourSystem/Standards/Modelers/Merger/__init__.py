@@ -31,12 +31,6 @@ from ShareYourSystem.Standards.Modelers import Tabler,Rower,Recoverer
 @DecorationClass()
 class MergerClass(BaseClass):
 	
-	#Definition
-	RepresentingKeyStrsList=[
-									'MergingConditionVariable',									
-									'MergedRowedDictsList'
-								]
-
 	def default_init(self,
 					_MergingConditionVariable=None, 		
 					_MergedRowedDictsList=None,
@@ -45,17 +39,6 @@ class MergerClass(BaseClass):
 
 		#Call the parent init method
 		BaseClass.__init__(self,**_KwargVariablesDict)
-
-	def mimic_find(self):
-
-		#merge first
-		self.merge()
-
-		#Bound the FoundRowDictsList with the MergedRowedDictsList one
-		self.FoundRowDictsList=self.MergedRowedDictsList
-
-		#find then
-		BaseClass.find(self)
 
 	def do_merge(self):
 
@@ -159,4 +142,24 @@ class MergerClass(BaseClass):
 			if len(MergedRowedDictsListsList)>0:
 				self.MergedRowedDictsList=reduce(operator.__add__,MergedRowedDictsListsList)
 
+	def mimic_find(self):
+
+		#merge first
+		self.merge()
+
+		#Bound the FoundRowDictsList with the MergedRowedDictsList one
+		self.FoundRowDictsList=self.MergedRowedDictsList
+
+		#find then
+		BaseClass.find(self)
+
 #</DefineClass>
+
+#</DefinePrint>
+MergerClass.PrintingClassSkipKeyStrsList.extend(
+	[
+		'MergingConditionVariable',									
+		'MergedRowedDictsList'
+	]
+)
+#<DefinePrint>
