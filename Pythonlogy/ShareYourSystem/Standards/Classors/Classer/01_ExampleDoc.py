@@ -10,12 +10,6 @@ import operator
 })
 class MakerClass(object):
 
-	#Definition
-	RepresentingKeyStrsList=[
-								'MakingMyFloat',
-								'MadeMyInt'
-							]
-
 	def default_init(self,
 					_MakingMyFloat=0.,
 					_MadeMyInt=0,
@@ -34,7 +28,8 @@ class MakerClass(object):
 #Definition
 @SYS.ClasserClass(**{
 	'ClassingSwitchMethodStrsList':[
-		'make'
+		'make',
+		'build'
 	]
 }
 )
@@ -59,6 +54,9 @@ class BuilderClass(MakerClass):
 	def do_build(self):
 		pass
 
+print(SYS.BuilderClass.SwitchedMethodDict)
+
+"""
 #Definition an instance
 MyBuilder=BuilderClass()
 
@@ -109,6 +107,6 @@ SYS._attest(
 ) 
 
 #Print
-
+"""
 
 

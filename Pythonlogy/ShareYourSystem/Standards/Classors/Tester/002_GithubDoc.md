@@ -160,9 +160,9 @@ class TesterClass(BaseClass):
 	def do_test(self):
 		
 		#Init in the classed Module
-		if hasattr(self.DerivedModule,'TestingPrintIsBool')==False:
-			self.DerivedModule.TestingPrintIsBool=True
-		self.DerivedModule.TestedOrderedDict=collections.OrderedDict()
+		if hasattr(self.Module,'TestingPrintIsBool')==False:
+			self.Module.TestingPrintIsBool=True
+		self.Module.TestedOrderedDict=collections.OrderedDict()
 
 		#set the tests for each asserting function
 		map(
@@ -184,7 +184,7 @@ class TesterClass(BaseClass):
 			#locals().__setitem__(setUp.__name__,setUp)
 			
 			#Bound each testing function
-			for __InstanceVariableedKeyStr,__InstanceVariableedMethod in self.DerivedModule.TestedOrderedDict.items():
+			for __InstanceVariableedKeyStr,__InstanceVariableedMethod in self.Module.TestedOrderedDict.items():
 				locals().__setitem__(__InstanceVariableedKeyStr,__InstanceVariableedMethod)
 
 			try:
@@ -196,19 +196,19 @@ class TesterClass(BaseClass):
 		TestClass.__name__=SYS.getClassStrWithNameStr(self.NameStr+'Test')
 
 		#set to the module of the classing class
-		self.DerivedModule.TestedClass=TestClass
+		self.Module.TestedClass=TestClass
 
 		#Definition
 		def test():
 
 			#Call to the unittest runner
 			TestLoader=unittest.TestLoader().loadTestsFromTestCase(
-				self.DerivedModule.TestedClass
+				self.Module.TestedClass
 			)
 			unittest.TextTestRunner(verbosity=2).run(TestLoader)
 
 		#Link to the module of the classing class
-		self.DerivedModule.test=test
+		self.Module.test=test
 #</DefineClass>
 
 #Set

@@ -65,7 +65,7 @@ def setSwitch(
 			#
 
 			#Check
-			if _InstanceVariable.__class__.DoMethodStr in _InstanceVariable.__class__.SwitchedMethodDict:
+			if _InstanceVariable.__class__.DoMethodStr in _InstanceVariable.__class__.SwitchMethodDict:
 			
 				#listify
 				DoMethodStrsList=[_InstanceVariable.__class__.DoMethodStr]
@@ -106,7 +106,7 @@ def setSwitch(
 				set.intersection(*
 					map(
 						lambda __DoMethodStr:
-						set(_InstanceVariable.__class__.SwitchedMethodDict[__DoMethodStr]),
+						set(_InstanceVariable.__class__.SwitchMethodDict[__DoMethodStr]),
 						DoMethodStrsList
 					)
 				)
@@ -136,7 +136,6 @@ def setSwitch(
 	#
 
 	#Debug
-	'''
 	print('l 139 Switcher')
 	print('DoMethodStrsList is')
 	print(DoMethodStrsList)
@@ -145,7 +144,6 @@ def setSwitch(
 	print('HookStrsList is ')
 	print(HookStrsList)
 	print('')
-	'''
 	
 	#map
 	map(
@@ -197,6 +195,13 @@ def switch(_InstanceVariable,*_LiargVariablesList,**_KwargVariablesDict):
 	#Check
 	if hasattr(_InstanceVariable,_KwargVariablesDict['WatchBeforeDoBoolKeyStr']):
 
+		#Debug
+		print('Switcher l 201')
+		print('Check for a WatchBeforeDoBoolKeyStr')
+		print("_KwargVariablesDict['WatchBeforeDoBoolKeyStr'] is ")
+		print(_KwargVariablesDict['WatchBeforeDoBoolKeyStr'])
+		print('')
+
 		#get
 		WatchDoBool=getattr(
 				_InstanceVariable,
@@ -247,7 +252,7 @@ class SwitcherClass(BaseClass):
 
 	def default_init(self,
 						_SwitchingIsBool=False,
-						_SwitchingWrapMethodStr="",					
+						_SwitchingWrapMethodStr="",				
 						**_KwargVariablesDict
 				):
 		
@@ -333,39 +338,72 @@ class SwitcherClass(BaseClass):
 				)
 
 				#add in the inspect
-				SwitchedClass.InspectedMethodDict[setSwitch.__name__]=setSwitchUnboundMethod
-				SwitchedClass.InspectedArgumentDict[setSwitch.__name__]=SYS.ArgumentDict(
+				SwitchedClass.InspectMethodDict[setSwitch.__name__]=setSwitchUnboundMethod
+				SwitchedClass.InspectArgumentDict[setSwitch.__name__]=SYS.ArgumentDict(
 					setSwitchUnboundMethod
 				)
 
+			#/##################/#
+			# Init the SwitchMethodDict
+			#
+
 			#Check
-			if hasattr(SwitchedClass,'SwitchedMethodDict')==False:
+			if hasattr(SwitchedClass,'SwitchMethodDict')==False:
 
-				#init
-				SwitchedClass.SwitchedMethodDict={
-					self.SwitchingWrapMethodStr:[self.DoClass]
-				}
+				#Debug
+				'''
+				print('Switcher l 345')
+				print('SwitchedClass is ')
+				print(SwitchedClass)
+				print('we init a SwitchMethodDict')
+				print('')
+				'''
 
+				#Check
+				if hasattr(self.DoClass.__bases__[0],'SwitchMethodDict'):
+
+					#copy
+					SwitchedClass.SwitchMethodDict=copy.copy(
+						self.DoClass.__bases__[0].SwitchMethodDict
+					)
+
+				else:
+
+					#init
+					SwitchedClass.SwitchMethodDict={
+						self.SwitchingWrapMethodStr:[self.DoClass]
+					}
+				
 			else:
 
-				#copy
-				SwitchedClass.SwitchedMethodDict=copy.copy(
-					self.DoClass.__bases__[0].SwitchedMethodDict
-				)
-
+				#/##################/#
+				# add
+				#
+	
+				#Debug
+				'''
+				print('Switcher l 345')
+				print('SwitchedClass is ')
+				print(SwitchedClass)
+				print('there is already a SwitchMethodDict')
+				print('self.SwitchingWrapMethodStr  is ')
+				print(self.SwitchingWrapMethodStr)
+				print('')
+				'''
+				
 				#update
-				if setSwitch.__name__ in self.DoClass.SwitchedMethodDict:
-					SwitchedClass.SwitchedMethodDict[
+				if self.SwitchingWrapMethodStr in self.DoClass.SwitchMethodDict:
+					SwitchedClass.SwitchMethodDict[
 						self.SwitchingWrapMethodStr
 					].append(SwitchedClass)
 				else:
-					self.DoClass.SwitchedMethodDict[
+					self.DoClass.SwitchMethodDict[
 						self.SwitchingWrapMethodStr
 					]=[SwitchedClass]
 
 			#Add to the KeyStrsList
 			SwitchedClass.KeyStrsList+=[
-									'SwitchedMethodDict'
+									'SwitchMethodDict'
 								]
 
 

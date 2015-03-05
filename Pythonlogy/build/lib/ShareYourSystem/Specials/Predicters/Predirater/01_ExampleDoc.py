@@ -4,9 +4,29 @@ import ShareYourSystem as SYS
 
 #Define
 MyPredirater=SYS.PrediraterClass(
-	).predirate(
+	).predict(
+		#PredictingUnitsInt
 		10,
-		1
+		#PredictingSensorsInt
+		1,
+		#PredictingDecoderWeigtFloat
+		10.,
+		#PredictingCostFloat
+		0.,
+		#PredictingNormalisationInt
+		1,
+		#PredictingPerturbativeWeightFloat
+		0.1
+	).predirate(
+		#PrediratingRunTimeFloat
+		100.,
+		#PrediratingStepTimeFloat
+		0.1,
+		#PrediratingTransferVariable
+		SYS.numpy.tanh,
+		#lambda _Float:_Float
+		#PrediratingClampFloat
+		0.1
 	)
 
 #print

@@ -17,12 +17,3 @@ print(MyGetter['#map@get']('MyInt','MyStr').ItemizedMapValueVariablesList)
 
 
 
-Collection.find(
-		{
-			'MyInt':{
-				'$gt':4
-			}
-
-		}
-
-	)

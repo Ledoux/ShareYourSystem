@@ -138,8 +138,8 @@ class ItemizerClass(BaseClass):
 						[
 							'ItemizedMapMethod is '+SYS._str(ItemizedMapMethod),
 							#'self.ItemizedMapMethod.__name__ is '+self.ItemizedMapMethod.__name__,
-							#'self.__class__.InspectedArgumentDict[self.ItemizedMapMethod.__name__] is ',
-							#SYS._str(self.__class__.InspectedArgumentDict[self.ItemizedMapMethod.__name__])
+							#'self.__class__.InspectArgumentDict[self.ItemizedMapMethod.__name__] is ',
+							#SYS._str(self.__class__.InspectArgumentDict[self.ItemizedMapMethod.__name__])
 							#'ItemizedMapClass is '+str(ItemizedMapClass),
 							'ItemizedMapList is '+SYS._str(ItemizedMapList)
 						]
@@ -170,7 +170,7 @@ class ItemizerClass(BaseClass):
 		try:
 
 			#get
-			ItemizedValueUnboundMethod=self.__class__.InspectedMethodDict[
+			ItemizedValueUnboundMethod=self.__class__.InspectMethodDict[
 				self.ItemizingKeyVariable
 			]
 

@@ -16,7 +16,7 @@ with high controlling features thanks to the binding
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Classors.Inspecter"
+BaseModuleStr="ShareYourSystem.Standards.Classors.Doer"
 DecorationModuleStr=BaseModuleStr
 SYS.setSubModule(globals())
 #</DefineAugmentation>

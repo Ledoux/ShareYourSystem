@@ -100,6 +100,14 @@ class ClassorClass(object):
 
 	def __call__(self,_Class):
 
+
+		#/###################/#
+		# Set the NameStr, Module, SelfClass...
+		#
+
+		#get
+		self.Module=sys.modules[_Class.__module__]
+
 		#debug
 		'''
 		print('Classor l.53 __call__ method')
@@ -118,14 +126,13 @@ class ClassorClass(object):
 			setattr(SYS,self.NameStr,sys.modules[self.__class__.__module__])
 			setattr(SYS,self.__class__.__name__,self.__class__)
 			SYS.NameStrsList.append(self.NameStr)
-		setattr(SYS,_Class.NameStr,sys.modules[_Class.__module__])
+		setattr(SYS,_Class.NameStr,self.Module)
 		setattr(SYS,_Class.__name__,_Class)
 		SYS.NameStrsList.append(_Class.NameStr)
 
 		#get the module and set it to the class
-		Module=sys.modules[_Class.__module__]
-		_Class.Module=Module
-		_Class.Module.LocalFolderPathStr=SYS.PythonlogyLocalFolderPathStr+Module.__name__.replace(
+		_Class.Module=self.Module
+		_Class.Module.LocalFolderPathStr=SYS.PythonlogyLocalFolderPathStr+self.Module.__name__.replace(
 			'.','/')+'/'
 
 		#set a pointer to itself
@@ -154,6 +161,10 @@ class ClassorClass(object):
 			)
 		)
 
+		#/###################/#
+		# Give ref to the concept module
+		#
+
 		#append
 		ConceptModuleStr='.'.join(_Class.Module.__name__.split('.')[:-1])
 		if hasattr(_Class,"ConceptModuleStr")==False or _Class.ConceptModuleStr!=ConceptModuleStr:
@@ -169,6 +180,55 @@ class ClassorClass(object):
 					)
 				)
 			
+		#/###################/#
+		# Alert the base method that a derive object exists
+		#
+
+		#set
+		if len(_Class.__bases__)>0:
+
+			#set the DerivedBaseClas
+			FirstBaseClass=_Class.__bases__[0]
+
+			#Debug
+			'''
+			print('l. 183 Classor')
+			print('We can set derived bases for the base')
+			print('FirstBaseClass is ',FirstBaseClass)
+			print('')
+			'''
+			
+			#Append to the parent class 
+			if hasattr(FirstBaseClass,'DeriveClassesList'):
+				FirstBaseClass.DeriveClassesList.append(_Class)
+			elif FirstBaseClass!=object:
+				FirstBaseClass.DeriveClassesList=[_Class]
+
+		#/###################/#
+		# Inspect the methods
+		#
+
+		#Get the Methods
+		_Class.InspectMethodDict=SYS.MethodDict(_Class)
+
+		#dict
+		_Class.InspectArgumentDict=dict(
+			map(	
+					lambda __MethodItemTuple:
+					(
+						__MethodItemTuple[0],
+						SYS.ArgumentDict(
+							__MethodItemTuple[1]
+						)
+					),
+					_Class.InspectMethodDict.items()
+				)
+			)
+
+		#/###################/#
+		# set the KeyStrsList
+		#
+
 		#set the KeyStrsList
 		_Class.KeyStrsList=SYS.getKeyStrsListWithClass(_Class)+['KeyStrsList']
 

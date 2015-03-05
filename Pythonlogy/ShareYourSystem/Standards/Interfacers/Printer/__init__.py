@@ -486,8 +486,8 @@ def getPrintStr(_Variable,**_KwargVariablesDict):
 
 	#Other
 	#elif hasattr(_Variable,"__repr__") and hasattr(
-	#	_Variable.__class__,"InspectedArgumentDict"
-	#	) and '__repr__' in _Variable.__class__.InspectedArgumentDict and _Variable.__class__.InspectedArgumentDict[
+	#	_Variable.__class__,"InspectArgumentDict"
+	#	) and '__repr__' in _Variable.__class__.InspectArgumentDict and _Variable.__class__.InspectArgumentDict[
 	#	'__repr__']['KwargVariablesListKeyStr']!="":
 	elif hasattr(_Variable.__class__,'__mro__'
 		) and SYS.PrinterClass in _Variable.__class__.__mro__:

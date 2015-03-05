@@ -14,19 +14,6 @@ class MakerClass(object):
 		object.__init__(self)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 #print at the class level
 print("\n".join(
 	[

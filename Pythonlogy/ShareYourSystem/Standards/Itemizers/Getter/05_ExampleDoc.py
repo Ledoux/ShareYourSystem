@@ -11,8 +11,8 @@ print("MyGetter['MyFloat'] is ")
 print(MyGetter['MyFloat'])
 
 #print
-print("MyGetter['MyObject'] is ")
-print(MyGetter['MyObject'])
+print("MyGetter['MyInterfacer'] is ")
+print(MyGetter['MyInterfacer'])
 
 #print
 print('MyGetter is ')

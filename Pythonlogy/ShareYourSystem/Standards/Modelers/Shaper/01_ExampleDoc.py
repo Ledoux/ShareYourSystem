@@ -3,9 +3,6 @@
 import ShareYourSystem as SYS
 import tables
 
-SYS._print(SYS.ShaperClass.SwitchedMethodDict)
-
-"""
 #Definition 
 MyController=SYS.ControllerClass(
 		**{
@@ -33,7 +30,10 @@ MyController=SYS.ControllerClass(
 			'MyStr':"hello",
 			'MyIntsList':[2,4,1]
 		}
-	).command(
+	)
+
+"""
+	.command(
 		'/-Models/|Things',
 		'#call:insert'
 	)
@@ -52,7 +52,6 @@ MyController=SYS.ControllerClass(
 	)
 """
 
-"""
 #print
 print('MyController is ')
 SYS._print(MyController)
@@ -63,4 +62,4 @@ print('hdf5 file is : \n'+SYS._str(MyController.hdfview()))
 #close
 MyController.file(_ModeStr='c')
 
-"""
+

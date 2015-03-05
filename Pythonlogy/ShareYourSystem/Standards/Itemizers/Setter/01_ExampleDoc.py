@@ -22,6 +22,7 @@ MySetter.set(
 		('MyStr',"hello")
 	)
 
+
 MySetter.set(
 		'set',
 		{
@@ -30,6 +31,7 @@ MySetter.set(
 		}
 	)
 
+"""
 #Note that we can call also a direct explicit function
 MySetter.get(
 		'MyList'
@@ -58,3 +60,4 @@ MySetter.set(
 #print
 print('MySetter.GettedValueVariable is ')
 SYS._print(MySetter.GettedValueVariable)
+"""

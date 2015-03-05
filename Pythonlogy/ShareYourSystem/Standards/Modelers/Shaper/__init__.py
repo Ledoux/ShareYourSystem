@@ -48,7 +48,8 @@ ShapeTuplingStr='_'
 class ShaperClass(BaseClass):
 
 	def default_init(self,
-					_ShapingDimensionTuplesList=None,										
+					_ShapingDimensionTuplesList=None,	
+					_ShapingDescriptionVariable=None,									
 					_ShapedDescriptionGetKeyStrsList=None, 
 					_ShapedDescriptionDimensionGetKeyStrsListsList=None,
 					_ShapedDescriptionDimensionIntsListsList=None,  
@@ -63,6 +64,19 @@ class ShaperClass(BaseClass):
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
 	def do_shape(self):
+
+		#/################/#
+		# Shaper is going to modify modeling description so keep an old version of this before
+		#
+
+		#keep a memory
+		if self.ShapingDescriptionVariable==None:
+			self.ShapingDescriptionVariable=copy.copy(
+				self.ModelingDescriptionTuplesList
+			)
+		else:
+			self.ModelingDescriptionTuplesList=copy.copy(self.ShapingDescriptionVariable)
+
 
 		#/################/#
 		# Pick the shape ints and their get key strs
@@ -448,6 +462,10 @@ class ShaperClass(BaseClass):
 
 	def mimic_insert(self):
 
+		#/###################/#
+		# try to insert
+		#
+
 		#debug
 		'''
 		self.debug(
@@ -467,6 +485,10 @@ class ShaperClass(BaseClass):
 			BaseClass.insert(self)
 
 		except ValueError:
+
+			#/###################/#
+			# Then find where the shape was not good
+			#
 
 			#Definition the InsertedOldDimensionIntsListsList
 			InsertedOldDimensionIntsList=map(
@@ -514,40 +536,64 @@ class ShaperClass(BaseClass):
 					InsertedNewDimensionIntsListsList
 					)
 
+			#/###################/#
+			# Reset the configurating methods
+			#
+
 			#debug
 			self.debug(
 				[
 					'We reset some methods',
-					('self.',self,['SwitchedMethodDict'])
+					#('self.',self,['SwitchMethodDict'])
 				]
 			)
 
-			#reboot
-			self.setSwitch(
-				[
-					'model',
-					'shape',
-					'tabular',
-					'table'
-				]
-			)
+			#switch we want all the classes for each method
+			map(
+					lambda __MethodStr:
+					self.setSwitch(__MethodStr),
+					[
+						'model',
+						'shape',
+						'tabular',
+						'table'
+					]
+				)
+
+			#setDone
 			self.setDone(
 				[
 					Modeler.ModelerClass,
 					Tabularer.TabularerClass,
-					Tabler.TableClass,
+					Tabler.TablerClass,
 					SYS.ShaperClass
 				]
 			)
 			
+			#debug
+			self.debug(
+					[
+						'Now we remodel...',
+						('self.',self,[
+							'WatchBeforeModelWithModelerBool',
+							'WatchBeforeModelWithShaperBool'
+						])
+					]
+				)
 
-			#Table
-			self.table()
+			#model to relaunch everything
+			self.model()
+
+			#/###################/#
+			# insert again
+			#
 
 			#debug
-			'''
-			self.debug('Ok table again is done, so now we insert')
-			'''
+			self.debug(
+				[
+					'Ok table again is done, so now we insert'
+				]
+			)
 
 			#insert first
 			BaseClass.insert(self)
@@ -584,6 +630,7 @@ class ShaperClass(BaseClass):
 ShaperClass.PrintingClassSkipKeyStrsList.extend(
 	[
 		'ShapingDimensionTuplesList',
+		'ShapingDescriptionVariable',
 		'ShapedDescriptionGetKeyStrsList',	
 		'ShapedDescriptionDimensionIntsListsList',
 		'ShapedIndexIntsList',														

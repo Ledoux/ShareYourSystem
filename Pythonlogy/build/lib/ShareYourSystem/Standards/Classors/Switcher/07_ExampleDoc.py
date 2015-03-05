@@ -22,22 +22,21 @@ class MakerClass(object):
 #Definition a MakerClass with decorated make by a Switcher
 @SYS.SwitcherClass(**{
 	'SwitchingIsBool':True,
-	'SwitchingWrapMethodStr':'build'
+	'SwitchingWrapMethodStr':'make'
 })
 class BuilderClass(MakerClass):
 
 	def default_init(self,
-				_BuiltMyStr=""
 				):
-		object.__init__(self)
+		MakerClass.__init__(self)
 
-	def do_build(self):
+	def mimic_make(self):
 
 		#first make
-		self.make()
+		MakerClass.make()
 
 		#Cast
-		self.BuiltMyStr='My MadeMyInt is '+str(self.MadeMyInt)
+		self.MadeMyInt+=10
 
 #print 
 print('BuilderClass.SwitchMethodDict is ')
@@ -51,7 +50,7 @@ print('Before make, MyBuilder.__dict__ is ')
 SYS._print(MyBuilder.__dict__)
 
 #make once
-MyBuilder.build(**{'MakingMyFloat':3.})
+MyBuilder.make(3.)
 
 #Print
 print('After the build, MyBuilder.__dict__ is ')
@@ -59,40 +58,10 @@ SYS._print(MyBuilder.__dict__)
 
 #Switch by default it is just the last Name and the the last do in the mro
 print('Now we switch')
-MyBuilder.setSwitch()
+MyBuilder.setSwitch('make')
 
 #Print
 print('After the switch MyBuilder.__dict__ is ')
 SYS._print(MyBuilder.__dict__)
-
-#Definition an instance
-MyBuilder=BuilderClass()
-
-#Print
-print('\nNow an other trial, \nBefore make, MyBuilder.__dict__ is ')
-SYS._print(MyBuilder.__dict__)
-
-#make once
-MyBuilder.build(**{'MakingMyFloat':3.})
-
-#Print
-print('After the build, MyBuilder.__dict__ is ')
-SYS._print(MyBuilder.__dict__)
-
-#Switch by default it is just the last Name and the the last do in the mro
-print('Now we switch')
-MyBuilder.setSwitch('make',MakerClass,'Before')
-
-#Print
-print('After the switch MyBuilder.__dict__ is ')
-SYS._print(MyBuilder.__dict__)
-
-#make once
-MyBuilder.build(**{'MakingMyFloat':6.})
-
-#Print
-print('After the final build, MyBuilder.__dict__ is ')
-SYS._print(MyBuilder.__dict__)
-
 
 

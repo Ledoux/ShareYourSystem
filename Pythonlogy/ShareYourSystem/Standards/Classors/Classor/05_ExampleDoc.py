@@ -2,7 +2,7 @@
 import ShareYourSystem as SYS
 
 #define
-@SYS.InspecterClass()
+@SYS.ClassorClass()
 class MakerClass(object):
 
 	def default_init(self,
@@ -18,9 +18,9 @@ class MakerClass(object):
 		self.MadeMyStr=str(self.MakingMyStr)
 
 #print
-print('MakerClass.InspectedArgumentDict is ')
+print('MakerClass.InspectArgumentDict is ')
 print(SYS.indent(
-		MakerClass.InspectedArgumentDict
+		MakerClass.InspectArgumentDict
 	)
 )
  

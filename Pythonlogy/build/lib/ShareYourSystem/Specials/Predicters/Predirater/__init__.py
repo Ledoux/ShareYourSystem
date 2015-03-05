@@ -13,7 +13,7 @@
 #<DefineAugmentation>
 import ShareYourSystem as SYS
 import types
-BaseModuleStr="ShareYourSystem.Standards.Controllers.Controller"
+BaseModuleStr="ShareYourSystem.Specials.Predicters.Predicter"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -25,11 +25,6 @@ from matplotlib import pyplot
 #</ImportSpecificModules>
 
 #<DefineLocals>
-def getNullFloatsArray(_FloatsArray, _RtolFloat=1e-5):
-	u, s, v = np.linalg.svd(_FloatsArray)
-	RankInt = (s > _RtolFloat*s[0]).sum()
-	return v[RankInt:].T.copy()
-
 def getKrenelFloatsArray(
 		_LevelFloatsTuple=None,
 		_TimeFloatsTuple=None,
@@ -71,34 +66,25 @@ class PrediraterClass(BaseClass):
 	
 	def default_init(self,
 
-						_PrediratingRateUnitsInt=0,
-						_PrediratingSensorUnitsInt=0,
-
 						_PrediratingRunTimeFloat=100.,
 						_PrediratingStepTimeFloat=0.1,
+						_PrediratingTransferVariable=np.tanh,
+						_PrediratingClampFloat=1.,
+						
 						_PrediratedTimeFloatsArray=None,
-						
-						_PrediratedCommandFloatsArray=None,
-						_PrediratedJacobianFloatsArray=None,
-						
-						_PrediratedInputRandomFloatsArray=None,
-						_PrediratedInputPerturbativeWeigthFloatsArray=None,
-						_PrediratedNullFloatsArray=None,
-						
-						_PrediratedLateralWeigthFloatsArray=None,
-						_PrediratedLateralRandomFloatsArray=None,
-						
+
 						_PrediratedInitialSensorFloatsArray=None,
 						_PrediratedInitialRateFloatsArray=None,
 						
-						_PrediratedSensorFloatsArray=None,
-						_PrediratedPerturbativeRateFloatsArray=None,
-						_PrediratedExactRateFloatsArray=None,
-						_PrediratedLeakRateFloatsArray=None,
+						_PrediratedSensorTraceFloatsArray=None,
+						_PrediratedPerturbativeUnitTraceFloatsArray=None,
+						_PrediratedExactUnitTraceFloatsArray=None,
+						_PrediratedControlUnitTraceFloatsArray=None,
 						
-						_PrediratedPerturbativeDecoderFloatsArray=None,
-						_PrediratedExactDecoderFloatsArray=None,
-						_PrediratedLeakDecoderFloatsArray=None,
+						_PrediratedPerturbativeDecoderTraceFloatsArray=None,
+						_PrediratedExactDecoderTraceFloatsArray=None,
+						_PrediratedControlDecoderTraceFloatsArray=None,
+
 						**_KwargVariablesDict
 					):
 		""" """		
@@ -107,7 +93,7 @@ class PrediraterClass(BaseClass):
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
 	def do_predirate(self):
-		
+
 		#/#################/#
 		# External care : Prepare time and the command
 		#
@@ -124,127 +110,12 @@ class PrediraterClass(BaseClass):
 			map(
 				lambda __IndexInt:
 				getKrenelFloatsArray(
-					[0.,1.],
+					[0.,self.PrediratingClampFloat],
 					[self.PrediratingRunTimeFloat/4.,self.PrediratingRunTimeFloat/2.]
 				),
-				xrange(self.PrediratingSensorUnitsInt)
+				xrange(self.PredictingSensorsInt)
 			)
 		)
-
-		#debug
-		'''
-		self.debug(
-			[
-				'We have prepared the time and the commands',
-				('self.',self,['PrediratedCommandFloatsArray'])
-			]
-		)
-		'''
-
-		#/#################/#
-		# Sensor care : Prepare the input weigth and the null matrix
-		#
-
-		self.PrediratedJacobianFloatsArray=-np.diag(
-			np.ones(
-				self.PrediratingSensorUnitsInt
-			)
-		)
-
-		#debug
-		'''
-		self.debug(
-			[
-				'We have prepared the sensor jacobian',
-				('self.',self,['PrediratedJacobianFloatsArray'])
-			]
-		)
-		'''
-
-		#/#################/#
-		# Rate care : Prepare the input weigth, null matrix, exact and perturbativ matrix
-		#
-
-		#random
-		self.PrediratedDecoderWeigthFloatsArray=scipy.stats.uniform.rvs(
-			size=(
-				self.PrediratingSensorUnitsInt,
-				self.PrediratingRateUnitsInt
-			)
-		)
-		
-		#find the null space
-		self.PrediratedNullFloatsArray=getNullFloatsArray(
-			self.PrediratedDecoderWeigthFloatsArray
-		)
-
-		#debug
-		'''
-		PrediratedProductArray=np.dot(self.PrediratedDecoderWeigthFloatsArray,self.PrediratedNullFloatsArray)
-		self.debug(
-				[
-					('self.',self,[
-						'PrediratedDecoderWeigthFloatsArray',
-						'PrediratingRateUnitsInt'
-						]
-					),
-					("locals()['",locals(),['PrediratedProductArray'],"']")
-				]
-			)
-		'''
-
-		#random
-		self.PrediratedInputRandomFloatsArray=scipy.stats.uniform.rvs(
-			size=(
-				np.shape(self.PrediratedNullFloatsArray)[1],
-				self.PrediratingSensorUnitsInt
-			)
-		)
-
-		#dot
-		self.PrediratedInputPerturbativeWeigthFloatsArray=0.*np.dot(
-				self.PrediratedNullFloatsArray,
-				self.PrediratedInputRandomFloatsArray
-			)
-
-		#dot
-		self.PrediratedLateralExactWeigthFloatsArray=np.dot(
-				self.PrediratedDecoderWeigthFloatsArray.T,
-				self.PrediratedDecoderWeigthFloatsArray
-			)
-
-		#random
-		self.PrediratedLateralRandomFloatsArray=scipy.stats.uniform.rvs(
-			size=(
-				self.PrediratingRateUnitsInt,
-				self.PrediratingRateUnitsInt
-			)
-		)
-
-		#dot
-		self.PrediratedLateralPerturbativeWeigthFloatsArray=0.*np.dot(
-				np.shape(self.PrediratedNullFloatsArray)[1],
-				self.PrediratedLateralRandomFloatsArray
-			)
-
-		#pinv
-		self.PrediratedLeakDecoderWeigthFloatsArray=np.linalg.pinv(
-				self.PrediratedDecoderWeigthFloatsArray.T
-			)
-
-		#debug
-		'''
-		PrediratedPinvFloatsArray=np.dot(
-			self.PrediratedLeakDecoderWeigthFloatsArray,
-			self.PrediratedDecoderWeigthFloatsArray.T
-		)
-		self.debug(
-			[
-				'PrediratedPinvFloatsArray is ',
-				str(PrediratedPinvFloatsArray)
-			]
-		)
-		'''
 
 		#/#################/#
 		# Prepare the initial conditions
@@ -252,53 +123,66 @@ class PrediraterClass(BaseClass):
 
 		#random sensors
 		PrediratedInitialRateFloatsArray=scipy.stats.uniform.rvs(
-			size=self.PrediratingRateUnitsInt
+			size=self.PredictingUnitsInt
 		)
 
 		#random rates
 		PrediratedInitialSensorFloatsArray=scipy.stats.uniform.rvs(
-			size=self.PrediratingSensorUnitsInt
+			size=self.PredictingSensorsInt
 		)
 
+		#/#################/#
+		# Shape the size of all the runs
+		#
+
 		#init sensors
-		self.PrediratedSensorFloatsArray=np.zeros(
-				(self.PrediratingSensorUnitsInt,len(self.PrediratedTimeFloatsArray))
+		self.PrediratedSensorTraceFloatsArray=np.zeros(
+				(self.PredictingSensorsInt,len(self.PrediratedTimeFloatsArray))
 			)
-		self.PrediratedSensorFloatsArray[:,0]=PrediratedInitialSensorFloatsArray
+		self.PrediratedSensorTraceFloatsArray[:,0]=PrediratedInitialSensorFloatsArray
 
 		#init perturbative rates
-		self.PrediratedPerturbativeRateFloatsArray=np.zeros(
-				(self.PrediratingRateUnitsInt,len(self.PrediratedTimeFloatsArray))
+		self.PrediratedPerturbativeUnitTraceFloatsArray=np.zeros(
+				(self.PredictingUnitsInt,len(self.PrediratedTimeFloatsArray))
 			)
-		self.PrediratedPerturbativeRateFloatsArray[:,0]=PrediratedInitialRateFloatsArray
+		self.PrediratedPerturbativeUnitTraceFloatsArray[:,0]=PrediratedInitialRateFloatsArray
 
 		#init exact rates
-		self.PrediratedExactRateFloatsArray=np.zeros(
-				(self.PrediratingRateUnitsInt,len(self.PrediratedTimeFloatsArray))
+		self.PrediratedExactUnitTraceFloatsArray=np.zeros(
+				(self.PredictingUnitsInt,len(self.PrediratedTimeFloatsArray))
 			)
-		self.PrediratedExactRateFloatsArray[:,0]=PrediratedInitialRateFloatsArray
+		self.PrediratedExactUnitTraceFloatsArray[:,0]=PrediratedInitialRateFloatsArray
 
 		#init leak control rates
-		self.PrediratedLeakRateFloatsArray=np.zeros(
-				(self.PrediratingRateUnitsInt,len(self.PrediratedTimeFloatsArray))
+		self.PrediratedControlUnitTraceFloatsArray=np.zeros(
+				(self.PredictingUnitsInt,len(self.PrediratedTimeFloatsArray))
 			)
-		self.PrediratedLeakRateFloatsArray[:,0]=PrediratedInitialRateFloatsArray
+		self.PrediratedControlUnitTraceFloatsArray[:,0]=PrediratedInitialRateFloatsArray
 
-		#init decoder
-		self.PrediratedPerturbativeDecoderFloatsArray=np.zeros(
-				(self.PrediratingSensorUnitsInt,len(self.PrediratedTimeFloatsArray))
+		#init perturbative decoder
+		self.PrediratedPerturbativeDecoderTraceFloatsArray=np.zeros(
+				(self.PredictingSensorsInt,len(self.PrediratedTimeFloatsArray))
 			)
-		self.PrediratedPerturbativeDecoderFloatsArray[:,0]=np.dot(
-				self.PrediratedDecoderWeigthFloatsArray,
+		self.PrediratedPerturbativeDecoderTraceFloatsArray[:,0]=np.dot(
+				self.PredictedExactDecoderWeigthFloatsArray,
+				PrediratedInitialRateFloatsArray
+			)
+
+		#init exact decoder
+		self.PrediratedExactDecoderTraceFloatsArray=np.zeros(
+				(self.PredictingSensorsInt,len(self.PrediratedTimeFloatsArray))
+			)
+		self.PrediratedExactDecoderTraceFloatsArray[:,0]=np.dot(
+				self.PredictedExactDecoderWeigthFloatsArray,
 				PrediratedInitialRateFloatsArray
 			)
 
 		#init leak control decoder
-		self.PrediratedLeakDecoderFloatsArray=np.zeros(
-				(self.PrediratingSensorUnitsInt,len(self.PrediratedTimeFloatsArray))
+		self.PrediratedControlDecoderTraceFloatsArray=np.zeros(
+				(self.PredictingSensorsInt,len(self.PrediratedTimeFloatsArray))
 			)
-		self.PrediratedLeakDecoderFloatsArray[:,0]=np.dot(
-				self.PrediratedLeakDecoderWeigthFloatsArray,
+		self.PrediratedControlDecoderTraceFloatsArray[:,0]=np.dot(
+				self.PredictedControlDecoderWeigthFloatsArray,
 				PrediratedInitialRateFloatsArray
 			)
 
@@ -320,11 +204,11 @@ class PrediraterClass(BaseClass):
 						'shape(self.PrediratedCommandFloatsArray) is '+str(
 							np.shape(self.PrediratedCommandFloatsArray)
 						),
-						'shape(self.PrediratedSensorFloatsArray) is '+str(
-							np.shape(self.PrediratedSensorFloatsArray)
+						'shape(self.PrediratedSensorTraceFloatsArray) is '+str(
+							np.shape(self.PrediratedSensorTraceFloatsArray)
 						),
 						('self.',self,[
-							'PrediratedJacobianFloatsArray'
+							'PredictedSensorJacobianFloatsArray'
 						])
 					]
 				)
@@ -332,124 +216,169 @@ class PrediraterClass(BaseClass):
 
 			#Current
 			PrediratedSensorCurrentFloatsArray=np.dot(
-				self.PrediratedJacobianFloatsArray,
-				self.PrediratedSensorFloatsArray[:,__IndexInt-1]
+				self.PredictedSensorJacobianFloatsArray,
+				self.PrediratedSensorTraceFloatsArray[:,__IndexInt-1]
 			)+self.PrediratedCommandFloatsArray[:,__IndexInt]
 
-			#Euler
-			self.PrediratedSensorFloatsArray[
+			#/#################/#
+			# Perturbative Rate
+			#
+
+			#Input Current
+			PrediratedPerturbativeUnitCurrentFloatsArray=np.dot(
+				self.PredictedTotalPerturbativeInputWeigthFloatsArray,
+				self.PrediratedSensorTraceFloatsArray[:,__IndexInt-1]
+			)
+
+			#Lateral Current
+			PrediratedPerturbativeUnitCurrentFloatsArray-=np.dot(
+				self.PredictedTotalPerturbativeLateralWeigthFloatsArray,
+				self.PrediratedPerturbativeUnitTraceFloatsArray[:,__IndexInt-1]
+			)
+
+			#transfer
+			PrediratedPerturbativeUnitCurrentFloatsArray=self.PrediratingTransferVariable(
+				PrediratedPerturbativeUnitCurrentFloatsArray
+			)
+
+			#Leak and Cost Current (non transfered)
+			PrediratedPerturbativeUnitCurrentFloatsArray-=np.dot(
+				np.diag(np.ones(self.PredictingUnitsInt)),
+				self.PrediratedPerturbativeUnitTraceFloatsArray[:,__IndexInt-1]
+			)
+
+			#/#################/#
+			# Exact Rate 
+			#
+
+			#Input Current
+			PrediratedExactUnitCurrentFloatsArray=np.dot(
+				self.PredictedExactDecoderWeigthFloatsArray.T,
+				self.PrediratedSensorTraceFloatsArray[:,__IndexInt-1]
+			)
+
+			#Lateral Current
+			PrediratedExactUnitCurrentFloatsArray-=np.dot(
+				self.PredictedLeakExactLateralWeigthFloatsArray,
+				self.PrediratedExactUnitTraceFloatsArray[:,__IndexInt-1]
+			)
+			
+			#transfer
+			PrediratedExactUnitCurrentFloatsArray=self.PrediratingTransferVariable(
+				PrediratedExactUnitCurrentFloatsArray
+			)
+
+			#Leak Current (non transfered)
+			PrediratedExactUnitCurrentFloatsArray-=np.dot(
+				np.diag(np.ones(self.PredictingUnitsInt)),
+				self.PrediratedExactUnitTraceFloatsArray[:,__IndexInt-1]
+			)
+
+			#/#################/#
+			# Control Rate
+			#
+
+			#Input Current
+			PrediratedControlUnitCurrentFloatsArray=np.dot(
+				self.PredictedExactDecoderWeigthFloatsArray.T,
+				self.PrediratedSensorTraceFloatsArray[:,__IndexInt-1]
+			)
+
+			#transfer
+			PrediratedControlUnitCurrentFloatsArray=self.PrediratingTransferVariable(
+				PrediratedControlUnitCurrentFloatsArray
+			)
+
+			#Leal Current
+			PrediratedControlUnitCurrentFloatsArray-=np.dot(
+				np.diag(np.ones(self.PredictingUnitsInt)),
+				self.PrediratedControlUnitTraceFloatsArray[:,__IndexInt-1]
+			)
+			
+			#/#################/#
+			# Euler part
+			#
+
+			#sensor
+			self.PrediratedSensorTraceFloatsArray[
 				:,
 				__IndexInt
-			]=self.PrediratedSensorFloatsArray[
+			]=self.PrediratedSensorTraceFloatsArray[
 				:,
 				__IndexInt-1
 			]+PrediratedSensorCurrentFloatsArray*self.PrediratingStepTimeFloat
 
-			#/#################/#
-			# Perturbative Rate part
-			#
+			#set
+			LocalDict=locals()
 
-			#Input Current
-			PrediratedRateCurrentFloatsArray=np.dot(
-				self.PrediratedDecoderWeigthFloatsArray.T+self.PrediratedInputPerturbativeWeigthFloatsArray,
-				self.PrediratedSensorFloatsArray[:,__IndexInt-1]
-			)
+			#rate
+			for __TagStr in ['Perturbative','Exact','Control']:	
 
-			#Lateral Current
-			PrediratedRateCurrentFloatsArray-=np.dot(
-				self.PrediratedLateralExactWeigthFloatsArray+self.PrediratedLateralPerturbativeWeigthFloatsArray,
-				self.PrediratedPerturbativeRateFloatsArray[:,__IndexInt-1]
-			)
-			
-			#Euler
-			self.PrediratedPerturbativeRateFloatsArray[
-				:,
-				__IndexInt
-			]=self.PrediratedPerturbativeRateFloatsArray[
-				:,
-				__IndexInt-1
-			]+PrediratedRateCurrentFloatsArray*self.PrediratingStepTimeFloat
+				#set
+				getattr(
+					self,
+					'Predirated'+__TagStr+'UnitTraceFloatsArray'
+				)[:,__IndexInt]=getattr(
+							self,
+							'Predirated'+__TagStr+'UnitTraceFloatsArray'
+						)[:,__IndexInt-1]+LocalDict[
+				'Predirated'+__TagStr+'UnitCurrentFloatsArray'
+				]*self.PrediratingStepTimeFloat
+					
 
 			#/#################/#
-			# Exact Rate part
+			# Post process part
 			#
 
-			#Input Current
-			PrediratedRateExactCurrentFloatsArray=np.dot(
-				self.PrediratedDecoderWeigthFloatsArray.T,
-				self.PrediratedSensorFloatsArray[:,__IndexInt-1]
-			)
-
-			#Lateral Current
-			PrediratedRateExactCurrentFloatsArray-=np.dot(
-				self.PrediratedLateralExactWeigthFloatsArray,
-				self.PrediratedPerturbativeRateFloatsArray[:,__IndexInt-1]
-			)
-			
-			#Euler
-			self.PrediratedExactRateFloatsArray[
-				:,
-				__IndexInt
-			]=self.PrediratedExactRateFloatsArray[
-				:,
-				__IndexInt-1
-			]+PrediratedRateExactCurrentFloatsArray*self.PrediratingStepTimeFloat
-
-
-			#/#################/#
-			# Leak Control Rate part
-			#
-
-			#Input Current
-			PrediratedLeakRateCurrentFloatsArray=np.dot(
-				self.PrediratedDecoderWeigthFloatsArray.T+self.PrediratedInputPerturbativeWeigthFloatsArray,
-				self.PrediratedSensorFloatsArray[:,__IndexInt-1]
-			)
-
-			#Lateral Current
-			PrediratedLeakRateCurrentFloatsArray-=np.dot(
-				np.diag(np.ones(self.PrediratingRateUnitsInt)),
-				self.PrediratedLeakRateFloatsArray[:,__IndexInt-1]
-			)
-			
-			#Euler
-			self.PrediratedLeakRateFloatsArray[
-				:,
-				__IndexInt
-			]=self.PrediratedLeakRateFloatsArray[
-				:,
-				__IndexInt-1
-			]+PrediratedLeakRateCurrentFloatsArray*self.PrediratingStepTimeFloat
+			"""
+			#Saturate
+			self.PrediratedPerturbativeUnitTraceFloatsArray[
+				np.where(
+					self.PrediratedPerturbativeUnitTraceFloatsArray[
+							:,
+							__IndexInt
+						]>10.
+				)
+			]=10.
+			self.PrediratedPerturbativeUnitTraceFloatsArray[
+				np.where(
+					self.PrediratedPerturbativeUnitTraceFloatsArray[
+							:,
+							__IndexInt
+						]<-10.
+				)
+			]=-10.
+			"""
 
 			#/#################/#
 			# Decoder part
 			#
 
 			#dot
-			self.PrediratedPerturbativeDecoderFloatsArray[
+			self.PrediratedPerturbativeDecoderTraceFloatsArray[
 				:,
 				__IndexInt
 			]=np.dot(
-					self.PrediratedPerturbativeDecoderWeigthFloatsArray,
-					self.PrediratedPerturbativeRateFloatsArray[:,__IndexInt-1]
+					self.PredictedExactDecoderWeigthFloatsArray,
+					self.PrediratedPerturbativeUnitTraceFloatsArray[:,__IndexInt-1]
 				)
 
 			#exact control
-			self.PrediratedExactDecoderFloatsArray[
+			self.PrediratedExactDecoderTraceFloatsArray[
 				:,
 				__IndexInt
 			]=np.dot(
-					self.PrediratedExactDecoderWeigthFloatsArray,
-					self.PrediratedExactRateFloatsArray[:,__IndexInt-1]
+					self.PredictedExactDecoderWeigthFloatsArray,
+					self.PrediratedExactUnitTraceFloatsArray[:,__IndexInt-1]
 				)
 
 			#leak control
-			self.PrediratedLeakDecoderFloatsArray[
+			self.PrediratedControlDecoderTraceFloatsArray[
 				:,
 				__IndexInt
 			]=np.dot(
-					self.PrediratedLeakDecoderWeigthFloatsArray,
-					self.PrediratedLeakRateFloatsArray[:,__IndexInt-1]
+					self.PredictedControlDecoderWeigthFloatsArray,
+					self.PrediratedControlUnitTraceFloatsArray[:,__IndexInt-1]
 				)
 
 
@@ -492,18 +421,18 @@ class PrediraterClass(BaseClass):
 				lambda __IndexInt:
 				PrediratedSensorAxis.plot(
 						self.PrediratedTimeFloatsArray,
-						self.PrediratedSensorFloatsArray[__IndexInt,:],
+						self.PrediratedSensorTraceFloatsArray[__IndexInt,:],
 						color='g',
 						linewidth=3
 					)
-				if __IndexInt<len(self.PrediratedSensorFloatsArray)
+				if __IndexInt<len(self.PrediratedSensorTraceFloatsArray)
 				else None,
 				[0,1]
 			)
 
 		#set
 		PrediratedSensorAxis.set_xlim([0.,self.PrediratingRunTimeFloat])
-		PrediratedSensorAxis.set_ylim([-0.1,3.])
+		PrediratedSensorAxis.set_ylim([-0.1,1.5*self.PrediratingClampFloat])
 
 		#/#################/#
 		# rates
@@ -517,11 +446,11 @@ class PrediraterClass(BaseClass):
 				lambda __IndexInt:
 				PrediratedRateAxis.plot(
 						self.PrediratedTimeFloatsArray,
-						self.PrediratedPerturbativeRateFloatsArray[__IndexInt,:],
-						color='b',
+						self.PrediratedPerturbativeUnitTraceFloatsArray[__IndexInt,:],
+						color='blue',
 						linewidth=3
 					)
-				if __IndexInt<len(self.PrediratedPerturbativeRateFloatsArray)
+				if __IndexInt<len(self.PrediratedPerturbativeUnitTraceFloatsArray)
 				else None,
 				[0,1]
 			)
@@ -531,11 +460,11 @@ class PrediraterClass(BaseClass):
 				lambda __IndexInt:
 				PrediratedRateAxis.plot(
 						self.PrediratedTimeFloatsArray,
-						self.PrediratedPerturbativeRateFloatsArray[__IndexInt,:],
-						color='b',
-						linewidth=3
+						self.PrediratedExactUnitTraceFloatsArray[__IndexInt,:],
+						color='violet',
+						linewidth=2
 					)
-				if __IndexInt<len(self.PrediratedPerturbativeRateFloatsArray)
+				if __IndexInt<len(self.PrediratedPerturbativeUnitTraceFloatsArray)
 				else None,
 				[0,1]
 			)
@@ -545,18 +474,24 @@ class PrediraterClass(BaseClass):
 				lambda __IndexInt:
 				PrediratedRateAxis.plot(
 						self.PrediratedTimeFloatsArray,
-						self.PrediratedLeakRateFloatsArray[__IndexInt,:],
-						color='violet',
+						self.PrediratedControlUnitTraceFloatsArray[__IndexInt,:],
+						color='brown',
 						linewidth=1
 					)
-				if __IndexInt<len(self.PrediratedLeakRateFloatsArray)
+				if __IndexInt<len(self.PrediratedControlUnitTraceFloatsArray)
 				else None,
 				[0,1]
 			)
 
 		#set
 		PrediratedRateAxis.set_xlim([0.,self.PrediratingRunTimeFloat])
-		PrediratedRateAxis.set_ylim([-0.1,1.])
+		#PrediratedRateAxis.set_ylim([-1.,1.])
+		PrediratedRateAxis.set_ylim(
+			[
+				self.PrediratedPerturbativeUnitTraceFloatsArray.min(),
+				self.PrediratedPerturbativeUnitTraceFloatsArray.max()
+			]
+		)
 
 		#/#################/#
 		# decoders
@@ -570,11 +505,11 @@ class PrediraterClass(BaseClass):
 				lambda __IndexInt:
 				PrediratedDecoderAxis.plot(
 						self.PrediratedTimeFloatsArray,
-						self.PrediratedSensorFloatsArray[__IndexInt],
+						self.PrediratedSensorTraceFloatsArray[__IndexInt],
 						color='g',
 						linewidth=3
 					)
-				if __IndexInt<len(self.PrediratedSensorFloatsArray)
+				if __IndexInt<len(self.PrediratedSensorTraceFloatsArray)
 				else None,
 				[0,1]
 			)
@@ -584,11 +519,11 @@ class PrediraterClass(BaseClass):
 				lambda __IndexInt:
 				PrediratedDecoderAxis.plot(
 						self.PrediratedTimeFloatsArray,
-						self.PrediratedPerturbativeDecoderFloatsArray[__IndexInt,:],
-						color='r',
+						self.PrediratedPerturbativeDecoderTraceFloatsArray[__IndexInt,:],
+						color='blue',
 						linewidth=3
 					)
-				if __IndexInt<len(self.PrediratedPerturbativeDecoderFloatsArray)
+				if __IndexInt<len(self.PrediratedPerturbativeDecoderTraceFloatsArray)
 				else None,
 				[0,1]
 			)
@@ -598,11 +533,11 @@ class PrediraterClass(BaseClass):
 				lambda __IndexInt:
 				PrediratedDecoderAxis.plot(
 						self.PrediratedTimeFloatsArray,
-						self.PrediratedExactDecoderFloatsArray[__IndexInt,:],
-						color='r',
-						linewidth=3
+						self.PrediratedExactDecoderTraceFloatsArray[__IndexInt,:],
+						color='violet',
+						linewidth=2
 					)
-				if __IndexInt<len(self.PrediratedPerturbativeDecoderFloatsArray)
+				if __IndexInt<len(self.PrediratedPerturbativeDecoderTraceFloatsArray)
 				else None,
 				[0,1]
 			)
@@ -612,18 +547,18 @@ class PrediraterClass(BaseClass):
 				lambda __IndexInt:
 				PrediratedDecoderAxis.plot(
 						self.PrediratedTimeFloatsArray,
-						self.PrediratedLeakDecoderFloatsArray[__IndexInt,:],
-						color='pink',
+						self.PrediratedControlDecoderTraceFloatsArray[__IndexInt,:],
+						color='brown',
 						linewidth=1
 					)
-				if __IndexInt<len(self.PrediratedLeakDecoderFloatsArray)
+				if __IndexInt<len(self.PrediratedControlDecoderTraceFloatsArray)
 				else None,
 				[0,1]
 			)
 
 		#set
 		PrediratedDecoderAxis.set_xlim([0.,self.PrediratingRunTimeFloat])
-		PrediratedDecoderAxis.set_ylim([-0.1,3.])
+		PrediratedDecoderAxis.set_ylim([-0.1,1.5*self.PrediratingClampFloat])
 
 		#show
 		pyplot.show()
@@ -635,30 +570,47 @@ class PrediraterClass(BaseClass):
 #</DefinePrint>
 PrediraterClass.PrintingClassSkipKeyStrsList.extend(
 	[
-		'PrediratingRateUnitsInt',
-		'PrediratingSensorUnitsInt',
+		'PredictingUnitsInt',
+		'PredictingSensorsInt',
+		'PrediratingInputWeigtFloat',
+		'PrediratingPerturbativeWeightFloat',
+
 		'PrediratingRunTimeFloat',
 		'PrediratingStepTimeFloat',
 		'PrediratedTimeFloatsArray',
+
+		'PrediratingInputStatStr',
+		'PrediratingInputRandomStatStr',
+		'PrediratingLateralRandomStatStr',
+
 		'PrediratedCommandFloatsArray',
-		'PrediratedJacobianFloatsArray',
-		'PrediratedDecoderWeigthFloatsArray',
-		'PrediratedInputRandomFloatsArray',
-		'PrediratedInputPerturbativeWeigthFloatsArray',
-		'PrediratedDecoderWeigthFloatsArray',
-		'PrediratedLateralWeigthFloatsArray',
-		'PrediratedLateralRandomFloatsArray',
-		'PrediratedLateralExactWeigthFloatsArray',
-		'PrediratedLateralPerturbativeWeigthFloatsArray',
+		'PredictedSensorJacobianFloatsArray',
+		
+		'PredictedExactDecoderWeigthFloatsArray',
+		'PredictedControlDecoderWeigthFloatsArray',
+
 		'PrediratedNullFloatsArray',
+		'PrediratedInputRandomFloatsArray',
+		'PrediratedPerturbativeInputWeigthFloatsArray',
+		'PredictedTotalPerturbativeInputWeigthFloatsArray',
+		
+		'PrediratedExactLateralWeigthFloatsArray',
+		'PredictedLeakExactLateralWeigthFloatsArray',
+		'PrediratedLateralRandomFloatsArray',
+		'PrediratedPerturbativeLateralWeigthFloatsArray',
+		'PredictedTotalPerturbativeLateralWeigthFloatsArray',
+		
 		'PrediratedInitialSensorFloatsArray',
 		'PrediratedInitialRateFloatsArray',
-		'PrediratedSensorFloatsArray',
-		'PrediratedPerturbativeRateFloatsArray',
-		'PrediratedLeakRateFloatsArray',
-		'PrediratedPerturbativeDecoderFloatsArray',
-		'PrediratedLeakDecoderWeigthFloatsArray',
-		'PrediratedLeakDecoderFloatsArray'
+		
+		'PrediratedSensorTraceFloatsArray',
+		'PrediratedPerturbativeUnitTraceFloatsArray',
+		'PrediratedExactUnitTraceFloatsArray',
+		'PrediratedControlUnitTraceFloatsArray',
+		
+		'PrediratedPerturbativeDecoderTraceFloatsArray',
+		'PrediratedExactDecoderTraceFloatsArray',
+		'PrediratedControlDecoderTraceFloatsArray'
 	]
 )
 #<DefinePrint>

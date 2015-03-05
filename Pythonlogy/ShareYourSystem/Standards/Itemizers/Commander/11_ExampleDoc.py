@@ -20,7 +20,7 @@ MyCommander=SYS.CommanderClass(
 		},
 		{
 			'execute':{
-				'#value':"self.__class__.GrabList.append(self.SetTagStr)",
+				'#liarg':"self.__class__.GrabList.append(self.SetTagStr)",
 				'#if':[
 					('MyInt',SYS.operator.lt,3)
 				]

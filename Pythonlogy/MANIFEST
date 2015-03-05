@@ -174,6 +174,10 @@ ShareYourSystem/Standards/Classors/Classer/Readme.md
 ShareYourSystem/Standards/Classors/Classer/__init__.py
 ShareYourSystem/Standards/Classors/Classor/00_ExampleDoc.md
 ShareYourSystem/Standards/Classors/Classor/01_ExampleDoc.py
+ShareYourSystem/Standards/Classors/Classor/02_ExampleDoc.md
+ShareYourSystem/Standards/Classors/Classor/03_ExampleDoc.py
+ShareYourSystem/Standards/Classors/Classor/04_ExampleDoc.md
+ShareYourSystem/Standards/Classors/Classor/05_ExampleDoc.py
 ShareYourSystem/Standards/Classors/Classor/Install.py
 ShareYourSystem/Standards/Classors/Classor/Readme.md
 ShareYourSystem/Standards/Classors/Classor/__init__.py
@@ -195,12 +199,6 @@ ShareYourSystem/Standards/Classors/Defaultor/__init__.py
 ShareYourSystem/Standards/Classors/Defaultor/draft/02_ExampleReadmeCell.md
 ShareYourSystem/Standards/Classors/Defaultor/draft/03_ExampleReadmeCell.py
 ShareYourSystem/Standards/Classors/Defaultor/draft/__init__ copy 2.py
-ShareYourSystem/Standards/Classors/Deriver/001_DocumentDoc.md
-ShareYourSystem/Standards/Classors/Deriver/00_ExampleDoc.md
-ShareYourSystem/Standards/Classors/Deriver/01_ExampleDoc.py
-ShareYourSystem/Standards/Classors/Deriver/Readme.md
-ShareYourSystem/Standards/Classors/Deriver/Test.py
-ShareYourSystem/Standards/Classors/Deriver/__init__.py
 ShareYourSystem/Standards/Classors/Doer/001_DocumentDoc.md
 ShareYourSystem/Standards/Classors/Doer/00_ExampleDoc.md
 ShareYourSystem/Standards/Classors/Doer/01_ExampleDoc.py
@@ -224,12 +222,6 @@ ShareYourSystem/Standards/Classors/Doer/Drafts/__init__ copy 2.py
 ShareYourSystem/Standards/Classors/Doer/Drafts/__init__ copy 3.py
 ShareYourSystem/Standards/Classors/Doer/Drafts/__init__OOO.py
 ShareYourSystem/Standards/Classors/Doer/Drafts/__init__do.py
-ShareYourSystem/Standards/Classors/Inspecter/001_DocumentDoc.md
-ShareYourSystem/Standards/Classors/Inspecter/00_ExampleDoc.md
-ShareYourSystem/Standards/Classors/Inspecter/01_ExampleDoc.py
-ShareYourSystem/Standards/Classors/Inspecter/Readme.md
-ShareYourSystem/Standards/Classors/Inspecter/Test.py
-ShareYourSystem/Standards/Classors/Inspecter/__init__.py
 ShareYourSystem/Standards/Classors/Mimicker/001_DocumentDoc.md
 ShareYourSystem/Standards/Classors/Mimicker/002_GithubDoc.md
 ShareYourSystem/Standards/Classors/Mimicker/00_ExampleDoc.md
@@ -266,6 +258,8 @@ ShareYourSystem/Standards/Classors/Switcher/02_ExampleDoc.md
 ShareYourSystem/Standards/Classors/Switcher/03_ExampleDoc.py
 ShareYourSystem/Standards/Classors/Switcher/04_ExampleDoc.md
 ShareYourSystem/Standards/Classors/Switcher/05_ExampleDoc.py
+ShareYourSystem/Standards/Classors/Switcher/06_ExampleDoc.md
+ShareYourSystem/Standards/Classors/Switcher/07_ExampleDoc.py
 ShareYourSystem/Standards/Classors/Switcher/Readme.md
 ShareYourSystem/Standards/Classors/Switcher/__init__.py
 ShareYourSystem/Standards/Classors/Switcher/Drafts/__init__ copy 2.py

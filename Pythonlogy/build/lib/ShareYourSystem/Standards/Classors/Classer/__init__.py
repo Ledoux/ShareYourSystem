@@ -66,6 +66,10 @@ class ClasserClass(BaseClass):
 		print('')
 		'''
 
+		#/###################/#
+		# Mimic all that you can find 
+		#
+
 		#Get all the hooking methods
 		ClassedMimickFunctionsList=SYS._filter(
 			lambda __ListedVariable:
@@ -119,6 +123,15 @@ class ClasserClass(BaseClass):
 		# Check for overriden propertize_ methods 
 		#
 
+		#Debug
+		'''
+		print('Classer l 125')
+		print('Check for overriden propertize_ methods ')
+		print('self.DoClass.InspectMethodDict')
+		print(self.DoClass.InspectMethodDict)
+		print('')
+		'''
+
 		#filter
 		ClassedPropertyNewMethodDict=dict(
 			SYS._filter(
@@ -134,7 +147,7 @@ class ClasserClass(BaseClass):
 						__MethodItemTuple[0]
 					) else True
 				),
-				self.DoClass.InspectedMethodDict.items()
+				self.DoClass.InspectMethodDict.items()
 			)
 		)
 

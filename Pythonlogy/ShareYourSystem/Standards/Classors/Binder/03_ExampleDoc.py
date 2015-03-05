@@ -1,8 +1,5 @@
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Standards.Classors import Binder
-from ShareYourSystem.Standards.Objects import Initiator
-import operator
 
 #Define a Unbound method like function
 def foo(_InstanceVariable,*_LiargVariablesList,**_KwargVariablesDict):
@@ -27,26 +24,20 @@ def foo(_InstanceVariable,*_LiargVariablesList,**_KwargVariablesDict):
 
 
 #Definition a MakerClass decorated by the BinderClass
-@Binder.BinderClass(**{
+@SYS.BinderClass(**{
 	'ObservingWrapMethodStr':'make',
 	'BindingIsBool':True,
 	'BindingDecorationUnboundMethod':foo,
 	'BindingItemTuplesList':[('MyFooInt',1)]
 })
-class MakerClass(Initiator.InitiatorClass):
-
-	#Definition
-	RepresentingKeyStrsList=[
-								'MakingMyFloat',
-								'MadeMyInt'
-							]
+class MakerClass(object):
 
 	def default_init(self,
 					_MakingMyFloat=0.,
 					_MadeMyInt=0,
 					**_KwarVariablesDict
 				):
-		pass
+		object.__init__(self)
 
 	def do_make(self):
 		

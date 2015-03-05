@@ -40,8 +40,8 @@ class BuilderClass(MakerClass):
 		self.BuiltMyStr='My MadeMyInt is '+str(self.MadeMyInt)
 
 #print 
-print('BuilderClass.SwitchedMethodDict is ')
-print(SYS.indent(BuilderClass.SwitchedMethodDict))
+print('BuilderClass.SwitchMethodDict is ')
+print(SYS.indent(BuilderClass.SwitchMethodDict))
 
 #Definition an instance
 MyBuilder=BuilderClass()

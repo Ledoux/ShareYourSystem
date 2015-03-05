@@ -27,8 +27,8 @@ class MakerClass(object):
 		self.MadeMyInt=int(self.MakingMyFloat)
 
 #print 
-print('MakerClass.SwitchedMethodDict is ')
-print(SYS.indent(MakerClass.SwitchedMethodDict))
+print('MakerClass.SwitchMethodDict is ')
+print(SYS.indent(MakerClass.SwitchMethodDict))
 
 #Definition an instance
 MyMaker=MakerClass()

@@ -9,12 +9,6 @@ import operator
 })
 class MakerClass(object):
 
-	#Definition
-	RepresentingKeyStrsList=[
-								'MakingMyFloat',
-								'MadeMyInt'
-							]
-
 	def default_init(self,
 					_MakingMyFloat=0.,
 					_MadeMyInt=0,

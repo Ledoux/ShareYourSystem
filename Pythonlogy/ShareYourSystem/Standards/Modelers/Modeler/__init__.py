@@ -119,9 +119,7 @@ class ModelerClass(BaseClass):
 		""" """
 
 		#Debug
-		'''
 		self.debug('model start')
-		'''
 		
 		#/###################/#
 		# Define the ModeledKeyStr 

@@ -663,13 +663,15 @@ class DoerClass(BaseClass):
 								'DoingStr',
 								'DoneAttributeVariablesOrderedDict',
 								'DoingAttributeVariablesOrderedDict',
+								'DoingDeprefixAttributeStrsList',
 								'DoMethodStr',
 								'DoHistoryOrderedDict',
 								DoExecStrKeyStr,
 								'DoingGetBool',
 								'DoTempAttributeItemTuplesList',
 								'DoTempNotAttributeItemTupleItemsList',
-								'DoMethodStrsList'
+								'DoMethodStrsList',
+								'MroDoerClassesList'
 						]+DoClass.DoingAttributeVariablesOrderedDict.keys(
 							)+DoClass.DoneAttributeVariablesOrderedDict.keys()
 #</DefineClass>

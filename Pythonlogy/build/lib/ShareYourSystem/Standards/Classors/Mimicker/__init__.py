@@ -142,8 +142,8 @@ class MimickerClass(BaseClass):
 	
 	#Definition 
 	RepresentingKeyStrsList=[
-					'MimickingDoMethodStr',
-					'MimickedWrapMethodStr'
+		'MimickingDoMethodStr',
+		'MimickedWrapMethodStr'
 	]
 
 	def default_init(self,	
