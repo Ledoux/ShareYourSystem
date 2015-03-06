@@ -4,13 +4,32 @@ import ShareYourSystem as SYS
 
 #Define
 MyPredispiker=SYS.PredispikerClass(
-	).predispike(
-		#PredispikingRateUnitsInt
-		5,
-		#PredispikingSensorUnitsInt
+	).predict(
+		#PredictingUnitsInt
 		1,
-		#PredispikingPerturbativeMeanWeightFloat
-		0.01
+		#PredictingSensorsInt
+		1,
+		#PredictingConstantTimeFloat (ms)
+		10.,
+		#PredictingDecoderWeigtFloat
+		3.,
+		#PredictingCostFloat
+		1.,
+		#PredictingNormalisationInt
+		0.5,
+		#PredictingPerturbativeInputWeightFloat
+		0.,
+		#PredictingPerturbativeLateralWeightFloat
+		0.
+	).predispike(
+		#PredispikingRunTimeFloat (ms)
+		10.,
+		#PredispikingStepTimeFloat (ms)
+		0.1,
+		#PrediratingClampFloat
+		0.1,
+		#PredispikingRestFloat
+		-60.
 	)
 
 #print

@@ -29,40 +29,6 @@ def getNullFloatsArray(_FloatsArray, _RtolFloat=1e-5):
 	u, s, v = np.linalg.svd(_FloatsArray)
 	RankInt = (s > _RtolFloat*s[0]).sum()
 	return v[RankInt:].T.copy()
-
-def getKrenelFloatsArray(
-		_LevelFloatsTuple=None,
-		_TimeFloatsTuple=None,
-		_RunTimeFloat=100.,
-		_StepTimeFloat=0.1,
-	):
-
-	#get the bins
-	BinsInt=_RunTimeFloat/_StepTimeFloat
-
-	#init
-	KrenelFloatsArray=_LevelFloatsTuple[0]*np.ones(
-		BinsInt,
-		dtype=type(_LevelFloatsTuple[0])
-	)
-
-	#Debug
-	'''
-	print('getKrenelFloatsArray')
-	print('_TimeFloatsTuple[0]/_StepTimeFloat:_TimeFloatsTuple[1]/_StepTimeFloat')
-	print(_TimeFloatsTuple[0]/_StepTimeFloat,_TimeFloatsTuple[1]/_StepTimeFloat)
-	print('_LevelFloatsTuple[1] is '+str(_LevelFloatsTuple[1]))
-	print('')
-	'''
-
-	#put the second level
-	KrenelFloatsArray[
-		int(_TimeFloatsTuple[0]/_StepTimeFloat):int(_TimeFloatsTuple[1]/_StepTimeFloat)
-	]=_LevelFloatsTuple[1]
-
-	#return
-	return KrenelFloatsArray
-
 #</DefineLocals>
 
 #<DefineClass>
@@ -74,11 +40,14 @@ class PredicterClass(BaseClass):
 						_PredictingUnitsInt=0,
 						_PredictingSensorsInt=0,
 
+						_PredictingConstantTimeFloat=0.01,
+
 						_PredictingDecoderWeigtFloat=1.,
 						_PredictingCostFloat=1.,
 						_PredictingNormalisationInt=1,
 
-						_PredictingPerturbativeWeightFloat=0.1,
+						_PredictingPerturbativeInputWeightFloat=0.1,
+						_PredictingPerturbativeLateralWeightFloat=0.1,
 						_PredictingInputStatStr='norm',
 						_PredictingInputRandomStatStr='norm',
 						_PredictingLateralRandomStatStr='norm',
@@ -87,6 +56,8 @@ class PredicterClass(BaseClass):
 						
 						_PredictedControlDecoderWeigthFloatsArray=None,
 						_PredictedExactDecoderWeigthFloatsArray=None,
+
+						_PredictedLeakWeigthFloatsArray=None,
 
 						_PredictedInputRandomFloatsArray=None,
 						_PredictedPerturbativeInputWeigthFloatsArray=None,
@@ -113,7 +84,7 @@ class PredicterClass(BaseClass):
 		#
 
 		self.PredictedSensorJacobianFloatsArray=-np.diag(
-			np.ones(
+			(1./self.PredictingConstantTimeFloat)*np.ones(
 				self.PredictingSensorsInt
 			)
 		)
@@ -194,7 +165,7 @@ class PredicterClass(BaseClass):
 		#
 
 		#random
-		self.PredictedInputRandomFloatsArray=self.PredictingPerturbativeWeightFloat*getattr(
+		self.PredictedInputRandomFloatsArray=self.PredictingPerturbativeInputWeightFloat*getattr(
 			scipy.stats,
 			self.PredictingInputRandomStatStr
 		).rvs(
@@ -218,6 +189,12 @@ class PredicterClass(BaseClass):
 		self.PredictedTotalPerturbativeInputWeigthFloatsArray=self.PredictedExactDecoderWeigthFloatsArray.T+self.PredictedPerturbativeInputWeigthFloatsArray
 
 		#/#################/#
+		# Build all the perturbative input
+		#
+
+		self.PredictedLeakWeigthFloatsArray=np.diag(np.ones(self.PredictingUnitsInt))
+
+		#/#################/#
 		# Build all the possible lateral connectivities
 		#
 
@@ -238,7 +215,7 @@ class PredicterClass(BaseClass):
 		#Perturbative
 
 		#random
-		self.PredictedLateralRandomFloatsArray=self.PredictingPerturbativeWeightFloat*getattr(
+		self.PredictedLateralRandomFloatsArray=self.PredictingPerturbativeLateralWeightFloat*getattr(
 			scipy.stats,
 			self.PredictingLateralRandomStatStr
 		).rvs(
@@ -265,19 +242,24 @@ PredicterClass.PrintingClassSkipKeyStrsList.extend(
 		'PredictingUnitsInt',
 		'PredictingSensorsInt',
 
+		'PredictingConstantTimeFloat',
+		
 		'PredictingDecoderWeigtFloat',
 		'PredictedControlDecoderWeigthFloatsArray',
 
 		'PredictingCostFloat',
 		'PredictingNormalisationInt',
 
-		'PredictingPerturbativeWeightFloat',
+		'PredictingPerturbativeInputWeightFloat',
+		'PredictingPerturbativeLateralWeightFloat',
 		'PredictingInputStatStr',
 		'PredictingInputRandomStatStr',
 		'PredictingLateralRandomStatStr',
 
 		'PredictedSensorJacobianFloatsArray',
 		
+		'PredictedLeakWeigthFloatsArray',
+
 		'PredictedControlDecoderWeigthFloatsArray',
 		'PredictedExactDecoderWeigthFloatsArray',
 

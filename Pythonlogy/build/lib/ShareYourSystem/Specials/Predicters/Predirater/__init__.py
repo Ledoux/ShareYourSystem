@@ -58,6 +58,31 @@ def getKrenelFloatsArray(
 	#return
 	return KrenelFloatsArray
 
+def getThresholdArray(_Variable,_ThresholdFloat=1.):
+
+	#Check
+	if type(_Variable) in [np.float64,float,int]:
+
+		#return
+		return max(
+				min(
+					_Variable,
+					_ThresholdFloat
+					),
+				-_ThresholdFloat
+			)
+	else:
+
+		#return
+		return map(
+			lambda __ElementVariable:
+			getThresholdArray(
+				__ElementVariable,
+				_ThresholdFloat=_ThresholdFloat
+			),
+			_Variable
+		)
+SYS.getThresholdArray=getThresholdArray
 #</DefineLocals>
 
 #<DefineClass>
@@ -72,6 +97,7 @@ class PrediraterClass(BaseClass):
 						_PrediratingClampFloat=1.,
 						
 						_PrediratedTimeFloatsArray=None,
+						_PrediratedCommandFloatsArray=None,
 
 						_PrediratedInitialSensorFloatsArray=None,
 						_PrediratedInitialRateFloatsArray=None,
@@ -218,7 +244,7 @@ class PrediraterClass(BaseClass):
 			PrediratedSensorCurrentFloatsArray=np.dot(
 				self.PredictedSensorJacobianFloatsArray,
 				self.PrediratedSensorTraceFloatsArray[:,__IndexInt-1]
-			)+self.PrediratedCommandFloatsArray[:,__IndexInt]
+			)+self.PrediratedCommandFloatsArray[:,__IndexInt-1]
 
 			#/#################/#
 			# Perturbative Rate
@@ -236,14 +262,20 @@ class PrediraterClass(BaseClass):
 				self.PrediratedPerturbativeUnitTraceFloatsArray[:,__IndexInt-1]
 			)
 
+			#print('avant')
+			#print(PrediratedPerturbativeUnitCurrentFloatsArray)
+
 			#transfer
 			PrediratedPerturbativeUnitCurrentFloatsArray=self.PrediratingTransferVariable(
 				PrediratedPerturbativeUnitCurrentFloatsArray
 			)
 
+			#print('apres')
+			#print(PrediratedPerturbativeUnitCurrentFloatsArray)
+
 			#Leak and Cost Current (non transfered)
 			PrediratedPerturbativeUnitCurrentFloatsArray-=np.dot(
-				np.diag(np.ones(self.PredictingUnitsInt)),
+				self.PredictedLeakWeigthFloatsArray,
 				self.PrediratedPerturbativeUnitTraceFloatsArray[:,__IndexInt-1]
 			)
 
@@ -270,7 +302,7 @@ class PrediraterClass(BaseClass):
 
 			#Leak Current (non transfered)
 			PrediratedExactUnitCurrentFloatsArray-=np.dot(
-				np.diag(np.ones(self.PredictingUnitsInt)),
+				self.PredictedLeakWeigthFloatsArray,
 				self.PrediratedExactUnitTraceFloatsArray[:,__IndexInt-1]
 			)
 
@@ -291,7 +323,7 @@ class PrediraterClass(BaseClass):
 
 			#Leal Current
 			PrediratedControlUnitCurrentFloatsArray-=np.dot(
-				np.diag(np.ones(self.PredictingUnitsInt)),
+				self.PredictedLeakWeigthFloatsArray,
 				self.PrediratedControlUnitTraceFloatsArray[:,__IndexInt-1]
 			)
 			
@@ -485,11 +517,10 @@ class PrediraterClass(BaseClass):
 
 		#set
 		PrediratedRateAxis.set_xlim([0.,self.PrediratingRunTimeFloat])
-		#PrediratedRateAxis.set_ylim([-1.,1.])
 		PrediratedRateAxis.set_ylim(
 			[
-				self.PrediratedPerturbativeUnitTraceFloatsArray.min(),
-				self.PrediratedPerturbativeUnitTraceFloatsArray.max()
+				max(-10.,self.PrediratedPerturbativeUnitTraceFloatsArray.min()),
+				min(10.,self.PrediratedPerturbativeUnitTraceFloatsArray.max())
 			]
 		)
 
@@ -570,36 +601,14 @@ class PrediraterClass(BaseClass):
 #</DefinePrint>
 PrediraterClass.PrintingClassSkipKeyStrsList.extend(
 	[
-		'PredictingUnitsInt',
-		'PredictingSensorsInt',
-		'PrediratingInputWeigtFloat',
-		'PrediratingPerturbativeWeightFloat',
-
 		'PrediratingRunTimeFloat',
 		'PrediratingStepTimeFloat',
+		'PrediratingTransferVariable',
+		'PrediratingClampFloat',
+		
 		'PrediratedTimeFloatsArray',
-
-		'PrediratingInputStatStr',
-		'PrediratingInputRandomStatStr',
-		'PrediratingLateralRandomStatStr',
-
 		'PrediratedCommandFloatsArray',
-		'PredictedSensorJacobianFloatsArray',
-		
-		'PredictedExactDecoderWeigthFloatsArray',
-		'PredictedControlDecoderWeigthFloatsArray',
 
-		'PrediratedNullFloatsArray',
-		'PrediratedInputRandomFloatsArray',
-		'PrediratedPerturbativeInputWeigthFloatsArray',
-		'PredictedTotalPerturbativeInputWeigthFloatsArray',
-		
-		'PrediratedExactLateralWeigthFloatsArray',
-		'PredictedLeakExactLateralWeigthFloatsArray',
-		'PrediratedLateralRandomFloatsArray',
-		'PrediratedPerturbativeLateralWeigthFloatsArray',
-		'PredictedTotalPerturbativeLateralWeigthFloatsArray',
-		
 		'PrediratedInitialSensorFloatsArray',
 		'PrediratedInitialRateFloatsArray',
 		

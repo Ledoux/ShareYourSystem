@@ -827,6 +827,12 @@ def getStrsListWithBeginStrAndEndStrAndStrsIntAndStr(
 	#Return '' by default
 	return PickedStrsList
 
+def sign(_Variable):
+	if _Variable<0:
+		return -1
+	else:
+		return 1
+
 def chunk(_LimitStrsList,_TextStr,**_KwargVariablesDict):
 	if 'ChunksInt' in _KwargVariablesDict:
 		ChunksInt=_KwargVariablesDict['ChunksInt']

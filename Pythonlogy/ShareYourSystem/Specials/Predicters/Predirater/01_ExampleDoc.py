@@ -6,16 +6,20 @@ import ShareYourSystem as SYS
 MyPredirater=SYS.PrediraterClass(
 	).predict(
 		#PredictingUnitsInt
-		10,
+		100,
 		#PredictingSensorsInt
 		1,
-		#PredictingDecoderWeigtFloat
-		10.,
 		#PredictingCostFloat
-		0.,
+		1.,
+		#PredictingDecoderWeigtFloat
+		3.,
+		#PredictingCostFloat
+		1.,
 		#PredictingNormalisationInt
-		1,
-		#PredictingPerturbativeWeightFloat
+		0.5,
+		#PredictingPerturbativeInputWeightFloat
+		0.1,
+		#PredictingPerturbativeLateralWeightFloat
 		0.1
 	).predirate(
 		#PrediratingRunTimeFloat
@@ -23,10 +27,11 @@ MyPredirater=SYS.PrediraterClass(
 		#PrediratingStepTimeFloat
 		0.1,
 		#PrediratingTransferVariable
-		SYS.numpy.tanh,
-		#lambda _Float:_Float
+		#SYS.numpy.tanh,
+		lambda _FloatsArray:_FloatsArray,
+		#lambda _FloatsArray:SYS.Predirater.getThresholdArray(_FloatsArray,100.),
 		#PrediratingClampFloat
-		0.1
+		0.5
 	)
 
 #print

@@ -8,82 +8,164 @@
 </DefineSource>
 
 
-A Predispiker
-
 """
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
+import types
 BaseModuleStr="ShareYourSystem.Specials.Predicters.Predicter"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
-Predirater=BaseModule
+import scipy.stats
 import numpy as np
-import scipy
 from matplotlib import pyplot
 #</ImportSpecificModules>
 
 #<DefineLocals>
+def getKrenelFloatsArray(
+		_LevelFloatsTuple=None,
+		_TimeFloatsTuple=None,
+		_RunTimeFloat=0.01,
+		_StepTimeFloat=0.0001,
+	):
+
+	#get the bins
+	BinsInt=_RunTimeFloat/_StepTimeFloat
+
+	#init
+	KrenelFloatsArray=_LevelFloatsTuple[0]*np.ones(
+		BinsInt,
+		dtype=type(_LevelFloatsTuple[0])
+	)
+
+	#Debug
+	'''
+	print('getKrenelFloatsArray')
+	print('_TimeFloatsTuple[0]/_StepTimeFloat:_TimeFloatsTuple[1]/_StepTimeFloat')
+	print(_TimeFloatsTuple[0]/_StepTimeFloat,_TimeFloatsTuple[1]/_StepTimeFloat)
+	print('_LevelFloatsTuple[1] is '+str(_LevelFloatsTuple[1]))
+	print('')
+	'''
+
+	#put the second level
+	KrenelFloatsArray[
+		int(_TimeFloatsTuple[0]/_StepTimeFloat):int(_TimeFloatsTuple[1]/_StepTimeFloat)
+	]=_LevelFloatsTuple[1]
+
+	#return
+	return KrenelFloatsArray
+
+def getThresholdArray(_Variable,_ThresholdFloat=1.):
+
+	#Check
+	if type(_Variable) in [np.float64,float,int]:
+
+		#return
+		return max(
+				min(
+					_Variable,
+					_ThresholdFloat
+					),
+				-_ThresholdFloat
+			)
+	else:
+
+		#return
+		return map(
+			lambda __ElementVariable:
+			getThresholdArray(
+				__ElementVariable,
+				_ThresholdFloat=_ThresholdFloat
+			),
+			_Variable
+		)
+SYS.getThresholdArray=getThresholdArray
 #</DefineLocals>
 
 #<DefineClass>
-@DecorationClass(**{
-})
+@DecorationClass()
 class PredispikerClass(BaseClass):
 	
 	def default_init(self,
 
-						_PredispikingNeuronUnitsInt=0,
-						_PredispikingSensorUnitsInt=0,
-						_PredispikingPerturbativeWeightFloat=0.1,
+		_PredispikingRunTimeFloat=100.,
+		_PredispikingStepTimeFloat=0.1,
+		_PredispikingClampFloat=1.,
+		
+		_PredispikedTimeFloatsArray=None,
+		_PredispikedCommandTraceFloatsArray=None,
 
-						_PredispikingRestVoltageFloat=-60.,
-						_PredispikingThresholdVoltageFloatsArray=None,
-						_PredispikingResetVoltageFloatsArray=None,
-						_PredispikingConstantTimeFloat=10.,
-						_PredispikingDelayTimeFloat=0.,
-						
-						_PredispikingRunTimeFloat=100.,
-						_PredispikingStepTimeFloat=0.1,
-						_PredispikedTimeFloatsArray=None,
+		_PredispikingRestFloat=-60.,
+		_PredispikedRestOverTimeFloat=-60./0.01,
+		_PredispikedUnitLeakWeigthFloatsArray=None,
 
-						_PredispikingInputRandomStatStr='norm',
-						_PredispikingLateralRandomStatStr='norm',
+		_PredispikedInitialSensorFloatsArray=None,
+		_PredispikedInitialRateFloatsArray=None,
+		
+		_PredispikedSensorTraceFloatsArray=None,
+		_PredispikedPerturbativeUnitTraceFloatsArray=None,
+		_PredispikedExactUnitTraceFloatsArray=None,
+		_PredispikedControlUnitTraceFloatsArray=None,
+		
+		_PredispikedPerturbativeDecoderTraceFloatsArray=None,
+		_PredispikedExactDecoderTraceFloatsArray=None,
+		_PredispikedControlDecoderTraceFloatsArray=None,
 
-						_PredispikedCommandFloatsArray=None,
-						_PredispikedJacobianFloatsArray=None,
-						
-						_PredispikedInputRandomFloatsArray=None,
-						_PredispikedPerturbativeInputWeigthFloatsArray=None,
-						_PredispikedNullFloatsArray=None,
-						
-						_PredispikedExactLateralWeigthFloatsArray=None,
-						_PredispikedLateralRandomFloatsArray=None,
-						
-						_PredispikedInitialSensorFloatsArray=None,
-						_PredispikedInitialNeuronFloatsArray=None,
-						
-						_PredispikedSensorFloatsArray=None,
-						_PredispikedPerturbativeNeuronFloatsArray=None,
-						_PredispikedExactNeuronFloatsArray=None,
-						_PredispikedLeakNeuronFloatsArray=None,
-						
-						_PredispikedPerturbativeDecoderFloatsArray=None,
-						_PredispikedExactDecoderFloatsArray=None,
-						_PredispikedLeakDecoderFloatsArray=None,
-
-						**_KwargVariablesDict
-					):
+		**_KwargVariablesDict
+	):
 		""" """		
 
 		#Call the parent init method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
 	def do_predispike(self):
+
+		#/#################/#
+		# Special spike change for the lateral don't count the leak part
+		#
+
+		#sum
+		self.PredictedTotalPerturbativeLateralWeigthFloatsArray=self.PredictedExactLateralWeigthFloatsArray+self.PredictedPerturbativeLateralWeigthFloatsArray
 		
+		#/#################/#
+		# Neuron care : Compute rest over time, threshold 
+		#
+
+		#rest
+		self.PredispikedRestOverTimeFloat=self.PredispikingRestFloat/self.PredictingConstantTimeFloat
+
+		#compute
+		self.PredispikingThresholdFloatsArray=self.PredispikingRestFloat+0.5*np.array(
+			map(
+				lambda __FloatsArray:
+				sum(__FloatsArray**2),
+				self.PredictedExactDecoderWeigthFloatsArray
+			)
+		)
+
+		#debug
+		self.debug(
+				[
+					('self.',self,[
+						'PredictingConstantTimeFloat',
+						'PredispikingRestFloat',
+						'PredispikedRestOverTimeFloat',
+						'PredispikingThresholdFloatsArray'
+						]
+					)
+				]
+			)
+
+		#/#################/#
+		# Neuron care : adapt the leak term in neuron
+		#
+
+		#multiply
+		self.PredispikedUnitLeakWeigthFloatsArray=self.PredictedLeakWeigthFloatsArray/self.PredictingConstantTimeFloat
+
 		#/#################/#
 		# External care : Prepare time and the command
 		#
@@ -96,208 +178,107 @@ class PredispikerClass(BaseClass):
 		)
 
 		#array
-		self.PredispikedCommandFloatsArray=np.array(
+		self.PredispikedCommandTraceFloatsArray=np.array(
 			map(
 				lambda __IndexInt:
-				Predirater.getKrenelFloatsArray(
-					[0.,1.],
-					[self.PredispikingRunTimeFloat/4.,self.PredispikingRunTimeFloat/2.]
+				getKrenelFloatsArray(
+					[
+						0.,
+						self.PredispikingClampFloat
+					],
+					[
+						self.PredispikingRunTimeFloat/4.,
+						self.PredispikingRunTimeFloat/2.
+					],
+					self.PredispikingRunTimeFloat,
+					self.PredispikingStepTimeFloat
 				),
-				xrange(self.PredispikingSensorUnitsInt)
+				xrange(self.PredictingSensorsInt)
 			)
 		)
 
 		#debug
-		'''
-		self.debug(
-			[
-				'We have prepared the time and the commands',
-				('self.',self,['PredispikedCommandFloatsArray'])
-			]
-		)
-		'''
-
-		#/#################/#
-		# Sensor care : Prepare the input weigth and the null matrix
-		#
-
-		self.PredispikedJacobianFloatsArray=-(1./self.PredispikingConstantTimeFloat)*np.diag(
-			np.ones(
-				self.PredispikingSensorUnitsInt
-			)
-		)
-
-		#debug
-		'''
-		self.debug(
-			[
-				'We have prepared the sensor jacobian',
-				('self.',self,['PredispikedJacobianFloatsArray'])
-			]
-		)
-		'''
-
-		#/#################/#
-		# Neuron care : Prepare the input weigth, null matrix, exact and perturbativ matrix
-		#
-
-		#random
-		self.PredispikedExactDecoderWeigthFloatsArray=scipy.stats.uniform.rvs(
-			size=(
-				self.PredispikingSensorUnitsInt,
-				self.PredispikingNeuronUnitsInt
-			)
-		)
-		
-		#find the null space
-		self.PredispikedNullFloatsArray=Predirater.getNullFloatsArray(
-			self.PredispikedExactDecoderWeigthFloatsArray
-		)
-
-		#debug
-		'''
-		PredispikedProductArray=np.dot(
-			self.PredispikedExactDecoderWeigthFloatsArray,
-			self.PredispikedNullFloatsArray
-		)
 		self.debug(
 				[
-					('self.',self,[
-						'PredispikedExactDecoderWeigthFloatsArray',
-						'PredispikingNeuronUnitsInt'
-						]
-					),
-					("locals()['",locals(),['PredispikedProductArray'],"']")
+					('self.',self,['PredispikedCommandTraceFloatsArray'])
 				]
 			)
-		'''
-
-		#random
-		self.PredispikedInputRandomFloatsArray=self.PredispikingPerturbativeWeightFloat*getattr(
-			scipy.stats,
-			self.PredispikingInputRandomStatStr
-		).rvs(
-			size=(
-				np.shape(self.PredispikedNullFloatsArray)[1],
-				self.PredispikingSensorUnitsInt
-			)
-		)
-
-		#dot
-		self.PredispikedPerturbativeInputWeigthFloatsArray=np.dot(
-				self.PredispikedNullFloatsArray,
-				self.PredispikedInputRandomFloatsArray
-			)
-
-		#dot
-		self.PredispikedExactLateralWeigthFloatsArray=np.dot(
-				self.PredispikedExactDecoderWeigthFloatsArray.T,
-				self.PredispikedExactDecoderWeigthFloatsArray
-			)
-
-		#random
-		self.PredispikedLateralRandomFloatsArray=self.PredispikingPerturbativeWeightFloat*getattr(
-			scipy.stats,
-			self.PredispikingLateralRandomStatStr
-		).rvs(
-			size=(
-				np.shape(self.PredispikedNullFloatsArray)[1],
-				self.PredispikingNeuronUnitsInt
-			)
-		)
-
-		#dot
-		self.PredispikedPerturbativeLateralWeigthFloatsArray=np.dot(
-				self.PredispikedNullFloatsArray,
-				self.PredispikedLateralRandomFloatsArray
-			)
-
-		#pinv
-		self.PredispikedLeakDecoderWeigthFloatsArray=np.linalg.pinv(
-				self.PredispikedExactDecoderWeigthFloatsArray.T
-			)
-
-		#debug
-		'''
-		PredispikedPinvFloatsArray=np.dot(
-			self.PredispikedLeakDecoderWeigthFloatsArray,
-			self.PredispikedExactDecoderWeigthFloatsArray.T
-		)
-		self.debug(
-			[
-				'PredispikedPinvFloatsArray is ',
-				str(PredispikedPinvFloatsArray)
-			]
-		)
-		'''
 
 		#/#################/#
 		# Prepare the initial conditions
 		#
 
 		#random sensors
-		PredispikedInitialNeuronFloatsArray=scipy.stats.uniform.rvs(
-			size=self.PredispikingNeuronUnitsInt
+		PredispikedInitialSensorFloatsArray=0.1*self.PredispikingClampFloat*scipy.stats.uniform.rvs(
+			size=self.PredictingSensorsInt
 		)
-
-		#random rates
-		PredispikedInitialSensorFloatsArray=scipy.stats.uniform.rvs(
-			size=self.PredispikingSensorUnitsInt
+		
+		#random units
+		PredispikedInitialRateFloatsArray=self.PredispikingRestFloat+scipy.stats.uniform.rvs(
+			size=self.PredictingUnitsInt
 		)
+		
+		#debug
+		self.debug(
+				[
+					'PredispikedInitialRateFloatsArray is ',
+					str(PredispikedInitialRateFloatsArray)
+				]
+			)
 
 		#/#################/#
 		# Shape the size of all the runs
 		#
 
 		#init sensors
-		self.PredispikedSensorFloatsArray=np.zeros(
-				(self.PredispikingSensorUnitsInt,len(self.PredispikedTimeFloatsArray))
+		self.PredispikedSensorTraceFloatsArray=np.zeros(
+				(self.PredictingSensorsInt,len(self.PredispikedTimeFloatsArray))
 			)
-		self.PredispikedSensorFloatsArray[:,0]=PredispikedInitialSensorFloatsArray
+		self.PredispikedSensorTraceFloatsArray[:,0]=PredispikedInitialSensorFloatsArray
 
 		#init perturbative rates
-		self.PredispikedPerturbativeNeuronFloatsArray=np.zeros(
-				(self.PredispikingNeuronUnitsInt,len(self.PredispikedTimeFloatsArray))
+		self.PredispikedPerturbativeUnitTraceFloatsArray=np.zeros(
+				(self.PredictingUnitsInt,len(self.PredispikedTimeFloatsArray))
 			)
-		self.PredispikedPerturbativeNeuronFloatsArray[:,0]=PredispikedInitialNeuronFloatsArray
+		self.PredispikedPerturbativeUnitTraceFloatsArray[:,0]=PredispikedInitialRateFloatsArray
 
 		#init exact rates
-		self.PredispikedExactNeuronFloatsArray=np.zeros(
-				(self.PredispikingNeuronUnitsInt,len(self.PredispikedTimeFloatsArray))
+		self.PredispikedExactUnitTraceFloatsArray=np.zeros(
+				(self.PredictingUnitsInt,len(self.PredispikedTimeFloatsArray))
 			)
-		self.PredispikedExactNeuronFloatsArray[:,0]=PredispikedInitialNeuronFloatsArray
+		self.PredispikedExactUnitTraceFloatsArray[:,0]=PredispikedInitialRateFloatsArray
 
 		#init leak control rates
-		self.PredispikedLeakNeuronFloatsArray=np.zeros(
-				(self.PredispikingNeuronUnitsInt,len(self.PredispikedTimeFloatsArray))
+		self.PredispikedControlUnitTraceFloatsArray=np.zeros(
+				(self.PredictingUnitsInt,len(self.PredispikedTimeFloatsArray))
 			)
-		self.PredispikedLeakNeuronFloatsArray[:,0]=PredispikedInitialNeuronFloatsArray
+		self.PredispikedControlUnitTraceFloatsArray[:,0]=PredispikedInitialRateFloatsArray
 
 		#init perturbative decoder
-		self.PredispikedPerturbativeDecoderFloatsArray=np.zeros(
-				(self.PredispikingSensorUnitsInt,len(self.PredispikedTimeFloatsArray))
+		self.PredispikedPerturbativeDecoderTraceFloatsArray=np.zeros(
+				(self.PredictingSensorsInt,len(self.PredispikedTimeFloatsArray))
 			)
-		self.PredispikedPerturbativeDecoderFloatsArray[:,0]=np.dot(
-				self.PredispikedExactDecoderWeigthFloatsArray,
-				PredispikedInitialNeuronFloatsArray
+		self.PredispikedPerturbativeDecoderTraceFloatsArray[:,0]=np.dot(
+				self.PredictedExactDecoderWeigthFloatsArray,
+				PredispikedInitialRateFloatsArray
 			)
 
 		#init exact decoder
-		self.PredispikedExactDecoderFloatsArray=np.zeros(
-				(self.PredispikingSensorUnitsInt,len(self.PredispikedTimeFloatsArray))
+		self.PredispikedExactDecoderTraceFloatsArray=np.zeros(
+				(self.PredictingSensorsInt,len(self.PredispikedTimeFloatsArray))
 			)
-		self.PredispikedExactDecoderFloatsArray[:,0]=np.dot(
-				self.PredispikedExactDecoderWeigthFloatsArray,
-				PredispikedInitialNeuronFloatsArray
+		self.PredispikedExactDecoderTraceFloatsArray[:,0]=np.dot(
+				self.PredictedExactDecoderWeigthFloatsArray,
+				PredispikedInitialRateFloatsArray
 			)
 
 		#init leak control decoder
-		self.PredispikedLeakDecoderFloatsArray=np.zeros(
-				(self.PredispikingSensorUnitsInt,len(self.PredispikedTimeFloatsArray))
+		self.PredispikedControlDecoderTraceFloatsArray=np.zeros(
+				(self.PredictingSensorsInt,len(self.PredispikedTimeFloatsArray))
 			)
-		self.PredispikedLeakDecoderFloatsArray[:,0]=np.dot(
-				self.PredispikedLeakDecoderWeigthFloatsArray,
-				PredispikedInitialNeuronFloatsArray
+		self.PredispikedControlDecoderTraceFloatsArray[:,0]=np.dot(
+				self.PredictedControlDecoderWeigthFloatsArray,
+				PredispikedInitialRateFloatsArray
 			)
 
 		#/#################/#
@@ -312,138 +293,266 @@ class PredispikerClass(BaseClass):
 			#
 
 			#debug
-			'''
 			self.debug(
 					[
-						'shape(self.PredispikedCommandFloatsArray) is '+str(
-							np.shape(self.PredispikedCommandFloatsArray)
+						'shape(self.PredispikedCommandTraceFloatsArray) is '+str(
+							np.shape(self.PredispikedCommandTraceFloatsArray)
 						),
-						'shape(self.PredispikedSensorFloatsArray) is '+str(
-							np.shape(self.PredispikedSensorFloatsArray)
+						'shape(self.PredispikedSensorTraceFloatsArray) is '+str(
+							np.shape(self.PredispikedSensorTraceFloatsArray)
 						),
 						('self.',self,[
-							'PredispikedJacobianFloatsArray'
+							'PredictedSensorJacobianFloatsArray'
 						])
 					]
 				)
-			'''
 
 			#Current
 			PredispikedSensorCurrentFloatsArray=np.dot(
-				self.PredispikedJacobianFloatsArray,
-				self.PredispikedSensorFloatsArray[:,__IndexInt-1]
-			)+self.PredispikedCommandFloatsArray[:,__IndexInt]
+				self.PredictedSensorJacobianFloatsArray,
+				self.PredispikedSensorTraceFloatsArray[:,__IndexInt-1]
+			)+self.PredispikedCommandTraceFloatsArray[:,__IndexInt-1]
+
+			"""
 
 			#/#################/#
-			# Perturbative Neuron part
+			# Perturbative Voltage
 			#
 
-			#Input Current
-			PredispikedPerturbativeNeuronCurrentFloatsArray=np.dot(
-				self.PredispikedExactDecoderWeigthFloatsArray.T+self.PredispikedPerturbativeInputWeigthFloatsArray,
-				self.PredispikedCommandFloatsArray[:,__IndexInt-1]
-			)
-
-			#Lateral Current
-			PredispikedPerturbativeNeuronCurrentFloatsArray-=np.dot(
-					self.PredispikedExactLateralWeigthFloatsArray+self.PredispikedPerturbativeLateralWeigthFloatsArray,
-					self.PredispikedPerturbativeNeuronFloatsArray[:,__IndexInt-1]
+			#debug
+			self.debug(
+					('self.',self,['PredispikedRestOverTimeFloat'])
 				)
 
-			#/#################/#
-			# Exact Neuron part
-			#
+			#Init
+			PredispikedPerturbativeUnitCurrentFloatsArray=0.
 
 			#Input Current
-			PredispikedExactNeuronCurrentFloatsArray=np.dot(
-				self.PredispikedExactDecoderWeigthFloatsArray.T,
-				self.PredispikedCommandFloatsArray[:,__IndexInt-1]
+			PredispikedPerturbativeUnitCurrentFloatsArray+=0.*np.dot(
+				self.PredictedTotalPerturbativeInputWeigthFloatsArray,
+				self.PredispikedCommandTraceFloatsArray[:,__IndexInt-1]
 			)
 
 			#Lateral Current
-			PredispikedExactNeuronCurrentFloatsArray-=np.dot(
-				self.PredispikedExactLateralWeigthFloatsArray,
-				self.PredispikedExactNeuronFloatsArray[:,__IndexInt-1]
+			PredispikedPerturbativeUnitCurrentFloatsArray-=0.*np.dot(
+				self.PredictedTotalPerturbativeLateralWeigthFloatsArray,
+				self.PredispikedPerturbativeUnitTraceFloatsArray[:,__IndexInt-1]
 			)
 			
+			#Leak and Cost Current (non transfered)
+			PredispikedPerturbativeUnitCurrentFloatsArray-=np.dot(
+				self.PredispikedUnitLeakWeigthFloatsArray,
+				self.PredispikedPerturbativeUnitTraceFloatsArray[:,__IndexInt-1]
+			)-self.PredispikedRestOverTimeFloat
+
 			#/#################/#
-			# Leak Control Neuron part
+			# Exact Voltage
 			#
 
-			#Input Current
-			PredispikedLeakNeuronCurrentFloatsArray=np.dot(
-				self.PredispikedExactDecoderWeigthFloatsArray.T+self.PredispikedPerturbativeInputWeigthFloatsArray,
-				self.PredispikedCommandFloatsArray[:,__IndexInt-1]
+			#Init
+			PredispikedExactUnitCurrentFloatsArray=0.
+
+			#Input Current (from the command)
+			PredispikedExactUnitCurrentFloatsArray+=0.*np.dot(
+				self.PredictedExactDecoderWeigthFloatsArray.T,
+				self.PredispikedCommandTraceFloatsArray[:,__IndexInt-1]
 			)
 
 			#Lateral Current
-			PredispikedLeakNeuronCurrentFloatsArray-=np.dot(
-				np.diag(np.ones(self.PredispikingNeuronUnitsInt)),
-				self.PredispikedLeakNeuronFloatsArray[:,__IndexInt-1]
+			PredispikedExactUnitCurrentFloatsArray-=0.*np.dot(
+				self.PredictedExactLateralWeigthFloatsArray,
+				self.PredispikedExactUnitTraceFloatsArray[:,__IndexInt-1]
 			)
-	
+
+			#Leak Current (non transfered)
+			PredispikedExactUnitCurrentFloatsArray-=np.dot(
+				self.PredispikedUnitLeakWeigthFloatsArray,
+				self.PredispikedExactUnitTraceFloatsArray[:,__IndexInt-1]
+			)-self.PredispikedRestOverTimeFloat
+
+			#/#################/#
+			# Control Voltage
+			#
+
+			#Init
+			PredispikedControlUnitCurrentFloatsArray=0
+
+			#Input Current
+			PredispikedControlUnitCurrentFloatsArray+=0.*np.dot(
+				self.PredictedExactDecoderWeigthFloatsArray.T,
+				self.PredispikedCommandTraceFloatsArray[:,__IndexInt-1]
+			)
+
+			#Leal Current
+			PredispikedControlUnitCurrentFloatsArray-=np.dot(
+				self.PredispikedUnitLeakWeigthFloatsArray,
+				self.PredispikedControlUnitTraceFloatsArray[:,__IndexInt-1]
+			)+self.PredispikedRestOverTimeFloat
+			
+			"""
+
 			#/#################/#
 			# Euler part
 			#
 
+			#debug
+			self.debug(
+					[
+						'PredispikedSensorCurrentFloatsArray is ',
+						str(PredispikedSensorCurrentFloatsArray)
+					]
+				)
+
 			#sensor
-			self.PredispikedSensorFloatsArray[
+			self.PredispikedSensorTraceFloatsArray[
 				:,
 				__IndexInt
-			]=self.PredispikedSensorFloatsArray[
+			]=self.PredispikedSensorTraceFloatsArray[
 				:,
 				__IndexInt-1
-			]+PredispikedSensorCurrentFloatsArray*self.PrediratingStepTimeFloat
+			]+PredispikedSensorCurrentFloatsArray*self.PredispikingStepTimeFloat
 
+			#debug
+			"""
+			self.debug(
+					[
+						'self.PredispikedSensorTraceFloatsArray[:,__IndexInt] is ',
+						str(self.PredispikedSensorTraceFloatsArray[:,__IndexInt])
+					]
+				)
+			"""
+
+			"""
 			#set
 			LocalDict=locals()
 
-			#rate
-			for __TagStr in ['Perturbative','Exact','Leak']:	
+			#loop
+			for __TagStr in ['Perturbative','Exact','Control']:	
 
 				#set
 				getattr(
 					self,
-					'Predispiked'+__TagStr+'NeuronFloatsArray'
+					'Predispiked'+__TagStr+'UnitTraceFloatsArray'
 				)[:,__IndexInt]=getattr(
 							self,
-							'Predispiked'+__TagStr+'NeuronFloatsArray'
+							'Predispiked'+__TagStr+'UnitTraceFloatsArray'
 						)[:,__IndexInt-1]+LocalDict[
-				'Predispiked'+__TagStr+'NeuronCurrentFloatsArray'
+				'Predispiked'+__TagStr+'UnitCurrentFloatsArray'
 				]*self.PredispikingStepTimeFloat
 					
+			"""
 
+			#/#################/#
+			# Post process part
+			#
+
+			"""
+			#loop
+			for __TagStr in ['Perturbative','Exact','Control']:	
+
+				#get
+				PredictedVoltageFloatsArray=getattr(
+					self,
+					'Predispiked'+__TagStr+'UnitTraceFloatsArray'
+				)[:,__IndexInt]
+
+				#debug
+				'''
+				self.debug(
+						[
+							'PredictedVoltageFloatsArray is ',
+							str(PredictedVoltageFloatsArray)
+						]
+					)
+				'''
+
+				#find spike
+				PredictedVoltageIndexInt=np.where(
+					PredictedVoltageFloatsArray>self.PredispikingThresholdFloatsArray
+				)
+
+				#find the corresponding reset
+				PredictedResetFloatsArray=np.diag(
+					self.PredictedExactLateralWeigthFloatsArray.T
+				)[PredictedVoltageIndexInt]
+
+				#debug
+				self.debug(
+						[
+							'Before reset',
+							'PredictedVoltageIndexInt is ',
+							str(PredictedVoltageIndexInt),
+							'PredictedVoltageFloatsArray is ',
+							str(PredictedVoltageFloatsArray),
+							'PredictedResetFloatsArray is ',
+							str(PredictedResetFloatsArray)
+						]
+					)
+
+				#reset
+				PredictedVoltageFloatsArray[
+					PredictedVoltageIndexInt
+				]-=PredictedResetFloatsArray
+				
+				#debug
+				self.debug(
+						[
+							'After reset',
+							'PredictedVoltageIndexInt is ',
+							str(PredictedVoltageIndexInt),
+							'PredictedVoltageFloatsArray is ',
+							str(PredictedVoltageFloatsArray)
+						]
+					)
+			"""
+
+			"""
 			#/#################/#
 			# Decoder part
 			#
 
 			#dot
-			self.PredispikedPerturbativeDecoderFloatsArray[
+			self.PredispikedPerturbativeDecoderTraceFloatsArray[
 				:,
 				__IndexInt
-			]=np.dot(
-					self.PredispikedExactDecoderWeigthFloatsArray,
-					self.PredispikedPerturbativeNeuronFloatsArray[:,__IndexInt-1]
-				)
+			]=(
+				1.-(
+					self.PredispikedPerturbativeDecoderTraceFloatsArray[
+					:,__IndexInt-1]/self.PredictingConstantTimeFloat
+				)*self.PredispikingStepTimeFloat
+			)
+			"""
 
+			"""
+			+np.dot(
+					self.PredictedExactDecoderWeigthFloatsArray[
+						:,
+						PredictedVoltageIndexInt
+					],
+					np.ones(len(PredictedVoltageIndexInt))
+				)
+			"""
+
+			"""
 			#exact control
-			self.PredispikedExactDecoderFloatsArray[
+			self.PredispikedExactDecoderTraceFloatsArray[
 				:,
 				__IndexInt
 			]=np.dot(
-					self.PredispikedExactDecoderWeigthFloatsArray,
-					self.PredispikedExactNeuronFloatsArray[:,__IndexInt-1]
+					self.PredictedExactDecoderWeigthFloatsArray,
+					self.PredispikedExactUnitTraceFloatsArray[:,__IndexInt-1]
 				)
 
 			#leak control
-			self.PredispikedLeakDecoderFloatsArray[
+			self.PredispikedControlDecoderTraceFloatsArray[
 				:,
 				__IndexInt
 			]=np.dot(
-					self.PredispikedLeakDecoderWeigthFloatsArray,
-					self.PredispikedLeakNeuronFloatsArray[:,__IndexInt-1]
+					self.PredictedControlDecoderWeigthFloatsArray,
+					self.PredispikedControlUnitTraceFloatsArray[:,__IndexInt-1]
 				)
 
+			"""
 
 		#/#################/#
 		# Plot
@@ -452,8 +561,10 @@ class PredispikerClass(BaseClass):
 		#debug
 		self.debug(
 			[
-				'len(self.PredispikedTimeFloatsArray) is '+str(len(self.PredispikedTimeFloatsArray)),
-				'np.shape(self.PredispikedCommandFloatsArray) is '+str(np.shape(self.PredispikedCommandFloatsArray))
+				'len(self.PredispikedTimeFloatsArray) is '+str(
+					len(self.PredispikedTimeFloatsArray)),
+				'np.shape(self.PredispikedCommandTraceFloatsArray) is '+str(
+					np.shape(self.PredispikedCommandTraceFloatsArray))
 			]
 		)
 
@@ -472,48 +583,65 @@ class PredispikerClass(BaseClass):
 				lambda __IndexInt:
 				PredispikedSensorAxis.plot(
 						self.PredispikedTimeFloatsArray,
-						self.PredispikedCommandFloatsArray[__IndexInt]
+						self.PredictingConstantTimeFloat*self.PredispikedCommandTraceFloatsArray[__IndexInt],
+						label='$\\tau_{D}c(t)$',
 					)
-				if __IndexInt<len(self.PredispikedCommandFloatsArray)
+				if __IndexInt<len(self.PredispikedCommandTraceFloatsArray)
 				else None,
 				[0]
 			)
+
+		#debug
+		'''
+		self.debug(
+				('self.',self,['PredispikedSensorTraceFloatsArray'])
+			)
+		'''
 
 		#sensor
 		map(
 				lambda __IndexInt:
 				PredispikedSensorAxis.plot(
 						self.PredispikedTimeFloatsArray,
-						self.PredispikedSensorFloatsArray[__IndexInt,:],
+						self.PredispikedSensorTraceFloatsArray[__IndexInt,:],
 						color='g',
+						label='$x(t)$',
 						linewidth=3
 					)
-				if __IndexInt<len(self.PredispikedSensorFloatsArray)
+				if __IndexInt<len(self.PredispikedSensorTraceFloatsArray)
 				else None,
 				[0,1]
 			)
 
 		#set
+		PredispikedSensorAxis.legend()
+		PredispikedSensorAxis.set_ylabel('$\\tau_{D}c(t),\ x(t)$')
 		PredispikedSensorAxis.set_xlim([0.,self.PredispikingRunTimeFloat])
-		PredispikedSensorAxis.set_ylim([-0.1,3.])
+		PredispikedSensorAxis.set_ylim(
+			[
+				-0.1,
+				1.5*self.PredispikingClampFloat*self.PredictingConstantTimeFloat
+			]
+		)
 
+		"""
 		#/#################/#
-		# rates
+		# neurons
 		#
 
 		#subplot
-		PredispikedNeuronAxis=pyplot.subplot(3,1,2)
+		PredispikedRateAxis=pyplot.subplot(3,1,2)
 
 		#perturbative
 		map(
 				lambda __IndexInt:
-				PredispikedNeuronAxis.plot(
+				PredispikedRateAxis.plot(
 						self.PredispikedTimeFloatsArray,
-						self.PredispikedPerturbativeNeuronFloatsArray[__IndexInt,:],
+						self.PredispikedPerturbativeUnitTraceFloatsArray[__IndexInt,:],
 						color='blue',
 						linewidth=3
 					)
-				if __IndexInt<len(self.PredispikedPerturbativeNeuronFloatsArray)
+				if __IndexInt<len(self.PredispikedPerturbativeUnitTraceFloatsArray)
 				else None,
 				[0,1]
 			)
@@ -521,13 +649,13 @@ class PredispikerClass(BaseClass):
 		#exact
 		map(
 				lambda __IndexInt:
-				PredispikedNeuronAxis.plot(
+				PredispikedRateAxis.plot(
 						self.PredispikedTimeFloatsArray,
-						self.PredispikedExactNeuronFloatsArray[__IndexInt,:],
+						self.PredispikedExactUnitTraceFloatsArray[__IndexInt,:],
 						color='violet',
 						linewidth=2
 					)
-				if __IndexInt<len(self.PredispikedPerturbativeNeuronFloatsArray)
+				if __IndexInt<len(self.PredispikedPerturbativeUnitTraceFloatsArray)
 				else None,
 				[0,1]
 			)
@@ -535,24 +663,23 @@ class PredispikerClass(BaseClass):
 		#leak
 		map(
 				lambda __IndexInt:
-				PredispikedNeuronAxis.plot(
+				PredispikedRateAxis.plot(
 						self.PredispikedTimeFloatsArray,
-						self.PredispikedLeakNeuronFloatsArray[__IndexInt,:],
+						self.PredispikedControlUnitTraceFloatsArray[__IndexInt,:],
 						color='brown',
 						linewidth=1
 					)
-				if __IndexInt<len(self.PredispikedLeakNeuronFloatsArray)
+				if __IndexInt<len(self.PredispikedControlUnitTraceFloatsArray)
 				else None,
 				[0,1]
 			)
 
 		#set
-		PredispikedNeuronAxis.set_xlim([0.,self.PredispikingRunTimeFloat])
-		#PredispikedNeuronAxis.set_ylim([-1.,1.])
-		PredispikedNeuronAxis.set_ylim(
+		PredispikedRateAxis.set_xlim([0.,self.PredispikingRunTimeFloat])
+		PredispikedRateAxis.set_ylim(
 			[
-				self.PredispikedPerturbativeNeuronFloatsArray.min(),
-				self.PredispikedPerturbativeNeuronFloatsArray.max()
+				max(-80.,self.PredispikedPerturbativeUnitTraceFloatsArray.min()),
+				min(10.,self.PredispikedPerturbativeUnitTraceFloatsArray.max())
 			]
 		)
 
@@ -568,11 +695,11 @@ class PredispikerClass(BaseClass):
 				lambda __IndexInt:
 				PredispikedDecoderAxis.plot(
 						self.PredispikedTimeFloatsArray,
-						self.PredispikedSensorFloatsArray[__IndexInt],
+						self.PredispikedSensorTraceFloatsArray[__IndexInt],
 						color='g',
 						linewidth=3
 					)
-				if __IndexInt<len(self.PredispikedSensorFloatsArray)
+				if __IndexInt<len(self.PredispikedSensorTraceFloatsArray)
 				else None,
 				[0,1]
 			)
@@ -582,11 +709,11 @@ class PredispikerClass(BaseClass):
 				lambda __IndexInt:
 				PredispikedDecoderAxis.plot(
 						self.PredispikedTimeFloatsArray,
-						self.PredispikedPerturbativeDecoderFloatsArray[__IndexInt,:],
+						self.PredispikedPerturbativeDecoderTraceFloatsArray[__IndexInt,:],
 						color='blue',
 						linewidth=3
 					)
-				if __IndexInt<len(self.PredispikedPerturbativeDecoderFloatsArray)
+				if __IndexInt<len(self.PredispikedPerturbativeDecoderTraceFloatsArray)
 				else None,
 				[0,1]
 			)
@@ -596,11 +723,11 @@ class PredispikerClass(BaseClass):
 				lambda __IndexInt:
 				PredispikedDecoderAxis.plot(
 						self.PredispikedTimeFloatsArray,
-						self.PredispikedExactDecoderFloatsArray[__IndexInt,:],
+						self.PredispikedExactDecoderTraceFloatsArray[__IndexInt,:],
 						color='violet',
 						linewidth=2
 					)
-				if __IndexInt<len(self.PredispikedPerturbativeDecoderFloatsArray)
+				if __IndexInt<len(self.PredispikedPerturbativeDecoderTraceFloatsArray)
 				else None,
 				[0,1]
 			)
@@ -610,60 +737,50 @@ class PredispikerClass(BaseClass):
 				lambda __IndexInt:
 				PredispikedDecoderAxis.plot(
 						self.PredispikedTimeFloatsArray,
-						self.PredispikedLeakDecoderFloatsArray[__IndexInt,:],
+						self.PredispikedControlDecoderTraceFloatsArray[__IndexInt,:],
 						color='brown',
 						linewidth=1
 					)
-				if __IndexInt<len(self.PredispikedLeakDecoderFloatsArray)
+				if __IndexInt<len(self.PredispikedControlDecoderTraceFloatsArray)
 				else None,
 				[0,1]
 			)
 
 		#set
 		PredispikedDecoderAxis.set_xlim([0.,self.PredispikingRunTimeFloat])
-		PredispikedDecoderAxis.set_ylim([-0.1,3.])
+		PredispikedDecoderAxis.set_ylim([-0.1,1.5*self.PredispikingClampFloat])
+		"""
 
 		#show
 		pyplot.show()
-
-
 
 #</DefineClass>
 
 #</DefinePrint>
 PredispikerClass.PrintingClassSkipKeyStrsList.extend(
 	[
-		'PredispikingNeuronUnitsInt',
-		'PredispikingSensorUnitsInt',
-		'PredispikingPerturbativeWeightFloat',
-		
 		'PredispikingRunTimeFloat',
 		'PredispikingStepTimeFloat',
-
+		'PredispikingClampFloat',
+		
 		'PredispikedTimeFloatsArray',
-		'PredispikedCommandFloatsArray',
-		'PredispikedJacobianFloatsArray',
-		'PredispikedExactDecoderWeigthFloatsArray',
-		'PredispikedInputRandomFloatsArray',
-		'PredispikedPerturbativeInputWeigthFloatsArray',
-		'PredispikedExactDecoderWeigthFloatsArray',
-		'PredispikedExactLateralWeigthFloatsArray',
-		'PredispikedLateralRandomFloatsArray',
-		'PredispikedExactLateralWeigthFloatsArray',
-		'PredispikedPerturbativeLateralWeigthFloatsArray',
-		'PredispikedNullFloatsArray',
-		'PredispikedInitialSensorFloatsArray',
-		'PredispikedInitialNeuronFloatsArray',
-		'PredispikedSensorFloatsArray',
-		'PredispikedPerturbativeNeuronFloatsArray',
-		'PredispikedExactNeuronFloatsArray',
-		'PredispikedLeakNeuronFloatsArray',
+		'PredispikedCommandTraceFloatsArray',
 
-		'PredispikedPerturbativeDecoderFloatsArray',
-		'PredispikedExactDecoderFloatsArray',
-		'PredispikedLeakDecoderWeigthFloatsArray',
-		'PredispikedLeakDecoderFloatsArray'
+		'PredispikingRestFloat',
+		'PredispikingRestOverTimeFloat',
+		'PredispikedUnitLeakWeigthFloatsArray',
+
+		'PredispikedInitialSensorFloatsArray',
+		'PredispikedInitialRateFloatsArray',
+		
+		'PredispikedSensorTraceFloatsArray',
+		'PredispikedPerturbativeUnitTraceFloatsArray',
+		'PredispikedExactUnitTraceFloatsArray',
+		'PredispikedControlUnitTraceFloatsArray',
+		
+		'PredispikedPerturbativeDecoderTraceFloatsArray',
+		'PredispikedExactDecoderTraceFloatsArray',
+		'PredispikedControlDecoderTraceFloatsArray'
 	]
 )
 #<DefinePrint>
-	
