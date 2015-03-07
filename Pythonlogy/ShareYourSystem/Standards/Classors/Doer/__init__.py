@@ -590,18 +590,10 @@ class DoerClass(BaseClass):
 			'''
 			
 			#set with the specific name
-			setattr(
-						DoClass,
-						DoDecorationMethodStr,
-						locals()[DoDecorationMethodStr]
-					)
+			self.setMethod(DoDecorationMethodStr,locals()[DoDecorationMethodStr])
 
 			#set with the DoMethodStr shortcut
-			setattr(
-						DoClass,
-						DoMethodStr,
-						locals()[DoDecorationMethodStr]
-					)
+			self.setMethod(DoMethodStr,locals()[DoDecorationMethodStr])
 
 			#set a pointer to the fundamental class
 			locals()[DoDecorationMethodStr].BaseDoClass=DoClass
@@ -625,8 +617,7 @@ class DoerClass(BaseClass):
 				map(
 					lambda __SetUnboundMethod:
 					#set with the DoMethodStr shortcut
-					setattr(
-								DoClass,
+					self.setMethod(
 								__SetUnboundMethod.__name__,
 								__SetUnboundMethod
 							),
@@ -857,11 +848,19 @@ DoStrsTuplesList=[
 	('Pymongoer','Pymongo','Pymongoing','Pymongone'),
 	('Texter','Text','Texting','Texted')
 ]
-
 DoerStrToDoStrOrderedDict=SYS.dictify(DoStrsTuplesList,0,1)
 DoStrToDoerStrOrderedDict=SYS.dictify(DoStrsTuplesList,1,0)
 DoStrToDoingStrOrderedDict=SYS.dictify(DoStrsTuplesList,1,2)
 DoStrToDoneStrOrderedDict=SYS.dictify(DoStrsTuplesList,1,3)
 DoneStrToDoingStrOrderedDict=SYS.dictify(DoStrsTuplesList,3,2)
+
+def addDo(*_DoStrsTuple):
+	DoStrsTuplesList.append(_DoStrsTuple)
+	DoerStrToDoStrOrderedDict[_DoStrsTuple[0]]=_DoStrsTuple[1]
+	DoStrToDoerStrOrderedDict[_DoStrsTuple[1]]=_DoStrsTuple[0]
+	DoStrToDoingStrOrderedDict[_DoStrsTuple[1]]=_DoStrsTuple[2]
+	DoStrToDoneStrOrderedDict[_DoStrsTuple[1]]=_DoStrsTuple[3]
+	DoneStrToDoingStrOrderedDict[_DoStrsTuple[3]]=_DoStrsTuple[2]
+SYS.addDo=addDo
 #</DefineLocals>
 

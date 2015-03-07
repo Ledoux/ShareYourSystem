@@ -27,9 +27,6 @@ class MakerClass(object):
 
 		#set
 		self.MadeMyInt=int(self.MakingMyFloat)
-
-		#Return self
-		#return self
 	
 #Look at the decorated make method
 AttestingStrsList=['MakerClass.make is '+str(MakerClass.make)]

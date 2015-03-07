@@ -8,7 +8,7 @@ class MakerClass(SYS.ParenterClass):
 
 	def default_init(
 						self,
-						_MakingFloat=0.
+						_MakingMyFloat=0.
 					):
 		SYS.ParenterClass.__init__(self)
 		
@@ -34,7 +34,6 @@ MyMaker=MakerClass(
 #print
 print('MyMaker is ')
 SYS._print(MyMaker)
-
 
 #Define
 @SYS.ClasserClass()

@@ -16,6 +16,7 @@ import types
 BaseModuleStr="ShareYourSystem.Specials.Predicters.Predicter"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
+SYS.appendDoStrsList(['Predispiker','Predispike','Predispiking','Predispiked'])
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
@@ -91,13 +92,6 @@ class PredispikerClass(BaseClass):
 	
 	def default_init(self,
 
-		_PredispikingRunTimeFloat=100.,
-		_PredispikingStepTimeFloat=0.1,
-		_PredispikingClampFloat=1.,
-		
-		_PredispikedTimeFloatsArray=None,
-		_PredispikedCommandTraceFloatsArray=None,
-
 		_PredispikingRestFloat=-60.,
 		_PredispikedRestOverTimeFloat=-60./0.01,
 		_PredispikedUnitLeakWeigthFloatsArray=None,
@@ -166,43 +160,7 @@ class PredispikerClass(BaseClass):
 		#multiply
 		self.PredispikedUnitLeakWeigthFloatsArray=self.PredictedLeakWeigthFloatsArray/self.PredictingConstantTimeFloat
 
-		#/#################/#
-		# External care : Prepare time and the command
-		#
-
-		#arange
-		self.PredispikedTimeFloatsArray=np.arange(
-			0.,
-			self.PredispikingRunTimeFloat,
-			self.PredispikingStepTimeFloat
-		)
-
-		#array
-		self.PredispikedCommandTraceFloatsArray=np.array(
-			map(
-				lambda __IndexInt:
-				getKrenelFloatsArray(
-					[
-						0.,
-						self.PredispikingClampFloat
-					],
-					[
-						self.PredispikingRunTimeFloat/4.,
-						self.PredispikingRunTimeFloat/2.
-					],
-					self.PredispikingRunTimeFloat,
-					self.PredispikingStepTimeFloat
-				),
-				xrange(self.PredictingSensorsInt)
-			)
-		)
-
-		#debug
-		self.debug(
-				[
-					('self.',self,['PredispikedCommandTraceFloatsArray'])
-				]
-			)
+		
 
 		#/#################/#
 		# Prepare the initial conditions

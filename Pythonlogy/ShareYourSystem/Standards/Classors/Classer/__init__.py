@@ -139,13 +139,14 @@ class ClasserClass(BaseClass):
 				__MethodItemTuple[0].startswith(
 						Propertiser.PropertyPrefixStr
 					) and (
-					getattr(
-						self.DoClass.__bases__[0],
-						__MethodItemTuple[0]
-					)!=__MethodItemTuple[1]
-					if hasattr(self.DoClass.__bases__[0],
-						__MethodItemTuple[0]
-					) else True
+					SYS.getNewMethodBool(self.DoClass,__MethodItemTuple[0])
+					#getattr(
+					#	self.DoClass.__bases__[0],
+					#	__MethodItemTuple[0]
+					#)!=__MethodItemTuple[1]
+					#if hasattr(self.DoClass.__bases__[0],
+					#	__MethodItemTuple[0]
+					#) else True
 				),
 				self.DoClass.InspectMethodDict.items()
 			)

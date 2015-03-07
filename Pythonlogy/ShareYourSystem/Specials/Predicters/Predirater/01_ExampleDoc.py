@@ -9,7 +9,7 @@ MyPredirater=SYS.PrediraterClass(
 		100,
 		#PredictingSensorsInt
 		1,
-		#PredictingCostFloat
+		#PredictingConstantTimeFloat (ms)
 		1.,
 		#PredictingDecoderWeigtFloat
 		3.,
@@ -22,9 +22,9 @@ MyPredirater=SYS.PrediraterClass(
 		#PredictingPerturbativeLateralWeightFloat
 		0.1
 	).predirate(
-		#PrediratingRunTimeFloat
+		#PrediratingRunTimeFloat (ms)
 		100.,
-		#PrediratingStepTimeFloat
+		#PrediratingStepTimeFloat (ms)
 		0.1,
 		#PrediratingTransferVariable
 		#SYS.numpy.tanh,

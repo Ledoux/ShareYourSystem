@@ -36,7 +36,7 @@ SYS._print(MyMaker)
 #switch
 MyMaker['#map@set'](
 		[
-			('setSwitch',[MakerClass,'make']),
+			('setSwitch',['make',MakerClass]),
 			('setDoing',MakerClass),
 		]
 	)

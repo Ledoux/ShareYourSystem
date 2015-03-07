@@ -54,9 +54,6 @@ class BuilderClass(MakerClass):
 	def do_build(self):
 		pass
 
-print(SYS.BuilderClass.SwitchedMethodDict)
-
-"""
 #Definition an instance
 MyBuilder=BuilderClass()
 
@@ -80,8 +77,7 @@ SYS._print(MyBuilder.__dict__)
 
 #make again
 print('Now we switch all')
-MyBuilder.setSwitch('Builder',['Make'])
-MyBuilder.callAllMro('setSwitch',['Make'])
+MyBuilder.setSwitch('make',BuilderClass)
 
 #Print
 print('After the switch MyBuilder.__dict__ is ')
@@ -107,6 +103,6 @@ SYS._attest(
 ) 
 
 #Print
-"""
+
 
 

@@ -89,6 +89,24 @@ class ControllerClass(BaseClass):
 				#alias
 				self.TeamedValueVariable.ManagingValueClass=self.ControllingModelClassVariable
 
+		if self.TeamingKeyStr=='Views':
+
+			#Check
+			if self.TeamedIsBool==False:
+
+				#debug
+				'''
+				self.debug('we create models here')
+				'''
+				
+				#Check
+				if self.ControllingViewClassVariable==None:
+					self.ControllingViewClassVariable=SYS.FigurerClass
+
+				#alias
+				self.TeamedValueVariable.ManagingValueClass=self.ControllingViewClassVariable
+
+
 	def propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable):
 
 		#call the base method

@@ -232,8 +232,35 @@ class ClassorClass(object):
 		#set the KeyStrsList
 		_Class.KeyStrsList=SYS.getKeyStrsListWithClass(_Class)+['KeyStrsList']
 
+		#/###################/#
+		# alias
+		#
+
+		self.WrapClass=_Class
+
 		#Return 
 		return _Class
+
+	def setMethod(self,_KeyStr,_ValueMethod):
+
+		#/################/#
+		# Set in the class but also in the inspect dict
+		#
+
+		#set
+		setattr(
+				self.WrapClass,
+				_KeyStr,
+				_ValueMethod
+			)
+
+		#set
+		self.WrapClass.InspectMethodDict[_KeyStr]=_ValueMethod
+
+		#dict
+		self.WrapClass.InspectArgumentDict[_KeyStr]=SYS.ArgumentDict(
+							_ValueMethod
+						)
 		
 #</DefineClass>
 

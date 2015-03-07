@@ -196,12 +196,14 @@ def switch(_InstanceVariable,*_LiargVariablesList,**_KwargVariablesDict):
 	if hasattr(_InstanceVariable,_KwargVariablesDict['WatchBeforeDoBoolKeyStr']):
 
 		#Debug
+		'''
 		print('Switcher l 201')
 		print('Check for a WatchBeforeDoBoolKeyStr')
 		print("_KwargVariablesDict['WatchBeforeDoBoolKeyStr'] is ")
 		print(_KwargVariablesDict['WatchBeforeDoBoolKeyStr'])
 		print('')
-
+		'''
+		
 		#get
 		WatchDoBool=getattr(
 				_InstanceVariable,

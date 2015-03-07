@@ -21,8 +21,12 @@ class MakerClass(object):
 
 		#set
 		self.MadeMyInt=int(self.MakingMyFloat)
-		
-#Definition the AttestedStr
+	
+#print
+print('InspectMethodDict is ')
+print(SYS.indent(MakerClass.InspectMethodDict))
+
+#print
 print("\n".join([
 	'MakerClass.do_make is '+str(MakerClass.do_make),
 	'MakerClass.doWithmake is '+str(MakerClass.superDo_make),

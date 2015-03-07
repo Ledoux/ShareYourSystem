@@ -59,6 +59,13 @@ class ItemizerClass(BaseClass):
 			#Check
 			if self.ItemizingKeyVariable.startswith(ItemMapPrefixStr):
 
+				#debug
+				'''
+				self.debug(
+						'It is going to be a map'
+					)
+				'''
+
 				#deprefix
 				ItemizedMapMethodStr=SYS.deprefix(
 						self.ItemizingKeyVariable,
@@ -106,11 +113,11 @@ class ItemizerClass(BaseClass):
 					)
 
 					#debug
-					'''
+					"""
 					for __ElementVariable in ItemizedMapList:
 
 						#Debug
-						print('ItemizedMapList is ')
+						print('ItemizedMapList is l 119')
 						print(ItemizedMapList)
 						print('__ElementVariable is ')
 						print(__ElementVariable)
@@ -129,9 +136,9 @@ class ItemizerClass(BaseClass):
 						#Debug
 						print('GetVariable is ')
 						print(GetVariable)
-						print('')
-					'''					
-
+						print('')				
+					"""
+					
 					#Debug
 					'''
 					self.debug(
@@ -169,6 +176,17 @@ class ItemizerClass(BaseClass):
 		#try
 		try:
 
+			#debug
+			'''
+			self.debug(
+				[
+					'We find in the InspectMethodDict',
+					'self.__class__.InspectMethodDict is ',
+					SYS._str(self.__class__.InspectMethodDict)
+				]
+			)
+			'''
+			
 			#get
 			ItemizedValueUnboundMethod=self.__class__.InspectMethodDict[
 				self.ItemizingKeyVariable

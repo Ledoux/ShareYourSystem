@@ -2,7 +2,7 @@
 #ImportModules
 import ShareYourSystem as SYS
 
-@SYS.InspecterClass()
+@SYS.ClassorClass()
 class MakerClass(SYS.ItemizerClass):
 	
 	def default_init(self,

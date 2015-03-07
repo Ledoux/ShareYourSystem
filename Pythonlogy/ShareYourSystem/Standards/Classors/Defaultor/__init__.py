@@ -348,11 +348,20 @@ class DefaultorClass(BaseClass):
 			#debug
 			'''
 			print('It has an __init__ method')
+			print('_Class is ')
+			print(_Class)
+			print("SYS.getNewMethodBool(_Class,DefaultWrapMethodStr)")
+			print(SYS.getNewMethodBool(_Class,DefaultWrapMethodStr))
 			print('')
 			'''
-
+			
 			#get
-			InitWrapUnboundMethod=getattr(_Class,DefaultWrapMethodStr) if hasattr(_Class,DefaultWrapMethodStr) else DefaultInitFunction
+			InitWrapUnboundMethod=getattr(
+				_Class,
+				DefaultWrapMethodStr
+			) if SYS.getNewMethodBool(
+				_Class,DefaultWrapMethodStr
+			) else DefaultInitFunction
 
 			#set the DefaultDict
 			_Class.InitArgumentDict=SYS.ArgumentDict(InitWrapUnboundMethod)

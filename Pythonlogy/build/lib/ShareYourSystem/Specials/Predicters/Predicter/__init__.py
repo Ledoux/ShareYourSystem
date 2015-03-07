@@ -16,6 +16,7 @@ import types
 BaseModuleStr="ShareYourSystem.Standards.Controllers.Controller"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
+SYS.addDo('Predicter','Predict','Predicting','Predicted')
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
@@ -41,16 +42,18 @@ class PredicterClass(BaseClass):
 						_PredictingSensorsInt=0,
 
 						_PredictingConstantTimeFloat=0.01,
-
 						_PredictingDecoderWeigtFloat=1.,
-						_PredictingCostFloat=1.,
-						_PredictingNormalisationInt=1,
+						_PredictingNormalisationInt=1,			
 
+						_PredictingCostFloat=1.,
 						_PredictingPerturbativeInputWeightFloat=0.1,
 						_PredictingPerturbativeLateralWeightFloat=0.1,
 						_PredictingInputStatStr='norm',
 						_PredictingInputRandomStatStr='norm',
 						_PredictingLateralRandomStatStr='norm',
+
+						_PredictingRunTimeFloat=100.,
+						_PredictingStepTimeFloat=0.1,
 
 						_PredictedSensorJacobianFloatsArray=None,
 						
@@ -233,7 +236,6 @@ class PredicterClass(BaseClass):
 
 		#sum
 		self.PredictedTotalPerturbativeLateralWeigthFloatsArray=self.PredictedLeakExactLateralWeigthFloatsArray+self.PredictedPerturbativeLateralWeigthFloatsArray
-
 #</DefineClass>
 
 #</DefinePrint>
@@ -241,15 +243,12 @@ PredicterClass.PrintingClassSkipKeyStrsList.extend(
 	[
 		'PredictingUnitsInt',
 		'PredictingSensorsInt',
-
-		'PredictingConstantTimeFloat',
 		
+		'PredictingConstantTimeFloat',
 		'PredictingDecoderWeigtFloat',
-		'PredictedControlDecoderWeigthFloatsArray',
-
-		'PredictingCostFloat',
 		'PredictingNormalisationInt',
 
+		'PredictingCostFloat',
 		'PredictingPerturbativeInputWeightFloat',
 		'PredictingPerturbativeLateralWeightFloat',
 		'PredictingInputStatStr',
@@ -272,7 +271,7 @@ PredicterClass.PrintingClassSkipKeyStrsList.extend(
 		'PredictedLeakExactLateralWeigthFloatsArray',
 		'PredictedLateralRandomFloatsArray',
 		'PredictedPerturbativeLateralWeigthFloatsArray',
-		'PredictedTotalPerturbativeLateralWeigthFloatsArray'
+		'PredictedTotalPerturbativeLateralWeigthFloatsArray',
 	]
 )
 #<DefinePrint>

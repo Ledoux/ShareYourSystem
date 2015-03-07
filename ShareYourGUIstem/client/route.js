@@ -11,8 +11,12 @@ subscribe
 
 Router.route('/')
 
-Router.map( function () {
+Router.map(function () {
   this.route('Interface');
+});
+
+Router.route('/View', function () {
+  this.render('View');
 });
 
 Router.route('/Music', function () {

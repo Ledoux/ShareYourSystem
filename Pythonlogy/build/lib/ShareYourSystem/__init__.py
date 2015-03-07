@@ -448,6 +448,23 @@ def getTypeStrWithKeyStr(_KeyStr):
 		#Return the last word
 		return getWordStrsListWithStr(_KeyStr)[-1]
 
+def getNewMethodBool(_Class,_MethodStr):
+
+	#base
+	if len(_Class.__bases__)>0:
+		BaseClass=_Class.__bases__[0]
+	else:
+		return True
+
+	#get
+	Method=getattr(_Class,_MethodStr)
+
+	#Check
+	if hasattr(BaseClass,_MethodStr):
+		return getattr(BaseClass,_MethodStr)!=Method
+	else:
+		return True
+
 def getIsNoneBool(_Variable):
 
 	#debug

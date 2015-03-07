@@ -438,13 +438,15 @@ class GetterClass(BaseClass):
 			elif self.GettingKeyVariable in self.__class__.__dict__:
 
 				#debug
+				'''
 				self.debug(
 						[
 							'this is in a class __dict__',
 							('self.',self,['GettingKeyVariable'])
 						]
 					)
-
+				'''
+				
 				#get
 				GettedClassValueVariable=self.__class__.__dict__[
 					self.GettingKeyVariable

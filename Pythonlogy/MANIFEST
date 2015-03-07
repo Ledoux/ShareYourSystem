@@ -80,9 +80,15 @@ ShareYourSystem/Specials/Predicters/__init__.py
 ShareYourSystem/Specials/Predicters/Predicter/00_ExampleDoc.md
 ShareYourSystem/Specials/Predicters/Predicter/01_ExampleDoc.py
 ShareYourSystem/Specials/Predicters/Predicter/__init__.py
+ShareYourSystem/Specials/Predicters/Prediploter/00_ExampleDoc.md
+ShareYourSystem/Specials/Predicters/Prediploter/01_ExampleDoc.py
+ShareYourSystem/Specials/Predicters/Prediploter/__init__.py
 ShareYourSystem/Specials/Predicters/Predirater/00_ExampleDoc.md
 ShareYourSystem/Specials/Predicters/Predirater/01_ExampleDoc.py
 ShareYourSystem/Specials/Predicters/Predirater/__init__.py
+ShareYourSystem/Specials/Predicters/Predisenser/00_ExampleDoc.md
+ShareYourSystem/Specials/Predicters/Predisenser/01_ExampleDoc.py
+ShareYourSystem/Specials/Predicters/Predisenser/__init__.py
 ShareYourSystem/Specials/Predicters/Predispiker/00_ExampleDoc.md
 ShareYourSystem/Specials/Predicters/Predispiker/01_ExampleDoc.py
 ShareYourSystem/Specials/Predicters/Predispiker/__init__.py
@@ -305,6 +311,9 @@ ShareYourSystem/Standards/Controllers/Controller/Readme.md
 ShareYourSystem/Standards/Controllers/Controller/Test.py
 ShareYourSystem/Standards/Controllers/Controller/__init__.py
 ShareYourSystem/Standards/Controllers/Controller/Tests/attest_path.txt
+ShareYourSystem/Standards/Controllers/Displayer/00_ExampleDoc.md
+ShareYourSystem/Standards/Controllers/Displayer/01_ExampleDoc.py
+ShareYourSystem/Standards/Controllers/Displayer/__init__.py
 ShareYourSystem/Standards/Controllers/Explorer/01_ExampleDoc.py
 ShareYourSystem/Standards/Controllers/Explorer/__init__.py
 ShareYourSystem/Standards/Controllers/Grider/001_DocumentDoc.md
@@ -890,6 +899,7 @@ ShareYourSystem/Standards/Viewers/Axer/__init__.py
 ShareYourSystem/Standards/Viewers/Boxer/00_ExampleDoc.md
 ShareYourSystem/Standards/Viewers/Boxer/01_ExampleDoc.py
 ShareYourSystem/Standards/Viewers/Boxer/__init__.py
+ShareYourSystem/Standards/Viewers/Figurer/00_ExampleDoc.md
 ShareYourSystem/Standards/Viewers/Figurer/01_ExampleCell.py
 ShareYourSystem/Standards/Viewers/Figurer/__init__.py
 ShareYourSystem/Standards/Viewers/Paneler/01_ExampleCell.py

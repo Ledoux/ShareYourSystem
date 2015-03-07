@@ -195,8 +195,7 @@ class BinderClass(BaseClass):
 				self.BindedDecorationUnboundMethod=locals()[self.BindedDecorationMethodStr]
 
 				#set to the class the BindingDecorationMethod
-				setattr(
-						self.DoClass,
+				self.setMethod(
 						self.BindedDecorationMethodStr,
 						self.BindedDecorationUnboundMethod
 					)

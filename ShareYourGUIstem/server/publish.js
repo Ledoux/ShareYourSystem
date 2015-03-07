@@ -22,7 +22,10 @@ CollectionStrsList=[
     "scales",
     "patterns",
     "progressions",
-    "voices"
+    "voices",
+    "views",
+    "figures",
+    "plots"
 ]
 CollectionsDictObject={}
 

@@ -34,13 +34,26 @@ def getMapList(_LiargVariablesList):
 	print(_LiargVariablesList)
 	print('')
 	'''
-
+	
 	#Check
 	if len(_LiargVariablesList)==1:
+
+		#Debug
+		'''
+		print('len(_LiargVariablesList)==1')
+		print('type(_LiargVariablesList) is ')
+		print(type(_LiargVariablesList))
+		print('type(_LiargVariablesList[0]) is ')
+		print(type(_LiargVariablesList[0]))
+		print('')
+		'''
 
 		#Check
 		if hasattr(_LiargVariablesList[0],'items'):
 			return _LiargVariablesList[0].items()
+		elif type(_LiargVariablesList)==tuple and type(_LiargVariablesList[0])==tuple and len(
+			_LiargVariablesList[0])==2:
+			return [_LiargVariablesList[0]]
 		else:
 			return _LiargVariablesList[0]
 
@@ -179,8 +192,14 @@ class SetterClass(BaseClass):
 
 			#debug
 			'''
-			self.debug('we are going to call the method but first get it')
+			self.debug(
+				[
+					'we are going to call the method but first get it',
+					('self.',self,['ItemizedValueMethod'])
+				]
+			)	
 			'''
+
 
 			#get
 			SettedValueMethod=self[self.SettingKeyVariable]
@@ -209,6 +228,10 @@ class SetterClass(BaseClass):
 			if hasattr(
 					SettedTempLiargSettingValueVariable,'items'
 				):
+
+				#break if empty
+				if len(SettedTempLiargSettingValueVariable)==0:
+					return
 
 				#debug
 				'''
@@ -1085,6 +1108,9 @@ class SetterClass(BaseClass):
 				#get
 				SettedLiargVariablesList=self.TempSetVariable if type(
 					self.TempSetVariable)==list else [self.TempSetVariable]
+
+				#delete
+				del self.__dict__['TempSetVariable']
 
 				#reupdate
 				self.SettingKeyVariable=SettedSettingKeyVariable

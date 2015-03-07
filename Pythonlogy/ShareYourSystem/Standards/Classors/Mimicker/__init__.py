@@ -270,15 +270,13 @@ class MimickerClass(BaseClass):
 			self.MimickedDecorationUnboundMethod=locals()[MimickedDecorationMethodStr]
 
 			#set in the __class__
-			setattr(
-						self.DoClass,
+			self.setMethod(
 						MimickedDecorationMethodStr,
 						self.MimickedDecorationUnboundMethod
 					)
 
 			#make the amalgam
-			setattr(
-						self.DoClass,
+			self.setMethod(
 						self.MimickingDoMethodStr,
 						self.MimickedDecorationUnboundMethod
 					)

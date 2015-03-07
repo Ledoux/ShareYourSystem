@@ -9,8 +9,6 @@ MyPredicter=SYS.PredicterClass(
 		10,
 		#PredictingSensorsInt
 		1,
-		#PredictingConstantTimeFloat
-		0.01,
 		#PredictingDecoderWeightFloat
 		10.,
 		#PredictingCostFloat

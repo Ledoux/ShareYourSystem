@@ -13,51 +13,18 @@
 #<DefineAugmentation>
 import ShareYourSystem as SYS
 import types
-BaseModuleStr="ShareYourSystem.Specials.Predicters.Predicter"
+BaseModuleStr="ShareYourSystem.Specials.Predicters.Prediploter"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
+SYS.appendDoStrsList(['Predirater','Predirate','Predirating','Predirated'])
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
 import scipy.stats
 import numpy as np
-from matplotlib import pyplot
 #</ImportSpecificModules>
 
 #<DefineLocals>
-def getKrenelFloatsArray(
-		_LevelFloatsTuple=None,
-		_TimeFloatsTuple=None,
-		_RunTimeFloat=100.,
-		_StepTimeFloat=0.1,
-	):
-
-	#get the bins
-	BinsInt=_RunTimeFloat/_StepTimeFloat
-
-	#init
-	KrenelFloatsArray=_LevelFloatsTuple[0]*np.ones(
-		BinsInt,
-		dtype=type(_LevelFloatsTuple[0])
-	)
-
-	#Debug
-	'''
-	print('getKrenelFloatsArray')
-	print('_TimeFloatsTuple[0]/_StepTimeFloat:_TimeFloatsTuple[1]/_StepTimeFloat')
-	print(_TimeFloatsTuple[0]/_StepTimeFloat,_TimeFloatsTuple[1]/_StepTimeFloat)
-	print('_LevelFloatsTuple[1] is '+str(_LevelFloatsTuple[1]))
-	print('')
-	'''
-
-	#put the second level
-	KrenelFloatsArray[
-		int(_TimeFloatsTuple[0]/_StepTimeFloat):int(_TimeFloatsTuple[1]/_StepTimeFloat)
-	]=_LevelFloatsTuple[1]
-
-	#return
-	return KrenelFloatsArray
-
 def getThresholdArray(_Variable,_ThresholdFloat=1.):
 
 	#Check
@@ -91,18 +58,10 @@ class PrediraterClass(BaseClass):
 	
 	def default_init(self,
 
-						_PrediratingRunTimeFloat=100.,
-						_PrediratingStepTimeFloat=0.1,
 						_PrediratingTransferVariable=np.tanh,
-						_PrediratingClampFloat=1.,
-						
-						_PrediratedTimeFloatsArray=None,
-						_PrediratedCommandFloatsArray=None,
-
-						_PrediratedInitialSensorFloatsArray=None,
+											
 						_PrediratedInitialRateFloatsArray=None,
 						
-						_PrediratedSensorTraceFloatsArray=None,
 						_PrediratedPerturbativeUnitTraceFloatsArray=None,
 						_PrediratedExactUnitTraceFloatsArray=None,
 						_PrediratedControlUnitTraceFloatsArray=None,
@@ -120,29 +79,7 @@ class PrediraterClass(BaseClass):
 
 	def do_predirate(self):
 
-		#/#################/#
-		# External care : Prepare time and the command
-		#
-
-		#arange
-		self.PrediratedTimeFloatsArray=np.arange(
-			0.,
-			self.PrediratingRunTimeFloat,
-			self.PrediratingStepTimeFloat
-		)
-
-		#array
-		self.PrediratedCommandFloatsArray=np.array(
-			map(
-				lambda __IndexInt:
-				getKrenelFloatsArray(
-					[0.,self.PrediratingClampFloat],
-					[self.PrediratingRunTimeFloat/4.,self.PrediratingRunTimeFloat/2.]
-				),
-				xrange(self.PredictingSensorsInt)
-			)
-		)
-
+		
 		#/#################/#
 		# Prepare the initial conditions
 		#
@@ -152,20 +89,9 @@ class PrediraterClass(BaseClass):
 			size=self.PredictingUnitsInt
 		)
 
-		#random rates
-		PrediratedInitialSensorFloatsArray=scipy.stats.uniform.rvs(
-			size=self.PredictingSensorsInt
-		)
-
 		#/#################/#
 		# Shape the size of all the runs
 		#
-
-		#init sensors
-		self.PrediratedSensorTraceFloatsArray=np.zeros(
-				(self.PredictingSensorsInt,len(self.PrediratedTimeFloatsArray))
-			)
-		self.PrediratedSensorTraceFloatsArray[:,0]=PrediratedInitialSensorFloatsArray
 
 		#init perturbative rates
 		self.PrediratedPerturbativeUnitTraceFloatsArray=np.zeros(
@@ -220,33 +146,6 @@ class PrediraterClass(BaseClass):
 		for __IndexInt in xrange(1,len(self.PrediratedTimeFloatsArray)):
 
 			#/#################/#
-			# Sensor part
-			#
-
-			#debug
-			'''
-			self.debug(
-					[
-						'shape(self.PrediratedCommandFloatsArray) is '+str(
-							np.shape(self.PrediratedCommandFloatsArray)
-						),
-						'shape(self.PrediratedSensorTraceFloatsArray) is '+str(
-							np.shape(self.PrediratedSensorTraceFloatsArray)
-						),
-						('self.',self,[
-							'PredictedSensorJacobianFloatsArray'
-						])
-					]
-				)
-			'''
-
-			#Current
-			PrediratedSensorCurrentFloatsArray=np.dot(
-				self.PredictedSensorJacobianFloatsArray,
-				self.PrediratedSensorTraceFloatsArray[:,__IndexInt-1]
-			)+self.PrediratedCommandFloatsArray[:,__IndexInt-1]
-
-			#/#################/#
 			# Perturbative Rate
 			#
 
@@ -262,16 +161,10 @@ class PrediraterClass(BaseClass):
 				self.PrediratedPerturbativeUnitTraceFloatsArray[:,__IndexInt-1]
 			)
 
-			#print('avant')
-			#print(PrediratedPerturbativeUnitCurrentFloatsArray)
-
 			#transfer
 			PrediratedPerturbativeUnitCurrentFloatsArray=self.PrediratingTransferVariable(
 				PrediratedPerturbativeUnitCurrentFloatsArray
 			)
-
-			#print('apres')
-			#print(PrediratedPerturbativeUnitCurrentFloatsArray)
 
 			#Leak and Cost Current (non transfered)
 			PrediratedPerturbativeUnitCurrentFloatsArray-=np.dot(
@@ -330,15 +223,6 @@ class PrediraterClass(BaseClass):
 			#/#################/#
 			# Euler part
 			#
-
-			#sensor
-			self.PrediratedSensorTraceFloatsArray[
-				:,
-				__IndexInt
-			]=self.PrediratedSensorTraceFloatsArray[
-				:,
-				__IndexInt-1
-			]+PrediratedSensorCurrentFloatsArray*self.PrediratingStepTimeFloat
 
 			#set
 			LocalDict=locals()
@@ -414,6 +298,8 @@ class PrediraterClass(BaseClass):
 				)
 
 
+	def mimic_prediplot(self):
+
 		#/#################/#
 		# Plot
 		#
@@ -425,46 +311,6 @@ class PrediraterClass(BaseClass):
 				'np.shape(self.PrediratedCommandFloatsArray) is '+str(np.shape(self.PrediratedCommandFloatsArray))
 			]
 		)
-
-		#init
-		pyplot.figure()
-
-		#/#################/#
-		# Command and sensors
-		#
-
-		#subplot
-		PrediratedSensorAxis=pyplot.subplot(3,1,1)
-
-		#command
-		map(
-				lambda __IndexInt:
-				PrediratedSensorAxis.plot(
-						self.PrediratedTimeFloatsArray,
-						self.PrediratedCommandFloatsArray[__IndexInt]
-					)
-				if __IndexInt<len(self.PrediratedCommandFloatsArray)
-				else None,
-				[0]
-			)
-
-		#sensor
-		map(
-				lambda __IndexInt:
-				PrediratedSensorAxis.plot(
-						self.PrediratedTimeFloatsArray,
-						self.PrediratedSensorTraceFloatsArray[__IndexInt,:],
-						color='g',
-						linewidth=3
-					)
-				if __IndexInt<len(self.PrediratedSensorTraceFloatsArray)
-				else None,
-				[0,1]
-			)
-
-		#set
-		PrediratedSensorAxis.set_xlim([0.,self.PrediratingRunTimeFloat])
-		PrediratedSensorAxis.set_ylim([-0.1,1.5*self.PrediratingClampFloat])
 
 		#/#################/#
 		# rates

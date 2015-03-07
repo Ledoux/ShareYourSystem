@@ -9,13 +9,6 @@ MySetter=SYS.SetterClass(
 		0
 	)
 
-#Define and set with a set dict
-MySetter=SYS.SetterClass(
-	).set(
-		'MyInt',
-		0
-	)
-
 #we can set ... a set
 MySetter.set(
 		'set',
@@ -31,7 +24,6 @@ MySetter.set(
 		}
 	)
 
-"""
 #Note that we can call also a direct explicit function
 MySetter.get(
 		'MyList'
@@ -60,4 +52,3 @@ MySetter.set(
 #print
 print('MySetter.GettedValueVariable is ')
 SYS._print(MySetter.GettedValueVariable)
-"""

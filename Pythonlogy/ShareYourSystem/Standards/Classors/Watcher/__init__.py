@@ -388,8 +388,7 @@ class WatcherClass(BaseClass):
 				self.WatchedDecorationMethodStr=self.BindedDecorationMethodStr
 
 				#Now make the amalgam
-				setattr(
-						self.DoClass,
+				self.setMethod(
 						WatchedDoMethodStr,
 						self.BindedDecorationUnboundMethod
 					)

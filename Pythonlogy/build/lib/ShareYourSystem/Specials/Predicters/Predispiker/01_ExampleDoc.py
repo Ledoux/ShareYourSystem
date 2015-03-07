@@ -10,7 +10,7 @@ MyPredispiker=SYS.PredispikerClass(
 		#PredictingSensorsInt
 		1,
 		#PredictingConstantTimeFloat (ms)
-		10.,
+		1.,
 		#PredictingDecoderWeigtFloat
 		3.,
 		#PredictingCostFloat
@@ -23,7 +23,7 @@ MyPredispiker=SYS.PredispikerClass(
 		0.
 	).predispike(
 		#PredispikingRunTimeFloat (ms)
-		10.,
+		50.,
 		#PredispikingStepTimeFloat (ms)
 		0.1,
 		#PrediratingClampFloat
