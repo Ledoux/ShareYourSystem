@@ -120,7 +120,7 @@ class ParenterClass(BaseClass):
 				]+ParentedDeriveTeamerVariable.ParentedTotalDeriveTeamersList
 
 				#add
-				if self.TeamTagStr=="":
+				if self.TeamTagStr!="":
 
 					#add
 					self.ParentedDeriveTeamersList=[

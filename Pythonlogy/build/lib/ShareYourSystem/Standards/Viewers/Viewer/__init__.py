@@ -17,6 +17,7 @@ import ShareYourSystem as SYS
 BaseModuleStr="ShareYourSystem.Standards.Itemizers.Parenter"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
+SYS.addDo("Viewer","View","Viewing","Viewed")
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
@@ -28,8 +29,8 @@ class ViewerClass(BaseClass):
 	
 	def default_init(self, 
 						_ViewDeriveControllerVariable=None,
-						_ViewTagStr="",
-						_ViewedFigureVariable=None,
+						_ViewFirstDeriveViewerVariable=None,
+						_ViewedHtmlStr="",
 						**_KwargVariablesDict
 				):
 
@@ -39,52 +40,7 @@ class ViewerClass(BaseClass):
 	def do_view(self):
 
 		pass
-		
-	"""
-	def propertize_setParentKeyStr(self,_SettingValueVariable):
-
-		#call the parent base
-		BaseClass.propertize_setParentKeyStr(self,_SettingValueVariable)
-
-		#debug
-		'''
-		self.debug(
-			[
-				'We know the ParentKeyStr',
-				'We model here',
-			]
-		)
-		'''
-
-		#/#################/#
-		# Give some things from the controller
-		#
-
-		#get the parent-parent Teamer
-		if self.ParentDeriveTeamerVariable!=None:
-			if self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable!=None:
-				self.ViewDeriveControllerVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
-
-		#Link set
-		self.ViewTagStr=self.ManagementTagStr+'View'
-
-		#debug
-		'''
-		self.debug(
-				[
-					'We have setted the ViewDeriveControllerVariable',
-					('self.',self,[
-						'ViewDeriveControllerVariable',
-						'ViewTagStr'
-					])
-				]
-			)
-		'''
-
-		#view
-		self.view()
-	"""
-
+			
 	def propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable):
 
 		#call the base method
@@ -97,21 +53,47 @@ class ViewerClass(BaseClass):
 		# Find the first top Controller
 		#
 
+		#find
 		self.debug(
 			[
 				'We have parented',
 				('self.',self,['ParentedDeriveTeamersList'])
 			]
 		)
-		
 
+		#Check
+		if len(self.ParentedDeriveTeamersList)>0:
+
+			#index
+			IndexInt=map(type,self.ParentedDeriveTeamersList).index(SYS.Controller)
+
+			#set
+			self.ViewDeriveControllerVariable=self.ParentedDeriveTeamersList[IndexInt]
+
+			#set
+			if IndexInt>0:
+
+				#get
+				self.ViewFirstDeriveViewerVariable=self.ParentedDeriveTeamersList[IndexInt-1]
+
+			else:
+
+				#get
+				self.ViewFirstDeriveViewerVariable=self
+
+		else:
+
+			#alias
+			self.ViewFirstDeriveViewerVariable=self
+	
 #</DefineClass>
 
 #</DefinePrint>
 ViewerClass.PrintingClassSkipKeyStrsList.extend(
 	[
 		'ViewDeriveControllerVariable',
-		'ViewTagStr',
+		'ViewFirstDeriveViewerVariable',
+		'ViewedHtmlStr'
 	]
 )
 #<DefinePrint>

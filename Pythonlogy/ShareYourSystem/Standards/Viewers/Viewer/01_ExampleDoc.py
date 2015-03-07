@@ -17,7 +17,7 @@ MyController=SYS.ControllerClass(
 			'ControllingViewClassVariable':SYS.ViewerClass
 		}
 	).set(
-		'/-Views/|Panels',
+		'/-Views/|Basic/-Panels/|A',
 		{
 		}
 	).parent(
