@@ -900,7 +900,9 @@ ShareYourSystem/Standards/Viewers/Boxer/00_ExampleDoc.md
 ShareYourSystem/Standards/Viewers/Boxer/01_ExampleDoc.py
 ShareYourSystem/Standards/Viewers/Boxer/__init__.py
 ShareYourSystem/Standards/Viewers/Figurer/00_ExampleDoc.md
-ShareYourSystem/Standards/Viewers/Figurer/01_ExampleCell.py
+ShareYourSystem/Standards/Viewers/Figurer/01_ExampleDoc.py
+ShareYourSystem/Standards/Viewers/Figurer/02_ExampleDoc.md
+ShareYourSystem/Standards/Viewers/Figurer/03_ExampleDoc.py
 ShareYourSystem/Standards/Viewers/Figurer/__init__.py
 ShareYourSystem/Standards/Viewers/Paneler/01_ExampleCell.py
 ShareYourSystem/Standards/Viewers/Paneler/__init__.py

@@ -16,7 +16,7 @@ class FooClass(object):
 #print
 print("\n".join([
 		'FooClass has some special attributes',
-		#'FooClass.InitArgumentDict is '+SYS._str(FooClass.InitArgumentDict),
+		#'FooClass.InitInspectDict is '+SYS._str(FooClass.InitInspectDict),
 		'FooClass.DefaultAttributeVariablesOrderedDict is '+str(
 			FooClass.DefaultAttributeVariablesOrderedDict),
 		'FooClass.MyFirstList is '+str(FooClass.MyFirstList),

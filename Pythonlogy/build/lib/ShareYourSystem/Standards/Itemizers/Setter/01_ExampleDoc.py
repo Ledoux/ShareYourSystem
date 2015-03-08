@@ -15,7 +15,6 @@ MySetter.set(
 		('MyStr',"hello")
 	)
 
-
 MySetter.set(
 		'set',
 		{

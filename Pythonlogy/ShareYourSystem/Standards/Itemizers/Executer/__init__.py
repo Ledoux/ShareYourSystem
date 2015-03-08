@@ -247,7 +247,7 @@ class ExecuterClass(BaseClass):
 						]
 					)
 				'''
-
+				
 				#get
 				GetValueVariable=self[GetKeyStr]
 
@@ -276,7 +276,9 @@ class ExecuterClass(BaseClass):
 					self.debug(
 						[
 							'we set call',
-							('self.',self,['SettingValueVariable'])
+							('self.',self,['SettingValueVariable']),
+							'AttributeValueVariable is ',
+							str(AttributeValueVariable)
 						]
 					)
 					'''

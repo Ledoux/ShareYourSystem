@@ -30,6 +30,8 @@ class ViewerClass(BaseClass):
 	def default_init(self, 
 						_ViewDeriveControllerVariable=None,
 						_ViewFirstDeriveViewerVariable=None,
+						_ViewingQtBool=False,
+						_ViewingMpld3Bool=False,
 						_ViewedHtmlStr="",
 						**_KwargVariablesDict
 				):
@@ -37,9 +39,37 @@ class ViewerClass(BaseClass):
 		#Call the parent __init__ method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
+		#init
+		self.ViewDeriveControllerVariable=self
+
 	def do_view(self):
 
-		pass
+		#debug
+		'''
+		self.debug(
+				[
+					'We view here',
+					('self.',self,['ViewingQtBool'])
+				]
+			)
+		'''
+
+		#Check
+		if self.ViewingQtBool:
+
+			#import
+			from matplotlib import pyplot
+
+			#show
+			pyplot.show()
+
+		if self.ViewingMpld3Bool:
+
+			#import
+			import mpld3
+
+			#show
+			mpld3.show()
 			
 	def propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable):
 
@@ -54,21 +84,31 @@ class ViewerClass(BaseClass):
 		#
 
 		#find
+		'''
 		self.debug(
 			[
 				'We have parented',
 				('self.',self,['ParentedDeriveTeamersList'])
 			]
-		)
+		)	
+		'''
 
 		#Check
 		if len(self.ParentedDeriveTeamersList)>0:
 
 			#index
-			IndexInt=map(type,self.ParentedDeriveTeamersList).index(SYS.Controller)
+			try:
 
-			#set
-			self.ViewDeriveControllerVariable=self.ParentedDeriveTeamersList[IndexInt]
+				#index
+				IndexInt=map(type,self.ParentedDeriveTeamersList).index(SYS.ControllerClass)
+
+				#set
+				self.ViewDeriveControllerVariable=self.ParentedDeriveTeamersList[IndexInt]
+
+			except:
+
+				IndexInt=len(self.ParentedDeriveTeamersList)
+			
 
 			#set
 			if IndexInt>0:

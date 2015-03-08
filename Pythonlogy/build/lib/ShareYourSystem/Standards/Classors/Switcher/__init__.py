@@ -341,7 +341,7 @@ class SwitcherClass(BaseClass):
 
 				#add in the inspect
 				SwitchedClass.InspectMethodDict[setSwitch.__name__]=setSwitchUnboundMethod
-				SwitchedClass.InspectArgumentDict[setSwitch.__name__]=SYS.ArgumentDict(
+				SwitchedClass.InspectInspectDict[setSwitch.__name__]=SYS.InspectDict(
 					setSwitchUnboundMethod
 				)
 

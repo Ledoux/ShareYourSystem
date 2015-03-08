@@ -2,7 +2,6 @@
 #ImportModules
 import ShareYourSystem as SYS
 
-
 #init
 SYS.CommanderClass.CountInt=0
 SYS.CommanderClass.GrabList=[]

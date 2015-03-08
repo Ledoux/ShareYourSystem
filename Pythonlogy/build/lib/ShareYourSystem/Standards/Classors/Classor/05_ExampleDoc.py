@@ -18,9 +18,9 @@ class MakerClass(object):
 		self.MadeMyStr=str(self.MakingMyStr)
 
 #print
-print('MakerClass.InspectArgumentDict is ')
+print('MakerClass.InspectInspectDict is ')
 print(SYS.indent(
-		MakerClass.InspectArgumentDict
+		MakerClass.InspectInspectDict
 	)
 )
  

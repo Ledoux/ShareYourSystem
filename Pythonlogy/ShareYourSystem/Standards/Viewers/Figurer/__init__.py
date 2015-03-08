@@ -21,10 +21,14 @@ SYS.addDo("Figurer","Figure","Figuring","Figured")
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
+from ShareYourSystem.Standards.Itemizers import Setter
 #</ImportSpecificModules>
 
-#<DefineDoStrsList>
-#<DefineDoStrsList>
+#<DefineLocals>
+FigurePlotKeyStr='#plot'
+FigureAxesKeyStr='#axes'
+FigureMpld3KeyStr='#mpld3.plugins.'
+#</DefineLocals>
 
 #<DefineClass>
 @DecorationClass()
@@ -32,8 +36,15 @@ class FigurerClass(BaseClass):
 	
 	def default_init(self,
 						_FigurePyplotVariable=None,
+						_FigureCartoonVariable=None,
+						_FigureTooltipVariable=None,
+						_FiguringGridIntsTuple=(10,10),
+						_FiguringSubGridIntsTuple=None,
+						_FiguringAnchorIntsTuple=(0,0),
+						_FiguringShapeIntsTuple=(1,1),
 						_FiguredTeamTagStr="",
 						_FiguredDeriveTeamerVariablesList=None,
+						_FiguredAxesVariable=None,
 						**_KwargVariablesDict
 					):
 
@@ -50,12 +61,14 @@ class FigurerClass(BaseClass):
 		#
 
 		#debug
+		'''
 		self.debug(
 				[
 					'We figure here',
 					('self.',self,['ViewFirstDeriveViewerVariable'])
 				]
 			)
+		'''
 
 		#filter
 		FiguredTeamTagStrsList=SYS._filter(
@@ -75,49 +88,149 @@ class FigurerClass(BaseClass):
 				self.FiguredTeamTagStr
 			].ManagementDict.values()
 
-			#debug
-			self.debug(
-					[
-						('self.',self,[
-								'FiguredTeamTagStr',
-								#'FiguredDeriveTeamerVariablesList'
-							])
-					]
-				)
-
-			#/###################/#
-			# map a figure into them
-			#
-
-			#map
-			map(
-					lambda __FiguredDeriveTeamerVariable:
-					__FiguredDeriveTeamerVariable.figure(),
-					self.FiguredDeriveTeamerVariablesList
-				)
+		#debug
+		'''
+		self.debug(
+				[
+					('self.',self,[
+							'FiguredTeamTagStr',
+							#'FiguredDeriveTeamerVariablesList'
+						])
+				]
+			)
+		'''
 
 		#/###################/#
-		# now do somethiing here depending on the Tag
+		# do something before descending a figure call
 		#
 
-		if self.FiguredTeamTagStr=='Axes':
+		if self.FiguredTeamTagStr=='Panels':
 
 			#debug
+			'''
+			self.debug(
+					[
+						'I am the top figurer...'
+					]
+				)
+			'''
+
+		elif self.FiguredTeamTagStr=='Axes':
+
+			#debug
+			'''
 			self.debug(
 					[
 						'I am a Panel...'
 					]
 				)
+			'''
+
+		else:
+
+			#Check
+			if self!=self.ViewFirstDeriveViewerVariable:
+
+				#debug
+				'''
+				self.debug(
+						[
+							'I am an Axes..'
+						]
+					)
+				'''
+
+				#get the parent panel
+				self.FiguredPanelDeriveTeamerVariable=self.ParentDeriveTeamerVariable
+
+				#init
+				from matplotlib import pyplot
+				self.FiguredAxesVariable=pyplot.subplot2grid(
+						self.ViewFirstDeriveViewerVariable.FiguringGridIntsTuple, 
+						self.FiguringAnchorIntsTuple, 
+						rowspan=self.FiguringShapeIntsTuple[0],
+						colspan=self.FiguringShapeIntsTuple[1]
+					)
+
+				#link
+				self.FiguredAxesVariable._figure=self.FigurePyplotVariable
+
+			else:
+
+				#debug
+				'''
+				self.debug(
+						[
+							'I am the top figurer but with just one axes..'
+						]
+					)
+				'''
+
+				#set
+				self.FiguringGridIntsTuple=(1,1)
+
+				#get the parent panel
+				self.FiguredPanelDeriveTeamerVariable=self.ParentDeriveTeamerVariable
+
+				#init
+				from matplotlib import pyplot
+				self.FiguredAxesVariable=pyplot.subplot2grid(
+						self.FiguringGridIntsTuple, 
+						self.FiguringAnchorIntsTuple, 
+						rowspan=self.FiguringShapeIntsTuple[0],
+						colspan=self.FiguringShapeIntsTuple[1]
+					)
+
+				#link
+				self.FiguredAxesVariable._figure=self.FigurePyplotVariable
+
+		#/###################/#
+		# map a figure into them
+		#
+
+		#map
+		map(
+				lambda __FiguredDeriveTeamerVariable:
+				__FiguredDeriveTeamerVariable.figure(),
+				self.FiguredDeriveTeamerVariablesList
+			)
+
+		#/###################/#
+		# now do something here depending on the Tag
+		#
+
+		if self.FiguredTeamTagStr=='Panels':
+
+			#debug
+			'''
+			self.debug(
+					[
+						'I am the top figurer...'
+					]
+				)
+			'''
+
+		elif self.FiguredTeamTagStr=='Axes':
+
+			#debug
+			'''
+			self.debug(
+					[
+						'I am a Panel...'
+					]
+				)
+			'''
 
 		else:
 
 			#debug
+			'''
 			self.debug(
 					[
 						'I am an Axes..'
 					]
 				)
-
+			'''
 
 		"""
 
@@ -196,6 +309,10 @@ class FigurerClass(BaseClass):
 			template_type="simple"
 		)
 
+		#call the base method
+		BaseClass.view(self)
+
+
 	def propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable):
 
 		#call the parent method
@@ -209,11 +326,13 @@ class FigurerClass(BaseClass):
 		if self.ViewFirstDeriveViewerVariable==self:
 
 			#debug
+			'''
 			self.debug(
 					[
 						'We init a figure'
 					]
 				)
+			'''
 
 			#import pyplot
 			from matplotlib import pyplot
@@ -224,14 +343,184 @@ class FigurerClass(BaseClass):
 		else:
 
 			#debug
+			'''
 			self.debug(
 					[
 						'We just do an alias'
 					]
 				)
+			'''
 
 			#alias
 			self.FigurePyplotVariable=self.ViewFirstDeriveViewerVariable.FigurePyplotVariable
+
+	def mimic_set(self):
+
+		#Check
+		if self.SettingKeyVariable==FigurePlotKeyStr:
+
+			#debug
+			self.debug(
+					[
+						'before plot',
+						('self.',self,['ViewDeriveControllerVariable'])
+					]
+				)
+
+			#init
+			FigurePlotArgumentDict=Setter.ArgumentDict(
+					self.SettingValueVariable,
+					self.ViewDeriveControllerVariable
+				)
+
+			#debug
+			self.debug(
+					[
+						'We plot here',
+						'FigurePlotArgumentDict is',
+						SYS._str(FigurePlotArgumentDict)
+					]
+				)
+
+			#plot
+			self.FigureCartoonVariable=self.FiguredAxesVariable.plot(
+					*FigurePlotArgumentDict['LiargVariablesList'],
+					**FigurePlotArgumentDict['KwargVariablesDict']
+				)
+
+			#return 
+			return {'HookingIsBool':False}
+
+		elif self.SettingKeyVariable==FigureAxesKeyStr:
+
+			#debug
+			'''
+			self.debug(
+					[
+						'before axes',
+						('self.',self,['ViewDeriveControllerVariable'])
+					]
+				)
+			'''
+
+			#map
+			ArgumentTuplesList=map(
+					lambda __ItemTuple:
+					(
+						__ItemTuple[0],
+						Setter.ArgumentDict(
+								__ItemTuple[1],
+								self.ViewDeriveControllerVariable
+							)
+					),
+					SYS.SetList(
+						self.SettingValueVariable
+					)
+				)
+
+			#debug
+			'''
+			self.debug(
+					[
+						'We axe here',
+						'ArgumentTuplesList is ',
+						SYS._str(ArgumentTuplesList)
+					]
+				)
+			'''
+
+			#map
+			map(
+					lambda __ArgumentTuple:
+					getattr(
+						self.FiguredAxesVariable,
+						__ArgumentTuple[0]
+					)(
+						*__ArgumentTuple[1]['LiargVariablesList'],
+						**__ArgumentTuple[1]['KwargVariablesDict']
+					) 
+					if __ArgumentTuple[1]['KwargVariablesDict']!=None
+					else
+					getattr(
+						self.FiguredAxesVariable,
+						__ArgumentTuple[0]
+					)(
+						*__ArgumentTuple[1]['LiargVariablesList']
+					),
+					ArgumentTuplesList
+				)
+
+			#return 
+			return {'HookingIsBool':False}
+
+		elif type(self.SettingKeyVariable)==str and self.SettingKeyVariable.startswith(
+			FigureMpld3KeyStr):
+
+			#deprefix
+			ToolTipKeyStr=SYS.deprefix(
+					self.SettingKeyVariable,
+					FigureMpld3KeyStr
+				)
+
+			#debug
+			'''
+			self.debug(
+					[
+						'before plugins',
+						('self.',self,['ViewDeriveControllerVariable'])
+					]
+				)
+			'''
+
+			#init
+			FigurePluginArgumentDict=Setter.ArgumentDict(
+					self.SettingValueVariable,
+					self.ViewDeriveControllerVariable
+				)
+
+			#debug
+			'''
+			self.debug(
+					[
+						'We plugin here',
+						'FigurePluginArgumentDict is ',
+						SYS._str(FigurePluginArgumentDict)
+					]
+				)
+			'''
+
+			#plugin
+			from mpld3 import plugins
+			self.FigureTooltipVariable=getattr(
+					plugins,
+					ToolTipKeyStr
+				)(
+					*[
+						self.FigureCartoonVariable[0]
+					]+FigurePluginArgumentDict['LiargVariablesList'],
+					**FigurePluginArgumentDict['KwargVariablesDict']
+				)
+
+			#debug
+			'''
+			self.debug(
+					[
+						('self.',self,['FigureTooltipVariable'])
+					]
+				)
+			'''
+			
+			#connect
+			plugins.connect(
+				self.FigurePyplotVariable,
+				self.FigureTooltipVariable
+			)
+
+			#return 
+			return {'HookingIsBool':False}
+
+		#call the base method
+		BaseClass.set(self)
 
 #</DefineClass>
 
@@ -239,8 +528,13 @@ class FigurerClass(BaseClass):
 FigurerClass.PrintingClassSkipKeyStrsList.extend(
 	[
 		'FigurePyplotVariable',
+		'FigureCartoonVariable',
+		'FigureTooltipVariable',
+		'FiguringPanelsShapeTuple',
+		'FiguringAxesShapeTuple',
 		'FiguredTeamTagStr',
-		'FiguredDeriveTeamerVariablesList'
+		'FiguredDeriveTeamerVariablesList',
+		'FiguredAxesVariable'
 	]
 )
 #<DefinePrint>

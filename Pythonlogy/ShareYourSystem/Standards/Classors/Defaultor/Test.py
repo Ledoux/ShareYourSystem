@@ -36,8 +36,8 @@ class MakerClass(Initiator.InitiatorClass):
 print('')
 print('MakerClass.KeyStrsList is')
 print(MakerClass.KeyStrsList)
-print('MakerClass.InitArgumentDict is')
-print(MakerClass.InitArgumentDict)
+print('MakerClass.InitInspectDict is')
+print(MakerClass.InitInspectDict)
 print('MakerClass.DefaultAttributeItemTuplesList is')
 print(MakerClass.DefaultAttributeItemTuplesList)
 

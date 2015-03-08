@@ -22,6 +22,7 @@ SYS.setSubModule(globals())
 #<ImportSpecificModules>
 Getter=BaseModule
 from ShareYourSystem.Standards.Itemizers import Itemizer
+import collections
 #</ImportSpecificModules>
 
 #<DefineLocals>
@@ -89,6 +90,233 @@ SetMapKwargGetKeyGrabStr=SetMapKwargGetGrabPrefixStr+'#key'
 SetMapKwargGetValueGrabStr=SetMapKwargGetGrabPrefixStr+'#value'
 SetMapKwargGetKeyValueGrabStr=SetMapKwargGetGrabPrefixStr+'#key:value'
 SetListTypesSet=set(['list','ndarray'])
+
+class ArgumentDict(collections.OrderedDict):
+
+	def __init__(self,_ArgumentDict=None,_GetterVariable=None):
+
+		#call the base method
+		collections.OrderedDict.__init__(self)
+
+		#debug
+		'''
+		_GetterVariable.debug(
+			[
+				'_ArgumentDict is ',
+				SYS._str(_ArgumentDict)
+			]
+		)
+		'''
+
+		#init
+		self['LiargVariablesList']=[]
+		self['KwargVariablesDict']=None
+		"""
+		self['ArgumentDictBool']=any(
+			map(
+				lambda __KeyStr:
+				__KeyStr in _ArgumentDict,
+				[
+					SetLiargGrabStr,
+					SetMapLiargGetGrabStr,
+					SetLiargGetGrabStr,
+					SetKwargGrabStr,
+					SetMapKwargGetKeyGrabStr,
+					SetMapKwargGetKeyValueGrabStr
+				]
+			)
+		)
+		"""
+
+		#Check
+		if hasattr(_ArgumentDict,'items'):
+
+			#/###################/#
+			# Check for #liarg
+			#
+
+			if SetLiargGrabStr in _ArgumentDict:
+
+				#debug
+				'''
+				_GetterVariable.debug(
+					[
+						'we itemize with a value with a SetValueGrabStr inside',
+						'SettedTempLiargSettingValueVariable is '+SYS._str(
+							SettedTempLiargSettingValueVariable)
+					]
+				)
+				'''
+
+				#set
+				self['LiargVariablesList']=_ArgumentDict[
+					SetLiargGrabStr
+				]
+
+			elif SetMapLiargGetGrabStr in _ArgumentDict:
+
+				#debug
+				_GetterVariable.debug(
+					[
+						'we set a value with a SetMapLiargGetGrabStr inside'
+					]
+				)
+
+				#set
+				self['LiargVariablesList']=_GetterVariable[
+					SYS.deprefix(
+						SetMapLiargGetGrabStr,
+						SetLiargGrabPrefixStr
+					)
+				](
+					*_ArgumentDict[SetMapLiargGetGrabStr]
+				).ItemizedMapValueVariablesList
+				
+			#Check
+			elif SetLiargGetGrabStr in _ArgumentDict:
+
+				#Get 
+				self['LiargVariablesList']=_GetterVariable[
+					_ArgumentDict[SetLiargGetGrabStr]
+				]
+
+				#debug
+				'''
+				_GetterVariable.debug(
+					[
+						'we set a value with a SetLiargGetGrabStr inside',
+					]
+				)
+				'''
+
+			#/###################/#
+			# Check for #kwarg
+			#
+
+			#Check
+			if SetKwargGrabStr in _ArgumentDict:
+
+				#debug
+				'''
+				_GetterVariable.debug(
+						[
+							'There is a #kwarg here'
+						]
+					)
+				'''
+
+				#get
+				self['KwargVariablesDict']=_ArgumentDict[
+					SetKwargGrabStr
+				]
+
+			elif SetMapKwargGetKeyGrabStr in _ArgumentDict:
+
+				#debug
+				'''
+				_GetterVariable.debug(
+					[
+						'we set a value with a map SetMapKwargGetKeyGrabStr inside',
+					]
+				)
+				'''
+
+				#get get the keys
+				SettedKeyVariablesList=_GetterVariable[
+					Getter.GetMapStr
+				](
+					*_ArgumentDict[SetMapKwargGetKeyGrabStr].keys()
+				).ItemizedMapValueVariablesList
+
+				#get the values
+				SettedValueVariablesList=_ArgumentDict[
+					SetMapKwargGetKeyGrabStr
+				].values()
+
+				#set
+				self['KwargVariablesDict']=dict(
+					zip(
+						SettedKeyVariablesList,
+						SettedValueVariablesList
+					)
+				)
+				
+			elif SetMapKwargGetValueGrabStr in _ArgumentDict:
+
+				#debug
+				'''
+				_GetterVariable.debug(
+					[
+						'we set a value with a map SetMapKwargGetValueGrabStr inside',
+					]
+				)
+				'''
+
+				#get get the keys
+				SettedKeyVariablesList=_ArgumentDict[
+					SetMapKwargGetValueGrabStr
+				].keys()
+
+				#get the values
+				SettedValueVariablesList=_GetterVariable[
+					Getter.GetMapStr
+				](
+					*_ArgumentDict[
+					SetMapKwargGetValueGrabStr
+				].values()
+				).ItemizedMapValueVariablesList
+
+				#set
+				self['KwargVariablesDict']=dict(
+					zip(
+						SettedKeyVariablesList,
+						SettedValueVariablesList
+					)
+				)
+
+			elif SetMapKwargGetKeyValueGrabStr in _ArgumentDict:
+
+				#debug
+				'''
+				_GetterVariable.debug(
+					[
+						'we set a value with a map SetMapKwargGetKeyValueGrabStr inside',
+					]
+				)
+				'''
+
+				#get get the keys
+				SettedKeyVariablesList=_GetterVariable[
+					Getter.GetMapStr
+				](
+					*_ArgumentDict[
+						SetMapKwargGetKeyValueGrabStr
+					].keys()
+				).ItemizedMapValueVariablesList
+
+				#get the values
+				SettedValueVariablesList=_GetterVariable[
+					Getter.GetMapStr
+				](
+					*_ArgumentDict[
+						SetMapKwargGetKeyValueGrabStr
+					].values()
+				).ItemizedMapValueVariablesList
+
+				#set
+				self['KwargVariablesDict']=dict(
+					zip(
+						SettedKeyVariablesList,
+						SettedValueVariablesList
+					)
+				)
+
+		else:
+
+			#append
+			self['LiargVariablesList'].append(_ArgumentDict)
+
+
 #</DefineLocals>
 
 #<DefineClass>
@@ -200,12 +428,19 @@ class SetterClass(BaseClass):
 			)	
 			'''
 
+			#/####################/#
+			# Get the method and init the liarg and kwarg
+			#
 
 			#get
 			SettedValueMethod=self[self.SettingKeyVariable]
 
+			#alias
+			SettedLiargVariable=self.SettingValueVariable
+			SettedKwargVariable=None
+
 			#/####################/#
-			# Check for the value in order to adapt the liarg
+			# Check for an argument dict
 			#
 
 			#debug
@@ -219,225 +454,53 @@ class SetterClass(BaseClass):
 				)
 			'''
 
-			#Temp
-			SettedTempLiargSettingValueVariable=self.SettingValueVariable
-			SettedLiargSettingValueVariable=SettedTempLiargSettingValueVariable
-			SettedKwargSettingValueVariable=None
-
 			#Check
 			if hasattr(
-					SettedTempLiargSettingValueVariable,'items'
+					self.SettingValueVariable,'items'
+				) and any(
+					map(
+						lambda __KeyStr:
+						__KeyStr in self.SettingValueVariable,
+						[
+							SetLiargGrabStr,
+							SetMapLiargGetGrabStr,
+							SetLiargGetGrabStr,
+							SetKwargGrabStr,
+							SetMapKwargGetKeyGrabStr,
+							SetMapKwargGetKeyValueGrabStr
+						]
+					)
 				):
-
-				#break if empty
-				if len(SettedTempLiargSettingValueVariable)==0:
-					return
 
 				#debug
 				'''
 				self.debug(
 						[
-							'Check for a set value dict',
+							'It is a argument dict'
 						]
 					)
 				'''
 
-				#/###################/#
-				# Check for #liarg
-				#
+				#get
+				[SettedLiargVariable,SettedKwargVariable]=map(
+					lambda __KeyStr:
+					ArgumentDict(
+						self.SettingValueVariable,
+						self
+					)[__KeyStr],
+					['LiargVariablesList','KwargVariablesDict']
+				)
 
-				if SetLiargGrabStr in SettedTempLiargSettingValueVariable:
-
-					#debug
-					'''
-					self.debug(
+				#debug
+				'''
+				self.debug(
 						[
-							'we itemize with a value with a SetValueGrabStr inside',
-							'SettedTempLiargSettingValueVariable is '+SYS._str(SettedTempLiargSettingValueVariable)
+							'SettedLiargVariable is '+SYS._str(SettedLiargVariable),
+							'SettedKwargVariable is '+SYS._str(SettedKwargVariable),
 						]
 					)
-					'''
-
-					#set
-					SettedLiargSettingValueVariable=SettedTempLiargSettingValueVariable[
-						SetLiargGrabStr
-					]
-
-				elif SetMapLiargGetGrabStr in SettedTempLiargSettingValueVariable:
-
-					#debug
-					'''
-					self.debug(
-						[
-							'we set a value with a map SetMapValueGetGrabStr inside',
-						]
-					)
-					'''
-
-					#set
-					SettedLiargSettingValueVariable=self[
-						SYS.deprefix(
-							SetMapLiargGetGrabStr,
-							SetLiargGrabPrefixStr
-						)
-					](
-						*SettedTempLiargSettingValueVariable[SetMapLiargGetGrabStr]
-					).ItemizedMapValueVariablesList
-					
-				#Check
-				elif SetLiargGetGrabStr in SettedTempLiargSettingValueVariable:
-
-					#Get 
-					SettedLiargSettingValueVariable=self[
-						SettedTempLiargSettingValueVariable[SetLiargGetGrabStr]
-					]
-
-					#debug
-					'''
-					self.debug(
-						[
-							'we set a value with a SetLiargGetGrabStr inside',
-						]
-					)
-					'''
-
-				#/###################/#
-				# Check for #kwarg
-				#
-
-				#Check
-				if SetKwargGrabStr in SettedTempLiargSettingValueVariable:
-
-					#debug
-					self.debug(
-							[
-								'There is a #kwarg here'
-							]
-						)
-
-					#get
-					SettedKwargSettingValueVariable=SettedTempLiargSettingValueVariable[
-						SetKwargGrabStr
-					]
-
-				elif SetMapKwargGetKeyGrabStr in SettedTempLiargSettingValueVariable:
-
-					#debug
-					'''
-					self.debug(
-						[
-							'we set a value with a map SetMapKwargGetKeyGrabStr inside',
-						]
-					)
-					'''
-
-					#get get the keys
-					SettedKeyVariablesList=self[
-						Getter.GetMapStr
-					](
-						*SettedTempLiargSettingValueVariable[SetMapKwargGetKeyGrabStr].keys()
-					).ItemizedMapValueVariablesList
-
-					#get the values
-					SettedValueVariablesList=SettedTempLiargSettingValueVariable[
-						SetMapKwargGetKeyGrabStr
-					].values()
-
-					#set
-					SettedKwargSettingValueVariable=dict(
-						zip(
-							SettedKeyVariablesList,
-							SettedValueVariablesList
-						)
-					)
-					
-				elif SetMapKwargGetValueGrabStr in SettedTempLiargSettingValueVariable:
-
-					#debug
-					'''
-					self.debug(
-						[
-							'we set a value with a map SetMapKwargGetValueGrabStr inside',
-						]
-					)
-					'''
-
-					#get get the keys
-					SettedKeyVariablesList=SettedTempLiargSettingValueVariable[
-						SetMapKwargGetValueGrabStr
-					].keys()
-
-					#get the values
-					SettedValueVariablesList=self[
-						Getter.GetMapStr
-					](
-						*SettedTempLiargSettingValueVariable[
-						SetMapKwargGetValueGrabStr
-					].values()
-					).ItemizedMapValueVariablesList
-
-					#set
-					SettedKwargSettingValueVariable=dict(
-						zip(
-							SettedKeyVariablesList,
-							SettedValueVariablesList
-						)
-					)
-
-				elif SetMapKwargGetKeyValueGrabStr in SettedTempLiargSettingValueVariable:
-
-					#debug
-					'''
-					self.debug(
-						[
-							'we set a value with a map SetMapKwargGetKeyValueGrabStr inside',
-						]
-					)
-					'''
-
-					#get get the keys
-					SettedKeyVariablesList=self[
-						Getter.GetMapStr
-					](
-						*SettedTempLiargSettingValueVariable[
-							SetMapKwargGetKeyValueGrabStr
-						].keys()
-					).ItemizedMapValueVariablesList
-
-					#get the values
-					SettedValueVariablesList=self[
-						Getter.GetMapStr
-					](
-						*SettedTempLiargSettingValueVariable[
-							SetMapKwargGetKeyValueGrabStr
-						].values()
-					).ItemizedMapValueVariablesList
-
-					#set
-					SettedKwargSettingValueVariable=dict(
-						zip(
-							SettedKeyVariablesList,
-							SettedValueVariablesList
-						)
-					)
-
-
-			#get the 
-			#SettedLiargVariable=self[self.SettingValueVariable]
-			SettedLiargVariable=SettedLiargSettingValueVariable
-			SettedKwargVariable=SettedKwargSettingValueVariable
-			
-			#debug
-			'''
-			self.debug(
-				[
-					'SettedValueMethod is '+SYS._str(SettedValueMethod),
-					'SettedLiargVariable is '+SYS._str(SettedLiargVariable),
-					'SettedKwargVariable is '+SYS._str(SettedKwargVariable)
-				]
-			)
-			'''
-
+				'''
+				
 			#define
 			try:
 
@@ -1064,66 +1127,103 @@ class SetterClass(BaseClass):
 				)
 			'''
 			
+			#Set 
+			SettedTempKeyVariable=self.SettingKeyVariable
+			SettedLiargVariable=self.SettingValueVariable
+			SettedKwargVariable=None
+
+			#/####################/#
+			# Check for an argument dict
+			#
+
 			#Check
-			if type(self.SettingValueVariable) in [tuple,list]:
+			if hasattr(
+					SettedLiargVariable,'items'
+				): 
 
-				#/###################/
-				# map get with the PathDerivePather
-				#
-
-				#get
-				#self.GettingNewBool=False
-				#SettedLiargVariablesList=self[SetMapGetGrabStr](
-				#	*self.SettingValueVariable
-				#).ItemizedMapValueVariablesList
-				#self.GettingNewBool=True
-				SettedLiargVariablesList=self.SettingValueVariable
-
-			elif hasattr(self.SettingValueVariable,'items'):
-
-				#/###################/
-				# dict get with the PathDerivePather
-				#
-
-				#Temp
-				SettedSettingKeyVariable=self.SettingKeyVariable
-
-				#call a set to active the #value get
-				self.set(
-						'TempSetVariable',
-						self.SettingValueVariable
-					)
-
-				#debug
-				'''
-				self.debug(
+				#Check
+				if any(
+					map(
+						lambda __KeyStr:
+						__KeyStr in SettedLiargVariable,
 						[
-							'This is a get dict ',
-							'self.TempSetVariable is '+SYS._str(self.TempSetVariable),
-							('self.',self,['SettingValueVariable'])
+							SetLiargGrabStr,
+							SetMapLiargGetGrabStr,
+							SetLiargGetGrabStr,
+							SetKwargGrabStr,
+							SetMapKwargGetKeyGrabStr,
+							SetMapKwargGetKeyValueGrabStr
 						]
 					)
-				'''
+				):
+
+					#debug
+					self.debug(
+							[
+								'It is a argument dict'
+							]
+						)
+
+					#get
+					[SettedLiargVariable,SettedKwargVariable]=map(
+						lambda __KeyStr:
+						ArgumentDict(
+							SettedLiargVariable,
+							self
+						)[__KeyStr],
+						['LiargVariablesList','KwargVariablesDict']
+					)
+
+					#debug
+					self.debug(
+							[
+								'SettedLiargVariable is '+SYS._str(SettedLiargVariable),
+								'SettedKwargVariable is '+SYS._str(SettedKwargVariable),
+							]
+						)
+
+				else:
+
+					#/###################/
+					# It is a get dict
+					#
+
+					#call a set to active the #value get
+					self.set(
+							'TempSetVariable',
+							SettedLiargVariable
+						)
+
+					#debug
+					'''
+					self.debug(
+							[
+								'This is a get dict ',
+								'self.TempSetVariable is '+SYS._str(self.TempSetVariable),
+								('self.',self,['SettingValueVariable'])
+							]
+						)
+					'''
+
+					#get
+					SettedLiargVariable=self.TempSetVariable if type(
+						self.TempSetVariable)==list else [self.TempSetVariable]
+
+					#delete
+					del self.__dict__['TempSetVariable']
+
+					#reupdate
+					self.SettingKeyVariable=SettedTempKeyVariable
+
+			#Check
+			if type(SettedLiargVariable)!=list:
 
 				#get
-				SettedLiargVariablesList=self.TempSetVariable if type(
-					self.TempSetVariable)==list else [self.TempSetVariable]
-
-				#delete
-				del self.__dict__['TempSetVariable']
-
-				#reupdate
-				self.SettingKeyVariable=SettedSettingKeyVariable
-
+				SettedLiargVariablesList=[SettedLiargVariable]
 			else:
 
-				#/###################/
-				# list and get
-				#
-
-				#get
-				#SettedLiargVariablesList=[self[self.SettingValueVariable]]
-				SettedLiargVariablesList=[self.SettingValueVariable]
+				#alias
+				SettedLiargVariablesList=SettedLiargVariable
 
 			#debug
 			'''
@@ -1137,9 +1237,17 @@ class SetterClass(BaseClass):
 			'''
 
 			#call
-			self.SettingKeyVariable(
-					*SettedLiargVariablesList	
-				)
+			if SettedLiargVariable!=None and SettedKwargVariable!=None:
+
+				self.SettingKeyVariable(
+						*SettedLiargVariablesList,
+						**SettedKwargVariable
+					)
+			else:
+
+				self.SettingKeyVariable(
+						*SettedLiargVariablesList	
+					)
 
 			#debug
 			'''

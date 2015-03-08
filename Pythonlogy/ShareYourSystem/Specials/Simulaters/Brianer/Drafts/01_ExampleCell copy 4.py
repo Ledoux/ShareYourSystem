@@ -15,7 +15,7 @@ MyBrianer=Brianer.BrianerClass(
 		Populater.PopulaterClass,
 		{
 			#Here are defined the brian classic shared arguments between pops
-			'brian.NeuronGroupArgumentDict':SYS.ArgumentDict().update(
+			'brian.NeuronGroupInspectDict':SYS.InspectDict().update(
 				{
 					'LiargVariablesList':[
 						0,
@@ -40,7 +40,7 @@ MyBrianer=Brianer.BrianerClass(
 					[
 						Moniter.MoniterClass.update(
 								{
-									'brian.SpikeMonitorArgumentDict':SYS.ArgumentDict()
+									'brian.SpikeMonitorInspectDict':SYS.InspectDict()
 								}
 							)
 					],
@@ -59,7 +59,7 @@ MyBrianer=Brianer.BrianerClass(
 		#Here are defined the brian classic specific arguments for each pop
 		[
 			{
-				'Exec_NeuronGroupArgumentDict["LiargVariablesList"][0]':3200,
+				'Exec_NeuronGroupInspectDict["LiargVariablesList"][0]':3200,
 				'ConnectingGraspClueVariablesList':
 				[
 					SYS.GraspDictClass(
@@ -75,7 +75,7 @@ MyBrianer=Brianer.BrianerClass(
 				]
 			},
 			{
-				'Exec_NeuronGroupArgumentDict["LiargVariablesList"][0]':800,
+				'Exec_NeuronGroupInspectDict["LiargVariablesList"][0]':800,
 				'ConnectingGraspClueVariablesList':
 				[
 					SYS.GraspDictClass(

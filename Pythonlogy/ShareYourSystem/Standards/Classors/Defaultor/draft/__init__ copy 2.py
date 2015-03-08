@@ -336,7 +336,7 @@ class DefaultorClass(BaseClass):
 			InitWrapUnboundMethod=getattr(_Class,DefaultWrapMethodStr) if hasattr(_Class,DefaultWrapMethodStr) else DefaultInitFunction
 
 			#set the DefaultDict
-			_Class.InitArgumentDict=SYS.ArgumentDict(InitWrapUnboundMethod)
+			_Class.InitInspectDict=SYS.InspectDict(InitWrapUnboundMethod)
 
 			#Definition the DefaultAttributeItemTuplesList
 			DefaultAttributeItemTuplesList=map(
@@ -352,7 +352,7 @@ class DefaultorClass(BaseClass):
 					SYS._filter(
 								lambda __DefaultItemTuple:
 								__DefaultItemTuple[0].startswith(DefaultPrefixStr),
-								_Class.InitArgumentDict['DefaultOrderedDict'].items()
+								_Class.InitInspectDict['DefaultOrderedDict'].items()
 							)
 			)
 
@@ -447,7 +447,7 @@ class DefaultorClass(BaseClass):
 			_Class.KeyStrsList+=[
 										#'DefaultAttributeItemTuplesList',
 										'DefaultAttributeVariablesOrderedDict',
-										'InitArgumentDict',
+										'InitInspectDict',
 										'DefaultBaseKeyStrsList',
 										'DefaultSpecificKeyStrsList'
 								]

@@ -885,8 +885,34 @@ def update(_ItemizableVariable,_UpdateVariable):
 
 	#Check
 	if hasattr(_ItemizableVariable,'items'):
+
+		#/#################/#
+		# Dict cases
+		#
+
+		#update
 		_ItemizableVariable.update(_UpdateVariable)
+
+	elif type(_ItemizableVariable).__name__=='DataFrame':
+
+		#/#################/#
+		# Dataframe cases
+		#
+
+		#map
+		map(
+				lambda __ItemTuple:
+				_ItemizableVariable.__setitem__(*__ItemTuple),
+				_UpdateVariable.items()
+			)
+
 	else:
+
+		#/#################/#
+		# SYS objects cases
+		#
+
+		#map set
 		_ItemizableVariable['#map@set'](_UpdateVariable)
 
 	#return
@@ -902,7 +928,7 @@ def set(_Variable,_KeyStr,_ValueVariable):
 		)
 
 	#return 
-	return getattr(_Variable,_KeyStr)
+	return _Variable
 
 def getIsTuplesListBool(_TuplesList):
 
@@ -1361,7 +1387,7 @@ class MethodDict(collections.OrderedDict):
 				)
 		)
 
-class ArgumentDict(collections.OrderedDict):
+class InspectDict(collections.OrderedDict):
 
 	def __init__(self,_Function=None):
 

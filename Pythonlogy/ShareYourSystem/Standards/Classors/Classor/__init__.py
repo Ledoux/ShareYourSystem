@@ -212,12 +212,12 @@ class ClassorClass(object):
 		_Class.InspectMethodDict=SYS.MethodDict(_Class)
 
 		#dict
-		_Class.InspectArgumentDict=dict(
+		_Class.InspectInspectDict=dict(
 			map(	
 					lambda __MethodItemTuple:
 					(
 						__MethodItemTuple[0],
-						SYS.ArgumentDict(
+						SYS.InspectDict(
 							__MethodItemTuple[1]
 						)
 					),
@@ -258,7 +258,7 @@ class ClassorClass(object):
 		self.WrapClass.InspectMethodDict[_KeyStr]=_ValueMethod
 
 		#dict
-		self.WrapClass.InspectArgumentDict[_KeyStr]=SYS.ArgumentDict(
+		self.WrapClass.InspectInspectDict[_KeyStr]=SYS.InspectDict(
 							_ValueMethod
 						)
 		

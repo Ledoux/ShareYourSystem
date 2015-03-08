@@ -312,7 +312,7 @@ def getPrintStr(_Variable,**_KwargVariablesDict):
 		return "None"
 
 	#Special mongo database case
-	elif type(_Variable).__name__=="Database":
+	elif type(_Variable).__name__ in ["Database","Series"]:
 
 		#get
 		PrinterStr=getPointerStr(_Variable)
@@ -387,21 +387,29 @@ def getPrintStr(_Variable,**_KwargVariablesDict):
 
 			#debug
 			'''
+			print('Printer l 389')
 			print('This is a listed type so get a represent like a list')
+			print('_Variable is ')
+			print(_Variable)
+			print('map(type,_Variable) is ')
+			print(map(type,_Variable))
 			print('')
 			'''
-
+			
 			#append
 			PrintAlreadyIdIntsList.append(PrintedIdInt)
 
 			#import numpy
 			import numpy
+			from pandas.core import series
 
 			#Check if it is a List of Objects or Python Types
 			if all(
 					map(
-						lambda List:
-						type(List) in [float,int,str,unicode,numpy.float64] or List==None,
+						lambda __ElementVariable:
+						type(__ElementVariable) in [
+							float,int,str,unicode,numpy.float64,
+						] or type(__ElementVariable)==None.__class__,
 						_Variable
 						)
 				)==False:
@@ -486,8 +494,8 @@ def getPrintStr(_Variable,**_KwargVariablesDict):
 
 	#Other
 	#elif hasattr(_Variable,"__repr__") and hasattr(
-	#	_Variable.__class__,"InspectArgumentDict"
-	#	) and '__repr__' in _Variable.__class__.InspectArgumentDict and _Variable.__class__.InspectArgumentDict[
+	#	_Variable.__class__,"InspectInspectDict"
+	#	) and '__repr__' in _Variable.__class__.InspectInspectDict and _Variable.__class__.InspectInspectDict[
 	#	'__repr__']['KwargVariablesListKeyStr']!="":
 	elif hasattr(_Variable.__class__,'__mro__'
 		) and SYS.PrinterClass in _Variable.__class__.__mro__:
