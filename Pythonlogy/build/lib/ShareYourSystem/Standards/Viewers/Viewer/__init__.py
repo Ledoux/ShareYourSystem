@@ -94,7 +94,7 @@ class ViewerClass(BaseClass):
 			]
 		)	
 		'''
-
+		
 		#Check
 		if len(self.ParentedDeriveTeamersList)>0:
 
@@ -131,7 +131,17 @@ class ViewerClass(BaseClass):
 
 			#alias
 			self.ViewFirstDeriveViewerVariable=self
-	
+
+		#debug
+		'''
+		self.debug(
+				[
+					'Finally ViewFirstDeriveViewerVariable is ',
+					SYS._str(self.ViewFirstDeriveViewerVariable)
+				]
+			)
+		'''
+
 #</DefineClass>
 
 #</DefinePrint>

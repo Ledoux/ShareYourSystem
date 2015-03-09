@@ -20,5 +20,3 @@ MyController=SYS.ControllerClass(
 print('MyController is ')
 SYS._print(MyController)
 
-
-#MyController.set('!/-Views/|Run',''

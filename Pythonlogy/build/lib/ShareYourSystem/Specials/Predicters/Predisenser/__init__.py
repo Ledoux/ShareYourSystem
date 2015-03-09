@@ -204,13 +204,44 @@ class PredisenserClass(BaseClass):
 			{
 				'/-Views/|Run/-Axes/|Sensor':
 				{
-					'set':(
-						'-Plots',
-						{
-							'|Me':{}
-							
-						}
-					),
+					'-Plots':{
+						'#map@set':map(
+							lambda __IndexInt:
+							(
+								'|'+str(__IndexInt),
+								{
+									'FiguringDrawVariable':
+									[
+										('#plot',
+											{
+												'#liarg:#map@get':[
+													'PredisensedTimeTraceFloatsArray',
+													'>>self.PredisensedInputCurrentTraceFloatsArray.__getitem__('+str(__IndexInt)+')'
+												],
+												'#kwarg':{
+													'label':'$\\tau_{D}c_{'+str(__IndexInt)+'}(t)$'
+												}
+											}
+										),
+										('#plot',
+											{
+												'#liarg:#map@get':[
+													'PredisensedTimeTraceFloatsArray',
+													'>>self.PredisensedSensorTraceFloatsArray['+str(__IndexInt)+',:]'
+												],
+												'#kwarg':{
+													'color':'g',
+													'label':'$x_{'+str(__IndexInt)+'}(t)$',
+													'linewidth':3
+												}
+											}
+										)
+									]
+								}
+							),
+							self.PredisensingMonitorList
+						)	
+					},
 					'FiguringDrawVariable':
 					[
 						(
@@ -222,7 +253,7 @@ class PredisenserClass(BaseClass):
 												-0.1,
 												1.5*self.PredisensingClampFloat*self.PredictingConstantTimeFloat
 											],
-								#'legend':[],
+								'legend':[],
 							}
 						)
 					],
@@ -235,47 +266,6 @@ class PredisenserClass(BaseClass):
 		
 		#call the base method
 		BaseClass.show(self)
-
-		
-"""
-								'#map@set':map(
-									lambda __IndexInt:
-									(
-										'|'+str(__IndexInt),
-										{
-											'FiguringDrawVariable':
-											[
-												('#plot',
-													{
-														'#liarg:#map@get':[
-															'PredisensedTimeTraceFloatsArray',
-															'>>self.PredisensedInputCurrentTraceFloatsArray.__getitem__('+str(__IndexInt)+')'
-														],
-														'#kwarg':{
-															'label':'$\\tau_{D}c_{'+str(__IndexInt)+'}(t)$'
-														}
-													}
-												),
-												('#plot',
-													{
-														'#liarg:#map@get':[
-															'PredisensedTimeTraceFloatsArray',
-															'>>self.PredisensedSensorTraceFloatsArray['+str(__IndexInt)+',:]'
-														],
-														'#kwarg':{
-															'color':'g',
-															'label':'$x_{'+str(__IndexInt)+'}(t)$',
-															'linewidth':3
-														}
-													}
-												)
-											]
-										}
-									),
-									self.PredisensingMonitorList
-								)
-"""
-		
 
 #</DefineClass>
 

@@ -34,6 +34,7 @@ class ArrayerClass(BaseClass):
 	def default_init(self,
 						_ArrayingKeyVariablesList=None,
 						_ArrayingValueVariable=None,
+						_ArrayingTopBool=True,
 						**_KwargVariablesDict
 					):
 
@@ -170,7 +171,8 @@ class ArrayerClass(BaseClass):
 									else {}
 								)[__ArrayingKeyVariable].array(
 									self.ArrayingKeyVariablesList[1:],
-									ArrayedDeepValueVariable
+									ArrayedDeepValueVariable,
+									False
 								),
 							self.ArrayingKeyVariablesList[0],
 							ArrayedLocalValueVariablesList

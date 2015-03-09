@@ -451,6 +451,7 @@ class ParenterClass(BaseClass):
 			MuteSetValueVariable.__dict__=MuteGetValueVariable.__dict__
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We are going to mute...',
@@ -462,14 +463,17 @@ class ParenterClass(BaseClass):
 					SYS._str(MuteSetValueVariable)
 				]
 			)
+			'''
 
 			#Check
 			if MuteGetValueVariable.ParentDeriveTeamerVariable.TeamedOnceBool:
 
 				#debug
+				'''
 				self.debug(
 						'We team again'
 					)
+				'''
 
 				#del
 				del MuteGetValueVariable.ParentDeriveTeamerVariable.TeamDict[
@@ -488,9 +492,11 @@ class ParenterClass(BaseClass):
 			else:
 
 				#debug
+				'''
 				self.debug(
 						'We manage again'
 					)
+				'''
 
 				#del
 				del MuteGetValueVariable.ParentDeriveTeamerVariable.ManagementDict[
@@ -515,7 +521,8 @@ class ParenterClass(BaseClass):
 		BaseClass.array(self)
 
 		#parent down
-		self.get('?v')
+		if self.ArrayingTopBool:
+			self.get('?v')
 
 	def propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable):
 

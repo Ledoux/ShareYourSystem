@@ -5,18 +5,9 @@ import ShareYourSystem as SYS
 #figure
 MyFigurer=SYS.FigurerClass(
 	).array(
-    [['-Panels'],['|A','|B'],['-Axes'],['/|a/?^','/|b/?']]
+    [['-Panels'],['|A','|B'],['-Axes'],['|a','|b']]
+    #[['-Panels']]
   )
-
-"""
-  .figure(
-  ).view(
-    #ViewingQtBool
-    True,
-    #ViewingMpld3Bool
-    True
-  )
-"""
 
 #print
 print('MyFigurer is ')

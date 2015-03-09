@@ -8,10 +8,9 @@ MyController=SYS.ControllerClass(
 		{
 			'/-Views/|Run':{
 				'-Panels':{
-					#'#map@set':[
-					#	('|First',{'MyStr':"hello"})
-					#]
-					'|First':{'MyStr':"hello"}
+					'#map@set':[
+						('|First',{'MyStr':"hello"})
+					]
 				}
 			}
 		}
@@ -21,5 +20,3 @@ MyController=SYS.ControllerClass(
 print('MyController is ')
 SYS._print(MyController)
 
-
-#MyController.set('!/-Views/|Run',''

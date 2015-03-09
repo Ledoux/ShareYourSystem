@@ -48,6 +48,7 @@ class FigurerClass(BaseClass):
 						_FiguredTeamTagStr="",
 						_FiguredDeriveTeamerVariablesList=None,
 						_FiguredPanelDeriveTeamerVariable=None,
+						_FiguredAxesDeriveTeamerVariable=None,
 						_FiguredAxesVariable=None,
 						**_KwargVariablesDict
 					):
@@ -91,7 +92,7 @@ class FigurerClass(BaseClass):
 			self.FiguredDeriveTeamerVariablesList=self.TeamDict[
 				self.FiguredTeamTagStr
 			].ManagementDict.values()
-
+		
 		#debug
 		'''
 		self.debug(
@@ -133,16 +134,28 @@ class FigurerClass(BaseClass):
 		elif self.FiguredTeamTagStr=='Plots':
 
 			#debug
-			'''
 			self.debug(
 					[
-						'I am an Axes..'
+						'I am an Axes..',
+						('self.',self,['ParentDeriveTeamerVariable'])
 					]
 				)
-			'''
 
 			#get the parent panel
-			self.FiguredPanelDeriveTeamerVariable=self.ParentDeriveTeamerVariable
+			self.FiguredPanelDeriveTeamerVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
+
+			#debug
+			self.debug(
+					[
+						'I am still an Axes..',
+						('self.',self,[
+							'FiguredPanelDeriveTeamerVariable',
+							'ViewFirstDeriveViewerVariable',
+							'FiguringAnchorIntsTuple',
+							'FiguringShapeIntsTuple'
+						])
+					]
+				)
 
 			#init
 			from matplotlib import pyplot
@@ -155,6 +168,14 @@ class FigurerClass(BaseClass):
 
 			#link
 			self.FiguredAxesVariable._figure=self.FigurePyplotVariable
+
+			#debug
+			self.debug(
+					[
+						'I am still an Axes..',
+						('self.',self,['FiguredAxesVariable'])
+					]
+				)
 
 		else:
 
@@ -171,19 +192,78 @@ class FigurerClass(BaseClass):
 			#Check
 			if self!=self.ViewFirstDeriveViewerVariable:
 
+				#/###################/#
+				# point to the FiguredAxesVariable
+				#
 
 				#debug
-				'''
 				self.debug(
 						[
 							'I am Plot..',
-							'I set my FiguredAxesVariables corresponding to my parent one'
+							'I set my FiguredAxesVariables corresponding to my parent one',
+							('self.',self,['ParentDeriveTeamerVariable'])
 						]
 					)
-				'''
+
+				#get the parent panel
+				self.FiguredAxesDeriveTeamerVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
 
 				#get the one of the parent
-				self.FiguredAxesVariable=self.ParentedDeriveTeamerVariable.FiguredAxesVariable
+				self.FiguredAxesVariable=self.FiguredAxesDeriveTeamerVariable.FiguredAxesVariable
+
+				#debug
+				self.debug(
+						[
+							'I am Plot..',
+							('self.',self,['FiguredAxesVariable'])
+						]
+					)
+
+				#/###################/#
+				# if there axes setted then apply the draw set variable 
+				#
+
+				#Check
+				if self.FiguredAxesVariable!=None:
+
+					#debug
+					self.debug(
+							[
+								'There are axes so command the figuring draw variable',
+								('self.',self,[
+									'FiguringDrawVariable'
+								])
+							]
+						)
+
+					#commad self
+					#self.command(self,self.FiguringDrawVariable)
+					#self.command(self,[])
+					self['#map@set'](self.FiguringDrawVariable)
+
+				#/###################/#
+				# if it is the last then trigger the axes to set also
+				#
+
+				#Check
+				if self.ManagementIndexInt==(len(self.ParentDeriveTeamerVariable.ManagementDict)-1):
+
+					#debug
+					self.debug(
+						[
+							'I am the last plot of this axes !',
+							'Lets the axes setting itself now',
+							('self.FiguredAxesDeriveTeamerVariable',
+								self.FiguredAxesDeriveTeamerVariable,
+								['FiguringDrawVariable'])
+						]
+					)
+
+					#commad self
+					self.FiguredAxesDeriveTeamerVariable['#map@set'](
+						self.FiguredAxesDeriveTeamerVariable.FiguringDrawVariable
+					)
+
 
 			else:
 
@@ -217,32 +297,19 @@ class FigurerClass(BaseClass):
 		# map a figure into them
 		#
 
+		#debug
+		#self.debug(
+		#		'Go map further the figure call'
+		#	)
+
 		#map
-		map(
-				lambda __FiguredDeriveTeamerVariable:
-				__FiguredDeriveTeamerVariable.figure(),
-				self.FiguredDeriveTeamerVariablesList
-			)
+		#map(
+		#		lambda __FiguredDeriveTeamerVariable:
+		#		__FiguredDeriveTeamerVariable.figure(),
+		#		self.FiguredDeriveTeamerVariablesList
+		#	)
 
-		#/###################/#
-		# if there axes setted then applythe draw set variable 
-		#
-
-		#Check
-		if self.FiguredAxesVariable!=None:
-
-			#debug
-			'''
-			self.debug(
-					[
-						'There are axes so command the figuring draw variable',
-						('self.',self,['FiguringDrawVariable'])
-					]
-				)
-			'''
-
-			#commad self
-			self.command('/',self.FiguringDrawVariable)
+		
 
 		#/###################/#
 		# now do something here depending on the Tag
@@ -287,6 +354,7 @@ class FigurerClass(BaseClass):
 		BaseClass.team(self)
 
 		#debug
+		'''
 		self.debug(
 				[
 					'We have team and check now for a Panels, Axes, or Plots',
@@ -296,6 +364,7 @@ class FigurerClass(BaseClass):
 					])
 				]
 			)
+		'''
 
 		#Check
 		if self.TeamingKeyStr in ['Panels','Axes','Plots']:
@@ -376,6 +445,17 @@ class FigurerClass(BaseClass):
 
 			#alias
 			self.FigurePyplotVariable=self.ViewFirstDeriveViewerVariable.FigurePyplotVariable
+
+		#/#################/#
+		# Lets go for figure
+		#
+
+		#debug
+		'''
+		self.debug(
+				'We are going to figure'
+			)
+		'''
 
 		#figure
 		self.figure()
@@ -575,6 +655,7 @@ FigurerClass.PrintingClassSkipKeyStrsList.extend(
 		'FiguredTeamTagStr',
 		'FiguredDeriveTeamerVariablesList',
 		'FiguredPanelDeriveTeamerVariable',
+		'FiguredAxesDeriveTeamerVariable',
 		'FiguredAxesVariable'
 	]
 )

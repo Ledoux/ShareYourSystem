@@ -52,6 +52,7 @@ class TeamerClass(BaseClass):
 
 	def default_init(self,
 				_ManagementTagStr="",
+				_ManagementIndexInt=-1,
 				_TeamDict=None,
 				_TeamingKeyStr="",	
 				_TeamingValueVariable=None,	
@@ -172,6 +173,9 @@ class TeamerClass(BaseClass):
 
 			#set
 			self.TeamedValueVariable.TeamTagStr=self.TeamingKeyStr
+
+			#index
+			self.TeamedValueVariable.TeamIndexInt=len(self.TeamDict)-1
 
 		else:
 
@@ -318,6 +322,7 @@ class TeamerClass(BaseClass):
 TeamerClass.PrintingClassSkipKeyStrsList.extend(
 	[
 		'ManagementTagStr',
+		'ManagementIndexInt',
 		'TeamDict',
 		'TeamingKeyStr',
 		'TeamingValueVariable',

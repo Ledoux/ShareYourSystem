@@ -52,6 +52,7 @@ class ManagerClass(BaseClass):
 	def default_init(
 				self,
 				_TeamTagStr="",
+				_TeamIndexInt=-1,
 				_ManagementDict=None,
 				_ManagingKeyStr="",
 				_ManagingValueVariable=None,
@@ -170,6 +171,9 @@ class ManagerClass(BaseClass):
 			
 			#set
 			self.ManagedValueVariable.ManagementTagStr=self.ManagingKeyStr
+
+			#index
+			self.ManagedValueVariable.ManagementIndexInt=len(self.ManagementDict)-1
 
 		else:
 
@@ -327,6 +331,7 @@ SYS.TeamerClass.TeamingValueClass=ManagerClass
 ManagerClass.PrintingClassSkipKeyStrsList.extend(
 	[
 		'TeamTagStr',
+		'TeamIndexInt',
 		'ManagementDict',
 		'ManagingKeyStr',
 		'ManagingValueVariable',
