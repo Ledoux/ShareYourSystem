@@ -44,6 +44,7 @@ class ViewerClass(BaseClass):
 
 	def do_view(self):
 
+		"""
 		#debug
 		'''
 		self.debug(
@@ -70,6 +71,7 @@ class ViewerClass(BaseClass):
 
 			#show
 			mpld3.show()
+		"""
 			
 	def propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable):
 
@@ -100,7 +102,11 @@ class ViewerClass(BaseClass):
 			try:
 
 				#index
-				IndexInt=map(type,self.ParentedDeriveTeamersList).index(SYS.ControllerClass)
+				IndexInt=map(
+						lambda __ParentedDeriveTeamer:
+						hasattr(__ParentedDeriveTeamer,'ControlTagStr'),
+						self.ParentedDeriveTeamersList
+					).index(True)
 
 				#set
 				self.ViewDeriveControllerVariable=self.ParentedDeriveTeamersList[IndexInt]

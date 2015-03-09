@@ -26,6 +26,8 @@ from ShareYourSystem.Standards.Itemizers import Setter
 
 #<DefineLocals>
 FigurePlotKeyStr='#plot'
+FigureBarKeyStr='#bar'
+FigureScatterKeyStr='#scatter'
 FigureAxesKeyStr='#axes'
 FigureMpld3KeyStr='#mpld3.plugins.'
 #</DefineLocals>
@@ -42,8 +44,10 @@ class FigurerClass(BaseClass):
 						_FiguringSubGridIntsTuple=None,
 						_FiguringAnchorIntsTuple=(0,0),
 						_FiguringShapeIntsTuple=(1,1),
+						_FiguringDrawVariable=None,
 						_FiguredTeamTagStr="",
 						_FiguredDeriveTeamerVariablesList=None,
+						_FiguredPanelDeriveTeamerVariable=None,
 						_FiguredAxesVariable=None,
 						**_KwargVariablesDict
 					):
@@ -158,15 +162,14 @@ class FigurerClass(BaseClass):
 			else:
 
 				#debug
-				'''
 				self.debug(
 						[
-							'I am the top figurer but with just one axes..'
+							'I am the top figurer but with just one axes..',
+							('self.',self,['FiguringGridIntsTuple'])
 						]
 					)
-				'''
 
-				#set
+				#Set the size of the grid to this just one plot
 				self.FiguringGridIntsTuple=(1,1)
 
 				#get the parent panel
@@ -194,6 +197,24 @@ class FigurerClass(BaseClass):
 				__FiguredDeriveTeamerVariable.figure(),
 				self.FiguredDeriveTeamerVariablesList
 			)
+
+		#/###################/#
+		# if there axes setted then applythe draw set variable 
+		#
+
+		#Check
+		if self.FiguredAxesVariable!=None:
+
+			#debug
+			self.debug(
+					[
+						'There are axes so command the figuring draw variable',
+						('self.',self,['FiguringDrawVariable'])
+					]
+				)
+
+			#commad self
+			self.command('/',self.FiguringDrawVariable)
 
 		#/###################/#
 		# now do something here depending on the Tag
@@ -271,9 +292,9 @@ class FigurerClass(BaseClass):
 			self.command(
 				FiguredCommandGetVariable,
 				'#call:figure',
-				_AfterWalkBool=True,
-				_BeforeSelfBool=False,
-				_AfterSelfBool=False,	
+				_AfterWalkRigidBool=True,
+				_BeforeSelfRigidBool=False,
+				_AfterSelfRigidBool=False,	
 			)
 
 		else:
@@ -318,6 +339,16 @@ class FigurerClass(BaseClass):
 		#call the parent method
 		BaseClass.propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable)
 
+		#debug
+		'''
+		self.debug(
+				[
+					'We have parented !',
+					('self.',self,['ViewFirstDeriveViewerVariable'])
+				]
+			)
+		'''
+
 		#/###############/#
 		# If it is the top then init the figure
 		#
@@ -354,18 +385,30 @@ class FigurerClass(BaseClass):
 			#alias
 			self.FigurePyplotVariable=self.ViewFirstDeriveViewerVariable.FigurePyplotVariable
 
+		#figure
+		self.figure()
+
 	def mimic_set(self):
 
 		#Check
-		if self.SettingKeyVariable==FigurePlotKeyStr:
+		if self.SettingKeyVariable in [
+											FigurePlotKeyStr,
+											FigureScatterKeyStr,
+											FigureBarKeyStr
+										]:
 
 			#debug
+			'''
 			self.debug(
 					[
 						'before plot',
-						('self.',self,['ViewDeriveControllerVariable'])
+						('self.',self,[
+							#'ViewDeriveControllerVariable',
+							'SettingValueVariable'
+						])
 					]
 				)
+			'''
 
 			#init
 			FigurePlotArgumentDict=Setter.ArgumentDict(
@@ -374,6 +417,7 @@ class FigurerClass(BaseClass):
 				)
 
 			#debug
+			'''
 			self.debug(
 					[
 						'We plot here',
@@ -381,6 +425,7 @@ class FigurerClass(BaseClass):
 						SYS._str(FigurePlotArgumentDict)
 					]
 				)
+			'''
 
 			#plot
 			self.FigureCartoonVariable=self.FiguredAxesVariable.plot(
@@ -527,13 +572,17 @@ class FigurerClass(BaseClass):
 #</DefinePrint>
 FigurerClass.PrintingClassSkipKeyStrsList.extend(
 	[
-		'FigurePyplotVariable',
+		#'FigurePyplotVariable',
 		'FigureCartoonVariable',
 		'FigureTooltipVariable',
-		'FiguringPanelsShapeTuple',
-		'FiguringAxesShapeTuple',
+		'FiguringGridIntsTuple',
+		'FiguringSubGridIntsTuple',
+		'FiguringAnchorIntsTuple',
+		'FiguringShapeIntsTuple',
+		'FiguringDrawVariable',
 		'FiguredTeamTagStr',
 		'FiguredDeriveTeamerVariablesList',
+		'FiguredPanelDeriveTeamerVariable',
 		'FiguredAxesVariable'
 	]
 )

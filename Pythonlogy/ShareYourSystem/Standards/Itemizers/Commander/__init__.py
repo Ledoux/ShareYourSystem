@@ -11,6 +11,7 @@
 A Commander gather Variables to set them with an UpdateList.
 The command process can be AllSetsForEach (ie a map of the update succesively for each)
 or a EachSetForAll (ie each set is a map of each).
+NOTE : the walk and self attributes are always resetted to False after a call of command.
 
 """
 
@@ -41,10 +42,10 @@ class CommanderClass(BaseClass):
 				_CommandingGetVariable=None,
 				_CommandingSetVariable=None,	
 				_CommandingOrderStr="AllSetsForEachGet",
-				_CommandingBeforeWalkBool=False,	
-				_CommandingAfterWalkBool=False,	
-				_CommandingBeforeSelfBool=False,
-				_CommandingAfterSelfBool=False,		
+				_CommandingBeforeWalkRigidBool=False,	
+				_CommandingAfterWalkRigidBool=False,	
+				_CommandingBeforeSelfRigidBool=False,
+				_CommandingAfterSelfRigidBool=False,		
 				**_KwargVariablesDict
 			):
 
@@ -65,7 +66,9 @@ class CommanderClass(BaseClass):
 				'Adapt the type for getting things to command',
 				("self.",self,[
 								'CommandingGetVariable',
-								'CommandingSetVariable'
+								'CommandingSetVariable',
+								'CommandingBeforeWalkRigidBool',
+								'CommandingBeforeSelfRigidBool'
 							])
 			]
 		)
@@ -92,7 +95,7 @@ class CommanderClass(BaseClass):
 		#
 
 		#Check
-		if self.CommandingBeforeWalkBool:
+		if self.CommandingBeforeWalkRigidBool:
 
 			#debug
 			'''
@@ -130,7 +133,7 @@ class CommanderClass(BaseClass):
 			CommandedOrderedDict=self.getDoing(
 									SYS.CommanderClass
 								)
-			CommandedOrderedDict['CommandingBeforeSelfBool']=False
+			CommandedOrderedDict['CommandingBeforeSelfRigidBool']=False
 			CommandedLiargVariablesList=CommandedOrderedDict.values()
 
 			#map the recursion but pay watch to not set new things to walk in...it is an infinite walk either !
@@ -178,7 +181,7 @@ class CommanderClass(BaseClass):
 		#
 
 		#Check
-		if self.CommandingBeforeSelfBool:
+		if self.CommandingBeforeSelfRigidBool:
 
 			#debug
 			'''
@@ -222,7 +225,7 @@ class CommanderClass(BaseClass):
 				)
 
 		#Check
-		if self.CommandingAfterSelfBool:
+		if self.CommandingAfterSelfRigidBool:
 
 			#debug
 			'''
@@ -239,7 +242,7 @@ class CommanderClass(BaseClass):
 		#
 
 		#Check
-		if self.CommandingAfterWalkBool:
+		if self.CommandingAfterWalkRigidBool:
 
 			#debug
 			'''
@@ -274,7 +277,7 @@ class CommanderClass(BaseClass):
 			CommandedOrderedDict=self.getDoing(
 									SYS.CommanderClass
 								)
-			CommandedOrderedDict['CommandingBeforeSelfBool']=False
+			CommandedOrderedDict['CommandingBeforeSelfRigidBool']=False
 			CommandedLiargVariablesList=CommandedOrderedDict.values()
 
 			#map the recursion but pay watch to not set new things to walk in...it is an infinite walk either !
@@ -289,6 +292,18 @@ class CommanderClass(BaseClass):
 						),
 					CommandedValueVariablesList
 				)
+
+		#/#######################/#
+		# Reset always these values to False
+		#
+
+		#set
+		self.CommandingBeforeWalkRigidBool=False	
+		self.CommandingAfterWalkRigidBool=False
+		self.CommandingBeforeSelfRigidBool=False
+		self.CommandingAfterSelfRigidBool=False
+
+
 
 	def mimic_get(self):
 
@@ -395,7 +410,7 @@ class CommanderClass(BaseClass):
 							CommandWalkStr
 						),
 						self.SettingValueVariable,
-						_AfterWalkBool=True
+						_AfterWalkRigidBool=True
 					)
 
 					#stop the setting
@@ -417,7 +432,7 @@ class CommanderClass(BaseClass):
 							CommandSelfStr+CommandWalkStr
 						),
 						self.SettingValueVariable,
-						_AfterWalkBool=True,
+						_AfterWalkRigidBool=True,
 						_SelfBool=True
 					)
 
@@ -462,7 +477,7 @@ class CommanderClass(BaseClass):
 							CommandPrefixStr
 						),
 						self.SettingValueVariable,
-						_BeforeWalkBool=True
+						_BeforeWalkRigidBool=True
 					)
 
 					#stop the setting
@@ -477,8 +492,8 @@ class CommanderClass(BaseClass):
 							CommandSelfStr+CommandPrefixStr
 						),
 						self.SettingValueVariable,
-						_BeforeWalkBool=True,
-						_AfterSelfBool=True
+						_BeforeWalkRigidBool=True,
+						_AfterSelfRigidBool=True
 					)
 
 					#stop the setting
@@ -496,8 +511,8 @@ class CommanderClass(BaseClass):
 						CommandSelfStr+CommandWalkStr+CommandPrefixStr
 					),
 					self.SettingValueVariable,
-					_BeforeWalkBool=True,
-					_BeforeSelfBool=True
+					_BeforeWalkRigidBool=True,
+					_BeforeSelfRigidBool=True
 				)
 
 				#stop the setting
@@ -526,10 +541,10 @@ CommanderClass.PrintingClassSkipKeyStrsList.extend(
 		'CommandingGetVariable',
 		'CommandingSetVariable',
 		'CommandingOrderStr',
-		'CommandingBeforeWalkBool',
-		'CommandingAfterWalkBool',
-		'CommandingBeforeSelfBool',
-		'CommandingAfterSelfBool'
+		'CommandingBeforeWalkRigidBool',
+		'CommandingAfterWalkRigidBool',
+		'CommandingBeforeSelfRigidBool',
+		'CommandingAfterSelfRigidBool'
 	]
 )
 #<DefinePrint>

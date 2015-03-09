@@ -28,6 +28,8 @@ class ControllerClass(BaseClass):
 
 	def default_init(self,
 				_ControlModelStr="Top",
+				_ControlViewStr="Top",
+				_ControlTagStr="Top",
 				_ControllingMethodStr="",
 				_ControllingManagingKeyStr="",
 				_ControllingModelClassVariable=None,
@@ -138,6 +140,8 @@ SYS.ManagerClass.ManagingValueClass=ControllerClass
 ControllerClass.PrintingClassSkipKeyStrsList.extend(
 	[
 		#'ControlModelStr',
+		#'ControlViewStr',
+		#'ControlTagStr',
 		'ControllingMethodStr',
 		'ControllingManagingKeyStr',
 		'ControllingModelClassVariable',

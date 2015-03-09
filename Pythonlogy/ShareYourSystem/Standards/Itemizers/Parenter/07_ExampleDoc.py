@@ -14,7 +14,7 @@ MyParenter=SYS.ParenterClass(
 	).command(
 		'+-.values+|.values',
 		'#call:parent',
-		_AfterWalkBool=True
+		_AfterWalkRigidBool=True
 	).command(
 		'+-.values+|.values',
 		{
@@ -32,7 +32,8 @@ MyParenter=SYS.ParenterClass(
 					('/~/^/ParentKeyStr',SYS.operator.eq,"#direct:Layers")
 				]
 			}
-		}
+		},
+		_AfterWalkRigidBool=True
 	)
 
 #print

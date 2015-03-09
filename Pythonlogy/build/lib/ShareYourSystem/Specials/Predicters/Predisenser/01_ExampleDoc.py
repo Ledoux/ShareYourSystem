@@ -9,8 +9,8 @@ MyPredisenser=SYS.PredisenserClass(
 		10,
 		#PredictingSensorsInt
 		1,
-		#PredictingConstantTimeFloat
-		0.01,
+		#PredictingConstantTimeFloat (ms)
+		10.,
 		#PredictingDecoderWeightFloat
 		10.,
 		#PredictingCostFloat
@@ -20,12 +20,19 @@ MyPredisenser=SYS.PredisenserClass(
 		#PredictingPerturbativeWeightFloat
 		0.1
 	).predisense(
-		#PredisensingRunTimeFloat,
+		#PredisensingRunTimeFloat (ms)
 		100.,
-		#PredisensingStepTimeFloat
+		#PredisensingStepTimeFloat (ms)
 		0.1,
 		#PredisensingClampFloat
-		0.5
+		0.5,
+		#PredisensingMonitorDict
+		{
+			'Input':[0],
+			'Unit':[0,1],
+			'Output':[0]
+		}
+	).show(
 	)
 
 #print

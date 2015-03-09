@@ -30,6 +30,7 @@ class ClasserClass(BaseClass):
 
 	def default_init(self,	
 						_ClassingSwitchMethodStrsList=None,	
+						_ClassingWatchMethodStrsList=None,
 						**_KwargVariablesDict
 				):
 		
@@ -99,6 +100,33 @@ class ClasserClass(BaseClass):
 				),
 				ClassedMimickFunctionsList
 			)
+
+		#/###################/#
+		# Set the watch methods 
+		#
+
+		#debug
+		'''
+		print('l 104 Classer')
+		print('set the watch functions')
+		print('self.ClassingWatchMethodStrsList is ',self.ClassingWatchMethodStrsList)
+		print('self.DoClass.DoMethodStr is ',self.DoClass.DoMethodStr)
+		print('')
+		'''
+		
+		#map
+		map(	
+				lambda __ClassingWatchUnboundMethodStr:
+				self.watch(
+					True,
+					**{'ObservingWrapMethodStr':__ClassingWatchUnboundMethodStr}
+				),
+				self.ClassingWatchMethodStrsList
+			)
+
+		#/###################/#
+		# Set the switch methods 
+		#
 
 		#debug
 		'''

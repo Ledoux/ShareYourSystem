@@ -297,7 +297,7 @@ class ParenterClass(BaseClass):
 			self.command(
 				['TeamDict.values','ManagementDict.values'],
 				('parent',[]),
-				_AfterWalkBool=True
+				_AfterWalkRigidBool=True
 			)
 		'''
 		

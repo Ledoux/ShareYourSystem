@@ -156,12 +156,14 @@ class ArgumentDict(collections.OrderedDict):
 			elif SetMapLiargGetGrabStr in _ArgumentDict:
 
 				#debug
+				'''
 				_GetterVariable.debug(
 					[
 						'we set a value with a SetMapLiargGetGrabStr inside'
 					]
 				)
-
+				'''
+				
 				#set
 				self['LiargVariablesList']=_GetterVariable[
 					SYS.deprefix(
@@ -171,6 +173,16 @@ class ArgumentDict(collections.OrderedDict):
 				](
 					*_ArgumentDict[SetMapLiargGetGrabStr]
 				).ItemizedMapValueVariablesList
+
+				#debug
+				'''
+				_GetterVariable.debug(
+					[
+						"self['LiargVariablesList'] is ",
+						SYS._str(self['LiargVariablesList'])
+					]
+				)	
+				'''
 				
 			#Check
 			elif SetLiargGetGrabStr in _ArgumentDict:

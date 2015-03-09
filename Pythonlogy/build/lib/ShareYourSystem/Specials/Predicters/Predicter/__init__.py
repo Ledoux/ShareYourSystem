@@ -13,7 +13,7 @@
 #<DefineAugmentation>
 import ShareYourSystem as SYS
 import types
-BaseModuleStr="ShareYourSystem.Standards.Controllers.Controller"
+BaseModuleStr="ShareYourSystem.Standards.Controllers.Systemer"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 SYS.addDo('Predicter','Predict','Predicting','Predicted')
@@ -51,9 +51,6 @@ class PredicterClass(BaseClass):
 						_PredictingInputStatStr='norm',
 						_PredictingInputRandomStatStr='norm',
 						_PredictingLateralRandomStatStr='norm',
-
-						_PredictingRunTimeFloat=100.,
-						_PredictingStepTimeFloat=0.1,
 
 						_PredictedSensorJacobianFloatsArray=None,
 						

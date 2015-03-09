@@ -136,7 +136,10 @@ def setSwitch(
 	#
 
 	#Debug
+	'''
 	print('l 139 Switcher')
+	#print('_InstanceVariable is ')
+	#print(_InstanceVariable)
 	print('DoMethodStrsList is')
 	print(DoMethodStrsList)
 	print('DoerClassesList is ')
@@ -144,6 +147,7 @@ def setSwitch(
 	print('HookStrsList is ')
 	print(HookStrsList)
 	print('')
+	'''
 	
 	#map
 	map(
@@ -163,6 +167,13 @@ def setSwitch(
 			),
 		HookStrsList
 		)
+
+	#Debug
+	'''
+	print('l 170 Switcher')
+	print('End of setSwitch')
+	print('')
+	'''
 
 	#return 
 	return _InstanceVariable

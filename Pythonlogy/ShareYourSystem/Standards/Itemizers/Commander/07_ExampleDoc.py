@@ -11,7 +11,7 @@ MyCommander=SYS.CommanderClass(
 		{
 			'MyInt':0
 		},
-		_BeforeWalkBool=True
+		_BeforeWalkRigidBool=True
 	)
 
 #print

@@ -30,7 +30,7 @@ MyParenter=SYS.ParenterClass(
 			#	]
 			#}
 		},
-		_AfterWalkBool=True
+		_AfterWalkRigidBool=True
 	)
 
 #print

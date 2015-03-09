@@ -311,9 +311,6 @@ ShareYourSystem/Standards/Controllers/Controller/Readme.md
 ShareYourSystem/Standards/Controllers/Controller/Test.py
 ShareYourSystem/Standards/Controllers/Controller/__init__.py
 ShareYourSystem/Standards/Controllers/Controller/Tests/attest_path.txt
-ShareYourSystem/Standards/Controllers/Displayer/00_ExampleDoc.md
-ShareYourSystem/Standards/Controllers/Displayer/01_ExampleDoc.py
-ShareYourSystem/Standards/Controllers/Displayer/__init__.py
 ShareYourSystem/Standards/Controllers/Explorer/01_ExampleDoc.py
 ShareYourSystem/Standards/Controllers/Explorer/__init__.py
 ShareYourSystem/Standards/Controllers/Grider/001_DocumentDoc.md
@@ -335,6 +332,9 @@ ShareYourSystem/Standards/Controllers/Organizer/__init__.py
 ShareYourSystem/Standards/Controllers/Patcher/00_ExampleDoc.md
 ShareYourSystem/Standards/Controllers/Patcher/01_ExampleDoc.py
 ShareYourSystem/Standards/Controllers/Patcher/__init__.py
+ShareYourSystem/Standards/Controllers/Shower/00_ExampleDoc.md
+ShareYourSystem/Standards/Controllers/Shower/01_ExampleDoc.py
+ShareYourSystem/Standards/Controllers/Shower/__init__.py
 ShareYourSystem/Standards/Controllers/Storer/001_DocumentDoc.md
 ShareYourSystem/Standards/Controllers/Storer/00_ExampleDoc.md
 ShareYourSystem/Standards/Controllers/Storer/01_ExampleDoc.py
@@ -661,6 +661,8 @@ ShareYourSystem/Standards/Itemizers/Parenter/10_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Parenter/11_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Parenter/12_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Parenter/13_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Parenter/14_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Parenter/15_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Parenter/Readme.md
 ShareYourSystem/Standards/Itemizers/Parenter/Test.py
 ShareYourSystem/Standards/Itemizers/Parenter/__init__.py

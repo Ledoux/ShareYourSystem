@@ -10,7 +10,7 @@ SYS.CommanderClass.GrabList=[]
 MyCommander=SYS.CommanderClass(
 	).array(
 		[['ACommander','BCommander'],['1Commander','2Commander']],
-		{'MyInt':'>>SYS.set(self.__class__,"CountInt",self.__class__.CountInt+1)'}
+		{'MyInt':'>>SYS.set(self.__class__,"CountInt",self.__class__.CountInt+1).CountInt'}
 	).command(
 		{
 			'#filter':[(0,str.endswith,'Commander')],
@@ -25,7 +25,7 @@ MyCommander=SYS.CommanderClass(
 				]
 			}
 		},
-		_AfterWalkBool=True
+		_AfterWalkRigidBool=True
 	)
 
 #print
