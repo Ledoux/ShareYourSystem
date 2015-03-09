@@ -77,7 +77,7 @@ class FigurerClass(BaseClass):
 		#filter
 		FiguredTeamTagStrsList=SYS._filter(
 			lambda __KeyStr:
-			__KeyStr in ['Panels','Axes'],
+			__KeyStr in ['Panels','Axes','Plots'],
 			self.TeamDict.keys()
 		)
 
@@ -130,34 +130,60 @@ class FigurerClass(BaseClass):
 				)
 			'''
 
+		elif self.FiguredTeamTagStr=='Plots':
+
+			#debug
+			'''
+			self.debug(
+					[
+						'I am an Axes..'
+					]
+				)
+			'''
+
+			#get the parent panel
+			self.FiguredPanelDeriveTeamerVariable=self.ParentDeriveTeamerVariable
+
+			#init
+			from matplotlib import pyplot
+			self.FiguredAxesVariable=pyplot.subplot2grid(
+					self.ViewFirstDeriveViewerVariable.FiguringGridIntsTuple, 
+					self.FiguringAnchorIntsTuple, 
+					rowspan=self.FiguringShapeIntsTuple[0],
+					colspan=self.FiguringShapeIntsTuple[1]
+				)
+
+			#link
+			self.FiguredAxesVariable._figure=self.FigurePyplotVariable
+
 		else:
+
+			#debug
+			'''
+			self.debug(
+					[
+						'I dont have such panels axes plots...',
+						'So I can be a plot or the top one axe one plot figurer'
+					]
+				)
+			'''
 
 			#Check
 			if self!=self.ViewFirstDeriveViewerVariable:
+
 
 				#debug
 				'''
 				self.debug(
 						[
-							'I am an Axes..'
+							'I am Plot..',
+							'I set my FiguredAxesVariables corresponding to my parent one'
 						]
 					)
 				'''
 
-				#get the parent panel
-				self.FiguredPanelDeriveTeamerVariable=self.ParentDeriveTeamerVariable
-
-				#init
-				from matplotlib import pyplot
-				self.FiguredAxesVariable=pyplot.subplot2grid(
-						self.ViewFirstDeriveViewerVariable.FiguringGridIntsTuple, 
-						self.FiguringAnchorIntsTuple, 
-						rowspan=self.FiguringShapeIntsTuple[0],
-						colspan=self.FiguringShapeIntsTuple[1]
-					)
-
-				#link
-				self.FiguredAxesVariable._figure=self.FigurePyplotVariable
+				#get the one of the parent
+				self.FiguredAxesVariable=self.ParentedDeriveTeamerVariable.FiguredAxesVariable
 
 			else:
 
@@ -185,7 +211,7 @@ class FigurerClass(BaseClass):
 					)
 
 				#link
-				self.FiguredAxesVariable._figure=self.FigurePyplotVariable
+				self.FiguredAxesVariable._figure=self.FigurePyplotVariable			
 
 		#/###################/#
 		# map a figure into them
@@ -206,12 +232,14 @@ class FigurerClass(BaseClass):
 		if self.FiguredAxesVariable!=None:
 
 			#debug
+			'''
 			self.debug(
 					[
 						'There are axes so command the figuring draw variable',
 						('self.',self,['FiguringDrawVariable'])
 					]
 				)
+			'''
 
 			#commad self
 			self.command('/',self.FiguringDrawVariable)
@@ -253,70 +281,34 @@ class FigurerClass(BaseClass):
 				)
 			'''
 
-		"""
-
-		#/################/#
-		# If it is the top then recruit all the axis and plots
-		#
-
-		#Check
-		if self.ViewFirstDeriveViewerVariable==self:
-
-			#debug
-			self.debug(
-					'We are the first viewer so command other deeper'
-				)
-
-			#map
-			FiguredCommandGetVariable=SYS.flat(
-					SYS.filterNone(
-					map(
-							lambda __TeamKeyStr:
-							self.TeamDict[__TeamKeyStr].ManagementDict.values()
-							if __TeamKeyStr in self.TeamDict
-							else None,
-							['Panels','Axes']
-					)
-				)
-			)
-
-			#debug
-			self.debug(
-				[
-					'FiguredCommandGetVariable is ',
-					str(FiguredCommandGetVariable)
-				]
-			)
-
-			#command
-			self.command(
-				FiguredCommandGetVariable,
-				'#call:figure',
-				_AfterWalkRigidBool=True,
-				_BeforeSelfRigidBool=False,
-				_AfterSelfRigidBool=False,	
-			)
-
-		else:
-
-			#debug
-			self.debug(
-				[
-					'I am in a figure !',
-				]
-			)
-		"""
-
 	def mimic_team(self):
 
 		#call the base method
 		BaseClass.team(self)
 
+		#debug
+		self.debug(
+				[
+					'We have team and check now for a Panels, Axes, or Plots',
+					('self.',self,[
+						'TeamingKeyStr',
+						'TeamedValueVariable'
+					])
+				]
+			)
+
 		#Check
-		if self.TeamingKeyStr in ['Panels','Axes']:
+		if self.TeamingKeyStr in ['Panels','Axes','Plots']:
 
 			#set
 			self.TeamedValueVariable.ManagingValueClass=SYS.FigurerClass
+
+			#map mute
+			map(
+					lambda __KeyStr:
+					self.TeamedValueVariable.set('!|'+__KeyStr,SYS.FigurerClass),
+					self.TeamedValueVariable.ManagementDict.keys()
+				)
 
 
 	def mimic_view(self):

@@ -31,6 +31,7 @@ ParentPreviousStr="^"
 ParentTopStr="Top"
 ParentUpStr="?^"
 ParentDownStr="?v"
+ParentMutePrefixStr='!'
 #</DefineLocals>
 
 #<DefineClass>
@@ -425,6 +426,88 @@ class ParenterClass(BaseClass):
 
 		#Call the base method
 		return BaseClass.get(self)
+
+	def mimic_set(self):
+
+		#Check
+		if type(self.SettingKeyVariable)==str and self.SettingKeyVariable.startswith(
+				ParentMutePrefixStr
+			): 
+
+			#deprefix
+			MuteGetKeyStr=SYS.deprefix(
+				self.SettingKeyVariable,
+				ParentMutePrefixStr
+			)
+
+			#get
+			MuteGetValueVariable=self[MuteGetKeyStr]
+
+			#init
+			#MuteSetValueVariable=self.SettingValueVariable()['#map@set'](
+			#	MuteGetValueVariable.__dict__
+			#)
+			MuteSetValueVariable=self.SettingValueVariable()
+			MuteSetValueVariable.__dict__=MuteGetValueVariable.__dict__
+
+			#debug
+			self.debug(
+				[
+					'We are going to mute...',
+					'MuteGetKeyStr is '+str(MuteGetKeyStr),
+					'MuteGetValueVariable.TeamTagStr is '+str(MuteGetValueVariable.TeamTagStr),
+					'MuteGetValueVariable.ManagementTagStr is '+str(MuteGetValueVariable.ManagementTagStr),
+					('self.',self,['SettingValueVariable']),
+					'MuteSetValueVariable is ',
+					SYS._str(MuteSetValueVariable)
+				]
+			)
+
+			#Check
+			if MuteGetValueVariable.ParentDeriveTeamerVariable.TeamedOnceBool:
+
+				#debug
+				self.debug(
+						'We team again'
+					)
+
+				#del
+				del MuteGetValueVariable.ParentDeriveTeamerVariable.TeamDict[
+					MuteGetValueVariable.TeamTagStr
+				]
+
+				#team again
+				MuteGetValueVariable.ParentDeriveTeamerVariable.team(
+						MuteGetValueVariable.TeamTagStr,
+						MuteSetValueVariable
+					)
+
+				#return
+				return {'HookingIsBool':False}
+
+			else:
+
+				#debug
+				self.debug(
+						'We manage again'
+					)
+
+				#del
+				del MuteGetValueVariable.ParentDeriveTeamerVariable.ManagementDict[
+					MuteGetValueVariable.ManagementTagStr
+				]
+
+				#manage again
+				MuteGetValueVariable.ParentDeriveTeamerVariable.manage(
+						MuteGetValueVariable.ManagementTagStr,
+						MuteSetValueVariable
+					)
+
+				#return
+				return {'HookingIsBool':False}
+
+		#Call the base method
+		BaseClass.set(self)
 
 	def mimic_array(self):
 

@@ -824,6 +824,8 @@ class PrinterClass(BaseClass):
 			#Represent the NewClassKeyStrs in the _self.__class____.__dict__
 			if self.PrintingNewClassBool:
 
+
+				#filter
 				PrintedNewClassKeyStrsList=SYS._filter(
 						lambda __KeyStr:
 						__KeyStr not in self.__class__.KeyStrsList and __KeyStr not in self.__dict__,
@@ -832,6 +834,7 @@ class PrinterClass(BaseClass):
 						)
 					)
 
+				#filter
 				PrintedNewClassKeyStrsList=SYS._filter(
 						lambda __NewClassKeyStr:
 						__NewClassKeyStr not in list(
@@ -840,6 +843,7 @@ class PrinterClass(BaseClass):
 						PrintedNewClassKeyStrsList
 					)
 
+				#filter
 				PrintedTuplesList+=map(
 					lambda __NewKeyStr:
 					(

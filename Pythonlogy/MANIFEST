@@ -307,6 +307,8 @@ ShareYourSystem/Standards/Controllers/Controller/02_ExampleDoc.md
 ShareYourSystem/Standards/Controllers/Controller/03_ExampleDoc.py
 ShareYourSystem/Standards/Controllers/Controller/04_ExampleDoc.md
 ShareYourSystem/Standards/Controllers/Controller/05_ExampleDoc.py
+ShareYourSystem/Standards/Controllers/Controller/06_ExampleDoc.md
+ShareYourSystem/Standards/Controllers/Controller/07_ExampleDoc.py
 ShareYourSystem/Standards/Controllers/Controller/Readme.md
 ShareYourSystem/Standards/Controllers/Controller/Test.py
 ShareYourSystem/Standards/Controllers/Controller/__init__.py
@@ -663,6 +665,8 @@ ShareYourSystem/Standards/Itemizers/Parenter/12_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Parenter/13_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Parenter/14_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Parenter/15_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Parenter/16_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Parenter/17_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Parenter/Readme.md
 ShareYourSystem/Standards/Itemizers/Parenter/Test.py
 ShareYourSystem/Standards/Itemizers/Parenter/__init__.py
@@ -688,6 +692,8 @@ ShareYourSystem/Standards/Itemizers/Pather/02_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Pather/03_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Pather/04_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Pather/05_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Pather/06_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Pather/07_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Pather/Readme.md
 ShareYourSystem/Standards/Itemizers/Pather/Readme.md.md
 ShareYourSystem/Standards/Itemizers/Pather/Test.py

@@ -478,7 +478,7 @@ class DefaultorClass(BaseClass):
 										'InitInspectDict',
 										'DefaultBaseKeyStrsList',
 										'DefaultSpecificKeyStrsList'
-								]
+								]+_Class.DefaultAttributeVariablesOrderedDict.keys()
 		#Return 
 		return _Class
 

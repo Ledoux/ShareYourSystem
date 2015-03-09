@@ -273,26 +273,29 @@ class TeamerClass(BaseClass):
 		#Check
 		if type(
 			self.SettingKeyVariable
-		)==str and self.SettingKeyVariable.startswith(
-			TeamChildPrefixStr
-		):
+		)==str:
 
-			#debug
-			'''
-			self.debug('We team here')
-			'''
-			
-			#team
-			self.team(
-				SYS.deprefix(
-					self.SettingKeyVariable,
-					TeamChildPrefixStr
-				),
-				self.SettingValueVariable
-			)
+			#Check
+			if self.SettingKeyVariable.startswith(
+				TeamChildPrefixStr
+			):
 
-			#Stop the setting
-			return {'HookingIsBool':False}
+				#debug
+				'''
+				self.debug('We team here')
+				'''
+				
+				#team
+				self.team(
+					SYS.deprefix(
+						self.SettingKeyVariable,
+						TeamChildPrefixStr
+					),
+					self.SettingValueVariable
+				)
+
+				#Stop the setting
+				return {'HookingIsBool':False}
 
 		#debug
 		'''

@@ -663,8 +663,10 @@ class DoerClass(BaseClass):
 								'DoTempNotAttributeItemTupleItemsList',
 								'DoMethodStrsList',
 								'MroDoerClassesList'
-						]+DoClass.DoingAttributeVariablesOrderedDict.keys(
-							)+DoClass.DoneAttributeVariablesOrderedDict.keys()
+						]
+						#No need to add the doing and done keys because they are already in the defaults keys
+						#+DoClass.DoingAttributeVariablesOrderedDict.keys(
+						#	)+DoClass.DoneAttributeVariablesOrderedDict.keys()
 #</DefineClass>
 
 

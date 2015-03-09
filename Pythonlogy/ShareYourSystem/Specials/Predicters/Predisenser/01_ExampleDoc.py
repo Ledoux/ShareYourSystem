@@ -26,12 +26,8 @@ MyPredisenser=SYS.PredisenserClass(
 		0.1,
 		#PredisensingClampFloat
 		0.5,
-		#PredisensingMonitorDict
-		{
-			'Input':[0],
-			'Unit':[0,1],
-			'Output':[0]
-		}
+		#PredisensingMonitorList
+		[0]
 	).show(
 	)
 

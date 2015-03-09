@@ -67,7 +67,7 @@ class PredisenserClass(BaseClass):
 						_PredisensingRunTimeFloat=100.,
 						_PredisensingStepTimeFloat=0.1,
 						_PredisensingClampFloat=0.1,
-						_PredisensingMonitorDict=None,
+						_PredisensingMonitorList=None,
 						_PredisensedTimeTraceFloatsArray=None,
 						_PredisensedCommandTraceFloatsArray=None,
 						_PredisensedInputCurrentTraceFloatsArray=None,
@@ -79,13 +79,6 @@ class PredisenserClass(BaseClass):
 
 		#Call the parent init method
 		BaseClass.__init__(self,**_KwargVariablesDict)
-
-		#init
-		self.PredisensingMonitorDict={
-			'Input':[0],
-			'Unit':[0],
-			'Output':[0]
-		}
 
 	def do_predisense(self):
 
@@ -202,68 +195,41 @@ class PredisenserClass(BaseClass):
 		#debug
 		self.debug(
 				[
-					('self.',self,['PredisensingMonitorDict'])
+					('self.',self,['PredisensingMonitorList'])
 				]
 			)
 
 		#get
-		SensorFigurer=self.set(
-			'/-Views/|Run/-Axes/|Sensor',
+		self['#map@set'](
 			{
-				'FiguringDrawVariable':
-				#Input plot
-				map(
-						lambda __IndexInt:
-						(
-							'#plot',
-							{
-								'#liarg:#map@get':[
-									'PredisensedTimeTraceFloatsArray',
-									'>>self.PredisensedInputCurrentTraceFloatsArray.__getitem__('+str(__IndexInt)+')'
-								],
-								'#kwarg':{
-									'label':'$\\tau_{D}c(t)$'
-								}
-							}
-						),
-						self.PredisensingMonitorDict['Input']
-				#Unit plot
-					)+map(
-						lambda __IndexInt:
-						(
-							'#plot',
-							{
-								'#liarg:#map@get':[
-									'PredisensedTimeTraceFloatsArray',
-									'>>self.PredisensedSensorTraceFloatsArray['+str(__IndexInt)+',:]'
-								],
-								'#kwarg':{
-									'color':'g',
-									'label':'$x(t)$',
-									'linewidth':3
-								}
-							}
-						),
-						self.PredisensingMonitorDict['Unit']
-				#Axes set
-					)+[
-					(
-						'#axes',
+				'/-Views/|Run/-Axes/|Sensor':
+				{
+					'set':(
+						'-Plots',
 						{
-							'legend':[],
-							'set_ylabel':'$\\tau_{D}c(t),\ x(t)$',
-							'set_xlim':[0.,self.PredisensingRunTimeFloat],
-							'set_ylim':[
-											-0.1,
-											1.5*self.PredisensingClampFloat*self.PredictingConstantTimeFloat
-										]
+							'|Me':{}
+							
 						}
-					)
-				],
-				'FiguringShapeIntsTuple':(3,10)
+					),
+					'FiguringDrawVariable':
+					[
+						(
+							'#axes',
+							{
+								'set_ylabel':'$\\tau_{D}c(t),\ x(t)$',
+								'set_xlim':[0.,self.PredisensingRunTimeFloat],
+								'set_ylim':[
+												-0.1,
+												1.5*self.PredisensingClampFloat*self.PredictingConstantTimeFloat
+											],
+								#'legend':[],
+							}
+						)
+					],
+					'FiguringShapeIntsTuple':(3,10)
+				}
 			}
 		)
-
 
 	def mimic_show(self):
 		
@@ -271,7 +237,44 @@ class PredisenserClass(BaseClass):
 		BaseClass.show(self)
 
 		
-
+"""
+								'#map@set':map(
+									lambda __IndexInt:
+									(
+										'|'+str(__IndexInt),
+										{
+											'FiguringDrawVariable':
+											[
+												('#plot',
+													{
+														'#liarg:#map@get':[
+															'PredisensedTimeTraceFloatsArray',
+															'>>self.PredisensedInputCurrentTraceFloatsArray.__getitem__('+str(__IndexInt)+')'
+														],
+														'#kwarg':{
+															'label':'$\\tau_{D}c_{'+str(__IndexInt)+'}(t)$'
+														}
+													}
+												),
+												('#plot',
+													{
+														'#liarg:#map@get':[
+															'PredisensedTimeTraceFloatsArray',
+															'>>self.PredisensedSensorTraceFloatsArray['+str(__IndexInt)+',:]'
+														],
+														'#kwarg':{
+															'color':'g',
+															'label':'$x_{'+str(__IndexInt)+'}(t)$',
+															'linewidth':3
+														}
+													}
+												)
+											]
+										}
+									),
+									self.PredisensingMonitorList
+								)
+"""
 		
 
 #</DefineClass>
