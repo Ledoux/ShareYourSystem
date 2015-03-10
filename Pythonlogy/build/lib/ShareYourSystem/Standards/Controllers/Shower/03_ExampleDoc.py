@@ -52,6 +52,24 @@ MyShower=SYS.ShowerClass(
 											],
 										})
 									]
+								}),
+								('|b',{
+									'FiguringDrawVariable':
+									[
+										(
+											'#plot',
+											{
+												'#liarg':[
+													[1,2,3],
+													[5,5,5]
+												],
+												'#kwarg':{
+													'linestyle':"-",
+													'color':'g'
+												}
+											}
+										)
+									]
 								})
 							]
 						}
@@ -60,6 +78,7 @@ MyShower=SYS.ShowerClass(
 			}
 	).show(
 	)
+
 
 #print
 print('MyShower is ')

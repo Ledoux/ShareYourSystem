@@ -81,15 +81,15 @@ class CommanderClass(BaseClass):
 		)
 
 		#debug
-		'''
+		"""
 		self.debug(
 				[
 					'in the end, CommandedValueVariablesList is ',
 					SYS._str(CommandedValueVariablesList)
 				]
 			)
-		'''
-
+		"""
+		
 		#/###################/#
 		# Check if we have to walk before
 		#
@@ -195,6 +195,30 @@ class CommanderClass(BaseClass):
 
 		#Check for the order
 		if self.CommandingOrderStr=="AllSetsForEachGet":
+
+			#Debug
+			"""
+			for __CommandedValueVariable in CommandedValueVariablesList:
+
+				#debug
+				self.debug(
+						[
+							'__CommandedValueVariable is ',
+							SYS._str(__CommandedValueVariable),
+							'CommandedSetVariablesList is ',
+							SYS._str(CommandedSetVariablesList)
+						]
+					)
+
+				#map
+				map(
+						lambda __CommandedSetVariable:
+						__CommandedValueVariable.set(
+							*__CommandedSetVariable
+						),
+						CommandedSetVariablesList
+					)
+			"""
 
 			#map
 			map(

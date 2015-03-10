@@ -7,11 +7,11 @@ MyShower=SYS.ShowerClass(
 	).draw(
 		{
 			'|fig1':{
-				'-Panels':{
-					'|A':{
+				'-Panels':[
+					('|A',{
 						'-Axes':[
 								('ManagingBeforeSetVariable',{
-									'FiguringShapeIntsTuple':(3,10)
+									'FiguringShapeIntsTuple':(3,5)
 								}),
 								('|a',{
 									'-Plots':[
@@ -52,14 +52,51 @@ MyShower=SYS.ShowerClass(
 											],
 										})
 									]
+								}),
+								('|b',{
+									'FiguringDrawVariable':
+									[
+										(
+											'#plot',
+											{
+												'#liarg':[
+													[1,2,3],
+													[5,5,5]
+												],
+												'#kwarg':{
+													'linestyle':"-",
+													'color':'g'
+												}
+											}
+										)
+									]
 								})
 							]
-						}
-					}
-				}
+						}),
+					('|B',{
+						'FiguringDrawVariable':
+						[
+							(
+								'#plot',
+								{
+									'#liarg':[
+										[1,2,3],
+										[2,6,3]
+									],
+									'#kwarg':{
+										'linestyle':"",
+										'marker':'o'
+									}
+								}
+							)
+						]
+					})
+				]
 			}
+		}
 	).show(
 	)
+
 
 #print
 print('MyShower is ')

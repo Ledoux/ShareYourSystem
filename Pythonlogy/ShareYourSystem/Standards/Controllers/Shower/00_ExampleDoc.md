@@ -5,7 +5,4 @@ FrozenIsBool True
 
 ##Example
 
-Let's create an empty class, which will automatically receive
-special attributes from the decorating ClassorClass,
-specially the NameStr, that should be the ClassStr
-without the TypeStr in the end.
+We here just show one fig with one panel with one axe with two plots

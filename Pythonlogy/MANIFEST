@@ -339,6 +339,12 @@ ShareYourSystem/Standards/Controllers/Patcher/01_ExampleDoc.py
 ShareYourSystem/Standards/Controllers/Patcher/__init__.py
 ShareYourSystem/Standards/Controllers/Shower/00_ExampleDoc.md
 ShareYourSystem/Standards/Controllers/Shower/01_ExampleDoc.py
+ShareYourSystem/Standards/Controllers/Shower/02_ExampleDoc.md
+ShareYourSystem/Standards/Controllers/Shower/03_ExampleDoc.py
+ShareYourSystem/Standards/Controllers/Shower/04_ExampleDoc.md
+ShareYourSystem/Standards/Controllers/Shower/05_ExampleDoc.py
+ShareYourSystem/Standards/Controllers/Shower/06_ExampleDoc.md
+ShareYourSystem/Standards/Controllers/Shower/07_ExampleDoc.py
 ShareYourSystem/Standards/Controllers/Shower/__init__.py
 ShareYourSystem/Standards/Controllers/Storer/001_DocumentDoc.md
 ShareYourSystem/Standards/Controllers/Storer/00_ExampleDoc.md
