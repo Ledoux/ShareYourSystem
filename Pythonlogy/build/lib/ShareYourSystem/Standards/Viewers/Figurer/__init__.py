@@ -21,7 +21,8 @@ SYS.addDo("Figurer","Figure","Figuring","Figured")
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
-from ShareYourSystem.Standards.Itemizers import Setter
+from ShareYourSystem.Standards.Itemizers import Setter,Manager
+import copy
 #</ImportSpecificModules>
 
 #<DefineLocals>
@@ -42,8 +43,6 @@ class FigurerClass(BaseClass):
 						_FigureCartoonVariablesList=None,
 						_FigureTooltipVariablesList=None,
 						_FiguringGridIntsTuple=(10,10),
-						_FiguringSubGridIntsTuple=None,
-						_FiguringAnchorIntsTuple=(0,0),
 						_FiguringShapeIntsTuple=(1,1),
 						_FiguringDrawVariable=None,
 						_FiguringShiftStr="down",
@@ -53,12 +52,14 @@ class FigurerClass(BaseClass):
 						_FiguredPanelDeriveTeamerVariable=None,
 						_FiguredAxesDeriveTeamerVariable=None,
 						_FiguredAxesVariable=None,
+						_FiguredAnchorIntsList=[0,0],
 						_FiguredShiftTuplesList={
 							'DefaultValueType':property,
 							'PropertyInitVariable':None,
 							'PropertyDocStr':'I am reactive when I am a Panel and want to know the space I take !'
 						},
-						_FiguredCursorIntsTuple=None,
+						_FiguredPanelShapeIntsList=None,
+						_FiguredCursorIntsList=[0,0],
 						**_KwargVariablesDict
 					):
 
@@ -69,7 +70,7 @@ class FigurerClass(BaseClass):
 		self.TeamingValueClass=FigurerParentersClass
 
 	def do_figure(self):	
-
+		
 		#/###################/#
 		# First we get the children figurers and check what they are
 		#
@@ -127,19 +128,73 @@ class FigurerClass(BaseClass):
 				)
 			'''
 
-		elif self.FiguredTeamTagStr=='Axes':
+		elif self.FiguredTeamTagStr=='Axes' or self.ParentDeriveTeamerVariable.TeamTagStr=='Panels':
 
 			#/###############/#
-			# Determine the space that the Panel takes
+			# Add an axe for the symbol of the panel
 			#
 
 			#debug
 			self.debug(
 					[
-						'I am a Panel...',
-						'I need to know how much space I will take'
+						'We transform the team dict Axes to add a panel axe',
+						'self.TeamDict[\'Axes\'] is ',
+						SYS._str(self.TeamDict['Axes'])
 					]
 				)
+
+			#team
+			self.team('Axes')
+
+			#debug
+			self.debug(
+					[
+						'before setting',
+						'self.TeamedValueVariable.ManagementDict is ',
+						SYS._str(self.TeamedValueVariable.ManagementDict),
+						'Manager.ManagementDict is ',
+						str(Manager.ManagementDict)
+					]
+				)
+
+			#update
+			self.TeamedValueVariable.ManagementDict=Manager.ManagementDict(
+				[
+					(
+						'Panel',SYS.FigurerClass(
+							**{
+								#'FiguringDrawVariable':{
+								#	'#axe'
+								#}
+								'ManagementTagStr':'Panel',
+								'ParentDeriveTeamerVariable':self.TeamedValueVariable,
+								'ViewFirstDeriveViewerVariable':self.ViewFirstDeriveViewerVariable,
+								'FigurePyplotVariable':self.FigurePyplotVariable,
+								'FiguringShapeIntsTuple':(2,2),
+								'FiguredPanelDeriveTeamerVariable':self
+							}
+						)
+					)
+				],
+				**self.TeamedValueVariable.ManagementDict
+			)
+
+			#debug
+			self.debug(
+					[
+						'after setting',
+						'self.TeamedValueVariable.ManagementDict is ',
+						SYS._str(self.TeamedValueVariable.ManagementDict)
+					]
+				)
+
+
+			#Check
+			#if 'Axes' in self.TeamDict:
+
+			#/##################/#
+			# There are some Axes to count
+			#
 
 			#map get
 			self.FiguredShiftTuplesList=map(
@@ -151,12 +206,23 @@ class FigurerClass(BaseClass):
 					self.TeamDict['Axes'].ManagementDict.values()
 				)
 
+			#else:
+
+				#/##################/#
+				# There is just one axe here
+				#
+
+				#map get
+			#	self.FiguredShiftTuplesList=[(self.FiguringShapeIntsTuple,'down')]
+
 			#debug
 			self.debug(
 					[
-						'I am a Panel...',
-						'I need to know how much space I will take',
-						('self.',self,['FiguredShiftTuplesList'])
+						'I am a still Panel...',
+						('self.',self,[
+							'FiguredShiftTuplesList',
+							'ManagementIndexInt'
+						])
 					]
 				)
 
@@ -167,28 +233,110 @@ class FigurerClass(BaseClass):
 			#Check
 			if self.ManagementIndexInt>0:
 
-				#get the previous
-				FiguredPreviousPanelFigurer=self.ParentDeriveTeamerVariable.ManagementDict[
-					ManagementIndexInt-1
-				]
+				#debug
+				self.debug(
+					[
+						'We get the previous Panel',
+						'self.ParentDeriveTeamerVariable.ManagementDict is ',
+						SYS._str(self.ParentDeriveTeamerVariable.ManagementDict)
+					]
+				)
 
-				#add
-				self.FiguringAnchorIntsTuple=tuple(
-					map(
-						lambda __FiguringAnchorInt,__FigureCursorInt:
-						__FiguringAnchorInt+__FigureCursorInt,
-						FiguredPreviousPanelFigurer.FiguringAnchorIntsTuple,
-						FiguredPreviousPanelFigurer.FigureCursorIntsList
-					)
+				#get the previous
+				FiguredPreviousPanelFigurer=self.ParentDeriveTeamerVariable.ManagementDict.get(
+					self.ManagementIndexInt-1
 				)
 
 				#debug
 				self.debug(
 						[
-							'we have setted the new anchor',
-							('self.',self,['FiguringAnchorIntsTuple'])
+							'We look for the previous panel...',
+							#('FiguredPreviousPanelFigurer.',FiguredPreviousPanelFigurer,[
+							#		'FiguredAnchorIntsList',
+							#		'FiguredPanelShapeIntsList'
+							#	]
+							#)
 						]
 					)
+
+				if self.FiguringShiftStr=='down':
+
+					#add
+					self.FiguredAnchorIntsList=[
+							FiguredPreviousPanelFigurer.FiguredAnchorIntsList[0
+							]+self.FiguringSpaceInt+FiguredPreviousPanelFigurer.FiguredPanelShapeIntsList[0]+1,
+							FiguredPreviousPanelFigurer.FiguredAnchorIntsList[1]
+						]
+
+				else:
+
+					#add
+					self.FiguredAnchorIntsList=[
+							FiguredPreviousPanelFigurer.FiguredAnchorIntsList[0],
+							FiguredPreviousPanelFigurer.FiguredAnchorIntsList[1
+							]+self.FiguringSpaceInt+FiguredPreviousPanelFigurer.FiguredPanelShapeIntsList[1]+1
+						]
+
+				#debug
+				self.debug(
+						[
+							'we have setted the new anchor',
+							('self.',self,['FiguredAnchorIntsList'])
+						]
+					)
+
+			#/###############/#
+			# Init the Cursor for after
+			#
+
+			#init
+			self.FiguredCursorIntsList=copy.copy(self.FiguredAnchorIntsList)
+
+
+			#/###############/#
+			# Look maybe at a Panel without Axes and Plots
+			#
+
+			#Check
+			if len(self.TeamDict['Axes']==1):
+
+				#debug
+				self.debug(
+						[
+							'I am a Panel without Axes and Plots',
+							'So we just set an axe here'
+						]
+					)
+
+				#set
+				self.setAxes()
+
+				#/###################/#
+				# if there axes setted then apply the draw set variable 
+				#
+
+				#Check
+				if self.FiguredAxesVariable!=None:
+
+					#debug
+					'''
+					self.debug(
+							[
+								'There are axes so command the figuring draw variable',
+								('self.',self,[
+									'FiguringDrawVariable'
+								])
+							]
+						)
+					'''
+
+					#commad self
+					#self.command(self,self.FiguringDrawVariable)
+					#self.command(self,[])
+					self['#map@set'](self.FiguringDrawVariable)
+
+				#return
+				return
 
 		elif self.FiguredTeamTagStr=='Plots':
 
@@ -206,22 +354,23 @@ class FigurerClass(BaseClass):
 			self.FiguredPanelDeriveTeamerVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
 
 			#debug
-			'''
 			self.debug(
 					[
 						'I am still an Axes..',
 						('self.',self,[
 							'FiguredPanelDeriveTeamerVariable',
-							'ViewFirstDeriveViewerVariable',
-							'FiguringAnchorIntsTuple',
+							#'ViewFirstDeriveViewerVariable',
+							'FiguredAnchorIntsList',
 							'FiguringShapeIntsTuple'
 						])
 					]
 				)
-			'''
 
-			#init
+			#alias
 			self.FiguringGridIntsTuple=self.ViewFirstDeriveViewerVariable.FiguringGridIntsTuple
+			self.FiguredAnchorIntsList=copy.copy(
+				self.FiguredPanelDeriveTeamerVariable.FiguredCursorIntsList
+			)
 			self.setAxes()
 
 			#debug
@@ -256,7 +405,9 @@ class FigurerClass(BaseClass):
 				self.debug(
 					[
 						'FiguredParentParentVariable.ParentDeriveTeamerVariable.TeamTagStr is ',
-						FiguredParentParentVariable.ParentDeriveTeamerVariable.TeamTagStr
+						FiguredParentParentVariable.ParentDeriveTeamerVariable.TeamTagStr,
+						'FiguredParentParentVariable is ',
+						SYS._str(FiguredParentParentVariable)
 					]
 				)
 
@@ -285,6 +436,9 @@ class FigurerClass(BaseClass):
 				#Check
 				elif FiguredParentParentVariable.ParentDeriveTeamerVariable.TeamTagStr=='Panels':
 
+					#alias
+					self.FiguredPanelDeriveTeamerVariable=FiguredParentParentVariable
+
 					#/###################/#
 					# build a FiguredAxesVariables
 					#
@@ -300,6 +454,7 @@ class FigurerClass(BaseClass):
 
 					#alias
 					self.FiguringGridIntsTuple=self.ViewFirstDeriveViewerVariable.FiguringGridIntsTuple
+					self.FiguredAnchorIntsList=self.FiguredPanelDeriveTeamerVariable.FiguredCursorIntsList
 
 					#set
 					self.setAxes()
@@ -320,7 +475,7 @@ class FigurerClass(BaseClass):
 								'FiguredParentParentVariable.ManagementTagStr is ',
 								FiguredParentParentVariable.ManagementTagStr,
 								'FiguredParentParentVariable.FiguredAxesVariable is ',
-								FiguredParentParentVariable.FiguredAxesVariable
+								FiguredParentParentVariable.FiguredAxesVariable,
 							]
 						)
 
@@ -740,61 +895,51 @@ class FigurerClass(BaseClass):
 					'Ok we set an axes here',
 					('self.',self,[
 							'FiguringGridIntsTuple',
-							'FiguringAnchorIntsTuple',
+							'FiguredAnchorIntsList',
 							'FiguringShapeIntsTuple'
 						]),
+					''
 				]
 			)
-
-		#alias
-		self.FiguringGridIntsTuple=self.ViewFirstDeriveViewerVariable.FiguringGridIntsTuple
-		self.FiguringAnchorIntsTuple=self.ViewFirstDeriveViewerVariable.FiguringAnchorIntsTuple
 
 		#init
 		from matplotlib import pyplot
 		self.FiguredAxesVariable=pyplot.subplot2grid(
 				self.FiguringGridIntsTuple, 
-				self.FiguringAnchorIntsTuple, 
+				self.FiguredAnchorIntsList, 
 				rowspan=self.FiguringShapeIntsTuple[0],
 				colspan=self.FiguringShapeIntsTuple[1]
 			)
 
 		#debug
-		'''
 		self.debug(
 				[
 					'Ok we have initiated the axes',
+					('self.',self,['FiguredAxesVariable']),
 					'now we shift',
 				]
 			)
-		'''
 
 		#/#################/#
 		# First shift in the grid
 		#
 
 		#debug
-		'''
 		self.debug(
 				[
-					'We set an axes here'
+					'We set an axes here',
+					'self.FiguredPanelDeriveTeamerVariable.FiguredCursorIntsList is ',
+					self.FiguredPanelDeriveTeamerVariable.FiguredCursorIntsList
 				]
 			)
-		'''
 
 		#shift
 		if self.FiguringShiftStr=="down":
-			self.ViewFirstDeriveViewerVariable.FiguringAnchorIntsTuple=(
-					self.ViewFirstDeriveViewerVariable.FiguringAnchorIntsTuple[0
-					]+self.FiguringSpaceInt+self.FiguringShapeIntsTuple[0],
-					self.ViewFirstDeriveViewerVariable.FiguringAnchorIntsTuple[1]
-				)
-		elif self.FiguringShiftStr=="right":
-			self.ViewFirstDeriveViewerVariable.FiguringAnchorIntsTuple=(
-					self.ViewFirstDeriveViewerVariable.FiguringAnchorIntsTuple[0],
-					self.ViewFirstDeriveViewerVariable.FiguringAnchorIntsTuple[1
-					]+self.FiguringSpaceIn+self.FiguringShapeIntsTuple[1]
-				)
+			self.FiguredPanelDeriveTeamerVariable.FiguredCursorIntsList[0
+			]+=self.FiguringSpaceInt+self.FiguringShapeIntsTuple[0]
+		else:
+			self.FiguredPanelDeriveTeamerVariable.FiguredCursorIntsList[1
+			]+=self.FiguringSpaceIn+self.FiguringShapeIntsTuple[1]
 
 		#debug
 		'''
@@ -836,7 +981,7 @@ class FigurerClass(BaseClass):
 			)
 
 		#init
-		self.FigureCursorIntsList=list(_SettingValueVariable[0][0])
+		self.FiguredPanelShapeIntsList=list(_SettingValueVariable[0][0])
 
 		#Check
 		if len(_SettingValueVariable)>1:
@@ -857,18 +1002,21 @@ class FigurerClass(BaseClass):
 				if __FiguredShiftTuple[1]=='down':
 
 					#add
-					self.FigureCursorIntsList[0]+=__FiguredShiftTuple[0][0]
+					self.FiguredPanelShapeIntsList[0]+=__FiguredShiftTuple[0][0]
 
-				elif __FiguredShiftTuple[1]=='right':
+				else:
 
 					#dd
-					self.FigureCursorIntsList[1]+=__FiguredShiftTuple[0][1]
+					self.FiguredPanelShapeIntsList[1]+=__FiguredShiftTuple[0][1]
 
 		#debug
 		self.debug(
 				[
 					'in the end of the shift',
-					('self.',self,['FigureCursorIntsList'])
+					('self.',self,[
+						'FiguredPanelShapeIntsList',
+						'FiguredCursorIntsList'
+					])
 				]
 			)
 
@@ -882,16 +1030,19 @@ FigurerClass.PrintingClassSkipKeyStrsList.extend(
 		'FigureCartoonVariablesList',
 		'FigureTooltipVariablesList',
 		'FiguringGridIntsTuple',
-		'FiguringSubGridIntsTuple',
-		'FiguringAnchorIntsTuple',
 		'FiguringShapeIntsTuple',
 		'FiguringDrawVariable',
 		'FiguringShiftStr',
+		'FiguringSpaceInt',
 		'FiguredTeamTagStr',
 		'FiguredDeriveTeamerVariablesList',
 		'FiguredPanelDeriveTeamerVariable',
 		'FiguredAxesDeriveTeamerVariable',
-		'FiguredAxesVariable'
+		'FiguredAxesVariable',
+		'FiguredAnchorIntsList',
+		'FiguredShiftTuplesList',
+		'FiguredPanelShapeIntsList',
+		'FiguredCursorIntsList'
 	]
 )
 #<DefinePrint>

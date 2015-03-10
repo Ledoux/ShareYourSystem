@@ -30,7 +30,7 @@ from ShareYourSystem.Standards.Itemizers import Pointer
 #<DefineLocals>
 ManagementChildPrefixStr="$"
 ManagementParentTeamerPrefixStr="<"
-class ManagementDictClass(collections.OrderedDict):
+class ManagementDict(collections.OrderedDict):
 	def __init__(self,_Dict=None):
 
 		#Check
@@ -43,7 +43,7 @@ class ManagementDictClass(collections.OrderedDict):
 		#update
 		self.update(_Dict)
 
-SYS.ManagementDictClass=ManagementDictClass
+SYS.ManagementDict=ManagementDict
 #</DefineLocals>
 
 #<DefineClass>
@@ -71,7 +71,7 @@ class ManagerClass(BaseClass):
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
 		#Init the ManagementDict
-		self.ManagementDict=ManagementDictClass()
+		self.ManagementDict=ManagementDict()
 
 		##########################
 		#init some team attributes

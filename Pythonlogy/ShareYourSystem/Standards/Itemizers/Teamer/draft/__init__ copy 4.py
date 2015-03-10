@@ -31,7 +31,7 @@ from ShareYourSystem.Standards.Teamers import Manager
 #<DefineLocals>
 TeamChildPrefixStr='&'
 TeamParentManagerPrefixStr="<"
-class TeamDictClass(collections.OrderedDict):
+class TeamDict(collections.OrderedDict):
 	def __init__(self,_Dict=None):
 
 		#Check
@@ -44,7 +44,7 @@ class TeamDictClass(collections.OrderedDict):
 		#update
 		self.update(_Dict)
 
-SYS.TeamDictClass=TeamDictClass
+SYS.TeamDict=TeamDict
 #</DefineLocals>
 
 
@@ -74,7 +74,7 @@ class TeamerClass(BaseClass):
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
 		#init
-		self.TeamDict=TeamDictClass()
+		self.TeamDict=TeamDict()
 
 		##########################
 		#init some management attributes

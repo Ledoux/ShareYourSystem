@@ -29,20 +29,24 @@ Teamer=BaseModule
 
 #<DefineLocals>
 ManagementChildPrefixStr="|"
-class ManagementDictClass(collections.OrderedDict):
-	def __init__(self,_Dict=None):
+class ManagementDict(collections.OrderedDict):
+	def __init__(self,_LiargDict=None,**_KwargDict):
 
 		#Check
-		if _Dict==None:
-			_Dict={}
+		if _LiargDict==None:
+			_LiargDict={}
 
 		#call the manage init method
-		collections.OrderedDict.__init__(self,_Dict)
+		collections.OrderedDict.__init__(self,_LiargDict,**_KwargDict)
 
-		#update
-		self.update(_Dict)
+	def get(self,_IndexInt):
+		Iterator=self.iterkeys()
+		if _IndexInt==0:
+			return self[Iterator.next()]
+		else:
+			return self[map(lambda __Int:Iterator.next(),xrange(_IndexInt+1))[-1]]
 
-SYS.ManagementDictClass=ManagementDictClass
+SYS.ManagementDict=ManagementDict
 #</DefineLocals>
 
 #<DefineClass>
@@ -70,7 +74,7 @@ class ManagerClass(BaseClass):
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
 		#Init the ManagementDict
-		self.ManagementDict=ManagementDictClass()
+		self.ManagementDict=ManagementDict()
 		
 	def do_manage(self):
 

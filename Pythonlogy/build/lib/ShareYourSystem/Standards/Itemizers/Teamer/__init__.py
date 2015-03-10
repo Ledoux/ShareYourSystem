@@ -29,20 +29,24 @@ from ShareYourSystem.Standards.Itemizers import Pather,Pointer
 
 #<DefineLocals>
 TeamChildPrefixStr='-'
-class TeamDictClass(collections.OrderedDict):
-	def __init__(self,_Dict=None):
+class TeamDict(collections.OrderedDict):
+	def __init__(self,_LiargDict=None,**_KwargDict):
 
 		#Check
-		if _Dict==None:
-			_Dict={}
+		if _LiargDict==None:
+			_LiargDict={}
 
 		#call the parent init method
-		collections.OrderedDict.__init__(self,_Dict)
+		collections.OrderedDict.__init__(self,_LiargDict,**_KwargDict)
 
-		#update
-		self.update(_Dict)
+	def get(self,_IndexInt):
+		Iterator=self.iterkeys()
+		if _IndexInt==0:
+			return self[Iterator.next()]
+		else:
+			return self[map(lambda __Int:Iterator.next(),xrange(_IndexInt+1))[-1]]
 
-SYS.TeamDictClass=TeamDictClass
+SYS.TeamDict=TeamDict
 #</DefineLocals>
 
 
@@ -71,7 +75,7 @@ class TeamerClass(BaseClass):
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
 		#init
-		self.TeamDict=TeamDictClass()
+		self.TeamDict=TeamDict()
 
 	def do_team(self):
 
