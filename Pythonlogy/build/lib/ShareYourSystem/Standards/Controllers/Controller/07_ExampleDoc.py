@@ -8,9 +8,13 @@ MyController=SYS.ControllerClass(
 		{
 			'/-Views/|Run':{
 				'-Panels':{
-					'#map@set':[
-						('|First',{'MyStr':"hello"})
-					]
+					'|A':{
+						'-Plots':{
+							'|0':{
+								'MyStr':"hello"
+							}
+						}
+					}
 				}
 			}
 		}

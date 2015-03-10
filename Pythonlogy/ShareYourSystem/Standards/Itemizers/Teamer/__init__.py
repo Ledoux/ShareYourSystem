@@ -58,6 +58,9 @@ class TeamerClass(BaseClass):
 				_TeamingValueVariable=None,	
 				_TeamingManageVariable=None,					
 				_TeamingValueClass=Pointer.PointerClass, 	
+				_TeamingClassesDict=None,
+				_TeamingBeforeSetVariable=None,
+				_TeamingAfterSetVariable=None,
 				_TeamedValueVariable=None,	
 				_TeamedIsBool=False,
 				_TeamedOnceBool=False,																
@@ -142,10 +145,64 @@ class TeamerClass(BaseClass):
 				'items'
 			) or SYS.getIsTuplesListBool(self.TeamedValueVariable):
 
-				#init
-				self.TeamedValueVariable=self.TeamingValueClass(
-					)['#map@set'](
-						self.TeamedValueVariable
+				#debug
+				'''
+				self.debug(
+						[
+							'This is a team with a value dict',
+							'We wrap into an instance',
+							('self.',self,[
+								'TeamingKeyStr',
+								'TeamingValueClass',
+								'TeamingClassesDict'
+								])
+						]
+					)
+				'''
+
+				#Check
+				if self.TeamingKeyStr in self.TeamingClassesDict:
+
+					#get
+					self.TeamingValueClass=self.TeamingClassesDict[
+						self.TeamingKeyStr
+					]
+
+					#debug
+					'''
+					self.debug(
+							[
+								'There is a special type for this',
+								('self.',self,['TeamingValueClass'])
+							]
+						)
+					'''
+					
+				#temp and init
+				TeamedValueVariable=self.TeamedValueVariable
+				self.TeamedValueVariable=self.TeamingValueClass()
+
+				#Check
+				if self.TeamingBeforeSetVariable!=None:
+
+					#debug
+					'''
+					self.debug(
+						[
+							'The Teamer has something before for the teamed value',
+							('self.',self,['TeamingBeforeSetVariable'])
+						]
+					)
+					'''
+
+					#map set
+					self.TeamedValueVariable['#map@set'](
+						self.TeamingBeforeSetVariable	
+					)
+
+				#set
+				self.TeamedValueVariable['#map@set'](
+						TeamedValueVariable
 					)
 
 			#define the keystr to define in the dict
@@ -176,6 +233,24 @@ class TeamerClass(BaseClass):
 
 			#index
 			self.TeamedValueVariable.TeamIndexInt=len(self.TeamDict)-1
+
+			#Check
+			if self.TeamingAfterSetVariable!=None:
+
+				#debug
+				'''
+				self.debug(
+						[
+							'The Teamed has something after for the teamed value',
+							('self.',self,['TeamingAfterSetVariable'])
+						]
+					)
+				'''
+
+				#map set
+				self.TeamedValueVariable['#map@set'](
+					self.TeamingAfterSetVariable	
+				)
 
 		else:
 
@@ -286,9 +361,14 @@ class TeamerClass(BaseClass):
 
 				#debug
 				'''
-				self.debug('We team here')
+				self.debug(
+					[
+						'We team here',
+						('self.',self,['SettingKeyVariable'])
+					]
+				)
 				'''
-				
+
 				#team
 				self.team(
 					SYS.deprefix(
@@ -326,8 +406,12 @@ TeamerClass.PrintingClassSkipKeyStrsList.extend(
 		'TeamDict',
 		'TeamingKeyStr',
 		'TeamingValueVariable',
+		'TeamingClassesDict',
 		'TeamingManageVariable',
+		'TeamingClassesDict',
 		'TeamingValueClass',
+		'TeamingBeforeSetVariable',
+		'TeamingAfterSetVariable',
 		'TeamedValueVariable',
 		'TeamedIsBool',
 		'TeamedOnceBool'

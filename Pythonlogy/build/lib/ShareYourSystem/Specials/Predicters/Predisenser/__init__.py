@@ -188,6 +188,8 @@ class PredisenserClass(BaseClass):
 			#set
 			LocalDict=locals()
 
+	def mimic_draw(self):
+		
 		#/#################/#
 		# Build the input-unit traces axes
 		#
@@ -219,7 +221,8 @@ class PredisenserClass(BaseClass):
 													'>>self.PredisensedInputCurrentTraceFloatsArray.__getitem__('+str(__IndexInt)+')'
 												],
 												'#kwarg':{
-													'label':'$\\tau_{D}c_{'+str(__IndexInt)+'}(t)$'
+													'label':'$\\tau_{D}c_{'+str(__IndexInt)+'}(t)$',
+													'linestyle':'-'
 												}
 											}
 										),
@@ -232,7 +235,8 @@ class PredisenserClass(BaseClass):
 												'#kwarg':{
 													'color':'g',
 													'label':'$x_{'+str(__IndexInt)+'}(t)$',
-													'linewidth':3
+													'linewidth':3,
+													'linestyle':'-'
 												}
 											}
 										)
@@ -253,7 +257,7 @@ class PredisenserClass(BaseClass):
 												-0.1,
 												1.5*self.PredisensingClampFloat*self.PredictingConstantTimeFloat
 											],
-								'legend':[],
+								'legend':[]
 							}
 						)
 					],
@@ -262,10 +266,8 @@ class PredisenserClass(BaseClass):
 			}
 		)
 
-	def mimic_show(self):
-		
 		#call the base method
-		BaseClass.show(self)
+		BaseClass.draw(self)
 
 #</DefineClass>
 

@@ -1,21 +1,19 @@
 
 #ImportModules
 import ShareYourSystem as SYS
+import numpy as np
 
 #Define
-MyShower=SYS.ShowerClass(
+MyDrawer=SYS.DrawerClass(
 	).draw(
 		{
 			'|fig1':{
 				'-Panels':{
 					'|A':{
-						'-Axes':[
-								('ManagingBeforeSetVariable',{
-									'FiguringShapeIntsTuple':(3,10)
-								}),
-								('|a',{
-									'-Plots':[
-										('|0',{
+						'-Axes':{
+							'|a':{
+								'-Plots':{
+										'|0':{
 											'FiguringDrawVariable':
 											[
 												(
@@ -32,8 +30,8 @@ MyShower=SYS.ShowerClass(
 													}
 												)
 											]
-										}),
-										('|1',{
+										},
+										'|1':{
 											'FiguringDrawVariable':
 											[
 												(
@@ -50,23 +48,49 @@ MyShower=SYS.ShowerClass(
 													}
 												)
 											],
-										})
-									]
-								})
-							]
+										}
+									}
+							},
+							'|b':{
+								'FiguringDrawVariable':
+								[
+									(
+										'#plot',
+										{
+											'#liarg':[
+												[1,2,3],
+												[2,6,3]
+											],
+											'#kwarg':{
+												'linestyle':"",
+												'marker':'o'
+											}
+										}
+									)
+								]
+							}
 						}
-					}
+					},
+					'|B':{
+						'FiguringDrawVariable':
+						[
+							(
+								'#plot',
+								{
+									'#liarg':[
+										[1,2,3],
+										[2,6,3]
+									],
+									'#kwarg':{
+										'linestyle':"",
+										'marker':'o'
+									}
+								}
+							)
+						]
+					},
 				}
-			}
-	).show(
-	)
-
-
-#print
-print('MyShower is ')
-SYS._print(MyShower)
-
-"""
+			},
 			'|fig2':{
 				'FiguringDrawVariable':
 				[
@@ -85,46 +109,10 @@ SYS._print(MyShower)
 					)
 				]
 			}
-"""
+		}
+	)
 
-"""
-	'|B':{
-						'FiguringDrawVariable':
-						[
-							(
-								'#plot',
-								{
-									'#liarg':[
-										[1,2,3],
-										[2,6,3]
-									],
-									'#kwarg':{
-										'linestyle':"",
-										'marker':'o'
-									}
-								}
-							)
-						]
-					},
-"""
+#print
+print('MyDrawer is ')
+SYS._print(MyDrawer)
 
-"""
-'|b':{
-								'FiguringDrawVariable':
-								[
-									(
-										'#plot',
-										{
-											'#liarg':[
-												[1,2,3],
-												[2,6,3]
-											],
-											'#kwarg':{
-												'linestyle':"",
-												'marker':'o'
-											}
-										}
-									)
-								]
-							}
-"""

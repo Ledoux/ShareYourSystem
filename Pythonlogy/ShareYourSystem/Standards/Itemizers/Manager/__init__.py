@@ -57,6 +57,9 @@ class ManagerClass(BaseClass):
 				_ManagingKeyStr="",
 				_ManagingValueVariable=None,
 				_ManagingValueClass=Teamer.TeamerClass,
+				_ManagingBeforeSetVariable=None,
+				_ManagingAfterSetVariable=None,
+				_ManagingClassesDict=None,
 				_ManagedValueVariable=None,
 				_ManagedIsBool=False,
 				_ManagedOnceBool=False,
@@ -114,7 +117,8 @@ class ManagerClass(BaseClass):
 			self.debug(
 				[
 					'This is a new managed value',
-					('self.',self,['ManagingKeyStr'])
+					('self.',self,['ManagingKeyStr']),
+					'Check first if this managingkey str is known
 				]
 			)
 			'''
@@ -140,10 +144,64 @@ class ManagerClass(BaseClass):
 				'items'
 			) or SYS.getIsTuplesListBool(self.ManagedValueVariable):
 
-				#init
-				self.ManagedValueVariable=self.ManagingValueClass(
-					)['#map@set'](
-						self.ManagedValueVariable
+				#debug
+				'''
+				self.debug(
+						[
+							'This is a manage with a value dict',
+							'We wrap into an instance',
+							('self.',self,[
+								'ManagingKeyStr',
+								'ManagingValueClass',
+								'ManagingClassesDict'
+								])
+						]
+					)
+				'''
+
+				#Check
+				if self.ManagingKeyStr in self.ManagingClassesDict:
+
+					#get
+					self.ManagingValueClass=self.ManagingClassesDict[
+						self.ManagingKeyStr
+					]
+
+					#debug
+					'''
+					self.debug(
+							[
+								'There is a special type for this',
+								('self.',self,['ManagingValueClass'])
+							]
+						)
+					'''
+				
+				#temp and init
+				ManagedValueVariable=self.ManagedValueVariable
+				self.ManagedValueVariable=self.ManagingValueClass()
+				
+				#Check
+				if self.ManagingBeforeSetVariable!=None:
+
+					#debug
+					'''
+					self.debug(
+							[
+								'The Manager has something before for the managed value',
+								('self.',self,['ManagingBeforeSetVariable'])
+							]
+						)
+					'''
+					
+					#map set
+					self.ManagedValueVariable['#map@set'](
+						self.ManagingBeforeSetVariable	
+					)
+
+				#set
+				self.ManagedValueVariable['#map@set'](
+						ManagedValueVariable
 					)
 
 			#define the keystr to define in the dict
@@ -174,6 +232,22 @@ class ManagerClass(BaseClass):
 
 			#index
 			self.ManagedValueVariable.ManagementIndexInt=len(self.ManagementDict)-1
+
+			#Check
+			if self.ManagingAfterSetVariable!=None:
+
+				#debug
+				self.debug(
+						[
+							'The Manager has something after for the managed value',
+							('self.',self,['ManagingAfterSetVariable'])
+						]
+					)
+
+				#map set
+				self.ManagedValueVariable['#map@set'](
+					self.ManagingAfterSetVariable	
+				)
 
 		else:
 
@@ -336,6 +410,9 @@ ManagerClass.PrintingClassSkipKeyStrsList.extend(
 		'ManagingKeyStr',
 		'ManagingValueVariable',
 		'ManagingValueClass',
+		'ManagingClassesDict',
+		'ManagingBeforeSetVariable',
+		'ManagingAfterSetVariable',
 		'ManagedValueVariable',
 		'ManagedIsBool',
 		'ManagedOnceBool'

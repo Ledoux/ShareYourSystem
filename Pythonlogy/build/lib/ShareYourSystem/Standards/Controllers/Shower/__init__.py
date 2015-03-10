@@ -13,7 +13,7 @@ A Displayer
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Controllers.Controller"
+BaseModuleStr="ShareYourSystem.Standards.Controllers.Drawer"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 SYS.addDo('Shower','Show','Showing','Shown')

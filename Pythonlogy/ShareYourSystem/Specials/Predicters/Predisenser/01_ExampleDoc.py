@@ -28,6 +28,7 @@ MyPredisenser=SYS.PredisenserClass(
 		0.5,
 		#PredisensingMonitorList
 		[0]
+	).draw(
 	).show(
 	)
 

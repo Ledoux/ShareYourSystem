@@ -30,6 +30,7 @@ FigureBarKeyStr='#bar'
 FigureScatterKeyStr='#scatter'
 FigureAxesKeyStr='#axes'
 FigureMpld3KeyStr='#mpld3.plugins.'
+class FigurerParentersClass(SYS.ParenterClass):pass
 #</DefineLocals>
 
 #<DefineClass>
@@ -38,8 +39,8 @@ class FigurerClass(BaseClass):
 	
 	def default_init(self,
 						_FigurePyplotVariable=None,
-						_FigureCartoonVariable=None,
-						_FigureTooltipVariable=None,
+						_FigureCartoonVariablesList=None,
+						_FigureTooltipVariablesList=None,
 						_FiguringGridIntsTuple=(10,10),
 						_FiguringSubGridIntsTuple=None,
 						_FiguringAnchorIntsTuple=(0,0),
@@ -57,7 +58,7 @@ class FigurerClass(BaseClass):
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
 		#set
-		self.ManagingValueClass=self.__class__
+		self.TeamingValueClass=FigurerParentersClass
 
 	def do_figure(self):	
 
@@ -291,7 +292,12 @@ class FigurerClass(BaseClass):
 					)
 
 				#link
-				self.FiguredAxesVariable._figure=self.FigurePyplotVariable			
+				self.FiguredAxesVariable._figure=self.FigurePyplotVariable	
+
+				#map set
+				self['#map@set'](
+					self.FiguringDrawVariable
+				)		
 
 		#/###################/#
 		# map a figure into them
@@ -347,38 +353,6 @@ class FigurerClass(BaseClass):
 					]
 				)
 			'''
-
-	def mimic_team(self):
-
-		#call the base method
-		BaseClass.team(self)
-
-		#debug
-		'''
-		self.debug(
-				[
-					'We have team and check now for a Panels, Axes, or Plots',
-					('self.',self,[
-						'TeamingKeyStr',
-						'TeamedValueVariable'
-					])
-				]
-			)
-		'''
-
-		#Check
-		if self.TeamingKeyStr in ['Panels','Axes','Plots']:
-
-			#set
-			self.TeamedValueVariable.ManagingValueClass=SYS.FigurerClass
-
-			#map mute
-			map(
-					lambda __KeyStr:
-					self.TeamedValueVariable.set('!|'+__KeyStr,SYS.FigurerClass),
-					self.TeamedValueVariable.ManagementDict.keys()
-				)
-
 
 	def mimic_view(self):
 
@@ -489,7 +463,6 @@ class FigurerClass(BaseClass):
 				)
 
 			#debug
-			'''
 			self.debug(
 					[
 						'We plot here',
@@ -497,13 +470,22 @@ class FigurerClass(BaseClass):
 						SYS._str(FigurePlotArgumentDict)
 					]
 				)
-			'''
 
 			#plot
-			self.FigureCartoonVariable=self.FiguredAxesVariable.plot(
+			self.FigureCartoonVariablesList.append(
+				self.FiguredAxesVariable.plot(
 					*FigurePlotArgumentDict['LiargVariablesList'],
 					**FigurePlotArgumentDict['KwargVariablesDict']
-				)
+				)[0]
+			)
+
+			#debug
+			self.debug(
+				[
+					('self.',self,['FigureCartoonVariablesList']),
+					#str(self.FigureCartoonVariablesList[0][0]),
+				]
+			)
 
 			#return 
 			return {'HookingIsBool':False}
@@ -511,14 +493,15 @@ class FigurerClass(BaseClass):
 		elif self.SettingKeyVariable==FigureAxesKeyStr:
 
 			#debug
-			'''
 			self.debug(
 					[
 						'before axes',
-						('self.',self,['ViewDeriveControllerVariable'])
+						('self.',self,[
+							#'ViewDeriveControllerVariable',
+							'FiguredAxesVariable'
+						])
 					]
 				)
-			'''
 
 			#map
 			ArgumentTuplesList=map(
@@ -535,6 +518,41 @@ class FigurerClass(BaseClass):
 					)
 				)
 
+			#/#################/#
+			# Special case for the legend
+			#
+
+			#dict
+			ArgumentDict=dict(ArgumentTuplesList)
+			if 'legend' in ArgumentDict:
+
+				"""
+				#Check
+				if '#kwarg' not in ArgumentDict['legend']:
+					ArgumentDict['legend']['#kwarg']={}
+
+				#add
+				ArgumentDict['legend']['#kwarg']['handles']=SYS.flat(
+						map(
+							lambda __Figurer:
+							__Figurer.FigureCartoonVariablesList,
+							self.TeamDict['Plots'].ManagementDict.values()
+						)
+					)
+				"""
+
+				#legend
+				self.FiguredAxesVariable.legend()
+
+				#link
+				#ArgumentTuplesList[SYS.unzip(ArgumentTuplesList,[0]).index('legend')]=(
+				#	'legend',
+				#	ArgumentDict['legend']
+				#)
+
+				#remove
+				del ArgumentTuplesList[SYS.unzip(ArgumentTuplesList,[0]).index('legend')]
+
 			#debug
 			'''
 			self.debug(
@@ -545,7 +563,7 @@ class FigurerClass(BaseClass):
 					]
 				)
 			'''
-
+			
 			#map
 			map(
 					lambda __ArgumentTuple:
@@ -608,29 +626,37 @@ class FigurerClass(BaseClass):
 
 			#plugin
 			from mpld3 import plugins
-			self.FigureTooltipVariable=getattr(
+			self.FigureTooltipVariablesList=map(
+				lambda __FigureCartoonVariable:
+				getattr(
 					plugins,
 					ToolTipKeyStr
 				)(
 					*[
-						self.FigureCartoonVariable[0]
+						__FigureCartoonVariable
 					]+FigurePluginArgumentDict['LiargVariablesList'],
 					**FigurePluginArgumentDict['KwargVariablesDict']
-				)
+				),
+				self.FigureCartoonVariablesList
+			)
 
 			#debug
 			'''
 			self.debug(
 					[
-						('self.',self,['FigureTooltipVariable'])
+						('self.',self,['FigureTooltipVariablesList'])
 					]
 				)
 			'''
 			
 			#connect
-			plugins.connect(
-				self.FigurePyplotVariable,
-				self.FigureTooltipVariable
+			map(
+				lambda __FigureTooltipVariable:
+				plugins.connect(
+					self.FigurePyplotVariable,
+					__FigureTooltipVariable
+				),
+				self.FigureTooltipVariablesList
 			)
 
 			#return 
@@ -645,8 +671,8 @@ class FigurerClass(BaseClass):
 FigurerClass.PrintingClassSkipKeyStrsList.extend(
 	[
 		#'FigurePyplotVariable',
-		'FigureCartoonVariable',
-		'FigureTooltipVariable',
+		'FigureCartoonVariablesList',
+		'FigureTooltipVariablesList',
 		'FiguringGridIntsTuple',
 		'FiguringSubGridIntsTuple',
 		'FiguringAnchorIntsTuple',
@@ -660,3 +686,7 @@ FigurerClass.PrintingClassSkipKeyStrsList.extend(
 	]
 )
 #<DefinePrint>
+
+#<DefineLocals>
+FigurerParentersClass.ManagingValueClass=FigurerClass
+#<DefineLocals>

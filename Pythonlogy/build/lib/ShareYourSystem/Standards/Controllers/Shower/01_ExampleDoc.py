@@ -4,25 +4,130 @@ import ShareYourSystem as SYS
 
 #Define
 MyShower=SYS.ShowerClass(
-	).array(
-		[
-			['-Views'],
-			[
-				{
-					'#key':'|Foo',
-					'#map@set':[
-					]
-				},
-				{
-					'#key':'|Fee',
-					'#map@set':[
-					]
+	).draw(
+		{
+			'|fig1':{
+				'-Panels':{
+					'|A':{
+						'-Axes':{
+							'|a':{
+								'-Plots':[
+									('ManagingValueSetVariable',{
+										'FiguringShapeIntsTuple':(3,10)
+									}),
+									('|0',{
+										'FiguringDrawVariable':
+										[
+											(
+												'#plot',
+												{
+													'#liarg':[
+														[1,2,3],
+														[2,6,3]
+													],
+													'#kwarg':{
+														'linestyle':"",
+														'marker':'o'
+													}
+												}
+											)
+										]
+									}),
+									('|1',{
+										'FiguringDrawVariable':
+										[
+											(
+												'#plot',
+												{
+													'#liarg':[
+														[0,1,2],
+														[2,3,4]
+													],
+													'#kwarg':{
+														'linestyle':"--",
+														'color':'r'
+													}
+												}
+											)
+										],
+									})
+								]
+							},
+							
+						}
+					},
+				
 				}
-			]
-		]
-	).show()
+			},
+			
+		}
+	).show(
+	)
+
 
 #print
 print('MyShower is ')
 SYS._print(MyShower)
 
+"""
+			'|fig2':{
+				'FiguringDrawVariable':
+				[
+					(
+						'#plot',
+						{
+							'#liarg':[
+								[1,2,3],
+								[2,6,3]
+							],
+							'#kwarg':{
+								'linestyle':"",
+								'marker':'o'
+							}
+						}
+					)
+				]
+			}
+"""
+
+"""
+	'|B':{
+						'FiguringDrawVariable':
+						[
+							(
+								'#plot',
+								{
+									'#liarg':[
+										[1,2,3],
+										[2,6,3]
+									],
+									'#kwarg':{
+										'linestyle':"",
+										'marker':'o'
+									}
+								}
+							)
+						]
+					},
+"""
+
+"""
+'|b':{
+								'FiguringDrawVariable':
+								[
+									(
+										'#plot',
+										{
+											'#liarg':[
+												[1,2,3],
+												[2,6,3]
+											],
+											'#kwarg':{
+												'linestyle':"",
+												'marker':'o'
+											}
+										}
+									)
+								]
+							}
+"""

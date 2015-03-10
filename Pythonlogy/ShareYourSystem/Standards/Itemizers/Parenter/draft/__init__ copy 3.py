@@ -53,6 +53,7 @@ class ParenterClass(BaseClass):
 				_ParentDeriveTeamerVariable=None,
 				_ParentTopDeriveTeamerVariable=None,
 				_ParentingTriggerVariable=None,
+				_ParentingClassesDict=None,
 				_ParentedTotalDeriveTeamersList=None,
 				_ParentedDeriveTeamersList=None,
 				_ParentedDeriveManagersList=None,
@@ -192,30 +193,8 @@ class ParenterClass(BaseClass):
 
 	def mimic_team(self):
 
-		#/#################/#
-		# Call the base method
-		#
-
-		#debug
-		'''
-		self.debug(
-				[
-					'We team here',
-					'call the parent method firsts',
-					('self.',self,[
-						'TeamingKeyStr',
-						'ParentChildSetVariable'
-					])
-				]
-			)
-		'''
-
 		#call the base method
 		BaseClass.team(self)
-
-		#/#################/#
-		# Set the parent in the child
-		#
 
 		#debug
 		'''
@@ -236,30 +215,61 @@ class ParenterClass(BaseClass):
 			#pass
 			pass
 
-
-
-	def mimic_manage(self):
-
-		#/#################/#
-		# Call the base method
-		#
-
-		#debug
+		#Check
 		'''
-		self.debug(
-				[
-					'We manage here',
-					'call the base method first'
-				]
+		if self.ParentKeyStr=='Top':
+
+			#debug
+			self.debug('We are the top so we command a parent')
+
+			#command
+			self.command(
+				['TeamDict.values','ManagementDict.values'],
+				('parent',[]),
+				_AfterWalkRigidBool=True
 			)
 		'''
 
+		"""
+		#hook a parent method
+		if self.ParentTopDeriveTeamerVariable==self and hasattr(
+			self.TeamedValueVariable,'parent'
+		):
+
+			#debug
+			self.debug(
+					[
+						'We down parent in the TeamedValueVariable',
+						('self.',self,['TeamedValueVariable'])
+					]
+				)
+
+			#parent
+			self.TeamedValueVariable.parent(_DownBool=True)
+		"""
+
+		"""
+		#hook a parent method
+		if len(self.TeamedValueVariable.ManagementDict)==0 and hasattr(
+			self.TeamedValueVariable,'parent'
+		):
+
+			#debug
+			self.debug(
+					[
+						'We up parent in the TeamedValueVariable',
+						('self.',self,['TeamedValueVariable'])
+					]
+				)
+
+			#parent
+			self.TeamedValueVariable.parent(_UpBool=True)
+		"""
+
+	def mimic_manage(self):
+
 		#call the base method
 		BaseClass.manage(self)
-
-		#/#################/#
-		# Set the parent in the child
-		#
 
 		#debug
 		'''
@@ -281,6 +291,43 @@ class ParenterClass(BaseClass):
 
 			#pass
 			pass
+
+		"""
+		#hook a parent method
+		if self.ParentTopDeriveTeamerVariable==self and hasattr(
+			self.ManagedValueVariable,
+			'parent'
+		):
+
+			#debug
+			self.debug(
+					[
+						'We down parent in the ManagedValueVariable',
+						('self.',self,['ManagedValueVariable'])
+					]
+				)
+
+			#parent
+			self.ManagedValueVariable.parent(_DownBool=True)
+		"""
+
+		"""
+		#hook a parent method
+		if len(self.ManagedValueVariable.TeamDict)==0 and hasattr(
+			self.ManagedValueVariable,'parent'
+		):
+
+			#debug
+			self.debug(
+					[
+						'We up parent in the TeamedValueVariable',
+						('self.',self,['TeamedValueVariable'])
+					]
+				)
+
+			#parent
+			self.ManagedValueVariable.parent(_UpBool=True)
+		"""
 
 	def mimic_get(self):
 		
@@ -541,6 +588,7 @@ ParenterClass.PrintingClassSkipKeyStrsList.extend(
 			'ParentDeriveTeamerVariable',
 			'ParentTopDeriveTeamerVariable',
 			#'ParentingTriggerVariable',
+			'ParentingClassesDict',
 			'ParentedTotalDeriveTeamersList',
 			'ParentedDeriveTeamersList',
 			'ParentedDeriveManagersList',

@@ -114,6 +114,7 @@ setup(
 			 		'ShareYourSystem.Standards.Viewers.Figurer',
 			 		'ShareYourSystem.Standards.Viewers.Paneler',
 			 		'ShareYourSystem.Standards.Viewers.Axer',
+			 		'ShareYourSystem.Standards.Controllers.Drawer',
 			 		'ShareYourSystem.Standards.Controllers.Shower',
 			 		'ShareYourSystem.Standards.Controllers.Systemer',
 			 		'ShareYourSystem.Specials.Simulaters.Simulater',

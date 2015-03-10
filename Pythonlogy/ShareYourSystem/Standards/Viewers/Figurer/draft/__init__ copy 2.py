@@ -354,6 +354,38 @@ class FigurerClass(BaseClass):
 				)
 			'''
 
+	def mimic_team(self):
+
+		#call the base method
+		BaseClass.team(self)
+
+		#debug
+		'''
+		self.debug(
+				[
+					'We have team and check now for a Panels, Axes, or Plots',
+					('self.',self,[
+						'TeamingKeyStr',
+						'TeamedValueVariable'
+					])
+				]
+			)
+		'''
+
+		#Check
+		if self.TeamingKeyStr in ['Panels','Axes','Plots']:
+
+			#set
+			self.TeamedValueVariable.ManagingValueClass=SYS.FigurerClass
+
+			#map mute
+			map(
+					lambda __KeyStr:
+					self.TeamedValueVariable.set('!|'+__KeyStr,SYS.FigurerClass),
+					self.TeamedValueVariable.ManagementDict.keys()
+				)
+
+
 	def mimic_view(self):
 
 		#import mpld3

@@ -52,6 +52,7 @@ class ParenterClass(BaseClass):
 				},
 				_ParentDeriveTeamerVariable=None,
 				_ParentTopDeriveTeamerVariable=None,
+				_ParentChildSetVariable=None,
 				_ParentingTriggerVariable=None,
 				_ParentedTotalDeriveTeamersList=None,
 				_ParentedDeriveTeamersList=None,
@@ -73,6 +74,10 @@ class ParenterClass(BaseClass):
 		
 		#set top
 		self.ParentTopDeriveTeamerVariable=self
+
+		#init
+		if self.ParentChildSetVariable==None:
+			self.ParentChildSetVariable={}
 
 	def do_parent(self):
 
@@ -209,9 +214,36 @@ class ParenterClass(BaseClass):
 				]
 			)
 		'''
-
+		
 		#call the base method
 		BaseClass.team(self)
+
+		#/#################/#
+		# Check for a pareting class for the child teamed variable
+		#
+
+		#Check
+		if self.TeamingKeyStr in self.ParentChildSetVariable:
+
+			#debug
+			'''
+			self.debug(
+				[
+					'There is a parent set variable for this',
+					('self.',self,[
+						'TeamingKeyStr',
+						'TeamedValueVariable'
+					])
+				]
+			)
+			'''
+
+			#get
+			self.TeamedValueVariable.ManagingValueClass['#map@set'](
+				self.ParentChildSetVariable[
+					self.TeamingKeyStr
+				]
+			)
 
 		#/#################/#
 		# Set the parent in the child
@@ -256,6 +288,30 @@ class ParenterClass(BaseClass):
 
 		#call the base method
 		BaseClass.manage(self)
+
+		#/#################/#
+		# Check for a pareting class for the child teamed variable
+		#
+
+		#Check
+		if self.ManagingKeyStr in self.ParentChildSetVariable:
+
+			#debug
+			'''
+			self.debug(
+				[
+					'There is a parent set for this',
+					('self.',self,['ManagingKeyStr'])
+				]
+			)
+			'''
+
+			#get
+			self.ManagedValueVariable.ManagingValueClass['#map@set'](
+				self.ParentChildSetVariable[
+					self.ManagingKeyStr
+				]
+			)
 
 		#/#################/#
 		# Set the parent in the child
@@ -540,6 +596,7 @@ ParenterClass.PrintingClassSkipKeyStrsList.extend(
 			'ParentKeyStr',
 			'ParentDeriveTeamerVariable',
 			'ParentTopDeriveTeamerVariable',
+			'ParentChildSetVariable',
 			#'ParentingTriggerVariable',
 			'ParentedTotalDeriveTeamersList',
 			'ParentedDeriveTeamersList',
