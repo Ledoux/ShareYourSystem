@@ -10,7 +10,7 @@ MyShower=SYS.ShowerClass(
 					'|A':{
 						'-Axes':[
 								('ManagingBeforeSetVariable',{
-									'FiguringShapeIntsTuple':(3,10)
+									'FiguringShapeIntsTuple':(3,5)
 								}),
 								('|a',{
 									'-Plots':[

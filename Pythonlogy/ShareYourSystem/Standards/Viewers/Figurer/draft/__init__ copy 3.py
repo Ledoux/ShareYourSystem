@@ -45,7 +45,7 @@ class FigurerClass(BaseClass):
 						_FiguringGridIntsTuple=(20,20),
 						_FiguringShapeIntsTuple=(1,1),
 						_FiguringDrawVariable=None,
-						_FiguringShiftIntsTuple=(1,0),
+						_FiguringShiftIntsTuple=(0,1),
 						_FiguredTeamTagStr="",
 						_FiguredDeriveTeamerVariablesList=None,
 						_FiguredPanelDeriveTeamerVariable=None,
@@ -189,16 +189,8 @@ class FigurerClass(BaseClass):
 								'FiguringDrawVariable':{
 									'#axes':
 									{
-										'set_axis_off':{'#liarg':[]},
-										'text':{
-											'#liarg':[
-												-1,0,'$\\mathbf{'+self.ManagementTagStr+'}$'
-											],
-											'#kwarg':{
-												'fontsize':20
-											}
-										}
-										
+										'set_axis_off':[],
+										#'text':'$\\textbf{'+self.ManagementTagStr+'}$'
 									}
 								},
 								'FiguredPanelDeriveTeamerVariable':self,
@@ -775,6 +767,42 @@ class FigurerClass(BaseClass):
 						self.SettingValueVariable
 					)
 				)
+
+			
+			#/#################/#
+			# Special case for the legend
+			#
+
+			#dict
+			ArgumentDict=dict(ArgumentTuplesList)
+			if 'legend' in ArgumentDict:
+
+				"""
+				#Check
+				if '#kwarg' not in ArgumentDict['legend']:
+					ArgumentDict['legend']['#kwarg']={}
+
+				#add
+				ArgumentDict['legend']['#kwarg']['handles']=SYS.flat(
+						map(
+							lambda __Figurer:
+							__Figurer.FigureCartoonVariablesList,
+							self.TeamDict['Plots'].ManagementDict.values()
+						)
+					)
+				"""
+
+				#legend
+				self.FiguredAxesVariable.legend()
+
+				#link
+				#ArgumentTuplesList[SYS.unzip(ArgumentTuplesList,[0]).index('legend')]=(
+				#	'legend',
+				#	ArgumentDict['legend']
+				#)
+
+				#remove
+				del ArgumentTuplesList[SYS.unzip(ArgumentTuplesList,[0]).index('legend')]
 
 			#debug
 			self.debug(
