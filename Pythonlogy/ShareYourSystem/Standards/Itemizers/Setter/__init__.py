@@ -187,19 +187,28 @@ class ArgumentDict(collections.OrderedDict):
 			#Check
 			elif SetLiargGetGrabStr in _ArgumentDict:
 
+				#debug
+				_GetterVariable.debug(
+					[
+						'we set a value with a SetLiargGetGrabStr inside',
+						'_ArgumentDict[SetLiargGetGrabStr] is ',
+						_ArgumentDict[SetLiargGetGrabStr]
+					]
+				)
+				
 				#Get 
 				self['LiargVariablesList']=_GetterVariable[
 					_ArgumentDict[SetLiargGetGrabStr]
 				]
 
 				#debug
-				'''
 				_GetterVariable.debug(
 					[
 						'we set a value with a SetLiargGetGrabStr inside',
+						'self[\'LiargVariablesList\'] is ',
+						str(self['LiargVariablesList'])
 					]
 				)
-				'''
 
 			#/###################/#
 			# Check for #kwarg

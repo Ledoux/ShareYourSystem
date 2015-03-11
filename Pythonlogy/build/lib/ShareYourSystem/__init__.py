@@ -918,14 +918,39 @@ def update(_ItemizableVariable,_UpdateVariable):
 	#return
 	return _ItemizableVariable
 
+def get(_Variable,_KeyVariable):
+
+	#/#################/#
+	# We get with SYS
+	#
+
+	#Check
+	if type(_KeyVariable)==str and '.' in _KeyVariable:
+
+		#return reduce
+		return reduce(
+				lambda __GetterVariable,__GetKeyStr:
+				getattr(__GetterVariable,__GetKeyStr),
+				[_Variable]+_KeyVariable.split('.')
+			)
+
+	#return normal
+	return getattr(_Variable,_KeyVariable)
+
+
 def set(_Variable,_KeyStr,_ValueVariable):
 
-	#set
-	setattr(
-			_Variable,
-			_KeyStr,
-			_ValueVariable
-		)
+	if hasattr(_Variable,'items'):
+		_Variable[_KeyStr]=_ValueVariable
+
+	else:
+
+		#set
+		setattr(
+				_Variable,
+				_KeyStr,
+				_ValueVariable
+			)
 
 	#return 
 	return _Variable

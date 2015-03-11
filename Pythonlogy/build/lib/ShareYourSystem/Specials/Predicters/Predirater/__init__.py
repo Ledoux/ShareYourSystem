@@ -91,7 +91,7 @@ class PrediraterClass(BaseClass):
 		)
 
 		#/#################/#
-		# Shape the size of all the runs
+		# Shape the size of all the unit traces
 		#
 
 		#init perturbative rates
@@ -111,6 +111,10 @@ class PrediraterClass(BaseClass):
 				(self.PredictingUnitsInt,len(self.PredisensedTimeTraceFloatsArray))
 			)
 		self.PrediratedControlUnitTraceFloatsArray[:,0]=PrediratedInitialRateFloatsArray
+
+		#/#################/#
+		# Shape the size of all the decoder traces
+		#
 
 		#init perturbative decoder
 		self.PrediratedPerturbativeDecoderTraceFloatsArray=np.zeros(
@@ -146,6 +150,7 @@ class PrediraterClass(BaseClass):
 		#for loop
 		for __IndexInt in xrange(1,len(self.PredisensedTimeTraceFloatsArray)):
 
+			"""
 			#/#################/#
 			# Perturbative Rate
 			#
@@ -199,6 +204,7 @@ class PrediraterClass(BaseClass):
 				self.PredictedLeakWeigthFloatsArray,
 				self.PrediratedExactUnitTraceFloatsArray[:,__IndexInt-1]
 			)
+			"""
 
 			#/#################/#
 			# Control Rate
@@ -229,7 +235,11 @@ class PrediraterClass(BaseClass):
 			LocalDict=locals()
 
 			#rate
-			for __TagStr in ['Perturbative','Exact','Control']:	
+			for __TagStr in [
+								#'Perturbative',
+								#'Exact',
+								'Control'
+							]:	
 
 				#set
 				getattr(
@@ -267,6 +277,7 @@ class PrediraterClass(BaseClass):
 			]=-10.
 			"""
 
+			"""
 			#/#################/#
 			# Decoder part
 			#
@@ -297,7 +308,7 @@ class PrediraterClass(BaseClass):
 					self.PredictedControlDecoderWeigthFloatsArray,
 					self.PrediratedControlUnitTraceFloatsArray[:,__IndexInt-1]
 				)
-
+			"""
 
 	def mimic_draw(self):
 
@@ -321,7 +332,7 @@ class PrediraterClass(BaseClass):
 		#get
 		self['#map@set'](
 			{
-				'/-Views/|Run/-Axes/|Unit':
+				'/-Views/|A/-Axes/|Unit':
 				{
 					'-Plots':{
 						'#map@set':map(
@@ -363,8 +374,7 @@ class PrediraterClass(BaseClass):
 								#'legend':[]
 							}
 						)
-					],
-					'FiguringShapeIntsTuple':(3,10)
+					]
 				}
 			}
 		)

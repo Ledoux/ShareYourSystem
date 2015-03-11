@@ -781,29 +781,28 @@ class FigurerClass(BaseClass):
 					[
 						'We axe here',
 						'ArgumentTuplesList is ',
-						SYS._str(ArgumentTuplesList)
+						SYS._str(ArgumentTuplesList),
 					]
 				)
 			
 			#map
 			map(
 					lambda __ArgumentTuple:
-					getattr(
+					SYS.get(
 						self.FiguredAxesVariable,
 						__ArgumentTuple[0]
 					)()
 					if len(__ArgumentTuple[1]['LiargVariablesList']
 						)==0 and __ArgumentTuple[1]['KwargVariablesDict']==None
 					else(
-						getattr(
+						SYS.get(
 							self.FiguredAxesVariable,
-							__ArgumentTuple[0],
-							**__ArgumentTuple[1]['KwargVariablesDict']
-						)()
+							__ArgumentTuple[0]
+						)(**__ArgumentTuple[1]['KwargVariablesDict'])
 						if len(__ArgumentTuple[1]['LiargVariablesList']
 						)==0
 						else(
-							getattr(
+							SYS.get(
 								self.FiguredAxesVariable,
 								__ArgumentTuple[0]
 							)(
@@ -812,7 +811,7 @@ class FigurerClass(BaseClass):
 							) 
 							if __ArgumentTuple[1]['KwargVariablesDict']!=None
 							else
-							getattr(
+							SYS.get(
 								self.FiguredAxesVariable,
 								__ArgumentTuple[0]
 							)(
