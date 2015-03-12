@@ -6,12 +6,22 @@ import ShareYourSystem as SYS
 MyController=SYS.ControllerClass(
 		**{
 			'FolderingPathStr':SYS.Tabler.LocalFolderPathStr,
-			'ControllingModelClassVariable':SYS.TablerClass
+			'ControllingModelClassVariable':SYS.TabularerClass
 		}
 	).get(
-		'/&Models/$Things'
+		'/-Models/|Things'
 	)
-	
+
+
+#Build a structure with a database
+SYS.set(
+		MyController['/-Models/|Things'].ModeledMongoCollection,
+		[
+			('remove',{}),
+			('insert',{'MyStr':"hello"})
+		]
+)
+
 #print
 print('mongo db is : \n'+SYS._str(MyController.pymongoview()))
 
@@ -19,6 +29,6 @@ print('mongo db is : \n'+SYS._str(MyController.pymongoview()))
 print('MyController is ')
 SYS._print(MyController)
 
-#Print
-MyController.close()
+#kill
+MyController.process(_ActionStr='kill')
 

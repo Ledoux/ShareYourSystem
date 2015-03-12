@@ -15,7 +15,7 @@ ready then to be inserted in a table.
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Modelers.Tabler"
+BaseModuleStr="ShareYourSystem.Standards.Modelers.Modeler"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -111,11 +111,11 @@ class RowerClass(
 					[
 						('self.',self,[
 										'RowedMongoPickOrderedDict',
-										'TabledMongoCollection'
+										'ModeledMongoCollection'
 									]
 						),
-						'list(self.TabledMongoCollection.find()) is '+SYS._str(
-							list(self.TabledMongoCollection.find()))
+						'list(self.ModeledMongoCollection.find()) is '+SYS._str(
+							list(self.ModeledMongoCollection.find()))
 					]
 				)
 				'''
@@ -133,7 +133,7 @@ class RowerClass(
 									self.RowedMongoPickOrderedDict.items()
 								)
 						),
-						self.TabledMongoCollection.find()
+						self.ModeledMongoCollection.find()
 					)
 
 				#debug
@@ -233,7 +233,7 @@ class RowerClass(
 									self.RowedHdfPickOrderedDict.items()
 								)
 							),
-						self.TabledHdfTable.iterrows()
+						self.ModeledHdfTable.iterrows()
 					)
 
 				#debug
@@ -252,7 +252,7 @@ class RowerClass(
 					self.RowedHdfIsBool=any(self.RowedHdfIsBoolsList)
 
 				#Init to the len of the table
-				self.RowedHdfIndexInt=self.TabledHdfTable.nrows
+				self.RowedHdfIndexInt=self.ModeledHdfTable.nrows
 
 				#But maybe find a last index
 				if self.RowedHdfIsBool: 

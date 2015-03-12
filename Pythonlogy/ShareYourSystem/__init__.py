@@ -23,6 +23,7 @@ import operator
 import os
 import re
 import sys
+import types
 #</ImportSpecificModules>
 
 #<DefineLocals>
@@ -936,22 +937,158 @@ def get(_Variable,_KeyVariable):
 	return getattr(_Variable,_KeyVariable)
 
 
-def set(_Variable,_KeyStr,_ValueVariable):
+def set(_Variable,_KeyVariable,_ValueVariable):
 
-	if hasattr(_Variable,'items'):
-		_Variable[_KeyStr]=_ValueVariable
+	#/#################/#
+	# Go deeper maybe
+	#
 
-	else:
+	#Check
+	if type(_KeyVariable)==str and '.' in _KeyVariable:
+
+		#split
+		SplitStrsList=_KeyVariable.split('.')
+
+		#set recursive
+		_set(
+			getattr(
+				_Variable,
+				SplitStrsList[0]
+			),
+			".".join(SplitStrsList[1:]),
+			_ValueVariable
+		)
+
+		#return
+		return 
+
+	#/#################/#
+	# Special function with arg calls
+	#
+
+	#Check
+	if hasattr(_Variable,_KeyVariable):
+
+		#get
+		_GetVariable=getattr(_Variable,_KeyVariable)
+
+		#Type
+		GetType=type(_GetVariable)
+
+		#Debug
+		'''
+		print('set l 978')
+		print('_GetVariable is ')
+		print(_GetVariable)
+		print('GetType is ')
+		print(GetType)
+		print('')
+		'''
+
+		#Check
+		if GetType.__name__ in [
+						'instancemethod',
+						'builtin_function_or_method',
+						'method-wrapper'
+					]:
+
+			#Check
+			if hasattr(_ValueVariable,'items'):
+
+				#Check
+				if '#liarg' not in _ValueVariable:
+
+					#Check
+					if '#kwarg' in _ValueVariable:
+
+						#call
+						_GetVariable(**_ValueVariable['#kwarg'])
+
+					else:
+
+						#call
+						_GetVariable(_ValueVariable)
+
+				else:
+
+					#get
+					LiargVariable=_ValueVariable['#liarg']
+
+					#Check
+					if '#kwarg' in _ValueVariable:
+
+						#Check
+						if LiargVariable==None:
+
+							#call
+							_GetVariable(
+								**LiargVariable
+							)
+
+						else:
+
+							#call
+							_GetVariable(
+								*LiargVariable,
+								**LiargVariable
+							)
+
+					else:
+
+						#Check
+						if LiargVariable==None:
+
+							#call
+							_GetVariable()
+
+						else:
+
+							#call
+							_GetVariable(*LiargVariable)
+
+			else:
+
+				#Debug
+				print('set l 1053')
+				print('_GetVariable is ')
+				print(_GetVariable)
+				print('_ValueVariable is ')
+				print(_ValueVariable)
+				print('')
+
+				#call
+				_GetVariable(*_ValueVariable)
+
+			#return
+			return
+
+	#/#################/#
+	# Special __setitem__ call
+	#
+
+	#Check
+	if hasattr(_Variable,'__setitem__'):
 
 		#set
-		setattr(
-				_Variable,
-				_KeyStr,
-				_ValueVariable
-			)
+		_Variable[_KeyVariable]=_ValueVariable
+
+		#return
+		return
+
+	#/#################/#
+	# Special setattr call
+	#
+
+	#set
+	setattr(
+			_Variable,
+			_KeyStr,
+			_ValueVariable
+		)
 
 	#return 
 	return _Variable
+_set=set
 
 def getIsTuplesListBool(_TuplesList):
 
@@ -1395,6 +1532,32 @@ class SetList(list):
 
 			#alias
 			self.extend(self.ListVariable.__iter__())
+
+def mapSet(_Variable,_MapVariable):
+
+	#Debug
+	'''
+	print('mapSet SYS l 1402')
+	print('_MapVariable is ')
+	print(_MapVariable)
+	print('SetList(_MapVariable) is')
+	print(SetList(_MapVariable))
+	print('')
+	'''
+	
+	#map
+	map(
+			lambda __ElementVariable:
+			_set(
+					_Variable,
+					__ElementVariable[0],
+					__ElementVariable[1]
+			),
+			SetList(_MapVariable)
+		)
+
+	#return 
+	return _Variable
 
 class MethodDict(collections.OrderedDict):
 

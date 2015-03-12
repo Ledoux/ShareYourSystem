@@ -15,7 +15,7 @@ MyPredirater=SYS.PrediraterClass(
 		#PredictingInputStatStr
 		'norm',
 		#PredictingDecoderWeightFloat
-		10.,
+		40.,
 		#PredictingNormalisationInt
 		1.,			
 		#PredictingCostFloat
@@ -39,7 +39,7 @@ MyPredirater=SYS.PrediraterClass(
 		[0]
 	).predirate(
 		#PrediratingConstantTimeFloat
-		10.,
+		1.,
 		#PrediratingTransferVariable
 		#SYS.numpy.tanh,
 		#lambda _FloatsArray:_FloatsArray,

@@ -136,19 +136,19 @@ class InserterClass(
 					('self.',self,[
 						'RowedMongoIsBoolsList'
 						]),
-					'self.TabledMongoCollection.find().count() is '+str(
-						self.TabledMongoCollection.find().count()),
+					'self.ModeledMongoCollection.find().count() is '+str(
+						self.ModeledMongoCollection.find().count()),
 					'len(self.RowedMongoIsBoolsList) is '+str(len(self.RowedMongoIsBoolsList))
 				]
 			)
 			'''
 			
 			#Append and row if it is new
-			if self.RowedMongoIsBool==False and self.TabledMongoCollection.find(
+			if self.RowedMongoIsBool==False and self.ModeledMongoCollection.find(
 				).count()==len(self.RowedMongoIsBoolsList):
 
 				#Check
-				if self.TabledMongoCollection!=None:
+				if self.ModeledMongoCollection!=None:
 
 					#debug
 					'''
@@ -198,18 +198,18 @@ class InserterClass(
 					self.debug(
 							('self.',self,[
 									'InsertedItemTuplesList',
-									'TabledMongoCollection'
+									'ModeledMongoCollection'
 								])
 						)
 					'''
 
 					#insert
-					self.TabledMongoCollection.insert(
+					self.ModeledMongoCollection.insert(
 						dict(self.InsertedItemTuplesList)
 					)
 
 					#Define
-					InsertedCursor=self.TabledMongoCollection.find()
+					InsertedCursor=self.ModeledMongoCollection.find()
 
 					#debug
 					'''
@@ -232,17 +232,17 @@ class InserterClass(
 						'RowedHdfIsBool'
 						]),
 					'len(self.RowedHdfIsBoolsList) is '+str(len(self.RowedHdfIsBoolsList)),
-					'self.TabledHdfTable.nrows is '+str(self.TabledHdfTable.nrows)
+					'self.ModeledHdfTable.nrows is '+str(self.ModeledHdfTable.nrows)
 				]
 			)
 			'''
 
 			#Append and row if it is new
 			if self.RowedHdfIsBool==False and len(
-				self.RowedHdfIsBoolsList)==self.TabledHdfTable.nrows:
+				self.RowedHdfIsBoolsList)==self.ModeledHdfTable.nrows:
 
 				#Check
-				if self.TabledHdfTable!=None:
+				if self.ModeledHdfTable!=None:
 
 					#debug
 					'''
@@ -251,7 +251,7 @@ class InserterClass(
 
 					#Get the row
 					Row=None
-					Row=self.TabledHdfTable.row
+					Row=self.ModeledHdfTable.row
 
 					#debug
 					'''
@@ -296,8 +296,8 @@ class InserterClass(
 						[
 							'This is a new hdf row',
 							('self.',self,['InsertedItemTuplesList'])
-							#'Colnames are : '+str(self.TabledHdfTable.colnames),
-							#'self.TabledHdfTable is '+str(dir(self.TabledHdfTable)),
+							#'Colnames are : '+str(self.ModeledHdfTable.colnames),
+							#'self.ModeledHdfTable is '+str(dir(self.ModeledHdfTable)),
 							#'self.ModeledDescriptionClass is '+(str(self.ModeledDescriptionClass.columns) if hasattr(self.ModeledDescriptionClass,'columns') else ""),
 							#'Row is '+str(dir(Row)),
 							#'Row.table is '+str(Row.table),
@@ -320,7 +320,7 @@ class InserterClass(
 
 					#Append and Insert
 					Row.append()
-					self.TabledHdfTable.flush()
+					self.ModeledHdfTable.flush()
 					
 			else:
 

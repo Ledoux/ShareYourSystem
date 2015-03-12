@@ -40,8 +40,7 @@ ShapeTuplingStr='_'
 	**{
 		'ClassingSwitchMethodStrsList':[
 			'shape',
-			'model',
-			'tabular'
+			'model'
 		]
 	}
 )
@@ -83,12 +82,14 @@ class ShaperClass(BaseClass):
 		#
 
 		#debug
+		'''
 		self.debug(
 					[
 						'We shape here',
 						("self.",self,['ShapingDimensionTuplesList'])
 					]
 				)
+		'''
 
 		#Check
 		if len(self.ShapingDimensionTuplesList)>0:
@@ -104,12 +105,14 @@ class ShaperClass(BaseClass):
 			self.ShapedDescriptionGetKeyStrsList=list(self.ShapedDescriptionGetKeyStrsList)
 
 			#debug
+			'''
 			self.debug(
 				[
 					'ShapedDescriptionDimensionGetTuplesList is ',
 					str(ShapedDescriptionDimensionGetTuplesList)
 				]
 			)
+			'''
 
 			#unzip
 			self.ShapedDescriptionDimensionGetKeyStrsListsList=SYS.unzip(
@@ -133,11 +136,13 @@ class ShaperClass(BaseClass):
 				)
 
 			#debug
+			'''
 			self.debug(
 				[
 					('self.',self,['ShapedDescriptionDimensionIntsListsList'])
 				]
 			)
+			'''
 
 		else:
 
@@ -147,6 +152,7 @@ class ShaperClass(BaseClass):
 			self.ShapedDescriptionDimensionGetKeyStrsListsList=[]
 
 		#debug
+		'''
 		self.debug(
 			[
 				("self.",self,[
@@ -156,6 +162,7 @@ class ShaperClass(BaseClass):
 								])
 			]
 		)
+		'''
 
 		#/################/#
 		# Find where in the description tuokes list it has to be modified and
@@ -249,13 +256,15 @@ class ShaperClass(BaseClass):
 		#
 
 		#debug
+		'''
 		self.debug(
 					[	
 						'Do we have to shape before model',
 						('self.',self,['ModelingHdfBool'])
 					]
 			)
-	
+		'''
+
 		#Check
 		if self.ModelingHdfBool:
 
@@ -267,12 +276,14 @@ class ShaperClass(BaseClass):
 			#
 
 			#debug
+			'''
 			self.debug(
 					[
 						'Ok we have shaped',
 						('self.',self,['ShapedStr'])
 					]
 				)
+			'''
 
 			#Get the new ModeledKeyStr
 			if self.ShapedStr!="":
@@ -294,13 +305,14 @@ class ShaperClass(BaseClass):
 				self.ModeledDescriptionKeyStr=self.ModeledSuffixStr
 
 			#debug
+			'''
 			self.debug(
 						[
 							'We set the new ModeledDescriptionKeyStr',
 							('self.',self,['ShapedStr','ModeledDescriptionKeyStr'])
 						]
 					)	
-
+			'''
 
 			#/#################/#
 			# Set the good format for the Description tuples list
@@ -310,6 +322,7 @@ class ShaperClass(BaseClass):
 			ModeledGetKeyStrsList=SYS.unzip(self.ModelingDescriptionTuplesList,[0])
 
 			#debug
+			'''
 			self.debug(
 						[
 							('Now change the shape of the shaping cols'),
@@ -319,6 +332,7 @@ class ShaperClass(BaseClass):
 								])
 						]
 					)	
+			'''
 
 			#map
 			ShapedModelingDescriptionTuplesList=map(
@@ -327,6 +341,7 @@ class ShaperClass(BaseClass):
 				)
 
 			#debug
+			'''
 			self.debug(
 					[
 						'ShapedModelingDescriptionTuplesList is '+str(
@@ -335,6 +350,7 @@ class ShaperClass(BaseClass):
 						('self.',self,['ShapedDescriptionDimensionIntsListsList'])
 					]
 				)
+			'''
 
 			#map
 			ModeledShapeDescriptionTuplesList=map(
@@ -351,12 +367,14 @@ class ShaperClass(BaseClass):
 				)
 
 			#debug
+			'''
 			self.debug(
 					[
 						'ModeledShapeDescriptionTuplesList is '+str(
 							ModeledShapeDescriptionTuplesList)
 					]
 				)
+			'''
 
 			#set the shaping cols
 			map(
@@ -370,6 +388,7 @@ class ShaperClass(BaseClass):
 				)
 
 			#debug	
+			'''
 			self.debug(
 				[
 					"After the shape",
@@ -377,50 +396,34 @@ class ShaperClass(BaseClass):
 					self.ModelingDescriptionTuplesList)
 				]
 			)
-		
-		#/#################/#
-		# base method
-		#
-
-		#debug
-		self.debug(
-				'Now we call the base model method'
-			)
-
-		#model then
-		BaseClass.model(self)
-
-	def mimic_tabular(self):
+			'''
 
 		#/#################/#
-		# first tabular
+		# Now specify the name of the table
 		#
-
-		#debug
-		self.debug(
-				'First we tabular with the base'
-			)
-
-		#tabular Tabularer method first
-		Tabularer.TabularerClass.tabular(self)
 
 		#Check
 		if self.ModelingHdfBool:
 		
+			#set
+			self.ModeledHdfSuffixStr=self.ModelTagStr+'Table'
+
 			#/#################/#
 			# Now adapt also the name of the tables
 			#
 
 			#debug
+			'''
 			self.debug(
 						[
-							'We add the ShapedStr to the TabularedSuffix Str ?',
+							'We add the ShapedStr to the ModeledSuffix Str ?',
 							('self.',self,[
 												'ShapedStr',
-												'TabularedHdfSuffixStr'
+												'ModeledHdfSuffixStr'
 											])
 						]
 					)
+			'''
 
 			#Add the ShapedStr
 			if self.ShapedStr!="":
@@ -429,14 +432,14 @@ class ShaperClass(BaseClass):
 				'''
 				self.debug(
 					[
-						' ShapeJoiningStr not in self.TabularedSuffixStr is '+str(
-							ShapeJoiningStr not in self.TabularedSuffixStr))
+						' ShapeJoiningStr not in self.ModeledSuffixStr is '+str(
+							ShapeJoiningStr not in self.ModeledSuffixStr))
 					]
 				)
 				'''
 
 				#Check
-				if ShapeJoiningStr not in self.TabularedHdfSuffixStr:
+				if ShapeJoiningStr not in self.ModeledHdfSuffixStr:
 
 					#debug
 					'''
@@ -444,21 +447,30 @@ class ShaperClass(BaseClass):
 					'''
 
 					#Add
-					self.TabularedHdfSuffixStr=self.ShapedStr+ShapeJoiningStr+self.TabularedHdfSuffixStr
+					self.ModeledHdfSuffixStr=self.ShapedStr+ShapeJoiningStr+self.ModeledHdfSuffixStr
 
 				#debug
+				'''
 				self.debug(
 					[
-						('self.',self,['TabularedHdfSuffixStr'])
+						('self.',self,['ModeledHdfSuffixStr'])
 					]
 				)
+				'''
 
-		#/##################/#
-		# Rehook with the table process
+		#/#################/#
+		# base method
 		#
 
-		#then table
-		BaseClass.table(self)
+		#debug
+		'''
+		self.debug(
+				'Now we call the base model method'
+			)
+		'''
+
+		#model then
+		BaseClass.model(self)
 
 	def mimic_insert(self):
 
@@ -541,13 +553,15 @@ class ShaperClass(BaseClass):
 			#
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We reset some methods',
 					#('self.',self,['SwitchMethodDict'])
 				]
 			)
-
+			'''
+			
 			#switch we want all the classes for each method
 			map(
 					lambda __MethodStr:

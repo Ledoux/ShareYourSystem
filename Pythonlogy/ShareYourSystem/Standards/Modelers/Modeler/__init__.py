@@ -25,16 +25,19 @@ SYS.setSubModule(globals())
 import collections
 import copy
 from ShareYourSystem.Standards.Classors import Doer
+from ShareYourSystem.Standards.Itemizers import Getter
 #</ImportSpecificModules>
 
 #<DefineLocals>
 AnalyzingColStrsList=[
-							'Int',
-							'Float',
-							'Str'
+						'Int',
+						'Float',
+						'Str'
 					]
-ModelingJoinStr='__'
-ModelingLinkStr='_'
+ModelJoinStr='__'
+ModelLinkStr='_'
+ModelOrderStr='xx'
+ModelDimensionStr='_'
 #</DefineLocals>
 
 #<DefineFunctions>
@@ -103,12 +106,37 @@ class ModelerClass(BaseClass):
 						'DefaultValueType':property,
 						'PropertyInitVariable':[],
 						'PropertyDocStr':'I described variables for storing them in hdf'
-					}, 	
+					}, 		
 					_ModelingMongoBool=True,
-					_ModelingHdfBool=False,	
-					_ModeledDescriptionKeyStr="",						
+					_ModelingHdfBool=False,						
 					_ModeledDescriptionClassesOrderedDict=None,																
-					_ModeledDescriptionClass=None, 													
+					_ModeledDescriptionClass=None,
+					_ModeledMongoDeriveNoderVariable=None,
+					_ModeledHdfGroupVariable=None,
+					_ModeledMongoTopClientVariable=None,
+					_ModeledMongoLocalDatabaseVariable=None,
+					_ModeledHdfTopFileVariable=None,
+					_ModeledMongoSuffixStr="",
+					_ModeledHdfSuffixStr="",
+					_ModeledHdfKeyStrsList=None,
+					_ModeledMongoKeyStrsList=None,
+					_ModeledMongoCollectionsOrderedDict=None,
+					_ModeledHdfTablesOrderedDict=None,
+					_ModeledMongoKeyStr="", 	
+					_ModeledHdfKeyStr="", 
+					_ModeledMongoIndexInt=-1, 	
+					_ModeledHdfIndexInt=-1, 			
+					_ModeledMongoCollection=None, 	
+					_ModeledHdfTable=None, 							
+					_ModeledDescriptionGetKeyStrsList=None, 
+					_ModeledDescriptionDimensionGetKeyStrsListsList=None,
+					_ModeledDescriptionDimensionIntsListsList=None,  
+					_ModeledShapeIndexIntsList=None,
+					_ModeledDimensionGetKeyStrsList=None, 
+					_ModeledDimensionIntsList=None,
+					_ModeledShapeStr="",
+					_ModeledDimensionTuplesList=None,	
+					_ModeledDescriptionVariable=None,	 													
 					**_KwargVariablesDict
 				):
 
@@ -119,21 +147,714 @@ class ModelerClass(BaseClass):
 		""" """
 
 		#Debug
+		'''
 		self.debug('model start')
+		'''
 		
 		#/###################/#
-		# Define the ModeledKeyStr 
+		# Mongo Case
 		#
 
-		if self.ModeledDescriptionKeyStr=='':
-			self.ModeledDescriptionKeyStr=self.ModelTagStr
+		#Check
+		if self.ModelingMongoBool:
+
+			#debug
+			'''
+			self.debug(
+					'We model mongo here'
+				)
+			'''
+
+			#set
+			self.ModeledMongoSuffixStr=self.ModelTagStr+'Collection'
+
+			#debug
+			'''
+			self.debug(
+				[
+					('self.',self,[
+							'PymongoneClientVariable',
+							'ModeledMongoSuffixStr'
+						]
+					)
+				]
+			)
+			'''
+
+			#Check
+			if self.ModelDeriveControllerVariable.PymongoneClientVariable==None:
+
+				#debug
+				'''
+				self.debug('We have to pymongo first...')
+				'''
+
+				#pymongo
+				self.ModelDeriveControllerVariable.pymongo()
+
+			#Link
+			self.ModeledMongoTopClientVariable=self.ModelDeriveControllerVariable.PymongoneClientVariable
+			
+			#Check
+			if self.ModeledMongoTopClientVariable!=None:
+
+				#debug
+				'''
+				self.debug(
+							[	
+								'Looking for names of collections here',
+								('self.',self,[
+									'ModeledMongoTopClientVariable'
+									]),
+							]
+						)
+				'''
+
+				#set
+				self.ModeledMongoDatabaseKeyStr=self.ModelDeriveControllerVariable.ControlModelStr
+
+				#set
+				self.ModelDeriveControllerVariable.PymongoingDatabaseKeyStr=self.ModeledMongoDatabaseKeyStr
+
+				#set
+				self.ModeledMongoLocalDatabaseVariable=self.ModeledMongoTopClientVariable[
+						self.ModeledMongoDatabaseKeyStr
+				]
+
+				#debug
+				'''
+				self.debug(
+						[
+							('self.',self,[
+								'ModeledMongoDatabaseKeyStr',
+								'ModeledMongoLocalDatabaseVariable'
+								]),
+							"id(self.ModeledMongoLocalDatabaseVariable) is "+str(
+								id(self.ModeledMongoLocalDatabaseVariable))
+						]
+					)
+				'''
+
+				#set
+				self.ModeledMongoLocalDatabaseVariable.__dict__[
+					'ParentDerivePymongoer'
+				]=self.ModelDeriveControllerVariable
+
+				#alias
+				self.ModelDeriveControllerVariable.Database=self.ModeledMongoLocalDatabaseVariable
+
+				#debug
+				'''
+				self.debug(
+							[	
+								('self.',self,[
+									'ModeledMongoLocalDatabaseVariable'
+									]),
+								"'ParentDerivePymongoer' in self.ModeledMongoLocalDatabaseVariable.__dict__",
+								'ParentDerivePymongoer' in self.ModeledMongoLocalDatabaseVariable.__dict__
+							]
+						)
+				'''
+
+				#Get and sort
+				self.ModeledMongoKeyStrsList=map(
+					str,
+					sorted(
+						filter(
+								lambda __KeyStr:
+								__KeyStr.endswith(
+									self.ModeledMongoSuffixStr
+								),
+								self.ModeledMongoLocalDatabaseVariable.collection_names()
+							)
+						)
+				)
+				
+				#debug
+				'''
+				self.debug(
+					[	
+						('self.',self,[
+							'ModeledMongoKeyStrsList'
+							])
+					]
+				)
+				'''
+				
+				#update
+				self.ModeledMongoCollectionsOrderedDict.update(
+					map(
+							lambda __ModeledKeyStr:
+							(
+								__ModeledKeyStr,
+								self.ModeledMongoLocalDatabaseVariable[
+									__ModeledKeyStr
+								]
+							),
+							self.ModeledMongoKeyStrsList
+						)
+				)
+
+				#debug
+				'''
+				self.debug(("self.",self,[
+											'ModeledMongoSuffixStr',
+											'ModeledMongoKeyStrsList'
+											]))
+				'''
+
+			#debug
+			'''
+			self.debug(
+						[
+							'ModeledMongoKeyStrsList',
+							'ModeledMongoSuffixStr',
+							'ModeledMongoKeyStr'
+						]
+					)
+			'''
+
+			#Get the suffix Strs of all the tables and their index
+			ModeledMongoList=SYS.unzip(map(
+					lambda __StrsList:
+					(
+						__StrsList[1],
+						ModelOrderStr.join(__StrsList[2:])
+					),
+					map(
+							lambda __ModeledMongoKeyStr:
+							__ModeledMongoKeyStr.split(ModelOrderStr),
+							self.ModeledMongoKeyStrsList
+						)
+				),[0,1]
+			)
+
+			#debug
+			'''
+			self.debug(('vars ',vars(),['ModeledHdfList']))
+			'''
+			
+			#Unpack if it is possible
+			if len(ModeledMongoList)>0:
+
+				#Unpack
+				[ModeledMongoIndexIntsTuple,ModeledMongoSuffixStrsList]=ModeledMongoList
+
+				#debug
+				'''
+				self.debug(
+							[
+								'There are already some tables',
+								'ModeledMongoSuffixStrsList is '+str(ModeledMongoSuffixStrsList),
+								"self.ModeledMongoSuffixStr is "+str(
+									self.ModeledMongoSuffixStr)
+							]
+						)
+				'''
+
+				if self.ModeledMongoSuffixStr not in ModeledMongoSuffixStrsList:
+
+					#Increment the IndexStr
+					ModeledMongoIndexInt=max(map(int,ModeledMongoIndexIntsTuple))+1
+
+					#Strify
+					ModeledMongoIndexStr=str(ModeledMongoIndexInt)
+
+					#debug
+					'''
+					self.debug('IndexStr of this new table is '+str(IndexStr))
+					'''
+					
+				else:
+
+					#Get the already setted one
+					ModeledMongoIndexStr=self.ModeledMongoKeyStrsList[
+							ModeledMongoSuffixStrsList.index(self.ModeledMongoSuffixStr)
+						].split(ModelOrderStr)[1]
+
+					#Intify
+					ModeledMongoIndexInt=(int)(ModeledMongoIndexStr)
+
+					#debug
+					'''
+					self.debug('IndexStr of this not new table is '+str(IndexStr))
+					'''
+
+			else:
+
+				#debug
+				'''
+				self.debug('There are no tables here')
+				'''
+
+				#set to empty lists 
+				[ModeledMongoIndexIntsTuple,ModeledMongoSuffixStrsList]=[[],[]]
+
+				#Init the list
+				ModeledMongoIndexInt=0
+
+				#Strify
+				ModeledMongoIndexStr="0"
+
+			#Bind with ModeledHdfKeyStr setting
+			self.ModeledMongoKeyStr=ModelOrderStr+ModeledMongoIndexStr+ModelOrderStr+self.ModeledMongoSuffixStr
+
+			#set the ModeledInt
+			self.ModeledMongoIndexInt=ModeledMongoIndexInt
+
+			#debug
+			'''
+			self.debug("self.ModeledMongoKeyStr is "+str(self.ModeledMongoKeyStr))
+			'''
+			
+			#debug
+			'''
+			self.debug(
+						[
+							'Here we create the collection or get it depending if it is new or not',
+							'self.ModeledMongoKeyStr is '+self.ModeledMongoKeyStr,
+							'self.ModeledTopFileVariable!=None is '+str(self.ModeledTopFileVariable!=None)
+						]
+					)
+			'''
+
+			#Check
+			if self.ModeledMongoKeyStr!="" and self.ModeledMongoLocalDatabaseVariable!=None:
+
+				#debug
+				'''
+				self.debug(
+							[
+								('self.',self,[
+									'ModeledMongoKeyStr',
+									'ModeledMongoKeyStrsList'
+									]
+								),
+								'self.ModeledMongoLocalDatabaseVariable.collection_names() is ',
+								str(self.ModeledMongoLocalDatabaseVariable.collection_names())
+							]
+						)
+				'''
+				
+				#Create the collection if not already
+				if self.ModeledMongoKeyStr not in self.ModeledMongoKeyStrsList:
+
+					#debug
+					'''
+					self.debug(
+								[
+									'The collection not exists',
+								]
+							)
+					'''
+
+					#Create the collections
+					self.ModeledMongoCollection=self.ModeledMongoLocalDatabaseVariable.create_collection(
+						self.ModeledMongoKeyStr
+					)
+
+					#Append
+					self.ModeledMongoKeyStrsList.append(self.ModeledMongoKeyStr)
+
+				else:
+
+					#debug
+					'''
+					self.debug(
+						[
+							'The collection exists',
+						]
+					)
+					'''
+
+					#Else just get it 
+					self.ModeledMongoCollection=self.ModeledMongoLocalDatabaseVariable[
+						self.ModeledMongoKeyStr
+					]
+					
+				#set the in the ModeledMongoCollectionsOrderedDict
+				self.ModeledMongoCollectionsOrderedDict[
+					self.ModeledMongoKeyStr
+				]=self.ModeledMongoCollection
+
+				#debug
+				'''
+				self.debug("self.ModeledMongoCollectionsOrderedDict is "+str(self.ModeledMongoCollectionsOrderedDict))
+				'''
+				
+			#debug
+			'''
+			self.debug(
+						[
+							'Table is done here for mongo...',
+							('self.',self,[
+								'ModeledMongoCollection',
+								'ModeledMongoTopDatabaseVariable'
+								]
+							)
+						]
+					)
+			'''
 
 		#/###################/#
-		# Special case of hdf when we have to define Model Description class
+		# Hdf Case
 		#
 
 		#Check
 		if self.ModelingHdfBool:
+
+			#/################/#
+			# Model is to modify modeling description so keep an old version of this before
+			#
+
+			#keep a memory
+			if self.ModelingDescriptionTuplesList!=None:
+				self.ModeledDescriptionTuplesList=copy.deepcopy(
+					self.ModelingDescriptionTuplesList
+				)
+
+
+			#/################/#
+			# Pick the shape ints and their get key strs
+			#
+
+			#debug
+			'''
+			self.debug(
+						[
+							'We model shape here',
+							("self.",self,['ModeledDimensionTuplesList'])
+						]
+					)
+			'''
+
+			#Check
+			if len(self.ModeledDimensionTuplesList)>0:
+
+				#set
+				[
+					self.ModeledDescriptionGetKeyStrsList,
+					ModeledDescriptionDimensionGetTuplesList 
+					
+				]=SYS.unzip(self.ModeledDimensionTuplesList,[0,1])
+
+				#list
+				self.ModeledDescriptionGetKeyStrsList=list(self.ModeledDescriptionGetKeyStrsList)
+
+				#debug
+				'''
+				self.debug(
+					[
+						'ModeledDescriptionDimensionGetTuplesList is ',
+						str(ModeledDescriptionDimensionGetTuplesList)
+					]
+				)
+				'''
+
+				#unzip
+				self.ModeledDescriptionDimensionGetKeyStrsListsList=SYS.unzip(
+						list(ModeledDescriptionDimensionGetTuplesList),[1]
+					)
+
+				#debug
+				'''
+				self.debug(
+					[
+						('self.',self,['ModeledDescriptionDimensionGetKeyStrsListsList'])
+					]
+				)
+				'''
+
+				#get the corresponding real dimensions
+				self.ModeledDescriptionDimensionIntsListsList=map(
+						lambda __ModeledDescriptionDimensionGetKeyStrsList:
+						self.ModelDeriveControllerVariable[
+							Getter.GetMapStr
+						](
+							*__ModeledDescriptionDimensionGetKeyStrsList
+						).ItemizedMapValueVariablesList,
+						self.ModeledDescriptionDimensionGetKeyStrsListsList
+					)
+
+				#debug
+				'''
+				self.debug(
+					[
+						('self.',self,['ModeledDescriptionDimensionIntsListsList'])
+					]
+				)
+				'''
+
+			else:
+
+				#Default
+				self.ModeledDescriptionGetKeyStrsList=[]
+				self.ModeledDimensionGetKeyStrsList=[]
+				self.ModeledDescriptionDimensionGetKeyStrsListsList=[]
+
+			#debug
+			'''
+			self.debug(
+				[
+					("self.",self,[
+										'ModeledDescriptionGetKeyStrsList',
+										'ModeledDescriptionDimensionGetKeyStrsListsList',
+										'ModeledDescriptionDimensionIntsListsList'
+									])
+				]
+			)
+			'''
+
+			#/################/#
+			# Find where in the description takes list it has to be modified
+			#
+
+			#Definition
+			ModeledGetKeyStrsList=SYS.unzip(self.ModelingDescriptionTuplesList,[0])
+
+			#set
+			self.ModeledShapeIndexIntsList=map(
+					lambda __ModeledDescriptionGetKeyStr:
+					ModeledGetKeyStrsList.index(__ModeledDescriptionGetKeyStr),
+					self.ModeledDescriptionGetKeyStrsList
+				)
+
+			#debug
+			'''
+			self.debug(
+					[
+						'We know the index of the shape description tuples',
+						('self.',self,['ModeledShapeIndexIntsList'])
+					]
+				)
+			'''
+
+			#/################/#
+			# set flat all the get key str for the shaping int 
+			#
+
+			#Check
+			if self.ModelDeriveControllerVariable!=None:
+
+				#debug
+				'''
+				self.debug(
+						[	
+							'We flat the DimensionGetKeyStrsLists',
+							('self.',self,[
+								'ModeledDescriptionDimensionGetKeyStrsListsList'
+								])
+						]
+					)
+				'''
+
+				#Flat and set
+				self.ModeledDimensionGetKeyStrsList=list(
+					set(
+						SYS.flat(
+							self.ModeledDescriptionDimensionGetKeyStrsListsList
+							)
+						)
+					)
+
+				#debug
+				'''
+				self.debug(
+						[
+							('self.',self,[
+								'ModeledDimensionGetKeyStrsList'
+								])
+						]
+					)
+				'''
+
+				#Pick
+				self.ModeledDimensionIntsList=self.ModelDeriveControllerVariable[
+					Getter.GetMapStr
+				](
+					*self.ModeledDimensionGetKeyStrsList
+				).ItemizedMapValueVariablesList
+
+			else:
+
+				#Default
+				self.ModeledDimensionIntsList=[]
+						
+
+			#/################/#
+			# map a join str with this
+			#
+
+			#debug
+			'''
+			self.debug(
+				[
+					'No we set the ModeledShapeStr',
+					("self.",self,[
+						'ModeledDimensionGetKeyStrsList',
+						'ModeledDimensionIntsList'
+					])
+				]
+			)
+			'''
+
+			#Bind with ModeledShapeStr setting
+			self.ModeledShapeStr=ModelJoinStr.join(
+				map(
+						lambda __ModeledDescriptionGetKeyStr,__ModeledDimensionVariable:
+						ModelJoinStr+str(
+							__ModeledDescriptionGetKeyStr
+							)+ModelDimensionStr+str(
+							__ModeledDimensionVariable),
+						self.ModeledDimensionGetKeyStrsList,
+						self.ModeledDimensionIntsList
+					)
+			)
+
+			#debug 
+			'''
+			self.debug(
+				[
+					('self.',self,['ModeledShapeStr'])
+				]
+			)
+			'''
+
+			#/#################/#
+			# Adapt the name of the description model given the shape
+			#
+
+			#debug
+			'''
+			self.debug(
+					[
+						'Ok we have shaped',
+						('self.',self,['ModeledShapeStr'])
+					]
+				)
+			'''
+
+			#Get the new ModeledKeyStr
+			if self.ModeledShapeStr!="":
+
+				#debug
+				'''
+				self.debug(
+							[
+								'We set the new ModeledHdfSuffixStr',
+								('self.',self,['ModeledShapeStr','ModelTagStr'])
+							]
+						)
+				'''
+
+				#set
+				self.ModeledHdfSuffixStr=self.ModeledShapeStr+ModelJoinStr+self.ModelTagStr
+
+			else:
+
+				#set
+				self.ModeledHdfSuffixStr=self.ModelTagStr
+
+			#debug
+			'''
+			self.debug(
+						[
+							'We have set the new ModeledHdfSuffixStr',
+							('self.',self,[
+								'ModeledShapeStr',
+								'ModeledHdfSuffixStr'
+							])
+						]
+					)	
+			'''
+
+			#/#################/#
+			# Set the good format for the Description tuples list
+			#
+
+			#Unnzip
+			ModeledGetKeyStrsList=SYS.unzip(self.ModelingDescriptionTuplesList,[0])
+
+			#debug
+			'''
+			self.debug(
+						[
+							('Now change the shape of the shaping cols'),
+							('self.',self,[
+								'ModelingDescriptionTuplesList',
+								'ModeledShapeIndexIntsList'
+								])
+						]
+					)	
+			'''
+
+			#map
+			ModeledShapeDescriptionTuplesList=map(
+					self.ModelingDescriptionTuplesList.__getitem__,
+					self.ModeledShapeIndexIntsList
+				)
+
+			#debug
+			'''
+			self.debug(
+					[
+						'ModeledShapeDescriptionTuplesList is '+str(
+							ModeledShapeDescriptionTuplesList
+						),
+						('self.',self,['ModeledDescriptionDimensionIntsListsList'])
+					]
+				)
+			'''
+
+			#map
+			ModeledShapeDescriptionTuplesList=map(
+					lambda __ModeledShapeDescriptionTuple,__ModeledDescriptionDimensionIntsList:
+					(
+						__ModeledShapeDescriptionTuple[0],
+						__ModeledShapeDescriptionTuple[1],
+						__ModeledShapeDescriptionTuple[2][0](
+							shape=__ModeledDescriptionDimensionIntsList
+						)
+					),
+					ModeledShapeDescriptionTuplesList,
+					self.ModeledDescriptionDimensionIntsListsList
+				)
+
+			#debug
+			'''
+			self.debug(
+					[
+						'ModeledShapeDescriptionTuplesList is '+str(
+							ModeledShapeDescriptionTuplesList)
+					]
+				)
+			'''
+
+			#set the shaping cols
+			map(
+					lambda __ModeledIndexInt,__ModeledModelingDescriptionTuple:
+					self.ModeledDescriptionTuplesList.__setitem__(
+						__ModeledIndexInt,
+						__ModeledModelingDescriptionTuple
+					),
+					self.ModeledShapeIndexIntsList,
+					ModeledShapeDescriptionTuplesList
+				)
+
+			#debug
+			'''	
+			self.debug(
+				[
+					"After the shape",
+					"Now self.ModeledDescriptionTuplesList is "+SYS._str(
+					self.ModeledDescriptionTuplesList)
+				]
+			)
+			'''
+
+			#/###################/#
+			# Define the Description
+			#
 
 			#import 
 			import tables
@@ -145,21 +866,23 @@ class ModelerClass(BaseClass):
 				RowInt=tables.Int64Col()
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We add descriptions in the description Class',
-					('self.',self,['ModelingDescriptionTuplesList'])
+					('self.',self,['ModeledDescriptionTuplesList'])
 				]
 			)
-			
+			'''
+
 			#set the cols in the ModelClass
 			map(
-					lambda __ModelingColumnTuple:
+					lambda __ModeledColumnTuple:
 					DescriptionClass.columns.__setitem__(
-						__ModelingColumnTuple[1],
-						__ModelingColumnTuple[2]
+						__ModeledColumnTuple[1],
+						__ModeledColumnTuple[2]
 						),
-					self.ModelingDescriptionTuplesList
+					self.ModeledDescriptionTuplesList
 				)
 
 			#Give a name
@@ -172,6 +895,352 @@ class ModelerClass(BaseClass):
 
 			#set the ModeledDescriptionClass
 			self.ModeledDescriptionClass=DescriptionClass
+
+			#debug
+			'''
+			self.debug('We tabular for hdf here...')
+			'''
+			
+			#set
+			if self.ModeledHdfSuffixStr=="":
+				self.ModeledHdfSuffixStr=self.ModelTagStr+'Table'
+
+			#Check
+			if self.ModelDeriveControllerVariable.HdformatedFileVariable==None:
+
+				#Check
+				if self.ModelDeriveControllerVariable.HdformatingFileKeyStr=='':
+
+					#set
+					self.ModelDeriveControllerVariable.HdformatingFileKeyStr=self.ModelDeriveControllerVariable.ControlModelStr+'.hdf5'
+
+				#debug
+				'''
+				self.debug(
+					[
+						'We have to hdformat first...',
+						'self.ModelDeriveControllerVariable.HdformatingFileKeyStr is ',
+						self.ModelDeriveControllerVariable.HdformatingFileKeyStr
+					]
+				)
+				'''
+
+				#Hdformat
+				self.ModelDeriveControllerVariable.hdformat()
+				
+			#Set
+			self.ModelDeriveControllerVariable.HdfGroupPathStr=self.ModelDeriveControllerVariable.ControlModelStr
+
+			#Link
+			self.ModeledHdfTopFileVariable=self.ModelDeriveControllerVariable.HdformatedFileVariable
+			
+			#debug
+			'''
+			self.debug(('self.',self,[
+										'ModeledHdfTopFileVariable'
+									]))
+			'''
+			
+			#/#################/#
+			# Check for all the tables already defined here
+			#
+
+			#Check
+			if self.ModeledHdfTopFileVariable!=None:
+
+				#debug
+				'''
+				self.debug(
+					[	
+						'Looking for names of tables here',
+						(
+							'self.ModelDeriveControllerVariable.',
+							self.ModelDeriveControllerVariable,
+							['HdfGroupPathStr']
+						)
+					]
+				)
+				'''
+
+				#Definition Modeled attributes
+				self.ModeledHdfGroupVariable=self.ModeledHdfTopFileVariable.getNode(
+					self.ModelDeriveControllerVariable.HdfGroupPathStr
+				)
+
+				#debug
+				'''
+				self.debug(
+							[
+								('looking for tables with the same Model Tag Str as : '),
+								('self.',self,['ModelTagStr'])
+							]
+						)
+				'''
+
+				#Get and sort
+				self.ModeledHdfKeyStrsList=sorted(
+					filter(
+							lambda __KeyStr:
+							__KeyStr.endswith(self.ModelTagStr),
+							self.ModeledHdfGroupVariable._v_leaves.keys()
+						)
+				)
+				
+				#update
+				self.ModeledHdfTablesOrderedDict.update(
+					map(
+							lambda __ModeledKeyStr:
+							(
+								__ModeledKeyStr,
+								self.ModeledHdfGroupVariable._f_getChild(
+									__ModeledKeyStr
+								)
+							),
+							self.ModeledHdfKeyStrsList
+						)
+				)
+
+				#debug
+				'''
+				self.debug(
+					[
+						("self.",self,[
+										'ModeledHdfTablesOrderedDict'
+									])
+					]
+				)
+				'''
+
+			#/################/#
+			# Refind all the names of the tables
+			#
+
+			#debug
+			'''
+			self.debug(
+						('self.',self,[
+							'ModeledHdfKeyStrsList',
+							'ModeledHdfSuffixStr',
+							'ModeledHdfKeyStr'
+						])
+					)
+			'''
+
+			#Get the suffix Strs of all the tables and their index
+			ModeledHdfList=SYS.unzip(map(
+					lambda __StrsList:
+					(
+						__StrsList[1],
+						ModelOrderStr.join(__StrsList[2:])
+					),
+					map(
+							lambda __ModeledHdfKeyStr:
+							__ModeledHdfKeyStr.split(ModelOrderStr),
+							self.ModeledHdfKeyStrsList
+						)
+				),[0,1]
+			)
+
+			#debug
+			'''
+			self.debug(('vars ',vars(),['ModeledHdfList']))
+			'''
+
+			#/##################/#
+			# Find if there are already some tables here and deduce the index of the table
+			#
+
+			#Unpack if it is possible
+			if len(ModeledHdfList)>0:
+
+				#Unpack
+				[ModeledHdfIndexIntsTuple,ModeledHdfSuffixStrsList]=ModeledHdfList
+
+				#debug
+				'''
+				self.debug(
+							[
+								'There are already some tables',
+								'ModeledHdfSuffixStrsList is '+str(ModeledHdfSuffixStrsList),
+								"self.ModeledHdfSuffixStr is "+str(
+									self.ModeledHdfSuffixStr)
+							]
+						)
+				'''
+
+				if self.ModeledHdfSuffixStr not in ModeledHdfSuffixStrsList:
+
+					#Increment the IndexStr
+					ModeledHdfIndexInt=max(map(int,ModeledHdfIndexIntsTuple))+1
+
+					#Strify
+					ModeledHdfIndexStr=str(ModeledHdfIndexInt)
+
+					#debug
+					'''
+					self.debug('IndexStr of this new table is '+str(IndexStr))
+					'''
+					
+				else:
+
+					#Get the already setted one
+					ModeledHdfIndexStr=self.ModeledHdfKeyStrsList[
+							ModeledHdfSuffixStrsList.index(self.ModeledHdfSuffixStr)
+						].split(ModelOrderStr)[1]
+
+					#Intify
+					ModeledHdfIndexInt=(int)(ModeledHdfIndexStr)
+
+					#debug
+					'''
+					self.debug('IndexStr of this not new table is '+str(IndexStr))
+					'''
+
+			else:
+
+				#debug
+				'''
+				self.debug('There are no tables here')
+				'''
+
+				#set to empty lists 
+				[ModeledHdfIndexIntsTuple,ModeledHdfSuffixStrsList]=[[],[]]
+
+				#Init the list
+				ModeledHdfIndexInt=0
+
+				#Strify
+				ModeledHdfIndexStr="0"
+
+			#/##################/#
+			# set the table key str
+			#
+
+			#debug
+			'''
+			self.debug(
+					[
+						'We set the table key str',
+						('self.',self,[
+							'ModeledHdfSuffixStr'
+						]),
+						'ModeledHdfIndexStr is '+str(ModeledHdfIndexStr)
+					]
+				)
+			'''
+
+			#Bind with ModeledHdfKeyStr setting
+			self.ModeledHdfKeyStr=ModelOrderStr+ModeledHdfIndexStr+ModelOrderStr+self.ModeledHdfSuffixStr
+
+			#set the ModeledInt
+			self.ModeledHdfIndexInt=ModeledHdfIndexInt
+
+			#debug
+			'''
+			self.debug(
+				[
+					"self.ModeledHdfKeyStr is "+str(self.ModeledHdfKeyStr)
+				]
+			)
+			'''
+
+			#debug
+			'''
+			self.debug(
+						[
+							'Here we create the table or get it depending if it is new or not',
+							('self.',self,[
+								'ModeledHdfKeyStr',
+								'ModeledHdfTopFileVariable'
+								])
+						]
+					)
+			'''
+			
+			#Check
+			if self.ModeledHdfKeyStr!="" and self.ModeledHdfTopFileVariable!=None:
+
+				#debug
+				'''
+				self.debug(
+							[
+								('self.',self,[
+									'ModeledHdfKeyStr',
+									'ModeledHdfKeyStrsList'
+								])
+							]
+						)
+				'''
+				
+				#Create the Table if not already
+				if self.ModeledHdfKeyStr not in self.ModeledHdfKeyStrsList:
+
+					#debug
+					'''
+					self.debug(
+								[
+									'The table not exists',
+								]
+							)
+					'''
+
+					#Create the Table in the hdf5
+					self.ModeledHdfTable=self.ModeledHdfTopFileVariable.create_table(
+						self.ModeledHdfGroupVariable,
+						self.ModeledHdfKeyStr,
+						self.ModeledDescriptionClass,
+						self.ModeledDescriptionClass.__doc__ 
+						if self.ModeledDescriptionClass.__doc__!=None 
+						else "This is the "+self.ModeledDescriptionClass.__name__
+					)
+
+					#Append
+					self.ModeledHdfKeyStrsList.append(
+						self.ModeledHdfKeyStr
+					)
+
+				else:
+
+					#debug
+					'''
+					self.debug(
+									[
+										'The table exists',
+										"self.ModeledGroupVariable is "+str(self.ModeledGroupVariable)
+									]
+								)
+					'''
+
+					#Else just get it 
+					self.ModeledHdfTable=self.ModeledHdfGroupVariable._f_getChild(
+						self.ModeledHdfKeyStr
+					)
+
+				#set the in the TablesOrderedDict
+				self.ModeledHdfTablesOrderedDict[
+					self.ModeledHdfKeyStr
+				]=self.ModeledHdfTable
+
+				#debug
+				'''
+				self.debug("self.ModeledHdfTablesOrderedDict is "+str(
+					self.ModeledHdfTablesOrderedDict))
+				'''
+				
+			#debug
+			'''
+			self.debug(
+						[
+							'Table is done here for hdf...',
+							('self.',self,[
+								'ModeledHdfTable',
+								'ModeledHdfTopFileVariable'
+								]
+							)
+						]
+					)
+			'''
+
 
 	def propertize_setParentKeyStr(self,_SettingValueVariable):
 
@@ -216,7 +1285,6 @@ class ModelerClass(BaseClass):
 		#model
 		self.model()
 
-
 	def propertize_setModelingDescriptionTuplesList(self,_SettingValueVariable):
 
 		#set
@@ -255,6 +1323,31 @@ class ModelerClass(BaseClass):
 			self.ModelingHdfBool=False
 			self.ModelingMongoBool=True
 
+		#/###################/#
+		# Look for items where it is a get dimension
+		#
+
+		#filter
+		self.ModeledDimensionTuplesList=map(
+			lambda __DescriptionTuple:
+			(__DescriptionTuple[0], __DescriptionTuple[2]),
+			SYS._filter(
+				lambda __DescriptionTuple:
+				type(__DescriptionTuple[2]) in [list,tuple],
+				_SettingValueVariable
+			)
+		)
+
+		#debug
+		'''
+		self.debug(
+				[
+					'We have setted the ModeledDimensionTuplesList',
+					('self.',self,['ModeledDimensionTuplesList'])
+				]
+			)
+		'''
+
 #</DefineClass>
 
 
@@ -269,6 +1362,31 @@ ModelerClass.PrintingClassSkipKeyStrsList.extend(
 		'ModeledDescriptionClassesOrderedDict',																
 		#'ModeledDescriptionClass', 													
 		'ModelDeriveControllerVariable',
+		'ModeledMongoDeriveNoderVariable',	
+		'ModeledHdfGroupVariable', 
+		'ModeledHdfTopFileVariable',
+		'ModeledMongoTopClientVariable',
+		'ModeledMongoLocalDatabaseVariable',									
+		'ModeledMongoSuffixStr',
+		'ModeledHdfSuffixStr',																
+		'ModeledMongoKeyStrsList',
+		'ModeledHdfKeyStrsList', 	
+		'ModeledMongoCollectionsOrderedDict',												
+		'ModeledHdfTablesOrderedDict',
+		'ModeledMongoKeyStr', 	
+		'ModeledHdfKeyStr', 
+		'ModeledMongoIndexInt', 	
+		'ModeledHdfIndexInt', 			
+		'ModeledMongoCollection', 	
+		'ModeledHdfTable',
+		'ModeledDescriptionGetKeyStrsList',	
+		'ModeledDescriptionDimensionIntsListsList',
+		'ModeledShapeIndexIntsList',														
+		'ModeledDimensionGetKeyStrsList',	
+		'ModeledDimensionIntsList',							
+		'ModeledShapeStr',
+		'ModeledDimensionTuplesList',
+		'ModeledDescriptionTuplesList'
 	]
 )
 #<DefinePrint>

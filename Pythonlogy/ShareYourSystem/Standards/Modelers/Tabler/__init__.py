@@ -15,7 +15,7 @@ a table at a certain node, taking in account the order of already created tables
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Modelers.Tabularer"
+BaseModuleStr="ShareYourSystem.Standards.Modelers.Modeler"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -34,6 +34,17 @@ class TablerClass(
 				):
 	
 	def default_init(self,
+						_TabledMongoDeriveNoderVariable=None,
+						_TabledHdfGroupVariable=None,
+						_TabledMongoTopClientVariable=None,
+						_TabledMongoLocalDatabaseVariable=None,
+						_TabledHdfTopFileVariable=None,
+						_TabledMongoSuffixStr="",
+						_TabledHdfSuffixStr="",
+						_TabledHdfKeyStrsList=None,
+						_TabledMongoKeyStrsList=None,
+						_TabledMongoCollectionsOrderedDict=None,
+						_TabledHdfTablesOrderedDict=None,
 						_TabledMongoKeyStr="", 	
 						_TabledHdfKeyStr="", 
 						_TabledMongoIndexInt=-1, 	
@@ -74,9 +85,154 @@ class TablerClass(
 			#debug
 			'''
 			self.debug(
+					'We tabular mongo here'
+				)
+			'''
+
+			#set
+			self.TabledMongoSuffixStr=self.ModelTagStr+'Collection'
+
+			#debug
+			'''
+			self.debug(
+				[
+					('self.',self,[
+							'PymongoneClientVariable',
+							'TabledMongoSuffixStr'
+						]
+					)
+				]
+			)
+			'''
+
+			#Check
+			if self.ModelDeriveControllerVariable.PymongoneClientVariable==None:
+
+				#debug
+				'''
+				self.debug('We have to pymongo first...')
+				'''
+
+				#pymongo
+				self.ModelDeriveControllerVariable.pymongo()
+
+			#Link
+			self.TabledMongoTopClientVariable=self.ModelDeriveControllerVariable.PymongoneClientVariable
+			
+			#Check
+			if self.TabledMongoTopClientVariable!=None:
+
+				#debug
+				'''
+				self.debug(
+							[	
+								'Looking for names of collections here',
+								('self.',self,[
+									'TabledMongoTopClientVariable'
+									]),
+							]
+						)
+				'''
+
+				#set
+				self.TabledMongoDatabaseKeyStr=self.ModelDeriveControllerVariable.ControlModelStr
+
+				#set
+				self.ModelDeriveControllerVariable.PymongoingDatabaseKeyStr=self.TabledMongoDatabaseKeyStr
+
+				#set
+				self.TabledMongoLocalDatabaseVariable=self.TabledMongoTopClientVariable[
+						self.TabledMongoDatabaseKeyStr
+				]
+
+				#debug
+				'''
+				self.debug(
 						[
-							'TabularedMongoKeyStrsList',
-							'TabularedMongoSuffixStr',
+							('self.',self,[
+								'TabledMongoDatabaseKeyStr',
+								'TabledMongoLocalDatabaseVariable'
+								]),
+							"id(self.TabledMongoLocalDatabaseVariable) is "+str(
+								id(self.TabledMongoLocalDatabaseVariable))
+						]
+					)
+				'''
+
+				#set
+				self.TabledMongoLocalDatabaseVariable.__dict__[
+					'ParentDerivePymongoer'
+				]=self.ModelDeriveControllerVariable
+
+				#alias
+				self.ModelDeriveControllerVariable.Database=self.TabledMongoLocalDatabaseVariable
+
+				#debug
+				'''
+				self.debug(
+							[	
+								('self.',self,[
+									'TabledMongoLocalDatabaseVariable'
+									]),
+								"'ParentDerivePymongoer' in self.TabledMongoLocalDatabaseVariable.__dict__",
+								'ParentDerivePymongoer' in self.TabledMongoLocalDatabaseVariable.__dict__
+							]
+						)
+				'''
+
+				#Get and sort
+				self.TabledMongoKeyStrsList=map(
+					str,
+					sorted(
+						filter(
+								lambda __KeyStr:
+								__KeyStr.endswith(
+									self.TabledMongoSuffixStr
+								),
+								self.TabledMongoLocalDatabaseVariable.collection_names()
+							)
+						)
+				)
+				
+				#debug
+				'''
+				self.debug(
+					[	
+						('self.',self,[
+							'TabledMongoKeyStrsList'
+							])
+					]
+				)
+				'''
+				
+				#update
+				self.TabledMongoCollectionsOrderedDict.update(
+					map(
+							lambda __TabledKeyStr:
+							(
+								__TabledKeyStr,
+								self.TabledMongoLocalDatabaseVariable[
+									__TabledKeyStr
+								]
+							),
+							self.TabledMongoKeyStrsList
+						)
+				)
+
+				#debug
+				'''
+				self.debug(("self.",self,[
+											'TabledMongoSuffixStr',
+											'TabledMongoKeyStrsList'
+											]))
+				'''
+
+			#debug
+			'''
+			self.debug(
+						[
+							'TabledMongoKeyStrsList',
+							'TabledMongoSuffixStr',
 							'TabledMongoKeyStr'
 						]
 					)
@@ -92,7 +248,7 @@ class TablerClass(
 					map(
 							lambda __TabledMongoKeyStr:
 							__TabledMongoKeyStr.split(TablingOrderStr),
-							self.TabularedMongoKeyStrsList
+							self.TabledMongoKeyStrsList
 						)
 				),[0,1]
 			)
@@ -114,13 +270,13 @@ class TablerClass(
 							[
 								'There are already some tables',
 								'TabledMongoSuffixStrsList is '+str(TabledMongoSuffixStrsList),
-								"self.TabularedMongoSuffixStr is "+str(
-									self.TabularedMongoSuffixStr)
+								"self.TabledMongoSuffixStr is "+str(
+									self.TabledMongoSuffixStr)
 							]
 						)
 				'''
 
-				if self.TabularedMongoSuffixStr not in TabledMongoSuffixStrsList:
+				if self.TabledMongoSuffixStr not in TabledMongoSuffixStrsList:
 
 					#Increment the IndexStr
 					TabledMongoIndexInt=max(map(int,TabledMongoIndexIntsTuple))+1
@@ -136,8 +292,8 @@ class TablerClass(
 				else:
 
 					#Get the already setted one
-					TabledMongoIndexStr=self.TabularedMongoKeyStrsList[
-							TabledMongoSuffixStrsList.index(self.TabularedMongoSuffixStr)
+					TabledMongoIndexStr=self.TabledMongoKeyStrsList[
+							TabledMongoSuffixStrsList.index(self.TabledMongoSuffixStr)
 						].split(TablingOrderStr)[1]
 
 					#Intify
@@ -165,9 +321,9 @@ class TablerClass(
 				TabledMongoIndexStr="0"
 
 			#Bind with TabledHdfKeyStr setting
-			self.TabledMongoKeyStr=TablingOrderStr+TabledMongoIndexStr+TablingOrderStr+self.TabularedMongoSuffixStr
+			self.TabledMongoKeyStr=TablingOrderStr+TabledMongoIndexStr+TablingOrderStr+self.TabledMongoSuffixStr
 
-			#set the TabularedInt
+			#set the TabledInt
 			self.TabledMongoIndexInt=TabledMongoIndexInt
 
 			#debug
@@ -181,13 +337,13 @@ class TablerClass(
 						[
 							'Here we create the collection or get it depending if it is new or not',
 							'self.TabledMongoKeyStr is '+self.TabledMongoKeyStr,
-							'self.TabularedTopFileVariable!=None is '+str(self.TabularedTopFileVariable!=None)
+							'self.TabledTopFileVariable!=None is '+str(self.TabledTopFileVariable!=None)
 						]
 					)
 			'''
 
 			#Check
-			if self.TabledMongoKeyStr!="" and self.TabularedMongoLocalDatabaseVariable!=None:
+			if self.TabledMongoKeyStr!="" and self.TabledMongoLocalDatabaseVariable!=None:
 
 				#debug
 				'''
@@ -195,17 +351,17 @@ class TablerClass(
 							[
 								('self.',self,[
 									'TabledMongoKeyStr',
-									'TabularedMongoKeyStrsList'
+									'TabledMongoKeyStrsList'
 									]
 								),
-								'self.TabularedMongoLocalDatabaseVariable.collection_names() is ',
-								str(self.TabularedMongoLocalDatabaseVariable.collection_names())
+								'self.TabledMongoLocalDatabaseVariable.collection_names() is ',
+								str(self.TabledMongoLocalDatabaseVariable.collection_names())
 							]
 						)
 				'''
 				
 				#Create the collection if not already
-				if self.TabledMongoKeyStr not in self.TabularedMongoKeyStrsList:
+				if self.TabledMongoKeyStr not in self.TabledMongoKeyStrsList:
 
 					#debug
 					'''
@@ -217,12 +373,12 @@ class TablerClass(
 					'''
 
 					#Create the collections
-					self.TabledMongoCollection=self.TabularedMongoLocalDatabaseVariable.create_collection(
+					self.TabledMongoCollection=self.TabledMongoLocalDatabaseVariable.create_collection(
 						self.TabledMongoKeyStr
 					)
 
 					#Append
-					self.TabularedMongoKeyStrsList.append(self.TabledMongoKeyStr)
+					self.TabledMongoKeyStrsList.append(self.TabledMongoKeyStr)
 
 				else:
 
@@ -236,21 +392,21 @@ class TablerClass(
 					'''
 
 					#Else just get it 
-					self.TabledMongoCollection=self.TabularedMongoLocalDatabaseVariable[
+					self.TabledMongoCollection=self.TabledMongoLocalDatabaseVariable[
 						self.TabledMongoKeyStr
 					]
 					
 
 				
 				
-				#set the in the TabularedMongoCollectionsOrderedDict
-				self.TabularedMongoCollectionsOrderedDict[
+				#set the in the TabledMongoCollectionsOrderedDict
+				self.TabledMongoCollectionsOrderedDict[
 					self.TabledMongoKeyStr
 				]=self.TabledMongoCollection
 
 				#debug
 				'''
-				self.debug("self.TabularedMongoCollectionsOrderedDict is "+str(self.TabularedMongoCollectionsOrderedDict))
+				self.debug("self.TabledMongoCollectionsOrderedDict is "+str(self.TabledMongoCollectionsOrderedDict))
 				'''
 				
 			#debug
@@ -260,7 +416,7 @@ class TablerClass(
 							'Table is done here for mongo...',
 							('self.',self,[
 								'TabledMongoCollection',
-								'TabularedMongoTopDatabaseVariable'
+								'TabledMongoTopDatabaseVariable'
 								]
 							)
 						]
@@ -271,6 +427,112 @@ class TablerClass(
 		#Check
 		if self.ModelingHdfBool:
 
+			#debug
+			'''
+			self.debug('We tabular for hdf here...')
+			'''
+			
+			#set
+			self.TabledHdfSuffixStr=self.ModelTagStr+'Table'
+
+			#Check
+			if self.ModelDeriveControllerVariable.HdformatedFileVariable==None:
+
+				#Check
+				if self.ModelDeriveControllerVariable.HdformatingFileKeyStr=='':
+
+					#set
+					self.ModelDeriveControllerVariable.HdformatingFileKeyStr=self.ModelDeriveControllerVariable.ControlModelStr+'.hdf5'
+
+				#debug
+				'''
+				self.debug(
+					[
+						'We have to hdformat first...',
+						'self.ModelDeriveControllerVariable.HdformatingFileKeyStr is ',
+						self.ModelDeriveControllerVariable.HdformatingFileKeyStr
+					]
+				)
+				'''
+
+				#Hdformat
+				self.ModelDeriveControllerVariable.hdformat()
+				
+			#Set
+			self.ModelDeriveControllerVariable.HdfGroupPathStr=self.ModelDeriveControllerVariable.ControlModelStr
+
+			#Link
+			self.TabledHdfTopFileVariable=self.ModelDeriveControllerVariable.HdformatedFileVariable
+			
+			#debug
+			'''
+			self.debug(('self.',self,[
+										'TabledHdfTopFileVariable'
+									]))
+			'''
+			
+			#/#################/#
+			# Check for all the tables alreday defined here
+			#
+
+			#Check
+			if self.TabledHdfTopFileVariable!=None:
+
+				#debug
+				'''
+				self.debug(
+							[	
+								'Looking for names of tables here',
+								('self.',self,['HdfGroupPathStr'])
+							]
+						)
+				'''
+
+				#Definition Tabled attributes
+				self.TabledHdfGroupVariable=self.TabledHdfTopFileVariable.getNode(
+					self.ModelDeriveControllerVariable.HdfGroupPathStr
+				)
+
+				#debug
+				'''
+				self.debug(
+							[
+								('looking for tables with the same suffix Str as : '),
+								('self.',self,['TabledHdfSuffixStr'])
+							]
+						)
+				'''
+
+				#Get and sort
+				self.TabledHdfKeyStrsList=sorted(
+					filter(
+							lambda __KeyStr:
+							__KeyStr.endswith(self.TabledHdfSuffixStr),
+							self.TabledHdfGroupVariable._v_leaves.keys()
+						)
+				)
+				
+				self.TabledHdfTablesOrderedDict.update(
+					map(
+							lambda __TabledKeyStr:
+							(
+								__TabledKeyStr,
+								self.TabledHdfGroupVariable._f_getChild(
+									__TabledKeyStr
+								)
+							),
+							self.TabledHdfKeyStrsList
+						)
+				)
+
+				#debug
+				'''
+				self.debug(("self.",self,[
+											'TabledHdfSuffixStr',
+											'TabledHdfKeyStrsList'
+											]))
+				'''	
+
 			#/################/#
 			# Refind all the names of the tables
 			#
@@ -279,8 +541,8 @@ class TablerClass(
 			'''
 			self.debug(
 						('self.',self,[
-							'TabularedHdfKeyStrsList',
-							'TabularedHdfSuffixStr',
+							'TabledHdfKeyStrsList',
+							'TabledHdfSuffixStr',
 							'TabledHdfKeyStr'
 						])
 					)
@@ -296,7 +558,7 @@ class TablerClass(
 					map(
 							lambda __TabledHdfKeyStr:
 							__TabledHdfKeyStr.split(TablingOrderStr),
-							self.TabularedHdfKeyStrsList
+							self.TabledHdfKeyStrsList
 						)
 				),[0,1]
 			)
@@ -320,13 +582,13 @@ class TablerClass(
 							[
 								'There are already some tables',
 								'TabledHdfSuffixStrsList is '+str(TabledHdfSuffixStrsList),
-								"self.TabularedHdfSuffixStr is "+str(
-									self.TabularedHdfSuffixStr)
+								"self.TabledHdfSuffixStr is "+str(
+									self.TabledHdfSuffixStr)
 							]
 						)
 				'''
 
-				if self.TabularedHdfSuffixStr not in TabledHdfSuffixStrsList:
+				if self.TabledHdfSuffixStr not in TabledHdfSuffixStrsList:
 
 					#Increment the IndexStr
 					TabledHdfIndexInt=max(map(int,TabledHdfIndexIntsTuple))+1
@@ -342,8 +604,8 @@ class TablerClass(
 				else:
 
 					#Get the already setted one
-					TabledHdfIndexStr=self.TabularedHdfKeyStrsList[
-							TabledHdfSuffixStrsList.index(self.TabularedHdfSuffixStr)
+					TabledHdfIndexStr=self.TabledHdfKeyStrsList[
+							TabledHdfSuffixStrsList.index(self.TabledHdfSuffixStr)
 						].split(TablingOrderStr)[1]
 
 					#Intify
@@ -383,9 +645,9 @@ class TablerClass(
 				)
 
 			#Bind with TabledHdfKeyStr setting
-			self.TabledHdfKeyStr=TablingOrderStr+TabledHdfIndexStr+TablingOrderStr+self.TabularedHdfSuffixStr
+			self.TabledHdfKeyStr=TablingOrderStr+TabledHdfIndexStr+TablingOrderStr+self.TabledHdfSuffixStr
 
-			#set the TabularedInt
+			#set the TabledInt
 			self.TabledHdfIndexInt=TabledHdfIndexInt
 
 			#debug
@@ -400,14 +662,14 @@ class TablerClass(
 							'Here we create the table or get it depending if it is new or not',
 							('self.',self,[
 								'TabledHdfKeyStr',
-								'TabularedHdfTopFileVariable'
+								'TabledHdfTopFileVariable'
 								])
 						]
 					)
 			'''
 			
 			#Check
-			if self.TabledHdfKeyStr!="" and self.TabularedHdfTopFileVariable!=None:
+			if self.TabledHdfKeyStr!="" and self.TabledHdfTopFileVariable!=None:
 
 				#debug
 				'''
@@ -415,14 +677,14 @@ class TablerClass(
 							[
 								('self.',self,[
 									'TabledHdfKeyStr',
-									'TabularedHdfKeyStrsList'
+									'TabledHdfKeyStrsList'
 								])
 							]
 						)
 				'''
 				
 				#Create the Table if not already
-				if self.TabledHdfKeyStr not in self.TabularedHdfKeyStrsList:
+				if self.TabledHdfKeyStr not in self.TabledHdfKeyStrsList:
 
 					#debug
 					'''
@@ -434,8 +696,8 @@ class TablerClass(
 					'''
 
 					#Create the Table in the hdf5
-					self.TabledHdfTable=self.TabularedHdfTopFileVariable.create_table(
-						self.TabularedHdfGroupVariable,
+					self.TabledHdfTable=self.TabledHdfTopFileVariable.create_table(
+						self.TabledHdfGroupVariable,
 						self.TabledHdfKeyStr,
 						self.ModeledDescriptionClass,
 						self.ModeledDescriptionClass.__doc__ 
@@ -444,7 +706,7 @@ class TablerClass(
 					)
 
 					#Append
-					self.TabularedHdfKeyStrsList.append(
+					self.TabledHdfKeyStrsList.append(
 						self.TabledHdfKeyStr
 					)
 
@@ -455,25 +717,25 @@ class TablerClass(
 					self.debug(
 									[
 										'The table exists',
-										"self.TabularedGroupVariable is "+str(self.TabularedGroupVariable)
+										"self.TabledGroupVariable is "+str(self.TabledGroupVariable)
 									]
 								)
 					'''
 
 					#Else just get it 
-					self.TabledHdfTable=self.TabularedHdfGroupVariable._f_getChild(
+					self.TabledHdfTable=self.TabledHdfGroupVariable._f_getChild(
 						self.TabledHdfKeyStr
 					)
 
 				#set the in the TablesOrderedDict
-				self.TabularedHdfTablesOrderedDict[
+				self.TabledHdfTablesOrderedDict[
 					self.TabledHdfKeyStr
 				]=self.TabledHdfTable
 
 				#debug
 				'''
-				self.debug("self.TabularedHdfTablesOrderedDict is "+str(
-					self.TabularedHdfTablesOrderedDict))
+				self.debug("self.TabledHdfTablesOrderedDict is "+str(
+					self.TabledHdfTablesOrderedDict))
 				'''
 				
 			#debug
@@ -483,26 +745,23 @@ class TablerClass(
 							'Table is done here for hdf...',
 							('self.',self,[
 								'TabledHdfTable',
-								'TabularedHdfTopFileVariable'
+								'TabledHdfTopFileVariable'
 								]
 							)
 						]
 					)
 			'''
 
-	def mimic_tabular(self):
+	def mimic_model(self):
 
 		#call the tabular method
-		BaseClass.tabular(self)
+		BaseClass.model(self)
 
 		#debug
 		'''
-		self.debug('We have tabulared here, now table')
+		self.debug('We have modeled here, now table')
 		'''
 		
-		#Check
-		#if 'HookTableBool' not in _KwargVariablesDict or _KwargVariablesDict['HookTableBool']:
-	
 		#table
 		self.table()
 
@@ -512,6 +771,17 @@ class TablerClass(
 #</DefinePrint>
 TablerClass.PrintingClassSkipKeyStrsList.extend(
 	[
+		'TabledMongoDeriveNoderVariable',	
+		'TabledHdfGroupVariable', 
+		'TabledHdfTopFileVariable',
+		'TabledMongoTopClientVariable',
+		'TabledMongoLocalDatabaseVariable',									
+		#'TabledMongoSuffixStr',
+		#'TabledHdfSuffixStr',																
+		'TabledMongoKeyStrsList',
+		'TabledHdfKeyStrsList', 	
+		'TabledMongoCollectionsOrderedDict',												
+		'TabledHdfTablesOrderedDict',
 		'TabledMongoKeyStr', 	
 		'TabledHdfKeyStr', 
 		#'TabledMongoIndexInt', 	

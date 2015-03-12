@@ -827,6 +827,8 @@ ShareYourSystem/Standards/Modelers/Inserter/Readme.md
 ShareYourSystem/Standards/Modelers/Inserter/Test.py
 ShareYourSystem/Standards/Modelers/Inserter/__init__.py
 ShareYourSystem/Standards/Modelers/Inserter/data/db/journal/j._0
+ShareYourSystem/Standards/Modelers/Inserter/draft/__init__ copy 2.py
+ShareYourSystem/Standards/Modelers/Inserter/draft/__init__ copy 3.py
 ShareYourSystem/Standards/Modelers/Joiner/001_DocumentDoc.md
 ShareYourSystem/Standards/Modelers/Joiner/00_ExampleDoc.md
 ShareYourSystem/Standards/Modelers/Joiner/01_ExampleDoc.py
@@ -851,15 +853,20 @@ ShareYourSystem/Standards/Modelers/Merger/01_ExampleDoc.py
 ShareYourSystem/Standards/Modelers/Merger/Readme.md
 ShareYourSystem/Standards/Modelers/Merger/Test.py
 ShareYourSystem/Standards/Modelers/Merger/__init__.py
-ShareYourSystem/Standards/Modelers/Modeler/001_DocumentDoc.md
+ShareYourSystem/Standards/Modelers/Modeler/00_DocumentDoc.md
 ShareYourSystem/Standards/Modelers/Modeler/00_ExampleDoc.md
 ShareYourSystem/Standards/Modelers/Modeler/01_ExampleDoc.py
 ShareYourSystem/Standards/Modelers/Modeler/02_ExampleDoc.md
 ShareYourSystem/Standards/Modelers/Modeler/03_ExampleDoc.py
+ShareYourSystem/Standards/Modelers/Modeler/04_ExampleDoc.md
+ShareYourSystem/Standards/Modelers/Modeler/05_ExampleDoc.py
 ShareYourSystem/Standards/Modelers/Modeler/Install.py
 ShareYourSystem/Standards/Modelers/Modeler/Readme.md
 ShareYourSystem/Standards/Modelers/Modeler/Test.py
 ShareYourSystem/Standards/Modelers/Modeler/__init__.py
+ShareYourSystem/Standards/Modelers/Modeler/data/db/journal/j._0
+ShareYourSystem/Standards/Modelers/Modeler/data/db/journal/lsn
+ShareYourSystem/Standards/Modelers/Modeler/draft/__init__ copy 2.py
 ShareYourSystem/Standards/Modelers/Retriever/001_DocumentDoc.md
 ShareYourSystem/Standards/Modelers/Retriever/002_GithubDoc.md
 ShareYourSystem/Standards/Modelers/Retriever/00_ExampleDoc.md
@@ -881,13 +888,14 @@ ShareYourSystem/Standards/Modelers/Rower/Test.py
 ShareYourSystem/Standards/Modelers/Rower/__init__.py
 ShareYourSystem/Standards/Modelers/Rower/data/db/journal/j._0
 ShareYourSystem/Standards/Modelers/Rower/data/db/journal/lsn
+ShareYourSystem/Standards/Modelers/Rower/draft/__init__ copy 2.py
 ShareYourSystem/Standards/Modelers/Shaper/001_DocumentDoc.md
 ShareYourSystem/Standards/Modelers/Shaper/00_ExampleDoc.md
 ShareYourSystem/Standards/Modelers/Shaper/01_ExampleDoc.py
 ShareYourSystem/Standards/Modelers/Shaper/Readme.md
 ShareYourSystem/Standards/Modelers/Shaper/Test.py
 ShareYourSystem/Standards/Modelers/Shaper/__init__.py
-ShareYourSystem/Standards/Modelers/Shaper/Drafts/__init__ - copie.py
+ShareYourSystem/Standards/Modelers/Shaper/draft/__init__ - copie.py
 ShareYourSystem/Standards/Modelers/Tabler/001_DocumentDoc.md
 ShareYourSystem/Standards/Modelers/Tabler/00_ExampleDoc.md
 ShareYourSystem/Standards/Modelers/Tabler/01_ExampleDoc.py
@@ -898,6 +906,8 @@ ShareYourSystem/Standards/Modelers/Tabler/ProcessTemp.txt
 ShareYourSystem/Standards/Modelers/Tabler/Readme.md
 ShareYourSystem/Standards/Modelers/Tabler/Test.py
 ShareYourSystem/Standards/Modelers/Tabler/__init__.py
+ShareYourSystem/Standards/Modelers/Tabler/data/db/journal/j._0
+ShareYourSystem/Standards/Modelers/Tabler/data/db/journal/lsn
 ShareYourSystem/Standards/Modelers/Tabularer/001_DocumentDoc.md
 ShareYourSystem/Standards/Modelers/Tabularer/00_ExampleDoc.md
 ShareYourSystem/Standards/Modelers/Tabularer/01_ExampleDoc.py
