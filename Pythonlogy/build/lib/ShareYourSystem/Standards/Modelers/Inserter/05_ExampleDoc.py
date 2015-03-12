@@ -31,21 +31,16 @@ MyController=SYS.ControllerClass(
 	).command(
 		'/-Models/|Stuff',
 		'#call:insert'
-	)
-
-
-"""
-	['#map@set'](
+	)['#map@set'](
 		{
-			'MyInt':1,
-			'MyStr':"ola",
-			'MyFloatsList':[0,1]
+			'MyInt':5,
+			'MyFloatsList':[0.,0.]
 		}
 	).command(
-		'/-Models/|Things',
+		'/-Models/|Stuff',
 		'#call:insert'
 	)
-"""
+
 
 #print
 print('MyController is ')

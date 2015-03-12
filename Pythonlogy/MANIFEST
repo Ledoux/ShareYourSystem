@@ -807,7 +807,6 @@ ShareYourSystem/Standards/Modelers/Findoer/ProcessTemp.txt
 ShareYourSystem/Standards/Modelers/Findoer/Readme.md
 ShareYourSystem/Standards/Modelers/Findoer/Test.py
 ShareYourSystem/Standards/Modelers/Findoer/__init__.py
-ShareYourSystem/Standards/Modelers/Findoer/data/db/journal/j._0
 ShareYourSystem/Standards/Modelers/Hierarchizer/001_DocumentDoc.md
 ShareYourSystem/Standards/Modelers/Hierarchizer/00_ExampleDoc.md
 ShareYourSystem/Standards/Modelers/Hierarchizer/01_ExampleDoc.py
@@ -829,6 +828,7 @@ ShareYourSystem/Standards/Modelers/Inserter/Readme.md
 ShareYourSystem/Standards/Modelers/Inserter/Test.py
 ShareYourSystem/Standards/Modelers/Inserter/__init__.py
 ShareYourSystem/Standards/Modelers/Inserter/data/db/journal/j._0
+ShareYourSystem/Standards/Modelers/Inserter/data/db/journal/lsn
 ShareYourSystem/Standards/Modelers/Inserter/draft/__init__ copy 2.py
 ShareYourSystem/Standards/Modelers/Inserter/draft/__init__ copy 3.py
 ShareYourSystem/Standards/Modelers/Joiner/001_DocumentDoc.md
@@ -880,6 +880,7 @@ ShareYourSystem/Standards/Modelers/Retriever/ProcessTemp.txt
 ShareYourSystem/Standards/Modelers/Retriever/Readme.md
 ShareYourSystem/Standards/Modelers/Retriever/Test.py
 ShareYourSystem/Standards/Modelers/Retriever/__init__.py
+ShareYourSystem/Standards/Modelers/Retriever/data/db/journal/j._0
 ShareYourSystem/Standards/Modelers/Rower/001_DocumentDoc.md
 ShareYourSystem/Standards/Modelers/Rower/00_ExampleDoc.md
 ShareYourSystem/Standards/Modelers/Rower/01_ExampleDoc.py
@@ -898,30 +899,6 @@ ShareYourSystem/Standards/Modelers/Shaper/Readme.md
 ShareYourSystem/Standards/Modelers/Shaper/Test.py
 ShareYourSystem/Standards/Modelers/Shaper/__init__.py
 ShareYourSystem/Standards/Modelers/Shaper/draft/__init__ - copie.py
-ShareYourSystem/Standards/Modelers/Tabler/001_DocumentDoc.md
-ShareYourSystem/Standards/Modelers/Tabler/00_ExampleDoc.md
-ShareYourSystem/Standards/Modelers/Tabler/01_ExampleDoc.py
-ShareYourSystem/Standards/Modelers/Tabler/02_ExampleDoc.md
-ShareYourSystem/Standards/Modelers/Tabler/03_ExampleDoc.py
-ShareYourSystem/Standards/Modelers/Tabler/ProcessTemp.sh
-ShareYourSystem/Standards/Modelers/Tabler/ProcessTemp.txt
-ShareYourSystem/Standards/Modelers/Tabler/Readme.md
-ShareYourSystem/Standards/Modelers/Tabler/Test.py
-ShareYourSystem/Standards/Modelers/Tabler/__init__.py
-ShareYourSystem/Standards/Modelers/Tabler/data/db/journal/j._0
-ShareYourSystem/Standards/Modelers/Tabler/data/db/journal/lsn
-ShareYourSystem/Standards/Modelers/Tabularer/001_DocumentDoc.md
-ShareYourSystem/Standards/Modelers/Tabularer/00_ExampleDoc.md
-ShareYourSystem/Standards/Modelers/Tabularer/01_ExampleDoc.py
-ShareYourSystem/Standards/Modelers/Tabularer/02_ExampleDoc.md
-ShareYourSystem/Standards/Modelers/Tabularer/03_ExampleDoc.py
-ShareYourSystem/Standards/Modelers/Tabularer/ProcessTemp.sh
-ShareYourSystem/Standards/Modelers/Tabularer/ProcessTemp.txt
-ShareYourSystem/Standards/Modelers/Tabularer/Readme.md
-ShareYourSystem/Standards/Modelers/Tabularer/Test.py
-ShareYourSystem/Standards/Modelers/Tabularer/__init__.py
-ShareYourSystem/Standards/Modelers/Tabularer/data/db/journal/j._0
-ShareYourSystem/Standards/Modelers/Tabularer/data/db/journal/lsn
 ShareYourSystem/Standards/Tutorials/00_ExampleDoc.md
 ShareYourSystem/Standards/Tutorials/01_ExampleDoc.py
 ShareYourSystem/Standards/Tutorials/Readme.md

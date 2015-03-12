@@ -69,6 +69,8 @@ def getPointerStr(_Variable,**_KwargVariablesDict):
 	#Define
 	if type(_Variable).__name__=='Database':
 		PrintedVariableStr=_Variable._Database__name
+	elif type(_Variable).__name__=='Collection':
+		PrintedVariableStr=_Variable._Collection__name
 	else:
 		PrintedVariableStr=_Variable.__name__ if hasattr(_Variable,__name__) else ""
 
@@ -130,6 +132,7 @@ def getDictStr(
 		
 		#items
 		PrintedTuplesList=_DictatedVariable.items()
+
 	else:
 
 		#sort
@@ -312,7 +315,7 @@ def getPrintStr(_Variable,**_KwargVariablesDict):
 		return "None"
 
 	#Special mongo database case
-	elif type(_Variable).__name__ in ["Database","Series"]:
+	elif type(_Variable).__name__ in ["Database","Series","Collection"]:
 
 		#get
 		PrinterStr=getPointerStr(_Variable)

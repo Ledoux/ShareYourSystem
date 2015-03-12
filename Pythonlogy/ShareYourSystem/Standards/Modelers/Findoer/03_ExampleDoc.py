@@ -9,7 +9,7 @@ MyController=SYS.ControllerClass(
 			'ControllingModelClassVariable':SYS.FindoerClass
 		}
 	).set(
-		'/-Models/|Things',
+		'/-Models/|Thing',
 		{
 			'ModelingDescriptionTuplesList':
 			[
@@ -30,7 +30,7 @@ MyController=SYS.ControllerClass(
 			'MyIntsList':[2,4,1]
 		}
 	).command(
-		'/-Models/|Things',
+		'/-Models/|Thing',
 		'#call:insert'
 	)['#map@set'](
 		{
@@ -39,7 +39,7 @@ MyController=SYS.ControllerClass(
 			'MyIntsList':[0,0,1]
 		}
 	).command(
-		'/-Models/|Things',
+		'/-Models/|Thing',
 		[
 			'#call:insert',
 			(

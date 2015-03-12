@@ -100,8 +100,6 @@ setup(
 			 		'ShareYourSystem.Standards.Interfacers.Hdformater',
 			 		'ShareYourSystem.Standards.Controllers.Controller',
 			 		'ShareYourSystem.Standards.Modelers.Modeler',
-			 		#'ShareYourSystem.Standards.Modelers.Tabularer',
-			 		#'ShareYourSystem.Standards.Modelers.Tabler',
 			 		'ShareYourSystem.Standards.Modelers.Rower',
 			 		'ShareYourSystem.Standards.Modelers.Inserter',
 			 		'ShareYourSystem.Standards.Modelers.Retriever',

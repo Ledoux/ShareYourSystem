@@ -591,7 +591,10 @@ class SetterClass(BaseClass):
 
 		elif type(
 			self.SettingKeyVariable
-				)==str:
+				) in [str,unicode]:
+
+			#cast
+			self.SettingKeyVariable=str(self.SettingKeyVariable)
 
 			#/####################/#
 			# Case of #bound: set
@@ -1010,6 +1013,11 @@ class SetterClass(BaseClass):
 					#type
 					SettedSettingValueVariableType=type(self.SettingValueVariable)
 
+					#cast
+					if SettedSettingValueVariableType==unicode:
+						self.SettingValueVariable=str(self.SettingValueVariable)
+						SettedSettingValueVariableType=str
+						
 					#Check
 					if SettedValueType!=SettedSettingValueVariableType:
 

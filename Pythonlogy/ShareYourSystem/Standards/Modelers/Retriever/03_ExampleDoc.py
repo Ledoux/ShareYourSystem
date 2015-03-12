@@ -9,7 +9,7 @@ MyController=SYS.ControllerClass(
 			'ControllingModelClassVariable':SYS.RetrieverClass
 		}
 	).set(
-		'/-Models/|Things',
+		'/-Models/|Thing',
 		{
 			'ModelingDescriptionTuplesList':
 			[
@@ -30,16 +30,16 @@ MyController=SYS.ControllerClass(
 			'MyIntsList':[2,4,1]
 		}
 	).command(
-		'/-Models/|Things',
+		'/-Models/|Thing',
 		'#call:insert'
 	)['#map@set'](
 		{
 			'MyInt':0,
 			'MyStr':"bonjour",
-			'MyIntsList':[2,4,1]
+			'MyIntsList':[0,0,0]
 		}
 	).command(
-		'/-Models/|Things',
+		'/-Models/|Thing',
 		[
 			'#call:insert',
 			(

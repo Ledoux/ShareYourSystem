@@ -79,7 +79,7 @@ class FindoerClass(BaseClass):
 
 				#find in the list
 				self.FoundMongoRowDictsList=list(
-					self.TabledMongoCollection.find(
+					self.ModeledMongoCollection.find(
 						self.FindingWhereVariable
 					)
 				)
@@ -120,7 +120,7 @@ class FindoerClass(BaseClass):
 					#self.TabularedHdfGroupVariable._f_getChild(
 					#	self.TabularedHdfKeyStrsList[0]
 					#)
-					self.TabledHdfTable
+					self.ModeledHdfTable
 				)
 
 				#set

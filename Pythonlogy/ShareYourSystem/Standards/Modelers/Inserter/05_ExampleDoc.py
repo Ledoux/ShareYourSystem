@@ -42,19 +42,6 @@ MyController=SYS.ControllerClass(
 	)
 
 
-"""
-	['#map@set'](
-		{
-			'MyInt':1,
-			'MyStr':"ola",
-			'MyFloatsList':[0,1]
-		}
-	).command(
-		'/-Models/|Things',
-		'#call:insert'
-	)
-"""
-
 #print
 print('MyController is ')
 SYS._print(MyController)

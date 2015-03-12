@@ -294,10 +294,10 @@ class DebuggerClass(BaseClass):
 
 			#add the end
 			DebuggedStr+=DebuggingEndStr
-			
+				
 			#Print
 			self._print(
-							DebuggedStr+Printer.PrintAlineaStr,
+							str(DebuggedStr)+Printer.PrintAlineaStr,
 							**{
 								#'RepresentedDeepInt':1
 							}

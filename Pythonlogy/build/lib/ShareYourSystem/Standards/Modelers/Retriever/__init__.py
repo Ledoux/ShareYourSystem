@@ -43,47 +43,18 @@ class RetrieverClass(BaseClass):
 		#Call the parent init method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
-	def propertize_setModelingDescriptionTuplesList(self,_SettingValueVariable):
-
-		#debug
-		'''
-		self.debug('Before we call the parent setModelingDescriptionTuplesList method ')
-		'''
-
-		#Hook
-		BaseClass.propertize_setModelingDescriptionTuplesList(self,_SettingValueVariable)
-
-		#Bind with RetrievedColumnStrToGetStrOrderedDict setting
-		if self.RetrievedColumnStrToGetStrOrderedDict==None:
-			self.RetrievedColumnStrToGetStrOrderedDict=collections.OrderedDict()
-
-		#map
-		map(
-			lambda __ModelingColumnTuple:
-			self.RetrievedColumnStrToGetStrOrderedDict.__setitem__(
-				__ModelingColumnTuple[1],
-				__ModelingColumnTuple[0]
-			),
-			self.ModelingDescriptionTuplesList
-		)
-
-		#Init
-		if self.RetrievedPickOrderedDict==None:
-			self.RetrievedPickOrderedDict=collections.OrderedDict()
-
-		#debug
-		'''
-		self.debug(('self.',self,['RetrievedColumnStrToGetStrOrderedDict']))
-		'''
-		
 	def do_retrieve(self):
+
+		#/################/#
+		# Check hdf or mongo to retrieve
+		#
 
 		#debug
 		'''
 		self.debug(
 					[
 						('self.',self,[
-										'TabularedHdfKeyStrsList',
+										'ModeledHdfKeyStrsList',
 										'RetrievingIndexesList'
 									])
 					]
@@ -98,8 +69,8 @@ class RetrieverClass(BaseClass):
 		'''
 		self.debug(
 					[
-						('Ok table is done'),
-						('self.',self,['TabularedHdfTablesOrderedDict','TabularedHdfKeyStrsList'])
+						('Ok model is done'),
+						('self.',self,['ModeledHdfTablesOrderedDict','ModeledHdfKeyStrsList'])
 					]
 				)
 		'''
@@ -110,23 +81,54 @@ class RetrieverClass(BaseClass):
 		#Check
 		if self.RetrievingDatabaseStr=='mongo':
 
+			#/################/#
+			# Get the collection and find_one
+			#
+
 			#Definition the RetrievedMongoCollection
-			self.RetrievedMongoCollection=self.TabularedMongoCollectionsOrderedDict[
-				self.TabularedMongoKeyStrsList[
+			self.RetrievedMongoCollection=self.ModeledMongoCollectionsOrderedDict[
+				self.ModeledMongoKeyStrsList[
 					self.RetrievingIndexesList[0]
 				]
 			]
 
 			#debug
-			self.debug(('self.',self,['RetrievedMongoCollection']))
-
-			#findOne
-			self.RetrievedPickOrderedDict=self.RetrievedMongoCollection.find_one(
-				{'RowInt':self.RetrievedRowInt}
+			'''
+			self.debug(
+				[
+					'We retrieve mongo here',
+					('self.',self,[
+						'RetrievedRowInt',
+					]),
+					'self.RetrievedMongoCollection.find_one is ',
+					str(self.RetrievedMongoCollection.find_one)
+				]
 			)
+			'''
+			
+			#findOne
+			self.RetrievedPickOrderedDict=collections.OrderedDict(
+				self.RetrievedMongoCollection.find_one(
+				{'RowInt':self.RetrievedRowInt}
+			))
+			#del self.RetrievedPickOrderedDict['_id']
+
+			#debug
+			'''
+			self.debug(
+				[
+					'ok we have retrieved',
+					('self.',self,['RetrievedPickOrderedDict'])
+				]
+			)
+			'''
 
 		#Check
 		if self.RetrievingDatabaseStr=='hdf':
+
+			#/################/#
+			# Get the table and find
+			#
 
 			#debug
 			'''
@@ -138,8 +140,8 @@ class RetrieverClass(BaseClass):
 			'''
 			
 			#Definition the RetrievedHdfTable
-			self.RetrievedHdfTable=self.TabularedHdfTablesOrderedDict[
-				self.TabularedHdfKeyStrsList[
+			self.RetrievedHdfTable=self.ModeledHdfTablesOrderedDict[
+				self.ModeledHdfKeyStrsList[
 					self.RetrievingIndexesList[0]
 				]
 			]
@@ -184,13 +186,77 @@ class RetrieverClass(BaseClass):
 					)
 			'''
 
-			#Update
-			self.ModelDeriveControllerVariable[Setter.SetMapStr](
-				self.RetrievedPickOrderedDict.items(),
-				#**{'RestrictingIsBool':True}
-			)
-			self.ModelDeriveControllerVariable.RestrictingIsBool=False
+		#/################/#
+		# Set in the controller
+		#
 
+		#debug
+		'''
+		self.debug(
+				[
+					'Now we set the recover dict in the controller',
+					'self.RetrievedPickOrderedDict.items() is ',
+					str(self.RetrievedPickOrderedDict.items())
+				]
+			)
+		'''
+
+		#Update
+		"""
+		self.ModelDeriveControllerVariable[
+			Setter.SetMapStr
+		](
+			map(
+				lambda __ItemTuple:
+				(
+					str(__ItemTuple[0]),
+					str(__ItemTuple[1]) 
+					if type(__ItemTuple[1])==unicode
+					else __ItemTuple[1]
+				),
+				self.RetrievedPickOrderedDict.items()
+			)
+		)
+		"""
+
+		#Update
+		self.ModelDeriveControllerVariable[
+			Setter.SetMapStr
+		](self.RetrievedPickOrderedDict.items())
+
+	def propertize_setModelingDescriptionTuplesList(self,_SettingValueVariable):
+
+		#debug
+		'''
+		self.debug('Before we call the parent setModelingDescriptionTuplesList method ')
+		'''
+
+		#Hook
+		BaseClass.propertize_setModelingDescriptionTuplesList(self,_SettingValueVariable)
+
+		#Bind with RetrievedColumnStrToGetStrOrderedDict setting
+		if self.RetrievedColumnStrToGetStrOrderedDict==None:
+			self.RetrievedColumnStrToGetStrOrderedDict=collections.OrderedDict()
+
+		#map
+		map(
+			lambda __ModelingColumnTuple:
+			self.RetrievedColumnStrToGetStrOrderedDict.__setitem__(
+				__ModelingColumnTuple[1],
+				__ModelingColumnTuple[0]
+			),
+			self.ModelingDescriptionTuplesList
+		)
+
+		#Init
+		if self.RetrievedPickOrderedDict==None:
+			self.RetrievedPickOrderedDict=collections.OrderedDict()
+
+		#debug
+		'''
+		self.debug(('self.',self,['RetrievedColumnStrToGetStrOrderedDict']))
+		'''
+		
 
 #</DefineClass>
 
@@ -201,7 +267,7 @@ RetrieverClass.PrintingClassSkipKeyStrsList.extend(
 		'RetrievedColumnStrToGetStrOrderedDict',
 		'RetrievedRowInt',			
 		'RetrievedHdfTable', 			
-		'RetrievedPickOrderedDict'
+		#'RetrievedPickOrderedDict'
 	]
 )
 #<DefinePrint>
