@@ -135,7 +135,7 @@ class ModelerClass(BaseClass):
 					_ModeledDimensionGetKeyStrsList=None, 
 					_ModeledDimensionIntsList=None,
 					_ModeledShapeStr="",
-					_ModeledDimensionTuplesList=None,	
+					_ModelDimensionTuplesList=None,	
 					_ModeledDescriptionVariable=None,	 													
 					**_KwargVariablesDict
 				):
@@ -147,9 +147,7 @@ class ModelerClass(BaseClass):
 		""" """
 
 		#Debug
-		'''
 		self.debug('model start')
-		'''
 		
 		#/###################/#
 		# Mongo Case
@@ -523,20 +521,20 @@ class ModelerClass(BaseClass):
 			self.debug(
 						[
 							'We model shape here',
-							("self.",self,['ModeledDimensionTuplesList'])
+							("self.",self,['ModelDimensionTuplesList'])
 						]
 					)
 			'''
 
 			#Check
-			if len(self.ModeledDimensionTuplesList)>0:
+			if len(self.ModelDimensionTuplesList)>0:
 
 				#set
 				[
 					self.ModeledDescriptionGetKeyStrsList,
 					ModeledDescriptionDimensionGetTuplesList 
 					
-				]=SYS.unzip(self.ModeledDimensionTuplesList,[0,1])
+				]=SYS.unzip(self.ModelDimensionTuplesList,[0,1])
 
 				#list
 				self.ModeledDescriptionGetKeyStrsList=list(self.ModeledDescriptionGetKeyStrsList)
@@ -1328,7 +1326,7 @@ class ModelerClass(BaseClass):
 		#
 
 		#filter
-		self.ModeledDimensionTuplesList=map(
+		self.ModelDimensionTuplesList=map(
 			lambda __DescriptionTuple:
 			(__DescriptionTuple[0], __DescriptionTuple[2]),
 			SYS._filter(
@@ -1342,8 +1340,8 @@ class ModelerClass(BaseClass):
 		'''
 		self.debug(
 				[
-					'We have setted the ModeledDimensionTuplesList',
-					('self.',self,['ModeledDimensionTuplesList'])
+					'We have setted the ModelDimensionTuplesList',
+					('self.',self,['ModelDimensionTuplesList'])
 				]
 			)
 		'''
@@ -1385,7 +1383,7 @@ ModelerClass.PrintingClassSkipKeyStrsList.extend(
 		'ModeledDimensionGetKeyStrsList',	
 		'ModeledDimensionIntsList',							
 		'ModeledShapeStr',
-		'ModeledDimensionTuplesList',
+		'ModelDimensionTuplesList',
 		'ModeledDescriptionTuplesList'
 	]
 )

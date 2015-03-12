@@ -17,7 +17,7 @@ MyController=SYS.ControllerClass(
 				'ModelingDescriptionTuplesList':
 				[
 					#GetStr #ColumnStr #Col
-					('MyBool','MyBool',tables.StringCol(10)),
+					('MyInt','MyInt',tables.Int64Col()),
 					('MyFloatsList','MyFloatsList',(tables.Float64Col,['UnitsInt']))
 				]
 			})
@@ -28,7 +28,7 @@ MyController=SYS.ControllerClass(
 SYS.mapSet(
 		MyController['/-Models/|Stuff'].ModeledHdfTable,
 		[
-			('row.__setitem__',{'#liarg':('MyFloatsList',[0,1,2])}),
+			('row.__setitem__',{'#liarg':('MyFloatsList',[0.,1.,2.])}),
 			('row.append',{'#liarg':None}),
 			('flush',{'#liarg':None})
 		]
@@ -49,7 +49,7 @@ MyController=SYS.ControllerClass(
 				'ModelingDescriptionTuplesList':
 				[
 					#GetStr #ColumnStr #Col
-					('MyBool','MyBool',tables.StringCol(10)),
+					('MyInt','MyInt',tables.Int64Col()),
 					('MyFloatsList','MyFloatsList',(tables.Float64Col,['UnitsInt']))
 				]
 			})

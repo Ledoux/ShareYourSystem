@@ -15,7 +15,6 @@ MyController=SYS.ControllerClass(
 			'ModelingDescriptionTuplesList':
 			[
 				#GetStr #ColumnStr #Col
-				('MyInt','MyInt',tables.Int64Col()),
 				('MyStr','MyStr',tables.StringCol(10)),
 				('MyIntsList','MyIntsList',tables.Int64Col(shape=3))
 			]	

@@ -1132,7 +1132,7 @@ def getIsEqualBool(_VariableA,_VariableB):
 	print('_VariableB is ',_VariableB)
 	print('')
 	'''
-
+	
 	#import
 	import numpy
 
@@ -1149,7 +1149,7 @@ def getIsEqualBool(_VariableA,_VariableB):
 	print('_VariableB is ',_VariableB)
 	print('')
 	'''
-
+	
 	#Then do the equal process
 	if numpy.ndarray not in map(type,[_VariableA,_VariableB]):
 

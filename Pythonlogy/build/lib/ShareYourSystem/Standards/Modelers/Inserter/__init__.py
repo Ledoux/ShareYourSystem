@@ -23,7 +23,8 @@ SYS.setSubModule(globals())
 
 #<ImportSpecificModules>
 Rower=BaseModule
-from ShareYourSystem.Standards.Itemizers import Getter
+from ShareYourSystem.Standards.Itemizers import Getter,Setter
+from ShareYourSystem.Standards.Modelers import Modeler
 #</ImportSpecificModules>
 
 #<DefineClass>
@@ -45,25 +46,6 @@ class InserterClass(
 		#Call the parent init method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 			
-	def propertize_setRowingGetStrsList(self,_SettingValueVariable):
-		
-		#Hook
-		BaseClass.propertize_setRowingGetStrsList(self,_SettingValueVariable)
-
-		#Bind 
-		self.InsertedNotRowGetStrsList=set(self.ModelKeyStrsList
-			)-set(
-				self.RowingGetStrsList
-			)
-
-		#set
-		if self.ModelingHdfBool:
-			self.InsertedNotRowColumnStrsList=map(
-				lambda __NotRowGetStr:
-				self.RowGetStrToColumnStrOrderedDict[__NotRowGetStr],
-				self.InsertedNotRowGetStrsList
-			)
-
 	def do_insert(self,**_KwargVariablesDict):
 		""" """
 
@@ -72,9 +54,7 @@ class InserterClass(
 		#
 
 		#debug
-		'''
 		self.debug('row maybe before...')
-		'''
 		
 		#reset
 		self.setDone(Rower.RowerClass)
@@ -83,43 +63,14 @@ class InserterClass(
 		self.row()
 
 		#debug
-		'''
 		self.debug(
-					('self.',self,['RowedIsBool'])
-				)
-		self.NodePointDeriveNoder.debug([
-				('NOTE : ...ParentSpeaking...')
-			])
-		'''
-
-		"""
-		map(
-				lambda __InitVariable:
-				setattr(
-					self,
-					__KeyStr,
-					SYS.getInitiatedVariableWithKeyStr(__KeyStr)	
-				) if __InitVariable==None else None,
-				map(
-						lambda __KeyStr:
-						(
-							__KeyStr,
-							getattr(self,__KeyStr)
-						),
-						[
-							'InsertedNotRowPickOrderedDict',
-							'InsertedNotRowGetStrsList',
-							'InsertedNotRowGetStrsList',
-							'InsertedNotRowPickOrderedDict'
-						]
-					)
-			)
-		"""
-
-		#debug
-		'''
-		self.debug(('self.',self,['InsertedNotRowPickOrderedDict']))
-		'''
+			[
+				('self.',self,[
+					'InsertedMongoNotRowPickOrderedDict',
+					'InsertedHdfNotRowPickOrderedDict'
+				])
+			]
+		)
 		
 		#Check
 		if self.ModelingMongoBool:
@@ -132,7 +83,7 @@ class InserterClass(
 			'''
 			self.debug(
 				[
-					'We are going to row mongo',
+					'We are mongo insert here',
 					('self.',self,[
 						'RowedMongoIsBoolsList'
 						]),
@@ -227,7 +178,7 @@ class InserterClass(
 			'''
 			self.debug(
 				[
-					'We are going to row hdf',
+					'We are hdf insert here',
 					('self.',self,[
 						'RowedHdfIsBool'
 						]),
@@ -270,7 +221,8 @@ class InserterClass(
 						zip(
 								self.InsertedNotRowGetStrsList,
 								self.ModelDeriveControllerVariable[
-								Getter.GetMapStr](
+									Getter.GetMapStr
+								](
 									*self.InsertedNotRowGetStrsList
 									).ItemizedMapValueVariablesList
 							)
@@ -306,12 +258,168 @@ class InserterClass(
 					)
 					'''
 					
-					#set
-					map(
-							lambda __InsertingTuple:
-							Row.__setitem__(*__InsertingTuple),
-							self.InsertedItemTuplesList
+
+					try:
+
+						#debug
+						self.debug(
+								[
+									'Ok now we try to append in the rows',
+									('self.',self,['InsertedItemTuplesList'])
+								]
+							)
+
+						#set
+						map(
+								lambda __InsertingTuple:
+								Row.__setitem__(*__InsertingTuple),
+								self.InsertedItemTuplesList
+							)
+
+						#debug
+						self.debug(
+								[
+									'It has worked !'
+								]
+							)
+
+					except ValueError:
+
+						#debug
+						self.debug(
+								[
+									'It hasn\'t worked !',
+									'so find the shape that was not good'
+								]
+							)
+
+						#/###################/#
+						# Then find where the shape was not good
+						#
+
+						#Definition the InsertedOldDimensionIntsListsList
+						InsertedOldDimensionIntsList=map(
+								lambda __ModeledDescriptionDimensionGetKeyStrsList:
+								self.ModelDeriveControllerVariable[Getter.GetMapStr](
+									__ModeledDescriptionDimensionGetKeyStrsList
+								).ItemizedMapValueVariablesList,
+								self.ModeledDescriptionDimensionGetKeyStrsListsList
+							)
+
+						#import numpy
+						import numpy as np
+
+						#Definition the InsertedNewDimensionIntsListsList
+						InsertedNewDimensionIntsListsList=map(
+							lambda __ModeledDescriptionGetKeyStr:
+							list(
+									np.shape(
+										self.ModelDeriveControllerVariable[
+											__ModeledDescriptionGetKeyStr
+										]
+									)
+							),
+							self.ModeledDescriptionGetKeyStrsList
 						)
+
+						#debug
+						self.debug(
+							[
+								('vars ',vars(),
+										[
+											'InsertedOldDimensionIntsList',
+											'InsertedNewDimensionIntsListsList'
+										]),
+								('self.',self,[
+										'ModeledDescriptionDimensionGetKeyStrsListsList'
+									])
+							]
+						)
+
+						#set the shaping attributes to their new values
+						map(
+								lambda __ModeledDescriptionDimensionGetKeyStrsList,__InsertedOldDimensionList,__InsertedNewDimensionList:
+								self.__setitem__(
+									'ModeledErrorBool',
+									True
+									).ModelDeriveControllerVariable[
+										Setter.SetMapStr
+									](
+									zip(
+										__ModeledDescriptionDimensionGetKeyStrsList,
+										__InsertedNewDimensionList
+										)
+								) if __InsertedNewDimensionList!=__InsertedOldDimensionList
+								else None,
+								self.ModeledDescriptionDimensionGetKeyStrsListsList,
+								InsertedOldDimensionIntsList,
+								InsertedNewDimensionIntsListsList
+							)
+
+						#debug
+						self.debug(
+								[
+									'Ok we have updated the shaping variables'
+								]
+							)
+
+						#/###################/#
+						# Reset the configurating methods
+						#
+
+						#debug
+						'''
+						self.debug(
+							[
+								'We reset some methods',
+								#('self.',self,['SwitchMethodDict'])
+							]
+						)
+						'''
+						
+						#switch model
+						self.setSwitch('model')
+
+						#setDone
+						self.setDone(
+							[
+								Modeler.ModelerClass,
+							]
+						)
+						
+						#debug
+						self.debug(
+								[
+									'Now we remodel...',
+									('self.',self,[
+										'WatchBeforeModelWithModelerBool',
+									])
+								]
+							)
+
+						#model to relaunch everything
+						self.model()
+
+						#/###################/#
+						# insert again
+						#
+
+						#debug
+						self.debug(
+							[
+								'Ok model again is done, so now we insert'
+							]
+						)
+
+						#insert 
+						self.insert()
+
+						#return
+						return
+
+					#/###################/#
+					# Finish woth append and flush
+					#
 
 					#debug
 					'''
@@ -320,8 +428,10 @@ class InserterClass(
 
 					#Append and Insert
 					Row.append()
+				
+					#flush
 					self.ModeledHdfTable.flush()
-					
+
 			else:
 
 				#debug
@@ -342,6 +452,25 @@ class InserterClass(
 		
 		#setSwitch row
 		self.setSwitch('row')
+
+	def propertize_setRowingGetStrsList(self,_SettingValueVariable):
+		
+		#Hook
+		BaseClass.propertize_setRowingGetStrsList(self,_SettingValueVariable)
+
+		#Bind 
+		self.InsertedNotRowGetStrsList=set(self.ModelKeyStrsList
+			)-set(
+				self.RowingGetStrsList
+			)
+
+		#set
+		if self.ModelingHdfBool:
+			self.InsertedNotRowColumnStrsList=map(
+				lambda __NotRowGetStr:
+				self.RowGetStrToColumnStrOrderedDict[__NotRowGetStr],
+				self.InsertedNotRowGetStrsList
+			)
 
 #</DefineClass>
 
