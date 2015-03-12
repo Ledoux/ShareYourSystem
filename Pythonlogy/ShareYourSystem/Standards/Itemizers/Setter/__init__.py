@@ -22,7 +22,7 @@ SYS.setSubModule(globals())
 #<ImportSpecificModules>
 Getter=BaseModule
 from ShareYourSystem.Standards.Itemizers import Itemizer
-import collections
+import collections,copy
 #</ImportSpecificModules>
 
 #<DefineLocals>
@@ -90,7 +90,8 @@ SetMapKwargGetKeyGrabStr=SetMapKwargGetGrabPrefixStr+'#key'
 SetMapKwargGetValueGrabStr=SetMapKwargGetGrabPrefixStr+'#value'
 SetMapKwargGetKeyValueGrabStr=SetMapKwargGetGrabPrefixStr+'#key:value'
 SetListTypesSet=set(['list','ndarray'])
-
+SetCopyPrefixStr='#copy:'
+SetDeepCopyPrefixStr='#deepcopy:'
 class ArgumentDict(collections.OrderedDict):
 
 	def __init__(self,_ArgumentDict=None,_GetterVariable=None):
@@ -636,7 +637,7 @@ class SetterClass(BaseClass):
 			#
 
 			#Check
-			if self.SettingKeyVariable.startswith(
+			elif self.SettingKeyVariable.startswith(
 				SetEachPrefixStr
 			):
 
@@ -752,6 +753,66 @@ class SetterClass(BaseClass):
 							),
 							SettedGetVariablesList
 						)
+
+				#Return stop the setting
+				return {'HookingIsBool':False}
+
+			#/####################/#
+			# Case of #copy: set
+			#
+
+			#Check
+			elif self.SettingKeyVariable.startswith(
+				SetCopyPrefixStr
+			):
+
+				#deprefix
+				GetKeyStr=SYS.deprefix(
+						self.SettingKeyVariable,
+						SetCopyPrefixStr
+					)
+
+				#debug
+				'''
+				self.debug(
+					[
+						'We copy set here',
+						'GetKeyStr is ',
+						GetKeyStr
+					]
+				)
+				'''
+
+				#set
+				self[GetKeyStr]=copy.copy(self.SettingValueVariable)
+
+				#Return stop the setting
+				return {'HookingIsBool':False}
+
+			#Check
+			elif self.SettingKeyVariable.startswith(
+				SetDeepCopyPrefixStr
+			):
+
+				#deprefix
+				GetKeyStr=SYS.deprefix(
+						self.SettingKeyVariable,
+						SetDeepCopyPrefixStr
+					)
+
+				#debug
+				'''
+				self.debug(
+					[
+						'We deepcopy set here',
+						'GetKeyStr is ',
+						GetKeyStr
+					]
+				)
+				'''
+
+				#set
+				self[GetKeyStr]=copy.deepcopy(self.SettingValueVariable)
 
 				#Return stop the setting
 				return {'HookingIsBool':False}

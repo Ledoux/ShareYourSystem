@@ -795,8 +795,6 @@ def where(_DictsList,_TuplesList,**_KwargsDict):
 						_DictsList
 					)
 
-
-
 def getStrsListWithBeginStrAndEndStrAndStrsIntAndStr(
 		_BeginStr,_EndStr,_StrsInt,_Str,**_KwargVariablesDict):
 	
@@ -1103,6 +1101,48 @@ def getUnSerializedTuple(_Variable,_SerializedList):
 					]
 				)
 
+def getColorTuplesList(
+		_FromColorStr='red',
+		_ToColorStr='black',
+		_SampleInt=5,
+		_FormatStr='rgb',
+		_PlotBool=True
+	):
+
+	#import
+	from colour import Color
+	
+	#color range
+	ColorsList=list(
+		Color(_FromColorStr).range_to(
+			Color(_ToColorStr),
+			_SampleInt
+		)
+	)
+
+	#map
+	ColorTuplesList=map(
+		lambda __Color:
+		getattr(
+			__Color,
+			_FormatStr
+		),
+		ColorsList
+	)
+	
+	#Check
+	if _PlotBool:
+		from matplotlib import pyplot
+		pyplot.bar(
+				xrange(_SampleInt),
+				[1 for __Int in xrange(_SampleInt)],
+				color=map(lambda __Color:__Color.rgb,ColorsList)
+			)
+		pyplot.show()
+
+	#return 
+	return ColorTuplesList
+	
 def getProcessIdStrsListWithProcessNameStr(_ProcessNameStr):
 
 	return map(

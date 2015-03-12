@@ -122,6 +122,7 @@ setup(
 			 		'ShareYourSystem.Specials.Simulaters.Neurongrouper',
 			 		'ShareYourSystem.Specials.Simulaters.Synapser',
 			 		'ShareYourSystem.Specials.Simulaters.Brianer',
+			 		'ShareYourSystem.Specials.Predicters.Matrixer',
 			 		'ShareYourSystem.Specials.Predicters.Predicter',
 			 		'ShareYourSystem.Specials.Predicters.Predisenser',
 			 		'ShareYourSystem.Specials.Predicters.Prediploter',

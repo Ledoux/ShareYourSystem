@@ -59,7 +59,24 @@ def getKrenelFloatsArray(
 	return KrenelFloatsArray
 
 def getTickFloatsArray(_LimList,_SampleFloat):
-	return np.arange(_LimList[0],_LimList[1]+1.,(_LimList[1]-_LimList[0])/float(_SampleFloat))
+
+	#Debug
+	'''
+	print('getTickFloatsArray l 64')
+	print('_LimList is')
+	print(_LimList)
+	print('_SampleFloat is ')
+	print(_SampleFloat)
+	print('')
+	'''
+	
+	#return
+	return np.array(list(np.arange(
+		_LimList[0],
+		_LimList[1],
+		(_LimList[1]-_LimList[0])/float(_SampleFloat)
+	))+[_LimList[1]])
+
 SYS.getTickFloatsArray=getTickFloatsArray
 #</DefineLocals>
 
@@ -71,12 +88,14 @@ class PredisenserClass(BaseClass):
 						_PredisensingRunTimeFloat=100.,
 						_PredisensingStepTimeFloat=0.1,
 						_PredisensingClampFloat=0.1,
-						_PredisensingMonitorList=None,
+						_PredisensingMonitorIntsList=None,
 						_PredisensedTimeTraceFloatsArray=None,
 						_PredisensedCommandTraceFloatsArray=None,
 						_PredisensedInputCurrentTraceFloatsArray=None,
 						_PredisensedInitialSensorFloatsArray=None,
 						_PredisensedSensorTraceFloatsArray=None,
+						_PredisenseCommandColorTuplesList=None,
+						_PredisenseSensorColorTuplesList=None,
 						**_KwargVariablesDict
 					):
 		""" """		
@@ -108,7 +127,7 @@ class PredisenserClass(BaseClass):
 					],
 					[
 						self.PredisensingRunTimeFloat/4.,
-						self.PredisensingRunTimeFloat/2.
+						3.*self.PredisensingRunTimeFloat/4.
 					],
 					self.PredisensingRunTimeFloat,
 					self.PredisensingStepTimeFloat
@@ -194,76 +213,60 @@ class PredisenserClass(BaseClass):
 
 	def mimic_draw(self):
 		
+		#debug
+		'''
+		self.debug(
+				[
+					('self.',self,['PredisensingMonitorIntsList'])
+				]
+			)
+		'''
+
+		#/#################/#
+		# Build the colors
+		#	
+
+		self.PredisenseCommandColorTuplesList=SYS.getColorTuplesList(
+			'black','red',len(self.PredisensingMonitorIntsList)+3,_PlotBool=False
+		)[3:]
+
+		self.PredisenseSensorColorTuplesList=SYS.getColorTuplesList(
+			'black','blue',len(self.PredisensingMonitorIntsList)+3,_PlotBool=False
+		)[3:]
+
+		#debug
+		'''
+		self.debug(
+				[
+					'We have built the colors',
+					('self.',self,[
+						'PredisenseCommandColorTuplesList'
+						'PredisenseSensorColorTuplesList'])
+				]
+			)
+		'''
+		
 		#/#################/#
 		# Build the input-unit traces axes
 		#
-
-		#debug
-		self.debug(
-				[
-					('self.',self,['PredisensingMonitorList'])
-				]
-			)
 
 		#init
 		if self.DrawingSetVariable==None:
 			self.DrawingSetVariable={
 				'|A':{
 					'-Axes':[
-						('ManagingAfterSetVariable',
+						('ManagingBeforeSetVariable',
 						{
-							'FiguringShapeIntsTuple':(5,15)
-						}),
-						('|Sensor',{
-							'-Plots':{
-								'#map@set':map(
-									lambda __IndexInt:
-									(
-										'|'+str(__IndexInt),
-										{
-											'FiguringDrawVariable':
-											[
-												('#plot',
-													{
-														'#liarg:#map@get':[
-															'PredisensedTimeTraceFloatsArray',
-															'>>self.PredisensedInputCurrentTraceFloatsArray.__getitem__('+str(__IndexInt)+')'
-														],
-														'#kwarg':{
-															'label':'$\\tau_{D}c_{'+str(__IndexInt)+'}(t)$',
-															'linestyle':'-'
-														}
-													}
-												),
-												('#plot',
-													{
-														'#liarg:#map@get':[
-															'PredisensedTimeTraceFloatsArray',
-															'>>self.PredisensedSensorTraceFloatsArray['+str(__IndexInt)+',:]'
-														],
-														'#kwarg':{
-															'color':'g',
-															'label':'$x_{'+str(__IndexInt)+'}(t)$',
-															'linewidth':3,
-															'linestyle':'-'
-														}
-													}
-												)
-											]
-										}
-									),
-									self.PredisensingMonitorList
-								)	
-							},
-							'FiguringDrawVariable':
+							'FiguringShapeIntsTuple':(5,15),
+							'#copy:FiguringDrawVariable':
 							[
 								(
 									'#axes',
 									[
 										('set_xticks',{
-											'#liarg:#map@get':[
-												">>SYS.set(SYS,'TimeTicksArray',SYS.getTickFloatsArray([0.,self.PredisensingRunTimeFloat],4)).TimeTicksArray"
-											]	
+													'#liarg:#map@get':[
+														">>SYS.set(SYS,'TimeTicksArray',SYS.getTickFloatsArray([0.,self.PredisensingRunTimeFloat],4)).TimeTicksArray"
+													]	
 										}),
 										('set_xticklabels',{
 											'#liarg:#map@get':[
@@ -272,21 +275,82 @@ class PredisenserClass(BaseClass):
 										}),
 										('set_xlim',{
 											'#liarg:#map@get':[0.,'>>self.PredisensingRunTimeFloat']
-										}),
+										})
+									]
+								)
+							]
+						}),
+						('|Sensor',{
+							'-Plots':{
+								'#map@set':map(
+									lambda __IntsTuple:
+									(
+										'|'+str(__IntsTuple[0]),
+										{
+											'FiguringDrawVariable':
+											[
+												('#plot',
+													{
+														'#liarg:#map@get':[
+															'PredisensedTimeTraceFloatsArray',
+															'>>self.PredisensedInputCurrentTraceFloatsArray.__getitem__('+str(__IntsTuple[1])+')'
+														],
+														'#kwarg':{
+															'label':'$\\tau_{D}c_{'+str(__IntsTuple[1])+'}$',
+															'linestyle':'-',
+															'color':self.PredisenseCommandColorTuplesList[__IntsTuple[0]]
+														}
+												}),
+												('#plot',
+													{
+														'#liarg:#map@get':[
+															'PredisensedTimeTraceFloatsArray',
+															'>>self.PredisensedSensorTraceFloatsArray['+str(__IntsTuple[1])+',:]'
+														],
+														'#kwarg':{
+															'color':self.PredisenseSensorColorTuplesList[__IntsTuple[0]],
+															'label':'$x_{'+str(__IntsTuple[1])+'}$',
+															'linewidth':3,
+															'linestyle':'-'
+														}
+												})
+											]
+										}
+									),
+									enumerate(self.PredisensingMonitorIntsList)
+								)	
+							},
+							'FiguringDrawVariable.extend':
+							[[
+								(
+									'#axes',
+									[
 										('set_ylabel','$\\tau_{D}c(t),\ x(t)$'),
+										('set_ylim',{'#liarg:#map@get':[
+											"".join([
+												">>SYS.set(SYS,'SensorLimFloatsArray',",
+												"[-0.1,1.5*self.PredisensingClampFloat*self.PredictingConstantTimeFloat]",
+												').SensorLimFloatsArray'
+											])]
+										}),
 										('set_yticks',{
 											'#liarg:#map@get':[
-												">>SYS.set(SYS,'RateTicksArray',map(lambda __Float:float('%.2f'%__Float),SYS.getTickFloatsArray([0.,1.5*self.PredisensingClampFloat*self.PredictingConstantTimeFloat],3))).RateTicksArray"
+												"".join([
+													">>SYS.set(SYS,'SensorTickFloatsArray',",
+													"map(lambda __Float:float('%.2f'%__Float),",
+													"SYS.getTickFloatsArray(",
+													"SYS.SensorLimFloatsArray,3",
+													"))).SensorTickFloatsArray"
+												])
 											]
 										}),
 										('set_yticklabels',{
 											'#liarg:#map@get':[
-												">>map(lambda __Float:str(__Float),SYS.RateTicksArray)"
-											]
-										}),
-										('set_ylim',{
-											'#liarg:#map@get':[
-												'>>[-0.1,1.5*self.PredisensingClampFloat*self.PredictingConstantTimeFloat]'
+												"".join([
+													">>SYS.set(SYS,'SensorTickStrsArray',",
+													"map(lambda __Float:'$'+str(__Float)+'$',",
+													"SYS.SensorTickFloatsArray)).SensorTickStrsArray"
+													])
 											]
 										}),
 										('tick_params',{
@@ -324,7 +388,7 @@ class PredisenserClass(BaseClass):
 										})
 									]
 								)
-							]
+							]]
 						})
 					]
 				}				
@@ -341,12 +405,14 @@ PredisenserClass.PrintingClassSkipKeyStrsList.extend(
 		'PredisensingRunTimeFloat',
 		'PredisensingStepTimeFloat',
 		'PredisensingClampFloat',
-		'PredisensingMonitorList',
+		'PredisensingMonitorIntsList',
 		'PredisensedTimeTraceFloatsArray',
 		'PredisensedInputCurrentTraceFloatsArray',
 		'PredisensedCommandTraceFloatsArray',
 		'PredisensedInitialSensorFloatsArray',
 		'PredisensedSensorTraceFloatsArray',
+		'PredisenseCommandColorTuplesList',
+		'PredisenseSensorColorTuplesList'
 	]
 )
 #<DefinePrint>

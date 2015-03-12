@@ -10,15 +10,23 @@ MyPredisenser=SYS.PredisenserClass(
 		#PredictingSensorsInt
 		1,
 		#PredictingConstantTimeFloat (ms)
-		10.,
+		1.,
+		#PredictingInputStatStr
+		'norm',
 		#PredictingDecoderWeightFloat
-		10.,
+		1.,
+		#PredictingNormalisationInt
+		0.5,			
 		#PredictingCostFloat
 		0.,
-		#PredictingNormalisationInt
-		0.5,
-		#PredictingPerturbativeWeightFloat
-		0.1
+		#PredictingPerturbativeInputWeightFloat
+		0.,
+		#PredictingPerturbativeLateralWeightFloat
+		0.,
+		#PredictingInputRandomStatStr
+		'norm',
+		#PredictingLateralRandomStatStr
+		'norm'
 	).predisense(
 		#PredisensingRunTimeFloat (ms)
 		100.,
@@ -26,7 +34,7 @@ MyPredisenser=SYS.PredisenserClass(
 		0.1,
 		#PredisensingClampFloat
 		0.5,
-		#PredisensingMonitorList
+		#PredisensingMonitorIntsList
 		[0]
 	).draw(
 	).show(

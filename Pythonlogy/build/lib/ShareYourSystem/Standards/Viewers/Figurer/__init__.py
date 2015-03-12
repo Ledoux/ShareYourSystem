@@ -75,6 +75,7 @@ class FigurerClass(BaseClass):
 		#
 
 		#debug
+		'''
 		self.debug(
 				[
 					'We figure here',
@@ -83,6 +84,7 @@ class FigurerClass(BaseClass):
 					str(self.TeamDict.keys())
 				]
 			)
+		'''
 
 		#filter
 		FiguredTeamTagStrsList=SYS._filter(
@@ -506,6 +508,7 @@ class FigurerClass(BaseClass):
 					#
 
 					#debug
+					'''
 					self.debug(
 							[
 								'I am Plot..',
@@ -518,6 +521,7 @@ class FigurerClass(BaseClass):
 								FiguredParentParentVariable.FiguredAxesVariable,
 							]
 						)
+					'''
 
 					#get the parent panel
 					self.FiguredAxesDeriveTeamerVariable=FiguredParentParentVariable
@@ -526,12 +530,14 @@ class FigurerClass(BaseClass):
 					self.FiguredAxesVariable=self.FiguredAxesDeriveTeamerVariable.FiguredAxesVariable
 
 				#debug
+				'''
 				self.debug(
 						[
 							'I have definitely an axes..',
 							('self.',self,['FiguredAxesVariable'])
 						]
 					)
+				'''
 
 				#/###################/#
 				# if there axes setted then apply the draw set variable 
@@ -777,6 +783,7 @@ class FigurerClass(BaseClass):
 				)
 
 			#debug
+			'''
 			self.debug(
 					[
 						'We axe here',
@@ -784,7 +791,8 @@ class FigurerClass(BaseClass):
 						SYS._str(ArgumentTuplesList),
 					]
 				)
-			
+			'''
+
 			#map
 			map(
 					lambda __ArgumentTuple:
@@ -956,6 +964,7 @@ class FigurerClass(BaseClass):
 		#
 
 		#debug
+		'''
 		self.debug(
 				[
 					'Ok we set an axes here',
@@ -967,6 +976,7 @@ class FigurerClass(BaseClass):
 					''
 				]
 			)
+		'''
 
 		#init
 		from matplotlib import pyplot
@@ -1051,6 +1061,7 @@ class FigurerClass(BaseClass):
 					self.FiguredPanelShapeIntsList[1]+=__FiguredShiftTuple[1][1]+__FiguredShiftTuple[0][1]
 
 		#debug
+		'''
 		self.debug(
 				[
 					'in the end of the shift',
@@ -1060,7 +1071,7 @@ class FigurerClass(BaseClass):
 					])
 				]
 			)
-
+		'''
 
 #</DefineClass>
 

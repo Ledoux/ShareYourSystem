@@ -2,6 +2,7 @@
 #ImportModules
 import ShareYourSystem as SYS
 
+
 #Define
 MyPredicter=SYS.PredicterClass(
 	).predict(
@@ -9,14 +10,24 @@ MyPredicter=SYS.PredicterClass(
 		10,
 		#PredictingSensorsInt
 		1,
+		#PredictingConstantTimeFloat (ms)
+		1.,
+		#PredictingInputStatStr
+		'norm',
 		#PredictingDecoderWeightFloat
-		10.,
+		1.,
+		#PredictingNormalisationInt
+		0.5,			
 		#PredictingCostFloat
 		0.,
-		#PredictingNormalisationInt
-		0.5,
-		#PredictingPerturbativeWeightFloat
-		0.1
+		#PredictingPerturbativeInputWeightFloat
+		0.,
+		#PredictingPerturbativeLateralWeightFloat
+		0.,
+		#PredictingInputRandomStatStr
+		'norm',
+		#PredictingLateralRandomStatStr
+		'norm'
 	)
 
 #print

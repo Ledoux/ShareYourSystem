@@ -58,16 +58,10 @@ class PrediraterClass(BaseClass):
 	
 	def default_init(self,
 
-						_PrediratingConstantTimeFloat=10.,
 						_PrediratingTransferVariable=np.tanh,
 						_PrediratingMonitorIntsList=None,
-						_PrediratingInititalFloat=0.1,
-									
-						_PrediratedLeakWeigthFloatsArray=None,		
-						_PrediratedLeakExactLateralWeigthFloatsArray=None,
-						_PrediratedTotalPerturbativeLateralWeigthFloatsArray=None,
+											
 						_PrediratedInitialRateFloatsArray=None,
-						_PrediratedControlDecoderWeigthFloatsArray=None,
 						
 						_PrediratedPerturbativeUnitTraceFloatsArray=None,
 						_PrediratedExactUnitTraceFloatsArray=None,
@@ -88,39 +82,13 @@ class PrediraterClass(BaseClass):
 
 	def do_predirate(self):
 
-
-		#/#################/#
-		# Build the leak matrix
-		#
-
-		#diag
-		self.PrediratedLeakWeigthFloatsArray=(1./self.PrediratingConstantTimeFloat)*np.diag(
-			np.ones(
-				self.PredictingUnitsInt
-				)
-			)
 		
-		#add
-		self.PrediratedLeakExactLateralWeigthFloatsArray=self.PredictedExactLateralWeigthFloatsArray-(
-			1.-(self.PredictingCostFloat*self.PrediratingConstantTimeFloat)
-		)*self.PrediratedLeakWeigthFloatsArray
-
-		#sum
-		self.PrediratedTotalPerturbativeLateralWeigthFloatsArray=self.PrediratedLeakExactLateralWeigthFloatsArray+self.PredictedPerturbativeLateralWeigthFloatsArray
-
-		#pinv
-		self.PrediratedControlDecoderWeigthFloatsArray=(1./self.PrediratingConstantTimeFloat
-			)*np.linalg.pinv(
-				self.PredictedExactDecoderWeigthFloatsArray.T
-			)
-
-
 		#/#################/#
 		# Prepare the initial conditions
 		#
 
 		#random sensors
-		PrediratedInitialRateFloatsArray=self.PrediratingInititalFloat*scipy.stats.uniform.rvs(
+		PrediratedInitialRateFloatsArray=scipy.stats.uniform.rvs(
 			size=self.PredictingUnitsInt
 		)
 
@@ -173,7 +141,7 @@ class PrediraterClass(BaseClass):
 				(self.PredictingSensorsInt,len(self.PredisensedTimeTraceFloatsArray))
 			)
 		self.PrediratedControlDecoderTraceFloatsArray[:,0]=np.dot(
-				self.PrediratedControlDecoderWeigthFloatsArray,
+				self.PredictedControlDecoderWeigthFloatsArray,
 				PrediratedInitialRateFloatsArray
 			)
 
@@ -184,6 +152,7 @@ class PrediraterClass(BaseClass):
 		#for loop
 		for __IndexInt in xrange(1,len(self.PredisensedTimeTraceFloatsArray)):
 
+			"""
 			#/#################/#
 			# Perturbative Rate
 			#
@@ -196,7 +165,7 @@ class PrediraterClass(BaseClass):
 
 			#Lateral Current
 			PrediratedPerturbativeUnitCurrentFloatsArray-=np.dot(
-				self.PrediratedTotalPerturbativeLateralWeigthFloatsArray,
+				self.PredictedTotalPerturbativeLateralWeigthFloatsArray,
 				self.PrediratedPerturbativeUnitTraceFloatsArray[:,__IndexInt-1]
 			)
 
@@ -207,9 +176,10 @@ class PrediraterClass(BaseClass):
 
 			#Leak and Cost Current (non transfered)
 			PrediratedPerturbativeUnitCurrentFloatsArray-=np.dot(
-				self.PrediratedLeakWeigthFloatsArray,
+				self.PredictedLeakWeigthFloatsArray,
 				self.PrediratedPerturbativeUnitTraceFloatsArray[:,__IndexInt-1]
 			)
+			"""
 
 			#/#################/#
 			# Exact Rate 
@@ -223,7 +193,7 @@ class PrediraterClass(BaseClass):
 
 			#Lateral Current
 			PrediratedExactUnitCurrentFloatsArray-=np.dot(
-				self.PrediratedLeakExactLateralWeigthFloatsArray,
+				self.PredictedLeakExactLateralWeigthFloatsArray,
 				self.PrediratedExactUnitTraceFloatsArray[:,__IndexInt-1]
 			)
 			
@@ -234,19 +204,14 @@ class PrediraterClass(BaseClass):
 
 			#Leak Current (non transfered)
 			PrediratedExactUnitCurrentFloatsArray-=np.dot(
-				self.PrediratedLeakWeigthFloatsArray,
+				self.PredictedLeakWeigthFloatsArray,
 				self.PrediratedExactUnitTraceFloatsArray[:,__IndexInt-1]
 			)
 			
 			#debug
-			'''
 			self.debug(
-					[
-						'PrediratedExactUnitCurrentFloatsArray is ',
-						str(PrediratedExactUnitCurrentFloatsArray)
-					]
+					'PrediratedExactUnitCurrentFloatsArray is '
 				)
-			'''
 
 			#/#################/#
 			# Control Rate
@@ -265,7 +230,7 @@ class PrediraterClass(BaseClass):
 
 			#Leal Current
 			PrediratedControlUnitCurrentFloatsArray-=np.dot(
-				self.PrediratedLeakWeigthFloatsArray,
+				self.PredictedLeakWeigthFloatsArray,
 				self.PrediratedControlUnitTraceFloatsArray[:,__IndexInt-1]
 			)
 			
@@ -278,7 +243,7 @@ class PrediraterClass(BaseClass):
 
 			#rate
 			for __TagStr in [
-								'Perturbative',
+								#'Perturbative',
 								'Exact',
 								'Control'
 							]:	
@@ -346,7 +311,7 @@ class PrediraterClass(BaseClass):
 				:,
 				__IndexInt
 			]=np.dot(
-					self.PrediratedControlDecoderWeigthFloatsArray,
+					self.PredictedControlDecoderWeigthFloatsArray,
 					self.PrediratedControlUnitTraceFloatsArray[:,__IndexInt-1]
 				)
 
@@ -359,11 +324,11 @@ class PrediraterClass(BaseClass):
 		BaseClass.draw(self)
 
 		#/#################/#
-		# Build the Units colors
+		# Build the colors
 		#
 
 		self.PredirateControlColorTuplesList=SYS.getColorTuplesList(
-			'black','green',len(self.PrediratingMonitorIntsList)+3,_PlotBool=False
+			'black','yellow',len(self.PrediratingMonitorIntsList)+3,_PlotBool=False
 		)[3:]
 		self.PredirateExactColorTuplesList=SYS.getColorTuplesList(
 			'black','blue',len(self.PrediratingMonitorIntsList)+3,_PlotBool=False
@@ -434,21 +399,21 @@ class PrediraterClass(BaseClass):
 											}
 										}
 									),
-									('#plot',
-										{
-											'#liarg:#map@get':[
-												'PredisensedTimeTraceFloatsArray',
-												'>>self.PrediratedPerturbativeUnitTraceFloatsArray[\''+str(__IntsTuple[1])+'\']'
-											],
-											'#kwarg':{
-												'label':'$r_{'+str(__IntsTuple[1])+'}^{perturb}$',
-												'linestyle':'-',
-												'linewidth':4,
-												'color':self.PrediratePerturbativeColorTuplesList[__IntsTuple[0]]
-											
-											}
-										}
-									)
+									#('#plot',
+									#	{
+									#		'#liarg:#map@get':[
+									#			'PredisensedTimeTraceFloatsArray',
+									#			'>>self.PrediratedPerturbativeUnitTraceFloatsArray[\''+str(__IntsTuple[1])+'\']'
+									#		],
+									#		'#kwarg':{
+									#			'label':'$r_{'+str(__IntsTuple[1])+'}^{perturb}$',
+									#			'linestyle':'-',
+									#			'linewidth':4,
+									#			'color':self.PrediratePerturbativeColorTuplesList[__IntsTuple[0]]
+									#		
+									#		}
+									#	}
+									#)
 								]
 							}
 						),
@@ -463,8 +428,8 @@ class PrediraterClass(BaseClass):
 							('set_ylim',{
 								'#liarg:#map@get':[
 									">>SYS.set(SYS,'RateLimFloatsArray',"+"".join([
-										"[max(-20.,self.PrediratedPerturbativeUnitTraceFloatsArray.min()),"
-										"min(20.,self.PrediratedPerturbativeUnitTraceFloatsArray.max())]"
+										"[max(-20.,self.PrediratedControlUnitTraceFloatsArray.min()),"
+										"min(20.,self.PrediratedControlUnitTraceFloatsArray.max())]"
 										])+').RateLimFloatsArray'
 								]
 							}),
@@ -526,29 +491,6 @@ class PrediraterClass(BaseClass):
 			}
 		)
 
-		#/#################/#
-		# Build the Decoder colors
-		#
-
-		self.PredirateDecoderControlColorTuplesList=SYS.getColorTuplesList(
-			'black','green',len(self.PredisensingMonitorIntsList)+3,_PlotBool=False
-		)[3:]
-		self.PredirateDecoderExactColorTuplesList=SYS.getColorTuplesList(
-			'black','blue',len(self.PredisensingMonitorIntsList)+3,_PlotBool=False
-		)[3:]
-		self.PredirateDecoderPerturbativeColorTuplesList=SYS.getColorTuplesList(
-			'black','red',len(self.PredisensingMonitorIntsList)+3,_PlotBool=False
-		)[3:]
-
-		#debug
-		'''
-		self.debug(
-				[
-					'We have built the colors',
-					('self.',self,['PrediratePerturbativeColorTuplesList'])
-				]
-			)
-		'''
 		#get
 		self['/-Views/|A/-Axes'].set(
 			'|Decoder',
@@ -579,13 +521,13 @@ class PrediraterClass(BaseClass):
 										{
 											'#liarg:#map@get':[
 												'PredisensedTimeTraceFloatsArray',
-												'>>self.PrediratedPerturbativeDecoderTraceFloatsArray[\''+str(__IntsTuple[1])+'\']'
+												'>>self.PrediratedControlDecoderTraceFloatsArray[\''+str(__IntsTuple[1])+'\']'
 											],
 											'#kwarg':{
-												'label':'$\hat{x}_{'+str(__IntsTuple[1])+'}^{perturb}$',
+												'label':'$\hat{x}_{'+str(__IntsTuple[1])+'}^{control}$',
 												'linestyle':'--',
-												'linewidth':4,
-												'color':self.PredirateDecoderPerturbativeColorTuplesList[__IntsTuple[0]],
+												'linewidth':1,
+												'color':self.PredisenseSensorColorTuplesList[__IntsTuple[0]],
 											
 											}
 										}
@@ -600,27 +542,26 @@ class PrediraterClass(BaseClass):
 												'label':'$\hat{x}_{'+str(__IntsTuple[1])+'}^{exact}$',
 												'linestyle':'--',
 												'linewidth':2,
-												'color':self.PredirateDecoderExactColorTuplesList[__IntsTuple[0]],
+												'color':self.PredisenseSensorColorTuplesList[__IntsTuple[0]],
 											
 											}
 										}
 									),
-									('#plot',
-										{
-											'#liarg:#map@get':[
-												'PredisensedTimeTraceFloatsArray',
-												'>>self.PrediratedControlDecoderTraceFloatsArray[\''+str(__IntsTuple[1])+'\']'
-											],
-											'#kwarg':{
-												'label':'$\hat{x}_{'+str(__IntsTuple[1])+'}^{control}$',
-												'linestyle':'--',
-												'linewidth':1,
-												'color':self.PredirateDecoderControlColorTuplesList[__IntsTuple[0]],
-											
-											}
-										}
-									)
-									
+									#('#plot',
+									#	{
+									#		'#liarg:#map@get':[
+									#			'PredisensedTimeTraceFloatsArray',
+									#			'>>self.PrediratedPerturbativDecoderTraceFloatsArray[\''+str(__IntsTuple[1])+'\']'
+									#		],
+									#		'#kwarg':{
+									#			'label':'$\hat{x}_{'+str(__IntsTuple[1])+'}^{perturb}$',
+									#			'linestyle':'--',
+									#			'linewidth':4,
+									#			'color':self.PredisenseSensorColorTuplesList[__IntsTuple[0]],
+									#		
+									#		}
+									#	}
+									#)
 								]
 							}
 						),
@@ -635,17 +576,28 @@ class PrediraterClass(BaseClass):
 							('set_ylabel','$x(t),\ \hat{x}(t)$'),
 							('set_ylim',{
 								'#liarg:#map@get':[
-									">>SYS.SensorLimFloatsArray"
+									">>SYS.set(SYS,'DecoderLimFloatsArray',"+"".join([
+										"[max(0.,self.PrediratedControlDecoderTraceFloatsArray.min()),"
+										"min(5.,self.PrediratedControlDecoderTraceFloatsArray.max())]"
+										])+').DecoderLimFloatsArray'
 								]
 							}),
 							('set_yticks',{
 								'#liarg:#map@get':[
-									">>SYS.SensorTickFloatsArray"
+									"".join(
+										[
+											">>SYS.set(SYS,'DecoderTickFloatsArray',"
+											"map(lambda __Float:float('%.2f'%__Float),",
+											"SYS.getTickFloatsArray(SYS.DecoderLimFloatsArray,3))",
+											").DecoderTickFloatsArray"
+										]
+									)
 								]
 							}),
 							('set_yticklabels',{
 								'#liarg:#map@get':[
-									">>SYS.SensorTickStrsArray"]
+									">>map(lambda __Float:'$'+str(__Float)+'$',SYS.DecoderTickFloatsArray)"
+								]
 							}),
 							('tick_params',{
 								'#kwarg':{
@@ -687,22 +639,165 @@ class PrediraterClass(BaseClass):
 				]]
 			}
 		)	
+
+	def prediplot(self):
+
+		#/#################/#
+		# Plot
+		#
+
+		#debug
+		self.debug(
+			[
+				'len(self.PredisensedTimeTraceFloatsArray) is '+str(len(self.PredisensedTimeTraceFloatsArray)),
+				'np.shape(self.PrediratedCommandFloatsArray) is '+str(np.shape(self.PrediratedCommandFloatsArray))
+			]
+		)
+
+		#/#################/#
+		# rates
+		#
+
+		#subplot
+		PrediratedRateAxis=pyplot.subplot(3,1,2)
+
+		#perturbative
+		map(
+				lambda __IndexInt:
+				PrediratedRateAxis.plot(
+						self.PredisensedTimeTraceFloatsArray,
+						self.PrediratedPerturbativeUnitTraceFloatsArray[__IndexInt,:],
+						color='blue',
+						linewidth=3
+					)
+				if __IndexInt<len(self.PrediratedPerturbativeUnitTraceFloatsArray)
+				else None,
+				[0,1]
+			)
+
+		#exact
+		map(
+				lambda __IndexInt:
+				PrediratedRateAxis.plot(
+						self.PredisensedTimeTraceFloatsArray,
+						self.PrediratedExactUnitTraceFloatsArray[__IndexInt,:],
+						color='violet',
+						linewidth=2
+					)
+				if __IndexInt<len(self.PrediratedPerturbativeUnitTraceFloatsArray)
+				else None,
+				[0,1]
+			)
+
+		#leak
+		map(
+				lambda __IndexInt:
+				PrediratedRateAxis.plot(
+						self.PredisensedTimeTraceFloatsArray,
+						self.PrediratedControlUnitTraceFloatsArray[__IndexInt,:],
+						color='brown',
+						linewidth=1
+					)
+				if __IndexInt<len(self.PrediratedControlUnitTraceFloatsArray)
+				else None,
+				[0,1]
+			)
+
+		#set
+		PrediratedRateAxis.set_xlim([0.,self.PrediratingRunTimeFloat])
+		PrediratedRateAxis.set_ylim(
+			[
+				max(-10.,self.PrediratedPerturbativeUnitTraceFloatsArray.min()),
+				min(10.,self.PrediratedPerturbativeUnitTraceFloatsArray.max())
+			]
+		)
+
+		#/#################/#
+		# decoders
+		#
+
+		#subplot
+		PrediratedDecoderAxis=pyplot.subplot(3,1,3)
+
+		#sensor
+		map(
+				lambda __IndexInt:
+				PrediratedDecoderAxis.plot(
+						self.PredisensedTimeTraceFloatsArray,
+						self.PredisensedSensorTraceFloatsArray[__IndexInt],
+						color='g',
+						linewidth=3
+					)
+				if __IndexInt<len(self.PredisensedSensorTraceFloatsArray)
+				else None,
+				[0,1]
+			)
+
+		#perturbative
+		map(
+				lambda __IndexInt:
+				PrediratedDecoderAxis.plot(
+						self.PredisensedTimeTraceFloatsArray,
+						self.PrediratedPerturbativeDecoderTraceFloatsArray[__IndexInt,:],
+						color='blue',
+						linewidth=3
+					)
+				if __IndexInt<len(self.PrediratedPerturbativeDecoderTraceFloatsArray)
+				else None,
+				[0,1]
+			)
+
+		#exact
+		map(
+				lambda __IndexInt:
+				PrediratedDecoderAxis.plot(
+						self.PredisensedTimeTraceFloatsArray,
+						self.PrediratedExactDecoderTraceFloatsArray[__IndexInt,:],
+						color='violet',
+						linewidth=2
+					)
+				if __IndexInt<len(self.PrediratedPerturbativeDecoderTraceFloatsArray)
+				else None,
+				[0,1]
+			)
+
+		#leak
+		map(
+				lambda __IndexInt:
+				PrediratedDecoderAxis.plot(
+						self.PredisensedTimeTraceFloatsArray,
+						self.PrediratedControlDecoderTraceFloatsArray[__IndexInt,:],
+						color='brown',
+						linewidth=1
+					)
+				if __IndexInt<len(self.PrediratedControlDecoderTraceFloatsArray)
+				else None,
+				[0,1]
+			)
+
+		#set
+		PrediratedDecoderAxis.set_xlim([0.,self.PrediratingRunTimeFloat])
+		PrediratedDecoderAxis.set_ylim([-0.1,1.5*self.PrediratingClampFloat])
+
+		#show
+		pyplot.show()
+
+
+
 #</DefineClass>
 
 #</DefinePrint>
 PrediraterClass.PrintingClassSkipKeyStrsList.extend(
 	[
-		'PrediratingConstantTimeFloat',
 		'PrediratingTransferVariable',
 		'PrediratingMonitorIntsList',
-		'PrediratingInititalFloat',
-			
-		'PrediratedLeakWeigthFloatsArray',		
-		'PrediratedLeakExactLateralWeigthFloatsArray',
-		'PrediratedTotalPerturbativeLateralWeigthFloatsArray',
-		'PrediratedInitialRateFloatsArray',
-		'PrediratedControlDecoderWeigthFloatsArray',
+		
+		'PredisensedTimeTraceFloatsArray',
+		'PrediratedCommandFloatsArray',
 
+		'PrediratedInitialSensorFloatsArray',
+		'PrediratedInitialRateFloatsArray',
+		
 		'PredisensedSensorTraceFloatsArray',
 		'PrediratedPerturbativeUnitTraceFloatsArray',
 		'PrediratedExactUnitTraceFloatsArray',
@@ -714,11 +809,12 @@ PrediraterClass.PrintingClassSkipKeyStrsList.extend(
 
 		'PredirateControlColorTuplesList',
 		'PredirateExactColorTuplesList',
-		'PrediratePerturbativeColorTuplesList',
-		'PredirateDecoderControlColorTuplesList',
-		'PredirateDecoderExactColorTuplesList',
-		'PredirateDecoderPerturbativeColorTuplesList'
+		'PrediratePerturbativeColorTuplesList'
 	]
 )
 #<DefinePrint>
 
+
+"""
+
+"""

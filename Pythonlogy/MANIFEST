@@ -77,9 +77,17 @@ ShareYourSystem/Specials/Neuroners/_Lifer/__init__.py
 ShareYourSystem/Specials/Neuroners/_Lifer/Tests/test_00_default.txt
 ShareYourSystem/Specials/Neuroners/_Lifer/Tests/test_01_func.txt
 ShareYourSystem/Specials/Predicters/__init__.py
+ShareYourSystem/Specials/Predicters/Matrixer/00_ExampleDoc.md
+ShareYourSystem/Specials/Predicters/Matrixer/01_ExampleDoc.py
+ShareYourSystem/Specials/Predicters/Matrixer/__init__.py
+ShareYourSystem/Specials/Predicters/Matrixer/draft/01_ExampleDoc.py
+ShareYourSystem/Specials/Predicters/Matrixer/draft/__init__ copy 2.py
+ShareYourSystem/Specials/Predicters/Matrixer/draft/__init__.py
 ShareYourSystem/Specials/Predicters/Predicter/00_ExampleDoc.md
 ShareYourSystem/Specials/Predicters/Predicter/01_ExampleDoc.py
 ShareYourSystem/Specials/Predicters/Predicter/__init__.py
+ShareYourSystem/Specials/Predicters/Predicter/draft/__init__ copy 2.py
+ShareYourSystem/Specials/Predicters/Predicter/draft/__init__.py
 ShareYourSystem/Specials/Predicters/Prediploter/00_ExampleDoc.md
 ShareYourSystem/Specials/Predicters/Prediploter/01_ExampleDoc.py
 ShareYourSystem/Specials/Predicters/Prediploter/__init__.py
@@ -760,6 +768,8 @@ ShareYourSystem/Standards/Itemizers/Setter/18_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Setter/19_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Setter/20_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Setter/21_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Setter/22_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Setter/23_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Setter/Readme.md
 ShareYourSystem/Standards/Itemizers/Setter/Test.py
 ShareYourSystem/Standards/Itemizers/Setter/__init__.py

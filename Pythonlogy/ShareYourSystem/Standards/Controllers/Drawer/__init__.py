@@ -45,6 +45,49 @@ class DrawerClass(BaseClass):
 			self.DrawingSetVariable
 		)
 
+	def getTickTuplesList(self):
+
+		return [
+			(
+				'set_ylim',
+				{
+					'#liarg:#map@get':[
+					"".join([
+						">>SYS.set(SYS,'SensorLimFloatsArray',",
+						"[-0.1,1.5*self.PredisensingClampFloat*self.PredictingConstantTimeFloat]",
+						').SensorLimFloatsArray'
+						])
+					]
+				}
+			),
+			(
+				'set_yticks',
+				{
+					'#liarg:#map@get':[
+					"".join([
+						">>SYS.set(SYS,'SensorTickFloatsArray',",
+						"map(lambda __Float:float('%.2f'%__Float),",
+						"SYS.getTickFloatsArray(",
+						"SYS.SensorLimFloatsArray,3",
+						"))).SensorTickFloatsArray"
+						])
+					]
+				}
+			),
+			(
+				'set_yticklabels',
+				{
+					'#liarg:#map@get':[
+					"".join([
+						">>SYS.set(SYS,'SensorTickStrsArray',",
+						"map(lambda __Float:'$'+str(__Float)+'$',",
+						"SYS.SensorTickFloatsArray)).SensorTickStrsArray"
+						])
+					]
+				}
+			)
+		]
+
 #</DefineClass>
 
 #</DefinePrint>

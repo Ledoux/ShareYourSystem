@@ -1,4 +1,5 @@
 
+
 #ImportModules
 import ShareYourSystem as SYS
 
@@ -6,35 +7,47 @@ import ShareYourSystem as SYS
 MyPredirater=SYS.PrediraterClass(
 	).predict(
 		#PredictingUnitsInt
-		10,
+		100,
 		#PredictingSensorsInt
 		1,
 		#PredictingConstantTimeFloat (ms)
-		10.,
+		1.,
+		#PredictingInputStatStr
+		'norm',
 		#PredictingDecoderWeightFloat
 		10.,
-		#PredictingCostFloat
-		0.,
 		#PredictingNormalisationInt
+		1.,			
+		#PredictingCostFloat
+		1.,
+		#PredictingPerturbativeInputWeightFloat
 		0.5,
-		#PredictingPerturbativeWeightFloat
-		0.1
+		#PredictingPerturbativeLateralWeightFloat
+		1.,
+		#PredictingInputRandomStatStr
+		'norm',
+		#PredictingLateralRandomStatStr
+		'norm'
 	).predisense(
 		#PredisensingRunTimeFloat (ms)
 		100.,
 		#PredisensingStepTimeFloat (ms)
 		0.1,
 		#PredisensingClampFloat
-		0.5,
+		2.,
 		#PredisensingMonitorList
 		[0]
 	).predirate(
+		#PrediratingConstantTimeFloat
+		10.,
 		#PrediratingTransferVariable
 		#SYS.numpy.tanh,
-		lambda _FloatsArray:_FloatsArray,
-		#lambda _FloatsArray:SYS.Predirater.getThresholdArray(_FloatsArray,100.),
-		#PrediratingMonitorList
-		[0,1]
+		#lambda _FloatsArray:_FloatsArray,
+		lambda _FloatsArray:SYS.Predirater.getThresholdArray(_FloatsArray,100.),
+		#PrediratingMonitorIntsList
+		[0,1,3],
+		#PrediratingInititalFloat
+		0.1
 	).draw(
 	).show(
 	)

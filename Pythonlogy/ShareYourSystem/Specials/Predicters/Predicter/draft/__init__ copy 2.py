@@ -41,14 +41,14 @@ class PredicterClass(BaseClass):
 						_PredictingUnitsInt=0,
 						_PredictingSensorsInt=0,
 
-						_PredictingConstantTimeFloat=1.,
-						_PredictingInputStatStr='norm',
+						_PredictingConstantTimeFloat=0.01,
 						_PredictingDecoderWeigtFloat=1.,
 						_PredictingNormalisationInt=1,			
 
 						_PredictingCostFloat=1.,
 						_PredictingPerturbativeInputWeightFloat=0.1,
 						_PredictingPerturbativeLateralWeightFloat=0.1,
+						_PredictingInputStatStr='norm',
 						_PredictingInputRandomStatStr='norm',
 						_PredictingLateralRandomStatStr='norm',
 
@@ -65,6 +65,7 @@ class PredicterClass(BaseClass):
 						_PredictedTotalPerturbativeInputWeigthFloatsArray=None,
 						
 						_PredictedExactLateralWeigthFloatsArray=None,
+						_PredictedLeakExactLateralWeigthFloatsArray=None,
 						_PredictedLateralRandomFloatsArray=None,
 						_PredictedPerturbativeLateralWeigthFloatsArray=None,
 						_PredictedTotalPerturbativeLateralWeigthFloatsArray=None,
@@ -107,7 +108,7 @@ class PredicterClass(BaseClass):
 		#random
 		self.PredictedExactDecoderWeigthFloatsArray=self.PredictingDecoderWeigtFloat*getattr(
 			scipy.stats,
-			self.PredictingInputStatStr
+			self.PredictingInputRandomStatStr
 		).rvs(
 			size=(
 				self.PredictingSensorsInt,
@@ -138,6 +139,13 @@ class PredicterClass(BaseClass):
 			)
 		'''
 
+		#Control 
+
+		#pinv
+		self.PredictedControlDecoderWeigthFloatsArray=np.linalg.pinv(
+				self.PredictedExactDecoderWeigthFloatsArray.T
+			)
+
 		#debug
 		'''
 		PredictedPinvFloatsArray=np.dot(
@@ -153,7 +161,7 @@ class PredicterClass(BaseClass):
 		'''
 
 		#/#################/#
-		# Build the perturbative input random matrices
+		# Build the perturbative random matrices
 		#
 
 		#random
@@ -171,7 +179,7 @@ class PredicterClass(BaseClass):
 		self.PredictedPerturbativeInputWeigthFloatsArray=np.dot(
 				self.PredictedNullFloatsArray,
 				self.PredictedInputRandomFloatsArray
-			)/(self.PredictingUnitsInt**self.PredictingNormalisationInt)
+			)
 
 		#/#################/#
 		# Build all the perturbative input
@@ -180,6 +188,11 @@ class PredicterClass(BaseClass):
 		#sum
 		self.PredictedTotalPerturbativeInputWeigthFloatsArray=self.PredictedExactDecoderWeigthFloatsArray.T+self.PredictedPerturbativeInputWeigthFloatsArray
 
+		#/#################/#
+		# Build all the perturbative input
+		#
+
+		self.PredictedLeakWeigthFloatsArray=np.diag(np.ones(self.PredictingUnitsInt))
 
 		#/#################/#
 		# Build all the possible lateral connectivities
@@ -193,16 +206,11 @@ class PredicterClass(BaseClass):
 				self.PredictedExactDecoderWeigthFloatsArray
 			)
 
-		#debug
-		'''
-		self.debug(
-				[
-					('self.',self,[
-						'PredictedExactLateralWeigthFloatsArray',
-					])
-				]
-			)
-		'''
+		#add the leaky part to compensate
+		self.PredictedLeakExactLateralWeigthFloatsArray=self.PredictedExactLateralWeigthFloatsArray-(
+			1.-self.PredictingCostFloat)*np.diag(
+			np.ones(self.PredictingUnitsInt)
+		)
 
 		#Perturbative
 
@@ -215,7 +223,7 @@ class PredicterClass(BaseClass):
 				np.shape(self.PredictedNullFloatsArray)[1],
 				self.PredictingUnitsInt
 			)
-		)/(self.PredictingUnitsInt**(self.PredictingNormalisationInt/2.))
+		)
 
 		#dot
 		self.PredictedPerturbativeLateralWeigthFloatsArray=np.dot(
@@ -223,6 +231,8 @@ class PredicterClass(BaseClass):
 				self.PredictedLateralRandomFloatsArray
 			)
 
+		#sum
+		self.PredictedTotalPerturbativeLateralWeigthFloatsArray=self.PredictedLeakExactLateralWeigthFloatsArray+self.PredictedPerturbativeLateralWeigthFloatsArray
 #</DefineClass>
 
 #</DefinePrint>
@@ -232,13 +242,13 @@ PredicterClass.PrintingClassSkipKeyStrsList.extend(
 		'PredictingSensorsInt',
 		
 		'PredictingConstantTimeFloat',
-		'PredictingInputStatStr',
 		'PredictingDecoderWeigtFloat',
 		'PredictingNormalisationInt',
 
 		'PredictingCostFloat',
 		'PredictingPerturbativeInputWeightFloat',
 		'PredictingPerturbativeLateralWeightFloat',
+		'PredictingInputStatStr',
 		'PredictingInputRandomStatStr',
 		'PredictingLateralRandomStatStr',
 
@@ -255,6 +265,7 @@ PredicterClass.PrintingClassSkipKeyStrsList.extend(
 		'PredictedTotalPerturbativeInputWeigthFloatsArray',
 		
 		'PredictedExactLateralWeigthFloatsArray',
+		'PredictedLeakExactLateralWeigthFloatsArray',
 		'PredictedLateralRandomFloatsArray',
 		'PredictedPerturbativeLateralWeigthFloatsArray',
 		'PredictedTotalPerturbativeLateralWeigthFloatsArray',
