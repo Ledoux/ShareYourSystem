@@ -43,6 +43,16 @@ class ArrayerClass(BaseClass):
 
 	def do_array(self):
 		
+		#debug
+		'''
+		self.debug(
+				[
+					'we array here',
+					('self.',self,['ArrayingKeyVariablesList'])
+				]
+			)
+		'''
+
 		#Check
 		if len(self.ArrayingKeyVariablesList)>0:
 
@@ -156,27 +166,47 @@ class ArrayerClass(BaseClass):
 						[
 							'self.ArrayingKeyVariablesList[0] is '+str(self.ArrayingKeyVariablesList[0]),
 							'ArrayedLocalValueVariablesList is '+str(ArrayedLocalValueVariablesList),
-							'ArrayedDeepValueVariable'+str(ArrayedDeepValueVariable)
+							'first we set this layer'
 						]
 					)
 					'''
-					
+
 					#map
-					map(
+					ArrayedGetValueVariablesList=map(
 							lambda __ArrayingKeyVariable,__ArrayingLocalValueVariable:
 							self.set(
 									__ArrayingKeyVariable,
 									__ArrayingLocalValueVariable
 									if __ArrayingLocalValueVariable!=None
 									else {}
-								)[__ArrayingKeyVariable].array(
-									self.ArrayingKeyVariablesList[1:],
-									ArrayedDeepValueVariable,
-									False
-								),
+								)[__ArrayingKeyVariable],
 							self.ArrayingKeyVariablesList[0],
 							ArrayedLocalValueVariablesList
 						)
+
+					#debug
+					'''
+					self.debug(
+						[
+							'Now we array further',
+							'ArrayedDeepValueVariable'+str(ArrayedDeepValueVariable)
+						]
+					)
+					'''
+
+					#map the next array
+					map(
+							lambda __ArrayedGetValueVariable:
+							__ArrayedGetValueVariable.array(
+									self.ArrayingKeyVariablesList[1:],
+									ArrayedDeepValueVariable
+									if type(ArrayedDeepValueVariable)!=list or len(ArrayedDeepValueVariable)>0
+									else None,
+									False
+								),
+							ArrayedGetValueVariablesList
+						)
+					
 
 				#/####################/#
 				# Case where we have just to set
@@ -184,6 +214,17 @@ class ArrayerClass(BaseClass):
 
 				else:
 
+					#debug
+					'''
+					self.debug(
+							[
+								'ArrayedLocalValueVariablesList is',
+								str(ArrayedLocalValueVariablesList),
+								('self.',self,['ArrayingKeyVariablesList'])
+							]
+						)
+					'''
+					
 					#map
 					map(
 							lambda __ArrayingKeyVariable,__ArrayingLocalValueVariable:
@@ -254,6 +295,7 @@ ArrayerClass.PrintingClassSkipKeyStrsList.extend(
 	[
 		'ArrayingKeyVariablesList',
 		'ArrayingValueVariable',
+		'ArrayingTopBool'
 	]
 )
 #<DefinePrint>

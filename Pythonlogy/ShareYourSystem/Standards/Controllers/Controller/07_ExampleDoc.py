@@ -11,7 +11,7 @@ MyController=SYS.ControllerClass(
 					'|A':{
 						'-Plots':{
 							'|0':{
-								'MyStr':"hello"
+								'MyXFloat':0.1
 							}
 						}
 					}

@@ -33,6 +33,8 @@ def getMapList(_LiargVariablesList):
 	print('Setter l 31')
 	print('_LiargVariablesList is ')
 	print(_LiargVariablesList)
+	print("len(_LiargVariablesList)==1")
+	print(len(_LiargVariablesList)==1)
 	print('')
 	'''
 	

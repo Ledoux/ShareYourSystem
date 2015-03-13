@@ -22,6 +22,7 @@ SYS.addDo("Figurer","Figure","Figuring","Figured")
 
 #<ImportSpecificModules>
 from ShareYourSystem.Standards.Itemizers import Setter,Manager
+from ShareYourSystem.Standards.Controllers import Controller
 import copy
 #</ImportSpecificModules>
 
@@ -31,7 +32,6 @@ FigureBarKeyStr='#bar'
 FigureScatterKeyStr='#scatter'
 FigureAxesKeyStr='#axes'
 FigureMpld3KeyStr='#mpld3.plugins.'
-class FigurerParentersClass(SYS.ParenterClass):pass
 #</DefineLocals>
 
 #<DefineClass>
@@ -64,9 +64,6 @@ class FigurerClass(BaseClass):
 
 		#Call the parent __init__ method
 		BaseClass.__init__(self,**_KwargVariablesDict)
-
-		#set
-		self.TeamingValueClass=FigurerParentersClass
 
 	def do_figure(self):	
 		
@@ -131,7 +128,7 @@ class FigurerClass(BaseClass):
 				)
 			'''
 
-		elif self.FiguredTeamTagStr=='Axes' or self.ParentDeriveTeamerVariable.TeamTagStr=='Panels':
+		elif self.FiguredTeamTagStr=='Axes' or self.ParentDeriveTeamerVariable!=None and self.ParentDeriveTeamerVariable.TeamTagStr=='Panels':
 
 			#/###############/#
 			# Add an axe for the symbol of the panel
@@ -955,9 +952,10 @@ class FigurerClass(BaseClass):
 			'''
 
 		#set
-		self.FiguredAnchorIntsList=copy.copy(
-			self.FiguredPanelDeriveTeamerVariable.FiguredCursorIntsList
-		)
+		if self.FiguredPanelDeriveTeamerVariable!=None:
+			self.FiguredAnchorIntsList=copy.copy(
+				self.FiguredPanelDeriveTeamerVariable.FiguredCursorIntsList
+			)
 
 		#/#################/#
 		# init
@@ -1099,5 +1097,12 @@ FigurerClass.PrintingClassSkipKeyStrsList.extend(
 #<DefinePrint>
 
 #<DefineLocals>
-FigurerParentersClass.ManagingValueClass=FigurerClass
+Controller.ViewsClass.ManagingValueClass=FigurerClass
+FigurerClass.TeamingClassesDict=dict(
+	map(
+		lambda __KeyStr:
+		(__KeyStr,Controller.ViewsClass),
+		['Panels','Axes','Plots']
+	)
+)
 #<DefineLocals>

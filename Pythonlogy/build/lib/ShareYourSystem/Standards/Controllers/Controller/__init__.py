@@ -34,11 +34,6 @@ class ControllerClass(BaseClass):
 
 	def default_init(self,
 				_ControlTagStr="Top",
-				_ControllingMethodStr="",
-				_ControllingManagingKeyStr="",
-				_ControllingModelClassVariable=None,
-				_ControllingViewClassVariable=None,
-				_ControlledDeriveManagerVariable=None,
 				**_KwargVariablesDict
 			):
 
@@ -56,16 +51,8 @@ class ControllerClass(BaseClass):
 			)
 		'''
 
-		#Check
-		if self.ControllingMethodStr=='insert':
-			
-			#get
-			self.ControlledDeriveManagerVariable=self.TeamDict[
-				'Models'][self.ControllingManagingKeyStr]
-
-			#insert and row
-			self.ControlledDeriveManagerVariable.insert()
-			self.ControlledDeriveManagerVariable.setSwitch('row')
+		#pass
+		pass
 		
 	def propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable):
 
@@ -113,11 +100,11 @@ class ControllerClass(BaseClass):
 #<DefineLocals>
 
 #Set
-#SYS.ManagerClass.ManagingValueClass=ControllerClass
 ControllerClass.TeamingClassesDict={
 	'Models':ModelsClass,
 	'Views':ViewsClass
 }
+
 #<DefineLocals>
 
 #</DefinePrint>

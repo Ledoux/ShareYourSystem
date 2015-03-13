@@ -21,6 +21,7 @@ SYS.addDo("Viewer","View","Viewing","Viewed")
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
+from ShareYourSystem.Standards.Controllers import Controller
 #</ImportSpecificModules>
 
 #<DefineClass>
@@ -30,8 +31,6 @@ class ViewerClass(BaseClass):
 	def default_init(self, 
 						_ViewDeriveControllerVariable=None,
 						_ViewFirstDeriveViewerVariable=None,
-						_ViewingQtBool=False,
-						_ViewingMpld3Bool=False,
 						_ViewedHtmlStr="",
 						**_KwargVariablesDict
 				):
@@ -44,7 +43,6 @@ class ViewerClass(BaseClass):
 
 	def do_view(self):
 
-		"""
 		#debug
 		'''
 		self.debug(
@@ -55,23 +53,8 @@ class ViewerClass(BaseClass):
 			)
 		'''
 
-		#Check
-		if self.ViewingQtBool:
-
-			#import
-			from matplotlib import pyplot
-
-			#show
-			pyplot.show()
-
-		if self.ViewingMpld3Bool:
-
-			#import
-			import mpld3
-
-			#show
-			mpld3.show()
-		"""
+		#pass
+		pass
 			
 	def propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable):
 
@@ -143,6 +126,10 @@ class ViewerClass(BaseClass):
 		'''
 
 #</DefineClass>
+
+#<DefineLocals>
+Controller.ViewsClass.ManagingValueClass=ViewerClass
+#<DefineLocals>
 
 #</DefinePrint>
 ViewerClass.PrintingClassSkipKeyStrsList.extend(

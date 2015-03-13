@@ -951,28 +951,64 @@ def get(_Variable,_KeyVariable):
 
 def set(_Variable,_KeyVariable,_ValueVariable):
 
-	#/#################/#
-	# Go deeper maybe
-	#
-
 	#Check
-	if type(_KeyVariable)==str and '.' in _KeyVariable:
+	if type(_KeyVariable)==str:
 
-		#split
-		SplitStrsList=_KeyVariable.split('.')
+		#/#################/#
+		# direct set
+		#
 
-		#set recursive
-		_set(
-			getattr(
-				_Variable,
-				SplitStrsList[0]
-			),
-			".".join(SplitStrsList[1:]),
-			_ValueVariable
-		)
+		#Debug
+		'''
+		print('setattr direct l 1091')
+		print('_KeyVariable is ')
+		print(_KeyVariable)
+		print("_KeyVariable.startswith('#setattr:')")
+		print(_KeyVariable.startswith('#setattr:'))
+		print('')
+		'''
 
-		#return
-		return 
+		#Check
+		if _KeyVariable.startswith('#setattr:'):
+
+			#Debug
+			'''
+			print('setattr direct l 1091')
+			print('#setattr:')
+			print('')
+			'''
+
+			#set
+			setattr(
+					_Variable,
+					deprefix(_KeyVariable,'#setattr:'),
+					_ValueVariable
+				)
+
+			#return
+			return _Variable
+
+		#/#################/#
+		# Go deeper maybe
+		#
+
+		if '.' in _KeyVariable:
+
+			#split
+			SplitStrsList=_KeyVariable.split('.')
+
+			#set recursive
+			_set(
+				getattr(
+					_Variable,
+					SplitStrsList[0]
+				),
+				".".join(SplitStrsList[1:]),
+				_ValueVariable
+			)
+
+			#return
+			return 
 
 	#/#################/#
 	# Special function with arg calls
@@ -994,6 +1030,7 @@ def set(_Variable,_KeyVariable,_ValueVariable):
 		print(_GetVariable)
 		print('GetType is ')
 		print(GetType)
+		print(GetType.__name__)
 		print('')
 		'''
 
@@ -1061,22 +1098,31 @@ def set(_Variable,_KeyVariable,_ValueVariable):
 			else:
 
 				#Debug
+				'''
 				print('set l 1053')
 				print('_GetVariable is ')
 				print(_GetVariable)
 				print('_ValueVariable is ')
 				print(_ValueVariable)
 				print('')
+				'''
 
 				#call
 				_GetVariable(*_ValueVariable)
 
-			#return
-			return
 
 	#/#################/#
 	# Special __setitem__ call
 	#
+
+	#Debug
+	'''
+	print('l 1079 ')
+	print('Check for a __setitem__')
+	print("hasattr(_Variable,'__setitem__')")
+	print(hasattr(_Variable,'__setitem__'))
+	print('')
+	'''
 
 	#Check
 	if hasattr(_Variable,'__setitem__'):
@@ -1090,6 +1136,13 @@ def set(_Variable,_KeyVariable,_ValueVariable):
 	#/#################/#
 	# Special setattr call
 	#
+
+	#Debug
+	'''
+	print('set default l 1091')
+	print('_KeyStr')
+	print('')
+	'''
 
 	#set
 	setattr(

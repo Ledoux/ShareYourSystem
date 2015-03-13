@@ -245,10 +245,30 @@ class ManagerClass(BaseClass):
 						self.ManagingBeforeSetVariable	
 					)
 
+				#debug
+				'''
+				self.debug(
+						[
+							'We set the wrapped dicts',
+							'ManagedValueVariable is ',
+							str(ManagedValueVariable)
+						]
+					)
+				'''
+
 				#set
 				self.ManagedValueVariable['#map@set'](
 						ManagedValueVariable
 					)
+
+				#debug
+				'''
+				self.debug(
+						[
+							'Ok the wrapped dict has been setted'
+						]
+					)
+				'''
 
 			#define the keystr to define in the dict
 			ManagedKeyStr=self.ManagingKeyStr+type(
@@ -283,12 +303,14 @@ class ManagerClass(BaseClass):
 			if self.ManagingAfterSetVariable!=None:
 
 				#debug
+				'''
 				self.debug(
 						[
 							'The Manager has something after for the managed value',
 							('self.',self,['ManagingAfterSetVariable'])
 						]
 					)
+				'''
 
 				#map set
 				self.ManagedValueVariable['#map@set'](
@@ -301,9 +323,28 @@ class ManagerClass(BaseClass):
 			# just get and update 
 			#
 
+			#debug
+			'''
+			self.debug(
+					[
+						'Ok we just get'
+					]
+				)
+			'''
+
 			#get
 			self.ManagedValueVariable=self.ManagementDict[self.ManagingKeyStr]
 			
+			#debug
+			'''
+			self.debug(
+					[
+						'We maybe update',
+						('self.',self,['ManagingValueVariable'])
+					]
+				)
+			'''
+
 			#Check
 			if hasattr(
 				self.ManagingValueVariable,
@@ -312,7 +353,7 @@ class ManagerClass(BaseClass):
 
 				#set
 				self.ManagedValueVariable['#map@set'](
-						self.TeamingValueVariable
+						self.ManagingValueVariable
 					)
 
 	def mimic_get(self):
@@ -358,21 +399,27 @@ class ManagerClass(BaseClass):
 
 				#debug
 				'''
-				self.debug('We manage here')
+				self.debug(
+					[
+						'We manage here',
+						"SYS.deprefix(self.GettingKeyVariable,ManagementChildPrefixStr) is",
+						SYS.deprefix(self.GettingKeyVariable,ManagementChildPrefixStr)
+					]
+				)
 				'''
 
-				#team
+				#manage
 				self.GettedValueVariable=self.manage(
-					SYS.deprefix(
-						self.GettingKeyVariable,
-						ManagementChildPrefixStr
-					)
+					SYS.deprefix(self.GettingKeyVariable,ManagementChildPrefixStr)
 				).ManagedValueVariable
 
 				#debug
 				'''
 				self.debug(
-					('self.',self,['GettedValueVariable'])
+					[
+						'Ok we have managed',
+						('self.',self,['GettedValueVariable'])
+					]
 				)
 				'''
 

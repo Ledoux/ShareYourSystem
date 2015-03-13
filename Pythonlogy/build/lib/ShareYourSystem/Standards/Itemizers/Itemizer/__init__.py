@@ -50,6 +50,16 @@ class ItemizerClass(BaseClass):
 		#reset
 		self.setDone(SYS.ItemizerClass)
 
+		#debug
+		'''
+		self.debug(
+				[
+					'We itemize here',
+					('self.',self,['ItemizingKeyVariable'])
+				]
+			)
+		'''
+
 		#Check
 		if type(self.ItemizingKeyVariable) in SYS.StrTypesList:
 

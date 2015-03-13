@@ -464,6 +464,7 @@ class ParenterClass(BaseClass):
 		#Call the base method
 		BaseClass.set(self)
 
+	"""
 	def mimic_array(self):
 
 		#call the parent method
@@ -472,7 +473,8 @@ class ParenterClass(BaseClass):
 		#parent down
 		if self.ArrayingTopBool:
 			self.get('?v')
-
+	"""
+	
 	def propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable):
 
 		#set the value of the "hidden" property variable

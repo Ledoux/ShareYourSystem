@@ -4,10 +4,9 @@ import ShareYourSystem as SYS
 
 #figure
 MyFigurer=SYS.FigurerClass(
-	).array(
-    [['-Panels'],['|A','|B'],['-Axes'],['|a','|b']]
-    #[['-Panels']]
-  )
+	).set(
+		'-Panels',{'|A':{}}
+	)
 
 #print
 print('MyFigurer is ')

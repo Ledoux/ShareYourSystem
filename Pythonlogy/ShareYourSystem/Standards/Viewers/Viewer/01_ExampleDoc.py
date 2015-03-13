@@ -12,16 +12,10 @@ print('LonelyViewer is ')
 SYS._print(LonelyViewer)
 
 #Definition of a Controller instance and the Child Modeler automatically model
-MyController=SYS.ControllerClass(
-		**{
-			'ControllingViewClassVariable':SYS.ViewerClass
-		}
-	).set(
-		'/-Views/|Basic/-Panels/|A',
+MyController=SYS.ControllerClass().set(
+		'/-Views/|Table',
 		{
 		}
-	).parent(
-		_DownBool=True
 	)
 
 #print
