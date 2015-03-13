@@ -14,7 +14,7 @@ depending if it is a new row compared to all JoinedRetrieveIndexesListsList
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Modelers.Merger"
+BaseModuleStr="ShareYourSystem.Standards.Modelers.Findoer"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -23,18 +23,19 @@ SYS.setSubModule(globals())
 Featurer=BaseModule
 import collections
 from ShareYourSystem.Standards.Modelers import Modeler
+from ShareYourSystem.Standards.Controllers import Controller
 #</ImportSpecificModules>
 
 #<DefineLocals>
 JoinStr='__'
 JoinDeepStr='/'
+JoinPostTeamStr='PostJoins'
 #</DefineLocals>
 
 #<DefineClass>
 @DecorationClass(**{
 	'ClassingSwitchMethodStrsList':[
 		'model',
-		'tabular',
 		'row',
 		'join',
 		'insert'
@@ -42,65 +43,92 @@ JoinDeepStr='/'
 })
 class JoinerClass(BaseClass):
 	
-	#Definition
-	RepresentingKeyStrsList=[
-								'JoiningCollectionStr',
-								'JoiningCatchStr',
-								'JoiningAttentionStr',
-								'JoiningFindBeforeBool',
-								'JoiningDatabaseStr',
-								'JoinedCatchCollectionOrderedDict',
-								'JoinedCatchDeriveJoinersList',
-								'JoinedRetrieveIndexesListGetStrsList',
-								'JoinedRetrieveIndexesListColumnStrsList',
-								'JoinedMongoInsertIndexIntsList',
-								'JoinedHdfInsertIndexIntsList'
-							]
-
 	def default_init(self,
-						_JoiningCollectionStr="",
-						_JoiningCatchStr="",
-						_JoiningAttentionStr="",
-						_JoiningFindBeforeBool=True,
-						_JoiningDatabaseStr='mongo',
-						_JoinedAttentionCollectionOrderedDict=None,
-						_JoinedCatchCollectionOrderedDict=None,
-						_JoinedCatchDeriveJoinersList=None,
+						_JoinedPostDeriveParentersList=None,
+						_JoinedPostDeriveJoinersList=None,
 						_JoinedRetrieveIndexesListGetStrsList=None,
-						_JoinedRetrieveIndexesListColumnStrsList=None,
-						_JoinedMongoInsertIndexIntsList=None,
-						_JoinedHdfInsertIndexIntsList=None,
 						**_KwargVariablesDict
 					):
 
 		#Call the parent init method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 		
+		#Team
+		self.team(JoinPostTeamStr)
+
 	def do_join(	
 				self
 			):
 
-		#model first
-		self.model()
+		#debug
+		self.debug(
+				[
+					'We join here',
+					'first we get the post joiners'
+				]
+			)
 
-		#Check
-		if self.JoiningCollectionStr=="":
-			self.JoiningCollectionStr=self.NetworkCollectionStr
-		if self.JoiningCatchStr=="":
-			self.JoiningCatchStr=self.NetworkCatchStr
-		if self.JoiningAttentionStr=="":
-			self.JoiningAttentionStr=self.NetworkAttentionStr
+		#/################/#
+		# Get the post derive pointing parenters and make them point
+		#	
+
+		#set
+		self.JoinedPostDeriveParentersList=self.TeamDict[
+			JoinPostTeamStr
+		].ManagementDict.values()
 
 		#debug
-		'''
 		self.debug(
-					('self.',self,[
-									'JoiningCollectionStr',
-									'JoiningCatchStr',
-									'JoiningAttentionStr'
-								])
-				)
-		'''
+				[
+					'We have getted the post derive parenters',
+					('self.',self,['JoinedPostDeriveParentersList'])
+				]
+			)
+
+		#set
+		self.JoinedPostDeriveJoinersList=map(
+				lambda __PostDeriveParenter:
+				__PostDeriveParenter.PointedToVariable,
+				self.JoinedPostDeriveParentersList
+			)
+
+		#debug
+		self.debug(
+				[
+					'We have getted the post joiners',
+					'self.TeamDict[JoinPostTeamStr].ManagementDict.keys() is',
+					str(self.TeamDict[JoinPostTeamStr].ManagementDict.keys()),
+					('self.',self,['JoinedPostDeriveJoinersList'])
+				]
+			)
+
+		#/################/#
+		# set the join Retrieve items 
+		#
+
+		self.JoinedRetrieveIndexesListGetStrsList=map(
+				lambda __JoinedPostDeriveJoiner:
+				"Join"+''.join(
+					[
+						self.ModelDeriveControllerVariable.ControlTagStr,
+						self.ModelTagStr,
+						'To',
+						__JoinedPostDeriveJoiner.ModelDeriveControllerVariable.ControlTagStr,
+						__JoinedPostDeriveJoiner.ModelTagStr
+					]
+				)+"RetrieveIndexesList",
+				self.JoinedPostDeriveJoinersList
+			)
+
+		#debug
+		self.debug(
+				[
+					'We have setted the JoinedRetrieveIndexesListGetStrsList',
+					('self.',self,['JoinedRetrieveIndexesListGetStrsList'])
+				]
+			)
+
+		"""
 		#set
 		JoinedAttentionCollectionOrderedSetTagStr=self.JoiningAttentionStr+self.JoiningCollectionStr+"CollectionOrderedDict"
 
@@ -130,13 +158,13 @@ class JoinerClass(BaseClass):
 
 			#model and link all the catched joiners
 			self.JoinedCatchDeriveJoinersList=map(
-					lambda __JoinedCatchDeriveJoiner:
-					#__JoinedCatchDeriveJoiner.__setitem__(
+					lambda __JoinedPostDeriveJoiner:
+					#__JoinedPostDeriveJoiner.__setitem__(
 					#	'InsertIsBool',
 					#	False
 					#).CatchToPointVariable.model(
 					#),
-					__JoinedCatchDeriveJoiner.CatchToPointVariable.model(),
+					__JoinedPostDeriveJoiner.CatchToPointVariable.model(),
 					self.JoinedCatchCollectionOrderedDict.values()
 				)
 
@@ -147,13 +175,13 @@ class JoinerClass(BaseClass):
 
 			#set
 			self.JoinedRetrieveIndexesListColumnStrsList=map(
-					lambda __JoinedCatchDeriveJoiner:
+					lambda __JoinedPostDeriveJoiner:
 					"Join"+''.join(
 						[
-							__JoinedCatchDeriveJoiner.ModelDeriveControllerVariable.NodeKeyStr
-							if __JoinedCatchDeriveJoiner.ModelDeriveControllerVariable.NodeKeyStr!="" 
-							else 'Top'+__JoinedCatchDeriveJoiner.ModelDeriveControllerVariable.__class__.NameStr,
-							__JoinedCatchDeriveJoiner.ModeledSuffixStr
+							__JoinedPostDeriveJoiner.ModelDeriveControllerVariable.NodeKeyStr
+							if __JoinedPostDeriveJoiner.ModelDeriveControllerVariable.NodeKeyStr!="" 
+							else 'Top'+__JoinedPostDeriveJoiner.ModelDeriveControllerVariable.__class__.NameStr,
+							__JoinedPostDeriveJoiner.ModeledSuffixStr
 						]
 					)+"RetrieveIndexesList",
 					self.JoinedCatchDeriveJoinersList,
@@ -166,7 +194,7 @@ class JoinerClass(BaseClass):
 
 			#set
 			self.JoinedRetrieveIndexesListGetStrsList=map(
-					lambda __JoinedCatchDeriveJoiner:
+					lambda __JoinedPostDeriveJoiner:
 					"Joined"+''.join(
 						[
 							self.ModelDeriveControllerVariable.NodeKeyStr
@@ -174,13 +202,13 @@ class JoinerClass(BaseClass):
 							else 'Top'+self.ModelDeriveControllerVariable.__class__.NameStr,
 							self.ModeledSuffixStr,
 							'To',
-							__JoinedCatchDeriveJoiner.ModelDeriveControllerVariable.NodeKeyStr
-							if __JoinedCatchDeriveJoiner.ModelDeriveControllerVariable.NodeKeyStr!="" 
-							else 'Top'+__JoinedCatchDeriveJoiner.ModelDeriveControllerVariable.__class__.NameStr,
-							__JoinedCatchDeriveJoiner.ModeledSuffixStr
+							__JoinedPostDeriveJoiner.ModelDeriveControllerVariable.NodeKeyStr
+							if __JoinedPostDeriveJoiner.ModelDeriveControllerVariable.NodeKeyStr!="" 
+							else 'Top'+__JoinedPostDeriveJoiner.ModelDeriveControllerVariable.__class__.NameStr,
+							__JoinedPostDeriveJoiner.ModeledSuffixStr
 						]
 					)+"RetrieveIndexesList",
-					self.JoinedCatchDeriveJoinersList,
+					self.TeamDict[JoinPostTeamStr].ManagementDict.values(),
 				)
 			
 			#debug
@@ -197,10 +225,10 @@ class JoinerClass(BaseClass):
 			if len(self.ModelingDescriptionTuplesList)>0:
 				self.ModelingHdfBool=True
 				self.JoiningDatabaseStr="hdf"
-				JoinedTabledIndexIntKeyStr='TabledHdfIndexInt'
+				JoinedModelIndexIntKeyStr='ModeledHdfIndexInt'
 			else:
 				self.JoiningDatabaseStr="mongo"
-				JoinedTabledIndexIntKeyStr='TabledMongoIndexInt'
+				JoinedModelIndexIntKeyStr='ModeledMongoIndexInt'
 
 
 			#Table all the joined databasers and init the corresponding JoinedRetrieveIndexesList in the NodePointDeriveNoder
@@ -208,11 +236,11 @@ class JoinerClass(BaseClass):
 				zip(
 						self.JoinedRetrieveIndexesListGetStrsList,
 						map(
-							lambda __JoinedCatchDeriveJoiner:
+							lambda __JoinedPostDeriveJoiner:
 							[
-								__JoinedCatchDeriveJoiner.table(
+								__JoinedPostDeriveJoiner.table(
 									)[
-										JoinedTabledIndexIntKeyStr
+										JoinedModelIndexIntKeyStr
 									],
 								-1
 							],
@@ -230,17 +258,28 @@ class JoinerClass(BaseClass):
 									])
 			)
 			'''
+		"""
 
-	def mimic_database(self):
-
-		#debug
-		'''
-		self.debug('We join first')
-		'''
-
-		#join first
-		self.join()
+	def mimic_model(self):
 		
+		#debug
+		self.debug(
+				'We join model here'
+			)
+
+		#/################/#
+		# Join first
+		#
+
+		#join
+		self.join()
+
+
+		"""
+		#/################/#
+		# Add to the description the join attributes
+		#
+
 		#debug
 		'''
 		self.debug('Add in the ModelingDescriptionTuplesList')
@@ -256,7 +295,7 @@ class JoinerClass(BaseClass):
 				import tables
 
 				#add
-				self.ModelingDescriptionTuplesList=map(
+				self.ModeledDescriptionTuplesList=map(
 					lambda __JoinedRetrieveIndexesListGetStr,__JoinedRetrieveIndexesListColumnStr:
 					(
 						__JoinedRetrieveIndexesListGetStr,
@@ -265,7 +304,7 @@ class JoinerClass(BaseClass):
 					),
 					self.JoinedRetrieveIndexesListGetStrsList,
 					self.JoinedRetrieveIndexesListColumnStrsList
-				)+self.ModelingDescriptionTuplesList
+				)+self.ModeledDescriptionTuplesList
 
 		#debug
 		'''
@@ -277,8 +316,13 @@ class JoinerClass(BaseClass):
 				)
 		'''
 
-		#then database 
-		BaseClass.database(self)
+		#/################/#
+		# Base method
+		#
+
+		#call parent base method
+		BaseClass.model(self)
+		"""
 
 	def mimic_row(self):
 
@@ -302,15 +346,15 @@ class JoinerClass(BaseClass):
 
 		#set
 		self.JoinedMongoInsertIndexIntsList=map(
-					lambda __JoinedCatchDeriveJoiner:
-					__JoinedCatchDeriveJoiner.row().RowedMongoIndexInt,
+					lambda __JoinedPostDeriveJoiner:
+					__JoinedPostDeriveJoiner.row().RowedMongoIndexInt,
 					self.JoinedCatchDeriveJoinersList
 				)
 
 		#set
 		self.JoinedHdfInsertIndexIntsList=map(
-					lambda __JoinedCatchDeriveJoiner:
-					__JoinedCatchDeriveJoiner.RowedHdfIndexInt,
+					lambda __JoinedPostDeriveJoiner:
+					__JoinedPostDeriveJoiner.RowedHdfIndexInt,
 					self.JoinedCatchDeriveJoinersList
 				)
 
@@ -410,8 +454,8 @@ class JoinerClass(BaseClass):
 		
 		#Insert the post joined databases
 		self.JoinedCatchDeriveJoinersList=map(
-			lambda __JoinedCatchDeriveJoinerPointer:
-			__JoinedCatchDeriveJoinerPointer.CatchToPointVariable.insert(),
+			lambda __JoinedPostDeriveJoinerPointer:
+			__JoinedPostDeriveJoinerPointer.CatchToPointVariable.insert(),
 			self.JoinedCatchCollectionOrderedDict.values(),
 		)
 
@@ -456,8 +500,8 @@ class JoinerClass(BaseClass):
 
 		#Retrieve in the joined databases
 		JoinedInsertIndexIntsList=map(
-					lambda __JoinedRetrieveIndexesListGetStr,__JoinedCatchDeriveJoiner:
-					__JoinedCatchDeriveJoiner.retrieve(
+					lambda __JoinedRetrieveIndexesListGetStr,__JoinedPostDeriveJoiner:
+					__JoinedPostDeriveJoiner.retrieve(
 						getattr(
 							self.ModelDeriveControllerVariable,
 							__JoinedRetrieveIndexesListGetStr
@@ -488,8 +532,8 @@ class JoinerClass(BaseClass):
 
 			#Find in the joined databases
 			JoinedFindFilterRowDictsListsList=map(
-					lambda __JoinedCatchDeriveJoiner:
-					__JoinedCatchDeriveJoiner.find(
+					lambda __JoinedPostDeriveJoiner:
+					__JoinedPostDeriveJoiner.find(
 						).FoundFilterRowDictsList,
 					self.JoinedCatchDeriveJoinersList
 				)
@@ -505,8 +549,8 @@ class JoinerClass(BaseClass):
 						map(
 								lambda __JoinedFindFilterRowDict:
 								[
-									__JoinedFindFilterRowDict['TabledInt']
-									if 'TabledInt' in __JoinedFindFilterRowDict else 0,
+									__JoinedFindFilterRowDict['ModeledInt']
+									if 'ModeledInt' in __JoinedFindFilterRowDict else 0,
 									__JoinedFindFilterRowDict['RowInt']
 								],
 								__JoinedFindFilterRowDictsList
@@ -548,24 +592,18 @@ class JoinerClass(BaseClass):
 			
 			#Call the parent method
 			BaseClass.find(self).FoundFilterRowDictsList
-
 #</DefineClass>
 
+#<DefineLocals>
+Controller.ModelsParenterClass.ManagingValueClass=JoinerClass
+#<DefineLocals>
 
 #</DefinePrint>
 JoinerClass.PrintingClassSkipKeyStrsList.extend(
 	[
-		'JoiningCollectionStr',
-		'JoiningCatchStr',
-		'JoiningAttentionStr',
-		'JoiningFindBeforeBool',
-		'JoiningDatabaseStr',
-		'JoinedCatchCollectionOrderedDict',
-		'JoinedCatchDeriveJoinersList',
-		'JoinedRetrieveIndexesListGetStrsList',
-		'JoinedRetrieveIndexesListColumnStrsList',
-		'JoinedMongoInsertIndexIntsList',
-		'JoinedHdfInsertIndexIntsList'
+		'JoinedPostDeriveParentersList',
+		'JoinedPostDeriveJoinersList',
+		#'JoinedRetrieveIndexesListGetStrsList'
 	]
 )
 #<DefinePrint>

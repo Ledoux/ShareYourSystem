@@ -125,6 +125,38 @@ class TeamerClass(BaseClass):
 			'''
 
 			#/####################/#
+			# Check if there is a special type for this
+			# 
+
+			#debug
+			'''
+			self.debug(
+					[
+						'Is there a special type for this',
+						('self.',self,['TeamingClassesDict','TeamingKeyStr'])
+					]
+				)
+			'''
+
+			#Check
+			if self.TeamingKeyStr in self.TeamingClassesDict:
+
+				#get
+				self.TeamingValueClass=self.TeamingClassesDict[
+					self.TeamingKeyStr
+				]
+
+				#debug
+				'''
+				self.debug(
+						[
+							'There is a special type for this',
+							('self.',self,['TeamingValueClass'])
+						]
+					)
+				'''
+
+			#/####################/#
 			# do we have to init 
 			#
 
@@ -163,24 +195,6 @@ class TeamerClass(BaseClass):
 						]
 					)
 				'''
-
-				#Check
-				if self.TeamingKeyStr in self.TeamingClassesDict:
-
-					#get
-					self.TeamingValueClass=self.TeamingClassesDict[
-						self.TeamingKeyStr
-					]
-
-					#debug
-					'''
-					self.debug(
-							[
-								'There is a special type for this',
-								('self.',self,['TeamingValueClass'])
-							]
-						)
-					'''
 					
 				#temp and init
 				TeamedValueVariable=self.TeamedValueVariable
@@ -259,12 +273,22 @@ class TeamerClass(BaseClass):
 		else:
 
 			##########################
-			# just get
+			# just get and update 
 			#
 
 			#get
 			self.TeamedValueVariable=self.TeamDict[self.TeamingKeyStr]
+			
+			#Check
+			if hasattr(
+				self.TeamingValueVariable,
+				'items'
+			) or SYS.getIsTuplesListBool(self.TeamingValueVariable):
 
+				#set
+				self.TeamedValueVariable['#map@set'](
+						self.TeamingValueVariable
+					)
 
 	def mimic_get(self):
 
@@ -398,6 +422,17 @@ class TeamerClass(BaseClass):
 		
 		#Call the parent get method
 		return BaseClass.set(self)
+
+	def mimic__print(self,**_KwargVariablesDict):
+
+		#/##################/#
+		# Call the parent method
+		#
+
+		#call
+		BaseClass._print(self,**_KwargVariablesDict)
+
+
 
 #</DefineClass>
 

@@ -19,6 +19,7 @@ import ShareYourSystem as SYS
 BaseModuleStr="ShareYourSystem.Standards.Interfacers.Interfacer"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Doer"
 SYS.setSubModule(globals())
+SYS.addDo('Printer','_Print','Printing','Printed')
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
@@ -646,6 +647,7 @@ class PrinterClass(BaseClass):
 
 	def default_init(self,
 						_PrintIdInt=0,
+						_PrintDeepInt=0,
 						_PrintingVariable=None,
 						_PrintingInstanceSkipKeyStrsList=None,
 						_PrintingInstanceForceKeyStrsList=None,
@@ -655,6 +657,8 @@ class PrinterClass(BaseClass):
 						_PrintingNewInstanceBool=True,
 						_PrintingNewClassBool=True,
 						_PrintingOutBool=True,
+						_PrintingSelfBool=False,
+						_PrintingAlineaIsBool=False,
 						_PrintedStr="",
 						**_KwargVariablesDict
 					):
@@ -669,17 +673,6 @@ class PrinterClass(BaseClass):
 		self.PrintingInstanceSkipKeyStrsList=[]
 		self.PrintingInstanceForceKeyStrsList=[]
 			
-	def __repr__(self,**_KwargVariablesDict):
-
-		#get
-		PrintStr=self._print(self,_OutBool=False,**_KwargVariablesDict).PrintedStr
-
-		#reset
-		self.PrintingOutBool=True
-
-		#return 
-		return PrintStr
-
 	def do__print(self,**_KwargVariablesDict):
 
 		#debug
@@ -688,241 +681,273 @@ class PrinterClass(BaseClass):
 		print('')
 		'''
 
+		#/###################/#
+		# Check if it is a ReprStr
+		# or just a PrintStr
+
 		#Check 
-		if self.PrintingVariable!=self:
+		if self.PrintingSelfBool:
+
+			#print
+			self.PrintedStr=self.PrintingVariable.getReprStr(
+				**_KwargVariablesDict
+			)
+
+		else:
 
 			#print
 			self.PrintedStr=getPrintStr(
 					self.PrintingVariable,
 					**_KwargVariablesDict
 				)
-
-		else:
-
-			#debug
-			'''
-			self.debug(('self.__class__',self.__class__,[
-											'PrintingKeyStrsList',
-											'DefaultBaseKeyStrsList',
-											'DefaultSpecificKeyStrsList',
-											'PrintedNotSpecificKeyStrsList'
-											]))
-			'''
-
-			#/###################/#
-			# Print the Default Key Strs... form the Instance or the still the Class
-			#
-
-			#filter the skip key strs
-			PrintedDefaultSpecificKeyStrsList=SYS._filter(
-					lambda __DefaultSpecificKeyStr:
-					__DefaultSpecificKeyStr not in list(
-						self.PrintingInstanceSkipKeyStrsList)+list(
-						self.PrintingClassSkipKeyStrsList), 
-					self.__class__.DefaultSpecificKeyStrsList
-				)
-
-			#Represent the Specific KeyStrs
-			PrintedTuplesList=map(
-										lambda __SpecificKeyStr:
-										(
-											"<Spe>"+("<Instance>"
-											if __SpecificKeyStr in self.__dict__ 
-											else (
-												"<Instance>_"
-												if hasattr(
-														self.__class__,__SpecificKeyStr
-												) and type(getattr(
-													self.__class__,__SpecificKeyStr
-												))==property and getattr(
-													self.__class__,'_'+__SpecificKeyStr
-												)!=getattr(self,'_'+__SpecificKeyStr) and (
-												'_'+__SpecificKeyStr not in self.PrintingClassSkipKeyStrsList and __SpecificKeyStr not in self.PrintingInstanceSkipKeyStrsList
-												)
-												else
-												"<Class>"
-												)
-											)+__SpecificKeyStr,
-											getattr(self,__SpecificKeyStr)
-										),
-										PrintedDefaultSpecificKeyStrsList
-								)
-
-			#/###################/#
-			# Print the Default Base Key Strs... form the Instance or the still the Class
-			#
-
-			#Represent the BaseKeyStrs
-			if self.PrintingBaseBool:
-				
-				#Debug
-				'''
-				print('Printer l 723')
-				print('We print the bases')
-				print('self.__class__.DefaultBaseKeyStrsList is ')
-				print(self.__class__.DefaultBaseKeyStrsList)
-				print('')
-				'''
-
-				#filter
-				PrintedDefaultBaseKeyStrsList=SYS._filter(
-						lambda __DefaultSpecificKeyStr:
-						__DefaultSpecificKeyStr not in list(
-							self.PrintingInstanceSkipKeyStrsList
-						)+list(self.PrintingClassSkipKeyStrsList), 
-						self.__class__.DefaultBaseKeyStrsList
-					)
-					
-				PrintedTuplesList+=map(
-										lambda __BaseKeyStr:
-										(
-											"<Base>"+("<Instance>"
-											if __BaseKeyStr in self.__dict__
-											else "<Class>"
-											)+__BaseKeyStr
-											,
-											getattr(self,__BaseKeyStr)
-										),
-										PrintedDefaultBaseKeyStrsList
-									)
-
-			#/###################/#
-			# Print the New key strs in the instance
-			#
-
-			#print the NewInstanceKeyStrs in the __dict__
-			if self.PrintingNewInstanceBool:
-				
-				#filter
-				PrintedNewInstanceTuplesList=SYS._filter(
-					lambda __NewItemTuple:
-					__NewItemTuple[0
-					] not in self.__class__.DefaultSpecificKeyStrsList+self.__class__.DefaultBaseKeyStrsList,
-					self.__dict__.items()
-				)
-
-				#filter
-				PrintedNewInstanceTuplesList=SYS._filter(
-						lambda __PrintedNewInstanceTuple:
-						__PrintedNewInstanceTuple[0] not in list(
-							self.PrintingInstanceSkipKeyStrsList)+list(
-							self.PrintingClassSkipKeyStrsList),
-						PrintedNewInstanceTuplesList
-					)
-
-				#map
-				PrintedTuplesList+=map(
-					lambda __NewItemTuple:
-					(
-						"<New><Instance>"+__NewItemTuple[0],
-						__NewItemTuple[1]
-					),
-					PrintedNewInstanceTuplesList
-				)
-
-			#/###################/#
-			# Print the New key strs in the class
-			#
-
-			#Represent the NewClassKeyStrs in the _self.__class____.__dict__
-			if self.PrintingNewClassBool:
-
-
-				#filter
-				PrintedNewClassKeyStrsList=SYS._filter(
-						lambda __KeyStr:
-						__KeyStr not in self.__class__.KeyStrsList and __KeyStr not in self.__dict__,
-						SYS.getKeyStrsListWithClass(
-							self.__class__
-						)
-					)
-
-				#filter
-				PrintedNewClassKeyStrsList=SYS._filter(
-						lambda __NewClassKeyStr:
-						__NewClassKeyStr not in list(
-						self.PrintingInstanceSkipKeyStrsList)+list(
-						self.PrintingClassSkipKeyStrsList),
-						PrintedNewClassKeyStrsList
-					)
-
-				#filter
-				PrintedTuplesList+=map(
-					lambda __NewKeyStr:
-					(
-						"<New><Class>"+__NewKeyStr,
-						self.__class__.__dict__[__NewKeyStr]
-					),
-					PrintedNewClassKeyStrsList
-				)
-			
-			#/###################/#
-			# Print force key strs
-			#
-
-			#Debug
-			'''
-			print('Printer l 811')
-			print('We add some forced Key Strs')
-			print('')
-			'''
-			
-			#map
-			PrintedTuplesList+=map(
-					lambda __PrintingKeyStr:
-					(
-						"<Spe><Instance>"+__PrintingKeyStr,
-						self.__dict__[__PrintingKeyStr]
-					) 
-					if __PrintingKeyStr in self.__dict__ and __PrintingKeyStr not in self.__class__.DefaultSpecificKeyStrsList
-					else(
-							(
-								"<Base><Instance>"+__PrintingKeyStr,
-								self.__dict__[__PrintingKeyStr]
-							) 
-							if __PrintingKeyStr in self.__dict__ and __PrintingKeyStr in self.__class__.DefaultBaseKeyStrsList
-							else
-							(
-								(
-									"<Base><Class>"+__PrintingKeyStr,
-									getattr(self,__PrintingKeyStr)
-								)
-								if __PrintingKeyStr not in self.__dict__
-								else
-								(
-									"<New><Instance>"+__PrintingKeyStr,
-									self.__dict__[__PrintingKeyStr]
-								)
-							)
-					),
-					list(
-						self.PrintingInstanceForceKeyStrsList
-					)+list(self.PrintingClassForceKeyStrsList)
-				)
-						
-			#Append
-			global PrintAlreadyIdIntsList
-
-			#debug
-			'''
-			print('Printer l.629')
-			print('id(self) is ',id(self))
-			print('self not in PrintAlreadyIdIntsList is ',str(
-				self not in PrintAlreadyIdIntsList))
-			print('')
-			'''
-
-			#define the PrintedStr
-			self.PrintedStr=getPointerStr(
-						self
-					)+getPrintStr(
-						dict(PrintedTuplesList),
-						**_KwargVariablesDict
-					)
-
+		
 		#Check
 		if self.PrintingOutBool:
 			print(self.PrintedStr)
+
+	def __repr__(self,**_KwargVariablesDict):
+
+		#get
+		PrintStr=self._print(
+			self,
+			_OutBool=False,
+			_SelfBool=True,
+			**_KwargVariablesDict
+		).PrintedStr
+
+		#reset
+		self.PrintingSelfBool=False
+		self.PrintingOutBool=True
+
+		#return 
+		return PrintStr
+
+	def getReprStr(self,**_KwargVariablesDict):
+
+		#debug
+		'''
+		_Variable.debug(('_Variable.__class__',self.__class__,[
+				'PrintingKeyStrsList',
+				'DefaultBaseKeyStrsList',
+				'DefaultSpecificKeyStrsList',
+				'PrintedNotSpecificKeyStrsList'
+				]))
+		'''
+
+		#/###################/#
+		# Print the Default Key Strs... form the Instance or the still the Class
+		#
+
+		#filter the skip key strs
+		PrintedDefaultSpecificKeyStrsList=SYS._filter(
+				lambda __DefaultSpecificKeyStr:
+				__DefaultSpecificKeyStr not in list(
+					self.PrintingInstanceSkipKeyStrsList)+list(
+					self.PrintingClassSkipKeyStrsList), 
+				self.__class__.DefaultSpecificKeyStrsList
+			)
+
+		#Represent the Specific KeyStrs
+		PrintedTuplesList=map(
+									lambda __SpecificKeyStr:
+									(
+										"<Spe>"+("<Instance>"
+										if __SpecificKeyStr in self.__dict__ 
+										else (
+											"<Instance>_"
+											if hasattr(
+													self.__class__,__SpecificKeyStr
+											) and type(getattr(
+												self.__class__,__SpecificKeyStr
+											))==property and getattr(
+												self.__class__,'_'+__SpecificKeyStr
+											)!=getattr(self,'_'+__SpecificKeyStr) and (
+											'_'+__SpecificKeyStr not in self.PrintingClassSkipKeyStrsList and __SpecificKeyStr not in self.PrintingInstanceSkipKeyStrsList
+											)
+											else
+											"<Class>"
+											)
+										)+__SpecificKeyStr,
+										getattr(self,__SpecificKeyStr)
+									),
+									PrintedDefaultSpecificKeyStrsList
+							)
+
+		#/###################/#
+		# Print the Default Base Key Strs... form the Instance or the still the Class
+		#
+
+		#Represent the BaseKeyStrs
+		if self.PrintingBaseBool:
+			
+			#Debug
+			'''
+			print('Printer l 723')
+			print('We print the bases')
+			print('self.__class__.DefaultBaseKeyStrsList is ')
+			print(self.__class__.DefaultBaseKeyStrsList)
+			print('')
+			'''
+
+			#filter
+			PrintedDefaultBaseKeyStrsList=SYS._filter(
+					lambda __DefaultSpecificKeyStr:
+					__DefaultSpecificKeyStr not in list(
+						self.PrintingInstanceSkipKeyStrsList
+					)+list(self.PrintingClassSkipKeyStrsList), 
+					self.__class__.DefaultBaseKeyStrsList
+				)
+				
+			PrintedTuplesList+=map(
+									lambda __BaseKeyStr:
+									(
+										"<Base>"+("<Instance>"
+										if __BaseKeyStr in self.__dict__
+										else "<Class>"
+										)+__BaseKeyStr
+										,
+										getattr(self,__BaseKeyStr)
+									),
+									PrintedDefaultBaseKeyStrsList
+								)
+
+		#/###################/#
+		# Print the New key strs in the instance
+		#
+
+		#print the NewInstanceKeyStrs in the __dict__
+		if self.PrintingNewInstanceBool:
+			
+			#filter
+			PrintedNewInstanceTuplesList=SYS._filter(
+				lambda __NewItemTuple:
+				__NewItemTuple[0
+				] not in self.__class__.DefaultSpecificKeyStrsList+self.__class__.DefaultBaseKeyStrsList,
+				self.__dict__.items()
+			)
+
+			#filter
+			PrintedNewInstanceTuplesList=SYS._filter(
+					lambda __PrintedNewInstanceTuple:
+					__PrintedNewInstanceTuple[0] not in list(
+						self.PrintingInstanceSkipKeyStrsList)+list(
+						self.PrintingClassSkipKeyStrsList),
+					PrintedNewInstanceTuplesList
+				)
+
+			#map
+			PrintedTuplesList+=map(
+				lambda __NewItemTuple:
+				(
+					"<New><Instance>"+__NewItemTuple[0],
+					__NewItemTuple[1]
+				),
+				PrintedNewInstanceTuplesList
+			)
+
+		#/###################/#
+		# Print the New key strs in the class
+		#
+
+		#Represent the NewClassKeyStrs in the _self.__class____.__dict__
+		if self.PrintingNewClassBool:
+
+
+			#filter
+			PrintedNewClassKeyStrsList=SYS._filter(
+					lambda __KeyStr:
+					__KeyStr not in self.__class__.KeyStrsList and __KeyStr not in self.__dict__,
+					SYS.getKeyStrsListWithClass(
+						self.__class__
+					)
+				)
+
+			#filter
+			PrintedNewClassKeyStrsList=SYS._filter(
+					lambda __NewClassKeyStr:
+					__NewClassKeyStr not in list(
+					self.PrintingInstanceSkipKeyStrsList)+list(
+					self.PrintingClassSkipKeyStrsList),
+					PrintedNewClassKeyStrsList
+				)
+
+			#filter
+			PrintedTuplesList+=map(
+				lambda __NewKeyStr:
+				(
+					"<New><Class>"+__NewKeyStr,
+					self.__class__.__dict__[__NewKeyStr]
+				),
+				PrintedNewClassKeyStrsList
+			)
+		
+		#/###################/#
+		# Print force key strs
+		#
+
+		#Debug
+		'''
+		print('Printer l 811')
+		print('We add some forced Key Strs')
+		print('')
+		'''
+		
+		#map
+		PrintedTuplesList+=map(
+				lambda __PrintingKeyStr:
+				(
+					"<Spe><Instance>"+__PrintingKeyStr,
+					self.__dict__[__PrintingKeyStr]
+				) 
+				if __PrintingKeyStr in self.__dict__ and __PrintingKeyStr not in self.__class__.DefaultSpecificKeyStrsList
+				else(
+						(
+							"<Base><Instance>"+__PrintingKeyStr,
+							self.__dict__[__PrintingKeyStr]
+						) 
+						if __PrintingKeyStr in self.__dict__ and __PrintingKeyStr in self.__class__.DefaultBaseKeyStrsList
+						else
+						(
+							(
+								"<Base><Class>"+__PrintingKeyStr,
+								getattr(self,__PrintingKeyStr)
+							)
+							if __PrintingKeyStr not in self.__dict__
+							else
+							(
+								"<New><Instance>"+__PrintingKeyStr,
+								self.__dict__[__PrintingKeyStr]
+							)
+						)
+				),
+				list(
+					self.PrintingInstanceForceKeyStrsList
+				)+list(self.PrintingClassForceKeyStrsList)
+			)
+					
+		#Append
+		global PrintAlreadyIdIntsList
+
+		#debug
+		'''
+		print('Printer l.629')
+		print('id(self) is ',id(self))
+		print('self not in PrintAlreadyIdIntsList is ',str(
+			self not in PrintAlreadyIdIntsList))
+		print('')
+		'''
+
+		#define the PrintedStr
+		self.PrintedStr=getPointerStr(
+					self
+				)+getPrintStr(
+					dict(PrintedTuplesList),
+					**_KwargVariablesDict
+				)
+
+		#return
+		return self.PrintedStr
+
 		
 #</DefineClass>
 
@@ -930,6 +955,7 @@ class PrinterClass(BaseClass):
 PrinterClass.PrintingClassSkipKeyStrsList.extend(
 	[
 		'PrintIdInt',
+		'PrintDeepInt',
 		'PrintingVariable',
 		'PrintingInstanceSkipKeyStrsList',
 		'PrintingInstanceForceKeyStrsList',
@@ -939,6 +965,7 @@ PrinterClass.PrintingClassSkipKeyStrsList.extend(
 		'PrintingNewInstanceBool',
 		'PrintingNewClassBool',
 		'PrintingOutBool',
+		'PrintingAlineaIsBool',
 		'PrintedStr'
 	]
 )

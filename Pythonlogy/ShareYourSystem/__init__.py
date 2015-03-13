@@ -346,6 +346,18 @@ def getWordStrsListWithStr(_Str):
 	else:
 		return [""]
 
+def getLowerWordStr(_WordStr):
+	if _WordStr[0]=='_':
+		return '_'+_WordStr[1].lower()+_WordStr[2:]
+	else:
+		return _WordStr[0].lower()+_WordStr[1:]
+
+def getUpperWordStr(_WordStr):
+	if _WordStr[0]=='_':
+		return '_'+_WordStr[1].upper()+_WordStr[2:]
+	else:
+		return _WordStr[0].upper()+_WordStr[1:]
+
 def getDefaultArray():
 	import numpy
 	return numpy.array([])

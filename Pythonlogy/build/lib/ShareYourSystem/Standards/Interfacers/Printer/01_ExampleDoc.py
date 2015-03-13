@@ -10,5 +10,5 @@ MyPrinter.MyInt=0
 MyPrinter.__class__.MyStr="hello"
 
 #print itself
-print('print it self gives')
+print('print itself gives')
 print(MyPrinter)

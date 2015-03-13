@@ -112,6 +112,48 @@ class ManagerClass(BaseClass):
 		#Check
 		if self.ManagedIsBool==False:
 
+			#debug
+			'''
+			self.debug(
+				[
+					'This is a new managed value',
+					('self.',self,['ManagingKeyStr'])
+				]
+			)
+			'''
+
+			#/####################/#
+			# Check if there is a special type for this
+			# 
+
+			#debug
+			'''
+			self.debug(
+					[
+						'Is there a special type for this',
+						('self.',self,['ManagingClassesDict','ManagingKeyStr'])
+					]
+				)
+			'''
+
+			#Check
+			if self.ManagingKeyStr in self.ManagingClassesDict:
+
+				#get
+				self.ManagingValueClass=self.ManagingClassesDict[
+					self.ManagingKeyStr
+				]
+
+				#debug
+				'''
+				self.debug(
+						[
+							'There is a special type for this',
+							('self.',self,['ManagingValueClass'])
+						]
+					)
+				'''
+
 			#/####################/#
 			# do we have to init 
 			#
@@ -256,12 +298,22 @@ class ManagerClass(BaseClass):
 		else:
 
 			##########################
-			# just get
+			# just get and update 
 			#
 
 			#get
 			self.ManagedValueVariable=self.ManagementDict[self.ManagingKeyStr]
+			
+			#Check
+			if hasattr(
+				self.ManagingValueVariable,
+				'items'
+			) or SYS.getIsTuplesListBool(self.ManagingValueVariable):
 
+				#set
+				self.ManagedValueVariable['#map@set'](
+						self.TeamingValueVariable
+					)
 
 	def mimic_get(self):
 

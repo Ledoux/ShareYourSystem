@@ -677,7 +677,6 @@ DoStrsTuplesList=[
 	('Propertiser','Propertize','Propertizing','Propertized'),
 	('Inspecter','Inspect','Inspecting','Inspected'),
 	('Representer','Represent','Representing','Represented'),
-	('Printer','_Print','Printing','Printed'),
 	('Debugger','Debug','Debugging','Debugged'),
 	('Functer','Funct','Functing','Functed'),
 	('Moduler','Module','Moduling','Moduled'),

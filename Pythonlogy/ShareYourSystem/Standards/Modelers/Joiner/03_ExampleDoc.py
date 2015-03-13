@@ -1,19 +1,10 @@
 
 #ImportModules
 import ShareYourSystem as SYS
-import tables
-import operator
 
 #Define a Sumer class
 @SYS.ClasserClass()
 class SumerClass(SYS.ControllerClass):
-
-	#Definition
-	RepresentingKeyStrsList=[
-							'SumingFirstInt',
-							'SumingSecondInt',
-							'SumedTotalInt'
-						]
 								
 	def default_init(self,
 						_SumingFirstInt=0,

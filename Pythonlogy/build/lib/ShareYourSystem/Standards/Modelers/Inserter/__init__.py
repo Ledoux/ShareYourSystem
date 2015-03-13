@@ -25,6 +25,7 @@ SYS.setSubModule(globals())
 Rower=BaseModule
 from ShareYourSystem.Standards.Itemizers import Getter,Setter
 from ShareYourSystem.Standards.Modelers import Modeler
+from ShareYourSystem.Standards.Controllers import Controller
 #</ImportSpecificModules>
 
 #<DefineClass>
@@ -473,6 +474,10 @@ class InserterClass(
 			)
 
 #</DefineClass>
+
+#<DefineLocals>
+Controller.ModelsParenterClass.ManagingValueClass=InserterClass
+#<DefineLocals>
 
 #</DefinePrint>
 InserterClass.PrintingClassSkipKeyStrsList.extend(

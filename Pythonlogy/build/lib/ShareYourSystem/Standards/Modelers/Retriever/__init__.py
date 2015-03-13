@@ -24,6 +24,7 @@ SYS.setSubModule(globals())
 #<ImportSpecificModules>
 import collections
 from ShareYourSystem.Standards.Itemizers import Setter
+from ShareYourSystem.Standards.Controllers import Controller
 #</ImportSpecificModules>
 
 #<DefineClass>
@@ -256,9 +257,11 @@ class RetrieverClass(BaseClass):
 		'''
 		self.debug(('self.',self,['RetrievedColumnStrToGetStrOrderedDict']))
 		'''
-		
-
 #</DefineClass>
+
+#<DefineLocals>
+Controller.ModelsParenterClass.ManagingValueClass=RetrieverClass
+#<DefineLocals>
 
 #</DefinePrint>
 RetrieverClass.PrintingClassSkipKeyStrsList.extend(

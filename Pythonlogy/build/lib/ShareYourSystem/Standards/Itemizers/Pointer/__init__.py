@@ -42,7 +42,7 @@ class PointerClass(BaseClass):
 					_PointingToSetKeyVariable=None,
 					_PointingBackSetKeyVariable=None,
 					_PointingBackBool=False,
-					_PointedToGetValueVariable=None,
+					_PointedToVariable=None,
 					**_KwargVariablesDict
 				):
 
@@ -66,15 +66,15 @@ class PointerClass(BaseClass):
 		'''
 		
 		#get
-		PointedToGetValueVariable=self[
+		PointedToVariable=self[
 			self.PointingToGetVariable
 		]
 
 		#debug
 		'''
 		self.debug(
-				'PointedToGetValueVariable is '+str(
-					PointedToGetValueVariable
+				'PointedToVariable is '+str(
+					PointedToVariable
 				)
 			)
 		'''
@@ -112,7 +112,7 @@ class PointerClass(BaseClass):
 			#set
 			self.set(
 					PointedToSetKeyVariable,
-					PointedToGetValueVariable
+					PointedToVariable
 				)
 
 		else:
@@ -153,7 +153,7 @@ class PointerClass(BaseClass):
 				#point
 				PointedGettedValueVariable.set(
 						PointedKeyStr,
-						PointedToGetValueVariable
+						PointedToVariable
 					)
 
 			else:
@@ -166,7 +166,7 @@ class PointerClass(BaseClass):
 				#point
 				PointedGettedValueVariable.set(
 						'PointToVariable',
-						PointedToGetValueVariable
+						PointedToVariable
 					)
 
 				#point
@@ -181,7 +181,7 @@ class PointerClass(BaseClass):
 					[
 						'After getting',
 						('locals()["',locals(),[
-										'PointedToGetValueVariable',
+										'PointedToVariable',
 										],']
 									)
 					]
@@ -257,22 +257,22 @@ class PointerClass(BaseClass):
 						'PointedBackSetKeyVariable is '+SYS._str(
 							PointedBackSetKeyVariable
 						),
-						'PointedToGetValueVariable is '+SYS._str(
-							PointedToGetValueVariable
+						'PointedToVariable is '+SYS._str(
+							PointedToVariable
 						)
 					]
 				)
 			'''
 
 			#set
-			PointedToGetValueVariable.point(
+			PointedToVariable.point(
 					self,
 					PointedBackSetKeyVariable,
 					_BackBool=False
 				)
 
 		#alias
-		self.PointedToGetValueVariable=PointedToGetValueVariable
+		self.PointedToVariable=PointedToVariable
 
 	def mimic_get(self):
 
@@ -309,7 +309,7 @@ class PointerClass(BaseClass):
 					)
 
 				#alias
-				self.GettedValueVariable=self.PointedToGetValueVariable
+				self.GettedValueVariable=self.PointedToVariable
 
 				#return
 				return {'HookingIsBool':False}
@@ -335,7 +335,7 @@ class PointerClass(BaseClass):
 					)
 
 				#alias
-				self.GettedValueVariable=self.PointedToGetValueVariable
+				self.GettedValueVariable=self.PointedToVariable
 
 				#return
 				return {'HookingIsBool':False}
@@ -470,7 +470,7 @@ PointerClass.PrintingClassSkipKeyStrsList.extend(
 		'PointingToSetKeyVariable',
 		'PointingBackSetKeyVariable',
 		'PointingBackBool',
-		'PointedToGetValueVariable'
+		'PointedToVariable'
 	]
 )
 #<DefinePrint>

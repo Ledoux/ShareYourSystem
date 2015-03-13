@@ -19,7 +19,8 @@ MyController=SYS.ControllerClass(
 				('MyIntsList','MyIntsList',tables.Int64Col(shape=3))
 			]	
 		}
-	)
+	).get('?v')
+
 
 #Build a structure with a database
 SYS.mapSet(
@@ -40,7 +41,6 @@ print('hdf5 file is : \n'+SYS._str(MyController.hdfview()))
 
 #close
 MyController.file(_ModeStr='c')
-
 
 
 

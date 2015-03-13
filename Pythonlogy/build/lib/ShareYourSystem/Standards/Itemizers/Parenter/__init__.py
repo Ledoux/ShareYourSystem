@@ -225,16 +225,12 @@ class ParenterClass(BaseClass):
 		'''
 		
 		#set
-		try:
+		if hasattr(self,'TeamedValueVariable'):
 
 			#Check
 			if self.TeamedValueVariable.ParentDeriveTeamerVariable!=self:
 				self.TeamedValueVariable.ParentDeriveTeamerVariable=self
 				self.TeamedValueVariable.ParentKeyStr=self.TeamingKeyStr
-		except:
-
-			#pass
-			pass
 
 
 
@@ -268,7 +264,9 @@ class ParenterClass(BaseClass):
 			)
 		'''
 
-		try:
+		#Check
+		if hasattr(self,'ManagedValueVariable'):
+
 
 			#Check
 			if self.ManagedValueVariable.ParentDeriveTeamerVariable!=self:
@@ -277,10 +275,6 @@ class ParenterClass(BaseClass):
 				self.ManagedValueVariable.ParentDeriveTeamerVariable=self
 				self.ManagedValueVariable.ParentKeyStr=self.ManagingKeyStr
 
-		except:
-
-			#pass
-			pass
 
 	def mimic_get(self):
 		

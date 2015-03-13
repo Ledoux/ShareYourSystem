@@ -24,6 +24,7 @@ SYS.setSubModule(globals())
 
 #from ShareYourSystem.Functers import Argumenter,Hooker
 from ShareYourSystem.Standards.Modelers import Rower
+from ShareYourSystem.Standards.Controllers import Controller
 #</ImportSpecificModules>
 
 #<DefineClass>
@@ -192,6 +193,10 @@ class FindoerClass(BaseClass):
 			self.retrieve()
 
 #</DefineClass>
+
+#<DefineLocals>
+Controller.ModelsParenterClass.ManagingValueClass=FindoerClass
+#<DefineLocals>
 
 #</DefinePrint>
 FindoerClass.PrintingClassSkipKeyStrsList.extend(

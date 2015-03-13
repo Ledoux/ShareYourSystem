@@ -192,7 +192,9 @@ class MimickerClass(BaseClass):
 			'''
 
 			#Define
-			MimickedDoStr=self.MimickingDoMethodStr[0].upper()+self.MimickingDoMethodStr[1:]
+			MimickedDoStr=SYS.getUpperWordStr(
+				self.MimickingDoMethodStr
+			)
 			MimickedDoerStr=Doer.DoStrToDoerStrOrderedDict[MimickedDoStr]
 
 			#Debug

@@ -20,15 +20,19 @@ SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
+from ShareYourSystem.Standards.Itemizers import Parenter
 #</ImportSpecificModules>
+
+#<DefineLocals>
+class ModelsParenterClass(Parenter.ParenterClass):pass
+class ViewsParenterClass(Parenter.ParenterClass):pass
+#</DefineLocals>
 
 #<DefineClass>
 @DecorationClass()
 class ControllerClass(BaseClass):
 
 	def default_init(self,
-				_ControlModelStr="Top",
-				_ControlViewStr="Top",
 				_ControlTagStr="Top",
 				_ControllingMethodStr="",
 				_ControllingManagingKeyStr="",
@@ -62,85 +66,63 @@ class ControllerClass(BaseClass):
 			#insert and row
 			self.ControlledDeriveManagerVariable.insert()
 			self.ControlledDeriveManagerVariable.setSwitch('row')
-			
-
-	def mimic_team(self):
-
-		#/##################/#
-		# If it is an ask for update the models then gve to the child manager the 
-		# modeler classes for instancing
-
-		#call the base method
-		BaseClass.team(self)
-
-		#Check
-		if self.TeamingKeyStr=='Models':
-
-			#Check
-			if self.TeamedIsBool==False:
-
-				#debug
-				'''
-				self.debug('we create models here')
-				'''
-				
-				#Check
-				if self.ControllingModelClassVariable==None:
-					self.ControllingModelClassVariable=SYS.HierarchizerClass
-
-				#alias
-				self.TeamedValueVariable.ManagingValueClass=self.ControllingModelClassVariable
-
-		if self.TeamingKeyStr=='Views':
-
-			#Check
-			if self.TeamedIsBool==False:
-
-				#debug
-				'''
-				self.debug('we create models here')
-				'''
-				
-				#Check
-				if self.ControllingViewClassVariable==None:
-					self.ControllingViewClassVariable=SYS.FigurerClass
-
-				#alias
-				self.TeamedValueVariable.ManagingValueClass=self.ControllingViewClassVariable
-
-
+		
 	def propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable):
 
 		#call the base method
 		BaseClass.propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable)
 
 		#/##################/#
+		# Set the ControlTagStr
+		#
+
+		#debug
+		'''
+		self.debug(
+				[
+					'We have parented',
+					'we set the control path str',
+					('self.',self,[
+							'ParentedTotalPathStr',
+							'ManagementTagStr'
+						])
+				]
+			)
+		'''
+		
+		#Check
+		if self.ManagementTagStr!='':
+
+			#get
+			self.ControlTagStr=(
+					self.ParentedTotalPathStr+'/'+self.ManagementTagStr
+				).replace('/','_')
+
+		#remove
+		if self.ControlTagStr[0]=='_':
+			self.ControlTagStr=self.ControlTagStr[1:]
+
+		#/##################/#
 		# Special Model control case
 		#
 
-		#get
-		self.ControlModelStr=(
-				self.ParentedTotalPathStr+'/'+self.ManagementTagStr
-			).replace('/','_')
-
-		#remove
-		if self.ControlModelStr[0]=='_':
-			self.ControlModelStr=self.ControlModelStr[1:]
-
 		#Create a group in the hdf5 file if it is with hdf
 		self.HdformatedFileVariable=self.ParentTopDeriveTeamerVariable.HdformatedFileVariable
-			
-
 #</DefineClass>
 
+#<DefineLocals>
+
 #Set
-SYS.ManagerClass.ManagingValueClass=ControllerClass
+#SYS.ManagerClass.ManagingValueClass=ControllerClass
+ControllerClass.TeamingClassesDict={
+	'Models':ModelsParenterClass,
+	'Views':ViewsParenterClass
+}
+#<DefineLocals>
 
 #</DefinePrint>
 ControllerClass.PrintingClassSkipKeyStrsList.extend(
 	[
-		#'ControlModelStr',
-		#'ControlViewStr',
 		#'ControlTagStr',
 		'ControllingMethodStr',
 		'ControllingManagingKeyStr',
@@ -150,4 +132,6 @@ ControllerClass.PrintingClassSkipKeyStrsList.extend(
 	]
 )
 #<DefinePrint>
+
+
 

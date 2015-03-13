@@ -23,6 +23,7 @@ SYS.addDo('Drawer','Draw','Drawing','Drawn')
 import operator
 #</ImportSpecificModules>
 
+
 #<DefineClass>
 @DecorationClass()
 class DrawerClass(BaseClass):

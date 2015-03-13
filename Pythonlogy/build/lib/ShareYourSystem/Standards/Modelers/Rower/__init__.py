@@ -24,6 +24,7 @@ SYS.setSubModule(globals())
 import collections
 import copy
 from ShareYourSystem.Standards.Itemizers import Getter
+from ShareYourSystem.Standards.Controllers import Controller
 #</ImportSpecificModules>
 
 #<DefineFunctions>
@@ -348,8 +349,11 @@ class RowerClass(
 			'''
 			self.debug(('self.',self,['RowHdfColumnStrsList']))
 			'''
-		
 #</DefineClass>
+
+#<DefineLocals>
+Controller.ModelsParenterClass.ManagingValueClass=RowerClass
+#<DefineLocals>
 
 #</DefinePrint>
 RowerClass.PrintingClassSkipKeyStrsList.extend(

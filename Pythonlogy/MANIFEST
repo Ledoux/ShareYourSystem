@@ -610,6 +610,9 @@ ShareYourSystem/Standards/Itemizers/Conditioner/10_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Conditioner/11_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Conditioner/Readme.md
 ShareYourSystem/Standards/Itemizers/Conditioner/__init__.py
+ShareYourSystem/Standards/Itemizers/Connecter/00_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Connecter/01_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Connecter/__init__.py
 ShareYourSystem/Standards/Itemizers/Executer/001_DocumentDoc.md
 ShareYourSystem/Standards/Itemizers/Executer/00_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Executer/01_ExampleDoc.py
@@ -736,14 +739,6 @@ ShareYourSystem/Standards/Itemizers/Pointer/06_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Pointer/07_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Pointer/Readme.md
 ShareYourSystem/Standards/Itemizers/Pointer/__init__.py
-ShareYourSystem/Standards/Itemizers/Rebooter/001_DocumentDoc.md
-ShareYourSystem/Standards/Itemizers/Rebooter/002_GithubDoc.md
-ShareYourSystem/Standards/Itemizers/Rebooter/00_ExampleDoc.md
-ShareYourSystem/Standards/Itemizers/Rebooter/01_ExampleDoc.py
-ShareYourSystem/Standards/Itemizers/Rebooter/02_ExampleDoc.md
-ShareYourSystem/Standards/Itemizers/Rebooter/03_ExampleDoc.py
-ShareYourSystem/Standards/Itemizers/Rebooter/Readme.md
-ShareYourSystem/Standards/Itemizers/Rebooter/__init__.py
 ShareYourSystem/Standards/Itemizers/Setter/001_DocumentDoc.md
 ShareYourSystem/Standards/Itemizers/Setter/001_GithubDoc.md
 ShareYourSystem/Standards/Itemizers/Setter/00_ExampleDoc.md
@@ -785,6 +780,8 @@ ShareYourSystem/Standards/Itemizers/Teamer/06_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Teamer/07_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Teamer/08_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Teamer/09_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Teamer/10_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Teamer/11_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Teamer/Readme.md
 ShareYourSystem/Standards/Itemizers/Teamer/Test.py
 ShareYourSystem/Standards/Itemizers/Teamer/__init__.py
@@ -807,6 +804,7 @@ ShareYourSystem/Standards/Modelers/Findoer/ProcessTemp.txt
 ShareYourSystem/Standards/Modelers/Findoer/Readme.md
 ShareYourSystem/Standards/Modelers/Findoer/Test.py
 ShareYourSystem/Standards/Modelers/Findoer/__init__.py
+ShareYourSystem/Standards/Modelers/Findoer/data/db/journal/j._0
 ShareYourSystem/Standards/Modelers/Hierarchizer/001_DocumentDoc.md
 ShareYourSystem/Standards/Modelers/Hierarchizer/00_ExampleDoc.md
 ShareYourSystem/Standards/Modelers/Hierarchizer/01_ExampleDoc.py
@@ -845,10 +843,11 @@ ShareYourSystem/Standards/Modelers/Joiner/ProcessTemp.txt
 ShareYourSystem/Standards/Modelers/Joiner/Readme.md
 ShareYourSystem/Standards/Modelers/Joiner/Test.py
 ShareYourSystem/Standards/Modelers/Joiner/__init__.py
-ShareYourSystem/Standards/Modelers/Joiner/Drafts/Joiner copy 2.py
-ShareYourSystem/Standards/Modelers/Joiner/Drafts/Joiner copy 3.py
-ShareYourSystem/Standards/Modelers/Joiner/Drafts/Joiner copy 4.py
-ShareYourSystem/Standards/Modelers/Joiner/Drafts/Joiner copy 5.py
+ShareYourSystem/Standards/Modelers/Joiner/draft/Joiner copy 2.py
+ShareYourSystem/Standards/Modelers/Joiner/draft/Joiner copy 3.py
+ShareYourSystem/Standards/Modelers/Joiner/draft/Joiner copy 4.py
+ShareYourSystem/Standards/Modelers/Joiner/draft/Joiner copy 5.py
+ShareYourSystem/Standards/Modelers/Joiner/draft/__init__ copy 2.py
 ShareYourSystem/Standards/Modelers/Merger/001_DocumentDoc.md
 ShareYourSystem/Standards/Modelers/Merger/00_ExampleDoc.md
 ShareYourSystem/Standards/Modelers/Merger/01_ExampleDoc.py
@@ -880,7 +879,6 @@ ShareYourSystem/Standards/Modelers/Retriever/ProcessTemp.txt
 ShareYourSystem/Standards/Modelers/Retriever/Readme.md
 ShareYourSystem/Standards/Modelers/Retriever/Test.py
 ShareYourSystem/Standards/Modelers/Retriever/__init__.py
-ShareYourSystem/Standards/Modelers/Retriever/data/db/journal/j._0
 ShareYourSystem/Standards/Modelers/Rower/001_DocumentDoc.md
 ShareYourSystem/Standards/Modelers/Rower/00_ExampleDoc.md
 ShareYourSystem/Standards/Modelers/Rower/01_ExampleDoc.py
@@ -892,13 +890,6 @@ ShareYourSystem/Standards/Modelers/Rower/__init__.py
 ShareYourSystem/Standards/Modelers/Rower/data/db/journal/j._0
 ShareYourSystem/Standards/Modelers/Rower/data/db/journal/lsn
 ShareYourSystem/Standards/Modelers/Rower/draft/__init__ copy 2.py
-ShareYourSystem/Standards/Modelers/Shaper/001_DocumentDoc.md
-ShareYourSystem/Standards/Modelers/Shaper/00_ExampleDoc.md
-ShareYourSystem/Standards/Modelers/Shaper/01_ExampleDoc.py
-ShareYourSystem/Standards/Modelers/Shaper/Readme.md
-ShareYourSystem/Standards/Modelers/Shaper/Test.py
-ShareYourSystem/Standards/Modelers/Shaper/__init__.py
-ShareYourSystem/Standards/Modelers/Shaper/draft/__init__ - copie.py
 ShareYourSystem/Standards/Tutorials/00_ExampleDoc.md
 ShareYourSystem/Standards/Tutorials/01_ExampleDoc.py
 ShareYourSystem/Standards/Tutorials/Readme.md
