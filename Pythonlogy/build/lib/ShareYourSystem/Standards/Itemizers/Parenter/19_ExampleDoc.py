@@ -3,11 +3,12 @@
 import ShareYourSystem as SYS
 
 #define
-MyTeamer=SYS.TeamerClass(
+MyParenter=SYS.ParenterClass(
 	).team(
 		'Children',
 		{
-			'MyInt':0
+			'MyInt':0,
+			'manage':['Aurelie']
 		}
 	).team(
 		'Clients',
@@ -17,8 +18,8 @@ MyTeamer=SYS.TeamerClass(
 	)
 
 #print
-print("MyTeamer is ")
-SYS._print(MyTeamer)
+print("MyParenter is ")
+SYS._print(MyParenter)
 
 
 

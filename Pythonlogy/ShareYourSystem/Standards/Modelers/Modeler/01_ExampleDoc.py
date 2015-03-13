@@ -1,24 +1,23 @@
-
 #ImportModules
 import ShareYourSystem as SYS
 
 #Definition 
 MyController=SYS.ControllerClass(
 		**{
-			'FolderingPathStr':SYS.Tabularer.LocalFolderPathStr,
-			'ControllingModelClassVariable':SYS.TabularerClass
+			'FolderingPathStr':SYS.Modeler.LocalFolderPathStr,
+			'ControllingModelClassVariable':SYS.ModelerClass
 		}
 	).get(
 		'/-Models/|Things'
 	)
 
-
 #Build a structure with a database
-MyController['/-Models/|Things'].TabularedMongoLocalDatabaseVariable.TestsCollection.remove(
-	{}
-)
-MyController['/-Models/|Things'].TabularedMongoLocalDatabaseVariable.TestsCollection.insert(
-	{'MyStr':"hello"}
+SYS.mapSet(
+		MyController['/-Models/|Things'].ModeledMongoCollection,
+		[
+			('remove',{}),
+			('insert',{'MyStr':"hello"})
+		]
 )
 
 #print
@@ -30,4 +29,3 @@ SYS._print(MyController)
 
 #kill
 MyController.process(_ActionStr='kill')
-

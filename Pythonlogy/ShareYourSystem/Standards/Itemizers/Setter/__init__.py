@@ -523,38 +523,57 @@ class SetterClass(BaseClass):
 					)
 				'''
 				
+			#set
+			SettedIsBool=False
+
 			#define
 			if hasattr(SettedValueMethod,'im_func'):
 
 				#Check
 				if hasattr(SettedValueMethod.im_func,'BaseDoClass'):
 
-					#get
-					SettedLiargVariablesList=SettedValueMethod.im_func.BaseDoClass.Module.getLiargVariablesList(
-						SettedLiargVariable
-					)
-
 					#debug
 					'''
 					self.debug(
-							'SettedLiargVariablesList is '+str(SettedLiargVariablesList)
+							[
+								"hasattr(SettedValueMethod.im_func.BaseDoClass.Module,'getLiargVariablesList') is",
+								str(hasattr(SettedValueMethod.im_func.BaseDoClass.Module,'getLiargVariablesList'))
+							]
 						)
 					'''
+
+					#Check
+					if hasattr(SettedValueMethod.im_func.BaseDoClass.Module,'getLiargVariablesList'):
 					
-					if SettedKwargVariable!=None:
+						#set
+						SettedIsBool=True
 
-						#get the method and put the value as arguments
-						SettedValueMethod(*SettedLiargVariablesList,**SettedKwargVariable)
+						#get
+						SettedLiargVariablesList=SettedValueMethod.im_func.BaseDoClass.Module.getLiargVariablesList(
+							SettedLiargVariable
+						)
 
-					else:
+						#debug
+						'''
+						self.debug(
+								'SettedLiargVariablesList is '+str(SettedLiargVariablesList)
+							)
+						'''
+						
+						if SettedKwargVariable!=None:
 
-						#get the method and put the value as arguments
-						SettedValueMethod(*SettedLiargVariablesList)
+							#get the method and put the value as arguments
+							SettedValueMethod(*SettedLiargVariablesList,**SettedKwargVariable)
 
-					#Stop the setting
-					return {"HookingIsBool":False}
+						else:
 
-			else:
+							#get the method and put the value as arguments
+							SettedValueMethod(*SettedLiargVariablesList)
+
+						#Stop the setting
+						return {"HookingIsBool":False}
+
+			if SettedIsBool==False:
 
 				#debug
 				'''

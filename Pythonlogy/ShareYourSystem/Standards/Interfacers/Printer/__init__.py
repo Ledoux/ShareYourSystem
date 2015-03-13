@@ -23,6 +23,7 @@ SYS.addDo('Printer','_Print','Printing','Printed')
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
+import copy
 #</ImportSpecificModules>
 
 #<DefineLocals>
@@ -647,7 +648,6 @@ class PrinterClass(BaseClass):
 
 	def default_init(self,
 						_PrintIdInt=0,
-						_PrintDeepInt=0,
 						_PrintingVariable=None,
 						_PrintingInstanceSkipKeyStrsList=None,
 						_PrintingInstanceForceKeyStrsList=None,
@@ -658,7 +658,6 @@ class PrinterClass(BaseClass):
 						_PrintingNewClassBool=True,
 						_PrintingOutBool=True,
 						_PrintingSelfBool=False,
-						_PrintingAlineaIsBool=False,
 						_PrintedStr="",
 						**_KwargVariablesDict
 					):
@@ -675,9 +674,11 @@ class PrinterClass(BaseClass):
 			
 	def do__print(self,**_KwargVariablesDict):
 
-		#debug
+		#Debug
 		'''
-		print('self.PrintingVariable is ',self.PrintingVariable)
+		print('l 680 _print')
+		print('_KwargVariablesDict is ')
+		print(_KwargVariablesDict)
 		print('')
 		'''
 
@@ -688,12 +689,26 @@ class PrinterClass(BaseClass):
 		#Check 
 		if self.PrintingSelfBool:
 
+			#Debug
+			'''
+			print('l 693')
+			print('we repr str here')
+			print('')
+			'''
+			
 			#print
 			self.PrintedStr=self.PrintingVariable.getReprStr(
 				**_KwargVariablesDict
 			)
 
 		else:
+
+			#Debug
+			'''
+			print('l 705')
+			print('we just get print Str here')
+			print('')
+			'''
 
 			#print
 			self.PrintedStr=getPrintStr(
@@ -707,13 +722,73 @@ class PrinterClass(BaseClass):
 
 	def __repr__(self,**_KwargVariablesDict):
 
+		#Debug
+		'''
+		print('l 718 __repr__')
+		print('_KwargVariablesDict is ')
+		print(_KwargVariablesDict)
+		print('')
+		'''
+
+		#init a new one
+		self.PrintingVariable=self.__class__()
+
+		#loop
+		for __ItemTuple in self.__dict__.items():
+
+			#Debug
+			'''
+			print('Try to copy')
+			print(__ItemTuple[0])
+			print('')
+			'''
+
+			#copy
+			#self.PrintingVariable.__dict__[__ItemTuple[0]]=copy.copy(
+			#	__ItemTuple[1]
+			#)
+
+			#try
+			try:
+
+				#copy
+				self.PrintingVariable.__dict__[__ItemTuple[0]]=copy.copy(
+					__ItemTuple[1]
+				)
+			except:
+
+
+				#debug
+				#print('Try to copy but FAILED')
+				#print(__ItemTuple[0])
+				#print('')
+
+				#pass
+				pass
+				
+
+		#Debug
+		'''
+		print('l 764 OK')
+		print('type(self.PrintingVariable) is ')
+		print(type(self.PrintingVariable))
+		print('')
+		'''
+
 		#get
 		ReprStr=self._print(
-			self,
+			self.PrintingVariable,
 			_OutBool=False,
 			_SelfBool=True,
 			**_KwargVariablesDict
 		).PrintedStr
+
+		#Debug
+		'''
+		print('l 763 Printer')
+		print('ReprStr is ')
+		print(ReprStr)
+		'''
 
 		#reset
 		self.PrintingSelfBool=False
@@ -723,6 +798,14 @@ class PrinterClass(BaseClass):
 		return ReprStr
 
 	def getReprStr(self,**_KwargVariablesDict):
+
+		#Debug
+		'''
+		print('l 741 getReprStr')
+		print('_KwargVariablesDict is ')
+		print(_KwargVariablesDict)
+		print('')
+		'''
 
 		#debug
 		'''
@@ -955,7 +1038,6 @@ class PrinterClass(BaseClass):
 PrinterClass.PrintingClassSkipKeyStrsList.extend(
 	[
 		'PrintIdInt',
-		'PrintDeepInt',
 		'PrintingVariable',
 		'PrintingInstanceSkipKeyStrsList',
 		'PrintingInstanceForceKeyStrsList',
@@ -965,7 +1047,6 @@ PrinterClass.PrintingClassSkipKeyStrsList.extend(
 		'PrintingNewInstanceBool',
 		'PrintingNewClassBool',
 		'PrintingOutBool',
-		'PrintingAlineaIsBool',
 		'PrintedStr'
 	]
 )

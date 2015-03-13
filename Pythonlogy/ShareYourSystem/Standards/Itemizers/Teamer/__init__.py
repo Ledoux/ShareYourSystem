@@ -422,18 +422,6 @@ class TeamerClass(BaseClass):
 		
 		#Call the parent get method
 		return BaseClass.set(self)
-
-	def mimic__print(self,**_KwargVariablesDict):
-
-		#/##################/#
-		# Call the parent method
-		#
-
-		#call
-		BaseClass._print(self,**_KwargVariablesDict)
-
-
-
 #</DefineClass>
 
 

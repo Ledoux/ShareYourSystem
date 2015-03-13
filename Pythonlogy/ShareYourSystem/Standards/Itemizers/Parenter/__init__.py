@@ -23,6 +23,7 @@ SYS.setSubModule(globals())
 #<ImportSpecificModules>
 import copy
 from ShareYourSystem.Standards.Itemizers import Setter,Pather,Teamer
+from ShareYourSystem.Standards.Interfacers import Printer
 Manager=BaseModule
 #</ImportSpecificModules>
 
@@ -521,6 +522,35 @@ class ParenterClass(BaseClass):
 				'We have switched the parent here !'
 			)
 			'''
+
+	def mimic__print(self,**_KwargVariablesDict):
+
+		#/##################/#
+		# Modify the printing Variable
+		#
+
+		#Check
+		if self.PrintingSelfBool:
+
+			#map
+			map(
+					lambda __ItemTuple:
+					self.PrintingVariable.TeamDict.__setitem__(
+						__ItemTuple[0],
+						Printer.getPointerStr(__ItemTuple[1])+" (Empy)"
+					) 
+					if len(__ItemTuple[1].ManagementDict)==0
+					else None,
+					self.PrintingVariable.TeamDict.items()
+				)
+			
+		#/##################/#
+		# Call the base method
+		#
+
+		#call
+		BaseClass._print(self,**_KwargVariablesDict)
+
 
 #</DefineClass>
 

@@ -693,6 +693,8 @@ ShareYourSystem/Standards/Itemizers/Parenter/14_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Parenter/15_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Parenter/16_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Parenter/17_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Parenter/18_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Parenter/19_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Parenter/Readme.md
 ShareYourSystem/Standards/Itemizers/Parenter/Test.py
 ShareYourSystem/Standards/Itemizers/Parenter/__init__.py
@@ -780,8 +782,6 @@ ShareYourSystem/Standards/Itemizers/Teamer/06_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Teamer/07_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Teamer/08_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Teamer/09_ExampleDoc.py
-ShareYourSystem/Standards/Itemizers/Teamer/10_ExampleDoc.md
-ShareYourSystem/Standards/Itemizers/Teamer/11_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Teamer/Readme.md
 ShareYourSystem/Standards/Itemizers/Teamer/Test.py
 ShareYourSystem/Standards/Itemizers/Teamer/__init__.py

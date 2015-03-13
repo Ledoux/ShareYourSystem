@@ -20,12 +20,12 @@ SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
-from ShareYourSystem.Standards.Itemizers import Parenter
+from ShareYourSystem.Standards.Itemizers import Connecter
 #</ImportSpecificModules>
 
 #<DefineLocals>
-class ModelsParenterClass(Parenter.ParenterClass):pass
-class ViewsParenterClass(Parenter.ParenterClass):pass
+class ModelsClass(Connecter.ConnecterClass):pass
+class ViewsClass(Connecter.ConnecterClass):pass
 #</DefineLocals>
 
 #<DefineClass>
@@ -115,8 +115,8 @@ class ControllerClass(BaseClass):
 #Set
 #SYS.ManagerClass.ManagingValueClass=ControllerClass
 ControllerClass.TeamingClassesDict={
-	'Models':ModelsParenterClass,
-	'Views':ViewsParenterClass
+	'Models':ModelsClass,
+	'Views':ViewsClass
 }
 #<DefineLocals>
 
