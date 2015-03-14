@@ -7,13 +7,13 @@ MyConnecter=SYS.ConnecterClass(
 	).array(
 		[['-Children'],['|Aurelie','|Erwan']]
 	).set(
-		'-Outlets',
+		'/-Children/|Erwan/-Outlets',
 		{		
 			'|EtoI':{
-				'PointingToGetVariable':'/^/^/|I/-PreConnections'
+				'PointingToGetVariable':'/^/^/^/|Aurelie/-PreConnections/'
 			}
 		}
-	)
+	)['?v']
 
 #print
 print('MyConnecter is ')

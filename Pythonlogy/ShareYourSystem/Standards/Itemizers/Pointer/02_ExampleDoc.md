@@ -5,4 +5,5 @@ FrozenIsBool True
 
 ##Example
 
-We can set an automatic backpoint also with or without a back setkey variable
+Let's build a grand child and the grand parent will point on it like a classic set,
+but without a PointingSetKeyVariable for now, the path to get it is direcly the key str.

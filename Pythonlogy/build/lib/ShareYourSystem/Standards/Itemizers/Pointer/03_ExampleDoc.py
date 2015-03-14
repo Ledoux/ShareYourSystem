@@ -2,22 +2,11 @@
 #ImportModules
 import ShareYourSystem as SYS
 
-#Explicit expression
+#Define and direct point with an automatic keystr
 MyPointer=SYS.PointerClass(
 		).point(
 			#PointingToGetVariable
-			'/FirstChildPointer/GrandChildPointer',
-			#PointingToSetKeyVariable
-			'FirstGrandChildPointer',
-			#PointingBackBool
-			_BackBool=True
-		).point(
-			#PointingToGetVariable
-			'/SecondChildPointer/GrandChildPointer',
-			#PointingToSetKeyVariable
-			'SecondGrandChildPointer',
-			#PointingBackSetKeyVariable
-			'MyGrandParentPointer'
+			'/ChildPointer/GrandChildPointer'
 		)
 
 #print

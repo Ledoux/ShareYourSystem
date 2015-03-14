@@ -334,7 +334,7 @@ class FigurerClass(BaseClass):
 			#
 
 			#Check
-			if len(self.TeamDict['Axes']==1):
+			if len(self.TeamDict['Axes'].ManagementDict.keys())==1:
 
 				#debug
 				'''
@@ -537,7 +537,7 @@ class FigurerClass(BaseClass):
 				'''
 
 				#/###################/#
-				# if there axes setted then apply the draw set variable 
+				# if there are axes setted then apply the draw set variable 
 				#
 
 				#Check
@@ -573,17 +573,19 @@ class FigurerClass(BaseClass):
 						[
 							'I am the last plot of this axes !',
 							'Lets the axes setting itself now',
-							('self.FiguredAxesDeriveTeamerVariable',
+							('self.FiguredAxesDeriveTeamerVariable.',
 								self.FiguredAxesDeriveTeamerVariable,
 								['FiguringDrawVariable'])
 						]
-					)
+					)	
 					'''
 
 					#commad self
-					self.FiguredAxesDeriveTeamerVariable['#map@set'](
-						self.FiguredAxesDeriveTeamerVariable.FiguringDrawVariable
-					)
+					if self.FiguredAxesDeriveTeamerVariable!=None:
+						if self.FiguredAxesDeriveTeamerVariable.FiguringDrawVariable!=None:
+							self.FiguredAxesDeriveTeamerVariable['#map@set'](
+								self.FiguredAxesDeriveTeamerVariable.FiguringDrawVariable
+							)
 
 
 			else:
@@ -608,8 +610,8 @@ class FigurerClass(BaseClass):
 				#map set
 				self['#map@set'](
 					self.FiguringDrawVariable
-				)		
-
+				)
+	
 	def mimic_view(self):
 
 		#import mpld3

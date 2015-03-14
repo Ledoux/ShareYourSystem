@@ -1388,6 +1388,21 @@ class SetterClass(BaseClass):
 		
 		#call the base method
 		return BaseClass.get(self)
+
+	def mapSet(self,_MapTuplesList):
+
+		#map
+		map(
+				lambda __MapTuple:
+				self.set(__MapTuple[0],__MapTuple[1]),
+				_MapTuplesList
+			)
+
+		#return
+		return self
+
+
+
 #</DefineClass>
 
 #</DefinePrint>

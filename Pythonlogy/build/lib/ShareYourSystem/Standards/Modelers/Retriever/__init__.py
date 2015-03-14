@@ -260,7 +260,7 @@ class RetrieverClass(BaseClass):
 #</DefineClass>
 
 #<DefineLocals>
-Controller.ModelsParenterClass.ManagingValueClass=RetrieverClass
+Controller.ModelsClass.ManagingValueClass=RetrieverClass
 #<DefineLocals>
 
 #</DefinePrint>

@@ -15,7 +15,7 @@ MyPredirater=SYS.PrediraterClass(
 		#PredictingInputStatStr
 		'norm',
 		#PredictingDecoderWeightFloat
-		40.,
+		30.,
 		#PredictingNormalisationInt
 		1.,			
 		#PredictingCostFloat

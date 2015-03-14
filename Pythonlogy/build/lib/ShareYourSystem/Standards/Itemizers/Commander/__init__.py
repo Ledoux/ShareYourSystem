@@ -98,17 +98,15 @@ class CommanderClass(BaseClass):
 		if self.CommandingBeforeWalkRigidBool:
 
 			#debug
-			'''
 			self.debug(
 				[
 					'we are going to walk before the command',
-					'CommandedValueVariablesList is '+SYS._str(CommandedValueVariablesList),
-					'self.getDoing(SYS.CommanderClass).values() is '+SYS._str
-					(self.getDoing(
-						SYS.CommanderClass).values())
+					#'CommandedValueVariablesList is '+SYS._str(CommandedValueVariablesList),
+					#'self.getDoing(SYS.CommanderClass).values() is '+SYS._str
+					#(self.getDoing(
+					#	SYS.CommanderClass).values())
 				]
 			)
-			'''
 
 			#Debug
 			'''
@@ -196,6 +194,15 @@ class CommanderClass(BaseClass):
 		#Check for the order
 		if self.CommandingOrderStr=="AllSetsForEachGet":
 
+			#debug
+			'''
+			self.debug(
+					[
+						'Ok now we do a AllSetsForEachGet'
+					]
+				)
+			'''
+			
 			#Debug
 			"""
 			for __CommandedValueVariable in CommandedValueVariablesList:

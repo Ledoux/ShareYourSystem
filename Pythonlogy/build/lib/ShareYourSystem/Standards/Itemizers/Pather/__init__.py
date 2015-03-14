@@ -338,9 +338,12 @@ class PatherClass(BaseClass):
 					'''
 
 					#Get with the PathedChildKeyStr
-					self.GettedValueVariable=self.PathedGetValueVariable[
-						self.PathedChildKeyStr
-					]
+					if self.PathedGetValueVariable!=None:
+			
+						#get
+						self.GettedValueVariable=self.PathedGetValueVariable[
+							self.PathedChildKeyStr
+						]
 
 				#Stop the getting
 				OutputDict['HookingIsBool']=False

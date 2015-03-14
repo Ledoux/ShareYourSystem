@@ -1453,7 +1453,7 @@ class ModelerClass(BaseClass):
 #</DefineClass>
 
 #<DefineLocals>
-Controller.ModelsParenterClass.ManagingValueClass=ModelerClass
+Controller.ModelsClass.ManagingValueClass=ModelerClass
 #<DefineLocals>
 
 #</DefinePrint>

@@ -65,7 +65,7 @@ class ManagerClass(BaseClass):
 				_ManagingAfterSetVariable=None,
 				_ManagingClassesDict=None,
 				_ManagedValueVariable=None,
-				_ManagedIsBool=False,
+				_ManagedInBool=False,
 				_ManagedOnceBool=False,
 				**_KwargVariablesDict
 			):	
@@ -107,10 +107,23 @@ class ManagerClass(BaseClass):
 		#
 
 		#in
-		self.ManagedIsBool=self.ManagingKeyStr in self.ManagementDict
+		self.ManagedInBool=self.ManagingKeyStr in self.ManagementDict
 
+		#debug
+		'''
+		self.debug(
+				[
+					'Is it a new managed value ?',
+					('self.',self,[
+						'ManagingKeyStr',
+						'ManagedInBool'
+					])
+				]
+			)
+		'''
+		
 		#Check
-		if self.ManagedIsBool==False:
+		if self.ManagedInBool==False:
 
 			#debug
 			'''
@@ -289,10 +302,10 @@ class ManagerClass(BaseClass):
 				self.ManagingKeyStr
 			]=self.ManagedValueVariable
 
-			##########################
-			#give some manage attributes
+			#/########################/#
+			# give some manage attributes
 			#
-			
+
 			#set
 			self.ManagedValueVariable.ManagementTagStr=self.ManagingKeyStr
 
@@ -319,7 +332,7 @@ class ManagerClass(BaseClass):
 
 		else:
 
-			##########################
+			#/########################/#
 			# just get and update 
 			#
 
@@ -333,7 +346,9 @@ class ManagerClass(BaseClass):
 			'''
 
 			#get
-			self.ManagedValueVariable=self.ManagementDict[self.ManagingKeyStr]
+			self.ManagedValueVariable=self.ManagementDict[
+				self.ManagingKeyStr
+			]
 			
 			#debug
 			'''
@@ -517,7 +532,7 @@ ManagerClass.PrintingClassSkipKeyStrsList.extend(
 		'ManagingBeforeSetVariable',
 		'ManagingAfterSetVariable',
 		'ManagedValueVariable',
-		'ManagedIsBool',
+		'ManagedInBool',
 		'ManagedOnceBool'
 	]
 )

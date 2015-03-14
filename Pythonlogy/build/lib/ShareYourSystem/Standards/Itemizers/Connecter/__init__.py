@@ -48,6 +48,7 @@ class ConnecterClass(BaseClass):
 	def do_connect(self):
 
 		#debug
+		'''
 		self.debug(
 				[
 					'We connect here',
@@ -56,6 +57,7 @@ class ConnecterClass(BaseClass):
 					str(self.TeamDict[ConnectOutTeamStr].ManagementDict.keys()),
 				]
 			)
+		'''
 
 		#/################/#
 		# Get the post derive pointing parenters and make them point
@@ -67,12 +69,14 @@ class ConnecterClass(BaseClass):
 		].ManagementDict.values()
 
 		#debug
+		'''
 		self.debug(
 				[
 					'We have getted the post derive connecters',
 					('self.',self,['ConnectedOutDeriveConnectersList'])
 				]
 			)
+		'''
 
 		#set
 		self.ConnectedOutPointDeriveConnectersList=map(
@@ -84,12 +88,14 @@ class ConnecterClass(BaseClass):
 			)
 
 		#debug
+		'''
 		self.debug(
 				[
 					'We have getted the post point connecters',
 					('self.',self,['ConnectedOutPointDeriveConnectersList'])
 				]
 			)
+		'''
 
 	def propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable):
 
@@ -105,10 +111,12 @@ class ConnecterClass(BaseClass):
 		#
 
 		#debug
+		'''
 		self.debug(
 				'Now we are going to connect'
 			)
-
+		'''
+		
 		#connect
 		self.connect()
 

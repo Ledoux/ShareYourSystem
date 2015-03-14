@@ -75,18 +75,29 @@ class ParenterClass(BaseClass):
 		#set top
 		self.ParentTopDeriveTeamerVariable=self
 
-	def do_parent(self):
+		#update
+		#self.TeamingBeforeSetVariable=SYS.update(self.TeamingBeforeSetVariable,[('ParentDeriveTeamerVariable',self)])
+		#self.ManagingBeforeSetVariable=SYS.update(self.ManagingBeforeSetVariable,[('ParentDeriveTeamerVariable',self)])
 
-		#debug
-		'''
-		self.debug(('self.',self,[
-					#'ManagementPointDeriveTeamer',
-					'NameStr'
-				]))
-		'''
+	def do_parent(self):
 
 		#get 
 		ParentedDeriveTeamerVariable=self.ParentDeriveTeamerVariable
+
+		#debug
+		'''
+		self.debug(
+			[
+				'We parent here',
+				('self.',self,[
+					#'ManagementPointDeriveTeamer',
+					'NameStr'
+				]),
+				'ParentedDeriveTeamerVariable!=None is',
+				str(ParentedDeriveTeamerVariable!=None)
+			]
+		)
+		'''
 
 		#Check
 		if ParentedDeriveTeamerVariable!=None:
@@ -226,13 +237,12 @@ class ParenterClass(BaseClass):
 		'''
 		
 		#set
-		if hasattr(self,'TeamedValueVariable'):
+		if hasattr(self.TeamedValueVariable,'ParentDeriveTeamerVariable'):
 
 			#Check
 			if self.TeamedValueVariable.ParentDeriveTeamerVariable!=self:
 				self.TeamedValueVariable.ParentDeriveTeamerVariable=self
 				self.TeamedValueVariable.ParentKeyStr=self.TeamingKeyStr
-
 
 
 	def mimic_manage(self):
@@ -266,7 +276,7 @@ class ParenterClass(BaseClass):
 		'''
 
 		#Check
-		if hasattr(self,'ManagedValueVariable'):
+		if hasattr(self.ManagedValueVariable,'ParentDeriveTeamerVariable'):
 
 
 			#Check
@@ -326,11 +336,11 @@ class ParenterClass(BaseClass):
 		elif self.GettingKeyVariable==ParentUpStr:
 			
 			#debug
-			'''
 			self.debug(
-					'We command a up parent'
+					[
+						'We command a up parent'
+					]
 				)
-			'''
 
 			#command
 			self.command(
@@ -379,87 +389,107 @@ class ParenterClass(BaseClass):
 	def mimic_set(self):
 
 		#Check
-		if type(self.SettingKeyVariable)==str and self.SettingKeyVariable.startswith(
+		if type(self.SettingKeyVariable)==str: 
+
+			#/##################/#
+			# Special DeriveParentTeamerVariable case
+			# just setattr to make the set shorter
+
+			#Check
+			if self.SettingKeyVariable=='ParentDeriveTeamerVariable':
+
+				#set
+				self.ParentDeriveTeamerVariable=self.SettingValueVariable
+
+				#return
+				return {'HookingIsBool':False}
+
+			#/##################/#
+			# Special Mute case
+			#
+
+			#Check
+			elif self.SettingKeyVariable.startswith(
 				ParentMutePrefixStr
 			): 
 
-			#deprefix
-			MuteGetKeyStr=SYS.deprefix(
-				self.SettingKeyVariable,
-				ParentMutePrefixStr
-			)
+				#deprefix
+				MuteGetKeyStr=SYS.deprefix(
+					self.SettingKeyVariable,
+					ParentMutePrefixStr
+				)
 
-			#get
-			MuteGetValueVariable=self[MuteGetKeyStr]
+				#get
+				MuteGetValueVariable=self[MuteGetKeyStr]
 
-			#init
-			#MuteSetValueVariable=self.SettingValueVariable()['#map@set'](
-			#	MuteGetValueVariable.__dict__
-			#)
-			MuteSetValueVariable=self.SettingValueVariable()
-			MuteSetValueVariable.__dict__=MuteGetValueVariable.__dict__
-
-			#debug
-			'''
-			self.debug(
-				[
-					'We are going to mute...',
-					'MuteGetKeyStr is '+str(MuteGetKeyStr),
-					'MuteGetValueVariable.TeamTagStr is '+str(MuteGetValueVariable.TeamTagStr),
-					'MuteGetValueVariable.ManagementTagStr is '+str(MuteGetValueVariable.ManagementTagStr),
-					('self.',self,['SettingValueVariable']),
-					'MuteSetValueVariable is ',
-					SYS._str(MuteSetValueVariable)
-				]
-			)
-			'''
-
-			#Check
-			if MuteGetValueVariable.ParentDeriveTeamerVariable.TeamedOnceBool:
+				#init
+				#MuteSetValueVariable=self.SettingValueVariable()['#map@set'](
+				#	MuteGetValueVariable.__dict__
+				#)
+				MuteSetValueVariable=self.SettingValueVariable()
+				MuteSetValueVariable.__dict__=MuteGetValueVariable.__dict__
 
 				#debug
 				'''
 				self.debug(
-						'We team again'
-					)
+					[
+						'We are going to mute...',
+						'MuteGetKeyStr is '+str(MuteGetKeyStr),
+						'MuteGetValueVariable.TeamTagStr is '+str(MuteGetValueVariable.TeamTagStr),
+						'MuteGetValueVariable.ManagementTagStr is '+str(MuteGetValueVariable.ManagementTagStr),
+						('self.',self,['SettingValueVariable']),
+						'MuteSetValueVariable is ',
+						SYS._str(MuteSetValueVariable)
+					]
+				)
 				'''
 
-				#del
-				del MuteGetValueVariable.ParentDeriveTeamerVariable.TeamDict[
-					MuteGetValueVariable.TeamTagStr
-				]
+				#Check
+				if MuteGetValueVariable.ParentDeriveTeamerVariable.TeamedOnceBool:
 
-				#team again
-				MuteGetValueVariable.ParentDeriveTeamerVariable.team(
-						MuteGetValueVariable.TeamTagStr,
-						MuteSetValueVariable
-					)
+					#debug
+					'''
+					self.debug(
+							'We team again'
+						)
+					'''
 
-				#return
-				return {'HookingIsBool':False}
+					#del
+					del MuteGetValueVariable.ParentDeriveTeamerVariable.TeamDict[
+						MuteGetValueVariable.TeamTagStr
+					]
 
-			else:
+					#team again
+					MuteGetValueVariable.ParentDeriveTeamerVariable.team(
+							MuteGetValueVariable.TeamTagStr,
+							MuteSetValueVariable
+						)
 
-				#debug
-				'''
-				self.debug(
-						'We manage again'
-					)
-				'''
+					#return
+					return {'HookingIsBool':False}
 
-				#del
-				del MuteGetValueVariable.ParentDeriveTeamerVariable.ManagementDict[
-					MuteGetValueVariable.ManagementTagStr
-				]
+				else:
 
-				#manage again
-				MuteGetValueVariable.ParentDeriveTeamerVariable.manage(
-						MuteGetValueVariable.ManagementTagStr,
-						MuteSetValueVariable
-					)
+					#debug
+					'''
+					self.debug(
+							'We manage again'
+						)
+					'''
 
-				#return
-				return {'HookingIsBool':False}
+					#del
+					del MuteGetValueVariable.ParentDeriveTeamerVariable.ManagementDict[
+						MuteGetValueVariable.ManagementTagStr
+					]
+
+					#manage again
+					MuteGetValueVariable.ParentDeriveTeamerVariable.manage(
+							MuteGetValueVariable.ManagementTagStr,
+							MuteSetValueVariable
+						)
+
+					#return
+					return {'HookingIsBool':False}
 
 		#Call the base method
 		BaseClass.set(self)
@@ -498,12 +528,15 @@ class ParenterClass(BaseClass):
 			self.debug(
 				[
 					'We have parented here !',
-					('self.',self,['ParentedTotalPathStr']),
+					('self.',self,[
+							'ParentedTotalPathStr',
+							'ParentedTriggerVariablesList'
+						]),
 					'we launch the trigger'
 				]
 			)
 			'''
-
+			
 			#trigger map@set
 			self[Setter.SetMapStr](self.ParentedTriggerVariablesList)
 
@@ -512,6 +545,7 @@ class ParenterClass(BaseClass):
 			self.debug(
 				[
 					'We have trigerred',
+					'self is '+SYS._str(self)
 				]
 			)
 			'''

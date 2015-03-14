@@ -195,7 +195,7 @@ class FindoerClass(BaseClass):
 #</DefineClass>
 
 #<DefineLocals>
-Controller.ModelsParenterClass.ManagingValueClass=FindoerClass
+Controller.ModelsClass.ManagingValueClass=FindoerClass
 #<DefineLocals>
 
 #</DefinePrint>

@@ -352,7 +352,7 @@ class RowerClass(
 #</DefineClass>
 
 #<DefineLocals>
-Controller.ModelsParenterClass.ManagingValueClass=RowerClass
+Controller.ModelsClass.ManagingValueClass=RowerClass
 #<DefineLocals>
 
 #</DefinePrint>

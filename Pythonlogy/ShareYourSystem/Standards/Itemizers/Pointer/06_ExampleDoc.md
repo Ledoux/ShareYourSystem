@@ -5,5 +5,4 @@ FrozenIsBool True
 
 ##Example
 
-And for getting the PointToVariable directly, we can use the *
-shortcut like in C...
+We can set an automatic backpoint also with or without a back setkey variable

@@ -66,7 +66,7 @@ def getPointerStr(_Variable,**_KwargVariablesDict):
 		_KwargVariablesDict['PrintDeepInt']=0
 
 	#Definition the Local alinea
-	PrintedLocalAlineaStr=PrintAlineaStr if _KwargVariablesDict['PrintDeepInt']==0 else ""
+	PrintLocalAlineaStr=PrintAlineaStr if _KwargVariablesDict['PrintDeepInt']==0 else ""
 
 	#Define
 	if type(_Variable).__name__=='Database':
@@ -86,11 +86,14 @@ def getPointerStr(_Variable,**_KwargVariablesDict):
 	print('')
 	'''
 
+	#set
+	PrintIdInt=_Variable.PrintIdInt if hasattr(_Variable,'PrintIdInt') else id(_Variable)
+
 	#Check
 	if PrintIdBool:
-		return PrintedLocalAlineaStr+"<"+PrintedVariableStr+" ("+_Variable.__class__.__name__+"), "+str(id(_Variable))+">"
+		return PrintLocalAlineaStr+"<"+PrintedVariableStr+" ("+_Variable.__class__.__name__+"), "+str(PrintIdInt)+">"
 	else:
-		return PrintedLocalAlineaStr+"<"+PrintedVariableStr+" ("+_Variable.__class__.__name__+")"+" >"
+		return PrintLocalAlineaStr+"<"+PrintedVariableStr+" ("+_Variable.__class__.__name__+")"+" >"
 
 def getDictStr(
 	_DictatedVariable,**_KwargVariablesDict
@@ -114,8 +117,8 @@ def getDictStr(
 	LocalPrintAlineaStr=PrintAlineaStr+"".join(
 		[PrintIndentStr]*(_KwargVariablesDict['PrintDeepInt']))
 
-	#Init the PrintedDictStr
-	PrintedDictStr="\n"+LocalPrintAlineaStr+"{ "
+	#Init the DictStr
+	DictStr="\n"+LocalPrintAlineaStr+"{ "
 
 	#Scan the Items (integrativ loop)
 	if type(_DictatedVariable)!=dict and hasattr(
@@ -133,103 +136,103 @@ def getDictStr(
 		'''
 		
 		#items
-		PrintedTuplesList=_DictatedVariable.items()
+		PrintTuplesList=_DictatedVariable.items()
 
 	else:
 
 		#sort
-		PrintedTuplesList=sorted(
+		PrintTuplesList=sorted(
 			_DictatedVariable.iteritems(), key=lambda key_value: key_value[0]
 		)
 
 	#Integrativ loop for seriaizing the items
-	for __PrintedKeyStr,__PrintedValueVariable in PrintedTuplesList:
+	for __PrintKeyStr,__PrintValueVariable in PrintTuplesList:
 	
 		#debug
 		'''
 		print('Printer l.127')
-		print('__PrintedKeyStr is',__PrintedKeyStr)
+		print('__PrintKeyStr is',__PrintKeyStr)
 		print('')
 		'''
 
 		#set the begin of the line
-		PrintedDictStr+="\n"+LocalPrintAlineaStr+PrintDictIndentStr
+		DictStr+="\n"+LocalPrintAlineaStr+PrintDictIndentStr
 
 		#Force the cast into Str
-		if type(__PrintedKeyStr) not in [unicode,str]:
-			__PrintedKeyStr=str(__PrintedKeyStr)
+		if type(__PrintKeyStr) not in [unicode,str]:
+			__PrintKeyStr=str(__PrintKeyStr)
 
 		#Get the WordStrsList
-		WordStrsList=SYS.getWordStrsListWithStr(__PrintedKeyStr)
+		WordStrsList=SYS.getWordStrsListWithStr(__PrintKeyStr)
 
-		#Init the PrintedValueVariableStr
-		PrintedValueVariableStr="None"
+		#Init the PrintValueVariableStr
+		PrintValueVariableStr="None"
 
 		#Split the case if it is a pointing variable or not
 		if len(WordStrsList)>0:
 
 			#Value is displayed
 			"""
-			if SYS.getWordStrsListWithStr(__PrintedKeyStr)[-1]=="Pointer":
+			if SYS.getWordStrsListWithStr(__PrintKeyStr)[-1]=="Pointer":
 			
 				#Pointer Case
-				PrintedValueVariableStr=getPointerStr(
-												__PrintedValueVariable,
+				PrintValueVariableStr=getPointerStr(
+												__PrintValueVariable,
 												**_KwargVariablesDict
 											)
 			"""
 			"""						
-			elif ''.join(SYS.getWordStrsListWithStr(__PrintedKeyStr)[-2:])=="PointersList":
+			elif ''.join(SYS.getWordStrsListWithStr(__PrintKeyStr)[-2:])=="PointersList":
 			
 				#debug
 				'''
-				print('__PrintedValueVariable is ',__PrintedValueVariable)
+				print('__PrintValueVariable is ',__PrintValueVariable)
 				print('')
 				'''
 
 				#Pointer Case
-				PrintedValueVariableStr=str(
+				PrintValueVariableStr=str(
 						map(
 								lambda List:
 								getPointerStr(
 									List,
 									**_KwargVariablesDict),
-								__PrintedValueVariable
+								__PrintValueVariable
 							)
-						)  if type(__PrintedValueVariable)==list else "None"
+						)  if type(__PrintValueVariable)==list else "None"
 			"""
 			
 		#Special Suffix Cases
-		if PrintedValueVariableStr=="None":
+		if PrintValueVariableStr=="None":
 				
 			#debug
 			'''
 			print('go to represent')
-			print('__PrintedKeyStr is ',__PrintedKeyStr)
-			print('id(__PrintedValueVariable) is ',id(__PrintedValueVariable))
+			print('__PrintKeyStr is ',__PrintKeyStr)
+			print('id(__PrintValueVariable) is ',id(__PrintValueVariable))
 			print('')
 			'''
 
 			#Other Cases
-			PrintedValueVariableStr=getPrintStr(
-				__PrintedValueVariable,
+			PrintValueVariableStr=getPrintStr(
+				__PrintValueVariable,
 				**_KwargVariablesDict
-				)
+			)
 
 		#Key and Value Case
-		PrintedDictStr+="'"+__PrintedKeyStr+"' : "+PrintedValueVariableStr
+		DictStr+="'"+__PrintKeyStr+"' : "+PrintValueVariableStr
 
 	#Add a last line
-	PrintedDictStr+="\n"+LocalPrintAlineaStr+"}"
+	DictStr+="\n"+LocalPrintAlineaStr+"}"
 
 	#debug
 	'''
-	print('PrintedDictStr is ',PrintedDictStr)
+	print('DictStr is ',DictStr)
 	print('')
 	'''
 
 	#return the DictStr
-	return PrintedDictStr
+	return DictStr
 
 def getListStr(_List,**_KwargVariablesDict):	
 
@@ -248,7 +251,7 @@ def getListStr(_List,**_KwargVariablesDict):
 	print('')
 	'''
 
-	#Init the PrintedDictStr
+	#Init the DictStr
 	if type(_List)==list:
 		BeginBracketStr='['
 		EndBracketStr=']'
@@ -261,16 +264,16 @@ def getListStr(_List,**_KwargVariablesDict):
 		[PrintIndentStr]*(_KwargVariablesDict['PrintDeepInt']))
 
 	#Do the first Jump
-	PrintedListStr="\n"+LocalPrintAlineaStr+BeginBracketStr
+	ListStr="\n"+LocalPrintAlineaStr+BeginBracketStr
 	
 	#Scan the Items (integrativ loop)
 	for ListInt,List in enumerate(_List):
 	
 		#set the begin of the line
-		PrintedListStr+="\n"+LocalPrintAlineaStr+PrintListIndentStr
+		ListStr+="\n"+LocalPrintAlineaStr+PrintListIndentStr
 
 		#Get the represented version
-		PrintedValueVariableStr=getPrintStr(
+		PrintValueVariableStr=getPrintStr(
 				List,**dict(
 					_KwargVariablesDict,
 					**{'PrintingAlineaIsBool':False}
@@ -278,13 +281,13 @@ def getListStr(_List,**_KwargVariablesDict):
 			)
 			
 		#Key and Value Case
-		PrintedListStr+=str(ListInt)+" : "+PrintedValueVariableStr
+		ListStr+=str(ListInt)+" : "+PrintValueVariableStr
 
 	#Add a last line
-	PrintedListStr+="\n"+LocalPrintAlineaStr+EndBracketStr
+	ListStr+="\n"+LocalPrintAlineaStr+EndBracketStr
 
 	#return the DictStr
-	return PrintedListStr
+	return ListStr
 
 def getPrintStr(_Variable,**_KwargVariablesDict):
 
@@ -299,8 +302,8 @@ def getPrintStr(_Variable,**_KwargVariablesDict):
 	'''
 	print('Printer l.213 : getPrintStr')
 	#print('_KwargVariablesDict is ',str(_KwargVariablesDict))
-	#print('_Variable is '+str(_Variable))	
-	print('type(_Variable) is '+str(type(_Variable)))
+	print('_Variable is '+str(_Variable))	
+	#print('type(_Variable) is '+str(type(_Variable)))
 	#print("hasattr(_Variable,'__repr__') is "+str(hasattr(_Variable,"__repr__")))
 	##if hasattr(_Variable,"__repr__"):
 	#	print('hasattr(_Variable.__class__,"InspectedOrderedDict") is '+str(
@@ -311,7 +314,7 @@ def getPrintStr(_Variable,**_KwargVariablesDict):
 	#		print(_Variable.__class__.InspectedOrderedDict['__repr__']['KwargVariablesListKeyStr'])
 	print('')
 	'''
-
+	
 	#None type
 	if type(_Variable)==None.__class__:
 		return "None"
@@ -339,17 +342,17 @@ def getPrintStr(_Variable,**_KwargVariablesDict):
 		'''
 
 		#id
-		PrintedIdInt=id(_Variable)
+		PrintIdInt=id(_Variable)
 
 		#debug
 		'''
-		print('PrintedIdInt is ',PrintedIdInt)
+		print('PrintIdInt is ',PrintIdInt)
 		print('PrintAlreadyIdIntsList is ',PrintAlreadyIdIntsList)
 		print('')
 		'''
 
 		#Check if it was already represented
-		if PrintedIdInt not in PrintAlreadyIdIntsList:
+		if PrintIdInt not in PrintAlreadyIdIntsList:
 
 			#Debug
 			'''
@@ -358,10 +361,10 @@ def getPrintStr(_Variable,**_KwargVariablesDict):
 			'''
 
 			#append
-			PrintAlreadyIdIntsList.append(PrintedIdInt)
+			PrintAlreadyIdIntsList.append(PrintIdInt)
 
 			#Return the repr of the _Variable but shifted with the PrintAlineaStr
-			PrintedStr=getDictStr(
+			PrintStr=getDictStr(
 						_Variable,
 						**_KwargVariablesDict
 			)
@@ -369,26 +372,26 @@ def getPrintStr(_Variable,**_KwargVariablesDict):
 		else:
 
 			#Return the circular Str
-			PrintedStr=PrintCircularStr+getPointerStr(_Variable)
+			PrintStr=PrintCircularStr+getPointerStr(_Variable)
 
 		#Debug
 		'''
-		print('PrintedIdInt is ',PrintedIdInt)
-		print('PrintedStr is ',PrintedStr)
+		print('PrintIdInt is ',PrintIdInt)
+		print('PrintStr is ',PrintStr)
 		print('')
 		'''
 		
 		#return 
-		return PrintedStr
+		return PrintStr
 
 	#List types print
 	elif type(_Variable) in [list,tuple]:
 
 		#id
-		PrintedIdInt=id(_Variable)
+		PrintIdInt=id(_Variable)
 
 		#Check if it was already represented
-		if PrintedIdInt not in PrintAlreadyIdIntsList:
+		if PrintIdInt not in PrintAlreadyIdIntsList:
 
 			#debug
 			'''
@@ -402,7 +405,7 @@ def getPrintStr(_Variable,**_KwargVariablesDict):
 			'''
 			
 			#append
-			PrintAlreadyIdIntsList.append(PrintedIdInt)
+			PrintAlreadyIdIntsList.append(PrintIdInt)
 
 			#import numpy
 			import numpy
@@ -429,7 +432,7 @@ def getPrintStr(_Variable,**_KwargVariablesDict):
 				'''
 
 				#Return 
-				PrintedStr=getListStr(_Variable,**_KwargVariablesDict)
+				PrintStr=getListStr(_Variable,**_KwargVariablesDict)
 
 			else:
 
@@ -440,15 +443,15 @@ def getPrintStr(_Variable,**_KwargVariablesDict):
 				'''
 
 				#Definition the Local alinea
-				PrintedLocalAlineaStr=PrintAlineaStr if _KwargVariablesDict['PrintDeepInt']==0 else ""
+				PrintLocalAlineaStr=PrintAlineaStr if _KwargVariablesDict['PrintDeepInt']==0 else ""
 
 				#Return 
-				PrintedStr=PrintedLocalAlineaStr+repr(
-					_Variable).replace("\n","\n"+PrintedLocalAlineaStr)
+				PrintStr=PrintLocalAlineaStr+repr(
+					_Variable).replace("\n","\n"+PrintLocalAlineaStr)
 
 
 			#return 
-			return PrintedStr
+			return PrintStr
 
 		else:
 
@@ -467,20 +470,20 @@ def getPrintStr(_Variable,**_KwargVariablesDict):
 		'''
 
 		#Definition the Local alinea
-		PrintedLocalAlineaStr=PrintAlineaStr if _KwargVariablesDict['PrintDeepInt']==0 else ""
+		PrintLocalAlineaStr=PrintAlineaStr if _KwargVariablesDict['PrintDeepInt']==0 else ""
 		
 		#append
 		PrintAlreadyIdIntsList.append(_Variable.im_self)
 
 		#return PrintAlineaStr+"instancemethod"
-		PrintedStr=PrintedLocalAlineaStr
-		PrintedStr+="< bound method "+_Variable.__name__
-		PrintedStr+=" of "+str(_Variable.im_self.__class__)
-		PrintedStr+=" "+str(id(_Variable.im_self))+" >"
-		#PrintedStr='inst'
+		PrintStr=PrintLocalAlineaStr
+		PrintStr+="< bound method "+_Variable.__name__
+		PrintStr+=" of "+str(_Variable.im_self.__class__)
+		PrintStr+=" "+str(id(_Variable.im_self))+" >"
+		#PrintStr='inst'
 
 		#return
-		return PrintedStr
+		return PrintStr
 
 	#Str types
 	elif type(_Variable) in SYS.StrTypesList:
@@ -492,10 +495,10 @@ def getPrintStr(_Variable,**_KwargVariablesDict):
 		'''
 
 		#Definition the Local alinea
-		PrintedLocalAlineaStr=PrintAlineaStr if _KwargVariablesDict['PrintDeepInt']==0 else ""
+		PrintLocalAlineaStr=PrintAlineaStr if _KwargVariablesDict['PrintDeepInt']==0 else ""
 
 		#Return
-		return PrintedLocalAlineaStr+_Variable.replace("\n","\n"+PrintedLocalAlineaStr)
+		return PrintLocalAlineaStr+_Variable.replace("\n","\n"+PrintLocalAlineaStr)
 
 	#Other
 	#elif hasattr(_Variable,"__repr__") and hasattr(
@@ -513,20 +516,24 @@ def getPrintStr(_Variable,**_KwargVariablesDict):
 		print('')
 		'''
 		
-		#id
-		PrintedIdInt=id(_Variable)
+		#/################/#
+		# id CAREFULL !!!! THIS the id from the original object...
+		# ...not the copy ones either there are possibilities of circular print calls
+
+		#get
+		PrintIdInt=_Variable.PrintIdInt
 
 		#Check if it was already represented
-		if PrintedIdInt not in PrintAlreadyIdIntsList:
+		if PrintIdInt not in PrintAlreadyIdIntsList:
 
 			#append
-			PrintAlreadyIdIntsList.append(PrintedIdInt)
+			PrintAlreadyIdIntsList.append(PrintIdInt)
 
 			#Return the repr of the _Variable but shifted with the PrintAlineaStr
-			PrintedStr=_Variable.__repr__(**_KwargVariablesDict)
+			PrintStr=_Variable.__repr__(**_KwargVariablesDict)
 
 			#return 
-			return PrintedStr
+			return PrintStr
 
 		else:
 
@@ -542,21 +549,21 @@ def getPrintStr(_Variable,**_KwargVariablesDict):
 		'''
 
 		#Definition the Local alinea
-		PrintedLocalAlineaStr=PrintAlineaStr if _KwargVariablesDict[
+		PrintLocalAlineaStr=PrintAlineaStr if _KwargVariablesDict[
 			'PrintDeepInt']==0 else ""
 
 		#Define 
-		PrintedIdInt=id(_Variable)
+		PrintIdInt=id(_Variable)
 
 		#Debug
 		'''
-		print('PrintedIdInt is ',PrintedIdInt)
+		print('PrintIdInt is ',PrintIdInt)
 		print('PrintAlreadyIdIntsList is ',PrintAlreadyIdIntsList)
 		print('')
 		'''
 
 		#Check if it was already represented
-		if PrintedIdInt not in PrintAlreadyIdIntsList:
+		if PrintIdInt not in PrintAlreadyIdIntsList:
 
 			#debug
 			'''
@@ -566,7 +573,7 @@ def getPrintStr(_Variable,**_KwargVariablesDict):
 
 			#Append but only for mutables variable
 			if type(_Variable) not in [bool,str,int,float]:
-				PrintAlreadyIdIntsList.append(PrintedIdInt)
+				PrintAlreadyIdIntsList.append(PrintIdInt)
 
 			else:
 
@@ -578,19 +585,19 @@ def getPrintStr(_Variable,**_KwargVariablesDict):
 				pass
 
 			#Return a repr of the _Variable but shifted with the PrintAlineaStr
-			PrintedStr=PrintedLocalAlineaStr+repr(_Variable).replace(
+			PrintStr=PrintLocalAlineaStr+repr(_Variable).replace(
 										"\n",
-										"\n"+PrintedLocalAlineaStr
+										"\n"+PrintLocalAlineaStr
 									)
 
 			#return 
-			return PrintedStr
+			return PrintStr
 
 
 		else:
 
 			#Return the circular Str
-			return PrintedLocalAlineaStr+PrintCircularStr+getPointerStr(
+			return PrintLocalAlineaStr+PrintCircularStr+getPointerStr(
 				_Variable)
 
 def _print(_Variable,**_KwargVariablesDict):
@@ -624,9 +631,9 @@ def represent(_Variable,**_KwargVariablesDict):
 	else:
 		PrintedOldAlineaStr=PrintAlineaStr
 		PrintAlineaStr=""
-		PrintedStr=getPrintStr(_Variable,**_KwargVariablesDict)
+		PrintStr=getPrintStr(_Variable,**_KwargVariablesDict)
 		PrintAlineaStr=PrintedOldAlineaStr
-		return PrintedStr
+		return PrintStr
 
 def __main__represent(_PrintStr,**_KwargVariablesDict):
 	return represent(
@@ -658,7 +665,7 @@ class PrinterClass(BaseClass):
 						_PrintingNewClassBool=True,
 						_PrintingOutBool=True,
 						_PrintingSelfBool=False,
-						_PrintedStr="",
+						_PrintStr="",
 						**_KwargVariablesDict
 					):
 		
@@ -697,7 +704,7 @@ class PrinterClass(BaseClass):
 			'''
 			
 			#print
-			self.PrintedStr=self.PrintingVariable.getReprStr(
+			self.PrintStr=self.PrintingVariable.getReprStr(
 				**_KwargVariablesDict
 			)
 
@@ -711,14 +718,14 @@ class PrinterClass(BaseClass):
 			'''
 
 			#print
-			self.PrintedStr=getPrintStr(
+			self.PrintStr=getPrintStr(
 					self.PrintingVariable,
 					**_KwargVariablesDict
 				)
 		
 		#Check
 		if self.PrintingOutBool:
-			print(self.PrintedStr)
+			print(self.PrintStr)
 
 	def __repr__(self,**_KwargVariablesDict):
 
@@ -781,7 +788,7 @@ class PrinterClass(BaseClass):
 			_OutBool=False,
 			_SelfBool=True,
 			**_KwargVariablesDict
-		).PrintedStr
+		).PrintStr
 
 		#Debug
 		'''
@@ -831,7 +838,7 @@ class PrinterClass(BaseClass):
 			)
 
 		#Represent the Specific KeyStrs
-		PrintedTuplesList=map(
+		PrintTuplesList=map(
 									lambda __SpecificKeyStr:
 									(
 										"<Spe>"+("<Instance>"
@@ -881,7 +888,7 @@ class PrinterClass(BaseClass):
 					self.__class__.DefaultBaseKeyStrsList
 				)
 				
-			PrintedTuplesList+=map(
+			PrintTuplesList+=map(
 									lambda __BaseKeyStr:
 									(
 										"<Base>"+("<Instance>"
@@ -919,7 +926,7 @@ class PrinterClass(BaseClass):
 				)
 
 			#map
-			PrintedTuplesList+=map(
+			PrintTuplesList+=map(
 				lambda __NewItemTuple:
 				(
 					"<New><Instance>"+__NewItemTuple[0],
@@ -955,7 +962,7 @@ class PrinterClass(BaseClass):
 				)
 
 			#filter
-			PrintedTuplesList+=map(
+			PrintTuplesList+=map(
 				lambda __NewKeyStr:
 				(
 					"<New><Class>"+__NewKeyStr,
@@ -976,7 +983,7 @@ class PrinterClass(BaseClass):
 		'''
 		
 		#map
-		PrintedTuplesList+=map(
+		PrintTuplesList+=map(
 				lambda __PrintingKeyStr:
 				(
 					"<Spe><Instance>"+__PrintingKeyStr,
@@ -1020,16 +1027,16 @@ class PrinterClass(BaseClass):
 		print('')
 		'''
 
-		#define the PrintedStr
-		self.PrintedStr=getPointerStr(
+		#define the PrintStr
+		self.PrintStr=getPointerStr(
 					self
 				)+getPrintStr(
-					dict(PrintedTuplesList),
+					dict(PrintTuplesList),
 					**_KwargVariablesDict
 				)
 
 		#return
-		return self.PrintedStr
+		return self.PrintStr
 
 		
 #</DefineClass>
@@ -1047,7 +1054,7 @@ PrinterClass.PrintingClassSkipKeyStrsList.extend(
 		'PrintingNewInstanceBool',
 		'PrintingNewClassBool',
 		'PrintingOutBool',
-		'PrintedStr'
+		'PrintStr'
 	]
 )
 #</DefinePrint>

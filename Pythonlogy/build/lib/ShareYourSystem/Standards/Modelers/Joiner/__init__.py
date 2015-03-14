@@ -29,7 +29,8 @@ from ShareYourSystem.Standards.Controllers import Controller
 #<DefineLocals>
 JoinStr='__'
 JoinDeepStr='/'
-JoinPostTeamStr='PostJoins'
+JoinInTeamStr='InJoins'
+JoinOutTeamStr='OutJoins'
 #</DefineLocals>
 
 #<DefineClass>
@@ -54,7 +55,7 @@ class JoinerClass(BaseClass):
 		BaseClass.__init__(self,**_KwargVariablesDict)
 		
 		#Team
-		self.team(JoinPostTeamStr)
+		self.team(JoinOutTeamStr)
 
 	def do_join(	
 				self
@@ -74,7 +75,7 @@ class JoinerClass(BaseClass):
 
 		#set
 		self.JoinedPostDeriveParentersList=self.TeamDict[
-			JoinPostTeamStr
+			JoinOutTeamStr
 		].ManagementDict.values()
 
 		#debug
@@ -96,8 +97,8 @@ class JoinerClass(BaseClass):
 		self.debug(
 				[
 					'We have getted the post joiners',
-					'self.TeamDict[JoinPostTeamStr].ManagementDict.keys() is',
-					str(self.TeamDict[JoinPostTeamStr].ManagementDict.keys()),
+					'self.TeamDict[JoinOutTeamStr].ManagementDict.keys() is',
+					str(self.TeamDict[JoinOutTeamStr].ManagementDict.keys()),
 					('self.',self,['JoinedPostDeriveJoinersList'])
 				]
 			)
@@ -208,7 +209,7 @@ class JoinerClass(BaseClass):
 							__JoinedPostDeriveJoiner.ModeledSuffixStr
 						]
 					)+"RetrieveIndexesList",
-					self.TeamDict[JoinPostTeamStr].ManagementDict.values(),
+					self.TeamDict[JoinOutTeamStr].ManagementDict.values(),
 				)
 			
 			#debug
@@ -595,7 +596,7 @@ class JoinerClass(BaseClass):
 #</DefineClass>
 
 #<DefineLocals>
-Controller.ModelsParenterClass.ManagingValueClass=JoinerClass
+Controller.ModelsClass.ManagingValueClass=JoinerClass
 #<DefineLocals>
 
 #</DefinePrint>

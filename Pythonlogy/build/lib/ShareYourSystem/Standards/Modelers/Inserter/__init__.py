@@ -476,7 +476,7 @@ class InserterClass(
 #</DefineClass>
 
 #<DefineLocals>
-Controller.ModelsParenterClass.ManagingValueClass=InserterClass
+Controller.ModelsClass.ManagingValueClass=InserterClass
 #<DefineLocals>
 
 #</DefinePrint>

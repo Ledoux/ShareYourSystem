@@ -894,6 +894,16 @@ def previous(_PathStr,_SplitStr='/'):
 
 def update(_ItemizableVariable,_UpdateVariable):
 
+	#Debug
+	"""
+	print('l 898 SYS update')
+	#print('_ItemizableVariable is ')
+	#print(_ItemizableVariable)
+	#print('_UpdateVariable is ')
+	#print(_UpdateVariable)
+	print('')
+	"""
+
 	#Check
 	if hasattr(_ItemizableVariable,'items'):
 
@@ -903,6 +913,22 @@ def update(_ItemizableVariable,_UpdateVariable):
 
 		#update
 		_ItemizableVariable.update(_UpdateVariable)
+
+	elif getIsTuplesListBool(_ItemizableVariable):
+
+		#/#################/#
+		# Tuples list case
+		#
+
+		if hasattr(_UpdateVariable,'items'):
+
+			#add
+			_ItemizableVariable+=_UpdateVariable.items()
+
+		else:
+
+			#add
+			_ItemizableVariable+=_UpdateVariable
 
 	elif type(_ItemizableVariable).__name__=='DataFrame':
 
@@ -917,7 +943,7 @@ def update(_ItemizableVariable,_UpdateVariable):
 				_UpdateVariable.items()
 			)
 
-	else:
+	elif hasattr(_ItemizableVariable,'NameStr'):
 
 		#/#################/#
 		# SYS objects cases
@@ -925,6 +951,31 @@ def update(_ItemizableVariable,_UpdateVariable):
 
 		#map set
 		_ItemizableVariable['#map@set'](_UpdateVariable)
+
+	elif _ItemizableVariable==None:
+
+		#/#################/#
+		# The _ItemizableVariable is directly the update variable
+		#
+
+		#Debug
+		'''
+		print('l 962 SYS update')
+		print('_ItemizableVariable is None')
+		print('')
+		'''
+		
+		#alias
+		_ItemizableVariable=_UpdateVariable
+
+	#Debug
+	"""
+	print('l 965 SYS update')
+	print('in the end')
+	#print('_ItemizableVariable is ')
+	#print(_ItemizableVariable)
+	print('')
+	"""
 
 	#return
 	return _ItemizableVariable
@@ -1147,7 +1198,7 @@ def set(_Variable,_KeyVariable,_ValueVariable):
 	#set
 	setattr(
 			_Variable,
-			_KeyStr,
+			_KeyVariable,
 			_ValueVariable
 		)
 

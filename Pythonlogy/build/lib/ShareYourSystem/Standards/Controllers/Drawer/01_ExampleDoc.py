@@ -1,7 +1,7 @@
 
 #ImportModules
 import ShareYourSystem as SYS
-import numpy as np
+
 
 #Define
 MyDrawer=SYS.DrawerClass(

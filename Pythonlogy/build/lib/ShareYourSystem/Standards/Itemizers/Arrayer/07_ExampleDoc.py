@@ -8,10 +8,7 @@ MyArrayer=SYS.ArrayerClass(
 		[
 			["AArrayer","BArrayer"],
 			[
-				{
-					'#key':'1Arrayer',
-					'#map@set':{'MyStr':"hello"}
-				},
+				'1Arrayer',
 				{
 					'#key':'2Arrayer',
 					'#map@set':{'MyInt':2}
