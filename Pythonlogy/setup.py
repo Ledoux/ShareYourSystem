@@ -93,7 +93,6 @@ setup(
 			 		'ShareYourSystem.Standards.Itemizers.Manager',
 			 		'ShareYourSystem.Standards.Itemizers.Parenter',
 			 		'ShareYourSystem.Standards.Itemizers.Pointer',
-			 		'ShareYourSystem.Standards.Itemizers.Connecter',
 			 		'ShareYourSystem.Standards.Interfacers.Folderer',
 			 		'ShareYourSystem.Standards.Interfacers.Filer',
 			 		'ShareYourSystem.Standards.Interfacers.Processer',

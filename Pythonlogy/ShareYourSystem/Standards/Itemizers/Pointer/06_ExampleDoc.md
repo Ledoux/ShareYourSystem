@@ -5,4 +5,4 @@ FrozenIsBool True
 
 ##Example
 
-We can set an automatic backpoint also with or without a back setkey variable
+There is a short cut key str for pointing

@@ -61,6 +61,9 @@ def getPointerStr(_Variable,**_KwargVariablesDict):
 	print('')
 	'''
 
+	#Define
+	InfoStr=_KwargVariablesDict['InfoStr'] if 'InfoStr' in _KwargVariablesDict else ""
+
 	#set in the _KwargVariablesDict
 	if 'PrintDeepInt' not in _KwargVariablesDict:
 		_KwargVariablesDict['PrintDeepInt']=0
@@ -87,13 +90,24 @@ def getPointerStr(_Variable,**_KwargVariablesDict):
 	'''
 
 	#set
-	PrintIdInt=_Variable.PrintIdInt if hasattr(_Variable,'PrintIdInt') else id(_Variable)
+	PrintIdInt=_Variable.PrintIdInt if hasattr(
+		_Variable,'PrintIdInt'
+	) else id(_Variable)
+
+	#init
+	PointerStr=PrintLocalAlineaStr+"<"+PrintedVariableStr+" ("+_Variable.__class__.__name__
 
 	#Check
 	if PrintIdBool:
-		return PrintLocalAlineaStr+"<"+PrintedVariableStr+" ("+_Variable.__class__.__name__+"), "+str(PrintIdInt)+">"
+		PointerStr+="), "+str(PrintIdInt)
 	else:
-		return PrintLocalAlineaStr+"<"+PrintedVariableStr+" ("+_Variable.__class__.__name__+")"+" >"
+		PointerStr+=")"
+
+	#add
+	PointerStr+=InfoStr+" >"
+
+	#return
+	return PointerStr
 
 def getDictStr(
 	_DictatedVariable,**_KwargVariablesDict
@@ -372,7 +386,7 @@ def getPrintStr(_Variable,**_KwargVariablesDict):
 		else:
 
 			#Return the circular Str
-			PrintStr=PrintCircularStr+getPointerStr(_Variable)
+			PrintStr=PrintCircularStr+getPointerStr(_Variable,**_KwargVariablesDict)
 
 		#Debug
 		'''
@@ -456,7 +470,7 @@ def getPrintStr(_Variable,**_KwargVariablesDict):
 		else:
 
 			#Return the circular Str
-			return PrintCircularStr+getPointerStr(_Variable)
+			return PrintCircularStr+getPointerStr(_Variable,**_KwargVariablesDict)
 
 	#Instance print
 	elif type(_Variable).__name__ in ["instancemethod"]:
@@ -538,7 +552,7 @@ def getPrintStr(_Variable,**_KwargVariablesDict):
 		else:
 
 			#Return the circular Str
-			return PrintCircularStr+getPointerStr(_Variable)
+			return PrintCircularStr+getPointerStr(_Variable,**_KwargVariablesDict)
 
 	else:
 
@@ -598,7 +612,7 @@ def getPrintStr(_Variable,**_KwargVariablesDict):
 
 			#Return the circular Str
 			return PrintLocalAlineaStr+PrintCircularStr+getPointerStr(
-				_Variable)
+				_Variable,**_KwargVariablesDict)
 
 def _print(_Variable,**_KwargVariablesDict):
 	print(represent(_Variable,**_KwargVariablesDict))
@@ -1029,7 +1043,8 @@ class PrinterClass(BaseClass):
 
 		#define the PrintStr
 		self.PrintStr=getPointerStr(
-					self
+					self,
+					**_KwargVariablesDict
 				)+getPrintStr(
 					dict(PrintTuplesList),
 					**_KwargVariablesDict

@@ -39,7 +39,7 @@ class CommanderClass(BaseClass):
 
 	def default_init(
 				self,
-				_CommandingGetVariable=None,
+				_CommandingKeyVariable=None,
 				_CommandingSetVariable=None,	
 				_CommandingOrderStr="AllSetsForEachGet",
 				_CommandingBeforeWalkRigidBool=False,	
@@ -65,7 +65,7 @@ class CommanderClass(BaseClass):
 			[
 				'Adapt the type for getting things to command',
 				("self.",self,[
-								'CommandingGetVariable',
+								'CommandingKeyVariable',
 								'CommandingSetVariable',
 								'CommandingBeforeWalkRigidBool',
 								'CommandingBeforeSelfRigidBool'
@@ -76,7 +76,7 @@ class CommanderClass(BaseClass):
 
 		#init
 		CommandedValueVariablesList=SYS.GetList(
-			self.CommandingGetVariable,
+			self.CommandingKeyVariable,
 			self
 		)
 
@@ -569,7 +569,7 @@ class CommanderClass(BaseClass):
 #</DefinePrint>
 CommanderClass.PrintingClassSkipKeyStrsList.extend(
 	[
-		'CommandingGetVariable',
+		'CommandingKeyVariable',
 		'CommandingSetVariable',
 		'CommandingOrderStr',
 		'CommandingBeforeWalkRigidBool',

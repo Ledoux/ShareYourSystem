@@ -11,16 +11,17 @@ MyParenter=SYS.ParenterClass(
 					'|Claire':{},
 					'|Erwan':{
 						'ParentingTriggerVariable':[
-							#(
-							#	'->/^/|Claire',
-							#	'/-Outlets/|ToClaire/'
-							#),
-							{
-								'#key':'/-Outlets/|ToClaire',
-								'#map@set':{
-									'PointToVariable':'#get:/^/^/^/|Claire'
-								}
-							}
+							(
+								'->/^/|Claire',
+								'/-Outlets/|ToClaire/'
+							),
+
+							#{
+							#	'#key':'/-Outlets/|ToClaire',
+							#	'#map@set':{
+							#		'PointToVariable':'#get:/^/^/^/|Claire'
+							#	}
+							#}
 						],
 						#'PointMapVariable':{
 						#

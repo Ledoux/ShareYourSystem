@@ -20,14 +20,13 @@ SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
+from ShareYourSystem.Standards.Interfacers import Printer
 from ShareYourSystem.Standards.Itemizers import Pather,Teamer,Manager,Parenter
 #</ImportSpecificModules>
 
 #<DefineLocals>
 PointPrefixStr="*"
-PointToStr="->"
-PointBackStr="<->"
-PointBackPrefixStr="Back"
+PointPrefixStr="<->"
 PointInTeamStr="Inlets"
 PointOutTeamStr="Outlets"
 PointConnectKeyStr='?>'
@@ -40,15 +39,17 @@ def getLiargVariablesList(_ValueVariable):
 class PointerClass(BaseClass):
 
 	def default_init(
-					self,	
+					self,
+					_PointFromVariable=None,	
 					_PointToVariable=None,
-					_PointFromVariable=None,
-					_PointMapVariable=None,	
-					_PointingToGetVariable=None,
-					_PointingToSetKeyVariable=None,
-					_PointingBackSetKeyVariable=None,
-					_PointingBackBool=False,
-					_PointedToVariable=None,
+					_PointingKeyVariable=None,
+					_PointingOutSetVariable=None,
+					_PointingInSetVariable=None,
+					_PointingOutTeamStr="Outlets",
+					_PointingInTeamStr="Inlets",
+					_PointingValueClass=BaseClass,
+					_PointedOutDeriveTeamerVariable=None,
+					_PointedInDeriveTeamerVariable=None,
 					**_KwargVariablesDict
 				):
 
@@ -57,344 +58,168 @@ class PointerClass(BaseClass):
 
 	def do_point(self):
 
+		#/####################/#
+		# Get the pointed variable
+		#
+
 		#debug
 		'''
 		self.debug(
 			[
-				'we point here',
-				('self.',self,[
-								'PointingToGetVariable',
-								'PointingToSetKeyVariable'
+				'Adapt the type for getting things to point',
+				("self.",self,[
+								'PointingKeyVariable',
 							])
 			]
 		)
 		'''
 
-		#Check
-		if self.PointingToGetVariable!=None:
-
-			#/###################/#
-			# First point TO like a classic set
-			#
-
-			#debug
-			self.debug(
-				[
-					'First we get the target',
-					('self.',self,['PointingToGetVariable'])
-				]
-			)
-
-			#get
-			PointedToVariable=self[
-				self.PointingToGetVariable
-			]
-
-			#debug
-			'''
-			self.debug(
-				[
-					'PointedToVariable is '+SYS._str(
-						PointedToVariable
-					),
-					'If it is None, maybe we have to parent first'
-				]
-			)
-			'''
-
-			#Check
-			if PointedToVariable==None:
-
-				#parent
-				self['?^']
-
-				#debug
-				self.debug(
-						[
-							'We have parented',
-							('self.',self,['ParentedTotalPathStr']),
-							'So we can get again'
-						]
-					)
-
-				#get
-				PointedToVariable=self[
-					self.PointingToGetVariable
-				]
-
-			#debug
-			self.debug(
-				[
-					'PointedToVariable is '+SYS._str(
-						PointedToVariable
-					),
-					'Now we check the set key str'
-				]
-			)
-
-			#/####################/#
-			# Check for the SetKeyVariable
-			#
-
-			#Check
-			if self.PointingToSetKeyVariable in [None,""]:
-
-				#debug
-				self.debug(
-						[
-							"self.PointingToSetKeyVariable in [None,""]...",
-							"so we use the PointingGetVariable to name the pointer"
-						]
-					)
-
-				#str
-				PointedToSetKeyVariable=str(
-						self.PointingToGetVariable
-					).replace('/','_')
-
-				#debug
-				self.debug(
-						[
-							'PointedToSetKeyVariable is '+PointedToSetKeyVariable
-						]
-					)
-
-			else:
-
-				#set direct
-				PointedToSetKeyVariable=self.PointingToSetKeyVariable
-
-			#debug
-			'''
-			self.debug(
-					'PointedToSetKeyVariable is '+SYS._str(
-						PointedToSetKeyVariable
-					)
-				)
-			'''
-
-			#Check
-			if type(PointedToSetKeyVariable)==str and PointedToSetKeyVariable.endswith(
-				Pather.PathPrefixStr)==False:
-
-				#debug
-				'''
-				self.debug('It is a direct path')
-				'''
-
-				#set
-				self.set(
-						PointedToSetKeyVariable,
-						PointedToVariable
-					)
-
-			else:
-
-				#debug
-				self.debug(
-					[
-						'It is an encapsulate path',
-						'PointedToSetKeyVariable is ',
-						str(PointedToSetKeyVariable),
-						'Check if it is with a str or a variable'
-					]
-				)
-
-				#/###############/#
-				# Case where it is just a defualt encapsulator
-				#
-
-				#Check
-				if type(PointedToSetKeyVariable)==str:
-
-					#debug
-					self.debug(
-						
-					)
-
-					#previous
-					PointedPreviousSetTagStr,PointedKeyStr=SYS.previous(
-						PointedToSetKeyVariable
-					)
-
-					#debug
-					self.debug(
-						[
-							'PointedPreviousSetTagStr is ',
-							PointedPreviousSetTagStr,
-							'PointedKeyStr is ',
-							PointedKeyStr
-						]
-					)
-
-					#get
-					PointedGettedValueVariable=self[
-						PointedPreviousSetTagStr
-					]
-
-
-
-
-
-
-
-					#Check
-					if PointedKeyStr!="":
-
-						#debug
-						self.debug(
-								'We just set normally'
-							)
-
-						#point
-						PointedGettedValueVariable.set(
-								PointedKeyStr,
-								PointedToVariable
-							)
-
-					else:
-
-						#debug
-						self.debug(
-								'We set the PointToVariable and PointFromVariable'
-							)
-
-						#point
-						PointedGettedValueVariable.set(
-								'PointToVariable',
-								PointedToVariable
-							)
-
-						#point
-						PointedGettedValueVariable.set(
-								'PointFromVariable',
-								self
-							)
-
-				else:
-
-
-
-			#debug
-			'''
-			self.debug(
-						[
-							'After getting',
-							('locals()["',locals(),[
-											'PointedToVariable',
-											],']
-										)
-						]
-					)
-			'''
-
-			#/###################/#
-			# Maybe do a back point
-			#
-
-			#Check
-			if self.PointingBackBool:
-
-				#debug
-				'''
-				self.debug(
-						[
-							'We point back',
-							('self.',self,['PointingBackSetKeyVariable'])
-						]
-					)
-				'''
-
-				#Check
-				if self.PointingBackSetKeyVariable==None:
-					
-					#debug
-					'''
-					self.debug(
-						'PointedToSetKeyVariable is '+str(PointedToSetKeyVariable)
-					)
-					'''
-
-					#/###################/#
-					# Case where the PointedToSetKeyVariable is derived from a pathsetstr
-					#
-
-					#split
-					PointedKeyStrsList=PointedToSetKeyVariable.split('_')
-					if len(PointedKeyStrsList)>1:
-
-						#remove the last
-						PointedKeyStrsList=PointedKeyStrsList[1:]
-
-						#reverse
-						PointedKeyStrsList.reverse()
-
-						#join
-						PointedBackSetKeyVariable='_'.join(PointedKeyStrsList)
-
-					#/###################/#
-					# else just take the id and put a prefix
-					#
-
-					else:
-
-						#set default
-						PointedBackSetKeyVariable=str(self.PrintIdInt)
-
-					#add
-					PointedBackSetKeyVariable=PointBackPrefixStr+PointedBackSetKeyVariable+self.NameStr
-
-				else:
-
-					#just alias
-					PointedBackSetKeyVariable=self.PointingBackSetKeyVariable
-
-				#debug
-				self.debug(
-						[
-							'we set the back',
-							'PointedBackSetKeyVariable is '+SYS._str(
-								PointedBackSetKeyVariable
-							),
-							'PointedToVariable is '+SYS._str(
-								PointedToVariable
-							)
-						]
-					)
-
-				#set
-				PointedToVariable.point(
-						self,
-						PointedBackSetKeyVariable,
-						_BackBool=False
-					)
-
-			#alias
-			self.PointedToVariable=PointedToVariable
-
-	def mimic_get(self):
+		#init
+		PointedValueVariable=self[self.PointingKeyVariable]
 
 		#debug
 		'''
 		self.debug(
-				('self.',self,[
-						'GettingKeyVariable',
-					])
+				[
+					'in the end, PointedValueVariable is ',
+					SYS._str(PointedValueVariable)
+				]
 			)
 		'''
+
+		#/####################/#
+		# Adapt the type for setting things in the commanded variables
+		#
+
+		#debug
+		'''
+		self.debug(
+			[
+				'Adapt the type for setting things in the outlet managed pointed variable',
+				("self.",self,[
+					'PointingOutSetVariable'
+					])
+			]
+		)
+		'''
+
+		#inits
+		PointingOutSetVariablesList=SYS.SetList(self.PointingOutSetVariable)
+
+		#debug
+		'''
+		self.debug(
+				[
+					'in the end, PointingOutSetVariablesList is ',
+					SYS._str(PointingSetVariablesList),
+					'Now adapt the type for setting things in the outlet managed pointed variable',
+					("self.",self,[
+						'PointingOutSetVariable'
+						])
+				]
+			)
+		'''
+
+		#inits
+		PointingInSetVariablesList=SYS.SetList(self.PointingInSetVariable)
+
+		#debug
+		'''
+		self.debug(
+				[
+					'in the end, PointingInSetVariablesList is ',
+					SYS._str(PointingSetVariablesList)
+				]
+			)
+		'''
+
+		#/####################/#
+		# Now put this getted variable in a 
+		# encapsulating managed outlets variable
+
+		#debug
+		'''
+		self.debug(
+				[
+					'Now we out team '
+				]
+			)
+		'''
+
+		#Check
+		if self.PointedOutDeriveTeamerVariable==None:
+			self.PointedOutDeriveTeamerVariable=self.team(
+				self.PointingOutTeamStr
+			)
+
+		#team
+		self.TeamDict[
+			self.PointingOutTeamStr
+		].manage(
+				PointedValueVariable.ParentedTotalPathStr.replace(
+					'/','_'
+				)+'_'+PointedValueVariable.ManagementTagStr,
+				SYS.update(
+					[
+						('PointToVariable',PointedValueVariable),
+						('PointFromVariable',self)
+					],
+					PointingOutSetVariablesList,
+				),
+				_ValueClass=self.PointingValueClass
+			)
+
+		#/####################/#
+		# And put also the inverse in a 
+		# encapsulating managed inlets in the getted variable
+
+		#debug
+		'''
+		self.debug(
+				[
+					'Now we in team '
+				]
+			)
+		'''
+
+		#Check
+		if PointedValueVariable.PointedInDeriveTeamerVariable==None:
+			PointedValueVariable.PointedInDeriveTeamerVariable=PointedValueVariable.team(
+				PointedValueVariable.PointingInTeamStr
+			)
+
+		#team
+		PointedValueVariable.TeamDict[
+			PointedValueVariable.PointingInTeamStr
+		].manage(
+				self.ParentedTotalPathStr.replace(
+					'/','_'
+				)+'_'+self.ManagementTagStr,
+				SYS.update(
+					[
+						('PointToVariable',self),
+						('PointFromVariable',PointedValueVariable)
+					],
+					PointingInSetVariablesList,
+				),
+				_ValueClass=self.PointingValueClass
+			)
+
+	def mimic_get(self):
 
 		#Check
 		if type(self.GettingKeyVariable)==str:
 
 			#Check
-			if self.GettingKeyVariable.startswith(
-				PointToStr
-			):
+			if self.GettingKeyVariable.startswith(PointPrefixStr):
 
 				#debug
 				'''
 				self.debug(
-						'we point here'
+						[
+							'We get point here',
+							('self.',self,['GettingKeyVariable'])
+						]
 					)
 				'''
 
@@ -402,248 +227,131 @@ class PointerClass(BaseClass):
 				self.point(
 						SYS.deprefix(
 							self.GettingKeyVariable,
-							PointToStr
-						)
-					)
-
-				#alias
-				self.GettedValueVariable=self.PointedToVariable
-
-				#return
-				return {'HookingIsBool':False}
-
-			elif self.GettingKeyVariable.startswith(
-					PointBackStr
-				):
-
-				#debug
-				'''
-				self.debug(
-						'we back point here'
-					)
-				'''
-
-				#point
-				self.point(
-						SYS.deprefix(
-							self.GettingKeyVariable,
-							PointBackStr
+							PointPrefixStr
 						),
-						_BackBool=True
+						None
 					)
-
-				#alias
-				self.GettedValueVariable=self.PointedToVariable
 
 				#return
 				return {'HookingIsBool':False}
 
-			elif self.GettingKeyVariable.startswith(
-					PointPrefixStr
-				):
-
-				#debug
-				'''
-				self.debug(
-						'we get the encapsulate variable'
-					)
-				'''
-
-				#deprefix
-				PointGetKeyStr=SYS.deprefix(
-					self.GettingKeyVariable,
-					PointPrefixStr
-				)
-
-				#get
-				self.GettedValueVariable=self[PointGetKeyStr]['PointToVariable']
-
-				#return
-				return {'HookingIsBool':False}
-
-		#call the base method
-		return BaseClass.get(self)
+		#set
+		BaseClass.get(self)
 
 	def mimic_set(self):
-
-		#debug
-		'''
-		self.debug(
-				('self.',self,[
-						'SettingKeyVariable',
-						'SettingValueVariable',
-					])
-			)
-		'''
 
 		#Check
 		if type(self.SettingKeyVariable)==str:
 
 			#Check
-			if self.SettingKeyVariable.startswith(PointToStr):
+			if self.SettingKeyVariable.startswith(PointPrefixStr):
 
-				#debug
-				'''
-				self.debug(
-						'we point just here'
-					)
-				'''
+				if type(
+					self.SettingValueVariable
+				)==list and SYS.getIsTuplesListBool(self.SettingValueVariable
+				)==False and len(self.SettingValueVariable)==2:
 
-				#point
-				self.point(
-						SYS.deprefix(
-							self.SettingKeyVariable,
-							PointToStr
-						),
-						self.SettingValueVariable
-					)
+					#debug
+					'''
+					self.debug(
+							[
+								'We set point here',
+								('self.',self,['SettingKeyVariable'])
+							]
+						)
+					'''
 
-				#return
-				return {'HookingIsBool':False}
+					#point
+					self.point(
+							SYS.deprefix(
+								self.SettingKeyVariable,
+								PointPrefixStr
+							),
+							self.SettingValueVariable[0],
+							self.SettingValueVariable[1]
+						)
 
-			elif self.SettingKeyVariable.startswith(PointBackStr):
+					#return
+					return {'HookingIsBool':False}
 
-				#debug
-				'''
-				self.debug(
-						'we point back here'
-					)
-				'''
-				
-				#point
-				self.point(
-						SYS.deprefix(
-							self.SettingKeyVariable,
-							PointBackStr
-						),
-						self.SettingValueVariable[0],
-						_BackSetKeyVariable=self.SettingValueVariable[1],
-						_BackBool=True
-					)
+				else:
 
-				#return
-				return {'HookingIsBool':False}
+					#debug
+					'''
+					self.debug(
+							[
+								'We set point back here',
+								('self.',self,['SettingKeyVariable'])
+							]
+						)
+					'''
 
-			'''
-			elif self.SettingKeyVariable.startswith(PointPrefixStr):
+					#point
+					self.point(
+							SYS.deprefix(
+								self.SettingKeyVariable,
+								PointPrefixStr
+							),
+							self.SettingValueVariable
+						) 
 
-				#debug
-				self.debug(
-						'we set in the encapsulate'
-					)
+					#return
+					return {'HookingIsBool':False}
 
-				#set
-				SettedValueVariable=self[
-						self.SettingKeyVariable
-					]
+		#set
+		BaseClass.set(self)
 
-				#alias
-				SettedValueVariable=self.SettingValueVariable
-					
+	def mimic__print(self,**_KwargVariablesDict):
 
-				#return
-				return {'HookingIsBool':False}
-			'''
+		#/##################/#
+		# Modify the printing Variable
+		#
 
-		#debug
-		'''
-		self.debug(
-				[
-					'Call the base set method',
-					'BaseClass is '+str(BaseClass),
-					('self.',self,['SettingKeyVariable'])
-				]
-			)
-		'''
+		#Check
+		if self.PrintingSelfBool:
 
-		#call the base method
-		return BaseClass.set(self)
+			#Check
+			if self.PrintingVariable.PointToVariable!=None:
 
-	def mapPoint(self):
-
-		#debug
-		self.debug(
-				[
-					'We map point here',
-					'PointMapVariable is ',
-					SYS._str(self.PointMapVariable)
-				]
-			)
-
-		#map
-		map(
-				lambda __ElementVariable:
-				self.point(
-					*__ElementVariable
+				self.PrintingVariable.PointToVariable=Printer.getPointerStr(
+					self.PrintingVariable.PointToVariable
 				)
-				if type(__ElementVariable) in [list,tuple]
-				else self.point(
-					__ElementVariable
-				),
-				self.PointMapVariable if type(
-					self.PointMapVariable
-				)==list else self.PointMapVariable.items()
-			)
+			else:
 
-	"""
-	def propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable):
+				#append
+				self.PrintingInstanceSkipKeyStrsList.append('PointToVariable')
 
-		#set the value of the "hidden" property variable
-		self._WatchAfterParentWithParenterBool=_SettingValueVariable
+		#/##################/#
+		# Call the base method
+		#
 
-		#mapPoint
-		self.PointingBackBool=True
-		self.mapPoint()
-	"""
+		#call
+		BaseClass._print(self,**_KwargVariablesDict)
 
 #</DefineClass>
 
 #<DefineLocals>
 
-#Define
-"""
-class InletsClass(.ParenterClass):
-	ManagingValueClass=PointerClass
-class OutletsClass(Parenter.ParenterClass):
-	ManagingValueClass=PointerClass
-"""
+#set
+Parenter.ParenterClass.ManagingValueClass=PointerClass
+PointerClass.PointingValueClass=PointerClass
 
-"""
-class InletsClass(PointerClass):
-	ManagingValueClass=PointerClass
-class OutletsClass(PointerClass):
-	ManagingValueClass=PointerClass
-"""
-
-"""
-#Set
-Teamer.TeamerClass.TeamingClassesDict={
-	'Inlets':InletsClass,
-	'Outlets':OutletsClass
-}
-"""
-
-#Set
-Teamer.TeamerClass.TeamingClassesDict={
-	#'Inlets':InletsClass,
-	#'Outlets':OutletsClass
-	'Inlets':PointerClass,
-	'Outlets':PointerClass
-}
-
-Manager.ManagerClass.ManagingValueClass=PointerClass
 #</DefineLocals>
 
 #</DefinePrint>
 PointerClass.PrintingClassSkipKeyStrsList.extend(
 	[
+		'PointFromVariable',
 		#'PointToVariable',
-		#'PointFromVariable',
-		'PointingToGetVariable',
-		'PointingToSetKeyVariable',
-		'PointingBackSetKeyVariable',
-		'PointingBackBool',
-		'PointedToVariable'
+		'PointVariablesList',
+		'PointingKeyVariable',
+		'PointingOutSetVariable',
+		'PointingInSetVariable',
+		'PointingOutTeamStr',
+		'PointingInTeamStr',
+		'PointingValueClass',
+		'PointedOutDeriveTeamerVariable',
+		'PointedInDeriveTeamerVariable'
 	]
 )
 #<DefinePrint>

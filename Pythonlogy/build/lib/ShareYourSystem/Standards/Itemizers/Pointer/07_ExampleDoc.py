@@ -10,7 +10,7 @@ MyPointer=SYS.PointerClass(
 			'|Aurelie':{},
 			'|Erwan':{
 				'ParentingTriggerVariable':{
-					'<->/^/|Aurelie':[{'MyStr':"hello"},{'MyInt':0}]
+					'<->/^/|Aurelie':{'MyStr':"hello"}
 				}
 			}
 		}
@@ -19,5 +19,6 @@ MyPointer=SYS.PointerClass(
 #print
 print('MyPointer is')
 SYS._print(MyPointer)
+
 
 

@@ -16,7 +16,7 @@ types in the databased structures.
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Itemizers.Parenter"
+BaseModuleStr="ShareYourSystem.Standards.Itemizers.Pointer"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -109,7 +109,8 @@ class ModelerClass(BaseClass):
 						'PropertyDocStr':'I described variables for storing them in hdf'
 					}, 		
 					_ModelingMongoBool=True,
-					_ModelingHdfBool=False,						
+					_ModelingHdfBool=False,
+					_ModeledDescriptionTuplesList=None,						
 					_ModeledDescriptionClassesOrderedDict=None,																
 					_ModeledDescriptionClass=None,
 					_ModeledMongoDeriveNoderVariable=None,
@@ -901,6 +902,7 @@ class ModelerClass(BaseClass):
 			#
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We tabular for hdf here...',
@@ -908,7 +910,8 @@ class ModelerClass(BaseClass):
 					str(self.ModelDeriveControllerVariable.HdformatedFileVariable)
 				]
 			)
-			
+			'''
+
 			#set
 			if self.ModeledHdfSuffixStr=="":
 				self.ModeledHdfSuffixStr=self.ModelTagStr+'Table'
@@ -1373,7 +1376,7 @@ class ModelerClass(BaseClass):
 				[
 					'We have setted the ModelDeriveControllerVariable',
 					('self.',self,[
-						'ModelDeriveControllerVariable',
+						#'ModelDeriveControllerVariable',
 						'ModelTagStr'
 					])
 				]
@@ -1463,7 +1466,8 @@ ModelerClass.PrintingClassSkipKeyStrsList.extend(
 		'ModelingDescriptionTuplesList', 
 		'_ModelingDescriptionTuplesList', 
 		'ModelingMongoBool',
-		'ModelingHdfBool',							
+		'ModelingHdfBool',	
+		'ModeledDescriptionTuplesList',						
 		'ModeledDescriptionClassesOrderedDict',																
 		#'ModeledDescriptionClass', 													
 		'ModelDeriveControllerVariable',

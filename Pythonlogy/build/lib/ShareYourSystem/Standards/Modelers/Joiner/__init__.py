@@ -22,6 +22,7 @@ SYS.setSubModule(globals())
 #<ImportSpecificModules>
 Featurer=BaseModule
 import collections
+from ShareYourSystem.Standards.Itemizers import Pointer
 from ShareYourSystem.Standards.Modelers import Modeler
 from ShareYourSystem.Standards.Controllers import Controller
 #</ImportSpecificModules>
@@ -29,8 +30,6 @@ from ShareYourSystem.Standards.Controllers import Controller
 #<DefineLocals>
 JoinStr='__'
 JoinDeepStr='/'
-JoinInTeamStr='InJoins'
-JoinOutTeamStr='OutJoins'
 #</DefineLocals>
 
 #<DefineClass>
@@ -54,212 +53,215 @@ class JoinerClass(BaseClass):
 		#Call the parent init method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 		
-		#Team
-		self.team(JoinOutTeamStr)
-
 	def do_join(	
 				self
 			):
+
 
 		#debug
 		self.debug(
 				[
 					'We join here',
-					'first we get the post joiners'
+					'Check if there are joined tables'
 				]
 			)
 
-		#/################/#
-		# Get the post derive pointing parenters and make them point
-		#	
+		#Check
+		if Pointer.PointOutTeamStr in self.TeamDict:
 
-		#set
-		self.JoinedPostDeriveParentersList=self.TeamDict[
-			JoinOutTeamStr
-		].ManagementDict.values()
+			#/################/#
+			# Get the post derive pointing parenters and make them point
+			#	
 
-		#debug
-		self.debug(
-				[
-					'We have getted the post derive parenters',
-					('self.',self,['JoinedPostDeriveParentersList'])
-				]
-			)
+			#set
+			self.JoinedPostDeriveParentersList=self.TeamDict[
+				Pointer.PointOutTeamStr
+			].ManagementDict.values()
 
-		#set
-		self.JoinedPostDeriveJoinersList=map(
-				lambda __PostDeriveParenter:
-				__PostDeriveParenter.PointedToVariable,
-				self.JoinedPostDeriveParentersList
-			)
-
-		#debug
-		self.debug(
-				[
-					'We have getted the post joiners',
-					'self.TeamDict[JoinOutTeamStr].ManagementDict.keys() is',
-					str(self.TeamDict[JoinOutTeamStr].ManagementDict.keys()),
-					('self.',self,['JoinedPostDeriveJoinersList'])
-				]
-			)
-
-		#/################/#
-		# set the join Retrieve items 
-		#
-
-		self.JoinedRetrieveIndexesListGetStrsList=map(
-				lambda __JoinedPostDeriveJoiner:
-				"Join"+''.join(
+			#debug
+			self.debug(
 					[
-						self.ModelDeriveControllerVariable.ControlTagStr,
-						self.ModelTagStr,
-						'To',
-						__JoinedPostDeriveJoiner.ModelDeriveControllerVariable.ControlTagStr,
-						__JoinedPostDeriveJoiner.ModelTagStr
+						'We have getted the post derive parenters',
+						('self.',self,['JoinedPostDeriveParentersList'])
 					]
-				)+"RetrieveIndexesList",
-				self.JoinedPostDeriveJoinersList
-			)
+				)
 
-		#debug
-		self.debug(
-				[
-					'We have setted the JoinedRetrieveIndexesListGetStrsList',
-					('self.',self,['JoinedRetrieveIndexesListGetStrsList'])
-				]
-			)
-
-		"""
-		#set
-		JoinedAttentionCollectionOrderedSetTagStr=self.JoiningAttentionStr+self.JoiningCollectionStr+"CollectionOrderedDict"
-
-		#check
-		if hasattr(
-			self,
-			JoinedAttentionCollectionOrderedSetTagStr
-		):
-
-			#get
-			self.JoinedAttentionCollectionOrderedDict=getattr(
-				self,
-				JoinedAttentionCollectionOrderedSetTagStr
-			)
-
-		#set
-		JoinedCatchCollectionOrderedSetTagStr=self.JoiningCatchStr+self.JoiningCollectionStr+"CollectionOrderedDict"
-
-		#check
-		if hasattr(self,JoinedCatchCollectionOrderedSetTagStr):
-
-			#get
-			self.JoinedCatchCollectionOrderedDict=getattr(
-				self,
-				JoinedCatchCollectionOrderedSetTagStr
-			)
-
-			#model and link all the catched joiners
-			self.JoinedCatchDeriveJoinersList=map(
-					lambda __JoinedPostDeriveJoiner:
-					#__JoinedPostDeriveJoiner.__setitem__(
-					#	'InsertIsBool',
-					#	False
-					#).CatchToPointVariable.model(
-					#),
-					__JoinedPostDeriveJoiner.CatchToPointVariable.model(),
-					self.JoinedCatchCollectionOrderedDict.values()
+			"""
+			#set
+			self.JoinedPostDeriveJoinersList=map(
+					lambda __PostDeriveParenter:
+					__PostDeriveParenter.PointedToVariable,
+					self.JoinedPostDeriveParentersList
 				)
 
 			#debug
-			'''
-			self.debug(('self.',self,['JoinedCatchCollectionOrderedDict']))
-			'''
+			self.debug(
+					[
+						'We have getted the post joiners',
+						'self.TeamDict[Pointer.PointOutTeamStr].ManagementDict.keys() is',
+						str(self.TeamDict[Pointer.PointOutTeamStr].ManagementDict.keys()),
+						('self.',self,['JoinedPostDeriveJoinersList'])
+					]
+				)
 
-			#set
-			self.JoinedRetrieveIndexesListColumnStrsList=map(
+			#/################/#
+			# set the join Retrieve items 
+			#
+
+			self.JoinedRetrieveIndexesListGetStrsList=map(
 					lambda __JoinedPostDeriveJoiner:
 					"Join"+''.join(
 						[
-							__JoinedPostDeriveJoiner.ModelDeriveControllerVariable.NodeKeyStr
-							if __JoinedPostDeriveJoiner.ModelDeriveControllerVariable.NodeKeyStr!="" 
-							else 'Top'+__JoinedPostDeriveJoiner.ModelDeriveControllerVariable.__class__.NameStr,
-							__JoinedPostDeriveJoiner.ModeledSuffixStr
+							self.ModelDeriveControllerVariable.ControlTagStr,
+							self.ModelTagStr,
+							'To',
+							__JoinedPostDeriveJoiner.ModelDeriveControllerVariable.ControlTagStr,
+							__JoinedPostDeriveJoiner.ModelTagStr
 						]
 					)+"RetrieveIndexesList",
-					self.JoinedCatchDeriveJoinersList,
+					self.JoinedPostDeriveJoinersList
 				)
 
 			#debug
-			'''
-			self.debug(('self.',self,['JoinedRetrieveIndexesListColumnStrsList']))
-			'''
+			self.debug(
+					[
+						'We have setted the JoinedRetrieveIndexesListGetStrsList',
+						('self.',self,['JoinedRetrieveIndexesListGetStrsList'])
+					]
+				)
+			"""
+
+			"""
+			#set
+			JoinedAttentionCollectionOrderedSetTagStr=self.JoiningAttentionStr+self.JoiningCollectionStr+"CollectionOrderedDict"
+
+			#check
+			if hasattr(
+				self,
+				JoinedAttentionCollectionOrderedSetTagStr
+			):
+
+				#get
+				self.JoinedAttentionCollectionOrderedDict=getattr(
+					self,
+					JoinedAttentionCollectionOrderedSetTagStr
+				)
 
 			#set
-			self.JoinedRetrieveIndexesListGetStrsList=map(
-					lambda __JoinedPostDeriveJoiner:
-					"Joined"+''.join(
-						[
-							self.ModelDeriveControllerVariable.NodeKeyStr
-							if self.ModelDeriveControllerVariable.NodeKeyStr!="" 
-							else 'Top'+self.ModelDeriveControllerVariable.__class__.NameStr,
-							self.ModeledSuffixStr,
-							'To',
-							__JoinedPostDeriveJoiner.ModelDeriveControllerVariable.NodeKeyStr
-							if __JoinedPostDeriveJoiner.ModelDeriveControllerVariable.NodeKeyStr!="" 
-							else 'Top'+__JoinedPostDeriveJoiner.ModelDeriveControllerVariable.__class__.NameStr,
-							__JoinedPostDeriveJoiner.ModeledSuffixStr
-						]
-					)+"RetrieveIndexesList",
-					self.TeamDict[JoinOutTeamStr].ManagementDict.values(),
+			JoinedCatchCollectionOrderedSetTagStr=self.JoiningCatchStr+self.JoiningCollectionStr+"CollectionOrderedDict"
+
+			#check
+			if hasattr(self,JoinedCatchCollectionOrderedSetTagStr):
+
+				#get
+				self.JoinedCatchCollectionOrderedDict=getattr(
+					self,
+					JoinedCatchCollectionOrderedSetTagStr
 				)
-			
-			#debug
-			'''
-			self.debug(
-						[
-							('self.',self,['JoinedRetrieveIndexesListGetStrsList']),
-							'Table the joined databases'
-						]
+
+				#model and link all the catched joiners
+				self.JoinedCatchDeriveJoinersList=map(
+						lambda __JoinedPostDeriveJoiner:
+						#__JoinedPostDeriveJoiner.__setitem__(
+						#	'InsertIsBool',
+						#	False
+						#).CatchToPointVariable.model(
+						#),
+						__JoinedPostDeriveJoiner.CatchToPointVariable.model(),
+						self.JoinedCatchCollectionOrderedDict.values()
 					)
-			'''
 
-			#Check
-			if len(self.ModelingDescriptionTuplesList)>0:
-				self.ModelingHdfBool=True
-				self.JoiningDatabaseStr="hdf"
-				JoinedModelIndexIntKeyStr='ModeledHdfIndexInt'
-			else:
-				self.JoiningDatabaseStr="mongo"
-				JoinedModelIndexIntKeyStr='ModeledMongoIndexInt'
+				#debug
+				'''
+				self.debug(('self.',self,['JoinedCatchCollectionOrderedDict']))
+				'''
 
-
-			#Table all the joined databasers and init the corresponding JoinedRetrieveIndexesList in the NodePointDeriveNoder
-			self.ModelDeriveControllerVariable.update(
-				zip(
-						self.JoinedRetrieveIndexesListGetStrsList,
-						map(
-							lambda __JoinedPostDeriveJoiner:
+				#set
+				self.JoinedRetrieveIndexesListColumnStrsList=map(
+						lambda __JoinedPostDeriveJoiner:
+						"Join"+''.join(
 							[
-								__JoinedPostDeriveJoiner.table(
-									)[
-										JoinedModelIndexIntKeyStr
-									],
-								-1
-							],
-							self.JoinedCatchDeriveJoinersList
-						)
+								__JoinedPostDeriveJoiner.ModelDeriveControllerVariable.NodeKeyStr
+								if __JoinedPostDeriveJoiner.ModelDeriveControllerVariable.NodeKeyStr!="" 
+								else 'Top'+__JoinedPostDeriveJoiner.ModelDeriveControllerVariable.__class__.NameStr,
+								__JoinedPostDeriveJoiner.ModeledSuffixStr
+							]
+						)+"RetrieveIndexesList",
+						self.JoinedCatchDeriveJoinersList,
 					)
-			)
 
-			#debug
-			'''
-			self.debug(
-						('self.',self,[
-										'JoinedRetrieveIndexesListColumnStrsList',
-										'JoinedRetrieveIndexesListGetStrsList'
-									])
-			)
-			'''
-		"""
+				#debug
+				'''
+				self.debug(('self.',self,['JoinedRetrieveIndexesListColumnStrsList']))
+				'''
+
+				#set
+				self.JoinedRetrieveIndexesListGetStrsList=map(
+						lambda __JoinedPostDeriveJoiner:
+						"Joined"+''.join(
+							[
+								self.ModelDeriveControllerVariable.NodeKeyStr
+								if self.ModelDeriveControllerVariable.NodeKeyStr!="" 
+								else 'Top'+self.ModelDeriveControllerVariable.__class__.NameStr,
+								self.ModeledSuffixStr,
+								'To',
+								__JoinedPostDeriveJoiner.ModelDeriveControllerVariable.NodeKeyStr
+								if __JoinedPostDeriveJoiner.ModelDeriveControllerVariable.NodeKeyStr!="" 
+								else 'Top'+__JoinedPostDeriveJoiner.ModelDeriveControllerVariable.__class__.NameStr,
+								__JoinedPostDeriveJoiner.ModeledSuffixStr
+							]
+						)+"RetrieveIndexesList",
+						self.TeamDict[JoinOutTeamStr].ManagementDict.values(),
+					)
+				
+				#debug
+				'''
+				self.debug(
+							[
+								('self.',self,['JoinedRetrieveIndexesListGetStrsList']),
+								'Table the joined databases'
+							]
+						)
+				'''
+
+				#Check
+				if len(self.ModelingDescriptionTuplesList)>0:
+					self.ModelingHdfBool=True
+					self.JoiningDatabaseStr="hdf"
+					JoinedModelIndexIntKeyStr='ModeledHdfIndexInt'
+				else:
+					self.JoiningDatabaseStr="mongo"
+					JoinedModelIndexIntKeyStr='ModeledMongoIndexInt'
+
+
+				#Table all the joined databasers and init the corresponding JoinedRetrieveIndexesList in the NodePointDeriveNoder
+				self.ModelDeriveControllerVariable.update(
+					zip(
+							self.JoinedRetrieveIndexesListGetStrsList,
+							map(
+								lambda __JoinedPostDeriveJoiner:
+								[
+									__JoinedPostDeriveJoiner.table(
+										)[
+											JoinedModelIndexIntKeyStr
+										],
+									-1
+								],
+								self.JoinedCatchDeriveJoinersList
+							)
+						)
+				)
+
+				#debug
+				'''
+				self.debug(
+							('self.',self,[
+											'JoinedRetrieveIndexesListColumnStrsList',
+											'JoinedRetrieveIndexesListGetStrsList'
+										])
+				)
+				'''
+			"""
 
 	def mimic_model(self):
 		

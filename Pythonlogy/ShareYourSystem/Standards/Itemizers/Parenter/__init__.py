@@ -579,6 +579,12 @@ class ParenterClass(BaseClass):
 					else None,
 					self.PrintingVariable.TeamDict.items()
 				)
+
+		if self.ParentedTotalPathStr!="":
+
+			#add
+			#_KwargVariablesDict['InfoStr']=", "+self.ParentedTotalPathStr
+			_KwargVariablesDict['InfoStr']=", ^"
 			
 		#/##################/#
 		# Call the base method
@@ -600,11 +606,11 @@ ParenterClass.PrintingClassSkipKeyStrsList.extend(
 			'ParentKeyStr',
 			'ParentDeriveTeamerVariable',
 			'ParentTopDeriveTeamerVariable',
-			#'ParentingTriggerVariable',
+			'ParentingTriggerVariable',
 			'ParentedTotalDeriveTeamersList',
 			'ParentedDeriveTeamersList',
 			'ParentedDeriveManagersList',
-			#'ParentedTotalPathStr',
+			'ParentedTotalPathStr',
 			'ParentedTeamPathStr',
 			'ParentedManagementPathStr',
 			'ParentedTriggerVariablesList'

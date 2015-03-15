@@ -55,13 +55,9 @@ MySumer=SumerClass(
 					),
 					(
 						'ParentingTriggerVariable',
-						{
-							'-OutJoins':{
-								'|ResultToParameter':{
-									'PointToVariable':'#get:/^/^/|Parameter'
-								}
-							}	
-						}
+						[
+							'<->/^/|Parameter'
+						]
 					)
 				])
 			]

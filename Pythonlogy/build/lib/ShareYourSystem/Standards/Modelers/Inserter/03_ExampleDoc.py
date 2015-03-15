@@ -1,13 +1,11 @@
 
 #ImportModules
 import ShareYourSystem as SYS
-import tables
 
-#Definition 
+#Define config
 MyController=SYS.ControllerClass(
 		**{
-			'FolderingPathStr':SYS.Inserter.LocalFolderPathStr,
-			'ControllingModelClassVariable':SYS.InserterClass
+			'FolderingPathStr':SYS.Inserter.LocalFolderPathStr
 		}
 	).set(
 		'/-Models/|Thing',
@@ -15,15 +13,18 @@ MyController=SYS.ControllerClass(
 			'ModelingDescriptionTuplesList':
 			[
 				#GetStr #ColumnStr #Col
-				('MyStr','MyStr',tables.StringCol(10)),
-				('MyIntsList','MyIntsList',tables.Int64Col(shape=3))
+				('MyStr','MyStr',SYS.tables.StringCol(10)),
+				('MyIntsList','MyIntsList',SYS.tables.Int64Col(shape=3))
 			],
 			'RowingGetStrsList':[
 					'MyStr',
 					'MyIntsList'
 			]	
 		}
-	)['#map@set'](
+	).get('?v')
+
+#insert
+MyController['#map@set'](
 		{
 			'MyStr':"hello",
 			'MyIntsList':[2,4,1]

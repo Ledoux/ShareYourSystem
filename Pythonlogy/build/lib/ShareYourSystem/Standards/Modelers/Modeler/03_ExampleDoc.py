@@ -1,12 +1,12 @@
 
 #ImportModules
 import ShareYourSystem as SYS
-import tables
 
 #Definition 
 MyController=SYS.ControllerClass(
 		**{
 			'FolderingPathStr':SYS.Modeler.LocalFolderPathStr,
+			'HdformatingFileKeyStr':'Thing.hdf',
 			'ControllingModelClassVariable':SYS.ModelerClass
 		}
 	).set(
@@ -15,12 +15,11 @@ MyController=SYS.ControllerClass(
 			'ModelingDescriptionTuplesList':
 			[
 				#GetStr #ColumnStr #Col
-				('MyStr','MyStr',tables.StringCol(10)),
-				('MyIntsList','MyIntsList',tables.Int64Col(shape=3))
+				('MyStr','MyStr',SYS.tables.StringCol(10)),
+				('MyIntsList','MyIntsList',SYS.tables.Int64Col(shape=3))
 			]	
 		}
 	).get('?v')
-
 
 #Build a structure with a database
 SYS.mapSet(
@@ -41,6 +40,5 @@ print('hdf5 file is : \n'+SYS._str(MyController.hdfview()))
 
 #close
 MyController.file(_ModeStr='c')
-
 
 

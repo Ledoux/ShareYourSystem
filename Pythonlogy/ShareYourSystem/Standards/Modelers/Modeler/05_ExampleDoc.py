@@ -1,13 +1,12 @@
 
 #ImportModules
 import ShareYourSystem as SYS
-import tables
 
 #Definition 
 MyController=SYS.ControllerClass(
 		**{
 			'FolderingPathStr':SYS.Modeler.LocalFolderPathStr,
-			'ControllingModelClassVariable':SYS.ModelerClass
+			'HdformatingFileKeyStr':'Stuff.hdf',
 		}
 	)['#map@set'](
 		[
@@ -17,12 +16,12 @@ MyController=SYS.ControllerClass(
 				'ModelingDescriptionTuplesList':
 				[
 					#GetStr #ColumnStr #Col
-					('MyInt','MyInt',tables.Int64Col()),
-					('MyFloatsList','MyFloatsList',(tables.Float64Col,['UnitsInt']))
+					('MyInt','MyInt',SYS.tables.Int64Col()),
+					('MyFloatsList','MyFloatsList',(SYS.tables.Float64Col,['UnitsInt']))
 				]
 			})
 		]
-	)
+	).get('?v')
 
 #Build a structure with a database
 SYS.mapSet(
@@ -39,7 +38,7 @@ SYS.mapSet(
 MyController=SYS.ControllerClass(
 		**{
 			'FolderingPathStr':SYS.Modeler.LocalFolderPathStr,
-			'ControllingModelClassVariable':SYS.ModelerClass
+			'HdformatingFileKeyStr':'Stuff.hdf',
 		}
 	)['#map@set'](
 		[
@@ -49,12 +48,12 @@ MyController=SYS.ControllerClass(
 				'ModelingDescriptionTuplesList':
 				[
 					#GetStr #ColumnStr #Col
-					('MyInt','MyInt',tables.Int64Col()),
-					('MyFloatsList','MyFloatsList',(tables.Float64Col,['UnitsInt']))
+					('MyInt','MyInt',SYS.tables.Int64Col()),
+					('MyFloatsList','MyFloatsList',(SYS.tables.Float64Col,['UnitsInt']))
 				]
 			})
 		]
-	)
+	).get('?v')
 
 #Build a structure with a database
 SYS.mapSet(

@@ -20,12 +20,12 @@ SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
-from ShareYourSystem.Standards.Itemizers import Connecter
+from ShareYourSystem.Standards.Itemizers import Pointer
 #</ImportSpecificModules>
 
 #<DefineLocals>
-class ModelsClass(Connecter.ConnecterClass):pass
-class ViewsClass(Connecter.ConnecterClass):pass
+class ModelsClass(Pointer.PointerClass):pass
+class ViewsClass(Pointer.PointerClass):pass
 #</DefineLocals>
 
 #<DefineClass>

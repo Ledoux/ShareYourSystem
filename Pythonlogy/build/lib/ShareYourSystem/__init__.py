@@ -905,6 +905,10 @@ def update(_ItemizableVariable,_UpdateVariable):
 	"""
 
 	#Check
+	if _UpdateVariable==None:
+		_UpdateVariable=[]
+
+	#Check
 	if hasattr(_ItemizableVariable,'items'):
 
 		#/#################/#
@@ -1048,6 +1052,14 @@ def set(_Variable,_KeyVariable,_ValueVariable):
 			#split
 			SplitStrsList=_KeyVariable.split('.')
 
+			#Debug
+			'''
+			print('SYS l 1056')
+			print('SplitStrsList is ')
+			print(SplitStrsList)
+			print('')
+			'''
+			
 			#set recursive
 			_set(
 				getattr(
@@ -1084,7 +1096,7 @@ def set(_Variable,_KeyVariable,_ValueVariable):
 		print(GetType.__name__)
 		print('')
 		'''
-
+		
 		#Check
 		if GetType.__name__ in [
 						'instancemethod',
@@ -1161,6 +1173,9 @@ def set(_Variable,_KeyVariable,_ValueVariable):
 				#call
 				_GetVariable(*_ValueVariable)
 
+		#return
+		return _Variable
+
 
 	#/#################/#
 	# Special __setitem__ call
@@ -1182,7 +1197,7 @@ def set(_Variable,_KeyVariable,_ValueVariable):
 		_Variable[_KeyVariable]=_ValueVariable
 
 		#return
-		return
+		return _Variable
 
 	#/#################/#
 	# Special setattr call

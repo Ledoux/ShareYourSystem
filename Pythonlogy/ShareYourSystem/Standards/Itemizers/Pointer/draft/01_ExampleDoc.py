@@ -2,16 +2,18 @@
 #ImportModules
 import ShareYourSystem as SYS
 
-#Explicit expression
-MyPointer=SYS.PointerClass(
-		).point(
+
+#Point direct with a special Key str
+MyPointer=SYS.PointerClass().point(
 			#PointingToGetVariable
 			'/ChildPointer/GrandChildPointer',
 			#PointingToSetKeyVariable
-			'/GrandFamilyPointer/'
+			'MyGrandChildPointer'
 		)
 
 #print
 print('MyPointer is')
 SYS._print(MyPointer)
+
+
 
