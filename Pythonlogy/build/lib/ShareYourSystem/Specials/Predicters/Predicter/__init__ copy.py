@@ -41,7 +41,6 @@ class PredicterClass(BaseClass):
 						_PredictingUnitsInt=0,
 						_PredictingSensorsInt=0,
 
-						_PredictingDynamicStr="leak",
 						_PredictingConstantTimeFloat=1.,
 						_PredictingInputStatStr='norm',
 						_PredictingDecoderMeanWeigtFloat=0.,
@@ -84,40 +83,11 @@ class PredicterClass(BaseClass):
 		# Sensor care : Prepare the input weigth and the null matrix
 		#
 
-		if self.PredictingDynamicStr=="leak":
-
-			self.PredictedSensorJacobianFloatsArray=-np.diag(
-				(1./self.PredictingConstantTimeFloat)*np.ones(
-					self.PredictingSensorsInt
-				)
+		self.PredictedSensorJacobianFloatsArray=-np.diag(
+			(1./self.PredictingConstantTimeFloat)*np.ones(
+				self.PredictingSensorsInt
 			)
-
-		elif self.PredictingDynamicStr in ["Gamma","Gamma-Theta"]:
-
-			if self.PredictingDynamicStr=="Gamma" and self.PredictingSensorsInt<3:
-				self.PredictingSensorsInt=2
-			if self.PredictingDynamicStr=="Gamma-Theta" and self.PredictingSensorsInt<6:
-				self.PredictingSensorsInt=6
-
-			self.PredictedSensorJacobianFloatsArray=-np.diag(
-				(1./self.PredictingConstantTimeFloat)*np.ones(
-					self.PredictingSensorsInt
-				)
-			)
-
-			#set
-			self.PredictedSensorJacobianFloatsArray[0,0]+=(1.5/self.PredictingConstantTimeFloat)
-			self.PredictedSensorJacobianFloatsArray[1,0]+=-(3.7/self.PredictingConstantTimeFloat)
-			self.PredictedSensorJacobianFloatsArray[0,1]+=(3.7/self.PredictingConstantTimeFloat)
-			self.PredictedSensorJacobianFloatsArray[1,1]+=-(1./self.PredictingConstantTimeFloat)
-
-			if self.PredictingDynamicStr=="Gamma-Theta":
-
-				#set
-				self.PredictedSensorJacobianFloatsArray[2,3]+=(1./self.PredictingConstantTimeFloat)
-				self.PredictedSensorJacobianFloatsArray[3,4]+=-(1.2/self.PredictingConstantTimeFloat)
-				self.PredictedSensorJacobianFloatsArray[4,5]+=-(1.4/self.PredictingConstantTimeFloat)
-				self.PredictedSensorJacobianFloatsArray[5,2]+=-(1.6/self.PredictingConstantTimeFloat)
+		)
 
 		#debug
 		'''
@@ -276,7 +246,6 @@ PredicterClass.PrintingClassSkipKeyStrsList.extend(
 		'PredictingUnitsInt',
 		'PredictingSensorsInt',
 		
-		'PredictingDynamicStr',
 		'PredictingConstantTimeFloat',
 		'PredictingInputStatStr',
 		'PredictingDecoderMeanWeigtFloat',

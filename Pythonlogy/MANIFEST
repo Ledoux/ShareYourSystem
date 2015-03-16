@@ -96,6 +96,10 @@ ShareYourSystem/Specials/Predicters/Predirater/01_ExampleDoc.py
 ShareYourSystem/Specials/Predicters/Predirater/__init__.py
 ShareYourSystem/Specials/Predicters/Predisenser/00_ExampleDoc.md
 ShareYourSystem/Specials/Predicters/Predisenser/01_ExampleDoc.py
+ShareYourSystem/Specials/Predicters/Predisenser/02_ExampleDoc.md
+ShareYourSystem/Specials/Predicters/Predisenser/03_ExampleDoc.py
+ShareYourSystem/Specials/Predicters/Predisenser/04_ExampleDoc.md
+ShareYourSystem/Specials/Predicters/Predisenser/05_ExampleDoc.py
 ShareYourSystem/Specials/Predicters/Predisenser/__init__.py
 ShareYourSystem/Specials/Predicters/Predispiker/00_ExampleDoc.md
 ShareYourSystem/Specials/Predicters/Predispiker/01_ExampleDoc.py
@@ -113,11 +117,12 @@ ShareYourSystem/Specials/Simulaters/Brianer/05_ExampleDoc.py
 ShareYourSystem/Specials/Simulaters/Brianer/Readme.md
 ShareYourSystem/Specials/Simulaters/Brianer/Test.py
 ShareYourSystem/Specials/Simulaters/Brianer/__init__.py
-ShareYourSystem/Specials/Simulaters/Brianer/Drafts/01_ExampleCell copy 2.py
-ShareYourSystem/Specials/Simulaters/Brianer/Drafts/01_ExampleCell copy 3.py
-ShareYourSystem/Specials/Simulaters/Brianer/Drafts/01_ExampleCell copy 4.py
-ShareYourSystem/Specials/Simulaters/Brianer/Drafts/01_ExampleDoc copy 2.py
-ShareYourSystem/Specials/Simulaters/Brianer/Drafts/__init__ copy 2.py
+ShareYourSystem/Specials/Simulaters/Brianer/draft/01_ExampleCell copy 2.py
+ShareYourSystem/Specials/Simulaters/Brianer/draft/01_ExampleCell copy 3.py
+ShareYourSystem/Specials/Simulaters/Brianer/draft/01_ExampleCell copy 4.py
+ShareYourSystem/Specials/Simulaters/Brianer/draft/01_ExampleDoc copy 2.py
+ShareYourSystem/Specials/Simulaters/Brianer/draft/01_ExampleDoc copy 3.py
+ShareYourSystem/Specials/Simulaters/Brianer/draft/__init__ copy 2.py
 ShareYourSystem/Specials/Simulaters/Lifer/001_DocumentDoc.md
 ShareYourSystem/Specials/Simulaters/Lifer/002_GithubDoc.md
 ShareYourSystem/Specials/Simulaters/Lifer/01_ExampleCell.py
@@ -801,6 +806,8 @@ ShareYourSystem/Standards/Itemizers/Setter/20_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Setter/21_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Setter/22_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Setter/23_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Setter/24_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Setter/25_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Setter/Readme.md
 ShareYourSystem/Standards/Itemizers/Setter/Test.py
 ShareYourSystem/Standards/Itemizers/Setter/__init__.py

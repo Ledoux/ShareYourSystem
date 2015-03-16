@@ -1,51 +1,119 @@
 #ImportModules
 import ShareYourSystem as SYS
 
+"""
+MyPointer=SYS.PointerClass(
+	).set(
+		'MyList',
+		{'#value':'>>map(lambda __Int:__Int+1,[1,2])'}
+	)
+"""
 
+MyPointer=SYS.PointerClass(
+	).set(
+		'MyList',
+		{
+			'#value:#lambda':{
+				'MyInt':'#get:>>#__Variable+1'
+			},
+			'#map@get':[1,2]
+		}
+	)
+
+
+"""
+MyPointer=SYS.PointerClass(
+	).set(
+		'-Populations',
+		{
+			'array':[
+				['|E','|I'],
+			]
+		}
+	)
+"""
+
+"""
+MyPointer=SYS.PointerClass(
+	).set(
+		'-Populations',
+		{
+			'array':[
+				['|E','|I'],
+			]
+		}
+	)
+"""
+SYS._print(MyPointer)
+
+
+
+
+"""
 #Definition
 MyBrianer=SYS.BrianerClass(
-	).array(
+	).set(
+		'-Populations',
+		[
+			(
+				'ManagingBeforeSetVariable',
+				{
+					'NeurongroupingBrianKwargVariablesDict':
+					{
+						'model':
+						'''
+							dv/dt = (ge+gi-(v+49*mV))/(20*ms) : volt
+							dge/dt = -ge/(5*ms) : volt
+							dgi/dt = -gi/(10*ms) : volt
+						''',
+						'threshold':'v>-50*mV',
+						'reset':'v=-60*mV'
+					},
+					'get':'/-Spikes/|Run',
+					'ParentingTriggerVariable':[
+						pass
+
+					]
+				}
+			),
+			(
+				'|E',
+				{
+					'SimulatingUnitsInt':3200
+				}
+			)
+		]
+	)
+"""
+
+
+
+
+"""
 		['/-Populations/|E','/-Populations/|I'],
 		{
-			'NeurongroupingBrianKwargVariablesDict':
-			{
-				'model':
-				'''
-					dv/dt = (ge+gi-(v+49*mV))/(20*ms) : volt
-					dge/dt = -ge/(5*ms) : volt
-					dgi/dt = -gi/(10*ms) : volt
-				''',
-				'threshold':'v>-50*mV',
-				'reset':'v=-60*mV'
-			},
-			'get':'/-Spikes/|Run'		
+				
 		}
 	).set(
 		'#each:/-Populations/|',
 		[
 			{
-				'SimulatingUnitsInt':3200,
-				'command':[
-					'-Posts',
-					map(
-						lambda __KeyStr:
+				,
+				'ParentingTriggerVariable':
+				map
+								
+					,
+					[
 						(
-							'|Eto'+__KeyStr,
+							'BrianSynapsingKwargVariablesDict',
 							{
-								'ParentingTriggerVariable':
-								[
-									'<->/^/^/|I/-PreConnections',
-									(
-										'BrianSynapsingKwargVariablesDict',
-										{
-											'pre':'ge+=1.62*mV',
-										}
-									),
-									('SynapsingProbabilityVariable',0.02)
-								]
+								'pre':'ge+=1.62*mV',
 							}
 						),
-						['E','I']
+						('SynapsingProbabilityVariable',0.02)
+					]
+
+					['E','I']
 					)	
 				]
 			},
@@ -76,13 +144,13 @@ MyBrianer=SYS.BrianerClass(
 				]
 			}
 		]
-	).parent(
-		_DownBool=True
-	)
+	).get('?v')
+
+"""
 
 #print
-print('MyBrianer is ')
-SYS._print(MyBrianer) 
+#print('MyBrianer is ')
+#SYS._print(MyBrianer) 
 
 """
 	.brian(

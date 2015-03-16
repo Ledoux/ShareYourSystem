@@ -58,6 +58,42 @@ def getKrenelFloatsArray(
 	#return
 	return KrenelFloatsArray
 
+def getFourierFloatsArray(
+		_RunTimeFloat=100.,
+		_StepTimeFloat=0.1,
+	):
+
+	#get the bins
+	BinsInt=_RunTimeFloat/_StepTimeFloat
+
+	#compute
+	FourierFloatsArray=np.array(
+		map(
+			lambda __TimeFloat:
+			sum(
+				map(
+					lambda __FrequencyFloat,__PhaseFloat: 
+					np.cos(2.*np.pi*0.001*__TimeFloat*__FrequencyFloat+__PhaseFloat),
+					[5.,15.,25.,35.,55.],
+					[np.pi/2.,np.pi/4.,np.pi/6.,np.pi/12.,np.pi/4.]
+				)
+			),
+			np.arange(0.,_RunTimeFloat,_StepTimeFloat)
+		)
+	)
+	
+	#Debug
+	'''
+	print('getFourierFloatsArray l 86')
+	print('FourierFloatsArray is ')
+	print(FourierFloatsArray)
+	print('')
+	'''
+
+	#return
+	return FourierFloatsArray
+
+
 def getTickFloatsArray(_LimList,_SampleFloat):
 
 	#Debug
@@ -120,7 +156,7 @@ class PredisenserClass(BaseClass):
 		self.PredisensedCommandTraceFloatsArray=np.array(
 			map(
 				lambda __IndexInt:
-				getKrenelFloatsArray(
+				1.*getKrenelFloatsArray(
 					[
 						0.,
 						self.PredisensingClampFloat
@@ -128,7 +164,11 @@ class PredisenserClass(BaseClass):
 					[
 						self.PredisensingRunTimeFloat/4.,
 						3.*self.PredisensingRunTimeFloat/4.
+						#1.5*self.PredisensingRunTimeFloat/4.,
 					],
+					self.PredisensingRunTimeFloat,
+					self.PredisensingStepTimeFloat
+				)+0.*self.PredisensingClampFloat*getFourierFloatsArray(
 					self.PredisensingRunTimeFloat,
 					self.PredisensingStepTimeFloat
 				),
@@ -329,7 +369,7 @@ class PredisenserClass(BaseClass):
 										('set_ylim',{'#liarg:#map@get':[
 											"".join([
 												">>SYS.set(SYS,'SensorLimFloatsArray',",
-												"[-0.1,1.5*self.PredisensingClampFloat*self.PredictingConstantTimeFloat]",
+												"[min(-0.1,self.PredisensedSensorTraceFloatsArray.min()),1.5*self.PredisensingClampFloat*self.PredictingConstantTimeFloat]",
 												').SensorLimFloatsArray'
 											])]
 										}),
@@ -383,7 +423,9 @@ class PredisenserClass(BaseClass):
 												'fontsize':10,
 												'shadow':True,
 												'fancybox':True,
-												'ncol':1
+												'ncol':max(1,len(self.PredisensingMonitorIntsList)/2),
+												'loc':2,
+												'bbox_to_anchor':(1.05, 1)
 											}
 										})
 									]

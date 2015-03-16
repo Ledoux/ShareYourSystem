@@ -9,12 +9,16 @@ MyPredisenser=SYS.PredisenserClass(
 		10,
 		#PredictingSensorsInt
 		1,
+		#PredictingDynamicStr
+		'leak',
 		#PredictingConstantTimeFloat (ms)
 		1.,
 		#PredictingInputStatStr
 		'norm',
-		#PredictingDecoderWeightFloat
-		1.,
+		#PredictingDecoderMeanWeightFloat
+		0.,
+		#PredictingDecoderStdWeightFloat
+		10.,
 		#PredictingNormalisationInt
 		0.5,			
 		#PredictingCostFloat

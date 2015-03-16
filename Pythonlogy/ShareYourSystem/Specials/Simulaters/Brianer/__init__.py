@@ -20,16 +20,14 @@ SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
+from ShareYourSystem.Standards.Itemizers import Pointer
 from ShareYourSystem.Specials.Simulaters import Neurongrouper,Synapser
 import operator
-from brian2 import ms
 #</ImportSpecificModules>
-
-#<DefineFunctions>
-#</DefineFunctions>
 
 #<DefineLocals>
 BrianPopulationTeamKeyStr="Populations"
+class PopulationsClass(Pointer.PointerClass):pass
 #</DefineLocals>
 
 #<DefineClass>
@@ -57,13 +55,6 @@ class BrianerClass(BaseClass):
 		#Call the parent __init__ method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
-		#team
-		self.team(
-			BrianPopulationTeamKeyStr,
-			{
-				'ManagingValueClass':Neurongrouper.NeurongrouperClass
-			}
-		)
 
 	"""
 	def mimic_run(self):
@@ -322,6 +313,17 @@ class BrianerClass(BaseClass):
 			self.BrianedNetworkVariable.add(printControl);
 		"""
 #</DefineClass>
+
+#<DefineLocals>
+
+#set
+BrianerClass.TeamingClassesDict[BrianPopulationTeamKeyStr]=PopulationsClass
+
+#set
+PopulationsClass.ManagingValueClass=Neurongrouper.NeurongrouperClass
+
+#</DefineLocals>
+
 
 #</DefinePrint>
 BrianerClass.PrintingClassSkipKeyStrsList.extend(

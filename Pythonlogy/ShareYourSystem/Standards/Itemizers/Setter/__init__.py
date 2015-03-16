@@ -94,6 +94,10 @@ SetMapKwargGetKeyValueGrabStr=SetMapKwargGetGrabPrefixStr+'#key:value'
 SetListTypesSet=set(['list','ndarray'])
 SetCopyPrefixStr='#copy:'
 SetDeepCopyPrefixStr='#deepcopy:'
+SetLambdaKeyStr=SetValueGrabStr+':#lambda'
+SetMapKeyStr='#map'
+SetMapVariableStr='#__Variable'
+
 class ArgumentDict(collections.OrderedDict):
 
 	def __init__(self,_ArgumentDict=None,_GetterVariable=None):
@@ -1007,6 +1011,39 @@ class SetterClass(BaseClass):
 						#Return
 						return {'HookingIsBool':False}
 
+					elif SetLambdaKeyStr in self.SettingValueVariable:
+
+						#get
+						SettedValueVariable=self.SettingValueVariable[SetLambdaKeyStr]
+
+						#Check
+						if SetMapKeyStr in self.SettingValueVariable:
+
+							#get
+							SettedMapVariablesList=self.SettingValueVariable[SetMapKeyStr]
+
+						elif Getter.GetMapStr in self.SettingValueVariable:
+
+							#get
+							SettedMapVariablesList=self[Getter.GetMapStr](
+								*self.SettingValueVariable[Getter.GetMapStr]
+							).ItemizedMapValueVariablesList
+							
+						#set
+						self[
+							self.SettingKeyVariable
+						]=map(
+								lambda __SettedMapVariable:
+								self.replaceMapVariable(
+									copy.copy(SettedValueVariable),
+									__SettedMapVariable
+								),
+								SettedMapVariablesList
+							)
+
+						#Return
+						return {'HookingIsBool':False}
+
 
 				#/####################/#
 				# Case of an instancing set
@@ -1400,6 +1437,67 @@ class SetterClass(BaseClass):
 
 		#return
 		return self
+
+	def replaceMapVariable(self,_SetVariable,_MapVariable):
+
+		#debug
+		self.debug(
+				[
+					'We replace a MapVariable here',
+					'_SetVariable is ',
+					SYS._str(_SetVariable),
+					'_MapVariable is ',
+					SYS._str(_MapVariable)
+				]
+			)
+
+
+		#Check
+		if hasattr(_SetVariable,'items'):
+
+			#map
+			map(
+					lambda __ItemTuple:
+					_SetVariable.__setitem__(
+						__ItemTuple[0].replace(SetMapVariableStr,_MapVariable),
+						__ItemTuple[1].replace(SetMapVariableStr,_MapVariable)
+						if type(__ItemTuple[1])==str
+						else __ItemTuple[1]
+					),
+					_SetVariable.items()
+				)
+
+			#debug
+			self.debug(
+				[
+					'In the end _SetVariable is ',
+					SYS._str(_SetVariable)
+				]
+			)
+
+			#return
+			return _SetVariable
+
+		elif SYS.getIsTuplesListBool(_SetVariable):
+
+			#map
+			_SetVariable=map(
+					lambda __ItemTuple:
+					(
+						__ItemTuple[0].replace(SetMapVariableStr,_MapVariable),
+						__ItemTuple[1].replace(SetMapVariableStr,_MapVariable)
+						if type(__ItemTuple[1])==str
+						else __ItemTuple[1]
+					),
+					_SetVariable
+				)
+
+			return _SetVariable
+
+		else:
+
+			#return
+			return self[_SetVariable.replace(SetMapVariableStr,_MapVariable)]			
 
 
 

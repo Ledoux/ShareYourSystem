@@ -10,12 +10,16 @@ MyPredicter=SYS.PredicterClass(
 		10,
 		#PredictingSensorsInt
 		1,
+		#PredictingDynamicStr
+		'leak',
 		#PredictingConstantTimeFloat (ms)
 		1.,
 		#PredictingInputStatStr
 		'norm',
-		#PredictingDecoderWeightFloat
+		#PredictingDecoderMeanWeightFloat
 		1.,
+		#PredictingDecoderStdWeightFloat
+		0.,
 		#PredictingNormalisationInt
 		0.5,			
 		#PredictingCostFloat

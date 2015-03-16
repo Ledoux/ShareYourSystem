@@ -20,14 +20,13 @@ SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
+from ShareYourSystem.Standards.Itemizers import Pointer
 from ShareYourSystem.Specials.Simulaters import Synapser
 #</ImportSpecificModules>
 
 #<DefineLocals>
-NeurongroupPreTeamKeyStr='Pres'
-NeurongroupPostTeamKeyStr='Posts'
-NeurongroupSpikeTeamKeyStr='Spikes'
-NeurongroupStateTeamKeyStr='States'
+class SpikesClass(Pointer.PointerClass):pass
+class StatesClass(Pointer.PointerClass):pass
 #</DefineLocals>
 
 #<DefineClass>
@@ -49,19 +48,6 @@ class NeurongrouperClass(BaseClass):
 
 		#Call the parent __init__ method
 		BaseClass.__init__(self,**_KwargVariablesDict)
-
-		#team
-		map(
-				lambda __KeyStr:
-				self.team(__KeyStr),
-				[
-					NeurongroupPreTeamKeyStr,
-					NeurongroupPostTeamKeyStr,
-					NeurongroupSpikeTeamKeyStr,
-					NeurongroupStateTeamKeyStr
-				]
-
-			)
 
 	def do_neurongroup(
 				self
@@ -291,6 +277,18 @@ class NeurongrouperClass(BaseClass):
 	"""
 
 #</DefineClass>
+
+#<DefineLocals>
+
+NeurongrouperClass.TeamingClassesDict.update(
+	{
+		'Spikes':SpikesClass,
+		'States':StatesClass
+	}
+)
+
+#</DefineLocals>
+
 
 #</DefinePrint>
 NeurongrouperClass.PrintingClassSkipKeyStrsList.extend(

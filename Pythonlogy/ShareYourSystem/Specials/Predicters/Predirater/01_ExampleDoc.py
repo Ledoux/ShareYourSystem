@@ -10,12 +10,16 @@ MyPredirater=SYS.PrediraterClass(
 		100,
 		#PredictingSensorsInt
 		1,
+		#PredictingDynamicStr
+		'leak',
 		#PredictingConstantTimeFloat (ms)
 		1.,
 		#PredictingInputStatStr
 		'norm',
-		#PredictingDecoderWeightFloat
-		30.,
+		#PredictingDecoderMeanWeightFloat
+		0.,
+		#PredictingDecoderStdWeightFloat
+		40.,
 		#PredictingNormalisationInt
 		1.,			
 		#PredictingCostFloat
