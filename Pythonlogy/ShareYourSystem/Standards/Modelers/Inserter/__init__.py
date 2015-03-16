@@ -55,7 +55,9 @@ class InserterClass(
 		#
 
 		#debug
+		'''
 		self.debug('row maybe before...')
+		'''
 		
 		#reset
 		self.setDone(Rower.RowerClass)
@@ -64,6 +66,7 @@ class InserterClass(
 		self.row()
 
 		#debug
+		'''
 		self.debug(
 			[
 				('self.',self,[
@@ -72,7 +75,8 @@ class InserterClass(
 				])
 			]
 		)
-		
+		'''
+
 		#Check
 		if self.ModelingMongoBool:
 
@@ -263,12 +267,14 @@ class InserterClass(
 					try:
 
 						#debug
+						'''
 						self.debug(
 								[
 									'Ok now we try to append in the rows',
 									('self.',self,['InsertedItemTuplesList'])
 								]
 							)
+						'''
 
 						#set
 						map(
@@ -278,21 +284,25 @@ class InserterClass(
 							)
 
 						#debug
+						'''
 						self.debug(
 								[
 									'It has worked !'
 								]
 							)
+						'''
 
 					except ValueError:
 
 						#debug
+						'''
 						self.debug(
 								[
 									'It hasn\'t worked !',
 									'so find the shape that was not good'
 								]
 							)
+						'''
 
 						#/###################/#
 						# Then find where the shape was not good
@@ -324,6 +334,7 @@ class InserterClass(
 						)
 
 						#debug
+						'''
 						self.debug(
 							[
 								('vars ',vars(),
@@ -336,6 +347,7 @@ class InserterClass(
 									])
 							]
 						)
+						'''
 
 						#set the shaping attributes to their new values
 						map(
@@ -358,11 +370,13 @@ class InserterClass(
 							)
 
 						#debug
+						'''
 						self.debug(
 								[
 									'Ok we have updated the shaping variables'
 								]
 							)
+						'''
 
 						#/###################/#
 						# Reset the configurating methods
@@ -389,6 +403,7 @@ class InserterClass(
 						)
 						
 						#debug
+						'''
 						self.debug(
 								[
 									'Now we remodel...',
@@ -397,6 +412,7 @@ class InserterClass(
 									])
 								]
 							)
+						'''
 
 						#model to relaunch everything
 						self.model()
@@ -406,11 +422,13 @@ class InserterClass(
 						#
 
 						#debug
+						'''
 						self.debug(
 							[
 								'Ok model again is done, so now we insert'
 							]
 						)
+						'''
 
 						#insert 
 						self.insert()

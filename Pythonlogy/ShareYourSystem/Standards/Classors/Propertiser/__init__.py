@@ -35,6 +35,14 @@ PropertyPrefixStr="propertize_"
 #<DefineFunctions>
 def getPropertizedTupleWithItemTupleAndClass(_ItemTuple,_Class):
 
+	#Debug
+	'''
+	print('Propertiser l 39')
+	print('_ItemTuple is ')
+	print(_ItemTuple)
+	print('')
+	'''
+
 	#Get the KeyStr, and the ValueVariable that should be a dict
 	PropertizedKeyStr=_ItemTuple[0]
 	PropertizedValueVariable=_ItemTuple[1]
@@ -62,8 +70,8 @@ def getPropertizedTupleWithItemTupleAndClass(_ItemTuple,_Class):
 		else:
 
 			#Definition a default one
-			def PropertizedGetFunction(self):
-				return getattr(self,PropertizedHideKeyStr)
+			def PropertizedGetFunction(_InstanceVariable):
+				return getattr(_InstanceVariable,PropertizedHideKeyStr)
 			PropertizedGetFunction.__name__=PropertizedGetFunctionStr
 
 		#/###################/#
@@ -76,15 +84,84 @@ def getPropertizedTupleWithItemTupleAndClass(_ItemTuple,_Class):
 		#Check
 		if hasattr(_Class,PropertizedSetFunctionStr):
 			
+			#/######################/#
+			# Case where there is already something
+			#
+
 			#Check for an already defined method
 			PropertizedSetFunction=getattr(_Class,PropertizedSetFunctionStr)
-		else:
+
+		else: 
+
+			#/######################/#
+			# Default case
+			#
 
 			#Definition a default one
-			def PropertizedSetFunction(self,_SettingValueVariable):
-				self.__setattr__(PropertizedHideKeyStr,_SettingValueVariable)
+			def PropertizedSetFunction(_InstanceVariable,_SettingValueVariable):
+				_InstanceVariable.__setattr__(PropertizedHideKeyStr,_SettingValueVariable)
 			PropertizedSetFunction.__name__=PropertizedSetFunctionStr
 
+		#/######################/#
+		# Case where we bind also the setting of the shaping atttributes
+		#
+
+		#Check
+		if 'ShapeKeyStrsList' in _ItemTuple[1]:
+
+			#get
+			PropertizedShapeKeyStrsList=_ItemTuple[1]['ShapeKeyStrsList']
+
+			#Debug
+			'''
+			print('Propertiser l 111')
+			print('There is a ShapeKeyStrsList')
+			print('PropertizedShapeKeyStrsList is ')
+			print(PropertizedShapeKeyStrsList)
+			print('')
+			'''
+
+			#import
+			import numpy as np
+
+			def PropertizedShapeSetFunction(_InstanceVariable,_SettingValueVariable):
+
+				#call the first
+				PropertizedSetFunction(_InstanceVariable,_SettingValueVariable)
+
+				#get the shape
+				PropertizedShapeIntsList=np.shape(
+					getattr(
+							_InstanceVariable,
+							PropertizedHideKeyStr
+						)
+				)
+
+				#Debug
+				'''
+				print('Propertiser l 137')
+				print('We shape here')
+				print('PropertizedHideKeyStr is')
+				print(PropertizedHideKeyStr)
+				print('PropertizedShapeKeyStrsList is ')
+				print(PropertizedShapeKeyStrsList)
+				print('PropertizedShapeIntsList is ')
+				print(PropertizedShapeIntsList)
+				print('')
+				'''
+				
+				#map a set
+				map(
+						lambda __PropertizedShapeKeyStr,__PropertizedShapeInt:
+						setattr(
+							_InstanceVariable,
+							__PropertizedShapeKeyStr,
+							__PropertizedShapeInt
+						),
+						PropertizedShapeKeyStrsList,
+						PropertizedShapeIntsList
+					)
+			
 		#/###################/#
 		# Prepare the del property
 		#
@@ -101,18 +178,27 @@ def getPropertizedTupleWithItemTupleAndClass(_ItemTuple,_Class):
 		else:
 
 			#Definition a default one
-			def PropertizedDelFunction(self):
-				self.__delattr__(PropertizedHideKeyStr)
+			def PropertizedDelFunction(_InstanceVariable):
+				_InstanceVariable.__delattr__(PropertizedHideKeyStr)
 			PropertizedDelFunction.__name__=PropertizedDelFunctionStr
 
 		#Debug
 		'''
 		print('Propertizer l 109')
-		print('PropertizedGetFunction is ')
-		print(PropertizedGetFunction)
+		print('PropertizedDetFunction is ')
+		print(PropertizedDetFunction)
 		print('')
 		'''
 		
+		#/###################/#
+		# Now set in the class
+		#
+
+		if 'ShapeKeyStrsList' in _ItemTuple[1]:
+			PropertizedBindSetFunction=PropertizedShapeSetFunction
+		else:
+			PropertizedBindSetFunction=PropertizedSetFunction
+
 		#Define in the class...
 		map(
 			lambda __PropertizedFunction:
@@ -123,7 +209,7 @@ def getPropertizedTupleWithItemTupleAndClass(_ItemTuple,_Class):
 			),
 			[
 				PropertizedGetFunction,
-				PropertizedSetFunction,
+				PropertizedBindSetFunction,
 				PropertizedDelFunction
 			]
 		)
@@ -137,7 +223,7 @@ def getPropertizedTupleWithItemTupleAndClass(_ItemTuple,_Class):
 			),
 			[
 				PropertizedGetFunction,
-				PropertizedSetFunction,
+				PropertizedBindSetFunction,
 				PropertizedDelFunction
 			]
 		)
@@ -145,7 +231,7 @@ def getPropertizedTupleWithItemTupleAndClass(_ItemTuple,_Class):
 		#Redefine
 		PropertizedValueVariable=property(
 							PropertizedGetFunction,
-							PropertizedSetFunction,
+							PropertizedBindSetFunction,
 							PropertizedDelFunction,
 							_ItemTuple[1]['PropertyDocStr'
 							]if 'PropertyDocStr' in _ItemTuple[1]
@@ -264,10 +350,11 @@ class PropertiserClass(BaseClass):
 
 			#debug
 			'''
+			print('Propertiser l.266')
 			print('Before set PropertizedClass.PropertizedDefaultTuplesList is ',PropertizedClass.PropertizedDefaultTuplesList)
 			print('')
 			'''
-
+			
 			#set at the level of the class the PropertyGetStr+KeyStr
 			map(	
 					lambda __PropertizedDefaultTuple:

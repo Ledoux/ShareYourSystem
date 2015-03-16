@@ -30,67 +30,19 @@ from ShareYourSystem.Standards.Controllers import Controller
 #</ImportSpecificModules>
 
 #<DefineLocals>
-AnalyzingColStrsList=[
-						'Int',
-						'Float',
-						'Str'
-					]
+ModelOneColStrsList=[
+					'Int',
+					'Float',
+					'Str',
+					'Bool'
+				]
+ModelListColStrsList=map(lambda __Str:__Str+'sList',ModelOneColStrsList)
+ModelArrayColStrsList=map(lambda __Str:__Str+'sArray',ModelOneColStrsList)
 ModelJoinStr='__'
 ModelLinkStr='_'
 ModelOrderStr='xx'
 ModelDimensionStr='_'
 #</DefineLocals>
-
-#<DefineFunctions>
-def getModeledColWithGetKeyStr(_GetKeyStr):
-
-	#import
-	import tables
-
-	#Definition
-	global AnalyzingColStrsList
-
-	#Definition
-	ModeledColStr=SYS._filter(
-		lambda __AnalyzingColStr:
-			_GetKeyStr.endswith(__AnalyzingColStr),
-			AnalyzingColStrsList
-		)[0]
-
-	#Debug
-	'''
-	print('l 55 getModeledColWithGetKeyStr')
-	print('ModeledColStr is ')
-	print(ModeledColStr)
-	print('')
-	'''
-
-	#Get the Col Class
-	if ModeledColStr=='Str':
-		ModeledColClass=getattr(
-							tables,
-							'StringCol'
-						)
-	else:
-		ModeledColClass=getattr(
-							tables,
-							ModeledColStr+'Col'
-						)
-
-	#Return
-	if ModeledColStr=='Str':
-		return ModeledColClass(100)
-	else:
-		return ModeledColClass() 
-
-def getModelingColumnTupleWithGetKeyStr(_GetKeyStr):
-	return (
-			_GetKeyStr,
-			_GetKeyStr,
-			getModeledColWithGetKeyStr(_GetKeyStr)
-	)
-
-#</DefineFunctions>
 
 #<DefineClass>
 @DecorationClass(**{
@@ -100,7 +52,11 @@ class ModelerClass(BaseClass):
 	
 	def default_init(
 					self,
-					_ModelKeyStrsList=None,
+					_ModelKeyStrsList={
+						'DefaultValueType':property,
+						'PropertyInitVariable':[],
+						'PropertyDocStr':'I say what has to be stored'
+					},
 					_ModelDeriveControllerVariable=None,
 					_ModelTagStr="",
 					_ModelingDescriptionTuplesList={
@@ -565,7 +521,35 @@ class ModelerClass(BaseClass):
 				)
 				'''
 
+				#/###################/#
+				# Check the dimension that are not defined or equal to zero
+				# set them to one
+
+				#map map
+				self.ModeledDescriptionDimensionIntsListsList=map(
+						lambda __ModeledDescriptionDimensionGetKeyStrsList:
+						map(
+							lambda __ModeledDescriptionDimensionGetKeyStr,__ShapeInt:
+							self.ModelDeriveControllerVariable.set(
+								__ModeledDescriptionDimensionGetKeyStr,
+								__ShapeInt+1 
+							)[__ModeledDescriptionDimensionGetKeyStr]
+							if __ShapeInt==0 else __ShapeInt,
+							__ModeledDescriptionDimensionGetKeyStrsList,
+							map(
+								lambda __ModeledDescriptionDimensionGetKeyStr:
+								self.ModelDeriveControllerVariable[
+									__ModeledDescriptionDimensionGetKeyStr
+								],
+								__ModeledDescriptionDimensionGetKeyStrsList
+							),
+						),
+						self.ModeledDescriptionDimensionGetKeyStrsListsList
+					)
+
+
 				#get the corresponding real dimensions
+				'''
 				self.ModeledDescriptionDimensionIntsListsList=map(
 						lambda __ModeledDescriptionDimensionGetKeyStrsList:
 						self.ModelDeriveControllerVariable[
@@ -575,16 +559,19 @@ class ModelerClass(BaseClass):
 						).ItemizedMapValueVariablesList,
 						self.ModeledDescriptionDimensionGetKeyStrsListsList
 					)
+				'''
 
 				#debug
 				'''
 				self.debug(
 					[
-						('self.',self,['ModeledDescriptionDimensionIntsListsList'])
+						('self.',self,[
+							'ModeledDescriptionDimensionIntsListsList'
+						])
 					]
 				)
 				'''
-
+				
 			else:
 
 				#Default
@@ -674,6 +661,9 @@ class ModelerClass(BaseClass):
 				](
 					*self.ModeledDimensionGetKeyStrsList
 				).ItemizedMapValueVariablesList
+
+
+
 
 			else:
 
@@ -1397,15 +1387,12 @@ class ModelerClass(BaseClass):
 
 		#check
 		if self.ModelKeyStrsList==None:
-			self.ModelKeyStrsList=[]
 
-		#extend
-		self.ModelKeyStrsList.extend(
-			SYS.unzip(
-				_SettingValueVariable,
-				[0]
-			)
-		)
+			#extend
+			self._ModelKeyStrsList=SYS.unzip(
+					_SettingValueVariable,
+					[0]
+				)
 
 		#/###################/#
 		# Check if it is a hdf or mongo model
@@ -1452,6 +1439,168 @@ class ModelerClass(BaseClass):
 				]
 			)
 		'''
+
+	def propertize_setModelKeyStrsList(self,_SettingValueVariable):	
+
+		#set
+		self._ModelKeyStrsList=_SettingValueVariable
+
+		#/###################/#
+		# Set ModelingDescriptionTuplesList
+		#
+
+		#debug
+		self.debug(
+				[
+					'We know the ModelKeyStrsList',
+					'we set the ModelingDescriptionTuplesList',
+					('self.',self,['_ModelKeyStrsList'])
+				]
+			)
+
+		#map
+		self.ModelingDescriptionTuplesList=map(
+			lambda __KeyStr:
+			self.getModelDescriptionTupleWithKeyStr(__KeyStr),
+			_SettingValueVariable
+		)
+	
+	def getModelDescriptionTupleWithKeyStr(self,_KeyStr):
+		return (
+				_KeyStr,
+				_KeyStr,
+				self.getModelColVariableWithKeyStr(_KeyStr)
+			)
+
+	def getModelColVariableWithKeyStr(self,_KeyStr):
+
+		#import
+		import tables
+
+		#Definition
+		global ModelOneColStrsList,ModelListColStrsList,ModelArrayColStrsList
+
+		#/##################/#
+		# Look for one single type
+		#
+
+		#Definition
+		List=SYS._filter(
+			lambda __ModelOneColStr:
+				_KeyStr.endswith(__ModelOneColStr),
+				ModelOneColStrsList
+			)
+
+		#Check
+		if len(List)==1:
+
+			#Get
+			ModelOneColStr=List[0]
+			
+			#Debug
+			'''
+			print('l 55 getModelColVariableWithKeyStr')
+			print('ModeledColStr is ')
+			print(ModeledColStr)
+			print('')
+			'''
+
+			#Get the Col Class
+			if ModelOneColStr=='Str':
+				ModelColClass=getattr(
+									tables,
+									'StringCol'
+								)
+			else:
+				ModelColClass=getattr(
+									tables,
+									ModelOneColStr+'Col'
+								)
+
+			#Return
+			if ModelOneColStr=='Str':
+				return ModelColClass(100)
+			else:
+				return ModelColClass()
+
+		else:
+
+			#/##################/#
+			# Look for a shaped type
+			#
+
+			#Check
+			for __TypeStr in ['List','Array']:
+
+				#Definition
+				ModeledEndBoolsList=map(
+					lambda __ModelListColStr:
+						_KeyStr.endswith(__ModelListColStr),
+						globals()['Model'+__TypeStr+'ColStrsList']
+					)
+
+				#Check
+				if True in ModeledEndBoolsList:
+
+					#/####################/#
+					# Get the type
+					#
+
+					#get
+					ModelOneColStr=ModelOneColStrsList[ModeledEndBoolsList.index(True)]
+
+					#debug
+					self.debug(
+						[
+							'ModelOneColStr is ',
+							ModelOneColStr
+						]
+					)
+
+					#Get the Col Class
+					if ModelOneColStr=='Str':
+						ModelColClass=getattr(
+											tables,
+											'StringCol'
+										)
+					else:
+						ModelColClass=getattr(
+											tables,
+											ModelOneColStr+'Col'
+										)
+
+					#/####################/#
+					# Look if there is no a shape
+					#
+
+					#Check
+					if _KeyStr in self.__class__.DefaultAttributeVariablesOrderedDict:
+
+						#get
+						ClassValueVariable=self.__class__.DefaultAttributeVariablesOrderedDict[_KeyStr]
+
+						#debug
+						self.debug(
+							[
+								'There is a shape ',
+								"ClassValueVariable['ShapeKeyStrsList'] is ",
+								str(ClassValueVariable['ShapeKeyStrsList'])
+							]
+						)
+
+						#Check
+						if hasattr(ClassValueVariable,'items') and 'ShapeKeyStrsList' in ClassValueVariable:
+							
+							#return
+							return (ModelColClass,ClassValueVariable['ShapeKeyStrsList'])
+
+					#Return
+					if ModelOneColStr=='Str':
+						return ModelColClass(100,shape=(1))
+					else:
+						return ModelColClass(shape=(1))
+
+	
 
 #</DefineClass>
 

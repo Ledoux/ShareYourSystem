@@ -4,12 +4,11 @@ import ShareYourSystem as SYS
 #Definition 
 MyController=SYS.ControllerClass(
 		**{
-			'FolderingPathStr':SYS.Modeler.LocalFolderPathStr,
-			'ControllingModelClassVariable':SYS.ModelerClass
+			'FolderingPathStr':SYS.Modeler.LocalFolderPathStr
 		}
-	).get(
-		'/-Models/|Things'
-	)
+	).set(
+		'/-Models/|Things',
+	).get('?v')
 
 #Build a structure with a database
 SYS.mapSet(

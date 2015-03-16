@@ -17,14 +17,21 @@ MyController=SYS.ControllerClass(
 				('MyFloatsList','MyFloatsList',(SYS.tables.Float64Col,['UnitsInt']))
 			],
 			'RowingGetStrsList':[
-					'MyInt',
-					'MyFloatsList'
+				'MyInt',
+				'MyFloatsList'
 			]
 		}
-	)
+	).get('?v')
 
 
 MyController['#map@set'](
+		{
+			'MyInt':1,
+		}
+	).command(
+		'/-Models/|Stuff',
+		'#call:insert'
+	)['#map@set'](
 		{
 			'MyInt':1,
 			'MyFloatsList':[0.,1.,2.]

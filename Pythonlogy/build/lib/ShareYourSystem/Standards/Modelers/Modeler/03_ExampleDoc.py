@@ -6,17 +6,15 @@ import ShareYourSystem as SYS
 MyController=SYS.ControllerClass(
 		**{
 			'FolderingPathStr':SYS.Modeler.LocalFolderPathStr,
-			'HdformatingFileKeyStr':'Thing.hdf',
-			'ControllingModelClassVariable':SYS.ModelerClass
+			'HdformatingFileKeyStr':'Thing1.hdf'
 		}
 	).set(
 		'/-Models/|Thing',
 		{
-			'ModelingDescriptionTuplesList':
-			[
-				#GetStr #ColumnStr #Col
-				('MyStr','MyStr',SYS.tables.StringCol(10)),
-				('MyIntsList','MyIntsList',SYS.tables.Int64Col(shape=3))
+			'ModelKeyStrsList':
+			[	
+				'MyStr',
+				'MyIntsList'
 			]	
 		}
 	).get('?v')

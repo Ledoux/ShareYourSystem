@@ -2,6 +2,10 @@
 #ImportModules
 import ShareYourSystem as SYS
 
+#/######################/#
+# Define you object
+#
+
 #Define a Sumer class
 @SYS.ClasserClass()
 class SumerClass(SYS.ControllerClass):
@@ -25,6 +29,10 @@ class SumerClass(SYS.ControllerClass):
 
 		#set the SumedTotalInt
 		self.SumedTotalInt=self.SumingFirstInt+self.SumingSecondInt
+
+#/######################/#
+# Build your model
+#
 
 #Definition of a Storer instance with a noded data
 MySumer=SumerClass(
@@ -64,6 +72,10 @@ MySumer=SumerClass(
 		}
 	).get('?v')
 
+
+#/######################/#
+# Print
+#
 
 #print
 print('MySumer is ')

@@ -5,13 +5,12 @@ import ShareYourSystem as SYS
 #Definition 
 MyController=SYS.ControllerClass(
 		**{
-			'FolderingPathStr':SYS.Rower.LocalFolderPathStr,
-			'ControllingModelClassVariable':SYS.RowerClass
+			'FolderingPathStr':SYS.Rower.LocalFolderPathStr
 		}
 	).set(
 		'/-Models/|Things',
 		{
-			'ModelingKeyStrsList':['MyInt','MyStr','MyIntsList']	
+			'ModelKeyStrsList':['MyInt','MyStr','MyIntsList']	
 		}
 	)['#map@set'](
 		{

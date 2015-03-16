@@ -175,7 +175,9 @@ class RowerClass(
 			if self.ModelingHdfBool:
 
 				#debug
+				'''
 				self.debug('This is a hdf row here')
+				'''
 
 				#/#################/#
 				# Pick the values to be rowed in the hdf variables
@@ -202,6 +204,7 @@ class RowerClass(
 				)
 
 				#debug
+				'''
 				self.debug(
 					[
 						'Ok we have almost end the row',
@@ -212,7 +215,8 @@ class RowerClass(
 						'Check now if it is a new row'
 					]
 				)
-				
+				'''
+
 				#/#################/#
 				# Check if it is a new row
 				#
@@ -234,12 +238,14 @@ class RowerClass(
 					)
 
 				#debug
+				'''
 				self.debug(
 					[
 						('self.',self,['RowedHdfIsBoolsList'])
 					]
 				)	
-
+				'''
+				
 				#set
 				if len(self.RowedHdfIsBoolsList)==0:
 					self.RowedHdfIsBool=False

@@ -260,6 +260,10 @@ ShareYourSystem/Standards/Classors/Propertiser/02_ExampleDoc.md
 ShareYourSystem/Standards/Classors/Propertiser/03_ExampleDoc.py
 ShareYourSystem/Standards/Classors/Propertiser/04_ExampleDoc.md
 ShareYourSystem/Standards/Classors/Propertiser/05_ExampleDoc.py
+ShareYourSystem/Standards/Classors/Propertiser/06_ExampleDoc.md
+ShareYourSystem/Standards/Classors/Propertiser/07_ExampleDoc.py
+ShareYourSystem/Standards/Classors/Propertiser/08_ExampleDoc.md
+ShareYourSystem/Standards/Classors/Propertiser/09_ExampleDoc.py
 ShareYourSystem/Standards/Classors/Propertiser/Install.py
 ShareYourSystem/Standards/Classors/Propertiser/Readme.md
 ShareYourSystem/Standards/Classors/Propertiser/Test.py
@@ -893,14 +897,15 @@ ShareYourSystem/Standards/Modelers/Modeler/02_ExampleDoc.md
 ShareYourSystem/Standards/Modelers/Modeler/03_ExampleDoc.py
 ShareYourSystem/Standards/Modelers/Modeler/04_ExampleDoc.md
 ShareYourSystem/Standards/Modelers/Modeler/05_ExampleDoc.py
+ShareYourSystem/Standards/Modelers/Modeler/06_ExampleDoc.md
+ShareYourSystem/Standards/Modelers/Modeler/07_ExampleDoc.py
+ShareYourSystem/Standards/Modelers/Modeler/08_ExampleDoc.md
+ShareYourSystem/Standards/Modelers/Modeler/09_ExampleDoc.py
 ShareYourSystem/Standards/Modelers/Modeler/Install.py
 ShareYourSystem/Standards/Modelers/Modeler/Readme.md
-ShareYourSystem/Standards/Modelers/Modeler/Stuff.hdf
 ShareYourSystem/Standards/Modelers/Modeler/Test.py
-ShareYourSystem/Standards/Modelers/Modeler/Thing.hdf
 ShareYourSystem/Standards/Modelers/Modeler/__init__.py
 ShareYourSystem/Standards/Modelers/Modeler/data/db/journal/j._0
-ShareYourSystem/Standards/Modelers/Modeler/data/db/journal/lsn
 ShareYourSystem/Standards/Modelers/Modeler/draft/__init__ copy 2.py
 ShareYourSystem/Standards/Modelers/Retriever/001_DocumentDoc.md
 ShareYourSystem/Standards/Modelers/Retriever/002_GithubDoc.md
@@ -921,8 +926,6 @@ ShareYourSystem/Standards/Modelers/Rower/03_ExampleDoc.py
 ShareYourSystem/Standards/Modelers/Rower/Readme.md
 ShareYourSystem/Standards/Modelers/Rower/Test.py
 ShareYourSystem/Standards/Modelers/Rower/__init__.py
-ShareYourSystem/Standards/Modelers/Rower/data/db/journal/j._0
-ShareYourSystem/Standards/Modelers/Rower/data/db/journal/lsn
 ShareYourSystem/Standards/Modelers/Rower/draft/__init__ copy 2.py
 ShareYourSystem/Standards/Tutorials/00_ExampleDoc.md
 ShareYourSystem/Standards/Tutorials/01_ExampleDoc.py

@@ -6,67 +6,31 @@ import ShareYourSystem as SYS
 MyController=SYS.ControllerClass(
 		**{
 			'FolderingPathStr':SYS.Modeler.LocalFolderPathStr,
-			'HdformatingFileKeyStr':'Stuff.hdf',
+			'HdformatingFileKeyStr':'Thing2.hdf'
 		}
-	)['#map@set'](
-		[
-			('UnitsInt',3),
-			('/-Models/|Stuff',
-			{
-				'ModelingDescriptionTuplesList':
-				[
-					#GetStr #ColumnStr #Col
-					('MyInt','MyInt',SYS.tables.Int64Col()),
-					('MyFloatsList','MyFloatsList',(SYS.tables.Float64Col,['UnitsInt']))
-				]
-			})
-		]
+	).set(
+		'/-Models/|Thing',
+		{
+			'ModelingDescriptionTuplesList':
+			[
+				#GetStr #ColumnStr #Col
+				('MyStr','MyStr',SYS.tables.StringCol(10)),
+				('MyIntsList','MyIntsList',SYS.tables.Int64Col(shape=3))
+			]	
+		}
 	).get('?v')
 
 #Build a structure with a database
 SYS.mapSet(
-		MyController['/-Models/|Stuff'].ModeledHdfTable,
+		MyController['/-Models/|Thing'].ModeledHdfTable,
 		[
-			('row.__setitem__',{'#liarg':('MyFloatsList',[0.,1.,2.])}),
+			('row.__setitem__',{'#liarg':('MyStr',"hello")}),
 			('row.append',{'#liarg':None}),
 			('flush',{'#liarg':None})
 		]
 )
 
-
-#Definition 
-MyController=SYS.ControllerClass(
-		**{
-			'FolderingPathStr':SYS.Modeler.LocalFolderPathStr,
-			'HdformatingFileKeyStr':'Stuff.hdf',
-		}
-	)['#map@set'](
-		[
-			('UnitsInt',2),
-			('/-Models/|Stuff',
-			{
-				'ModelingDescriptionTuplesList':
-				[
-					#GetStr #ColumnStr #Col
-					('MyInt','MyInt',SYS.tables.Int64Col()),
-					('MyFloatsList','MyFloatsList',(SYS.tables.Float64Col,['UnitsInt']))
-				]
-			})
-		]
-	).get('?v')
-
-#Build a structure with a database
-SYS.mapSet(
-		MyController['/-Models/|Stuff'].ModeledHdfTable,
-		[
-			('row.__setitem__',{'#liarg':('MyFloatsList',[0,0])}),
-			('row.append',{'#liarg':None}),
-			('flush',{'#liarg':None})
-		]
-)
-
-
-#print
+#Definition the AttestedStr
 print('MyController is ')
 SYS._print(MyController)
 
