@@ -208,7 +208,7 @@ MyStructurer=Structurer.StructurerClass().collect(
                     ('MyIntsList','MyIntsList',(tables.Int64Col(shape=3)))
                 ]
             ),
-            ('Attr_RowingGetStrsList',['MyInt','MyStr','MyIntsList'])
+            ('Attr_RowingKeyStrsList',['MyInt','MyStr','MyIntsList'])
         ]
     )
 )
@@ -311,7 +311,7 @@ MyStructurer is < (StructurerClass), 4559346064>
    /   /   /   /   /  2 : Int64Col(shape=(3,), dflt=0, pos=None)
    /   /   /   /   /)
    /   /   /   /]
-   /   /   /  '<New><Instance>_RowingGetStrsList' : ['MyInt', 'MyStr',
+   /   /   /  '<New><Instance>_RowingKeyStrsList' : ['MyInt', 'MyStr',
 'MyIntsList']
    /   /   /  '<Spe><Instance>FindingConditionVariable' :
    /   /   /   /[

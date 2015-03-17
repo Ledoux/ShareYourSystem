@@ -96,7 +96,7 @@ class RowerClass(
 
         #Definition
         RepresentingKeyStrsList=[
-'RowingGetStrsList',
+'RowingKeyStrsList',
 'RowedGetStrToColumnStrOrderedDict',
 'RowedColumnStrsList',
 'RowedPickOrderedDict',
@@ -107,7 +107,7 @@ class RowerClass(
 
         def default_init(
                                         self,
-                                        _RowingGetStrsList={
+                                        _RowingKeyStrsList={
 'DefaultValueType':property,
 'PropertyInitVariable':[],
                                                         'PropertyDocStr':''
@@ -179,7 +179,7 @@ BaseClass.ModelingDescriptionTuplesList.fdel,
 BaseClass.ModelingDescriptionTuplesList.__doc__
                                                                 )
 
-        def setRowingGetStrsList(self,_SettingValueVariable):
+        def setRowingKeyStrsList(self,_SettingValueVariable):
 
                 #debug
                 '''
@@ -187,7 +187,7 @@ BaseClass.ModelingDescriptionTuplesList.__doc__
                 '''
 
                 #set
-                self._RowingGetStrsList=_SettingValueVariable
+                self._RowingKeyStrsList=_SettingValueVariable
 
                 #debug
                 '''
@@ -235,7 +235,7 @@ self.RowedGetStrToColumnStrOrderedDict[__RowingGetStr],
                         self.RowedPickOrderedDict.update(
                                 zip(
                                         self.RowedColumnStrsList,
-self.NodePointDeriveNoder.pick(self.RowingGetStrsList)
+self.NodePointDeriveNoder.pick(self.RowingKeyStrsList)
                                 )
                         )
 
@@ -339,7 +339,7 @@ MyStructurer=Structurer.StructurerClass().collect(
                     ('MyIntsList','MyIntsList',(tables.Int64Col(shape=3)))
                 ]
             ),
-            ('Attr_RowingGetStrsList',['MyInt'])
+            ('Attr_RowingKeyStrsList',['MyInt'])
         ]
     )
 )
@@ -417,8 +417,8 @@ MyStructurer is < (StructurerClass), 4563969424>
    /   /   /   /   /  2 : Int64Col(shape=(3,), dflt=0, pos=None)
    /   /   /   /   /)
    /   /   /   /]
-   /   /   /  '<New><Instance>_RowingGetStrsList' : ['MyInt']
-   /   /   /  '<Spe><Class>RowingGetStrsList' : {...}< (list), 4561768600>
+   /   /   /  '<New><Instance>_RowingKeyStrsList' : ['MyInt']
+   /   /   /  '<Spe><Class>RowingKeyStrsList' : {...}< (list), 4561768600>
    /   /   /  '<Spe><Instance>RowedColumnStrsList' : ['MyInt']
    /   /   /  '<Spe><Instance>RowedGetStrToColumnStrOrderedDict' :
    /   /   /   /{

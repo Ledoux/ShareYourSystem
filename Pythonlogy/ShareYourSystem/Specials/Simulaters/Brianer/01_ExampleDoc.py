@@ -1,55 +1,9 @@
 #ImportModules
 import ShareYourSystem as SYS
 
-"""
-MyPointer=SYS.PointerClass(
-	).set(
-		'MyList',
-		{'#value':'>>map(lambda __Int:__Int+1,[1,2])'}
-	)
-"""
-
-MyPointer=SYS.PointerClass(
-	).set(
-		'MyList',
-		{
-			'#value:#lambda':{
-				'MyInt':'#get:>>#__Variable+1'
-			},
-			'#map@get':[1,2]
-		}
-	)
-
-
-"""
-MyPointer=SYS.PointerClass(
-	).set(
-		'-Populations',
-		{
-			'array':[
-				['|E','|I'],
-			]
-		}
-	)
-"""
-
-"""
-MyPointer=SYS.PointerClass(
-	).set(
-		'-Populations',
-		{
-			'array':[
-				['|E','|I'],
-			]
-		}
-	)
-"""
-SYS._print(MyPointer)
 
 
 
-
-"""
 #Definition
 MyBrianer=SYS.BrianerClass(
 	).set(
@@ -70,83 +24,56 @@ MyBrianer=SYS.BrianerClass(
 						'reset':'v=-60*mV'
 					},
 					'get':'/-Spikes/|Run',
-					'ParentingTriggerVariable':[
-						pass
-
-					]
+					'ParentingTriggerVariable':{
+						'#value:#lambda':'#direct:<->/^/|#__Variable',
+						'#map':['E','I']
+					}
 				}
 			),
 			(
 				'|E',
 				{
-					'SimulatingUnitsInt':3200
+					'SimulatingUnitsInt':3200,
+					'ParentingTriggerVariable':{
+						'#value:#lambda':(
+							'#direct:<->/^/|#__Variable',
+							{
+								'SynapsingBrianKwargVariablesDict':{'pre':'ge+=1.62*mV'},
+								'SynapsingProbabilityVariable':0.02
+							}
+						),
+						'#map':['E','I']
+					}
+				}
+			),
+			(
+				'|I',
+				{
+					'SimulatingUnitsInt':800,
+					'ParentingTriggerVariable':{
+						'#value:#lambda':(
+							'#direct:<->/^/|#__Variable',
+							{
+								'SynapsingBrianKwargVariablesDict':{'pre':'gi-=9*mV'},
+								'SynapsingProbabilityFloat':0.02,
+								'MyList':None
+							}
+						),
+						'#map':['E','I']
+					}
 				}
 			)
 		]
-	)
-"""
-
-
-
-
-"""
-		['/-Populations/|E','/-Populations/|I'],
-		{
-				
-		}
-	).set(
-		'#each:/-Populations/|',
-		[
-			{
-				,
-				'ParentingTriggerVariable':
-				map
-								
-					,
-					[
-						(
-							'BrianSynapsingKwargVariablesDict',
-							{
-								'pre':'ge+=1.62*mV',
-							}
-						),
-						('SynapsingProbabilityVariable',0.02)
-					]
-
-					['E','I']
-					)	
-				]
-			},
-			{
-				'SimulatingUnitsInt':800,
-				'command':[
-					'-Posts',
-					map(
-						lambda __KeyStr:
-						(
-							'|Eto'+__KeyStr,
-							{
-								'ParentingTriggerVariable':
-								[
-									'<->/^/^/|I/-PreConnections',
-									(
-										'BrianSynapsingKwargVariablesDict',
-										{
-											'pre':'gi-=9*mV',
-										}
-									),
-									('SynapsingProbabilityVariable',0.02)
-								]
-							}
-						),
-						['E','I']
-					)	
-				]
-			}
-		]
 	).get('?v')
 
-"""
+
+#print
+print('MyBrianer is ')
+SYS._print(MyBrianer) 
+
+SYS._print(MyBrianer['/-Populations/|E/-Outlets/|_Top_Populations_E'].SynapsingProbabilityVariable)
+#.get('?v')
+
 
 #print
 #print('MyBrianer is ')

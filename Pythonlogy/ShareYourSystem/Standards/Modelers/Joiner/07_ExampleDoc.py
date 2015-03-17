@@ -29,7 +29,7 @@ class MultiplierClass(SYS.ControllerClass):
 						SYS.JoinerClass().update(
 							[
 								(
-									'Attr_RowingGetStrsList',
+									'Attr_RowingKeyStrsList',
 									['MultiplyingFirstInt','MultiplyingSecondInt']
 								)
 							]
@@ -69,7 +69,7 @@ class ModulizerClass(SYS.ControllerClass):
 					"Parameters",
 					SYS.JoinerClass().update(
 						[
-							('Attr_RowingGetStrsList',['ModulizingPowerFloat']),
+							('Attr_RowingKeyStrsList',['ModulizingPowerFloat']),
 							('ConnectingGraspClueVariablesList',
 								[
 									'/NodePointDeriveNoder/<Components>RealMultiplier/<Joiners>ParametersJoiner',

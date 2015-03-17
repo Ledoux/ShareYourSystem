@@ -163,8 +163,8 @@ class JoinerClass(BaseClass):
 				self.JoinedInsertIndexIntsList
 			)
 
-		#Add in the RowingGetStrsList
-		self.RowingGetStrsList+=self.JoinedRetrieveIndexesListGetStrsList
+		#Add in the RowingKeyStrsList
+		self.RowingKeyStrsList+=self.JoinedRetrieveIndexesListGetStrsList
 
 		#debug
 		self.debug('Now row with Featurer')

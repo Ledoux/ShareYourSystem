@@ -53,7 +53,7 @@ MySumer=SumerClass(
 						('SumingSecondInt','SumingSecondInt',tables.Int64Col())
 					]
 				),
-				('Attr_RowingGetStrsList',['SumingFirstInt','SumingSecondInt'])
+				('Attr_RowingKeyStrsList',['SumingFirstInt','SumingSecondInt'])
 			]
 		)
 	).collect(

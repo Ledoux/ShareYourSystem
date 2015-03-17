@@ -26,13 +26,9 @@ MyMaker=MakerClass(
 		}
 	).set(
 		'/-Models/|Thing',
-		{
-			'ModelKeyStrsList':
-			[	
-				'MyStr',
-				'MakingMyIntsList'
-			]	
-		}
+		[
+			('ModelKeyStrsList',['MyStr','MakingMyIntsList'])	
+		]
 	).get('?v')
 
 #Build a structure with a database

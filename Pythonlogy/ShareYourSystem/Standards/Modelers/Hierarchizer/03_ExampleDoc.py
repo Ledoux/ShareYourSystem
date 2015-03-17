@@ -38,7 +38,7 @@ class SumerClass(SYS.ControllerClass):
 								('SumingSecondInt','SumingSecondInt',tables.Int64Col())
 							]
 						),
-						('Attr_RowingGetStrsList',['SumingFirstInt','SumingSecondInt'])
+						('Attr_RowingKeyStrsList',['SumingFirstInt','SumingSecondInt'])
 					]
 				)
 			)
@@ -114,7 +114,7 @@ class FactorizerClass(SYS.ControllerClass):
 									('FactorizingPowerFloat','FactorizingPowerFloat',tables.Float64Col())
 								]
 							),
-							('Attr_RowingGetStrsList',['FactorizingPowerFloat']),
+							('Attr_RowingKeyStrsList',['FactorizingPowerFloat']),
 							('ConnectingGraspClueVariablesList',
 								[
 									'/NodePointDeriveNoder/<Components>XSumer/<Hierarchizers>ParametersHierarchizer',

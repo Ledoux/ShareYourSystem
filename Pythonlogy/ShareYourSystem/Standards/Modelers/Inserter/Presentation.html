@@ -1811,15 +1811,15 @@ class InserterClass(
         #Call the parent init method
         BaseClass.__init__(self,**_KwargVariablesDict)
 
-    def setRowingGetStrsList(self,_SettingValueVariable):
+    def setRowingKeyStrsList(self,_SettingValueVariable):
 
         #Hook
-        BaseClass.setRowingGetStrsList(self,_SettingValueVariable)
+        BaseClass.setRowingKeyStrsList(self,_SettingValueVariable)
 
         #Bind 
         self.InsertedNotRowGetStrsList=list(set(SYS.unzip(
             self.ModelingDescriptionTuplesList,[0]
-        ))-set(self.RowingGetStrsList))
+        ))-set(self.RowingKeyStrsList))
 
         #set
         self.InsertedNotRowColumnStrsList=map(
@@ -1827,11 +1827,11 @@ class InserterClass(
             self.RowedGetStrToColumnStrOrderedDict[__NotRowGetStr],
             self.InsertedNotRowGetStrsList
         )
-    RowingGetStrsList=property(
-                                    BaseClass.RowingGetStrsList.fget,
-                                    setRowingGetStrsList,
-                                    BaseClass.RowingGetStrsList.fdel,
-                                    BaseClass.RowingGetStrsList.__doc__
+    RowingKeyStrsList=property(
+                                    BaseClass.RowingKeyStrsList.fget,
+                                    setRowingKeyStrsList,
+                                    BaseClass.RowingKeyStrsList.fdel,
+                                    BaseClass.RowingKeyStrsList.__doc__
                                 )
 
 
@@ -2039,7 +2039,7 @@ In&nbsp;[3]:
                     <span class="p">(</span><span class="s">&#39;MyIntsList&#39;</span><span class="p">,</span><span class="s">&#39;MyIntsList&#39;</span><span class="p">,(</span><span class="n">tables</span><span class="o">.</span><span class="n">Int64Col</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="mi">3</span><span class="p">)))</span>
                 <span class="p">]</span>
             <span class="p">),</span>
-            <span class="p">(</span><span class="s">&#39;Attr_RowingGetStrsList&#39;</span><span class="p">,[</span><span class="s">&#39;MyInt&#39;</span><span class="p">])</span>
+            <span class="p">(</span><span class="s">&#39;Attr_RowingKeyStrsList&#39;</span><span class="p">,[</span><span class="s">&#39;MyInt&#39;</span><span class="p">])</span>
         <span class="p">]</span>
     <span class="p">)</span>
 <span class="p">)</span>
@@ -2132,7 +2132,7 @@ MyStructurer is &lt; (StructurerClass), 4565259152&gt;
    /   /   /   /   /  2 : Int64Col(shape=(3,), dflt=0, pos=None)
    /   /   /   /   /)
    /   /   /   /]
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;_RowingGetStrsList&apos; : [&apos;MyInt&apos;]
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;_RowingKeyStrsList&apos; : [&apos;MyInt&apos;]
    /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;InsertedIndexInt&apos; : -1
    /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;InsertedNotRowColumnStrsList&apos; : [&apos;MyStr&apos;, &apos;MyIntsList&apos;]
    /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;InsertedNotRowGetStrsList&apos; : [&apos;MyStr&apos;, &apos;MyIntsList&apos;]

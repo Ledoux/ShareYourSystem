@@ -38,7 +38,7 @@ class MultiplierClass(Storer.StorerClass):
 										('MultiplyingSecondInt','MultiplyingSecondInt',tables.Int64Col())
 									]
 								),
-								('Attr_RowingGetStrsList',['MultiplyingFirstInt','MultiplyingSecondInt'])
+								('Attr_RowingKeyStrsList',['MultiplyingFirstInt','MultiplyingSecondInt'])
 							]
 						)
 				)
@@ -82,7 +82,7 @@ class ModulizerClass(Storer.StorerClass):
 									('ModulizingPowerFloat','ModulizingPowerFloat',tables.Float64Col())
 								]
 							),
-							('Attr_RowingGetStrsList',['ModulizingPowerFloat'])
+							('Attr_RowingKeyStrsList',['ModulizingPowerFloat'])
 						]
 					)
 				)

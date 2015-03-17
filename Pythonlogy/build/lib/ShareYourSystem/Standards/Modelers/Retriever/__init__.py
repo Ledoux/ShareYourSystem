@@ -32,8 +32,7 @@ from ShareYourSystem.Standards.Controllers import Controller
 class RetrieverClass(BaseClass):
 
 	def default_init(self,
-						_RetrievingIndexesList=None,
-						_RetrievingDatabaseStr='mongo',
+						_RetrievingIndexIntsList=None,
 						_RetrievedColumnStrToGetStrOrderedDict=None,
 						_RetrievedRowInt=-1,			
 						_RetrievedHdfTable=None, 			
@@ -56,7 +55,7 @@ class RetrieverClass(BaseClass):
 					[
 						('self.',self,[
 										'ModeledHdfKeyStrsList',
-										'RetrievingIndexesList'
+										'RetrievingIndexIntsList'
 									])
 					]
 				)
@@ -64,7 +63,7 @@ class RetrieverClass(BaseClass):
 
 		#Check
 		if len(self.ModelingDescriptionTuplesList)>0:
-			self.RetrievingDatabaseStr='hdf'
+			self.ModelMongoBool='hdf'
 
 		#debug
 		'''
@@ -77,10 +76,10 @@ class RetrieverClass(BaseClass):
 		'''
 
 		#set the RetrievedRowInt
-		self.RetrievedRowInt=self.RetrievingIndexesList[1]
+		self.RetrievedRowInt=self.RetrievingIndexIntsList[1]
 
 		#Check
-		if self.RetrievingDatabaseStr=='mongo':
+		if self.ModelMongoBool:
 
 			#/################/#
 			# Get the collection and find_one
@@ -89,7 +88,7 @@ class RetrieverClass(BaseClass):
 			#Definition the RetrievedMongoCollection
 			self.RetrievedMongoCollection=self.ModeledMongoCollectionsOrderedDict[
 				self.ModeledMongoKeyStrsList[
-					self.RetrievingIndexesList[0]
+					self.RetrievingIndexIntsList[0]
 				]
 			]
 
@@ -125,7 +124,7 @@ class RetrieverClass(BaseClass):
 			'''
 
 		#Check
-		if self.RetrievingDatabaseStr=='hdf':
+		if self.ModelHdfBool:
 
 			#/################/#
 			# Get the table and find
@@ -143,7 +142,7 @@ class RetrieverClass(BaseClass):
 			#Definition the RetrievedHdfTable
 			self.RetrievedHdfTable=self.ModeledHdfTablesOrderedDict[
 				self.ModeledHdfKeyStrsList[
-					self.RetrievingIndexesList[0]
+					self.RetrievingIndexIntsList[0]
 				]
 			]
 
@@ -266,7 +265,7 @@ Controller.ModelsClass.ManagingValueClass=RetrieverClass
 #</DefinePrint>
 RetrieverClass.PrintingClassSkipKeyStrsList.extend(
 	[
-		'RetrievingIndexesList',
+		'RetrievingIndexIntsList',
 		'RetrievedColumnStrToGetStrOrderedDict',
 		'RetrievedRowInt',			
 		'RetrievedHdfTable', 			

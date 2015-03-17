@@ -26,6 +26,7 @@ Rower=BaseModule
 from ShareYourSystem.Standards.Itemizers import Getter,Setter
 from ShareYourSystem.Standards.Modelers import Modeler
 from ShareYourSystem.Standards.Controllers import Controller
+import copy
 #</ImportSpecificModules>
 
 #<DefineClass>
@@ -35,12 +36,13 @@ class InserterClass(
 				):
 	
 	def default_init(self,
-					_InsertedNotRowGetStrsList=None,
+					_InsertedNotRowKeyStrsList=None,
 					_InsertedNotRowColumnStrsList=None,
 					_InsertedMongoNotRowPickOrderedDict=None,
 					_InsertedHdfNotRowPickOrderedDict=None,
 					_InsertedIndexInt=-1,	
 					_InsertedItemTuplesList=None,	
+					_InsertedErrorBool=False,
 					**_KwargVariablesDict
 					):
 
@@ -55,9 +57,11 @@ class InserterClass(
 		#
 
 		#debug
-		'''
-		self.debug('row maybe before...')
-		'''
+		self.debug(
+			[
+				'row maybe before...'
+			]
+		)
 		
 		#reset
 		self.setDone(Rower.RowerClass)
@@ -77,8 +81,18 @@ class InserterClass(
 		)
 		'''
 
+		#/###################/#
+		# set
+		# 
+
+		#Bind 
+		self.InsertedNotRowKeyStrsList=set(self.ModelKeyStrsList
+			)-set(
+				self.RowingKeyStrsList
+			)
+
 		#Check
-		if self.ModelingMongoBool:
+		if self.ModelMongoBool:
 
 			#/#################/#
 			# Check if the row is unique
@@ -112,8 +126,8 @@ class InserterClass(
 						[
 							'This is a new collection row',
 							('self.',self,[
-										'RowingGetStrsList',
-										'InsertedNotRowGetStrsList'
+										'RowingKeyStrsList',
+										'InsertedNotRowKeyStrsList'
 									]),
 							'Before update',
 							('self.',self,['InsertedMongoNotRowPickOrderedDict'])
@@ -124,11 +138,11 @@ class InserterClass(
 					#Pick and update				
 					self.InsertedMongoNotRowPickOrderedDict.update(
 						zip(
-								self.InsertedNotRowGetStrsList,
+								self.InsertedNotRowKeyStrsList,
 								self.ModelDeriveControllerVariable[
 									Getter.GetMapStr
 								](
-									*self.InsertedNotRowGetStrsList
+									*self.InsertedNotRowKeyStrsList
 								).ItemizedMapValueVariablesList
 							)
 					)
@@ -173,7 +187,14 @@ class InserterClass(
 					'''
 
 		#Check
-		if self.ModelingHdfBool:
+		if self.ModelHdfBool:
+
+			#map
+			self.InsertedNotRowColumnStrsList=map(
+				lambda __NotRowKeyStr:
+				self.RowKeyStrToColumnStrOrderedDict[__NotRowKeyStr],
+				self.InsertedNotRowKeyStrsList
+			)
 
 			#/#################/#
 			# Check if the row is unique
@@ -215,7 +236,7 @@ class InserterClass(
 						[
 							'We pick in the controller the values',
 							('self.',self,[
-								'InsertedNotRowGetStrsList'
+								'InsertedNotRowKeyStrsList'
 							])
 						]
 					)
@@ -224,21 +245,26 @@ class InserterClass(
 					#Pick and update				
 					self.InsertedHdfNotRowPickOrderedDict.update(
 						zip(
-								self.InsertedNotRowGetStrsList,
+								self.InsertedNotRowKeyStrsList,
 								self.ModelDeriveControllerVariable[
 									Getter.GetMapStr
 								](
-									*self.InsertedNotRowGetStrsList
+									*self.InsertedNotRowKeyStrsList
 									).ItemizedMapValueVariablesList
 							)
 					)
 
 					#debug
 					'''
-					self.debug(('self.',self,[
-												'RowedPickOrderedDict',
-												'InsertedHdfNotRowPickOrderedDict'
-											]))
+					self.debug(
+						[
+							'We prepare the InsertedItemTuplesList',
+							('self.',self,[
+											'RowedHdfPickOrderedDict',
+											'InsertedHdfNotRowPickOrderedDict'
+										])
+						]
+					)
 					'''
 
 					#Definition the InsertedItemTuplesList
@@ -263,6 +289,29 @@ class InserterClass(
 					)
 					'''
 					
+					#/###################/#
+					# Watch... The list or arrays needs to be at least one dimension
+					#
+
+					#debug
+					'''
+					self.debug(
+						[
+							'We filter the items that have null size...',
+							('self.',self,['InsertedItemTuplesList'])
+						]
+					)
+					'''
+
+					#filter
+					self.InsertedItemTuplesList=SYS._filter(
+						lambda __InsertedItemTuple:
+						hasattr(
+							__InsertedItemTuple[1],
+							'__len__'
+						)==False or len(__InsertedItemTuple[1])!=0,
+						self.InsertedItemTuplesList
+					)
 
 					try:
 
@@ -299,145 +348,203 @@ class InserterClass(
 						self.debug(
 								[
 									'It hasn\'t worked !',
-									'so find the shape that was not good'
+									'Check if we have already tried to change the shapes',
+									('self.',self,['InsertedErrorBool'])
 								]
 							)
 						'''
 
-						#/###################/#
-						# Then find where the shape was not good
-						#
+						#Check
+						if self.InsertedErrorBool==False:
 
-						#Definition the InsertedOldDimensionIntsListsList
-						InsertedOldDimensionIntsList=map(
-								lambda __ModeledDescriptionDimensionGetKeyStrsList:
-								self.ModelDeriveControllerVariable[Getter.GetMapStr](
-									__ModeledDescriptionDimensionGetKeyStrsList
-								).ItemizedMapValueVariablesList,
-								self.ModeledDescriptionDimensionGetKeyStrsListsList
-							)
+							#debug
+							'''
+							self.debug(
+									[
+										'First try to change shapes !',
+										'so find the shape that was not good'
+									]
+								)
+							'''
 
-						#import numpy
-						import numpy as np
+							#set
+							self.InsertedErrorBool=True
 
-						#Definition the InsertedNewDimensionIntsListsList
-						InsertedNewDimensionIntsListsList=map(
-							lambda __ModeledDescriptionGetKeyStr:
-							list(
-									np.shape(
-										self.ModelDeriveControllerVariable[
-											__ModeledDescriptionGetKeyStr
-										]
-									)
-							),
-							self.ModeledDescriptionGetKeyStrsList
-						)
+							#/###################/#
+							# Then find where the shape was not good
+							#
 
-						#debug
-						'''
-						self.debug(
-							[
-								('vars ',vars(),
-										[
-											'InsertedOldDimensionIntsList',
-											'InsertedNewDimensionIntsListsList'
-										]),
-								('self.',self,[
-										'ModeledDescriptionDimensionGetKeyStrsListsList'
-									])
-							]
-						)
-						'''
+							#Definition the InsertedOldDimensionIntsListsList
+							InsertedOldDimensionIntsList=map(
+									lambda __ModeledDescriptionDimensionGetKeyStrsList:
+									self.ModelDeriveControllerVariable[Getter.GetMapStr](
+										__ModeledDescriptionDimensionGetKeyStrsList
+									).ItemizedMapValueVariablesList,
+									self.ModeledDescriptionDimensionGetKeyStrsListsList
+								)
 
-						#set the shaping attributes to their new values
-						map(
-								lambda __ModeledDescriptionDimensionGetKeyStrsList,__InsertedOldDimensionList,__InsertedNewDimensionList:
-								self.__setitem__(
-									'ModeledErrorBool',
-									True
-									).ModelDeriveControllerVariable[
-										Setter.SetMapStr
-									](
-									zip(
-										__ModeledDescriptionDimensionGetKeyStrsList,
-										__InsertedNewDimensionList
+							#import numpy
+							import numpy as np
+
+							#Definition the InsertedNewDimensionIntsListsList
+							InsertedNewDimensionIntsListsList=map(
+								lambda __ModeledDescriptionGetKeyStr:
+								list(
+										np.shape(
+											self.ModelDeriveControllerVariable[
+												__ModeledDescriptionGetKeyStr
+											]
 										)
-								) if __InsertedNewDimensionList!=__InsertedOldDimensionList
-								else None,
-								self.ModeledDescriptionDimensionGetKeyStrsListsList,
-								InsertedOldDimensionIntsList,
-								InsertedNewDimensionIntsListsList
+								),
+								self.ModeledDescriptionGetKeyStrsList
 							)
 
-						#debug
-						'''
-						self.debug(
+							#debug
+							'''
+							self.debug(
 								[
-									'Ok we have updated the shaping variables'
-								]
-							)
-						'''
-
-						#/###################/#
-						# Reset the configurating methods
-						#
-
-						#debug
-						'''
-						self.debug(
-							[
-								'We reset some methods',
-								#('self.',self,['SwitchMethodDict'])
-							]
-						)
-						'''
-						
-						#switch model
-						self.setSwitch('model')
-
-						#setDone
-						self.setDone(
-							[
-								Modeler.ModelerClass,
-							]
-						)
-						
-						#debug
-						'''
-						self.debug(
-								[
-									'Now we remodel...',
+									('vars ',vars(),
+											[
+												'InsertedOldDimensionIntsList',
+												'InsertedNewDimensionIntsListsList'
+											]),
 									('self.',self,[
-										'WatchBeforeModelWithModelerBool',
-									])
+											'ModeledDescriptionDimensionGetKeyStrsListsList'
+										])
 								]
 							)
-						'''
+							'''
 
-						#model to relaunch everything
-						self.model()
+							#set the shaping attributes to their new values
+							map(
+									lambda __ModeledDescriptionDimensionGetKeyStrsList,__InsertedOldDimensionList,__InsertedNewDimensionList:
+									self.ModelDeriveControllerVariable[
+											Setter.SetMapStr
+										](
+										zip(
+											__ModeledDescriptionDimensionGetKeyStrsList,
+											__InsertedNewDimensionList
+											)
+									) if __InsertedNewDimensionList!=__InsertedOldDimensionList
+									else None,
+									self.ModeledDescriptionDimensionGetKeyStrsListsList,
+									InsertedOldDimensionIntsList,
+									InsertedNewDimensionIntsListsList
+								)
 
-						#/###################/#
-						# insert again
-						#
+							#debug
+							'''
+							self.debug(
+									[
+										'Ok we have updated the shaping variables'
+									]
+								)
+							'''
 
-						#debug
-						'''
-						self.debug(
-							[
-								'Ok model again is done, so now we insert'
-							]
-						)
-						'''
+							#/###################/#
+							# Reset the configurating methods
+							#
 
-						#insert 
-						self.insert()
+							#debug
+							self.debug(
+									[
+										'Refind the original ModelingDescriptionTuplesList',
+										('self.',self,[
+											'ModelingDescriptionTuplesList',
+											'ModelDescriptionTuplesList'
+										])
+									]
+								)
 
-						#return
-						return
+							#Keep the old ModelDescription
+							self.ModelingDescriptionTuplesList=copy.copy(
+								self.ModelDescriptionTuplesList
+							)
+
+							#switch model
+							self.setSwitch('model')
+
+							#setDone
+							self.setDone(
+								[
+									Modeler.ModelerClass,
+								]
+							)
+							
+							#debug
+							'''
+							self.debug(
+									[
+										'Now we remodel...',
+										('self.',self,[
+											'WatchBeforeModelWithModelerBool',
+											'ModelingDescriptionTuplesList'
+										])
+									]
+								)
+							'''
+
+							#model to relaunch everything
+							self.model()
+
+							#debug
+							'''
+							self.debug(
+									[
+										'Now we have remodeled...',
+										('self.',self,[
+											'ModelingDescriptionTuplesList'
+										])
+									]
+								)
+							'''
+
+							#/###################/#
+							# insert again
+							#
+
+							#debug
+							'''
+							self.debug(
+								[
+									'Ok model again is done, so now we insert'
+								]
+							)
+							'''
+
+							#switch row
+							self.setSwitch('row')
+
+							#insert 
+							self.MroClassesDict['InserterClass'].insert(self)
+
+							#debug
+							'''
+							self.debug(
+								[
+									'Cool it seems that insert worked now'
+								]
+							)
+							'''
+							
+							#set
+							self.InsertedErrorBool=False
+
+							#return
+							return
+
+						#Check
+						else:
+
+							#debug
+							self.debug(
+								[	
+									'Nope definitely that is not working...'
+								]
+							)
 
 					#/###################/#
-					# Finish woth append and flush
+					# Finish with append and flush
 					#
 
 					#debug
@@ -471,25 +578,7 @@ class InserterClass(
 		
 		#setSwitch row
 		self.setSwitch('row')
-
-	def propertize_setRowingGetStrsList(self,_SettingValueVariable):
 		
-		#Hook
-		BaseClass.propertize_setRowingGetStrsList(self,_SettingValueVariable)
-
-		#Bind 
-		self.InsertedNotRowGetStrsList=set(self.ModelKeyStrsList
-			)-set(
-				self.RowingGetStrsList
-			)
-
-		#set
-		if self.ModelingHdfBool:
-			self.InsertedNotRowColumnStrsList=map(
-				lambda __NotRowGetStr:
-				self.RowGetStrToColumnStrOrderedDict[__NotRowGetStr],
-				self.InsertedNotRowGetStrsList
-			)
 
 #</DefineClass>
 
@@ -500,7 +589,7 @@ Controller.ModelsClass.ManagingValueClass=InserterClass
 #</DefinePrint>
 InserterClass.PrintingClassSkipKeyStrsList.extend(
 	[
-		'InsertedNotRowGetStrsList',
+		'InsertedNotRowKeyStrsList',
 		'InsertedNotRowColumnStrsList',
 		'InsertedMongoNotRowPickOrderedDict',
 		'InsertedHdfNotRowPickOrderedDict',

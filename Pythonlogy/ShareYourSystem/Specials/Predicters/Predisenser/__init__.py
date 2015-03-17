@@ -74,8 +74,8 @@ def getFourierFloatsArray(
 				map(
 					lambda __FrequencyFloat,__PhaseFloat: 
 					np.cos(2.*np.pi*0.001*__TimeFloat*__FrequencyFloat+__PhaseFloat),
-					[5.,15.,25.,35.,55.],
-					[np.pi/2.,np.pi/4.,np.pi/6.,np.pi/12.,np.pi/4.]
+					[200.],
+					[np.pi/2.]
 				)
 			),
 			np.arange(0.,_RunTimeFloat,_StepTimeFloat)
@@ -168,7 +168,7 @@ class PredisenserClass(BaseClass):
 					],
 					self.PredisensingRunTimeFloat,
 					self.PredisensingStepTimeFloat
-				)+0.*self.PredisensingClampFloat*getFourierFloatsArray(
+				)*self.PredisensingClampFloat*getFourierFloatsArray(
 					self.PredisensingRunTimeFloat,
 					self.PredisensingStepTimeFloat
 				),

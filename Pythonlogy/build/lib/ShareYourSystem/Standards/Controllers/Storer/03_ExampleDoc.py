@@ -19,7 +19,7 @@ MyController=SYS.ControllerClass(
 				('MyStr','MyStr',tables.StringCol(10)),
 				('MyIntsList','MyIntsList',tables.Int64Col(shape=3))
 			],
-			'RowingGetStrsList':[
+			'RowingKeyStrsList':[
 					'MyInt',
 					'MyStr'
 			]	

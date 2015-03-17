@@ -291,8 +291,16 @@ def do(
 		#Define
 		DoneKwargDict={}
 
+	#/################/#
+	# Set to default values the doing and done mutables 
+	#
+
 	#set
-	_InstanceVariable.setDefaultMutable(DoClass)
+	_InstanceVariable.setDefaultMutable(
+		DoClass,
+		_AttributeKeyVariable=DoClass.DoingAttributeVariablesOrderedDict.keys(
+			)+DoClass.DoneAttributeVariablesOrderedDict.keys()
+	)
 
 	#debug
 	'''

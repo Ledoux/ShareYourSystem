@@ -23,7 +23,7 @@ MyController=Controller.ControllerClass(
 					('MyIntsList','MyIntsList',tables.Int64Col(shape=[3]))
 				]
 			),
-			('Attr_RowingGetStrsList',
+			('Attr_RowingKeyStrsList',
 				['MyInt','MyStr']
 			),
 			('ShapingDimensionTuplesList',

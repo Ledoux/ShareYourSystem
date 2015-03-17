@@ -57,7 +57,7 @@ class RowerClass(
 					self,
 					_RowGetStrToColumnStrOrderedDict=None,
 					_RowHdfColumnStrsList=None,
-					_RowingGetStrsList={
+					_RowingKeyStrsList={
 							'DefaultValueType':property,
 							'PropertyInitVariable':[],
 							'PropertyDocStr':''
@@ -98,7 +98,7 @@ class RowerClass(
 				#Update
 				self.RowedMongoPickOrderedDict.update(
 					zip(
-						self.RowingGetStrsList,
+						self.RowingKeyStrsList,
 						self.ModelDeriveControllerVariable[Getter.GetMapStr](
 							*self.ModelKeyStrsList
 						).ItemizedMapValueVariablesList
@@ -186,7 +186,7 @@ class RowerClass(
 				'''
 				self.debug(
 					('self.',self,[
-						'RowingGetStrsList',
+						'RowingKeyStrsList',
 						'RowHdfColumnStrsList'
 						])
 				)
@@ -197,7 +197,7 @@ class RowerClass(
 					zip(
 						self.RowHdfColumnStrsList,
 						self.ModelDeriveControllerVariable[Getter.GetMapStr](
-							*self.RowingGetStrsList
+							*self.RowingKeyStrsList
 						).ItemizedMapValueVariablesList
 					)
 				)
@@ -316,7 +316,7 @@ class RowerClass(
 				)
 		'''
 
-	def propertize_setRowingGetStrsList(self,_SettingValueVariable):
+	def propertize_setRowingKeyStrsList(self,_SettingValueVariable):
 		
 		#debug
 		'''
@@ -324,7 +324,7 @@ class RowerClass(
 		'''
 
 		#set
-		self._RowingGetStrsList=_SettingValueVariable
+		self._RowingKeyStrsList=_SettingValueVariable
 
 		#Check
 		if len(self.ModelingDescriptionTuplesList)>0:
@@ -360,7 +360,7 @@ class RowerClass(
 #</DefinePrint>
 RowerClass.PrintingClassSkipKeyStrsList.extend(
 	[
-		'RowingGetStrsList',
+		'RowingKeyStrsList',
 		'RowGetStrToColumnStrOrderedDict',
 		'RowHdfColumnStrsList',	
 		'RowedMongoPickOrderedDict',																									

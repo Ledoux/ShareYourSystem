@@ -230,7 +230,7 @@ __JoinedRetrieveIndexesListGetStr,__JoinedInsertIndexInt:
                 '''
                 self.debug([
                                                 ('Before updating the
-RowingGetStrsList'),
+RowingKeyStrsList'),
 #('self.',self,['NodePointDeriveNoder'])
                                                 ('model first to set the
 ModeledGetStrToColumStr')
@@ -241,9 +241,9 @@ ModeledGetStrToColumStr')
                 #Model first to set the ModeledGetStrToColumStr
                 #self.model()
 
-                #Add in the RowingGetStrsList
-                self.RowingGetStrsList=self.JoinedRetrieveIndexesListGetStrsList
-+self.RowingGetStrsList
+                #Add in the RowingKeyStrsList
+                self.RowingKeyStrsList=self.JoinedRetrieveIndexesListGetStrsList
++self.RowingKeyStrsList
 
                 #debug
                 '''
@@ -642,7 +642,7 @@ class MultiplierClass(Structurer.StructurerClass):
 ('MultiplyingSecondInt','MultiplyingSecondInt',tables.Int64Col())
                                     ]
                                 ),
-('Attr_RowingGetStrsList',['MultiplyingFirstInt','MultiplyingSecondInt'])
+('Attr_RowingKeyStrsList',['MultiplyingFirstInt','MultiplyingSecondInt'])
                             ]
                         )
                 )
@@ -686,7 +686,7 @@ class ModulizerClass(Structurer.StructurerClass):
 ('ModulizingPowerFloat','ModulizingPowerFloat',tables.Float64Col())
                                 ]
                             ),
-                            ('Attr_RowingGetStrsList',['ModulizingPowerFloat']),
+                            ('Attr_RowingKeyStrsList',['ModulizingPowerFloat']),
                             ('ConnectingGraspClueVariablesList',
                                 [
 '/NodePointDeriveNoder/<Component>RealMultiplier/<Datome>ParametersJoiner',
@@ -1020,7 +1020,7 @@ dflt=0, pos=None)
    /   /   /   /   /   /   /   /   /   /   /   /   /)
    /   /   /   /   /   /   /   /   /   /   /   /]
    /   /   /   /   /   /   /   /   /   /   /
-'<New><Instance>_RowingGetStrsList' : ['MultiplyingFirstInt',
+'<New><Instance>_RowingKeyStrsList' : ['MultiplyingFirstInt',
 'MultiplyingSecondInt']
    /   /   /   /   /   /   /   /   /   /   /
 '<Spe><Class>JoiningFindBeforeBool' : True
@@ -1085,7 +1085,7 @@ pos=None)
 pos=None)
    /   /   /   /   /   /   /   /   /   /)
    /   /   /   /   /   /   /   /   /]
-   /   /   /   /   /   /   /   /  '<New><Instance>_RowingGetStrsList' : ['Joined
+   /   /   /   /   /   /   /   /  '<New><Instance>_RowingKeyStrsList' : ['Joined
 TopModulizerParametersJoinerModelToRealMultiplierParametersJoinerModelRetrieveIn
 dexesList', 'JoinedTopModulizerParametersJoinerModelToImageMultiplierParametersJ
 oinerModelRetrieveIndexesList', 'JoinedTopModulizerParametersJoinerModelToRealMu
@@ -1151,7 +1151,7 @@ CatchToPointVariable
    /   /   /   /   /   /   /  2 : Int64Col(shape=(), dflt=0, pos=None)
    /   /   /   /   /   /   /)
    /   /   /   /   /   /]
-   /   /   /   /   /  '<New><Instance>_RowingGetStrsList' :
+   /   /   /   /   /  '<New><Instance>_RowingKeyStrsList' :
 ['MultiplyingFirstInt', 'MultiplyingSecondInt']
    /   /   /   /   /  '<Spe><Class>JoiningFindBeforeBool' : True
    /   /   /   /   /  '<Spe><Instance>JoinedCatchCollectionOrderedDict' :

@@ -91,15 +91,15 @@ class InserterClass(
                 #Call the parent init method
                 BaseClass.__init__(self,**_KwargVariablesDict)
 
-        def setRowingGetStrsList(self,_SettingValueVariable):
+        def setRowingKeyStrsList(self,_SettingValueVariable):
 
                 #Hook
-                BaseClass.setRowingGetStrsList(self,_SettingValueVariable)
+                BaseClass.setRowingKeyStrsList(self,_SettingValueVariable)
 
                 #Bind
                 self.InsertedNotRowGetStrsList=list(set(SYS.unzip(
                         self.ModelingDescriptionTuplesList,[0]
-                ))-set(self.RowingGetStrsList))
+                ))-set(self.RowingKeyStrsList))
 
                 #set
                 self.InsertedNotRowColumnStrsList=map(
@@ -107,11 +107,11 @@ class InserterClass(
                         self.RowedGetStrToColumnStrOrderedDict[__NotRowGetStr],
                         self.InsertedNotRowGetStrsList
                 )
-        RowingGetStrsList=property(
-BaseClass.RowingGetStrsList.fget,
-setRowingGetStrsList,
-BaseClass.RowingGetStrsList.fdel,
-BaseClass.RowingGetStrsList.__doc__
+        RowingKeyStrsList=property(
+BaseClass.RowingKeyStrsList.fget,
+setRowingKeyStrsList,
+BaseClass.RowingKeyStrsList.fdel,
+BaseClass.RowingKeyStrsList.__doc__
                                                                 )
 
 
@@ -321,7 +321,7 @@ MyStructurer=Structurer.StructurerClass().collect(
                     ('MyIntsList','MyIntsList',(tables.Int64Col(shape=3)))
                 ]
             ),
-            ('Attr_RowingGetStrsList',['MyInt'])
+            ('Attr_RowingKeyStrsList',['MyInt'])
         ]
     )
 )
@@ -411,7 +411,7 @@ MyStructurer is < (StructurerClass), 4563962256>
    /   /   /   /   /  2 : Int64Col(shape=(3,), dflt=0, pos=None)
    /   /   /   /   /)
    /   /   /   /]
-   /   /   /  '<New><Instance>_RowingGetStrsList' : ['MyInt']
+   /   /   /  '<New><Instance>_RowingKeyStrsList' : ['MyInt']
    /   /   /  '<Spe><Class>InsertedIndexInt' : -1
    /   /   /  '<Spe><Instance>InsertedNotRowColumnStrsList' : ['MyStr',
 'MyIntsList']

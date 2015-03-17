@@ -36,7 +36,7 @@ class MultiplierClass(SYS.ControllerClass):
 										('MultiplyingSecondInt','MultiplyingSecondInt',tables.Int64Col())
 									]
 								),
-								('Attr_RowingGetStrsList',['MultiplyingFirstInt','MultiplyingSecondInt'])
+								('Attr_RowingKeyStrsList',['MultiplyingFirstInt','MultiplyingSecondInt'])
 							]
 						)
 				)
@@ -80,7 +80,7 @@ class ModulizerClass(SYS.ControllerClass):
 									('ModulizingPowerFloat','ModulizingPowerFloat',tables.Float64Col())
 								]
 							),
-							('Attr_RowingGetStrsList',['ModulizingPowerFloat']),
+							('Attr_RowingKeyStrsList',['ModulizingPowerFloat']),
 							('ConnectingGraspClueVariablesList',
 								[
 									'/NodePointDeriveNoder/<Components>RealMultiplier/<Joiners>ParametersJoiner',

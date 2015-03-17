@@ -11,7 +11,7 @@ MyController=SYS.ControllerClass(
 	).set(
 		'/-Models/|Things',
 		{
-			'RowingGetStrsList':[
+			'RowingKeyStrsList':[
 				'MyInt',
 				'MyStr'
 			]

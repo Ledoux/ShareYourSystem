@@ -45,15 +45,15 @@ class InserterClass(
 		#Call the parent init method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 			
-	def propertize_setRowingGetStrsList(self,_SettingValueVariable):
+	def propertize_setRowingKeyStrsList(self,_SettingValueVariable):
 		
 		#Hook
-		BaseClass.propertize_setRowingGetStrsList(self,_SettingValueVariable)
+		BaseClass.propertize_setRowingKeyStrsList(self,_SettingValueVariable)
 
 		#Bind 
 		self.InsertedNotRowGetStrsList=set(self.ModelKeyStrsList
 			)-set(
-				self.RowingGetStrsList
+				self.RowingKeyStrsList
 			)
 
 		#set
@@ -156,7 +156,7 @@ class InserterClass(
 						[
 							'This is a new collection row',
 							('self.',self,[
-										'RowingGetStrsList',
+										'RowingKeyStrsList',
 										'InsertedNotRowGetStrsList'
 									]),
 							'Before update',

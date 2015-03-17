@@ -6,6 +6,7 @@ import ShareYourSystem as SYS
 MyController=SYS.ControllerClass(
 		**{
 			'FolderingPathStr':SYS.Inserter.LocalFolderPathStr,
+			'HdformatingFileKeyStr':'ThingAndStuff.hdf5'
 		}
 	).set(
 		'/-Models/|Stuff',
@@ -16,13 +17,12 @@ MyController=SYS.ControllerClass(
 				('MyInt','MyInt',SYS.tables.Int64Col()),
 				('MyFloatsList','MyFloatsList',(SYS.tables.Float64Col,['UnitsInt']))
 			],
-			'RowingGetStrsList':[
+			'RowingKeyStrsList':[
 				'MyInt',
 				'MyFloatsList'
 			]
 		}
 	).get('?v')
-
 
 MyController['#map@set'](
 		{

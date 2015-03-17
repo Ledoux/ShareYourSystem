@@ -1441,6 +1441,7 @@ class SetterClass(BaseClass):
 	def replaceMapVariable(self,_SetVariable,_MapVariable):
 
 		#debug
+		'''
 		self.debug(
 				[
 					'We replace a MapVariable here',
@@ -1450,8 +1451,8 @@ class SetterClass(BaseClass):
 					SYS._str(_MapVariable)
 				]
 			)
-
-
+		'''
+	
 		#Check
 		if hasattr(_SetVariable,'items'):
 
@@ -1459,8 +1460,10 @@ class SetterClass(BaseClass):
 			map(
 					lambda __ItemTuple:
 					_SetVariable.__setitem__(
-						__ItemTuple[0].replace(SetMapVariableStr,_MapVariable),
-						__ItemTuple[1].replace(SetMapVariableStr,_MapVariable)
+						#__ItemTuple[0].replace(SetMapVariableStr,_MapVariable),
+						self[__ItemTuple[0].replace(SetMapVariableStr,_MapVariable)],
+						#__ItemTuple[1].replace(SetMapVariableStr,_MapVariable)
+						self[__ItemTuple[1].replace(SetMapVariableStr,_MapVariable)]
 						if type(__ItemTuple[1])==str
 						else __ItemTuple[1]
 					),
@@ -1484,15 +1487,31 @@ class SetterClass(BaseClass):
 			_SetVariable=map(
 					lambda __ItemTuple:
 					(
-						__ItemTuple[0].replace(SetMapVariableStr,_MapVariable),
-						__ItemTuple[1].replace(SetMapVariableStr,_MapVariable)
+						#__ItemTuple[0].replace(SetMapVariableStr,_MapVariable),
+						self[__ItemTuple[0].replace(SetMapVariableStr,_MapVariable)],
+						#__ItemTuple[1].replace(SetMapVariableStr,_MapVariable)
+						self[__ItemTuple[1].replace(SetMapVariableStr,_MapVariable)]
 						if type(__ItemTuple[1])==str
-						else __ItemTuple[1]
+						#else __ItemTuple[1]
+						else self[__ItemTuple[1]]
 					),
 					_SetVariable
 				)
 
 			return _SetVariable
+
+		elif type(_SetVariable)==tuple and len(_SetVariable)==2:
+
+			#return
+			return (
+					#_SetVariable[0].replace(SetMapVariableStr,_MapVariable),
+					self[_SetVariable[0].replace(SetMapVariableStr,_MapVariable)],
+					#_SetVariable[1].replace(SetMapVariableStr,_MapVariable)
+					self[_SetVariable[1].replace(SetMapVariableStr,_MapVariable)]
+					if type(_SetVariable[1])==str 
+					#else _SetVariable[1]
+					else self[_SetVariable[1]]
+				)	
 
 		else:
 

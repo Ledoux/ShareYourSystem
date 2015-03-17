@@ -138,6 +138,13 @@ class ClassorClass(object):
 		#set a pointer to itself
 		_Class.SelfClass=_Class
 		_Class.MroClassesList=_Class.__mro__
+		_Class.MroClassesDict=dict(
+			map(
+				lambda __Class:
+				(__Class.__name__,__Class),
+				_Class.__mro__
+			)
+		)
 		
 		#Check
 		if hasattr(_Class,'callAllMro')==False:

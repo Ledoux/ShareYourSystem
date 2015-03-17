@@ -44,34 +44,47 @@ MySumer=SumerClass(
 		{
 			'-Models':[
 				('|Parameter',[
-					(
-						'ModelingDescriptionTuplesList',
-						[
-							#GetStr #ColumnStr #Col
-							('SumingFirstInt','SumingFirstInt',SYS.tables.Int64Col()),
-							('SumingSecondInt','SumingSecondInt',SYS.tables.Int64Col())
-						]
-					)
+					('ModelKeyStrsList',['SumingFirstInt','SumingSecondInt'])
 				]),
 				('|Result',[
-					(
-						'ModelingDescriptionTuplesList',
-						[
-							#GetStr #ColumnStr #Col
-							('SumedTotalInt','SumedTotalInt',SYS.tables.Int64Col())
-						]
-					),
-					(
-						'ParentingTriggerVariable',
-						[
-							'<->/^/|Parameter'
-						]
-					)
+					('ModelKeyStrsList',['SumedTotalInt']),
+					('ParentingTriggerVariable',['<->/^/|Parameter'])
 				])
 			]
 		}
 	).get('?v')
 
+#/######################/#
+# Insert in the model
+#
+
+MySumer['#map@set'](
+		[
+			('SumingFirstInt',1),
+			('SumingSecondInt',3)
+		]
+	).sum(
+	).command(
+		'/-Models/|Result',
+		[
+			'#call:insert',
+			('setSwitch',['insert'])
+		]
+	)
+
+
+print('N\n\n\nKKKKKKK\n\n\n')
+
+MySumer['#map@set'](
+		[
+			('SumingFirstInt',3),
+			('SumingSecondInt',5)
+		]
+	).sum(
+	).command(
+		'/-Models/|Result',
+		'#call:insert'
+	)
 
 #/######################/#
 # Print
@@ -80,3 +93,9 @@ MySumer=SumerClass(
 #print
 print('MySumer is ')
 SYS._print(MySumer)
+
+#view
+print('hdf5 file is : \n'+SYS._str(MySumer.hdfview()))
+
+#close
+MySumer.file(_ModeStr='c')

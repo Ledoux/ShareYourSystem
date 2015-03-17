@@ -228,7 +228,7 @@ class HierarchizerClass(BaseClass):
 		#debug
 		'''
 		self.debug([
-						('Before updating the RowingGetStrsList'),
+						('Before updating the RowingKeyStrsList'),
 						#('self.',self,['NodePointDeriveNoder'])
 						('model first to set the ModeledGetStrToColumStr')
 					]
@@ -237,18 +237,18 @@ class HierarchizerClass(BaseClass):
 
 		#debug
 		'''
-		self.debug(('self.',self,['RowingGetStrsList']))
+		self.debug(('self.',self,['RowingKeyStrsList']))
 		'''
 
-		#Add in the RowingGetStrsList
-		self.RowingGetStrsList=self.HierarchizedRetrieveIndexesListGetStrsList+self.RowingGetStrsList
+		#Add in the RowingKeyStrsList
+		self.RowingKeyStrsList=self.HierarchizedRetrieveIndexesListGetStrsList+self.RowingKeyStrsList
 
 		#debug
 		'''
 		self.debug(
 					[
 						'Now row with Featurer',
-						('self.',self,['RowingGetStrsList'])
+						('self.',self,['RowingKeyStrsList'])
 					]
 				)
 		'''

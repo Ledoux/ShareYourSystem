@@ -373,7 +373,7 @@ class JoinerClass(BaseClass):
 		#debug
 		'''
 		self.debug([
-						('Before updating the RowingGetStrsList'),
+						('Before updating the RowingKeyStrsList'),
 						#('self.',self,['NodePointDeriveNoder'])
 						('model first to set the ModeledGetStrToColumStr')
 					]
@@ -383,8 +383,8 @@ class JoinerClass(BaseClass):
 		#Model first to set the ModeledGetStrToColumStr
 		#self.model()
 
-		#Add in the RowingGetStrsList
-		self.RowingGetStrsList=self.JoinedRetrieveIndexesListGetStrsList+self.RowingGetStrsList
+		#Add in the RowingKeyStrsList
+		self.RowingKeyStrsList=self.JoinedRetrieveIndexesListGetStrsList+self.RowingKeyStrsList
 
 		#debug
 		self.debug('Now row with the BaseClass')

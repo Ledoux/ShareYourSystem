@@ -281,7 +281,7 @@ MyStructurer=Structurer.StructurerClass().collect(
                     ('MyIntsList','MyIntsList',(tables.Int64Col(shape=3)))
                 ]
             ),
-            ('Attr_RowingGetStrsList',['MyInt'])
+            ('Attr_RowingKeyStrsList',['MyInt'])
         ]
     )
 )
@@ -376,7 +376,7 @@ MyStructurer is < (StructurerClass), 4563994000>
    /   /   /   /   /  2 : Int64Col(shape=(3,), dflt=0, pos=None)
    /   /   /   /   /)
    /   /   /   /]
-   /   /   /  '<New><Instance>_RowingGetStrsList' : ['MyInt']
+   /   /   /  '<New><Instance>_RowingKeyStrsList' : ['MyInt']
    /   /   /  '<Spe><Instance>RetrievedColumnStrToGetStrOrderedDict' :
    /   /   /   /{
    /   /   /   /  'MyInt' : MyInt

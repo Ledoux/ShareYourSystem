@@ -56,13 +56,9 @@ class RowerClass(
 	
 	def default_init(
 					self,
-					_RowGetStrToColumnStrOrderedDict=None,
+					_RowKeyStrToColumnStrOrderedDict=None,
 					_RowHdfColumnStrsList=None,
-					_RowingGetStrsList={
-							'DefaultValueType':property,
-							'PropertyInitVariable':[],
-							'PropertyDocStr':''
-					},
+					_RowingKeyStrsList=None,
 					_RowedMongoPickOrderedDict=None, 																
 					_RowedHdfPickOrderedDict=None,
 					_RowedMongoIsBoolsList=None,	 
@@ -81,9 +77,11 @@ class RowerClass(
 		""""""
 		
 		#debug
-		'''
-		self.debug('We row here')
-		'''
+		self.debug(
+			[
+				'We row here'
+			]
+		)
 
 		#Check	
 		if self.ModelDeriveControllerVariable!=None:
@@ -94,12 +92,12 @@ class RowerClass(
 			'''
 
 			#Check
-			if self.ModelingMongoBool:
+			if self.ModelMongoBool:
 
 				#Update
 				self.RowedMongoPickOrderedDict.update(
 					zip(
-						self.RowingGetStrsList,
+						self.RowingKeyStrsList,
 						self.ModelDeriveControllerVariable[Getter.GetMapStr](
 							*self.ModelKeyStrsList
 						).ItemizedMapValueVariablesList
@@ -172,12 +170,39 @@ class RowerClass(
 				'''
 
 			#Check
-			if self.ModelingHdfBool:
+			if self.ModelHdfBool:
 
 				#debug
 				'''
 				self.debug('This is a hdf row here')
 				'''
+
+				#/##################/#
+				# First check the good size
+				#
+
+				if self.RowKeyStrToColumnStrOrderedDict==None or len(
+					self.ModelingDescriptionTuplesList)!=len(
+					self.RowKeyStrToColumnStrOrderedDict):
+
+					#Bind with RowGetStrToColumnStrOrderedDict setting
+					self.RowKeyStrToColumnStrOrderedDict=collections.OrderedDict(
+							map(
+								lambda _ModelingSealTuple:
+								(
+									_ModelingSealTuple[0],
+									_ModelingSealTuple[1]
+								),
+								self._ModelingDescriptionTuplesList
+								)
+							)
+
+					#Bind with 
+					self.RowHdfColumnStrsList=map(
+							lambda __RowingKeyStr:
+							self.RowKeyStrToColumnStrOrderedDict[__RowingKeyStr],
+							self.RowingKeyStrsList
+						)
 
 				#/#################/#
 				# Pick the values to be rowed in the hdf variables
@@ -187,24 +212,23 @@ class RowerClass(
 				'''
 				self.debug(
 					('self.',self,[
-						'RowingGetStrsList',
+						'RowingKeyStrsList',
 						'RowHdfColumnStrsList'
 						])
 				)
 				'''
-
+				
 				#Update
 				self.RowedHdfPickOrderedDict.update(
 					zip(
 						self.RowHdfColumnStrsList,
 						self.ModelDeriveControllerVariable[Getter.GetMapStr](
-							*self.RowingGetStrsList
+							*self.RowingKeyStrsList
 						).ItemizedMapValueVariablesList
 					)
 				)
 
 				#debug
-				'''
 				self.debug(
 					[
 						'Ok we have almost end the row',
@@ -215,7 +239,6 @@ class RowerClass(
 						'Check now if it is a new row'
 					]
 				)
-				'''
 
 				#/#################/#
 				# Check if it is a new row
@@ -238,13 +261,12 @@ class RowerClass(
 					)
 
 				#debug
-				'''
 				self.debug(
 					[
+						'Is is a new row ?',
 						('self.',self,['RowedHdfIsBoolsList'])
 					]
 				)	
-				'''
 				
 				#set
 				if len(self.RowedHdfIsBoolsList)==0:
@@ -268,93 +290,6 @@ class RowerClass(
 					]
 				)
 				'''
-	
-	def propertize_setModelingDescriptionTuplesList(self,_SettingValueVariable):
-
-		#debug
-		'''
-		self.debug(
-					[
-						'Before setting ModelingDescriptionTuplesList',
-						('self.',self,['ModelingDescriptionTuplesList']),
-						'_SettingValueVariable is '+str(_SettingValueVariable)
-					]
-				)
-		'''
-
-		#set
-		BaseClass.propertize_setModelingDescriptionTuplesList(self,_SettingValueVariable)
-
-		#debug
-		'''
-		self.debug(
-					[
-						'After',
-						('self.',self,['ModelingDescriptionTuplesList']),
-						'We bind with RowGetStrToColumnStrOrderedDict setting',
-					]
-				)
-		'''
-
-		#Bind with RowGetStrToColumnStrOrderedDict setting
-		self.RowGetStrToColumnStrOrderedDict=collections.OrderedDict(
-				map(
-					lambda _ModelingSealTuple:
-					(
-						_ModelingSealTuple[0],
-						_ModelingSealTuple[1]
-					),
-					self._ModelingDescriptionTuplesList
-					)
-				)
-
-		#debug
-		'''
-		self.debug(
-					[
-						('self.',self,['RowGetStrToColumnStrOrderedDict'])
-					]
-				)
-		'''
-
-	def propertize_setRowingGetStrsList(self,_SettingValueVariable):
-		
-		#debug
-		'''
-		self.debug('_SettingValueVariable '+str(_SettingValueVariable))
-		'''
-
-		#set
-		self._RowingGetStrsList=_SettingValueVariable
-
-		#Check
-		if len(self.ModelingDescriptionTuplesList)>0:
-			self.ModelingHdfBool=True
-
-		#Check
-		if self.ModelingHdfBool:
-
-			#debug
-			'''
-			self.debug(
-							[
-								'bind with RowHdfColumnStrsList setting',
-								('self.',self,['RowGetStrToColumnStrOrderedDict'])
-							]
-						)
-			'''
-			
-			#Bind with 
-			self.RowHdfColumnStrsList=map(
-					lambda __RowingGetStr:
-					self.RowGetStrToColumnStrOrderedDict[__RowingGetStr],
-					_SettingValueVariable
-				)
-
-			#debug
-			'''
-			self.debug(('self.',self,['RowHdfColumnStrsList']))
-			'''
 #</DefineClass>
 
 #<DefineLocals>
@@ -364,9 +299,9 @@ Controller.ModelsClass.ManagingValueClass=RowerClass
 #</DefinePrint>
 RowerClass.PrintingClassSkipKeyStrsList.extend(
 	[
-		'RowingGetStrsList',
-		'RowGetStrToColumnStrOrderedDict',
+		'RowingKeyStrsList',
 		'RowHdfColumnStrsList',	
+		'RowKeyStrToColumnStrOrderedDict',
 		'RowedMongoPickOrderedDict',																									
 		'RowedHdfPickOrderedDict',
 		'RowedMongoIsBoolsList',

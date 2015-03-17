@@ -90,8 +90,18 @@ def setSwitch(
 	# Adapt the shape of the mro doer to switch
 	#
 
-	#Check
+	#get
 	DoerClassesList=SYS.GetList(_DoerClassVariable)
+
+	#Debug
+	print('l 94 Switcher')
+	print('_DoerClassVariable is')
+	print(_DoerClassVariable)
+	print('DoerClassesList is')
+	print(DoerClassesList)
+	print('')
+
+	#Check
 	if _DoerClassVariable==None:
 
 		#/#################/#
@@ -136,7 +146,6 @@ def setSwitch(
 	#
 
 	#Debug
-	'''
 	print('l 139 Switcher')
 	#print('_InstanceVariable is ')
 	#print(_InstanceVariable)
@@ -147,7 +156,6 @@ def setSwitch(
 	print('HookStrsList is ')
 	print(HookStrsList)
 	print('')
-	'''
 	
 	#map
 	map(

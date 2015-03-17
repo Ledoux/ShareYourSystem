@@ -17,7 +17,7 @@ MyController=SYS.ControllerClass(
 				'MyStr',
 				'MyIntsList'
 			],
-			'RowingGetStrsList':[
+			'RowingKeyStrsList':[
 				'MyInt',
 				'MyStr'
 			]

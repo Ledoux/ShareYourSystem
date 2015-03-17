@@ -129,7 +129,7 @@ class OrganizerClass(BaseClass):
 								)
 							),
 							(
-								'Attr_RowingGetStrsList',
+								'Attr_RowingKeyStrsList',
 								self.__class__.DoingAttributeVariablesOrderedDict.keys()
 							),
 							(

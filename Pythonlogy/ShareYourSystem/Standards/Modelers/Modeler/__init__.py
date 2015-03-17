@@ -64,9 +64,9 @@ class ModelerClass(BaseClass):
 						'PropertyInitVariable':[],
 						'PropertyDocStr':'I described variables for storing them in hdf'
 					}, 		
-					_ModelingMongoBool=True,
-					_ModelingHdfBool=False,
-					_ModeledDescriptionTuplesList=None,						
+					_ModelMongoBool=True,
+					_ModelHdfBool=False,
+					_ModelDescriptionTuplesList=None,						
 					_ModeledDescriptionClassesOrderedDict=None,																
 					_ModeledDescriptionClass=None,
 					_ModeledMongoDeriveNoderVariable=None,
@@ -105,15 +105,23 @@ class ModelerClass(BaseClass):
 
 		#Debug
 		'''
-		self.debug('model start')
+		self.debug(
+				[
+					'model start',
+					('self.',self,[
+						'ModelMongoBool',
+						'ModelHdfBool'
+					])
+				]
+			)
 		'''
-
+		
 		#/###################/#
 		# Mongo Case
 		#
 
 		#Check
-		if self.ModelingMongoBool:
+		if self.ModelMongoBool:
 
 			#debug
 			'''
@@ -458,15 +466,28 @@ class ModelerClass(BaseClass):
 		#
 
 		#Check
-		if self.ModelingHdfBool:
+		if self.ModelHdfBool:
 
 			#/################/#
 			# Model is to modify modeling description so keep an old version of this before
 			#
 
+			#debug
+			self.debug(
+					[
+						'Keep maybe a copy of ModelingDescriptionTuplesList',
+						('self.',self,[
+							'ModelingDescriptionTuplesList',
+							'ModelDescriptionTuplesList'
+						])
+					]
+				)
+
 			#keep a memory
-			if self.ModelingDescriptionTuplesList!=None:
-				self.ModeledDescriptionTuplesList=copy.deepcopy(
+			if self.ModelDescriptionTuplesList==None:
+
+				#copy
+				self.ModelDescriptionTuplesList=copy.deepcopy(
 					self.ModelingDescriptionTuplesList
 				)
 
@@ -485,7 +506,7 @@ class ModelerClass(BaseClass):
 			'''
 
 			#Check
-			if len(self.ModelDimensionTuplesList)>0:
+			if self.ModelDimensionTuplesList!=None and len(self.ModelDimensionTuplesList)>0:
 
 				#set
 				[
@@ -662,9 +683,6 @@ class ModelerClass(BaseClass):
 					*self.ModeledDimensionGetKeyStrsList
 				).ItemizedMapValueVariablesList
 
-
-
-
 			else:
 
 				#Default
@@ -823,7 +841,7 @@ class ModelerClass(BaseClass):
 			#set the shaping cols
 			map(
 					lambda __ModeledIndexInt,__ModeledModelingDescriptionTuple:
-					self.ModeledDescriptionTuplesList.__setitem__(
+					self.ModelingDescriptionTuplesList.__setitem__(
 						__ModeledIndexInt,
 						__ModeledModelingDescriptionTuple
 					),
@@ -832,15 +850,37 @@ class ModelerClass(BaseClass):
 				)
 
 			#debug
-			'''	
 			self.debug(
 				[
-					"After the shape",
-					"Now self.ModeledDescriptionTuplesList is "+SYS._str(
-					self.ModeledDescriptionTuplesList)
+					"After the shape we check for the modeling description",
+					('self.',self,[
+							'ModelingDescriptionTuplesList',
+							'ModelKeyStrsList'
+						]
+					)
 				]
 			)
-			'''
+
+			#/###################/#
+			# Check maybe the Description was not yet done although there are ModelKeystrs
+			#
+
+			if len(self._ModelKeyStrsList)>len(self.ModelingDescriptionTuplesList):
+
+				#bind
+				self.propertize_setModelKeyStrsList(self._ModelKeyStrsList)
+
+			#debug
+			self.debug(
+				[
+					"After the bind",
+					('self.',self,[
+							'ModelingDescriptionTuplesList',
+							'ModelKeyStrsList'
+						]
+					)
+				]
+			)
 
 			#/###################/#
 			# Define the Description
@@ -860,19 +900,19 @@ class ModelerClass(BaseClass):
 			self.debug(
 				[
 					'We add descriptions in the description Class',
-					('self.',self,['ModeledDescriptionTuplesList'])
+					('self.',self,['ModelingDescriptionTuplesList'])
 				]
 			)
 			'''
 
 			#set the cols in the ModelClass
 			map(
-					lambda __ModeledColumnTuple:
+					lambda __ModelingColumnTuple:
 					DescriptionClass.columns.__setitem__(
-						__ModeledColumnTuple[1],
-						__ModeledColumnTuple[2]
+						__ModelingColumnTuple[1],
+						__ModelingColumnTuple[2]
 						),
-					self.ModeledDescriptionTuplesList
+					self.ModelingDescriptionTuplesList
 				)
 
 			#Give a name
@@ -1227,24 +1267,20 @@ class ModelerClass(BaseClass):
 			'''
 			self.debug(
 				[
-					"self.ModeledHdfKeyStr is "+str(self.ModeledHdfKeyStr)
+					'Ok we have setted which hdf table',
+					('self.',self,[
+							'ModeledHdfKeyStr',
+							'ModeledHdfIndexInt'
+						]),
+					'Now we create the table, or get it, depending if it is new or not',
+					('self.',self,[
+						'ModeledHdfKeyStr',
+						'ModeledHdfTopFileVariable'
+						])
 				]
 			)
 			'''
 
-			#debug
-			'''
-			self.debug(
-						[
-							'Here we create the table or get it depending if it is new or not',
-							('self.',self,[
-								'ModeledHdfKeyStr',
-								'ModeledHdfTopFileVariable'
-								])
-						]
-					)
-			'''
-			
 			#Check
 			if self.ModeledHdfKeyStr!="" and self.ModeledHdfTopFileVariable!=None:
 
@@ -1373,6 +1409,34 @@ class ModelerClass(BaseClass):
 			)
 		'''
 
+		#/#################/#
+		# Check if it is a hdf store
+		#
+
+		#Check
+		if self.ParentDeriveTeamerVariable.ParentTopDeriveTeamerVariable.HdformatingFileKeyStr!="":
+		
+			#set
+			self.ModelMongoBool=False
+			self.ModelHdfBool=True
+			
+		#debug
+		'''
+		self.debug(
+				[
+					'We have check which Mongo or hdf to do',
+					('self.',self,[
+							'ModelMongoBool',
+							'ModelHdfBool'
+						])
+				]
+			)
+		'''
+
+		#/#################/#
+		# Call the base method
+		#
+
 		#model
 		self.model()
 
@@ -1385,35 +1449,21 @@ class ModelerClass(BaseClass):
 		# Update the ModelKeyStrsList
 		#
 
-		#check
-		if self.ModelKeyStrsList==None:
-
-			#extend
-			self._ModelKeyStrsList=SYS.unzip(
-					_SettingValueVariable,
-					[0]
-				)
-
-		#/###################/#
-		# Check if it is a hdf or mongo model
-		#
+		#extend
+		self._ModelKeyStrsList=SYS.unzip(
+				_SettingValueVariable,
+				[0]
+			)
 
 		#debug
 		'''
 		self.debug(
 			[
+				'We have binded ModelingDescriptionTuplesList to ModelKeyStrsList',
 				('self.',self,['ModelingDescriptionTuplesList'])
 			]
 		)
 		'''
-
-		#Check
-		if len(self.ModelingDescriptionTuplesList)>0:
-			self.ModelingHdfBool=True
-			self.ModelingMongoBool=False
-		else:
-			self.ModelingHdfBool=False
-			self.ModelingMongoBool=True
 
 		#/###################/#
 		# Look for items where it is a get dimension
@@ -1445,25 +1495,45 @@ class ModelerClass(BaseClass):
 		#set
 		self._ModelKeyStrsList=_SettingValueVariable
 
-		#/###################/#
-		# Set ModelingDescriptionTuplesList
-		#
-
 		#debug
+		'''
 		self.debug(
 				[
-					'We know the ModelKeyStrsList',
-					'we set the ModelingDescriptionTuplesList',
-					('self.',self,['_ModelKeyStrsList'])
+					'Do we have to bind with Description',
+					('self.',self,[
+						'ModelHdfBool',
+						'ModelKeyStrsList'
+					])
 				]
 			)
+		'''
 
-		#map
-		self.ModelingDescriptionTuplesList=map(
-			lambda __KeyStr:
-			self.getModelDescriptionTupleWithKeyStr(__KeyStr),
-			_SettingValueVariable
-		)
+		#Check
+		if self.ModelHdfBool:
+
+			#/###################/#
+			# Set ModelingDescriptionTuplesList
+			#
+
+			#debug
+			'''
+			self.debug(
+					[
+						'We know the ModelKeyStrsList',
+						'we set the ModelingDescriptionTuplesList',
+						('self.',self,['_ModelKeyStrsList'])
+					]
+				)
+			'''
+
+			#map
+			self.ModelingDescriptionTuplesList=map(
+				lambda __KeyStr,__ModelingDescriptionTuple:
+				self.getModelDescriptionTupleWithKeyStr(__KeyStr)
+				if __ModelingDescriptionTuple==None else __ModelingDescriptionTuple,
+				_SettingValueVariable,
+				self.ModelingDescriptionTuplesList
+			)
 	
 	def getModelDescriptionTupleWithKeyStr(self,_KeyStr):
 		return (
@@ -1550,12 +1620,14 @@ class ModelerClass(BaseClass):
 					ModelOneColStr=ModelOneColStrsList[ModeledEndBoolsList.index(True)]
 
 					#debug
+					'''
 					self.debug(
 						[
 							'ModelOneColStr is ',
 							ModelOneColStr
 						]
 					)
+					'''
 
 					#Get the Col Class
 					if ModelOneColStr=='Str':
@@ -1580,6 +1652,7 @@ class ModelerClass(BaseClass):
 						ClassValueVariable=self.__class__.DefaultAttributeVariablesOrderedDict[_KeyStr]
 
 						#debug
+						'''
 						self.debug(
 							[
 								'There is a shape ',
@@ -1587,6 +1660,7 @@ class ModelerClass(BaseClass):
 								str(ClassValueVariable['ShapeKeyStrsList'])
 							]
 						)
+						'''
 
 						#Check
 						if hasattr(ClassValueVariable,'items') and 'ShapeKeyStrsList' in ClassValueVariable:
@@ -1614,9 +1688,9 @@ ModelerClass.PrintingClassSkipKeyStrsList.extend(
 		#'ModelKeyStrsList',	
 		'ModelingDescriptionTuplesList', 
 		'_ModelingDescriptionTuplesList', 
-		'ModelingMongoBool',
-		'ModelingHdfBool',	
-		'ModeledDescriptionTuplesList',						
+		'ModelMongoBool',
+		'ModelHdfBool',	
+		'ModelDescriptionTuplesList',						
 		'ModeledDescriptionClassesOrderedDict',																
 		#'ModeledDescriptionClass', 													
 		'ModelDeriveControllerVariable',

@@ -23,7 +23,7 @@ MyPredirater=SYS.PrediraterClass(
 		#PredictingNormalisationInt
 		1.,			
 		#PredictingCostFloat
-		1.,
+		0.,
 		#PredictingPerturbativeInputWeightFloat
 		0.5,
 		#PredictingPerturbativeLateralWeightFloat
@@ -45,11 +45,11 @@ MyPredirater=SYS.PrediraterClass(
 		#PrediratingConstantTimeFloat
 		1.,
 		#PrediratingTransferVariable
-		#SYS.numpy.tanh,
+		lambda _FloatsArray:0.2*SYS.numpy.tanh(5.*_FloatsArray),
 		#lambda _FloatsArray:_FloatsArray,
-		lambda _FloatsArray:SYS.Predirater.getThresholdArray(_FloatsArray,100.),
+		#lambda _FloatsArray:SYS.Predirater.getThresholdArray(_FloatsArray,100.),
 		#PrediratingMonitorIntsList
-		[0,1,3],
+		[0,1,3,4,5,6,7],
 		#PrediratingInititalFloat
 		0.1
 	).draw(

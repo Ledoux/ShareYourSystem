@@ -5,7 +5,8 @@ import ShareYourSystem as SYS
 #Define config
 MyController=SYS.ControllerClass(
 		**{
-			'FolderingPathStr':SYS.Inserter.LocalFolderPathStr
+			'FolderingPathStr':SYS.Inserter.LocalFolderPathStr,
+			'HdformatingFileKeyStr':'ThingAndStuff.hdf5'
 		}
 	).set(
 		'/-Models/|Thing',
@@ -16,7 +17,7 @@ MyController=SYS.ControllerClass(
 				('MyStr','MyStr',SYS.tables.StringCol(10)),
 				('MyIntsList','MyIntsList',SYS.tables.Int64Col(shape=3))
 			],
-			'RowingGetStrsList':[
+			'RowingKeyStrsList':[
 					'MyStr',
 					'MyIntsList'
 			]	

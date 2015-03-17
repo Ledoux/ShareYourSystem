@@ -253,7 +253,7 @@ MyStructurer=Structurer.StructurerClass().collect(
                     ('MyIntsList','MyIntsList',tables.Int64Col(shape=[3]))
                 ]
             ),
-            ('Attr_RowingGetStrsList',
+            ('Attr_RowingKeyStrsList',
                 ['MyInt','MyStr']
             ),
             ('ShapingDimensionTuplesList',
@@ -363,7 +363,7 @@ MyStructurer is < (StructurerClass), 4564328080>
    /   /   /   /   /  2 : Int64Col(shape=(2,), dflt=0, pos=None)
    /   /   /   /   /)
    /   /   /   /]
-   /   /   /  '<New><Instance>_RowingGetStrsList' : ['MyInt', 'MyStr']
+   /   /   /  '<New><Instance>_RowingKeyStrsList' : ['MyInt', 'MyStr']
    /   /   /  '<Spe><Instance>MergedRowedDictsList' :
    /   /   /   /[
    /   /   /   /  0 :

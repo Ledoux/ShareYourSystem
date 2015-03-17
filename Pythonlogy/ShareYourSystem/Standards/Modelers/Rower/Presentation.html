@@ -1816,7 +1816,7 @@ class RowerClass(
 
     #Definition
     RepresentingKeyStrsList=[
-                                'RowingGetStrsList',
+                                'RowingKeyStrsList',
                                 'RowedGetStrToColumnStrOrderedDict',
                                 'RowedColumnStrsList',                                                                                                        
                                 'RowedPickOrderedDict',
@@ -1827,7 +1827,7 @@ class RowerClass(
 
     def default_init(
                     self,
-                    _RowingGetStrsList={
+                    _RowingKeyStrsList={
                             'DefaultValueType':property,
                             'PropertyInitVariable':[],
                             'PropertyDocStr':''
@@ -1896,7 +1896,7 @@ class RowerClass(
                                     BaseClass.ModelingDescriptionTuplesList.__doc__
                                 )
 
-    def setRowingGetStrsList(self,_SettingValueVariable):
+    def setRowingKeyStrsList(self,_SettingValueVariable):
 
         #debug
         '''
@@ -1904,7 +1904,7 @@ class RowerClass(
         '''
 
         #set
-        self._RowingGetStrsList=_SettingValueVariable
+        self._RowingKeyStrsList=_SettingValueVariable
 
         #debug
         '''
@@ -1950,7 +1950,7 @@ class RowerClass(
             self.RowedPickOrderedDict.update(
                 zip(
                     self.RowedColumnStrsList,
-                    self.NodePointDeriveNoder.pick(self.RowingGetStrsList)
+                    self.NodePointDeriveNoder.pick(self.RowingKeyStrsList)
                 )
             )
 
@@ -2061,7 +2061,7 @@ In&nbsp;[3]:
                     <span class="p">(</span><span class="s">&#39;MyIntsList&#39;</span><span class="p">,</span><span class="s">&#39;MyIntsList&#39;</span><span class="p">,(</span><span class="n">tables</span><span class="o">.</span><span class="n">Int64Col</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="mi">3</span><span class="p">)))</span>
                 <span class="p">]</span>
             <span class="p">),</span>
-            <span class="p">(</span><span class="s">&#39;Attr_RowingGetStrsList&#39;</span><span class="p">,[</span><span class="s">&#39;MyInt&#39;</span><span class="p">])</span>
+            <span class="p">(</span><span class="s">&#39;Attr_RowingKeyStrsList&#39;</span><span class="p">,[</span><span class="s">&#39;MyInt&#39;</span><span class="p">])</span>
         <span class="p">]</span>
     <span class="p">)</span>
 <span class="p">)</span>
@@ -2142,8 +2142,8 @@ MyStructurer is &lt; (StructurerClass), 4565342480&gt;
    /   /   /   /   /  2 : Int64Col(shape=(3,), dflt=0, pos=None)
    /   /   /   /   /)
    /   /   /   /]
-   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;_RowingGetStrsList&apos; : [&apos;MyInt&apos;]
-   /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;RowingGetStrsList&apos; : {...}&lt; (list), 4557028168&gt;
+   /   /   /  &apos;&lt;New&gt;&lt;Instance&gt;_RowingKeyStrsList&apos; : [&apos;MyInt&apos;]
+   /   /   /  &apos;&lt;Spe&gt;&lt;Class&gt;RowingKeyStrsList&apos; : {...}&lt; (list), 4557028168&gt;
    /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;RowedColumnStrsList&apos; : [&apos;MyInt&apos;]
    /   /   /  &apos;&lt;Spe&gt;&lt;Instance&gt;RowedGetStrToColumnStrOrderedDict&apos; : 
    /   /   /   /{ 

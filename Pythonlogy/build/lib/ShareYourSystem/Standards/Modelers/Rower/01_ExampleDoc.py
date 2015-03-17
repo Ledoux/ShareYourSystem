@@ -8,10 +8,11 @@ MyController=SYS.ControllerClass(
 			'FolderingPathStr':SYS.Rower.LocalFolderPathStr
 		}
 	).set(
-		'/-Models/|Things',
+		'/-Models/|Thing',
 		{
 			'ModelKeyStrsList':['MyInt','MyStr','MyIntsList']	
 		}
+	).get('?v'
 	)['#map@set'](
 		{
 			'MyInt':0,
@@ -19,10 +20,19 @@ MyController=SYS.ControllerClass(
 			'MyIntsList':[2,4,1]
 		}
 	).command(
-		'/-Models/|Things',
+		'/-Models/|Thing',
 		'#call:row'
 	)
 	
+#Build a structure with a database
+SYS.mapSet(
+		MyController['/-Models/|Thing'].ModeledMongoCollection,
+		[
+			('remove',{}),
+			('insert',{'MyStr':"hello"})
+		]
+)
+
 #print
 print('mongo db is : \n'+SYS._str(MyController.pymongoview()))
 

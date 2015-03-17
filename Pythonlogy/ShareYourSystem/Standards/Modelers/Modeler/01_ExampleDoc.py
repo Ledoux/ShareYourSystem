@@ -7,12 +7,12 @@ MyController=SYS.ControllerClass(
 			'FolderingPathStr':SYS.Modeler.LocalFolderPathStr
 		}
 	).set(
-		'/-Models/|Things',
+		'/-Models/|Thing',
 	).get('?v')
 
 #Build a structure with a database
 SYS.mapSet(
-		MyController['/-Models/|Things'].ModeledMongoCollection,
+		MyController['/-Models/|Thing'].ModeledMongoCollection,
 		[
 			('remove',{}),
 			('insert',{'MyStr':"hello"})

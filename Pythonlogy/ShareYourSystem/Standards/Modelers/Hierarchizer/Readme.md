@@ -231,7 +231,7 @@ class SumerClass(Structurer.StructurerClass):
 ('SumingSecondInt','SumingSecondInt',tables.Int64Col())
                             ]
                         ),
-('Attr_RowingGetStrsList',['SumingFirstInt','SumingSecondInt'])
+('Attr_RowingKeyStrsList',['SumingFirstInt','SumingSecondInt'])
                     ]
                 )
             )
@@ -307,7 +307,7 @@ class FactorizerClass(Structurer.StructurerClass):
 ('FactorizingPowerFloat','FactorizingPowerFloat',tables.Float64Col())
                                 ]
                             ),
-('Attr_RowingGetStrsList',['FactorizingPowerFloat']),
+('Attr_RowingKeyStrsList',['FactorizingPowerFloat']),
                             ('ConnectingGraspClueVariablesList',
                                 [
 '/NodePointDeriveNoder/<Component>XSumer/<Datome>ParametersHierarchizer',
@@ -750,7 +750,7 @@ dflt=0, pos=None)
 dflt=0.0, pos=None)
    /   /   /   /   /   /   /   /   /   /   /   /)
    /   /   /   /   /   /   /   /   /   /   /]
-   /   /   /   /   /   /   /   /   /   /  '<New><Instance>_RowingGetStrsList' : 
+   /   /   /   /   /   /   /   /   /   /  '<New><Instance>_RowingKeyStrsList' : 
 ['JoinedTopFactorizerResultsHierarchizerModelToTopFactorizerParametersHierarchiz
 erModelRetrieveIndexesList', 'JoinedTopFactorizerResultsHierarchizerModelToTopFa
 ctorizerParametersHierarchizerModelRetrieveIndexesList', 'JoinedTopFactorizerRes
@@ -915,7 +915,7 @@ Int64Col(shape=(), dflt=0, pos=None)
    /   /   /   /   /   /   /   /   /   /   /   /   /   /   /   /)
    /   /   /   /   /   /   /   /   /   /   /   /   /   /   /]
    /   /   /   /   /   /   /   /   /   /   /   /   /   /
-'<New><Instance>_RowingGetStrsList' : ['JoinedYSumerResultsHierarchizerModelToYS
+'<New><Instance>_RowingKeyStrsList' : ['JoinedYSumerResultsHierarchizerModelToYS
 umerParametersHierarchizerModelRetrieveIndexesList', 'JoinedYSumerResultsHierarc
 hizerModelToYSumerParametersHierarchizerModelRetrieveIndexesList', 'JoinedYSumer
 ResultsHierarchizerModelToYSumerParametersHierarchizerModelRetrieveIndexesList',
@@ -1022,7 +1022,7 @@ dflt=0, pos=None)
    /   /   /   /   /   /   /   /   /   /   /   /   /)
    /   /   /   /   /   /   /   /   /   /   /   /]
    /   /   /   /   /   /   /   /   /   /   /
-'<New><Instance>_RowingGetStrsList' : ['SumingFirstInt', 'SumingSecondInt']
+'<New><Instance>_RowingKeyStrsList' : ['SumingFirstInt', 'SumingSecondInt']
    /   /   /   /   /   /   /   /   /   /   /}
    /   /   /   /   /   /   /   /   /   /  '<Spe><Class>PointedBackSetStr' :
    /   /   /   /   /   /   /   /   /   /  '<Spe><Class>PointedPathBackVariable'
@@ -1090,7 +1090,7 @@ pos=None)
 pos=None)
    /   /   /   /   /   /   /   /   /   /)
    /   /   /   /   /   /   /   /   /]
-   /   /   /   /   /   /   /   /  '<New><Instance>_RowingGetStrsList' : ['Joined
+   /   /   /   /   /   /   /   /  '<New><Instance>_RowingKeyStrsList' : ['Joined
 TopFactorizerParametersHierarchizerModelToXSumerParametersHierarchizerModelRetri
 eveIndexesList', 'JoinedTopFactorizerParametersHierarchizerModelToYSumerParamete
 rsHierarchizerModelRetrieveIndexesList', 'JoinedTopFactorizerParametersHierarchi
@@ -1160,7 +1160,7 @@ CatchToPointVariable
    /   /   /   /   /   /   /  2 : Int64Col(shape=(), dflt=0, pos=None)
    /   /   /   /   /   /   /)
    /   /   /   /   /   /]
-   /   /   /   /   /  '<New><Instance>_RowingGetStrsList' : ['SumingFirstInt',
+   /   /   /   /   /  '<New><Instance>_RowingKeyStrsList' : ['SumingFirstInt',
 'SumingSecondInt']
    /   /   /   /   /}
    /   /   /   /  'ResultsHierarchizer' : {...}< (HierarchizerClass),

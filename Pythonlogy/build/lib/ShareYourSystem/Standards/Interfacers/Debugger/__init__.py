@@ -286,7 +286,7 @@ class DebuggerClass(BaseClass):
 								#			+self.__class__.DefaultSpecificKeyStrsList,
 								self.__dict__.items()
 							)
-					)+DebuggingWhoStr
+					)+", "+str(self.PrintIdInt)+" "+DebuggingWhoStr
 
 			#Add the DebuggedStr from the debugging variable
 			DebuggedStr+=getDebuggedStrWithPrintVariable(
