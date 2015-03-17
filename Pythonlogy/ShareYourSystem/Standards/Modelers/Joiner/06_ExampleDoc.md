@@ -5,4 +5,4 @@ FrozenIsBool True
 
 ##Example
 
-Let's do a hierarchic components join with mongo
+Let's do a Pypet like join "results-parameters" in hdf

@@ -37,7 +37,6 @@ class SumerClass(SYS.ControllerClass):
 #Definition of a Storer instance with a noded data
 MySumer=SumerClass(
 	**{
-			'HdformatingFileKeyStr':'Sums_1.hdf5',
 			'FolderingPathStr':SYS.Joiner.LocalFolderPathStr
 		}
 	)['#map@set'](
@@ -70,12 +69,7 @@ MySumer['#map@set'](
 			'#call:insert',
 			('setSwitch',['insert'])
 		]
-	)
-
-
-print('N\n\n\nKKKKKKK\n\n\n')
-
-MySumer['#map@set'](
+	)['#map@set'](
 		[
 			('SumingFirstInt',3),
 			('SumingSecondInt',5)
@@ -91,11 +85,11 @@ MySumer['#map@set'](
 #
 
 #print
+print('mongo db is : \n'+SYS._str(MySumer.pymongoview()))
+
+#print
 print('MySumer is ')
 SYS._print(MySumer)
 
-#view
-print('hdf5 file is : \n'+SYS._str(MySumer.hdfview()))
-
-#close
-MySumer.file(_ModeStr='c')
+#Print
+MySumer.process(_ActionStr='kill')

@@ -71,7 +71,36 @@ def getPropertizedTupleWithItemTupleAndClass(_ItemTuple,_Class):
 
 			#Definition a default one
 			def PropertizedGetFunction(_InstanceVariable):
-				return getattr(_InstanceVariable,PropertizedHideKeyStr)
+
+				"""
+				#/#################/#
+				# return the one hidden in the dict
+				# else return the one in the class
+
+				#Check
+				if hasattr(_InstanceVariable,PropertizedHideKeyStr):
+
+					#return
+					return getattr(_InstanceVariable,PropertizedHideKeyStr)
+				else:
+
+					#return
+					return getattr(_InstanceVariable.__class__,PropertizedKeyStr)
+				"""
+
+				#/#################/#
+				# return the one hidden in the dict
+				# else return None
+
+				if hasattr(_InstanceVariable,PropertizedHideKeyStr):
+		
+					#return
+					return getattr(_InstanceVariable,PropertizedHideKeyStr)
+
+				else:
+
+					return None
+
 			PropertizedGetFunction.__name__=PropertizedGetFunctionStr
 
 		#/###################/#

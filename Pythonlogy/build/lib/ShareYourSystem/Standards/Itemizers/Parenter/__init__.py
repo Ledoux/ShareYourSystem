@@ -561,6 +561,14 @@ class ParenterClass(BaseClass):
 
 	def mimic__print(self,**_KwargVariablesDict):
 
+		#debug
+		'''
+		print('Parenter 525')
+		print('self.PrintingVariable.PrintingInstanceSkipKeyStrsList is ')
+		print(self.PrintingVariable.PrintingInstanceSkipKeyStrsList)
+		print('')
+		'''
+		
 		#/##################/#
 		# Modify the printing Variable
 		#

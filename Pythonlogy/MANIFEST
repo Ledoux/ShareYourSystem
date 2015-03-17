@@ -281,7 +281,6 @@ ShareYourSystem/Standards/Classors/Switcher/02_ExampleDoc.md
 ShareYourSystem/Standards/Classors/Switcher/03_ExampleDoc.py
 ShareYourSystem/Standards/Classors/Switcher/04_ExampleDoc.md
 ShareYourSystem/Standards/Classors/Switcher/05_ExampleDoc.py
-ShareYourSystem/Standards/Classors/Switcher/06_ExampleDoc.md
 ShareYourSystem/Standards/Classors/Switcher/07_ExampleDoc.py
 ShareYourSystem/Standards/Classors/Switcher/Readme.md
 ShareYourSystem/Standards/Classors/Switcher/__init__.py
@@ -885,6 +884,12 @@ ShareYourSystem/Standards/Modelers/Joiner/ProcessTemp.txt
 ShareYourSystem/Standards/Modelers/Joiner/Readme.md
 ShareYourSystem/Standards/Modelers/Joiner/Test.py
 ShareYourSystem/Standards/Modelers/Joiner/__init__.py
+ShareYourSystem/Standards/Modelers/Joiner/data/db/journal/j._0
+ShareYourSystem/Standards/Modelers/Joiner/draft/03_ExampleDoc.py
+ShareYourSystem/Standards/Modelers/Joiner/draft/04_ExampleDoc.md
+ShareYourSystem/Standards/Modelers/Joiner/draft/05_ExampleDoc.py
+ShareYourSystem/Standards/Modelers/Joiner/draft/06_ExampleDoc.md
+ShareYourSystem/Standards/Modelers/Joiner/draft/07_ExampleDoc.py
 ShareYourSystem/Standards/Modelers/Joiner/draft/Joiner copy 2.py
 ShareYourSystem/Standards/Modelers/Joiner/draft/Joiner copy 3.py
 ShareYourSystem/Standards/Modelers/Joiner/draft/Joiner copy 4.py
@@ -935,8 +940,6 @@ ShareYourSystem/Standards/Modelers/Rower/03_ExampleDoc.py
 ShareYourSystem/Standards/Modelers/Rower/Readme.md
 ShareYourSystem/Standards/Modelers/Rower/Test.py
 ShareYourSystem/Standards/Modelers/Rower/__init__.py
-ShareYourSystem/Standards/Modelers/Rower/data/db/journal/j._0
-ShareYourSystem/Standards/Modelers/Rower/data/db/journal/lsn
 ShareYourSystem/Standards/Modelers/Rower/draft/__init__ copy 2.py
 ShareYourSystem/Standards/Tutorials/00_ExampleDoc.md
 ShareYourSystem/Standards/Tutorials/01_ExampleDoc.py

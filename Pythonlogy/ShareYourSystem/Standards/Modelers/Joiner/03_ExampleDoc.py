@@ -1,6 +1,13 @@
+#/######################/#
+# Import
+#
 
 #ImportModules
 import ShareYourSystem as SYS
+
+#/######################/#
+# Define you object
+#
 
 #Define a Sumer class
 @SYS.ClasserClass()
@@ -14,7 +21,7 @@ class SumerClass(SYS.ControllerClass):
 					):
 
 		#Call the parent init method
-		self.__class__.__bases__[0].__init__(self,**_KwargVariablesDict)
+		SYS.ControllerClass.__init__(self,**_KwargVariablesDict)
 						
 	def do_sum(self):
 		
@@ -26,81 +33,67 @@ class SumerClass(SYS.ControllerClass):
 		#set the SumedTotalInt
 		self.SumedTotalInt=self.SumingFirstInt+self.SumingSecondInt
 
+#/######################/#
+# Build your model
+#
+
 #Definition of a Storer instance with a noded data
 MySumer=SumerClass(
-		**{
-				'HdformatingFileKeyStr':'Sums_2.hdf5',
-				'FolderingPathStr':SYS.Joiner.LocalFolderPathStr
-			}
-	).collect(
-		"Joiners",
-		"Parameters",
-		SYS.JoinerClass().update(
-			[
-				(
-					'Attr_ModelingDescriptionTuplesList',
-					[
-						('SumingFirstInt','SumingFirstInt',tables.Int64Col()),
-						('SumingSecondInt','SumingSecondInt',tables.Int64Col())
-					]
-				),
-				('Attr_RowingKeyStrsList',['SumingFirstInt','SumingSecondInt'])
-			]
-		)
-	).collect(
-		"Joiners",
-		"Results",
-		SYS.JoinerClass().update(
-			[
-				(
-					'Attr_ModelingDescriptionTuplesList',
-					[
-						('SumedTotalInt','SumedTotalInt',tables.Int64Col())
-					]
-				),
-				('ConnectingGraspClueVariablesList',
-					[
-						'/NodePointDeriveNoder/<Joiners>ParametersJoiner'
-					]
-				),
-				('TagStr','Networked')
-			]
-		)
-	).network(
-		**{
-			'RecruitingConcludeConditionVariable':[
-				(
-					'MroClassesList',
-					operator.contains,
-					SYS.JoinerClass
-				)
+	**{
+			'HdformatingFileKeyStr':'Sums_1.hdf5',
+			'FolderingPathStr':SYS.Joiner.LocalFolderPathStr
+		}
+	)['#map@set'](
+		{
+			'-Models':[
+				('|Parameter',[
+					('ModelKeyStrsList',['SumingFirstInt','SumingSecondInt'])
+				]),
+				('|Result',[
+					('ModelKeyStrsList',['SumedTotalInt']),
+					('ParentingTriggerVariable',['<->/^/|Parameter'])
+				])
 			]
 		}
-	)
+	).get('?v')
 
-#Update and store
-MySumer.update(
+#/######################/#
+# Insert in the model
+#
+
+MySumer['#map@set'](
 		[
 			('SumingFirstInt',1),
 			('SumingSecondInt',3)
 		]
 	).sum(
-	)['<Joiners>ParametersJoiner'].insert(
-)
+	).command(
+		'/-Models/|Result',
+		[
+			'#call:insert',
+			('setSwitch',['insert'])
+		]
+	)['#map@set'](
+		[
+			('SumingFirstInt',3),
+			('SumingSecondInt',5)
+		]
+	).sum(
+	).command(
+		'/-Models/|Result',
+		'#call:insert'
+	)
 
-#Definition the AttestedStr
-SYS._attest(
-	[
-		'MySumer is '+SYS._str(
-		MySumer,
-		**{
-			'RepresentingBaseKeyStrsListBool':False,
-			'RepresentingAlineaIsBool':False
-		}
-		),
-		'hdf5 file is : '+MySumer.hdfview()
-	]
-) 
+#/######################/#
+# Print
+#
+
+#print
+print('MySumer is ')
+SYS._print(MySumer)
+
+#view
+print('hdf5 file is : \n'+SYS._str(MySumer.hdfview()))
 
 #close
-MySumer.hdfclose()
+MySumer.file(_ModeStr='c')

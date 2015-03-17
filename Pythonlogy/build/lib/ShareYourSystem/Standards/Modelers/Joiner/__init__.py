@@ -45,6 +45,7 @@ JoinDeepStr='/'
 class JoinerClass(BaseClass):
 	
 	def default_init(self,
+						_JoiningRowBool=False,
 						_JoinedOutDerivePointersList=None,
 						_JoinedOutDeriveJoinersList=None,
 						_JoinedRetrieveIndexIntsListGetStrsList=None,
@@ -361,24 +362,30 @@ class JoinerClass(BaseClass):
 
 	def mimic_row(self):
 
-		#debug
-		'''
-		self.debug(
-					[
-						"We make the children row if it wasn\'t yet",
-						'We get their RowedMongoOrHdfIndexInt',
-						('self.',self,['JoinedOutDeriveJoinersList'])
-					]
-				)
-		'''
+		#/###################/#
+		# Check if we have to make row first the joined models
+		# (in a insert call it is already done)
 
-		#set
-		self.JoinedRowMongoIndexIntsList=map(
-					lambda __JoinedOutDeriveJoiner:
-					__JoinedOutDeriveJoiner.row(
-						),
-					self.JoinedOutDeriveJoinersList
-				)
+		#Check
+		if self.JoiningRowBool:
+
+			#debug
+			'''
+			self.debug(
+						[
+							"We make the children row if it wasn\'t yet",
+							'We get their RowedMongoOrHdfIndexInt',
+							('self.',self,['JoinedOutDeriveJoinersList'])
+						]
+					)
+			'''
+
+			#set
+			self.JoinedRowMongoIndexIntsList=map(
+						lambda __JoinedOutDeriveJoiner:
+						__JoinedOutDeriveJoiner.row(),
+						self.JoinedOutDeriveJoinersList
+					)
 
 		#Check
 		if self.ModelMongoBool:
@@ -386,8 +393,7 @@ class JoinerClass(BaseClass):
 			#set
 			self.JoinedRowMongoIndexIntsList=map(
 						lambda __JoinedOutDeriveJoiner:
-						__JoinedOutDeriveJoiner.row(
-							).RowedMongoIndexInt,
+						__JoinedOutDeriveJoiner.RowedMongoIndexInt,
 						self.JoinedOutDeriveJoinersList
 					)
 
@@ -485,17 +491,19 @@ class JoinerClass(BaseClass):
 		#
 
 		#debug
+		'''
 		self.debug(
 					[
 						'First make insert the out models',
 						('self.',self,['JoinedOutDerivePointersList'])
 					]
 				)
-
+		'''
+		
 		#Insert the post joined databases
 		map(
 			lambda __JoinedOutDeriveJoiner:
-			__JoinedOutDeriveJoiner.insert(),
+			__JoinedOutDeriveJoiner.insert(**{'JoiningRowBool':False}),
 			self.JoinedOutDeriveJoinersList
 		)
 
@@ -504,12 +512,14 @@ class JoinerClass(BaseClass):
 		#
 
 		#debug
+		'''
 		self.debug(
 			[
 				'Now we can insert here',
 				'we call the base method'
 			]
 		)
+		'''
 
 		#insert then
 		BaseClass.insert(self)
@@ -519,12 +529,16 @@ class JoinerClass(BaseClass):
 		#
 
 		#debug
+		'''
 		self.debug(
 					[
+						'self.getSwitch("row") is ',
+						SYS.indent(self.getSwitch("row")),
 						'setSwitch insert the out ',
 						('self.',self,['JoinedOutDerivePointersList'])
 					]
 				)
+		'''
 
 		#Insert the post joined databases
 		map(

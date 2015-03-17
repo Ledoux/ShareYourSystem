@@ -5,5 +5,4 @@ FrozenIsBool True
 
 ##Example
 
-Note that the joined catched databases doesn't make insert the attentioned ones.
-This is going to be implemented in the hierarchizer module
+Let's do a Pypet like join "results-parameters" in hdf

@@ -698,11 +698,13 @@ class PrinterClass(BaseClass):
 		#Debug
 		'''
 		print('l 680 _print')
-		print('_KwargVariablesDict is ')
-		print(_KwargVariablesDict)
+		#print('_KwargVariablesDict is ')
+		#print(_KwargVariablesDict)
+		print('self.PrintingVariable.PrintingInstanceSkipKeyStrsList is ')
+		print(self.PrintingVariable.PrintingInstanceSkipKeyStrsList)
 		print('')
 		'''
-
+		
 		#/###################/#
 		# Check if it is a ReprStr
 		# or just a PrintStr
@@ -841,6 +843,12 @@ class PrinterClass(BaseClass):
 		#/###################/#
 		# Print the Default Key Strs... form the Instance or the still the Class
 		#
+
+		#Debug
+		print('Printer l 846')
+		print('self.PrintingInstanceSkipKeyStrsList is ')
+		print(self.PrintingInstanceSkipKeyStrsList)
+		print('')
 
 		#filter the skip key strs
 		PrintedDefaultSpecificKeyStrsList=SYS._filter(

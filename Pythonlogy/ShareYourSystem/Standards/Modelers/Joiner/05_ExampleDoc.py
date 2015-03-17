@@ -1,165 +1,196 @@
+#/######################/#
+# Import
+#
+
 #ImportModules
 import ShareYourSystem as SYS
-import operator
-import tables
-import numpy as np
 
-#Define a Multiplier class
+#/######################/#
+# Define you hierarchic objects
+#
+
+#Define a Sumer class
 @SYS.ClasserClass()
 class MultiplierClass(SYS.ControllerClass):
-
-	#Definition
-	RepresentingKeyStrsList=[
-								'MultiplyingFirstInt',
-								'MultiplyingSecondInt'
-							]
 								
 	def default_init(self,
-						_MultiplyingFirstInt=0,
-						_MultiplyingSecondInt=0,
+						_MultiplyingFirstFloat=0,
+						_MultiplyingSecondFloat=0,
+						_MultipliedTotalFloat=0,
+						**_KwargVariablesDict
+					):
+
+		#Call the parent init method
+		SYS.ControllerClass.__init__(self,**_KwargVariablesDict)
+			
+		#Build the model		
+		self['#map@set'](
+			{
+				'-Models':[
+					('|Parameter',[
+						('ModelKeyStrsList',['MultiplyingFirstFloat','MultiplyingSecondFloat'])
+					]),
+					('|Result',[
+						('ModelKeyStrsList',['MultipliedTotalFloat']),
+						('ParentingTriggerVariable',['<->/^/|Parameter'])
+					])
+				]
+			}
+		)
+
+	def do_multiply(self):
+		
+		#debug
+		'''
+		self.debug(('self.',self,['MultiplyingFirstFloat','MultiplyingSecondFloat']))
+		'''
+
+		#set the SumedTotalFloat
+		self.MultipliedTotalFloat=self.MultiplyingFirstFloat*self.MultiplyingSecondFloat
+
+#Define a Moduler class
+@SYS.ClasserClass()
+class ModulerClass(SYS.ControllerClass):
+								
+	def default_init(self,
+						_ModulingPowerFloat=0,
+						_ModuledTotalFloat=0,
 						**_KwargVariablesDict
 					):
 
 		#Call the parent init method
 		SYS.ControllerClass.__init__(self,**_KwargVariablesDict)
 
-		#Set a parameters database
-		self.collect(
-						"Joiners",
-						"Parameters",
-						SYS.JoinerClass().update(
+		#Build the components and the models
+		self['#map@set'](
+			{
+				#COMPONENTS
+				'-Components':{
+					'|Real':{},
+					'|Image':{}
+				},
+				#MODELS
+				'-Models':[
+					('|Parameter',[
+						('ModelKeyStrsList',['ModulingPowerFloat'])
+					]),
+					('|Result',[
+						('ModelKeyStrsList',['ModuledTotalFloat']),
+						(
+							'ParentingTriggerVariable',
 							[
-								(
-									'Attr_ModelingDescriptionTuplesList',
-									[
-										('MultiplyingFirstInt','MultiplyingFirstInt',tables.Int64Col()),
-										('MultiplyingSecondInt','MultiplyingSecondInt',tables.Int64Col())
-									]
-								),
-								('Attr_RowingKeyStrsList',['MultiplyingFirstInt','MultiplyingSecondInt'])
+								'<->/^/|Parameter',
+								'<->/^/^/-Components/|Real/-Models/|Parameter',
+								'<->/^/^/-Components/|Image/-Models/|Parameter',
 							]
 						)
-				)
+					])
+				]
+			}
+		)
+						
+	def do_module(self):
 		
-#Define a Modulizer class
-@SYS.ClasserClass()
-class ModulizerClass(SYS.ControllerClass):
+		#debug
+		'''
+		self.debug(('self.',self,['SumingFirstFloat','SumingSecondFloat']))
+		'''
 
-	#Definition
-	RepresentingKeyStrsList=[
-									'ModulizingPowerFloat',
-									'ModulizedTotalFloat'
-								]
-								
-	def default_init(self,
-						_ModulizingPowerFloat=1.,
-						_ModulizedTotalFloat=0.,
-						**_KwargVariablesDict
-					):
-
-		#Call the parent init method
-		SYS.ControllerClass.__init__(self,**_KwargVariablesDict)
-
-		#Build the output hierarchy
-		self.update(
-						[
-							('<Components>RealMultiplier',MultiplierClass()),
-							('<Components>ImageMultiplier',MultiplierClass())
-						]
-					)
-
-		#Set a parameters database
-		self.collect(
-					"Joiners",
-					"Parameters",
-					SYS.JoinerClass().update(
-						[
-							(
-								'Attr_ModelingDescriptionTuplesList',
+		#set the SumedTotalFloat
+		self.ModuledTotalFloat=sum(
 								[
-									('ModulizingPowerFloat','ModulizingPowerFloat',tables.Float64Col())
+									self['/-Components/|Real'].multiply().MultipliedTotalFloat,
+									self['/-Components/|Real'].multiply().MultipliedTotalFloat
 								]
-							),
-							('Attr_RowingKeyStrsList',['ModulizingPowerFloat']),
-							('ConnectingGraspClueVariablesList',
-								[
-									'/NodePointDeriveNoder/<Components>RealMultiplier/<Joiners>ParametersJoiner',
-									'/NodePointDeriveNoder/<Components>ImageMultiplier/<Joiners>ParametersJoiner'
-								]
-							)
-						]
-					)
-				)
+							)**self.ModulingPowerFloat
+
+#/######################/#
+# Build your model
+#
 
 
-#Definition of a Modulizer instance, structure and network
-MyModulizer=ModulizerClass(
-		**{
+"""
+print(MultiplierClass(
+	)['#map@set'](
+		[
+			('/-Components/|Real/MultiplyingFirstFloat',2.),
+			('MultiplyingSecondFloat',3.)
+		]
+	).multiply()
+)
+
+print(
+	ModulerClass()['#map@set'](
+		[
+			('MultiplyingFirstFloat',2.),
+			('MultiplyingSecondFloat',3.)
+		]
+	).multiply()
+)
+"""
+
+
+print(ModulerClass())
+
+"""
+#Definition of a Storer instance with a noded data
+MySumer=SumerClass(
+	**{
+			'HdformatingFileKeyStr':'Modulus_1.hdf5',
 			'FolderingPathStr':SYS.Joiner.LocalFolderPathStr
 		}
-	).hdformat(
-		'Modulizers.hdf5'
-	).structure(
-		['Components'],
-		[
-			('group',SYS.ApplyDictClass())
-		],
-		['HdformatedFileVariable']
-	).network(
-		**{
-			'VisitingCollectionStrsList':['Joiners','Components'],
-			'RecruitingConcludeConditionVariable':[
-				(
-					'MroClassesList',
-					operator.contains,SYS.JoinerClass
-				)
+	)['#map@set'](
+		{
+			'-Models':[
+				('|Parameter',[
+					('ModelKeyStrsList',['SumingFirstFloat','SumingSecondFloat'])
+				]),
+				('|Result',[
+					('ModelKeyStrsList',['SumedTotalFloat']),
+					('ParentingTriggerVariable',['<->/^/|Parameter'])
+				])
 			]
 		}
+	).get('?v')
+
+#/######################/#
+# Insert in the model
+#
+
+MySumer['#map@set'](
+		[
+			('SumingFirstFloat',1),
+			('SumingSecondFloat',3)
+		]
+	).sum(
+	).command(
+		'/-Models/|Result',
+		[
+			'#call:insert',
+			('setSwitch',['insert'])
+		]
+	)['#map@set'](
+		[
+			('SumingFirstFloat',3),
+			('SumingSecondFloat',5)
+		]
+	).sum(
+	).command(
+		'/-Models/|Result',
+		'#call:insert'
 	)
 
-#Update and insert in the results
-MyModulizer.__setitem__(
-	"Dis_<Components>",
-	[
-		[
-			('MultiplyingFirstInt',1),
-			('MultiplyingSecondInt',2)
-		],
-		[
-			('MultiplyingFirstInt',1),
-			('MultiplyingSecondInt',3)
-		]
-	]
-)['<Joiners>ParametersJoiner'].insert()
+#/######################/#
+# Print
+#
 
-#Update and insert in the results
-MyModulizer.__setitem__(
-	"Dis_<Components>",
-	[
-		[
-			('MultiplyingFirstInt',2)
-		],
-		[
-			('MultiplyingSecondInt',4)
-		]
-	]
-)['<Joiners>ParametersJoiner'].insert()
+#print
+print('MySumer is ')
+SYS._print(MySumer)
 
+#view
+print('hdf5 file is : \n'+SYS._str(MySumer.hdfview()))
 
-#Definition the AttestedStr
-SYS._attest(
-	[
-		'MyModulizer is '+SYS._str(
-		MyModulizer,
-		**{
-			'RepresentingBaseKeyStrsListBool':False,
-			'RepresentingAlineaIsBool':False
-		}
-		),
-		'hdf5 file is : '+MyModulizer.hdfview()
-	]
-) 
-
-#Close
-MyModulizer.close()
-
+#close
+MySumer.file(_ModeStr='c')
+"""

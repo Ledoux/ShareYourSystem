@@ -33,6 +33,9 @@ class BuilderClass(MakerClass):
 
 	def do_build(self):
 
+		#print
+		print('We build here')
+
 		#first make
 		self.make()
 
@@ -51,6 +54,7 @@ print('Before make, MyBuilder.__dict__ is ')
 SYS._print(MyBuilder.__dict__)
 
 #make once
+print('NOW we build')
 MyBuilder.build(**{'MakingMyFloat':3.})
 
 #Print

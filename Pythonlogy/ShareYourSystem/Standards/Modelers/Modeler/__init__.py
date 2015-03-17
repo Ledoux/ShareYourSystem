@@ -473,6 +473,7 @@ class ModelerClass(BaseClass):
 			#
 
 			#debug
+			'''
 			self.debug(
 					[
 						'Keep maybe a copy of ModelingDescriptionTuplesList',
@@ -482,6 +483,7 @@ class ModelerClass(BaseClass):
 						])
 					]
 				)
+			'''
 
 			#keep a memory
 			if self.ModelDescriptionTuplesList==None:
@@ -850,6 +852,7 @@ class ModelerClass(BaseClass):
 				)
 
 			#debug
+			'''
 			self.debug(
 				[
 					"After the shape we check for the modeling description",
@@ -860,6 +863,7 @@ class ModelerClass(BaseClass):
 					)
 				]
 			)
+			'''
 
 			#/###################/#
 			# Check maybe the Description was not yet done although there are ModelKeystrs
@@ -871,6 +875,7 @@ class ModelerClass(BaseClass):
 				self.propertize_setModelKeyStrsList(self._ModelKeyStrsList)
 
 			#debug
+			'''
 			self.debug(
 				[
 					"After the bind",
@@ -881,7 +886,8 @@ class ModelerClass(BaseClass):
 					)
 				]
 			)
-
+			'''
+			
 			#/###################/#
 			# Define the Description
 			#

@@ -77,11 +77,13 @@ class RowerClass(
 		""""""
 		
 		#debug
+		'''
 		self.debug(
 			[
 				'We row here'
 			]
 		)
+		'''
 
 		#Check	
 		if self.ModelDeriveControllerVariable!=None:
@@ -137,13 +139,22 @@ class RowerClass(
 
 				#debug
 				'''
-				self.debug(('self.',self,[
-						'RowedMongoIsBoolsList'
-					]))
+				self.debug(
+					[
+						('self.',self,[
+							'RowedMongoIsBoolsList'
+						]),
+						'Maybe there is now row or no rowing Key str ...so it is false already',
+						'len(self.RowedMongoIsBoolsList)==0 is ',
+						str(len(self.RowedMongoIsBoolsList)==0),
+						'len(self.RowedMongoPickOrderedDict)==0 is',
+						str(len(self.RowedMongoPickOrderedDict))
+					]
+				)
 				'''
 
 				#set
-				if len(self.RowedMongoIsBoolsList)==0:
+				if len(self.RowedMongoIsBoolsList)==0 or len(self.RowedMongoPickOrderedDict)==0:
 					self.RowedMongoIsBool=False
 				else:
 					self.RowedMongoIsBool=any(self.RowedMongoIsBoolsList)
@@ -229,6 +240,7 @@ class RowerClass(
 				)
 
 				#debug
+				'''
 				self.debug(
 					[
 						'Ok we have almost end the row',
@@ -239,6 +251,7 @@ class RowerClass(
 						'Check now if it is a new row'
 					]
 				)
+				'''
 
 				#/#################/#
 				# Check if it is a new row
@@ -261,15 +274,22 @@ class RowerClass(
 					)
 
 				#debug
+				'''
 				self.debug(
 					[
 						'Is is a new row ?',
-						('self.',self,['RowedHdfIsBoolsList'])
+						('self.',self,['RowedHdfIsBoolsList']),
+						'Maybe there is now row or no rowing Key str ...so it is false already',
+						'len(self.RowedHdfIsBoolsList)==0 is ',
+						str(len(self.RowedHdfIsBoolsList)==0),
+						'len(self.RowedHdfPickOrderedDict)==0 is',
+						str(len(self.RowedHdfPickOrderedDict))
 					]
 				)	
-				
+				'''
+
 				#set
-				if len(self.RowedHdfIsBoolsList)==0:
+				if len(self.RowedHdfIsBoolsList)==0 or len(self.RowedHdfPickOrderedDict)==0:
 					self.RowedHdfIsBool=False
 				else:
 					self.RowedHdfIsBool=any(self.RowedHdfIsBoolsList)

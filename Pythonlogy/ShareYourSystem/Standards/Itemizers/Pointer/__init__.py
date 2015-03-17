@@ -319,8 +319,17 @@ class PointerClass(BaseClass):
 			else:
 
 				#append
-				self.PrintingInstanceSkipKeyStrsList.append('PointToVariable')
+				self.PrintingVariable.PrintingInstanceSkipKeyStrsList.append('PointToVariable')
 
+				#debug
+				'''
+				print('Pointer l 325')
+				print('Remove PointToVariable')
+				print('self.PrintingVariable.PrintingInstanceSkipKeyStrsList is ')
+				print(self.PrintingVariable.PrintingInstanceSkipKeyStrsList)
+				print('')
+				'''
+				
 		#/##################/#
 		# Call the base method
 		#

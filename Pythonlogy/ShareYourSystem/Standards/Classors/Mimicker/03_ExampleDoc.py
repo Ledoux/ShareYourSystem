@@ -30,10 +30,6 @@ class MakerClass(object):
 })
 class BuilderClass(MakerClass):
 
-	#Definition
-	RepresentingKeyStrsList=[
-							]
-
 	def default_init(self,
 					**_KwarVariablesDict
 				):
@@ -61,12 +57,20 @@ MyBuilder=BuilderClass()
 print('Before make, MyBuilder.__dict__ is ')
 print(SYS.indent(MyBuilder.__dict__))
 
+#print 
+print('MyBuilder.getSwitch() is ')
+print(SYS.indent(MyBuilder.getSwitch()))
+
 #make once
 MyBuilder.make(3.)
 
 #Print
 print('After the first make, MyBuilder is ')
 print(SYS.indent(MyBuilder.__dict__))
+
+#print 
+print('MyBuilder.getSwitch() is ')
+print(SYS.indent(MyBuilder.getSwitch()))
 
 #make again
 MyBuilder.make(5.)
@@ -83,21 +87,3 @@ MyBuilder.setSwitch(_DoMethodVariable=['make'])
 print('After the switch MyBuilder is ')
 print(SYS.indent(MyBuilder.__dict__))
 
-print(BuilderClass.make)
-
-"""
-#make again
-MyBuilder.make(7.)
-
-#Print
-print('After the third make, MyBuilder is ')
-print(SYS.indent(MyBuilder.__dict__))
-
-#Definition the AttestedStr
-print('BuilderClass.WatchBeforeMakeWithMakerBool is '+str(
-	BuilderClass.WatchBeforeMakeWithMakerBool))
-print('BuilderClass.make is '+str(BuilderClass.make))
-print('MyBuilder is ')
-print(SYS.indent(MyBuilder.__dict__))
-
-"""

@@ -19,24 +19,18 @@ class MakerClass(object):
 		#Cast
 		self.MadeMyInt=int(self.MakingMyFloat)
 
+		#print
+		print('self.MadeMyInt is ')
+		print(self.MadeMyInt)
+
 #Definition a MakerClass with decorated make by a Switcher
-@SYS.SwitcherClass(**{
-	'SwitchingIsBool':True,
-	'SwitchingWrapMethodStr':'make'
-})
+@SYS.SwitcherClass()
 class BuilderClass(MakerClass):
 
 	def default_init(self,
 				):
 		MakerClass.__init__(self)
 
-	def mimic_make(self):
-
-		#first make
-		MakerClass.make()
-
-		#Cast
-		self.MadeMyInt+=10
 
 #print 
 print('BuilderClass.SwitchMethodDict is ')
@@ -49,12 +43,26 @@ MyBuilder=BuilderClass()
 print('Before make, MyBuilder.__dict__ is ')
 SYS._print(MyBuilder.__dict__)
 
+#print
+print('MyBuilder.getSwitch()')
+print(SYS.indent(MyBuilder.getSwitch()))
+
 #make once
+print('We make')
+print(MyBuilder.make)
 MyBuilder.make(3.)
 
+#print
+print('MyBuilder.getSwitch()')
+print(SYS.indent(MyBuilder.getSwitch()))
+
 #Print
-print('After the build, MyBuilder.__dict__ is ')
+print('After the make, MyBuilder.__dict__ is ')
 SYS._print(MyBuilder.__dict__)
+
+#make again
+print('Now we switch')
+MyMaker.setSwitch()
 
 #Switch by default it is just the last Name and the the last do in the mro
 print('Now we switch')

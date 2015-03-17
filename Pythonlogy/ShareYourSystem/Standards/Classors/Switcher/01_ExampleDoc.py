@@ -33,16 +33,25 @@ print(SYS.indent(MakerClass.SwitchMethodDict))
 #Definition an instance
 MyMaker=MakerClass()
 
+#print 
+print('MyMaker.getSwitch() is ')
+print(SYS.indent(MyMaker.getSwitch()))
+
 #Print
 print('Before make, MyMaker.__dict__ is ')
 SYS._print(MyMaker.__dict__)
 
 #make once
+print('We make for the first time')
 MyMaker.make(3.)
 
 #Print
 print('After the first make, MyMaker.__dict__ is ')
 SYS._print(MyMaker.__dict__)
+
+#print 
+print('MyMaker.getSwitch() is ')
+print(SYS.indent(MyMaker.getSwitch()))
 
 #make again
 MyMaker.make(5.)
@@ -58,6 +67,10 @@ MyMaker.setSwitch()
 #Print
 print('After the switch MyMaker.__dict__ is ')
 SYS._print(MyMaker.__dict__)
+
+#print 
+print('MyMaker.getSwitch() is ')
+print(SYS.indent(MyMaker.getSwitch()))
 
 #make again
 MyMaker.make(7.)

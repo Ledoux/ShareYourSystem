@@ -57,11 +57,15 @@ class InserterClass(
 		#
 
 		#debug
+		'''
 		self.debug(
 			[
-				'row maybe before...'
+				'row maybe before...',
+				'self.getSwitch(\'row\') is',
+				SYS.indent(self.getSwitch('row'))
 			]
 		)
+		'''
 		
 		#reset
 		self.setDone(Rower.RowerClass)
@@ -446,6 +450,7 @@ class InserterClass(
 							#
 
 							#debug
+							'''
 							self.debug(
 									[
 										'Refind the original ModelingDescriptionTuplesList',
@@ -455,6 +460,7 @@ class InserterClass(
 										])
 									]
 								)
+							'''
 
 							#Keep the old ModelDescription
 							self.ModelingDescriptionTuplesList=copy.copy(
@@ -530,9 +536,6 @@ class InserterClass(
 							#set
 							self.InsertedErrorBool=False
 
-							#return
-							return
-
 						#Check
 						else:
 
@@ -576,9 +579,27 @@ class InserterClass(
 		# setSwitch row
 		#
 		
+		#debug
+		'''
+		self.debug(
+			[
+				'Before to leave we setSwitch row again'
+			]
+		)
+		'''
+
 		#setSwitch row
 		self.setSwitch('row')
-		
+
+		#debug
+		'''
+		self.debug(
+			[
+				'self.getSwitch("row") is ',
+				SYS.indent(self.getSwitch('row'))
+			]
+		)
+		'''
 
 #</DefineClass>
 
