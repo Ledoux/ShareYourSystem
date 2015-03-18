@@ -2,14 +2,35 @@
 #ImportModules
 import ShareYourSystem as SYS
 
+#print
+print(
+	SYS.translate(
+		"#BonjourStr Erwan #EndStr",
+		{
+			'#BonjourStr':'Salut',
+			'#EndStr':'!'
+		}
+	)
+)
+
+#Define and map a translation 
 MySetter=SYS.SetterClass(
 	).set(
 		'MyList',
 		{
 			'#value:#lambda':{
-				'MyStr':'#__Variable Erwan'
+				'MyStr':'#__BonjourStr Erwan #__EndStr'
 			},
-			'#map':['Salut','Au revoir']
+			'#map':[
+				{
+					'#__BonjourStr':'Salut',
+					'#__EndStr':'!'
+				},
+				{
+					'#__BonjourStr':'Au revoir',
+					'#__EndStr':'?'
+				}
+			]
 		}
 	)
 
@@ -17,10 +38,11 @@ MySetter=SYS.SetterClass(
 print('MySetter is ')
 SYS._print(MySetter)
 
+#Just one translated word but that is getted
 MySetter=SYS.SetterClass(
 	).set(
-			'HelloStr',
-			'Hello'
+		'HelloStr',
+		'Hello'
 	).set(
 		'ByeStr',
 		'Bye'

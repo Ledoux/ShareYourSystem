@@ -23,9 +23,7 @@ MyParenter=SYS.ParenterClass(
 				}
 			]	
 		]
-	).parent(
-		_DownBool=True
-	)
+	).get('?v')
 
 #print
 print('MyParenter is ')

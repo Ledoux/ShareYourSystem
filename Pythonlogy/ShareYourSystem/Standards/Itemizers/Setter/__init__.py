@@ -1013,6 +1013,14 @@ class SetterClass(BaseClass):
 
 					elif SetLambdaKeyStr in self.SettingValueVariable:
 
+						#debug
+						self.debug(
+							[
+								'This is a lambda map set',
+								('self.',self,['SettingValueVariable'])
+							]
+						)
+
 						#get
 						SettedValueVariable=self.SettingValueVariable[SetLambdaKeyStr]
 
@@ -1029,6 +1037,14 @@ class SetterClass(BaseClass):
 								*self.SettingValueVariable[Getter.GetMapStr]
 							).ItemizedMapValueVariablesList
 							
+						#debug
+						self.debug(
+							[
+								'SettedMapVariablesList is ',
+								SYS._str(SettedMapVariablesList)
+							]
+						)
+
 						#set
 						self[
 							self.SettingKeyVariable
@@ -1438,20 +1454,18 @@ class SetterClass(BaseClass):
 		#return
 		return self
 
-	def replaceMapVariable(self,_SetVariable,_MapVariable):
+	def replaceMapVariable(self,_SetVariable,_TranslationDict):
 
 		#debug
-		'''
 		self.debug(
 				[
 					'We replace a MapVariable here',
 					'_SetVariable is ',
 					SYS._str(_SetVariable),
-					'_MapVariable is ',
-					SYS._str(_MapVariable)
+					'_TranslationDict is ',
+					SYS._str(_TranslationDict)
 				]
 			)
-		'''
 	
 		#Check
 		if hasattr(_SetVariable,'items'):
@@ -1460,12 +1474,32 @@ class SetterClass(BaseClass):
 			map(
 					lambda __ItemTuple:
 					_SetVariable.__setitem__(
-						#__ItemTuple[0].replace(SetMapVariableStr,_MapVariable),
-						self[__ItemTuple[0].replace(SetMapVariableStr,_MapVariable)],
-						#__ItemTuple[1].replace(SetMapVariableStr,_MapVariable)
-						self[__ItemTuple[1].replace(SetMapVariableStr,_MapVariable)]
-						if type(__ItemTuple[1])==str
-						else __ItemTuple[1]
+						self[
+							SYS.translate(
+								__ItemTuple[0],
+								_TranslationDict
+							)
+						]
+						if __ItemTuple[0].startswith('#get:')
+						else SYS.translate(
+								__ItemTuple[0],
+								_TranslationDict
+							),
+						__ItemTuple[1]
+						if type(__ItemTuple[1])!=str 
+						else(
+							self[
+								SYS.translate(
+									__ItemTuple[1],
+									_TranslationDict
+								)
+							]
+							if __ItemTuple[1].startswith('#get:')
+							else SYS.translate(
+									__ItemTuple[1],
+									_TranslationDict
+								)
+						)
 					),
 					_SetVariable.items()
 				)
@@ -1487,31 +1521,71 @@ class SetterClass(BaseClass):
 			_SetVariable=map(
 					lambda __ItemTuple:
 					(
-						#__ItemTuple[0].replace(SetMapVariableStr,_MapVariable),
-						self[__ItemTuple[0].replace(SetMapVariableStr,_MapVariable)],
-						#__ItemTuple[1].replace(SetMapVariableStr,_MapVariable)
-						self[__ItemTuple[1].replace(SetMapVariableStr,_MapVariable)]
-						if type(__ItemTuple[1])==str
-						#else __ItemTuple[1]
-						else self[__ItemTuple[1]]
+						self[
+							SYS.translate(
+								__ItemTuple[0],
+								_TranslationDict
+							)
+						]
+						if __ItemTuple[0].startswith('#get:')
+						else SYS.translate(
+								__ItemTuple[0],
+								_TranslationDict
+							),
+						__ItemTuple[1]
+						if type(__ItemTuple[1])!=str 
+						else(
+							self[
+								SYS.translate(
+									__ItemTuple[1],
+									_TranslationDict
+								)
+							]
+							if __ItemTuple[1].startswith('#get:')
+							else SYS.translate(
+									__ItemTuple[1],
+									_TranslationDict
+								)
+						)
 					),
 					_SetVariable
 				)
 
+			#return
 			return _SetVariable
 
 		elif type(_SetVariable)==tuple and len(_SetVariable)==2:
 
 			#return
 			return (
-					#_SetVariable[0].replace(SetMapVariableStr,_MapVariable),
-					self[_SetVariable[0].replace(SetMapVariableStr,_MapVariable)],
-					#_SetVariable[1].replace(SetMapVariableStr,_MapVariable)
-					self[_SetVariable[1].replace(SetMapVariableStr,_MapVariable)]
-					if type(_SetVariable[1])==str 
-					#else _SetVariable[1]
-					else self[_SetVariable[1]]
-				)	
+					self[
+							SYS.translate(
+								_SetVariable[0],
+								_TranslationDict
+							)
+						]
+						if __ItemTuple[0].startswith('#get:')
+						else SYS.translate(
+								_SetVariable[0],
+								_TranslationDict
+							),
+					_SetVariable[1]
+						if type(_SetVariable[1])!=str 
+						else(
+							self[
+								SYS.translate(
+									_SetVariable[1],
+									_TranslationDict
+								)
+							]
+							if _SetVariable[1].startswith('#get:')
+							else SYS.translate(
+									_SetVariable[1],
+									_TranslationDict
+								)
+						)
+					)
+				
 
 		else:
 

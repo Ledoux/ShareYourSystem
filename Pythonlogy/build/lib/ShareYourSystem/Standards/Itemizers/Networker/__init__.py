@@ -40,7 +40,7 @@ class NetworkerClass(BaseClass):
 					_NetworkTargetStr='Top',
 					_NetworkingTeamVariable=None,
 					_NetworkingManagementVariable=None,
-					_NetworkedTeamStrsList=None,
+					_NetworkedTeamKeyStrsList=None,
 					**_KwargVariablesDict
 				):
 
@@ -69,7 +69,7 @@ class NetworkerClass(BaseClass):
 		#
 
 		#map
-		self.NetworkedTeamStrsList=map(
+		self.NetworkedTeamKeyStrsList=map(
 				lambda __NetworkingTeamOrManagementStr:
 				NetworkOutPrefixStr+__NetworkingTeamOrManagementStr,
 				(self.NetworkingTeamVariable if self.NetworkingTeamVariable!=None else [])+
@@ -80,17 +80,17 @@ class NetworkerClass(BaseClass):
 		'''
 		self.debug(
 				[
-					'We are going to make team the NetworkedTeamStrsList',
-					('self.',self,['NetworkedTeamStrsList'])
+					'We are going to make team the NetworkedTeamKeyStrsList',
+					('self.',self,['NetworkedTeamKeyStrsList'])
 				]
 			)
 		'''
 
 		#map
 		map(
-				lambda __NetworkedTeamStr:
-				self.team(__NetworkedTeamStr),
-				self.NetworkedTeamStrsList
+				lambda __NetworkedTeamKeyStr:
+				self.team(__NetworkedTeamKeyStr),
+				self.NetworkedTeamKeyStrsList
 			)
 
 		#/##################/#
@@ -239,8 +239,8 @@ class NetworkerClass(BaseClass):
 					#point
 					self.NetworkDeriveNetworkerVariable.point(
 							self,
-							_OutTeamStr=NetworkOutPrefixStr+self.ParentDeriveTeamerVariable.ManagementTagStr,
-							_InTeamStr=NetworkInTeamKeyStr
+							_OutTeamKeyStr=NetworkOutPrefixStr+self.ParentDeriveTeamerVariable.ManagementTagStr,
+							_InTeamKeyStr=NetworkInTeamKeyStr
 					)
 
 		if self.ManagementTagStr!="":
@@ -277,8 +277,8 @@ class NetworkerClass(BaseClass):
 					#point
 					self.NetworkDeriveNetworkerVariable.point(
 							self,
-							_OutTeamStr=NetworkOutPrefixStr+self.ParentDeriveTeamerVariable.TeamTagStr,
-							_InTeamStr=NetworkInTeamKeyStr
+							_OutTeamKeyStr=NetworkOutPrefixStr+self.ParentDeriveTeamerVariable.TeamTagStr,
+							_InTeamKeyStr=NetworkInTeamKeyStr
 					)
 
 	def mimic__print(self,**_KwargVariablesDict):
@@ -291,20 +291,20 @@ class NetworkerClass(BaseClass):
 		if self.PrintingSelfBool:
 
 			#Check
-			if type(self.NetworkedTeamStrsList)==list:
+			if type(self.NetworkedTeamKeyStrsList)==list:
 
 				#map
 				map(
-					lambda __NetworkedTeamStr:
+					lambda __NetworkedTeamKeyStr:
 					self.PrintingCopyVariable.TeamDict.__setitem__(
-						__NetworkedTeamStr,
+						__NetworkedTeamKeyStr,
 						"Pointer with "+str(
 							len(
-								self.PrintingCopyVariable.TeamDict[__NetworkedTeamStr].ManagementDict
+								self.PrintingCopyVariable.TeamDict[__NetworkedTeamKeyStr].ManagementDict
 							)
 						)+" managed encapsulations"
 					),
-					self.NetworkedTeamStrsList
+					self.NetworkedTeamKeyStrsList
 				)
 			
 				
@@ -332,7 +332,7 @@ NetworkerClass.PrintingClassSkipKeyStrsList.extend(
 		'NetworkTargetStr',
 		'NetworkingTeamVariable',
 		'NetworkingManagementVariable',
-		'NetworkedTeamStrsList'
+		'NetworkedTeamKeyStrsList'
 	]
 )
 #<DefinePrint>

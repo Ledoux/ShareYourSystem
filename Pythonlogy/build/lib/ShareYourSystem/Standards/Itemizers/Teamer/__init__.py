@@ -29,6 +29,7 @@ from ShareYourSystem.Standards.Itemizers import Pather
 
 #<DefineLocals>
 TeamChildPrefixStr='-'
+TeamDirectChildPrefixStr='-#direct:'
 class TeamDict(collections.OrderedDict):
 	def __init__(self,_LiargDict=None,**_KwargDict):
 
@@ -65,6 +66,7 @@ class TeamerClass(BaseClass):
 				_TeamingClassesDict=None,
 				_TeamingBeforeSetVariable=None,
 				_TeamingAfterSetVariable=None,
+				_TeamingWrapBool=True,
 				_TeamedValueVariable=None,	
 				_TeamedInBool=False,
 				_TeamedOnceBool=False,																
@@ -189,16 +191,18 @@ class TeamerClass(BaseClass):
 
 			#/####################/#
 			# Case where it is a dict or tuples list like
-			# we wrap then in a manager new object
+			# we wrap then in a manager new object if TeamingWrapBool
 
 			#temp
 			TeamedTempValueVariable=None
 
 			#Check
-			if hasattr(
-				self.TeamedValueVariable,
-				'items'
-			) or SYS.getIsTuplesListBool(self.TeamedValueVariable):
+			if self.TeamingWrapBool and (
+				hasattr(
+					self.TeamedValueVariable,
+					'items'
+				) or SYS.getIsTuplesListBool(self.TeamedValueVariable)
+			):
 
 				#debug
 				'''
@@ -219,120 +223,131 @@ class TeamerClass(BaseClass):
 				TeamedTempValueVariable=self.TeamedValueVariable
 				self.TeamedValueVariable=self.TeamingValueClass()
 
+				#debug
+				'''
+				self.debug(
+						[
+							'Ok the wrapped dict has been setted'
+						]
+					)
+				'''
+				
 			#/####################/#
 			# Set different way to access it in the object
 			# 
-
-			#define the keystr to define in the dict
-			TeamedKeyStr=self.TeamingKeyStr+type(
-						self.TeamedValueVariable
-					).NameStr
-
-			#set in the __dict__
-			self.__setattr__(
-					TeamedKeyStr,
-					self.TeamedValueVariable
-				)
-
-			#add in the RepresentingSkipKeyStrsList to not be seen in the repr
-			self.PrintingInstanceSkipKeyStrsList.append(TeamedKeyStr)
 
 			#put in the dict
 			self.TeamDict[
 				self.TeamingKeyStr
 			]=self.TeamedValueVariable
 
-			#/##########################/
-			# Give some team attributes
-			#
-
-			#set
-			self.TeamedValueVariable.TeamTagStr=self.TeamingKeyStr
-
-			#index
-			self.TeamedValueVariable.TeamIndexInt=len(self.TeamDict)-1
-
-
-			#/##########################/
-			# If there are shared before set values
-			#
-
-			#debug
-			'''
-			self.debug(
-				[
-					'The Teamer has something before for the teamed value ?',
-					('self.',self,['TeamingBeforeSetVariable'])
-				]
-			)
-			'''
-
 			#Check
-			if self.TeamingBeforeSetVariable!=None:
+			if self.TeamingWrapBool:
+
+				#define the keystr to define in the dict
+				TeamedKeyStr=self.TeamingKeyStr+type(
+						self.TeamedValueVariable
+					).NameStr
+
+				#set in the __dict__
+				self.__setattr__(
+						TeamedKeyStr,
+						self.TeamedValueVariable
+					)
+
+				#add in the RepresentingSkipKeyStrsList to not be seen in the repr
+				self.PrintingInstanceSkipKeyStrsList.append(TeamedKeyStr)
+
+				#/##########################/
+				# Give some team attributes
+				#
+
+				#set
+				self.TeamedValueVariable.TeamTagStr=self.TeamingKeyStr
+
+				#index
+				self.TeamedValueVariable.TeamIndexInt=len(self.TeamDict)-1
+
+				#/##########################/
+				# If there are shared before set values
+				#
 
 				#debug
 				'''
 				self.debug(
 					[
-						'The Teamer has something before for the teamed value',
+						'The Teamer has something before for the teamed value ?',
 						('self.',self,['TeamingBeforeSetVariable'])
 					]
 				)
 				'''
 
-				#map set
-				self.TeamedValueVariable['#map@set'](
-					self.TeamingBeforeSetVariable	
-				)
+				#Check
+				if self.TeamingBeforeSetVariable!=None:
 
-				#self.TeamedValueVariable.mapSet(
-				#	self.TeamingBeforeSetVariable	
-				#)
-
-			#/##########################/
-			# If the value itself was a set variable
-			#
-
-			#Check
-			if TeamedTempValueVariable!=None:
-
-				#debug
-				'''
-				self.debug(
+					#debug
+					'''
+					self.debug(
 						[
-							'We team with a TeamedValueVariable',
-							'TeamedTempValueVariable is ',
-							SYS._str(TeamedTempValueVariable)
+							'The Teamer has something before for the teamed value',
+							('self.',self,['TeamingBeforeSetVariable'])
 						]
 					)
-				'''
+					'''
+
+					#map set
+					self.TeamedValueVariable['#map@set'](
+						self.TeamingBeforeSetVariable	
+					)
+
+					#self.TeamedValueVariable.mapSet(
+					#	self.TeamingBeforeSetVariable	
+					#)
+
+				#/##########################/
+				# If the value itself was a set variable
+				#
+
+				#Check
+				if TeamedTempValueVariable!=None:
+
+					#debug
+					'''
+					self.debug(
+							[
+								'We team with a TeamedValueVariable',
+								'TeamedTempValueVariable is ',
+								SYS._str(TeamedTempValueVariable)
+							]
+						)
+					'''
+					
+					#set with the value
+					self.TeamedValueVariable['#map@set'](
+							TeamedTempValueVariable
+						)
+
+				#/##########################/
+				# If there are shared after set values
+				#
 				
-				#set with the value
-				self.TeamedValueVariable['#map@set'](
-						TeamedTempValueVariable
+				#Check
+				if self.TeamingAfterSetVariable!=None:
+
+					#debug
+					'''
+					self.debug(
+							[
+								'The Teamed has something after for the teamed value',
+								('self.',self,['TeamingAfterSetVariable'])
+							]
+						)
+					'''
+
+					#map set
+					self.TeamedValueVariable['#map@set'](
+						self.TeamingAfterSetVariable	
 					)
-
-			#/##########################/
-			# If there are shared after set values
-			#
-			
-			#Check
-			if self.TeamingAfterSetVariable!=None:
-
-				#debug
-				'''
-				self.debug(
-						[
-							'The Teamed has something after for the teamed value',
-							('self.',self,['TeamingAfterSetVariable'])
-						]
-					)
-				'''
-
-				#map set
-				self.TeamedValueVariable['#map@set'](
-					self.TeamingAfterSetVariable	
-				)
 
 		else:
 
@@ -368,10 +383,13 @@ class TeamerClass(BaseClass):
 				'items'
 			) or SYS.getIsTuplesListBool(self.TeamingValueRigidVariable):
 
-				#set
-				self.TeamedValueVariable['#map@set'](
-						self.TeamingValueRigidVariable
-					)
+				#Check
+				if self.TeamingWrapBool:
+
+					#set
+					self.TeamedValueVariable['#map@set'](
+							self.TeamingValueRigidVariable
+						)
 
 		#/###################/#
 		# reset rigid variable
@@ -478,6 +496,35 @@ class TeamerClass(BaseClass):
 
 			#Check
 			if self.SettingKeyVariable.startswith(
+				TeamDirectChildPrefixStr
+			):
+
+				#debug
+				'''
+				self.debug(
+					[
+						'We team here without instancing',
+						('self.',self,['SettingKeyVariable'])
+					]
+				)
+				'''
+		
+				#team
+				self.team(
+					SYS.deprefix(
+						self.SettingKeyVariable,
+						TeamDirectChildPrefixStr
+					),
+					self.SettingValueVariable,
+					_WrapBool=False
+				)
+				self.TeamingWrapBool=True
+
+				#Stop the setting
+				return {'HookingIsBool':False}
+
+			#Check
+			elif self.SettingKeyVariable.startswith(
 				TeamChildPrefixStr
 			):
 
@@ -533,6 +580,7 @@ TeamerClass.PrintingClassSkipKeyStrsList.extend(
 		'TeamingValueClass',
 		'TeamingBeforeSetVariable',
 		'TeamingAfterSetVariable',
+		'TeamingWrapBool',
 		'TeamedValueVariable',
 		'TeamedInBool',
 		'TeamedOnceBool'

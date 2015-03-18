@@ -21,57 +21,60 @@ MyBrianer=SYS.BrianerClass(
 						'reset':'v=-60*mV'
 					},
 					'get':'/-Spikes/|Run',
-					#'ParentingTriggerVariable':{
-					#	'#value:#lambda':'#direct:<->/^/|#__Variable',
-					#	'#map':['E','I']
-					#}
 				}
 			),
 			(
 				'|E',
 				{
 					'SimulatingUnitsInt':3200,
-					'ParentingTriggerVariable':{
-						'#value:#lambda':(
-							'#direct:<->/^/|#__Variable',
+					'array':[
+						[
+							['-<->'],
+							['|Postlets<->Prelets'],
+							['|#direct:_^_|E','#direct:_^_|I']
+						],
+						[
+							{},
+							{},
 							{
 								'SynapsingBrianKwargVariablesDict':{'pre':'ge+=1.62*mV'},
 								'SynapsingProbabilityVariable':0.02
 							}
-						),
-						'#map':['E','I']
-					}
+						]
+					]
 				}
 			),
 			(
 				'|I',
 				{
 					'SimulatingUnitsInt':800,
-					'ParentingTriggerVariable':{
-						'#value:#lambda':(
-							'#direct:<->/^/|#__Variable',
+					'array':[
+						[
+							['-<->'],
+							['|Postlets<->Prelets'],
+							['|#direct:_^_|E','#direct:_^_|I']
+						],
+						[
+							{},
+							{},
 							{
 								'SynapsingBrianKwargVariablesDict':{'pre':'gi-=9*mV'},
-								'SynapsingProbabilityFloat':0.02,
-								'MyList':None
+								'SynapsingProbabilityVariable':0.02
 							}
-						),
-						'#map':['E','I']
-					}
+						]
+					]
 				}
 			)
 		]
+	).network(
+		['Populations']
 	)
-
-
-#.get('?v')
 
 
 #print
 print('MyBrianer is ')
 SYS._print(MyBrianer) 
 
-#SYS._print(MyBrianer['/-Populations/|E/-Outlets/|_Top_Populations_E'].SynapsingProbabilityVariable)
 #.get('?v')
 
 

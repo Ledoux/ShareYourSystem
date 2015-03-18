@@ -234,7 +234,9 @@ class CommanderClass(BaseClass):
 						lambda __CommandedSetVariable:
 						__CommandedValueVariable.set(
 							*__CommandedSetVariable
-						),
+						)
+						if hasattr(__CommandedValueVariable,'set')
+						else None,
 						CommandedSetVariablesList
 					),
 					CommandedValueVariablesList
@@ -320,7 +322,9 @@ class CommanderClass(BaseClass):
 							*CommandedLiargVariablesList	
 						).set(
 							'GettingNewBool',True
-						),
+						)
+					if hasattr(__CommandedValueVariable,'set')
+					else None,
 					CommandedValueVariablesList
 				)
 

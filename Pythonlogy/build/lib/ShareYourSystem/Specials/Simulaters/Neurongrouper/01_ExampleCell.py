@@ -58,3 +58,4 @@ M=MyNeurongrouper.NeurongroupedSpikeMonitorsList[0]
 from matplotlib import pyplot
 pyplot.plot(M.t/ms, M.i, '.')
 pyplot.show()
+

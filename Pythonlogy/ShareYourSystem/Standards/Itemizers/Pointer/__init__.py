@@ -31,6 +31,7 @@ PointPrefixStr="<->"
 PointInTeamKeyStr="Inlets"
 PointOutTeamKeyStr="Outlets"
 PointConnectKeyStr='?>'
+PointTeamKeyStr='<->'
 def getLiargVariablesList(_ValueVariable):
 	return _ValueVariable
 #</DefineLocals>
@@ -44,11 +45,12 @@ class PointerClass(BaseClass):
 					_PointFromVariable=None,	
 					_PointToVariable=None,
 					_PointKeyVariablesList=None,
+					_PointOutAndInTeamKeyStrsListsList=None,
 					_PointingKeyVariable=None,
 					_PointingOutSetVariable=None,
 					_PointingInSetVariable=None,
-					_PointingOutTeamStr="Outlets",
-					_PointingInTeamStr="Inlets",
+					_PointingOutTeamKeyStr="Outlets",
+					_PointingInTeamKeyStr="Inlets",
 					_PointingGetBool=True,
 					_PointingValueClass=BaseClass,
 					**_KwargVariablesDict
@@ -71,7 +73,8 @@ class PointerClass(BaseClass):
 				'(if we need to get)',
 				("self.",self,[
 								'PointingKeyVariable',
-								'PointingGetBool'
+								'PointingOutSetVariable',
+								'PointingGetBool',
 							])
 			]
 		)
@@ -192,13 +195,13 @@ class PointerClass(BaseClass):
 		'''
 
 		#Check
-		if self.PointingOutTeamStr not in self.TeamDict:
+		if self.PointingOutTeamKeyStr not in self.TeamDict:
 			PointedOutDeriveTeamer=self.team(
-				self.PointingOutTeamStr
+				self.PointingOutTeamKeyStr
 			).TeamedValueVariable
 		else:
 			PointedOutDeriveTeamer=self.TeamDict[
-				self.PointingOutTeamStr
+				self.PointingOutTeamKeyStr
 			]
 
 		#team
@@ -225,21 +228,21 @@ class PointerClass(BaseClass):
 		self.debug(
 				[
 					'Now we in team ',
-					'IMPORTANT the PointingInTeamStr is from the original pointing',
+					'IMPORTANT the PointingInTeamKeyStr is from the original pointing',
 					'not the pointed object',
-					('self.',self,['PointingInTeamStr'])
+					('self.',self,['PointingInTeamKeyStr'])
 				]
 			)
 		'''
 
 		#Check
-		if self.PointingInTeamStr not in PointedValueVariable.TeamDict:
+		if self.PointingInTeamKeyStr not in PointedValueVariable.TeamDict:
 			PointedInDeriveTeamer=PointedValueVariable.team(
-				self.PointingInTeamStr
+				self.PointingInTeamKeyStr
 			).TeamedValueVariable
 		else:
 			PointedInDeriveTeamer=PointedValueVariable.TeamDict[
-			self.PointingInTeamStr
+			self.PointingInTeamKeyStr
 		]
 
 		#team
@@ -424,6 +427,69 @@ class PointerClass(BaseClass):
 					self.PointKeyVariablesList
 				)
 
+		#/##################/#
+		# point in all the Point teams
+		#
+
+		#Check
+		if PointTeamKeyStr in self.TeamDict:
+
+			#debug
+			'''
+			self.debug(
+				[
+					'We make point all the <-> teams',
+					'self.TeamDict[PointTeamKeyStr].ManagementDict is ',
+					SYS._str(self.TeamDict[PointTeamKeyStr].ManagementDict),
+					'But first determine the Out and In team strs'
+				]
+			)
+			'''
+
+			#map
+			PointOutAndInTeamKeyStrsListsList=map(
+					lambda __TeamKeyStr:
+					__TeamKeyStr.split(PointTeamKeyStr),
+					self.TeamDict[PointTeamKeyStr].ManagementDict.keys()
+				)
+
+			#debug
+			'''
+			self.debug(
+				[
+					'PointOutAndInTeamKeyStrsListsList is ',
+					str(PointOutAndInTeamKeyStrsListsList),
+					'Now point really !'
+				]
+			)
+			'''
+			
+			#map
+			map(
+					lambda __PointOutAndInTeamKeyStrsList,__TeamValueVariable:
+					map(
+						lambda __ChildTeamItemTuple:
+						self.point(
+							__ChildTeamItemTuple[0].replace('_','/'),
+							__ChildTeamItemTuple[1][0],
+							__ChildTeamItemTuple[1][1],
+							_OutTeamKeyStr=__PointOutAndInTeamKeyStrsList[0],
+							_InTeamKeyStr=__PointOutAndInTeamKeyStrsList[1]
+						) if type(
+							__ChildTeamItemTuple[1]
+						) in [list,tuple] and len(__ChildTeamItemTuple[1])==2
+						else
+						self.point(
+							__ChildTeamItemTuple[0].replace('_','/'),
+							__ChildTeamItemTuple[1],
+							_OutTeamKeyStr=__PointOutAndInTeamKeyStrsList[0],
+							_InTeamKeyStr=__PointOutAndInTeamKeyStrsList[1]
+						),
+						__TeamValueVariable.ManagementDict.items()
+					),
+					PointOutAndInTeamKeyStrsListsList,
+					self.TeamDict[PointTeamKeyStr].ManagementDict.values()
+				)
 
 #</DefineClass>
 
@@ -442,11 +508,12 @@ PointerClass.PrintingClassSkipKeyStrsList.extend(
 		#'PointToVariable',
 		'PointVariablesList',
 		'PointKeyVariablesList',
+		'PointOutAndInTeamKeyStrsListsList',
 		'PointingKeyVariable',
 		'PointingOutSetVariable',
 		'PointingInSetVariable',
-		'PointingOutTeamStr',
-		'PointingInTeamStr',
+		'PointingOutTeamKeyStr',
+		'PointingInTeamKeyStr',
 		'PointingGetBool',
 		'PointingValueClass'
 	]

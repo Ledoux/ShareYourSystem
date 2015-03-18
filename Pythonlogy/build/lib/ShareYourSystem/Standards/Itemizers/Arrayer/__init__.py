@@ -79,7 +79,12 @@ class ArrayerClass(BaseClass):
 
 				#debug
 				'''
-				self.debug('set with several layers')
+				self.debug(
+					[
+						'set with several layers',
+						('self.',self,['ArrayingValueVariable'])
+					]
+				)
 				'''
 
 				#/####################/#
@@ -93,18 +98,27 @@ class ArrayerClass(BaseClass):
 				#Check
 				if self.ArrayingValueVariable!=None:
 
+					#Check
+					if len(self.ArrayingValueVariable)==1 and len(self.ArrayingKeyVariablesList[0])>1:
+						self.ArrayingValueVariable=self.ArrayingValueVariable[0]
+
+					#Check
 					if type(self.ArrayingValueVariable)!=list:
+						
 
 						#debug
 						'''
 						self.debug(
 							[
 								'This is a total same setting',
-								('self.',self,['ArrayingValueVariable'])
+								('self.',self,[
+									'ArrayingKeyVariablesList',
+									'ArrayingValueVariable'
+								])
 							]
 						)
 						'''
-
+						
 						#list
 						ArrayedLocalValueVariablesList=[self.ArrayingValueVariable]*len(
 							self.ArrayingKeyVariablesList[0]

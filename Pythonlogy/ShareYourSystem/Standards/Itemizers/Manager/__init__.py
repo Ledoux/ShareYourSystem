@@ -29,6 +29,7 @@ Teamer=BaseModule
 
 #<DefineLocals>
 ManagementChildPrefixStr="|"
+ManagementDirectChildPrefixStr="|#direct:"
 class ManagementDict(collections.OrderedDict):
 	def __init__(self,_LiargDict=None,**_KwargDict):
 
@@ -64,6 +65,7 @@ class ManagerClass(BaseClass):
 				_ManagingBeforeSetVariable=None,
 				_ManagingAfterSetVariable=None,
 				_ManagingClassesDict=None,
+				_ManagingWrapBool=True,
 				_ManagedValueVariable=None,
 				_ManagedInBool=False,
 				_ManagedOnceBool=False,
@@ -83,11 +85,12 @@ class ManagerClass(BaseClass):
 		self.debug(
 			('self.',self,[
 					'ManagingKeyStr',
-					'ManagingValueRigidVariable'
+					'ManagingValueRigidVariable',
+					'ManagingWrapBool'
 				])
 		)
 		'''
-
+		
 		#/###################/#
 		# Force the repr with the ManagementDict
 		#
@@ -195,13 +198,18 @@ class ManagerClass(BaseClass):
 
 			#/####################/#
 			# Case where it is a dict or tuples list like
-			# we wrap then in a teamer new object
+			# we wrap then in a teamer new object and ManagingWrapBool
+
+			#temp
+			ManagedTempValueVariable=None
 
 			#Check
-			if hasattr(
-				self.ManagedValueVariable,
-				'items'
-			) or SYS.getIsTuplesListBool(self.ManagedValueVariable):
+			if self.ManagingWrapBool and (
+				hasattr(
+					self.ManagedValueVariable,
+					'items'
+				) or SYS.getIsTuplesListBool(self.ManagedValueVariable)
+			):
 
 				#debug
 				'''
@@ -237,9 +245,80 @@ class ManagerClass(BaseClass):
 					'''
 				
 				#temp and init
-				ManagedValueVariable=self.ManagedValueVariable
+				ManagedTempValueVariable=self.ManagedValueVariable
 				self.ManagedValueVariable=self.ManagingValueClass()
 				
+				#debug
+				'''
+				self.debug(
+						[
+							'Ok the wrapped dict has been setted',
+							('self.',self,['ManagedValueVariable']),
+							'ManagedTempValueVariable is ',
+							SYS._str(ManagedTempValueVariable)
+						]
+					)
+				'''
+
+			#/####################/#
+			# Set different way to access it in the object
+			# 
+
+			#put in the dict
+			self.ManagementDict[
+				self.ManagingKeyStr
+			]=self.ManagedValueVariable
+
+			#Check
+			if self.ManagingWrapBool:
+
+				#debug
+				'''
+				self.debug(
+					[
+						'We set also in the __dict__...'
+					]
+				)
+				'''
+
+				#define the keystr to define in the dict
+				ManagedKeyStr=self.ManagingKeyStr+type(
+							self.ManagedValueVariable
+						).NameStr
+
+				#set in the __dict__
+				self.__setattr__(
+						ManagedKeyStr,
+						self.ManagedValueVariable
+					)
+
+				#add in the RepresentingSkipKeyStrsList to not be seen in the repr
+				self.PrintingInstanceSkipKeyStrsList.append(ManagedKeyStr)
+
+				#/########################/#
+				# give some manage attributes
+				#
+
+				#set
+				self.ManagedValueVariable.ManagementTagStr=self.ManagingKeyStr
+
+				#index
+				self.ManagedValueVariable.ManagementIndexInt=len(self.ManagementDict)-1
+
+				#/##########################/
+				# If there are shared before set values
+				#
+
+				#debug
+				'''
+				self.debug(
+					[
+						'The Manager has something before for the managed value ?',
+						('self.',self,['ManagingBeforeSetVariable'])
+					]
+				)
+				'''
+
 				#Check
 				if self.ManagingBeforeSetVariable!=None:
 
@@ -258,77 +337,65 @@ class ManagerClass(BaseClass):
 						self.ManagingBeforeSetVariable	
 					)
 
-				#debug
-				'''
-				self.debug(
-						[
-							'We set the wrapped dicts',
-							'ManagedValueVariable is ',
-							str(ManagedValueVariable)
-						]
-					)
-				'''
 
-				#set
-				self.ManagedValueVariable['#map@set'](
-						ManagedValueVariable
-					)
+				#/##########################/
+				# If the value itself was a set variable
+				#
 
 				#debug
 				'''
 				self.debug(
 						[
-							'Ok the wrapped dict has been setted'
+							'There was a ManagedTempValueVariable here',
+							'ManagedTempValueVariable!=None is',
+							str(ManagedTempValueVariable!=None)
 						]
 					)
 				'''
 
-			#define the keystr to define in the dict
-			ManagedKeyStr=self.ManagingKeyStr+type(
-						self.ManagedValueVariable
-					).NameStr
+				#Check
+				if ManagedTempValueVariable!=None:
 
-			#set in the __dict__
-			self.__setattr__(
-					ManagedKeyStr,
-					self.ManagedValueVariable
-				)
+					#debug
+					'''
+					self.debug(
+							[
+								'We manage with a ManagedValueVariable',
+								'ManagedTempValueVariable is ',
+								SYS._str(ManagedTempValueVariable)
+							]
+						)
+					'''
 
-			#add in the RepresentingSkipKeyStrsList to not be seen in the repr
-			self.PrintingInstanceSkipKeyStrsList.append(ManagedKeyStr)
+					#set with the value
+					self.ManagedValueVariable['#map@set'](
+							ManagedTempValueVariable
+						)
 
-			#put in the dict
-			self.ManagementDict[
-				self.ManagingKeyStr
-			]=self.ManagedValueVariable
+				#/##########################/
+				# If there are shared after set values
+				#
+				
 
-			#/########################/#
-			# give some manage attributes
-			#
+				#Check
+				if self.ManagingAfterSetVariable!=None:
 
-			#set
-			self.ManagedValueVariable.ManagementTagStr=self.ManagingKeyStr
+					#debug
+					'''
+					self.debug(
+							[
+								'The Manager has something after for the managed value',
+								('self.',self,['ManagingAfterSetVariable'])
+							]
+						)
+					'''
 
-			#index
-			self.ManagedValueVariable.ManagementIndexInt=len(self.ManagementDict)-1
-
-			#Check
-			if self.ManagingAfterSetVariable!=None:
-
-				#debug
-				'''
-				self.debug(
-						[
-							'The Manager has something after for the managed value',
-							('self.',self,['ManagingAfterSetVariable'])
-						]
+					#map set
+					self.ManagedValueVariable['#map@set'](
+						self.ManagingAfterSetVariable	
 					)
-				'''
 
-				#map set
-				self.ManagedValueVariable['#map@set'](
-					self.ManagingAfterSetVariable	
-				)
+
 
 		else:
 
@@ -366,15 +433,28 @@ class ManagerClass(BaseClass):
 				'items'
 			) or SYS.getIsTuplesListBool(self.ManagingValueRigidVariable):
 
-				#set
-				self.ManagedValueVariable['#map@set'](
-						self.ManagingValueRigidVariable
-					)
+				#Check
+				if self.ManagingWrapBool:
+
+					#set
+					self.ManagedValueVariable['#map@set'](
+							self.ManagingValueRigidVariable
+						)
 
 		#/###################/#
 		# reset rigid variable
 		#
 
+		#debug
+		'''
+		self.debug(
+			[
+				'We reset the ManagingValueRigidVariable',
+				('self.',self,['ManagingValueRigidVariable'])
+			]
+		)
+		'''
+		
 		#set
 		self.ManagingValueRigidVariable=None
 
@@ -407,69 +487,72 @@ class ManagerClass(BaseClass):
 
 		elif type(
 			self.GettingKeyVariable
-		)==str and self.GettingKeyVariable.startswith(
-			ManagementChildPrefixStr
-		):
-
-			#deprefix
-			GetKeyStr=SYS.deprefix(
-					self.GettingKeyVariable,
-					ManagementChildPrefixStr
-				)
+		)==str:
 
 			#Check
-			if GetKeyStr[0]!='.':
+			if self.GettingKeyVariable.startswith(
+				ManagementChildPrefixStr
+			):
 
-				#debug
-				'''
-				self.debug(
-					[
-						'We manage here',
-						"SYS.deprefix(self.GettingKeyVariable,ManagementChildPrefixStr) is",
+				#deprefix
+				GetKeyStr=SYS.deprefix(
+						self.GettingKeyVariable,
+						ManagementChildPrefixStr
+					)
+
+				#Check
+				if GetKeyStr[0]!='.':
+
+					#debug
+					'''
+					self.debug(
+						[
+							'We manage here',
+							"SYS.deprefix(self.GettingKeyVariable,ManagementChildPrefixStr) is",
+							SYS.deprefix(self.GettingKeyVariable,ManagementChildPrefixStr)
+						]
+					)
+					'''
+
+					#manage
+					self.GettedValueVariable=self.manage(
 						SYS.deprefix(self.GettingKeyVariable,ManagementChildPrefixStr)
-					]
-				)
-				'''
+					).ManagedValueVariable
 
-				#manage
-				self.GettedValueVariable=self.manage(
-					SYS.deprefix(self.GettingKeyVariable,ManagementChildPrefixStr)
-				).ManagedValueVariable
+					#debug
+					'''
+					self.debug(
+						[
+							'Ok we have managed',
+							('self.',self,['GettedValueVariable'])
+						]
+					)
+					'''
 
-				#debug
-				'''
-				self.debug(
-					[
-						'Ok we have managed',
-						('self.',self,['GettedValueVariable'])
-					]
-				)
-				'''
+					#Stop the getting
+					return {'HookingIsBool':False}
 
-				#Stop the getting
-				return {'HookingIsBool':False}
+				#Check
+				else:
 
-			#Check
-			else:
+					#debug
+					'''
+					self.debug(
+						[
+							'We team here',
+							('self.',self,['GettingKeyVariable'])
+						]
+					)
+					'''
 
-				#debug
-				'''
-				self.debug(
-					[
-						'We team here',
-						('self.',self,['GettingKeyVariable'])
-					]
-				)
-				'''
+					#team
+					self.GettedValueVariable=getattr(
+						self.ManagementDict,
+						GetKeyStr[1:]
+					)()
 
-				#team
-				self.GettedValueVariable=getattr(
-					self.ManagementDict,
-					GetKeyStr[1:]
-				)()
-
-				#Stop the setting
-				return {'HookingIsBool':False}
+					#Stop the setting
+					return {'HookingIsBool':False}
 
 		#Call the parent get method
 		return BaseClass.get(self)
@@ -487,26 +570,58 @@ class ManagerClass(BaseClass):
 		#Check
 		if type(
 			self.SettingKeyVariable
-		)==str and self.SettingKeyVariable.startswith(
-			ManagementChildPrefixStr
-		):
+		)==str:
 
-			#debug
-			'''
-			self.debug('We manage here')
-			'''
+			#Check
+			if self.SettingKeyVariable.startswith(
+				ManagementDirectChildPrefixStr
+			):
 
-			#manage
-			self.manage(
-				SYS.deprefix(
-					self.SettingKeyVariable,
-					ManagementChildPrefixStr
-				),
-				self.SettingValueVariable
-			)	
+				#debug
+				'''
+				self.debug(
+					[
+						'We manage here without instancing',
+						('self.',self,['SettingKeyVariable'])
+					]
+				)
+				'''
+		
+				#manage
+				self.manage(
+					SYS.deprefix(
+						self.SettingKeyVariable,
+						ManagementDirectChildPrefixStr
+					),
+					self.SettingValueVariable,
+					_WrapBool=False
+				)
+				self.ManagingWrapBool=True
 
-			#Stop the setting
-			return {'HookingIsBool':False}
+				#Stop the setting
+				return {'HookingIsBool':False}
+
+			elif self.SettingKeyVariable.startswith(
+				ManagementChildPrefixStr
+			):
+
+				#debug
+				'''
+				self.debug('We manage here')
+				'''
+
+				#manage
+				self.manage(
+					SYS.deprefix(
+						self.SettingKeyVariable,
+						ManagementChildPrefixStr
+					),
+					self.SettingValueVariable
+				)	
+
+				#Stop the setting
+				return {'HookingIsBool':False}
+
 
 		#debug
 		'''
@@ -539,6 +654,7 @@ ManagerClass.PrintingClassSkipKeyStrsList.extend(
 		'ManagingClassesDict',
 		'ManagingBeforeSetVariable',
 		'ManagingAfterSetVariable',
+		'ManagingWrapBool',
 		'ManagedValueVariable',
 		'ManagedInBool',
 		'ManagedOnceBool'

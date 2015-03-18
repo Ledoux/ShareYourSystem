@@ -17,7 +17,8 @@ MyNeurongrouper=SYS.NeurongrouperClass(
 	).set(
 		'/-States/|Run',
 		{
-			'MoniteringVariableStr':'r'
+			'MoniteringVariableStr':'r',
+			'MoniteringRecordTimeIndexIntsArray':[0,1]
 		}
 	).neurongroup(
 		{
@@ -55,7 +56,7 @@ map(
 )
 
 #plot
-MyNeurongrouper.NeurongroupedBrianVariable.r=1.+np.array(map(float,xrange(UnitsInt)))
+MyNeurongrouper.NeurongroupedBrianVariable.r=1.+SYS.numpy.array(map(float,xrange(UnitsInt)))
 MyNetwork.run(500.*ms)
 M=MyNeurongrouper.NeurongroupedStateMonitorsList[0]
 from matplotlib import pyplot

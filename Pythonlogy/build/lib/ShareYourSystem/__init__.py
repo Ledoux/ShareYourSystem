@@ -626,9 +626,6 @@ def pick(_Variable,_GetVariablesList,_GetMethodStr='getattr'):
 				_GetVariablesList
 			)
 
-
-
-
 def _filter(_Function,_List):
 	if sys.version[0]==2:
 		return filter(_Function,_List)
@@ -807,6 +804,27 @@ def where(_DictsList,_TuplesList,**_KwargsDict):
 						else None,
 						_DictsList
 					)
+
+def translate(_TextStr,_TranslationVariable):
+
+	#Check just for one word translation
+	if hasattr(_TranslationVariable,'items')==False:
+		_TranslationVariable={
+			'#__Variable':_TranslationVariable
+		} 
+
+	#import 
+	import re
+
+	#set
+	RepDict = dict((re.escape(k), v) for k, v in _TranslationVariable.iteritems())
+
+	#compile
+	pattern = re.compile("|".join(RepDict.keys()))
+
+	#return
+	return pattern.sub(lambda m: RepDict[re.escape(m.group(0))],_TextStr)
+
 
 def getStrsListWithBeginStrAndEndStrAndStrsIntAndStr(
 		_BeginStr,_EndStr,_StrsInt,_Str,**_KwargVariablesDict):
