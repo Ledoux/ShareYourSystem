@@ -20,13 +20,17 @@ SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
-from ShareYourSystem.Standards.Itemizers import Pointer
-from ShareYourSystem.Specials.Simulaters import Synapser
+from ShareYourSystem.Standards.Itemizers import Networker
+from ShareYourSystem.Specials.Simulaters import Synapser,Moniter
 #</ImportSpecificModules>
 
 #<DefineLocals>
-class SpikesClass(Pointer.PointerClass):pass
-class StatesClass(Pointer.PointerClass):pass
+class SpikesClass(Networker.NetworkerClass):pass
+class StatesClass(Networker.NetworkerClass):pass
+NeurongroupPostTeamKeyStr="Postlets"
+NeurongroupPreTeamKeyStr="Prelets"
+NeurongroupSpikeTeamKeyStr="Spikes"
+NeurongroupStateTeamKeyStr="States"
 #</DefineLocals>
 
 #<DefineClass>
@@ -53,6 +57,10 @@ class NeurongrouperClass(BaseClass):
 				self
 			):	
 
+		#/########################/#
+		# Import brian 
+		# adapt the shape of the NeurongroupingBrianKwargDict
+
 		#debug
 		'''
 		self.debug(('self.',self,[
@@ -67,10 +75,15 @@ class NeurongrouperClass(BaseClass):
 		if 'N' not in self.NeurongroupingBrianKwargDict:
 			self.NeurongroupingBrianKwargDict['N']=self.SimulatingUnitsInt
 
-		#add the synaptic model strs
-		'''
-		self.debug(('self.',self,['CollectionsOrderedDict']))
-		'''
+		#Check
+		if 'model' not in self.NeurongroupingBrianKwargDict:
+			self.NeurongroupingBrianKwargDict['model']=''
+
+
+		"""
+		#/########################/#
+		# Look for presynaptic Neurongroupers... 
+		# Maybe they have a model that change here the one to set
 
 		#map
 		self.NeurongroupedPostModelInsertStrsList=list(
@@ -124,11 +137,7 @@ class NeurongrouperClass(BaseClass):
 							'NeurongroupedPostModelAddDict'
 						]))
 		'''
-
-		#Check
-		if 'model' not in self.NeurongroupingBrianKwargDict:
-			self.NeurongroupingBrianKwargDict['model']=''
-			
+				
 		#add synaptic model variables
 		map(
 				lambda __NeurongroupedPostModelInsertStr:
@@ -171,6 +180,11 @@ class NeurongrouperClass(BaseClass):
 							'NeurongroupingBrianKwargDict'
 							]))
 		'''
+		"""
+
+		#/##################/#
+		# Set finally the Neurongroup
+		#
 
 		#init
 		self.NeurongroupedBrianVariable=NeuronGroup(
@@ -198,17 +212,24 @@ class NeurongrouperClass(BaseClass):
 		self.debug(('self.',self,['NeurongroupedBrianVariable']))
 		'''
 
-		#map
-		self.NeurongroupedSpikeMonitorsList=map(
-						lambda __DeriveMoniter:
-						__DeriveMoniter.__setitem__(
-							'SpikeMonitor',
-							SpikeMonitor(
-								self.NeurongroupedBrianVariable
-							)
-						).SpikeMonitor,
-						self.TeamDict[NeurongroupSpikeTeamKeyStr].ManagementDict.values()
-					)
+		#/##################/#
+		# Look for the spike monitors to set
+		#
+
+		#Check
+		if NeurongroupSpikeTeamKeyStr in self.TeamDict:
+
+			#map
+			self.NeurongroupedSpikeMonitorsList=map(
+							lambda __DeriveMoniter:
+							__DeriveMoniter.__setitem__(
+								'SpikeMonitor',
+								SpikeMonitor(
+									self.NeurongroupedBrianVariable
+								)
+							).SpikeMonitor,
+							self.TeamDict[NeurongroupSpikeTeamKeyStr].ManagementDict.values()
+						)
 
 		#debug
 		'''
@@ -221,19 +242,26 @@ class NeurongrouperClass(BaseClass):
 		)
 		'''
 
-		#map
-		self.NeurongroupedStateMonitorsList=map(
-				lambda __DeriveMoniter:
-				__DeriveMoniter.__setitem__(
-					'StateMonitor',
-					StateMonitor(
-						self.NeurongroupedBrianVariable,
-						__DeriveMoniter.MoniteringVariableStr,
-						__DeriveMoniter.MoniteringRecordTimeIndexIntsArray
-					)
-				).StateMonitor,
-				self.TeamDict[NeurongroupStateTeamKeyStr].ManagementDict.values()
-			)
+		#/##################/#
+		# Look for the state monitors to set
+		#
+
+		#Check
+		if NeurongroupStateTeamKeyStr in self.TeamDict:
+
+			#map
+			self.NeurongroupedStateMonitorsList=map(
+					lambda __DeriveMoniter:
+					__DeriveMoniter.__setitem__(
+						'StateMonitor',
+						StateMonitor(
+							self.NeurongroupedBrianVariable,
+							__DeriveMoniter.MoniteringVariableStr,
+							__DeriveMoniter.MoniteringRecordTimeIndexIntsArray
+						)
+					).StateMonitor,
+					self.TeamDict[NeurongroupStateTeamKeyStr].ManagementDict.values()
+				)
 
 		#debug
 		'''
@@ -280,6 +308,11 @@ class NeurongrouperClass(BaseClass):
 
 #<DefineLocals>
 
+#set
+SpikesClass.ManagingValueClass=Moniter.MoniterClass
+StatesClass.ManagingValueClass=Moniter.MoniterClass
+
+#update
 NeurongrouperClass.TeamingClassesDict.update(
 	{
 		'Spikes':SpikesClass,

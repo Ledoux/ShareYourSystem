@@ -641,8 +641,8 @@ class ParenterClass(BaseClass):
 		#debug
 		'''
 		print('Parenter 525')
-		print('self.PrintingVariable.PrintingInstanceSkipKeyStrsList is ')
-		print(self.PrintingVariable.PrintingInstanceSkipKeyStrsList)
+		print('self.PrintingCopyVariable.PrintingInstanceSkipKeyStrsList is ')
+		print(self.PrintingCopyVariable.PrintingInstanceSkipKeyStrsList)
 		print('')
 		'''
 		
@@ -656,13 +656,15 @@ class ParenterClass(BaseClass):
 			#map
 			map(
 					lambda __ItemTuple:
-					self.PrintingVariable.TeamDict.__setitem__(
+					self.PrintingCopyVariable.TeamDict.__setitem__(
 						__ItemTuple[0],
 						Printer.getPointerStr(__ItemTuple[1])+" (Empy)"
 					) 
-					if len(__ItemTuple[1].ManagementDict)==0
+					if hasattr(
+						__ItemTuple[1],'ManagementDict'
+					) and len(__ItemTuple[1].ManagementDict)==0
 					else None,
-					self.PrintingVariable.TeamDict.items()
+					self.PrintingCopyVariable.TeamDict.items()
 				)
 
 		if self.ParentedTotalPathStr!="":

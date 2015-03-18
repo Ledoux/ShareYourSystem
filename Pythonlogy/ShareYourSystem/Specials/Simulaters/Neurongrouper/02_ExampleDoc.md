@@ -5,4 +5,4 @@ FrozenIsBool False
 
 ##Example
 
-Pydelayer with rate
+Do a simple rate model of disconnected units

@@ -32,7 +32,7 @@ class MultiplierClass(SYS.PointerClass):
 						]),
 						('|Result',[
 							('ModelKeyStrsList',['MultipliedTotalFloat']),
-							('PointKeyStrsList',['/^/|Parameter'])
+							('PointKeyVariablesList',['/^/|Parameter'])
 						])
 					]
 				)
@@ -62,7 +62,7 @@ class ModulerClass(SYS.PointerClass):
 						('|Parameter',[
 							('ModelKeyStrsList',['ModulingPowerFloat']),
 							(
-								'PointKeyStrsList',
+								'PointKeyVariablesList',
 								[
 									'/^/^/-Components/|Real/-Models/|Result',
 									'/^/^/-Components/|Image/-Models/|Result',
@@ -71,7 +71,7 @@ class ModulerClass(SYS.PointerClass):
 						]), 
 						('|Result',[
 							('ModelKeyStrsList',['ModuledTotalFloat']),
-							('PointKeyStrsList',['/^/|Parameter'])
+							('PointKeyVariablesList',['/^/|Parameter'])
 						])
 					]
 				),

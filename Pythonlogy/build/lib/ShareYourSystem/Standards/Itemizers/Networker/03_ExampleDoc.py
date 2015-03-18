@@ -32,7 +32,7 @@ class MultiplierClass(SYS.NetworkerClass):
 						]),
 						('|Result',[
 							('ModelKeyStrsList',['MultipliedTotalFloat']),
-							('ParentingTriggerVariable',['<->/^/|Parameter'])
+							('PointKeyVariablesList',['/^/|Parameter'])
 						])
 					]
 				)
@@ -62,10 +62,10 @@ class ModulerClass(SYS.NetworkerClass):
 						('|Parameter',[
 							('ModelKeyStrsList',['ModulingPowerFloat']),
 							(
-								'ParentingTriggerVariable',
+								'PointKeyVariablesList',
 								[
-									'<->/^/^/-Components/|Real/-Models/|Result',
-									'<->/^/^/-Components/|Image/-Models/|Result',
+									'/^/^/-Components/|Real/-Models/|Result',
+									'/^/^/-Components/|Image/-Models/|Result',
 								]
 							)
 						]), 

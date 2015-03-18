@@ -317,12 +317,6 @@ ShareYourSystem/Standards/Controllers/1_GithubDoc.md
 ShareYourSystem/Standards/Controllers/Readme.md
 ShareYourSystem/Standards/Controllers/__init__.py
 ShareYourSystem/Standards/Controllers/Controller/001_DocumentDoc.md
-ShareYourSystem/Standards/Controllers/Controller/00_ExampleDoc.md
-ShareYourSystem/Standards/Controllers/Controller/01_ExampleDoc.py
-ShareYourSystem/Standards/Controllers/Controller/02_ExampleDoc.md
-ShareYourSystem/Standards/Controllers/Controller/03_ExampleDoc.py
-ShareYourSystem/Standards/Controllers/Controller/04_ExampleDoc.md
-ShareYourSystem/Standards/Controllers/Controller/05_ExampleDoc.py
 ShareYourSystem/Standards/Controllers/Controller/06_ExampleDoc.md
 ShareYourSystem/Standards/Controllers/Controller/07_ExampleDoc.py
 ShareYourSystem/Standards/Controllers/Controller/08_ExampleDoc.md
@@ -687,6 +681,8 @@ ShareYourSystem/Standards/Itemizers/Manager/Tests/attest_path.txt
 ShareYourSystem/Standards/Itemizers/Manager/draft/__init__ copy 2.py
 ShareYourSystem/Standards/Itemizers/Networker/00_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Networker/01_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Networker/02_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Networker/03_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Networker/__init__.py
 ShareYourSystem/Standards/Itemizers/Parenter/00_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Parenter/01_ExampleDoc.py

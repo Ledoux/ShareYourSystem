@@ -28,8 +28,8 @@ from ShareYourSystem.Standards.Itemizers import Pather,Teamer,Manager,Parenter
 #<DefineLocals>
 PointPrefixStr="*"
 PointPrefixStr="<->"
-PointInTeamStr="Inlets"
-PointOutTeamStr="Outlets"
+PointInTeamKeyStr="Inlets"
+PointOutTeamKeyStr="Outlets"
 PointConnectKeyStr='?>'
 def getLiargVariablesList(_ValueVariable):
 	return _ValueVariable
@@ -51,8 +51,6 @@ class PointerClass(BaseClass):
 					_PointingInTeamStr="Inlets",
 					_PointingGetBool=True,
 					_PointingValueClass=BaseClass,
-					_PointedOutDeriveTeamerVariable=None,
-					_PointedInDeriveTeamerVariable=None,
 					**_KwargVariablesDict
 				):
 
@@ -111,7 +109,10 @@ class PointerClass(BaseClass):
 			[
 				'We make the PointedValueVariable parentUp',
 				'PointedValueVariable is ',
-				SYS._str(PointedValueVariable)
+				SYS._str(PointedValueVariable),
+				('PointedValueVariable.',PointedValueVariable,[
+						'ParentedTotalPathStr'
+					])
 			]
 		)
 		'''
@@ -123,7 +124,10 @@ class PointerClass(BaseClass):
 		'''
 		self.debug(
 			[
-				'Ok it has pointed'
+				'Ok it has pointed',
+				('PointedValueVariable.',PointedValueVariable,[
+						'ParentedTotalPathStr'
+					])
 			]
 		)
 		'''
@@ -188,15 +192,17 @@ class PointerClass(BaseClass):
 		'''
 
 		#Check
-		if self.PointedOutDeriveTeamerVariable==None:
-			self.PointedOutDeriveTeamerVariable=self.team(
+		if self.PointingOutTeamStr not in self.TeamDict:
+			PointedOutDeriveTeamer=self.team(
 				self.PointingOutTeamStr
-			)
+			).TeamedValueVariable
+		else:
+			PointedOutDeriveTeamer=self.TeamDict[
+				self.PointingOutTeamStr
+			]
 
 		#team
-		self.TeamDict[
-			self.PointingOutTeamStr
-		].manage(
+		PointedOutDeriveTeamer.manage(
 				PointedValueVariable.ParentedTotalPathStr.replace(
 					'/','_'
 				)+'_'+PointedValueVariable.ManagementTagStr,
@@ -218,21 +224,26 @@ class PointerClass(BaseClass):
 		'''
 		self.debug(
 				[
-					'Now we in team '
+					'Now we in team ',
+					'IMPORTANT the PointingInTeamStr is from the original pointing',
+					'not the pointed object',
+					('self.',self,['PointingInTeamStr'])
 				]
 			)
 		'''
 
 		#Check
-		if PointedValueVariable.PointedInDeriveTeamerVariable==None:
-			PointedValueVariable.PointedInDeriveTeamerVariable=PointedValueVariable.team(
-				PointedValueVariable.PointingInTeamStr
-			)
+		if self.PointingInTeamStr not in PointedValueVariable.TeamDict:
+			PointedInDeriveTeamer=PointedValueVariable.team(
+				self.PointingInTeamStr
+			).TeamedValueVariable
+		else:
+			PointedInDeriveTeamer=PointedValueVariable.TeamDict[
+			self.PointingInTeamStr
+		]
 
 		#team
-		PointedValueVariable.TeamDict[
-			PointedValueVariable.PointingInTeamStr
-		].manage(
+		PointedInDeriveTeamer.manage(
 				self.ParentedTotalPathStr.replace(
 					'/','_'
 				)+'_'+self.ManagementTagStr,
@@ -352,22 +363,22 @@ class PointerClass(BaseClass):
 		if self.PrintingSelfBool:
 
 			#Check
-			if self.PrintingVariable.PointToVariable!=None:
+			if self.PrintingCopyVariable.PointToVariable!=None:
 
-				self.PrintingVariable.PointToVariable=Printer.getPointerStr(
-					self.PrintingVariable.PointToVariable
+				self.PrintingCopyVariable.PointToVariable=Printer.getPointerStr(
+					self.PrintingCopyVariable.PointToVariable
 				)
 			else:
 
 				#append
-				self.PrintingVariable.PrintingInstanceSkipKeyStrsList.append('PointToVariable')
+				self.PrintingCopyVariable.PrintingInstanceSkipKeyStrsList.append('PointToVariable')
 
 				#debug
 				'''
 				print('Pointer l 325')
 				print('Remove PointToVariable')
-				print('self.PrintingVariable.PrintingInstanceSkipKeyStrsList is ')
-				print(self.PrintingVariable.PrintingInstanceSkipKeyStrsList)
+				print('self.PrintingCopyVariable.PrintingInstanceSkipKeyStrsList is ')
+				print(self.PrintingCopyVariable.PrintingInstanceSkipKeyStrsList)
 				print('')
 				'''
 				
@@ -436,9 +447,8 @@ PointerClass.PrintingClassSkipKeyStrsList.extend(
 		'PointingInSetVariable',
 		'PointingOutTeamStr',
 		'PointingInTeamStr',
-		'PointingValueClass',
-		'PointedOutDeriveTeamerVariable',
-		'PointedInDeriveTeamerVariable'
+		'PointingGetBool',
+		'PointingValueClass'
 	]
 )
 #<DefinePrint>

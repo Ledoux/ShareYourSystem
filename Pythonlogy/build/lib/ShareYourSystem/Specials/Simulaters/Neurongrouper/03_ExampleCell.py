@@ -1,28 +1,24 @@
+#/###################/#
+# Import modules
+#
 
 #ImportModules
 import ShareYourSystem as SYS
-import numpy as np
 
 #
 UnitsInt=3
 
+#/###################/#
+# Build the model
+#
+
 #Definition an instance
 MyNeurongrouper=SYS.NeurongrouperClass(
-	**{
-			#either set with N in the NeuronGroup Kwarg 
-			#or here at the populating level
-			#'PopulatingUnitsInt':100
+	).set(
+		'/-States/|Run',
+		{
+			'MoniteringVariableStr':'r'
 		}
-	).collect(
-		'StateMoniters',
-		'MyRates',
-		SYS.MoniterClass(
-			**{
-
-				'MoniteringRecordTimeIndexIntsArray':[0,1],
-				'MoniteringVariableStr':'r'
-			}
-		)
 	).neurongroup(
 		{
 			'N':UnitsInt,
@@ -33,18 +29,17 @@ MyNeurongrouper=SYS.NeurongrouperClass(
 		}
 	)
 		
+#/###################/#
+# Print
+#
+
 #Definition the AttestedStr
-SYS._attest(
-	[
-		'MyNeurongrouper is '+SYS._str(
-		MyNeurongrouper,
-		**{
-			'RepresentingBaseKeyStrsListBool':False,
-			'RepresentingAlineaIsBool':False
-		}
-		),
-	]
-) 
+print('MyNeurongrouper is ')
+SYS._print(MyNeurongrouper)
+
+#/###################/#
+# Do one simulation
+#
 
 #Print
 from brian2 import Network,ms,mV

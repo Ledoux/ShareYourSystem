@@ -73,11 +73,11 @@ class PrinterClass(BaseClass):
 
         #Definition
         RepresentingKeyStrsList=[
-'PrintingVariable'
+'PrintingCopyVariable'
                                                                 ]
 
         def default_init(self,
-                                                _PrintingVariable=None,
+                                                _PrintingCopyVariable=None,
                                                 **_KwargVariablesDict
                                         ):
 
@@ -89,14 +89,14 @@ class PrinterClass(BaseClass):
 
                 #debug
                 '''
-                print('self.PrintingVariable is ',self.PrintingVariable)
+                print('self.PrintingCopyVariable is ',self.PrintingCopyVariable)
                 print('')
                 '''
 
                 #print
                 print(
                         Representer.getRepresentedStrWithVariable(
-                                self.PrintingVariable,
+                                self.PrintingCopyVariable,
                                 **_KwargVariablesDict
                                 )
                 )
@@ -159,7 +159,7 @@ hello
 MyPrinter is < (PrinterClass), 4536927888>
    /{
    /  '<New><Instance>IdInt' : 4536927888
-   /  '<Spe><Instance>PrintingVariable' : hello
+   /  '<Spe><Instance>PrintingCopyVariable' : hello
    /}
 
 *****End of the Attest *****

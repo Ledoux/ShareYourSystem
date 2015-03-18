@@ -5,4 +5,4 @@ FrozenIsBool False
 
 ##Example
 
-Pydelayer
+Do a simple network of disconnected LIF neurons

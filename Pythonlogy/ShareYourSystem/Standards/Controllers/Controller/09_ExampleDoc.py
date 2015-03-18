@@ -95,7 +95,9 @@ class ModulerClass(SYS.ControllerClass):
 #
 
 MyModuler=ModulerClass(
-	).parentDown()
+	).network(
+		['Components','Models']
+	)
 
 #/######################/#
 # Print

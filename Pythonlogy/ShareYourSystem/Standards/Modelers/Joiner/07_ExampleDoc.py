@@ -11,7 +11,7 @@ import ShareYourSystem as SYS
 
 #Define a Moduler class
 @SYS.ClasserClass()
-class MultiplierClass(SYS.NetworkerClass):
+class MultiplierClass(SYS.ControllerClass):
 								
 	def default_init(self,
 						_MultiplyingFirstFloat=0,
@@ -21,7 +21,7 @@ class MultiplierClass(SYS.NetworkerClass):
 					):
 
 		#Call the parent init method
-		SYS.NetworkerClass.__init__(self,**_KwargVariablesDict)
+		SYS.ControllerClass.__init__(self,**_KwargVariablesDict)
 			
 		#Build the model		
 		self['#map@set'](
@@ -39,9 +39,19 @@ class MultiplierClass(SYS.NetworkerClass):
 			]
 		)
 
+	def do_multiply(self):
+		
+		#debug
+		'''
+		self.debug(('self.',self,['MultiplyingFirstFloat','MultiplyingSecondFloat']))
+		'''
+
+		#set the SumedTotalFloat
+		self.MultipliedTotalFloat=self.MultiplyingFirstFloat*self.MultiplyingSecondFloat
+
 #Define a Moduler class
 @SYS.ClasserClass()
-class ModulerClass(SYS.NetworkerClass):
+class ModulerClass(SYS.ControllerClass):
 								
 	def default_init(self,
 						_ModulingPowerFloat=0.5,
@@ -50,7 +60,7 @@ class ModulerClass(SYS.NetworkerClass):
 					):
 
 		#Call the parent init method
-		SYS.NetworkerClass.__init__(self,**_KwargVariablesDict)
+		SYS.ControllerClass.__init__(self,**_KwargVariablesDict)
 
 		#Build the components and the models
 		self['#map@set'](
@@ -71,7 +81,12 @@ class ModulerClass(SYS.NetworkerClass):
 						]), 
 						('|Result',[
 							('ModelKeyStrsList',['ModuledTotalFloat']),
-							('PointKeyVariablesList',['/^/|Parameter'])
+							(
+								'ParentingTriggerVariable',
+								[
+									'<->/^/|Parameter'
+								]
+							)
 						])
 					]
 				),
@@ -85,17 +100,76 @@ class ModulerClass(SYS.NetworkerClass):
 			]
 		)
 						
+	def do_module(self):
+		
+		#debug
+		'''
+		self.debug(('self.',self,['SumingFirstFloat','SumingSecondFloat']))
+		'''
+
+		#set the SumedTotalFloat
+		self.ModuledTotalFloat=sum(
+				[
+					self['/-Components/|Real'].multiply().MultipliedTotalFloat,
+					self['/-Components/|Image'].multiply().MultipliedTotalFloat
+				]
+			)**self.ModulingPowerFloat
+
 #/######################/#
 # Build your total model and insert
 #
 
 MyModuler=ModulerClass(
-	).network(
+		**{
+			'FolderingPathStr':SYS.Joiner.LocalFolderPathStr,
+			'HdformatingFileKeyStr':'Modulus.hdf5'
+		}
+	).parentDown(
+	)
+
+
+"""
+	['#map@set'](
+		{
+			'/-Components/|Real':{
+				'MultiplyingFirstFloat':3.,
+				'MultiplyingSecondFloat':1.
+			},
+			'/-Components/|Image':{
+				'MultiplyingFirstFloat':1.,
+				'MultiplyingSecondFloat':2.
+			}
+		}
+	).module(
+	).command(
+		'/-Models/|Result',
 		[
-			'Components',
-			'Models'
+			'#call:insert',
+			('setSwitch',['insert'])
 		]
 	)
+"""
+
+
+"""
+	['#map@set'](
+		{
+			'/-Components/|Real':{
+				'MultiplyingFirstFloat':3.,
+				'MultiplyingSecondFloat':1.
+			},
+			'/-Components/|Image':{
+				'MultiplyingFirstFloat':1.,
+				'MultiplyingSecondFloat':2.
+			}
+		}
+	).module(
+	).command(
+		'/-Models/|Result',
+		'#call:insert'
+	)
+
+"""
 
 #/######################/#
 # Print
@@ -105,3 +179,8 @@ MyModuler=ModulerClass(
 print('MyModuler is ')
 SYS._print(MyModuler)
 
+#view
+print('hdf5 file is : \n'+SYS._str(MyModuler.hdfview()))
+
+#close
+MyModuler.file(_ModeStr='c')

@@ -25,7 +25,8 @@ Pointer=BaseModule
 #</ImportSpecificModules>
 
 #<DefineLocals>
-NetworkFlatPrefixStr='__Net__'
+NetworkOutPrefixStr='_Net_'
+NetworkInTeamKeyStr='Networks'
 #</DefineLocals>
 
 #<DefineClass>
@@ -70,18 +71,20 @@ class NetworkerClass(BaseClass):
 		#map
 		self.NetworkedTeamStrsList=map(
 				lambda __NetworkingTeamOrManagementStr:
-				NetworkFlatPrefixStr+__NetworkingTeamOrManagementStr,
+				NetworkOutPrefixStr+__NetworkingTeamOrManagementStr,
 				(self.NetworkingTeamVariable if self.NetworkingTeamVariable!=None else [])+
 				(self.NetworkingManagementVariable if self.NetworkingManagementVariable!=None else [])
 			)
 
 		#debug
+		'''
 		self.debug(
 				[
 					'We are going to make team the NetworkedTeamStrsList',
 					('self.',self,['NetworkedTeamStrsList'])
 				]
 			)
+		'''
 
 		#map
 		map(
@@ -141,6 +144,7 @@ class NetworkerClass(BaseClass):
 		#
 
 		#find
+		'''
 		self.debug(
 			[
 				'We have parented',
@@ -148,10 +152,12 @@ class NetworkerClass(BaseClass):
 						#'ParentedDeriveTeamersList',
 						'NetworkTargetStr'
 					]),
-				'Now find the NetworkDeriveNetworkerVariable'
+				'Now find the NetworkDeriveNetworkerVariable that has the NetworkTagStr',
+				'equal to the self.NetworkTargetStr'
 			]
 		)
-		
+		'''
+
 		#Check
 		if len(self.ParentedDeriveTeamersList)>0:
 
@@ -164,7 +170,7 @@ class NetworkerClass(BaseClass):
 						hasattr(
 							__ParentedDeriveTeamer,
 							'NetworkTargetStr'
-						) and __ParentedDeriveTeamer.NetworkTargetStr==self.NetworkTargetStr,
+						) and __ParentedDeriveTeamer.NetworkTagStr==self.NetworkTargetStr,
 						self.ParentedDeriveTeamersList
 					).index(True)
 
@@ -176,18 +182,21 @@ class NetworkerClass(BaseClass):
 				IndexInt=len(self.ParentedDeriveTeamersList)
 			
 		#debug
+		'''
 		self.debug(
 				[
 					'Finally NetworkDeriveNetworkerVariable is ',
 					SYS._str(self.NetworkDeriveNetworkerVariable)
 				]
 			)
+		'''
 
 		#/##################/#
 		# Add to the top Controller
 		#
 
 		#debug
+		'''
 		self.debug(
 			[
 				('self.',self,[
@@ -196,6 +205,7 @@ class NetworkerClass(BaseClass):
 				])
 			]
 		)
+		'''
 
 		#Check
 		if self.TeamTagStr!="":
@@ -203,41 +213,107 @@ class NetworkerClass(BaseClass):
 			#debug
 			self.debug(
 					[
-						'we make manage the '+str(
-							NetworkFlatPrefixStr+self.ParentDeriveTeamerVariable.ManagementTagStr
-						)
+						'Check if we have to make manage the '+str(
+							NetworkOutPrefixStr+self.ParentDeriveTeamerVariable.ManagementTagStr
+						),
+						'self.NetworkDeriveNetworkerVariable.NetworkingManagementVariable is ',
+						str(self.NetworkDeriveNetworkerVariable.NetworkingManagementVariable)
 					]
 				)
 
-			#make manage the team net
-			self.NetworkDeriveNetworkerVariable.TeamDict[
-				NetworkFlatPrefixStr+self.ParentDeriveTeamerVariable.ManagementTagStr
-			].manage(
-				self.NetworkTagStr,
-				self
-			)
+			#Check
+			if self.NetworkDeriveNetworkerVariable.NetworkingManagementVariable!=None:
+
+				#Check
+				if self.ParentDeriveTeamerVariable.ManagementTagStr in self.NetworkDeriveNetworkerVariable.NetworkingManagementVariable:
+
+					#debug
+					'''
+					self.debug(
+						[
+							'Yes we make team point here'
+						]
+					)
+					'''
+
+					#point
+					self.NetworkDeriveNetworkerVariable.point(
+							self,
+							_OutTeamStr=NetworkOutPrefixStr+self.ParentDeriveTeamerVariable.ManagementTagStr,
+							_InTeamStr=NetworkInTeamKeyStr
+					)
 
 		if self.ManagementTagStr!="":
 			
 			#debug
+			'''
 			self.debug(
 					[
-						'we make manage the '+str(
-							NetworkFlatPrefixStr+self.ParentDeriveTeamerVariable.TeamTagStr
+						'we make point the top networker on the team'+str(
+							NetworkOutPrefixStr+self.ParentDeriveTeamerVariable.TeamTagStr
 						),
 						('self.',self,[
 								'NetworkTagStr'
 							])
 					]
 				)
+			'''
 
-			#make manage the team net
-			self.NetworkDeriveNetworkerVariable.TeamDict[
-				NetworkFlatPrefixStr+self.ParentDeriveTeamerVariable.TeamTagStr
-			].manage(
-				self.NetworkTagStr,
-				self
-			)
+			#Check
+			if self.NetworkDeriveNetworkerVariable.NetworkingTeamVariable!=None:
+
+				#Check
+				if self.ParentDeriveTeamerVariable.TeamTagStr in self.NetworkDeriveNetworkerVariable.NetworkingTeamVariable:
+
+					#debug
+					'''
+					self.debug(
+						[
+							'Yes we make team point here'
+						]
+					)
+					'''
+
+					#point
+					self.NetworkDeriveNetworkerVariable.point(
+							self,
+							_OutTeamStr=NetworkOutPrefixStr+self.ParentDeriveTeamerVariable.TeamTagStr,
+							_InTeamStr=NetworkInTeamKeyStr
+					)
+
+	def mimic__print(self,**_KwargVariablesDict):
+
+		#/##################/#
+		# Modify the printing Variable
+		#
+
+		#Check
+		if self.PrintingSelfBool:
+
+			#Check
+			if type(self.NetworkedTeamStrsList)==list:
+
+				#map
+				map(
+					lambda __NetworkedTeamStr:
+					self.PrintingCopyVariable.TeamDict.__setitem__(
+						__NetworkedTeamStr,
+						"Pointer with "+str(
+							len(
+								self.PrintingCopyVariable.TeamDict[__NetworkedTeamStr].ManagementDict
+							)
+						)+" managed encapsulations"
+					),
+					self.NetworkedTeamStrsList
+				)
+			
+				
+		#/##################/#
+		# Call the base method
+		#
+
+		#call
+		BaseClass._print(self,**_KwargVariablesDict)
 
 #</DefineClass>
 
@@ -245,7 +321,7 @@ class NetworkerClass(BaseClass):
 
 #set
 Pointer.PointerClass.ManagingValueClass=NetworkerClass
-
+SYS.ParenterClass.ManagingValueClass=NetworkerClass
 #</DefineLocals>
 
 #</DefinePrint>

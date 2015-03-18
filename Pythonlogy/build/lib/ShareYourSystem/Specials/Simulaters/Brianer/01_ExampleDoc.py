@@ -1,9 +1,6 @@
 #ImportModules
 import ShareYourSystem as SYS
 
-
-
-
 #Definition
 MyBrianer=SYS.BrianerClass(
 	).set(
@@ -24,10 +21,10 @@ MyBrianer=SYS.BrianerClass(
 						'reset':'v=-60*mV'
 					},
 					'get':'/-Spikes/|Run',
-					'ParentingTriggerVariable':{
-						'#value:#lambda':'#direct:<->/^/|#__Variable',
-						'#map':['E','I']
-					}
+					#'ParentingTriggerVariable':{
+					#	'#value:#lambda':'#direct:<->/^/|#__Variable',
+					#	'#map':['E','I']
+					#}
 				}
 			),
 			(
@@ -64,14 +61,17 @@ MyBrianer=SYS.BrianerClass(
 				}
 			)
 		]
-	).get('?v')
+	)
+
+
+#.get('?v')
 
 
 #print
 print('MyBrianer is ')
 SYS._print(MyBrianer) 
 
-SYS._print(MyBrianer['/-Populations/|E/-Outlets/|_Top_Populations_E'].SynapsingProbabilityVariable)
+#SYS._print(MyBrianer['/-Populations/|E/-Outlets/|_Top_Populations_E'].SynapsingProbabilityVariable)
 #.get('?v')
 
 

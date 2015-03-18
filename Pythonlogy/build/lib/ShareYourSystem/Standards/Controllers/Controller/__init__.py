@@ -21,12 +21,12 @@ SYS.addDo('Controller','Control','Controlling','Controlled')
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
-from ShareYourSystem.Standards.Itemizers import Pointer
+from ShareYourSystem.Standards.Itemizers import Networker
 #</ImportSpecificModules>
 
 #<DefineLocals>
-class ModelsClass(Pointer.PointerClass):pass
-class ViewsClass(Pointer.PointerClass):pass
+class ModelsClass(Networker.NetworkerClass):pass
+class ViewsClass(Networker.NetworkerClass):pass
 #</DefineLocals>
 
 #<DefineClass>
@@ -94,13 +94,16 @@ class ControllerClass(BaseClass):
 		#debug
 		self.debug(
 			[
-				'We parentDown in the models'
+				'We networks in the components and the models'
 			]
 		)
 
 		#parentDown
-		self.parentDown(
-			['Models']
+		self.network(
+			[
+				'Components',
+				'Models'
+			]
 		)
 
 
@@ -156,7 +159,7 @@ class ControllerClass(BaseClass):
 
 #Set
 ControllerClass.TeamingClassesDict={
-	'Components':Pointer.PointerClass,
+	'Components':Networker.NetworkerClass,
 	'Models':ModelsClass,
 	'Views':ViewsClass
 }

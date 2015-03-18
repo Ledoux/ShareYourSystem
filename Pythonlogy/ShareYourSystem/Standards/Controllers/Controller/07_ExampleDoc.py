@@ -1,6 +1,7 @@
 
 #ImportModules
 import ShareYourSystem as SYS
+from ShareYourSystem.Standards.Viewers import Viewer
 
 #Define
 MyController=SYS.ControllerClass(

@@ -669,7 +669,7 @@ class PrinterClass(BaseClass):
 
 	def default_init(self,
 						_PrintIdInt=0,
-						_PrintingVariable=None,
+						_PrintingCopyVariable=None,
 						_PrintingInstanceSkipKeyStrsList=None,
 						_PrintingInstanceForceKeyStrsList=None,
 						_PrintingClassSkipKeyStrsList=[],
@@ -700,8 +700,8 @@ class PrinterClass(BaseClass):
 		print('l 680 _print')
 		#print('_KwargVariablesDict is ')
 		#print(_KwargVariablesDict)
-		print('self.PrintingVariable.PrintingInstanceSkipKeyStrsList is ')
-		print(self.PrintingVariable.PrintingInstanceSkipKeyStrsList)
+		print('self.PrintingCopyVariable.PrintingInstanceSkipKeyStrsList is ')
+		print(self.PrintingCopyVariable.PrintingInstanceSkipKeyStrsList)
 		print('')
 		'''
 		
@@ -720,7 +720,7 @@ class PrinterClass(BaseClass):
 			'''
 			
 			#print
-			self.PrintStr=self.PrintingVariable.getReprStr(
+			self.PrintStr=self.PrintingCopyVariable.getReprStr(
 				**_KwargVariablesDict
 			)
 
@@ -735,7 +735,7 @@ class PrinterClass(BaseClass):
 
 			#print
 			self.PrintStr=getPrintStr(
-					self.PrintingVariable,
+					self.PrintingCopyVariable,
 					**_KwargVariablesDict
 				)
 		
@@ -754,7 +754,7 @@ class PrinterClass(BaseClass):
 		'''
 
 		#init a new one
-		self.PrintingVariable=self.__class__()
+		self.PrintingCopyVariable=self.__class__()
 
 		#loop
 		for __ItemTuple in self.__dict__.items():
@@ -767,7 +767,7 @@ class PrinterClass(BaseClass):
 			'''
 
 			#copy
-			#self.PrintingVariable.__dict__[__ItemTuple[0]]=copy.copy(
+			#self.PrintingCopyVariable.__dict__[__ItemTuple[0]]=copy.copy(
 			#	__ItemTuple[1]
 			#)
 
@@ -775,7 +775,7 @@ class PrinterClass(BaseClass):
 			try:
 
 				#copy
-				self.PrintingVariable.__dict__[__ItemTuple[0]]=copy.copy(
+				self.PrintingCopyVariable.__dict__[__ItemTuple[0]]=copy.copy(
 					__ItemTuple[1]
 				)
 			except:
@@ -793,14 +793,14 @@ class PrinterClass(BaseClass):
 		#Debug
 		'''
 		print('l 764 OK')
-		print('type(self.PrintingVariable) is ')
-		print(type(self.PrintingVariable))
+		print('type(self.PrintingCopyVariable) is ')
+		print(type(self.PrintingCopyVariable))
 		print('')
 		'''
 
 		#get
 		ReprStr=self._print(
-			self.PrintingVariable,
+			self.PrintingCopyVariable,
 			_OutBool=False,
 			_SelfBool=True,
 			**_KwargVariablesDict
@@ -1070,7 +1070,7 @@ class PrinterClass(BaseClass):
 PrinterClass.PrintingClassSkipKeyStrsList.extend(
 	[
 		'PrintIdInt',
-		'PrintingVariable',
+		'PrintingCopyVariable',
 		'PrintingInstanceSkipKeyStrsList',
 		'PrintingInstanceForceKeyStrsList',
 		'PrintingClassSkipKeyStrsList',
