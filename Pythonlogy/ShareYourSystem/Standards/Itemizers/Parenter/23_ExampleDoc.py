@@ -3,18 +3,17 @@ import ShareYourSystem as SYS
 
 #define structure
 MyParenter=SYS.ParenterClass(
-	)['#map@set'](
+	).array(
 		[
-			(
-				'-Outlets',
-				[
-					('|A',{
-							'MyStr':"hello"
-						})
-				]
-			)
+			['-Outlets','-Inlets'],
+			['|A','|B'],
+			['-Outlets','-Inlets'],
+			['|A','|B']
 		]
 	)
+
+#parentUp
+MyParenter['/-Outlets/|A/-Outlets/|A'].parentUp()
 
 #print
 print('MyParenter is ')

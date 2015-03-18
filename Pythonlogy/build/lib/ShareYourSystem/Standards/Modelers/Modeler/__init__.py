@@ -175,11 +175,23 @@ class ModelerClass(BaseClass):
 						)
 				'''
 
-				#set
-				self.ModeledMongoDatabaseKeyStr=self.ModelDeriveControllerVariable.ControlTagStr
+				#/#################/#
+				# Check for the name
+				#
 
-				#set
-				self.ModelDeriveControllerVariable.PymongoingDatabaseKeyStr=self.ModeledMongoDatabaseKeyStr
+				#Check
+				if self.ModelDeriveControllerVariable.PymongoingDatabaseStr=="":
+
+					#set
+					self.ModeledMongoDatabaseKeyStr=self.ModelDeriveControllerVariable.ControlTagStr
+
+					#set
+					self.ModelDeriveControllerVariable.PymongoingDatabaseStr=self.ModeledMongoDatabaseKeyStr
+
+				else:
+
+					#set
+					self.ModeledMongoDatabaseKeyStr=self.ModelDeriveControllerVariable.PymongoingDatabaseStr
 
 				#set
 				self.ModeledMongoLocalDatabaseVariable=self.ModeledMongoTopClientVariable[

@@ -9,7 +9,7 @@ import ShareYourSystem as SYS
 # Define you hierarchic objects
 #
 
-#Define a Sumer class
+#Define a Moduler class
 @SYS.ClasserClass()
 class MultiplierClass(SYS.ControllerClass):
 								
@@ -53,7 +53,7 @@ class MultiplierClass(SYS.ControllerClass):
 class ModulerClass(SYS.ControllerClass):
 								
 	def default_init(self,
-						_ModulingPowerFloat=0,
+						_ModulingPowerFloat=0.5,
 						_ModuledTotalFloat=0,
 						**_KwargVariablesDict
 					):
@@ -66,8 +66,8 @@ class ModulerClass(SYS.ControllerClass):
 			{
 				#COMPONENTS
 				'-Components':{
-					'|Real':{},
-					'|Image':{}
+					'|Real':MultiplierClass(),
+					'|Image':MultiplierClass()
 				},
 				#MODELS
 				'-Models':[
@@ -98,71 +98,38 @@ class ModulerClass(SYS.ControllerClass):
 
 		#set the SumedTotalFloat
 		self.ModuledTotalFloat=sum(
-								[
-									self['/-Components/|Real'].multiply().MultipliedTotalFloat,
-									self['/-Components/|Real'].multiply().MultipliedTotalFloat
-								]
-							)**self.ModulingPowerFloat
+				[
+					self['/-Components/|Real'].multiply().MultipliedTotalFloat,
+					self['/-Components/|Real'].multiply().MultipliedTotalFloat
+				]
+			)**self.ModulingPowerFloat
 
 #/######################/#
-# Build your model
+# Build your total model and insert
 #
 
-
-"""
-print(MultiplierClass(
-	)['#map@set'](
-		[
-			('/-Components/|Real/MultiplyingFirstFloat',2.),
-			('MultiplyingSecondFloat',3.)
-		]
-	).multiply()
-)
-
-print(
-	ModulerClass()['#map@set'](
-		[
-			('MultiplyingFirstFloat',2.),
-			('MultiplyingSecondFloat',3.)
-		]
-	).multiply()
-)
-"""
-
-
-print(ModulerClass())
-
-"""
-#Definition of a Storer instance with a noded data
-MySumer=SumerClass(
-	**{
-			'HdformatingFileKeyStr':'Modulus_1.hdf5',
-			'FolderingPathStr':SYS.Joiner.LocalFolderPathStr
+MyModuler=ModulerClass(
+		**{
+			'FolderingPathStr':SYS.Joiner.LocalFolderPathStr,
+			'PymongoingDatabaseStr':'Modulus'
 		}
-	)['#map@set'](
+	).get('?v'
+	)
+
+
+'''
+	['#map@set'](
 		{
-			'-Models':[
-				('|Parameter',[
-					('ModelKeyStrsList',['SumingFirstFloat','SumingSecondFloat'])
-				]),
-				('|Result',[
-					('ModelKeyStrsList',['SumedTotalFloat']),
-					('ParentingTriggerVariable',['<->/^/|Parameter'])
-				])
-			]
+			'/-Components/|Real':{
+				'MultiplyingFirstFloat':3.,
+				'MultiplyingSecondFloat':1.
+			},
+			'/-Components/|Image':{
+				'MultiplyingFirstFloat':1.,
+				'MultiplyingSecondFloat':2.
+			}
 		}
-	).get('?v')
-
-#/######################/#
-# Insert in the model
-#
-
-MySumer['#map@set'](
-		[
-			('SumingFirstFloat',1),
-			('SumingSecondFloat',3)
-		]
-	).sum(
+	).module(
 	).command(
 		'/-Models/|Result',
 		[
@@ -170,27 +137,35 @@ MySumer['#map@set'](
 			('setSwitch',['insert'])
 		]
 	)['#map@set'](
-		[
-			('SumingFirstFloat',3),
-			('SumingSecondFloat',5)
-		]
-	).sum(
+		{
+			'/-Components/|Real':{
+				'MultiplyingFirstFloat':3.,
+				'MultiplyingSecondFloat':1.
+			},
+			'/-Components/|Image':{
+				'MultiplyingFirstFloat':1.,
+				'MultiplyingSecondFloat':2.
+			}
+		}
+	).module(
 	).command(
 		'/-Models/|Result',
 		'#call:insert'
 	)
+'''
+
+
 
 #/######################/#
 # Print
 #
 
 #print
-print('MySumer is ')
-SYS._print(MySumer)
+print('mongo db is : \n'+SYS._str(MyModuler.pymongoview()))
 
-#view
-print('hdf5 file is : \n'+SYS._str(MySumer.hdfview()))
+#print
+print('MyModuler is ')
+SYS._print(MyModuler)
 
-#close
-MySumer.file(_ModeStr='c')
-"""
+#Print
+MyModuler.process(_ActionStr='kill')

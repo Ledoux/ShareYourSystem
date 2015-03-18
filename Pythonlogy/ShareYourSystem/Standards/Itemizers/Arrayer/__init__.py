@@ -44,13 +44,15 @@ class ArrayerClass(BaseClass):
 	def do_array(self):
 		
 		#debug
+		'''
 		self.debug(
 				[
 					'we array here',
 					('self.',self,['ArrayingKeyVariablesList'])
 				]
 			)
-
+		'''
+		
 		#Check
 		if len(self.ArrayingKeyVariablesList)>0:
 
@@ -159,6 +161,7 @@ class ArrayerClass(BaseClass):
 				if len(self.ArrayingKeyVariablesList)>1:
 
 					#debug
+					'''
 					self.debug(
 						[
 							'self.ArrayingKeyVariablesList[0] is '+str(self.ArrayingKeyVariablesList[0]),
@@ -166,6 +169,7 @@ class ArrayerClass(BaseClass):
 							'first we set this layer'
 						]
 					)
+					'''
 
 					#map
 					ArrayedGetValueVariablesList=map(
@@ -181,13 +185,15 @@ class ArrayerClass(BaseClass):
 						)
 
 					#debug
+					'''
 					self.debug(
 						[
 							'Now we array further',
 							'ArrayedDeepValueVariable'+str(ArrayedDeepValueVariable)
 						]
 					)
-
+					'''
+					
 					#map the next array
 					map(
 							lambda __ArrayedGetValueVariable:

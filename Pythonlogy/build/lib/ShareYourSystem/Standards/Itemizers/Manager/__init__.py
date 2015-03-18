@@ -59,7 +59,7 @@ class ManagerClass(BaseClass):
 				_TeamIndexInt=-1,
 				_ManagementDict=None,
 				_ManagingKeyStr="",
-				_ManagingValueVariable=None,
+				_ManagingValueRigidVariable=None,
 				_ManagingValueClass=Teamer.TeamerClass,
 				_ManagingBeforeSetVariable=None,
 				_ManagingAfterSetVariable=None,
@@ -83,7 +83,7 @@ class ManagerClass(BaseClass):
 		self.debug(
 			('self.',self,[
 					'ManagingKeyStr',
-					'ManagingValueVariable'
+					'ManagingValueRigidVariable'
 				])
 		)
 		'''
@@ -183,7 +183,7 @@ class ManagerClass(BaseClass):
 			'''
 			
 			#Check
-			if self.ManagingValueVariable==None:
+			if self.ManagingValueRigidVariable==None:
 
 				#init
 				self.ManagedValueVariable=self.ManagingValueClass()
@@ -191,7 +191,7 @@ class ManagerClass(BaseClass):
 			else:
 
 				#alias
-				self.ManagedValueVariable=self.ManagingValueVariable
+				self.ManagedValueVariable=self.ManagingValueRigidVariable
 
 			#/####################/#
 			# Case where it is a dict or tuples list like
@@ -355,21 +355,29 @@ class ManagerClass(BaseClass):
 			self.debug(
 					[
 						'We maybe update',
-						('self.',self,['ManagingValueVariable'])
+						('self.',self,['ManagingValueRigidVariable'])
 					]
 				)
 			'''
 
 			#Check
 			if hasattr(
-				self.ManagingValueVariable,
+				self.ManagingValueRigidVariable,
 				'items'
-			) or SYS.getIsTuplesListBool(self.ManagingValueVariable):
+			) or SYS.getIsTuplesListBool(self.ManagingValueRigidVariable):
 
 				#set
 				self.ManagedValueVariable['#map@set'](
-						self.ManagingValueVariable
+						self.ManagingValueRigidVariable
 					)
+
+		#/###################/#
+		# reset rigid variable
+		#
+
+		#set
+		self.ManagingValueRigidVariable=None
+
 
 	def mimic_get(self):
 
@@ -526,7 +534,7 @@ ManagerClass.PrintingClassSkipKeyStrsList.extend(
 		'TeamIndexInt',
 		'ManagementDict',
 		'ManagingKeyStr',
-		'ManagingValueVariable',
+		'ManagingValueRigidVariable',
 		'ManagingValueClass',
 		'ManagingClassesDict',
 		'ManagingBeforeSetVariable',

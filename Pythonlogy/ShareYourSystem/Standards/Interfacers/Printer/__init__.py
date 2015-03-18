@@ -845,11 +845,13 @@ class PrinterClass(BaseClass):
 		#
 
 		#Debug
+		'''
 		print('Printer l 846')
 		print('self.PrintingInstanceSkipKeyStrsList is ')
 		print(self.PrintingInstanceSkipKeyStrsList)
 		print('')
-
+		'''
+		
 		#filter the skip key strs
 		PrintedDefaultSpecificKeyStrsList=SYS._filter(
 				lambda __DefaultSpecificKeyStr:

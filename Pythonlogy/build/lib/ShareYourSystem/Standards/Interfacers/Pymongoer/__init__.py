@@ -143,6 +143,7 @@ class PymongoerClass(BaseClass):
 	
 	def default_init(self,		
 			_PymongoingUrlStr='mongodb://localhost:27017/',
+			_PymongoingDatabaseStr="",
 			_PymongoingKillBool=True,
 			_PymongoneFolderPathStr="",
 			_PymongoneClientVariable=None,
@@ -352,6 +353,7 @@ class PymongoerClass(BaseClass):
 PymongoerClass.PrintingClassSkipKeyStrsList.extend(
 	[
 		'PymongoingUrlStr',
+		'PymongoingDatabaseStr',
 		'PymongoingKillBool',
 		'PymongoneFolderPathStr',
 		'PymongoneClientVariable',

@@ -59,7 +59,7 @@ class TeamerClass(BaseClass):
 				_ManagementIndexInt=-1,
 				_TeamDict=None,
 				_TeamingKeyStr="",	
-				_TeamingValueVariable=None,	
+				_TeamingValueRigidVariable=None,	
 				_TeamingManageVariable=None,					
 				_TeamingValueClass=BaseClass, 	
 				_TeamingClassesDict=None,
@@ -86,7 +86,7 @@ class TeamerClass(BaseClass):
 				'We team here',
 				('self.',self,[
 						'TeamingKeyStr',
-						'TeamingValueVariable'
+						'TeamingValueRigidVariable'
 					])
 			]
 		)
@@ -177,7 +177,7 @@ class TeamerClass(BaseClass):
 			#
 
 			#Check
-			if self.TeamingValueVariable==None:
+			if self.TeamingValueRigidVariable==None:
 
 				#init
 				self.TeamedValueVariable=self.TeamingValueClass()
@@ -185,7 +185,7 @@ class TeamerClass(BaseClass):
 			else:
 
 				#alias
-				self.TeamedValueVariable=self.TeamingValueVariable
+				self.TeamedValueVariable=self.TeamingValueRigidVariable
 
 			#/####################/#
 			# Case where it is a dict or tuples list like
@@ -357,21 +357,28 @@ class TeamerClass(BaseClass):
 			self.debug(
 					[
 						'We update the teamed value',
-						('self.',self,['TeamingValueVariable'])
+						('self.',self,['TeamingValueRigidVariable'])
 					]
 				)
 			'''
 
 			#Check
 			if hasattr(
-				self.TeamingValueVariable,
+				self.TeamingValueRigidVariable,
 				'items'
-			) or SYS.getIsTuplesListBool(self.TeamingValueVariable):
+			) or SYS.getIsTuplesListBool(self.TeamingValueRigidVariable):
 
 				#set
 				self.TeamedValueVariable['#map@set'](
-						self.TeamingValueVariable
+						self.TeamingValueRigidVariable
 					)
+
+		#/###################/#
+		# reset rigid variable
+		#
+
+		#set
+		self.TeamingValueRigidVariable=None
 
 	def mimic_get(self):
 
@@ -380,7 +387,11 @@ class TeamerClass(BaseClass):
 
 		#debug
 		'''
-		self.debug(('self.',self,['GettingKeyVariable']))
+		self.debug(
+			[
+				('self.',self,['GettingKeyVariable'])
+			]
+		)
 		'''
 
 		#Check
@@ -515,7 +526,7 @@ TeamerClass.PrintingClassSkipKeyStrsList.extend(
 		'ManagementIndexInt',
 		'TeamDict',
 		'TeamingKeyStr',
-		'TeamingValueVariable',
+		'TeamingValueRigidVariable',
 		'TeamingClassesDict',
 		'TeamingManageVariable',
 		'TeamingClassesDict',

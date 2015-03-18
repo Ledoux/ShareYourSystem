@@ -5,7 +5,8 @@ import ShareYourSystem as SYS
 #Definition 
 MyController=SYS.ControllerClass(
 		**{
-			'FolderingPathStr':SYS.Inserter.LocalFolderPathStr
+			'FolderingPathStr':SYS.Inserter.LocalFolderPathStr,
+			'PymongoingDatabaseStr':"Thing"
 		}
 	).set(
 		'/-Models/|Thing',

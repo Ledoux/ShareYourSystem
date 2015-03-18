@@ -18,6 +18,7 @@ import ShareYourSystem as SYS
 BaseModuleStr="ShareYourSystem.Standards.Itemizers.Manager"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
+SYS.addDo('Parenter','Parent','Parenting','Parented')
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
@@ -29,6 +30,7 @@ Manager=BaseModule
 
 #<DefineLocals>
 ParentPreviousStr="^"
+ParentGrandPreviousStr="^^"
 ParentTopStr="Top"
 ParentUpStr="?^"
 ParentDownStr="?v"
@@ -51,7 +53,13 @@ class ParenterClass(BaseClass):
 					'PropertyInitVariable':"Top",
 					'PropertyDocStr':'I am reactive when I know my parent !'
 				},
+				_ParentTagStr="",
+				_ParentTeamTagStr="",
+				_ParentManagementTagStr="",
+				_ParentGrandTeamTagStr="",
+				_ParentGrandManagementTagStr="",
 				_ParentDeriveTeamerVariable=None,
+				_ParentGrandDeriveTeamerVariable=None,
 				_ParentTopDeriveTeamerVariable=None,
 				_ParentingTriggerVariable=None,
 				_ParentedTotalDeriveTeamersList=None,
@@ -193,6 +201,23 @@ class ParenterClass(BaseClass):
 			#set
 			self.ParentTopDeriveTeamerVariable=self
 
+		#debug
+		'''
+		self.debug(
+			[
+				'Finally',
+				('self.',self,['ParentTopDeriveTeamerVariable'])
+			]
+		)
+		'''
+
+		#/####################/#
+		# link to the ParentTagStr
+		# 
+
+		#set
+		self.ParentTagStr=self.ParentedTotalPathStr
+
 		#/####################/#
 		# Adapt the shape of the ParentedTriggerVariablesList
 		# for the trigger
@@ -243,7 +268,26 @@ class ParenterClass(BaseClass):
 			if self.TeamedValueVariable.ParentDeriveTeamerVariable!=self:
 				self.TeamedValueVariable.ParentDeriveTeamerVariable=self
 				self.TeamedValueVariable.ParentKeyStr=self.TeamingKeyStr
+				self.TeamedValueVariable.ParentManagementTagStr=self.TeamedValueVariable.ParentDeriveTeamerVariable.ManagementTagStr
 
+			#/###################/#
+			# Look maybe for a grandparent
+			#
+
+			#Check
+			if hasattr(
+				self.TeamedValueVariable.ParentDeriveTeamerVariable,
+				'ParentDeriveTeamerVariable'
+			):
+
+				#set
+				self.TeamedValueVariable.ParentGrandDeriveTeamerVariable=self.TeamedValueVariable.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
+
+				#Check
+				if self.TeamedValueVariable.ParentGrandDeriveTeamerVariable!=None:
+								
+					#set
+					self.TeamedValueVariable.ParentGrandTeamTagStr=self.TeamedValueVariable.ParentGrandDeriveTeamerVariable.TeamTagStr
 
 	def mimic_manage(self):
 
@@ -278,13 +322,33 @@ class ParenterClass(BaseClass):
 		#Check
 		if hasattr(self.ManagedValueVariable,'ParentDeriveTeamerVariable'):
 
-
 			#Check
 			if self.ManagedValueVariable.ParentDeriveTeamerVariable!=self:
 
 				#set
 				self.ManagedValueVariable.ParentDeriveTeamerVariable=self
 				self.ManagedValueVariable.ParentKeyStr=self.ManagingKeyStr
+				self.ManagedValueVariable.ParentTeamTagStr=self.ManagedValueVariable.ParentDeriveTeamerVariable.TeamTagStr
+
+			#/###################/#
+			# Look maybe for a grandparent
+			#
+
+			#Check
+			if hasattr(
+				self.ManagedValueVariable.ParentDeriveTeamerVariable,
+				'ParentDeriveTeamerVariable'
+			):
+
+				#set
+				self.ManagedValueVariable.ParentGrandDeriveTeamerVariable=self.ManagedValueVariable.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
+
+				#Check
+				if self.ManagedValueVariable.ParentGrandDeriveTeamerVariable!=None:
+		
+					#set
+					self.ManagedValueVariable.ParentGrandManagementTagStr=self.ManagedValueVariable.ParentGrandDeriveTeamerVariable.ManagementTagStr
+
 
 
 	def mimic_get(self):
@@ -310,6 +374,19 @@ class ParenterClass(BaseClass):
 
 			#alias
 			self.GettedValueVariable=self.ParentDeriveTeamerVariable
+
+			#Stop the setting
+			return {"HookingIsBool":False}
+
+		elif self.GettingKeyVariable==ParentGrandPreviousStr:
+			
+			#debug
+			'''
+			self.debug('We get the previous grand parent')
+			'''
+
+			#alias
+			self.GettedValueVariable=self.ParentGrandDeriveTeamerVariable
 
 			#Stop the setting
 			return {"HookingIsBool":False}
@@ -593,6 +670,11 @@ class ParenterClass(BaseClass):
 			#add
 			#_KwargVariablesDict['InfoStr']=", "+self.ParentedTotalPathStr
 			_KwargVariablesDict['InfoStr']=", ^"
+		else:
+
+			#remove
+			if 'InfoStr' in _KwargVariablesDict:
+				_KwargVariablesDict['InfoStr']=_KwargVariablesDict['InfoStr'].replace(", ^","")
 			
 		#/##################/#
 		# Call the base method
@@ -601,6 +683,180 @@ class ParenterClass(BaseClass):
 		#call
 		BaseClass._print(self,**_KwargVariablesDict)
 
+	def parentUp(self,**_KwargVariablesDict):
+
+		#debug
+		'''
+		self.debug(
+			[
+				'we parent up here',
+				'self.ParentDeriveTeamerVariable!=None is ',
+				str(self.ParentDeriveTeamerVariable!=None)
+			]
+		)
+		'''
+
+		#/###############/#
+		# First make parent the parent
+		#
+
+		#Check
+		if self.ParentDeriveTeamerVariable!=None:
+
+			#make the parent first
+			self.ParentDeriveTeamerVariable.parentUp(**_KwargVariablesDict)
+
+		#/###############/#
+		# Set here the kwargs
+		#
+
+		#Check
+		if len(_KwargVariablesDict)>0:
+
+			#map
+			map(
+					lambda __ItemTuple:
+					setattr(
+						self,
+						*__ItemTuple
+					),
+					_KwargVariablesDict.items()
+				)
+
+		#/###############/#
+		# parent here
+		#
+
+		#parent
+		self.parent()
+
+		#return self
+		return self
+
+
+	def parentDown(self,_TeamStrsList=None,_ManagementStrsList=None,**_KwargVariablesDict):
+
+		#debug
+		'''
+		self.debug(
+			[
+				'We parent down here',
+				('self.',self,[
+					'TeamedOnceBool'
+				]),
+				'_TeamStrsList is ',
+				str(_TeamStrsList),
+				'_ManagementStrsList is ',
+				str(_ManagementStrsList)
+			]
+		)
+		'''
+
+		#/###############/#
+		# Set here the kwargs
+		#
+
+		#Check
+		if len(_KwargVariablesDict)>0:
+			
+			#map
+			map(
+					lambda __ItemTuple:
+					setattr(
+						self,
+						*__ItemTuple
+					),
+					_KwargVariablesDict.items()
+				)
+
+		#/###############/#
+		# First parent here
+		#
+
+		#parent
+		self.parent()
+
+		#/###############/#
+		# Command the children to parent down also
+		#
+
+		#Check
+		if self.TeamedOnceBool:
+
+			#Check
+			if _TeamStrsList==None:
+				LocalTeamStrsList=self.TeamDict.keys()
+			else:
+				LocalTeamStrsList=_TeamStrsList
+
+			#debug
+			'''
+			self.debug(
+				[
+					'_TeamStrsList is ',
+					str(_TeamStrsList)
+				]
+			)
+			'''
+
+			#/#################/#
+			# Get the teams and parent switching the key strs
+			#
+
+			#map
+			map(
+					lambda __TeamStr:
+					self.TeamDict[
+						__TeamStr
+					].parentDown(
+						_TeamStrsList,
+						_ManagementStrsList,
+						**_KwargVariablesDict
+					)
+					if __TeamStr in self.TeamDict
+					else None,
+					LocalTeamStrsList
+				)
+
+		else:
+
+			#Check
+			if _ManagementStrsList==None:
+				LocalManagementStrsList=self.ManagementDict.keys()
+			else:
+				LocalManagementStrsList=_ManagementStrsList
+
+			#debug
+			'''
+			self.debug(
+				[
+					'_ManagementStrsList is ',
+					str(_ManagementStrsList)
+				]
+			)
+			'''
+
+			#/#################/#
+			# Get the managements and parent switching the key strs
+			#
+
+			#map
+			map(
+					lambda __ManagementStr:
+					self.ManagementDict[
+						__ManagementStr
+					].parentDown(
+						_TeamStrsList,
+						_ManagementStrsList,
+						**_KwargVariablesDict
+					)
+					if __ManagementStr in self.ManagementDict
+					else None,
+					LocalManagementStrsList
+				)
+
+		#return self
+		return self
 
 #</DefineClass>
 
@@ -612,7 +868,13 @@ SYS.TeamerClass.TeamingValueClass=ParenterClass
 ParenterClass.PrintingClassSkipKeyStrsList.extend(
 	[
 			'ParentKeyStr',
+			'ParentTagStr',
+			'ParentTeamTagStr',
+			'ParentManagementTagStr',
+			'ParentGrandTeamTagStr',
+			'ParentGrandManagementTagStr',
 			'ParentDeriveTeamerVariable',
+			'ParentGrandDeriveTeamerVariable',
 			'ParentTopDeriveTeamerVariable',
 			'ParentingTriggerVariable',
 			'ParentedTotalDeriveTeamersList',

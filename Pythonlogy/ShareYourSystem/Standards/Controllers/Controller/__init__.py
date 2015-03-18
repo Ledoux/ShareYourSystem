@@ -17,6 +17,7 @@ import ShareYourSystem as SYS
 BaseModuleStr="ShareYourSystem.Standards.Interfacers.Hdformater"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
+SYS.addDo('Controller','Control','Controlling','Controlled')
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
@@ -34,6 +35,7 @@ class ControllerClass(BaseClass):
 
 	def default_init(self,
 				_ControlTagStr="Top",
+				_ControlComponentDeriveControllersList=None,
 				**_KwargVariablesDict
 			):
 
@@ -46,14 +48,62 @@ class ControllerClass(BaseClass):
 		'''
 		self.debug(
 				[
-					'We control here'
+					'We control here',
+					'First make parent the components
 				]
 			)
 		'''
 
-		#pass
-		pass
+		"""
+		#/##########################/#
+		# ParentDown the Components first
+		#
+
+		#first parent the components
+		self.parentDown(
+			['Components']
+		)
+
+		#debug
+		self.debug(
+				[
+					'Ok we have parented the components',
+					('self.',self,[
+						'ControlComponentDeriveControllersList'
+					])
+				]
+			)
+
+		#reverse
+		#self.ControlComponentDeriveControllersList.reverse()
+
+		#map
+		map(
+			lambda __ControlledComponentDeriveController:
+			__ControlledComponentDeriveController.parentDown(
+					['Models']
+				),
+			self.ControlComponentDeriveControllersList
+		)
+		"""
+
+		#/##########################/#
+		# ParentDown the Components first
+		#
 		
+		#debug
+		self.debug(
+			[
+				'We parentDown in the models'
+			]
+		)
+
+		#parentDown
+		self.parentDown(
+			['Models']
+		)
+
+
 	def propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable):
 
 		#call the base method
@@ -90,17 +140,23 @@ class ControllerClass(BaseClass):
 			self.ControlTagStr=self.ControlTagStr[1:]
 
 		#/##################/#
-		# Special Model control case
+		# Add to the top Controller
 		#
 
-		#Create a group in the hdf5 file if it is with hdf
-		self.HdformatedFileVariable=self.ParentTopDeriveTeamerVariable.HdformatedFileVariable
+		if self.ParentTopDeriveTeamerVariable.ControlComponentDeriveControllersList==None:
+			self.ParentTopDeriveTeamerVariable.ControlComponentDeriveControllersList=[self]
+		else:
+			self.ParentTopDeriveTeamerVariable.ControlComponentDeriveControllersList.append(
+				self
+			)
+
 #</DefineClass>
 
 #<DefineLocals>
 
 #Set
 ControllerClass.TeamingClassesDict={
+	'Components':Pointer.PointerClass,
 	'Models':ModelsClass,
 	'Views':ViewsClass
 }
@@ -111,11 +167,7 @@ ControllerClass.TeamingClassesDict={
 ControllerClass.PrintingClassSkipKeyStrsList.extend(
 	[
 		#'ControlTagStr',
-		'ControllingMethodStr',
-		'ControllingManagingKeyStr',
-		'ControllingModelClassVariable',
-		'ControllingViewClassVariable',
-		'ControlledDeriveManagerVariable'
+		'ControlComponentDeriveControllersList'
 	]
 )
 #<DefinePrint>

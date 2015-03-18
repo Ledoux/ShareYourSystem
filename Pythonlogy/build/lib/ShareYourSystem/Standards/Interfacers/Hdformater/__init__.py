@@ -164,6 +164,24 @@ class HdformaterClass(BaseClass):
 			)
 		'''
 		
+		#/##################/#
+		# Check that we have the File of the Top parent
+		# 
+
+		#Check
+		if self.HdformatedFileVariable==None:
+
+			#Check
+			if self.ParentTopDeriveTeamerVariable.HdformatedFileVariable==None:
+				self.ParentTopDeriveTeamerVariable.hdformat()
+
+			#alias
+			self.HdformatedFileVariable=self.ParentTopDeriveTeamerVariable.HdformatedFileVariable
+
+		#/##################/#
+		# Set a path inside
+		#
+
 		#Check if the Path exists
 		if self._HdfGroupPathStr not in self.HdformatedFileVariable:
 

@@ -37,7 +37,8 @@ class SumerClass(SYS.ControllerClass):
 #Definition of a Storer instance with a noded data
 MySumer=SumerClass(
 	**{
-			'FolderingPathStr':SYS.Joiner.LocalFolderPathStr
+			'FolderingPathStr':SYS.Joiner.LocalFolderPathStr,
+			'PymongoingDatabaseStr':'Sums'
 		}
 	)['#map@set'](
 		{

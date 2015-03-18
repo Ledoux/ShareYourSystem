@@ -17,6 +17,7 @@ import ShareYourSystem as SYS
 BaseModuleStr="ShareYourSystem.Standards.Itemizers.Parenter"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
+SYS.addDo('Pointer','Point','Pointing','Pointed')
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
@@ -42,11 +43,13 @@ class PointerClass(BaseClass):
 					self,
 					_PointFromVariable=None,	
 					_PointToVariable=None,
+					_PointKeyVariablesList=None,
 					_PointingKeyVariable=None,
 					_PointingOutSetVariable=None,
 					_PointingInSetVariable=None,
 					_PointingOutTeamStr="Outlets",
 					_PointingInTeamStr="Inlets",
+					_PointingGetBool=True,
 					_PointingValueClass=BaseClass,
 					_PointedOutDeriveTeamerVariable=None,
 					_PointedInDeriveTeamerVariable=None,
@@ -67,15 +70,26 @@ class PointerClass(BaseClass):
 		self.debug(
 			[
 				'Adapt the type for getting things to point',
+				'(if we need to get)',
 				("self.",self,[
 								'PointingKeyVariable',
+								'PointingGetBool'
 							])
 			]
 		)
 		'''
 
-		#init
-		PointedValueVariable=self[self.PointingKeyVariable]
+		#Check
+		if self.PointingGetBool:
+		
+			#init
+			PointedValueVariable=self[self.PointingKeyVariable]
+
+		else:
+
+			#alias
+			PointedValueVariable=self.PointingKeyVariable
+
 
 		#debug
 		'''
@@ -85,6 +99,33 @@ class PointerClass(BaseClass):
 					SYS._str(PointedValueVariable)
 				]
 			)
+		'''
+
+		#/####################/#
+		# Make it parent if it was not yet the case
+		#
+
+		#debug
+		'''
+		self.debug(
+			[
+				'We make the PointedValueVariable parentUp',
+				'PointedValueVariable is ',
+				SYS._str(PointedValueVariable)
+			]
+		)
+		'''
+
+		#parentUp
+		PointedValueVariable.parentUp()
+
+		#debug
+		'''
+		self.debug(
+			[
+				'Ok it has pointed'
+			]
+		)
 		'''
 
 		#/####################/#
@@ -337,6 +378,42 @@ class PointerClass(BaseClass):
 		#call
 		BaseClass._print(self,**_KwargVariablesDict)
 
+	def propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable):
+
+		#/##################/#
+		# Call the base method
+		#
+
+		BaseClass.propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable)
+
+		#/##################/#
+		# point the KeyStrsList
+		#
+
+		#debug
+		'''
+		self.debug(
+				[
+					'We make point the PointKeyVariablesList',
+					('self.',self,['PointKeyVariablesList'])
+				]
+			)
+		'''
+
+		#Check
+		if self.PointKeyVariablesList!=None:
+
+			#map
+			map(
+					lambda __PointKeyStr:
+					self.point(
+						__PointKeyStr,
+						None
+					),
+					self.PointKeyVariablesList
+				)
+
+
 #</DefineClass>
 
 #<DefineLocals>
@@ -353,6 +430,7 @@ PointerClass.PrintingClassSkipKeyStrsList.extend(
 		'PointFromVariable',
 		#'PointToVariable',
 		'PointVariablesList',
+		'PointKeyVariablesList',
 		'PointingKeyVariable',
 		'PointingOutSetVariable',
 		'PointingInSetVariable',

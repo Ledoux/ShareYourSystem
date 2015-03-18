@@ -657,6 +657,7 @@ Controller.ModelsClass.ManagingValueClass=JoinerClass
 #</DefinePrint>
 JoinerClass.PrintingClassSkipKeyStrsList.extend(
 	[
+		'JoiningRowBool',
 		'JoinedOutDerivePointersList',
 		'JoinedOutDeriveJoinersList',
 		'JoinedRetrieveIndexIntsListGetStrsList',

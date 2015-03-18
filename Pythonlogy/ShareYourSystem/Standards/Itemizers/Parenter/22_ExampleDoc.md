@@ -5,4 +5,4 @@ FrozenIsBool True
 
 ##Example
 
-Check also a set with a get dict
+We can parentUp with a method
