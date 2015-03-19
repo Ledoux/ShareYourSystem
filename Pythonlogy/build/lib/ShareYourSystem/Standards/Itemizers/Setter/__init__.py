@@ -97,6 +97,7 @@ SetDeepCopyPrefixStr='#deepcopy:'
 SetLambdaKeyStr=SetValueGrabStr+':#lambda'
 SetMapKeyStr='#map'
 SetMapVariableStr='#__Variable'
+SetUntypePrefixStr='#untype:'
 
 class ArgumentDict(collections.OrderedDict):
 
@@ -357,7 +358,7 @@ class SetterClass(BaseClass):
 						_SettingKeyVariable=None, 
 						_SettingValueVariable=None, 
 						_SettingItemBool=True, 	
-						_SettingNewBool=True,	
+						_SettingTypeBool=True,	
 						_SettedValueVariable=None,
 						**_KwargVariablesDict
 					):
@@ -662,6 +663,32 @@ class SetterClass(BaseClass):
 				#stop the setting
 				return {'HookingIsBool':False}
 
+			#/####################/#
+			# Case of #untype: set
+			#
+
+			#Check
+			elif self.SettingKeyVariable.startswith(
+				SetUntypePrefixStr
+			):
+
+				#set
+				self.SettingTypeBool=False
+
+				#get
+				SettedEachGetVariable=self.set(
+					SYS.deprefix(
+						self.SettingKeyVariable,
+						SetUntypePrefixStr
+					),
+					self.SettingValueVariable
+				)
+
+				#reset
+				self.SettingTypeBool=True
+
+				#Return stop the setting
+				return {'HookingIsBool':False}
 
 			#/####################/#
 			# Case of #each: set
@@ -1066,7 +1093,7 @@ class SetterClass(BaseClass):
 				#
 
 				#Check
-				if self.SettingNewBool:
+				if self.SettingTypeBool:
 
 					#debug
 					'''
@@ -1604,7 +1631,7 @@ SetterClass.PrintingClassSkipKeyStrsList.extend(
 		'SettingKeyVariable',
 		'SettingValueVariable',
 		'SettingItemBool',
-		'SettingNewBool',
+		'SettingTypeBool',
 		'SettedValueVariable'
 	]
 )

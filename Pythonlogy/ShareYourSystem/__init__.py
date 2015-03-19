@@ -807,11 +807,25 @@ def where(_DictsList,_TuplesList,**_KwargsDict):
 
 def translate(_TextStr,_TranslationVariable):
 
+	#Debug
+	'''
+	print('SYS l 811')
+	print('_TextStr is ')
+	print(_TextStr)
+	print('_TranslationVariable is ')
+	print(_TranslationVariable)
+	print('')
+	'''
+
+	#/##################/#
+	# Adapt the shape of the _TranslationVariable
+	#
+
 	#Check just for one word translation
 	if hasattr(_TranslationVariable,'items')==False:
 		_TranslationVariable={
 			'#__Variable':_TranslationVariable
-		} 
+		}
 
 	#import 
 	import re
@@ -822,8 +836,214 @@ def translate(_TextStr,_TranslationVariable):
 	#compile
 	pattern = re.compile("|".join(RepDict.keys()))
 
+	#sub
+	ReplaceStr=pattern.sub(
+		lambda m: 
+		RepDict[re.escape(m.group(0))],
+		_TextStr
+	)
+
+	#Debug
+	'''
+	print('SYS l 841')
+	print('ReplaceStr is ')
+	print(ReplaceStr)
+	print('')
+	'''
+
 	#return
-	return pattern.sub(lambda m: RepDict[re.escape(m.group(0))],_TextStr)
+	return ReplaceStr
+
+def replace(
+				_TextVariable,
+				_ReplaceVariable,
+				_GetterVariable=None,
+				_TranslationVariable=None
+			):
+
+	#/##################/#
+	# Is the _TranslationVariable setted already
+	# 
+
+	#Check
+	if _TranslationVariable==None:
+
+		#Debug
+		'''
+		print('SYS l 870')
+		print('_ReplaceVariable is ')
+		print(_ReplaceVariable)
+		print('')
+		'''
+		
+		#Check
+		if hasattr(_ReplaceVariable,'items'):
+			ReplaceVariable=_ReplaceVariable.items()
+		else:
+			ReplaceVariable=_ReplaceVariable
+
+		#map
+		_TranslationVariable=dict(
+			map(
+				lambda __ItemTuple:
+				(
+					__ItemTuple[0],
+					str(__ItemTuple[1])
+				),
+				ReplaceVariable
+			)
+		)
+
+	#/##################/#
+	# Is it a str 
+	# 
+
+	#Check
+	if type(_TextVariable) in [str,unicode]:
+
+		#/##################/#
+		# Check that it is maybe already in
+		# the translation dict
+
+		if _TextVariable in _TranslationVariable:
+			TextVariable=_TranslationVariable[_TextVariable]
+
+		else:
+
+			#translate
+			TextVariable=translate(
+				_TextVariable,
+				_TranslationVariable
+			)
+
+		#/##################/#
+		# Do we have to get 
+		# with it
+
+		#Check
+		if _GetterVariable!=None:
+
+			#Check
+			if type(TextVariable) in [str,unicode]:
+
+				#Check
+				if TextVariable.startswith('#get:'):
+
+					#return
+					return _GetterVariable[
+								deprefix(
+									TextVariable,
+									'#get:'
+								)
+							]
+
+			else:
+
+				#return
+				return _GetterVariable[
+							TextVariable
+						]
+
+		#return
+		return TextVariable
+
+	#/##################/#
+	# It is an iter variable
+	# transform to a tuples list
+
+	elif hasattr(_TextVariable,'items'):
+
+		#items
+		TextVariable=_TextVariable.items()
+
+	elif getIsTuplesListBool(_TextVariable):
+
+		#alias
+		TextVariable=_TextVariable
+
+	#/##################/#
+	# Map the replace
+	# 
+
+	#map
+	TextVariable=map(
+			lambda __ItemTuple:
+			(
+				replace(
+				__ItemTuple[0],
+				_TranslationVariable,
+				_GetterVariable
+				),
+				replace(
+					__ItemTuple[1],
+					_TranslationVariable,
+					_GetterVariable
+				)
+			),
+			TextVariable
+		)
+
+	#/##################/#
+	# return
+	# 
+
+	#return
+	return type(_TextVariable)(TextVariable)
+
+def mapReplace(
+		_TextVariable,
+		_ReplaceMapVariable,
+		_GetterVariable=None,
+		_TranslationVariable=None
+	):
+	
+	#Debug
+	'''
+	print('SYS l 1001')
+	print('_ReplaceMapVariable is ')
+	print(_ReplaceMapVariable)
+	print('')
+	'''
+	
+	#Check
+	if type(_ReplaceMapVariable)==list and len(
+		_ReplaceMapVariable)>0 and getIsTuplesListBool(
+		_ReplaceMapVariable)==False:
+
+		#map
+		ReplaceVariablesList=map(
+					lambda __ValueVariable:
+					zip(
+						_ReplaceMapVariable[0],
+						__ValueVariable
+					),
+					_ReplaceMapVariable[1]
+				)
+	else:
+
+		#alias
+		ReplaceVariablesList=_ReplaceMapVariable
+
+	#Debug
+	'''
+	print('SYS l 1017')
+	print('ReplaceVariablesList is ')
+	print(ReplaceVariablesList)
+	print('')
+	'''
+
+	#return
+	return map(
+		lambda __ReplaceVariable:
+		replace(
+			_TextVariable,
+			__ReplaceVariable,
+			_GetterVariable,
+			_TranslationVariable
+		),
+		ReplaceVariablesList
+	)
+
 
 
 def getStrsListWithBeginStrAndEndStrAndStrsIntAndStr(

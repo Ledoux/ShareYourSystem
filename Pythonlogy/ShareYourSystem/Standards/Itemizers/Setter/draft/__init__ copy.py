@@ -47,7 +47,7 @@ class SetterClass(BaseClass):
 									'SettingKeyVariable',
 									'SettingValueVariable',
 									'SettingItemBool',
-									'SettingNewBool',
+									'SettingTypeBool',
 									'SettedValueVariable'
 								]
 
@@ -55,7 +55,7 @@ class SetterClass(BaseClass):
 						_SettingKeyVariable=None, 
 						_SettingValueVariable=None, 
 						_SettingItemBool=True, 	
-						_SettingNewBool=True,	
+						_SettingTypeBool=True,	
 						_SettedValueVariable=None,
 						**_KwargVariablesDict
 					):
@@ -322,7 +322,7 @@ class SetterClass(BaseClass):
 				#
 
 				#Check
-				if self.SettingNewBool:
+				if self.SettingTypeBool:
 
 					#debug
 					'''

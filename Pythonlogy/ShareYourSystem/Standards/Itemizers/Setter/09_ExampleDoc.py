@@ -16,6 +16,10 @@ import numpy
 MySetter['MyList']=numpy.array([1,4])
 
 #print
+MySetter.set('MyStr',2,_TypeBool=False)
+MySetter['#untype:MyOtherStr']=3
+
+#print
 print('MySetter is ')
 SYS._print(MySetter)
 
@@ -26,6 +30,7 @@ SYS._print(MySetter.ChildSetter.SetDeriveSetter)
 #print its setter
 print("MySetter.ChildSetter['<'] is ")
 SYS._print(MySetter.ChildSetter['<'])
+
 
 
 

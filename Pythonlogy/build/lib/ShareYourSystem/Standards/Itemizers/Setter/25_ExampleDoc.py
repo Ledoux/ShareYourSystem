@@ -2,17 +2,6 @@
 #ImportModules
 import ShareYourSystem as SYS
 
-#print
-print(
-	SYS.translate(
-		"#BonjourStr Erwan #EndStr",
-		{
-			'#BonjourStr':'Salut',
-			'#EndStr':'!'
-		}
-	)
-)
-
 #Define and map a translation 
 MySetter=SYS.SetterClass(
 	).set(
@@ -38,7 +27,7 @@ MySetter=SYS.SetterClass(
 print('MySetter is ')
 SYS._print(MySetter)
 
-#Just one translated word
+#Just one translated word but that is getted
 MySetter=SYS.SetterClass(
 	).set(
 		'HelloStr',
