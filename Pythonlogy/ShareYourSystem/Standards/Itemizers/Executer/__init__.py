@@ -20,6 +20,7 @@ SYS.setSubModule(globals())
 
 #<ImportSpecificModules>
 import six
+Setter=BaseModule
 from ShareYourSystem.Standards.Itemizers import Getter
 #</ImportSpecificModules>
 
@@ -258,7 +259,6 @@ class ExecuterClass(BaseClass):
 					)
 
 				#debug
-				'''
 				self.debug(
 						[
 							'GetValueVariable is '+SYS._str(GetValueVariable),
@@ -266,7 +266,6 @@ class ExecuterClass(BaseClass):
 							('self.',self,['SettingValueVariable'])
 						]
 					)
-				'''
 
 				#call
 				if callable(AttributeValueVariable):
@@ -282,12 +281,35 @@ class ExecuterClass(BaseClass):
 						]
 					)
 					'''
-					
-					#set
-					self[AttributeValueVariable]=self.SettingValueVariable
 
-					#get the method and call it
-					#AttributeValueVariable(*LiargValueVariable)
+					#Check
+					if type(self.SettingValueVariable)==list and len(
+						self.SettingValueVariable)>0 and hasattr(self.SettingValueVariable[0],'items'
+						) and Setter.SetLambdaKeyStr in self.SettingValueVariable[0]:
+
+							#get
+							ExecutedMapLambdaList=self.getMapLambdaList(
+								self.SettingValueVariable[0]
+							)
+
+							#debug
+							self.debug(
+								[
+									'ExecutedMapLambdaList is ',
+									SYS._str(ExecutedMapLambdaList)
+								]
+							)
+
+							#set
+							self[AttributeValueVariable]=ExecutedMapLambdaList
+
+					else:
+					
+						#set
+						self[AttributeValueVariable]=self.SettingValueVariable
+
+						#get the method and call it
+						#AttributeValueVariable(*LiargValueVariable)
 
 				else:
 

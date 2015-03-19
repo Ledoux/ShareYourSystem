@@ -1007,8 +1007,15 @@ def mapReplace(
 	
 	#Check
 	if type(_ReplaceMapVariable)==list and len(
-		_ReplaceMapVariable)>0 and getIsTuplesListBool(
-		_ReplaceMapVariable)==False:
+		_ReplaceMapVariable)>1 and type(
+		_ReplaceMapVariable[1])==list:
+
+		#Debug
+		'''
+		print('SYS l 1014')
+		print('It is a header list replace')
+		print('')
+		'''
 
 		#map
 		ReplaceVariablesList=map(
@@ -1019,14 +1026,37 @@ def mapReplace(
 					),
 					_ReplaceMapVariable[1]
 				)
+	elif type(_ReplaceMapVariable)==list and type(
+		_ReplaceMapVariable[0]) in [str,unicode]:
+
+		#Debug
+		'''
+		print('SYS l 1035')
+		print('It is just one value replace')
+		print('')
+		'''
+
+		#map
+		ReplaceVariablesList=map(
+			lambda __Variable:
+			{'#__Variable':__Variable},
+			_ReplaceMapVariable
+		)
+
 	else:
+		#Debug
+		'''
+		print('SYS l 1050')
+		print('Alias direct')
+		print('')
+		'''
 
 		#alias
 		ReplaceVariablesList=_ReplaceMapVariable
 
 	#Debug
 	'''
-	print('SYS l 1017')
+	print('SYS l 1059')
 	print('ReplaceVariablesList is ')
 	print(ReplaceVariablesList)
 	print('')
@@ -1043,8 +1073,6 @@ def mapReplace(
 		),
 		ReplaceVariablesList
 	)
-
-
 
 def getStrsListWithBeginStrAndEndStrAndStrsIntAndStr(
 		_BeginStr,_EndStr,_StrsInt,_Str,**_KwargVariablesDict):

@@ -1041,48 +1041,26 @@ class SetterClass(BaseClass):
 					elif SetLambdaKeyStr in self.SettingValueVariable:
 
 						#debug
+						'''
 						self.debug(
 							[
 								'This is a lambda map set',
 								('self.',self,['SettingValueVariable'])
 							]
 						)
+						'''
 
-						#get
-						SettedValueVariable=self.SettingValueVariable[SetLambdaKeyStr]
-
-						#Check
-						if SetMapKeyStr in self.SettingValueVariable:
-
-							#get
-							SettedMapVariablesList=self.SettingValueVariable[SetMapKeyStr]
-
-						elif Getter.GetMapStr in self.SettingValueVariable:
-
-							#get
-							SettedMapVariablesList=self[Getter.GetMapStr](
-								*self.SettingValueVariable[Getter.GetMapStr]
-							).ItemizedMapValueVariablesList
-							
-						#debug
-						self.debug(
-							[
-								'SettedMapVariablesList is ',
-								SYS._str(SettedMapVariablesList)
-							]
+						#temp
+						SettedTempKeyVariable=self.SettingKeyVariable
+						SettedTempValueVariable=self.SettingValueVariable
+						
+						#getMap
+						SettedReplaceValueVariablesList=self.getMapLambdaList(
+							SettedTempValueVariable
 						)
 
 						#set
-						self[
-							self.SettingKeyVariable
-						]=map(
-								lambda __SettedMapVariable:
-								self.replaceMapVariable(
-									copy.copy(SettedValueVariable),
-									__SettedMapVariable
-								),
-								SettedMapVariablesList
-							)
+						self[SettedTempKeyVariable]=SettedReplaceValueVariablesList
 
 						#Return
 						return {'HookingIsBool':False}
@@ -1619,6 +1597,66 @@ class SetterClass(BaseClass):
 			#return
 			return self[_SetVariable.replace(SetMapVariableStr,_MapVariable)]			
 
+	def getMapLambdaList(self,_SettingValueVariable):
+
+		#debug
+		self.debug(
+			[
+				'This is a lambda map set',
+				'_SettingValueVariable is ',
+				SYS._str(_SettingValueVariable)
+			]
+		)
+
+		#get
+		SettedTextValueVariable=_SettingValueVariable[SetLambdaKeyStr]
+
+		#Check
+		if SetMapKeyStr in _SettingValueVariable:
+
+			#get
+			SettedMapVariablesList=_SettingValueVariable[SetMapKeyStr]
+
+		elif Getter.GetMapStr in _SettingValueVariable:
+
+			#get
+			SettedMapVariablesList=self[Getter.GetMapStr](
+				*_SettingValueVariable[Getter.GetMapStr]
+			).ItemizedMapValueVariablesList
+			
+		#debug
+		'''
+		self.debug(
+			[
+				'SettedTextValueVariable is ',
+				SYS._str(SettedTextValueVariable),
+				'SettedMapVariablesList is ',
+				SYS._str(SettedMapVariablesList),
+
+			]
+		)
+		'''
+
+		#mapReplace
+		SettedReplaceValueVariablesList=SYS.mapReplace(
+			copy.copy(SettedTextValueVariable),
+			SettedMapVariablesList,
+			self
+		)
+
+		#debug
+		'''
+		self.debug(
+				[
+					'We have mapReplaced',
+					'SettedReplaceValueVariablesList is ',
+					SYS._str(SettedReplaceValueVariablesList)
+				]
+			)
+		'''
+
+		#return
+		return SettedReplaceValueVariablesList
 
 
 #</DefineClass>

@@ -3,6 +3,7 @@
 import ShareYourSystem as SYS
 
 #print
+print('The translate gives')
 print(
 	SYS.translate(
 		"#BonjourStr Erwan #EndStr",
@@ -15,6 +16,7 @@ print(
 
 
 #print
+print('\nThe replace gives')
 print(
 	SYS.replace(
 		{
@@ -36,6 +38,7 @@ print(
 
 
 #print
+print('\nThe mapReplace gives')
 SYS._print(
 	SYS.mapReplace(
 			{
