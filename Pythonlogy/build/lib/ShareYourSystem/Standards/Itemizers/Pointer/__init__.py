@@ -26,12 +26,13 @@ from ShareYourSystem.Standards.Itemizers import Pather,Teamer,Manager,Parenter
 #</ImportSpecificModules>
 
 #<DefineLocals>
-PointPrefixStr="*"
+PointKeyPrefixStr="*"
 PointPrefixStr="<->"
 PointInTeamKeyStr="Inlets"
 PointOutTeamKeyStr="Outlets"
 PointConnectKeyStr='?>'
 PointTeamKeyStr='<->'
+PointManagementPrefixStr='->'
 def getLiargVariablesList(_ValueVariable):
 	return _ValueVariable
 #</DefineLocals>
@@ -53,6 +54,8 @@ class PointerClass(BaseClass):
 					_PointingInTeamKeyStr="Inlets",
 					_PointingGetBool=True,
 					_PointingValueClass=BaseClass,
+					_PointingOutManagementKeyStr="",
+					_PointingInManagementKeyStr="",
 					**_KwargVariablesDict
 				):
 
@@ -204,11 +207,25 @@ class PointerClass(BaseClass):
 				self.PointingOutTeamKeyStr
 			]
 
-		#team
-		PointedOutDeriveTeamer.manage(
-				PointedValueVariable.ParentedTotalPathStr.replace(
+		#/####################/#
+		# Build the OutManagementKeyStr
+		#
+
+		#Check
+		if self.PointingOutManagementKeyStr=="":
+			PointedOutManagementKeyStr=PointManagementPrefixStr+PointedValueVariable.ParentedTotalPathStr.replace(
 					'/','_'
-				)+'_'+PointedValueVariable.ManagementTagStr,
+				)+'_'+PointedValueVariable.ManagementTagStr
+		else:
+			PointedOutManagementKeyStr=self.PointingOutManagementKeyStr
+
+		#/####################/#
+		# Now manage
+		#
+
+		#manage
+		PointedOutDeriveTeamer.manage(
+				PointedOutManagementKeyStr,
 				SYS.update(
 					[
 						('PointToVariable',PointedValueVariable),
@@ -245,11 +262,33 @@ class PointerClass(BaseClass):
 			self.PointingInTeamKeyStr
 		]
 
-		#team
-		PointedInDeriveTeamer.manage(
-				self.ParentedTotalPathStr.replace(
+		#/####################/#
+		# Build the InManagementKeyStr
+		#
+
+		#Check
+		if self.PointingInManagementKeyStr=="":
+			PointedInManagementKeyStr=PointManagementPrefixStr+self.ParentedTotalPathStr.replace(
 					'/','_'
-				)+'_'+self.ManagementTagStr,
+				)+'_'+self.ManagementTagStr
+		else:
+			PointedInManagementKeyStr=self.PointingInManagementKeyStr
+
+		#/####################/#
+		# Now manage
+		#
+
+		#debug
+		self.debug(
+				[
+					'manage the point in',
+					('self.',self,['PointingValueClass'])
+				]
+			)
+
+		#manage
+		PointedInDeriveTeamer.manage(
+				PointedInManagementKeyStr,
 				SYS.update(
 					[
 						('PointToVariable',self),
@@ -266,7 +305,7 @@ class PointerClass(BaseClass):
 		if type(self.GettingKeyVariable)==str:
 
 			#Check
-			if self.GettingKeyVariable.startswith(PointPrefixStr):
+			if self.GettingKeyVariable.startswith(PointKeyPrefixStr):
 
 				#debug
 				'''
@@ -282,7 +321,7 @@ class PointerClass(BaseClass):
 				self.point(
 						SYS.deprefix(
 							self.GettingKeyVariable,
-							PointPrefixStr
+							PointKeyPrefixStr
 						),
 						None
 					)

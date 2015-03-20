@@ -5,38 +5,36 @@
 #ImportModules
 import ShareYourSystem as SYS
 
-#
-UnitsInt=3
-
 #/###################/#
 # Build the model
 #
 
 #Definition an instance
 MyNeurongrouper=SYS.NeurongrouperClass(
-	).set(
-		'/-States/|Run',
+	).mapSet(
 		{
-			'MoniteringVariableStr':'r',
-			'MoniteringRecordTimeIndexIntsArray':[0,1]
+			#'get':'/-Spikes/|Run',
+			#'/-States/|Run'
 		}
 	).neurongroup(
 		{
-			'N':UnitsInt,
+			'N':100,
 			'model':
-			''' 
-				dr/dt = -r/(20*ms) : 1
 			'''
+				dv/dt = (-(v+60*mV)+11*mV + 5.*mV*sqrt(20.*ms)*xi)/(20*ms) : volt
+			''',
+			'threshold':'v>-50*mV',
+			'reset':'v=-70*mV'
 		}
 	)
-		
+	
 #/###################/#
 # Print
 #
 
 #Definition the AttestedStr
 print('MyNeurongrouper is ')
-SYS._print(MyNeurongrouper)
+SYS._print(MyNeurongrouper) 
 
 #/###################/#
 # Do one simulation
@@ -50,15 +48,17 @@ map(
 	SYS.flat(
 		[
 			MyNeurongrouper.NeurongroupedBrianVariable,
+			MyNeurongrouper.NeurongroupedSpikeMonitorsList,
 			MyNeurongrouper.NeurongroupedStateMonitorsList
 		]
 	)
 )
 
 #plot
-MyNeurongrouper.NeurongroupedBrianVariable.r=1.+SYS.numpy.array(map(float,xrange(UnitsInt)))
+MyNeurongrouper.NeurongroupedBrianVariable.v=-55.*mV
 MyNetwork.run(500.*ms)
-M=MyNeurongrouper.NeurongroupedStateMonitorsList[0]
+M=MyNeurongrouper.NeurongroupedSpikeMonitorsList[0]
 from matplotlib import pyplot
-pyplot.plot(M.t/ms, M.r.T)
+pyplot.plot(M.t/ms, M.i, '.')
 pyplot.show()
+

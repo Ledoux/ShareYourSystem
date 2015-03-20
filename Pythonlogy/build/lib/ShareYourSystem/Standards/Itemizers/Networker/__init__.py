@@ -141,7 +141,7 @@ class NetworkerClass(BaseClass):
 			self.NetworkTagStr=self.NetworkTagStr[1:]
 
 		#/##################/#
-		# Find the first top Networker
+		# Find the NetworkDeriveNetworkerVariable in the grand parents
 		#
 
 		#find
@@ -193,7 +193,7 @@ class NetworkerClass(BaseClass):
 		'''
 
 		#/##################/#
-		# Add to the top Controller
+		# Add to the NetworkDeriveNetworkerVariable
 		#
 
 		#debug
@@ -212,6 +212,7 @@ class NetworkerClass(BaseClass):
 		if self.TeamTagStr!="":
 			
 			#debug
+			'''
 			self.debug(
 					[
 						'Check if we have to make manage the '+str(
@@ -221,6 +222,7 @@ class NetworkerClass(BaseClass):
 						str(self.NetworkDeriveNetworkerVariable.NetworkingManagementVariable)
 					]
 				)
+			'''
 
 			#Check
 			if self.NetworkDeriveNetworkerVariable.NetworkingManagementVariable!=None:
@@ -229,13 +231,12 @@ class NetworkerClass(BaseClass):
 				if self.ParentDeriveTeamerVariable.ManagementTagStr in self.NetworkDeriveNetworkerVariable.NetworkingManagementVariable:
 
 					#debug
-					'''
 					self.debug(
 						[
-							'Yes we make team point here'
+							'Yes we make team point here',
+							('self.',self,['PointingInManagementKeyStr'])
 						]
 					)
-					'''
 
 					#point
 					self.NetworkDeriveNetworkerVariable.point(
@@ -267,13 +268,14 @@ class NetworkerClass(BaseClass):
 				if self.ParentDeriveTeamerVariable.TeamTagStr in self.NetworkDeriveNetworkerVariable.NetworkingTeamVariable:
 
 					#debug
-					'''
 					self.debug(
 						[
-							'Yes we make team point here'
+							'Yes we make team point here',
+							('self.NetworkDeriveNetworkerVariable.',
+								self.NetworkDeriveNetworkerVariable,
+								['PointingInManagementKeyStr'])
 						]
 					)
-					'''
 
 					#point
 					self.NetworkDeriveNetworkerVariable.point(
@@ -290,6 +292,10 @@ class NetworkerClass(BaseClass):
 
 		#Check
 		if self.PrintingSelfBool:
+
+			#/##################/#
+			# Simplify the repr of the flatted teams
+			#
 
 			#Check
 			if type(self.NetworkedTeamKeyStrsList)==list:
@@ -308,7 +314,25 @@ class NetworkerClass(BaseClass):
 					self.NetworkedTeamKeyStrsList
 				)
 			
-				
+			#/##################/#
+			# Simplify also the repr of the networks team
+			#
+
+			#Check
+			if NetworkInTeamKeyStr in self.TeamDict:
+
+				#set
+				self.PrintingCopyVariable.TeamDict[
+					NetworkInTeamKeyStr
+				]="Pointer with "+str(
+							len(
+								self.PrintingCopyVariable.TeamDict[
+									NetworkInTeamKeyStr
+								].ManagementDict
+							)
+						)+" managed encapsulations"
+
+
 		#/##################/#
 		# Call the base method
 		#
@@ -323,6 +347,7 @@ class NetworkerClass(BaseClass):
 #set
 Pointer.PointerClass.ManagingValueClass=NetworkerClass
 SYS.ParenterClass.ManagingValueClass=NetworkerClass
+
 #</DefineLocals>
 
 #</DefinePrint>

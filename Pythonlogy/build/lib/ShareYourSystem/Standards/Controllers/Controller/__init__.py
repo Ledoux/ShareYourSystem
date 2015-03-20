@@ -94,7 +94,7 @@ class ControllerClass(BaseClass):
 		#debug
 		self.debug(
 			[
-				'We networks in the components and the models'
+				'We network in the components and the models'
 			]
 		)
 

@@ -14,14 +14,15 @@ A Neurongrouper
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Specials.Simulaters.Simulater"
+BaseModuleStr="ShareYourSystem.Specials.Simulaters.Moniter"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
+SYS.addDo('Neurongrouper','Neurongroup','Neurongrouping','Neurongrouped')
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
 from ShareYourSystem.Standards.Itemizers import Networker
-from ShareYourSystem.Specials.Simulaters import Synapser,Moniter
+from ShareYourSystem.Specials.Simulaters import Synapser,Tracer
 #</ImportSpecificModules>
 
 #<DefineLocals>
@@ -29,8 +30,6 @@ class SpikesClass(Networker.NetworkerClass):pass
 class StatesClass(Networker.NetworkerClass):pass
 NeurongroupPostTeamKeyStr="Postlets"
 NeurongroupPreTeamKeyStr="Prelets"
-NeurongroupSpikeTeamKeyStr="Spikes"
-NeurongroupStateTeamKeyStr="States"
 #</DefineLocals>
 
 #<DefineClass>
@@ -38,7 +37,6 @@ NeurongroupStateTeamKeyStr="States"
 class NeurongrouperClass(BaseClass):
 	
 	def default_init(self,
-						_NeurongroupDeriveBrianerVariable=None,
 						_NeurongroupingBrianKwargDict=None,
 						_NeurongroupingVariableStrToGetStrDict=None,
 						_NeurongroupedPostModelInsertStrsList=None,
@@ -310,19 +308,46 @@ class NeurongrouperClass(BaseClass):
 				self
 			):
 
+		#/##################/#
+		# Team States first all the brian variables
+		#
+
 		#debug
 		self.debug(
 				[
 					'We simulate with neurongroup'
-					'adapt the initial conditions',
-					('self.',self,['SimulatingInitFloatsArray'])
+					'adapt the initial conditions of all the brian variables',
+					'so first we team in States'
 				]
 			)
 
-		#pass
-		pass
-		#self.NeurongroupedBrianVariable
+		#Check
+		if Tracer.TracerStatesTeamKeyStr not in self.TeamDict:
+			self.team(Tracer.TracerStatesTeamKeyStr)
 
+		#map
+		map(
+				lambda __TraceStr:
+				self.TeamDict[
+					Tracer.TracerStatesTeamKeyStr
+				].manage(
+					Tracer.TracerPrefixStr+__TraceStr,
+					{
+						'TracingKeyVariable':getattr(
+							self.NeurongroupedBrianVariable,
+							__TraceStr
+						)
+					}
+				),
+				self.NeurongroupedBrianVariable.equations._equations.keys()
+			)
+		
+		#/##################/#
+		# Call the base method
+		#
+
+		#simulate
+		BaseClass.simulate(self)
 
 
 
@@ -332,16 +357,16 @@ class NeurongrouperClass(BaseClass):
 #<DefineLocals>
 
 #set
-SpikesClass.ManagingValueClass=Moniter.MoniterClass
-StatesClass.ManagingValueClass=Moniter.MoniterClass
+#SpikesClass.ManagingValueClass=Moniter.MoniterClass
+#StatesClass.ManagingValueClass=Moniter.MoniterClass
 
 #update
-NeurongrouperClass.TeamingClassesDict.update(
-	{
-		'Spikes':SpikesClass,
-		'States':StatesClass
-	}
-)
+#NeurongrouperClass.TeamingClassesDict.update(
+#	{
+#		'Spikes':SpikesClass,
+#		'States':StatesClass
+#	}
+#)
 
 #</DefineLocals>
 

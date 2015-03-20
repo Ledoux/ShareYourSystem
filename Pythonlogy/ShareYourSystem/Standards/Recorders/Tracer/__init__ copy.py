@@ -13,7 +13,7 @@ A Moniter
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Controllers.Controller"
+BaseModuleStr="ShareYourSystem.Standards.Controllers.Simulater"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -106,6 +106,8 @@ class MoniterClass(BaseClass):
 		self.debug(('self.',self,['MoniteredTotalVariablesArray']))
 		'''
 		
+	def mimic_simulate(self):
+		pass
 #</DefineClass>
 
 #</DefinePrint>

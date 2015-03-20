@@ -23,6 +23,11 @@ SYS.setSubModule(globals())
 import scipy.stats
 #</ImportSpecificModules>
 
+#<DefineLocals>
+SimulationEventsTeamKeyStr="Events"
+SimulationStatesTeamKeyStr="States"
+#</DefineLocals>
+
 #<DefineClass>
 @DecorationClass()
 class SimulaterClass(BaseClass):
@@ -58,12 +63,12 @@ class SimulaterClass(BaseClass):
 		#
 
 		#Check
-		if self.SimulatingUnitsInt>0:
+		#if self.SimulatingUnitsInt>0:
 
-			#init
-			self.SimulatingInitFloatsArray=scipy.stats.uniform.rvs(
-					size=self.SimulatingUnitsInt
-				)
+		#	#init
+		#	self.SimulatingInitFloatsArray=scipy.stats.uniform.rvs(
+		#			size=self.SimulatingUnitsInt
+		#		)
 	
 	def simulate_integrate(self):
 		self.integrate()

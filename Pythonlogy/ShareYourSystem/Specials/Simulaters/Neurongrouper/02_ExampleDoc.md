@@ -5,4 +5,4 @@ FrozenIsBool False
 
 ##Example
 
-Do a simple rate model of disconnected units
+Do a simple network of disconnected LIF neurons

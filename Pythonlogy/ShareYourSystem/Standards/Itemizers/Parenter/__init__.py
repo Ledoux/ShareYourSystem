@@ -111,6 +111,31 @@ class ParenterClass(BaseClass):
 		if ParentedDeriveTeamerVariable!=None:
 
 			#/####################/#
+			# Set shortly the grand parent
+			#
+
+			if hasattr(self.ParentDeriveTeamerVariable,'ParentGrandDeriveTeamerVariable'):
+				
+				#get
+				self.ParentGrandDeriveTeamerVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
+
+				#Check
+				if self.ParentGrandDeriveTeamerVariable!=None:
+						
+					#Check		
+					if self.ParentGrandDeriveTeamerVariable.TeamTagStr!="":
+
+						#set
+						self.ParentGrandTeamTagStr=self.ParentGrandDeriveTeamerVariable.TeamTagStr
+
+					#Check		
+					if self.ParentGrandDeriveTeamerVariable.ManagementTagStr!="":
+
+						#set
+						self.ParentGrandManagementTagStr=self.ParentGrandDeriveTeamerVariable.ManagementTagStr
+
+
+			#/####################/#
 			# Now build the chain of Teamers and Managers
 			#
 
@@ -274,20 +299,22 @@ class ParenterClass(BaseClass):
 			# Look maybe for a grandparent
 			#
 
+			#debug
+			self.debug(
+					[
+						'We look for a grand parent here',
+						('self.',self,['ParentDeriveTeamerVariable'])
+					]
+				)
+
+			#set
+			self.TeamedValueVariable.ParentGrandDeriveTeamerVariable=self.ParentDeriveTeamerVariable
+
 			#Check
-			if hasattr(
-				self.TeamedValueVariable.ParentDeriveTeamerVariable,
-				'ParentDeriveTeamerVariable'
-			):
-
+			if self.TeamedValueVariable.ParentGrandDeriveTeamerVariable!=None:
+							
 				#set
-				self.TeamedValueVariable.ParentGrandDeriveTeamerVariable=self.TeamedValueVariable.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
-
-				#Check
-				if self.TeamedValueVariable.ParentGrandDeriveTeamerVariable!=None:
-								
-					#set
-					self.TeamedValueVariable.ParentGrandTeamTagStr=self.TeamedValueVariable.ParentGrandDeriveTeamerVariable.TeamTagStr
+				self.TeamedValueVariable.ParentGrandTeamTagStr=self.TeamedValueVariable.ParentGrandDeriveTeamerVariable.TeamTagStr
 
 	def mimic_manage(self):
 
@@ -334,22 +361,14 @@ class ParenterClass(BaseClass):
 			# Look maybe for a grandparent
 			#
 
+			#set
+			self.ManagedValueVariable.ParentGrandDeriveTeamerVariable=self.ParentDeriveTeamerVariable
+
 			#Check
-			if hasattr(
-				self.ManagedValueVariable.ParentDeriveTeamerVariable,
-				'ParentDeriveTeamerVariable'
-			):
-
+			if self.ManagedValueVariable.ParentGrandDeriveTeamerVariable!=None:
+	
 				#set
-				self.ManagedValueVariable.ParentGrandDeriveTeamerVariable=self.ManagedValueVariable.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
-
-				#Check
-				if self.ManagedValueVariable.ParentGrandDeriveTeamerVariable!=None:
-		
-					#set
-					self.ManagedValueVariable.ParentGrandManagementTagStr=self.ManagedValueVariable.ParentGrandDeriveTeamerVariable.ManagementTagStr
-
-
+				self.ManagedValueVariable.ParentGrandManagementTagStr=self.ManagedValueVariable.ParentGrandDeriveTeamerVariable.ManagementTagStr
 
 	def mimic_get(self):
 		

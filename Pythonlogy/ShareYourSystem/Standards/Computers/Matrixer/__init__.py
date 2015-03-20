@@ -27,24 +27,6 @@ import numpy as np
 @DecorationClass()
 class MatrixerClass(BaseClass):
 	
-	#Definition
-	RepresentingKeyStrsList=[
-								'MatrixingRowsInt',
-								'MatrixingColsInt',
-								'MatrixingSizeTuple',
-								'MatrixingMeanFloat',
-								'MatrixingStdFloat',
-								'MatrixingNormalisationFunction',
-								'MatrixingDivideVariable',
-								'MatrixingStatStr',
-								'MatrixingDiagFloatsArray',
-								'MatrixingSpecificTagVariablesArray',
-								'MatrixingRowTagVariablesArray',
-								'MatrixingColTagVariablesArray',
-								'MatrixedStatFunction',
-								'MatrixedRandomFloatsArray'
-							]
-
 	def default_init(self,
 			_MatrixingRowsInt=0,
 			_MatrixingColsInt=0,
@@ -69,6 +51,17 @@ class MatrixerClass(BaseClass):
 	def do_matrix(
 				self,
 			):	
+
+		#/#################/#
+		# Build the possible random matrix
+		#
+
+		#debug
+		self.debug(
+				[
+					'We matrix here'
+				]
+			)
 
 		#Check
 		if self.MatrixingStatStr!="":
@@ -116,7 +109,8 @@ class MatrixerClass(BaseClass):
 				)
 
 		#Check
-		if type(self.MatrixingDiagFloatsArray)!=None.__class__ and len(self.MatrixingDiagFloatsArray)==np.shape(
+		if type(self.MatrixingDiagFloatsArray)!=None.__class__ and len(
+			self.MatrixingDiagFloatsArray)==np.shape(
 				self.MatrixedRandomFloatsArray
 			)[0]:
 
@@ -137,3 +131,25 @@ class MatrixerClass(BaseClass):
 				)
 	
 #</DefineClass>
+
+
+#</DefinePrint>
+MatrixerClass.PrintingClassSkipKeyStrsList.extend(
+	[
+		'MatrixingRowsInt',
+		'MatrixingColsInt',
+		'MatrixingSizeTuple',
+		'MatrixingMeanFloat',
+		'MatrixingStdFloat',
+		'MatrixingNormalisationFunction',
+		'MatrixingDivideVariable',
+		'MatrixingStatStr',
+		'MatrixingDiagFloatsArray',
+		'MatrixingSpecificTagVariablesArray',
+		'MatrixingRowTagVariablesArray',
+		'MatrixingColTagVariablesArray',
+		'MatrixedStatFunction',
+		#'MatrixedRandomFloatsArray'
+	]
+)
+#<DefinePrint>

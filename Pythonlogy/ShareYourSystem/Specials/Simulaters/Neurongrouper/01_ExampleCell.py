@@ -11,11 +11,9 @@ import ShareYourSystem as SYS
 
 #Definition an instance
 MyNeurongrouper=SYS.NeurongrouperClass(
-	).get(
-		'/-Spikes/|Run'
 	).neurongroup(
 		{
-			'N':100,
+			'N':10,
 			'model':
 			'''
 				dv/dt = (-(v+60*mV)+11*mV + 5.*mV*sqrt(20.*ms)*xi)/(20*ms) : volt
@@ -23,6 +21,7 @@ MyNeurongrouper=SYS.NeurongrouperClass(
 			'threshold':'v>-50*mV',
 			'reset':'v=-70*mV'
 		}
+	).simulate(
 	)
 	
 #/###################/#
@@ -37,6 +36,7 @@ SYS._print(MyNeurongrouper)
 # Do one simulation
 #
 
+"""
 #Print
 from brian2 import Network,ms,mV
 MyNetwork=Network()
@@ -58,4 +58,4 @@ M=MyNeurongrouper.NeurongroupedSpikeMonitorsList[0]
 from matplotlib import pyplot
 pyplot.plot(M.t/ms, M.i, '.')
 pyplot.show()
-
+"""
