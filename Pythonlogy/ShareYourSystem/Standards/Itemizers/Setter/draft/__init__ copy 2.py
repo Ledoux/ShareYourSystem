@@ -1528,7 +1528,149 @@ class SetterClass(BaseClass):
 			)
 
 		#return
-		return self		
+		return self
+
+	def replaceMapVariable(self,_SetVariable,_TranslationDict):
+
+		#debug
+		'''
+		self.debug(
+				[
+					'We replace a MapVariable here',
+					'_SetVariable is ',
+					SYS._str(_SetVariable),
+					'_TranslationDict is ',
+					SYS._str(_TranslationDict)
+				]
+			)
+		'''
+
+		#Check
+		if hasattr(_SetVariable,'items'):
+
+			#map
+			map(
+					lambda __ItemTuple:
+					_SetVariable.__setitem__(
+						self[
+							SYS.translate(
+								__ItemTuple[0],
+								_TranslationDict
+							)
+						]
+						if __ItemTuple[0].startswith('#get:')
+						else SYS.translate(
+								__ItemTuple[0],
+								_TranslationDict
+							),
+						__ItemTuple[1]
+						if type(__ItemTuple[1])!=str 
+						else(
+							self[
+								SYS.translate(
+									__ItemTuple[1],
+									_TranslationDict
+								)
+							]
+							if __ItemTuple[1].startswith('#get:')
+							else SYS.translate(
+									__ItemTuple[1],
+									_TranslationDict
+								)
+						)
+					),
+					_SetVariable.items()
+				)
+
+			#debug
+			'''
+			self.debug(
+				[
+					'In the end _SetVariable is ',
+					SYS._str(_SetVariable)
+				]
+			)
+			'''
+			
+			#return
+			return _SetVariable
+
+		elif SYS.getIsTuplesListBool(_SetVariable):
+
+			#map
+			_SetVariable=map(
+					lambda __ItemTuple:
+					(
+						self[
+							SYS.translate(
+								__ItemTuple[0],
+								_TranslationDict
+							)
+						]
+						if __ItemTuple[0].startswith('#get:')
+						else SYS.translate(
+								__ItemTuple[0],
+								_TranslationDict
+							),
+						__ItemTuple[1]
+						if type(__ItemTuple[1])!=str 
+						else(
+							self[
+								SYS.translate(
+									__ItemTuple[1],
+									_TranslationDict
+								)
+							]
+							if __ItemTuple[1].startswith('#get:')
+							else SYS.translate(
+									__ItemTuple[1],
+									_TranslationDict
+								)
+						)
+					),
+					_SetVariable
+				)
+
+			#return
+			return _SetVariable
+
+		elif type(_SetVariable)==tuple and len(_SetVariable)==2:
+
+			#return
+			return (
+					self[
+							SYS.translate(
+								_SetVariable[0],
+								_TranslationDict
+							)
+						]
+						if __ItemTuple[0].startswith('#get:')
+						else SYS.translate(
+								_SetVariable[0],
+								_TranslationDict
+							),
+					_SetVariable[1]
+						if type(_SetVariable[1])!=str 
+						else(
+							self[
+								SYS.translate(
+									_SetVariable[1],
+									_TranslationDict
+								)
+							]
+							if _SetVariable[1].startswith('#get:')
+							else SYS.translate(
+									_SetVariable[1],
+									_TranslationDict
+								)
+						)
+					)
+				
+
+		else:
+
+			#return
+			return self[_SetVariable.replace(SetMapVariableStr,_MapVariable)]			
 
 	def getMapLambdaList(self,_SettingValueVariable):
 

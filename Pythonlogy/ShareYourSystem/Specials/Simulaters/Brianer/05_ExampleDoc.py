@@ -1,84 +1,138 @@
-#import SYS
+#ImportModules
 import ShareYourSystem as SYS
+import operator
 
 #Definition
 MyBrianer=SYS.BrianerClass(
-	).collect(
+	).produce(
 		"Neurongroupers",
-		'P',
-		SYS.NeurongrouperClass(
-			#Here are defined the brian classic shared arguments for each pop
-			**{
-				'NeurongroupingKwargVariablesDict':
+		['E','I'],
+		SYS.NeurongrouperClass,
+		#Here are defined the brian classic shared arguments for each pop
+		{
+			'NeurongroupingKwargVariablesDict':
+			{
+				'model':
+				'''
+					dv/dt = (-(v+49*mV))/(20*ms) : volt
+				''',
+				'threshold':'v>-50*mV',
+				'reset':'v=-60*mV'
+			},
+			'produce':
+			SYS.ApplyDictClass(
 				{
-					'N':2,
-					'model':
-					'''
-						Jr : 1
-						dr/dt = (-r+Jr)/(20*ms) : 1
-					'''
-				},
+					'LiargVariablesList':
+						[
+							"SpikeMoniters",
+							['Spike'],
+							SYS.MoniterClass
+						]
+				}
+			)		
+		}
+	).__setitem__(
+		'Dis_<Neurongroupers>',
+		#Here are defined the brian classic specific arguments for each pop
+		[
+			{
+				'PopulatingUnitsInt':3200,
 				'ConnectingGraspClueVariablesList':
-				[
+				map(
+					lambda __PrefixStr:
 					SYS.GraspDictClass(
 						{
-							'HintVariable':'/NodePointDeriveNoder/<Neurongroupers>PNeurongrouper',
+							'HintVariable':'/NodePointDeriveNoder/<Neurongroupers>'+__PrefixStr+'Neurongrouper',
 							'SynapsingKwargVariablesDict':
 							{
-								'model':
-								'''
-									J : 1
-									Jr_post=J*r_pre : 1 (summed)
-								'''
+								'pre':'ge+=1.62*mV',
 							},
-							'SynapsingWeigthSymbolStr':'J',
-							'SynapsingWeigthFloatsArray':SYS.array(
-								[
-									[0.,-2.],
-									[4.,0.]
-								]
-							),
-							"SynapsingDelayDict":{'r':1.*SYS.brian2.ms}
+							'SynapsingProbabilityVariable':0.02,
+							'AttentionUpdateVariable':{
+								'PostModelInsertStrsList':['dge/dt = -ge/(5*ms) : volt'],
+								'PostModelAddDict':{'v':['ge']}
+							}
+							
 						}
-					)
-				]		
-			}
-		).collect(
-			"StateMoniters",
-			'Rate',
-			SYS.MoniterClass(
-				**{
-					'MoniteringVariableStr':'r',
-					'MoniteringRecordTimeIndexIntsArray':[0,1]
-					}
+					),
+					['E','I']
 				)
-		)
+			},
+			{
+				'PopulatingUnitsInt':800,
+				'ConnectingGraspClueVariablesList':
+				map(
+					lambda __PrefixStr:
+					SYS.GraspDictClass(
+						{
+							'HintVariable':'/NodePointDeriveNoder/<Neurongroupers>'+__PrefixStr+'Neurongrouper',
+							'SynapsingKwargVariablesDict':
+							{
+								'pre':'gi-=9*mV'
+							},
+							'SynapsingProbabilityVariable':0.02,
+							'AttentionUpdateVariable':
+							{
+								'PostModelInsertStrsList':['dgi/dt = -gi/(10*ms) : volt'],
+								'PostModelAddDict':{'v':['gi']}
+							}
+						}
+					),
+					['E','I']
+					#[]
+				)
+			}
+		]
 	).network(
 			**{
 				'RecruitingConcludeConditionVariable':[
 					(
 						'MroClassesList',
-						SYS.contains,
+						operator.contains,
 						SYS.NeurongrouperClass
 					)
 				]
 			}
-	).brian()
+		).brian()
 
-#init variables
+
+#Definition the AttestedStr
+SYS._print(
+		[
+			"MyBrianer['<Neurongroupers>ENeurongrouper'].NeurongroupedBrianVariable.equations is ",
+			MyBrianer['<Neurongroupers>ENeurongrouper'].NeurongroupedBrianVariable.equations.__dict__
+		]
+	)
+SYS._print(
+	[
+		"MyBrianer['<Neurongroupers>INeurongrouper'].NeurongroupedBrianVariable.equations is ",
+		MyBrianer['<Neurongroupers>INeurongrouper'].NeurongroupedBrianVariable.equations.__dict__
+	]
+)
+
+
+#init
+import brian2
 map(
 	lambda __BrianedNeuronGroup:
 	__BrianedNeuronGroup.__setattr__(
-		'r',
-		1.+SYS.array(map(float,xrange(__BrianedNeuronGroup.N)))
+		'v',
+		-60*brian2.mV
 	),
 	MyBrianer.BrianedNeuronGroupsList
 )
 
+
 #run
-MyBrianer.run(100)
+MyBrianer.run(300)
 
 #plot
-M=MyBrianer['<Neurongroupers>PNeurongrouper']['<StateMoniters>RateMoniter'].StateMonitor
-SYS.plot(M.t, M.r.T)
-SYS.show()
+ME=MyBrianer['<Neurongroupers>ENeurongrouper']['<SpikeMoniters>SpikeMoniter'].SpikeMonitor
+MI=MyBrianer['<Neurongroupers>INeurongrouper']['<SpikeMoniters>SpikeMoniter'].SpikeMonitor
+from matplotlib import pyplot
+pyplot.plot(ME.t/brian2.ms, ME.i, 'r.')
+pyplot.plot(MI.t/brian2.ms, ME.source.N+MI.i, 'b.')
+pyplot.show()
+
+#Print
+

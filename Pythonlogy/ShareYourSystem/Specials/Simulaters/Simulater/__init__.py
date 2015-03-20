@@ -20,7 +20,13 @@ SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
+import scipy.stats
 #</ImportSpecificModules>
+
+#<DefineLocals>
+SimulationEventsTeamKeyStr="Events"
+SimulationStatesTeamKeyStr="States"
+#</DefineLocals>
 
 #<DefineClass>
 @DecorationClass()
@@ -28,15 +34,15 @@ class SimulaterClass(BaseClass):
 	
 	def default_init(self,
 						_SimulatingStopTimeFloat=100.,
-						_SimulatingInitFloatsArray=None,
+						_SimulatingUnitsInt=0,
 						_SimulatingStepTimeFloat=0.1,
 						_SimulatingStartTimeFloat=0.,
+						_SimulatedInitFloatsArray=None,
 						**_KwargVariablesDict
 					):
 
 		#Call the parent __init__ method
 		BaseClass.__init__(self,**_KwargVariablesDict)
-
 
 	def do_simulate(
 			self,
@@ -51,6 +57,18 @@ class SimulaterClass(BaseClass):
 		'''
 		pass
 
+
+		#/##################/#
+		# Build the initial conditions
+		#
+
+		#Check
+		#if self.SimulatingUnitsInt>0:
+
+		#	#init
+		#	self.SimulatingInitFloatsArray=scipy.stats.uniform.rvs(
+		#			size=self.SimulatingUnitsInt
+		#		)
 	
 	def simulate_integrate(self):
 		self.integrate()

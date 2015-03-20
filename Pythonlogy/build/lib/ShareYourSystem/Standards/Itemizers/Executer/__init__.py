@@ -285,7 +285,7 @@ class ExecuterClass(BaseClass):
 					#Check
 					if type(self.SettingValueVariable)==list and len(
 						self.SettingValueVariable)>0 and hasattr(self.SettingValueVariable[0],'items'
-						) and Setter.SetLambdaKeyStr in self.SettingValueVariable[0]:
+						) and Setter.SetValueLambdaGrabStr in self.SettingValueVariable[0]:
 
 							#get
 							ExecutedMapLambdaList=self.getMapLambdaList(
@@ -301,7 +301,7 @@ class ExecuterClass(BaseClass):
 							)
 
 							#set
-							self[AttributeValueVariable]=ExecutedMapLambdaList
+							self[AttributeValueVariable]=[ExecutedMapLambdaList]
 
 					else:
 					

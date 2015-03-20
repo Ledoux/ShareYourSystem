@@ -5,5 +5,4 @@ FrozenIsBool False
 
 ##Example
 
-Note now that equation parts relied on the synaptic interactions
-can be completely incorcoprate din our Synapsers object
+Let's take the first example in the brian tutorial

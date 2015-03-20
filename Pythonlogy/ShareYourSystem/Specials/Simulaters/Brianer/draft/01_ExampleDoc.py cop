@@ -2,8 +2,8 @@
 import ShareYourSystem as SYS
 
 #Definition
-MyBrianer=SYS.BrianerClass(
-	).set(
+MyBrianer=SYS.BrianerClass()
+MyBrianer.set(
 		'-Populations',
 		[
 			(
@@ -22,50 +22,37 @@ MyBrianer=SYS.BrianerClass(
 					},
 					'get':'/-Spikes/|Run',
 				}
-			),
-			(
-				'|E',
-				{
-					'SimulatingUnitsInt':3200,
-					'array':[
-						[
-							['-<->'],
-							['|Postlets<->Prelets'],
-							['|#direct:_^_|E','#direct:_^_|I']
-						],
-						[
-							{},
-							{},
-							{
-								'SynapsingBrianKwargVariablesDict':{'pre':'ge+=1.62*mV'},
-								'SynapsingProbabilityVariable':0.02
-							}
-						]
-					]
-				}
-			),
-			(
-				'|I',
-				{
-					'SimulatingUnitsInt':800,
-					'array':[
-						[
-							['-<->'],
-							['|Postlets<->Prelets'],
-							['|#direct:_^_|E','#direct:_^_|I']
-						],
-						[
-							{},
-							{},
-							{
-								'SynapsingBrianKwargVariablesDict':{'pre':'gi-=9*mV'},
-								'SynapsingProbabilityVariable':0.02
-							}
-						]
-					]
-				}
 			)
-		]
+		]+SYS.mapReplace(
+				{
+					'|#NeuronStr':{
+						'SimulatingUnitsInt':3200,
+						'array':[
+							[
+								['-<->'],
+								['|Postlets<->Prelets'],
+								['|#direct:_^_|E','|#direct:_^_|I']
+							],
+							[
+								{},
+								{},
+								{
+									'SynapsingBrianKwargVariablesDict':{'pre':'#PreStr'},
+									'SynapsingProbabilityVariable':0.02
+								}
+							]
+						]
+					}
+				},
+				[
+					['#NeuronStr','#PreStr'],
+					[
+						['E','ge+=1.62*mV'],
+						['I','gi-=9*mV']
+					]
+				],
+				MyBrianer
+			)
 	).network(
 		['Populations']
 	)

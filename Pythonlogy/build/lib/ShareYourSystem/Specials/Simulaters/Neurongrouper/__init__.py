@@ -74,6 +74,8 @@ class NeurongrouperClass(BaseClass):
 		#Check
 		if 'N' not in self.NeurongroupingBrianKwargDict:
 			self.NeurongroupingBrianKwargDict['N']=self.SimulatingUnitsInt
+		else:
+			self.SimulatingUnitsInt=self.NeurongroupingBrianKwargDict['N']
 
 		#Check
 		if 'model' not in self.NeurongroupingBrianKwargDict:
@@ -303,6 +305,27 @@ class NeurongrouperClass(BaseClass):
 		#call the base method
 		BaseClass.propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable)
 	"""
+
+	def mimic_simulate(
+				self
+			):
+
+		#debug
+		self.debug(
+				[
+					'We simulate with neurongroup'
+					'adapt the initial conditions',
+					('self.',self,['SimulatingInitFloatsArray'])
+				]
+			)
+
+		#pass
+		pass
+		#self.NeurongroupedBrianVariable
+
+
+
+
 
 #</DefineClass>
 

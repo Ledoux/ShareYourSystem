@@ -116,6 +116,8 @@ ShareYourSystem/Specials/Simulaters/Brianer/02_ExampleDoc.md
 ShareYourSystem/Specials/Simulaters/Brianer/03_ExampleDoc.py
 ShareYourSystem/Specials/Simulaters/Brianer/04_ExampleDoc.md
 ShareYourSystem/Specials/Simulaters/Brianer/05_ExampleDoc.py
+ShareYourSystem/Specials/Simulaters/Brianer/06_ExampleDoc.md
+ShareYourSystem/Specials/Simulaters/Brianer/07_ExampleDoc.py
 ShareYourSystem/Specials/Simulaters/Brianer/Readme.md
 ShareYourSystem/Specials/Simulaters/Brianer/Test.py
 ShareYourSystem/Specials/Simulaters/Brianer/__init__.py
@@ -124,6 +126,7 @@ ShareYourSystem/Specials/Simulaters/Brianer/draft/01_ExampleCell copy 3.py
 ShareYourSystem/Specials/Simulaters/Brianer/draft/01_ExampleCell copy 4.py
 ShareYourSystem/Specials/Simulaters/Brianer/draft/01_ExampleDoc copy 2.py
 ShareYourSystem/Specials/Simulaters/Brianer/draft/01_ExampleDoc copy 3.py
+ShareYourSystem/Specials/Simulaters/Brianer/draft/01_ExampleDoc.py cop
 ShareYourSystem/Specials/Simulaters/Brianer/draft/__init__ copy 2.py
 ShareYourSystem/Specials/Simulaters/Lifer/001_DocumentDoc.md
 ShareYourSystem/Specials/Simulaters/Lifer/002_GithubDoc.md
@@ -827,10 +830,13 @@ ShareYourSystem/Standards/Itemizers/Setter/22_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Setter/23_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Setter/24_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Setter/25_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Setter/26_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Setter/27_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Setter/Readme.md
 ShareYourSystem/Standards/Itemizers/Setter/Test.py
 ShareYourSystem/Standards/Itemizers/Setter/__init__.py
 ShareYourSystem/Standards/Itemizers/Setter/draft/08_ExampleDoc copy.md
+ShareYourSystem/Standards/Itemizers/Setter/draft/__init__ copy 2.py
 ShareYourSystem/Standards/Itemizers/Teamer/001_DocumentDoc.md
 ShareYourSystem/Standards/Itemizers/Teamer/00_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Teamer/01_ExampleDoc.py

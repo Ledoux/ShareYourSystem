@@ -37,20 +37,20 @@ class PopulationsClass(Pointer.PointerClass):pass
 class BrianerClass(BaseClass):
 		
 	def default_init(self,
-						_BrianingTimeDimensionVariable=None,
-						_BrianingPrintRunIsBool=True,
-						_BrianedNetworkVariable=None,
-						_BrianedDeriveNeurongroupersList=None,
-						_BrianedDeriveSynapsersList=None,
-						_BrianedStepTimeFloatsList=None,
-						_BrianedClocksList=None,
-						_BrianedSimulationClock=None,
-						_BrianedNeuronGroupsList=None,
-						_BrianedStateMonitorsList=None,
-						_BrianedSpikeMonitorsList=None,
-						_BrianedSynapsesList=None,
-						**_KwargVariablesDict
-					):
+			_BrianingTimeDimensionVariable=None,
+			_BrianingPrintRunIsBool=True,
+			_BrianedNetworkVariable=None,
+			_BrianedDeriveNeurongroupersList=None,
+			_BrianedDeriveSynapsersList=None,
+			_BrianedStepTimeFloatsList=None,
+			_BrianedClocksList=None,
+			_BrianedSimulationClock=None,
+			_BrianedNeuronGroupsList=None,
+			_BrianedStateMonitorsList=None,
+			_BrianedSpikeMonitorsList=None,
+			_BrianedSynapsesList=None,
+			**_KwargVariablesDict
+		):
 
 		#Call the parent __init__ method
 		BaseClass.__init__(self,**_KwargVariablesDict)
@@ -74,6 +74,26 @@ class BrianerClass(BaseClass):
 		self.debug('We stop running in brian')
 	"""
 
+	def mimic_simulate(self):
+
+		#parent method
+		BaseClass.simulate(self)
+
+		#debug
+		'''
+		self.debug('We start simulate in brian')
+		'''
+
+		#run with the brian method
+		self.BrianedNetworkVariable.run(
+			self.SimulatingStopTimeFloat*self.BrianingTimeDimensionVariable
+		)
+
+		#debug
+		'''
+		self.debug('We stop running in brian')
+		'''
+		
 	def do_brian(self):	
 
 		#/###################/#
@@ -91,11 +111,12 @@ class BrianerClass(BaseClass):
 					lambda __BrianedDeriveNeurongrouper:
 					__BrianedDeriveNeurongrouper.TeamDict[
 						Neurongrouper.NeurongroupPostTeamKeyStr
-					].ManagementDict.values(),
+					].ManagementDict.values()
+					if Neurongrouper.NeurongroupPostTeamKeyStr in __BrianedDeriveNeurongrouper.TeamDict
+					else [],
 					self.BrianedDeriveNeurongroupersList
 				)
 			)
-
 
 		#debug
 		"""
@@ -186,12 +207,11 @@ class BrianerClass(BaseClass):
 					dict(
 						{
 							'clock':self.BrianedSimulationClock,
-							'N':__BrianedDeriveNeurongrouper.SimulatingUnitsInt,
 							#Don't forget to replace the '/' by '_' because brian doesn't like them
-							'name':__BrianedDeriveNeurongrouper.NetworkKeyStr.replace(
-								'/','_')
+							'name':__BrianedDeriveNeurongrouper.ParentTagStr.replace(
+								'/','_')+'_'+__BrianedDeriveNeurongrouper.ManagementTagStr
 						},
-						**__BrianedDeriveNeurongrouper.NeurongroupingKwargVariablesDict
+						**__BrianedDeriveNeurongrouper.NeurongroupingBrianKwargDict
 					)
 				).NeurongroupedBrianVariable,
 			self.BrianedDeriveNeurongroupersList

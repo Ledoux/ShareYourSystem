@@ -7,7 +7,7 @@ MyExecuter=SYS.ExecuterClass(
 	)['#map@set'](
 		[
 			(
-				'MyList',[]
+				'MyList',[1]
 			),
 			(
 				'MyList.extend',
@@ -17,8 +17,8 @@ MyExecuter=SYS.ExecuterClass(
 							'MyStr':'#__Variable Erwan'
 						},
 						'#map':[
-							'HelloStr',
-							'ByeStr'
+							'hello',
+							'Salut'
 						]
 					}
 				]

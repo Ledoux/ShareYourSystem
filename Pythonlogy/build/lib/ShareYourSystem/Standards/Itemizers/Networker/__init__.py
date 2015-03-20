@@ -52,8 +52,8 @@ class NetworkerClass(BaseClass):
 
 	def do_network(self):
 
-		
 		#debug
+		'''
 		self.debug(
 				[
 					'We network here',
@@ -63,6 +63,7 @@ class NetworkerClass(BaseClass):
 						])
 				]
 			)
+		'''
 
 		#/##################/#
 		# prepare the Net teams

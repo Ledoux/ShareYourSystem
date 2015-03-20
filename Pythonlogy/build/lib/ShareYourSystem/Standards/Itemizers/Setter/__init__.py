@@ -94,10 +94,12 @@ SetMapKwargGetKeyValueGrabStr=SetMapKwargGetGrabPrefixStr+'#key:value'
 SetListTypesSet=set(['list','ndarray'])
 SetCopyPrefixStr='#copy:'
 SetDeepCopyPrefixStr='#deepcopy:'
-SetLambdaKeyStr=SetValueGrabStr+':#lambda'
+SetLambdaGrabStr=':#lambda'
+SetValueLambdaGrabStr=SetValueGrabStr+SetLambdaGrabStr
 SetMapKeyStr='#map'
 SetMapVariableStr='#__Variable'
 SetUntypePrefixStr='#untype:'
+SetLiargLambdaGrabStr=SetLiargGrabStr+SetLambdaGrabStr
 
 class ArgumentDict(collections.OrderedDict):
 
@@ -486,7 +488,10 @@ class SetterClass(BaseClass):
 			#Check
 			if hasattr(
 					self.SettingValueVariable,'items'
-				) and any(
+				):
+
+				#Check
+				if any(
 					map(
 						lambda __KeyStr:
 						__KeyStr in self.SettingValueVariable,
@@ -501,34 +506,79 @@ class SetterClass(BaseClass):
 					)
 				):
 
-				#debug
-				'''
-				self.debug(
+					#debug
+					'''
+					self.debug(
+							[
+								'It is an argument dict'
+							]
+						)
+					'''
+
+					#get
+					[SettedLiargVariable,SettedKwargVariable]=map(
+						lambda __KeyStr:
+						ArgumentDict(
+							self.SettingValueVariable,
+							self
+						)[__KeyStr],
+						['LiargVariablesList','KwargVariablesDict']
+					)
+
+					#debug
+					'''
+					self.debug(
+							[
+								'SettedLiargVariable is '+SYS._str(SettedLiargVariable),
+								'SettedKwargVariable is '+SYS._str(SettedKwargVariable),
+							]
+						)
+					'''
+
+				#/#################/#
+				# Set a map lambda
+				#
+
+				elif SetLiargLambdaGrabStr in self.SettingValueVariable:
+
+					#debug
+					'''
+					self.debug(
 						[
-							'It is a argument dict'
+							'we set a value with a SetLiargLambdaGrabStr inside',
+							('self.',self,['SettingValueVariable'])
 						]
 					)
-				'''
+					'''
 
-				#get
-				[SettedLiargVariable,SettedKwargVariable]=map(
-					lambda __KeyStr:
-					ArgumentDict(
-						self.SettingValueVariable,
-						self
-					)[__KeyStr],
-					['LiargVariablesList','KwargVariablesDict']
-				)
+					#temp
+					SettedLambdaValueVariable=self.SettingValueVariable
+					SettedLambdaKeyVariable=self.SettingKeyVariable
 
-				#debug
-				'''
-				self.debug(
+					#getMap
+					SettedMapLambdaList=self.getMapLambdaList(
+						SettedLambdaValueVariable
+					)
+
+					#debug
+					'''
+					self.debug(
 						[
-							'SettedLiargVariable is '+SYS._str(SettedLiargVariable),
-							'SettedKwargVariable is '+SYS._str(SettedKwargVariable),
+							'SettedMapLambdaList is',
+							str(SettedMapLambdaList)
 						]
 					)
-				'''
+					'''
+					
+					#map map set
+					map(
+						lambda __SettedVariable:
+						self.mapSet(__SettedVariable),
+						SettedMapLambdaList
+					)
+
+					#Stop the setting
+					return {"HookingIsBool":False}
 				
 			#set
 			SettedIsBool=False
@@ -550,7 +600,10 @@ class SetterClass(BaseClass):
 					'''
 
 					#Check
-					if hasattr(SettedValueMethod.im_func.BaseDoClass.Module,'getLiargVariablesList'):
+					if hasattr(
+						SettedValueMethod.im_func.BaseDoClass.Module,
+						'getLiargVariablesList'
+					):
 					
 						#set
 						SettedIsBool=True
@@ -1038,7 +1091,7 @@ class SetterClass(BaseClass):
 						#Return
 						return {'HookingIsBool':False}
 
-					elif SetLambdaKeyStr in self.SettingValueVariable:
+					elif SetValueLambdaGrabStr in self.SettingValueVariable:
 
 						#debug
 						'''
@@ -1148,9 +1201,13 @@ class SetterClass(BaseClass):
 
 								#map set
 								self[self.SettingKeyVariable]=SettedValueType(
-									)[SetMapStr](
+									).mapSet(
 									self.SettingValueVariable
 								)
+								#self[self.SettingKeyVariable]=SettedValueType(
+								#	)[SetMapStr](
+								#	self.SettingValueVariable
+								#)
 								#self.SettingValueVariable=SettedValueType(
 								#	)[SetMapValueGetGrabStr](
 								#	self.SettingValueVariable
@@ -1347,12 +1404,14 @@ class SetterClass(BaseClass):
 					)
 
 					#debug
+					'''
 					self.debug(
 							[
 								'SettedLiargVariable is '+SYS._str(SettedLiargVariable),
 								'SettedKwargVariable is '+SYS._str(SettedKwargVariable),
 							]
 						)
+					'''
 
 				else:
 
@@ -1447,159 +1506,34 @@ class SetterClass(BaseClass):
 		#call the base method
 		return BaseClass.get(self)
 
-	def mapSet(self,_MapTuplesList):
+	def mapSet(self,_MapVariable):
+
+		#debug
+		'''
+		self.debug(
+				[
+					'_MapVariable is ',
+					SYS._str(_MapVariable)
+				]
+			)
+		'''
 
 		#map
 		map(
 				lambda __MapTuple:
-				self.set(__MapTuple[0],__MapTuple[1]),
-				_MapTuplesList
+				self.set(*__MapTuple),
+				_MapVariable.items() 
+				if hasattr(_MapVariable,'items')
+				else _MapVariable
 			)
 
 		#return
-		return self
-
-	def replaceMapVariable(self,_SetVariable,_TranslationDict):
-
-		#debug
-		self.debug(
-				[
-					'We replace a MapVariable here',
-					'_SetVariable is ',
-					SYS._str(_SetVariable),
-					'_TranslationDict is ',
-					SYS._str(_TranslationDict)
-				]
-			)
-	
-		#Check
-		if hasattr(_SetVariable,'items'):
-
-			#map
-			map(
-					lambda __ItemTuple:
-					_SetVariable.__setitem__(
-						self[
-							SYS.translate(
-								__ItemTuple[0],
-								_TranslationDict
-							)
-						]
-						if __ItemTuple[0].startswith('#get:')
-						else SYS.translate(
-								__ItemTuple[0],
-								_TranslationDict
-							),
-						__ItemTuple[1]
-						if type(__ItemTuple[1])!=str 
-						else(
-							self[
-								SYS.translate(
-									__ItemTuple[1],
-									_TranslationDict
-								)
-							]
-							if __ItemTuple[1].startswith('#get:')
-							else SYS.translate(
-									__ItemTuple[1],
-									_TranslationDict
-								)
-						)
-					),
-					_SetVariable.items()
-				)
-
-			#debug
-			self.debug(
-				[
-					'In the end _SetVariable is ',
-					SYS._str(_SetVariable)
-				]
-			)
-
-			#return
-			return _SetVariable
-
-		elif SYS.getIsTuplesListBool(_SetVariable):
-
-			#map
-			_SetVariable=map(
-					lambda __ItemTuple:
-					(
-						self[
-							SYS.translate(
-								__ItemTuple[0],
-								_TranslationDict
-							)
-						]
-						if __ItemTuple[0].startswith('#get:')
-						else SYS.translate(
-								__ItemTuple[0],
-								_TranslationDict
-							),
-						__ItemTuple[1]
-						if type(__ItemTuple[1])!=str 
-						else(
-							self[
-								SYS.translate(
-									__ItemTuple[1],
-									_TranslationDict
-								)
-							]
-							if __ItemTuple[1].startswith('#get:')
-							else SYS.translate(
-									__ItemTuple[1],
-									_TranslationDict
-								)
-						)
-					),
-					_SetVariable
-				)
-
-			#return
-			return _SetVariable
-
-		elif type(_SetVariable)==tuple and len(_SetVariable)==2:
-
-			#return
-			return (
-					self[
-							SYS.translate(
-								_SetVariable[0],
-								_TranslationDict
-							)
-						]
-						if __ItemTuple[0].startswith('#get:')
-						else SYS.translate(
-								_SetVariable[0],
-								_TranslationDict
-							),
-					_SetVariable[1]
-						if type(_SetVariable[1])!=str 
-						else(
-							self[
-								SYS.translate(
-									_SetVariable[1],
-									_TranslationDict
-								)
-							]
-							if _SetVariable[1].startswith('#get:')
-							else SYS.translate(
-									_SetVariable[1],
-									_TranslationDict
-								)
-						)
-					)
-				
-
-		else:
-
-			#return
-			return self[_SetVariable.replace(SetMapVariableStr,_MapVariable)]			
+		return self		
 
 	def getMapLambdaList(self,_SettingValueVariable):
 
 		#debug
+		'''
 		self.debug(
 			[
 				'This is a lambda map set',
@@ -1607,9 +1541,13 @@ class SetterClass(BaseClass):
 				SYS._str(_SettingValueVariable)
 			]
 		)
+		'''
 
 		#get
-		SettedTextValueVariable=_SettingValueVariable[SetLambdaKeyStr]
+		try:
+			SettedTextValueVariable=_SettingValueVariable[SetValueLambdaGrabStr]
+		except:
+			SettedTextValueVariable=_SettingValueVariable[SetLiargLambdaGrabStr]
 
 		#Check
 		if SetMapKeyStr in _SettingValueVariable:

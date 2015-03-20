@@ -861,6 +861,14 @@ def replace(
 				_TranslationVariable=None
 			):
 
+	#Debug
+	'''
+	print('SYS 905')
+	print('_TextVariable is ')
+	print(_TextVariable)
+	print('')
+	'''
+
 	#/##################/#
 	# Is the _TranslationVariable setted already
 	# 
@@ -898,6 +906,9 @@ def replace(
 	# Is it a str 
 	# 
 
+	#init
+	ReplaceMapBool=False
+
 	#Check
 	if type(_TextVariable) in [str,unicode]:
 
@@ -906,6 +917,8 @@ def replace(
 		# the translation dict
 
 		if _TextVariable in _TranslationVariable:
+
+			#get
 			TextVariable=_TranslationVariable[_TextVariable]
 
 		else:
@@ -948,7 +961,7 @@ def replace(
 		return TextVariable
 
 	#/##################/#
-	# It is an iter variable
+	# It is a dict iter variable
 	# transform to a tuples list
 
 	elif hasattr(_TextVariable,'items'):
@@ -956,32 +969,81 @@ def replace(
 		#items
 		TextVariable=_TextVariable.items()
 
+		#set
+		ReplaceMapBool=True
+
 	elif getIsTuplesListBool(_TextVariable):
 
 		#alias
 		TextVariable=_TextVariable
 
-	#/##################/#
-	# Map the replace
-	# 
+		#set
+		ReplaceMapBool=True
 
-	#map
-	TextVariable=map(
-			lambda __ItemTuple:
-			(
-				replace(
-				__ItemTuple[0],
-				_TranslationVariable,
-				_GetterVariable
-				),
-				replace(
-					__ItemTuple[1],
+	#Check
+	if ReplaceMapBool:
+
+		#/##################/#
+		# Map the replace
+		# 
+
+		#Debug
+		'''
+		print('SYS l 992')
+		print('TextVariable is ')
+		print(TextVariable)
+		print('')
+		'''
+
+		#map
+		TextVariable=map(
+				lambda __ItemTuple:
+				(
+					replace(
+					__ItemTuple[0],
 					_TranslationVariable,
 					_GetterVariable
-				)
-			),
-			TextVariable
-		)
+					),
+					replace(
+						__ItemTuple[1],
+						_TranslationVariable,
+						_GetterVariable
+					)
+				),
+				TextVariable
+			)
+
+		#return
+		return type(_TextVariable)(TextVariable)
+
+	#/##################/#
+	# It is a list iter variable
+	# transform to a tuples list
+
+	elif type(_TextVariable) in [list,tuple]:
+
+		#set
+		TextVariable=map(
+				lambda __ElementVariable:
+				replace(
+					__ElementVariable,
+					_TranslationVariable,
+					_GetterVariable
+				),
+				_TextVariable
+			)
+
+		#return
+		return type(_TextVariable)(TextVariable)
+
+	#/##################/#
+	# default
+	# 
+
+	else:
+
+		#set
+		TextVariable=_TextVariable
 
 	#/##################/#
 	# return

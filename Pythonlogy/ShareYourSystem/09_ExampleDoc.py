@@ -37,7 +37,7 @@ print(
 )
 
 
-#print
+#print with recursive dict set
 print('\nThe mapReplace gives')
 SYS._print(
 	SYS.mapReplace(
@@ -60,5 +60,36 @@ SYS._print(
 		)
 	)
 
-
-
+#print with recursive list set
+print('\nThe mapReplace gives')
+SYS._print(
+	SYS.mapReplace(
+		{
+		'|#NeuronStr':{
+				'SimulatingUnitsInt':3200,
+				'array':[
+					[
+						['-<->'],
+						['|Postlets<->Prelets'],
+						['|#direct:_^_|E','|#direct:_^_|I']
+					],
+					[
+						{},
+						{},
+						{
+							'SynapsingBrianKwargVariablesDict':{'pre':'#PreStr'},
+							'SynapsingProbabilityVariable':0.02
+						}
+					]
+				]
+			}
+		},
+		[
+			['#NeuronStr','#PreStr'],
+			[
+				['E','ge+=1.62*mV'],
+				['I','gi-=9*mV']
+			]
+		]
+	)
+)

@@ -5,4 +5,4 @@ FrozenIsBool False
 
 ##Example
 
-Let's take the first example in the brian tutorial
+Let's build one network with two populations but disconnected
