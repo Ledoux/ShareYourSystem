@@ -14,7 +14,7 @@ A Simulater
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Controllers.Controller"
+BaseModuleStr="ShareYourSystem.Standards.Recorders.Moniter"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -37,7 +37,6 @@ class SimulaterClass(BaseClass):
 						_SimulatingUnitsInt=0,
 						_SimulatingStepTimeFloat=0.1,
 						_SimulatingStartTimeFloat=0.,
-						_SimulatedInitFloatsArray=None,
 						**_KwargVariablesDict
 					):
 
@@ -55,26 +54,13 @@ class SimulaterClass(BaseClass):
 
 					]))
 		'''
-		pass
-
 
 		#/##################/#
-		# Build the initial conditions
+		# record
 		#
 
-		#Check
-		#if self.SimulatingUnitsInt>0:
-
-		#	#init
-		#	self.SimulatingInitFloatsArray=scipy.stats.uniform.rvs(
-		#			size=self.SimulatingUnitsInt
-		#		)
+		pass
 	
-	def simulate_integrate(self):
-		self.integrate()
-
-	def simulate_pydelay(self):
-		self.pydelay()
 
 
 #</DefineClass>
@@ -83,7 +69,6 @@ class SimulaterClass(BaseClass):
 SimulaterClass.PrintingClassSkipKeyStrsList.extend(
 	[
 		'SimulatingStopTimeFloat',
-		'SimulatingInitFloatsArray',
 		'SimulatingStepTimeFloat',
 		'SimulatingStartTimeFloat'
 	]

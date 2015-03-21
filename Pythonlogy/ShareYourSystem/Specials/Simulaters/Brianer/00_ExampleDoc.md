@@ -5,4 +5,4 @@ FrozenIsBool False
 
 ##Example
 
-Let's build one network with two populations but disconnected
+Do a simple network of disconnected LIF neurons

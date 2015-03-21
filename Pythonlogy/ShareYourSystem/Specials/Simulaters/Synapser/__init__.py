@@ -14,7 +14,7 @@ A Synapser
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Controllers.Controller"
+BaseModuleStr="ShareYourSystem.Specials.Simulaters.Simulater"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>

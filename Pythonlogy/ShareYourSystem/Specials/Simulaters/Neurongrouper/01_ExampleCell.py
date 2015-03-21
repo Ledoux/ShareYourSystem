@@ -12,6 +12,7 @@ import ShareYourSystem as SYS
 #Definition an instance
 MyNeurongrouper=SYS.NeurongrouperClass(
 	).neurongroup(
+		#NeurongroupingBrianDict
 		{
 			'N':10,
 			'model':
@@ -20,8 +21,15 @@ MyNeurongrouper=SYS.NeurongrouperClass(
 			''',
 			'threshold':'v>-50*mV',
 			'reset':'v=-70*mV'
-		}
-	).simulate(
+		},
+		#NeurongroupingStatesDict
+		{	
+			'v':[('Run',[0,1])],
+		},
+		#NeurongroupingSpikesDict
+		{	
+			'Run':{}
+		},
 	)
 	
 #/###################/#

@@ -135,7 +135,6 @@ class ParenterClass(BaseClass):
 						self.ParentGrandManagementTagStr=self.ParentGrandDeriveTeamerVariable.ManagementTagStr
 
 
-
 			#/####################/#
 			# Now build the chain of Teamers and Managers
 			#
@@ -301,13 +300,15 @@ class ParenterClass(BaseClass):
 			#
 
 			#debug
+			'''
 			self.debug(
 					[
 						'We look for a grand parent here',
 						('self.',self,['ParentDeriveTeamerVariable'])
 					]
 				)
-
+			'''
+			
 			#set
 			self.TeamedValueVariable.ParentGrandDeriveTeamerVariable=self.ParentDeriveTeamerVariable
 

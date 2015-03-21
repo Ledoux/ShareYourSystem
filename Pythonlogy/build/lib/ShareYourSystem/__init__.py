@@ -626,6 +626,35 @@ def pick(_Variable,_GetVariablesList,_GetMethodStr='getattr'):
 				_GetVariablesList
 			)
 
+def match(_KeyList,_ValueList):
+
+	#Debug
+	print('SYS l 632')
+	print('_KeyList is ')
+	print(_KeyList)
+	print('_ValueList is ')
+	print(_ValueList)
+
+	#Check
+	if len(_KeyList)<len(_ValueList):
+		MatchTuplesList=zip(
+			_KeyList,
+			_ValueList[:len(_KeyList)]
+		)
+	else:
+		MatchTuplesList=zip(
+			_KeyList,
+			_ValueList
+		)
+
+	#Debug
+	print('MatchTuplesList is ')
+	print(MatchTuplesList)
+	print('')
+
+	#return
+	return MatchTuplesList
+
 def _filter(_Function,_List):
 	if sys.version[0]==2:
 		return filter(_Function,_List)

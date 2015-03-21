@@ -24,5 +24,5 @@ MyMoniter=SYS.MoniterClass(
 print('MyMoniter is ')
 SYS._print(MyMoniter)
 
-#
+#print
 print(MyMoniter['/-Traces/|*FirstArray/-Samples/|Run'].MoniteredTraceFloatsArray)

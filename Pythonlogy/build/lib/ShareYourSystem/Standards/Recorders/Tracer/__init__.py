@@ -33,6 +33,7 @@ TracerPrefixStr='*'
 class TracerClass(BaseClass):
 	
 	def default_init(self,
+						_TraceKeyStr="",
 						_TracingKeyVariable=None,
 						_TracedValueFloatsArray=None,
 						_TraceDeriveRecorderVariable=None,
@@ -83,10 +84,16 @@ class TracerClass(BaseClass):
 			self.TracedValueFloatsArray=self.TraceDeriveRecorderVariable[
 				self.TracingKeyVariable
 			]
+
+
 		else:
 
 			#alias
 			self.TracedValueFloatsArray=self.TracingKeyVariable
+
+
+		#alias
+		self.TraceKeyStr=str(self.TracingKeyVariable)
 
 		#debug
 		'''
@@ -210,6 +217,7 @@ Recorder.TracesClass.ManagingValueClass=TracerClass
 #<DefinePrint>
 TracerClass.PrintingClassSkipKeyStrsList.extend(
 	[
+		'TraceKeyStr',
 		'TracingKeyVariable',
 		'TracedValueFloatsArray',
 		'TraceDeriveRecorderVariable',
