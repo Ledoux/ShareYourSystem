@@ -64,7 +64,7 @@ class NetworkerClass(BaseClass):
 				]
 			)
 		'''
-
+		
 		#/##################/#
 		# prepare the Net teams
 		#
@@ -107,8 +107,38 @@ class NetworkerClass(BaseClass):
 
 	def propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable):
 
+		#/##################/#
+		# Call the base method
+		#
+
+		#debug
+		'''
+		self.debug(
+			[
+				'First we call the base method',
+				('self.',self,[
+							'NetworkingTeamVariable',
+							'NetworkingManagementVariable'
+						])
+			]
+		)
+		'''
+
 		#call the base method
 		BaseClass.propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable)
+
+		#debug
+		'''
+		self.debug(
+			[
+				'We have called the base method',
+				('self.',self,[
+							'NetworkingTeamVariable',
+							'NetworkingManagementVariable'
+						])
+			]
+		)
+		'''
 
 		#/##################/#
 		# Set the NetworkTagStr
@@ -234,7 +264,9 @@ class NetworkerClass(BaseClass):
 					self.debug(
 						[
 							'Yes we make team point here',
-							('self.',self,['PointingInManagementKeyStr'])
+							('self.',self,['PointingInManagementKeyStr']),
+							'self.ParentDeriveTeamerVariable.ManagementTagStr is ',
+							str(self.ParentDeriveTeamerVariable.ManagementTagStr)
 						]
 					)
 
@@ -268,6 +300,7 @@ class NetworkerClass(BaseClass):
 				if self.ParentDeriveTeamerVariable.TeamTagStr in self.NetworkDeriveNetworkerVariable.NetworkingTeamVariable:
 
 					#debug
+					'''
 					self.debug(
 						[
 							'Yes we make team point here',
@@ -276,13 +309,27 @@ class NetworkerClass(BaseClass):
 								['PointingInManagementKeyStr'])
 						]
 					)
+					'''
 
 					#point
 					self.NetworkDeriveNetworkerVariable.point(
-							self,
-							_OutTeamKeyStr=NetworkOutPrefixStr+self.ParentDeriveTeamerVariable.TeamTagStr,
-							_InTeamKeyStr=NetworkInTeamKeyStr
+						self,
+						_OutTeamKeyStr=NetworkOutPrefixStr+self.ParentDeriveTeamerVariable.TeamTagStr,
+						_InTeamKeyStr=NetworkInTeamKeyStr
 					)
+
+		#debug
+		'''
+		self.debug(
+			[
+				'In the end',
+				('self.',self,[
+							'NetworkingTeamVariable',
+							'NetworkingManagementVariable'
+						])
+			]
+		)
+		'''
 
 	def mimic__print(self,**_KwargVariablesDict):
 

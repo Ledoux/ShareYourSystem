@@ -14,7 +14,7 @@ A Recorder
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Computers.Matrixer"
+BaseModuleStr="ShareYourSystem.Standards.Controllers.Systemer"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 SYS.addDo('Recorder','Record','Recording','Recorded')
@@ -64,31 +64,20 @@ class RecorderClass(BaseClass):
 		if RecordSampleTeamKeyStr in self.TeamDict:
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We make monit the networked samples'
 				]
 			)
-
+			'''
+			
 			#map
 			map(
 					lambda __DerivePointer:
 					__DerivePointer.PointToVariable.monit(),
 					self.TeamDict[RecordSampleTeamKeyStr].ManagementDict.values()
 				)
-
-
-	def propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable):
-
-		#/##################/#
-		# Base method
-		#
-
-		#call the base method
-		BaseClass.propertize_setWatchAfterParentWithParenterBool(
-			self,
-			_SettingValueVariable
-		)
 
 		#/###################/#
 		# Network the traces, events samples
@@ -118,6 +107,20 @@ class RecorderClass(BaseClass):
 				]
 			)
 
+	"""
+	def propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable):
+
+		#/##################/#
+		# Base method
+		#
+
+		#call the base method
+		BaseClass.propertize_setWatchAfterParentWithParenterBool(
+			self,
+			_SettingValueVariable
+		)
+	"""
+	
 #</DefineClass>
 
 #<DefineLocals>

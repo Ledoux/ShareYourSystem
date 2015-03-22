@@ -97,13 +97,20 @@ class ManagerClass(BaseClass):
 
 		#Check
 		if self.ManagedOnceBool==False:
+
+			#extend
 			self.PrintingInstanceForceKeyStrsList.extend(
 				[
 					'ManagementDict',
 					#'TeamTagStr'
 				]
 			)
+
+			#set
 			self.ManagedOnceBool=True
+
+		#reset
+		self.TeamingValueClass=self.__class__.TeamingValueClass
 
 		#/###################/#
 		# Is it a new managed value

@@ -53,7 +53,7 @@ class PointerClass(BaseClass):
 					_PointingOutTeamKeyStr="Outlets",
 					_PointingInTeamKeyStr="Inlets",
 					_PointingGetBool=True,
-					_PointingValueClass=BaseClass,
+					_PointingValueClass=None,
 					_PointingOutManagementKeyStr="",
 					_PointingInManagementKeyStr="",
 					**_KwargVariablesDict
@@ -223,18 +223,40 @@ class PointerClass(BaseClass):
 		# Now manage
 		#
 
+		#debug
+		self.debug(
+			[
+				'We manage out',
+				('self.',self,['PointingValueClass'])
+			]
+		)
+
 		#manage
-		PointedOutDeriveTeamer.manage(
-				PointedOutManagementKeyStr,
-				SYS.update(
-					[
-						('PointToVariable',PointedValueVariable),
-						('PointFromVariable',self)
-					],
-					PointingOutSetVariablesList,
-				),
-				_ValueClass=self.PointingValueClass
-			)
+		if self.PointingValueClass!=None:
+
+			PointedOutDeriveTeamer.manage(
+					PointedOutManagementKeyStr,
+					SYS.update(
+						[
+							('PointToVariable',PointedValueVariable),
+							('PointFromVariable',self)
+						],
+						PointingOutSetVariablesList,
+					),
+					_ValueClass=self.PointingValueClass
+				)
+		else:
+
+			PointedOutDeriveTeamer.manage(
+					PointedOutManagementKeyStr,
+					SYS.update(
+						[
+							('PointToVariable',PointedValueVariable),
+							('PointFromVariable',self)
+						],
+						PointingOutSetVariablesList,
+					),
+				)
 
 		#/####################/#
 		# And put also the inverse in a 
@@ -279,25 +301,44 @@ class PointerClass(BaseClass):
 		#
 
 		#debug
+		'''
 		self.debug(
 				[
 					'manage the point in',
 					('self.',self,['PointingValueClass'])
 				]
 			)
+		'''
 
-		#manage
-		PointedInDeriveTeamer.manage(
-				PointedInManagementKeyStr,
-				SYS.update(
-					[
-						('PointToVariable',self),
-						('PointFromVariable',PointedValueVariable)
-					],
-					PointingInSetVariablesList,
-				),
-				_ValueClass=self.PointingValueClass
-			)
+		#Check		
+		if self.PointingValueClass!=None:
+
+			#manage
+			PointedInDeriveTeamer.manage(
+					PointedInManagementKeyStr,
+					SYS.update(
+						[
+							('PointToVariable',self),
+							('PointFromVariable',PointedValueVariable)
+						],
+						PointingInSetVariablesList,
+					),
+					_ValueClass=self.PointingValueClass
+				)
+
+		else:
+
+			#manage
+			PointedInDeriveTeamer.manage(
+					PointedInManagementKeyStr,
+					SYS.update(
+						[
+							('PointToVariable',self),
+							('PointFromVariable',PointedValueVariable)
+						],
+						PointingInSetVariablesList,
+					),
+				)
 
 	def mimic_get(self):
 
@@ -536,7 +577,7 @@ class PointerClass(BaseClass):
 
 #set
 Parenter.ParenterClass.ManagingValueClass=PointerClass
-PointerClass.PointingValueClass=PointerClass
+#PointerClass.PointingValueClass=PointerClass
 
 #</DefineLocals>
 

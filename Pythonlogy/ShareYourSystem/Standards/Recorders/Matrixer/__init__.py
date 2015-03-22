@@ -14,7 +14,7 @@ A Matrixer
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Controllers.Systemer"
+BaseModuleStr="ShareYourSystem.Standards.Recorders.Recorder"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>

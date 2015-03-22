@@ -22,18 +22,24 @@ MyBrianer=SYS.BrianerClass(
 				'threshold':'v>-50*mV',
 				'reset':'v=-70*mV'
 			},
-			'-States':{
+			'-Traces':{
 				'|*v':{
 					'MatrixingStdFloat':0.001,
-					#'-Samples':{
-					#		'|Run':{
-					#			'MoniteringLabelIndexIntsList':[0,1]
-					#		}
-					#	}
+					'-Samples':{
+						'|Default':{
+							'MoniteringLabelIndexIntsArray':[0,1]						
+						}
+					}
+				}
+			},
+			'-Events':{
+				'|Default':{
 				}
 			}
 		}	
 	).brian(
+	).simulate(
+		50.
 	)
 	
 #/###################/#
@@ -48,26 +54,11 @@ SYS._print(MyBrianer)
 # Do one simulation
 #
 
-"""
-#Print
-from brian2 import Network,ms,mV
-MyNetwork=Network()
-map(
-	MyNetwork.add,
-	SYS.flat(
-		[
-			MyBrianer.NeurongroupedBrianVariable,
-			MyBrianer.NeurongroupedSpikeMonitorsList,
-			MyBrianer.NeurongroupedStateMonitorsList
-		]
-	)
-)
-
-#plot
-MyBrianer.NeurongroupedBrianVariable.v=-55.*mV
-MyNetwork.run(500.*ms)
-M=MyBrianer.NeurongroupedSpikeMonitorsList[0]
 from matplotlib import pyplot
-pyplot.plot(M.t/ms, M.i, '.')
+pyplot.figure()
+M=MyBrianer['/-Traces/|*v/-Samples/|Default'].BrianedStateMonitorVariable
+pyplot.plot(M.t, M.v.T)
+pyplot.figure()
+M=MyBrianer['/-Events/|Default'].BrianedSpikeMonitorVariable
+pyplot.plot(M.t, M.i,'.')
 pyplot.show()
-"""

@@ -68,17 +68,18 @@ class MoniterClass(BaseClass):
 			self.MonitorDeriveTracerVariable=self.ParentGrandDeriveTeamerVariable
 
 		#debug
+		'''
 		self.debug(
 				[
 					'Before just check',
 					('self.',self,[
 						'ParentGrandDeriveTeamerVariable',
 						'MonitorDeriveTracerVariable'
-					]),
-					SYS._str(self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable)
+					])
 				]
 			)
-
+		'''
+		
 		#/##################/#
 		# pick
 		# 

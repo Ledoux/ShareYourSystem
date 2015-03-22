@@ -13,15 +13,15 @@ A Tracer
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Recorders.Recorder"
+BaseModuleStr="ShareYourSystem.Standards.Recorders.Matrixer"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 SYS.addDo('Tracer','Trace','Tracing','Traced')
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
-Recorder=BaseModule
 from ShareYourSystem.Standards.Itemizers import Pointer,Networker
+from ShareYourSystem.Standards.Recorders import Recorder
 #</ImportSpecificModules>
 
 #<DefineLocals>
@@ -33,10 +33,10 @@ TracerPrefixStr='*'
 class TracerClass(BaseClass):
 	
 	def default_init(self,
+						_TraceDeriveRecorderVariable=None,
 						_TraceKeyStr="",
 						_TracingKeyVariable=None,
 						_TracedValueFloatsArray=None,
-						_TraceDeriveRecorderVariable=None,
 						_TracedInitFloatsArray=None,
 						**_KwargVariablesDict
 					):
@@ -49,6 +49,69 @@ class TracerClass(BaseClass):
 	
 	def do_trace(self):
 		
+		#/##################/#
+		# Find the parent recorder
+		#
+
+		#debug
+		'''
+		self.debug(
+			[
+				'We trace here',
+				'Networker.NetworkInTeamKeyStr in self.TeamDict is ',
+				str(Networker.NetworkInTeamKeyStr in self.TeamDict),
+				#('self.',self,['NetworkDeriveNetworkerVariable']),
+				'self.TeamDict.keys() is ',
+				str(self.TeamDict.keys()),
+				'Networker.NetworkInTeamKeyStr is ',
+				Networker.NetworkInTeamKeyStr
+			]
+		)
+		'''
+
+		"""
+		#Check
+		if Networker.NetworkInTeamKeyStr in self.TeamDict:
+
+			#debug
+			'''
+			self.debug(
+				[
+					'self.TeamDict[Networker.NetworkInTeamKeyStr].ManagementDict.keys() is ',
+					str(self.TeamDict[Networker.NetworkInTeamKeyStr].ManagementDict.keys())
+				]
+			)
+			'''
+
+			#get
+			self.TraceDeriveRecorderVariable=self.TeamDict[
+				Networker.NetworkInTeamKeyStr
+			].ManagementDict[Pointer.PointManagementPrefixStr+'Recorder'].PointToVariable
+
+			#debug
+			'''
+			self.debug(
+				[
+					'Ok we have setted the TraceDeriveRecorderVariable',
+					('self.',self,['TraceDeriveRecorderVariable'])
+				]
+			)
+			'''
+		"""
+
+		#debug
+		'''
+		self.debug(
+			[
+				'We set the TraceDeriveRecorderVariable
+				('self.',self,['ParentDeriveTeamerVariable'])
+			]
+		)
+		'''
+
+		#get
+		self.TraceDeriveRecorderVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
+
 		#/##################/#
 		# First get the array to trace
 		#
@@ -93,7 +156,8 @@ class TracerClass(BaseClass):
 
 
 		#alias
-		self.TraceKeyStr=str(self.TracingKeyVariable)
+		if self.TraceKeyStr=="":
+			self.TraceKeyStr=str(self.TracingKeyVariable)
 
 		#debug
 		'''
@@ -139,16 +203,7 @@ class TracerClass(BaseClass):
 
 	def propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable):
 
-		#/##################/#
-		# Base method
-		#
-
-		#call the base method
-		BaseClass.propertize_setWatchAfterParentWithParenterBool(
-			self,
-			_SettingValueVariable
-		)
-
+		"""
 		#/##################/#
 		# Find the parent recorder
 		#
@@ -197,13 +252,27 @@ class TracerClass(BaseClass):
 				]
 			)
 			'''
+		"""
 
 		#/##################/#
 		# trace
 		#
 
-		#trace
-		self.trace()
+		#Check
+		if self.ParentDeriveTeamerVariable!=None and self.ParentDeriveTeamerVariable.TeamTagStr=='Traces':
+
+			#trace
+			self.trace()
+
+		#/##################/#
+		# Base method
+		#
+
+		#call the base method
+		BaseClass.propertize_setWatchAfterParentWithParenterBool(
+			self,
+			_SettingValueVariable
+		)
 
 #</DefineClass>
 

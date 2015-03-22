@@ -100,14 +100,21 @@ class TeamerClass(BaseClass):
 
 		#Check
 		if self.TeamedOnceBool==False:
+
+			#Extend
 			self.PrintingInstanceForceKeyStrsList.extend(
 				[
 					'TeamDict',
 					#'ManagementTagStr'
 				]
 			)
+
+			#set
 			self.TeamedOnceBool=True
 
+
+		#reset
+		self.TeamingValueClass=self.__class__.TeamingValueClass
 		
 		#/###################/#
 		# Is it a new teamed value

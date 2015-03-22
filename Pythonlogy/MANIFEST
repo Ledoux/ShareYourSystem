@@ -44,40 +44,6 @@ ShareYourSystem/Specials/Muzikers/Streamer/__init__.py
 ShareYourSystem/Specials/Muzikers/Vexflower/01_ExampleDoc.py
 ShareYourSystem/Specials/Muzikers/Vexflower/Vexflower.py
 ShareYourSystem/Specials/Muzikers/Vexflower/__init__.py
-ShareYourSystem/Specials/Neuroners/12c_GlobalDynamic/GlobalDynamic.py
-ShareYourSystem/Specials/Neuroners/12c_GlobalDynamic/Readme.txt
-ShareYourSystem/Specials/Neuroners/Dynamic/Dynamic.py
-ShareYourSystem/Specials/Neuroners/Dynamic/Test.py
-ShareYourSystem/Specials/Neuroners/Dynamic/Modules/00a_SimulatingDynamic/SimulatingDynamic.py
-ShareYourSystem/Specials/Neuroners/Dynamic/Modules/00a_SimulatingDynamic/Test.py
-ShareYourSystem/Specials/Neuroners/Dynamic/Modules/00a_SimulatingDynamic/c
-ShareYourSystem/Specials/Neuroners/Dynamic/Modules/00a_SimulatingDynamic/Tests/attest_output.txt
-ShareYourSystem/Specials/Neuroners/Dynamic/Modules/01b_PerturbatingDynamic/PerturbatingDynamic.py
-ShareYourSystem/Specials/Neuroners/Dynamic/Modules/01b_PerturbatingDynamic/Test.py
-ShareYourSystem/Specials/Neuroners/Dynamic/Modules/01b_PerturbatingDynamic/c
-ShareYourSystem/Specials/Neuroners/Dynamic/Modules/01b_PerturbatingDynamic/Tests/attest_output.txt
-ShareYourSystem/Specials/Neuroners/Dynamic/Modules/02c_SuperDynamic/SuperDynamic.py
-ShareYourSystem/Specials/Neuroners/Dynamic/Modules/02c_SuperDynamic/Test.py
-ShareYourSystem/Specials/Neuroners/Dynamic/Modules/02c_SuperDynamic/c
-ShareYourSystem/Specials/Neuroners/Dynamic/Tests/attest_output.txt
-ShareYourSystem/Specials/Neuroners/Neuroner/01_ExampleCell.py
-ShareYourSystem/Specials/Neuroners/Neuroner/__init__.py
-ShareYourSystem/Specials/Neuroners/Neurongrouper/01_ExampleCell.py
-ShareYourSystem/Specials/Neuroners/Neurongrouper/__init__.py
-ShareYourSystem/Specials/Neuroners/Synapser/01_ExampleCell.py
-ShareYourSystem/Specials/Neuroners/Synapser/__init__.py
-ShareYourSystem/Specials/Neuroners/_Lifer/CIntegrateAndFireTransferFunction.cpp
-ShareYourSystem/Specials/Neuroners/_Lifer/CIntegrateAndFireTransferFunction.h
-ShareYourSystem/Specials/Neuroners/_Lifer/CIntegrateAndFireTransferFunction.o
-ShareYourSystem/Specials/Neuroners/_Lifer/CIntegrateAndFireTransferFunction.py
-ShareYourSystem/Specials/Neuroners/_Lifer/CIntegrateAndFireTransferFunction.swig
-ShareYourSystem/Specials/Neuroners/_Lifer/CIntegrateAndFireTransferFunction_wrap.cpp
-ShareYourSystem/Specials/Neuroners/_Lifer/CIntegrateAndFireTransferFunction_wrap.o
-ShareYourSystem/Specials/Neuroners/_Lifer/Makefile
-ShareYourSystem/Specials/Neuroners/_Lifer/Test.py
-ShareYourSystem/Specials/Neuroners/_Lifer/__init__.py
-ShareYourSystem/Specials/Neuroners/_Lifer/Tests/test_00_default.txt
-ShareYourSystem/Specials/Neuroners/_Lifer/Tests/test_01_func.txt
 ShareYourSystem/Specials/Predicters/__init__.py
 ShareYourSystem/Specials/Predicters/Matrixer/00_ExampleDoc.md
 ShareYourSystem/Specials/Predicters/Matrixer/01_ExampleDoc.py
@@ -106,58 +72,6 @@ ShareYourSystem/Specials/Predicters/Predisenser/__init__.py
 ShareYourSystem/Specials/Predicters/Predispiker/00_ExampleDoc.md
 ShareYourSystem/Specials/Predicters/Predispiker/01_ExampleDoc.py
 ShareYourSystem/Specials/Predicters/Predispiker/__init__.py
-ShareYourSystem/Specials/Simulaters/001_DocumentDoc.md
-ShareYourSystem/Specials/Simulaters/1_GithubDoc.md
-ShareYourSystem/Specials/Simulaters/Readme.md
-ShareYourSystem/Specials/Simulaters/__init__.py
-ShareYourSystem/Specials/Simulaters/Brianer/00_ExampleDoc.md
-ShareYourSystem/Specials/Simulaters/Brianer/01_ExampleCell.py
-ShareYourSystem/Specials/Simulaters/Brianer/Readme.md
-ShareYourSystem/Specials/Simulaters/Brianer/Test.py
-ShareYourSystem/Specials/Simulaters/Brianer/__init__.py
-ShareYourSystem/Specials/Simulaters/Brianer/draft/00_ExampleDoc.md
-ShareYourSystem/Specials/Simulaters/Brianer/draft/01_ExampleCell copy 2.py
-ShareYourSystem/Specials/Simulaters/Brianer/draft/01_ExampleCell copy 3.py
-ShareYourSystem/Specials/Simulaters/Brianer/draft/01_ExampleCell copy 4.py
-ShareYourSystem/Specials/Simulaters/Brianer/draft/01_ExampleDoc copy 2.py
-ShareYourSystem/Specials/Simulaters/Brianer/draft/01_ExampleDoc copy 3.py
-ShareYourSystem/Specials/Simulaters/Brianer/draft/01_ExampleDoc.py
-ShareYourSystem/Specials/Simulaters/Brianer/draft/01_ExampleDoc.py cop
-ShareYourSystem/Specials/Simulaters/Brianer/draft/02_ExampleDoc.md
-ShareYourSystem/Specials/Simulaters/Brianer/draft/03_ExampleDoc.py
-ShareYourSystem/Specials/Simulaters/Brianer/draft/04_ExampleDoc.md
-ShareYourSystem/Specials/Simulaters/Brianer/draft/05_ExampleDoc.py
-ShareYourSystem/Specials/Simulaters/Brianer/draft/06_ExampleDoc.md
-ShareYourSystem/Specials/Simulaters/Brianer/draft/07_ExampleDoc.py
-ShareYourSystem/Specials/Simulaters/Brianer/draft/__init__ copy 2.py
-ShareYourSystem/Specials/Simulaters/Lifer/001_DocumentDoc.md
-ShareYourSystem/Specials/Simulaters/Lifer/002_GithubDoc.md
-ShareYourSystem/Specials/Simulaters/Lifer/01_ExampleCell.py
-ShareYourSystem/Specials/Simulaters/Lifer/Readme.md
-ShareYourSystem/Specials/Simulaters/Lifer/__init__.py
-ShareYourSystem/Specials/Simulaters/Neurongrouper/00_ExampleDoc.md
-ShareYourSystem/Specials/Simulaters/Neurongrouper/01_ExampleCell.py
-ShareYourSystem/Specials/Simulaters/Neurongrouper/02_ExampleDoc.md
-ShareYourSystem/Specials/Simulaters/Neurongrouper/03_ExampleCell.py
-ShareYourSystem/Specials/Simulaters/Neurongrouper/04_ExampleDoc.md
-ShareYourSystem/Specials/Simulaters/Neurongrouper/05_ExampleCell.py
-ShareYourSystem/Specials/Simulaters/Neurongrouper/__init__.py
-ShareYourSystem/Specials/Simulaters/Neurongrouper/draft/__init__ copy 2.py
-ShareYourSystem/Specials/Simulaters/Populater/001_DocumentDoc.md
-ShareYourSystem/Specials/Simulaters/Populater/01_ExampleCell.py
-ShareYourSystem/Specials/Simulaters/Populater/Readme.md
-ShareYourSystem/Specials/Simulaters/Populater/__init__.py
-ShareYourSystem/Specials/Simulaters/Rater/001_DocumentDoc.md
-ShareYourSystem/Specials/Simulaters/Rater/002_GithubDoc.md
-ShareYourSystem/Specials/Simulaters/Rater/01_ExampleCell.py
-ShareYourSystem/Specials/Simulaters/Rater/Readme.md
-ShareYourSystem/Specials/Simulaters/Rater/__init__.py
-ShareYourSystem/Specials/Simulaters/Simulater/001_DocumentDoc.md
-ShareYourSystem/Specials/Simulaters/Simulater/01_ExampleCell.py
-ShareYourSystem/Specials/Simulaters/Simulater/Readme.md
-ShareYourSystem/Specials/Simulaters/Simulater/__init__.py
-ShareYourSystem/Specials/Simulaters/Synapser/01_ExampleCell.py
-ShareYourSystem/Specials/Simulaters/Synapser/__init__.py
 ShareYourSystem/Standards/__init__.py
 ShareYourSystem/Standards/Classors/001_DocumentDoc.md
 ShareYourSystem/Standards/Classors/001_GithubDoc.md
@@ -313,10 +227,6 @@ ShareYourSystem/Standards/Classors/Watcher/Test.py
 ShareYourSystem/Standards/Classors/Watcher/__init__.py
 ShareYourSystem/Standards/Classors/Watcher/Drafts/__init__ copy 2.py
 ShareYourSystem/Standards/Classors/Watcher/Drafts/__init__JSAISPAS.py
-ShareYourSystem/Standards/Computers/__init__.py
-ShareYourSystem/Standards/Computers/Matrixer/00_ExampleCell.md
-ShareYourSystem/Standards/Computers/Matrixer/01_ExampleCell.py
-ShareYourSystem/Standards/Computers/Matrixer/__init__.py
 ShareYourSystem/Standards/Controllers/001_DocumentDoc.md
 ShareYourSystem/Standards/Controllers/002_OuvatonDoc.md
 ShareYourSystem/Standards/Controllers/1_GithubDoc.md
@@ -950,6 +860,34 @@ ShareYourSystem/Standards/Modelers/Rower/Test.py
 ShareYourSystem/Standards/Modelers/Rower/__init__.py
 ShareYourSystem/Standards/Modelers/Rower/draft/__init__ copy 2.py
 ShareYourSystem/Standards/Recorders/__init__.py
+ShareYourSystem/Standards/Recorders/Brianer/00_ExampleDoc.md
+ShareYourSystem/Standards/Recorders/Brianer/01_ExampleCell.py
+ShareYourSystem/Standards/Recorders/Brianer/02_ExampleDoc.md
+ShareYourSystem/Standards/Recorders/Brianer/03_ExampleCell.py
+ShareYourSystem/Standards/Recorders/Brianer/04_ExampleDoc.md
+ShareYourSystem/Standards/Recorders/Brianer/05_ExampleCell.py
+ShareYourSystem/Standards/Recorders/Brianer/Readme.md
+ShareYourSystem/Standards/Recorders/Brianer/Test.py
+ShareYourSystem/Standards/Recorders/Brianer/__init__.py
+ShareYourSystem/Standards/Recorders/Brianer/draft/00_ExampleDoc.md
+ShareYourSystem/Standards/Recorders/Brianer/draft/01_ExampleCell copy 2.py
+ShareYourSystem/Standards/Recorders/Brianer/draft/01_ExampleCell copy 3.py
+ShareYourSystem/Standards/Recorders/Brianer/draft/01_ExampleCell copy 4.py
+ShareYourSystem/Standards/Recorders/Brianer/draft/01_ExampleCell copy 5.py
+ShareYourSystem/Standards/Recorders/Brianer/draft/01_ExampleDoc copy 2.py
+ShareYourSystem/Standards/Recorders/Brianer/draft/01_ExampleDoc copy 3.py
+ShareYourSystem/Standards/Recorders/Brianer/draft/01_ExampleDoc.py
+ShareYourSystem/Standards/Recorders/Brianer/draft/01_ExampleDoc.py cop
+ShareYourSystem/Standards/Recorders/Brianer/draft/02_ExampleDoc.md
+ShareYourSystem/Standards/Recorders/Brianer/draft/03_ExampleDoc.py
+ShareYourSystem/Standards/Recorders/Brianer/draft/04_ExampleDoc.md
+ShareYourSystem/Standards/Recorders/Brianer/draft/05_ExampleDoc.py
+ShareYourSystem/Standards/Recorders/Brianer/draft/06_ExampleDoc.md
+ShareYourSystem/Standards/Recorders/Brianer/draft/07_ExampleDoc.py
+ShareYourSystem/Standards/Recorders/Brianer/draft/__init__ copy 2.py
+ShareYourSystem/Standards/Recorders/Matrixer/00_ExampleCell.md
+ShareYourSystem/Standards/Recorders/Matrixer/01_ExampleCell.py
+ShareYourSystem/Standards/Recorders/Matrixer/__init__.py
 ShareYourSystem/Standards/Recorders/Moniter/001_DocumentDoc.md
 ShareYourSystem/Standards/Recorders/Moniter/002_GithubDoc.md
 ShareYourSystem/Standards/Recorders/Moniter/00_ExampleCell.md
@@ -963,6 +901,10 @@ ShareYourSystem/Standards/Recorders/Recorder/001_DocumentDoc.md
 ShareYourSystem/Standards/Recorders/Recorder/01_ExampleCell.py
 ShareYourSystem/Standards/Recorders/Recorder/Readme.md
 ShareYourSystem/Standards/Recorders/Recorder/__init__.py
+ShareYourSystem/Standards/Recorders/Simulater/001_DocumentDoc.md
+ShareYourSystem/Standards/Recorders/Simulater/01_ExampleCell.py
+ShareYourSystem/Standards/Recorders/Simulater/Readme.md
+ShareYourSystem/Standards/Recorders/Simulater/__init__.py
 ShareYourSystem/Standards/Recorders/Tracer/001_DocumentDoc.md
 ShareYourSystem/Standards/Recorders/Tracer/002_GithubDoc.md
 ShareYourSystem/Standards/Recorders/Tracer/00_ExampleCell.md
