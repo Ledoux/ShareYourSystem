@@ -40,7 +40,7 @@ class SumerClass(SYS.ControllerClass):
 #Definition of a Storer instance with a noded data
 MySumer=SumerClass(
 	**{
-			'HdformatingFileKeyStr':'Sums_1.hdf5',
+			'HdformatingFileKeyStr':'Sums.hdf5',
 			'FolderingPathStr':SYS.Joiner.LocalFolderPathStr
 		}
 	)['#map@set'](

@@ -35,11 +35,13 @@ FigureMpld3KeyStr='#mpld3.plugins.'
 #</DefineLocals>
 
 #<DefineClass>
-@DecorationClass()
+@DecorationClass(**{
+	#'ClassingSwitchMethodStrsList':['figure']
+})
 class FigurerClass(BaseClass):
 	
 	def default_init(self,
-						_FigurePyplotVariable=None,
+						_FiguredPyplotVariable=None,
 						_FigureCartoonVariablesList=None,
 						_FigureTooltipVariablesList=None,
 						_FiguringGridIntsTuple=(20,20),
@@ -67,10 +69,6 @@ class FigurerClass(BaseClass):
 
 	def do_figure(self):	
 		
-		#/###################/#
-		# First we get the children figurers and check what they are
-		#
-
 		#debug
 		'''
 		self.debug(
@@ -82,6 +80,53 @@ class FigurerClass(BaseClass):
 				]
 			)
 		'''
+
+		#/###############/#
+		# If it is the top then init the figure
+		#
+
+		#Check
+		if self.ParentDeriveTeamerVariable.TeamTagStr=='Views':
+
+			#debug
+			'''
+			self.debug(
+					[
+						'This is a Figure-Panel-Axes-Plot level'
+					]
+				)
+			'''
+
+			#import pyplot
+			from matplotlib import pyplot
+
+			#subplots
+			self.FiguredPyplotVariable = pyplot.figure()
+
+		else:
+
+			#debug
+			'''
+			self.debug(
+					[
+						'We just do an alias'
+					]
+				)
+			'''
+
+			#alias
+			self.FiguredPyplotVariable=self.ViewFirstDeriveViewerVariable.FiguredPyplotVariable
+
+
+
+
+		"""
+
+		#/###################/#
+		# First we get the children figurers and check what they are
+		#
+
+		
 
 		#filter
 		FiguredTeamTagStrsList=SYS._filter(
@@ -183,7 +228,7 @@ class FigurerClass(BaseClass):
 								'ManagementIndexInt':0,
 								'ParentDeriveTeamerVariable':self.TeamedValueVariable,
 								'ViewFirstDeriveViewerVariable':self.ViewFirstDeriveViewerVariable,
-								'FigurePyplotVariable':self.FigurePyplotVariable,
+								'FiguredPyplotVariable':self.FiguredPyplotVariable,
 								'FiguringShapeIntsTuple':(1,1),
 								'FiguringDrawVariable':{
 									'#axes':
@@ -590,6 +635,10 @@ class FigurerClass(BaseClass):
 
 			else:
 
+				#/###################/#
+				# Figure-Panel-Axes-Plot level
+				#
+
 				#debug
 				self.debug(
 						[
@@ -602,15 +651,19 @@ class FigurerClass(BaseClass):
 				self.FiguringGridIntsTuple=(1,1)
 
 				#get the parent panel
-				self.FiguredPanelDeriveTeamerVariable=self.ParentDeriveTeamerVariable
+				self.FiguredPanelDeriveTeamerVariable=self
 
 				#init
 				self.setAxes()
 
 				#map set
-				self['#map@set'](
-					self.FiguringDrawVariable
-				)
+				if self.FiguringDrawVariable!=None:
+
+					#mapSet
+					self.mapSet(
+						self.FiguringDrawVariable
+					)
+		"""
 	
 	def mimic_view(self):
 
@@ -619,7 +672,7 @@ class FigurerClass(BaseClass):
 
 		#fig to html
 		self.ViewedHtmlStr=mpld3.fig_to_html(
-			self.FigurePyplotVariable,
+			self.FiguredPyplotVariable,
 			template_type="simple"
 		)
 
@@ -627,55 +680,6 @@ class FigurerClass(BaseClass):
 		BaseClass.view(self)
 
 	def propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable):
-
-		#call the parent method
-		BaseClass.propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable)
-
-		#debug
-		'''
-		self.debug(
-				[
-					'We have parented !',
-					('self.',self,['ViewFirstDeriveViewerVariable'])
-				]
-			)
-		'''
-
-		#/###############/#
-		# If it is the top then init the figure
-		#
-
-		#Check
-		if self.ViewFirstDeriveViewerVariable==self:
-
-			#debug
-			'''
-			self.debug(
-					[
-						'We init a figure'
-					]
-				)
-			'''
-
-			#import pyplot
-			from matplotlib import pyplot
-
-			#subplots
-			self.FigurePyplotVariable = pyplot.figure()
-
-		else:
-
-			#debug
-			'''
-			self.debug(
-					[
-						'We just do an alias'
-					]
-				)
-			'''
-
-			#alias
-			self.FigurePyplotVariable=self.ViewFirstDeriveViewerVariable.FigurePyplotVariable
 
 		#/#################/#
 		# Lets go for figure
@@ -690,6 +694,14 @@ class FigurerClass(BaseClass):
 
 		#figure
 		self.figure()
+
+		#/#################/#
+		# Call the base method
+		#
+
+		#call the parent method
+		BaseClass.propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable)
+
 
 	def mimic_set(self):
 
@@ -897,7 +909,7 @@ class FigurerClass(BaseClass):
 			map(
 				lambda __FigureTooltipVariable:
 				plugins.connect(
-					self.FigurePyplotVariable,
+					self.FiguredPyplotVariable,
 					__FigureTooltipVariable
 				),
 				self.FigureTooltipVariablesList
@@ -1002,7 +1014,7 @@ class FigurerClass(BaseClass):
 		#
 
 		#link
-		self.FiguredAxesVariable._figure=self.FigurePyplotVariable	
+		self.FiguredAxesVariable._figure=self.FiguredPyplotVariable	
 
 		#debug
 		'''
@@ -1078,7 +1090,7 @@ class FigurerClass(BaseClass):
 #</DefinePrint>
 FigurerClass.PrintingClassSkipKeyStrsList.extend(
 	[
-		#'FigurePyplotVariable',
+		#'FiguredPyplotVariable',
 		'FigureCartoonVariablesList',
 		'FigureTooltipVariablesList',
 		'FiguringGridIntsTuple',

@@ -27,12 +27,12 @@ from ShareYourSystem.Standards.Itemizers import Pather,Teamer,Manager,Parenter
 
 #<DefineLocals>
 PointKeyPrefixStr="*"
-PointPrefixStr="<->"
+PointGetSetPrefixStr="<->"
 PointInTeamKeyStr="Inlets"
 PointOutTeamKeyStr="Outlets"
 PointConnectKeyStr='?>'
-PointTeamKeyStr='<->'
-PointManagementPrefixStr='->'
+PointTeamKeyStr='Connections'
+PointManagementPrefixStr='_p_'
 def getLiargVariablesList(_ValueVariable):
 	return _ValueVariable
 #</DefineLocals>
@@ -346,7 +346,7 @@ class PointerClass(BaseClass):
 		if type(self.GettingKeyVariable)==str:
 
 			#Check
-			if self.GettingKeyVariable.startswith(PointKeyPrefixStr):
+			if self.GettingKeyVariable.startswith(PointGetSetPrefixStr):
 
 				#debug
 				'''
@@ -362,7 +362,7 @@ class PointerClass(BaseClass):
 				self.point(
 						SYS.deprefix(
 							self.GettingKeyVariable,
-							PointKeyPrefixStr
+							PointGetSetPrefixStr
 						),
 						None
 					)
@@ -379,7 +379,7 @@ class PointerClass(BaseClass):
 		if type(self.SettingKeyVariable)==str:
 
 			#Check
-			if self.SettingKeyVariable.startswith(PointPrefixStr):
+			if self.SettingKeyVariable.startswith(PointGetSetPrefixStr):
 
 				if type(
 					self.SettingValueVariable
@@ -400,7 +400,7 @@ class PointerClass(BaseClass):
 					self.point(
 							SYS.deprefix(
 								self.SettingKeyVariable,
-								PointPrefixStr
+								PointGetSetPrefixStr
 							),
 							self.SettingValueVariable[0],
 							self.SettingValueVariable[1]
@@ -425,7 +425,7 @@ class PointerClass(BaseClass):
 					self.point(
 							SYS.deprefix(
 								self.SettingKeyVariable,
-								PointPrefixStr
+								PointGetSetPrefixStr
 							),
 							self.SettingValueVariable
 						) 
@@ -529,7 +529,7 @@ class PointerClass(BaseClass):
 			#map
 			PointOutAndInTeamKeyStrsListsList=map(
 					lambda __TeamKeyStr:
-					__TeamKeyStr.split(PointTeamKeyStr),
+					__TeamKeyStr.split(PointGetSetPrefixStr),
 					self.TeamDict[PointTeamKeyStr].ManagementDict.keys()
 				)
 

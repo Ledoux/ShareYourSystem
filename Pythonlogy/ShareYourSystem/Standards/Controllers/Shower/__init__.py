@@ -38,14 +38,38 @@ class ShowerClass(BaseClass):
 
 	def do_show(self):
 
-		#parent before
-		self.TeamDict['Views']['?v']
+		#debug
+		self.debug(
+			[
+				'We show here',
+				'first network'
+			]
+		)
+
+		#/##################/#
+		# First network
+		#
+
+		#network all the view things
+		self.network(
+			[
+				'Views',
+				'Panels',
+				'Axes',
+				'Plots'
+			],
+			_DoStr='Show'
+		)
+
+		#/##################/#
+		# Then show the figure
+		#
 
 		#debug
 		'''
 		self.debug(
 				[
-					'We view here',
+					'We show with which device',
 					('self.',self,['ShowingQtBool'])
 				]
 			)

@@ -273,6 +273,8 @@ ShareYourSystem/Standards/Controllers/Shower/04_ExampleDoc.md
 ShareYourSystem/Standards/Controllers/Shower/05_ExampleDoc.py
 ShareYourSystem/Standards/Controllers/Shower/06_ExampleDoc.md
 ShareYourSystem/Standards/Controllers/Shower/07_ExampleDoc.py
+ShareYourSystem/Standards/Controllers/Shower/08_ExampleDoc.md
+ShareYourSystem/Standards/Controllers/Shower/09_ExampleDoc.py
 ShareYourSystem/Standards/Controllers/Shower/__init__.py
 ShareYourSystem/Standards/Controllers/Storer/001_DocumentDoc.md
 ShareYourSystem/Standards/Controllers/Storer/00_ExampleDoc.md
@@ -955,17 +957,28 @@ ShareYourSystem/Standards/Viewers/Figurer/05_ExampleDoc.py
 ShareYourSystem/Standards/Viewers/Figurer/__init__.py
 ShareYourSystem/Standards/Viewers/Figurer/draft/__init__ copy 2.py
 ShareYourSystem/Standards/Viewers/Figurer/draft/__init__ copy 3.py
+ShareYourSystem/Standards/Viewers/Figurer/draft/__init__ copy 4.py
 ShareYourSystem/Standards/Viewers/Paneler/01_ExampleCell.py
 ShareYourSystem/Standards/Viewers/Paneler/__init__.py
 ShareYourSystem/Standards/Viewers/Ploter/01_ExampleCell.py
 ShareYourSystem/Standards/Viewers/Ploter/ProcessTemp.sh
 ShareYourSystem/Standards/Viewers/Ploter/ProcessTemp.txt
 ShareYourSystem/Standards/Viewers/Ploter/__init__.py
-ShareYourSystem/Standards/Viewers/Pyploter/01_ExampleCell.py
+ShareYourSystem/Standards/Viewers/Pyploter/00_ExampleDoc.md
+ShareYourSystem/Standards/Viewers/Pyploter/01_ExampleDoc.py
+ShareYourSystem/Standards/Viewers/Pyploter/02_ExampleDoc.md
+ShareYourSystem/Standards/Viewers/Pyploter/03_ExampleDoc.py
+ShareYourSystem/Standards/Viewers/Pyploter/04_ExampleDoc.md
+ShareYourSystem/Standards/Viewers/Pyploter/05_ExampleDoc.py
 ShareYourSystem/Standards/Viewers/Pyploter/__init__.py
+ShareYourSystem/Standards/Viewers/Pyploter/draft/__init__ copy 2.py
+ShareYourSystem/Standards/Viewers/Pyploter/draft/__init__ copy 3.py
+ShareYourSystem/Standards/Viewers/Pyploter/draft/__init__ copy 4.py
 ShareYourSystem/Standards/Viewers/Texter/00_ExampleDoc.md
 ShareYourSystem/Standards/Viewers/Texter/01_ExampleDoc.py
 ShareYourSystem/Standards/Viewers/Texter/__init__.py
 ShareYourSystem/Standards/Viewers/Viewer/00_ExampleDoc.md
 ShareYourSystem/Standards/Viewers/Viewer/01_ExampleDoc.py
 ShareYourSystem/Standards/Viewers/Viewer/__init__.py
+ShareYourSystem/Standards/Viewers/_Pyploter/01_ExampleCell.py
+ShareYourSystem/Standards/Viewers/_Pyploter/__init__.py

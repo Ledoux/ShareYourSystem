@@ -10,7 +10,7 @@ MyPointer=SYS.PointerClass(
 			'|E':{
 				'array':[
 					[
-						['-<->'],
+						['-Connections'],
 						['|Postlets<->Prelets'],
 						['|#direct:_^_|E','|#direct:_^_|I']
 					],

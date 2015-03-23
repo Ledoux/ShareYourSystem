@@ -75,7 +75,7 @@ class JoinerClass(BaseClass):
 		'''
 		
 		#Check
-		if Pointer.PointOutTeamStr in self.TeamDict:
+		if Pointer.PointOutTeamKeyStr in self.TeamDict:
 
 			#/################/#
 			# Get the post derive pointing parenters and make them point
@@ -83,7 +83,7 @@ class JoinerClass(BaseClass):
 
 			#set
 			self.JoinedOutDerivePointersList=self.TeamDict[
-				Pointer.PointOutTeamStr
+				Pointer.PointOutTeamKeyStr
 			].ManagementDict.values()
 
 			#debug
@@ -141,8 +141,8 @@ class JoinerClass(BaseClass):
 			self.debug(
 					[
 						'We have getted the out joiners',
-						#'self.TeamDict[Pointer.PointOutTeamStr].ManagementDict.keys() is',
-						#str(self.TeamDict[Pointer.PointOutTeamStr].ManagementDict.keys()),
+						#'self.TeamDict[Pointer.PointOutTeamKeyStr].ManagementDict.keys() is',
+						#str(self.TeamDict[Pointer.PointOutTeamKeyStr].ManagementDict.keys()),
 						('self.',self,['JoinedOutDeriveJoinersList']),
 						'Now get the model index int',
 						('self.',self,[

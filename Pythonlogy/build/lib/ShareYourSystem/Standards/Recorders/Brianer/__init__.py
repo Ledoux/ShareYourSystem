@@ -36,18 +36,21 @@ class BrianerClass(BaseClass):
 		
 	def default_init(self,
 			_BrianingNeurongroupDict=None,
+			_BrianingSynapsesDict=None,
+			_BrianingConnectVariable=None,
 			_BrianingTraceDict=None,
 			_BrianingMoniterTuple=None,
 			_BrianingSpikesDict=None,
 			_BrianingTimeDimensionVariable=None,
 			_BrianedNetworkVariable=None,
 			_BrianedNeurongroupVariable=None,
+			_BrianedSynapsesVariable=None,
 			_BrianedStateMonitorVariable=None,
 			_BrianedSpikeMonitorVariable=None,
 			_BrianedTraceKeyStrsList=None,
-			_BrianedDeriveTracersList=None,
-			_BrianedStateDeriveMonitersList=None,
-			_BrianedSpikeDeriveMonitersList=None,
+			_BrianedSynapsesDeriveBrianersList=None,
+			_BrianedStateDeriveBrianersList=None,
+			_BrianedSpikeDeriveBrianersList=None,
 			_BrianedParentNetworkDeriveBrianerVariable=None,
 			_BrianedParentNeurongroupDeriveBrianerVariable=None,
 			_BrianedParentDeriveTracerVariable=None,
@@ -267,7 +270,7 @@ class BrianerClass(BaseClass):
 						]
 
 				#map
-				self.BrianedDeriveTracersList=map(
+				self.BrianedTraceDeriveBrianersList=map(
 						lambda __ManagementKeyStr,__TraceKeyStr:
 						BrianedDeriveTraces.manage(
 								__ManagementKeyStr,
@@ -397,7 +400,7 @@ class BrianerClass(BaseClass):
 				self.debug(
 						[
 							'Make brian the tracers',
-							('self.',self,['BrianedDeriveTracersList'])
+							('self.',self,['BrianedTraceDeriveBrianersList'])
 						]
 					)
 				'''
@@ -407,7 +410,7 @@ class BrianerClass(BaseClass):
 				map(
 					lambda __BrianedDeriveTracer:
 					__BrianedDeriveTracer.brian(),
-					self.BrianedDeriveTracersList
+					self.BrianedTraceDeriveBrianersList
 				)
 				"""
 
@@ -458,13 +461,112 @@ class BrianerClass(BaseClass):
 				[
 					'It is a Synapser level, we set the Synapser',
 					('self.',self,[
-								'BrianingSynapseDict'
-								])
+								'BrianingSynapsesDict'
+								]
+					),
+					'self.PointToVariable.BrianedNeurongroupVariable is ',
+					str(self.PointToVariable.BrianedNeurongroupVariable)
 				]
 			)
 
+			#/####################/#
+			# Set the BrianedParentNeurongroupDeriveBrianerVariable
+			#
+
+			#get
+			self.BrianedParentNeurongroupDeriveBrianerVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
+
+			#get
+			self.BrianedParentNetworkDeriveBrianerVariable=self.BrianedParentNeurongroupDeriveBrianerVariable.BrianedParentNetworkDeriveBrianerVariable
 
 
+			#/####################/#
+			# Set the BrianedParentNeurongroupDeriveBrianerVariable
+			#
+
+			#import
+			from brian2 import Synapses
+
+			#init
+			self.BrianedSynapsesVariable=Synapses(
+				source=self.BrianedParentNeurongroupDeriveBrianerVariable.BrianedNeurongroupVariable,
+				target=self.PointToVariable.BrianedNeurongroupVariable,
+				**self.BrianingSynapsesDict
+			)
+
+			#/####################/#
+			# Connect options
+			#
+
+			#connect
+			if type(self.BrianingConnectVariable)==float:
+
+				#debug
+				self.debug(
+					[
+						'we connect with a sparsity of ',
+						('self.',self,[
+							'BrianingConnectVariable'
+						])
+					]
+				)
+
+				#connect
+				self.BrianedSynapsesVariable.connect(
+					True,
+					p=self.BrianingConnectVariable
+				)
+
+
+			"""
+			#/####################/#
+			# Reshape the weigths
+			#
+
+			#Check
+			if self.SynapsingWeigthSymbolStr!="":
+
+				#debug
+				'''
+				self.debug(
+					('self.',self,[
+						'BrianedSynapsesVariable',
+						'SynapsingWeigthSymbolStr'
+						])
+				)
+				'''
+
+				#connect
+				self.BrianedSynapsesVariable.connect(True)
+
+				#get
+				self.SynapsedWeigthFloatsArray=getattr(
+					self.BrianedSynapsesVariable,
+					self.SynapsingWeigthSymbolStr
+				)
+				
+				#set
+				self.SynapsedWeigthFloatsArray[:]=np.reshape(
+						self.SynapsingWeigthFloatsArray,
+						self.BrianedSynapsesVariable.source.N*self.BrianedSynapsesVariable.target.N
+					)
+
+				#debug
+				self.debug(
+					('self.',self,[
+						'SynapsedWeigthFloatsArray'
+						])
+				)
+			"""
+
+			#/####################/#
+			# add to the network
+			#
+
+			#add
+			self.BrianedParentNetworkDeriveBrianerVariable.BrianedNetworkVariable.add(
+				self.BrianedSynapsesVariable
+			)
 
 
 		elif self.ParentDeriveTeamerVariable.TeamTagStr=='Traces':
@@ -624,6 +726,9 @@ class BrianerClass(BaseClass):
 			#get
 			self.BrianedParentNeurongroupDeriveBrianerVariable=self.BrianedParentDeriveTracerVariable.BrianedParentNeurongroupDeriveBrianerVariable
 
+			#get
+			self.BrianedParentNetworkDeriveBrianerVariable=self.BrianedParentNeurongroupDeriveBrianerVariable.BrianedParentNetworkDeriveBrianerVariable
+
 			#/####################/#
 			# Set the brian monitor
 			#
@@ -670,7 +775,7 @@ class BrianerClass(BaseClass):
 			#
 
 			#add
-			self.BrianedParentNeurongroupDeriveBrianerVariable.BrianedNetworkVariable.add(
+			self.BrianedParentNetworkDeriveBrianerVariable.BrianedNetworkVariable.add(
 				self.BrianedStateMonitorVariable
 			)
 
@@ -693,6 +798,10 @@ class BrianerClass(BaseClass):
 
 			#get
 			self.BrianedParentNeurongroupDeriveBrianerVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
+
+			#get
+			self.BrianedParentNetworkDeriveBrianerVariable=self.BrianedParentNeurongroupDeriveBrianerVariable.BrianedParentNetworkDeriveBrianerVariable
+
 
 			#/####################/#
 			# Set the brian monitor
@@ -733,7 +842,7 @@ class BrianerClass(BaseClass):
 			#
 
 			#add
-			self.BrianedParentNeurongroupDeriveBrianerVariable.BrianedNetworkVariable.add(
+			self.BrianedParentNetworkDeriveBrianerVariable.BrianedNetworkVariable.add(
 				self.BrianedSpikeMonitorVariable
 			)
 
@@ -829,6 +938,9 @@ class BrianerClass(BaseClass):
 		'''
 
 	def mimic_draw(self):
+
+		
+
 
 		"""
 		self.DrawingSetVariable={
@@ -999,18 +1111,21 @@ BrianersClass.ManagingValueClass=BrianerClass
 BrianerClass.PrintingClassSkipKeyStrsList.extend(
 	[
 		'BrianingNeurongroupDict',
+		'BrianingSynapsesDict',
+		'BrianingConnectVariable',
 		'BrianingTraceDict',
 		'BrianingMoniterTuple',
 		'BrianingSpikesDict',
 		'BrianingTimeDimensionVariable',
 		#'BrianedNetworkVariable',
 		#'BrianedNeurongroupVariable',
+		#'BrianedSynapsesVariable',
 		#'BrianedStateMonitorVariable',
 		#'BrianedSpikeMonitorVariable',
 		'BrianedTraceKeyStrsList',
-		'BrianedDeriveTracersList',
-		'BrianedStateDeriveMonitersList',
-		'BrianedSpikeDeriveMonitersList',
+		'BrianedSynapsesDeriveBrianersList',
+		'BrianedStateDeriveBrianersList',
+		'BrianedSpikeDeriveBrianersList',
 		'BrianedParentNetworkDeriveBrianerVariable',
 		'BrianedParentNeurongroupDeriveBrianerVariable',
 		'BrianedParentDeriveTracerVariable'

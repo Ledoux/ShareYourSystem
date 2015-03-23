@@ -14,7 +14,7 @@ A Viewer
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Itemizers.Parenter"
+BaseModuleStr="ShareYourSystem.Standards.Itemizers.Networker"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 SYS.addDo("Viewer","View","Viewing","Viewed")

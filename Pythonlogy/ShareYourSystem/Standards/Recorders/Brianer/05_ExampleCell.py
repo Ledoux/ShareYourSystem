@@ -22,7 +22,9 @@ MyBrianer=SYS.BrianerClass(
 								'N':'#UnitsInt',
 								'model':
 								'''
-									dv/dt = (-(v+60*mV)+11*mV + 5.*mV*sqrt(20.*ms)*xi)/(20*ms) : volt
+									dv/dt = (-(v+60*mV)+11*mV + ge + gi+ 0.1*mV*sqrt(20.*ms)*xi)/(20*ms) : volt
+									dge/dt = -ge/(5*ms) : volt
+									dgi/dt = -gi/(10*ms) : volt
 								''',
 								'threshold':'v>-50*mV',
 								'reset':'v=-70*mV'
@@ -31,7 +33,7 @@ MyBrianer=SYS.BrianerClass(
 								'#liarg:#lambda':{
 									'array':[
 										[
-											['-<->'],
+											['-Connections'],
 											['|Postlets<->Prelets'],
 											['|#direct:_^_|E','|#direct:_^_|I']
 										],
@@ -39,8 +41,12 @@ MyBrianer=SYS.BrianerClass(
 											{},
 											{},
 											{
-												'BrianingSynapseDict':{'pre':'#PreStr'},
-												'BrianingProbabilityVariable':0.02
+												'BrianingSynapsesDict':{
+													'pre':'''
+														#PreStr \n
+													'''
+												},
+												'BrianingConnectVariable':0.2
 											}
 										]
 									]
@@ -48,14 +54,19 @@ MyBrianer=SYS.BrianerClass(
 								'#map':[
 									['#PreStr'],
 									[
-										['ge+=1.62*mV'],
-										['gi-=9*mV']
+										['ge+=0.1*mV'],
+										['gi-=3*mV']
 									]
 								]
 							},
 							'-Traces':{
 								'|*v':{
-									'MatrixingStdFloat':0.001
+									'MatrixingStdFloat':0.001,
+									'-Samples':{
+										'|Default':{
+											'MoniteringLabelIndexIntsArray':[0,1]
+										}
+									}
 								}
 							},
 							'-Events':{
@@ -75,25 +86,18 @@ MyBrianer=SYS.BrianerClass(
 			}
 		}	
 	).brian(
-	)
-
-"""
-	.simulate(
-		50.
+	).simulate(
+		500.
 	)
 	
 #/###################/#
 # Print
 #
-"""
+
+
 #Definition the AttestedStr
 print('MyBrianer is ')
 SYS._print(MyBrianer) 
-
-"""
-#/###################/#
-# Do one simulation
-#
 
 #/###################/#
 # Do one simulation
@@ -101,10 +105,13 @@ SYS._print(MyBrianer)
 
 from matplotlib import pyplot
 pyplot.figure()
-M=MyBrianer['/-Neurongroups/|E/-Traces/|*v/-Samples/|Default'].BrianedStateMonitorVariable
-pyplot.plot(M.t, M.v.T)
+ME=MyBrianer['/-Neurongroups/|E/-Traces/|*v/-Samples/|Default'].BrianedStateMonitorVariable
+MI=MyBrianer['/-Neurongroups/|I/-Traces/|*v/-Samples/|Default'].BrianedStateMonitorVariable
+pyplot.plot(ME.t, ME.v.T,color='b')
+pyplot.plot(MI.t, MI.v.T,color='r')
 pyplot.figure()
-M=MyBrianer['/-Neurongroups/|E/-Events/|Default'].BrianedSpikeMonitorVariable
-pyplot.plot(M.t, M.i,'.')
+ME=MyBrianer['/-Neurongroups/|E/-Events/|Default'].BrianedSpikeMonitorVariable
+MI=MyBrianer['/-Neurongroups/|I/-Events/|Default'].BrianedSpikeMonitorVariable
+pyplot.plot(ME.t, ME.i,'.')
+pyplot.plot(MI.t, max(ME.i)+MI.i,'.',color='r')
 pyplot.show()
-"""

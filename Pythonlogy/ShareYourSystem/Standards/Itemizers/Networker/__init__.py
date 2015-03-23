@@ -40,6 +40,7 @@ class NetworkerClass(BaseClass):
 					_NetworkTargetStr='Top',
 					_NetworkingTeamVariable=None,
 					_NetworkingManagementVariable=None,
+					_NetworkingDoStr="",
 					_NetworkedTeamKeyStrsList=None,
 					**_KwargVariablesDict
 				):
@@ -72,7 +73,7 @@ class NetworkerClass(BaseClass):
 		#map
 		self.NetworkedTeamKeyStrsList=map(
 				lambda __NetworkingTeamOrManagementStr:
-				NetworkOutPrefixStr+__NetworkingTeamOrManagementStr,
+				NetworkOutPrefixStr+self.NetworkingDoStr+'_'+__NetworkingTeamOrManagementStr,
 				(self.NetworkingTeamVariable if self.NetworkingTeamVariable!=None else [])+
 				(self.NetworkingManagementVariable if self.NetworkingManagementVariable!=None else [])
 			)
@@ -102,7 +103,10 @@ class NetworkerClass(BaseClass):
 		self.parentDown(
 				self.NetworkingTeamVariable,
 				self.NetworkingManagementVariable,
-				**{'NetworkTargetStr':self.NetworkTagStr}
+				**{
+					'NetworkTargetStr':self.NetworkTagStr,
+					'NetworkingDoStr':self.NetworkingDoStr
+				}
 			)
 
 	def propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable):
@@ -273,7 +277,7 @@ class NetworkerClass(BaseClass):
 					#point
 					self.NetworkDeriveNetworkerVariable.point(
 							self,
-							_OutTeamKeyStr=NetworkOutPrefixStr+self.ParentDeriveTeamerVariable.ManagementTagStr,
+							_OutTeamKeyStr=NetworkOutPrefixStr+self.NetworkingDoStr+'_'+self.ParentDeriveTeamerVariable.ManagementTagStr,
 							_InTeamKeyStr=NetworkInTeamKeyStr
 					)
 
@@ -314,7 +318,7 @@ class NetworkerClass(BaseClass):
 					#point
 					self.NetworkDeriveNetworkerVariable.point(
 						self,
-						_OutTeamKeyStr=NetworkOutPrefixStr+self.ParentDeriveTeamerVariable.TeamTagStr,
+						_OutTeamKeyStr=NetworkOutPrefixStr+self.NetworkingDoStr+'_'+self.ParentDeriveTeamerVariable.TeamTagStr,
 						_InTeamKeyStr=NetworkInTeamKeyStr
 					)
 
@@ -405,6 +409,7 @@ NetworkerClass.PrintingClassSkipKeyStrsList.extend(
 		'NetworkTargetStr',
 		'NetworkingTeamVariable',
 		'NetworkingManagementVariable',
+		'NetworkingDoStr',
 		'NetworkedTeamKeyStrsList'
 	]
 )

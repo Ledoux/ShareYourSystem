@@ -12,7 +12,7 @@ Plot client
 PlotAbstraction=new AbstractionClass(
   {
     'TemplateStr':'Plot',
-    'CollectionStr':"figures",
+    'CollectionStr':"plots",
     'DefaultInstanceObject':{}
   }
 )
