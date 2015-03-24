@@ -21,7 +21,7 @@ SYS.addDo('Drawer','Draw','Drawing','Drawn')
 
 #<ImportSpecificModules>
 import operator
-from ShareYourSystem.Standards.Viewers import Figurer
+from ShareYourSystem.Standards.Viewers import Pyploter
 #</ImportSpecificModules>
 
 #<DefineClass>

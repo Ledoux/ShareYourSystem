@@ -350,13 +350,13 @@ class PrediraterClass(BaseClass):
 					self.PrediratedControlUnitTraceFloatsArray[:,__IndexInt-1]
 				)
 
-	def mimic_draw(self):
+	def mimic_view(self):
 
 		#/#################/#
 		# First call the base method
 		#
 
-		BaseClass.draw(self)
+		BaseClass.view(self)
 
 		#/#################/#
 		# Build the Units colors
@@ -394,18 +394,18 @@ class PrediraterClass(BaseClass):
 			)
 
 		#get
-		self['/-Views/|A/-Axes'].set(
-			'|Unit',
+		self.set(
+			'/-Charts/|Unit',
 			{
-				'-Plots':{
+				'-Draws':{
 					'#map@set':map(
 						lambda __IntsTuple:
 						(
 							'|'+str(__IntsTuple[0]),
 							{
-								'FiguringDrawVariable':
+								'PyplotingDrawVariable':
 								[
-									('#plot',
+									('plot',
 										{
 											'#liarg:#map@get':[
 												'PredisensedTimeTraceFloatsArray',
@@ -419,7 +419,7 @@ class PrediraterClass(BaseClass):
 											}
 										}
 									),
-									('#plot',
+									('plot',
 										{
 											'#liarg:#map@get':[
 												'PredisensedTimeTraceFloatsArray',
@@ -434,7 +434,7 @@ class PrediraterClass(BaseClass):
 											}
 										}
 									),
-									('#plot',
+									('plot',
 										{
 											'#liarg:#map@get':[
 												'PredisensedTimeTraceFloatsArray',
@@ -455,73 +455,69 @@ class PrediraterClass(BaseClass):
 						enumerate(self.PrediratingMonitorIntsList)
 					)	
 				},
-				'FiguringDrawVariable.extend':
-				[[
-					('#axes',
-						[
-							('set_ylabel','$r(t)$'),
-							('set_ylim',{
-								'#liarg:#map@get':[
-									">>SYS.set(SYS,'RateLimFloatsArray',"+"".join([
-										"[max(-20.,self.PrediratedPerturbativeUnitTraceFloatsArray.min()),"
-										"min(20.,self.PrediratedPerturbativeUnitTraceFloatsArray.max())]"
-										])+').RateLimFloatsArray'
-								]
-							}),
-							('set_yticks',{
-								'#liarg:#map@get':[
-									"".join(
-										[
-											">>SYS.set(SYS,'RateTickFloatsArray',"
-											"map(lambda __Float:float('%.2f'%__Float),",
-											"SYS.getTickFloatsArray(SYS.RateLimFloatsArray,3))",
-											").RateTickFloatsArray"
-										]
-									)
-								]
-							}),
-							('set_yticklabels',{
-								'#liarg:#map@get':[
-									">>map(lambda __Float:'$'+str(__Float)+'$',SYS.RateTickFloatsArray)"
-								]
-							}),
-							('tick_params',{
-								'#kwarg':{
-									'length':10,
-									'width':5,
-									'which':'major'
-								}
-							}),
-							('tick_params',{
-								'#kwarg':{
-									'length':5,
-									'width':2,
-									'which':'minor'
-								}
-							}),
-							('xaxis.set_ticks_position',
-								{
-									'#liarg':['bottom']
-								}
-							),
-							('yaxis.set_ticks_position',
-								{
-									'#liarg':['left']
-								}
-							),
-							('legend',{
-										'#liarg':[],
-										'#kwarg':{
-											'fontsize':10,
-											'shadow':True,
-											'fancybox':True,
-											'ncol':len(self.PrediratingMonitorIntsList),
-											'loc':2,
-											'bbox_to_anchor':(1.05, 1)
-										}
-									})
+				'PyplotingChartVariable.extend':
+				[[	
+					('set_ylabel','$r(t)$'),
+					('set_ylim',{
+						'#liarg:#map@get':[
+							">>SYS.set(SYS,'RateLimFloatsArray',"+"".join([
+								"[max(-20.,self.PrediratedPerturbativeUnitTraceFloatsArray.min()),"
+								"min(20.,self.PrediratedPerturbativeUnitTraceFloatsArray.max())]"
+								])+').RateLimFloatsArray'
 						]
-					)
+					}),
+					('set_yticks',{
+						'#liarg:#map@get':[
+							"".join(
+								[
+									">>SYS.set(SYS,'RateTickFloatsArray',"
+									"map(lambda __Float:float('%.2f'%__Float),",
+									"SYS.getTickFloatsArray(SYS.RateLimFloatsArray,3))",
+									").RateTickFloatsArray"
+								]
+							)
+						]
+					}),
+					('set_yticklabels',{
+						'#liarg:#map@get':[
+							">>map(lambda __Float:'$'+str(__Float)+'$',SYS.RateTickFloatsArray)"
+						]
+					}),
+					('tick_params',{
+						'#kwarg':{
+							'length':10,
+							'width':5,
+							'which':'major'
+						}
+					}),
+					('tick_params',{
+						'#kwarg':{
+							'length':5,
+							'width':2,
+							'which':'minor'
+						}
+					}),
+					('xaxis.set_ticks_position',
+						{
+							'#liarg':['bottom']
+						}
+					),
+					('yaxis.set_ticks_position',
+						{
+							'#liarg':['left']
+						}
+					),
+					('legend',{
+								'#liarg':[],
+								'#kwarg':{
+									'fontsize':10,
+									'shadow':True,
+									'fancybox':True,
+									'ncol':len(self.PrediratingMonitorIntsList),
+									'loc':2,
+									'bbox_to_anchor':(1.05, 1)
+								}
+							})
 				]]
 			}
 		)
@@ -550,18 +546,18 @@ class PrediraterClass(BaseClass):
 			)
 		'''
 		#get
-		self['/-Views/|A/-Axes'].set(
-			'|Decoder',
+		self.set(
+			'/-Charts/|Decoder',
 			{
-			'-Plots':{
+			'-Draws':{
 					'#map@set':map(
 						lambda __IntsTuple:
 						(
 							'|'+str(__IntsTuple[0]),
 							{
-								'FiguringDrawVariable':
+								'PyplotingDrawVariable':
 								[
-									('#plot',
+									('plot',
 										{
 											'#liarg:#map@get':[
 												'PredisensedTimeTraceFloatsArray',
@@ -575,7 +571,7 @@ class PrediraterClass(BaseClass):
 											}
 										}
 									),
-									('#plot',
+									('plot',
 										{
 											'#liarg:#map@get':[
 												'PredisensedTimeTraceFloatsArray',
@@ -590,7 +586,7 @@ class PrediraterClass(BaseClass):
 											}
 										}
 									),
-									('#plot',
+									('plot',
 										{
 											'#liarg:#map@get':[
 												'PredisensedTimeTraceFloatsArray',
@@ -605,7 +601,7 @@ class PrediraterClass(BaseClass):
 											}
 										}
 									),
-									('#plot',
+									('plot',
 										{
 											'#liarg:#map@get':[
 												'PredisensedTimeTraceFloatsArray',
@@ -627,63 +623,58 @@ class PrediraterClass(BaseClass):
 						enumerate(self.PredisensingMonitorIntsList)
 					)	
 				},
-				'FiguringDrawVariable.extend':
+				'PyplotingChartVariable.extend':
 				[[
-					(
-						'#axes',
-						[
-							('set_ylabel','$x(t),\ \hat{x}(t)$'),
-							('set_ylim',{
-								'#liarg:#map@get':[
-									">>SYS.SensorLimFloatsArray"
-								]
-							}),
-							('set_yticks',{
-								'#liarg:#map@get':[
-									">>SYS.SensorTickFloatsArray"
-								]
-							}),
-							('set_yticklabels',{
-								'#liarg:#map@get':[
-									">>SYS.SensorTickStrsArray"]
-							}),
-							('tick_params',{
-								'#kwarg':{
-									'length':10,
-									'width':5,
-									'which':'major'
-								}
-							}),
-							('tick_params',{
-								'#kwarg':{
-									'length':5,
-									'width':2,
-									'which':'minor'
-								}
-							}),
-							('xaxis.set_ticks_position',
-								{
-									'#liarg':['bottom']
-								}
-							),
-							('yaxis.set_ticks_position',
-								{
-									'#liarg':['left']
-								}
-							),
-							('legend',{
-										'#liarg':[],
-										'#kwarg':{
-											'fontsize':10,
-											'shadow':True,
-											'fancybox':True,
-											'ncol':len(self.PredisensingMonitorIntsList),
-											'loc':2,
-											'bbox_to_anchor':(1.05, 1)
-										}
-									})
+					('set_ylabel','$x(t),\ \hat{x}(t)$'),
+					('set_ylim',{
+						'#liarg:#map@get':[
+							">>SYS.SensorLimFloatsArray"
 						]
-					)
+					}),
+					('set_yticks',{
+						'#liarg:#map@get':[
+							">>SYS.SensorTickFloatsArray"
+						]
+					}),
+					('set_yticklabels',{
+						'#liarg:#map@get':[
+							">>SYS.SensorTickStrsArray"]
+					}),
+					('tick_params',{
+						'#kwarg':{
+							'length':10,
+							'width':5,
+							'which':'major'
+						}
+					}),
+					('tick_params',{
+						'#kwarg':{
+							'length':5,
+							'width':2,
+							'which':'minor'
+						}
+					}),
+					('xaxis.set_ticks_position',
+						{
+							'#liarg':['bottom']
+						}
+					),
+					('yaxis.set_ticks_position',
+						{
+							'#liarg':['left']
+						}
+					),
+					('legend',{
+								'#liarg':[],
+								'#kwarg':{
+									'fontsize':10,
+									'shadow':True,
+									'fancybox':True,
+									'ncol':len(self.PredisensingMonitorIntsList),
+									'loc':2,
+									'bbox_to_anchor':(1.05, 1)
+								}
+							})
 				]]
 			}
 		)	

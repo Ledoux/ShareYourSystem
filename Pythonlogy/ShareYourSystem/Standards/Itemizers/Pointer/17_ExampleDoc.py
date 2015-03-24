@@ -18,8 +18,7 @@ MyPointer=SYS.PointerClass(
 						{},
 						{},
 						{
-							'SynapsingBrianKwargVariablesDict':{'pre':'ge+=1.62*mV'},
-							'SynapsingProbabilityVariable':0.02
+							'MyStr':"hello"
 						}
 					]
 				]

@@ -6,12 +6,12 @@ import ShareYourSystem as SYS
 MyPyploter=SYS.PyploterClass(
 	).mapSet(
 		{
-			'-Plots':[
+			'-Draws':[
 				('|0',{
-					'FiguringDrawVariable':
+					'PyplotingDrawVariable':
 					[
 						(
-							'#plot',
+							'plot',
 							{
 								'#liarg':[
 									[1,2,3],
@@ -26,10 +26,10 @@ MyPyploter=SYS.PyploterClass(
 					]
 				}),
 				('|1',{
-					'FiguringDrawVariable':
+					'PyplotingDrawVariable':
 					[
 						(
-							'#plot',
+							'plot',
 							{
 								'#liarg':[
 									[0,1,2],
@@ -43,8 +43,13 @@ MyPyploter=SYS.PyploterClass(
 						)
 					],
 				})
+			],
+			'PyplotingChartVariable':
+			[
+				('set_xlim',[0,5])
 			]
 		}
+	).pyplot(
 	)
 
 #print

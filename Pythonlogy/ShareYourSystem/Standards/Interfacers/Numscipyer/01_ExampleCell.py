@@ -3,12 +3,12 @@
 import ShareYourSystem as SYS
 
 #Definition an instance
-MyMatrixer=SYS.MatrixerClass(
-	).matrix(
+MyNumscipyer=SYS.NumscipyerClass(
+	).numscipy(
 		_SizeTuple=(3,2)
 	)
 
 #print
-print('MyMatrixer is ')
-SYS._print(MyMatrixer)
+print('MyNumscipyer is ')
+SYS._print(MyNumscipyer)
 

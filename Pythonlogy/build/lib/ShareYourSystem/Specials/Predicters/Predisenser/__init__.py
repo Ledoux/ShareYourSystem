@@ -251,7 +251,7 @@ class PredisenserClass(BaseClass):
 			#set
 			LocalDict=locals()
 
-	def mimic_draw(self):
+	def mimic_view(self):
 		
 		#debug
 		'''
@@ -291,153 +291,147 @@ class PredisenserClass(BaseClass):
 		#
 
 		#init
-		if self.DrawingSetVariable==None:
-			self.DrawingSetVariable={
-				'|A':{
-					'-Axes':[
-						('ManagingBeforeSetVariable',
-						{
-							'FiguringShapeIntsTuple':(5,15),
-							'#copy:FiguringDrawVariable':
-							[
+		self.mapSet(
+			{
+				'-Charts':[
+					('ManagingBeforeSetVariable',
+					{
+						'PyplotingShapeIntsTuple':(5,15),
+						'#copy:PyplotingChartVariable':
+						[
+							('set_xticks',{
+									'#liarg:#map@get':[
+										">>SYS.set(SYS,'TimeTicksArray',SYS.getTickFloatsArray([0.,self.PredisensingRunTimeFloat],4)).TimeTicksArray"
+									]	
+							}),
+							('set_xticklabels',{
+								'#liarg:#map@get':[
+									">>map(lambda __Float:'$%.0f$'%__Float,SYS.TimeTicksArray)"
+								]
+							}),
+							('set_xlim',{
+								'#liarg:#map@get':[0.,'>>self.PredisensingRunTimeFloat']
+							})
+						]
+					}),
+					('|Sensor',{
+						'-Draws':{
+							'#map@set':map(
+								lambda __IntsTuple:
 								(
-									'#axes',
-									[
-										('set_xticks',{
+									'|'+str(__IntsTuple[0]),
+									{
+										'PyplotingDrawVariable':
+										[
+											('plot',
+												{
 													'#liarg:#map@get':[
-														">>SYS.set(SYS,'TimeTicksArray',SYS.getTickFloatsArray([0.,self.PredisensingRunTimeFloat],4)).TimeTicksArray"
-													]	
-										}),
-										('set_xticklabels',{
-											'#liarg:#map@get':[
-												">>map(lambda __Float:'$%.0f$'%__Float,SYS.TimeTicksArray)"
-											]
-										}),
-										('set_xlim',{
-											'#liarg:#map@get':[0.,'>>self.PredisensingRunTimeFloat']
-										})
-									]
-								)
-							]
-						}),
-						('|Sensor',{
-							'-Plots':{
-								'#map@set':map(
-									lambda __IntsTuple:
-									(
-										'|'+str(__IntsTuple[0]),
-										{
-											'FiguringDrawVariable':
-											[
-												('#plot',
-													{
-														'#liarg:#map@get':[
-															'PredisensedTimeTraceFloatsArray',
-															'>>self.PredisensedInputCurrentTraceFloatsArray.__getitem__('+str(__IntsTuple[1])+')'
-														],
-														'#kwarg':{
-															'label':'$\\tau_{D}c_{'+str(__IntsTuple[1])+'}$',
-															'linestyle':'-',
-															'color':self.PredisenseCommandColorTuplesList[__IntsTuple[0]]
-														}
-												}),
-												('#plot',
-													{
-														'#liarg:#map@get':[
-															'PredisensedTimeTraceFloatsArray',
-															'>>self.PredisensedSensorTraceFloatsArray['+str(__IntsTuple[1])+',:]'
-														],
-														'#kwarg':{
-															'color':self.PredisenseSensorColorTuplesList[__IntsTuple[0]],
-															'label':'$x_{'+str(__IntsTuple[1])+'}$',
-															'linewidth':3,
-															'linestyle':'-'
-														}
-												})
-											]
-										}
-									),
-									enumerate(self.PredisensingMonitorIntsList)
-								)	
-							},
-							'FiguringDrawVariable.extend':
-							[[
-								(
-									'#axes',
-									[
-										('set_ylabel','$\\tau_{D}c(t),\ x(t)$'),
-										('set_ylim',{'#liarg:#map@get':[
-											"".join([
-												">>SYS.set(SYS,'SensorLimFloatsArray',",
-												"[min(-0.1,self.PredisensedSensorTraceFloatsArray.min()),1.5*self.PredisensingClampFloat*self.PredictingConstantTimeFloat]",
-												').SensorLimFloatsArray'
-											])]
-										}),
-										('set_yticks',{
-											'#liarg:#map@get':[
-												"".join([
-													">>SYS.set(SYS,'SensorTickFloatsArray',",
-													"map(lambda __Float:float('%.2f'%__Float),",
-													"SYS.getTickFloatsArray(",
-													"SYS.SensorLimFloatsArray,3",
-													"))).SensorTickFloatsArray"
-												])
-											]
-										}),
-										('set_yticklabels',{
-											'#liarg:#map@get':[
-												"".join([
-													">>SYS.set(SYS,'SensorTickStrsArray',",
-													"map(lambda __Float:'$'+str(__Float)+'$',",
-													"SYS.SensorTickFloatsArray)).SensorTickStrsArray"
-													])
-											]
-										}),
-										('tick_params',{
-											'#kwarg':{
-												'length':10,
-												'width':5,
-												'which':'major'
-											}
-										}),
-										('tick_params',{
-											'#kwarg':{
-												'length':5,
-												'width':2,
-												'which':'minor'
-											}
-										}),
-										('xaxis.set_ticks_position',
-											{
-												'#liarg':['bottom']
-											}
-										),
-										('yaxis.set_ticks_position',
-											{
-												'#liarg':['left']
-											}
-										),
-										('legend',{
-											'#liarg':[],
-											'#kwarg':{
-												'fontsize':10,
-												'shadow':True,
-												'fancybox':True,
-												'ncol':max(1,len(self.PredisensingMonitorIntsList)/2),
-												'loc':2,
-												'bbox_to_anchor':(1.05, 1)
-											}
-										})
-									]
-								)
-							]]
-						})
-					]
-				}				
-			}
+														'PredisensedTimeTraceFloatsArray',
+														'>>self.PredisensedInputCurrentTraceFloatsArray.__getitem__('+str(__IntsTuple[1])+')'
+													],
+													'#kwarg':{
+														'label':'$\\tau_{D}c_{'+str(__IntsTuple[1])+'}$',
+														'linestyle':'-',
+														'color':self.PredisenseCommandColorTuplesList[__IntsTuple[0]]
+													}
+											}),
+											('plot',
+												{
+													'#liarg:#map@get':[
+														'PredisensedTimeTraceFloatsArray',
+														'>>self.PredisensedSensorTraceFloatsArray['+str(__IntsTuple[1])+',:]'
+													],
+													'#kwarg':{
+														'color':self.PredisenseSensorColorTuplesList[__IntsTuple[0]],
+														'label':'$x_{'+str(__IntsTuple[1])+'}$',
+														'linewidth':3,
+														'linestyle':'-'
+													}
+											})
+										]
+									}
+								),
+								enumerate(self.PredisensingMonitorIntsList)
+							)	
+						},
+						'PyplotingChartVariable.extend':
+						[[
+							('set_ylabel','$\\tau_{D}c(t),\ x(t)$'),
+							('set_ylim',{'#liarg:#map@get':[
+								"".join([
+									">>SYS.set(SYS,'SensorLimFloatsArray',",
+									"[min(-0.1,self.PredisensedSensorTraceFloatsArray.min()),1.5*self.PredisensingClampFloat*self.PredictingConstantTimeFloat]",
+									').SensorLimFloatsArray'
+								])]
+							}),
+							('set_yticks',{
+								'#liarg:#map@get':[
+									"".join([
+										">>SYS.set(SYS,'SensorTickFloatsArray',",
+										"map(lambda __Float:float('%.2f'%__Float),",
+										"SYS.getTickFloatsArray(",
+										"SYS.SensorLimFloatsArray,3",
+										"))).SensorTickFloatsArray"
+									])
+								]
+							}),
+							('set_yticklabels',{
+								'#liarg:#map@get':[
+									"".join([
+										">>SYS.set(SYS,'SensorTickStrsArray',",
+										"map(lambda __Float:'$'+str(__Float)+'$',",
+										"SYS.SensorTickFloatsArray)).SensorTickStrsArray"
+										])
+								]
+							}),
+							('tick_params',{
+								'#kwarg':{
+									'length':10,
+									'width':5,
+									'which':'major'
+								}
+							}),
+							('tick_params',{
+								'#kwarg':{
+									'length':5,
+									'width':2,
+									'which':'minor'
+								}
+							}),
+							('xaxis.set_ticks_position',
+								{
+									'#liarg':['bottom']
+								}
+							),
+							('yaxis.set_ticks_position',
+								{
+									'#liarg':['left']
+								}
+							),
+							('legend',{
+								'#liarg':[],
+								'#kwarg':{
+									'fontsize':10,
+									'shadow':True,
+									'fancybox':True,
+									'ncol':max(1,len(self.PredisensingMonitorIntsList)/2),
+									'loc':2,
+									'bbox_to_anchor':(1.05, 1)
+								}
+							})
+						]]
+					})
+				]
+			}				
+		)
+
+		#debug
+		self.debug(
+			'Ok we have setted the plots'
+		)
 
 		#call the base method
-		BaseClass.draw(self)
+		BaseClass.view(self)
 
 #</DefineClass>
 
@@ -458,3 +452,4 @@ PredisenserClass.PrintingClassSkipKeyStrsList.extend(
 	]
 )
 #<DefinePrint>
+

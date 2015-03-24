@@ -9,6 +9,9 @@ import ShareYourSystem as SYS
 # Define you hierarchic objects
 #
 
+#add
+SYS.addSingPlural('Component','Components')
+
 #Define a Moduler class
 @SYS.ClasserClass()
 class MultiplierClass(SYS.NetworkerClass):

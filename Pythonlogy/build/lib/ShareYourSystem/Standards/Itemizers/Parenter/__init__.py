@@ -35,6 +35,9 @@ ParentTopStr="Top"
 ParentUpStr="?^"
 ParentDownStr="?v"
 ParentMutePrefixStr='!'
+SYS.addSingPlural('Child','Children')
+SYS.addSingPlural('GrandChild','GrandChildren')
+ListDict=SYS.ListDict
 #</DefineLocals>
 
 #<DefineClass>
@@ -62,9 +65,11 @@ class ParenterClass(BaseClass):
 				_ParentGrandDeriveTeamerVariable=None,
 				_ParentTopDeriveTeamerVariable=None,
 				_ParentingTriggerVariable=None,
+				_ParentedTotalDeriveParentersList=None,
 				_ParentedTotalDeriveTeamersList=None,
-				_ParentedDeriveTeamersList=None,
-				_ParentedDeriveManagersList=None,
+				_ParentedTotalDeriveManagersList=None,
+				_ParentedTotalListDict=None,
+				_ParentedTotalSingularListDict=None,
 				_ParentedTotalPathStr="",
 				_ParentedTeamPathStr="",
 				_ParentedManagementPathStr="",
@@ -76,9 +81,9 @@ class ParenterClass(BaseClass):
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
 		#init
+		self.ParentedTotalDeriveParentersList=[]
 		self.ParentedTotalDeriveTeamersList=[]
-		self.ParentedDeriveTeamersList=[]
-		self.ParentedDeriveManagersList=[]
+		self.ParentedTotalDeriveManagersList=[]
 		
 		#set top
 		self.ParentTopDeriveTeamerVariable=self
@@ -136,34 +141,105 @@ class ParenterClass(BaseClass):
 
 
 			#/####################/#
-			# Now build the chain of Teamers and Managers
+			# Now build the list chain of Teamers and Managers
 			#
 
 			#add
-			self.ParentedTotalDeriveTeamersList=[
+			self.ParentedTotalDeriveParentersList=[
 				ParentedDeriveTeamerVariable
-			]+ParentedDeriveTeamerVariable.ParentedTotalDeriveTeamersList
+			]+ParentedDeriveTeamerVariable.ParentedTotalDeriveParentersList
 
 			#add
 			if self.TeamTagStr!="":
 
 				#add
-				self.ParentedDeriveTeamersList=[
+				self.ParentedTotalDeriveTeamersList=[
 					ParentedDeriveTeamerVariable
-				]+ParentedDeriveTeamerVariable.ParentedDeriveTeamersList
+				]+ParentedDeriveTeamerVariable.ParentedTotalDeriveTeamersList
 
 				#set
-				self.ParentedDeriveManagersList=ParentedDeriveTeamerVariable.ParentedDeriveManagersList
+				self.ParentedTotalDeriveManagersList=ParentedDeriveTeamerVariable.ParentedTotalDeriveManagersList
 
 			else:
 
 				#add
-				self.ParentedDeriveManagersList=[
+				self.ParentedTotalDeriveManagersList=[
 					ParentedDeriveTeamerVariable
-				]+ParentedDeriveTeamerVariable.ParentedDeriveManagersList
+				]+ParentedDeriveTeamerVariable.ParentedTotalDeriveManagersList
 
 				#set
-				self.ParentedDeriveTeamersList=ParentedDeriveTeamerVariable.ParentedDeriveTeamersList
+				self.ParentedTotalDeriveTeamersList=ParentedDeriveTeamerVariable.ParentedTotalDeriveTeamersList
+
+
+			#/####################/#
+			# Now build the ordered dict chain of Teamers and Managers
+			#
+
+			#dict
+			self.ParentedTotalListDict=ListDict(
+				map(
+					lambda __ParentedTotalDeriveParenter:
+					(
+						__ParentedTotalDeriveParenter.TeamTagStr
+						if __ParentedTotalDeriveParenter.TeamTagStr!=""
+						else __ParentedTotalDeriveParenter.ManagementTagStr,
+						__ParentedTotalDeriveParenter
+					),
+					self.ParentedTotalDeriveParentersList
+				)
+			)
+
+			#debug
+			'''
+			self.debug(
+				[
+					'The ParentedTotalListDict is setted',
+					'self.ParentedTotalListDict.keys() is ',
+					str(self.ParentedTotalListDict.keys())
+				]
+			)
+			'''
+
+			#Check
+			if self.ParentDeriveTeamerVariable.TeamTagStr!='':
+
+				#init with
+				self.ParentedTotalSingularListDict=ListDict(
+					[(
+						SYS.getSingularStrWithPluralStr(
+							self.ParentDeriveTeamerVariable.TeamTagStr
+						),
+						self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
+					)]
+				)
+			else:
+
+				#init
+				self.ParentedTotalSingularListDict=ListDict()
+
+			#dict
+			self.ParentedTotalSingularListDict.update(
+				SYS.filterNone(
+					map(
+						lambda __ParentedTotalDeriveTeamer:
+						(
+							SYS.getSingularStrWithPluralStr(
+								__ParentedTotalDeriveTeamer.ParentDeriveTeamerVariable.TeamTagStr
+							),
+							__ParentedTotalDeriveTeamer
+						)
+						if __ParentedTotalDeriveTeamer.ParentDeriveTeamerVariable!=None
+						else None,
+						self.ParentedTotalDeriveTeamersList
+					)
+				)
+			)
+
+
+
+			#/####################/#
+			# Now build the paths
+			#
 
 			#map 
 			[
@@ -185,9 +261,9 @@ class ParenterClass(BaseClass):
 					lambda __KeyStr:
 					getattr(self,__KeyStr),
 					[
+						'ParentedTotalDeriveParentersList',
 						'ParentedTotalDeriveTeamersList',
-						'ParentedDeriveTeamersList',
-						'ParentedDeriveManagersList',
+						'ParentedTotalDeriveManagersList',
 					]
 				)
 			)
@@ -209,10 +285,10 @@ class ParenterClass(BaseClass):
 			#
 
 			#Check
-			if len(self.ParentedTotalDeriveTeamersList)>0:
+			if len(self.ParentedTotalDeriveParentersList)>0:
 
 				#last one
-				self.ParentTopDeriveTeamerVariable=self.ParentedTotalDeriveTeamersList[-1]
+				self.ParentTopDeriveTeamerVariable=self.ParentedTotalDeriveParentersList[-1]
 							
 			#debug
 			'''
@@ -900,9 +976,11 @@ ParenterClass.PrintingClassSkipKeyStrsList.extend(
 			'ParentGrandDeriveTeamerVariable',
 			'ParentTopDeriveTeamerVariable',
 			'ParentingTriggerVariable',
+			'ParentedTotalDeriveParentersList',
 			'ParentedTotalDeriveTeamersList',
-			'ParentedDeriveTeamersList',
-			'ParentedDeriveManagersList',
+			'ParentedTotalDeriveManagersList',
+			'ParentedTotalSingularListDict',
+			'ParentedTotalListDict',
 			'ParentedTotalPathStr',
 			'ParentedTeamPathStr',
 			'ParentedManagementPathStr',

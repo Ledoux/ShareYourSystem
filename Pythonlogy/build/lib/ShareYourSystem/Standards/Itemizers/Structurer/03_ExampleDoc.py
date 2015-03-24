@@ -9,9 +9,12 @@ import ShareYourSystem as SYS
 # Define you hierarchic objects
 #
 
+#add
+SYS.addSingPlural('Component','Components')
+
 #Define a Moduler class
 @SYS.ClasserClass()
-class MultiplierClass(SYS.NetworkerClass):
+class MultiplierClass(SYS.StructurerClass):
 								
 	def default_init(self,
 						_MultiplyingFirstFloat=0,
@@ -21,7 +24,7 @@ class MultiplierClass(SYS.NetworkerClass):
 					):
 
 		#Call the parent init method
-		SYS.NetworkerClass.__init__(self,**_KwargVariablesDict)
+		SYS.StructurerClass.__init__(self,**_KwargVariablesDict)
 			
 		#Build the model		
 		self['#map@set'](
@@ -41,7 +44,7 @@ class MultiplierClass(SYS.NetworkerClass):
 
 #Define a Moduler class
 @SYS.ClasserClass()
-class ModulerClass(SYS.NetworkerClass):
+class ModulerClass(SYS.StructurerClass):
 								
 	def default_init(self,
 						_ModulingPowerFloat=0.5,
@@ -50,7 +53,7 @@ class ModulerClass(SYS.NetworkerClass):
 					):
 
 		#Call the parent init method
-		SYS.NetworkerClass.__init__(self,**_KwargVariablesDict)
+		SYS.StructurerClass.__init__(self,**_KwargVariablesDict)
 
 		#Build the components and the models
 		self['#map@set'](
@@ -90,7 +93,7 @@ class ModulerClass(SYS.NetworkerClass):
 #
 
 MyModuler=ModulerClass(
-	).network(
+	).structure(
 		[
 			'Components',
 			'Models'

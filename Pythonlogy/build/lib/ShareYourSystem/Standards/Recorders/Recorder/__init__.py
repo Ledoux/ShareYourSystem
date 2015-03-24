@@ -14,28 +14,34 @@ A Recorder
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Controllers.Systemer"
+BaseModuleStr="ShareYourSystem.Standards.Viewers.Pyploter"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 SYS.addDo('Recorder','Record','Recording','Recorded')
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
-from ShareYourSystem.Standards.Itemizers import Pointer,Networker
 #</ImportSpecificModules>
 
 #<DefineLocals>
-class TracesClass(Networker.NetworkerClass):pass 
-class EventsClass(Networker.NetworkerClass):pass 
-RecordSampleTeamKeyStr=Networker.NetworkOutPrefixStr+'Samples'
+RecorderPrefixStr='*'
 #</DefineLocals>
 
 #<DefineClass>
-@DecorationClass()
+@DecorationClass(**{
+	'ClassingStructureVariable':[
+			('Trace','Traces'),
+			('Sample','Samples')
+		]
+})
 class RecorderClass(BaseClass):
 	
 	def default_init(self,
-						_RecordedNetworkBool=False,
+						_RecordKeyStr="",
+						_RecordingKeyVariable=None,
+						_RecordedTraceFloatsArray=None,
+						_RecordedInitFloatsArray=None,
+						_RecordedParentSingularStr="",		
 						**_KwargVariablesDict
 					):
 
@@ -46,96 +52,263 @@ class RecorderClass(BaseClass):
 			self
 		):	
 
+		#/#################/#
+		# Determine if it is an inside structure or the top
+		#
+
 		#debug
 		'''
 		self.debug(
-				[
-					'We record here',
-					'network in the Traces and Events
-				]
-			)
+			[
+				'We record here',
+				'First look for deeper teams in the structure',
+			]
+		)
 		'''
 
-		#/###################/#
-		# Make monit the samples
-		#
-
 		#Check
-		if RecordSampleTeamKeyStr in self.TeamDict:
+		if self.ParentedTotalSingularListDict!=None and len(self.ParentedTotalSingularListDict)>0:
 
 			#debug
 			'''
 			self.debug(
 				[
-					'We make monit the networked samples'
+					'self.ParentedTotalSingularListDict.keys() is ',
+					str(self.ParentedTotalSingularListDict.keys())
 				]
 			)
 			'''
-			
-			#map
-			map(
-					lambda __DerivePointer:
-					__DerivePointer.PointToVariable.monit(),
-					self.TeamDict[RecordSampleTeamKeyStr].ManagementDict.values()
-				)
 
+			#get
+			self.RecordedParentSingularStr=self.ParentedTotalSingularListDict.keys()[0]
+
+		#debug
+		'''
+		self.debug(
+			[
+				'Ok',
+				('self.',self,['RecordedParentSingularStr'])
+			]
+		)
+		'''
+
+		#debug
+		'''
+		self.debug(
+				[
+					'We are at this level',
+					('self.',self,['RecordedParentSingularStr'])
+				]
+			)
+		'''
+		
 		#/###################/#
-		# Network the traces, events samples
+		# Cases
 		#
 
 		#Check
-		if self.RecordedNetworkBool==False:
+		if self.ParentDeriveTeamerVariable==None or 'Traces' in self.TeamDict or self.ParentDeriveTeamerVariable.TeamTagStr not in [
+			'Traces','Samples']:
+
+			#/###################/#
+			# Recorder level
+			# network
+
+			#debug
+			'''
+			self.debug(
+				[
+					'This is the Recorder level',
+					'we structure Traces and Samples'
+				]
+			)
+			'''
+
+			#network
+			self.structure(
+				[
+					'Traces',
+					'Samples'
+				],
+				_DoStr='Record'
+			)
+			
+		#Check
+		elif self.RecordedParentSingularStr=='Trace':
+
+			#/###################/#
+			# Traces level
+			#
 
 			#debug
 			'''
 			self.debug(
 					[
-						'network in the Traces and Events
+						'This is the Traces level',
+						'First get the array to trace',
+						('self.',self,['RecordingKeyVariable'])
 					]
 				)
 			'''
 
-			#set
-			self.PointingInManagementKeyStr=Pointer.PointManagementPrefixStr+'Recorder'
+			#get
+			RecordedTopDeriveRecorderVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
 
-			#network
-			self.network(
+			#/##################/#
+			# First get the array to trace
+			#
+
+			#get
+			if type(self.RecordingKeyVariable)==None.__class__:
+
+				#Check
+				if self.ManagementTagStr.startswith(RecorderPrefixStr):
+
+					#get
+					self.RecordedTraceFloatsArray=getattr(
+						RecordedTopDeriveRecorderVariable,
+						SYS.deprefix(
+							self.ManagementTagStr,
+							RecorderPrefixStr
+						)
+					)
+
+			elif type(self.RecordingKeyVariable).__name__!='ndarray':
+		
+				#get
+				self.RecordedTraceFloatsArray=RecordedTopDeriveRecorderVariable[
+					self.RecordingKeyVariable
+				]
+
+			else:
+
+				#alias
+				self.RecordedTraceFloatsArray=self.RecordingKeyVariable
+
+				#alias
+				if self.RecordKeyStr=="":
+					self.RecordKeyStr=str(self.RecordingKeyVariable)
+
+			#debug
+			'''
+			self.debug(
 				[
-					'Traces',
-					'Events',
-					'Samples'
+					'We have getted the RecordedTraceFloatsArray',
+					('self.',self,['RecordedTraceFloatsArray']),
+					'Now set the init'
 				]
 			)
+			'''
 
-	"""
+			#Check
+			if type(self.RecordedTraceFloatsArray)!=None.__class__:
+
+				#/##################/#
+				# Prepare initial conditions
+				# with the Matrixer
+
+				#debug
+				'''
+				self.debug(
+					[
+						'We prepare the initial conditions',
+						'len(self.RecordedTraceFloatsArray) is ',
+						str(len(self.RecordedTraceFloatsArray))
+					]
+				)
+				'''
+
+				#matrix
+				self.RecordedInitFloatsArray=self.numscipy(
+						_SizeTuple=(len(self.RecordedTraceFloatsArray),1)
+					).NumscipiedRandomFloatsArray[:,0]
+
+				#debug
+				'''
+				self.debug(
+					[
+						'We have prepared the initial conditions',
+						('self.',self,['RecordedInitFloatsArray'])
+					]
+				)
+				'''
+
+		else:
+
+			#/###################/#
+			# Samples level
+			#
+
+			#debug
+			self.debug(
+					[
+						'This is the Samples level',
+					]
+				)
+
 	def propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable):
 
 		#/##################/#
-		# Base method
+		# Maybe record
 		#
+
+		#debug
+		'''
+		self.debug(
+			[
+				'We are going to parent but before',
+				('self.',self,['StructuringDoStr']),
+				'self.StructuringTopDeriveStructurerVariable!=self is ',
+				str(self.StructuringTopDeriveStructurerVariable!=self)
+			]
+		)
+		'''
+
+		#Check
+		if self.StructuringDoStr=='Record' and self.StructuringTopDeriveStructurerVariable!=self:
+
+			#record
+			self.record()
+
+		#/##################/#
+		# Base the base method
+		#
+
+		#debug
+		'''
+		self.debug(
+			[
+				'Now we call the base setParent method'
+			]
+		)
+		'''
 
 		#call the base method
 		BaseClass.propertize_setWatchAfterParentWithParenterBool(
 			self,
 			_SettingValueVariable
 		)
-	"""
+
+
 	
 #</DefineClass>
 
 #<DefineLocals>
-RecorderClass.TeamingClassesDict.update(
-	{
-		'Traces':TracesClass,
-		'Events':EventsClass
-	}
-)
+	[
+		('Trace','Traces'),
+		('Event','Events'),
+		('Sample','Samples')
+	]
 #</DefineLocals>
 
 #</DefinePrint>
 RecorderClass.PrintingClassSkipKeyStrsList.extend(
 	[
-		'RecordedNetworkBool'
+		'RecordKeyStr',
+		'RecordingKeyVariable',
+		'RecordedTraceFloatsArray',
+		'RecordedInitFloatsArray',
+		'RecordedParentSingularStr'
 	]
 )
 #<DefinePrint>

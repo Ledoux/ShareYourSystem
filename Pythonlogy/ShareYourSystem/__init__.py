@@ -72,7 +72,11 @@ ConceptStrsTuplesList=[
 	('Muziker','Muzikers')
 ]
 
+#alias
 PythonSet=set
+
+#init
+IdDict=collections.OrderedDict()
 #</DefineLocals>
 
 #<DefineFunctions>
@@ -919,6 +923,14 @@ def replace(
 		else:
 			ReplaceVariable=_ReplaceVariable
 
+		#Debug
+		'''
+		print('SYS l 920')
+		print('ReplaceVariable is ')
+		print(ReplaceVariable)
+		print('')
+		'''
+
 		#map
 		_TranslationVariable=dict(
 			map(
@@ -1608,8 +1620,22 @@ def getIsListsListBool(_ListsList):
 	#Return False either
 	return False
 
+def addSingPlural(_SingularStr,_PluralStr):
+	SingularAndPluralTuplesList.append((_SingularStr,_PluralStr))
+	SingularStrToPluralStrOrderedDict[_SingularStr]=_PluralStr
+	PluralStrToSingularStrOrderedDict[_PluralStr]=_SingularStr
+
 def getSingularStrWithPluralStr(_PluralStr):
-	return _PluralStr[:-1]
+	if _PluralStr in PluralStrToSingularStrOrderedDict:
+		return  PluralStrToSingularStrOrderedDict[_PluralStr]
+	else:
+		return _PluralStr[:-1]
+
+def getPluralStrWithSingularStr(_SingularStr):
+	if _SingularStr in SingularStrToPluralStrOrderedDict:
+		return  SingularStrToPluralStrOrderedDict[_SingularStr]
+	else:
+		return _SingularStr+'s'
 
 def getIsEqualBool(_VariableA,_VariableB):
 		
@@ -1827,6 +1853,7 @@ def lib():
 #</DefineFunctions>
 
 #<DefineLocals>
+SingularAndPluralTuplesList=copy.copy(ConceptStrsTuplesList)
 SingularStrToPluralStrOrderedDict=dictify(ConceptStrsTuplesList,0,1)
 PluralStrToSingularStrOrderedDict=dictify(ConceptStrsTuplesList,1,0)
 
@@ -2046,6 +2073,57 @@ def mapSet(_Variable,_MapVariable):
 
 	#return 
 	return _Variable
+
+class ListDict(collections.OrderedDict):
+
+	def __init__(self,_LiargVariable=None,**_KwargDict):
+
+		#Check
+		if _LiargVariable==None:
+			_LiargVariable={}
+
+		#call the manage init method
+		collections.OrderedDict.__init__(
+			self,
+			_LiargVariable,
+			**_KwargDict
+		)
+
+	def getKey(self,_IndexInt):
+
+		#iterkeys
+		Iterator=self.iterkeys()
+		
+		#next
+		if _IndexInt==0:
+			NextVariable=Iterator.next()
+		else:
+			NextVariable=map(
+				lambda __Int:
+				Iterator.next(),
+				xrange(_IndexInt+1)
+			)[-1]
+
+		#return
+		return NextVariable
+
+	def getValue(self,_IndexInt):
+
+		#iterkeys
+		Iterator=self.iterkeys()
+		
+		#next
+		if _IndexInt==0:
+			NextVariable=Iterator.next()
+		else:
+			NextVariable=map(
+				lambda __Int:
+				Iterator.next(),
+				xrange(_IndexInt+1)
+			)[-1]
+
+		#return
+		return self[NextVariable]
 
 class MethodDict(collections.OrderedDict):
 

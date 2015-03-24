@@ -224,12 +224,14 @@ class PointerClass(BaseClass):
 		#
 
 		#debug
+		'''
 		self.debug(
 			[
 				'We manage out',
 				('self.',self,['PointingValueClass'])
 			]
 		)
+		'''
 
 		#manage
 		if self.PointingValueClass!=None:
@@ -595,7 +597,9 @@ PointerClass.PrintingClassSkipKeyStrsList.extend(
 		'PointingOutTeamKeyStr',
 		'PointingInTeamKeyStr',
 		'PointingGetBool',
-		'PointingValueClass'
+		'PointingValueClass',
+		'PointingOutManagementKeyStr',
+		'PointingInManagementKeyStr'
 	]
 )
 #<DefinePrint>

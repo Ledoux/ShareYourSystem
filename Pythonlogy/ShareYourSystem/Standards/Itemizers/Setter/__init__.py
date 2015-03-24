@@ -347,7 +347,6 @@ class ArgumentDict(collections.OrderedDict):
 			#append
 			self['LiargVariablesList'].append(_ArgumentDict)
 
-
 #</DefineLocals>
 
 #<DefineClass>
@@ -1595,6 +1594,82 @@ class SetterClass(BaseClass):
 
 		#return
 		return SettedReplaceValueVariablesList
+
+	def mapArgument(self,_SetVariable,_MapVariable):
+
+		#Debug
+		'''
+		print('mapArgument l 353')
+		print('_MapVariable is ')
+		print(_MapVariable)
+		print('')
+		'''
+
+		#map
+		ArgumentTuplesList=map(
+				lambda __ItemTuple:
+				(
+					__ItemTuple[0],
+					ArgumentDict(
+							__ItemTuple[1],
+							self
+						)
+				),
+				SYS.SetList(
+					_MapVariable
+				)
+			)
+
+		#debug
+		'''
+		self.debug(
+				[
+					'We have setted the map arguments',
+					'ArgumentTuplesList is ',
+					SYS._str(ArgumentTuplesList),
+				]
+			)
+		'''
+
+		#alias
+		get=SYS.get
+
+		#map
+		return map(
+				lambda __ArgumentTuple:
+				get(
+					_SetVariable,
+					__ArgumentTuple[0]
+				)()
+				if len(__ArgumentTuple[1]['LiargVariablesList']
+					)==0 and __ArgumentTuple[1]['KwargVariablesDict']==None
+				else(
+					get(
+						_SetVariable,
+						__ArgumentTuple[0]
+					)(**__ArgumentTuple[1]['KwargVariablesDict'])
+					if len(__ArgumentTuple[1]['LiargVariablesList']
+					)==0
+					else(
+						get(
+							_SetVariable,
+							__ArgumentTuple[0]
+						)(
+							*__ArgumentTuple[1]['LiargVariablesList'],
+							**__ArgumentTuple[1]['KwargVariablesDict']
+						) 
+						if __ArgumentTuple[1]['KwargVariablesDict']!=None
+						else
+						get(
+							_SetVariable,
+							__ArgumentTuple[0]
+						)(
+							*__ArgumentTuple[1]['LiargVariablesList']
+						)
+					)
+				),
+				ArgumentTuplesList
+			)
 
 
 #</DefineClass>

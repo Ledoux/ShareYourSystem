@@ -259,6 +259,7 @@ class ExecuterClass(BaseClass):
 					)
 
 				#debug
+				'''
 				self.debug(
 						[
 							'GetValueVariable is '+SYS._str(GetValueVariable),
@@ -266,7 +267,8 @@ class ExecuterClass(BaseClass):
 							('self.',self,['SettingValueVariable'])
 						]
 					)
-
+				'''
+				
 				#call
 				if callable(AttributeValueVariable):
 

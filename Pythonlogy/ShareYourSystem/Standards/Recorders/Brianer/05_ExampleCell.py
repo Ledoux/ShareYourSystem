@@ -61,7 +61,7 @@ MyBrianer=SYS.BrianerClass(
 							},
 							'-Traces':{
 								'|*v':{
-									'MatrixingStdFloat':0.001,
+									'NumscipyingStdFloat':0.001,
 									'-Samples':{
 										'|Default':{
 											'MoniteringLabelIndexIntsArray':[0,1]

@@ -21,12 +21,12 @@ SYS.addDo('Controller','Control','Controlling','Controlled')
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
-from ShareYourSystem.Standards.Itemizers import Networker
+from ShareYourSystem.Standards.Itemizers import Structurer
 #</ImportSpecificModules>
 
 #<DefineLocals>
-class ModelsClass(Networker.NetworkerClass):pass
-class ViewsClass(Networker.NetworkerClass):pass
+class ModelsClass(Structurer.StructurerClass):pass
+class ViewsClass(Structurer.StructurerClass):pass
 #</DefineLocals>
 
 #<DefineClass>
@@ -159,7 +159,7 @@ class ControllerClass(BaseClass):
 
 #Set
 ControllerClass.TeamingClassesDict={
-	'Components':Networker.NetworkerClass,
+	'Components':Structurer.StructurerClass,
 	'Models':ModelsClass,
 	'Views':ViewsClass
 }

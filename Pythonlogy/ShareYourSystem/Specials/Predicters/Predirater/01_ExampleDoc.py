@@ -52,9 +52,10 @@ MyPredirater=SYS.PrediraterClass(
 		[0,1,3,4,5,6,7],
 		#PrediratingInititalFloat
 		0.1
-	).draw(
-	).show(
+	).view(
+	).pyplot(
 	)
+SYS.matplotlib.pyplot.show()
 
 #print
 print('MyPredirater is')

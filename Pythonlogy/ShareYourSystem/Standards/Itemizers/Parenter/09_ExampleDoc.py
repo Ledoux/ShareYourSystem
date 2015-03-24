@@ -7,7 +7,8 @@ MyParenter=SYS.ParenterClass(
 	).get(
 		'/-Children/|Erwan/-GrandChildren',
 		
-	).parent(_DownBool=True)
+	).parentDown(
+	)
 
 #print
 print('MyParenter is ')
@@ -18,7 +19,8 @@ MyParenter=SYS.ParenterClass(
 	).get(
 		'/-Children/|Erwan/-GrandChildren',
 		
-	)['/-Children/|Erwan/-GrandChildren'].parent(_UpBool=True)
+	)['/-Children/|Erwan/-GrandChildren'].parentUp(
+	)
 
 #print
 print('MyParenter is ')

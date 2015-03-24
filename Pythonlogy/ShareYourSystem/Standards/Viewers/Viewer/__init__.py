@@ -14,7 +14,7 @@ A Viewer
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Itemizers.Networker"
+BaseModuleStr="ShareYourSystem.Standards.Interfacers.Numscipyer"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 SYS.addDo("Viewer","View","Viewing","Viewed")
@@ -56,75 +56,6 @@ class ViewerClass(BaseClass):
 		#pass
 		pass
 			
-	def propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable):
-
-		#call the base method
-		BaseClass.propertize_setWatchAfterParentWithParenterBool(
-			self,
-			_SettingValueVariable
-		)
-
-		#/##################/#
-		# Find the first top Controller
-		#
-
-		#find
-		'''
-		self.debug(
-			[
-				'We have parented',
-				('self.',self,['ParentedDeriveTeamersList'])
-			]
-		)	
-		'''
-		
-		#Check
-		if len(self.ParentedDeriveTeamersList)>0:
-
-			#index
-			try:
-
-				#index
-				IndexInt=map(
-						lambda __ParentedDeriveTeamer:
-						hasattr(__ParentedDeriveTeamer,'ControlTagStr'),
-						self.ParentedDeriveTeamersList
-					).index(True)
-
-				#set
-				self.ViewDeriveControllerVariable=self.ParentedDeriveTeamersList[IndexInt]
-
-			except:
-
-				IndexInt=len(self.ParentedDeriveTeamersList)
-			
-
-			#set
-			if IndexInt>0:
-
-				#get
-				self.ViewFirstDeriveViewerVariable=self.ParentedDeriveTeamersList[IndexInt-1]
-
-			else:
-
-				#get
-				self.ViewFirstDeriveViewerVariable=self
-
-		else:
-
-			#alias
-			self.ViewFirstDeriveViewerVariable=self
-
-		#debug
-		'''
-		self.debug(
-				[
-					'Finally ViewFirstDeriveViewerVariable is ',
-					SYS._str(self.ViewFirstDeriveViewerVariable)
-				]
-			)
-		'''
-
 #</DefineClass>
 
 #<DefineLocals>

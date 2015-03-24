@@ -26,7 +26,7 @@ MyBrianer=SYS.BrianerClass(
 					},
 					'-Traces':{
 						'|*v':{
-							'MatrixingStdFloat':0.001
+							'NumscipyingStdFloat':0.001
 						}
 					},
 					'-Events':{
@@ -52,7 +52,7 @@ MyBrianer=SYS.BrianerClass(
 		}	
 	).brian(
 	).simulate(
-		50.
+		500.
 	)
 	
 #/###################/#
@@ -63,9 +63,6 @@ MyBrianer=SYS.BrianerClass(
 print('MyBrianer is ')
 SYS._print(MyBrianer) 
 
-#/###################/#
-# Do one simulation
-#
 
 #/###################/#
 # Do one simulation
@@ -73,9 +70,13 @@ SYS._print(MyBrianer)
 
 from matplotlib import pyplot
 pyplot.figure()
-M=MyBrianer['/-Neurongroups/|E/-Traces/|*v/-Samples/|Default'].BrianedStateMonitorVariable
-pyplot.plot(M.t, M.v.T)
+ME=MyBrianer['/-Neurongroups/|E/-Traces/|*v/-Samples/|Default'].BrianedStateMonitorVariable
+MI=MyBrianer['/-Neurongroups/|I/-Traces/|*v/-Samples/|Default'].BrianedStateMonitorVariable
+pyplot.plot(ME.t, ME.v.T,color='b')
+pyplot.plot(MI.t, MI.v.T,color='r')
 pyplot.figure()
-M=MyBrianer['/-Neurongroups/|E/-Events/|Default'].BrianedSpikeMonitorVariable
-pyplot.plot(M.t, M.i,'.')
+ME=MyBrianer['/-Neurongroups/|E/-Events/|Default'].BrianedSpikeMonitorVariable
+MI=MyBrianer['/-Neurongroups/|I/-Events/|Default'].BrianedSpikeMonitorVariable
+pyplot.plot(ME.t, ME.i,'.')
+pyplot.plot(MI.t, max(ME.i)+MI.i,'.',color='r')
 pyplot.show()

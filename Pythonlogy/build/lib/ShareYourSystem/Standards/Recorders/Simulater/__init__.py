@@ -14,7 +14,7 @@ A Simulater
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Recorders.Moniter"
+BaseModuleStr="ShareYourSystem.Standards.Recorders.Recorder"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>

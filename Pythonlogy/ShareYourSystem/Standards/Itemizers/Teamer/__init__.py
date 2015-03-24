@@ -30,23 +30,7 @@ from ShareYourSystem.Standards.Itemizers import Pather
 #<DefineLocals>
 TeamChildPrefixStr='-'
 TeamDirectChildPrefixStr='-#direct:'
-class TeamDict(collections.OrderedDict):
-	def __init__(self,_LiargDict=None,**_KwargDict):
-
-		#Check
-		if _LiargDict==None:
-			_LiargDict={}
-
-		#call the parent init method
-		collections.OrderedDict.__init__(self,_LiargDict,**_KwargDict)
-
-	def get(self,_IndexInt):
-		Iterator=self.iterkeys()
-		if _IndexInt==0:
-			return self[Iterator.next()]
-		else:
-			return self[map(lambda __Int:Iterator.next(),xrange(_IndexInt+1))[-1]]
-
+class TeamDict(SYS.ListDict):pass
 SYS.TeamDict=TeamDict
 #</DefineLocals>
 

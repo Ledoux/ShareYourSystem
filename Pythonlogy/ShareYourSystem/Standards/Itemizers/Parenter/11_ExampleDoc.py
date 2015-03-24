@@ -4,28 +4,11 @@ import ShareYourSystem as SYS
 
 #define and get two children
 MyParenter=SYS.ParenterClass(
-	).array(
-		[
-			['-Neurons'],
-			[
-				{
-					'#key':"|E",
-					'#map@set':{
-						'-Posts':{
-							'|EtoI':{
-								'ParentingTriggerVariable':
-								[
-									'<->/^/^/|I/-PreConnections'
-								]
-							}
-						}
-					}
-				}
-			]	
-		]
+	).get(
+	'/-Children/|Aurelie/-GrandChildren/|Loup'
 	).get('?v')
 
 #print
 print('MyParenter is ')
-SYS._print(MyParenter)
+SYS._print(MyParenter['/-Children/|Aurelie/-GrandChildren/|Loup'].ParentedTotalSingularTeamOrderedDict.keys())
 

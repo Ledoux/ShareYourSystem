@@ -31,6 +31,7 @@ class ClasserClass(BaseClass):
 	def default_init(self,	
 						_ClassingSwitchMethodStrsList=None,	
 						_ClassingWatchMethodStrsList=None,
+						_ClassingStructureVariable=None,
 						**_KwargVariablesDict
 				):
 		
@@ -223,5 +224,70 @@ class ClasserClass(BaseClass):
 					),
 				ClassedPropertyKeyStrsList
 			)
+
+		#/###################/#
+		# Set maybe a structure 
+		#
+
+		#Check
+		if self.ClassingStructureVariable!=None:
+
+			#Check
+			if hasattr(
+					self.ClassingStructureVariable,'items'
+				):
+				ClassedStructureVariable=self.ClassingStructureVariable.items()
+			else:
+				ClassedStructureVariable=self.ClassingStructureVariable
+
+
+			#debug
+			'''
+			print('Classer l 241')
+			print('We structure here')
+			print('self.ClassingStructureVariable is ')
+			print(self.ClassingStructureVariable)
+			print('')
+			'''
+
+			#map add the sing plurals
+			map(
+				lambda __ItemTuple:
+				SYS.addSingPlural(
+					*__ItemTuple
+				),
+				ClassedStructureVariable
+			)
+
+			#Define a class
+			class StructureClass(SYS.StructurerClass):pass
+			StructureClass.__name__=SYS.getClassStrWithNameStr(self.DoClass.NameStr+'sStructurer')
+			StructureClass.ManagingValueClass=self.DoClass
+
+			#set
+			setattr(
+				self.Module,
+				StructureClass.__name__,
+				StructureClass
+			)
+
+			#dict
+			ClassesDict=dict(
+					map(
+						lambda __ItemTuple:
+						(__ItemTuple[1],StructureClass),
+						ClassedStructureVariable
+					)
+				)
+
+			#map
+			if self.DoClass.TeamingClassesDict==None:
+				self.DoClass.TeamingClassesDict=ClassesDict
+			else:
+				self.DoClass.TeamingClassesDict.update(
+					ClassesDict
+				)
+
+
 #</DefineClass>
 

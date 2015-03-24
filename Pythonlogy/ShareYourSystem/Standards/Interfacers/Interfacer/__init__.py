@@ -37,6 +37,9 @@ class InterfacerClass(object):
 		#Call the parent __init__ method
 		object.__init__(self,**_KwargVariablesDict)
 
+		#Add to the IdDict
+		SYS.IdDict[id(self)]=self
+
 	def do_interface(self,**_KwargVariablesDict):
 
 		pass

@@ -13,7 +13,7 @@
 #<DefineAugmentation>
 import ShareYourSystem as SYS
 import types
-BaseModuleStr="ShareYourSystem.Standards.Controllers.Systemer"
+BaseModuleStr="ShareYourSystem.Standards.Viewers.Pyploter"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 SYS.addDo('Predicter','Predict','Predicting','Predicted')
@@ -149,6 +149,7 @@ class PredicterClass(BaseClass):
 		)/(self.PredictingUnitsInt**self.PredictingNormalisationInt)
 		
 		#debug
+		'''
 		self.debug(
 			[
 				'We have setted the PredictedExactDecoderWeigthFloatsArray',
@@ -159,6 +160,7 @@ class PredicterClass(BaseClass):
 				])
 			]
 		)
+		'''
 
 		#find the null space
 		self.PredictedNullFloatsArray=getNullFloatsArray(

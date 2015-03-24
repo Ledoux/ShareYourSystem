@@ -415,6 +415,9 @@ ShareYourSystem/Standards/Interfacers/Interfacer/00_ExampleDoc.md
 ShareYourSystem/Standards/Interfacers/Interfacer/01_ExampleDoc.py
 ShareYourSystem/Standards/Interfacers/Interfacer/Readme.md
 ShareYourSystem/Standards/Interfacers/Interfacer/__init__.py
+ShareYourSystem/Standards/Interfacers/Numscipyer/00_ExampleCell.md
+ShareYourSystem/Standards/Interfacers/Numscipyer/01_ExampleCell.py
+ShareYourSystem/Standards/Interfacers/Numscipyer/__init__.py
 ShareYourSystem/Standards/Interfacers/Printer/001_DocumentDoc.md
 ShareYourSystem/Standards/Interfacers/Printer/002_GithubDoc.md
 ShareYourSystem/Standards/Interfacers/Printer/00_ExampleDoc.md
@@ -585,6 +588,8 @@ ShareYourSystem/Standards/Itemizers/Networker/00_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Networker/01_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Networker/02_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Networker/03_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Networker/04_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Networker/05_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Networker/__init__.py
 ShareYourSystem/Standards/Itemizers/Parenter/00_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Parenter/01_ExampleDoc.py
@@ -729,6 +734,13 @@ ShareYourSystem/Standards/Itemizers/Setter/Test.py
 ShareYourSystem/Standards/Itemizers/Setter/__init__.py
 ShareYourSystem/Standards/Itemizers/Setter/draft/08_ExampleDoc copy.md
 ShareYourSystem/Standards/Itemizers/Setter/draft/__init__ copy 2.py
+ShareYourSystem/Standards/Itemizers/Structurer/00_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Structurer/01_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Structurer/02_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Structurer/03_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Structurer/04_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Structurer/05_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Structurer/__init__.py
 ShareYourSystem/Standards/Itemizers/Teamer/001_DocumentDoc.md
 ShareYourSystem/Standards/Itemizers/Teamer/00_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Teamer/01_ExampleDoc.py
@@ -887,18 +899,8 @@ ShareYourSystem/Standards/Recorders/Brianer/draft/05_ExampleDoc.py
 ShareYourSystem/Standards/Recorders/Brianer/draft/06_ExampleDoc.md
 ShareYourSystem/Standards/Recorders/Brianer/draft/07_ExampleDoc.py
 ShareYourSystem/Standards/Recorders/Brianer/draft/__init__ copy 2.py
-ShareYourSystem/Standards/Recorders/Matrixer/00_ExampleCell.md
-ShareYourSystem/Standards/Recorders/Matrixer/01_ExampleCell.py
-ShareYourSystem/Standards/Recorders/Matrixer/__init__.py
-ShareYourSystem/Standards/Recorders/Moniter/001_DocumentDoc.md
-ShareYourSystem/Standards/Recorders/Moniter/002_GithubDoc.md
-ShareYourSystem/Standards/Recorders/Moniter/00_ExampleCell.md
-ShareYourSystem/Standards/Recorders/Moniter/01_ExampleCell.py
-ShareYourSystem/Standards/Recorders/Moniter/02_ExampleCell.md
-ShareYourSystem/Standards/Recorders/Moniter/03_ExampleCell.py
-ShareYourSystem/Standards/Recorders/Moniter/Readme.md
-ShareYourSystem/Standards/Recorders/Moniter/__init__.py
-ShareYourSystem/Standards/Recorders/Moniter/draft/00_ExampleCell copy.md
+ShareYourSystem/Standards/Recorders/Brianer/draft/__init__ copy 3.py
+ShareYourSystem/Standards/Recorders/Brianer/draft/__init__ copy 4.py
 ShareYourSystem/Standards/Recorders/Recorder/001_DocumentDoc.md
 ShareYourSystem/Standards/Recorders/Recorder/01_ExampleCell.py
 ShareYourSystem/Standards/Recorders/Recorder/Readme.md
@@ -907,15 +909,6 @@ ShareYourSystem/Standards/Recorders/Simulater/001_DocumentDoc.md
 ShareYourSystem/Standards/Recorders/Simulater/01_ExampleCell.py
 ShareYourSystem/Standards/Recorders/Simulater/Readme.md
 ShareYourSystem/Standards/Recorders/Simulater/__init__.py
-ShareYourSystem/Standards/Recorders/Tracer/001_DocumentDoc.md
-ShareYourSystem/Standards/Recorders/Tracer/002_GithubDoc.md
-ShareYourSystem/Standards/Recorders/Tracer/00_ExampleCell.md
-ShareYourSystem/Standards/Recorders/Tracer/01_ExampleCell.py
-ShareYourSystem/Standards/Recorders/Tracer/02_ExampleCell.md
-ShareYourSystem/Standards/Recorders/Tracer/03_ExampleCell.py
-ShareYourSystem/Standards/Recorders/Tracer/Readme.md
-ShareYourSystem/Standards/Recorders/Tracer/__init__.py
-ShareYourSystem/Standards/Recorders/Tracer/draft/00_ExampleCell copy.md
 ShareYourSystem/Standards/Tutorials/00_ExampleDoc.md
 ShareYourSystem/Standards/Tutorials/01_ExampleDoc.py
 ShareYourSystem/Standards/Tutorials/Readme.md
@@ -943,34 +936,26 @@ ShareYourSystem/Standards/Tutorials/_Drafts/Distance/Readme.md
 ShareYourSystem/Standards/Tutorials/_Drafts/Distance/Test.py
 ShareYourSystem/Standards/Tutorials/_Drafts/Distance/__init__.py
 ShareYourSystem/Standards/Viewers/__init__.py
-ShareYourSystem/Standards/Viewers/Axer/01_ExampleCell.py
-ShareYourSystem/Standards/Viewers/Axer/__init__.py
 ShareYourSystem/Standards/Viewers/Boxer/00_ExampleDoc.md
 ShareYourSystem/Standards/Viewers/Boxer/01_ExampleDoc.py
 ShareYourSystem/Standards/Viewers/Boxer/__init__.py
-ShareYourSystem/Standards/Viewers/Figurer/00_ExampleDoc.md
-ShareYourSystem/Standards/Viewers/Figurer/01_ExampleDoc.py
-ShareYourSystem/Standards/Viewers/Figurer/02_ExampleDoc.md
-ShareYourSystem/Standards/Viewers/Figurer/03_ExampleDoc.py
-ShareYourSystem/Standards/Viewers/Figurer/04_ExampleDoc.md
-ShareYourSystem/Standards/Viewers/Figurer/05_ExampleDoc.py
-ShareYourSystem/Standards/Viewers/Figurer/__init__.py
-ShareYourSystem/Standards/Viewers/Figurer/draft/__init__ copy 2.py
-ShareYourSystem/Standards/Viewers/Figurer/draft/__init__ copy 3.py
-ShareYourSystem/Standards/Viewers/Figurer/draft/__init__ copy 4.py
-ShareYourSystem/Standards/Viewers/Paneler/01_ExampleCell.py
-ShareYourSystem/Standards/Viewers/Paneler/__init__.py
-ShareYourSystem/Standards/Viewers/Ploter/01_ExampleCell.py
-ShareYourSystem/Standards/Viewers/Ploter/ProcessTemp.sh
-ShareYourSystem/Standards/Viewers/Ploter/ProcessTemp.txt
-ShareYourSystem/Standards/Viewers/Ploter/__init__.py
 ShareYourSystem/Standards/Viewers/Pyploter/00_ExampleDoc.md
 ShareYourSystem/Standards/Viewers/Pyploter/01_ExampleDoc.py
 ShareYourSystem/Standards/Viewers/Pyploter/02_ExampleDoc.md
 ShareYourSystem/Standards/Viewers/Pyploter/03_ExampleDoc.py
 ShareYourSystem/Standards/Viewers/Pyploter/04_ExampleDoc.md
 ShareYourSystem/Standards/Viewers/Pyploter/05_ExampleDoc.py
+ShareYourSystem/Standards/Viewers/Pyploter/06_ExampleDoc.md
+ShareYourSystem/Standards/Viewers/Pyploter/07_ExampleDoc.py
+ShareYourSystem/Standards/Viewers/Pyploter/08_ExampleDoc.md
+ShareYourSystem/Standards/Viewers/Pyploter/09_ExampleDoc.py
+ShareYourSystem/Standards/Viewers/Pyploter/10_ExampleDoc.md
+ShareYourSystem/Standards/Viewers/Pyploter/11_ExampleDoc.py
 ShareYourSystem/Standards/Viewers/Pyploter/__init__.py
+ShareYourSystem/Standards/Viewers/Pyploter/draft/02_ExampleDoc.md
+ShareYourSystem/Standards/Viewers/Pyploter/draft/03_ExampleDoc.py
+ShareYourSystem/Standards/Viewers/Pyploter/draft/04_ExampleDoc.md
+ShareYourSystem/Standards/Viewers/Pyploter/draft/05_ExampleDoc.py
 ShareYourSystem/Standards/Viewers/Pyploter/draft/__init__ copy 2.py
 ShareYourSystem/Standards/Viewers/Pyploter/draft/__init__ copy 3.py
 ShareYourSystem/Standards/Viewers/Pyploter/draft/__init__ copy 4.py
@@ -980,5 +965,3 @@ ShareYourSystem/Standards/Viewers/Texter/__init__.py
 ShareYourSystem/Standards/Viewers/Viewer/00_ExampleDoc.md
 ShareYourSystem/Standards/Viewers/Viewer/01_ExampleDoc.py
 ShareYourSystem/Standards/Viewers/Viewer/__init__.py
-ShareYourSystem/Standards/Viewers/_Pyploter/01_ExampleCell.py
-ShareYourSystem/Standards/Viewers/_Pyploter/__init__.py

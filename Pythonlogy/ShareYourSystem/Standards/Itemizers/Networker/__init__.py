@@ -66,6 +66,77 @@ class NetworkerClass(BaseClass):
 			)
 		'''
 		
+		#/###################/#
+		# Set the structure if not already
+		#
+
+
+		#Debug
+		'''
+		print('We setNetwork')
+		print('')
+		'''
+		
+		#map add the sing plurals
+		map(
+			lambda __ItemTuple:
+			SYS.addSingPlural(
+				*__ItemTuple
+			),
+			_SingPluralVariable
+		)
+
+		#Define a class
+		class NetworkClass(NetworkerClass):pass
+		NetworkClass.__name__=_Class.NameStr+'s'
+		NetworkClass.ManagingValueClass=_Class
+
+		#set
+		setattr(
+			_Class.Module,
+			NetworkClass.__name__,
+			NetworkClass
+		)
+
+		#dict
+		ClassesDict=dict(
+				map(
+					lambda __ItemTuple:
+					(__ItemTuple[1],NetworkClass),
+					_SingPluralVariable
+				)
+			)
+
+		#map
+		if _Class.TeamingClassesDict==None:
+			_Class.TeamingClassesDict=ClassesDict
+		else:
+			_Class.TeamingClassesDict.update(
+				ClassesDict
+			)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		#/##################/#
 		# prepare the Net teams
 		#
@@ -184,7 +255,7 @@ class NetworkerClass(BaseClass):
 			[
 				'We have parented',
 				('self.',self,[
-						#'ParentedDeriveTeamersList',
+						#'ParentedTotalDeriveTeamersList',
 						'NetworkTargetStr'
 					]),
 				'Now find the NetworkDeriveNetworkerVariable that has the NetworkTagStr',
@@ -194,7 +265,7 @@ class NetworkerClass(BaseClass):
 		'''
 
 		#Check
-		if len(self.ParentedDeriveTeamersList)>0:
+		if len(self.ParentedTotalDeriveTeamersList)>0:
 
 			#index
 			try:
@@ -206,15 +277,15 @@ class NetworkerClass(BaseClass):
 							__ParentedDeriveTeamer,
 							'NetworkTargetStr'
 						) and __ParentedDeriveTeamer.NetworkTagStr==self.NetworkTargetStr,
-						self.ParentedDeriveTeamersList
+						self.ParentedTotalDeriveTeamersList
 					).index(True)
 
 				#set
-				self.NetworkDeriveNetworkerVariable=self.ParentedDeriveTeamersList[IndexInt]
+				self.NetworkDeriveNetworkerVariable=self.ParentedTotalDeriveTeamersList[IndexInt]
 
 			except:
 
-				IndexInt=len(self.ParentedDeriveTeamersList)
+				IndexInt=len(self.ParentedTotalDeriveTeamersList)
 			
 		#debug
 		'''
@@ -398,6 +469,7 @@ class NetworkerClass(BaseClass):
 #set
 Pointer.PointerClass.ManagingValueClass=NetworkerClass
 SYS.ParenterClass.ManagingValueClass=NetworkerClass
+
 
 #</DefineLocals>
 

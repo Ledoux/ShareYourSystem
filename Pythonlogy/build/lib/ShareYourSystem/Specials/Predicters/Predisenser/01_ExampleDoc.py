@@ -40,9 +40,10 @@ MyPredisenser=SYS.PredisenserClass(
 		0.5,
 		#PredisensingMonitorIntsList
 		[0]
-	).draw(
-	).show(
+	).view(
+	).pyplot(
 	)
+SYS.matplotlib.pyplot.show()
 
 #print
 print('MyPredisenser is')

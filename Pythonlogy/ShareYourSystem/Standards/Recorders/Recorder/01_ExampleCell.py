@@ -6,9 +6,9 @@ import ShareYourSystem as SYS
 MyRecorder=SYS.RecorderClass(
 	).mapSet(
 		{
-			''
+			'MyArray':SYS.numpy.array([4.,5.,8.]),
 			'-Traces':{
-				'|*v':{
+				'|*MyArray':{
 				}
 			},
 			'-Events':{
@@ -21,5 +21,9 @@ MyRecorder=SYS.RecorderClass(
 #Definition the AttestedStr
 print('MyRecorder is ')
 SYS._print(MyRecorder)
+
+#print
+print("MyRecorder['/-Traces/|*MyArray'].RecordedInitFloatsArray is ")
+print(MyRecorder['/-Traces/|*MyArray'].RecordedInitFloatsArray)
 
 

@@ -6,7 +6,7 @@ import ShareYourSystem as SYS
 MyParenter=SYS.ParenterClass(
 	).array(
 		[
-			['-Points'],
+			['-Connections'],
 			['|_^_|E','|_^_|I']
 		],
 		[

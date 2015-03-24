@@ -6,16 +6,29 @@ import ShareYourSystem as SYS
 MyPyploter=SYS.PyploterClass(
 	).mapSet(
 		{
-			'#plot':{
-				'#liarg':[
-					[1,2,3],
-					[2,6,3]
-				],
-				'#kwarg':{
-					'linestyle':"--"
+			#'#plot':{
+			#	'#liarg':[
+			#		[1,2,3],
+			#		[2,6,3]
+			#	],
+			#	'#kwarg':{
+			#		'linestyle':"--"
+			#	}
+			#},
+			'PyplotingDrawVariable':
+			{
+				'plot':{
+					'#liarg':[
+						[1,2,3],
+						[2,6,3]
+					],
+					'#kwarg':{
+						'linestyle':"--"
+					}
 				}
 			}
 		}
+	).pyplot(
 	)
 
 #print
