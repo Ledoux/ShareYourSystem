@@ -143,11 +143,14 @@ class InserterClass(
 					self.InsertedMongoNotRowPickOrderedDict.update(
 						zip(
 								self.InsertedNotRowKeyStrsList,
-								self.ModelDeriveControllerVariable[
-									Getter.GetMapStr
-								](
-									*self.InsertedNotRowKeyStrsList
-								).ItemizedMapValueVariablesList
+								#self.ModeledParentControllerDeriveModelerVariable[
+								#	Getter.GetMapStr
+								#](
+								#	*self.InsertedNotRowKeyStrsList
+								#).ItemizedMapValueVariablesList
+								self.ModeledParentControllerDeriveModelerVariable.mapGet(
+									self.InsertedNotRowKeyStrsList
+								)
 							)
 					)
 
@@ -250,7 +253,7 @@ class InserterClass(
 					self.InsertedHdfNotRowPickOrderedDict.update(
 						zip(
 								self.InsertedNotRowKeyStrsList,
-								self.ModelDeriveControllerVariable[
+								self.ModeledParentControllerDeriveModelerVariable[
 									Getter.GetMapStr
 								](
 									*self.InsertedNotRowKeyStrsList
@@ -381,7 +384,7 @@ class InserterClass(
 							#Definition the InsertedOldDimensionIntsListsList
 							InsertedOldDimensionIntsList=map(
 									lambda __ModeledDescriptionDimensionGetKeyStrsList:
-									self.ModelDeriveControllerVariable[Getter.GetMapStr](
+									self.ModeledParentControllerDeriveModelerVariable[Getter.GetMapStr](
 										__ModeledDescriptionDimensionGetKeyStrsList
 									).ItemizedMapValueVariablesList,
 									self.ModeledDescriptionDimensionGetKeyStrsListsList
@@ -395,7 +398,7 @@ class InserterClass(
 								lambda __ModeledDescriptionGetKeyStr:
 								list(
 										np.shape(
-											self.ModelDeriveControllerVariable[
+											self.ModeledParentControllerDeriveModelerVariable[
 												__ModeledDescriptionGetKeyStr
 											]
 										)
@@ -422,7 +425,7 @@ class InserterClass(
 							#set the shaping attributes to their new values
 							map(
 									lambda __ModeledDescriptionDimensionGetKeyStrsList,__InsertedOldDimensionList,__InsertedNewDimensionList:
-									self.ModelDeriveControllerVariable[
+									self.ModeledParentControllerDeriveModelerVariable[
 											Setter.SetMapStr
 										](
 										zip(

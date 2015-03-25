@@ -2,18 +2,17 @@
 import ShareYourSystem as SYS
 
 #Definition 
-MyController=SYS.ControllerClass(
+MyModeler=SYS.ModelerClass(
 		**{
 			'FolderingPathStr':SYS.Modeler.LocalFolderPathStr,
 			'PymongoingDatabaseStr':"Thing"
 		}
-	).set(
-		'/-Models/|Thing',
-	).get('?v')
+	).model(
+	)
 
 #Build a structure with a database
 SYS.mapSet(
-		MyController['/-Models/|Thing'].ModeledMongoCollection,
+		MyModeler.ModeledMongoCollection,
 		[
 			('remove',{}),
 			('insert',{'MyStr':"hello"})
@@ -21,11 +20,11 @@ SYS.mapSet(
 )
 
 #print
-print('mongo db is : \n'+SYS._str(MyController.pymongoview()))
+print('mongo db is : \n'+SYS._str(MyModeler.pymongoview()))
 
 #print
-print('MyController is ')
-SYS._print(MyController)
+print('MyModeler is ')
+SYS._print(MyModeler)
 
 #kill
-MyController.process(_ActionStr='kill')
+MyModeler.process(_ActionStr='kill')

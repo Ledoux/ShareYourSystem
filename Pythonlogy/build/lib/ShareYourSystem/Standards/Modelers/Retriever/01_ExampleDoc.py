@@ -3,14 +3,10 @@
 import ShareYourSystem as SYS
 
 #Definition 
-MyController=SYS.ControllerClass(
+MyRetriever=SYS.RetrieverClass(
 		**{
 			'FolderingPathStr':SYS.Retriever.LocalFolderPathStr,
-			'ControllingModelClassVariable':SYS.RetrieverClass
-		}
-	).set(
-		'/-Models/|Thing',
-		{
+			'PymongoingDatabaseStr':"Thing",
 			'ModelKeyStrsList':[
 				'MyInt',
 				'MyStr',
@@ -21,41 +17,32 @@ MyController=SYS.ControllerClass(
 				'MyStr'
 			]
 		}
-	)['#map@set'](
+	).model(
+	).mapSet(
 		{
 			'MyInt':0,
 			'MyStr':"hello",
 			'MyIntsList':[2,4,1]
 		}
-	).command(
-		'/-Models/|Thing',
-		'#call:insert'
-	)['#map@set'](
+	).insert(
+	).mapSet(
 		{
-			'MyInt':0,
+			'MyInt':5,
 			'MyStr':"bonjour",
 			'MyIntsList':[0,0,0]
 		}
-	).command(
-		'/-Models/|Thing',
-		[
-			'#call:insert',
-			(
-				'retrieve',
-				[
-					#RetrievingIndexesList
-					(0,0)
-				]
-			)
-		]
+	).insert(
+	).retrieve(
+		#RetrievingIndexIntsList
+		[0,0]	
 	)
 		
 #Definition the AttestedStr
-print('MyController is ')
-SYS._print(MyController) 
+print('MyRetriever is ')
+SYS._print(MyRetriever) 
 
 #print
-print('mongo db is : \n'+SYS._str(MyController.pymongoview()))
+print('mongo db is : \n'+SYS._str(MyRetriever.pymongoview()))
 
 #Print
-MyController.file(_ModeStr='c')
+MyRetriever.file(_ModeStr='c')

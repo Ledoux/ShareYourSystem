@@ -3,14 +3,10 @@
 import ShareYourSystem as SYS
 
 #Define config
-MyController=SYS.ControllerClass(
+MyInserter=SYS.InserterClass(
 		**{
 			'FolderingPathStr':SYS.Inserter.LocalFolderPathStr,
-			'HdformatingFileKeyStr':'ThingAndStuff.hdf5'
-		}
-	).set(
-		'/-Models/|Thing',
-		{
+			'HdformatingFileKeyStr':'ThingAndStuff.hdf5',
 			'ModelingDescriptionTuplesList':
 			[
 				#GetStr #ColumnStr #Col
@@ -22,36 +18,30 @@ MyController=SYS.ControllerClass(
 					'MyIntsList'
 			]	
 		}
-	).get('?v')
-
-#insert
-MyController['#map@set'](
+	).model(
+	).mapSet(
 		{
 			'MyStr':"hello",
 			'MyIntsList':[2,4,1]
 		}
-	).command(
-		'/-Models/|Thing',
-		'#call:insert'
-	)['#map@set'](
+	).insert(
+	).mapSet(
 		{
 			'MyStr':"bonjour",
 			'MyIntsList':[0,0,1]
 		}
-	).command(
-		'/-Models/|Thing',
-		'#call:insert'
+	).insert(
 	)
 
 #print
-print('MyController is ')
-SYS._print(MyController)
+print('MyInserter is ')
+SYS._print(MyInserter)
 
 #view
-print('hdf5 file is : \n'+SYS._str(MyController.hdfview()))
+print('hdf5 file is : \n'+SYS._str(MyInserter.hdfview()))
 
 #close
-MyController.file(_ModeStr='c')
+MyInserter.file(_ModeStr='c')
 
 
 

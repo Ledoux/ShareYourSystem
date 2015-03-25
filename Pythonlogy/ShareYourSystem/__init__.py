@@ -2228,6 +2228,29 @@ class InspectDict(collections.OrderedDict):
 					('FunctionNameStr',_Function.__name__)
 				]
 			)
+
+def getTickFloatsArray(_LimList,_SampleFloat):
+
+	#import
+	import numpy
+
+	#Debug
+	'''
+	print('getTickFloatsArray l 64')
+	print('_LimList is')
+	print(_LimList)
+	print('_SampleFloat is ')
+	print(_SampleFloat)
+	print('')
+	'''
+	
+	#return
+	return numpy.array(list(numpy.arange(
+		_LimList[0],
+		_LimList[1],
+		(_LimList[1]-_LimList[0])/float(_SampleFloat)
+	))+[_LimList[1]])
+
 #</DefineLocals>
 
 #<DefineClass>

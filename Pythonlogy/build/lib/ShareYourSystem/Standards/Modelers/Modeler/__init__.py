@@ -16,7 +16,7 @@ types in the databased structures.
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Itemizers.Pointer"
+BaseModuleStr="ShareYourSystem.Standards.Interfacers.Hdformater"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -46,7 +46,11 @@ ModelDimensionStr='_'
 
 #<DefineClass>
 @DecorationClass(**{
-	'ClassingSwitchMethodStrsList':["model"]
+	'ClassingSwitchMethodStrsList':["model"],
+	'ClassingStructureVariable':[
+		('Model','Models'),
+		('Component','Components')
+	]
 })
 class ModelerClass(BaseClass):
 	
@@ -57,8 +61,7 @@ class ModelerClass(BaseClass):
 						'PropertyInitVariable':[],
 						'PropertyDocStr':'I say what has to be stored'
 					},
-					_ModelDeriveControllerVariable=None,
-					_ModelTagStr="",
+					_ModelTagStr="Model",
 					_ModelingDescriptionTuplesList={
 						'DefaultValueType':property,
 						'PropertyInitVariable':[],
@@ -66,10 +69,11 @@ class ModelerClass(BaseClass):
 					}, 		
 					_ModelMongoBool=True,
 					_ModelHdfBool=False,
-					_ModelDescriptionTuplesList=None,						
+					_ModelDescriptionTuplesList=None,
+					_ModeledParentSingularStr="",	
+					_ModeledParentControllerDeriveModelerVariable=None,					
 					_ModeledDescriptionClassesOrderedDict=None,																
 					_ModeledDescriptionClass=None,
-					_ModeledMongoDeriveNoderVariable=None,
 					_ModeledHdfGroupVariable=None,
 					_ModeledMongoTopClientVariable=None,
 					_ModeledMongoLocalDatabaseVariable=None,
@@ -103,19 +107,162 @@ class ModelerClass(BaseClass):
 	def do_model(self):
 		""" """
 
-		#Debug
+		#/#################/#
+		# Determine if it is an inside structure or the top
+		#
+
+		#debug
 		'''
+		self.debug(
+			[
+				'We model here',
+				'First look for deeper teams in the structure',
+			]
+		)
+		'''
+
+		#Check
+		if self.ParentedTotalSingularListDict!=None and len(self.ParentedTotalSingularListDict)>0:
+
+			#debug
+			'''
+			self.debug(
+				[
+					'self.ParentedTotalSingularListDict.keys() is ',
+					str(self.ParentedTotalSingularListDict.keys())
+				]
+			)
+			'''
+
+			#get
+			self.ModeledParentSingularStr=self.ParentedTotalSingularListDict.keys()[0]
+
+		#debug
+		self.debug(
+			[
+				'Ok',
+				('self.',self,['ModeledParentSingularStr'])
+			]
+		)
+
+		#/###############/#
+		# Cases depending on the level
+		#
+
+		#Check
+		if (self.ParentDeriveTeamerVariable==None or 'Models' in self.TeamDict or self.ParentDeriveTeamerVariable.TeamTagStr not in [
+			'Models'
+		]):
+
+
+			#/###############/#
+			# It is the top 
+			#
+
+			#debug
+			self.debug(
+					[
+						'Controller Level',
+					]
+				)
+
+			#/###############/#
+			# Determine the parent
+			#
+
+			#Check
+			if 'Models' in self.TeamDict:
+
+				#set
+				self.ModeledParentControllerDeriveModelerVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
+
+			else:
+
+				#debug
+				self.debug(
+					[
+						'It is a special one level model'
+					]
+				)
+
+				#set
+				self.ModeledParentControllerDeriveModelerVariable=self
+
+				#/###############/#
+				# SetModel
+				#
+
+				#set
+				self.setModel()
+
+			#/###############/#
+			# structure
+			#
+
+			#structure
+			self.structure(
+				[
+					'Models',
+					'Components'
+				],
+				_DoStr='Model'
+			)
+
+		elif self.ModeledParentSingularStr=='Models':
+
+			#debug
+			self.debug(
+					[
+						'Model Level',
+					]
+				)
+
+			#/###############/#
+			# Determine the parent
+			#
+
+			#set
+			self.ModeledParentControllerDeriveModelerVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
+
+			#/###############/#
+			# SetModel
+			#
+
+			#set
+			self.setModel()
+
+
+
+	def setModel(self):
+
+		#Debug
 		self.debug(
 				[
 					'model start',
+					'Determine if it is going to be mongo or hdf'
+				]
+			)
+		
+		#/###################/#
+		# Determine if it is Mongo or Hdf
+		#
+
+		#Check
+		if self.ModeledParentControllerDeriveModelerVariable.HdformatingFileKeyStr!="":
+			self.ModelMongoBool=False
+			self.ModelHdfBool=True
+
+		#Debug
+		self.debug(
+				[
+					'Ok we now what database to use',
 					('self.',self,[
 						'ModelMongoBool',
 						'ModelHdfBool'
 					])
 				]
 			)
-		'''
-		
+
 		#/###################/#
 		# Mongo Case
 		#
@@ -147,7 +294,7 @@ class ModelerClass(BaseClass):
 			'''
 
 			#Check
-			if self.ModelDeriveControllerVariable.PymongoneClientVariable==None:
+			if self.ModeledParentControllerDeriveModelerVariable.PymongoneClientVariable==None:
 
 				#debug
 				'''
@@ -155,10 +302,10 @@ class ModelerClass(BaseClass):
 				'''
 
 				#pymongo
-				self.ModelDeriveControllerVariable.pymongo()
+				self.ModeledParentControllerDeriveModelerVariable.pymongo()
 
 			#Link
-			self.ModeledMongoTopClientVariable=self.ModelDeriveControllerVariable.PymongoneClientVariable
+			self.ModeledMongoTopClientVariable=self.ModeledParentControllerDeriveModelerVariable.PymongoneClientVariable
 			
 			#Check
 			if self.ModeledMongoTopClientVariable!=None:
@@ -180,18 +327,26 @@ class ModelerClass(BaseClass):
 				#
 
 				#Check
-				if self.ModelDeriveControllerVariable.PymongoingDatabaseStr=="":
+				if self.ModeledParentControllerDeriveModelerVariable.PymongoingDatabaseStr=="":
+
+					#Check
+					if self.ModeledParentControllerDeriveModelerVariable.ParentTagStr=="":
+
+						#set
+						self.ModeledMongoDatabaseKeyStr='Default'
+
+					else:
+		
+						#set
+						self.ModeledMongoDatabaseKeyStr=self.ModeledParentControllerDeriveModelerVariable.ParentTagStr
 
 					#set
-					self.ModeledMongoDatabaseKeyStr=self.ModelDeriveControllerVariable.ControlTagStr
-
-					#set
-					self.ModelDeriveControllerVariable.PymongoingDatabaseStr=self.ModeledMongoDatabaseKeyStr
+					self.ModeledParentControllerDeriveModelerVariable.PymongoingDatabaseStr=self.ModeledMongoDatabaseKeyStr
 
 				else:
 
 					#set
-					self.ModeledMongoDatabaseKeyStr=self.ModelDeriveControllerVariable.PymongoingDatabaseStr
+					self.ModeledMongoDatabaseKeyStr=self.ModeledParentControllerDeriveModelerVariable.PymongoingDatabaseStr
 
 				#set
 				self.ModeledMongoLocalDatabaseVariable=self.ModeledMongoTopClientVariable[
@@ -215,10 +370,10 @@ class ModelerClass(BaseClass):
 				#set
 				self.ModeledMongoLocalDatabaseVariable.__dict__[
 					'ParentDerivePymongoer'
-				]=self.ModelDeriveControllerVariable
+				]=self.ModeledParentControllerDeriveModelerVariable
 
 				#alias
-				self.ModelDeriveControllerVariable.Database=self.ModeledMongoLocalDatabaseVariable
+				self.ModeledParentControllerDeriveModelerVariable.Database=self.ModeledMongoLocalDatabaseVariable
 
 				#debug
 				'''
@@ -480,12 +635,21 @@ class ModelerClass(BaseClass):
 		#Check
 		if self.ModelHdfBool:
 
+			#/###################/#
+			# Check maybe the Description was not yet done although there are ModelKeystrs
+			#
+
+			#Check
+			if len(self._ModelKeyStrsList)>len(self.ModelingDescriptionTuplesList):
+
+				#bind
+				self.propertize_setModelKeyStrsList(self._ModelKeyStrsList)
+
 			#/################/#
 			# Model is to modify modeling description so keep an old version of this before
 			#
 
 			#debug
-			'''
 			self.debug(
 					[
 						'Keep maybe a copy of ModelingDescriptionTuplesList',
@@ -495,7 +659,6 @@ class ModelerClass(BaseClass):
 						])
 					]
 				)
-			'''
 
 			#keep a memory
 			if self.ModelDescriptionTuplesList==None:
@@ -510,14 +673,14 @@ class ModelerClass(BaseClass):
 			#
 
 			#debug
-			'''
 			self.debug(
 						[
 							'We model shape here',
-							("self.",self,['ModelDimensionTuplesList'])
+							("self.",self,[
+								'ModelDimensionTuplesList'
+							])
 						]
 					)
-			'''
 
 			#Check
 			if self.ModelDimensionTuplesList!=None and len(self.ModelDimensionTuplesList)>0:
@@ -565,7 +728,7 @@ class ModelerClass(BaseClass):
 						lambda __ModeledDescriptionDimensionGetKeyStrsList:
 						map(
 							lambda __ModeledDescriptionDimensionGetKeyStr,__ShapeInt:
-							self.ModelDeriveControllerVariable.set(
+							self.ModeledParentControllerDeriveModelerVariable.set(
 								__ModeledDescriptionDimensionGetKeyStr,
 								__ShapeInt+1 
 							)[__ModeledDescriptionDimensionGetKeyStr]
@@ -573,7 +736,7 @@ class ModelerClass(BaseClass):
 							__ModeledDescriptionDimensionGetKeyStrsList,
 							map(
 								lambda __ModeledDescriptionDimensionGetKeyStr:
-								self.ModelDeriveControllerVariable[
+								self.ModeledParentControllerDeriveModelerVariable[
 									__ModeledDescriptionDimensionGetKeyStr
 								],
 								__ModeledDescriptionDimensionGetKeyStrsList
@@ -587,7 +750,7 @@ class ModelerClass(BaseClass):
 				'''
 				self.ModeledDescriptionDimensionIntsListsList=map(
 						lambda __ModeledDescriptionDimensionGetKeyStrsList:
-						self.ModelDeriveControllerVariable[
+						self.ModeledParentControllerDeriveModelerVariable[
 							Getter.GetMapStr
 						](
 							*__ModeledDescriptionDimensionGetKeyStrsList
@@ -632,7 +795,10 @@ class ModelerClass(BaseClass):
 			#
 
 			#Definition
-			ModeledGetKeyStrsList=SYS.unzip(self.ModelingDescriptionTuplesList,[0])
+			ModeledGetKeyStrsList=SYS.unzip(
+				self.ModelingDescriptionTuplesList,
+				[0]
+			)
 
 			#set
 			self.ModeledShapeIndexIntsList=map(
@@ -656,7 +822,7 @@ class ModelerClass(BaseClass):
 			#
 
 			#Check
-			if self.ModelDeriveControllerVariable!=None:
+			if self.ModeledParentControllerDeriveModelerVariable!=None:
 
 				#debug
 				'''
@@ -691,7 +857,7 @@ class ModelerClass(BaseClass):
 				'''
 
 				#Pick
-				self.ModeledDimensionIntsList=self.ModelDeriveControllerVariable[
+				self.ModeledDimensionIntsList=self.ModeledParentControllerDeriveModelerVariable[
 					Getter.GetMapStr
 				](
 					*self.ModeledDimensionGetKeyStrsList
@@ -877,15 +1043,18 @@ class ModelerClass(BaseClass):
 			)
 			'''
 
+			"""
 			#/###################/#
 			# Check maybe the Description was not yet done although there are ModelKeystrs
 			#
 
+			#Check
 			if len(self._ModelKeyStrsList)>len(self.ModelingDescriptionTuplesList):
 
 				#bind
 				self.propertize_setModelKeyStrsList(self._ModelKeyStrsList)
-
+			"""
+			
 			#debug
 			'''
 			self.debug(
@@ -914,14 +1083,14 @@ class ModelerClass(BaseClass):
 				RowInt=tables.Int64Col()
 
 			#debug
-			'''
 			self.debug(
 				[
 					'We add descriptions in the description Class',
-					('self.',self,['ModelingDescriptionTuplesList'])
+					('self.',self,[
+						'ModelingDescriptionTuplesList'
+					])
 				]
 			)
-			'''
 
 			#set the cols in the ModelClass
 			map(
@@ -954,8 +1123,8 @@ class ModelerClass(BaseClass):
 			self.debug(
 				[
 					'We tabular for hdf here...',
-					'self.ModelDeriveControllerVariable.HdformatedFileVariable is ',
-					str(self.ModelDeriveControllerVariable.HdformatedFileVariable)
+					'self.ModeledParentControllerDeriveModelerVariable.HdformatedFileVariable is ',
+					str(self.ModeledParentControllerDeriveModelerVariable.HdformatedFileVariable)
 				]
 			)
 			'''
@@ -965,7 +1134,7 @@ class ModelerClass(BaseClass):
 				self.ModeledHdfSuffixStr=self.ModelTagStr+'Table'
 
 			#Check
-			if self.ModelDeriveControllerVariable.HdformatedFileVariable==None:
+			if self.ModeledParentControllerDeriveModelerVariable.HdformatedFileVariable==None:
 
 				#/##################/#
 				# If it is the top controller we have to hdformat
@@ -976,24 +1145,24 @@ class ModelerClass(BaseClass):
 				self.debug(
 						[
 							'Look if the controller is the top one',	
-							'self.ModelDeriveControllerVariable.ParentTopDeriveTeamerVariable==self.ModelDeriveControllerVariable',
-							str(self.ModelDeriveControllerVariable.ParentTopDeriveTeamerVariable==self.ModelDeriveControllerVariable)					
+							'self.ModeledParentControllerDeriveModelerVariable.ParentTopDeriveTeamerVariable==self.ModeledParentControllerDeriveModelerVariable',
+							str(self.ModeledParentControllerDeriveModelerVariable.ParentTopDeriveTeamerVariable==self.ModeledParentControllerDeriveModelerVariable)					
 						]
 					)
 				'''
 
 				#Check
-				if self.ModelDeriveControllerVariable.ParentTopDeriveTeamerVariable==self.ModelDeriveControllerVariable:
+				if self.ModeledParentControllerDeriveModelerVariable.ParentTopDeriveTeamerVariable==self.ModeledParentControllerDeriveModelerVariable:
 
 					#/##################/#
 					# Set a default name
 					#
 
 					#Check
-					if self.ModelDeriveControllerVariable.HdformatingFileKeyStr=='':
+					if self.ModeledParentControllerDeriveModelerVariable.HdformatingFileKeyStr=='':
 
 						#set
-						self.ModelDeriveControllerVariable.HdformatingFileKeyStr=self.ModelDeriveControllerVariable.ControlTagStr+'.hdf5'
+						self.ModeledParentControllerDeriveModelerVariable.HdformatingFileKeyStr=self.ModeledParentControllerDeriveModelerVariable.ControlTagStr+'.hdf5'
 
 
 					#/##################/#
@@ -1005,8 +1174,8 @@ class ModelerClass(BaseClass):
 					self.debug(
 						[
 							'We have to make hdformat the controller first...',
-							('self.ModelDeriveControllerVariable.',
-								self.ModelDeriveControllerVariable,
+							('self.ModeledParentControllerDeriveModelerVariable.',
+								self.ModeledParentControllerDeriveModelerVariable,
 							[
 								'ControlTagStr'
 							])
@@ -1015,15 +1184,15 @@ class ModelerClass(BaseClass):
 					'''
 
 					#Hdformat
-					self.ModelDeriveControllerVariable.hdformat()
+					self.ModeledParentControllerDeriveModelerVariable.hdformat()
 
 					#debug
 					'''
 					self.debug(
 						[
 							'Ok the top controller has hdformated',
-							('self.ModelDeriveControllerVariable.',
-								self.ModelDeriveControllerVariable,
+							('self.ModeledParentControllerDeriveModelerVariable.',
+								self.ModeledParentControllerDeriveModelerVariable,
 							[
 								'HdformatedFileVariable',
 								'ControlTagStr'
@@ -1040,7 +1209,7 @@ class ModelerClass(BaseClass):
 					#
 
 					#alias
-					self.ModelDeriveControllerVariable.HdformatedFileVariable=self.ParentTopDeriveTeamerVariable.HdformatedFileVariable
+					self.ModeledParentControllerDeriveModelerVariable.HdformatedFileVariable=self.ParentTopDeriveTeamerVariable.HdformatedFileVariable
 				
 			#/##################/#
 			# Set the group path str to trigger 
@@ -1056,7 +1225,7 @@ class ModelerClass(BaseClass):
 			'''
 
 			#Set
-			self.ModelDeriveControllerVariable.HdfGroupPathStr=self.ModelDeriveControllerVariable.ControlTagStr
+			self.ModeledParentControllerDeriveModelerVariable.HdfGroupPathStr=self.ModeledParentControllerDeriveModelerVariable.ModelTagStr
 
 			#debug
 			'''
@@ -1068,7 +1237,7 @@ class ModelerClass(BaseClass):
 			'''
 
 			#Link
-			self.ModeledHdfTopFileVariable=self.ModelDeriveControllerVariable.HdformatedFileVariable
+			self.ModeledHdfTopFileVariable=self.ModeledParentControllerDeriveModelerVariable.HdformatedFileVariable
 			
 			#debug
 			'''
@@ -1095,8 +1264,8 @@ class ModelerClass(BaseClass):
 					[	
 						'Looking for names of tables here',
 						(
-							'self.ModelDeriveControllerVariable.',
-							self.ModelDeriveControllerVariable,
+							'self.ModeledParentControllerDeriveModelerVariable.',
+							self.ModeledParentControllerDeriveModelerVariable,
 							['HdfGroupPathStr']
 						)
 					]
@@ -1105,7 +1274,7 @@ class ModelerClass(BaseClass):
 
 				#Definition Modeled attributes
 				self.ModeledHdfGroupVariable=self.ModeledHdfTopFileVariable.getNode(
-					self.ModelDeriveControllerVariable.HdfGroupPathStr
+					self.ModeledParentControllerDeriveModelerVariable.HdfGroupPathStr
 				)
 
 				#debug
@@ -1383,8 +1552,12 @@ class ModelerClass(BaseClass):
 					)
 			'''
 
-
 	def propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable):
+
+
+		#/#################/#
+		# Call the base method
+		#
 
 		#call the base method
 		BaseClass.propertize_setWatchAfterParentWithParenterBool(
@@ -1403,56 +1576,15 @@ class ModelerClass(BaseClass):
 		'''
 
 		#/#################/#
-		# Give some things from the controller
+		# Tag a name with the parent
 		#
-
-		#get the parent-parent Teamer
-		if self.ParentDeriveTeamerVariable!=None:
-			if self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable!=None:
-				self.ModelDeriveControllerVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
 
 		#Link set
 		self.ModelTagStr=self.ManagementTagStr+'Model'
 
-		#debug
-		'''
-		self.debug(
-				[
-					'We have setted the ModelDeriveControllerVariable',
-					('self.',self,[
-						#'ModelDeriveControllerVariable',
-						'ModelTagStr'
-					])
-				]
-			)
-		'''
 
 		#/#################/#
-		# Check if it is a hdf store
-		#
-
-		#Check
-		if self.ParentDeriveTeamerVariable.ParentTopDeriveTeamerVariable.HdformatingFileKeyStr!="":
-		
-			#set
-			self.ModelMongoBool=False
-			self.ModelHdfBool=True
-			
-		#debug
-		'''
-		self.debug(
-				[
-					'We have check which Mongo or hdf to do',
-					('self.',self,[
-							'ModelMongoBool',
-							'ModelHdfBool'
-						])
-				]
-			)
-		'''
-
-		#/#################/#
-		# Call the base method
+		# Call the model
 		#
 
 		#model
@@ -1474,14 +1606,15 @@ class ModelerClass(BaseClass):
 			)
 
 		#debug
-		'''
 		self.debug(
 			[
 				'We have binded ModelingDescriptionTuplesList to ModelKeyStrsList',
-				('self.',self,['ModelingDescriptionTuplesList'])
+				('self.',self,[
+					'ModelingDescriptionTuplesList'
+				]),
+				'Now set the dimensions'
 			]
 		)
-		'''
 
 		#/###################/#
 		# Look for items where it is a get dimension
@@ -1525,6 +1658,10 @@ class ModelerClass(BaseClass):
 				]
 			)
 		'''
+
+		#/###################/#
+		# Set ModelingDescriptionTuplesList
+		#
 
 		#Check
 		if self.ModelHdfBool:
@@ -1704,6 +1841,7 @@ Controller.ModelsClass.ManagingValueClass=ModelerClass
 ModelerClass.PrintingClassSkipKeyStrsList.extend(
 	[
 		#'ModelKeyStrsList',	
+		'ModelTagStr',
 		'ModelingDescriptionTuplesList', 
 		'_ModelingDescriptionTuplesList', 
 		'ModelMongoBool',
@@ -1711,8 +1849,8 @@ ModelerClass.PrintingClassSkipKeyStrsList.extend(
 		'ModelDescriptionTuplesList',						
 		'ModeledDescriptionClassesOrderedDict',																
 		#'ModeledDescriptionClass', 													
-		'ModelDeriveControllerVariable',
-		'ModeledMongoDeriveNoderVariable',	
+		'ModeledParentControllerDeriveModelerVariable',
+		'ModeledParentSingularStr',	
 		'ModeledHdfGroupVariable', 
 		'ModeledHdfTopFileVariable',
 		'ModeledMongoTopClientVariable',

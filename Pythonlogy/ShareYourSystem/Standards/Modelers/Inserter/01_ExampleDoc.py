@@ -3,14 +3,10 @@
 import ShareYourSystem as SYS
 
 #Definition 
-MyController=SYS.ControllerClass(
+MyInserter=SYS.InserterClass(
 		**{
 			'FolderingPathStr':SYS.Inserter.LocalFolderPathStr,
-			'PymongoingDatabaseStr':"Thing"
-		}
-	).set(
-		'/-Models/|Thing',
-		{
+			'PymongoingDatabaseStr':"Thing",
 			'ModelKeyStrsList':[
 				'MyInt',
 				'MyStr',
@@ -21,36 +17,32 @@ MyController=SYS.ControllerClass(
 				'MyStr'
 			]
 		}
-	).get('?v'
-	)['#map@set'](
+	).model(
+	).mapSet(
 		{
 			'MyInt':0,
 			'MyStr':"hello",
 			'MyIntsList':[2,4,1]
 		}
-	).command(
-		'/-Models/|Thing',
-		'#call:insert'
-	)['#map@set'](
+	).insert(
+	).mapSet(
 		{
 			'MyInt':5,
 			'MyStr':"bonjour",
 			'MyIntsList':[0,0,1]
 		}
-	).command(
-		'/-Models/|Thing',
-		'#call:insert'
+	).insert(
 	)
 	
 #print
-print('mongo db is : \n'+SYS._str(MyController.pymongoview()))
+print('mongo db is : \n'+SYS._str(MyInserter.pymongoview()))
 
 #print
-print('MyController is ')
-SYS._print(MyController)
+print('MyInserter is ')
+SYS._print(MyInserter)
 
 #Print
-MyController.process(_ActionStr='kill')
+MyInserter.process(_ActionStr='kill')
 
 
 

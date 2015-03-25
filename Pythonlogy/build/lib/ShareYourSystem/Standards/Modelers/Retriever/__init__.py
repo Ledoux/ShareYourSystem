@@ -61,10 +61,6 @@ class RetrieverClass(BaseClass):
 				)
 		'''
 
-		#Check
-		if len(self.ModelingDescriptionTuplesList)>0:
-			self.ModelMongoBool='hdf'
-
 		#debug
 		'''
 		self.debug(
@@ -203,7 +199,7 @@ class RetrieverClass(BaseClass):
 
 		#Update
 		"""
-		self.ModelDeriveControllerVariable[
+		self.ModeledParentControllerDeriveModelerVariable[
 			Setter.SetMapStr
 		](
 			map(
@@ -220,9 +216,9 @@ class RetrieverClass(BaseClass):
 		"""
 
 		#Update
-		self.ModelDeriveControllerVariable[
-			Setter.SetMapStr
-		](self.RetrievedPickOrderedDict.items())
+		self.ModeledParentControllerDeriveModelerVariable.mapSet(
+			self.RetrievedPickOrderedDict.items()
+		)
 
 	def propertize_setModelingDescriptionTuplesList(self,_SettingValueVariable):
 

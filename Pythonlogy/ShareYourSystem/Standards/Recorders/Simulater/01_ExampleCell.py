@@ -11,10 +11,10 @@ MySimulater=SYS.SimulaterClass(
 			'-Traces':{
 				'|*FirstArray':{
 					'-Samples':{
-								'|Run':{
-									'MoniteringLabelIndexIntsArray':[0,1]
-								}
-							}
+						'|Run':{
+							'MoniteringLabelIndexIntsArray':[0,1]
+						}
+					}
 				}
 			}
 		}

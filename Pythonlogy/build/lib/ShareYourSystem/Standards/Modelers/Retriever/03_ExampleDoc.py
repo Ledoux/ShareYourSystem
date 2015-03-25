@@ -1,63 +1,49 @@
 #ImportModules
 import ShareYourSystem as SYS
-import tables
 
 #Definition 
-MyController=SYS.ControllerClass(
+MyRetriever=SYS.RetrieverClass(
 		**{
 			'FolderingPathStr':SYS.Retriever.LocalFolderPathStr,
-			'ControllingModelClassVariable':SYS.RetrieverClass
-		}
-	).set(
-		'/-Models/|Thing',
-		{
+			'HdformatingFileKeyStr':"Thing.hdf",
 			'ModelingDescriptionTuplesList':
 			[
 				#GetStr #ColumnStr #Col
-				('MyInt','MyInt',tables.Int64Col()),
-				('MyStr','MyStr',tables.StringCol(10)),
-				('MyIntsList','MyIntsList',tables.Int64Col(shape=3))
+				('MyInt','MyInt',SYS.tables.Int64Col()),
+				('MyStr','MyStr',SYS.tables.StringCol(10)),
+				('MyIntsList','MyIntsList',SYS.tables.Int64Col(shape=3))
 			],
 			'RowingKeyStrsList':[
 					'MyInt',
 					'MyStr'
 			]	
 		}
-	)['#map@set'](
+	).model(
+	).mapSet(
 		{
 			'MyInt':0,
 			'MyStr':"hello",
 			'MyIntsList':[2,4,1]
 		}
-	).command(
-		'/-Models/|Thing',
-		'#call:insert'
-	)['#map@set'](
+	).insert(
+	).mapSet(
 		{
-			'MyInt':0,
+			'MyInt':5,
 			'MyStr':"bonjour",
 			'MyIntsList':[0,0,0]
 		}
-	).command(
-		'/-Models/|Thing',
-		[
-			'#call:insert',
-			(
-				'retrieve',
-				[
-					#RetrievingIndexesList
-					(0,0)
-				]
-			)
-		]
+	).insert(
+	).retrieve(
+		#RetrievingIndexIntsList
+		[0,0]
 	)
 
 #print
-print('MyController is ')
-SYS._print(MyController)
+print('MyRetriever is ')
+SYS._print(MyRetriever)
 
 #view
-print('hdf5 file is : \n'+SYS._str(MyController.hdfview()))
+print('hdf5 file is : \n'+SYS._str(MyRetriever.hdfview()))
 
 #close
-MyController.file(_ModeStr='c')
+MyRetriever.file(_ModeStr='c')

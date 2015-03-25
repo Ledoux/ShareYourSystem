@@ -3,63 +3,62 @@
 import ShareYourSystem as SYS
 
 #Definition 
-MyController=SYS.ControllerClass(
-		**{
-			'FolderingPathStr':SYS.Modeler.LocalFolderPathStr,
-			'HdformatingFileKeyStr':'Stuff.hdf',
-		}
-	)['#map@set'](
-		[
-			('UnitsInt',3),
-			('/-Models/|Stuff',
+MyModeler=SYS.ModelerClass(
+		).mapSet(
 			{
+				'FolderingPathStr':SYS.Modeler.LocalFolderPathStr,
+				'HdformatingFileKeyStr':'Stuff.hdf',
+				'UnitsInt':3,
 				'ModelingDescriptionTuplesList':
 				[
 					#GetStr #ColumnStr #Col
 					('MyInt','MyInt',SYS.tables.Int64Col()),
 					('MyFloatsList','MyFloatsList',(SYS.tables.Float64Col,['UnitsInt']))
 				]
-			})
-		]
-	).get('?v')
+			}
+	).model(
+	)
 
 #Build a structure with a database
 SYS.mapSet(
-		MyController['/-Models/|Stuff'].ModeledHdfTable,
+		MyModeler.ModeledHdfTable,
 		[
+			('row.__setitem__',{'#liarg':('MyInt',0)}),
+			('row.append',{'#liarg':None}),
+			('row.__setitem__',{'#liarg':('MyInt',2)}),
 			('row.__setitem__',{'#liarg':('MyFloatsList',[0.,1.,2.])}),
 			('row.append',{'#liarg':None}),
 			('flush',{'#liarg':None})
 		]
 )
 
+print('N\n\n\nMMM\n')
 
 #Definition 
-MyController=SYS.ControllerClass(
-		**{
-			'FolderingPathStr':SYS.Modeler.LocalFolderPathStr,
-			'HdformatingFileKeyStr':'Stuff.hdf',
-		}
-	)['#map@set'](
-		[
-			('UnitsInt',2),
-			('/-Models/|Stuff',
+MyModeler.setDone(
+		SYS.ModelerClass
+	).setSwitch(
+	).mapSet(
 			{
+				'UnitsInt':2,
 				'ModelingDescriptionTuplesList':
 				[
 					#GetStr #ColumnStr #Col
 					('MyInt','MyInt',SYS.tables.Int64Col()),
 					('MyFloatsList','MyFloatsList',(SYS.tables.Float64Col,['UnitsInt']))
 				]
-			})
-		]
-	).get('?v')
+			}
+	).model(
+	)
 
 #Build a structure with a database
 SYS.mapSet(
-		MyController['/-Models/|Stuff'].ModeledHdfTable,
+		MyModeler.ModeledHdfTable,
 		[
-			('row.__setitem__',{'#liarg':('MyFloatsList',[0,0])}),
+			('row.__setitem__',{'#liarg':('MyInt',0)}),
+			('row.append',{'#liarg':None}),
+			('row.__setitem__',{'#liarg':('MyInt',2)}),
+			('row.__setitem__',{'#liarg':('MyFloatsList',[0.,1.])}),
 			('row.append',{'#liarg':None}),
 			('flush',{'#liarg':None})
 		]
@@ -67,13 +66,13 @@ SYS.mapSet(
 
 
 #print
-print('MyController is ')
-SYS._print(MyController)
+print('MyModeler is ')
+SYS._print(MyModeler)
 
 #view
-print('hdf5 file is : \n'+SYS._str(MyController.hdfview()))
+print('hdf5 file is : \n'+SYS._str(MyModeler.hdfview()))
 
 #close
-MyController.file(_ModeStr='c')
+MyModeler.file(_ModeStr='c')
 
 

@@ -317,7 +317,7 @@ class ParenterClass(BaseClass):
 		# 
 
 		#set
-		self.ParentTagStr=self.ParentedTotalPathStr
+		self.ParentTagStr=self.ParentedTotalPathStr.replace('_','/')+'_'+self.ParentKeyStr
 
 		#/####################/#
 		# Adapt the shape of the ParentedTriggerVariablesList

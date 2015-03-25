@@ -1,42 +1,36 @@
 
 #ImportModules
 import ShareYourSystem as SYS
-import tables
 
 #Definition 
-MyController=SYS.ControllerClass(
+MyRower=SYS.RowerClass(
 		**{
-			'FolderingPathStr':SYS.Rower.LocalFolderPathStr
-		}
-	).set(
-		'/-Models/|Things',
-		{
+			'FolderingPathStr':SYS.Rower.LocalFolderPathStr,
+			'HdformatingFileKeyStr':'Things.hdf',
 			'ModelingDescriptionTuplesList':
-			[
-				#GetStr #ColumnStr #Col
-				('MyInt','MyInt',tables.Int64Col()),
-				('MyStr','MyStr',tables.StringCol(10)),
-				('MyIntsList','MyIntsList',tables.Int64Col(shape=3))
-			]	
+				[
+					#GetStr #ColumnStr #Col
+					('MyInt','MyInt',SYS.tables.Int64Col()),
+					('MyStr','MyStr',SYS.tables.StringCol(10)),
+					('MyIntsList','MyIntsList',SYS.tables.Int64Col(shape=3))
+				]	
 		}
-	)['#map@set'](
+	).mapSet(
 		{
 			'MyInt':0,
 			'MyStr':"hello",
 			'MyIntsList':[2,4,1]
 		}
-	).command(
-		'/-Models/|Things',
-		'#call:row'
+	).row(
 	)
 
 #Definition the AttestedStr
-print('MyController is ')
-SYS._print(MyController)
+print('MyRower is ')
+SYS._print(MyRower)
 
 #view
-print('hdf5 file is : \n'+SYS._str(MyController.hdfview()))
+print('hdf5 file is : \n'+SYS._str(MyRower.hdfview()))
 
 #close
-MyController.file(_ModeStr='c')
+MyRower.file(_ModeStr='c')
 

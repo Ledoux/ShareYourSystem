@@ -3,40 +3,43 @@
 import ShareYourSystem as SYS
 
 #Definition 
-MyController=SYS.ControllerClass(
+MyModeler=SYS.ModelerClass(
 		**{
 			'FolderingPathStr':SYS.Modeler.LocalFolderPathStr,
-			'HdformatingFileKeyStr':'Thing1.hdf'
-		}
-	).set(
-		'/-Models/|Thing',
-		{
-			'ModelKeyStrsList':
-			[	
+			'HdformatingFileKeyStr':'Thing1.hdf',
+			'ModelKeyStrsList':[	
 				'MyStr',
 				'MyIntsList'
-			]	
+			]
 		}
-	).get('?v')
+	).model(
+	)
 
 #Build a structure with a database
 SYS.mapSet(
-		MyController['/-Models/|Thing'].ModeledHdfTable,
+		MyModeler.ModeledHdfTable,
 		[
 			('row.__setitem__',{'#liarg':('MyStr',"hello")}),
 			('row.append',{'#liarg':None}),
+			('row.__setitem__',{'#liarg':('MyStr',"bonjour")}),
+			('row.__setitem__',{'#liarg':('MyIntsList',[1])}),
+			('row.append',{'#liarg':None}),
+			#('row.__setitem__',{'#liarg':('MyStr',"bonjour")}), 
+			#('row.__setitem__',{'#liarg':('MyIntsList',[1,3])}), 
+			#THIS would bring an error because list has to be size=1
+			#('row.append',{'#liarg':None}),
 			('flush',{'#liarg':None})
 		]
 )
 
 #Definition the AttestedStr
-print('MyController is ')
-SYS._print(MyController)
+print('MyModeler is ')
+SYS._print(MyModeler)
 
 #view
-print('hdf5 file is : \n'+SYS._str(MyController.hdfview()))
+print('hdf5 file is : \n'+SYS._str(MyModeler.hdfview()))
 
 #close
-MyController.file(_ModeStr='c')
+MyModeler.file(_ModeStr='c')
 
 

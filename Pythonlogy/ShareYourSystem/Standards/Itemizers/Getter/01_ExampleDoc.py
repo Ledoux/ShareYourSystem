@@ -24,6 +24,9 @@ print('Get YourGetter returns '+SYS._str(MyGetter[YourGetter]))
 #print a direct str get
 print('Get #direct:salut returns '+SYS._str(MyGetter["#direct:salut"]))
 
+#print an id get
+print('Get #id:'+str(id(MyGetter))+' returns '+SYS._str(MyGetter["#id:"+str(id(MyGetter))]))
+
 #print a one level recursive get 
 print('Get #get:FirstRedirectStr returns '+SYS._str(MyGetter["#get:FirstRedirectStr"]))
 

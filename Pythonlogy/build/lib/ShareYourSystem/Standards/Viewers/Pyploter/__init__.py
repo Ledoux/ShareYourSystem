@@ -251,7 +251,8 @@ class PyploterClass(BaseClass):
 				self.debug(
 						[
 							'self.PyplotedParentPanelDerivePyploterVariable.PyplotedParentSingularStr is ',
-							self.PyplotedParentPanelDerivePyploterVariable.PyplotedParentSingularStr
+							self.PyplotedParentPanelDerivePyploterVariable.PyplotedParentSingularStr,
+							'Check now who are the parents'
 						]
 					)
 				'''
@@ -259,6 +260,13 @@ class PyploterClass(BaseClass):
 				#Check
 				if self.PyplotedParentPanelDerivePyploterVariable.ParentDeriveTeamerVariable!=None:
 						
+					#debug
+					self.debug(
+						[
+							'Ok there is a parent parent for this Chart'
+						]
+					)
+
 					#alias
 					PyplotedParentFigureDerivePyploterVariable=self.PyplotedParentPanelDerivePyploterVariable.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
 						
@@ -267,24 +275,31 @@ class PyploterClass(BaseClass):
 						#set
 						self.PyplotedParentFigureDerivePyploterVariable=PyplotedParentFigureDerivePyploterVariable
 
+						#debug
+						self.debug(
+							[
+								'Yes the panel parent parent exists'
+							]
+						)
+
+					else:
 
 						#debug
-						'''
 						self.debug(
 							[
 								'Nope the parent parent not exist so direct set figure with panel parent'
 							]
 						)
-						'''
-
-					else:
 
 						#set
 						self.PyplotedParentFigureDerivePyploterVariable=self.PyplotedParentPanelDerivePyploterVariable
 
+				else:
+
+					#set
+					self.PyplotedParentFigureDerivePyploterVariable=self
 
 				#debug
-				'''
 				self.debug(
 					[
 						'Ok for this Chart, we have determined the panel and figure parent',
@@ -293,7 +308,6 @@ class PyploterClass(BaseClass):
 						#])
 					]
 				)
-				'''
 
 				#/#################/#
 				# Build the Axes
@@ -310,7 +324,6 @@ class PyploterClass(BaseClass):
 
 				#set Chart
 				self.setChart()
-
 
 				#debug
 				'''
@@ -927,7 +940,6 @@ class PyploterClass(BaseClass):
 		#
 
 		#debug
-		'''
 		self.debug(
 			[
 				'We map argument draw in the parent axe',
@@ -939,7 +951,6 @@ class PyploterClass(BaseClass):
 				str(self.PyplotedParentChartDerivePyploterVariable.PyplotedAxesVariable)
 			]
 		)
-		'''
 
 		#map argument
 		self.PyplotedLinesList.extend(

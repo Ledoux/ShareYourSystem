@@ -3,30 +3,24 @@
 import ShareYourSystem as SYS
 
 #Definition 
-MyController=SYS.ControllerClass(
+MyRower=SYS.RowerClass(
 		**{
-			'FolderingPathStr':SYS.Rower.LocalFolderPathStr
-		}
-	).set(
-		'/-Models/|Thing',
-		{
+			'FolderingPathStr':SYS.Rower.LocalFolderPathStr,
 			'ModelKeyStrsList':['MyInt','MyStr','MyIntsList']	
 		}
-	).get('?v'
-	)['#map@set'](
+	).model(
+	).mapSet(
 		{
 			'MyInt':0,
 			'MyStr':"hello",
 			'MyIntsList':[2,4,1]
 		}
-	).command(
-		'/-Models/|Thing',
-		'#call:row'
+	).row(
 	)
 	
 #Build a structure with a database
 SYS.mapSet(
-		MyController['/-Models/|Thing'].ModeledMongoCollection,
+		MyRower.ModeledMongoCollection,
 		[
 			('remove',{}),
 			('insert',{'MyStr':"hello"})
@@ -34,14 +28,14 @@ SYS.mapSet(
 )
 
 #print
-print('mongo db is : \n'+SYS._str(MyController.pymongoview()))
+print('mongo db is : \n'+SYS._str(MyRower.pymongoview()))
 
 #print
-print('MyController is ')
-SYS._print(MyController)
+print('MyRower is ')
+SYS._print(MyRower)
 
 #Print
-MyController.process(_ActionStr='kill')
+MyRower.process(_ActionStr='kill')
 
 
 

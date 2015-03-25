@@ -7,7 +7,8 @@ MyPyploter=SYS.PyploterClass(
 	).mapSet(
 		{
 			'-Draws':[
-				('|0',{
+				(
+					'|0',{
 					'PyplotingDrawVariable':
 					[
 						(

@@ -1671,7 +1671,6 @@ class SetterClass(BaseClass):
 				ArgumentTuplesList
 			)
 
-
 #</DefineClass>
 
 #</DefinePrint>

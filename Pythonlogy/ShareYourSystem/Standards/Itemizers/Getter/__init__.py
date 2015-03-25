@@ -64,6 +64,7 @@ GetDeletePrefixStr="#delete:"
 GetDirectPrefixStr="#direct:"
 GetUndirectPrefixStr=GetUndirectStr+":"
 GetCallPrefixStr="#call:"
+GetIdPrefixStr="#id:"
 GetModifyGrabStr="#modify"
 GetGrabStr="#key"
 GetUndirectGrabPrefixStr=GetGrabStr+':'
@@ -318,6 +319,38 @@ class GetterClass(BaseClass):
 
 				#Stop the getting
 				return {"HookingIsBool":False}
+
+
+			#/############################
+			# Case of a #id: get of an instance thanks to its id 
+			#
+
+			elif self.GettingKeyVariable.startswith(GetIdPrefixStr):
+
+				#deprefix
+				GettedKeyStr=SYS.deprefix(
+						self.GettingKeyVariable,
+						GetIdPrefixStr
+					)
+
+				#debug
+				'''
+				self.debug(
+					[
+						'This is a id get ',
+						'GettedKeyStr is '+GettedKeyStr
+					]
+				)
+				'''
+
+				#IdDict
+				self.GettedValueVariable=SYS.IdDict[
+					int(GettedKeyStr)
+				]
+
+				#Stop the getting
+				return {"HookingIsBool":False}
+
 
 			#/############################
 			# Case of a #get: str get 
@@ -746,6 +779,20 @@ class GetterClass(BaseClass):
 		'''
 		#Return an output dict
 		return {"HookingIsBool":True}
+
+	def mapGet(self,_MapVariable):
+
+		#map
+		return map(
+			lambda __ElementVariable:
+			self.get(
+				__ElementVariable
+			).GettedValueVariable,
+			_MapVariable.items() if hasattr(_MapVariable,'items')
+			else _MapVariable
+		)
+
+
 
 #</DefineClass>
 

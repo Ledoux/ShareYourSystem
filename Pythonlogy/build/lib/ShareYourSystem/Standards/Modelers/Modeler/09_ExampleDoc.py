@@ -4,7 +4,7 @@ import ShareYourSystem as SYS
 
 #Define
 @SYS.ClasserClass()
-class MakerClass(SYS.ControllerClass):
+class MakerClass(SYS.ModelerClass):
 
 	def default_init(self,
 			_MakingMyIntsList={
@@ -12,30 +12,28 @@ class MakerClass(SYS.ControllerClass):
 							'PropertyInitVariable':None,
 							'PropertyDocStr':'I am doing the thing here',
 							'ShapeKeyStrsList':['MakingMyInt']
-						},
-			_MakingMyInt=3,
-			_MadeMyInt=0	
+						}	
 		):
-		SYS.ControllerClass.__init__(self)
+		SYS.ModelerClass.__init__(self)
 
 #Definition 
 MyMaker=MakerClass(
 		**{
 			'FolderingPathStr':SYS.Modeler.LocalFolderPathStr,
-			'HdformatingFileKeyStr':'Thing2.hdf'
+			'HdformatingFileKeyStr':'Make.hdf',
+			'ModelKeyStrsList':['MyStr','MakingMyIntsList']
 		}
-	).set(
-		'/-Models/|Thing',
-		[
-			('ModelKeyStrsList',['MyStr','MakingMyIntsList'])	
-		]
-	).get('?v')
+	).model(
+	)
 
 #Build a structure with a database
 SYS.mapSet(
-		MyMaker['/-Models/|Thing'].ModeledHdfTable,
+		MyMaker.ModeledHdfTable,
 		[
 			('row.__setitem__',{'#liarg':('MyStr',"hello")}),
+			('row.append',{'#liarg':None}),
+			('row.__setitem__',{'#liarg':('MyStr',"bonjour")}),
+			('row.__setitem__',{'#liarg':('MakingMyIntsList',[0,4,5])}),
 			('row.append',{'#liarg':None}),
 			('flush',{'#liarg':None})
 		]

@@ -46,6 +46,7 @@ class BrianerClass(BaseClass):
 			_BrianingTraceDict=None,
 			_BrianingMoniterTuple=None,
 			_BrianingSpikesDict=None,
+			_BrianingPyplotDict=None,
 			_BrianingTimeDimensionVariable=None,
 			_BrianedNetworkVariable=None,
 			_BrianedNeurongroupVariable=None,
@@ -410,8 +411,8 @@ class BrianerClass(BaseClass):
 					'Ok we have setted the monitor',
 					('self.',self,['BrianedStateMonitorVariable']),
 					'Now we add to the structure',
-					'self.BrianedParentNeurongroupDeriveBrianerVariable.BrianedNetworkVariable is ',
-					str(self.BrianedParentNeurongroupDeriveBrianerVariable.BrianedNetworkVariable)
+					'self.BrianedParentNeurongroupDeriveBrianerVariable.BrianedNeurongroupVariable is ',
+					str(self.BrianedParentNeurongroupDeriveBrianerVariable.BrianedNeurongroupVariable)
 				]
 			)
 			'''
@@ -435,51 +436,339 @@ class BrianerClass(BaseClass):
 			)
 
 			#/####################/#
-			# maybe pyplot
+			# maybe pyplot a draw plot
 			#
 
 			#debug
 			self.debug(
 				[
-					'We complete a view'
+					'We complete a view so first fill the draw'
 				]
 			)
 
 			#set
-			self.PyplotingDrawVariable=[
+			LabelStr='$'+self.BrianedParentDeriveRecorderVariable.RecordKeyStr+'_{'+str(
+									self.BrianedParentNeurongroupDeriveBrianerVariable.BrianedNeurongroupVariable.name
+								).replace('_','/')+'}'
+
+
+			#set
+			self.PyplotingDrawVariable=map(
+				lambda __IndexInt:
 				(
 					'plot',
 					{
 						'#liarg:#map@get':[
-							'#LocalBrianer.BrianedStateMonitorVariable.t',
-							'#LocalBrianer.BrianedStateMonitorVariable.v.T'
-						]
+							'#IdGetStr.BrianedStateMonitorVariable.t',
+							'>>SYS.IdDict[#IdStr].BrianedStateMonitorVariable.'+self.BrianedParentDeriveRecorderVariable.RecordKeyStr+'['+str(
+								__IndexInt)+',:]'
+						],
+						'#kwarg':dict(
+							{
+								'label':LabelStr+'^{'+str(__IndexInt)+'}$',
+								'linestyle':'-',
+								'color':'b'
+							},
+							**self.BrianingPyplotDict
+						)
+					}
+				),
+				self.MoniteringLabelIndexIntsArray
+			)
+
+
+			#/####################/#
+			# maybe set for the Chart
+			#
+
+			#init
+			self.PyplotingChartVariable=[]
+
+			#/####################/#
+			# maybe set the X Chart also
+			#
+
+			#Check
+			if self.BrianedParentNeurongroupDeriveBrianerVariable.BrianingTimeDimensionVariable==None:
+				from brian2 import ms
+				self.BrianedParentNeurongroupDeriveBrianerVariable.BrianingTimeDimensionVariable=ms
+
+			#set
+			XLabelStr='$t\ ('+str(
+				self.BrianedParentNeurongroupDeriveBrianerVariable.BrianingTimeDimensionVariable
+			)+')$'
+
+			#set
+			SampleTagStr=self.BrianedParentNeurongroupDeriveBrianerVariable.BrianedNeurongroupVariable.name+'t'
+
+			#join
+			XlimLiargStr="".join([
+							">>SYS.set(SYS,'"+SampleTagStr+"LimFloatsArray',",
+							"[SYS.IdDict[#IdStr].BrianedStateMonitorVariable.t[:].min(),",
+							"SYS.IdDict[#IdStr].BrianedStateMonitorVariable.t[:].max()]",
+							').'+SampleTagStr+"LimFloatsArray"
+							])
+
+			#join
+			XticksLiargStr="".join([
+							">>SYS.set(SYS,'"+SampleTagStr+"TickFloatsArray',",
+							"map(lambda __Float:float('%.2f'%__Float),",
+							"SYS.getTickFloatsArray(",
+							'SYS.'+SampleTagStr+"LimFloatsArray,3",
+							")))."+SampleTagStr+"TickFloatsArray"
+							])
+
+			XtickLabelLiargStr="".join([
+							">>SYS.set(SYS,'"+SampleTagStr+"TickStrsArray',",
+							"map(lambda __Float:'$'+str(__Float)+'$',",
+							"SYS."+SampleTagStr+"TickFloatsArray))."+SampleTagStr+"TickStrsArray"
+							])
+					
+			#debug
+			self.debug(
+				[
+					'XLabelStr is ',
+					XLabelStr,
+					'XlimLiargStr is',
+					XlimLiargStr,
+					'XticksLiargStr is ',
+					XticksLiargStr,
+					'XtickLabelLiargStr is ',
+					XtickLabelLiargStr
+				]
+			)
+
+			#set
+			self.PyplotingChartVariable+=[
+				(
+					'set_xlabel',XLabelStr
+				),
+				(
+					'set_xlim',{
+						'#liarg:#map@get':[XlimLiargStr]
+					}
+				),
+				(
+					'set_xticks',{
+						'#liarg:#map@get':[XticksLiargStr]
+					}
+				),
+				(
+					'set_xticklabels',{
+						'#liarg:#map@get':[XtickLabelLiargStr]
 					}
 				)
+			]
+
+			#/####################/#
+			# maybe set the Y Chart also
+			#
+
+			#set
+			YLabelStr='$'+self.BrianedParentDeriveRecorderVariable.RecordKeyStr+'_{'+str(
+				self.BrianedParentNeurongroupDeriveBrianerVariable.BrianedNeurongroupVariable.name
+					).replace('_','/')+'}(t)\ ('+str(
+						self.BrianedParentDeriveRecorderVariable.RecordedTraceFloatsArray.unit
+					)+')$'
+
+			#set
+			SampleTagStr=self.BrianedParentNeurongroupDeriveBrianerVariable.BrianedNeurongroupVariable.name+self.BrianedParentDeriveRecorderVariable.RecordKeyStr
+
+			#join
+			YlimLiargStr="".join([
+							">>SYS.set(SYS,'"+SampleTagStr+"LimFloatsArray',",
+							"[SYS.IdDict[#IdStr].BrianedStateMonitorVariable."+self.BrianedParentDeriveRecorderVariable.RecordKeyStr+".min(),",
+							"SYS.IdDict[#IdStr].BrianedStateMonitorVariable."+self.BrianedParentDeriveRecorderVariable.RecordKeyStr+".max()]",
+							').'+SampleTagStr+"LimFloatsArray"
+							])
+
+			#join
+			YticksLiargStr="".join([
+							">>SYS.set(SYS,'"+SampleTagStr+"TickFloatsArray',",
+							"map(lambda __Float:float('%.2f'%__Float),",
+							"SYS.getTickFloatsArray(",
+							'SYS.'+SampleTagStr+"LimFloatsArray,3",
+							")))."+SampleTagStr+"TickFloatsArray"
+							])
+
+			YtickLabelLiargStr="".join([
+							">>SYS.set(SYS,'"+SampleTagStr+"TickStrsArray',",
+							"map(lambda __Float:'$'+str(__Float)+'$',",
+							"SYS."+SampleTagStr+"TickFloatsArray))."+SampleTagStr+"TickStrsArray"
+							])
+					
+			#debug
+			self.debug(
+				[
+					'YLabelStr is ',
+					YLabelStr,
+					'YlimLiargStr is',
+					YlimLiargStr,
+					'YticksLiargStr is ',
+					YticksLiargStr,
+					'YtickLabelLiargStr is ',
+					YtickLabelLiargStr
+				]
+			)
+
+			#set
+			self.PyplotingChartVariable+=[
+				(
+					'set_ylabel',YLabelStr
+				),
+				(
+					'set_ylim',{
+						'#liarg:#map@get':[YlimLiargStr]
+					}
+				),
+				(
+					'set_yticks',{
+						'#liarg:#map@get':[YticksLiargStr]
+					}
+				),
+				(
+					'set_yticklabels',{
+						'#liarg:#map@get':[YtickLabelLiargStr]
+					}
+				)
+			]
+
+			#/####################/#
+			# maybe set global Chart also
+			#
+
+			self.PyplotingChartVariable+=[
+				(
+					'tick_params',{
+						'#kwarg':{
+							'length':10,
+							'width':5,
+							'which':'major'
+						}
+					}
+				),
+				(
+					'tick_params',{
+						'#kwarg':{
+							'length':5,
+							'width':2,
+							'which':'minor'
+						}
+					}
+				),
+				('xaxis.set_ticks_position',
+					{
+						'#liarg':['bottom']
+					}
+				),
+				('yaxis.set_ticks_position',
+					{
+						'#liarg':['left']
+					}
+				),
+				('legend',{
+					'#liarg':[],
+					'#kwarg':{
+						'fontsize':10,
+						'shadow':True,
+						'fancybox':True,
+						'ncol':max(1,len(
+							getattr(
+								self.BrianedStateMonitorVariable,
+								self.BrianedParentDeriveRecorderVariable.RecordKeyStr
+							)
+						)/2),
+						'loc':2,
+						'bbox_to_anchor':(1.05, 1)
+					}
+				})
+			]
+
+			#/####################/#
+			# maybe replace Chart also
+			#
+
+			#debug
+			'''
+			self.debug(
+				[
+					'Before replace',
+					('self.',self,[
+						'PyplotingDrawVariable',
+						'PyplotingChartVariable'
+					])
+				]
+			)
+			'''
+
+			#mapReplace
+			[
+				self.PyplotingDrawVariable,
+				self.PyplotingChartVariable
+			]=map(
+				lambda __Variable:
+				SYS.replace(
+					__Variable,
+					{
+						'#IdStr':str(self.PrintIdInt),
+						'#IdGetStr':"#id:"+str(self.PrintIdInt)
+					},
+					self
+				)
+				if __Variable!=None
+				else None,
+				map(
+					lambda __KeyStr:
+					getattr(
+						self,
+						__KeyStr
+					),
+					[
+						'PyplotingDrawVariable',
+						'PyplotingChartVariable'
+					]
+				)
+			)
+
+			#debug
+			self.debug(
+				[
+					'After replace',
+					('self.',self,[
+						#'PyplotingDrawVariable',
+						'PyplotingChartVariable'
+					])
+				]
+			)
+
+			#/####################/#
+			# Update maybe the 
+			# parent neuron group
+
+			BrianedChartNeurongroupDerivePyploter=self.BrianedParentNeurongroupDeriveBrianerVariable.TeamDict[
+				'Charts'
+			].ManagementDict[
+				self.BrianedParentDeriveRecorderVariable.ManagementTagStr
 			]
 
 			#debug
 			self.debug(
 				[
-					('self.',self,['PyplotingDrawVariable'])
+					'We update in the parent neurongroup chart',
+					'BrianedChartNeurongroupDerivePyploter is ',
+					SYS._str(BrianedChartNeurongroupDerivePyploter),
+					('self.',self,[])
 				]
 			)
 
-			#mapReplace
-			self.PyplotingDrawVariable=SYS.replace(
-				self.PyplotingDrawVariable,
+			#manage
+			BrianedChartNeurongroupDerivePyploter.TeamDict['Draws'].manage(
+				str(self.ManagementIndexInt),
 				{
-					'#LocalBrianer':">>SYS.IdDict["+str(self.PrintIdInt)+"]"
-				},
-				self
+					'PyplotingDrawVariable':self.PyplotingDrawVariable
+				}
 			)
 
-			#debug
-			self.debug(
-				[
-					('self.',self,['PyplotingDrawVariable'])
-				]
-			)
 
 
 		elif self.BrianedParentSingularStr=='Event':
@@ -548,6 +837,102 @@ class BrianerClass(BaseClass):
 			self.BrianedParentNetworkDeriveBrianerVariable.BrianedNetworkVariable.add(
 				self.BrianedSpikeMonitorVariable
 			)
+
+			#/####################/#
+			# maybe pyplot a draw plot
+			#
+
+			#debug
+			self.debug(
+				[
+					'We complete a view so first fill the draw'
+				]
+			)
+
+			#set
+			LabelStr='$'+self.ManagementTagStr+'_{'+str(
+				self.BrianedParentNeurongroupDeriveBrianerVariable.BrianedNeurongroupVariable.name
+								).replace('_','/')+'}'
+
+			#set
+			self.PyplotingDrawVariable=[
+				(
+					'plot',
+					{
+						'#liarg:#map@get':[
+							'#IdGetStr.BrianedSpikeMonitorVariable.t',
+							'>>SYS.IdDict[#IdStr].BrianedSpikeMonitorVariable.i'
+						],
+						'#kwarg':dict(
+							{
+								'label':LabelStr,
+								'linestyle':'',
+								'marker':'.',
+								'color':'b'
+							},
+							**self.BrianingPyplotDict
+						)
+					}
+				)
+			]
+
+			#/####################/#
+			# maybe replace Chart also
+			#
+
+			#debug
+			'''
+			self.debug(
+				[
+					'Before replace',
+					('self.',self,[
+						'PyplotingDrawVariable',
+						'PyplotingChartVariable'
+					])
+				]
+			)
+			'''
+
+			#mapReplace
+			[
+				self.PyplotingDrawVariable,
+				self.PyplotingChartVariable
+			]=map(
+				lambda __Variable:
+				SYS.replace(
+					__Variable,
+					{
+						'#IdStr':str(self.PrintIdInt),
+						'#IdGetStr':"#id:"+str(self.PrintIdInt)
+					},
+					self
+				)
+				if __Variable!=None
+				else None,
+				map(
+					lambda __KeyStr:
+					getattr(
+						self,
+						__KeyStr
+					),
+					[
+						'PyplotingDrawVariable',
+						'PyplotingChartVariable'
+					]
+				)
+			)
+
+			#debug
+			self.debug(
+				[
+					'After replace',
+					('self.',self,[
+						#'PyplotingDrawVariable',
+						'PyplotingChartVariable'
+					])
+				]
+			)
+
 
 	def propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable):
 
@@ -745,6 +1130,96 @@ class BrianerClass(BaseClass):
 				self.BrianedNeurongroupVariable
 			)
 
+
+			#/####################/#
+			# maybe pyplot a draw plot
+			#
+
+			#debug
+			self.debug(
+				[
+					'We complete a view so first fill the draw'
+				]
+			)
+
+			#Check
+			if 'Charts' not in self.TeamDict:
+				BrianedChartsDeriveTeamer=self.team(
+					'Charts'
+				).TeamedValueVariable
+			else:
+				BrianedChartsDeriveTeamer=self.TeamDict['Charts']
+
+			#Check
+			if 'Traces' in self.TeamDict:
+
+				#debug
+				self.debug(
+					[
+						'First we add the traces'
+					]
+				)
+
+				#set
+				map(
+					lambda __KeyStr:
+					BrianedChartsDeriveTeamer.manage(
+						__KeyStr,
+						{
+							'-Draws':
+							{
+
+							}
+						}
+					),
+					self.TeamDict['Traces'].ManagementDict.keys()
+				)
+
+				#debug
+				self.debug(
+					[
+						'self.TeamDict["Traces"] is ',
+						str(self.TeamDict["Traces"])
+					]
+				)
+
+			#Check
+			if 'Events' in self.TeamDict:
+
+				#debug
+				self.debug(
+					[
+						'First we add the events'
+					]
+				)
+
+				#set
+				BrianedChartsDeriveTeamer.mapSet(
+					map(
+						lambda __KeyStr:
+						(
+							'|'+__KeyStr,
+							{
+								'-Draws':
+								{
+
+								}
+							}
+						),
+						self.TeamDict['Events'].ManagementDict.keys()
+					)
+				)
+
+				#debug
+				self.debug(
+					[
+						'self.TeamDict["Events"] is ',
+						str(self.TeamDict["Events"])
+					]
+				)
+
+
+
 	def mimic_simulate(self):
 
 		#parent method
@@ -849,6 +1324,7 @@ BrianerClass.PrintingClassSkipKeyStrsList.extend(
 		'BrianingTraceDict',
 		'BrianingMoniterTuple',
 		'BrianingSpikesDict',
+		'BrianingPyplotDict',
 		'BrianingTimeDimensionVariable',
 		#'BrianedNetworkVariable',
 		#'BrianedNeurongroupVariable',

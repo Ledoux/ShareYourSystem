@@ -86,11 +86,11 @@ class RowerClass(
 		'''
 
 		#Check	
-		if self.ModelDeriveControllerVariable!=None:
+		if self.ModeledParentControllerDeriveModelerVariable!=None:
 			
 			#debug
 			'''
-			self.ModelDeriveControllerVariable.debug('ParentSpeaking...')
+			self.ModeledParentControllerDeriveModelerVariable.debug('ParentSpeaking...')
 			'''
 
 			#Check
@@ -100,9 +100,12 @@ class RowerClass(
 				self.RowedMongoPickOrderedDict.update(
 					zip(
 						self.RowingKeyStrsList,
-						self.ModelDeriveControllerVariable[Getter.GetMapStr](
-							*self.ModelKeyStrsList
-						).ItemizedMapValueVariablesList
+						#self.ModeledParentControllerDeriveModelerVariable[Getter.GetMapStr](
+						#	*self.ModelKeyStrsList
+						#).ItemizedMapValueVariablesList
+						self.ModeledParentControllerDeriveModelerVariable.mapGet(
+							self.ModelKeyStrsList
+						)
 					)
 				)
 
@@ -233,9 +236,12 @@ class RowerClass(
 				self.RowedHdfPickOrderedDict.update(
 					zip(
 						self.RowHdfColumnStrsList,
-						self.ModelDeriveControllerVariable[Getter.GetMapStr](
-							*self.RowingKeyStrsList
-						).ItemizedMapValueVariablesList
+						#self.ModeledParentControllerDeriveModelerVariable[Getter.GetMapStr](
+						#	*self.RowingKeyStrsList
+						#).ItemizedMapValueVariablesList
+						self.ModeledParentControllerDeriveModelerVariable.mapGet(
+							self.RowingKeyStrsList
+						)
 					)
 				)
 
