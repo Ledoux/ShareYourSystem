@@ -36,7 +36,7 @@ class StructurerClass(BaseClass):
 	def default_init(
 					self,
 					_StructureTagStr='Top',
-					_StructureDeriveStructurerVariable=None,
+					_StructureTopDeriveStructurerVariable=None,
 					_StructureTargetStr='Top',
 					_StructuringTeamVariable=None,
 					_StructuringManagementVariable=None,
@@ -53,7 +53,7 @@ class StructurerClass(BaseClass):
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
 		#init
-		self.StructureDeriveStructurerVariable=self
+		self.StructureTopDeriveStructurerVariable=self
 
 	def do_structure(self):
 
@@ -256,7 +256,7 @@ class StructurerClass(BaseClass):
 			self.StructureTagStr=self.StructureTagStr[1:]
 
 		#/##################/#
-		# Find the StructureDeriveStructurerVariable in the grand parents
+		# Find the StructureTopDeriveStructurerVariable in the grand parents
 		#
 
 		#find
@@ -268,7 +268,7 @@ class StructurerClass(BaseClass):
 						#'ParentedTotalDeriveTeamersList',
 						'StructureTargetStr'
 					]),
-				'Now find the StructureDeriveStructurerVariable that has the StructureTagStr',
+				'Now find the StructureTopDeriveStructurerVariable that has the StructureTagStr',
 				'equal to the self.StructureTargetStr'
 			]
 		)
@@ -291,7 +291,7 @@ class StructurerClass(BaseClass):
 					).index(True)
 
 				#set
-				self.StructureDeriveStructurerVariable=self.ParentedTotalDeriveTeamersList[IndexInt]
+				self.StructureTopDeriveStructurerVariable=self.ParentedTotalDeriveTeamersList[IndexInt]
 
 			except:
 
@@ -301,14 +301,14 @@ class StructurerClass(BaseClass):
 		'''
 		self.debug(
 				[
-					'Finally StructureDeriveStructurerVariable is ',
-					SYS._str(self.StructureDeriveStructurerVariable)
+					'Finally StructureTopDeriveStructurerVariable is ',
+					SYS._str(self.StructureTopDeriveStructurerVariable)
 				]
 			)
 		'''
 
 		#/##################/#
-		# Add to the StructureDeriveStructurerVariable
+		# Add to the StructureTopDeriveStructurerVariable
 		#
 
 		#debug
@@ -333,17 +333,17 @@ class StructurerClass(BaseClass):
 						'Check if we have to make manage the '+str(
 							StructureOutPrefixStr+self.ParentDeriveTeamerVariable.ManagementTagStr
 						),
-						'self.StructureDeriveStructurerVariable.StructuringManagementVariable is ',
-						str(self.StructureDeriveStructurerVariable.StructuringManagementVariable)
+						'self.StructureTopDeriveStructurerVariable.StructuringManagementVariable is ',
+						str(self.StructureTopDeriveStructurerVariable.StructuringManagementVariable)
 					]
 				)
 			'''
 
 			#Check
-			if self.StructureDeriveStructurerVariable.StructuringManagementVariable!=None:
+			if self.StructureTopDeriveStructurerVariable.StructuringManagementVariable!=None:
 
 				#Check
-				if self.ParentDeriveTeamerVariable.ManagementTagStr in self.StructureDeriveStructurerVariable.StructuringManagementVariable:
+				if self.ParentDeriveTeamerVariable.ManagementTagStr in self.StructureTopDeriveStructurerVariable.StructuringManagementVariable:
 
 					#debug
 					self.debug(
@@ -356,7 +356,7 @@ class StructurerClass(BaseClass):
 					)
 
 					#point
-					self.StructureDeriveStructurerVariable.point(
+					self.StructureTopDeriveStructurerVariable.point(
 							self,
 							_OutTeamKeyStr=StructureOutPrefixStr+self.StructuringDoStr+'_'+self.ParentDeriveTeamerVariable.ManagementTagStr,
 							_InTeamKeyStr=StructureInTeamKeyStr
@@ -379,25 +379,25 @@ class StructurerClass(BaseClass):
 			'''
 
 			#Check
-			if self.StructureDeriveStructurerVariable.StructuringTeamVariable!=None:
+			if self.StructureTopDeriveStructurerVariable.StructuringTeamVariable!=None:
 
 				#Check
-				if self.ParentDeriveTeamerVariable.TeamTagStr in self.StructureDeriveStructurerVariable.StructuringTeamVariable:
+				if self.ParentDeriveTeamerVariable.TeamTagStr in self.StructureTopDeriveStructurerVariable.StructuringTeamVariable:
 
 					#debug
 					'''
 					self.debug(
 						[
 							'Yes we make team point here',
-							('self.StructureDeriveStructurerVariable.',
-								self.StructureDeriveStructurerVariable,
+							('self.StructureTopDeriveStructurerVariable.',
+								self.StructureTopDeriveStructurerVariable,
 								['PointingInManagementKeyStr'])
 						]
 					)
 					'''
 
 					#point
-					self.StructureDeriveStructurerVariable.point(
+					self.StructureTopDeriveStructurerVariable.point(
 						self,
 						_OutTeamKeyStr=StructureOutPrefixStr+self.StructuringDoStr+'_'+self.ParentDeriveTeamerVariable.TeamTagStr,
 						_InTeamKeyStr=StructureInTeamKeyStr
@@ -488,7 +488,7 @@ SYS.ParenterClass.ManagingValueClass=StructurerClass
 StructurerClass.PrintingClassSkipKeyStrsList.extend(
 	[
 		'StructureTagStr',
-		'StructureDeriveStructurerVariable',
+		'StructureTopDeriveStructurerVariable',
 		'StructureTargetStr',
 		'StructuringTeamVariable',
 		'StructuringManagementVariable',

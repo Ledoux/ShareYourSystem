@@ -1,8 +1,0 @@
-
-<!---
-FrozenIsBool True
--->
-
-##Example
-
-setNetwork

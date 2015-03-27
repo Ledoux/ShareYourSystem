@@ -1069,6 +1069,7 @@ class PrinterClass(BaseClass):
 #<DefinePrint>
 PrinterClass.PrintingClassSkipKeyStrsList.extend(
 	[
+		'DefaultInitBool',
 		'PrintIdInt',
 		'PrintingCopyVariable',
 		'PrintingInstanceSkipKeyStrsList',

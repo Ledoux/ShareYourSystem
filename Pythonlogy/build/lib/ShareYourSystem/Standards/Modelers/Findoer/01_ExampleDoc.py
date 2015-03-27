@@ -3,14 +3,10 @@
 import ShareYourSystem as SYS
 
 #Definition 
-MyController=SYS.ControllerClass(
+MyFindoer=SYS.FindoerClass(
 		**{
 			'FolderingPathStr':SYS.Findoer.LocalFolderPathStr,
-			'ControllingModelClassVariable':SYS.FindoerClass
-		}
-	).set(
-		'/-Models/|Thing',
-		{
+			'PymongoingDatabaseStr':"Thing",
 			'ModelKeyStrsList':
 			[
 				'MyInt',
@@ -22,46 +18,37 @@ MyController=SYS.ControllerClass(
 				'MyStr'
 			]
 		}
-	)['#map@set'](
+	).model(
+	).mapSet(
 		{
 			'MyInt':0,
 			'MyStr':"hello",
 			'MyIntsList':[2,4,1]
 		}
-	).command(
-		'/-Models/|Thing',
-		'#call:insert'
-	)['#map@set'](
+	).insert(
+	).mapSet(
 		{
 			'MyInt':5,
 			'MyStr':"bonjour",
 			'MyIntsList':[0,0,1]
 		}
-	).command(
-		'/-Models/|Thing',
-		[
-			'#call:insert',
-			(
-				'find',
-				[
-					#FindingWhereVariable
-					{
-						'MyInt':{'$gt':1},
-						'MyIntsList':[0,0,1]
-					}
-				]
-			)
-		]
+	).insert(
+	).find(
+		#FindingWhereVariable
+		{
+			'MyInt':{'$gt':1},
+			'MyIntsList':[0,0,1]
+		}
 	)
 				
 #Definition the AttestedStr
-print('MyController is ')
-SYS._print(MyController) 
+print('MyFindoer is ')
+SYS._print(MyFindoer) 
 
 #print
-print('mongo db is : \n'+SYS._str(MyController.pymongoview()))
+print('mongo db is : \n'+SYS._str(MyFindoer.pymongoview()))
 
 #Print
-MyController.file(_ModeStr='c')
+MyFindoer.file(_ModeStr='c')
 
 

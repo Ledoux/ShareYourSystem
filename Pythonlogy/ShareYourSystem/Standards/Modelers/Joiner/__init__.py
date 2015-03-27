@@ -207,12 +207,13 @@ class JoinerClass(BaseClass):
 						'We set this retrieve tuples into the controller',
 						('self.',self,[
 							'JoinedModelMongoIndexIntsList',
-							'JoinedModelHdfIndexIntsList'
+							'JoinedModelHdfIndexIntsList',
+							'ModeledParentControllerDeriveModelerVariable'
 						])
 					]
 				)
 			'''
-
+			
 			#Check
 			if self.ModelMongoBool:
 
@@ -220,7 +221,7 @@ class JoinerClass(BaseClass):
 				map(
 						lambda __JoinedModelMongoIndexInt,__JoinedRetrieveIndexIntsListGetStr:
 						setattr(
-							self.ModelDeriveControllerVariable,
+							self.ModeledParentControllerDeriveModelerVariable,
 							__JoinedRetrieveIndexIntsListGetStr,
 							[
 								__JoinedModelMongoIndexInt,
@@ -238,7 +239,7 @@ class JoinerClass(BaseClass):
 				map(
 						lambda __JoinedModelHdfIndexInt,__JoinedRetrieveIndexIntsListGetStr:
 						setattr(
-							self.ModelDeriveControllerVariable,
+							self.ModeledParentControllerDeriveModelerVariable,
 							__JoinedRetrieveIndexIntsListGetStr,
 							[
 								__JoinedModelHdfIndexInt,
@@ -261,16 +262,62 @@ class JoinerClass(BaseClass):
 
 	def mimic_model(self):
 		
+		#/################/#
+		# Need to reset first the parent...
+		#
+
 		#debug
 		'''
 		self.debug(
-				'We join model here'
+				[
+					'We join model here',
+					('self.',self,['StructureTopDeriveStructurerVariable'])
+				]
 			)
 		'''
+
+		#set
+		if self.ParentDeriveTeamerVariable!=None:
+			self.ModeledParentControllerDeriveModelerVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
+		else:
+			self.ModeledParentControllerDeriveModelerVariable=self
+
+		#set
+		self.ModeledTopControllerDeriveModelerVariable=self.StructureTopDeriveStructurerVariable
+
+		#debug
+		'''
+		self.debug(
+			[
+				('self.',self,[
+					#'ModeledParentControllerDeriveModelerVariable',
+					#'ModeledTopControllerDeriveModelerVariable'
+				]),
+				'Recheck for hdf or mongo',
+				'self.ModeledParentControllerDeriveModelerVariable.HdformatingFileKeyStr is ',
+				self.ModeledParentControllerDeriveModelerVariable.HdformatingFileKeyStr
+			]
+		)
+		'''
+
+
+		#Check
+		if self.ModeledParentControllerDeriveModelerVariable.HdformatingFileKeyStr!="":
+
+			#set
+			self.ModelMongoBool=True	
+			self.ModelHdfBool=True		
 
 		#/################/#
 		# Join first
 		#
+
+		#debug
+		'''
+		self.debug(
+				'We join now'
+			)
+		'''
 
 		#join
 		self.join()
@@ -297,11 +344,14 @@ class JoinerClass(BaseClass):
 		self.debug(
 			[
 				'Now',
-				('self.',self,['ModelKeyStrsList'])
+				('self.',self,[
+					'ModelKeyStrsList',
+					'ModelHdfBool'
+				])
 			]
 		)
 		'''
-
+		
 		#Check
 		if self.ModelHdfBool:
 
@@ -429,7 +479,7 @@ class JoinerClass(BaseClass):
 			map(
 					lambda __JoinedRetrieveIndexIntsListGetStr,__JoinedInsertIndexInt:
 					getattr(
-						self.ModelDeriveControllerVariable,
+						self.ModeledParentControllerDeriveModelerVariable,
 						__JoinedRetrieveIndexIntsListGetStr
 						).__setitem__(
 							1,
@@ -445,7 +495,7 @@ class JoinerClass(BaseClass):
 			map(
 					lambda __JoinedRetrieveIndexIntsListGetStr,__JoinedInsertIndexInt:
 					getattr(
-						self.ModelDeriveControllerVariable,
+						self.ModeledParentControllerDeriveModelerVariable,
 						__JoinedRetrieveIndexIntsListGetStr
 						).__setitem__(
 							1,
@@ -562,7 +612,7 @@ class JoinerClass(BaseClass):
 					lambda __JoinedRetrieveIndexIntsListGetStr,__JoinedPostDeriveJoiner:
 					__JoinedPostDeriveJoiner.retrieve(
 						getattr(
-							self.ModelDeriveControllerVariable,
+							self.ModeledParentControllerDeriveModelerVariable,
 							__JoinedRetrieveIndexIntsListGetStr
 						)
 					),
@@ -651,7 +701,7 @@ class JoinerClass(BaseClass):
 #</DefineClass>
 
 #<DefineLocals>
-Controller.ModelsClass.ManagingValueClass=JoinerClass
+Modeler.ModelersStructurerClass.ManagingValueClass=JoinerClass
 #<DefineLocals>
 
 #</DefinePrint>

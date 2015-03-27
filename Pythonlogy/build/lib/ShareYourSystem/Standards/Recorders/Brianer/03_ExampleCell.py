@@ -63,7 +63,6 @@ MyBrianer=SYS.BrianerClass(
 print('MyBrianer is ')
 SYS._print(MyBrianer) 
 
-
 #/###################/#
 # Do one simulation
 #

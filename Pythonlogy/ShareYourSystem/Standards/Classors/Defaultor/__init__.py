@@ -253,9 +253,13 @@ def setDefault(
 #Definition the new init method
 def initDefault(_InstanceVariable,*_LiargVariablesList,**_KwargVariablesDict):
 
+	#/###################/#
+	# Determine the Init Kwarg
+	#
+
 	#debug
 	'''
-	print('Defaultor l.134 : ')
+	print('Defaultor l.261 : ')
 	print('_LiargVariablesList is ',_LiargVariablesList)
 	print('_KwargVariablesDict is ',_KwargVariablesDict)
 	print('')
@@ -282,35 +286,68 @@ def initDefault(_InstanceVariable,*_LiargVariablesList,**_KwargVariablesDict):
 	print('')
 	'''
 
-	#Update and call the init method of a python object 
-	map(
-			lambda __ItemTuple:
-			_InstanceVariable.__setattr__(__ItemTuple[0],__ItemTuple[1]) 
-			#If we want to not set the items setted during hooks and that are not specified...
-			if hasattr(_InstanceVariable,__ItemTuple[0]) else None
-			,InitKwargVariablesDict.iteritems()
-		)
-
-	#call the base method
-	object.__init__(_InstanceVariable)
-
 	#get
 	DefaultClass=getattr(SYS,_KwargVariablesDict['DefaultClassStr'])
 	DefaultWrapUnboundMethod=getattr(DefaultClass,_KwargVariablesDict['DefaultWrapMethodStr'])
 
-	#debug
+	#/###################/#
+	# call the DefaultWrapUnboundMethod
+	#
+
+	#Debug
 	'''
-	print('Defaultor l.182 : ')
+	print('Defaultor l.329 : ')
 	print('DefaultClass is ',DefaultClass)
-	print('DefaultWrapUnboundMethod is ',DefaultWrapUnboundMethod)
+	print('Now call the DefaultWrapUnboundMethod is ',DefaultWrapUnboundMethod)
 	print('')
 	'''
-
+	
 	#Call the InitMethodFunction
 	try:
 		DefaultWrapUnboundMethod(_InstanceVariable,*_LiargVariablesList,**_KwargVariablesDict)
 	except:
 		DefaultWrapUnboundMethod(_InstanceVariable,*_LiargVariablesList)
+
+	#Debug
+	'''
+	print('Defaultor l.340 : ')
+	print('Of we have called the DefaultWrapUnboundMethod')
+	print('')
+	'''
+
+	#/###################/#
+	# for the first call update and init object
+	#
+
+	#Debug
+	'''
+	print('Defaultor l.298 : ')
+	print("'DefaultInitBool' not in _InstanceVariable.__dict__")
+	print('DefaultInitBool' not in _InstanceVariable.__dict__)
+	print('')
+	'''
+
+	#Check
+	if 'DefaultInitBool' not in _InstanceVariable.__dict__:
+
+		#Debug
+		'''
+		print('Defaultor l.307 : ')
+		print('Ok we update the items kwarg')
+		print('')
+		'''
+
+		#Update 
+		map(
+				lambda __ItemTuple:
+				_InstanceVariable.__setattr__(__ItemTuple[0],__ItemTuple[1]) 
+				#If we want to not set the items setted during hooks and that are not specified...
+				if hasattr(_InstanceVariable,__ItemTuple[0]) else None
+				,InitKwargVariablesDict.iteritems()
+			)
+
+		#set
+		_InstanceVariable.DefaultInitBool=True
 
 #<DefineLocals>
 
@@ -427,8 +464,8 @@ class DefaultorClass(BaseClass):
 			InitExecStr+="**_KwargVariablesDict):\n\t"
 			InitExecStr+="initDefault(_InstanceVariable,"
 			InitExecStr+="*_LiargVariablesList,"
-			InitExecStr+="**dict(_KwargVariablesDict,**{'DefaultWrapMethodStr':'"+DefaultWrapMethodStr+"','DefaultClassStr':'"+_Class.__name__+"'}))\n"
-		
+			InitExecStr+="**dict(_KwargVariablesDict,**{'DefaultWrapMethodStr':'"+DefaultWrapMethodStr+"','DefaultClassStr':'"+_Class.__name__+"'}))\n\t"
+			
 			#debug
 			'''
 			print('Defaultor l 280')
@@ -474,6 +511,7 @@ class DefaultorClass(BaseClass):
 			#Add to the KeyStrsList
 			_Class.KeyStrsList+=[
 										#'DefaultAttributeItemTuplesList',
+										'DefaultInitBool',
 										'DefaultAttributeVariablesOrderedDict',
 										'InitInspectDict',
 										'DefaultBaseKeyStrsList',

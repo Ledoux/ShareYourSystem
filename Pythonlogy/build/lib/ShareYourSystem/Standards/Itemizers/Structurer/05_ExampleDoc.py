@@ -19,14 +19,14 @@ SYS.Doer.addDo('Recorder','Record','Recording','Recorded')
 		('Sample','Samples')
 	]
 })
-class RecorderClass(SYS.NetworkerClass):
+class RecorderClass(SYS.StructurerClass):
 								
 	def default_init(self,
 						**_KwargVariablesDict
 					):
 
 		#Call the parent init method
-		SYS.NetworkerClass.__init__(self,**_KwargVariablesDict)
+		SYS.StructurerClass.__init__(self,**_KwargVariablesDict)
 	
 #/######################/#
 # Define one instance

@@ -71,7 +71,8 @@ class ModelerClass(BaseClass):
 					_ModelHdfBool=False,
 					_ModelDescriptionTuplesList=None,
 					_ModeledParentSingularStr="",	
-					_ModeledParentControllerDeriveModelerVariable=None,					
+					_ModeledParentControllerDeriveModelerVariable=None,	
+					_ModeledTopControllerDeriveModelerVariable=None,				
 					_ModeledDescriptionClassesOrderedDict=None,																
 					_ModeledDescriptionClass=None,
 					_ModeledHdfGroupVariable=None,
@@ -138,12 +139,14 @@ class ModelerClass(BaseClass):
 			self.ModeledParentSingularStr=self.ParentedTotalSingularListDict.keys()[0]
 
 		#debug
+		'''
 		self.debug(
 			[
 				'Ok',
 				('self.',self,['ModeledParentSingularStr'])
 			]
 		)
+		'''
 
 		#/###############/#
 		# Cases depending on the level
@@ -156,37 +159,107 @@ class ModelerClass(BaseClass):
 
 
 			#/###############/#
-			# It is the top 
+			# It is a controller 
 			#
 
 			#debug
+			'''
 			self.debug(
 					[
 						'Controller Level',
 					]
 				)
+			'''
 
 			#/###############/#
 			# Determine the parent
 			#
 
+			#set
+			self.ModeledParentControllerDeriveModelerVariable=self
+
 			#Check
-			if 'Models' in self.TeamDict:
+			if self.ModeledParentSingularStr=='Component':
+
+				#/###############/#
+				# It is a component controller 
+				#
+
+				#debug
+				'''
+				self.debug(
+						[
+							'Component Controller Level',
+							'We set the ModeledTopControllerDeriveModelerVariable',
+							#('self.',self,['StructureTopDeriveStructurerVariable'])
+						]
+					)
+				'''
 
 				#set
-				self.ModeledParentControllerDeriveModelerVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
+				self.ModeledTopControllerDeriveModelerVariable=self.StructureTopDeriveStructurerVariable
 
 			else:
 
+				#/###############/#
+				# It is the top controller 
+				#
+
 				#debug
+				'''
+				self.debug(
+						[
+							'Top Controller Level',
+						]
+					)
+				'''
+
+				#set
+				self.ModeledTopControllerDeriveModelerVariable=self
+
+				#/###############/#
+				# structure
+				#
+
+				#debug
+				'''
+				self.debug(
+					[
+						'We are going to structure'
+					]
+				)
+				'''
+
+				#structure
+				self.structure(
+					[
+						'Components',
+						'Models'
+					],
+					_DoStr='Model'
+				)
+
+			#Check
+			if 'Models' not in self.TeamDict:
+
+				#debug
+				'''
 				self.debug(
 					[
 						'It is a special one level model'
 					]
 				)
+				'''
+
+				#/###############/#
+				# Determine the parent
+				#
 
 				#set
-				self.ModeledParentControllerDeriveModelerVariable=self
+				self.ModeledParentControllerDeriveModelerVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
+
+				#set
+				self.ModeledTopControllerDeriveModelerVariable=self.StructureTopDeriveStructurerVariable
 
 				#/###############/#
 				# SetModel
@@ -195,27 +268,16 @@ class ModelerClass(BaseClass):
 				#set
 				self.setModel()
 
-			#/###############/#
-			# structure
-			#
-
-			#structure
-			self.structure(
-				[
-					'Models',
-					'Components'
-				],
-				_DoStr='Model'
-			)
-
-		elif self.ModeledParentSingularStr=='Models':
+		elif self.ModeledParentSingularStr=='Model':
 
 			#debug
+			'''
 			self.debug(
 					[
 						'Model Level',
 					]
 				)
+			'''
 
 			#/###############/#
 			# Determine the parent
@@ -224,6 +286,22 @@ class ModelerClass(BaseClass):
 			#set
 			self.ModeledParentControllerDeriveModelerVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
 
+			#set
+			self.ModeledTopControllerDeriveModelerVariable=self.StructureTopDeriveStructurerVariable
+
+			#debug
+			'''
+			self.debug(
+				[
+					'We have determined the parents',
+					('self.',self,[
+						'ModeledParentControllerDeriveModelerVariable'
+					]),
+					'Now we model'
+				]
+			)
+			'''
+
 			#/###############/#
 			# SetModel
 			#
@@ -231,28 +309,48 @@ class ModelerClass(BaseClass):
 			#set
 			self.setModel()
 
+			#debug
+			'''
+			self.debug(
+				[
+					'Ok we have modeled',
+				]
+			)
+			'''
 
+		#debug
+		'''
+		self.debug(
+			[
+				'Ok end of model'
+			]
+		)
+		'''
 
 	def setModel(self):
 
 		#Debug
+		'''
 		self.debug(
 				[
 					'model start',
-					'Determine if it is going to be mongo or hdf'
+					'Determine if it is going to be mongo or hdf',
+					('self.',self,['ModeledTopControllerDeriveModelerVariable'])
 				]
 			)
-		
+		'''
+
 		#/###################/#
 		# Determine if it is Mongo or Hdf
 		#
 
 		#Check
-		if self.ModeledParentControllerDeriveModelerVariable.HdformatingFileKeyStr!="":
+		if self.ModeledTopControllerDeriveModelerVariable.HdformatingFileKeyStr!="":
 			self.ModelMongoBool=False
 			self.ModelHdfBool=True
 
 		#Debug
+		'''
 		self.debug(
 				[
 					'Ok we now what database to use',
@@ -262,6 +360,7 @@ class ModelerClass(BaseClass):
 					])
 				]
 			)
+		'''
 
 		#/###################/#
 		# Mongo Case
@@ -650,6 +749,7 @@ class ModelerClass(BaseClass):
 			#
 
 			#debug
+			'''
 			self.debug(
 					[
 						'Keep maybe a copy of ModelingDescriptionTuplesList',
@@ -659,7 +759,8 @@ class ModelerClass(BaseClass):
 						])
 					]
 				)
-
+			'''
+			
 			#keep a memory
 			if self.ModelDescriptionTuplesList==None:
 
@@ -673,6 +774,7 @@ class ModelerClass(BaseClass):
 			#
 
 			#debug
+			'''
 			self.debug(
 						[
 							'We model shape here',
@@ -681,6 +783,7 @@ class ModelerClass(BaseClass):
 							])
 						]
 					)
+			'''
 
 			#Check
 			if self.ModelDimensionTuplesList!=None and len(self.ModelDimensionTuplesList)>0:
@@ -1083,6 +1186,7 @@ class ModelerClass(BaseClass):
 				RowInt=tables.Int64Col()
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We add descriptions in the description Class',
@@ -1091,6 +1195,7 @@ class ModelerClass(BaseClass):
 					])
 				]
 			)
+			'''
 
 			#set the cols in the ModelClass
 			map(
@@ -1574,7 +1679,7 @@ class ModelerClass(BaseClass):
 			]
 		)
 		'''
-
+		
 		#/#################/#
 		# Tag a name with the parent
 		#
@@ -1606,6 +1711,7 @@ class ModelerClass(BaseClass):
 			)
 
 		#debug
+		'''
 		self.debug(
 			[
 				'We have binded ModelingDescriptionTuplesList to ModelKeyStrsList',
@@ -1615,7 +1721,8 @@ class ModelerClass(BaseClass):
 				'Now set the dimensions'
 			]
 		)
-
+		'''
+		
 		#/###################/#
 		# Look for items where it is a get dimension
 		#
@@ -1850,6 +1957,7 @@ ModelerClass.PrintingClassSkipKeyStrsList.extend(
 		'ModeledDescriptionClassesOrderedDict',																
 		#'ModeledDescriptionClass', 													
 		'ModeledParentControllerDeriveModelerVariable',
+		'ModeledTopControllerDeriveModelerVariable',
 		'ModeledParentSingularStr',	
 		'ModeledHdfGroupVariable', 
 		'ModeledHdfTopFileVariable',

@@ -76,7 +76,7 @@ class FindoerClass(BaseClass):
 			'''
 			
 			#Check
-			if self.ModelingMongoBool:
+			if self.ModelMongoBool:
 
 				#find in the list
 				self.FoundMongoRowDictsList=list(
@@ -114,7 +114,7 @@ class FindoerClass(BaseClass):
 			'''
 
 			#Check
-			if self.ModelingHdfBool:
+			if self.ModelHdfBool:
 
 				#Take the first one in the list
 				self.FoundHdfRowDictsList=Rower.getRowedDictsListWithTable(
@@ -184,11 +184,21 @@ class FindoerClass(BaseClass):
 			'''
 
 			#set the RetrievingIndexesList and retrieve
-			self.RetrievingIndexesList=(
+			self.RetrievingIndexIntsList=[
 											0,
 											self.FoundRecoverDict['RowInt']
-										)
+										]
 		
+
+			#debug
+			'''
+			self.debug(
+						[
+							('self.',self,['RetrievingIndexIntsList'])
+						]
+					)
+			'''
+			
 			#Now we can retrieve
 			self.retrieve()
 

@@ -29,15 +29,24 @@ StickerClass = function(_InitDictObject) {
     _.extend(LocalSticker,_InitDictObject)
 
     //Debug
-    /*
     console.log(
         '_InitDictObject is \n',
         _InitDictObject,
         '\n',
-        Meteor.PatchRaphael
+        Meteor.PatchRaphael,
+        "$('#PatchSvg').get(0) is \n",
+        $('#PatchSvg').get(0),
+        'Raphael is ',
+        Raphael
     )
-    */
     
+    //build the Raphael environment
+    if(Meteor.PatchRaphael==undefined)
+    {
+        PatchRaphael=Raphael($('#PatchSvg').get(0))
+        Meteor.PatchRaphael=PatchRaphael
+    }
+
     //Define the set
     LocalSticker.set=Meteor.PatchRaphael.set()
     LocalSticker.set.Sticker=LocalSticker

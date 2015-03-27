@@ -33,8 +33,8 @@ AttestingStrsList=['MakerClass.make is '+str(MakerClass.make)]
 
 #Definition of an instance and make
 MyMaker=MakerClass(
-	_MakingMyList=['hello'],
-	**{'MakingFirstInt':3}
+		_MakingMyList=['hello'],
+		**{'MakingFirstInt':3}
 	).superDo_make(
 		3.,
 		np.array([5]),

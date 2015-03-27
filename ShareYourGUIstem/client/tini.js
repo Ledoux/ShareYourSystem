@@ -27,3 +27,5 @@ _.map(
       __Abstraction.tini()
     }
   )
+
+Bars=new Mongo.Collection('bars')

@@ -70,13 +70,11 @@ Template.Interface.rendered=function()
     //require('raphael')
 
     //Debug
-    /*
     console.log(
       'init a Raphael patch\n',
       '$("#PatchSvg").get(0) is \n',
       $('#PatchSvg').get(0)
     )
-    */
     
     //build the Raphael environment
     PatchRaphael=Raphael($('#PatchSvg').get(0))

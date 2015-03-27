@@ -14,8 +14,8 @@ MyRetriever=SYS.RetrieverClass(
 				('MyIntsList','MyIntsList',SYS.tables.Int64Col(shape=3))
 			],
 			'RowingKeyStrsList':[
-					'MyInt',
-					'MyStr'
+				'MyInt',
+				'MyStr'
 			]	
 		}
 	).model(

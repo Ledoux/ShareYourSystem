@@ -584,13 +584,6 @@ ShareYourSystem/Standards/Itemizers/Manager/Test.py
 ShareYourSystem/Standards/Itemizers/Manager/__init__.py
 ShareYourSystem/Standards/Itemizers/Manager/Tests/attest_path.txt
 ShareYourSystem/Standards/Itemizers/Manager/draft/__init__ copy 2.py
-ShareYourSystem/Standards/Itemizers/Networker/00_ExampleDoc.md
-ShareYourSystem/Standards/Itemizers/Networker/01_ExampleDoc.py
-ShareYourSystem/Standards/Itemizers/Networker/02_ExampleDoc.md
-ShareYourSystem/Standards/Itemizers/Networker/03_ExampleDoc.py
-ShareYourSystem/Standards/Itemizers/Networker/04_ExampleDoc.md
-ShareYourSystem/Standards/Itemizers/Networker/05_ExampleDoc.py
-ShareYourSystem/Standards/Itemizers/Networker/__init__.py
 ShareYourSystem/Standards/Itemizers/Parenter/00_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Parenter/01_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Parenter/02_ExampleDoc.md
@@ -777,6 +770,7 @@ ShareYourSystem/Standards/Modelers/Findoer/ProcessTemp.sh
 ShareYourSystem/Standards/Modelers/Findoer/ProcessTemp.txt
 ShareYourSystem/Standards/Modelers/Findoer/Readme.md
 ShareYourSystem/Standards/Modelers/Findoer/Test.py
+ShareYourSystem/Standards/Modelers/Findoer/Thing.hdf
 ShareYourSystem/Standards/Modelers/Findoer/__init__.py
 ShareYourSystem/Standards/Modelers/Findoer/data/db/journal/j._0
 ShareYourSystem/Standards/Modelers/Hierarchizer/001_DocumentDoc.md
@@ -867,7 +861,6 @@ ShareYourSystem/Standards/Modelers/Retriever/Readme.md
 ShareYourSystem/Standards/Modelers/Retriever/Test.py
 ShareYourSystem/Standards/Modelers/Retriever/Thing.hdf
 ShareYourSystem/Standards/Modelers/Retriever/__init__.py
-ShareYourSystem/Standards/Modelers/Retriever/data/db/journal/j._0
 ShareYourSystem/Standards/Modelers/Rower/001_DocumentDoc.md
 ShareYourSystem/Standards/Modelers/Rower/00_ExampleDoc.md
 ShareYourSystem/Standards/Modelers/Rower/01_ExampleDoc.py
@@ -885,6 +878,8 @@ ShareYourSystem/Standards/Recorders/Brianer/02_ExampleDoc.md
 ShareYourSystem/Standards/Recorders/Brianer/03_ExampleCell.py
 ShareYourSystem/Standards/Recorders/Brianer/04_ExampleDoc.md
 ShareYourSystem/Standards/Recorders/Brianer/05_ExampleCell.py
+ShareYourSystem/Standards/Recorders/Brianer/06_ExampleDoc.md
+ShareYourSystem/Standards/Recorders/Brianer/07_ExampleCell.py
 ShareYourSystem/Standards/Recorders/Brianer/Readme.md
 ShareYourSystem/Standards/Recorders/Brianer/Test.py
 ShareYourSystem/Standards/Recorders/Brianer/__init__.py
@@ -906,6 +901,9 @@ ShareYourSystem/Standards/Recorders/Brianer/draft/07_ExampleDoc.py
 ShareYourSystem/Standards/Recorders/Brianer/draft/__init__ copy 2.py
 ShareYourSystem/Standards/Recorders/Brianer/draft/__init__ copy 3.py
 ShareYourSystem/Standards/Recorders/Brianer/draft/__init__ copy 4.py
+ShareYourSystem/Standards/Recorders/Rater/00_ExampleDoc.md
+ShareYourSystem/Standards/Recorders/Rater/01_ExampleCell.py
+ShareYourSystem/Standards/Recorders/Rater/__init__.py
 ShareYourSystem/Standards/Recorders/Recorder/001_DocumentDoc.md
 ShareYourSystem/Standards/Recorders/Recorder/01_ExampleCell.py
 ShareYourSystem/Standards/Recorders/Recorder/Readme.md

@@ -117,6 +117,7 @@ setup(
 			 		'ShareYourSystem.Standards.Recorders.Recorder',
 			 		'ShareYourSystem.Standards.Recorders.Simulater',
 			 		'ShareYourSystem.Standards.Recorders.Brianer',
+			 		'ShareYourSystem.Standards.Recorders.Rater',
 			 		'ShareYourSystem.Specials.Predicters.Predicter',
 			 		'ShareYourSystem.Specials.Predicters.Predisenser',
 			 		'ShareYourSystem.Specials.Predicters.Prediploter',

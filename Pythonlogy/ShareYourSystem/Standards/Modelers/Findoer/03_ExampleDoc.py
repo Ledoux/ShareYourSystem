@@ -1,70 +1,55 @@
 #ImportModules
 import ShareYourSystem as SYS
-import tables
 
 #Definition 
-MyController=SYS.ControllerClass(
+MyFindoer=SYS.FindoerClass(
 		**{
 			'FolderingPathStr':SYS.Findoer.LocalFolderPathStr,
-			'ControllingModelClassVariable':SYS.FindoerClass
-		}
-	).set(
-		'/-Models/|Thing',
-		{
+			'HdformatingFileKeyStr':'Thing.hdf',
 			'ModelingDescriptionTuplesList':
 			[
 				#GetStr #ColumnStr #Col
-				('MyInt','MyInt',tables.Int64Col()),
-				('MyStr','MyStr',tables.StringCol(10)),
-				('MyIntsList','MyIntsList',tables.Int64Col(shape=3))
+				('MyInt','MyInt',SYS.tables.Int64Col()),
+				('MyStr','MyStr',SYS.tables.StringCol(10)),
+				('MyIntsList','MyIntsList',SYS.tables.Int64Col(shape=3))
 			],
 			'RowingKeyStrsList':[
 				'MyInt',
 				'MyStr'
 			]	
 		}
-	)['#map@set'](
+	).model(
+	).mapSet(
 		{
 			'MyInt':0,
 			'MyStr':"hello",
 			'MyIntsList':[2,4,1]
 		}
-	).command(
-		'/-Models/|Thing',
-		'#call:insert'
-	)['#map@set'](
+	).insert(
+	).mapSet(
 		{
 			'MyInt':5,
 			'MyStr':"bonjour",
 			'MyIntsList':[0,0,1]
 		}
-	).command(
-		'/-Models/|Thing',
+	).insert(
+	).find(
+		#FindingWhereVariable
 		[
-			'#call:insert',
-			(
-				'find',
-				[
-					#FindingWhereVariable
-					[
-						('MyInt',(SYS.operator.eq,0)),
-						('MyIntsList',(SYS.getIsEqualBool,[2,4,1]))
-					],
-					#FindingRecoverBool
-					True
-				]
-			)
-		]
+			('MyInt',(SYS.operator.eq,0)),
+			('MyIntsList',(SYS.getIsEqualBool,[2,4,1]))
+		],
+		#FindingRecoverBool
+		True
 	)
 
-
 #print
-print('MyController is ')
-SYS._print(MyController)
+print('MyFindoer is ')
+SYS._print(MyFindoer)
 
 #view
-print('hdf5 file is : \n'+SYS._str(MyController.hdfview()))
+print('hdf5 file is : \n'+SYS._str(MyFindoer.hdfview()))
 
 #close
-MyController.file(_ModeStr='c')
+MyFindoer.file(_ModeStr='c')
 

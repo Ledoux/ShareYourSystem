@@ -11,7 +11,7 @@ import ShareYourSystem as SYS
 
 #Define a Moduler class
 @SYS.ClasserClass()
-class MultiplierClass(SYS.ControllerClass):
+class MultiplierClass(SYS.JoinerClass):
 								
 	def default_init(self,
 						_MultiplyingFirstFloat=0,
@@ -21,10 +21,10 @@ class MultiplierClass(SYS.ControllerClass):
 					):
 
 		#Call the parent init method
-		SYS.ControllerClass.__init__(self,**_KwargVariablesDict)
+		SYS.JoinerClass.__init__(self,**_KwargVariablesDict)
 			
 		#Build the model		
-		self['#map@set'](
+		self.mapSet(
 			{
 				'-Models':[
 					('|Parameter',[
@@ -50,7 +50,7 @@ class MultiplierClass(SYS.ControllerClass):
 
 #Define a Moduler class
 @SYS.ClasserClass()
-class ModulerClass(SYS.ControllerClass):
+class ModulerClass(SYS.JoinerClass):
 								
 	def default_init(self,
 						_ModulingPowerFloat=0.5,
@@ -59,10 +59,10 @@ class ModulerClass(SYS.ControllerClass):
 					):
 
 		#Call the parent init method
-		SYS.ControllerClass.__init__(self,**_KwargVariablesDict)
+		SYS.JoinerClass.__init__(self,**_KwargVariablesDict)
 
 		#Build the components and the models
-		self['#map@set'](
+		self.mapSet(
 			{
 				#COMPONENTS
 				'-Components':{
@@ -113,12 +113,8 @@ MyModuler=ModulerClass(
 			'FolderingPathStr':SYS.Joiner.LocalFolderPathStr,
 			'PymongoingDatabaseStr':'Modulus'
 		}
-	).get('?v'
-	)
-
-
-'''
-	['#map@set'](
+	).model(
+	).mapSet(
 		{
 			'/-Components/|Real':{
 				'MultiplyingFirstFloat':3.,
@@ -136,7 +132,10 @@ MyModuler=ModulerClass(
 			'#call:insert',
 			('setSwitch',['insert'])
 		]
-	)['#map@set'](
+	)
+
+"""
+	.mapSet(
 		{
 			'/-Components/|Real':{
 				'MultiplyingFirstFloat':3.,
@@ -152,8 +151,7 @@ MyModuler=ModulerClass(
 		'/-Models/|Result',
 		'#call:insert'
 	)
-'''
-
+"""
 
 
 #/######################/#

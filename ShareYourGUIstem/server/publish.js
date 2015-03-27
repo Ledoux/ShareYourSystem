@@ -176,3 +176,35 @@ Meteor.methods(
   
   }
 )
+
+var exec = Npm.require('child_process').exec;
+var Fiber = Npm.require('fibers');
+var Future = Npm.require('fibers/future');
+
+Meteor.methods({
+
+  callPython: function() {
+
+    console.log('We call python');
+
+    var fut = new Future();
+    return exec('python -c "print 3+3"', function (error, stdout, stderr) {
+
+      // if you want to write to Mongo in this callback
+      // you need to get yourself a Fiber
+      new Fiber(function() {
+        fut.return('Python was here');
+      }).run();
+
+      //console.log('jjjj\n',stdout)
+      return stdout
+    });
+
+
+
+    //return fut.wait();
+  },
+
+});
+
+

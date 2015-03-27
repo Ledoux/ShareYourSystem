@@ -769,8 +769,6 @@ class BrianerClass(BaseClass):
 				}
 			)
 
-
-
 		elif self.BrianedParentSingularStr=='Event':
 
 			#debug
@@ -933,6 +931,34 @@ class BrianerClass(BaseClass):
 				]
 			)
 
+			#/####################/#
+			# Update maybe the 
+			# parent neuron group
+
+			BrianedChartNeurongroupDerivePyploter=self.BrianedParentNeurongroupDeriveBrianerVariable.TeamDict[
+				'Charts'
+			].ManagementDict[
+				self.ManagementTagStr
+			]
+
+			#debug
+			self.debug(
+				[
+					'We update in the parent neurongroup chart',
+					'BrianedChartNeurongroupDerivePyploter is ',
+					SYS._str(BrianedChartNeurongroupDerivePyploter),
+					('self.',self,[])
+				]
+			)
+
+			#manage
+			BrianedChartNeurongroupDerivePyploter.TeamDict['Draws'].manage(
+				str(self.ManagementIndexInt),
+				{
+					'PyplotingDrawVariable':self.PyplotingDrawVariable
+				}
+			)
+
 
 	def propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable):
 
@@ -978,7 +1004,6 @@ class BrianerClass(BaseClass):
 		#set
 		BaseClass.propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable)
 
-
 	def setNeurongroup(self):
 
 		#debug
@@ -1018,7 +1043,8 @@ class BrianerClass(BaseClass):
 			[
 				('self.',self,[
 							'BrianingNeurongroupDict'
-							])
+							]),
+				'We now set the model system Neurongroup if N>0 and model!=""'
 			]
 		)
 		'''
@@ -1027,64 +1053,77 @@ class BrianerClass(BaseClass):
 		# Set the brian neurongroup
 		#
 
-		#init
-		self.BrianedNeurongroupVariable=NeuronGroup(
-			**dict(
-				self.BrianingNeurongroupDict,
-				**{
-					'name':self.ParentedTotalPathStr.replace('/','_')+'_'+self.ManagementTagStr
-				} 
-			)
-		)
-
-		#debug
-		'''
-		self.debug(
-			[
-				'Ok we have setted the Neurongroup',
-				('self.',self,[
-							'BrianedNeurongroupVariable'
-							])
-			]
-		)
-		'''
-
-		#/##################/#
-		# team States first all the brian variables
-		#
-
-		#get
-		self.BrianedRecordKeyStrsList=self.BrianedNeurongroupVariable.equations._equations.keys()
-
 		#Check
-		if len(self.BrianedRecordKeyStrsList)>0:
+		if self.BrianingNeurongroupDict['N']>0 and self.BrianingNeurongroupDict['model']!="":
+
+			#init
+			self.BrianedNeurongroupVariable=NeuronGroup(
+				**dict(
+					self.BrianingNeurongroupDict,
+					**{
+						'name':self.ParentedTotalPathStr.replace('/','_')+'_'+self.ManagementTagStr
+					} 
+				)
+			)
 
 			#debug
 			'''
 			self.debug(
-					[
-						'We simulate with neurongroup',
-						'adapt the initial conditions of all the brian variables',
-						'so first we team Traces and put Recorders inside or get it and mapSet'
-					]
-				)
+				[
+					'Ok we have setted the Neurongroup',
+					('self.',self,[
+								'BrianedNeurongroupVariable'
+								])
+				]
+			)
 			'''
 
-			#Check
-			if 'Traces' not in self.TeamDict:
-				BrianedDeriveTraces=self.team(
-					'Traces'
-				).TeamedValueVariable
-			else:
-				BrianedDeriveTraces=self.TeamDict[
-						'Traces'
-					]
+			#/##################/#
+			# team States first all the brian variables
+			#
 
-			#map
-			self.BrianedTraceDeriveBrianersList=map(
-					lambda __ManagementKeyStr,__RecordKeyStr:
-					BrianedDeriveTraces.manage(
-							__ManagementKeyStr,
+			#get
+			self.BrianedRecordKeyStrsList=self.BrianedNeurongroupVariable.equations._equations.keys()
+
+			#Check
+			if len(self.BrianedRecordKeyStrsList)>0:
+
+				#debug
+				'''
+				self.debug(
+						[
+							'We simulate with neurongroup',
+							'adapt the initial conditions of all the brian variables',
+							'so first we team Traces and put Recorders inside or get it and mapSet'
+						]
+					)
+				'''
+
+				#Check
+				if 'Traces' not in self.TeamDict:
+					BrianedDeriveTraces=self.team(
+						'Traces'
+					).TeamedValueVariable
+				else:
+					BrianedDeriveTraces=self.TeamDict[
+							'Traces'
+						]
+
+				#map
+				self.BrianedTraceDeriveBrianersList=map(
+						lambda __ManagementKeyStr,__RecordKeyStr:
+						BrianedDeriveTraces.manage(
+								__ManagementKeyStr,
+								{
+									'RecordingKeyVariable':getattr(
+										self.BrianedNeurongroupVariable,
+										__RecordKeyStr
+									),
+									'RecordKeyStr':__RecordKeyStr
+								}
+							).ManagedValueVariable
+						if __ManagementKeyStr not in BrianedDeriveTraces.ManagementDict
+						else BrianedDeriveTraces.ManagementDict[__ManagementKeyStr].mapSet(
 							{
 								'RecordingKeyVariable':getattr(
 									self.BrianedNeurongroupVariable,
@@ -1092,113 +1131,69 @@ class BrianerClass(BaseClass):
 								),
 								'RecordKeyStr':__RecordKeyStr
 							}
-						).ManagedValueVariable
-					if __ManagementKeyStr not in BrianedDeriveTraces.ManagementDict
-					else BrianedDeriveTraces.ManagementDict[__ManagementKeyStr].mapSet(
-						{
-							'RecordingKeyVariable':getattr(
-								self.BrianedNeurongroupVariable,
-								__RecordKeyStr
-							),
-							'RecordKeyStr':__RecordKeyStr
-						}
-					),
-					map(
-						lambda __BrianedRecordKeyStr:
-						Recorder.RecorderPrefixStr+__BrianedRecordKeyStr,
+						),
+						map(
+							lambda __BrianedRecordKeyStr:
+							Recorder.RecorderPrefixStr+__BrianedRecordKeyStr,
+							self.BrianedRecordKeyStrsList
+						),
 						self.BrianedRecordKeyStrsList
-					),
-					self.BrianedRecordKeyStrsList
+					)
+
+				#debug
+				'''
+				self.debug(
+					[
+						'Ok we know the structure ',
+						('self.',self,['BrianedNetworkVariable'])
+					]
+				)
+				'''
+
+				#/##################/#
+				# add in the net
+				#
+
+				#add
+				self.BrianedParentNetworkDeriveBrianerVariable.BrianedNetworkVariable.add(
+					self.BrianedNeurongroupVariable
 				)
 
-			#debug
-			'''
-			self.debug(
-				[
-					'Ok we know the structure ',
-					('self.',self,['BrianedNetworkVariable'])
-				]
-			)
-			'''
 
-			#/##################/#
-			# add in the net
-			#
-
-			#add
-			self.BrianedParentNetworkDeriveBrianerVariable.BrianedNetworkVariable.add(
-				self.BrianedNeurongroupVariable
-			)
-
-
-			#/####################/#
-			# maybe pyplot a draw plot
-			#
-
-			#debug
-			self.debug(
-				[
-					'We complete a view so first fill the draw'
-				]
-			)
-
-			#Check
-			if 'Charts' not in self.TeamDict:
-				BrianedChartsDeriveTeamer=self.team(
-					'Charts'
-				).TeamedValueVariable
-			else:
-				BrianedChartsDeriveTeamer=self.TeamDict['Charts']
-
-			#Check
-			if 'Traces' in self.TeamDict:
+				#/####################/#
+				# maybe pyplot a draw plot
+				#
 
 				#debug
 				self.debug(
 					[
-						'First we add the traces'
+						'We complete a view so first fill the draw'
 					]
 				)
 
-				#set
-				map(
-					lambda __KeyStr:
-					BrianedChartsDeriveTeamer.manage(
-						__KeyStr,
-						{
-							'-Draws':
-							{
+				#Check
+				if 'Charts' not in self.TeamDict:
+					BrianedChartsDeriveTeamer=self.team(
+						'Charts'
+					).TeamedValueVariable
+				else:
+					BrianedChartsDeriveTeamer=self.TeamDict['Charts']
 
-							}
-						}
-					),
-					self.TeamDict['Traces'].ManagementDict.keys()
-				)
+				#Check
+				if 'Traces' in self.TeamDict:
 
-				#debug
-				self.debug(
-					[
-						'self.TeamDict["Traces"] is ',
-						str(self.TeamDict["Traces"])
-					]
-				)
+					#debug
+					self.debug(
+						[
+							'First we add the traces'
+						]
+					)
 
-			#Check
-			if 'Events' in self.TeamDict:
-
-				#debug
-				self.debug(
-					[
-						'First we add the events'
-					]
-				)
-
-				#set
-				BrianedChartsDeriveTeamer.mapSet(
+					#set
 					map(
 						lambda __KeyStr:
-						(
-							'|'+__KeyStr,
+						BrianedChartsDeriveTeamer.manage(
+							__KeyStr,
 							{
 								'-Draws':
 								{
@@ -1206,19 +1201,51 @@ class BrianerClass(BaseClass):
 								}
 							}
 						),
-						self.TeamDict['Events'].ManagementDict.keys()
+						self.TeamDict['Traces'].ManagementDict.keys()
 					)
-				)
 
-				#debug
-				self.debug(
-					[
-						'self.TeamDict["Events"] is ',
-						str(self.TeamDict["Events"])
-					]
-				)
+					#debug
+					self.debug(
+						[
+							'self.TeamDict["Traces"] is ',
+							str(self.TeamDict["Traces"])
+						]
+					)
 
+				#Check
+				if 'Events' in self.TeamDict:
 
+					#debug
+					self.debug(
+						[
+							'First we add the events'
+						]
+					)
+
+					#set
+					BrianedChartsDeriveTeamer.mapSet(
+						map(
+							lambda __KeyStr:
+							(
+								'|'+__KeyStr,
+								{
+									'-Draws':
+									{
+
+									}
+								}
+							),
+							self.TeamDict['Events'].ManagementDict.keys()
+						)
+					)
+
+					#debug
+					self.debug(
+						[
+							'self.TeamDict["Events"] is ',
+							str(self.TeamDict["Events"])
+						]
+					)
 
 	def mimic_simulate(self):
 

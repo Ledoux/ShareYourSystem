@@ -7,6 +7,7 @@ import ShareYourSystem as SYS
 class MakerClass(SYS.ModelerClass):
 
 	def default_init(self,
+			_MakingMyInt=3,
 			_MakingMyIntsList={
 							'DefaultValueType':property,
 							'PropertyInitVariable':None,

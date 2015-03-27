@@ -76,12 +76,14 @@ Template.Coop.created = function()
     }
 
     //Debug
+    /*
     console.log(
             'Coop created l 46\n',
             'LocalInstance is \n',
             LocalInstance
         )
-
+    */
+    
     IsRaphaelBool=true
     if(IsRaphaelBool)
     {

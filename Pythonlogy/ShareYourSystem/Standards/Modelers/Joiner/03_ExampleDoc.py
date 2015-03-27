@@ -11,7 +11,7 @@ import ShareYourSystem as SYS
 
 #Define a Sumer class
 @SYS.ClasserClass()
-class SumerClass(SYS.ControllerClass):
+class SumerClass(SYS.JoinerClass):
 								
 	def default_init(self,
 						_SumingFirstInt=0,
@@ -21,7 +21,7 @@ class SumerClass(SYS.ControllerClass):
 					):
 
 		#Call the parent init method
-		SYS.ControllerClass.__init__(self,**_KwargVariablesDict)
+		SYS.ModelerClass.__init__(self,**_KwargVariablesDict)
 						
 	def do_sum(self):
 		
@@ -43,7 +43,7 @@ MySumer=SumerClass(
 			'HdformatingFileKeyStr':'Sums.hdf5',
 			'FolderingPathStr':SYS.Joiner.LocalFolderPathStr
 		}
-	)['#map@set'](
+	).mapSet(
 		{
 			'-Models':[
 				('|Parameter',[
@@ -55,13 +55,14 @@ MySumer=SumerClass(
 				])
 			]
 		}
-	).get('?v')
+	).model(
+	)
 
 #/######################/#
 # Insert in the model
 #
 
-MySumer['#map@set'](
+MySumer.mapSet(
 		[
 			('SumingFirstInt',1),
 			('SumingSecondInt',3)
@@ -73,7 +74,7 @@ MySumer['#map@set'](
 			'#call:insert',
 			('setSwitch',['insert'])
 		]
-	)['#map@set'](
+	).mapSet(
 		[
 			('SumingFirstInt',3),
 			('SumingSecondInt',5)
