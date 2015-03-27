@@ -170,8 +170,12 @@ class ManagerClass(BaseClass):
 			self.debug(
 				[
 					'This is a new managed value',
-					('self.',self,['ManagingKeyStr']),
-					'Check first if this managingkey str is known
+					('self.',self,[
+							'ManagingKeyStr',
+							'ManagingValueRigidVariable'
+						]
+					),
+					'Check first if this managingkey str is known'
 				]
 			)
 			'''

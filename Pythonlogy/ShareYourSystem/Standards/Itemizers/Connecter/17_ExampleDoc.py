@@ -3,7 +3,7 @@
 import ShareYourSystem as SYS
 
 #array original
-MyPointer=SYS.PointerClass(
+MyConnecter=SYS.ConnecterClass(
 	).set(
 		'-Neurons',
 		{
@@ -11,7 +11,6 @@ MyPointer=SYS.PointerClass(
 				'array':[
 					[
 						['-Connections'],
-						['|Postlets<->Prelets'],
 						['|#direct:_^_|E','|#direct:_^_|I']
 					],
 					[
@@ -28,7 +27,7 @@ MyPointer=SYS.PointerClass(
 	).get('?v')
 
 #print
-print('MyPointer is ')
-SYS._print(MyPointer)
+print('MyConnecter is ')
+SYS._print(MyConnecter)
 
 

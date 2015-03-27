@@ -35,8 +35,11 @@ class RaterClass(BaseClass):
 	def default_init(self,
 			_RatingUnitsInt=0,
 			_RatingConstantTimeFloat=20.,
+			_RatingMonitorIndexIntsList=None,
+			_RatingConnectStrsList=['self'],
 			_RatingTransferFunction=lambda _Float:_Float,
-			_RatingMonitorList=None,
+			_RatedModelStr="",
+			_RatedCurrentStr="",
 			**_KwargVariablesDict
 		):
 
@@ -60,16 +63,26 @@ class RaterClass(BaseClass):
 		#Check
 		if self.RatingUnitsInt>0:
 
+			#init
+			self.RatedModelStr='''
+				tau : 1
+				dr/dt = (-r+#CurrentStr)/(tau*ms) : 1
+			'''
+
+			#setModelStr
+			self.setModelStr()
+
+			#replace
+			self.RatedModelStr=self.RatedModelStr.replace(
+					'#CurrentStr',
+					self.RatedModelStr
+				)
+			
 			#update
 			self.BrianingNeurongroupDict.update(
 				{
 					'N':self.RatingUnitsInt,
-					'model':
-					'''
-						Jr : 1
-						tau : 1
-						dr/dt = (-r+Jr)/(tau*ms) : 1
-					'''
+					'model':self.RatedModelStr
 				}
 			)
 
@@ -93,11 +106,11 @@ class RaterClass(BaseClass):
 				).ManagedValueVariable
 
 			#Check
-			if len(self.RatingMonitorList)==0:
-				self.RatingMonitorList=[0]
+			if len(self.RatingMonitorIndexIntsList)==0:
+				self.RatingMonitorIndexIntsList=[0]
 
 			#set
-			RatedDefaultDeriveBrianer.MoniteringLabelIndexIntsArray=self.RatingMonitorList
+			RatedDefaultDeriveBrianer.MoniteringLabelIndexIntsArray=self.RatingMonitorIndexIntsList
 
 	def mimic_simulate(self):
 
@@ -126,6 +139,10 @@ class RaterClass(BaseClass):
 		#simulate
 		BaseClass.simulate(self)
 
+
+	def setModelStr(self):
+
+		pass
 
 	"""
 	def mimic_brian(self):

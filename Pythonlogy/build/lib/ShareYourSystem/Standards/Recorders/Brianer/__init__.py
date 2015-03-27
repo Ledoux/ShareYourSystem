@@ -186,96 +186,11 @@ class BrianerClass(BaseClass):
 		elif self.BrianedParentSingularStr=='Postlet':
 
 			#/########################/#
-			# Postlet level
+			# call the setSynapses method
 			#  
 
-			#debug
-			'''
-			self.debug(
-				[
-					'It is a Synapser level, we set the Synapser',
-					('self.',self,[
-								'BrianingSynapsesDict'
-								]
-					),
-					'self.PointToVariable.BrianedNeurongroupVariable is ',
-					str(self.PointToVariable.BrianedNeurongroupVariable)
-				]
-			)
-			'''
-
-			#/####################/#
-			# Set the parent
-			#
-
-			#get
-			self.BrianedParentNeurongroupDeriveBrianerVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
-
-			#get
-			self.BrianedParentNetworkDeriveBrianerVariable=self.BrianedParentNeurongroupDeriveBrianerVariable.BrianedParentNetworkDeriveBrianerVariable
-
-
-			#/####################/#
-			# Set the BrianedParentNeurongroupDeriveBrianerVariable
-			#
-
-			#debug
-			self.debug(
-				[
-					'We set the synapses',
-					'self.BrianedParentNeurongroupDeriveBrianerVariable.BrianedNeurongroupVariable is ',
-					str(self.BrianedParentNeurongroupDeriveBrianerVariable.BrianedNeurongroupVariable),
-					'self.PointToVariable.BrianedNeurongroupVariable is ',
-					str(self.PointToVariable.BrianedNeurongroupVariable),
-					'Maybe we have to make brian the post'
-				]
-			)
-
-			#Check 
-			if self.PointToVariable.BrianedNeurongroupVariable==None:
-				self.PointToVariable.brian()
-
-			#import
-			from brian2 import Synapses
-
-			#init
-			self.BrianedSynapsesVariable=Synapses(
-				source=self.BrianedParentNeurongroupDeriveBrianerVariable.BrianedNeurongroupVariable,
-				target=self.PointToVariable.BrianedNeurongroupVariable,
-				**self.BrianingSynapsesDict
-			)
-
-			#/####################/#
-			# Connect options
-			#
-
-			#connect
-			if type(self.BrianingConnectVariable)==float:
-
-				#debug
-				self.debug(
-					[
-						'we connect with a sparsity of ',
-						('self.',self,[
-							'BrianingConnectVariable'
-						])
-					]
-				)
-
-				#connect
-				self.BrianedSynapsesVariable.connect(
-					True,
-					p=self.BrianingConnectVariable
-				)
-
-			#/####################/#
-			# add to the structure
-			#
-
-			#add
-			self.BrianedParentNetworkDeriveBrianerVariable.BrianedNetworkVariable.add(
-				self.BrianedSynapsesVariable
-			)
+			#set Synapses
+			self.setSynapses()
 
 		elif self.BrianedParentSingularStr=='Trace':
 
@@ -1246,6 +1161,100 @@ class BrianerClass(BaseClass):
 							str(self.TeamDict["Events"])
 						]
 					)
+
+	def setSynapses(self):
+
+		#/########################/#
+		# Postlet level
+		#  
+
+		#debug
+		'''
+		self.debug(
+			[
+				'It is a Synapser level, we set the Synapser',
+				('self.',self,[
+							'BrianingSynapsesDict'
+							]
+				),
+				'self.PointToVariable.BrianedNeurongroupVariable is ',
+				str(self.PointToVariable.BrianedNeurongroupVariable)
+			]
+		)
+		'''
+
+		#/####################/#
+		# Set the parent
+		#
+
+		#get
+		self.BrianedParentNeurongroupDeriveBrianerVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
+
+		#get
+		self.BrianedParentNetworkDeriveBrianerVariable=self.BrianedParentNeurongroupDeriveBrianerVariable.BrianedParentNetworkDeriveBrianerVariable
+
+
+		#/####################/#
+		# Set the BrianedParentNeurongroupDeriveBrianerVariable
+		#
+
+		#debug
+		self.debug(
+			[
+				'We set the synapses',
+				'self.BrianedParentNeurongroupDeriveBrianerVariable.BrianedNeurongroupVariable is ',
+				str(self.BrianedParentNeurongroupDeriveBrianerVariable.BrianedNeurongroupVariable),
+				'self.PointToVariable.BrianedNeurongroupVariable is ',
+				str(self.PointToVariable.BrianedNeurongroupVariable),
+				'Maybe we have to make brian the post'
+			]
+		)
+
+		#Check 
+		if self.PointToVariable.BrianedNeurongroupVariable==None:
+			self.PointToVariable.brian()
+
+		#import
+		from brian2 import Synapses
+
+		#init
+		self.BrianedSynapsesVariable=Synapses(
+			source=self.BrianedParentNeurongroupDeriveBrianerVariable.BrianedNeurongroupVariable,
+			target=self.PointToVariable.BrianedNeurongroupVariable,
+			**self.BrianingSynapsesDict
+		)
+
+		#/####################/#
+		# Connect options
+		#
+
+		#connect
+		if type(self.BrianingConnectVariable)==float:
+
+			#debug
+			self.debug(
+				[
+					'we connect with a sparsity of ',
+					('self.',self,[
+						'BrianingConnectVariable'
+					])
+				]
+			)
+
+			#connect
+			self.BrianedSynapsesVariable.connect(
+				True,
+				p=self.BrianingConnectVariable
+			)
+
+		#/####################/#
+		# add to the structure
+		#
+
+		#add
+		self.BrianedParentNetworkDeriveBrianerVariable.BrianedNetworkVariable.add(
+			self.BrianedSynapsesVariable
+		)
 
 	def mimic_simulate(self):
 

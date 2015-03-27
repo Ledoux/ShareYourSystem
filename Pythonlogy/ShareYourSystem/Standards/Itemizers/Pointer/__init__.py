@@ -552,8 +552,11 @@ class PointerClass(BaseClass):
 					map(
 						lambda __ChildTeamItemTuple:
 						self.point(
+							#PointingKeyVariable
 							__ChildTeamItemTuple[0].replace('_','/'),
+							#PointingOutSetVariable
 							__ChildTeamItemTuple[1][0],
+							#PointingInSetVariable
 							__ChildTeamItemTuple[1][1],
 							_OutTeamKeyStr=__PointOutAndInTeamKeyStrsList[0],
 							_InTeamKeyStr=__PointOutAndInTeamKeyStrsList[1]

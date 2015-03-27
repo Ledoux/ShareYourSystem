@@ -517,7 +517,49 @@ ShareYourSystem/Standards/Itemizers/Conditioner/Readme.md
 ShareYourSystem/Standards/Itemizers/Conditioner/__init__.py
 ShareYourSystem/Standards/Itemizers/Connecter/00_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Connecter/01_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Connecter/02_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Connecter/03_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Connecter/04_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Connecter/05_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Connecter/06_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Connecter/07_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Connecter/08_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Connecter/09_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Connecter/10_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Connecter/11_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Connecter/12_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Connecter/13_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Connecter/14_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Connecter/15_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Connecter/16_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Connecter/17_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Connecter/18_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Connecter/19_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Connecter/Readme.md
 ShareYourSystem/Standards/Itemizers/Connecter/__init__.py
+ShareYourSystem/Standards/Itemizers/Connecter/draft/001_DocumentDoc.md
+ShareYourSystem/Standards/Itemizers/Connecter/draft/00_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Connecter/draft/01_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Connecter/draft/02_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Connecter/draft/03_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Connecter/draft/04_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Connecter/draft/05_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Connecter/draft/06_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Connecter/draft/07_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Connecter/draft/08_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Connecter/draft/09_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Connecter/draft/10_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Connecter/draft/11_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Connecter/draft/12_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Connecter/draft/13_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Connecter/draft/14_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Connecter/draft/15_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Connecter/draft/16_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Connecter/draft/17_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Connecter/draft/18_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Connecter/draft/19_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Connecter/draft/__init__ copy 2.py
+ShareYourSystem/Standards/Itemizers/Connecter/draft/__init__ copy 3.py
 ShareYourSystem/Standards/Itemizers/Executer/001_DocumentDoc.md
 ShareYourSystem/Standards/Itemizers/Executer/00_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Executer/01_ExampleDoc.py
@@ -880,6 +922,8 @@ ShareYourSystem/Standards/Recorders/Brianer/04_ExampleDoc.md
 ShareYourSystem/Standards/Recorders/Brianer/05_ExampleCell.py
 ShareYourSystem/Standards/Recorders/Brianer/06_ExampleDoc.md
 ShareYourSystem/Standards/Recorders/Brianer/07_ExampleCell.py
+ShareYourSystem/Standards/Recorders/Brianer/08_ExampleDoc.md
+ShareYourSystem/Standards/Recorders/Brianer/09_ExampleCell.py
 ShareYourSystem/Standards/Recorders/Brianer/Readme.md
 ShareYourSystem/Standards/Recorders/Brianer/Test.py
 ShareYourSystem/Standards/Recorders/Brianer/__init__.py
@@ -901,8 +945,15 @@ ShareYourSystem/Standards/Recorders/Brianer/draft/07_ExampleDoc.py
 ShareYourSystem/Standards/Recorders/Brianer/draft/__init__ copy 2.py
 ShareYourSystem/Standards/Recorders/Brianer/draft/__init__ copy 3.py
 ShareYourSystem/Standards/Recorders/Brianer/draft/__init__ copy 4.py
+ShareYourSystem/Standards/Recorders/Leaker/00_ExampleDoc.md
+ShareYourSystem/Standards/Recorders/Leaker/01_ExampleCell.py
+ShareYourSystem/Standards/Recorders/Leaker/02_ExampleDoc.md
+ShareYourSystem/Standards/Recorders/Leaker/03_ExampleCell.py
+ShareYourSystem/Standards/Recorders/Leaker/__init__.py
 ShareYourSystem/Standards/Recorders/Rater/00_ExampleDoc.md
 ShareYourSystem/Standards/Recorders/Rater/01_ExampleCell.py
+ShareYourSystem/Standards/Recorders/Rater/02_ExampleDoc.md
+ShareYourSystem/Standards/Recorders/Rater/03_ExampleCell.py
 ShareYourSystem/Standards/Recorders/Rater/__init__.py
 ShareYourSystem/Standards/Recorders/Recorder/001_DocumentDoc.md
 ShareYourSystem/Standards/Recorders/Recorder/01_ExampleCell.py

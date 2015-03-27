@@ -11,7 +11,7 @@ import ShareYourSystem as SYS
 
 #Define a Moduler class
 @SYS.ClasserClass()
-class MultiplierClass(SYS.PointerClass):
+class MultiplierClass(SYS.ConnecterClass):
 								
 	def default_init(self,
 						_MultiplyingFirstFloat=0,
@@ -21,10 +21,10 @@ class MultiplierClass(SYS.PointerClass):
 					):
 
 		#Call the parent init method
-		SYS.PointerClass.__init__(self,**_KwargVariablesDict)
+		SYS.ConnecterClass.__init__(self,**_KwargVariablesDict)
 			
 		#Build the model		
-		self['#map@set'](
+		self.mapSet(
 			[
 				('-Models',[
 						('|Parameter',[
@@ -41,7 +41,7 @@ class MultiplierClass(SYS.PointerClass):
 
 #Define a Moduler class
 @SYS.ClasserClass()
-class ModulerClass(SYS.PointerClass):
+class ModulerClass(SYS.ConnecterClass):
 								
 	def default_init(self,
 						_ModulingPowerFloat=0.5,
@@ -50,10 +50,10 @@ class ModulerClass(SYS.PointerClass):
 					):
 
 		#Call the parent init method
-		SYS.PointerClass.__init__(self,**_KwargVariablesDict)
+		SYS.ConnecterClass.__init__(self,**_KwargVariablesDict)
 
 		#Build the components and the models
-		self['#map@set'](
+		self.mapSet(
 			[
 				#MODELS
 				(

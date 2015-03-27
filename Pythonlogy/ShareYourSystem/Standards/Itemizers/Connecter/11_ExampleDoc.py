@@ -3,7 +3,7 @@
 import ShareYourSystem as SYS
 
 #Point direct with a special Key str
-MyPointer=SYS.PointerClass(
+MyConnecter=SYS.ConnecterClass(
 	).set(
 		'-Children',
 		{
@@ -17,8 +17,8 @@ MyPointer=SYS.PointerClass(
 	)['?v']
 
 #print
-print('MyPointer is')
-SYS._print(MyPointer)
+print('MyConnecter is')
+SYS._print(MyConnecter)
 
 
 

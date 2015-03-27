@@ -38,13 +38,13 @@ MyRater.simulate(
 # View
 #
 
-#MyRater['/-Traces/|*r/-Samples/|Default'].pyplot(
-#	)
+MyRater['/-Traces/|*r/-Samples/|Default'].pyplot(
+	)
 #MyRater.pyplot()
-#SYS.matplotlib.pyplot.show()
+SYS.matplotlib.pyplot.show()
 
 
-print(MyRater['/-Traces/|*r/-Samples/|Default'].BrianedStateMonitorVariable)
+#print(MyRater['/-Traces/|*r/-Samples/|Default'].BrianedStateMonitorVariable)
 
 """
 from matplotlib import pyplot
