@@ -148,11 +148,13 @@ class BrianerClass(BaseClass):
 			# network
 			# 
 
+
+
 			#debug
 			'''
 			self.debug(
 				[
-					'We structure the Neurongroups Postlets Traces Events Samples',
+					'We structure the Neurongroups Traces Events Samples and all the Posts...',
 				]
 			)
 			'''
@@ -160,11 +162,23 @@ class BrianerClass(BaseClass):
 			#structure
 			self.structure(
 				[
-					'Neurongroups',
-					'Postlets',
-					'Traces',
-					'Events',
-					'Samples'
+					[
+						(
+							SYS.getIsInListBool,
+							[
+								'Neurongroups',
+								'Traces',
+								'Events',
+								'Samples'
+							]
+						)
+					],
+					[
+						(
+							SYS.startwith,
+							'Post'
+						)
+					]
 				],
 				None,
 				_DoStr="Brian"
@@ -1177,8 +1191,8 @@ class BrianerClass(BaseClass):
 							'BrianingSynapsesDict'
 							]
 				),
-				'self.PointToVariable.BrianedNeurongroupVariable is ',
-				str(self.PointToVariable.BrianedNeurongroupVariable)
+				'self.ConnectToVariable.BrianedNeurongroupVariable is ',
+				str(self.ConnectToVariable.BrianedNeurongroupVariable)
 			]
 		)
 		'''
@@ -1204,15 +1218,15 @@ class BrianerClass(BaseClass):
 				'We set the synapses',
 				'self.BrianedParentNeurongroupDeriveBrianerVariable.BrianedNeurongroupVariable is ',
 				str(self.BrianedParentNeurongroupDeriveBrianerVariable.BrianedNeurongroupVariable),
-				'self.PointToVariable.BrianedNeurongroupVariable is ',
-				str(self.PointToVariable.BrianedNeurongroupVariable),
+				'self.ConnectToVariable.BrianedNeurongroupVariable is ',
+				str(self.ConnectToVariable.BrianedNeurongroupVariable),
 				'Maybe we have to make brian the post'
 			]
 		)
 
 		#Check 
-		if self.PointToVariable.BrianedNeurongroupVariable==None:
-			self.PointToVariable.brian()
+		if self.ConnectToVariable.BrianedNeurongroupVariable==None:
+			self.ConnectToVariable.brian()
 
 		#import
 		from brian2 import Synapses
@@ -1220,7 +1234,7 @@ class BrianerClass(BaseClass):
 		#init
 		self.BrianedSynapsesVariable=Synapses(
 			source=self.BrianedParentNeurongroupDeriveBrianerVariable.BrianedNeurongroupVariable,
-			target=self.PointToVariable.BrianedNeurongroupVariable,
+			target=self.ConnectToVariable.BrianedNeurongroupVariable,
 			**self.BrianingSynapsesDict
 		)
 

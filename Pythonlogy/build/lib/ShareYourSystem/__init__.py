@@ -1372,6 +1372,50 @@ def get(_Variable,_KeyVariable):
 	#return normal
 	return getattr(_Variable,_KeyVariable)
 
+def startswith(_FirstStr,_SecondStr):
+
+	#Debug
+	'''
+	print('SYS l 1378 startswith ')
+	print('_FirstStr is ')
+	print(_FirstStr)
+	print('_SecondStr is ')
+	print(_SecondStr)
+	print('')
+	'''
+	
+	#Check
+	if type(_FirstStr) in [str,unicode] and type(_SecondStr) in [str,unicode]:
+
+		#return
+		return _FirstStr.startswith(_SecondStr)
+
+	else:
+
+		#return
+		return False
+
+def endswith(_FirstStr,_SecondStr):
+
+	#Debug
+	'''
+	print('SYS l 1398 endswith ')
+	print('_FirstStr is ')
+	print(_FirstStr)
+	print('_SecondStr is ')
+	print(_SecondStr)
+	print('')
+	'''
+
+	#Check
+	if type(_FirstStr) in [str,unicode] and type(_SecondStr) in [str,unicode]:
+
+		#return
+		return _FirstStr.endswith(_SecondStr)
+	else:
+
+		#return
+		return False
 
 def set(_Variable,_KeyVariable,_ValueVariable):
 

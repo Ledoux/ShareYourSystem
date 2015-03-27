@@ -52,6 +52,7 @@ class ConditionerClass(BaseClass):
 							type,
 							types.FunctionType
 						],
+						_ConditioningDirectBool=False,
 						_ConditioningScanGetVariable=Executer.ExecutionPrefixStr+'self.__dict__.values()',
 						_ConditionedIsBool=True,
 						**_KwargVariablesDict
@@ -83,7 +84,7 @@ class ConditionerClass(BaseClass):
 			]
 		)
 		'''
-		
+
 		#/###################/#
 		# Adapt the TestValueVariable
 		#
@@ -91,10 +92,28 @@ class ConditionerClass(BaseClass):
 		#get
 		try:
 
-			#get
-			ConditionedTestValueVariable=self.ConditioningScopeVariable[
-				self.ConditioningTestGetVariable
-			]
+			#debug
+			'''
+			self.debug(
+				[
+					'We try maybe to get the Test variable',
+					('self.',self,['ConditioningDirectBool'])
+				]
+			)
+			'''
+
+			#Check
+			if self.ConditioningDirectBool:
+
+				#get
+				ConditionedTestValueVariable=self.ConditioningTestGetVariable
+				
+			else:
+
+				#get
+				ConditionedTestValueVariable=self.ConditioningScopeVariable[
+					self.ConditioningTestGetVariable
+				]
 
 		except:
 
@@ -116,13 +135,14 @@ class ConditionerClass(BaseClass):
 					list,tuple]:
 
 				#debug
+				'''
 				self.debug(
 					[
 						'It was not a dict or list so...',
 						'there is no reason that it doesnt get except if it false'
 					]
 				)
-
+				'''
 
 				#set
 				self.ConditionedIsBool=False
@@ -179,12 +199,20 @@ class ConditionerClass(BaseClass):
 		#get
 		try:
 
-			#get
-			ConditionedAttestValueVariable=self.ConditioningScopeVariable[
-				self.ConditioningAttestGetVariable
-			]
+			#Check
+			if self.ConditioningDirectBool:
 
+				#get
+				ConditionedAttestValueVariable=self.ConditioningAttestGetVariable
 
+			else:
+				
+				#get
+				ConditionedAttestValueVariable=self.ConditioningScopeVariable[
+					self.ConditioningAttestGetVariable
+				]
+
+				
 		except:
 
 			#debug
@@ -250,6 +278,19 @@ class ConditionerClass(BaseClass):
 		#call
 		try:
 
+			#debug
+			'''
+			self.debug(
+				[
+					'Finally we try',
+					'ConditionedTestValueVariable is '+str(ConditionedTestValueVariable),
+					'ConditionedAttestValueVariable is '+str(ConditionedAttestValueVariable),
+					'self.ConditioningGetBoolFunction is ',
+					SYS._str(self.ConditioningGetBoolFunction)
+				]
+			)
+			'''
+
 			#call
 			self.ConditionedIsBool=self.ConditioningGetBoolFunction(
 				ConditionedTestValueVariable,
@@ -259,9 +300,11 @@ class ConditionerClass(BaseClass):
 		except:
 
 			#debug
+			'''
 			self.debug(
 					'The condition test has no worked'
 				)
+			'''
 
 			#set
 			self.ConditionedIsBool=False
@@ -659,6 +702,70 @@ class ConditionerClass(BaseClass):
 		#call the base method
 		return BaseClass.set(self)
 
+	def mapCondition(self,_MapConditionVariable,_MapScanVariable,_DirectBool=False):
+
+		#debug
+		'''
+		self.debug(
+			[
+				'We map condition here'
+			]
+		)
+		'''
+
+		#Check
+		if _DirectBool==False:
+
+			#filter
+			ConditionList=SYS._filter(
+				lambda __TestVariable:
+				any(
+					map(
+						lambda __OrList:
+						all(
+							map(
+								lambda __AndTuple:
+								self.condition(
+									__TestVariable,
+									__AndTuple[0],
+									__AndTuple[1]
+								).ConditionedIsBool,
+								__OrList
+							)
+						),
+						_MapConditionVariable
+					)
+				),
+				_MapScanVariable
+			)
+
+		else:
+
+			#filter
+			ConditionList=SYS._filter(
+				lambda __TestVariable:
+				any(
+					map(
+						lambda __OrList:
+						all(
+							map(
+								lambda __AndTuple:
+								__AndTuple[0](
+									__TestVariable,
+									__AndTuple[1]
+								),
+								__OrList
+							)
+						),
+						_MapConditionVariable
+					)
+				),
+				_MapScanVariable
+			)
+
+		#return
+		return ConditionList
+
 #</DefineClass>
 
 
@@ -670,6 +777,7 @@ ConditionerClass.PrintingClassSkipKeyStrsList.extend(
 		'ConditioningAttestGetVariable',
 		'ConditioningScopeVariable',
 		'ConditioningFunctionTypesList',
+		'ConditioningDirectBool',
 		'ConditioningScanGetVariable',
 		'ConditionedIsBool'
 	]

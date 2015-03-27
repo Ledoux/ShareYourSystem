@@ -14,14 +14,14 @@ A Structurer
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Itemizers.Pointer"
+BaseModuleStr="ShareYourSystem.Standards.Itemizers.Connecter"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 SYS.addDo('Structurer','Structure','Structuring','Structured')
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
-Pointer=BaseModule
+Connecter=BaseModule
 #</ImportSpecificModules>
 
 #<DefineLocals>
@@ -147,7 +147,7 @@ class StructurerClass(BaseClass):
 				self.StructuredOnceBool=True
 
 		#/##################/#
-		# prepare the Net teams
+		# prepare the struc teams
 		#
 
 		#map
@@ -348,15 +348,15 @@ class StructurerClass(BaseClass):
 					#debug
 					self.debug(
 						[
-							'Yes we make team point here',
+							'Yes we make team connect here',
 							('self.',self,['PointingInManagementKeyStr']),
 							'self.ParentDeriveTeamerVariable.ManagementTagStr is ',
 							str(self.ParentDeriveTeamerVariable.ManagementTagStr)
 						]
 					)
 
-					#point
-					self.StructureTopDeriveStructurerVariable.point(
+					#connect
+					self.StructureTopDeriveStructurerVariable.connect(
 							self,
 							_OutTeamKeyStr=StructureOutPrefixStr+self.StructuringDoStr+'_'+self.ParentDeriveTeamerVariable.ManagementTagStr,
 							_InTeamKeyStr=StructureInTeamKeyStr
@@ -368,7 +368,7 @@ class StructurerClass(BaseClass):
 			'''
 			self.debug(
 					[
-						'we make point the top structureer on the team'+str(
+						'we make connect the top structureer on the team'+str(
 							StructureOutPrefixStr+self.ParentDeriveTeamerVariable.TeamTagStr
 						),
 						('self.',self,[
@@ -388,7 +388,7 @@ class StructurerClass(BaseClass):
 					'''
 					self.debug(
 						[
-							'Yes we make team point here',
+							'Yes we make team connect here',
 							('self.StructureTopDeriveStructurerVariable.',
 								self.StructureTopDeriveStructurerVariable,
 								['PointingInManagementKeyStr'])
@@ -396,8 +396,8 @@ class StructurerClass(BaseClass):
 					)
 					'''
 
-					#point
-					self.StructureTopDeriveStructurerVariable.point(
+					#connect
+					self.StructureTopDeriveStructurerVariable.connect(
 						self,
 						_OutTeamKeyStr=StructureOutPrefixStr+self.StructuringDoStr+'_'+self.ParentDeriveTeamerVariable.TeamTagStr,
 						_InTeamKeyStr=StructureInTeamKeyStr
@@ -479,7 +479,7 @@ class StructurerClass(BaseClass):
 #<DefineLocals>
 
 #set
-Pointer.PointerClass.ManagingValueClass=StructurerClass
+Connecter.ConnecterClass.ManagingValueClass=StructurerClass
 SYS.ParenterClass.ManagingValueClass=StructurerClass
 
 #</DefineLocals>

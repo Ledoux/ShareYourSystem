@@ -833,7 +833,7 @@ class ParenterClass(BaseClass):
 		return self
 
 
-	def parentDown(self,_TeamStrsList=None,_ManagementStrsList=None,**_KwargVariablesDict):
+	def parentDown(self,_TeamVariable=None,_ManagementVariable=None,**_KwargVariablesDict):
 
 		#debug
 		'''
@@ -843,10 +843,10 @@ class ParenterClass(BaseClass):
 				('self.',self,[
 					'TeamedOnceBool'
 				]),
-				'_TeamStrsList is ',
-				str(_TeamStrsList),
-				'_ManagementStrsList is ',
-				str(_ManagementStrsList)
+				'_TeamVariable is ',
+				str(_TeamVariable),
+				'_ManagementVariable is ',
+				str(_ManagementVariable)
 			]
 		)
 		'''
@@ -875,6 +875,7 @@ class ParenterClass(BaseClass):
 		#parent
 		self.parent()
 
+	
 		#/###############/#
 		# Command the children to parent down also
 		#
@@ -882,18 +883,36 @@ class ParenterClass(BaseClass):
 		#Check
 		if self.TeamedOnceBool:
 
-			#Check
-			if _TeamStrsList==None:
-				LocalTeamStrsList=self.TeamDict.keys()
-			else:
-				LocalTeamStrsList=_TeamStrsList
+			#/###############/#
+			# Determine the TeamStrsList
+			#
+
+			TeamStrsList=SYS._filter(
+				lambda __TeamKeyStr:
+				any(
+					map(
+						lambda __OrList:
+						all(
+							map(
+								lambda __AndTuple:
+								__AndTuple[0](__TeamKeyStr,__AndTuple[1]),
+								__OrList
+							)
+						),
+						_TeamVariable
+					)
+				),
+				self.TeamDict.keys()
+			)
 
 			#debug
 			'''
 			self.debug(
 				[
-					'_TeamStrsList is ',
-					str(_TeamStrsList)
+					'_TeamVariable is ',
+					str(_TeamVariable),
+					'TeamStrsList is ',
+					str(TeamStrsList)
 				]
 			)
 			'''
@@ -904,33 +923,49 @@ class ParenterClass(BaseClass):
 
 			#map
 			map(
-					lambda __TeamStr:
+					lambda __TeamVariable:
 					self.TeamDict[
-						__TeamStr
+						__TeamVariable
 					].parentDown(
-						_TeamStrsList,
-						_ManagementStrsList,
+						_TeamVariable,
+						_ManagementVariable,
 						**_KwargVariablesDict
-					)
-					if __TeamStr in self.TeamDict
-					else None,
-					LocalTeamStrsList
+					),
+					TeamStrsList
 				)
 
 		else:
 
-			#Check
-			if _ManagementStrsList==None:
-				LocalManagementStrsList=self.ManagementDict.keys()
-			else:
-				LocalManagementStrsList=_ManagementStrsList
+			#/###############/#
+			# Determine the ManagementStrsList
+			#
+
+			ManagementStrsList=SYS._filter(
+				lambda __TeamKeyStr:
+				any(
+					map(
+						lambda __OrList:
+						all(
+							map(
+								lambda __AndTuple:
+								__AndTuple[0](__TeamKeyStr,__AndTuple[1]),
+								__OrList
+							)
+						),
+						_ManagementVariable
+					)
+				),
+				self.TeamDict.keys()
+			)
 
 			#debug
 			'''
 			self.debug(
 				[
-					'_ManagementStrsList is ',
-					str(_ManagementStrsList)
+					'_ManagementVariable is ',
+					str(_ManagementVariable),
+					'ManagementStrsList is ',
+					str(ManagementStrsList)
 				]
 			)
 			'''
@@ -945,13 +980,11 @@ class ParenterClass(BaseClass):
 					self.ManagementDict[
 						__ManagementStr
 					].parentDown(
-						_TeamStrsList,
-						_ManagementStrsList,
+						_TeamVariable,
+						_ManagementVariable,
 						**_KwargVariablesDict
-					)
-					if __ManagementStr in self.ManagementDict
-					else None,
-					LocalManagementStrsList
+					),
+					ManagementStrsList
 				)
 
 		#return self

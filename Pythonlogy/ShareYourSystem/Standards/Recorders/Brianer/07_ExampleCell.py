@@ -30,8 +30,9 @@ MyBrianer=SYS.BrianerClass(
 								'#liarg:#lambda':{
 									'array':[
 										[
-											['-Connections'],
+											['-Connectomes'],
 											['|Postlets<->Prelets'],
+											['-Connections'],
 											['|#direct:_^_|E','|#direct:_^_|I']
 										],
 										[

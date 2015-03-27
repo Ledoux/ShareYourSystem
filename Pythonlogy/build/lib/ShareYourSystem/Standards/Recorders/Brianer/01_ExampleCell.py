@@ -64,8 +64,8 @@ MyBrianer['/-Traces/|*v/-Samples/|Default'].pyplot(
 	)
 #MyBrianer['/-Events/|Default'].pyplot(
 #	)
-MyBrianer.pyplot()
-#SYS.matplotlib.pyplot.show()
+#MyBrianer.pyplot()
+SYS.matplotlib.pyplot.show()
 
 
 """
