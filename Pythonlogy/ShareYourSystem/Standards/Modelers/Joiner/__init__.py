@@ -23,7 +23,6 @@ SYS.addDo('Joiner','Join','Joining','Joined')
 #<ImportSpecificModules>
 Featurer=BaseModule
 import collections
-from ShareYourSystem.Standards.Itemizers import Pointer
 from ShareYourSystem.Standards.Modelers import Modeler
 from ShareYourSystem.Standards.Controllers import Controller
 #</ImportSpecificModules>
@@ -31,6 +30,7 @@ from ShareYourSystem.Standards.Controllers import Controller
 #<DefineLocals>
 JoinStr='__'
 JoinDeepStr='/'
+JoinTeamPrefixStr='Joinct'
 #</DefineLocals>
 
 #<DefineClass>
@@ -46,7 +46,7 @@ class JoinerClass(BaseClass):
 	
 	def default_init(self,
 						_JoiningRowBool=False,
-						_JoinedOutDerivePointersList=None,
+						_JoinedOutDeriveConnectersList=None,
 						_JoinedOutDeriveJoinersList=None,
 						_JoinedRetrieveIndexIntsListGetStrsList=None,
 						_JoinedModelMongoIndexIntsList=None,
@@ -75,15 +75,18 @@ class JoinerClass(BaseClass):
 		'''
 		
 		#Check
-		if Pointer.PointOutTeamKeyStr in self.TeamDict:
+		if JoinTeamTagStr in self.TeamDict:
 
 			#/################/#
 			# Get the post derive pointing parenters and make them point
 			#	
 
+			#mapConnect
+			self.mapConnect()
+
 			#set
-			self.JoinedOutDerivePointersList=self.TeamDict[
-				Pointer.PointOutTeamKeyStr
+			self.JoinedOutDeriveConnectersList=self.TeamDict[
+				JoinTeamTagStr
 			].ManagementDict.values()
 
 			#debug
@@ -91,7 +94,7 @@ class JoinerClass(BaseClass):
 			self.debug(
 					[
 						'We have getted the post derive parenters',
-						('self.',self,['JoinedOutDerivePointersList'])
+						('self.',self,['JoinedOutDeriveConnectersList'])
 					]
 				)
 			'''
@@ -107,7 +110,7 @@ class JoinerClass(BaseClass):
 							__JoinedPostDerivePointer.ManagementTagStr,
 						]
 					)+"RetrieveIndexIntsList",
-					self.JoinedOutDerivePointersList
+					self.JoinedOutDeriveConnectersList
 				)
 
 			#debug
@@ -133,7 +136,7 @@ class JoinerClass(BaseClass):
 			self.JoinedOutDeriveJoinersList=map(
 					lambda __JoinedOutDerivePointer:
 					__JoinedOutDerivePointer.PointToVariable,
-					self.JoinedOutDerivePointersList
+					self.JoinedOutDeriveConnectersList
 				)
 
 			#debug
@@ -141,8 +144,8 @@ class JoinerClass(BaseClass):
 			self.debug(
 					[
 						'We have getted the out joiners',
-						#'self.TeamDict[Pointer.PointOutTeamKeyStr].ManagementDict.keys() is',
-						#str(self.TeamDict[Pointer.PointOutTeamKeyStr].ManagementDict.keys()),
+						#'self.TeamDict[JoinTeamTagStr].ManagementDict.keys() is',
+						#str(self.TeamDict[JoinTeamTagStr].ManagementDict.keys()),
 						('self.',self,['JoinedOutDeriveJoinersList']),
 						'Now get the model index int',
 						('self.',self,[
@@ -545,7 +548,7 @@ class JoinerClass(BaseClass):
 		self.debug(
 					[
 						'First make insert the out models',
-						('self.',self,['JoinedOutDerivePointersList'])
+						('self.',self,['JoinedOutDeriveConnectersList'])
 					]
 				)
 		'''
@@ -585,7 +588,7 @@ class JoinerClass(BaseClass):
 						'self.getSwitch("row") is ',
 						SYS.indent(self.getSwitch("row")),
 						'setSwitch insert the out ',
-						('self.',self,['JoinedOutDerivePointersList'])
+						('self.',self,['JoinedOutDeriveConnectersList'])
 					]
 				)
 		'''
@@ -708,7 +711,7 @@ Modeler.ModelersStructurerClass.ManagingValueClass=JoinerClass
 JoinerClass.PrintingClassSkipKeyStrsList.extend(
 	[
 		'JoiningRowBool',
-		'JoinedOutDerivePointersList',
+		'JoinedOutDeriveConnectersList',
 		'JoinedOutDeriveJoinersList',
 		'JoinedRetrieveIndexIntsListGetStrsList',
 		'JoinedModelMongoIndexIntsList',

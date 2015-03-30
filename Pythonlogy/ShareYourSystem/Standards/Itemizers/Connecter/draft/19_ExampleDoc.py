@@ -1,37 +1,38 @@
 
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Standards.Itemizers import Pointer
 
-#Explicit expression
-MyParenter=SYS.ParenterClass(
-		)['#map@set'](
-			{
-				'-Lovers':{
-					'|Claire':{},
-					'|Erwan':{
-						'ParentingTriggerVariable':[
-							(
-								'->/^/|Claire',
-								'/-Outlets/|ToClaire/'
-							),
+#array original
+MyConnecter=SYS.ConnecterClass(
+	).set(
+		'-Neurons',
+		{
+			'|E':{
+				'array':[
+					[
+						['-Connections'],
+						['|/^/|E','|/^/|I']
+					],
+					[
+						{},
+						{
+							'MyStr':"hello"
+						}
+					]
+				]
+			},
+			'|I':{}
+		}
+	).get('?v')
 
-							#{
-							#	'#key':'/-Outlets/|ToClaire',
-							#	'#map@set':{
-							#		'PointToVariable':'#get:/^/^/^/|Claire'
-							#	}
-							#}
-						],
-						#'PointMapVariable':{
-						#
-						#
-						#}
-					}
-				}
-			}
-		)['?v']
+
+print(MyConnecter['/-Neurons/|E'].mapConnect('Connect'))
+
 
 #print
-print("MyParenter is")
-SYS._print(MyParenter)
+print('MyConnecter is ')
+SYS._print(MyConnecter)
+
+
+#Ioannidis
+#Craig Bennett Neural correlates... Salmon thing

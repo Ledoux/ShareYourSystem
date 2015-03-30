@@ -55,15 +55,26 @@ def getNumpyArrayStr(_NumpyArray):
 											
 def getPointerStr(_Variable,**_KwargVariablesDict):
 
-	#debug
+	#Debug
 	'''
 	print('Printer l.39 : getPointerStr')
 	print('')
 	'''
 
 	#Define
-	InfoStr=_KwargVariablesDict['InfoStr'] if 'InfoStr' in _KwargVariablesDict else ""
-
+	if hasattr(_Variable,'PrintingInfoStr'):
+		InfoStr=_Variable.PrintingInfoStr
+	else:
+		InfoStr=_KwargVariablesDict['InfoStr'] if 'InfoStr' in _KwargVariablesDict else ""
+	
+	#Debug
+	'''
+	print('Printer l.71 : InfoStr')
+	print('InfoStr is ')
+	print(InfoStr)
+	print('')
+	'''
+	
 	#set in the _KwargVariablesDict
 	if 'PrintDeepInt' not in _KwargVariablesDict:
 		_KwargVariablesDict['PrintDeepInt']=0
@@ -679,6 +690,7 @@ class PrinterClass(BaseClass):
 						_PrintingNewClassBool=True,
 						_PrintingOutBool=True,
 						_PrintingSelfBool=False,
+						_PrintingInfoStr="",
 						_PrintStr="",
 						**_KwargVariablesDict
 					):

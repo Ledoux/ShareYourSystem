@@ -113,14 +113,16 @@ class ModelerClass(BaseClass):
 		#
 
 		#debug
-		'''
 		self.debug(
 			[
 				'We model here',
 				'First look for deeper teams in the structure',
+				('self.',self,[
+					'FolderingPathStr',
+					'HdformatingFileKeyStr'
+				])
 			]
 		)
-		'''
 
 		#Check
 		if self.ParentedTotalSingularListDict!=None and len(self.ParentedTotalSingularListDict)>0:
@@ -239,6 +241,18 @@ class ModelerClass(BaseClass):
 					_DoStr='Model'
 				)
 
+
+				#debug
+				self.debug(
+					[
+						'Ok we have structured',
+						'self==self.StructureTopDeriveStructurerVariable is ',
+						str(self==self.StructureTopDeriveStructurerVariable),
+						'self.HdformatingFileKeyStr is ',
+						self.HdformatingFileKeyStr
+					]
+				)
+
 			#Check
 			if 'Models' not in self.TeamDict:
 
@@ -255,11 +269,63 @@ class ModelerClass(BaseClass):
 				# Determine the parent
 				#
 
-				#set
-				self.ModeledParentControllerDeriveModelerVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
+				#Check
+				if self.ParentDeriveTeamerVariable!=None:
 
+					#debug
+					self.debug(
+						[
+							'There is a parent parent'
+						]
+					)
+
+					#set
+					self.ModeledParentControllerDeriveModelerVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
+
+				else:
+
+					#debug
+					self.debug(
+						[
+							'There is no parent'
+						]
+					)
+
+					#set
+					self.ModeledParentControllerDeriveModelerVariable=self
+
+				
 				#set
-				self.ModeledTopControllerDeriveModelerVariable=self.StructureTopDeriveStructurerVariable
+				if self.StructureTopDeriveStructurerVariable!=None:
+
+					#debug
+					self.debug(
+						[
+							'self.StructureTopDeriveStructurerVariable!=None'
+						]
+					)
+
+					#set
+					self.ModeledTopControllerDeriveModelerVariable=self.StructureTopDeriveStructurerVariable
+				else:
+
+					#debug
+					self.debug(
+						[
+							'self.StructureTopDeriveStructurerVariable==None'
+						]
+					)
+
+					#set
+					self.ModeledTopControllerDeriveModelerVariable=self
+
+				#debug
+				self.debug(
+					[
+						'self.ModeledTopControllerDeriveModelerVariable.HdformatingFileKeyStr is ',
+						self.ModeledTopControllerDeriveModelerVariable.HdformatingFileKeyStr
+					]
+				)
 
 				#/###############/#
 				# SetModel
@@ -350,7 +416,6 @@ class ModelerClass(BaseClass):
 			self.ModelHdfBool=True
 
 		#Debug
-		'''
 		self.debug(
 				[
 					'Ok we now what database to use',
@@ -360,7 +425,6 @@ class ModelerClass(BaseClass):
 					])
 				]
 			)
-		'''
 
 		#/###################/#
 		# Mongo Case
@@ -377,7 +441,8 @@ class ModelerClass(BaseClass):
 			'''
 
 			#set
-			self.ModeledMongoSuffixStr=self.ModelTagStr+'Collection'
+			#self.ModeledMongoSuffixStr=self.ModelTagStr+'Collection'
+			self.ModeledMongoSuffixStr=self.ModelTagStr
 
 			#debug
 			'''

@@ -23,7 +23,7 @@ SYS.mapSet(
 		[
 			('row.__setitem__',{'#liarg':('MyStr',"hello")}),
 			('row.append',{'#liarg':None}),
-			('row.__setitem__',{'#liarg':('MyStr',"hello")}),
+			('row.__setitem__',{'#liarg':('MyStr',"bonjour")}),
 			('row.__setitem__',{'#liarg':('MyIntsList',[4,5,6])}),
 			('row.append',{'#liarg':None}),
 			('flush',{'#liarg':None})

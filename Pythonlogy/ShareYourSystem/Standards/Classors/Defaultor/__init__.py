@@ -264,7 +264,7 @@ def initDefault(_InstanceVariable,*_LiargVariablesList,**_KwargVariablesDict):
 	print('_KwargVariablesDict is ',_KwargVariablesDict)
 	print('')
 	'''
-
+	
 	#set at the level of the class
 	InitKwargVariablesDict=dict(
 		map(

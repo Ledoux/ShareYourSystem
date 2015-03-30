@@ -38,6 +38,7 @@ class StructurerClass(BaseClass):
 					_StructureTagStr='Top',
 					_StructureTopDeriveStructurerVariable=None,
 					_StructureTargetStr='Top',
+					_StructureConnectPrefixStrsList=None,
 					_StructuringTeamVariable=None,
 					_StructuringManagementVariable=None,
 					_StructuringSingPluralVariable=None,
@@ -356,11 +357,30 @@ class StructurerClass(BaseClass):
 					)
 
 					#connect
-					self.StructureTopDeriveStructurerVariable.connect(
-							self,
-							_OutTeamKeyStr=StructureOutPrefixStr+self.StructuringDoStr+'_'+self.ParentDeriveTeamerVariable.ManagementTagStr,
-							_InTeamKeyStr=StructureInTeamKeyStr
+					#self.StructureTopDeriveStructurerVariable.connect(
+					#		self,
+					#		_OutTeamKeyStr=StructureOutPrefixStr+self.StructuringDoStr+'_'+self.ParentDeriveTeamerVariable.ManagementTagStr,
+					#		_InTeamKeyStr=StructureInTeamKeyStr
+					#)
+
+					#connect out like in the StructureTopDeriveStructurerVariable
+					self.StructureTopDeriveStructurerVariable.TeamDict[
+						StructureOutPrefixStr+self.StructuringDoStr+'_'+self.ParentDeriveTeamerVariable.ManagementTagStr
+					].manage(
+						self.StructureTagStr,
+						{
+							'ConnectedToVariable':self
+						}
 					)
+
+					#connect in like in the self
+					#self.TeamDict[
+					#	StructureInTeamKeyStr
+					#].manage(
+					#	{
+					#		'ConnectedToVariable':self.StructureTopDeriveStructurerVariable
+					#	}
+					#)
 
 		if self.ManagementTagStr!="":
 			
@@ -396,11 +416,23 @@ class StructurerClass(BaseClass):
 					)
 					'''
 
+					"""
 					#connect
 					self.StructureTopDeriveStructurerVariable.connect(
 						self,
 						_OutTeamKeyStr=StructureOutPrefixStr+self.StructuringDoStr+'_'+self.ParentDeriveTeamerVariable.TeamTagStr,
 						_InTeamKeyStr=StructureInTeamKeyStr
+					)
+					"""
+
+					#connect out like in the StructureTopDeriveStructurerVariable
+					self.StructureTopDeriveStructurerVariable.TeamDict[
+						StructureOutPrefixStr+self.StructuringDoStr+'_'+self.ParentDeriveTeamerVariable.TeamTagStr
+					].manage(
+						self.StructureTagStr,
+						{
+							'ConnectedToVariable':self
+						}
 					)
 
 		#debug
@@ -415,6 +447,24 @@ class StructurerClass(BaseClass):
 			]
 		)
 		'''
+
+		#/##################/#
+		# Maybe do some connections
+		#
+
+		#debug
+		self.debug(
+			[
+				'We do here some connections'
+			]
+		)
+
+		#map
+		map(
+			lambda __StructureConnectPrefixStr:
+			self.mapConnect(__StructureConnectPrefixStr),
+			self.StructureConnectPrefixStrsList
+		)
 
 	def mimic__print(self,**_KwargVariablesDict):
 

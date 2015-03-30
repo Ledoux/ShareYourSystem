@@ -2,23 +2,35 @@
 #ImportModules
 import ShareYourSystem as SYS
 
-#Point direct with a special Key str
+#array original
 MyConnecter=SYS.ConnecterClass(
 	).set(
-		'-Children',
+		'-Neurons',
 		{
-			'|Aurelie':{},
-			'|Erwan':{
-				'ParentingTriggerVariable':{
-					'<->/^/|Aurelie':{'MyStr':"hello"}
-				}
-			}
+			'|E':{
+				'array':[
+					[
+						['-Connectomes'],
+						['|Posts'],
+						['-Connections'],
+						['|/^/|E','|/^/|I']
+					],
+					[
+						{},
+						{},
+						{},
+						{
+							'MyStr':"hello"
+						}
+					]
+				]
+			},
+			'|I':{}
 		}
-	)['?v']
+	).get('?v')
 
 #print
-print('MyConnecter is')
+print('MyConnecter is ')
 SYS._print(MyConnecter)
-
 
 

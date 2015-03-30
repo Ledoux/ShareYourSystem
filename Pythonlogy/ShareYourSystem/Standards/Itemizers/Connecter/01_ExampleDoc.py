@@ -8,17 +8,13 @@ MyConnecter=SYS.ConnecterClass(
 		'-Children',
 		{
 			'|Aurelie':{},
-			'|Erwan':{
-				'ParentingTriggerVariable':{
-					'connect':['/^/|Aurelie']
-				}
-			}
+			'|Erwan':{}
 		}
-	)['?v']
+	)
+
+MyConnecter['/-Children/|Erwan'].connect('/^/|Aurelie')
 
 #print
 print('MyConnecter is')
 SYS._print(MyConnecter)
-
-
 

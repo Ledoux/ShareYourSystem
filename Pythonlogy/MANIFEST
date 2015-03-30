@@ -525,18 +525,6 @@ ShareYourSystem/Standards/Itemizers/Connecter/04_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Connecter/05_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Connecter/06_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Connecter/07_ExampleDoc.py
-ShareYourSystem/Standards/Itemizers/Connecter/08_ExampleDoc.md
-ShareYourSystem/Standards/Itemizers/Connecter/09_ExampleDoc.py
-ShareYourSystem/Standards/Itemizers/Connecter/10_ExampleDoc.md
-ShareYourSystem/Standards/Itemizers/Connecter/11_ExampleDoc.py
-ShareYourSystem/Standards/Itemizers/Connecter/12_ExampleDoc.md
-ShareYourSystem/Standards/Itemizers/Connecter/13_ExampleDoc.py
-ShareYourSystem/Standards/Itemizers/Connecter/14_ExampleDoc.md
-ShareYourSystem/Standards/Itemizers/Connecter/15_ExampleDoc.py
-ShareYourSystem/Standards/Itemizers/Connecter/16_ExampleDoc.md
-ShareYourSystem/Standards/Itemizers/Connecter/17_ExampleDoc.py
-ShareYourSystem/Standards/Itemizers/Connecter/18_ExampleDoc.md
-ShareYourSystem/Standards/Itemizers/Connecter/19_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Connecter/Readme.md
 ShareYourSystem/Standards/Itemizers/Connecter/__init__.py
 ShareYourSystem/Standards/Itemizers/Connecter/draft/001_DocumentDoc.md
@@ -562,6 +550,7 @@ ShareYourSystem/Standards/Itemizers/Connecter/draft/18_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Connecter/draft/19_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Connecter/draft/__init__ copy 2.py
 ShareYourSystem/Standards/Itemizers/Connecter/draft/__init__ copy 3.py
+ShareYourSystem/Standards/Itemizers/Connecter/draft/__init__ copy 4.py
 ShareYourSystem/Standards/Itemizers/Executer/001_DocumentDoc.md
 ShareYourSystem/Standards/Itemizers/Executer/00_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Executer/01_ExampleDoc.py
@@ -838,7 +827,6 @@ ShareYourSystem/Standards/Modelers/Inserter/Readme.md
 ShareYourSystem/Standards/Modelers/Inserter/Test.py
 ShareYourSystem/Standards/Modelers/Inserter/__init__.py
 ShareYourSystem/Standards/Modelers/Inserter/data/db/journal/j._0
-ShareYourSystem/Standards/Modelers/Inserter/data/db/journal/lsn
 ShareYourSystem/Standards/Modelers/Inserter/draft/__init__ copy 2.py
 ShareYourSystem/Standards/Modelers/Inserter/draft/__init__ copy 3.py
 ShareYourSystem/Standards/Modelers/Joiner/001_DocumentDoc.md

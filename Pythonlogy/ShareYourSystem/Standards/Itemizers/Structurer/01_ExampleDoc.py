@@ -9,10 +9,8 @@ import ShareYourSystem as SYS
 # Define you hierarchic objects
 #
 
-#add
-SYS.addSingPlural('Component','Components')
 
-#Define a Moduler class
+#Define a Multiplier class
 @SYS.ClasserClass()
 class MultiplierClass(SYS.StructurerClass):
 								
@@ -27,7 +25,7 @@ class MultiplierClass(SYS.StructurerClass):
 		SYS.StructurerClass.__init__(self,**_KwargVariablesDict)
 			
 		#Build the model		
-		self['#map@set'](
+		self.mapSet(
 			[
 				('-Models',[
 						('|Parameter',[
@@ -35,67 +33,20 @@ class MultiplierClass(SYS.StructurerClass):
 						]),
 						('|Result',[
 							('ModelKeyStrsList',['MultipliedTotalFloat']),
-							('ParentingTriggerVariable',['<->/^/|Parameter'])
+							('ParentingTriggerVariable',['->/^/|Parameter'])
 						])
 					]
 				)
 			]
 		)
 
-#Define a Moduler class
-@SYS.ClasserClass()
-class ModulerClass(SYS.StructurerClass):
-								
-	def default_init(self,
-						_ModulingPowerFloat=0.5,
-						_ModuledTotalFloat=0,
-						**_KwargVariablesDict
-					):
-
-		#Call the parent init method
-		SYS.StructurerClass.__init__(self,**_KwargVariablesDict)
-
-		#Build the components and the models
-		self['#map@set'](
-			[
-				#MODELS
-				(
-					'-Models',
-					[
-						('|Parameter',[
-							('ModelKeyStrsList',['ModulingPowerFloat']),
-							(
-								'ParentingTriggerVariable',
-								[
-									'<->/^/^/-Components/|Real/-Models/|Result',
-									'<->/^/^/-Components/|Image/-Models/|Result',
-								]
-							)
-						]), 
-						('|Result',[
-							('ModelKeyStrsList',['ModuledTotalFloat']),
-							('PointKeyVariablesList',['/^/|Parameter'])
-						])
-					]
-				),
-				#COMPONENTS
-				(
-					'-Components',{
-						'|Real':MultiplierClass(),
-						'|Image':MultiplierClass()
-					}
-				)
-			]
-		)
-						
 #/######################/#
 # Build your total model 
 #
 
-MyModuler=ModulerClass(
+MyMultiplier=MultiplierClass(
 	).structure(
 		[
-			'Components',
 			'Models'
 		]
 	)
@@ -105,6 +56,10 @@ MyModuler=ModulerClass(
 #
 
 #print
-print('MyModuler is ')
-SYS._print(MyModuler)
+print('MyMultiplier is ')
+SYS._print(MyMultiplier)
+
+#print
+print("MyMultiplier['/-Models/|Result'].ConnectedToVariable")
+SYS._print(MyMultiplier['/-Models/|Result'].ConnectedToVariable)
 

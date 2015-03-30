@@ -2,14 +2,46 @@
 #ImportModules
 import ShareYourSystem as SYS
 
-#Define and direct point with an automatic keystr
-MyPointer=SYS.PointerClass(
-		).point(
-			#PointingToGetVariable
-			'/ChildPointer/GrandChildPointer'
-		)
+
+#Point direct with a special Key str
+MyConnecter=SYS.ConnecterClass(
+	).set(
+		'-Children',
+		{
+			'|Aurelie':{},
+			'|Erwan':{
+				'ParentingTriggerVariable':{
+					'connect':['/^/|Aurelie']
+				}
+			}
+		}
+	)['?v']
 
 #print
-print('MyPointer is')
-SYS._print(MyPointer)
+print('MyConnecter is')
+SYS._print(MyConnecter)
+
+
+#Point direct with a special Key str
+MyConnecter=SYS.ConnecterClass(
+	).set(
+		'-Children',
+		{
+			'|Aurelie':{},
+			'|Erwan':{
+				'ParentingTriggerVariable':{
+					'connect':[
+						'/^/|Aurelie',
+						{'MyStr':"hello"}
+					]
+				}
+			}
+		}
+	)['?v']
+
+#print
+print('MyConnecter is')
+SYS._print(MyConnecter)
+
+
 

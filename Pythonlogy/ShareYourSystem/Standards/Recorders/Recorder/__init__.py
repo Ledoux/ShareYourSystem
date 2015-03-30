@@ -164,6 +164,13 @@ class RecorderClass(BaseClass):
 				#Check
 				if self.ManagementTagStr.startswith(RecorderPrefixStr):
 
+					#debug
+					self.debug(
+						[
+							('self.',self,['ManagementTagStr'])
+						]
+					)
+
 					#get
 					self.RecordedTraceFloatsArray=getattr(
 						RecordedTopDeriveRecorderVariable,

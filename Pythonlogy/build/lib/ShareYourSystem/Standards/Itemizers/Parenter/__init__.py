@@ -764,16 +764,15 @@ class ParenterClass(BaseClass):
 					self.PrintingCopyVariable.TeamDict.items()
 				)
 
+		#Check
 		if self.ParentedTotalPathStr!="":
 
-			#add
-			#_KwargVariablesDict['InfoStr']=", "+self.ParentedTotalPathStr
-			_KwargVariablesDict['InfoStr']=", ^"
-		else:
+			#Check
+			if hasattr(self.PrintingCopyVariable,'PrintingInfoStr'):
 
-			#remove
-			if 'InfoStr' in _KwargVariablesDict:
-				_KwargVariablesDict['InfoStr']=_KwargVariablesDict['InfoStr'].replace(", ^","")
+				#add
+				self.PrintingCopyVariable.PrintingInfoStr+=' ^'
+
 			
 		#/##################/#
 		# Call the base method
@@ -887,23 +886,16 @@ class ParenterClass(BaseClass):
 			# Determine the TeamStrsList
 			#
 
-			TeamStrsList=SYS._filter(
-				lambda __TeamKeyStr:
-				any(
-					map(
-						lambda __OrList:
-						all(
-							map(
-								lambda __AndTuple:
-								__AndTuple[0](__TeamKeyStr,__AndTuple[1]),
-								__OrList
-							)
-						),
-						_TeamVariable
-					)
-				),
-				self.TeamDict.keys()
-			)
+			if _TeamVariable==None:
+				TeamStrsList=self.TeamDict.keys()
+			elif len(_TeamVariable)>0 and type(_TeamVariable[0])==str:
+				TeamStrsList=self.TeamDict
+			else:
+				TeamStrsList=self.mapCondition(
+					_TeamVariable,
+					self.TeamDict.keys(),
+					_DirectBool=True
+				)
 
 			#debug
 			'''
@@ -923,15 +915,21 @@ class ParenterClass(BaseClass):
 
 			#map
 			map(
-					lambda __TeamVariable:
-					self.TeamDict[
-						__TeamVariable
-					].parentDown(
+					lambda __ElementVariable:
+					__ElementVariable.parentDown(
 						_TeamVariable,
 						_ManagementVariable,
 						**_KwargVariablesDict
-					),
-					TeamStrsList
+					)
+					if hasattr(__ElementVariable,'parentDown')
+					else None,
+					map(
+						lambda __TeamStr:
+						self.TeamDict[
+							__TeamStr
+						],
+						TeamStrsList
+					)
 				)
 
 		else:
@@ -940,23 +938,16 @@ class ParenterClass(BaseClass):
 			# Determine the ManagementStrsList
 			#
 
-			ManagementStrsList=SYS._filter(
-				lambda __TeamKeyStr:
-				any(
-					map(
-						lambda __OrList:
-						all(
-							map(
-								lambda __AndTuple:
-								__AndTuple[0](__TeamKeyStr,__AndTuple[1]),
-								__OrList
-							)
-						),
-						_ManagementVariable
-					)
-				),
-				self.TeamDict.keys()
-			)
+			if _ManagementVariable==None:
+				ManagementStrsList=self.ManagementDict.keys()
+			elif len(_ManagementVariable)>0 and type(_ManagementVariable)==str:
+				ManagementStrsList=self.ManagementDict
+			else:
+				ManagementStrsList=self.mapCondition(
+					_ManagementVariable,
+					self.ManagementDict.keys(),
+					_DirectBool=True
+				)
 
 			#debug
 			'''
@@ -976,15 +967,22 @@ class ParenterClass(BaseClass):
 
 			#map
 			map(
-					lambda __ManagementStr:
-					self.ManagementDict[
-						__ManagementStr
-					].parentDown(
+					lambda __ElementVariable:
+					__ElementVariable.parentDown(
 						_TeamVariable,
 						_ManagementVariable,
 						**_KwargVariablesDict
-					),
-					ManagementStrsList
+					)
+					if hasattr(__ElementVariable,'parentDown')
+					else None,
+					map(
+						lambda __ManagementStr:
+						self.ManagementDict[
+							__ManagementStr
+						],
+						ManagementStrsList
+					)
+					
 				)
 
 		#return self

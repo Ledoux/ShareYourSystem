@@ -1,8 +1,6 @@
 
-<!---
-FrozenIsBool True
+<!--
+FrozenIsBool False
 -->
 
-##Example
-
-There is a short cut key str for pointing
+When a connecter has parented it does automatically a mapConnect in the 'Connect' family.

@@ -27,7 +27,7 @@ class MultiplierClass(SYS.StructurerClass):
 		SYS.StructurerClass.__init__(self,**_KwargVariablesDict)
 			
 		#Build the model		
-		self['#map@set'](
+		self.mapSet(
 			[
 				('-Models',[
 						('|Parameter',[
@@ -35,7 +35,7 @@ class MultiplierClass(SYS.StructurerClass):
 						]),
 						('|Result',[
 							('ModelKeyStrsList',['MultipliedTotalFloat']),
-							('PointKeyVariablesList',['/^/|Parameter'])
+							('ParentingTriggerVariable',['->/^/|Parameter'])
 						])
 					]
 				)
@@ -56,7 +56,7 @@ class ModulerClass(SYS.StructurerClass):
 		SYS.StructurerClass.__init__(self,**_KwargVariablesDict)
 
 		#Build the components and the models
-		self['#map@set'](
+		self.mapSet(
 			[
 				#MODELS
 				(
@@ -65,16 +65,23 @@ class ModulerClass(SYS.StructurerClass):
 						('|Parameter',[
 							('ModelKeyStrsList',['ModulingPowerFloat']),
 							(
-								'PointKeyVariablesList',
-								[
-									'/^/^/-Components/|Real/-Models/|Result',
-									'/^/^/-Components/|Image/-Models/|Result',
-								]
+								'ParentingTriggerVariable',
+								{
+									'array':[
+										[
+											['-Connections'],
+											[
+												'|/^/^/-Components/|Real/-Models/|Result',
+												'|/^/^/-Components/|Image/-Models/|Result'
+											]
+										]
+									]
+								}
 							)
 						]), 
 						('|Result',[
 							('ModelKeyStrsList',['ModuledTotalFloat']),
-							('PointKeyVariablesList',['/^/|Parameter'])
+							('ParentingTriggerVariable',['->/^/|Parameter'])
 						])
 					]
 				),
@@ -89,7 +96,7 @@ class ModulerClass(SYS.StructurerClass):
 		)
 						
 #/######################/#
-# Build your total model and insert
+# Build your total model 
 #
 
 MyModuler=ModulerClass(

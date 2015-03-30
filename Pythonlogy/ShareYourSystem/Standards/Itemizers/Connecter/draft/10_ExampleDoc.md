@@ -5,4 +5,4 @@ FrozenIsBool True
 
 ##Example
 
-There are the shorcut strs '->','<->' to direct point during a get method
+There is a short cut key str for pointing

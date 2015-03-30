@@ -5,4 +5,4 @@ FrozenIsBool True
 
 ##Example
 
-There are the shorcut strs '->','<->' to direct point and back point during a set.
+Note that there is a special PointKeyStrsList that is called when parent is done.

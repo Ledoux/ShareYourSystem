@@ -13,9 +13,10 @@ class MakerClass(SYS.ModelerClass):
 							'PropertyInitVariable':None,
 							'PropertyDocStr':'I am doing the thing here',
 							'ShapeKeyStrsList':['MakingMyInt']
-						}	
+						},
+			**_KwargVariablesDict	
 		):
-		SYS.ModelerClass.__init__(self)
+		SYS.ModelerClass.__init__(self,**_KwargVariablesDict)
 
 #Definition 
 MyMaker=MakerClass(

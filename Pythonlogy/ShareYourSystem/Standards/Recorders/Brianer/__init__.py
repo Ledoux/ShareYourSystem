@@ -30,10 +30,10 @@ from ShareYourSystem.Standards.Recorders import Recorder
 @DecorationClass(**{
 	'ClassingSwitchMethodStrsList':['brian'],
 	'ClassingStructureVariable':[
-			('Neurongroup','Neurongroups'),
+			('Population','Populations'),
 			('Trace','Traces'),
 			('Sample','Samples'),
-			('Postlet','Postlets'),
+			#('Projectome','Projectomes'),
 			('Event','Events')
 		]
 })
@@ -61,7 +61,9 @@ class BrianerClass(BaseClass):
 			_BrianedSpikeDeriveBrianersList=None,
 			_BrianedParentNetworkDeriveBrianerVariable=None,
 			_BrianedParentNeurongroupDeriveBrianerVariable=None,
+			_BrianedParentProjectionDeriveBrianerVariable=None,
 			_BrianedParentDeriveRecorderVariable=None,
+			_BrianedConnectVariable=None,
 			**_KwargVariablesDict
 		):
 
@@ -109,9 +111,14 @@ class BrianerClass(BaseClass):
 		)
 
 		#Check
-		if (self.ParentDeriveTeamerVariable==None or 'Neurongroups' in self.TeamDict or self.ParentDeriveTeamerVariable.TeamTagStr not in [
-			'Traces','Samples','Events','Postlets'
-		]) and self.BrianedParentSingularStr!='Neurongroup':
+		if (self.ParentDeriveTeamerVariable==None or 'Populations' in self.TeamDict or self.ParentDeriveTeamerVariable.TeamTagStr not in [
+			'Traces',
+			'Samples',
+			'Events',
+			#'Projectomes',
+			#'Projections',
+			#'Postlets'
+		]) and self.BrianedParentSingularStr!='Population':
 
 			#/########################/#
 			# Network level
@@ -136,7 +143,7 @@ class BrianerClass(BaseClass):
 			# 
 
 			#Check
-			if 'Neurongroups' not in self.TeamDict:
+			if 'Populations' not in self.TeamDict:
 		
 				#set
 				self.BrianedParentNetworkDeriveBrianerVariable=self
@@ -162,34 +169,31 @@ class BrianerClass(BaseClass):
 			#structure
 			self.structure(
 				[
-					[
-						(
-							SYS.getIsInListBool,
-							[
-								'Neurongroups',
-								'Traces',
-								'Events',
-								'Samples'
-							]
-						)
-					],
-					[
-						(
-							SYS.startwith,
-							'Post'
-						)
-					]
+					'Populations',
+					#'Traces',
+					#'Events',
+					#'Samples',
+					#'Projectomes',
+					#'Synapses'
 				],
 				None,
 				_DoStr="Brian"
 			)
 
 		#Check
-		if self.BrianedParentSingularStr=="Neurongroup":
+		if self.BrianedParentSingularStr=='Population':
 			
 			#/########################/#
 			# Neurongroup level
 			#  
+
+			#debug
+			self.debug(
+				[
+					'It is a Neurongroup level',
+					'We set the brian neurongroup'
+				]
+			)
 
 			#set the parent
 			self.BrianedParentNetworkDeriveBrianerVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
@@ -197,15 +201,39 @@ class BrianerClass(BaseClass):
 			#setNeurongroup
 			self.setNeurongroup()
 
-		elif self.BrianedParentSingularStr=='Postlet':
+		elif self.BrianedParentSingularStr=='Projectome':
 
+			#/########################/#
+			# call the  method
+			#  
+
+			#debug
+			self.debug(
+				[
+					'It is a Projectome level',
+					'We setConnectomes'
+				]
+			)
+
+			return
+
+		elif self.BrianedParentSingularStr=='Synapse':
+		
 			#/########################/#
 			# call the setSynapses method
 			#  
+		
+			#debug
+			self.debug(
+				[
+					'It is a Synapsome level',
+					'We set the brian network'
+				]
+			)
 
 			#set Synapses
-			self.setSynapses()
-
+			#self.setSynapses()
+		
 		elif self.BrianedParentSingularStr=='Trace':
 
 			#debug
@@ -369,11 +397,13 @@ class BrianerClass(BaseClass):
 			#
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We complete a view so first fill the draw'
 				]
 			)
+			'''
 
 			#set
 			LabelStr='$'+self.BrianedParentDeriveRecorderVariable.RecordKeyStr+'_{'+str(
@@ -454,6 +484,7 @@ class BrianerClass(BaseClass):
 							])
 					
 			#debug
+			'''
 			self.debug(
 				[
 					'XLabelStr is ',
@@ -466,6 +497,7 @@ class BrianerClass(BaseClass):
 					XtickLabelLiargStr
 				]
 			)
+			'''
 
 			#set
 			self.PyplotingChartVariable+=[
@@ -527,6 +559,7 @@ class BrianerClass(BaseClass):
 							])
 					
 			#debug
+			'''
 			self.debug(
 				[
 					'YLabelStr is ',
@@ -539,6 +572,7 @@ class BrianerClass(BaseClass):
 					YtickLabelLiargStr
 				]
 			)
+			'''
 
 			#set
 			self.PyplotingChartVariable+=[
@@ -660,6 +694,7 @@ class BrianerClass(BaseClass):
 			)
 
 			#debug
+			'''
 			self.debug(
 				[
 					'After replace',
@@ -669,6 +704,7 @@ class BrianerClass(BaseClass):
 					])
 				]
 			)
+			'''
 
 			#/####################/#
 			# Update maybe the 
@@ -681,6 +717,7 @@ class BrianerClass(BaseClass):
 			]
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We update in the parent neurongroup chart',
@@ -689,6 +726,7 @@ class BrianerClass(BaseClass):
 					('self.',self,[])
 				]
 			)
+			'''
 
 			#manage
 			BrianedChartNeurongroupDerivePyploter.TeamDict['Draws'].manage(
@@ -770,11 +808,13 @@ class BrianerClass(BaseClass):
 			#
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We complete a view so first fill the draw'
 				]
 			)
+			'''
 
 			#set
 			LabelStr='$'+self.ManagementTagStr+'_{'+str(
@@ -850,6 +890,7 @@ class BrianerClass(BaseClass):
 			)
 
 			#debug
+			'''
 			self.debug(
 				[
 					'After replace',
@@ -859,6 +900,7 @@ class BrianerClass(BaseClass):
 					])
 				]
 			)
+			'''
 
 			#/####################/#
 			# Update maybe the 
@@ -871,6 +913,7 @@ class BrianerClass(BaseClass):
 			]
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We update in the parent neurongroup chart',
@@ -879,6 +922,7 @@ class BrianerClass(BaseClass):
 					('self.',self,[])
 				]
 			)
+			'''
 
 			#manage
 			BrianedChartNeurongroupDerivePyploter.TeamDict['Draws'].manage(
@@ -996,7 +1040,6 @@ class BrianerClass(BaseClass):
 			)
 
 			#debug
-			'''
 			self.debug(
 				[
 					'Ok we have setted the Neurongroup',
@@ -1005,7 +1048,6 @@ class BrianerClass(BaseClass):
 								])
 				]
 			)
-			'''
 
 			#/##################/#
 			# team States first all the brian variables
@@ -1037,6 +1079,14 @@ class BrianerClass(BaseClass):
 					BrianedDeriveTraces=self.TeamDict[
 							'Traces'
 						]
+
+				#debug
+				self.debug(
+					[
+						'We set the tracers',
+						('self.',self,['BrianedRecordKeyStrsList'])
+					]
+				)
 
 				#map
 				self.BrianedTraceDeriveBrianersList=map(
@@ -1094,11 +1144,13 @@ class BrianerClass(BaseClass):
 				#
 
 				#debug
+				'''
 				self.debug(
 					[
 						'We complete a view so first fill the draw'
 					]
 				)
+				'''
 
 				#Check
 				if 'Charts' not in self.TeamDict:
@@ -1112,11 +1164,13 @@ class BrianerClass(BaseClass):
 				if 'Traces' in self.TeamDict:
 
 					#debug
+					'''
 					self.debug(
 						[
 							'First we add the traces'
 						]
 					)
+					'''
 
 					#set
 					map(
@@ -1134,22 +1188,26 @@ class BrianerClass(BaseClass):
 					)
 
 					#debug
+					'''
 					self.debug(
 						[
 							'self.TeamDict["Traces"] is ',
 							str(self.TeamDict["Traces"])
 						]
 					)
+					'''
 
 				#Check
 				if 'Events' in self.TeamDict:
 
 					#debug
+					'''
 					self.debug(
 						[
-							'First we add the events'
+							'Then we add the events'
 						]
 					)
+					'''
 
 					#set
 					BrianedChartsDeriveTeamer.mapSet(
@@ -1169,12 +1227,25 @@ class BrianerClass(BaseClass):
 					)
 
 					#debug
+					'''
 					self.debug(
 						[
 							'self.TeamDict["Events"] is ',
 							str(self.TeamDict["Events"])
 						]
 					)
+					'''
+
+			#/#################/#
+			# Maybe set Projections
+			#
+
+			#Check
+			#if 'Projectomes' in self.TeamDict:
+			#
+			#	#set
+			#	self.setConnectomes('Project')
+
 
 	def setSynapses(self):
 
@@ -1201,12 +1272,62 @@ class BrianerClass(BaseClass):
 		# Set the parent
 		#
 
-		#get
-		self.BrianedParentNeurongroupDeriveBrianerVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
+		#Check
+		if self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable.BrianedParentSingularStr=='Projection':
 
-		#get
-		self.BrianedParentNetworkDeriveBrianerVariable=self.BrianedParentNeurongroupDeriveBrianerVariable.BrianedParentNetworkDeriveBrianerVariable
+			#debug
+			'''
+			self.debug(
+				[
+					'We are in a projection structure'
+				]
+			)
+			'''
 
+			#set
+			self.BrianedParentProjectionDeriveBrianerVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
+
+			#get
+			self.BrianedParentNeurongroupDeriveBrianerVariable=self.BrianedParentProjectionDeriveBrianerVariable.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
+
+			#get
+			self.BrianedParentNetworkDeriveBrianerVariable=self.BrianedParentProjectionDeriveBrianerVariable.BrianedParentNeurongroupDeriveBrianerVariable.BrianedParentNetworkDeriveBrianerVariable
+
+		else:
+
+			#debug
+			'''
+			self.debug(
+				[
+					'There is no projection structure'
+				]
+			)
+			'''
+
+			#get
+			self.BrianedParentNeurongroupDeriveBrianerVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
+
+			#get
+			self.BrianedParentNetworkDeriveBrianerVariable=self.BrianedParentNeurongroupDeriveBrianerVariable.BrianedParentNetworkDeriveBrianerVariable
+
+
+		#/####################/#
+		# We need to connect
+		#
+
+		#debug
+		self.debug(
+			[
+				'We need to connect first',
+
+			]
+		)
+
+		if self.BrianingConnectVariable==None:
+
+			#self.BrianedConnectVariable=self.ManagementTagStr
+			#self.connect()
+			pass
 
 		#/####################/#
 		# Set the BrianedParentNeurongroupDeriveBrianerVariable
@@ -1389,6 +1510,7 @@ BrianerClass.PrintingClassSkipKeyStrsList.extend(
 		'BrianedParentSingularStr',
 		'BrianedParentNetworkDeriveBrianerVariable',
 		'BrianedParentNeurongroupDeriveBrianerVariable',
+		'BrianedParentProjectionDeriveBrianerVariable',
 		'BrianedParentDeriveRecorderVariable'
 	]
 )

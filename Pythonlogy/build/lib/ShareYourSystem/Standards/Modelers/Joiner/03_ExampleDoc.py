@@ -46,13 +46,16 @@ MySumer=SumerClass(
 	).mapSet(
 		{
 			'-Models':[
-				('|Parameter',[
-					('ModelKeyStrsList',['SumingFirstInt','SumingSecondInt'])
-				]),
-				('|Result',[
-					('ModelKeyStrsList',['SumedTotalInt']),
-					('ParentingTriggerVariable',['<->/^/|Parameter'])
-				])
+				('|Parameter',{
+					'ModelKeyStrsList':['SumingFirstInt','SumingSecondInt']
+				}),
+				('|Result',{
+					'ModelKeyStrsList':['SumedTotalInt'],
+					'-Joinlets':{
+							'|/^/|Parameter':{}
+						}
+					}
+				)
 			]
 		}
 	).model(

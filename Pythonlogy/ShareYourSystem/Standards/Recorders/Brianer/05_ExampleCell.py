@@ -13,7 +13,7 @@ import ShareYourSystem as SYS
 MyBrianer=SYS.BrianerClass(
 	).mapSet(
 		{
-			'-Neurongroups':
+			'-Populations':
 			{
 				'set':{
 					'#liarg:#lambda':{
@@ -33,12 +33,16 @@ MyBrianer=SYS.BrianerClass(
 								'#liarg:#lambda':{
 									'array':[
 										[
-											['-Connectomes'],
-											['|Postlets<->Prelets'],
-											['-Connections'],
-											['|#direct:_^_|E','|#direct:_^_|I']
+											['-Interactomes'],
+											['|Default'],
+											['-Interactions'],
+											[
+												'|E',
+												'|I'
+											]
 										],
 										[
+											{},
 											{},
 											{},
 											{
@@ -87,32 +91,37 @@ MyBrianer=SYS.BrianerClass(
 			}
 		}	
 	).brian(
-	).simulate(
+	)
+
+"""
+	.simulate(
 		500.
 	)
 	
 #/###################/#
 # Print
 #
-
+"""
 
 #Definition the AttestedStr
 print('MyBrianer is ')
 SYS._print(MyBrianer) 
 
+"""
 #/###################/#
 # Do one simulation
 #
 
 from matplotlib import pyplot
 pyplot.figure()
-ME=MyBrianer['/-Neurongroups/|E/-Traces/|*v/-Samples/|Default'].BrianedStateMonitorVariable
-MI=MyBrianer['/-Neurongroups/|I/-Traces/|*v/-Samples/|Default'].BrianedStateMonitorVariable
+ME=MyBrianer['/-Populations/|E/-Traces/|*v/-Samples/|Default'].BrianedStateMonitorVariable
+MI=MyBrianer['/-Populations/|I/-Traces/|*v/-Samples/|Default'].BrianedStateMonitorVariable
 pyplot.plot(ME.t, ME.v.T,color='b')
 pyplot.plot(MI.t, MI.v.T,color='r')
 pyplot.figure()
-ME=MyBrianer['/-Neurongroups/|E/-Events/|Default'].BrianedSpikeMonitorVariable
-MI=MyBrianer['/-Neurongroups/|I/-Events/|Default'].BrianedSpikeMonitorVariable
+ME=MyBrianer['/-Populations/|E/-Events/|Default'].BrianedSpikeMonitorVariable
+MI=MyBrianer['/-Populations/|I/-Events/|Default'].BrianedSpikeMonitorVariable
 pyplot.plot(ME.t, ME.i,'.')
 pyplot.plot(MI.t, max(ME.i)+MI.i,'.',color='r')
 pyplot.show()
+"""

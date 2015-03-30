@@ -2,15 +2,23 @@
 #ImportModules
 import ShareYourSystem as SYS
 
-#Define and shortcut point without SetKeyVariable
-MyPointer=SYS.PointerClass(
-		).get(
-			'->/ChildPointer/FirstGrandChildPointer'
-		).get(
-			'<->/ChildPointer/SecondGrandChildPointer'
-		)
+#Point direct with a special Key str
+MyConnecter=SYS.ConnecterClass(
+	).set(
+		'-Children',
+		{
+			'|Aurelie':{},
+			'|Erwan':{
+				'ParentingTriggerVariable':[
+					'->/^/|Aurelie'
+				]
+			}
+		}
+	)['?v']
 
 #print
-print('MyPointer is')
-SYS._print(MyPointer)
+print('MyConnecter is')
+SYS._print(MyConnecter)
+
+
 
