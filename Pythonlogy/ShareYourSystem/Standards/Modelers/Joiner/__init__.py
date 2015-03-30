@@ -30,7 +30,10 @@ from ShareYourSystem.Standards.Controllers import Controller
 #<DefineLocals>
 JoinStr='__'
 JoinDeepStr='/'
-JoinTeamPrefixStr='Joinct'
+JoinTeamPrefixStr='Jonct'
+JoinColumnPrefixStr='_j_'
+JoinColumnSuffixStr='List'
+#JoinColumnSuffixStr="RetrieveIndexIntsList"
 #</DefineLocals>
 
 #<DefineClass>
@@ -75,18 +78,15 @@ class JoinerClass(BaseClass):
 		'''
 		
 		#Check
-		if JoinTeamTagStr in self.TeamDict:
+		if JoinTeamPrefixStr+'ions' in self.TeamDict:
 
 			#/################/#
 			# Get the post derive pointing parenters and make them point
 			#	
 
-			#mapConnect
-			self.mapConnect()
-
 			#set
 			self.JoinedOutDeriveConnectersList=self.TeamDict[
-				JoinTeamTagStr
+				JoinTeamPrefixStr+'ions'
 			].ManagementDict.values()
 
 			#debug
@@ -105,11 +105,11 @@ class JoinerClass(BaseClass):
 
 			self.JoinedRetrieveIndexIntsListGetStrsList=map(
 					lambda __JoinedPostDerivePointer:
-					"Join"+''.join(
+					JoinColumnPrefixStr+''.join(
 						[
-							__JoinedPostDerivePointer.ManagementTagStr,
+							__JoinedPostDerivePointer.ManagementTagStr.replace('/','_'),
 						]
-					)+"RetrieveIndexIntsList",
+					)+JoinColumnSuffixStr,
 					self.JoinedOutDeriveConnectersList
 				)
 
@@ -135,7 +135,7 @@ class JoinerClass(BaseClass):
 			#set
 			self.JoinedOutDeriveJoinersList=map(
 					lambda __JoinedOutDerivePointer:
-					__JoinedOutDerivePointer.PointToVariable,
+					__JoinedOutDerivePointer.ConnectedToVariable,
 					self.JoinedOutDeriveConnectersList
 				)
 
@@ -705,6 +705,7 @@ class JoinerClass(BaseClass):
 
 #<DefineLocals>
 Modeler.ModelersStructurerClass.ManagingValueClass=JoinerClass
+JoinerClass.StructureConnectPrefixStrsList=[JoinTeamPrefixStr]
 #<DefineLocals>
 
 #</DefinePrint>

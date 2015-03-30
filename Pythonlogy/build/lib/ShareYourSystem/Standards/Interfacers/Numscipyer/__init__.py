@@ -133,6 +133,36 @@ class NumscipyerClass(BaseClass):
 					self.NumscipyingDiagFloatsArray
 				)
 	
+
+	def mimic__print(self,**_KwargVariablesDict):
+
+		#/##################/#
+		# Modify the printing Variable
+		#
+
+		#Check
+		if self.PrintingSelfBool:
+
+			#/##################/#
+			# Remove the num scipy array if None
+			#
+
+			#Check
+			if type(self.NumscipiedRandomFloatsArray)==None.__class__:
+
+				#append
+				self.PrintingCopyVariable.PrintingInstanceSkipKeyStrsList.append(
+					'NumscipiedRandomFloatsArray'
+				)
+
+
+		#/##################/#
+		# Call the base method
+		#
+
+		#call
+		BaseClass._print(self,**_KwargVariablesDict)
+
 #</DefineClass>
 
 

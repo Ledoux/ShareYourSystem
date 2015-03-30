@@ -680,18 +680,19 @@ class PrinterClass(BaseClass):
 
 	def default_init(self,
 						_PrintIdInt=0,
+						_PrintStr="",
 						_PrintingCopyVariable=None,
 						_PrintingInstanceSkipKeyStrsList=None,
 						_PrintingInstanceForceKeyStrsList=None,
 						_PrintingClassSkipKeyStrsList=[],
 						_PrintingClassForceKeyStrsList=[],
-						_PrintingBaseBool=False,
+						_PrintingBaseBool=True,
 						_PrintingNewInstanceBool=True,
 						_PrintingNewClassBool=True,
 						_PrintingOutBool=True,
 						_PrintingSelfBool=False,
 						_PrintingInfoStr="",
-						_PrintStr="",
+						_PrintingInstanceForceBaseKeyStrsList=None,
 						**_KwargVariablesDict
 					):
 		
@@ -915,7 +916,7 @@ class PrinterClass(BaseClass):
 			print('')
 			'''
 
-			#filter
+			#filter remove
 			PrintedDefaultBaseKeyStrsList=SYS._filter(
 					lambda __DefaultSpecificKeyStr:
 					__DefaultSpecificKeyStr not in list(
@@ -923,7 +924,14 @@ class PrinterClass(BaseClass):
 					)+list(self.PrintingClassSkipKeyStrsList), 
 					self.__class__.DefaultBaseKeyStrsList
 				)
-				
+
+			#filter add
+			if self.PrintingInstanceForceBaseKeyStrsList!=None:
+
+				#add
+				PrintedDefaultBaseKeyStrsList+=self.PrintingInstanceForceBaseKeyStrsList
+			
+			#map	
 			PrintTuplesList+=map(
 									lambda __BaseKeyStr:
 									(
@@ -1082,6 +1090,7 @@ class PrinterClass(BaseClass):
 PrinterClass.PrintingClassSkipKeyStrsList.extend(
 	[
 		'DefaultInitBool',
+		'PrintStr',
 		'PrintIdInt',
 		'PrintingCopyVariable',
 		'PrintingInstanceSkipKeyStrsList',
@@ -1092,7 +1101,9 @@ PrinterClass.PrintingClassSkipKeyStrsList.extend(
 		'PrintingNewInstanceBool',
 		'PrintingNewClassBool',
 		'PrintingOutBool',
-		'PrintStr'
+		'PrintingSelfBool',
+		'PrintingInfoStr',
+		'PrintingInstanceForceBaseKeyStrsList'
 	]
 )
 #</DefinePrint>

@@ -30,10 +30,13 @@ class MultiplierClass(SYS.JoinerClass):
 					('|Parameter',[
 						('ModelKeyStrsList',['MultiplyingFirstFloat','MultiplyingSecondFloat'])
 					]),
-					('|Result',[
-						('ModelKeyStrsList',['MultipliedTotalFloat']),
-						('ParentingTriggerVariable',['<->/^/|Parameter'])
-					])
+					('|Result',{
+						'ModelKeyStrsList':['MultipliedTotalFloat'],
+						'-Jonctions':{
+								'|/^/|Parameter':{}
+							}
+						}
+					)
 				]
 			}
 		)
@@ -74,17 +77,14 @@ class ModulerClass(SYS.JoinerClass):
 					('|Parameter',[
 						('ModelKeyStrsList',['ModulingPowerFloat'])
 					]),
-					('|Result',[
-						('ModelKeyStrsList',['ModuledTotalFloat']),
-						(
-							'ParentingTriggerVariable',
-							[
-								'<->/^/|Parameter',
-								'<->/^/^/-Components/|Real/-Models/|Parameter',
-								'<->/^/^/-Components/|Image/-Models/|Parameter',
-							]
-						)
-					])
+					('|Result',{
+						'ModelKeyStrsList',['ModuledTotalFloat'],
+						'-Jonctions':{
+								'<->/^/^/-Components/|Real/-Models/|Parameter':{},
+								'<->/^/^/-Components/|Image/-Models/|Parameter':{}
+							}
+						}
+					)
 				]
 			}
 		)

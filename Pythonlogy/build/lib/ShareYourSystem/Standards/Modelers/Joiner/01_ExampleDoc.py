@@ -46,10 +46,13 @@ MySumer=SumerClass(
 				('|Parameter',[
 					('ModelKeyStrsList',['SumingFirstInt','SumingSecondInt'])
 				]),
-				('|Result',[
-					('ModelKeyStrsList',['SumedTotalInt']),
-					('ParentingTriggerVariable',['<->/^/|Parameter'])
-				])
+				('|Result',{
+					'ModelKeyStrsList':['SumedTotalInt'],
+					'-Jonctions':{
+							'|/^/|Parameter':{}
+						}
+					}
+				)
 			]
 		}
 	).model(

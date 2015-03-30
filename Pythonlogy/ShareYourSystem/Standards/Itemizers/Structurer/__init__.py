@@ -44,7 +44,7 @@ class StructurerClass(BaseClass):
 					_StructuringSingPluralVariable=None,
 					_StructuringDoStr="",
 					_StructuringClassBool=True,
-					_StructuringTopDeriveStructurerVariable=None,
+					_StructuringCircularBool=False,
 					_StructuredTeamKeyStrsList=None,
 					_StructuredOnceBool=False,
 					**_KwargVariablesDict
@@ -58,137 +58,180 @@ class StructurerClass(BaseClass):
 
 	def do_structure(self):
 
-		#debug
-		'''
-		self.debug(
-				[
-					'We structure here',
-					('self.',self,[
-							'StructuringTeamVariable',
-							'StructuringManagementVariable'
-						])
-				]
-			)
-		'''
-		
 		#/###################/#
-		# Set the structure of singular team if not already
+		# Check the level
 		#
+
+		#debug
+		self.debug(
+			[
+				'We structure here',
+				'self.StructureTopDeriveStructurerVariable==self is ',
+				str(self.StructureTopDeriveStructurerVariable==self)
+			]
+		)
 
 		#Check
-		if self.StructuredOnceBool==False:
+		if self.StructureTopDeriveStructurerVariable==self:
 
-			#Check
-			if self.StructuringSingPluralVariable!=None:
-
-				#debug
-				self.debug(
-					[
-						'we structure for the first time here',
-						('self.',self,['StructuringSingPluralVariable'])
-					]
-				)
-				
-				#map add the sing plurals
-				map(
-					lambda __ItemTuple:
-					SYS.addSingPlural(
-						*__ItemTuple
-					),
-					SYS.SetList(self.StructuringSingPluralVariable)
-				)
-
-				#Define a class
-				class StructureClass(StructurerClass):pass
-				StructureClass.__name__=self.NameStr+'s'
-				StructureClass.ManagingValueClass=self.__class__
-
-				#set
-				setattr(
-					self.Module,
-					StructureClass.__name__,
-					StructureClass
-				)
-
-				#dict
-				ClassesDict=dict(
-						map(
-							lambda __ItemTuple:
-							(__ItemTuple[1],StructureClass),
-							_SingPluralVariable
-						)
-					)
-
-				#Check
-				if self.StructuringClassBool:
-
-					#map
-					if _Class.TeamingClassesDict==None:
-						_Class.TeamingClassesDict=ClassesDict
-					else:
-						_Class.TeamingClassesDict.update(
-							ClassesDict
-						)
-
-					#set 
-					self.__class__.StructuringOnceBool=True
-
-				else:
-
-					#map
-					if self.TeamingClassesDict==None:
-						self.TeamingClassesDict=ClassesDict
-					else:
-						self.TeamingClassesDict.update(
-							ClassesDict
-						)
-
-
-				#set
-				self.StructuredOnceBool=True
-
-		#/##################/#
-		# prepare the struc teams
-		#
-
-		#map
-		self.StructuredTeamKeyStrsList=map(
-				lambda __StructuringTeamOrManagementStr:
-				StructureOutPrefixStr+self.StructuringDoStr+'_'+__StructuringTeamOrManagementStr,
-				(self.StructuringTeamVariable if self.StructuringTeamVariable!=None else [])+
-				(self.StructuringManagementVariable if self.StructuringManagementVariable!=None else [])
-			)
-
-		#debug
-		'''
-		self.debug(
+			#debug
+			self.debug(
 				[
-					'We are going to make team the StructuredTeamKeyStrsList',
-					('self.',self,['StructuredTeamKeyStrsList'])
+					'Watch at the circular condition',
+					('self.',self,['StructuringCircularBool'])
 				]
 			)
-		'''
 
-		#map
-		map(
-				lambda __StructuredTeamKeyStr:
-				self.team(__StructuredTeamKeyStr),
-				self.StructuredTeamKeyStrsList
-			)
+			#Check
+			if self.StructuringCircularBool==False:
 
-		#/##################/#
-		# parent Down
-		#
+				#debug
+				'''
+				self.debug(
+						[
+							'We structure top here',
+							('self.',self,[
+									'StructuringTeamVariable',
+									'StructuringManagementVariable'
+								])
+						]
+					)
+				'''
+				
+				#/###################/#
+				# Set the structure of singular team if not already
+				#
 
-		#parentDown
-		self.parentDown(
-				self.StructuringTeamVariable,
-				self.StructuringManagementVariable,
-				**{
-					'StructureTargetStr':self.StructureTagStr,
-					'StructuringDoStr':self.StructuringDoStr,
-					'StructuringTopDeriveStructurerVariable':self
-				}
+				#Check
+				if self.StructuredOnceBool==False:
+
+					#Check
+					if self.StructuringSingPluralVariable!=None:
+
+						#debug
+						self.debug(
+							[
+								'we structure for the first time here',
+								('self.',self,['StructuringSingPluralVariable'])
+							]
+						)
+						
+						#map add the sing plurals
+						map(
+							lambda __ItemTuple:
+							SYS.addSingPlural(
+								*__ItemTuple
+							),
+							SYS.SetList(self.StructuringSingPluralVariable)
+						)
+
+						#Define a class
+						class StructureClass(StructurerClass):pass
+						StructureClass.__name__=self.NameStr+'s'
+						StructureClass.ManagingValueClass=self.__class__
+
+						#set
+						setattr(
+							self.Module,
+							StructureClass.__name__,
+							StructureClass
+						)
+
+						#dict
+						ClassesDict=dict(
+								map(
+									lambda __ItemTuple:
+									(__ItemTuple[1],StructureClass),
+									_SingPluralVariable
+								)
+							)
+
+						#Check
+						if self.StructuringClassBool:
+
+							#map
+							if _Class.TeamingClassesDict==None:
+								_Class.TeamingClassesDict=ClassesDict
+							else:
+								_Class.TeamingClassesDict.update(
+									ClassesDict
+								)
+
+							#set 
+							self.__class__.StructuringOnceBool=True
+
+						else:
+
+							#map
+							if self.TeamingClassesDict==None:
+								self.TeamingClassesDict=ClassesDict
+							else:
+								self.TeamingClassesDict.update(
+									ClassesDict
+								)
+
+
+						#set
+						self.StructuredOnceBool=True
+
+				#/##################/#
+				# prepare the struc teams
+				#
+
+				#map
+				self.StructuredTeamKeyStrsList=map(
+						lambda __StructuringTeamOrManagementStr:
+						StructureOutPrefixStr+self.StructuringDoStr+'_'+__StructuringTeamOrManagementStr,
+						(self.StructuringTeamVariable if self.StructuringTeamVariable!=None else [])+
+						(self.StructuringManagementVariable if self.StructuringManagementVariable!=None else [])
+					)
+
+				#debug
+				'''
+				self.debug(
+						[
+							'We are going to make team the StructuredTeamKeyStrsList',
+							('self.',self,['StructuredTeamKeyStrsList'])
+						]
+					)
+				'''
+
+				#map
+				map(
+						lambda __StructuredTeamKeyStr:
+						self.team(__StructuredTeamKeyStr),
+						self.StructuredTeamKeyStrsList
+					)
+
+				#/##################/#
+				# parent Down
+				#
+
+				#parentDown
+				self.parentDown(
+						self.StructuringTeamVariable,
+						self.StructuringManagementVariable,
+						'structure',
+						**{
+							'StructureTargetStr':self.StructureTagStr,
+							'StructureTopDeriveStructurerVariable':self,
+							'StructuringDoStr':self.StructuringDoStr,
+							'StructuringCircularBool':True	
+						}
+					)
+			else:
+
+				#reset
+				self.StructuringCircularBool=True
+
+
+		else:
+
+			#debug
+			self.debug(
+				[
+					'We structure in a level here'
+				]
 			)
 
 	def propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable):
@@ -352,7 +395,8 @@ class StructurerClass(BaseClass):
 							'Yes we make team connect here',
 							('self.',self,['PointingInManagementKeyStr']),
 							'self.ParentDeriveTeamerVariable.ManagementTagStr is ',
-							str(self.ParentDeriveTeamerVariable.ManagementTagStr)
+							str(self.ParentDeriveTeamerVariable.ManagementTagStr),
+
 						]
 					)
 
@@ -409,25 +453,19 @@ class StructurerClass(BaseClass):
 					self.debug(
 						[
 							'Yes we make team connect here',
-							('self.StructureTopDeriveStructurerVariable.',
-								self.StructureTopDeriveStructurerVariable,
-								['PointingInManagementKeyStr'])
+							#'self.StructureTopDeriveStructurerVariable.TeamDict.keys() is',
+							#str(self.StructureTopDeriveStructurerVariable.TeamDict.keys()),
+							#('self.',self,['StructureTopDeriveStructurerVariable']),
+							'self.StructureTopDeriveStructurerVariable.StructuredTeamKeyStrsList is',
+							str(self.StructureTopDeriveStructurerVariable.StructuredTeamKeyStrsList),
+							('self.',self,['StructuringDoStr'])
 						]
 					)
 					'''
-
-					"""
-					#connect
-					self.StructureTopDeriveStructurerVariable.connect(
-						self,
-						_OutTeamKeyStr=StructureOutPrefixStr+self.StructuringDoStr+'_'+self.ParentDeriveTeamerVariable.TeamTagStr,
-						_InTeamKeyStr=StructureInTeamKeyStr
-					)
-					"""
-
+					
 					#connect out like in the StructureTopDeriveStructurerVariable
 					self.StructureTopDeriveStructurerVariable.TeamDict[
-						StructureOutPrefixStr+self.StructuringDoStr+'_'+self.ParentDeriveTeamerVariable.TeamTagStr
+						StructureOutPrefixStr+self.StructureTopDeriveStructurerVariable.StructuringDoStr+'_'+self.ParentDeriveTeamerVariable.TeamTagStr
 					].manage(
 						self.StructureTagStr,
 						{
@@ -453,18 +491,32 @@ class StructurerClass(BaseClass):
 		#
 
 		#debug
+		'''
 		self.debug(
 			[
-				'We do here some connections'
+				'We do here maybe some connections',
+				('self.',self,['StructureConnectPrefixStrsList'])
 			]
 		)
+		'''
 
-		#map
-		map(
-			lambda __StructureConnectPrefixStr:
-			self.mapConnect(__StructureConnectPrefixStr),
-			self.StructureConnectPrefixStrsList
-		)
+		#Check
+		if self.StructureConnectPrefixStrsList!=None:
+
+			#debug
+			self.debug(
+				[
+					'We do here some connections',
+					('self.',self,['StructureConnectPrefixStrsList'])
+				]
+			)
+
+			#map
+			map(
+				lambda __StructureConnectPrefixStr:
+				self.mapConnect(__StructureConnectPrefixStr),
+				self.StructureConnectPrefixStrsList
+			)
 
 	def mimic__print(self,**_KwargVariablesDict):
 
@@ -540,12 +592,13 @@ StructurerClass.PrintingClassSkipKeyStrsList.extend(
 		'StructureTagStr',
 		'StructureTopDeriveStructurerVariable',
 		'StructureTargetStr',
+		'StructureConnectPrefixStrsList',
 		'StructuringTeamVariable',
 		'StructuringManagementVariable',
 		'StructuringSingPluralVariable',
 		'StructuringDoStr',
 		'StructuringClassBool',
-		'StructuringTopDeriveStructurerVariable',
+		'StructuringCircularBool',
 		'StructuredTeamKeyStrsList',
 		'StructuredOnceBool'
 	]

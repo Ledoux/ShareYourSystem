@@ -544,7 +544,6 @@ class GetterClass(BaseClass):
 				if callable(GettedValueType):
 
 					#debug
-					'''
 					self.debug(
 						[
 							'We call here',
@@ -552,7 +551,6 @@ class GetterClass(BaseClass):
 							('self.',self,['GettingKeyVariable'])
 						]
 					)
-					'''
 					
 					#alias
 					self.GettedValueVariable=GettedValueType()

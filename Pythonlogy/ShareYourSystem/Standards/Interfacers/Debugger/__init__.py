@@ -113,17 +113,6 @@ def getDebuggedStrWithPrintVariable(_PrintVariable):
 @DecorationClass()
 class DebuggerClass(BaseClass):
 	
-	DefaultSpecificKeyStrsList=[
-								'DebuggingPrintStr',
-								'DebuggingIdentityBool',
-								'DebuggingFrameBool',
-								'DebuggingBacksInt'								
-								'DebuggingNotFrameFunctionStrsList',
-								'DebuggingNotFrameModuleStrsList',
-								'DebuggingIsBool', 													
-								'DebuggedFramesList'
-							]
-
 	def default_init(self,
 						_DebuggingPrintStr="",
 						_DebuggingIdentityBool=True,
@@ -303,6 +292,19 @@ class DebuggerClass(BaseClass):
 							}
 						)
 
-
 #</DefineClass>
 
+#<DefinePrint>
+DebuggerClass.PrintingClassSkipKeyStrsList.extend(
+	[
+		'DebuggingPrintStr',
+		'DebuggingIdentityBool',
+		'DebuggingFrameBool',
+		'DebuggingBacksInt',								
+		'DebuggingNotFrameFunctionStrsList',
+		'DebuggingNotFrameCodeStrsList',
+		'DebuggingIsBool', 													
+		'DebuggedFramesList'
+	]
+)
+#</DefinePrint>

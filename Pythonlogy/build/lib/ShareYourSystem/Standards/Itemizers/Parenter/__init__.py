@@ -832,7 +832,12 @@ class ParenterClass(BaseClass):
 		return self
 
 
-	def parentDown(self,_TeamVariable=None,_ManagementVariable=None,**_KwargVariablesDict):
+	def parentDown(self,
+			_TeamVariable=None,
+			_ManagementVariable=None,
+			_HookMethodStr="",
+			**_KwargVariablesDict
+		):
 
 		#debug
 		'''
@@ -871,13 +876,36 @@ class ParenterClass(BaseClass):
 		# First parent here
 		#
 
+		#debug
+		'''
+		self.debug(
+			[
+				'Check if we have to parent',
+				('self.',self,['WatchAfterParentWithParenterBool'])
+			]
+		)
+		'''
+
 		#parent
 		self.parent()
 
-	
+		#Check
+		if _HookMethodStr!="" and hasattr(self,_HookMethodStr):
+
+			#call
+			getattr(self,_HookMethodStr)()
+
 		#/###############/#
 		# Command the children to parent down also
 		#
+
+		#debug
+		self.debug(
+			[
+				'Look how to parentDown the children',
+				('self.',self,['TeamedOnceBool'])
+			]
+		)
 
 		#Check
 		if self.TeamedOnceBool:
@@ -919,6 +947,7 @@ class ParenterClass(BaseClass):
 					__ElementVariable.parentDown(
 						_TeamVariable,
 						_ManagementVariable,
+						_HookMethodStr,
 						**_KwargVariablesDict
 					)
 					if hasattr(__ElementVariable,'parentDown')
@@ -971,6 +1000,7 @@ class ParenterClass(BaseClass):
 					__ElementVariable.parentDown(
 						_TeamVariable,
 						_ManagementVariable,
+						_HookMethodStr,
 						**_KwargVariablesDict
 					)
 					if hasattr(__ElementVariable,'parentDown')

@@ -9,23 +9,18 @@ import ShareYourSystem as SYS
 # Build the model
 #
 
-#Define
-MyBrianer=SYS.BrianerClass(
+#Definition an instance
+MyLeaker=SYS.LeakerClass(
 	).mapSet(
 		{
-			'-Neurongroups':{
-				'|Input':{
-
-				},
-				'|Population':SYS.BrianerClass(
-				).mapSet(
-					{
-						'RatingUnitsInt':3
-					}
-				)
+			'LeakingUnitsInt':3,
+			'-Interactions':{
+				'|/':{
+				
+				}
 			}
-		}
-	).brian(
+		}	
+	).leak(
 	)
 	
 #/###################/#
@@ -33,34 +28,6 @@ MyBrianer=SYS.BrianerClass(
 #
 
 #Definition the AttestedStr
-print('MyBrianer is ')
-SYS._print(MyBrianer) 
+print('MyLeaker is ')
+SYS._print(MyLeaker) 
 
-#/###################/#
-# Do one simulation
-#
-
-MyBrianer.simulate(
-		500.
-	)
-
-#/###################/#
-# View
-#
-
-#MyBrianer['/-Neurongroups/|Population/-Traces/|*r/-Samples/|Default'].pyplot()
-#MyBrianer.pyplot()
-#SYS.matplotlib.pyplot.show()
-
-print(MyBrianer['/-Neurongroups/|Population/-Traces/|*r/-Samples/|Default'].BrianedStateMonitorVariable)
-
-"""
-from matplotlib import pyplot
-pyplot.figure()
-M=MyBrianer['/-Traces/|*v/-Samples/|Default'].BrianedStateMonitorVariable
-pyplot.plot(M.t, M.v.T)
-pyplot.figure()
-M=MyBrianer['/-Events/|Default'].BrianedSpikeMonitorVariable
-pyplot.plot(M.t, M.i,'.')
-pyplot.show()
-"""

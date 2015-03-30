@@ -33,12 +33,12 @@ MyBrianer=SYS.BrianerClass(
 								'#liarg:#lambda':{
 									'array':[
 										[
-											['-Interactomes'],
+											['-Projectomes'],
 											['|Default'],
-											['-Interactions'],
+											['-Projections'],
 											[
-												'|E',
-												'|I'
+												'|/^/|E',
+												'|/^/|I'
 											]
 										],
 										[
@@ -91,23 +91,18 @@ MyBrianer=SYS.BrianerClass(
 			}
 		}	
 	).brian(
-	)
-
-"""
-	.simulate(
+	).simulate(
 		500.
 	)
 	
 #/###################/#
 # Print
 #
-"""
 
 #Definition the AttestedStr
 print('MyBrianer is ')
 SYS._print(MyBrianer) 
 
-"""
 #/###################/#
 # Do one simulation
 #
@@ -124,4 +119,3 @@ MI=MyBrianer['/-Populations/|I/-Events/|Default'].BrianedSpikeMonitorVariable
 pyplot.plot(ME.t, ME.i,'.')
 pyplot.plot(MI.t, max(ME.i)+MI.i,'.',color='r')
 pyplot.show()
-"""

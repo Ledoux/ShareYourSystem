@@ -58,6 +58,7 @@ class ConnecterClass(BaseClass):
 		#
 
 		#debug
+		'''
 		self.debug(
 			[
 				'Adapt the type for getting things to connect',
@@ -68,6 +69,7 @@ class ConnecterClass(BaseClass):
 							])
 			]
 		)
+		'''
 
 		#Check
 		if self.ConnectingGetBool:
@@ -129,11 +131,13 @@ class ConnecterClass(BaseClass):
 		# 
 
 		#debug
+		'''
 		self.debug(
 			[
 				'We just set the ConnectedToVariable'
 			]
 		)
+		'''
 
 		#set
 		self.ConnectedToVariable=ConnectedValueVariable
@@ -242,6 +246,16 @@ class ConnecterClass(BaseClass):
 		#  Check the level
 		#
 
+		#debug
+		'''
+		self.debug(
+			[
+				'We map connect here',
+				'_TeamPrefixStr is '+_TeamPrefixStr
+			]
+		)
+		'''
+
 		#filter
 		TeamTagStrsList=SYS._filter(
 			lambda __KeyStr:
@@ -298,6 +312,16 @@ class ConnecterClass(BaseClass):
 		#  ions level
 		#
 
+		#debug
+		'''
+		self.debug(
+			[
+				'We set connections here',
+				'_TeamTagStr is '+_TeamTagStr
+			]
+		)
+		'''
+
 		#Check
 		if _GetterVariable==None:
 			_GetterVariable=self
@@ -318,6 +342,7 @@ class ConnecterClass(BaseClass):
 					_TeamTagStr
 				]
 
+		"""
 		#map
 		ConnectionsKeyVariablesList=map(
 			lambda __ItemTuple:
@@ -344,6 +369,92 @@ class ConnecterClass(BaseClass):
 				ConnectionsKeyVariablesList,
 				ConnectionsDeriveConnecter.ManagementDict.values()
 			)
+		"""
+
+		#map
+		map(
+			lambda __ItemTuple:
+			self.setConnection(
+				__ItemTuple[0],
+				__ItemTuple[1],
+				_GetterVariable
+			),
+			ConnectionsDeriveConnecter.ManagementDict.items()
+		)
+
+	def setConnection(self,_KeyVariable,_ValueDeriveConnecter,_GetterVariable):
+
+		#debug
+		self.debug(
+			[
+				'We setConnection here',
+				'_KeyVariable is '+SYS._str(_KeyVariable)
+			]
+		)
+
+		#/#################/#
+		# Determine the key from the management key or inside
+		#
+
+		if _ValueDeriveConnecter.ConnectingKeyVariable==None:
+			KeyVariable=_KeyVariable
+		else:
+			KeyVariable=_ValueDeriveConnecter.ConnectingKeyVariable
+
+		#debug
+		self.debug(
+			[
+				'Ok now',
+				'KeyVariable is '+SYS._str(KeyVariable)
+			]
+		)
+
+		#/##################/#
+		# Connect with or without getting before
+		#
+
+		#connect
+		if type(KeyVariable)==str:
+
+			#debug
+			self.debug(
+				[
+					'We get and connect'
+				]
+			)
+
+			#connect
+			_ValueDeriveConnecter.connect(
+				_GetterVariable[
+					KeyVariable
+				],
+				_GetBool=False
+			)
+
+		else:
+
+			#debug
+			self.debug(
+				[
+					'We directly connect'
+				]
+			)
+
+			#connect
+			_ValueDeriveConnecter.connect(
+				KeyVariable,
+				_GetBool=False
+			)
+
+		#debug
+		self.debug(
+			[
+				'In the end',
+				#'_ValueDeriveConnecter.ConnectedToVariable is ',
+				#SYS._str(_ValueDeriveConnecter.ConnectedToVariable),
+				'_ValueDeriveConnecter.ConnectedToVariable.ManagementTagStr is '+ _ValueDeriveConnecter.ConnectedToVariable.ManagementTagStr
+			]
+		)
 
 #</DefineClass>
 

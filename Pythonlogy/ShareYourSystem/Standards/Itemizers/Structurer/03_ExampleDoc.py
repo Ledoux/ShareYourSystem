@@ -65,18 +65,15 @@ class ModulerClass(SYS.StructurerClass):
 						('|Parameter',[
 							('ModelKeyStrsList',['ModulingPowerFloat']),
 							(
-								'ParentingTriggerVariable',
-								{
-									'array':[
+								'array',[
+									[
+										['-Connections'],
 										[
-											['-Connections'],
-											[
-												'|/^/^/-Components/|Real/-Models/|Result',
-												'|/^/^/-Components/|Image/-Models/|Result'
-											]
+											'|/^/^/-Components/|Real/-Models/|Result',
+											'|/^/^/-Components/|Image/-Models/|Result'
 										]
 									]
-								}
+								]
 							)
 						]), 
 						('|Result',[

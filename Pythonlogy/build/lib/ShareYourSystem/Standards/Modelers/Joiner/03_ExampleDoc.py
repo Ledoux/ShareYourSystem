@@ -51,7 +51,7 @@ MySumer=SumerClass(
 				}),
 				('|Result',{
 					'ModelKeyStrsList':['SumedTotalInt'],
-					'-Joinlets':{
+					'-Jonctions':{
 							'|/^/|Parameter':{}
 						}
 					}

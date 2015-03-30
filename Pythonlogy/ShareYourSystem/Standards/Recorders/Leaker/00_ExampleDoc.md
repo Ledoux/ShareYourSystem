@@ -5,4 +5,4 @@ FrozenIsBool False
 
 ##Example
 
-Do a simple one disconnected rate model
+Do a simple three disconnected rate model equations

@@ -766,6 +766,8 @@ ShareYourSystem/Standards/Itemizers/Structurer/02_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Structurer/03_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Structurer/04_ExampleDoc.md
 ShareYourSystem/Standards/Itemizers/Structurer/05_ExampleDoc.py
+ShareYourSystem/Standards/Itemizers/Structurer/06_ExampleDoc.md
+ShareYourSystem/Standards/Itemizers/Structurer/07_ExampleDoc.py
 ShareYourSystem/Standards/Itemizers/Structurer/__init__.py
 ShareYourSystem/Standards/Itemizers/Teamer/001_DocumentDoc.md
 ShareYourSystem/Standards/Itemizers/Teamer/00_ExampleDoc.md
@@ -912,7 +914,6 @@ ShareYourSystem/Standards/Recorders/Brianer/04_ExampleDoc.md
 ShareYourSystem/Standards/Recorders/Brianer/05_ExampleCell.py
 ShareYourSystem/Standards/Recorders/Brianer/06_ExampleDoc.md
 ShareYourSystem/Standards/Recorders/Brianer/07_ExampleCell.py
-ShareYourSystem/Standards/Recorders/Brianer/08_ExampleDoc.md
 ShareYourSystem/Standards/Recorders/Brianer/09_ExampleCell.py
 ShareYourSystem/Standards/Recorders/Brianer/Readme.md
 ShareYourSystem/Standards/Recorders/Brianer/Test.py
@@ -939,6 +940,8 @@ ShareYourSystem/Standards/Recorders/Leaker/00_ExampleDoc.md
 ShareYourSystem/Standards/Recorders/Leaker/01_ExampleCell.py
 ShareYourSystem/Standards/Recorders/Leaker/02_ExampleDoc.md
 ShareYourSystem/Standards/Recorders/Leaker/03_ExampleCell.py
+ShareYourSystem/Standards/Recorders/Leaker/04_ExampleDoc.md
+ShareYourSystem/Standards/Recorders/Leaker/05_ExampleCell.py
 ShareYourSystem/Standards/Recorders/Leaker/__init__.py
 ShareYourSystem/Standards/Recorders/Rater/00_ExampleDoc.md
 ShareYourSystem/Standards/Recorders/Rater/01_ExampleCell.py

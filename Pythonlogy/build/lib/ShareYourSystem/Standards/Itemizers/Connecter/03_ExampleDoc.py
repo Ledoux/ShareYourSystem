@@ -10,14 +10,10 @@ MyConnecter=SYS.ConnecterClass(
 			'|E':{
 				'array':[
 					[
-						['-Interactomes'],
-						['|Posts'],
 						['-Interactions'],
 						['|/^/|E','|/^/|I']
 					],
 					[
-						{},
-						{},
 						{},
 						{
 							'MyStr':"hello"

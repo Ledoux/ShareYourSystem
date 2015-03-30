@@ -1722,6 +1722,7 @@ class ModelerClass(BaseClass):
 					)
 			'''
 
+	"""
 	def propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable):
 
 
@@ -1759,6 +1760,41 @@ class ModelerClass(BaseClass):
 
 		#model
 		self.model()
+	"""
+
+	def mimic_structure(self):
+
+		#/#################/#
+		# Call the base method
+		#
+
+		#call the base method
+		BaseClass.structure(self)
+
+		#debug
+		'''
+		self.debug(
+			[
+				'We have structured',
+				'We model here',
+			]
+		)
+		'''
+		
+		#/#################/#
+		# Tag a name with the parent
+		#
+
+		#Link set
+		self.ModelTagStr=self.ManagementTagStr+'Model'
+
+		#/#################/#
+		# Call the model
+		#
+
+		#model
+		self.model()
+
 
 	def propertize_setModelingDescriptionTuplesList(self,_SettingValueVariable):
 

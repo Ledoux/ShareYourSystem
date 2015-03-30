@@ -24,6 +24,7 @@ from ShareYourSystem.Standards.Recorders import Recorder
 #</ImportSpecificModules>
 
 #<DefineLocals>
+BrianConnectPrefixStr='Synaps'
 #</DefineLocals>
 
 #<DefineClass>
@@ -33,8 +34,9 @@ from ShareYourSystem.Standards.Recorders import Recorder
 			('Population','Populations'),
 			('Trace','Traces'),
 			('Sample','Samples'),
-			#('Projectome','Projectomes'),
-			('Event','Events')
+			('Event','Events'),
+			('Interactome','Interactomes'),
+			('Interaction','Interactions')
 		]
 })
 class BrianerClass(BaseClass):
@@ -61,9 +63,8 @@ class BrianerClass(BaseClass):
 			_BrianedSpikeDeriveBrianersList=None,
 			_BrianedParentNetworkDeriveBrianerVariable=None,
 			_BrianedParentNeurongroupDeriveBrianerVariable=None,
-			_BrianedParentProjectionDeriveBrianerVariable=None,
+			_BrianedParentInteractomeDeriveBrianerVariable=None,
 			_BrianedParentDeriveRecorderVariable=None,
-			_BrianedConnectVariable=None,
 			**_KwargVariablesDict
 		):
 
@@ -115,9 +116,8 @@ class BrianerClass(BaseClass):
 			'Traces',
 			'Samples',
 			'Events',
-			#'Projectomes',
-			#'Projections',
-			#'Postlets'
+			'Interactomes',
+			'Interactions'
 		]) and self.BrianedParentSingularStr!='Population':
 
 			#/########################/#
@@ -132,11 +132,8 @@ class BrianerClass(BaseClass):
 				]
 			)
 			
-			#import
-			from brian2 import Network
-
-			#structure
-			self.BrianedNetworkVariable=Network()
+			#set
+			self.setNetwork()
 
 			#/########################/#
 			# Special Network-Neurongroup level
@@ -145,39 +142,57 @@ class BrianerClass(BaseClass):
 			#Check
 			if 'Populations' not in self.TeamDict:
 		
+				#debug
+				self.debug(
+					[
+						'It is a network with a one level pop',
+						'So set the neurongroup'
+					]
+				)
+
 				#set
 				self.BrianedParentNetworkDeriveBrianerVariable=self
 
 				#setNeurongroup
 				self.setNeurongroup()
 
+				#debug
+				self.debug(
+					[
+						'We end to set the neuron group here'
+					]
+				)
+
 			#/########################/#
 			# network
 			# 
 
-
-
 			#debug
-			'''
 			self.debug(
 				[
-					'We structure the Neurongroups Traces Events Samples and all the Posts...',
+					'We structure in all the brian children...',
 				]
 			)
-			'''
 
 			#structure
 			self.structure(
 				[
 					'Populations',
-					#'Traces',
-					#'Events',
-					#'Samples',
-					#'Projectomes',
-					#'Synapses'
+					'Traces',
+					'Events',
+					'Samples',
+					'Interactomes',
+					'Interactions'
 				],
 				None,
 				_DoStr="Brian"
+			)
+
+			#debug
+			self.debug(
+				[
+					'Ok we have structured all the brian children...',
+				]
 			)
 
 		#Check
@@ -201,7 +216,14 @@ class BrianerClass(BaseClass):
 			#setNeurongroup
 			self.setNeurongroup()
 
-		elif self.BrianedParentSingularStr=='Projectome':
+			#debug
+			self.debug(
+				[
+					'Ok we have setted setNeurongroup'
+				]
+			)
+
+		elif self.BrianedParentSingularStr=='Interactome':
 
 			#/########################/#
 			# call the  method
@@ -210,14 +232,13 @@ class BrianerClass(BaseClass):
 			#debug
 			self.debug(
 				[
-					'It is a Projectome level',
-					'We setConnectomes'
+					'It is a Interactome level'
 				]
 			)
 
 			return
 
-		elif self.BrianedParentSingularStr=='Synapse':
+		elif self.BrianedParentSingularStr=='Interaction':
 		
 			#/########################/#
 			# call the setSynapses method
@@ -226,13 +247,13 @@ class BrianerClass(BaseClass):
 			#debug
 			self.debug(
 				[
-					'It is a Synapsome level',
-					'We set the brian network'
+					'It is a Interaction level',
+					'We set the synapses'
 				]
 			)
 
 			#set Synapses
-			#self.setSynapses()
+			self.setSynapses()
 		
 		elif self.BrianedParentSingularStr=='Trace':
 
@@ -932,8 +953,16 @@ class BrianerClass(BaseClass):
 				}
 			)
 
+		#debug
+		'''
+		self.debug(
+			[
+				'end of brian here'
+			]
+		)
+		'''
 
-	def propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable):
+	def mimic_structure(self):
 
 		#/##################/#
 		# Maybe brian
@@ -945,8 +974,8 @@ class BrianerClass(BaseClass):
 			[
 				'We are going to parent but before',
 				('self.',self,['StructuringDoStr']),
-				'self.StructuringTopDeriveStructurerVariable!=self is ',
-				str(self.StructuringTopDeriveStructurerVariable!=self),
+				'self.StructureTopDeriveStructurerVariable!=self is ',
+				str(self.StructureTopDeriveStructurerVariable!=self),
 				'self.ParentedTotalListDict.keys() is ',
 				str(self.ParentedTotalListDict.keys()),
 				'self.ParentedTotalSingularListDict.keys() is ',
@@ -956,26 +985,36 @@ class BrianerClass(BaseClass):
 		''' 
 
 		#Check
-		if self.StructuringDoStr=='Brian' and self.StructuringTopDeriveStructurerVariable!=self:
+		if self.StructuringDoStr=='Brian' and self.StructureTopDeriveStructurerVariable!=self:
 
 			#record
 			self.brian()
+			
+		else:
 
-		#/##################/#
-		# Call the base method
-		#
+			#/##################/#
+			# Call the base method
+			#
 
-		#debug
-		'''
-		self.debug(
-			[
-				'Now we call the base setParent method'
-			]
-		)
-		'''
+			#debug
+			'''
+			self.debug(
+				[
+					'Now we call the base method'
+				]
+			)
+			'''
+
+			#set
+			BaseClass.structure(self)
+
+	def setNetwork(self):
+
+		#maybe should import
+		from brian2 import Network
 
 		#set
-		BaseClass.propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable)
+		self.BrianedNetworkVariable=Network()
 
 	def setNeurongroup(self):
 
@@ -999,9 +1038,7 @@ class BrianerClass(BaseClass):
 
 		#Check
 		if 'N' not in self.BrianingNeurongroupDict:
-			self.BrianingNeurongroupDict['N']=self.SimulatingUnitsInt
-		else:
-			self.SimulatingUnitsInt=self.BrianingNeurongroupDict['N']
+			self.BrianingNeurongroupDict['N']=0
 
 		#Check
 		if 'model' not in self.BrianingNeurongroupDict:
@@ -1011,7 +1048,6 @@ class BrianerClass(BaseClass):
 		from brian2 import NeuronGroup
 
 		#debug
-		'''
 		self.debug(
 			[
 				('self.',self,[
@@ -1020,7 +1056,6 @@ class BrianerClass(BaseClass):
 				'We now set the model system Neurongroup if N>0 and model!=""'
 			]
 		)
-		'''
 
 		#/################/#
 		# Set the brian neurongroup
@@ -1236,16 +1271,14 @@ class BrianerClass(BaseClass):
 					)
 					'''
 
-			#/#################/#
-			# Maybe set Projections
-			#
-
-			#Check
-			#if 'Projectomes' in self.TeamDict:
-			#
-			#	#set
-			#	self.setConnectomes('Project')
-
+		#debug
+		'''
+		self.debug(
+			[
+				'End of setNeurongroup'
+			]
+		)
+		'''
 
 	def setSynapses(self):
 
@@ -1254,44 +1287,37 @@ class BrianerClass(BaseClass):
 		#  
 
 		#debug
-		'''
 		self.debug(
 			[
 				'It is a Synapser level, we set the Synapser',
 				('self.',self,[
-							'BrianingSynapsesDict'
+							#'BrianingSynapsesDict'
 							]
-				),
-				'self.ConnectToVariable.BrianedNeurongroupVariable is ',
-				str(self.ConnectToVariable.BrianedNeurongroupVariable)
+				)
 			]
 		)
-		'''
 
 		#/####################/#
 		# Set the parent
 		#
 
 		#Check
-		if self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable.BrianedParentSingularStr=='Projection':
+		if self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable.BrianedParentSingularStr=='Interactome':
 
 			#debug
 			'''
 			self.debug(
 				[
-					'We are in a projection structure'
+					'We are in a projectome structure'
 				]
 			)
 			'''
 
 			#set
-			self.BrianedParentProjectionDeriveBrianerVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
+			self.BrianedParentInteractomeDeriveBrianerVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
 
 			#get
-			self.BrianedParentNeurongroupDeriveBrianerVariable=self.BrianedParentProjectionDeriveBrianerVariable.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
-
-			#get
-			self.BrianedParentNetworkDeriveBrianerVariable=self.BrianedParentProjectionDeriveBrianerVariable.BrianedParentNeurongroupDeriveBrianerVariable.BrianedParentNetworkDeriveBrianerVariable
+			self.BrianedParentNeurongroupDeriveBrianerVariable=self.BrianedParentInteractomeDeriveBrianerVariable.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
 
 		else:
 
@@ -1299,7 +1325,7 @@ class BrianerClass(BaseClass):
 			'''
 			self.debug(
 				[
-					'There is no projection structure'
+					'There is no projectome structure'
 				]
 			)
 			'''
@@ -1307,31 +1333,49 @@ class BrianerClass(BaseClass):
 			#get
 			self.BrianedParentNeurongroupDeriveBrianerVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
 
-			#get
-			self.BrianedParentNetworkDeriveBrianerVariable=self.BrianedParentNeurongroupDeriveBrianerVariable.BrianedParentNetworkDeriveBrianerVariable
+		#get
+		self.BrianedParentNetworkDeriveBrianerVariable=self.BrianedParentNeurongroupDeriveBrianerVariable.BrianedParentNetworkDeriveBrianerVariable
 
 
 		#/####################/#
-		# We need to connect
+		# Set the ConnectedTo Variable
 		#
 
 		#debug
 		self.debug(
 			[
-				'We need to connect first',
-
+				'Check if we have to get the connected to variable',
+				('self.',self,['ConnectedToVariable'])
 			]
 		)
 
-		if self.BrianingConnectVariable==None:
+		#Check
+		if self.ConnectedToVariable==None:
 
-			#self.BrianedConnectVariable=self.ManagementTagStr
-			#self.connect()
-			pass
+			#debug
+			self.debug(
+				[
+					'We setConnection here'
+				]
+			)
+
+			#setConnection
+			self.setConnection(
+				self.ManagementTagStr,
+				self,
+				self.BrianedParentNeurongroupDeriveBrianerVariable
+			)
 
 		#/####################/#
 		# Set the BrianedParentNeurongroupDeriveBrianerVariable
 		#
+
+		#Check 
+		if self.ConnectedToVariable.BrianedNeurongroupVariable==None:
+			self.ConnectedToVariable.brian()
+
+		#set
+		BrianedNameStr=self.BrianedParentNeurongroupDeriveBrianerVariable.ParentTagStr+'_To_'+self.ConnectedToVariable.ParentTagStr
 
 		#debug
 		self.debug(
@@ -1339,15 +1383,12 @@ class BrianerClass(BaseClass):
 				'We set the synapses',
 				'self.BrianedParentNeurongroupDeriveBrianerVariable.BrianedNeurongroupVariable is ',
 				str(self.BrianedParentNeurongroupDeriveBrianerVariable.BrianedNeurongroupVariable),
-				'self.ConnectToVariable.BrianedNeurongroupVariable is ',
-				str(self.ConnectToVariable.BrianedNeurongroupVariable),
-				'Maybe we have to make brian the post'
+				'self.ConnectedToVariable.BrianedNeurongroupVariable is ',
+				str(self.ConnectedToVariable.BrianedNeurongroupVariable),
+				'Maybe we have to make brian the post',
+				'BrianedNameStr is '+BrianedNameStr
 			]
 		)
-
-		#Check 
-		if self.ConnectToVariable.BrianedNeurongroupVariable==None:
-			self.ConnectToVariable.brian()
 
 		#import
 		from brian2 import Synapses
@@ -1355,7 +1396,8 @@ class BrianerClass(BaseClass):
 		#init
 		self.BrianedSynapsesVariable=Synapses(
 			source=self.BrianedParentNeurongroupDeriveBrianerVariable.BrianedNeurongroupVariable,
-			target=self.ConnectToVariable.BrianedNeurongroupVariable,
+			target=self.ConnectedToVariable.BrianedNeurongroupVariable,
+			name=BrianedNameStr.replace('/','_'),
 			**self.BrianingSynapsesDict
 		)
 
@@ -1466,7 +1508,15 @@ class BrianerClass(BaseClass):
 					self.PrintingCopyVariable.PrintingInstanceSkipKeyStrsList.append(
 						__KeyStr
 					) if getattr(self.PrintingCopyVariable,__KeyStr)==None
-					else None,
+					else (
+						self.PrintingCopyVariable.PrintingInstanceForceKeyStrsList.append(
+							__KeyStr
+						)
+						if self.__class__.__name__=='BrianerClass'
+						else self.PrintingCopyVariable.PrintingInstanceForceBaseKeyStrsList.append(
+							__KeyStr
+						)
+					),
 					[
 						'BrianedNetworkVariable',
 						'BrianedNeurongroupVariable',
@@ -1510,7 +1560,7 @@ BrianerClass.PrintingClassSkipKeyStrsList.extend(
 		'BrianedParentSingularStr',
 		'BrianedParentNetworkDeriveBrianerVariable',
 		'BrianedParentNeurongroupDeriveBrianerVariable',
-		'BrianedParentProjectionDeriveBrianerVariable',
+		'BrianedParentInteractomeDeriveBrianerVariable',
 		'BrianedParentDeriveRecorderVariable'
 	]
 )

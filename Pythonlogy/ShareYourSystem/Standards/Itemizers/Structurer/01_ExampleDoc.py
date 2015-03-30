@@ -60,6 +60,6 @@ print('MyMultiplier is ')
 SYS._print(MyMultiplier)
 
 #print
-print("MyMultiplier['/-Models/|Result'].ConnectedToVariable")
+print("\nMyMultiplier['/-Models/|Result'].ConnectedToVariable")
 SYS._print(MyMultiplier['/-Models/|Result'].ConnectedToVariable)
 

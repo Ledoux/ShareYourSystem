@@ -22,13 +22,8 @@ MyBrianer=SYS.BrianerClass(
 				'threshold':'v>-50*mV',
 				'reset':'v=-70*mV'
 			},
-			'-Connections':{
-				'|Postlets<->Prelets':
-				{
-					'-Connections':
-					{
-						|#direct:_^_|E''
-					}
+			'-Projections':{
+				'|/':{
 					
 				}
 			},
@@ -75,7 +70,7 @@ MyBrianer['/-Traces/|*v/-Samples/|Default'].pyplot(
 #MyBrianer['/-Events/|Default'].pyplot(
 #	)
 MyBrianer.pyplot()
-#SYS.matplotlib.pyplot.show()
+SYS.matplotlib.pyplot.show()
 
 
 """

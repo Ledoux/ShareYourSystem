@@ -5,4 +5,6 @@ FrozenIsBool False
 
 ##Example
 
-Shortcut for setting locally connections
+
+Do a simple one Neurongroup LIF neurons
+but with self connection.

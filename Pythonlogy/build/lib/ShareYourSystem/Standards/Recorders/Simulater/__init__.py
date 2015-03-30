@@ -34,7 +34,6 @@ class SimulaterClass(BaseClass):
 	
 	def default_init(self,
 						_SimulatingStopTimeFloat=100.,
-						_SimulatingUnitsInt=0,
 						_SimulatingStepTimeFloat=0.1,
 						_SimulatingStartTimeFloat=0.,
 						**_KwargVariablesDict
@@ -68,6 +67,7 @@ class SimulaterClass(BaseClass):
 #</DefinePrint>
 SimulaterClass.PrintingClassSkipKeyStrsList.extend(
 	[
+
 		'SimulatingStopTimeFloat',
 		'SimulatingStepTimeFloat',
 		'SimulatingStartTimeFloat'
