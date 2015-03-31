@@ -21,6 +21,8 @@ MyLeaker=SYS.LeakerClass(
 			}
 		}	
 	).leak(
+	).simulate(
+		500.
 	)
 	
 #/###################/#
@@ -31,3 +33,13 @@ MyLeaker=SYS.LeakerClass(
 print('MyLeaker is ')
 SYS._print(MyLeaker) 
 
+#/###################/#
+# View
+#
+
+"""
+#MyLeaker['/-Traces/|*v/-Samples/|Default'].pyplot()
+#MyLeaker['/-Events/|Default'].pyplot()
+MyLeaker.pyplot()
+SYS.matplotlib.pyplot.show()
+"""

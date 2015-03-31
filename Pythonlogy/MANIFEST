@@ -881,6 +881,7 @@ ShareYourSystem/Standards/Modelers/Modeler/Test.py
 ShareYourSystem/Standards/Modelers/Modeler/Thing1.hdf
 ShareYourSystem/Standards/Modelers/Modeler/Thing2.hdf
 ShareYourSystem/Standards/Modelers/Modeler/__init__.py
+ShareYourSystem/Standards/Modelers/Modeler/data/db/journal/j._0
 ShareYourSystem/Standards/Modelers/Modeler/draft/__init__ copy 2.py
 ShareYourSystem/Standards/Modelers/Modeler/draft/__init__ copy 3.py
 ShareYourSystem/Standards/Modelers/Retriever/001_DocumentDoc.md
@@ -923,6 +924,7 @@ ShareYourSystem/Standards/Recorders/Brianer/draft/01_ExampleCell copy 2.py
 ShareYourSystem/Standards/Recorders/Brianer/draft/01_ExampleCell copy 3.py
 ShareYourSystem/Standards/Recorders/Brianer/draft/01_ExampleCell copy 4.py
 ShareYourSystem/Standards/Recorders/Brianer/draft/01_ExampleCell copy 5.py
+ShareYourSystem/Standards/Recorders/Brianer/draft/01_ExampleCell copy 6.py
 ShareYourSystem/Standards/Recorders/Brianer/draft/01_ExampleDoc copy 2.py
 ShareYourSystem/Standards/Recorders/Brianer/draft/01_ExampleDoc copy 3.py
 ShareYourSystem/Standards/Recorders/Brianer/draft/01_ExampleDoc.py

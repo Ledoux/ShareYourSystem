@@ -385,12 +385,14 @@ class ConnecterClass(BaseClass):
 	def setConnection(self,_KeyVariable,_ValueDeriveConnecter,_GetterVariable):
 
 		#debug
+		'''
 		self.debug(
 			[
 				'We setConnection here',
 				'_KeyVariable is '+SYS._str(_KeyVariable)
 			]
 		)
+		'''
 
 		#/#################/#
 		# Determine the key from the management key or inside
@@ -402,12 +404,14 @@ class ConnecterClass(BaseClass):
 			KeyVariable=_ValueDeriveConnecter.ConnectingKeyVariable
 
 		#debug
+		'''
 		self.debug(
 			[
 				'Ok now',
 				'KeyVariable is '+SYS._str(KeyVariable)
 			]
 		)
+		'''
 
 		#/##################/#
 		# Connect with or without getting before
@@ -417,11 +421,13 @@ class ConnecterClass(BaseClass):
 		if type(KeyVariable)==str:
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We get and connect'
 				]
 			)
+			'''
 
 			#connect
 			_ValueDeriveConnecter.connect(
@@ -434,11 +440,13 @@ class ConnecterClass(BaseClass):
 		else:
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We directly connect'
 				]
 			)
+			'''
 
 			#connect
 			_ValueDeriveConnecter.connect(
@@ -447,6 +455,7 @@ class ConnecterClass(BaseClass):
 			)
 
 		#debug
+		'''
 		self.debug(
 			[
 				'In the end',
@@ -455,7 +464,8 @@ class ConnecterClass(BaseClass):
 				'_ValueDeriveConnecter.ConnectedToVariable.ManagementTagStr is '+ _ValueDeriveConnecter.ConnectedToVariable.ManagementTagStr
 			]
 		)
-
+		'''
+		
 #</DefineClass>
 
 #<DefineLocals>

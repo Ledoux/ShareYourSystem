@@ -1671,6 +1671,56 @@ class SetterClass(BaseClass):
 				ArgumentTuplesList
 			)
 
+	def setAttr(self,_KeyStr,_ValueVariable):
+
+		#set
+		setattr(self,_KeyStr,_ValueVariable)
+
+		#return
+		return self
+
+	def mapSetAttr(self,_MapVariable):
+
+		#map
+		map(
+			lambda __ElementVariable:
+			self.setAttr(*__ElementVariable),
+			_MapVariable.items()
+			if hasattr(_MapVariable,'items')
+			else _MapVariable
+		)
+
+		#return
+		return self
+
+	def setAttrOrCall(self,_ItemVariable):
+
+		#debug
+		'''
+		self.debug(
+			[
+				'_ItemVariable is',
+				SYS._str(_ItemVariable)
+			]
+		)
+		'''
+
+		#Check
+		if type(_ItemVariable)==str:
+
+			#getattr
+			getattr(self,_ItemVariable)()
+
+			
+		else:
+
+			#setattr
+			setattr(self,*_ItemVariable)
+
+		#return
+		return self
+
+
 #</DefineClass>
 
 #</DefinePrint>

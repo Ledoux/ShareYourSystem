@@ -1634,6 +1634,13 @@ def set(_Variable,_KeyVariable,_ValueVariable):
 	return _Variable
 _set=set
 
+def setAttrOrCall(_Variable,_ItemVariable):
+	if type(_ItemVariable)==str:
+		setattr(_Variable,*_ItemVariable)
+	else:
+		getattr(_Variable,_ItemVariable)()
+	return _Variable
+
 def getIsTuplesListBool(_TuplesList):
 
 	#Check for list of tuples

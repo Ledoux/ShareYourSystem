@@ -618,7 +618,8 @@ InserterClass.PrintingClassSkipKeyStrsList.extend(
 		'InsertedMongoNotRowPickOrderedDict',
 		'InsertedHdfNotRowPickOrderedDict',
 		'InsertedIndexInt',
-		'InsertedItemTuplesList'
+		'InsertedItemTuplesList',
+		'InsertedErrorBool'
 	]
 )
 #<DefinePrint>

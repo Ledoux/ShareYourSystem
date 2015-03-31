@@ -33,6 +33,9 @@ from ShareYourSystem.Standards.Recorders import Recorder
 	'ClassingSwitchMethodStrsList':['leak'],
 	'ClassingStructureVariable':[
 			('Population','Populations'),
+			('Trace','Traces'),
+			('Sample','Samples'),
+			('Event','Events'),
 			('Interactome','Interactomes'),
 			('Interaction','Interactions')
 		]
@@ -136,14 +139,16 @@ class LeakerClass(BaseClass):
 				]
 			)
 
+			#add
+			self.StructuringManagerCommandSetList=['leak']
+
 			#structure
 			self.structure(
 				[
 					'Interactomes',
 					'Interactions'
 				],
-				None,
-				_DoStr="Leak"
+				None
 			)
 
 			#debug
@@ -202,8 +207,8 @@ class LeakerClass(BaseClass):
 				]
 			)
 
-			#reset
-			self.StructuringCircularBool=False
+			#add
+			self.StructuringManagerCommandSetList=['leak','brian']
 
 			#structure
 			self.structure(
@@ -211,10 +216,11 @@ class LeakerClass(BaseClass):
 					'Populations',
 					'Traces',
 					'Samples',
-					'Events'
+					'Events',
+					'Interactomes',
+					'Interactions',
 				],
-				None,
-				_DoStr="Leak-Brian"
+				None
 			)
 
 			#debug
@@ -602,6 +608,7 @@ class LeakerClass(BaseClass):
 		BaseClass.propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable)
 	"""
 
+	"""
 	def mimic_structure(self):
 
 		#/##################/#
@@ -677,7 +684,7 @@ class LeakerClass(BaseClass):
 
 			#set
 			BaseClass.structure(self)
-
+	"""
 #</DefineClass>
 
 #</DefinePrint>

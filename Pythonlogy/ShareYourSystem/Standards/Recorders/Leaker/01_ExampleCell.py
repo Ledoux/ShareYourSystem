@@ -16,6 +16,8 @@ MyLeaker=SYS.LeakerClass(
 			'LeakingUnitsInt':3,
 		}
 	).leak(
+	).simulate(
+		500.
 	)
 	
 #/###################/#
@@ -25,3 +27,14 @@ MyLeaker=SYS.LeakerClass(
 #Definition the AttestedStr
 print('MyLeaker is ')
 SYS._print(MyLeaker) 
+
+
+#/###################/#
+# View
+#
+
+#MyLeaker['/-Traces/|*v/-Samples/|Default'].pyplot()
+#MyLeaker['/-Events/|Default'].pyplot()
+MyLeaker.pyplot()
+SYS.matplotlib.pyplot.show()
+

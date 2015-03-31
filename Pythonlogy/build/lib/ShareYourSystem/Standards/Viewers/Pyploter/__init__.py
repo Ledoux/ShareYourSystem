@@ -193,14 +193,16 @@ class PyploterClass(BaseClass):
 			# structure
 			#
 
+			#set
+			self.StructuringManagerCommandSetList=['pyplot']
+
 			#structure
 			self.structure(
 				[
 					'Panels',
 					'Charts',
 					'Draws'
-				],
-				_DoStr='Pyplot'
+				]
 			)
 
 		#/###################/#
@@ -544,6 +546,7 @@ class PyploterClass(BaseClass):
 		BaseClass.view(self)
 	"""
 	
+	"""
 	def propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable):
 
 		#/##################/#
@@ -578,6 +581,7 @@ class PyploterClass(BaseClass):
 
 		#call the base method
 		BaseClass.propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable)
+	"""
 
 	def mimic_set(self):
 

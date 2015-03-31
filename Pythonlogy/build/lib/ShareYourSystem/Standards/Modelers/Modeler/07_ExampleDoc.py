@@ -32,8 +32,6 @@ SYS.mapSet(
 		]
 )
 
-print('N\n\n\nMMM\n')
-
 #Definition 
 MyModeler.setDone(
 		SYS.ModelerClass

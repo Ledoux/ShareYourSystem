@@ -202,6 +202,52 @@ class FindoerClass(BaseClass):
 			#Now we can retrieve
 			self.retrieve()
 
+	def mimic__print(self,**_KwargVariablesDict):
+
+		#/##################/#
+		# Modify the printing Variable
+		#
+
+		#Check
+		if self.PrintingSelfBool:
+
+			#/##################/#
+			# Display or not several things
+			#
+
+			#map
+			map(
+					lambda __KeyStr:
+					self.PrintingCopyVariable.PrintingInstanceSkipKeyStrsList.append(
+						__KeyStr
+					) if getattr(self.PrintingCopyVariable,__KeyStr)==None or len(
+						getattr(
+							self.PrintingCopyVariable,__KeyStr
+						)
+					)==0
+					else (
+						self.PrintingCopyVariable.PrintingInstanceForceKeyStrsList.append(
+							__KeyStr
+						)
+						if self.__class__.__name__=='FindoerClass'
+						else self.PrintingCopyVariable.PrintingInstanceForceBaseKeyStrsList.append(
+							__KeyStr
+						)
+					),
+					[
+						'FoundMongoRowDictsList',
+						'FoundHdfRowDictsList',
+					]
+				)
+
+
+		#/##################/#
+		# Call the base method
+		#
+
+		#call
+		BaseClass._print(self,**_KwargVariablesDict)
+
 #</DefineClass>
 
 #<DefineLocals>
@@ -213,8 +259,8 @@ FindoerClass.PrintingClassSkipKeyStrsList.extend(
 	[
 		'FindingWhereVariable',
 		'FindingRecoverBool',
-		#'FoundMongoRowDictsList',	
-		#'FoundHdfRowDictsList',			
+		'FoundMongoRowDictsList',	
+		'FoundHdfRowDictsList',			
 		'FoundFilterRowDictsList',
 		'FoundMongoIsBool',
 		'FoundHdfIsBool',

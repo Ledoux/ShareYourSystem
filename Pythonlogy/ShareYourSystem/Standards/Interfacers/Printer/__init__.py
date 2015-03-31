@@ -592,10 +592,11 @@ def getPrintStr(_Variable,**_KwargVariablesDict):
 
 			#debug
 			'''
+			print('Printer l 594')
 			print('type(_Variable) is ',type(_Variable))
 			print('')
 			'''
-
+			
 			#Append but only for mutables variable
 			if type(_Variable) not in [bool,str,int,float]:
 				PrintAlreadyIdIntsList.append(PrintIdInt)
@@ -612,7 +613,11 @@ def getPrintStr(_Variable,**_KwargVariablesDict):
 			#Return a repr of the _Variable but shifted with the PrintAlineaStr
 			PrintStr=PrintLocalAlineaStr+repr(_Variable).replace(
 										"\n",
-										"\n"+PrintLocalAlineaStr
+										"\n"+PrintLocalAlineaStr+"".join(
+											[
+												PrintIndentStr
+											]*2
+										)
 									)
 
 			#return 
@@ -1083,6 +1088,33 @@ class PrinterClass(BaseClass):
 		#return
 		return self.PrintStr
 
+	def forcePrint(self,_KeyStrsList,_ClassStr):
+
+		#append
+		if self.__class__.__name__==_ClassStr:
+
+			#Check
+			if self.PrintingCopyVariable.PrintingInstanceForceKeyStrsList==None:
+
+				#alias
+				self.PrintingCopyVariable.PrintingInstanceForceKeyStrsList=_KeyStrsList
+			else:
+
+				#extend
+				self.PrintingCopyVariable.PrintingInstanceForceKeyStrsList.extend(_KeyStrsList)
+
+		else:
+
+			#Check
+			if self.PrintingCopyVariable.PrintingInstanceForceBaseKeyStrsList==None:
+
+				#alias
+				self.PrintingCopyVariable.PrintingInstanceForceBaseKeyStrsList=_KeyStrsList
+			
+			else:
+
+				#extend
+				self.PrintingCopyVariable.PrintingInstanceForceBaseKeyStrsList.extend(_KeyStrsList)
 		
 #</DefineClass>
 

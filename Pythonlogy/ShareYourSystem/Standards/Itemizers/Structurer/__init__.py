@@ -39,12 +39,15 @@ class StructurerClass(BaseClass):
 					_StructureTopDeriveStructurerVariable=None,
 					_StructureTargetStr='Top',
 					_StructureConnectPrefixStrsList=None,
-					_StructuringTeamVariable=None,
-					_StructuringManagementVariable=None,
+					_StructuringTeamerCommandKeyVariable=None,
+					_StructuringManagemerCommandKeyVariable=None,
+					_StructuringBeforeCommandSetList=None,
+					_StructuringTeamerCommandSetList=None,
+					_StructuringManagerCommandSetList=None,
 					_StructuringSingPluralVariable=None,
-					_StructuringDoStr="",
+					_StructuringTagStr="",
 					_StructuringClassBool=True,
-					_StructuringCircularBool=False,
+					_StructuringFlatBool=False,
 					_StructuredTeamKeyStrsList=None,
 					_StructuredOnceBool=False,
 					**_KwargVariablesDict
@@ -63,6 +66,7 @@ class StructurerClass(BaseClass):
 		#
 
 		#debug
+		'''
 		self.debug(
 			[
 				'We structure here',
@@ -70,109 +74,114 @@ class StructurerClass(BaseClass):
 				str(self.StructureTopDeriveStructurerVariable==self)
 			]
 		)
+		'''
 
 		#Check
 		if self.StructureTopDeriveStructurerVariable==self:
 
 			#debug
+			'''
 			self.debug(
 				[
-					'Watch at the circular condition',
-					('self.',self,['StructuringCircularBool'])
+					'We are in the top structurer',
 				]
 			)
+			'''
+			
+			#debug
+			'''
+			self.debug(
+					[
+						'We structure top here',
+						('self.',self,[
+								'StructuringTeamerCommandKeyVariable',
+								'StructuringManagemerCommandKeyVariable'
+							])
+					]
+				)
+			'''
+			
+			#/###################/#
+			# Set the structure of singular team if not already
+			#
 
 			#Check
-			if self.StructuringCircularBool==False:
-
-				#debug
-				'''
-				self.debug(
-						[
-							'We structure top here',
-							('self.',self,[
-									'StructuringTeamVariable',
-									'StructuringManagementVariable'
-								])
-						]
-					)
-				'''
-				
-				#/###################/#
-				# Set the structure of singular team if not already
-				#
+			if self.StructuredOnceBool==False:
 
 				#Check
-				if self.StructuredOnceBool==False:
+				if self.StructuringSingPluralVariable!=None:
+
+					#debug
+					'''
+					self.debug(
+						[
+							'we structure for the first time here',
+							('self.',self,['StructuringSingPluralVariable'])
+						]
+					)
+					'''
+
+					#map add the sing plurals
+					map(
+						lambda __ItemTuple:
+						SYS.addSingPlural(
+							*__ItemTuple
+						),
+						SYS.SetList(self.StructuringSingPluralVariable)
+					)
+
+					#Define a class
+					class StructureClass(StructurerClass):pass
+					StructureClass.__name__=self.NameStr+'s'
+					StructureClass.ManagingValueClass=self.__class__
+
+					#set
+					setattr(
+						self.Module,
+						StructureClass.__name__,
+						StructureClass
+					)
+
+					#dict
+					ClassesDict=dict(
+							map(
+								lambda __ItemTuple:
+								(__ItemTuple[1],StructureClass),
+								_SingPluralVariable
+							)
+						)
 
 					#Check
-					if self.StructuringSingPluralVariable!=None:
+					if self.StructuringClassBool:
 
-						#debug
-						self.debug(
-							[
-								'we structure for the first time here',
-								('self.',self,['StructuringSingPluralVariable'])
-							]
-						)
-						
-						#map add the sing plurals
-						map(
-							lambda __ItemTuple:
-							SYS.addSingPlural(
-								*__ItemTuple
-							),
-							SYS.SetList(self.StructuringSingPluralVariable)
-						)
-
-						#Define a class
-						class StructureClass(StructurerClass):pass
-						StructureClass.__name__=self.NameStr+'s'
-						StructureClass.ManagingValueClass=self.__class__
-
-						#set
-						setattr(
-							self.Module,
-							StructureClass.__name__,
-							StructureClass
-						)
-
-						#dict
-						ClassesDict=dict(
-								map(
-									lambda __ItemTuple:
-									(__ItemTuple[1],StructureClass),
-									_SingPluralVariable
-								)
+						#map
+						if _Class.TeamingClassesDict==None:
+							_Class.TeamingClassesDict=ClassesDict
+						else:
+							_Class.TeamingClassesDict.update(
+								ClassesDict
 							)
 
-						#Check
-						if self.StructuringClassBool:
+						#set 
+						self.__class__.StructuringOnceBool=True
 
-							#map
-							if _Class.TeamingClassesDict==None:
-								_Class.TeamingClassesDict=ClassesDict
-							else:
-								_Class.TeamingClassesDict.update(
-									ClassesDict
-								)
+					else:
 
-							#set 
-							self.__class__.StructuringOnceBool=True
-
+						#map
+						if self.TeamingClassesDict==None:
+							self.TeamingClassesDict=ClassesDict
 						else:
-
-							#map
-							if self.TeamingClassesDict==None:
-								self.TeamingClassesDict=ClassesDict
-							else:
-								self.TeamingClassesDict.update(
-									ClassesDict
-								)
+							self.TeamingClassesDict.update(
+								ClassesDict
+							)
 
 
-						#set
-						self.StructuredOnceBool=True
+					#set
+					self.StructuredOnceBool=True
+
+
+			#Check
+			if self.StructuringFlatBool:
 
 				#/##################/#
 				# prepare the struc teams
@@ -181,9 +190,9 @@ class StructurerClass(BaseClass):
 				#map
 				self.StructuredTeamKeyStrsList=map(
 						lambda __StructuringTeamOrManagementStr:
-						StructureOutPrefixStr+self.StructuringDoStr+'_'+__StructuringTeamOrManagementStr,
-						(self.StructuringTeamVariable if self.StructuringTeamVariable!=None else [])+
-						(self.StructuringManagementVariable if self.StructuringManagementVariable!=None else [])
+						StructureOutPrefixStr+self.StructuringTagStr+'_'+__StructuringTeamOrManagementStr,
+						(self.StructuringTeamerCommandKeyVariable if self.StructuringTeamerCommandKeyVariable!=None else [])+
+						(self.StructuringManagemerCommandKeyVariable if self.StructuringManagemerCommandKeyVariable!=None else [])
 					)
 
 				#debug
@@ -203,36 +212,281 @@ class StructurerClass(BaseClass):
 						self.StructuredTeamKeyStrsList
 					)
 
-				#/##################/#
-				# parent Down
-				#
+			#/##################/#
+			# we make the top parent and structure
+			#
 
-				#parentDown
-				self.parentDown(
-						self.StructuringTeamVariable,
-						self.StructuringManagementVariable,
-						'structure',
-						**{
-							'StructureTargetStr':self.StructureTagStr,
-							'StructureTopDeriveStructurerVariable':self,
-							'StructuringDoStr':self.StructuringDoStr,
-							'StructuringCircularBool':True	
-						}
-					)
-			else:
+			#set
+			self.StructureTopDeriveStructurerVariable=self
+			self.parent()
 
-				#reset
-				self.StructuringCircularBool=True
+			#/##################/#
+			# command
+			#
 
+			#debug
+			'''
+			self.debug(
+				[
+					'Before command we set the arg'
+				]
+			)
+			'''
+
+			#set
+			self.setCommandingKeyVariable()
+			self.CommandTopDeriveCommanderRigidVariable=self
+			self.setCommandingSetVariable()
+			self.CommandingAfterWalkRigidBool=True
+			self.CommandingGetRigidBool=False
+			self.CommandingSetRigidBool=False
+			self.CommandingSetAttrOrCallRigidBool=True
+
+
+			#debug
+			'''
+			self.debug(
+				[
+					'we are going to command',
+					('self.',self,[
+						'CommandingKeyVariable',
+						'CommandingSetVariable'
+					])
+				]
+			)
+			'''
+
+			#command
+			self.command()
+
+			#debug
+			'''
+			self.debug(
+				[
+					'Ok we have commanded'
+				]
+			)
+			'''
 
 		else:
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We structure in a level here'
 				]
 			)
+			'''
+
+			pass
+
+	def setCommandingKeyVariable(self):
+
+		#/##################/#
+		# Switch case depending on the team or manage level
+		#
+
+		#debug
+		'''
+		self.debug(
+			[
+				'We setCommandingKeyVariable here',
+				('self.',self,[
+					'TeamedOnceBool',
+					'StructuringTeamerCommandKeyVariable',
+					'StructuringManagemerCommandKeyVariable'
+				]),
+				'We get the good team or management keys'
+			]
+		)
+		'''
+		
+		#Check
+		if self.TeamedOnceBool:
+
+			#/###############/#
+			# Determine the CommandedLiargVariablesList
+			#
+
+			if self.StructuringTeamerCommandKeyVariable==None:
+
+				#all the key
+				StructureKeyStrsList=self.TeamDict.keys()
+
+			elif len(self.StructuringTeamerCommandKeyVariable)>0 and type(
+				self.StructuringTeamerCommandKeyVariable[0]
+			)==str:
+
+				#alias
+				StructureKeyStrsList=self.StructuringTeamerCommandKeyVariable
+				
+			else:
+
+				#mapCondition
+				StructureKeyStrsList=self.mapCondition(
+					self.StructuringTeamerCommandKeyVariable,
+					self.TeamDict.keys(),
+					_SetAttrOrCallBool=True
+				)
+
+			#/###############/#
+			# Now get and filter in the team
+			#
+
+			#debug
+			'''
+			self.debug(
+				[
+					'We get the values',
+					'StructureKeyStrsList is ',
+					str(StructureKeyStrsList)
+				]
+			)
+			'''
+
+			#set
+			self.CommandingKeyVariable=SYS.filterNone(
+				map(
+					lambda __KeyStr:
+					self.TeamDict[__KeyStr]
+					if __KeyStr in self.TeamDict
+					else None,
+					StructureKeyStrsList
+				)
+			)
+
+
+		else:
+
+			#/###############/#
+			# Determine the CommandedLiargVariablesList
+			#
+
+			#debug 
+			'''
+			self.debug(
+				[
+					'We setCommandingKeyVariable in a manager',
+					('self.',self,['StructuringManagemerCommandKeyVariable'])
+				]
+			)
+			'''
+
+			#Check
+			if self.StructuringManagemerCommandKeyVariable==None:
+
+				#all the key 
+				StructureKeyStrsList=self.ManagementDict.keys()
+
+			elif len(self.StructuringManagemerCommandKeyVariable
+				)>0 and type(self.StructuringManagemerCommandKeyVariable[0])==str:
+
+				#alias
+				StructureKeyStrsList=self.StructuringManagemerCommandKeyVariable
+				
+			else:
+
+				#mapCondition
+				StructureKeyStrsList=self.mapCondition(
+					self.StructuringTeamerCommandKeyVariable,
+					self.ManagementDict.keys(),
+					_SetAttrOrCallBool=True
+				)
+
+			#/###############/#
+			# Now get and filter in the management
+			#
+
+			#debug
+			'''
+			self.debug(
+				[
+					'We get the values',
+					'StructureKeyStrsList is ',
+					str(StructureKeyStrsList)
+				]
+			)
+			'''
+
+			#set
+			self.CommandingKeyVariable=SYS.filterNone(
+				map(
+					lambda __KeyStr:
+					self.ManagementDict[__KeyStr]
+					if __KeyStr in self.ManagementDict
+					else None,
+					StructureKeyStrsList
+				)
+			)
+
+	def setCommandingSetVariable(self):
+
+		#/##################/#
+		# Switch case depending on the team or manage level
+		#
+
+		#debug
+		'''
+		self.debug(
+			[
+				'We setCommandingSetVariable here',
+				('self.',self,[
+					'TeamedOnceBool',
+					'StructuringTeamerCommandSetList',
+					'StructuringManagerCommandSetList'
+				])
+			]
+		)
+		'''
+
+		#Check
+		if self.TeamedOnceBool:
+
+			#alias
+			self.CommandingSetVariable=self.StructuringTeamerCommandSetList
+
+		else:
+
+			#alias
+			self.CommandingSetVariable=self.StructuringManagerCommandSetList
+
+		#debug
+		'''
+		self.debug(
+			[
+				'Now we add the before with the special',
+				'self.CommandTopDeriveCommanderRigidVariable==self is ',
+				str(self.CommandTopDeriveCommanderRigidVariable==self)
+			]
+		)
+		'''
+
+		#init
+		CommandingSetVariable=[
+					('StructureTopDeriveStructurerVariable',self.CommandTopDeriveCommanderRigidVariable),
+					('StructuringTeamerCommandKeyVariable',self.StructuringTeamerCommandKeyVariable),
+					('StructuringManagemerCommandKeyVariable',self.StructuringManagemerCommandKeyVariable),
+					('StructuringTeamerCommandSetList',self.StructuringTeamerCommandSetList),
+					('StructuringManagerCommandSetList',self.StructuringManagerCommandSetList),
+					('parent'),
+					('setCommandingKeyVariable'),
+					('setCommandingSetVariable')
+		]
+
+		#add
+		self.CommandingSetVariable=CommandingSetVariable+self.CommandingSetVariable
+
+		#debug
+		'''
+		self.debug(
+			[
+				'In the end',
+				('self.',self,['CommandingSetVariable'])
+			]
+		)
+		'''
+
 
 	def propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable):
 
@@ -246,8 +500,8 @@ class StructurerClass(BaseClass):
 			[
 				'First we call the base method',
 				('self.',self,[
-							'StructuringTeamVariable',
-							'StructuringManagementVariable'
+							'StructuringTeamerCommandKeyVariable',
+							'StructuringManagemerCommandKeyVariable'
 						])
 			]
 		)
@@ -262,8 +516,8 @@ class StructurerClass(BaseClass):
 			[
 				'We have called the base method',
 				('self.',self,[
-							'StructuringTeamVariable',
-							'StructuringManagementVariable'
+							'StructuringTeamerCommandKeyVariable',
+							'StructuringManagemerCommandKeyVariable'
 						])
 			]
 		)
@@ -299,6 +553,7 @@ class StructurerClass(BaseClass):
 		if self.StructureTagStr[0]=='_':
 			self.StructureTagStr=self.StructureTagStr[1:]
 
+		"""
 		#/##################/#
 		# Find the StructureTopDeriveStructurerVariable in the grand parents
 		#
@@ -377,17 +632,17 @@ class StructurerClass(BaseClass):
 						'Check if we have to make manage the '+str(
 							StructureOutPrefixStr+self.ParentDeriveTeamerVariable.ManagementTagStr
 						),
-						'self.StructureTopDeriveStructurerVariable.StructuringManagementVariable is ',
-						str(self.StructureTopDeriveStructurerVariable.StructuringManagementVariable)
+						'self.StructureTopDeriveStructurerVariable.StructuringManagemerCommandKeyVariable is ',
+						str(self.StructureTopDeriveStructurerVariable.StructuringManagemerCommandKeyVariable)
 					]
 				)
 			'''
 
 			#Check
-			if self.StructureTopDeriveStructurerVariable.StructuringManagementVariable!=None:
+			if self.StructureTopDeriveStructurerVariable.StructuringManagemerCommandKeyVariable!=None:
 
 				#Check
-				if self.ParentDeriveTeamerVariable.ManagementTagStr in self.StructureTopDeriveStructurerVariable.StructuringManagementVariable:
+				if self.ParentDeriveTeamerVariable.ManagementTagStr in self.StructureTopDeriveStructurerVariable.StructuringManagemerCommandKeyVariable:
 
 					#debug
 					self.debug(
@@ -403,13 +658,13 @@ class StructurerClass(BaseClass):
 					#connect
 					#self.StructureTopDeriveStructurerVariable.connect(
 					#		self,
-					#		_OutTeamKeyStr=StructureOutPrefixStr+self.StructuringDoStr+'_'+self.ParentDeriveTeamerVariable.ManagementTagStr,
+					#		_OutTeamKeyStr=StructureOutPrefixStr+self.StructuringTagStr+'_'+self.ParentDeriveTeamerVariable.ManagementTagStr,
 					#		_InTeamKeyStr=StructureInTeamKeyStr
 					#)
 
 					#connect out like in the StructureTopDeriveStructurerVariable
 					self.StructureTopDeriveStructurerVariable.TeamDict[
-						StructureOutPrefixStr+self.StructuringDoStr+'_'+self.ParentDeriveTeamerVariable.ManagementTagStr
+						StructureOutPrefixStr+self.StructuringTagStr+'_'+self.ParentDeriveTeamerVariable.ManagementTagStr
 					].manage(
 						self.StructureTagStr,
 						{
@@ -443,10 +698,10 @@ class StructurerClass(BaseClass):
 			'''
 
 			#Check
-			if self.StructureTopDeriveStructurerVariable.StructuringTeamVariable!=None:
+			if self.StructureTopDeriveStructurerVariable.StructuringTeamerCommandKeyVariable!=None:
 
 				#Check
-				if self.ParentDeriveTeamerVariable.TeamTagStr in self.StructureTopDeriveStructurerVariable.StructuringTeamVariable:
+				if self.ParentDeriveTeamerVariable.TeamTagStr in self.StructureTopDeriveStructurerVariable.StructuringTeamerCommandKeyVariable:
 
 					#debug
 					'''
@@ -458,14 +713,14 @@ class StructurerClass(BaseClass):
 							#('self.',self,['StructureTopDeriveStructurerVariable']),
 							'self.StructureTopDeriveStructurerVariable.StructuredTeamKeyStrsList is',
 							str(self.StructureTopDeriveStructurerVariable.StructuredTeamKeyStrsList),
-							('self.',self,['StructuringDoStr'])
+							('self.',self,['StructuringTagStr'])
 						]
 					)
 					'''
 					
 					#connect out like in the StructureTopDeriveStructurerVariable
 					self.StructureTopDeriveStructurerVariable.TeamDict[
-						StructureOutPrefixStr+self.StructureTopDeriveStructurerVariable.StructuringDoStr+'_'+self.ParentDeriveTeamerVariable.TeamTagStr
+						StructureOutPrefixStr+self.StructureTopDeriveStructurerVariable.StructuringTagStr+'_'+self.ParentDeriveTeamerVariable.TeamTagStr
 					].manage(
 						self.StructureTagStr,
 						{
@@ -479,12 +734,13 @@ class StructurerClass(BaseClass):
 			[
 				'In the end',
 				('self.',self,[
-							'StructuringTeamVariable',
-							'StructuringManagementVariable'
+							'StructuringTeamerCommandKeyVariable',
+							'StructuringManagemerCommandKeyVariable'
 						])
 			]
 		)
 		'''
+		"""
 
 		#/##################/#
 		# Maybe do some connections
@@ -504,12 +760,14 @@ class StructurerClass(BaseClass):
 		if self.StructureConnectPrefixStrsList!=None:
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We do here some connections',
 					('self.',self,['StructureConnectPrefixStrsList'])
 				]
 			)
+			'''
 
 			#map
 			map(
@@ -581,8 +839,11 @@ class StructurerClass(BaseClass):
 #<DefineLocals>
 
 #set
-Connecter.ConnecterClass.ManagingValueClass=StructurerClass
-SYS.ParenterClass.ManagingValueClass=StructurerClass
+#Connecter.ConnecterClass.ManagingValueClass=StructurerClass
+#SYS.ParenterClass.ManagingValueClass=StructurerClass
+
+StructurerClass.ManagingValueClass=StructurerClass
+StructurerClass.TeamingValueClass=StructurerClass
 
 #</DefineLocals>
 
@@ -593,12 +854,15 @@ StructurerClass.PrintingClassSkipKeyStrsList.extend(
 		'StructureTopDeriveStructurerVariable',
 		'StructureTargetStr',
 		'StructureConnectPrefixStrsList',
-		'StructuringTeamVariable',
-		'StructuringManagementVariable',
+		'StructuringTeamerCommandKeyVariable',
+		'StructuringManagemerCommandKeyVariable',
+		'StructuringBeforeCommandSetList',
+		'StructuringTeamerCommandSetList',
+		'StructuringManagerCommandSetList',
 		'StructuringSingPluralVariable',
-		'StructuringDoStr',
+		'StructuringTagStr',
 		'StructuringClassBool',
-		'StructuringCircularBool',
+		'StructuringFlatBool',
 		'StructuredTeamKeyStrsList',
 		'StructuredOnceBool'
 	]

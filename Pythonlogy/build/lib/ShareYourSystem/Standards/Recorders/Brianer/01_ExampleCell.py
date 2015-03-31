@@ -60,21 +60,8 @@ MyBrianer.simulate(
 # View
 #
 
-MyBrianer['/-Traces/|*v/-Samples/|Default'].pyplot(
-	)
-#MyBrianer['/-Events/|Default'].pyplot(
-#	)
-#MyBrianer.pyplot()
+#MyBrianer['/-Traces/|*v/-Samples/|Default'].pyplot()
+#MyBrianer['/-Events/|Default'].pyplot()
+MyBrianer.pyplot()
 SYS.matplotlib.pyplot.show()
 
-
-"""
-from matplotlib import pyplot
-pyplot.figure()
-M=MyBrianer['/-Traces/|*v/-Samples/|Default'].BrianedStateMonitorVariable
-pyplot.plot(M.t, M.v.T)
-pyplot.figure()
-M=MyBrianer['/-Events/|Default'].BrianedSpikeMonitorVariable
-pyplot.plot(M.t, M.i,'.')
-pyplot.show()
-"""

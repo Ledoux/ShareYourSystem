@@ -544,14 +544,12 @@ class JoinerClass(BaseClass):
 		#
 
 		#debug
-		'''
 		self.debug(
 					[
 						'First make insert the out models',
 						('self.',self,['JoinedOutDeriveConnectersList'])
 					]
 				)
-		'''
 		
 		#Insert the post joined databases
 		map(

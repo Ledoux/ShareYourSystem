@@ -34,7 +34,7 @@ import sys
 class HdformaterClass(BaseClass):
 	
 	def default_init(self,
-			_HdfGroupPathStr={
+			_HdformatGroupPathStr={
 				'DefaultValueType':property,
 				'PropertyInitVariable':'/',
 				'PropertyDocStr':'I set a path of groups'
@@ -142,23 +142,23 @@ class HdformaterClass(BaseClass):
 			if self.HdformatedFileVariable!=None:
 				self.HdformatedFileVariable.close()
 
-	def propertize_setHdfGroupPathStr(self,_SettingValueVariable):
+	def propertize_setHdformatGroupPathStr(self,_SettingValueVariable):
 
 		#Check
 		if _SettingValueVariable[0]!='/':
 			_SettingValueVariable='/'+_SettingValueVariable
 
 		#set
-		self._HdfGroupPathStr=_SettingValueVariable
+		self._HdformatGroupPathStr=_SettingValueVariable
 
 		#Debug
 		'''
 		self.debug(
 				[
-					'We have setted a HdfGroupPathStr',
+					'We have setted a HdformatGroupPathStr',
 					('self.',self,[
 						'HdformatedFileVariable',
-						'_HdfGroupPathStr'
+						'_HdformatGroupPathStr'
 					])
 				]
 			)
@@ -183,10 +183,10 @@ class HdformaterClass(BaseClass):
 		#
 
 		#Check if the Path exists
-		if self._HdfGroupPathStr not in self.HdformatedFileVariable:
+		if self._HdformatGroupPathStr not in self.HdformatedFileVariable:
 
 			#set all the intermediate Paths before
-			PathStrsList=self._HdfGroupPathStr.split('/')[1:]
+			PathStrsList=self._HdformatGroupPathStr.split('/')[1:]
 			ParsingChildPathStr="/"
 
 			#set the PathStr from the top to the down (integrativ loop)
@@ -214,10 +214,12 @@ class HdformaterClass(BaseClass):
 #</DefinePrint>
 HdformaterClass.PrintingClassSkipKeyStrsList.extend(
 	[
+		'HdformatGroupPathStr',
 		'HdformatingFileKeyStr',
 		'HdformatingModuleStr',
 		'HdformatedFileVariable',
-		'HdformatedConsoleStr'
+		'HdformatedConsoleStr',
+		'HdformatedFilePathStr'
 	]
 )
 #<DefinePrint>

@@ -78,6 +78,7 @@ class ModelerClass(BaseClass):
 					_ModeledHdfGroupVariable=None,
 					_ModeledMongoTopClientVariable=None,
 					_ModeledMongoLocalDatabaseVariable=None,
+					_ModeledMongoDatabaseKeyStr=None,
 					_ModeledHdfTopFileVariable=None,
 					_ModeledMongoSuffixStr="",
 					_ModeledHdfSuffixStr="",
@@ -113,6 +114,7 @@ class ModelerClass(BaseClass):
 		#
 
 		#debug
+		'''
 		self.debug(
 			[
 				'We model here',
@@ -123,7 +125,8 @@ class ModelerClass(BaseClass):
 				])
 			]
 		)
-
+		'''
+		
 		#Check
 		if self.ParentedTotalSingularListDict!=None and len(self.ParentedTotalSingularListDict)>0:
 
@@ -224,25 +227,26 @@ class ModelerClass(BaseClass):
 				#
 
 				#debug
-				'''
 				self.debug(
 					[
-						'We are going to structure'
+						'We are going to structure',
+						'add in the StructuringCommandSetVariable'
 					]
 				)
-				'''
+
+				#add
+				self.StructuringManagerCommandSetList=['model']
 
 				#structure
 				self.structure(
 					[
 						'Components',
 						'Models'
-					],
-					_DoStr='Model'
+					]
 				)
 
-
 				#debug
+				'''
 				self.debug(
 					[
 						'Ok we have structured',
@@ -252,6 +256,7 @@ class ModelerClass(BaseClass):
 						self.HdformatingFileKeyStr
 					]
 				)
+				'''
 
 			#Check
 			if 'Models' not in self.TeamDict:
@@ -266,6 +271,13 @@ class ModelerClass(BaseClass):
 				'''
 
 				#/###############/#
+				# set the tag
+				#
+
+				#Link set
+				self.ModelTagStr='Model'
+
+				#/###############/#
 				# Determine the parent
 				#
 
@@ -273,11 +285,13 @@ class ModelerClass(BaseClass):
 				if self.ParentDeriveTeamerVariable!=None:
 
 					#debug
+					'''
 					self.debug(
 						[
 							'There is a parent parent'
 						]
 					)
+					'''
 
 					#set
 					self.ModeledParentControllerDeriveModelerVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
@@ -285,11 +299,13 @@ class ModelerClass(BaseClass):
 				else:
 
 					#debug
+					'''
 					self.debug(
 						[
 							'There is no parent'
 						]
 					)
+					'''
 
 					#set
 					self.ModeledParentControllerDeriveModelerVariable=self
@@ -299,33 +315,39 @@ class ModelerClass(BaseClass):
 				if self.StructureTopDeriveStructurerVariable!=None:
 
 					#debug
+					'''
 					self.debug(
 						[
 							'self.StructureTopDeriveStructurerVariable!=None'
 						]
 					)
+					'''
 
 					#set
 					self.ModeledTopControllerDeriveModelerVariable=self.StructureTopDeriveStructurerVariable
 				else:
 
 					#debug
+					'''
 					self.debug(
 						[
 							'self.StructureTopDeriveStructurerVariable==None'
 						]
 					)
+					'''
 
 					#set
 					self.ModeledTopControllerDeriveModelerVariable=self
 
 				#debug
+				'''
 				self.debug(
 					[
 						'self.ModeledTopControllerDeriveModelerVariable.HdformatingFileKeyStr is ',
 						self.ModeledTopControllerDeriveModelerVariable.HdformatingFileKeyStr
 					]
 				)
+				'''
 
 				#/###############/#
 				# SetModel
@@ -337,13 +359,21 @@ class ModelerClass(BaseClass):
 		elif self.ModeledParentSingularStr=='Model':
 
 			#debug
-			'''
 			self.debug(
 					[
 						'Model Level',
+						'We determine the controller and top controller',
+						('self.',self,['StructureTopDeriveStructurerVariable'])
 					]
 				)
-			'''
+
+			#/###############/#
+			# set the tag
+			#
+
+			#Link set
+			self.ModelTagStr=self.ManagementTagStr+'Model'
+
 
 			#/###############/#
 			# Determine the parent
@@ -396,7 +426,6 @@ class ModelerClass(BaseClass):
 	def setModel(self):
 
 		#Debug
-		'''
 		self.debug(
 				[
 					'model start',
@@ -404,7 +433,6 @@ class ModelerClass(BaseClass):
 					('self.',self,['ModeledTopControllerDeriveModelerVariable'])
 				]
 			)
-		'''
 
 		#/###################/#
 		# Determine if it is Mongo or Hdf
@@ -416,6 +444,7 @@ class ModelerClass(BaseClass):
 			self.ModelHdfBool=True
 
 		#Debug
+		'''
 		self.debug(
 				[
 					'Ok we now what database to use',
@@ -425,7 +454,8 @@ class ModelerClass(BaseClass):
 					])
 				]
 			)
-
+		'''
+		
 		#/###################/#
 		# Mongo Case
 		#
@@ -802,6 +832,14 @@ class ModelerClass(BaseClass):
 			#/###################/#
 			# Check maybe the Description was not yet done although there are ModelKeystrs
 			#
+
+			#debug
+			self.debug(
+				[
+					'We setModel hdf here',
+					('self.',self,['_ModelKeyStrsList'])
+				]
+			)
 
 			#Check
 			if len(self._ModelKeyStrsList)>len(self.ModelingDescriptionTuplesList):
@@ -1395,7 +1433,7 @@ class ModelerClass(BaseClass):
 			'''
 
 			#Set
-			self.ModeledParentControllerDeriveModelerVariable.HdfGroupPathStr=self.ModeledParentControllerDeriveModelerVariable.ModelTagStr
+			self.ModeledParentControllerDeriveModelerVariable.HdformatGroupPathStr=self.ModeledParentControllerDeriveModelerVariable.ModelTagStr
 
 			#debug
 			'''
@@ -1436,7 +1474,7 @@ class ModelerClass(BaseClass):
 						(
 							'self.ModeledParentControllerDeriveModelerVariable.',
 							self.ModeledParentControllerDeriveModelerVariable,
-							['HdfGroupPathStr']
+							['HdformatGroupPathStr']
 						)
 					]
 				)
@@ -1444,7 +1482,7 @@ class ModelerClass(BaseClass):
 
 				#Definition Modeled attributes
 				self.ModeledHdfGroupVariable=self.ModeledHdfTopFileVariable.getNode(
-					self.ModeledParentControllerDeriveModelerVariable.HdfGroupPathStr
+					self.ModeledParentControllerDeriveModelerVariable.HdformatGroupPathStr
 				)
 
 				#debug
@@ -2038,6 +2076,48 @@ class ModelerClass(BaseClass):
 						return ModelColClass(shape=(1))
 
 	
+	def mimic__print(self,**_KwargVariablesDict):
+
+		#/##################/#
+		# Modify the printing Variable
+		#
+
+		#Check
+		if self.PrintingSelfBool:
+
+			#/##################/#
+			# Display or not several things
+			#
+
+			#map
+			map(
+					lambda __KeyStr:
+					self.PrintingCopyVariable.PrintingInstanceSkipKeyStrsList.append(
+						__KeyStr
+					) if getattr(self.PrintingCopyVariable,__KeyStr)==None
+					else (
+						self.PrintingCopyVariable.PrintingInstanceForceKeyStrsList.append(
+							__KeyStr
+						)
+						if self.__class__.__name__=='ModelerClass'
+						else self.PrintingCopyVariable.PrintingInstanceForceBaseKeyStrsList.append(
+							__KeyStr
+						)
+					),
+					[
+						'ModeledMongoCollection',
+						'ModeledDescriptionClass',
+						'ModeledHdfTable',
+					]
+				)
+
+
+		#/##################/#
+		# Call the base method
+		#
+
+		#call
+		BaseClass._print(self,**_KwargVariablesDict)
 
 #</DefineClass>
 
@@ -2063,7 +2143,8 @@ ModelerClass.PrintingClassSkipKeyStrsList.extend(
 		'ModeledHdfGroupVariable', 
 		'ModeledHdfTopFileVariable',
 		'ModeledMongoTopClientVariable',
-		'ModeledMongoLocalDatabaseVariable',									
+		'ModeledMongoLocalDatabaseVariable',
+		'ModeledMongoDatabaseKeyStr',									
 		'ModeledMongoSuffixStr',
 		'ModeledHdfSuffixStr',																
 		'ModeledMongoKeyStrsList',

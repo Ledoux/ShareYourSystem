@@ -39,13 +39,19 @@ class CommanderClass(BaseClass):
 
 	def default_init(
 				self,
+				_CommandTopDeriveCommanderRigidVariable=None,
 				_CommandingKeyVariable=None,
 				_CommandingSetVariable=None,	
 				_CommandingOrderStr="AllSetsForEachGet",
 				_CommandingBeforeWalkRigidBool=False,	
 				_CommandingAfterWalkRigidBool=False,	
 				_CommandingBeforeSelfRigidBool=False,
-				_CommandingAfterSelfRigidBool=False,		
+				_CommandingAfterSelfRigidBool=False,
+				_CommandingGetRigidBool=True,	
+				_CommandingSetRigidBool=True,
+				_CommandingSetAttrOrCallRigidBool=False,
+				_CommandedValueVariablesList=None,
+				_CommandedSetVariablesList=None,
 				**_KwargVariablesDict
 			):
 
@@ -56,40 +62,92 @@ class CommanderClass(BaseClass):
 		""" """
 
 		#/####################/#
-		# Adapt the type for getting things to command
+		# Determine the top Commander
 		#
 
 		#debug
 		'''
 		self.debug(
 			[
-				'Adapt the type for getting things to command',
-				("self.",self,[
-								'CommandingKeyVariable',
-								'CommandingSetVariable',
-								'CommandingBeforeWalkRigidBool',
-								'CommandingBeforeSelfRigidBool'
-							])
+				'First determine the CommandTopDeriveCommanderRigidVariable',
+				('self.',self,['CommandTopDeriveCommanderRigidVariable'])
 			]
 		)
 		'''
 
-		#init
-		CommandedValueVariablesList=SYS.GetList(
-			self.CommandingKeyVariable,
-			self
-		)
+		#Check
+		if self.CommandTopDeriveCommanderRigidVariable==None:
+			self.CommandTopDeriveCommanderRigidVariable=self
 
-		#debug
-		"""
-		self.debug(
+		#/####################/#
+		# Adapt maybe the type for getting things to command
+		#
+
+		#Check
+		if self.CommandingGetRigidBool:
+
+			#debug
+			'''
+			self.debug(
 				[
-					'in the end, CommandedValueVariablesList is ',
-					SYS._str(CommandedValueVariablesList)
+					'Adapt the type for getting things to command',
+					("self.",self,[
+									'CommandingKeyVariable',
+									'CommandingSetVariable',
+									'CommandingBeforeWalkRigidBool',
+									'CommandingBeforeSelfRigidBool'
+								])
 				]
 			)
-		"""
-		
+			'''
+
+			#init
+			self.CommandedValueVariablesList=SYS.GetList(
+				self.CommandingKeyVariable,
+				self
+			)
+
+		else:
+
+			#init
+			self.CommandedValueVariablesList=self.CommandingKeyVariable
+
+		#debug
+		'''
+		self.debug(
+				[
+					('self.',self,['CommandingKeyVariable']),
+					'in the end, self.CommandedValueVariablesList is ',
+					SYS._str(self.CommandedValueVariablesList)
+				]
+			)
+		'''
+
+
+		#/###################/#
+		# Inform the getted values who is the top
+		#
+
+		#debug
+		'''
+		self.debug(
+			[
+				'We inform the commanded values who is the top commander'
+			]
+		)	
+		'''
+
+		#map
+		map(
+			lambda __CommandedValueVariable:
+			setattr(
+				__CommandedValueVariable,
+				'CommandTopDeriveCommanderRigidVariable',
+				self.CommandTopDeriveCommanderRigidVariable
+			),
+			self.CommandedValueVariablesList
+		)
+
 		#/###################/#
 		# Check if we have to walk before
 		#
@@ -98,15 +156,17 @@ class CommanderClass(BaseClass):
 		if self.CommandingBeforeWalkRigidBool:
 
 			#debug
+			'''
 			self.debug(
 				[
 					'we are going to walk before the command',
-					#'CommandedValueVariablesList is '+SYS._str(CommandedValueVariablesList),
-					#'self.getDoing(SYS.CommanderClass).values() is '+SYS._str
-					#(self.getDoing(
-					#	SYS.CommanderClass).values())
+					'before we setCommand'
 				]
 			)
+			'''
+
+			#set
+			self.setCommand()
 
 			#Debug
 			'''
@@ -127,42 +187,51 @@ class CommanderClass(BaseClass):
 						)
 			'''
 
-			#set
-			CommandedOrderedDict=self.getDoing(
-									SYS.CommanderClass
-								)
-			CommandedOrderedDict['CommandingBeforeSelfRigidBool']=False
-			CommandedLiargVariablesList=CommandedOrderedDict.values()
+			#debug
+			'''
+			self.debug(
+				[
+					'Ok we can setAttr now'
+				]
+			)
+			'''
 
 			#map the recursion but pay watch to not set new things to walk in...it is an infinite walk either !
 			map(
 					lambda __CommandedValueVariable:
-					__CommandedValueVariable.set(
+					__CommandedValueVariable.setAttr(
 							'GettingNewBool',False
 						).command(
-							*CommandedLiargVariablesList	
-						).set(
+						).setAttr(
 							'GettingNewBool',True
 						),
-					CommandedValueVariablesList
+					self.CommandedValueVariablesList
 				)
 
 		#/####################/#
-		# Adapt the type for setting things in the commanded variables
+		# Adapt maybe the type for setting things in the commanded variables
 		#
 
-		#debug
-		'''
-		self.debug(
-			[
-				'Adapt the type for setting things in the commanded variables',
-				("self.",self,['CommandingSetVariable'])
-			]
-		)
-		'''
+		#Check
+		if self.CommandingSetRigidBool:
 
-		#inits
-		CommandedSetVariablesList=SYS.SetList(self.CommandingSetVariable)
+			#debug
+			'''
+			self.debug(
+				[
+					'Adapt the type for setting things in the commanded variables',
+					("self.",self,['CommandingSetVariable'])
+				]
+			)
+			'''
+
+			#inits
+			self.CommandedSetVariablesList=SYS.SetList(self.CommandingSetVariable)
+
+		else:
+
+			#alias direct
+			self.CommandedSetVariablesList=self.CommandingSetVariable
 
 		#debug
 		'''
@@ -184,12 +253,35 @@ class CommanderClass(BaseClass):
 			#debug
 			'''
 			self.debug(
-					'We command before self here'
-				)
+				[
+					'We command before self here',
+					('self.',self,[
+							'CommandingSetRigidBool',
+							'CommandingSetAttrOrCallRigidBool'
+						])
+				]
+			)
 			'''
 
-			#add
-			self[Setter.SetMapStr](CommandedSetVariablesList)
+			#Check
+			if self.CommandingSetAttrOrCallRigidBool==False:
+
+				#add
+				self.mapSet(
+					self.CommandedSetVariablesList
+				)
+
+			else:
+
+				#add
+				map(
+					lambda __ElementVariable:
+					self.setAttrOrCall(
+						__ElementVariable
+					),
+					self.CommandedSetVariablesList
+				)
+				
 
 		#Check for the order
 		if self.CommandingOrderStr=="AllSetsForEachGet":
@@ -227,48 +319,136 @@ class CommanderClass(BaseClass):
 					)
 			"""
 
-			#map
-			map(
-					lambda __CommandedValueVariable:
-					map(
-						lambda __CommandedSetVariable:
-						__CommandedValueVariable.set(
-							*__CommandedSetVariable
-						)
-						if hasattr(__CommandedValueVariable,'set')
-						else None,
-						CommandedSetVariablesList
-					),
-					CommandedValueVariablesList
+			#Check
+			if self.CommandingSetAttrOrCallRigidBool:
+
+				#debug
+				'''
+				self.debug(
+					[
+						'map a SetAttrOrCallBool',
+						('self.',self,[
+							'CommandedValueVariablesList',
+							'CommandedSetVariablesList'
+						])
+					]
 				)
+				'''
+
+				#map
+				map(
+						lambda __CommandedValueVariable:
+						map(
+							lambda __CommandedSetVariable:
+							__CommandedValueVariable.setAttrOrCall(
+								__CommandedSetVariable
+							),
+							self.CommandedSetVariablesList
+						),
+						self.CommandedValueVariablesList
+					)
+
+				#debug
+				'''
+				self.debug(
+					[
+						'Ok end of SetAttrOrCallBool'
+					]
+				)
+				'''
+
+			else:
+
+				#debug
+				'''
+				self.debug(
+					[
+						'We call a map set',
+						('self.',self,[
+								'CommandedValueVariablesList',
+								'CommandedSetVariablesList'
+							])
+					]
+				)
+				'''
+				
+				#map
+				map(
+						lambda __CommandedValueVariable:
+						map(
+							lambda __CommandedSetVariable:
+							__CommandedValueVariable.set(
+								*__CommandedSetVariable
+							)
+							if hasattr(__CommandedValueVariable,'set')
+							else None,
+							self.CommandedSetVariablesList
+						),
+						self.CommandedValueVariablesList
+					)
+
 
 		elif self.CommandingOrderStr=="EachSetForAllGets":
 
-			#map
-			map(
-					lambda __CommandedSetVariable:
-					map(
-						lambda __CommandedValueVariables:
-						__CommandedValueVariables.set(
-							*__CommandedSetVariable
+			#Check
+			if self.CommandingSetAttrOrCallRigidBool:
+
+				#map
+				map(
+						lambda __CommandedSetVariable:
+						map(
+							lambda __CommandedValueVariable:
+							__CommandedValueVariable.setAttrOrCall(
+								__CommandedSetVariable
+							),
+							self.CommandedValueVariablesList
 						),
-						CommandedValueVariablesList
-					),
-					CommandedSetVariablesList
-				)
+						self.CommandedSetVariablesList
+					)
+
+			else:
+
+				#map
+				map(
+						lambda __CommandedSetVariable:
+						map(
+							lambda __CommandedValueVariable:
+							__CommandedValueVariable.set(
+								*__CommandedSetVariable
+							),
+							self.CommandedValueVariablesList
+						),
+						self.CommandedSetVariablesList
+					)
 
 		#Check
 		if self.CommandingAfterSelfRigidBool:
 
 			#debug
-			'''
 			self.debug(
-					'We command after self here'
+					[
+						'We command after self here'
+					]
 				)
-			'''
 
-			#add
-			self[Setter.SetMapStr](CommandedSetVariablesList)
+			#Check
+			if self.CommandingSetAttrOrCallRigidBool==False:
+
+				#add
+				self.mapSet(
+					self.CommandedSetVariablesList
+				)
+
+			else:
+
+				#add
+				map(
+					lambda __ElementVariable:
+					self.setAttrOrCall(
+						__ElementVariable
+					),
+					self.CommandedSetVariablesList
+				)
 
 		#/###################/#
 		# And we check for a walk after
@@ -281,12 +461,20 @@ class CommanderClass(BaseClass):
 			'''
 			self.debug(
 				[
-					'we are going to walk the command',
-					'CommandedValueVariablesList is '+SYS._str(CommandedValueVariablesList)
+					'we are going to walk after the command',
+					#'self.CommandedValueVariablesList is '+SYS._str(
+					#	self.CommandedValueVariablesList),
+					#('self.',self,['CommandingKeyVariable']),
+					'We have to determine the things to propagate',
+					'CommandingKeyVariable and CommandingSetVariable notably ',
+					'if it is None in the commanded value"
 				]
 			)
 			'''
-			
+
+			#set
+			self.setCommand()
+
 			#Debug
 			'''
 			for __CommandedValueVariable in CommandedValueVariablesList:
@@ -306,26 +494,27 @@ class CommanderClass(BaseClass):
 						)
 			'''
 
-			#set
-			CommandedOrderedDict=self.getDoing(
-									SYS.CommanderClass
-								)
-			CommandedOrderedDict['CommandingBeforeSelfRigidBool']=False
-			CommandedLiargVariablesList=CommandedOrderedDict.values()
+			#debug
+			'''
+			self.debug(
+				[
+					'Ok we can setAttr now'
+				]
+			)
+			'''
 
 			#map the recursion but pay watch to not set new things to walk in...it is an infinite walk either !
 			map(
 					lambda __CommandedValueVariable:
-					__CommandedValueVariable.set(
+					__CommandedValueVariable.setAttr(
 							'GettingNewBool',False
 						).command(
-							*CommandedLiargVariablesList	
-						).set(
+						).setAttr(
 							'GettingNewBool',True
 						)
-					if hasattr(__CommandedValueVariable,'set')
+					if hasattr(__CommandedValueVariable,'command')
 					else None,
-					CommandedValueVariablesList
+					self.CommandedValueVariablesList
 				)
 
 		#/#######################/#
@@ -337,8 +526,85 @@ class CommanderClass(BaseClass):
 		self.CommandingAfterWalkRigidBool=False
 		self.CommandingBeforeSelfRigidBool=False
 		self.CommandingAfterSelfRigidBool=False
+		self.CommandingSetAttrOrCallRigidBool=False
+		self.CommandingGetRigidBool=True	
+		self.CommandingSetRigidBool=True
+		self.CommandTopDeriveCommanderRigidVariable=None
 
+		#debug
+		'''
+		self.debug(
+			[
+				'End of the command'
+			]
+		)
+		'''
 
+	def setCommand(self):
+
+		#/##############/#
+		# Get all the commanding attributes
+		#
+
+		#set
+		CommandedOrderedDict=self.getDoing(
+			SYS.CommanderClass
+		)
+		CommandedOrderedDict['CommandingBeforeSelfRigidBool']=False
+		CommandedLiargVariablesList=CommandedOrderedDict.values()
+		
+		#/##############/#
+		# Special get for KeyVariable and SetVariable
+		#
+
+		#get
+		CommandedNewKeyVariable=CommandedLiargVariablesList[0]
+
+		#get
+		CommandedNewSetVariable=CommandedLiargVariablesList[1]
+
+		#get
+		CommandedNewTuplesList=zip(
+			CommandedOrderedDict.keys()[2:],
+			CommandedLiargVariablesList[2:]
+		)
+
+		#/##############/#
+		# Map a setAttr
+		#
+
+		#map
+		map(
+			lambda __CommandedValueVariable:
+			__CommandedValueVariable.setAttr(
+				'CommandingKeyVariable',
+				CommandedNewKeyVariable
+			)
+			if __CommandedValueVariable.CommandingKeyVariable==None
+			else None,
+			self.CommandedValueVariablesList
+		)
+
+		#map
+		map(
+			lambda __CommandedValueVariable:
+			__CommandedValueVariable.setAttr(
+				'CommandingSetVariable',
+				CommandedNewSetVariable
+			)
+			if __CommandedValueVariable.CommandingSetVariable==None
+			else None,
+			self.CommandedValueVariablesList
+		)
+
+		#map
+		map(
+			lambda __CommandedValueVariable:
+			__CommandedValueVariable.mapSetAttr(
+				CommandedNewTuplesList
+			),
+			self.CommandedValueVariablesList
+		)
 
 	def mimic_get(self):
 
@@ -573,13 +839,20 @@ class CommanderClass(BaseClass):
 #</DefinePrint>
 CommanderClass.PrintingClassSkipKeyStrsList.extend(
 	[
+		'CommandTopDeriveCommanderRigidVariable',
 		'CommandingKeyVariable',
 		'CommandingSetVariable',
 		'CommandingOrderStr',
 		'CommandingBeforeWalkRigidBool',
 		'CommandingAfterWalkRigidBool',
 		'CommandingBeforeSelfRigidBool',
-		'CommandingAfterSelfRigidBool'
+		'CommandingAfterSelfRigidBool',
+		'CommandingGetRigidBool',	
+		'CommandingSetRigidBool',
+		'CommandingSetAttrOrCallRigidBool',
+		'CommandedValueVariablesList',
+		'CommandedSetVariablesList',
+		'CommandedLiargVariablesList'
 	]
 )
 #<DefinePrint>

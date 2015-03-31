@@ -148,13 +148,19 @@ class NumscipyerClass(BaseClass):
 			#
 
 			#Check
-			if type(self.NumscipiedRandomFloatsArray)==None.__class__:
+			if type(self.NumscipiedRandomFloatsArray)!=None.__class__:
 
-				#append
-				self.PrintingCopyVariable.PrintingInstanceSkipKeyStrsList.append(
-					'NumscipiedRandomFloatsArray'
+				#get the shape
+				ShapeList=np.shape(self.PrintingCopyVariable.NumscipiedRandomFloatsArray)
+
+				#get a str repr
+				self.PrintingCopyVariable.NumscipiedRandomFloatsArray='< numscipy array of shape '+str(ShapeList)+' >'
+
+				#forcePrint
+				self.forcePrint(
+					['NumscipiedRandomFloatsArray'],
+					'NumscipierClass'
 				)
-
 
 		#/##################/#
 		# Call the base method
@@ -182,7 +188,7 @@ NumscipyerClass.PrintingClassSkipKeyStrsList.extend(
 		'NumscipyingRowTagVariablesArray',
 		'NumscipyingColTagVariablesArray',
 		'NumscipiedStatFunction',
-		#'NumscipiedRandomFloatsArray'
+		'NumscipiedRandomFloatsArray'
 	]
 )
 #<DefinePrint>

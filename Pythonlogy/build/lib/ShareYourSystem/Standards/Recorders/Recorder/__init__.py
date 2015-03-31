@@ -124,13 +124,15 @@ class RecorderClass(BaseClass):
 			)
 			'''
 
-			#network
+			#add
+			self.StructuringManagerCommandSetList=['record']
+
+			#structure
 			self.structure(
 				[
 					'Traces',
 					'Samples'
-				],
-				_DoStr='Record'
+				]
 			)
 			
 		#Check
@@ -253,6 +255,7 @@ class RecorderClass(BaseClass):
 					]
 				)
 
+	"""
 	def propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable):
 
 		#/##################/#
@@ -295,7 +298,7 @@ class RecorderClass(BaseClass):
 			self,
 			_SettingValueVariable
 		)
-
+	"""
 
 	
 #</DefineClass>

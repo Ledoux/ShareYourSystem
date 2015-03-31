@@ -792,7 +792,18 @@ class GetterClass(BaseClass):
 			else _MapVariable
 		)
 
+	def getAttr(self,_KeyVariable):
+		return getattr(self,_KeyVariable)
 
+	def mapGetAttr(self,_MapVariable):
+		return map(
+			lambda __ElementVariable:
+			self.getAttr(
+				__ElementVariable
+			).GettedValueVariable,
+			_MapVariable.items() if hasattr(_MapVariable,'items')
+			else _MapVariable
+		)
 
 #</DefineClass>
 
