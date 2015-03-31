@@ -46,13 +46,14 @@ class LeakerClass(BaseClass):
 			_LeakingUnitsInt=0,
 			_LeakingActivitySymbolStr="V",
 			_LeakingCurrentStr="",
-			_LeakingTimeConstantFloat=20.,
+			_LeakingTimeConstantFloat=0.,
 			_LeakingTimeDirectBool=True,
 			_LeakingActivityDimensionStr='volt',
 			_LeakingMonitorIndexIntsList=None,
 			_LeakingTimeUnitStr='ms',
 			_LeakingInteractionClampStr='Rate',
 			_LeakingInteractionPrefixSymbolStr='J',
+			_LeakingExternalFloatsArray=None,
 			_LeakedTimeSymbolStr="tau_V",
 			_LeakedModelStr="",
 			_LeakedInteractionSymbolStr="",
@@ -60,6 +61,7 @@ class LeakerClass(BaseClass):
 			_LeakedParentNetworkDeriveLeakerVariable=None,
 			_LeakedParentPopulationDeriveLeakerVariable=None,
 			_LeakedParentInteractomeDeriveLeakerVariable=None,
+			_LeakedTimedArrayVariable=None,
 			**_KwargVariablesDict
 		):
 
@@ -101,12 +103,14 @@ class LeakerClass(BaseClass):
 			self.LeakedParentSingularStr=self.ParentedTotalSingularListDict.keys()[0]
 
 		#debug
+		'''
 		self.debug(
 			[
 				'Ok',
 				('self.',self,['LeakedParentSingularStr'])
 			]
 		)
+		'''
 
 		#Check
 		if (self.ParentDeriveTeamerVariable==None or 'Populations' in self.TeamDict or self.ParentDeriveTeamerVariable.TeamTagStr not in [
@@ -135,7 +139,7 @@ class LeakerClass(BaseClass):
 			#debug
 			self.debug(
 				[
-					'We structure all the interacting children...',
+					'We structure leak all the interacting children...',
 				]
 			)
 
@@ -152,12 +156,13 @@ class LeakerClass(BaseClass):
 			)
 
 			#debug
+			'''
 			self.debug(
 				[
 					'Ok we have structured the interacting children',
 				]
 			)
-
+			'''
 
 			#/########################/#
 			# setNetwork
@@ -188,11 +193,26 @@ class LeakerClass(BaseClass):
 				self.setPopulation()
 
 				#debug
+				'''
 				self.debug(
 					[
-						'Ok we have setted the population'
+						'Ok we have leak setted the population',
+						'Now we also neurongroup'
 					]
 				)
+				'''
+
+				#setNeurongroup
+				self.setNeurongroup()
+
+				#debug
+				'''
+				self.debug(
+					[
+						'Ok we have brian setted the population'
+					]
+				)
+				'''
 
 			#/########################/#
 			# network the populations
@@ -201,7 +221,7 @@ class LeakerClass(BaseClass):
 			#debug
 			self.debug(
 				[
-					'We structure all the populations children...',
+					'We structure leak brian all the children...',
 					'self.TeamDict.keys() is ',
 					str(self.TeamDict.keys())
 				]
@@ -224,12 +244,13 @@ class LeakerClass(BaseClass):
 			)
 
 			#debug
+			'''
 			self.debug(
 				[
-					'Ok we have structured the populations children',
+					'Ok we have structured leak brian all the children',
 				]
 			)
-
+			'''
 
 		#Check
 		if self.LeakedParentSingularStr=='Population':
@@ -297,24 +318,55 @@ class LeakerClass(BaseClass):
 		# Define the main leak equation
 		#
 
-		#set the left 
-		self.LeakedModelStr+="d"+self.LeakingActivitySymbolStr+'/dt='
-
-		#set the right
-		self.LeakedModelStr+='(-'+self.LeakingActivitySymbolStr
+		#debug
+		self.debug(
+			[
+				'We define the main leak equation but maybe it is just a direct value',
+				('self.',self,['LeakingTimeConstantFloat'])
+			]
+		)
 
 		#Check
-		if self.LeakingCurrentStr!="":
-			self.LeakedModelStr+='+'+self.LeakingCurrentStr
+		if self.LeakingTimeConstantFloat==0:
 
-		#set
-		self.LeakedModelStr+=')'
+			#debug
+			self.debug(
+				[
+					'Build just a variable definition',
+					('self.',self,['LeakingTimeConstantFloat'])
+				]
+			)
 
-		#set the right denominator
-		self.LeakedModelStr+='/('+self.LeakedTimeSymbolStr+'*'+self.LeakingTimeUnitStr+')'
+			#set the left 
+			self.LeakedModelStr+=self.LeakingActivitySymbolStr+' : '+self.LeakingActivityDimensionStr
 
-		#set the dimension
-		self.LeakedModelStr+=' : '+self.LeakingActivityDimensionStr
+		else:
+
+			#debug
+			self.debug(
+				[
+					'Build a differential equation'
+				]
+			)
+
+			#set the left 
+			self.LeakedModelStr+="d"+self.LeakingActivitySymbolStr+'/dt='
+
+			#set the right
+			self.LeakedModelStr+='(-'+self.LeakingActivitySymbolStr
+
+			#Check
+			if self.LeakingCurrentStr!="":
+				self.LeakedModelStr+='+'+self.LeakingCurrentStr
+
+			#set
+			self.LeakedModelStr+=')'
+
+			#set the right denominator
+			self.LeakedModelStr+='/('+self.LeakedTimeSymbolStr+'*'+self.LeakingTimeUnitStr+')'
+
+			#set the dimension
+			self.LeakedModelStr+=' : '+self.LeakingActivityDimensionStr
 
 		#debug
 		self.debug(
@@ -378,12 +430,14 @@ class LeakerClass(BaseClass):
 				}
 			)
 
+		"""
 		#/##################/#
 		# Call the brian setNeurongroup
 		#
 	
 		#call
-		self.setNeurongroup()
+		#self.setNeurongroup()
+		"""
 
 	def setInteraction(self):
 
@@ -538,6 +592,108 @@ class LeakerClass(BaseClass):
 
 		#call
 		BaseClass._print(self,**_KwargVariablesDict)
+
+
+	def setNeurongroup(self):
+
+		#/##################/#
+		# Call the base method
+		#
+
+		#debug
+		self.debug(
+			[
+				'We call first the base method'
+			]
+		)
+
+		#call
+		BaseClass.setNeurongroup(self)
+
+		#/###################/#
+		# Special input current case
+		#
+
+		#debug
+		self.debug(
+			[
+				'We brian also here',
+				'Check if we have to set a Timed array here',
+				('self.',self,['LeakingTimeConstantFloat'])
+			]
+		)
+
+		#Check
+		if self.LeakingTimeConstantFloat==0.:
+
+			#debug
+			self.debug(
+				[
+					'Yeah we set a TimedArray here',
+					#('self.',self,[
+					#	'LeakingExternalFloatsArray'
+					#	]),
+					#'self.BrianedParentNetworkDeriveBrianerVariable.BrianingTimeDimensionVariable is ',
+					#str(self.BrianedParentNetworkDeriveBrianerVariable.BrianingTimeDimensionVariable),
+					#'self.BrianedNeurongroupVariable.clock.dt is ',
+					#str(self.BrianedNeurongroupVariable.clock.dt),
+					('self.',self,['LeakingUnitsInt']),
+					'len(self.LeakingExternalFloatsArray) is ',
+					str(len(self.LeakingExternalFloatsArray))
+				]
+			)	
+
+			#import
+			from brian2 import TimedArray
+
+			"""
+			#Check
+			if len(self.LeakingExternalFloatsArray)==1 and self.LeakingUnitsInt>1:
+
+				#import
+				import numpy as np
+
+				#reproduce
+				LeakedTimedArray=np.array(
+						[self.LeakingExternalFloatsArray]*self.LeakingUnitsInt
+					)
+
+				#debug
+				self.debug(
+					[
+						'LeakedTimedArray is ',
+						SYS._str(LeakedTimedArray)
+					]
+				)
+
+				#init
+				self.LeakedTimedArrayVariable=TimedArray(
+					LeakedTimedArray,
+					dt=self.BrianedNeurongroupVariable.clock.dt
+				)
+			"""
+			#else:
+
+			#init
+			self.LeakedTimedArrayVariable=TimedArray(
+				self.LeakingExternalFloatsArray,
+				dt=self.BrianedNeurongroupVariable.clock.dt
+			)
+
+			#debug
+			'''
+			self.debug(
+				[
+					'Yeah we have timed arrayed ',
+					('self.',self,[
+						'LeakedTimedArrayVariable'
+						])
+				]
+			)	
+			'''
+			
+
+
 
 	"""
 	def propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable):
@@ -700,13 +856,15 @@ LeakerClass.PrintingClassSkipKeyStrsList.extend(
 		'LeakingTimeUnitStr',
 		'LeakingInteractionClampStr',
 		'LeakingInteractionPrefixSymbolStr',
+		'LeakingExternalFloatsArray',
 		'LeakedTimeSymbolStr',
 		#'LeakedModelStr',
 		'LeakedInteractionSymbolStr',
 		'LeakedParentSingularStr',
 		'LeakedParentNetworkDeriveLeakerVariable',
 		'LeakedParentPopulationDeriveLeakerVariable',
-		'LeakedParentInteractomeDeriveLeakerVariable'
+		'LeakedParentInteractomeDeriveLeakerVariable',
+		'LeakedTimedArrayVariable'
 	]
 )
 #<DefinePrint>

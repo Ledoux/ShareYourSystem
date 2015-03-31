@@ -14,6 +14,7 @@ MyLeaker=SYS.LeakerClass(
 	).mapSet(
 		{
 			'LeakingUnitsInt':3,
+			'LeakingTimeConstantFloat':20.,
 		}
 	).leak(
 	).simulate(

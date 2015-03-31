@@ -1901,6 +1901,80 @@ def lib():
 		else 'ShareYourSystem',
 		InstalledTextStrListsList
 	)[:-1]
+
+def getKrenelFloatsArray(
+		_LevelFloatsTuple=[0,1.],
+		_TimeFloatsTuple=[25.,75.],
+		_RunTimeFloat=100.,
+		_StepTimeFloat=0.1,
+	):
+
+	#import
+	import numpy as np
+
+	#get the bins
+	BinsInt=_RunTimeFloat/_StepTimeFloat
+
+	#init
+	KrenelFloatsArray=_LevelFloatsTuple[0]*np.ones(
+		BinsInt,
+		dtype=type(_LevelFloatsTuple[0])
+	)
+
+	#Debug
+	'''
+	print('getKrenelFloatsArray')
+	print('_TimeFloatsTuple[0]/_StepTimeFloat:_TimeFloatsTuple[1]/_StepTimeFloat')
+	print(_TimeFloatsTuple[0]/_StepTimeFloat,_TimeFloatsTuple[1]/_StepTimeFloat)
+	print('_LevelFloatsTuple[1] is '+str(_LevelFloatsTuple[1]))
+	print('')
+	'''
+
+	#put the second level
+	KrenelFloatsArray[
+		int(_TimeFloatsTuple[0]/_StepTimeFloat):int(_TimeFloatsTuple[1]/_StepTimeFloat)
+	]=_LevelFloatsTuple[1]
+
+	#return
+	return KrenelFloatsArray
+
+def getFourierFloatsArray(
+		_RunTimeFloat=100.,
+		_StepTimeFloat=0.1,
+	):
+
+	#import
+	import numpy as np
+
+	#get the bins
+	BinsInt=_RunTimeFloat/_StepTimeFloat
+
+	#compute
+	FourierFloatsArray=np.array(
+		map(
+			lambda __TimeFloat:
+			sum(
+				map(
+					lambda __FrequencyFloat,__PhaseFloat: 
+					np.cos(2.*np.pi*0.001*__TimeFloat*__FrequencyFloat+__PhaseFloat),
+					[200.],
+					[np.pi/2.]
+				)
+			),
+			np.arange(0.,_RunTimeFloat,_StepTimeFloat)
+		)
+	)
+	
+	#Debug
+	'''
+	print('getFourierFloatsArray l 86')
+	print('FourierFloatsArray is ')
+	print(FourierFloatsArray)
+	print('')
+	'''
+
+	#return
+	return FourierFloatsArray
 #</DefineFunctions>
 
 #<DefineLocals>

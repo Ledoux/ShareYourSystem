@@ -10,57 +10,45 @@ import ShareYourSystem as SYS
 #
 
 #Define
-MyBrianer=SYS.BrianerClass(
+MyLeaker=SYS.LeakerClass(
 	).mapSet(
 		{
-			'-Neurongroups':{
+			'-Populations':{
 				'|Input':{
-
+					'LeakingUnitsInt':2,
+					'LeakingExternalFloatsArray':SYS.getKrenelFloatsArray()
 				},
-				'|Population':SYS.BrianerClass(
-				).mapSet(
-					{
-						'RatingUnitsInt':3
-					}
-				)
+				#'|Population':{
+				#	'LeakingUnitsInt':3,
+				#	'LeakingTimeConstantFloat':20.
+				#}
 			}
 		}
-	).brian(
+	).leak(
+	).simulate(
+		500.
 	)
 	
+
 #/###################/#
 # Print
 #
 
 #Definition the AttestedStr
-print('MyBrianer is ')
-SYS._print(MyBrianer) 
-
-#/###################/#
-# Do one simulation
-#
-
-MyBrianer.simulate(
-		500.
-	)
+print('MyLeaker is ')
+SYS._print(MyLeaker) 
 
 #/###################/#
 # View
 #
 
-#MyBrianer['/-Neurongroups/|Population/-Traces/|*r/-Samples/|Default'].pyplot()
-#MyBrianer.pyplot()
-#SYS.matplotlib.pyplot.show()
+print(
+	MyLeaker['/-Populations/|Input/-Traces/|*V/-Samples/|Default'].BrianedStateMonitorVariable.V
+)
 
-print(MyBrianer['/-Neurongroups/|Population/-Traces/|*r/-Samples/|Default'].BrianedStateMonitorVariable)
+SYS.matplotlib.pyplot.plot(
+	MyLeaker['/-Populations/|Input/-Traces/|*V/-Samples/|Default'].BrianedStateMonitorVariable.V
+)
 
-"""
-from matplotlib import pyplot
-pyplot.figure()
-M=MyBrianer['/-Traces/|*v/-Samples/|Default'].BrianedStateMonitorVariable
-pyplot.plot(M.t, M.v.T)
-pyplot.figure()
-M=MyBrianer['/-Events/|Default'].BrianedSpikeMonitorVariable
-pyplot.plot(M.t, M.i,'.')
-pyplot.show()
-"""
+#MyLeaker.pyplot()
+SYS.matplotlib.pyplot.show()

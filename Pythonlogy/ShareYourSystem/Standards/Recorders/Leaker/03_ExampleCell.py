@@ -14,6 +14,7 @@ MyLeaker=SYS.LeakerClass(
 	).mapSet(
 		{
 			'LeakingUnitsInt':3,
+			'LeakingTimeConstant':20.,
 			'-Interactions':{
 				'|/':{
 				

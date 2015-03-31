@@ -31,6 +31,7 @@ BrianConnectPrefixStr='Synaps'
 @DecorationClass(**{
 	'ClassingSwitchMethodStrsList':['brian'],
 	'ClassingStructureVariable':[
+			('Clock','Clocks'),
 			('Population','Populations'),
 			('Trace','Traces'),
 			('Sample','Samples'),
@@ -51,11 +52,13 @@ class BrianerClass(BaseClass):
 			_BrianingPyplotDict=None,
 			_BrianingTimeDimensionVariable=None,
 			_BrianingPyplotBool=True,
+			_BrianingStepTimeFloat=0.1,
 			_BrianedNetworkVariable=None,
 			_BrianedNeurongroupVariable=None,
 			_BrianedSynapsesVariable=None,
 			_BrianedStateMonitorVariable=None,
 			_BrianedSpikeMonitorVariable=None,
+			_BrianedClockVariable=None,
 			_BrianedParentSingularStr=None,
 			_BrianedRecordKeyStrsList=None,
 			_BrianedTraceDeriveBrianersList=None,
@@ -114,6 +117,7 @@ class BrianerClass(BaseClass):
 
 		#Check
 		if (self.ParentDeriveTeamerVariable==None or 'Populations' in self.TeamDict or self.ParentDeriveTeamerVariable.TeamTagStr not in [
+			'Clocks',
 			'Traces',
 			'Samples',
 			'Events',
@@ -181,6 +185,7 @@ class BrianerClass(BaseClass):
 			#structure
 			self.structure(
 				[
+					'Clocks',
 					'Populations',
 					'Traces',
 					'Events',
@@ -297,36 +302,47 @@ class BrianerClass(BaseClass):
 			#debug
 			self.debug(
 				[
-					'Look if we have samples here'
+					'Look if we have samples here',
+					"'Samples' not in self.TeamDict is ",
+					str('Samples' not in self.TeamDict)
 				]
 			)
 
 			#Check
 			if 'Samples' not in self.TeamDict:
-				BrianedDeriveSamples=self.team(
+				BrianedSamplesDeriveManager=self.team(
 					'Samples'
 				).TeamedValueVariable
 			else:
-				BrianedDeriveSamples=self.TeamDict[
+				BrianedSamplesDeriveManager=self.TeamDict[
 						'Samples'
 					]
 
 			#debug
-			'''
 			self.debug(
 				[
 					'Do we have to set a default moniter ?',
-					'len(self.BrianedParentNeurongroupDeriveBrianerVariable.BrianedRecordKeyStrsList) is ',
-					str(len(self.BrianedParentNeurongroupDeriveBrianerVariable.BrianedRecordKeyStrsList))
+					#'len(self.BrianedParentNeurongroupDeriveBrianerVariable.BrianedRecordKeyStrsList) is ',
+					#str(len(self.BrianedParentNeurongroupDeriveBrianerVariable.BrianedRecordKeyStrsList)),
+					'self.BrianedParentNeurongroupDeriveBrianerVariable.BrianedRecordKeyStrsList) is ',
+					str(self.BrianedParentNeurongroupDeriveBrianerVariable.BrianedRecordKeyStrsList),
+					
 				]
 			)
-			'''
 
 			#Check
 			if len(self.BrianedParentNeurongroupDeriveBrianerVariable.BrianedRecordKeyStrsList)==1:
 
+				#debug
+				self.debug(
+					[
+						'BrianedSamplesDeriveManager.ManagementDict.keys() is',
+						str(BrianedSamplesDeriveManager.ManagementDict.keys())
+					]
+				)
+
 				#Check
-				if len(BrianedDeriveSamples.ManagementDict)==0:
+				if len(BrianedSamplesDeriveManager.ManagementDict)==0:
 
 					#debug
 					self.debug(
@@ -337,7 +353,7 @@ class BrianerClass(BaseClass):
 					)
 
 					#manage
-					BrianedDefaultMoniter=BrianedDeriveSamples.manage(
+					BrianedDefaultMoniter=BrianedSamplesDeriveManager.manage(
 						'Default',
 					).ManagedValueVariable
 
@@ -346,7 +362,29 @@ class BrianerClass(BaseClass):
 					'N']>0 else []
 
 					#brian
-					BrianedDefaultMoniter.parent().brian()
+					BrianedDefaultMoniter.parent(
+						).brian(
+						)
+
+				else:
+
+					#debug
+					self.debug(
+						[
+							'Just be sure to parent brian everybody'
+						]
+					)
+
+					#map
+					map(
+						lambda __DeriveBrianer:
+						__DeriveBrianer.parent(
+							).brian(
+							),
+						BrianedSamplesDeriveManager.ManagementDict.values()
+					)
+
+
 
 		elif self.BrianedParentSingularStr=='Sample':
 
@@ -1019,6 +1057,49 @@ class BrianerClass(BaseClass):
 					}
 				)
 
+		elif self.BrianedParentSingularStr=='Clock':
+
+			#debug
+			'''
+			self.debug(
+				[
+					'It is a Clock level',
+					('self.',self,[
+								])
+				]
+			)
+			'''
+
+			#/####################/#
+			# Determine the parents
+			#
+
+			#get
+			self.BrianedParentNetworkDeriveBrianerVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
+
+			#/####################/#
+			# Set the brian clock
+			#
+
+			#import
+			from brian2 import Clock
+
+			#init
+			self.BrianedClockVariable=Clock(
+				dt=self.BrianingStepTimeFloat*self.BrianedParentNetworkDeriveBrianerVariable.BrianingTimeDimensionVariable,
+				name=self.ParentTagStr
+			)
+
+			#debug
+			self.debug(
+				[
+					'We have setted the clock',
+					('self.',self,[
+							'BrianedClockVariable'
+								])
+				]
+			)
+
 		#debug
 		'''
 		self.debug(
@@ -1079,11 +1160,61 @@ class BrianerClass(BaseClass):
 
 	def setNetwork(self):
 
+		#/####################/#
+		# init the Network
+		#
+
 		#maybe should import
 		from brian2 import Network
 
 		#set
 		self.BrianedNetworkVariable=Network()
+
+		#/####################/#
+		# adapt dimension time
+		#
+
+		#Check
+		if self.BrianingTimeDimensionVariable==None:
+
+			from brian2 import ms 
+			self.BrianingTimeDimensionVariable=ms
+
+		#/####################/#
+		# init a simulation clock
+		#
+
+		#debug
+		self.debug(
+			[
+				'We set a simulation clock at least'
+			]
+		)
+
+
+		#Check
+		if 'Clocks' not in self.TeamDict:
+			ClocksDeriveManager=self.team('Clocks').TeamedValueVariable
+		else:
+			ClocksDeriveManager=self.TeamDict['Clocks']
+
+		#manage
+		if 'Simulation' not in ClocksDeriveManager.ManagementDict:
+
+			#debug
+			self.debug(
+				[
+					'We init a simulation clock here'
+				]
+			)
+
+			#manage
+			SimulationDeriveBrianer=ClocksDeriveManager.manage(
+				'Simulation',
+				{
+					'BrianingStepTimeFloat':self.BrianingStepTimeFloat
+				}
+			)
 
 	def setNeurongroup(self):
 
@@ -1138,7 +1269,10 @@ class BrianerClass(BaseClass):
 				**dict(
 					self.BrianingNeurongroupDict,
 					**{
-						'name':self.ParentedTotalPathStr.replace('/','_')+'_'+self.ManagementTagStr
+						'name':self.ParentedTotalPathStr.replace('/','_')+'_'+self.ManagementTagStr,
+						#'clock':self.BrianedParentNetworkDeriveBrianerVariable.TeamDict[
+						#	'Clocks'
+						#].ManagementDict['Simulation'].BrianedClockVariable
 					} 
 				)
 			)
@@ -1547,12 +1681,6 @@ class BrianerClass(BaseClass):
 		self.debug('We start simulate in brian')
 		'''
 
-		#Check
-		if self.BrianingTimeDimensionVariable==None:
-
-			from brian2 import ms 
-			self.BrianingTimeDimensionVariable=ms
-
 		#run with the brian method
 		self.BrianedNetworkVariable.run(
 			self.SimulatingStopTimeFloat*self.BrianingTimeDimensionVariable
@@ -1627,6 +1755,7 @@ class BrianerClass(BaseClass):
 						'BrianedSynapsesVariable',
 						'BrianedStateMonitorVariable',
 						'BrianedSpikeMonitorVariable',
+						'BrianedClockVariable'
 					]
 				)
 
@@ -1652,11 +1781,13 @@ BrianerClass.PrintingClassSkipKeyStrsList.extend(
 		'BrianingPyplotDict',
 		'BrianingTimeDimensionVariable',
 		'BrianingPyplotBool',
+		'BrianingStepTimeFloat',
 		'BrianedNetworkVariable',
 		'BrianedNeurongroupVariable',
 		'BrianedSynapsesVariable',
 		'BrianedStateMonitorVariable',
 		'BrianedSpikeMonitorVariable',
+		'BrianedClockVariable',
 		'BrianedRecordKeyStrsList',
 		'BrianedTraceDeriveBrianersList',
 		'BrianedSynapsesDeriveBrianersList',

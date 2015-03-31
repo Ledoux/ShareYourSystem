@@ -14,6 +14,7 @@ MyLeaker=SYS.LeakerClass(
 	).mapSet(
 		{
 			'LeakingUnitsInt':3,
+			'LeakingTimeConstant':20.,
 			'-Interactions':{
 				'|/':{
 				
@@ -21,9 +22,10 @@ MyLeaker=SYS.LeakerClass(
 			}
 		}	
 	).leak(
-	).simulate(
-		500.
 	)
+	#.simulate(
+	#	500.
+	#)
 	
 #/###################/#
 # Print
