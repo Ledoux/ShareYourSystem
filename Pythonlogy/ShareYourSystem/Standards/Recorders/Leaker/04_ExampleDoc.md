@@ -5,4 +5,4 @@ FrozenIsBool False
 
 ##Example
 
-Shortcut for setting locally connections
+Add an interaction

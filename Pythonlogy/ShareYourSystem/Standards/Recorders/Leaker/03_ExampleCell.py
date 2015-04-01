@@ -9,24 +9,34 @@ import ShareYourSystem as SYS
 # Build the model
 #
 
-#Definition an instance
+#Define
 MyLeaker=SYS.LeakerClass(
 	).mapSet(
 		{
-			'LeakingUnitsInt':3,
-			'LeakingTimeConstant':20.,
-			'-Interactions':{
-				'|/':{
-				
-				}
+			'-Populations':{
+				'|Default':{
+					'LeakingUnitsInt':2,
+					'LeakingTimeConstantVariable':'#scalar:20.*ms',
+					'-Inputs':{
+						'|Default':{
+							#'LeakingInputExternalVariable':SYS.getKrenelFloatsArray()
+							#'LeakingInputExternalVariable':5.
+							'LeakingInputExternalVariable':'#scalar:5.*mV'
+						}
+					}
+				},
+				#'|Population':{
+				#	'LeakingUnitsInt':3,
+				#	'LeakingTimeConstantFloat':20.
+				#}
 			}
-		}	
+		}
 	).leak(
+	).simulate(
+		500.
 	)
-	#.simulate(
-	#	500.
-	#)
 	
+
 #/###################/#
 # Print
 #
@@ -39,9 +49,5 @@ SYS._print(MyLeaker)
 # View
 #
 
-"""
-#MyLeaker['/-Traces/|*v/-Samples/|Default'].pyplot()
-#MyLeaker['/-Events/|Default'].pyplot()
-MyLeaker.pyplot()
+MyLeaker['/-Populations/|Default'].pyplot()
 SYS.matplotlib.pyplot.show()
-"""
