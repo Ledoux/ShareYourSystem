@@ -107,15 +107,13 @@ class PyploterClass(BaseClass):
 			self.PyplotedParentSingularStr=self.ParentedTotalSingularListDict.keys()[0]
 
 		#debug
-		'''
 		self.debug(
 			[
 				'Ok',
 				('self.',self,['PyplotedParentSingularStr'])
 			]
 		)
-		'''
-
+		
 		#/###############/#
 		# Cases depending on the level
 		#
@@ -133,13 +131,11 @@ class PyploterClass(BaseClass):
 			#
 
 			#debug
-			'''
 			self.debug(
 					[
-						'Figure Level'
+						'Figure Level',
 					]
 				)
-			'''
 
 			#import pyplot
 			from matplotlib import pyplot
@@ -170,7 +166,7 @@ class PyploterClass(BaseClass):
 				self.PyplotedParentChartDerivePyploterVariable=self
 
 				#/###############/#
-				# pyplotChart 
+				# Set Chart 
 				#
 
 				#debug
@@ -189,26 +185,15 @@ class PyploterClass(BaseClass):
 				self.PyplotedAxesVariable._figure = self.PyplotedFigureVariable	
 
 				#/###############/#
-				# pyplotDraw
+				# draw 
 				#
 
 				#pyplotDraw
 				self.pyplotDraw()
 				
-			#/########################/#
-			# structure pyplot
-			# 
-
-			#debug
-			'''
-			self.debug(
-				[
-					'We structure pyplot all the children...',
-					'self.TeamDict.keys() is ',
-					str(self.TeamDict.keys())
-				]
-			)
-			'''
+			#/###############/#
+			# structure
+			#
 
 			#structure
 			self.structure(
@@ -223,12 +208,7 @@ class PyploterClass(BaseClass):
 
 		else:
 
-			#/########################/#
-			# Inside structure
-			#
-
 			#debug
-			'''
 			self.debug(
 				[
 					'Ok we check if this parentsingular has a special method ',
@@ -237,7 +217,47 @@ class PyploterClass(BaseClass):
 					])
 				]
 			)
-			'''
+
+			#set
+			PyplotedMethodKeyStr='pyplot'+self.PyplotedParentSingularStr
+
+			#Check
+			if hasattr(self,PyplotedMethodKeyStr):
+
+				#/########################/#
+				# call the special pyplot<pyplotedParentSingularStr> method
+				#
+
+				#debug
+				'''
+				self.debug(
+					[
+						'It is a '+self.PyplotedParentSingularStr+' level',
+						'We pyplot<PyplotedParentSingularStr>'
+					]
+				)
+				'''
+
+				#call
+				getattr(
+					self,
+					PyplotedMethodKeyStr
+				)()
+
+				#debug
+				'''
+				self.debug(
+					[
+						'Ok we have setted pyplot'+self.PyplotedParentSingularStr
+					]
+				)
+				'''	
+
+		#/###################/#
+		# Wrap case
+		#
+
+		elif self.ParentDeriveTeamerVariable!=None:
 
 			#Check
 			if self.ParentDeriveTeamerVariable.TeamTagStr=='Panels':
@@ -251,102 +271,10 @@ class PyploterClass(BaseClass):
 					)
 				'''
 
-				#/#################/#
-				# Determine the parent
-				#
-
-				#set
-				self.PyplotedParentFigureDerivePyploterVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
-
+				
 			elif self.ParentDeriveTeamerVariable.TeamTagStr=='Charts':
 
-				#debug
-				'''
-				self.debug(
-						[
-							'Chart level.'
-						]
-					)
-				'''
-
-				#/#################/#
-				# Determine the parent
-				#
-
-				#set
-				self.PyplotedParentPanelDerivePyploterVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
-
-				#debug
-				'''
-				self.debug(
-						[
-							'self.PyplotedParentPanelDerivePyploterVariable.PyplotedParentSingularStr is ',
-							self.PyplotedParentPanelDerivePyploterVariable.PyplotedParentSingularStr,
-							'Check now who are the parents'
-						]
-					)
-				'''
-
-				#Check
-				if self.PyplotedParentPanelDerivePyploterVariable.ParentDeriveTeamerVariable!=None:
-						
-					#debug
-					'''
-					self.debug(
-						[
-							'Ok there is a parent parent for this Chart'
-						]
-					)
-					'''
-
-					#alias
-					PyplotedParentFigureDerivePyploterVariable=self.PyplotedParentPanelDerivePyploterVariable.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
-						
-					if PyplotedParentFigureDerivePyploterVariable!=None:
-
-						#set
-						self.PyplotedParentFigureDerivePyploterVariable=PyplotedParentFigureDerivePyploterVariable
-
-						#debug
-						'''
-						self.debug(
-							[
-								'Yes the panel parent parent exists'
-							]
-						)
-						'''
-
-					else:
-
-						#debug
-						'''
-						self.debug(
-							[
-								'Nope the parent parent not exist so direct set figure with panel parent'
-							]
-						)
-						'''
-
-						#set
-						self.PyplotedParentFigureDerivePyploterVariable=self.PyplotedParentPanelDerivePyploterVariable
-
-				else:
-
-					#set
-					self.PyplotedParentFigureDerivePyploterVariable=self
-
-				#debug
-				'''
-				self.debug(
-					[
-						'Ok for this Chart, we have determined the panel and figure parent',
-						#('self.',self,[
-						#	'PyplotedParentFigureDerivePyploterVariable'
-						#])
-					]
-				)
-				'''
-
+				
 				#/#################/#
 				# Build the Axes
 				#
@@ -376,107 +304,6 @@ class PyploterClass(BaseClass):
 				'''
 
 			elif self.ParentDeriveTeamerVariable.TeamTagStr=='Draws':
-
-				#debug
-				'''
-				self.debug(
-						[
-							'Draws level.'
-						]
-					)
-				'''
-
-				#/#################/#
-				# Determine the parent
-				#
-
-				#set
-				self.PyplotedParentChartDerivePyploterVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
-
-				#debug
-				'''
-				self.debug(
-						[
-							'self.PyplotedParentChartDerivePyploterVariable.PyplotedParentSingularStr is ',
-							self.PyplotedParentChartDerivePyploterVariable.PyplotedParentSingularStr
-						]
-					)
-				'''
-
-				#Check
-				if self.PyplotedParentChartDerivePyploterVariable.PyplotedParentSingularStr=='Panel':
-
-					#set
-					self.PyplotedParentPanelDerivePyploterVariable=self.PyplotedParentChartDerivePyploterVariable.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
-			
-					#set
-					self.PyplotedParentFigureDerivePyploterVariable=self.PyplotedParentPanelDerivePyploterVariable.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
-
-				else:
-
-					#debug
-					'''
-					self.debug(
-							[
-								'It is not a parent chart inside a panel ',
-								'Look if the parent parent is actually the top
-							]
-						)
-					'''
-
-					#Check
-					if self.PyplotedParentChartDerivePyploterVariable.ParentDeriveTeamerVariable!=None:
-						
-						#alias
-						PyplotedParentFigurePanelDerivePyploterVariable=self.PyplotedParentChartDerivePyploterVariable.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
-						
-						#Check
-						if PyplotedParentFigurePanelDerivePyploterVariable!=None:
-
-							#debug
-							'''
-							self.debug(
-								[
-									'Yes the parent parent is the top'
-								]
-							)
-							'''
-
-							#set
-							self.PyplotedParentPanelDerivePyploterVariable=PyplotedParentFigurePanelDerivePyploterVariable
-					
-							#set
-							self.PyplotedParentFigureDerivePyploterVariable=PyplotedParentFigurePanelDerivePyploterVariable
-
-					else:
-
-						#debug
-						'''
-						self.debug(
-							[
-								'Nope the parent parent not exist so direct set figure panel with chart parent'
-							]
-						)
-						'''
-
-						#set
-						self.PyplotedParentPanelDerivePyploterVariable=self.PyplotedParentChartDerivePyploterVariable
-					
-						#set
-						self.PyplotedParentFigureDerivePyploterVariable=self.PyplotedParentChartDerivePyploterVariable
-
-
-				#debug
-				'''
-				self.debug(
-					[
-						'Ok for this Draw, we have determined the chart panel and figure parent',
-						('self.',self,[
-							'PyplotedParentFigureDerivePyploterVariable'
-						])
-					]
-				)
-				'''
 
 				#pyplotDraw
 				self.pyplotDraw()
@@ -566,7 +393,105 @@ class PyploterClass(BaseClass):
 							self.PyplotedParentChartDerivePyploterVariable.PyplotingChartVariable
 						)
 
+	
+	def pyplotPanel(self):
+		
+		#debug
+		'''
+		self.debug(
+				[
+					'Panel level.'
+				]
+			)
+		'''
+
+		#/#################/#
+		# Determine the parent
+		#
+
+		#set
+		self.PyplotedParentFigureDerivePyploterVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
+
 	def pyplotChart(self):
+
+		#debug
+		'''
+		self.debug(
+				[
+					'Chart level.'
+				]
+			)
+		'''
+
+		#/#################/#
+		# Determine the parent
+		#
+
+		#set
+		self.PyplotedParentPanelDerivePyploterVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
+
+		#debug
+		'''
+		self.debug(
+				[
+					'self.PyplotedParentPanelDerivePyploterVariable.PyplotedParentSingularStr is ',
+					self.PyplotedParentPanelDerivePyploterVariable.PyplotedParentSingularStr,
+					'Check now who are the parents'
+				]
+			)
+		'''
+
+		#Check
+		if self.PyplotedParentPanelDerivePyploterVariable.ParentDeriveTeamerVariable!=None:
+				
+			#debug
+			self.debug(
+				[
+					'Ok there is a parent parent for this Chart'
+				]
+			)
+
+			#alias
+			PyplotedParentFigureDerivePyploterVariable=self.PyplotedParentPanelDerivePyploterVariable.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
+				
+			if PyplotedParentFigureDerivePyploterVariable!=None:
+
+				#set
+				self.PyplotedParentFigureDerivePyploterVariable=PyplotedParentFigureDerivePyploterVariable
+
+				#debug
+				self.debug(
+					[
+						'Yes the panel parent parent exists'
+					]
+				)
+
+			else:
+
+				#debug
+				self.debug(
+					[
+						'Nope the parent parent not exist so direct set figure with panel parent'
+					]
+				)
+
+				#set
+				self.PyplotedParentFigureDerivePyploterVariable=self.PyplotedParentPanelDerivePyploterVariable
+
+		else:
+
+			#set
+			self.PyplotedParentFigureDerivePyploterVariable=self
+
+		#debug
+		self.debug(
+			[
+				'Ok for this Chart, we have determined the panel and figure parent',
+				#('self.',self,[
+				#	'PyplotedParentFigureDerivePyploterVariable'
+				#])
+			]
+		)
 
 		#/#################/#
 		# First shift in the grid
@@ -593,7 +518,6 @@ class PyploterClass(BaseClass):
 			)
 
 			#debug
-			'''
 			self.debug(
 				[
 					'We have getted the PreviousChartPyploter',
@@ -601,8 +525,7 @@ class PyploterClass(BaseClass):
 					SYS._str(PreviousChartPyploter)
 				]
 			)
-			'''
-			
+
 			#shift
 			if self.PyplotingShiftIntsTuple[0]>0:
 				self.PyplotedParentPanelDerivePyploterVariable.PyplotedCursorIntsList[0
@@ -685,12 +608,112 @@ class PyploterClass(BaseClass):
 
 	def pyplotDraw(self):
 
+		#debug
+		'''
+		self.debug(
+				[
+					'Draws level.'
+				]
+			)
+		'''
+
+		#/#################/#
+		# Determine the parent
+		#
+
+		#set
+		self.PyplotedParentChartDerivePyploterVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
+
+		#debug
+		'''
+		self.debug(
+				[
+					'self.PyplotedParentChartDerivePyploterVariable.PyplotedParentSingularStr is ',
+					self.PyplotedParentChartDerivePyploterVariable.PyplotedParentSingularStr
+				]
+			)
+		'''
+
+		#Check
+		if self.PyplotedParentChartDerivePyploterVariable.PyplotedParentSingularStr=='Panel':
+
+			#set
+			self.PyplotedParentPanelDerivePyploterVariable=self.PyplotedParentChartDerivePyploterVariable.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
+	
+			#set
+			self.PyplotedParentFigureDerivePyploterVariable=self.PyplotedParentPanelDerivePyploterVariable.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
+
+		else:
+
+			#debug
+			'''
+			self.debug(
+					[
+						'It is not a parent chart inside a panel ',
+						'Look if the parent parent is actually the top
+					]
+				)
+			'''
+
+			#Check
+			if self.PyplotedParentChartDerivePyploterVariable.ParentDeriveTeamerVariable!=None:
+				
+				#alias
+				PyplotedParentFigurePanelDerivePyploterVariable=self.PyplotedParentChartDerivePyploterVariable.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
+				
+				#Check
+				if PyplotedParentFigurePanelDerivePyploterVariable!=None:
+
+					#debug
+					'''
+					self.debug(
+						[
+							'Yes the parent parent is the top'
+						]
+					)
+					'''
+
+					#set
+					self.PyplotedParentPanelDerivePyploterVariable=PyplotedParentFigurePanelDerivePyploterVariable
+			
+					#set
+					self.PyplotedParentFigureDerivePyploterVariable=PyplotedParentFigurePanelDerivePyploterVariable
+
+			else:
+
+				#debug
+				'''
+				self.debug(
+					[
+						'Nope the parent parent not exist so direct set figure panel with chart parent'
+					]
+				)
+				'''
+
+				#set
+				self.PyplotedParentPanelDerivePyploterVariable=self.PyplotedParentChartDerivePyploterVariable
+			
+				#set
+				self.PyplotedParentFigureDerivePyploterVariable=self.PyplotedParentChartDerivePyploterVariable
+
+
+		#debug
+		'''
+		self.debug(
+			[
+				'Ok for this Draw, we have determined the chart panel and figure parent',
+				('self.',self,[
+					'PyplotedParentFigureDerivePyploterVariable'
+				])
+			]
+		)
+		'''
+
 		#/#################/#
 		# We mapArgument draw in the parent axes
 		#
 
 		#debug
-		'''
 		self.debug(
 			[
 				'We map argument draw in the parent axe',
@@ -702,8 +725,7 @@ class PyploterClass(BaseClass):
 				str(self.PyplotedParentChartDerivePyploterVariable.PyplotedAxesVariable)
 			]
 		)
-		'''
-		
+
 		#map argument
 		self.PyplotedLinesList.extend(
 			self.PyplotedParentFigureDerivePyploterVariable.mapArgument(
@@ -772,7 +794,68 @@ class PyploterClass(BaseClass):
 						self.PyplotedParentChartDerivePyploterVariable.PyplotedAxesVariable,
 						self.PyplotedParentChartDerivePyploterVariable.PyplotingChartVariable
 					)
-					
+
+	def propertize_setPyplotedShiftTuplesList(self,_SettingValueVariable):
+
+		#set
+		self._PyplotedShiftTuplesList=_SettingValueVariable
+
+		#debug
+		'''
+		self.debug(
+				[
+					'We bind a set of PyplotedShiftTuplesList here',
+					'_SettingValueVariable is',
+					str(_SettingValueVariable)
+				]
+			)
+		'''
+
+		#init
+		self.PyplotedPanelShapeIntsList=list(_SettingValueVariable[0][0])
+
+		#Check
+		if len(_SettingValueVariable)>1:
+		
+			#shift
+			for __PyplotedShiftTuple in _SettingValueVariable[1:]:
+
+				#debug
+				'''
+				self.debug(
+						[	
+							'We shift with ',
+							'__PyplotedShiftTuple is ',
+							str(__PyplotedShiftTuple)
+						]
+					)
+				'''
+
+				#Check
+				if __PyplotedShiftTuple[1][0]>0:
+
+					#add
+					self.PyplotedPanelShapeIntsList[0]+=__PyplotedShiftTuple[1][0]+__PyplotedShiftTuple[0][0]
+
+				if __PyplotedShiftTuple[1][1]>0:
+
+					#dd
+					self.PyplotedPanelShapeIntsList[1]+=__PyplotedShiftTuple[1][1]+__PyplotedShiftTuple[0][1]
+
+		#debug
+		'''
+		self.debug(
+				[
+					'in the end of the shift',
+					('self.',self,[
+						'PyplotedPanelShapeIntsList',
+						'PyplotedCursorIntsList'
+					])
+				]
+			)
+		'''
+
+
 	def mimic_set(self):
 
 		#Check
@@ -1011,67 +1094,6 @@ class PyploterClass(BaseClass):
 
 		#call the base method
 		BaseClass.set(self)
-
-	def propertize_setPyplotedShiftTuplesList(self,_SettingValueVariable):
-
-		#set
-		self._PyplotedShiftTuplesList=_SettingValueVariable
-
-		#debug
-		'''
-		self.debug(
-				[
-					'We bind a set of PyplotedShiftTuplesList here',
-					'_SettingValueVariable is',
-					str(_SettingValueVariable)
-				]
-			)
-		'''
-
-		#init
-		self.PyplotedPanelShapeIntsList=list(_SettingValueVariable[0][0])
-
-		#Check
-		if len(_SettingValueVariable)>1:
-		
-			#shift
-			for __PyplotedShiftTuple in _SettingValueVariable[1:]:
-
-				#debug
-				'''
-				self.debug(
-						[	
-							'We shift with ',
-							'__PyplotedShiftTuple is ',
-							str(__PyplotedShiftTuple)
-						]
-					)
-				'''
-
-				#Check
-				if __PyplotedShiftTuple[1][0]>0:
-
-					#add
-					self.PyplotedPanelShapeIntsList[0]+=__PyplotedShiftTuple[1][0]+__PyplotedShiftTuple[0][0]
-
-				if __PyplotedShiftTuple[1][1]>0:
-
-					#dd
-					self.PyplotedPanelShapeIntsList[1]+=__PyplotedShiftTuple[1][1]+__PyplotedShiftTuple[0][1]
-
-		#debug
-		'''
-		self.debug(
-				[
-					'in the end of the shift',
-					('self.',self,[
-						'PyplotedPanelShapeIntsList',
-						'PyplotedCursorIntsList'
-					])
-				]
-			)
-		'''
-
 
 	def mimic__print(self,**_KwargVariablesDict):
 

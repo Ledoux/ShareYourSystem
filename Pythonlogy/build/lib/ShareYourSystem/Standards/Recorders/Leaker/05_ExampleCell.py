@@ -48,5 +48,6 @@ SYS._print(MyLeaker)
 # View
 #
 
+print('BBBB\n\n\nNNNN')
 MyLeaker['/-Populations/|Default'].pyplot()
 SYS.matplotlib.pyplot.show()

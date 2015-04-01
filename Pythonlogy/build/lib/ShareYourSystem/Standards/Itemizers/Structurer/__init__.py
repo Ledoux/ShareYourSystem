@@ -77,243 +77,194 @@ class StructurerClass(BaseClass):
 		)
 		'''
 
-		#Check
-		if self.StructureTopDeriveStructurerVariable==self:
-
-			#debug
-			'''
-			self.debug(
-				[
-					'We are in the top structurer',
-				]
-			)
-			'''
-			
-			#debug
-			'''
-			self.debug(
-					[
-						'We structure top here',
-						('self.',self,[
-								'StructuringTeamerCommandKeyVariable',
-								'StructuringManagerCommandKeyVariable'
-							])
-					]
-				)
-			'''
-			
-			#/###################/#
-			# Set the structure of singular team if not already
-			#
-
-			#Check
-			if self.StructuredOnceBool==False:
-
-				#Check
-				if self.StructuringSingPluralVariable!=None:
-
-					#debug
-					'''
-					self.debug(
-						[
-							'we structure for the first time here',
-							('self.',self,['StructuringSingPluralVariable'])
-						]
-					)
-					'''
-
-					#map add the sing plurals
-					map(
-						lambda __ItemTuple:
-						SYS.addSingPlural(
-							*__ItemTuple
-						),
-						SYS.SetList(self.StructuringSingPluralVariable)
-					)
-
-					#Define a class
-					class StructureClass(StructurerClass):pass
-					StructureClass.__name__=self.NameStr+'s'
-					StructureClass.ManagingValueClass=self.__class__
-
-					#set
-					setattr(
-						self.Module,
-						StructureClass.__name__,
-						StructureClass
-					)
-
-					#dict
-					ClassesDict=dict(
-							map(
-								lambda __ItemTuple:
-								(__ItemTuple[1],StructureClass),
-								_SingPluralVariable
-							)
-						)
-
-					#Check
-					if self.StructuringClassBool:
-
-						#map
-						if _Class.TeamingClassesDict==None:
-							_Class.TeamingClassesDict=ClassesDict
-						else:
-							_Class.TeamingClassesDict.update(
-								ClassesDict
-							)
-
-						#set 
-						self.__class__.StructuringOnceBool=True
-
-					else:
-
-						#map
-						if self.TeamingClassesDict==None:
-							self.TeamingClassesDict=ClassesDict
-						else:
-							self.TeamingClassesDict.update(
-								ClassesDict
-							)
-
-
-					#set
-					self.StructuredOnceBool=True
-
-
-			#Check
-			if self.StructuringFlatBool:
-
-				#/##################/#
-				# prepare the struc teams
-				#
-
-				#map
-				self.StructuredTeamKeyStrsList=map(
-						lambda __StructuringTeamOrManagementStr:
-						StructureOutPrefixStr+self.StructuringTagStr+'_'+__StructuringTeamOrManagementStr,
-						(self.StructuringTeamerCommandKeyVariable if self.StructuringTeamerCommandKeyVariable!=None else [])+
-						(self.StructuringManagerCommandKeyVariable if self.StructuringManagerCommandKeyVariable!=None else [])
-					)
-
-				#debug
-				'''
-				self.debug(
-						[
-							'We are going to make team the StructuredTeamKeyStrsList',
-							('self.',self,['StructuredTeamKeyStrsList'])
-						]
-					)
-				'''
-
-				#map
-				map(
-						lambda __StructuredTeamKeyStr:
-						self.team(__StructuredTeamKeyStr),
-						self.StructuredTeamKeyStrsList
-					)
-
-			#/##################/#
-			# we make the top parent and structure
-			#
-
-			#set
-			self.StructureTopDeriveStructurerVariable=self
-			self.parent()
-
-			#/##################/#
-			# command
-			#
-
-			#debug
-			'''
-			self.debug(
-				[
-					'Before command we set the arg'
-				]
-			)
-			'''
-
-			#set
-			self.setCommandingKeyVariable()
-			self.CommandTopDeriveCommanderRigidVariable=self
-			self.setCommandingSetVariable()
-			self.CommandingAfterWalkRigidBool=True
-			self.CommandingGetRigidBool=False
-			self.CommandingSetRigidBool=False
-			self.CommandingSetAttrOrCallRigidBool=True
-
-
-			#debug
-			'''
-			self.debug(
-				[
-					'we are going to command',
-					('self.',self,[
-						'CommandingKeyVariable',
-						'CommandingSetVariable'
-					])
-				]
-			)
-			'''
-
-			#command
-			self.command()
-
-			#debug
-			'''
-			self.debug(
-				[
-					'Ok we have commanded'
-				]
-			)
-			'''
-
-		else:
-
-			#debug
-			'''
-			self.debug(
-				[
-					'We structure in a level here'
-				]
-			)
-			'''
-
-			pass
-
-	def setCommandingKeyVariable(self):
-
-		#/##################/#
-		# Set the teams and managements that are going to be setted
-		# but also the ones that are just going to be passed through
+		#set
+		self.StructureTopDeriveStructurerVariable=self
 
 		#debug
 		'''
 		self.debug(
 			[
-				'we set commanding key variable',
-				('self.',self,[
-					'StructuringManagerCommandKeyVariable',
-					'StructuringManagerCommandExtraKeyVariable'
-				])
+				'We are in the top structurer',
+			]
+		)
+		'''
+		
+		#debug
+		'''
+		self.debug(
+				[
+					'We structure top here',
+					('self.',self,[
+							'StructuringTeamerCommandKeyVariable',
+							'StructuringManagerCommandKeyVariable'
+						])
+				]
+			)
+		'''
+		
+		#/###################/#
+		# Set the structure of singular team if not already
+		#
+
+		#Check
+		if self.StructuredOnceBool==False:
+
+			#Check
+			if self.StructuringSingPluralVariable!=None:
+
+				#debug
+				'''
+				self.debug(
+					[
+						'we structure for the first time here',
+						('self.',self,['StructuringSingPluralVariable'])
+					]
+				)
+				'''
+
+				#map add the sing plurals
+				map(
+					lambda __ItemTuple:
+					SYS.addSingPlural(
+						*__ItemTuple
+					),
+					SYS.SetList(self.StructuringSingPluralVariable)
+				)
+
+				#Define a class
+				class StructureClass(StructurerClass):pass
+				StructureClass.__name__=self.NameStr+'s'
+				StructureClass.ManagingValueClass=self.__class__
+
+				#set
+				setattr(
+					self.Module,
+					StructureClass.__name__,
+					StructureClass
+				)
+
+				#dict
+				ClassesDict=dict(
+						map(
+							lambda __ItemTuple:
+							(__ItemTuple[1],StructureClass),
+							_SingPluralVariable
+						)
+					)
+
+				#Check
+				if self.StructuringClassBool:
+
+					#map
+					if _Class.TeamingClassesDict==None:
+						_Class.TeamingClassesDict=ClassesDict
+					else:
+						_Class.TeamingClassesDict.update(
+							ClassesDict
+						)
+
+					#set 
+					self.__class__.StructuringOnceBool=True
+
+				else:
+
+					#map
+					if self.TeamingClassesDict==None:
+						self.TeamingClassesDict=ClassesDict
+					else:
+						self.TeamingClassesDict.update(
+							ClassesDict
+						)
+
+
+				#set
+				self.StructuredOnceBool=True
+
+
+		#Check
+		if self.StructuringFlatBool:
+
+			#/##################/#
+			# prepare the struc teams
+			#
+
+			#map
+			self.StructuredTeamKeyStrsList=map(
+					lambda __StructuringTeamOrManagementStr:
+					StructureOutPrefixStr+self.StructuringTagStr+'_'+__StructuringTeamOrManagementStr,
+					(self.StructuringTeamerCommandKeyVariable if self.StructuringTeamerCommandKeyVariable!=None else [])+
+					(self.StructuringManagerCommandKeyVariable if self.StructuringManagerCommandKeyVariable!=None else [])
+				)
+
+			#debug
+			'''
+			self.debug(
+					[
+						'We are going to make team the StructuredTeamKeyStrsList',
+						('self.',self,['StructuredTeamKeyStrsList'])
+					]
+				)
+			'''
+
+			#map
+			map(
+					lambda __StructuredTeamKeyStr:
+					self.team(__StructuredTeamKeyStr),
+					self.StructuredTeamKeyStrsList
+				)
+
+		#/##################/#
+		# we make the top parent and structure
+		#
+
+		#set
+		self.StructureTopDeriveStructurerVariable=self
+		self.parent()
+
+		#/##################/#
+		# command
+		#
+
+		#debug
+		'''
+		self.debug(
+			[
+				'Before command we set the arg'
 			]
 		)
 		'''
 
 		#set
-		self.setCommandingExtraKeyVariable()
-		self.setCommandingExtraKeyVariable('Extra')
+		self.setCommandingKeyVariable()
+		self.CommandTopDeriveCommanderRigidVariable=self
+		self.setCommandingSetVariable()
+		self.CommandingAfterWalkRigidBool=True
+		self.CommandingGetRigidBool=False
+		self.CommandingSetRigidBool=False
+		self.CommandingSetAttrOrCallRigidBool=True
+
 
 		#debug
 		'''
 		self.debug(
 			[
-				'in the end',
+				'we are going to command',
 				('self.',self,[
 					'CommandingKeyVariable',
-					'CommandingExtraKeyVariable'
+					'CommandingSetVariable'
 				])
+			]
+		)
+		'''
+
+		#command
+		self.command()
+
+		#debug
+		'''
+		self.debug(
+			[
+				'Ok we have commanded'
 			]
 		)
 		'''
@@ -411,7 +362,7 @@ class StructurerClass(BaseClass):
 				]
 			)
 			'''
-
+			
 			#set
 			setattr(
 				self,
