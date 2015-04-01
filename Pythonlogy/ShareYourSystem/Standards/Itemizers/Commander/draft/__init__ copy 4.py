@@ -50,8 +50,10 @@ class CommanderClass(BaseClass):
 				_CommandingGetRigidBool=True,	
 				_CommandingSetRigidBool=True,
 				_CommandingSetAttrOrCallRigidBool=False,
+				_CommandingExtraKeyVariable=None,
 				_CommandedValueVariablesList=None,
 				_CommandedSetVariablesList=None,
+				_CommandedExtraValueVariablesList=None,
 				**_KwargVariablesDict
 			):
 
@@ -107,11 +109,20 @@ class CommanderClass(BaseClass):
 				self
 			)
 
+			#init
+			self.CommandedExtraValueVariablesList=SYS.GetList(
+				self.CommandingExtraKeyVariable,
+				self
+			)
+
 		else:
 
 			#init
 			self.CommandedValueVariablesList=self.CommandingKeyVariable
 
+			#init
+			self.CommandedExtraValueVariablesList=self.CommandingExtraKeyVariable
+	
 		#debug
 		'''
 		self.debug(
@@ -205,7 +216,7 @@ class CommanderClass(BaseClass):
 						).setAttr(
 							'GettingNewBool',True
 						),
-					self.CommandedValueVariablesList
+					self.CommandedValueVariablesList+self.CommandedExtraValueVariablesList
 				)
 
 		#/####################/#
@@ -495,17 +506,16 @@ class CommanderClass(BaseClass):
 			'''
 
 			#debug
-			'''
 			self.debug(
 				[
 					'Ok we can command now',
 					('self.',self,[
-							'CommandedValueVariablesList'
+							'CommandedValueVariablesList',
+							'CommandedExtraValueVariablesList'
 						])
 				]
 			)
-			'''
-			
+
 			#map the recursion but pay watch to not set new things to walk in...it is an infinite walk either !
 			map(
 					lambda __CommandedValueVariable:
@@ -520,7 +530,7 @@ class CommanderClass(BaseClass):
 						'command'
 					)
 					else None,
-					self.CommandedValueVariablesList
+					self.CommandedValueVariablesList+self.CommandedExtraValueVariablesList
 				)
 
 		#/#######################/#
@@ -856,9 +866,11 @@ CommanderClass.PrintingClassSkipKeyStrsList.extend(
 		'CommandingGetRigidBool',	
 		'CommandingSetRigidBool',
 		'CommandingSetAttrOrCallRigidBool',
+		'CommandingExtraKeyVariable',
 		'CommandedValueVariablesList',
 		'CommandedSetVariablesList',
-		'CommandedLiargVariablesList'
+		'CommandedLiargVariablesList',
+		'CommandedExtraValueVariablesList'
 	]
 )
 #<DefinePrint>

@@ -132,7 +132,8 @@ class RecorderClass(BaseClass):
 				[
 					'Traces',
 					'Samples'
-				]
+				],
+				'#all'
 			)
 			
 		#Check

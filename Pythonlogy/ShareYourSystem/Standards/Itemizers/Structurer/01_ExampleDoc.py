@@ -46,9 +46,12 @@ class MultiplierClass(SYS.StructurerClass):
 
 MyMultiplier=MultiplierClass(
 	).structure(
+		#StructuringTeamerCommandKeyVariable					
 		[
 			'Models'
-		]
+		],
+		#StructuringManagerCommandKeyVariable
+		"#all"
 	)
 
 #/######################/#

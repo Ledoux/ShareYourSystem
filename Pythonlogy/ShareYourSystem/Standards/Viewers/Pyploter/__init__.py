@@ -202,7 +202,8 @@ class PyploterClass(BaseClass):
 					'Panels',
 					'Charts',
 					'Draws'
-				]
+				],
+				'#all'
 			)
 
 		#/###################/#

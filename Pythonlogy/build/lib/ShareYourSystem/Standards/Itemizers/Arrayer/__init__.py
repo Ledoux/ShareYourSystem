@@ -99,8 +99,12 @@ class ArrayerClass(BaseClass):
 				if self.ArrayingValueVariable!=None:
 
 					#Check
-					if len(self.ArrayingValueVariable)==1 and len(self.ArrayingKeyVariablesList[0])>1:
-						self.ArrayingValueVariable=self.ArrayingValueVariable[0]
+					if len(
+						self.ArrayingValueVariable
+					)==1 and len(self.ArrayingKeyVariablesList[0])>1:
+
+						#listify
+						self.ArrayingValueVariable=[self.ArrayingValueVariable]
 
 					#Check
 					if type(self.ArrayingValueVariable)!=list:

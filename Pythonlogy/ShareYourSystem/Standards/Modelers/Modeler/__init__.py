@@ -242,7 +242,8 @@ class ModelerClass(BaseClass):
 					[
 						'Components',
 						'Models'
-					]
+					],
+					'#all'
 				)
 
 				#debug
@@ -359,6 +360,7 @@ class ModelerClass(BaseClass):
 		elif self.ModeledParentSingularStr=='Model':
 
 			#debug
+			'''
 			self.debug(
 					[
 						'Model Level',
@@ -366,6 +368,7 @@ class ModelerClass(BaseClass):
 						('self.',self,['StructureTopDeriveStructurerVariable'])
 					]
 				)
+			'''
 
 			#/###############/#
 			# set the tag
@@ -426,6 +429,7 @@ class ModelerClass(BaseClass):
 	def setModel(self):
 
 		#Debug
+		'''
 		self.debug(
 				[
 					'model start',
@@ -433,6 +437,7 @@ class ModelerClass(BaseClass):
 					('self.',self,['ModeledTopControllerDeriveModelerVariable'])
 				]
 			)
+		'''
 
 		#/###################/#
 		# Determine if it is Mongo or Hdf
@@ -834,13 +839,15 @@ class ModelerClass(BaseClass):
 			#
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We setModel hdf here',
 					('self.',self,['_ModelKeyStrsList'])
 				]
 			)
-
+			'''
+			
 			#Check
 			if len(self._ModelKeyStrsList)>len(self.ModelingDescriptionTuplesList):
 

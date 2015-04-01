@@ -553,6 +553,115 @@ class BrianerClass(BaseClass):
 				else:
 					BrianedChartsDeriveTeamer=self.TeamDict['Charts']
 
+				"""
+				#Check
+				if 'Traces' in self.TeamDict:
+
+					#debug
+					'''
+					self.debug(
+						[
+							'First we add the traces'
+						]
+					)
+					'''
+
+					#set
+					map(
+						lambda __KeyStr:
+						BrianedChartsDeriveTeamer.manage(
+							__KeyStr,
+							{
+								'-Draws':
+								{
+
+								}
+							}
+						),
+						self.TeamDict['Traces'].ManagementDict.keys()
+					)
+
+					#debug
+					'''
+					self.debug(
+						[
+							'self.TeamDict["Traces"] is ',
+							str(self.TeamDict["Traces"])
+						]
+					)
+					'''
+
+				#Check
+				if 'Events' in self.TeamDict:
+
+					#debug
+					'''
+					self.debug(
+						[
+							'Then we add the events'
+						]
+					)
+					'''
+
+					#set
+					BrianedChartsDeriveTeamer.mapSet(
+						map(
+							lambda __KeyStr:
+							(
+								'|'+__KeyStr,
+								{
+									'-Draws':
+									{
+
+									}
+								}
+							),
+							self.TeamDict['Events'].ManagementDict.keys()
+						)
+					)
+
+					#debug
+					'''
+					self.debug(
+						[
+							'self.TeamDict["Events"] is ',
+							str(self.TeamDict["Events"])
+						]
+					)
+					'''
+				"""
+
+				#/################/#
+				# Make maybe brian the new traces
+				# 
+
+				#debug
+				self.debug(
+					[
+						'We make parent brian the new tracers'
+					]
+				)
+
+				#map
+				map(
+						lambda __BrianedTraceDeriveBrianer:
+						__BrianedTraceDeriveBrianer.parent(
+							).brian(
+						),
+						self.BrianedTraceDeriveBrianersList
+					)
+
+
+				#debug
+				'''
+				self.debug(
+					[
+						'Ok we know the structure ',
+						('self.',self,['BrianedNetworkVariable'])
+					]
+				)
+				'''
+
 		#debug
 		'''
 		self.debug(
@@ -830,6 +939,24 @@ class BrianerClass(BaseClass):
 				BrianedDefaultMoniter.parent(
 					).brian(
 					)
+
+			else:
+
+				#debug
+				self.debug(
+					[
+						'Just be sure to parent brian everybody'
+					]
+				)
+
+				#map
+				map(
+					lambda __DeriveBrianer:
+					__DeriveBrianer.parent(
+						).brian(
+						),
+					BrianedSamplesDeriveManager.ManagementDict.values()
+				)
 
 	def brianSample(self):
 

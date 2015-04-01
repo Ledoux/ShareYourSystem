@@ -498,11 +498,14 @@ class CommanderClass(BaseClass):
 			'''
 			self.debug(
 				[
-					'Ok we can setAttr now'
+					'Ok we can command now',
+					('self.',self,[
+							'CommandedValueVariablesList'
+						])
 				]
 			)
 			'''
-
+			
 			#map the recursion but pay watch to not set new things to walk in...it is an infinite walk either !
 			map(
 					lambda __CommandedValueVariable:
@@ -512,7 +515,10 @@ class CommanderClass(BaseClass):
 						).setAttr(
 							'GettingNewBool',True
 						)
-					if hasattr(__CommandedValueVariable,'command')
+					if hasattr(
+						__CommandedValueVariable,
+						'command'
+					)
 					else None,
 					self.CommandedValueVariablesList
 				)

@@ -98,10 +98,13 @@ class ModulerClass(SYS.StructurerClass):
 
 MyModuler=ModulerClass(
 	).structure(
+		#StructuringTeamerCommandKeyVariable					
 		[
 			'Components',
 			'Models'
-		]
+		],
+		#StructuringManagerCommandKeyVariable
+		"#all"
 	)
 
 #/######################/#

@@ -28,6 +28,12 @@ MyCommander=SYS.CommanderClass(
 		_AfterWalkRigidBool=True
 	)
 
+"""
+#print
+print('MyCommander is')
+SYS._print(MyCommander)
+"""
+
 #print
 print('MyCommander is GrabList')
 SYS._print(MyCommander.GrabList)
