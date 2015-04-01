@@ -2,6 +2,7 @@
 # Import modules
 #
 
+"""
 #ImportModules
 import ShareYourSystem as SYS
 
@@ -19,22 +20,16 @@ MyLeaker=SYS.LeakerClass(
 					'LeakingTimeVariable':'#scalar:20.*ms',
 					'-Inputs':{
 						'|Default':{
-							#'LeakingWeigthVariable':SYS.getKrenelFloatsArray()
-							#'LeakingWeigthVariable':5.
-							#'LeakingWeigthVariable':'#scalar:5.*mV'
+							'LeakingWeigthVariable':5.
 						}
 					},
 					'-Interactions':{
 						'|/':{
-							#'LeakingWeigthVariable':'#scalar:0.',
-							#'LeakingWeigthVariable':'#scalar:-0.2',
 							'LeakingWeigthVariable':[0.1,-0.2,0.5,0.8],
-							#'LeakingWeigthVariable':[[0.1,-0.2],[0.5,0.8]],
-							#'LeakingWeigthVariable':'#array',
-							'NumscipyingStdFloat':0.1,
-							#'BrianingDebugInt':50
 						}
 					},
+					#'LeakingTransferVariable':'10*atan(0.1*#CurrentStr/mV)',
+					'LeakingTransferVariable':lambda __Float:__Float, NETWORK OPERATION
 					'BrianingDebugInt':100
 				}
 			}
@@ -60,3 +55,27 @@ SYS._print(MyLeaker)
 MyLeaker['/-Populations/|Default'].pyplot()
 #print(MyLeaker['/-Populations/|Default/-Interactions/|/'].BrianedSynapsesVariable.J[:])
 SYS.matplotlib.pyplot.show()
+"""
+
+
+from brian2 import Network,NeuronGroup,ms
+
+MyNetwork=Network()
+def F(_Float):
+	return _Float
+MyNetwork.F=F
+MyNeuronGroup=NeuronGroup(
+	1,
+	'''
+		dv/dt=(-v+F(0.5*v))/(20.*ms) : volt
+	'''
+)
+
+MyNetwork.add(MyNeuronGroup)
+MyNetwork.run(100.*ms)
+
+
+
+
+
+

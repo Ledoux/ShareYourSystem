@@ -52,6 +52,7 @@ class LeakerClass(BaseClass):
 			_LeakingMonitorIndexIntsList=None,
 			_LeakingPrefixSymbolStr="",
 			_LeakingInteractionStr='Rate',
+			_LeakingTransferVariable="",
 			_LeakedModelStr="",
 			_LeakedCurrentStr="",
 			_LeakedClampStr="",
@@ -449,9 +450,70 @@ class LeakerClass(BaseClass):
 			#set the right
 			self.LeakedModelStr+='(-'+self.LeakedSymbolStr
 
+
+
+			#debug
+			'''
+			self.debug(
+				[
+					'We maybe add a current'
+				]
+			)
+			'''
+
 			#Check
 			if self.LeakedCurrentStr!="":
-				self.LeakedModelStr+='+'+self.LeakedCurrentStr
+
+				#debug
+				'''
+				self.debug(
+					[
+						'We maybe transfer'
+					]
+				)
+				'''
+
+				#Check
+				if self.LeakingTransferVariable!=None:
+
+					#Check
+					if type(self.LeakingTransferVariable)==str:
+
+						#debug
+						self.debug(
+							[
+								'It is a str transfer'
+							]
+						)
+
+						#add
+						self.LeakedModelStr+='+'+self.LeakingTransferVariable+'('+self.LeakedCurrentStr+')'
+
+					else:
+
+						#debug
+						self.debug(
+							[
+								'It is a function transfer'
+							]
+						)
+
+						#add
+						self.LeakedModelStr+='+'+'F('+self.LeakedCurrentStr+')'
+
+				else:
+
+					#add
+					self.LeakedModelStr+='+'+self.LeakedCurrentStr
+
+			#debug
+			'''
+			self.debug(
+				[
+					'We divide by the time'
+				]
+			)
+			'''	
 
 			#set
 			self.LeakedModelStr+=')'
@@ -969,10 +1031,48 @@ class LeakerClass(BaseClass):
 
 			#set
 			setattr(
-				self.BrianedNeurongroupVariable.
+				self.BrianedNeurongroupVariable,
 				self.LeakedTimeSymbolStr,
 				self.LeakingTimeVariable
 			)
+
+		#/###################/#
+		# Reference the transfer function
+		#
+
+		#debug
+		self.debug(
+			[
+				'Maybe we have to refer the transfer function'
+			]
+		)
+
+		#Check
+		if self.LeakingTransferVariable!=None:
+
+			#Check
+			if type(self.LeakingTransferVariable)==str:
+
+				#pass
+				pass
+
+			else:
+
+				#
+				#self.
+				
+				#import
+				import numpy
+
+				#set
+				setattr(
+					numpy,
+					'F',
+					self.LeakingTransferVariable
+				)
+				#self.F=self.LeakingTransferVariable
+
+				pass
 
 		#/###################/#
 		# Special input current case
@@ -1031,7 +1131,7 @@ class LeakerClass(BaseClass):
 			setattr(
 				self.LeakedParentPopulationDeriveLeakerVariable.BrianedNeurongroupVariable,
 				self.LeakedSymbolStr,
-				self.LeakingInputWeigthVariable*Variable.unit
+				self.LeakingWeigthVariable*Variable.unit
 			)
 
 		elif self.LeakedClampStr=='Equation':
@@ -1141,6 +1241,101 @@ class LeakerClass(BaseClass):
 				self.BrianedSynapsesVariable.connect(
 					True
 				)
+
+		elif self.LeakedClampStr=='Variable':
+
+			#debug
+			self.debug(
+				[
+					'We have to set the connect variable',
+					('self.',self,['LeakingWeigthVariable'])
+				]
+			)
+
+			#Check
+			if type(self.LeakingWeigthVariable)==float:
+
+				#debug
+				self.debug(
+					[
+						'It is just one value',
+						'We set in the synapses'
+					]
+				)
+
+				setattr(
+					self.BrianedSynapsesVariable,
+					self.LeakingPrefixSymbolStr,
+					self.LeakingWeigthVariable
+				)
+
+			else:
+
+				#import
+				import numpy
+
+				#Check
+				if type(self.LeakingWeigthVariable) in [list,tuple,numpy.ndarray]:
+
+					#debug
+					self.debug(
+						[
+							'It is an already defined array'
+						]
+					)
+
+					#connect
+					self.BrianedSynapsesVariable.connect(
+						True
+					)
+
+					#get and set
+					getattr(
+						self.BrianedSynapsesVariable,
+						self.LeakingPrefixSymbolStr
+					)[:]=numpy.reshape(
+						self.LeakingWeigthVariable,
+						self.BrianedSynapsesVariable.source.N*self.BrianedSynapsesVariable.target.N
+					)
+
+				else:
+
+					#debug
+					self.debug(
+						[
+							'It is an array that we have to build before'
+						]
+					)
+
+					#numscipy
+					self.NumscipyingRowsInt=self.BrianedSynapsesVariable.source.N
+					self.NumscipyingColsInt=self.BrianedSynapsesVariable.target.N
+					self.numscipy()
+
+					#debug
+					self.debug(
+						[
+							'We are going to set with',
+							('self.',self,['NumscipiedRandomFloatsArray'])
+						]
+					)
+
+					#connect
+					self.BrianedSynapsesVariable.connect(
+						True
+					)
+
+					#get and set
+					getattr(
+						self.BrianedSynapsesVariable,
+						self.LeakingPrefixSymbolStr
+					)[:]=numpy.reshape(
+						self.NumscipiedRandomFloatsArray,
+						self.NumscipyingRowsInt*self.NumscipyingColsInt
+					)
+
+
+
 
 	def mimic__print(self,**_KwargVariablesDict):
 
