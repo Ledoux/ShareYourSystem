@@ -50,9 +50,10 @@ class BrianerClass(BaseClass):
 			_BrianingMoniterTuple=None,
 			_BrianingSpikesDict=None,
 			_BrianingPyplotDict=None,
-			_BrianingTimeDimensionVariable=None,
+			_BrianingTimeUnitVariable=None,
 			_BrianingPyplotBool=True,
 			_BrianingStepTimeFloat=0.1,
+			_BrianingDebugInt=0,
 			_BrianedNetworkVariable=None,
 			_BrianedNeurongroupVariable=None,
 			_BrianedSynapsesVariable=None,
@@ -287,10 +288,10 @@ class BrianerClass(BaseClass):
 		#
 
 		#Check
-		if self.BrianingTimeDimensionVariable==None:
+		if self.BrianingTimeUnitVariable==None:
 
 			from brian2 import ms 
-			self.BrianingTimeDimensionVariable=ms
+			self.BrianingTimeUnitVariable=ms
 
 		#/####################/#
 		# init a simulation clock
@@ -359,7 +360,7 @@ class BrianerClass(BaseClass):
 
 		#init
 		self.BrianedClockVariable=Clock(
-			dt=self.BrianingStepTimeFloat*self.BrianedParentNetworkDeriveBrianerVariable.BrianingTimeDimensionVariable,
+			dt=self.BrianingStepTimeFloat*self.BrianedParentNetworkDeriveBrianerVariable.BrianingTimeUnitVariable,
 			name=self.StructureTagStr
 		)
 
@@ -464,6 +465,49 @@ class BrianerClass(BaseClass):
 				]
 			)
 			'''
+
+			#/##################/#
+			# Define a debug
+			#
+
+			#Check
+			if self.BrianingDebugInt>0:
+
+				#import
+				from brian2 import network_operation,ms
+
+				@network_operation(
+					dt=self.BrianingDebugInt*self.BrianedParentNetworkDeriveBrianerVariable.BrianingTimeUnitVariable
+				)
+				def debugNeurongroup():
+
+					#init
+					PrintStr='At time t='+str(self.BrianedNeurongroupVariable.clock.t)+', \n'
+					PrintStr+='In the NeuronGroup '+self.BrianedNeurongroupVariable.name+' : \n'
+
+					#loop
+					for __KeyStr in self.BrianedNeurongroupVariable.equations._equations.keys():
+
+						#set
+						PrintStr+=__KeyStr+" is "+str(
+							getattr(
+								self.BrianedNeurongroupVariable,
+								__KeyStr
+							)
+						)+'\n'
+
+
+					#add
+					PrintStr+='\n'
+
+					#print
+					print PrintStr
+				
+				#add
+				self.BrianedParentNetworkDeriveBrianerVariable.BrianedNetworkVariable.add(
+					debugNeurongroup
+				)
+
 
 			#/##################/#
 			# team States first all the brian variables
@@ -756,6 +800,48 @@ class BrianerClass(BaseClass):
 			self.BrianedSynapsesVariable
 		)
 
+		#/##################/#
+		# Define a debug
+		#
+
+		#Check
+		if self.BrianingDebugInt>0:
+
+			#import
+			from brian2 import network_operation,ms
+
+			@network_operation(
+				dt=self.BrianingDebugInt*self.BrianedParentNetworkDeriveBrianerVariable.BrianingTimeUnitVariable
+			)
+			def debugSynapses():
+
+				#init
+				PrintStr='At time t='+str(self.BrianedSynapsesVariable.clock.t)+', \n'
+				PrintStr+='In the Synapses '+self.BrianedSynapsesVariable.name+' : \n'
+
+				#loop
+				for __KeyStr in self.BrianedSynapsesVariable.equations._equations.keys():
+
+					#set
+					PrintStr+=__KeyStr+" is "+str(
+						getattr(
+							self.BrianedSynapsesVariable,
+							__KeyStr
+						)
+					)+'\n'
+
+
+				#add
+				PrintStr+='\n'
+
+				#print
+				print PrintStr
+			
+			#add
+			self.BrianedParentNetworkDeriveBrianerVariable.BrianedNetworkVariable.add(
+				debugSynapses
+			)
+
 	def brianTrace(self):
 
 		#debug
@@ -1023,13 +1109,13 @@ class BrianerClass(BaseClass):
 			#
 
 			#Check
-			if self.BrianedParentNeurongroupDeriveBrianerVariable.BrianingTimeDimensionVariable==None:
+			if self.BrianedParentNeurongroupDeriveBrianerVariable.BrianingTimeUnitVariable==None:
 				from brian2 import ms
-				self.BrianedParentNeurongroupDeriveBrianerVariable.BrianingTimeDimensionVariable=ms
+				self.BrianedParentNeurongroupDeriveBrianerVariable.BrianingTimeUnitVariable=ms
 
 			#set
 			XLabelStr='$t\ ('+str(
-				self.BrianedParentNeurongroupDeriveBrianerVariable.BrianingTimeDimensionVariable
+				self.BrianedParentNeurongroupDeriveBrianerVariable.BrianingTimeUnitVariable
 			)+')$'
 
 			#set
@@ -1541,7 +1627,7 @@ class BrianerClass(BaseClass):
 
 		#run with the brian method
 		self.BrianedNetworkVariable.run(
-			self.SimulatingStopTimeFloat*self.BrianingTimeDimensionVariable
+			self.SimulatingStopTimeFloat*self.BrianingTimeUnitVariable
 		)
 
 		#debug
@@ -1631,9 +1717,10 @@ BrianerClass.PrintingClassSkipKeyStrsList.extend(
 		'BrianingMoniterTuple',
 		'BrianingSpikesDict',
 		'BrianingPyplotDict',
-		'BrianingTimeDimensionVariable',
+		'BrianingTimeUnitVariable',
 		'BrianingPyplotBool',
 		'BrianingStepTimeFloat',
+		'BrianingDebugInt',
 		'BrianedNetworkVariable',
 		'BrianedNeurongroupVariable',
 		'BrianedSynapsesVariable',

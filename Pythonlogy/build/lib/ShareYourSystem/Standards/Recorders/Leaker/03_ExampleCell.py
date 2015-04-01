@@ -16,22 +16,19 @@ MyLeaker=SYS.LeakerClass(
 			'-Populations':{
 				'|Default':{
 					'LeakingUnitsInt':2,
-					'LeakingTimeVariable':'#scalar:20.*ms',
+					'LeakingTimeConstantVariable':'#scalar:20.*ms',
 					'-Inputs':{
 						'|Default':{
-							#'LeakingWeigthVariable':SYS.getKrenelFloatsArray()
-							#'LeakingWeigthVariable':5.
-							'LeakingWeigthVariable':'#scalar:5.*mV'
+							#'LeakingInputExternalVariable':SYS.getKrenelFloatsArray()
+							#'LeakingInputExternalVariable':5.
+							'LeakingInputExternalVariable':'#scalar:5.*mV'
 						}
-					},
-					'-Interactions':{
-						'|/':{
-							'LeakingWeigthVariable':'#scalar:-100.',
-							#'BrianingDebugInt':50
-						}
-					},
-					'BrianingDebugInt':10
-				}
+					}
+				},
+				#'|Population':{
+				#	'LeakingUnitsInt':3,
+				#	'LeakingTimeConstantFloat':20.
+				#}
 			}
 		}
 	).leak(
@@ -53,5 +50,4 @@ SYS._print(MyLeaker)
 #
 
 MyLeaker['/-Populations/|Default'].pyplot()
-#print(MyLeaker['/-Populations/|Default/-Interactions/|/'].BrianedSynapsesVariable.J[:])
 SYS.matplotlib.pyplot.show()

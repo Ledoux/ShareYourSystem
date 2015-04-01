@@ -57,6 +57,7 @@ class LeakerClass(BaseClass):
 			_LeakedClampStr="",
 			_LeakedSymbolStr="",
 			_LeakedTimeSymbolStr="",
+			_LeakedInteractionWeigthFloat=0.,
 			_LeakedParentSingularStr="",
 			_LeakedParentNetworkDeriveLeakerVariable=None,
 			_LeakedParentPopulationDeriveLeakerVariable=None,
@@ -708,9 +709,6 @@ class LeakerClass(BaseClass):
 		)
 		'''
 
-		#Check
-		if self.LeakingPrefixSymbolStr=="":
-			self.LeakingPrefixSymbolStr="J"
 
 		#/####################/#
 		# Determine the parent
@@ -775,21 +773,58 @@ class LeakerClass(BaseClass):
 		)
 
 		#Check
+		if self.LeakingPrefixSymbolStr=="":
+			self.LeakingPrefixSymbolStr="J"
+
+		#Check
+		if self.LeakedParentPopulationDeriveLeakerVariable.LeakingPrefixSymbolStr=="":
+			self.LeakedParentPopulationDeriveLeakerVariable.LeakingPrefixSymbolStr='U'
+			self.LeakedParentPopulationDeriveLeakerVariable.LeakedSymbolStr='U'
+
+		#init
+		self.LeakedClampStr='Variable'
+
+		#Check
 		if type(self.LeakingWeigthVariable)==str:
 
 			#Check
 			if self.LeakingWeigthVariable.startswith(LeakScalarPrefixStr):
 
+				#debug
+				self.debug(
+					[
+						'It is a scalar constant connection'
+					]
+				)
+
 				#set
 				self.LeakedClampStr='Scalar'
 
-				#set
-				self.LeakedSymbolStr=SYS.deprefix(
-					self.LeakingWeigthVariable,
-					LeakScalarPrefixStr
-				)
+		#debug
+		self.debug(
+			[
+				'We set the leakedsymbolstr',
+				('self.',self,[
+					'LeakedClampStr'
+				])
+			]
+		)
 
+		#set
+		self.LeakedSymbolStr=self.LeakingPrefixSymbolStr+self.ParentTagStr.split(
+			'Interactions'
+		)[-1].replace('/','_')+self.LeakedParentPopulationDeriveLeakerVariable.LeakedSymbolStr
 
+		#debug
+		self.debug(
+			[
+				'in the end',
+				('self.',self,[
+					'LeakedSymbolStr'
+				])
+			]
+		)
+		
 		#/####################/#
 		# build the interaction model
 		#
@@ -807,17 +842,7 @@ class LeakerClass(BaseClass):
 		#Check
 		if self.LeakingInteractionStr=='Rate':
 
-			#Check
-			if self.LeakedParentPopulationDeriveLeakerVariable.LeakingPrefixSymbolStr=="":
-				self.LeakedParentPopulationDeriveLeakerVariable.LeakingPrefixSymbolStr='U'
-				self.LeakedParentPopulationDeriveLeakerVariable.LeakedSymbolStr='U'
-
-			#set
-			self.LeakedSymbolStr=self.LeakingPrefixSymbolStr+self.ParentTagStr.split(
-				'Interactions'
-			)[-1].replace('/','_')
-			#self.LeakedSymbolStr=self.LeakingPrefixSymbolStr
-
+			
 			#debug
 			'''
 			self.debug(
@@ -832,12 +857,35 @@ class LeakerClass(BaseClass):
 			'''
 
 			#set
-			#self.LeakedModelStr+="\n"+self.LeakedSymbolStr+" : 1 \n"
-			self.LeakedModelStr+="\n"+self.LeakingPrefixSymbolStr+" : 1 \n"
-			self.LeakedModelStr+=self.LeakedSymbolStr+self.LeakedParentPopulationDeriveLeakerVariable.LeakedSymbolStr+"_post="
-			#self.LeakedModelStr+=self.LeakedSymbolStr+'*'+self.LeakedParentPopulationDeriveLeakerVariable.LeakedSymbolStr+"_pre : "
-			self.LeakedModelStr+=self.LeakingPrefixSymbolStr+'*'+self.LeakedParentPopulationDeriveLeakerVariable.LeakedSymbolStr+"_pre : "
-			self.LeakedModelStr+=self.LeakedParentPopulationDeriveLeakerVariable.LeakingDimensionStr+" (summed)\n"
+			if self.LeakedClampStr=='Scalar':
+
+				#do the operation
+				self.LeakedModelStr+=self.LeakedSymbolStr+"_post="
+
+				#deprefix
+				LeakedInteractionWeigthStr=SYS.deprefix(
+					self.LeakingWeigthVariable,
+					LeakScalarPrefixStr
+				)
+
+				#set
+				self.LeakedInteractionWeigthFloat=float(LeakedInteractionWeigthStr)
+
+				#add
+				self.LeakedModelStr+=LeakedInteractionWeigthStr+'*'+self.LeakedParentPopulationDeriveLeakerVariable.LeakedSymbolStr+"_pre : "
+				self.LeakedModelStr+=self.LeakedParentPopulationDeriveLeakerVariable.LeakingDimensionStr+" (summed)\n"
+
+			elif self.LeakedClampStr=='Variable':
+
+				#define
+				#self.LeakedModelStr+="\n"+self.LeakedSymbolStr+" : 1 \n"
+				self.LeakedModelStr+="\n"+self.LeakingPrefixSymbolStr+" : 1 \n"
+			
+				#do the operation
+				self.LeakedModelStr+=self.LeakedSymbolStr+"_post="
+				#self.LeakedModelStr+=self.LeakedSymbolStr+'*'+self.LeakedParentPopulationDeriveLeakerVariable.LeakedSymbolStr+"_pre : "
+				self.LeakedModelStr+=self.LeakingPrefixSymbolStr+'*'+self.LeakedParentPopulationDeriveLeakerVariable.LeakedSymbolStr+"_pre : "
+				self.LeakedModelStr+=self.LeakedParentPopulationDeriveLeakerVariable.LeakingDimensionStr+" (summed)\n"
 
 			#debug
 			self.debug(
@@ -852,14 +900,11 @@ class LeakerClass(BaseClass):
 				]
 			)
 
-			#set
-			LeakedInteractionActivitySymbolStr=self.LeakedSymbolStr+self.LeakedParentPopulationDeriveLeakerVariable.LeakedSymbolStr
-
 			#define in the model
-			self.LeakedParentPopulationDeriveLeakerVariable.LeakedModelStr+=LeakedInteractionActivitySymbolStr+' : '+self.LeakedParentPopulationDeriveLeakerVariable.LeakingDimensionStr+'\n'
+			self.LeakedParentPopulationDeriveLeakerVariable.LeakedModelStr+=self.LeakedSymbolStr+' : '+self.LeakedParentPopulationDeriveLeakerVariable.LeakingDimensionStr+'\n'
 
 			#add in the current
-			self.LeakedParentPopulationDeriveLeakerVariable.addCurrentStr(LeakedInteractionActivitySymbolStr)
+			self.LeakedParentPopulationDeriveLeakerVariable.addCurrentStr(self.LeakedSymbolStr)
 
 			#debug
 			self.debug(
@@ -1039,6 +1084,64 @@ class LeakerClass(BaseClass):
 		)	
 		'''
 	
+	def brianInteraction(self):
+
+		#/##################/#
+		# Call the base method
+		#
+
+		#debug
+		self.debug(
+			[
+				'We brianInteraction leak here',
+				'We call first the base method',
+			]
+		)
+
+		#call
+		BaseClass.brianInteraction(self)
+
+		#/##################/#
+		# Maybe we specify the connection
+		#
+
+		#debug
+		self.debug(
+			[
+				'We set interaction brian here',
+				('self.',self,[
+						'LeakedClampStr'
+					])
+			]
+		)
+
+		#Check
+		if self.LeakedClampStr=='Scalar':
+
+			#debug
+			self.debug(
+				[
+					'Look for a non nul connection',
+					('self.',self,['LeakedInteractionWeigthFloat'])
+				]
+			)
+
+			#Check
+			if self.LeakedInteractionWeigthFloat!=0.:
+
+				#debug
+				self.debug(
+					[
+						'It is a non nul constant connection',
+						'we connect True'
+					]
+				)
+
+				#connect
+				self.BrianedSynapsesVariable.connect(
+					True
+				)
+
 	def mimic__print(self,**_KwargVariablesDict):
 
 		#/##################/#
@@ -1164,6 +1267,8 @@ LeakerClass.PrintingClassSkipKeyStrsList.extend(
 		'LeakedSymbolStr',
 		'LeakedModelStr',
 		'LeakedCurrentStr',
+		'LeakedTimeSymbolStr',
+		'LeakedInteractionWeigthFloat',
 		'LeakedParentSingularStr',
 		'LeakedParentNetworkDeriveLeakerVariable',
 		'LeakedParentPopulationDeriveLeakerVariable',
