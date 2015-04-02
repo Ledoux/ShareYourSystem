@@ -16,6 +16,7 @@ MyLeaker=SYS.LeakerClass(
 			'LeakingUnitsInt':3,
 			#'LeakingTimeVariable':'#scalar:20.*ms',
 			#'LeakingTimeVariable':20.,
+			#'LeakingTimeVariable':20.*SYS.brian2.ms,
 			'LeakingTimeVariable':[10.,20.,10.],
 		}
 	).leak(

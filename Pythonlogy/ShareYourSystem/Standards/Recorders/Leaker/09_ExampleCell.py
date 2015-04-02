@@ -14,26 +14,21 @@ MyLeaker=SYS.LeakerClass(
 	).mapSet(
 		{
 			'-Populations':{
-				'|Default':{
-					'LeakingUnitsInt':2,
+				'|Sensor':{
+					'LeakingUnitsInt':1,
 					'-Inputs':{
 						'|Default':{
-							'LeakingWeigthVariable':'#scalar:4.*mV'
+							'LeakingWeigthVariable':5.
 						}
 					},
 					'-Interactions':{
 						'|/':{
-							#'LeakingWeigthVariable':'#scalar:0.',
-							#'LeakingWeigthVariable':'#scalar:-1.',
-							#'LeakingWeigthVariable':-1.,
-							#'LeakingWeigthVariable':[0.1,-0.2,0.5,0.8],
-							#'LeakingWeigthVariable':[[0.1,-0.2],[0.5,0.8]],
-							#'LeakingWeigthVariable':'#array',
-							#'NumscipyingStdFloat':0.1,
-							#'BrianingDebugInt':50
+							'LeakingWeigthVariable':-1.,
 						}
 					},
-					'BrianingDebugInt':100
+					'LeakingTransferVariable':'1.*mV*tanh((#CurrentStr)/(1.*mV))',
+					#'LeakingTransferVariable':lambda __Float:__Float,
+					#'BrianingDebugInt':100
 				}
 			}
 		}
@@ -41,7 +36,7 @@ MyLeaker=SYS.LeakerClass(
 	).simulate(
 		500.
 	)
-	
+
 
 #/###################/#
 # Print
@@ -58,3 +53,23 @@ SYS._print(MyLeaker)
 MyLeaker['/-Populations/|Default'].pyplot()
 #print(MyLeaker['/-Populations/|Default/-Interactions/|/'].BrianedSynapsesVariable.J[:])
 SYS.matplotlib.pyplot.show()
+
+"""
+from brian2 import Network,NeuronGroup,ms
+
+MyNetwork=Network()
+def F(_Float):
+	return _Float
+MyNetwork.F=F
+MyNeuronGroup=NeuronGroup(
+	1,
+	'''
+		dv/dt=(-v+F(0.5*v))/(20.*ms) : volt
+	'''
+)
+
+MyNetwork.add(MyNeuronGroup)
+MyNetwork.run(100.*ms)
+"""
+
+

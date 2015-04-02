@@ -18,19 +18,18 @@ MyLeaker=SYS.LeakerClass(
 					'LeakingUnitsInt':2,
 					'-Inputs':{
 						'|Default':{
-							#'LeakingWeigthVariable':SYS.getKrenelFloatsArray()
-							#'LeakingWeigthVariable':5.
-							#'LeakingWeigthVariable':'#scalar:5.*mV'
+							'LeakingWeigthVariable':'#scalar:4.*mV'
 						}
 					},
 					'-Interactions':{
 						'|/':{
 							#'LeakingWeigthVariable':'#scalar:0.',
-							#'LeakingWeigthVariable':'#scalar:-0.2',
-							'LeakingWeigthVariable':[0.1,-0.2,0.5,0.8],
+							#'LeakingWeigthVariable':'#scalar:-1.',
+							#'LeakingWeigthVariable':-1.,
+							#'LeakingWeigthVariable':[0.1,-0.2,0.5,0.8],
 							#'LeakingWeigthVariable':[[0.1,-0.2],[0.5,0.8]],
 							#'LeakingWeigthVariable':'#array',
-							'NumscipyingStdFloat':0.1,
+							#'NumscipyingStdFloat':0.1,
 							#'BrianingDebugInt':50
 						}
 					},

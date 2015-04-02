@@ -27,6 +27,10 @@ from ShareYourSystem.Standards.Recorders import Recorder
 
 #<DefineLocals>
 LeakScalarPrefixStr='#scalar:'
+LeakEquationPrefixStr='#equation:'
+LeakCustomPrefixStr='#custom:'
+LeakClockPrefixStr='#clock:'
+LeakNetworkPrefixStr='#operation:'
 #</DefineLocals>
 
 #<DefineClass>
@@ -53,12 +57,16 @@ class LeakerClass(BaseClass):
 			_LeakingSymbolPrefixStr="",
 			_LeakingInteractionStr='Rate',
 			_LeakingTransferVariable=None,
+			_LeakedRecordSkipStrsList=None,
 			_LeakedQuantityVariable=None,
 			_LeakedDimensionStr="",
 			_LeakedModelStr="",
 			_LeakedCurrentStr="",
 			_LeakedClampStr="",
 			_LeakedSymbolStr="",
+			_LeakedOperationStr="",
+			_LeakedEquationStr="",
+			_LeakedClockStr="",
 			_LeakedTimeSymbolStr="",
 			_LeakedInteractionWeigthFloat=0.,
 			_LeakedParentSingularStr="",
@@ -407,6 +415,9 @@ class LeakerClass(BaseClass):
 			#set
 			self.LeakedTimeSymbolStr="tau_"+self.LeakingSymbolPrefixStr
 
+			#append
+			self.LeakedRecordSkipStrsList.append(self.LeakedTimeSymbolStr)
+
 			#define the time constant variable
 			self.LeakedModelStr+=self.LeakedTimeSymbolStr+' : second\n'
 
@@ -450,13 +461,14 @@ class LeakerClass(BaseClass):
 		else:
 
 			#debug
-			'''
 			self.debug(
 				[
-					'Build a differential equation'
-				]
+					'Build a differential equation',
+					('self.',self,[
+							'LeakedModelStr'
+						])
+				]	
 			)
-			'''
 
 			#set the left 
 			self.LeakedModelStr+="d"+self.LeakedSymbolStr+'/dt='
@@ -548,6 +560,7 @@ class LeakerClass(BaseClass):
 
 				#add
 				self.LeakedModelStr+='/('+self.LeakedTimeSymbolStr+')'
+
 			elif self.LeakedClampStr=='Variable':
 
 				#add
@@ -689,33 +702,7 @@ class LeakerClass(BaseClass):
 		'''
 
 		#Check
-		if type(self.LeakingWeigthVariable)==float:
-
-			#set
-			self.LeakedClampStr='Variable'
-
-			#debug
-			'''
-			self.debug(
-				[
-					'It is a variable'
-				]
-			)
-			'''
-
-			#Check
-			if self.LeakedParentPopulationDeriveLeakerVariable.LeakedQuantityVariable==None:
-				self.LeakedParentPopulationDeriveLeakerVariable.setDimension()
-
-			#define in the model
-			self.LeakedParentPopulationDeriveLeakerVariable.LeakedModelStr+=self.LeakedSymbolStr+' : '+self.LeakedParentPopulationDeriveLeakerVariable.LeakedDimensionStr+"\n"
-			
-			#add in the current
-			self.LeakedParentPopulationDeriveLeakerVariable.addCurrentStr(
-				self.LeakedSymbolStr
-			)
-
-		elif type(self.LeakingWeigthVariable)==str:
+		if type(self.LeakingWeigthVariable)==str:
 
 			#Check
 			if self.LeakingWeigthVariable.startswith(LeakScalarPrefixStr):
@@ -743,42 +730,86 @@ class LeakerClass(BaseClass):
 					self.LeakedSymbolStr
 				)
 
-			else:
+			elif self.LeakingWeigthVariable.startswith(LeakEquationPrefixStr):
 
 				#set
 				self.LeakedClampStr='Equation'
 
+				#set
+				self.LeakedOperationStr=SYS.deprefix(
+					self.LeakingWeigthVariable,
+					LeakEquationPrefixStr
+				)
+
+				#setOperation
+				self.setOperation()
+
+			elif self.LeakingWeigthVariable.startswith(LeakCustomPrefixStr):
+
+				#set
+				self.LeakedClampStr='Custom'
+
+				#set
+				self.LeakedOperationStr=SYS.deprefix(
+					self.LeakingWeigthVariable,
+					LeakCustomPrefixStr
+				)
+
+				#setOperation
+				self.setOperation()
+				
+
+			"""
+			else:
+
 				#debug
+				'''
 				self.debug(
 					[
-						'It is an Explicit equations',
-						"self.LeakedParentPopulationDeriveLeakerVariable.LeakedModelStr is ",
-						self.LeakedParentPopulationDeriveLeakerVariable.LeakedModelStr
+						'It is an external array so direct add plus a (t)'
 					]
 				)
+				'''
 
 				#Check
 				if self.LeakedParentPopulationDeriveLeakerVariable.LeakedQuantityVariable==None:
 					self.LeakedParentPopulationDeriveLeakerVariable.setDimension()
 
 				#define in the model
-				self.LeakedParentPopulationDeriveLeakerVariable.LeakedModelStr+=self.LeakedSymbolStr+'='+self.LeakingInputWeigthVariable+' : '+self.LeakedParentPopulationDeriveLeakerVariable.LeakedDimensionStr+"\n"
+				self.LeakedParentPopulationDeriveLeakerVariable.LeakedModelStr+=self.LeakedSymbolStr+' : '+self.LeakedParentPopulationDeriveLeakerVariable.LeakedDimensionStr+"\n"
 				
 				#add in the current
 				self.LeakedParentPopulationDeriveLeakerVariable.addCurrentStr(
+					#self.LeakedSymbolStr+'(t)'
 					self.LeakedSymbolStr
 				)
+			"""
 
+		#Check
 		else:
 
+			#set
+			self.LeakedClampStr='Variable'
+
 			#debug
-			'''
 			self.debug(
 				[
-					'It is an external array so direct add plus a (t)'
+					'It is a variable',
+					('self.',self,[
+							'LeakedSymbolStr'
+						]),
+					'We append in the parent pop record skip',
+					'We define and add in the LeakedCurrentStr'
 				]
 			)
-			'''
+			
+			#append
+			if self.LeakedParentPopulationDeriveLeakerVariable.LeakedRecordSkipStrsList==None:
+				self.LeakedParentPopulationDeriveLeakerVariable.LeakedRecordSkipStrsList=[self.LeakedSymbolStr]
+			else:
+				self.LeakedParentPopulationDeriveLeakerVariable.LeakedRecordSkipStrsList.append(
+					self.LeakedSymbolStr
+				)
 
 			#Check
 			if self.LeakedParentPopulationDeriveLeakerVariable.LeakedQuantityVariable==None:
@@ -789,9 +820,9 @@ class LeakerClass(BaseClass):
 			
 			#add in the current
 			self.LeakedParentPopulationDeriveLeakerVariable.addCurrentStr(
-				#self.LeakedSymbolStr+'(t)'
 				self.LeakedSymbolStr
 			)
+
 
 		#debug
 		self.debug(
@@ -913,6 +944,11 @@ class LeakerClass(BaseClass):
 				#set
 				self.LeakedClampStr='Scalar'
 
+		
+		#/####################/#
+		# Write the LeakedSymbolStr
+		#
+
 		#debug
 		self.debug(
 			[
@@ -928,6 +964,34 @@ class LeakerClass(BaseClass):
 			'Interactions'
 		)[-1].replace('/','_')+self.LeakedParentPopulationDeriveLeakerVariable.LeakedSymbolStr
 
+		#Check
+		if self.LeakedClampStr=='Variable':
+
+			#debug
+			self.debug(
+				[
+					'It is a variable',
+					('self.',self,[
+							'LeakedSymbolStr'
+						]),
+					'We append in the parent pop record skip',
+				]
+			)
+
+			#append
+			if self.LeakedParentPopulationDeriveLeakerVariable.LeakedRecordSkipStrsList==None:
+				self.LeakedParentPopulationDeriveLeakerVariable.LeakedRecordSkipStrsList=[self.LeakedSymbolStr]
+			else:
+				self.LeakedParentPopulationDeriveLeakerVariable.LeakedRecordSkipStrsList.append(
+					self.LeakedSymbolStr
+				)
+
+
+
+		#Check
+		if self.LeakedParentPopulationDeriveLeakerVariable.LeakedDimensionStr=="":
+			self.LeakedParentPopulationDeriveLeakerVariable.setDimension()
+
 		#debug
 		'''
 		self.debug(
@@ -941,7 +1005,7 @@ class LeakerClass(BaseClass):
 		'''
 
 		#/####################/#
-		# build the interaction model
+		# Build the interaction model
 		#
 
 		#debug
@@ -974,6 +1038,13 @@ class LeakerClass(BaseClass):
 			#set
 			if self.LeakedClampStr=='Scalar':
 
+				#debug
+				self.debug(
+					[
+						'The interaction is a scalar, so just define the post pre relation'
+					]
+				)
+
 				#do the operation
 				self.LeakedModelStr+=self.LeakedSymbolStr+"_post="
 
@@ -988,9 +1059,16 @@ class LeakerClass(BaseClass):
 
 				#add
 				self.LeakedModelStr+=LeakedInteractionWeigthStr+'*'+self.LeakedParentPopulationDeriveLeakerVariable.LeakedSymbolStr+"_pre : "
-				self.LeakedModelStr+=self.LeakedParentPopulationDeriveLeakerVariable.LeakedDimensionStr+"\n"
+				self.LeakedModelStr+=self.LeakedParentPopulationDeriveLeakerVariable.LeakedDimensionStr+" (summed)\n"
 
 			elif self.LeakedClampStr=='Variable':
+
+				#debug
+				self.debug(
+					[
+						'The interaction is a variable, so define the variable and the post pre relation'
+					]
+				)
 
 				#define
 				#self.LeakedModelStr+="\n"+self.LeakedSymbolStr+" : 1 \n"
@@ -1000,7 +1078,7 @@ class LeakerClass(BaseClass):
 				self.LeakedModelStr+=self.LeakedSymbolStr+"_post="
 				#self.LeakedModelStr+=self.LeakedSymbolStr+'*'+self.LeakedParentPopulationDeriveLeakerVariable.LeakedSymbolStr+"_pre : "
 				self.LeakedModelStr+=self.LeakingSymbolPrefixStr+'*'+self.LeakedParentPopulationDeriveLeakerVariable.LeakedSymbolStr+"_pre : "
-				self.LeakedModelStr+=self.LeakedParentPopulationDeriveLeakerVariable.LeakedDimensionStr+"\n"
+				self.LeakedModelStr+=self.LeakedParentPopulationDeriveLeakerVariable.LeakedDimensionStr+" (summed)\n"
 
 			#debug
 			'''
@@ -1024,15 +1102,15 @@ class LeakerClass(BaseClass):
 			self.LeakedParentPopulationDeriveLeakerVariable.addCurrentStr(self.LeakedSymbolStr)
 
 			#debug
-			'''
 			self.debug(
 				[
 					'In the end',
+					'self.LeakedParentPopulationDeriveLeakerVariable.LeakedCurrentStr is ',
+					self.LeakedParentPopulationDeriveLeakerVariable.LeakedCurrentStr,
 					'self.LeakedParentPopulationDeriveLeakerVariable.LeakedModelStr is ',
 					self.LeakedParentPopulationDeriveLeakerVariable.LeakedModelStr
 				]
 			)
-			'''
 
 		#/##################/#
 		# Update in the Synapses dict
@@ -1200,43 +1278,28 @@ class LeakerClass(BaseClass):
 				('self.',self,[
 					'ManagementTagStr',
 				]),
-				'self.LeakedParentPopulationDeriveLeakerVariable.LeakedClampStr is ',
-				self.LeakedParentPopulationDeriveLeakerVariable.LeakedClampStr,
-				'self.LeakedParentPopulationDeriveLeakerVariable.LeakedTimeSymbolStr is ',
-				self.LeakedParentPopulationDeriveLeakerVariable.LeakedTimeSymbolStr
+				'self.LeakedParentPopulationDeriveLeakerVariable.LeakedRecordSkipStrsList is ',
+				self.LeakedParentPopulationDeriveLeakerVariable.LeakedRecordSkipStrsList,
 			]
 		)
 		'''
 
 		#Check
-		if self.LeakedParentPopulationDeriveLeakerVariable.LeakedClampStr=='Variable':
+		if self.ManagementTagStr.split(
+			Recorder.RecorderPrefixStr
+		)[1] in self.LeakedParentPopulationDeriveLeakerVariable.LeakedRecordSkipStrsList:
 
-			#Check
-			if self.ManagementTagStr=='*'+self.LeakedParentPopulationDeriveLeakerVariable.LeakedTimeSymbolStr:
+			#debug
+			'''
+			self.debug(
+				[
+					'We are not recording this variable'
+				]
+			)
+			'''
 
-				#debug
-				'''
-				self.debug(
-					[
-						'We are not recording the time constants'
-					]
-				)
-				'''
-
-				#set to false
-				self.BrianingRecordBool=False
-
-		#debug
-		'''
-		self.debug(
-			[
-				'In the end',
-				('self.',self,[
-						'BrianingRecordBool'
-					])
-			]
-		)	
-		'''
+			#set to false
+			self.BrianingRecordBool=False
 
 		#/#################/#
 		#  Call the base method
@@ -1287,19 +1350,20 @@ class LeakerClass(BaseClass):
 			#debug
 			self.debug(
 				[
-					'This input is time varying',
-					'self.LeakedParentPopulationDeriveLeakerVariable.BrianedNeurongroupVariable.clock.dt is ',
-					self.LeakedParentPopulationDeriveLeakerVariable.BrianedNeurongroupVariable.clock.dt,
-					('self.',self,['LeakedSymbolStr'])
+					'This input is time varying and it is an equation',
+					('self.',self,[
+						'LeakedSymbolStr'
+					])
 				]
 			)
 
+		elif self.LeakedClampStr=='TimedArray':
+
 			#init
 			self.LeakedTimedArrayVariable=TimedArray(
-				self.LeakingInputWeigthVariable,
+				self.LeakingWeigthVariable,
 				dt=self.LeakedParentPopulationDeriveLeakerVariable.BrianedNeurongroupVariable.clock.dt
 			)
-
 
 			#import sys
 			#set in the population
@@ -1318,6 +1382,91 @@ class LeakerClass(BaseClass):
 				self.LeakedSymbolStr,
 				self.LeakedTimedArrayVariable
 			)
+
+		elif self.LeakedClampStr=='Custom':
+
+			#debug
+			self.debug(
+				[
+					'We are going to do a custom operation',
+					('self.',self,[
+						'LeakedEquationStr',
+						'LeakedSymbolStr'
+					])
+				]
+			)
+
+			#Check
+			if '#SymbolStr' in self.LeakedEquationStr:
+
+				#replace
+				LeakedEquationStr=self.LeakedEquationStr.replace(
+					'#SymbolStr',
+					self.LeakedSymbolStr
+				)
+			else:
+
+				#set
+				LeakedEquationStr=self.LeakedSymbolStr+"="+self.LeakedEquationStr
+
+			#debug
+			self.debug(
+				[
+					'In the end',
+					('self.',self,[
+						'LeakedEquationStr',
+						'LeakedClockStr'
+					]),
+					'LeakedEquationStr is '+LeakedEquationStr
+				]
+			)
+
+			#Check
+			if self.LeakedClockStr=="":
+
+				#custom
+				LeakedCustomoperation=self.LeakedParentPopulationDeriveLeakerVariable.BrianedNeurongroupVariable.custom_operation(
+					LeakedEquationStr
+				)
+
+			else:
+
+				#split
+				LeakedStrsList=self.LeakedClockStr.split('*')
+
+				#import
+				import brian2
+
+				#debug
+				self.debug(
+					[
+						'LeakedStrsList is '+str(LeakedStrsList)
+					]
+				)
+
+				#custom
+				LeakedCustomoperation=self.LeakedParentPopulationDeriveLeakerVariable.BrianedNeurongroupVariable.custom_operation(
+					LeakedEquationStr,
+					dt=int(LeakedStrsList[0])*getattr(
+						brian2,
+						LeakedStrsList[1]
+					)
+				)
+
+			#add
+			self.LeakedParentNetworkDeriveLeakerVariable.BrianedNetworkVariable.add(
+				LeakedCustomoperation
+			)
+
+			#debug
+			self.debug(
+				[
+					'In the end',
+					'self.LeakedParentPopulationDeriveLeakerVariable.BrianedNeurongroupVariable is ',
+					str(self.LeakedParentPopulationDeriveLeakerVariable.BrianedNeurongroupVariable)
+				]
+			)
+
 
 
 		#debug
@@ -1407,14 +1556,35 @@ class LeakerClass(BaseClass):
 				self.debug(
 					[
 						'It is just one value',
-						'We set in the synapses'
+						'We set in the synapses if it is not null',
+						('self.',self,[
+								'LeakingWeigthVariable'
+							])
 					]
 				)
 
-				setattr(
-					self.BrianedSynapsesVariable,
-					self.LeakingSymbolPrefixStr,
-					self.LeakingWeigthVariable
+				#Check
+				if self.LeakingWeigthVariable!=0.:
+
+					#connect
+					self.BrianedSynapsesVariable.connect(
+						True
+					)
+
+					#get and set
+					getattr(
+						self.BrianedSynapsesVariable,
+						self.LeakingSymbolPrefixStr
+					)[:]=self.LeakingWeigthVariable
+					
+
+				#debug
+				self.debug(
+					[
+						'In the end ',
+						'getattr(self.BrianedSynapsesVariable,self.LeakingSymbolPrefixStr) is ',
+						str(getattr(self.BrianedSynapsesVariable,self.LeakingSymbolPrefixStr))
+					]
 				)
 
 			else:
@@ -1428,7 +1598,12 @@ class LeakerClass(BaseClass):
 					#debug
 					self.debug(
 						[
-							'It is an already defined array'
+							'It is an already defined array',
+							('self.',self,[
+									'LeakingWeigthVariable'
+								]),
+							'self.BrianedSynapsesVariable.source.N is '+str(self.BrianedSynapsesVariable.source.N),
+							'self.BrianedSynapsesVariable.target.N is '+str(self.BrianedSynapsesVariable.target.N),
 						]
 					)
 
@@ -1442,7 +1617,9 @@ class LeakerClass(BaseClass):
 						self.BrianedSynapsesVariable,
 						self.LeakingSymbolPrefixStr
 					)[:]=numpy.reshape(
-						self.LeakingWeigthVariable,
+						numpy.array(
+							self.LeakingWeigthVariable
+						),
 						self.BrianedSynapsesVariable.source.N*self.BrianedSynapsesVariable.target.N
 					)
 
@@ -1623,6 +1800,82 @@ class LeakerClass(BaseClass):
 			self.LeakedQuantityVariable.dim
 		)
 
+	def setOperation(self):
+
+		#debug
+		self.debug(
+			[
+				'We set the operation',
+				"self.LeakedParentPopulationDeriveLeakerVariable.LeakedModelStr is ",
+				self.LeakedParentPopulationDeriveLeakerVariable.LeakedModelStr,
+				('self.',self,[
+					'LeakedOperationStr'
+				])
+			]
+		)
+
+		#Check
+		if LeakClockPrefixStr in self.LeakedOperationStr:
+
+			#split
+			LeakedStrsList=self.LeakedOperationStr.split(':')
+
+			#debug
+			self.debug(
+				[
+					'There is a specification of the clock',
+					'LeakedStrsList is '+str(LeakedStrsList)
+				]
+			)
+
+			#deprefix
+			self.LeakedClockStr=LeakedStrsList[1]
+
+			#join
+			self.LeakedEquationStr=':'.join(
+				LeakedStrsList[2:]
+			)
+
+		else:
+
+			#set direct
+			self.LeakedEquationStr=self.LeakedOperationStr
+
+		#debug
+		self.debug(
+			[
+				('self.',self,[
+						'LeakedClockStr',
+						'LeakedEquationStr'
+					]
+				)
+			]
+		)
+
+		#append
+		if self.LeakedParentPopulationDeriveLeakerVariable.LeakedRecordSkipStrsList==None:
+			self.LeakedParentPopulationDeriveLeakerVariable.LeakedRecordSkipStrsList=[
+				self.LeakedSymbolStr
+			]
+		else:
+			self.LeakedParentPopulationDeriveLeakerVariable.LeakedRecordSkipStrsList.append(
+				self.LeakedSymbolStr
+			)
+
+		#Check
+		if self.LeakedParentPopulationDeriveLeakerVariable.LeakedQuantityVariable==None:
+			self.LeakedParentPopulationDeriveLeakerVariable.setDimension()
+
+		#define in the model
+		if self.LeakedClampStr=='Equation':
+			self.LeakedParentPopulationDeriveLeakerVariable.LeakedModelStr+=self.LeakedSymbolStr+'='+self.LeakedEquationStr+' : '+self.LeakedParentPopulationDeriveLeakerVariable.LeakedDimensionStr+"\n"
+		elif self.LeakedClampStr=='Custom':
+			self.LeakedParentPopulationDeriveLeakerVariable.LeakedModelStr+=self.LeakedSymbolStr+' : '+self.LeakedParentPopulationDeriveLeakerVariable.LeakedDimensionStr+"\n"
+
+		#add in the current
+		self.LeakedParentPopulationDeriveLeakerVariable.addCurrentStr(
+			self.LeakedSymbolStr
+		)
 
 #</DefineClass>
 
@@ -1639,10 +1892,14 @@ LeakerClass.PrintingClassSkipKeyStrsList.extend(
 		'LeakingSymbolPrefixStr',
 		'LeakingWeigthVariable',
 		'LeakingTransferVariable',
+		'LeakedRecordSkipStrsList',
 		'LeakedQuantityVariable',
 		'LeakedDimensionStr',
 		'LeakedClampStr',
 		'LeakedSymbolStr',
+		'LeakedOperationStr',
+		'LeakedEquationStr',
+		'LeakedClockStr',
 		'LeakedModelStr',
 		'LeakedCurrentStr',
 		'LeakedTimeSymbolStr',

@@ -15,19 +15,18 @@ MyLeaker=SYS.LeakerClass(
 		{
 			'-Populations':{
 				'|Default':{
-					'LeakingUnitsInt':2,
-					'LeakingTimeVariable':'#scalar:20.*ms',
+					'LeakingUnitsInt':1,
 					'-Inputs':{
 						'|Default':{
-							'LeakingWeigthVariable':0.
+							'LeakingWeigthVariable':5.
 						}
 					},
 					'-Interactions':{
 						'|/':{
-							'LeakingWeigthVariable':[0.1,-0.2,0.5,0.8],
+							'LeakingWeigthVariable':-1.,
 						}
 					},
-					#'LeakingTransferVariable':'1.*mV*tanh((#CurrentStr)/(1.*mV))',
+					'LeakingTransferVariable':'1.*mV*tanh((#CurrentStr)/(1.*mV))',
 					#'LeakingTransferVariable':lambda __Float:__Float,
 					#'BrianingDebugInt':100
 				}

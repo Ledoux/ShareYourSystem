@@ -359,7 +359,7 @@ class BrianerClass(BaseClass):
 		#init
 		self.BrianedClockVariable=Clock(
 			dt=self.BrianingStepTimeFloat*self.BrianedParentNetworkDeriveBrianerVariable.BrianedTimeQuantityVariable,
-			name=self.StructureTagStr
+			#name=self.StructureTagStr
 		)
 
 		#debug
@@ -444,7 +444,7 @@ class BrianerClass(BaseClass):
 				**dict(
 					self.BrianingNeurongroupDict,
 					**{
-						'name':self.ParentedTotalPathStr.replace('/','_')+'_'+self.ManagementTagStr,
+						#'name':self.ParentedTotalPathStr.replace('/','_')+'_'+self.ManagementTagStr,
 						#'clock':self.BrianedParentNetworkDeriveBrianerVariable.TeamDict[
 						#	'Clocks'
 						#].ManagementDict['Simulation'].BrianedClockVariable
@@ -759,7 +759,7 @@ class BrianerClass(BaseClass):
 		self.BrianedSynapsesVariable=Synapses(
 			source=self.BrianedParentNeurongroupDeriveBrianerVariable.BrianedNeurongroupVariable,
 			target=self.ConnectedToVariable.BrianedNeurongroupVariable,
-			name=BrianedNameStr.replace('/','_'),
+			#name=BrianedNameStr.replace('/','_'),
 			**self.BrianingSynapsesDict
 		)
 
@@ -1723,6 +1723,7 @@ BrianerClass.PrintingClassSkipKeyStrsList.extend(
 		'BrianingPyplotBool',
 		'BrianingStepTimeFloat',
 		'BrianingDebugInt',
+		'BrianingRecordBool',
 		'BrianedTimeQuantityVariable',
 		'BrianedNetworkVariable',
 		'BrianedNeurongroupVariable',

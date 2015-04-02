@@ -34,16 +34,16 @@ Printer=BaseModule
 #</ImportSpecificModules>
 
 #<DefineLocals>
-DebuggingStartStr='\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n'
-DebuggingEndStr='\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n'
-DebuggingElementStr='    '
-DebuggingIsStr=' is '
-DebuggingHeadPrefixStr='////////////////////////////////\n'
-DebuggingHeadSuffixStr='\n////////////////////////////////\n\n'
-DebuggingWhoStr='\n*****\n'
-#</DefineLocals>
+if hasattr(SYS,'DebugPrintBool')==False:
+	SYS.DebugPrintBool=True
+DebugStartStr='\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n'
+DebugEndStr='\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n'
+DebugElementStr='    '
+DebugIsStr=' is '
+DebugHeadPrefixStr='////////////////////////////////\n'
+DebugHeadSuffixStr='\n////////////////////////////////\n\n'
+DebugWhoStr='\n*****\n'
 
-#<DefineFunctions>
 def getDebuggedListWithFrame(_Frame):
 
 	#Definition the FilePathStr
@@ -107,7 +107,7 @@ def getDebuggedStrWithPrintVariable(_PrintVariable):
 
 		#return
 		return str(_PrintVariable)
-#</DefineFunctions>
+#</DefineLocals>
 
 #<DefineClass>
 @DecorationClass()
@@ -181,7 +181,7 @@ class DebuggerClass(BaseClass):
 				DebuggedCurrentFrame=DebuggedCurrentFrame.f_back
 
 			#Init the DebuggedStr
-			DebuggedStr=DebuggingStartStr
+			DebuggedStr=DebugStartStr
 
 			#Append maybe for the first time
 			DebuggedDecorationBool=False
@@ -244,16 +244,16 @@ class DebuggerClass(BaseClass):
 				if self.DebuggingFrameBool:
 
 					#Add the name of the function or method
-					DebuggedStr+=DebuggingHeadPrefixStr+" ".join(
+					DebuggedStr+=DebugHeadPrefixStr+" ".join(
 								[
 									'/'.join(DebuggedCurrentFrame.f_code.co_filename.split('/')[-2:]),
 									DebuggedCurrentFrame.f_code.co_name
 								]
-								)+DebuggedBackFrameStr+DebuggingHeadSuffixStr
+								)+DebuggedBackFrameStr+DebugHeadSuffixStr
 
 			#Update the RepresentingDict
 			Printer.PrintAlineaStr=''.join(
-				[DebuggingElementStr]*(len(self.DebuggedFramesList)-1))
+				[DebugElementStr]*(len(self.DebuggedFramesList)-1))
 
 			#debug
 			'''
@@ -267,7 +267,9 @@ class DebuggerClass(BaseClass):
 
 			#Add some features to identify the instance
 			if self.DebuggingIdentityBool:
-				DebuggedStr+=DebuggingWhoStr+'I am with '+str(
+
+				#add
+				DebuggedStr+=DebugWhoStr+'I am with '+str(
 					SYS._filter(
 								lambda __ItemTuple:
 								__ItemTuple[0].endswith('TagStr'),
@@ -275,17 +277,20 @@ class DebuggerClass(BaseClass):
 								#			+self.__class__.DefaultSpecificKeyStrsList,
 								self.__dict__.items()
 							)
-					)+", "+str(self.PrintIdInt)+" "+DebuggingWhoStr
+					)+", "+str(self.PrintIdInt)+" "+DebugWhoStr
 
 			#Add the DebuggedStr from the debugging variable
 			DebuggedStr+=getDebuggedStrWithPrintVariable(
 				self.DebuggingPrintStr)
 
 			#add the end
-			DebuggedStr+=DebuggingEndStr
+			DebuggedStr+=DebugEndStr
 				
 			#Print
-			self._print(
+			if SYS.DebugPrintBool:
+
+				#_print
+				self._print(
 							str(DebuggedStr)+Printer.PrintAlineaStr,
 							**{
 								#'RepresentedDeepInt':1
