@@ -48,11 +48,13 @@ class LeakerClass(BaseClass):
 			_LeakingUnitsInt=0,
 			_LeakingTimeVariable=0.,
 			_LeakingWeigthVariable=None,
-			_LeakingDimensionStr='volt',
+			_LeakingQuantityStr='mV',
 			_LeakingMonitorIndexIntsList=None,
 			_LeakingPrefixSymbolStr="",
 			_LeakingInteractionStr='Rate',
 			_LeakingTransferVariable="",
+			_LeakedQuantityVariable=None,
+			_LeakedDimensionStr="",
 			_LeakedModelStr="",
 			_LeakedCurrentStr="",
 			_LeakedClampStr="",
@@ -337,8 +339,22 @@ class LeakerClass(BaseClass):
 		self.LeakedSymbolStr=self.LeakingPrefixSymbolStr
 
 		#Check
-		if self.LeakingDimensionStr=="":
-			self.LeakingDimensionStr='volt'
+		if self.LeakedQuantityVariable==None:
+			self.setDimension()
+
+		#debug
+		self.debug(
+			[
+				'We leak population here',
+				('self.',self,[
+					'LeakingQuantityStr',
+					'LeakedQuantityVariable',
+					'LeakedDimensionStr'
+				])
+			]
+		)
+
+
 
 		#/################/#
 		# Look for the time constant
@@ -431,9 +447,7 @@ class LeakerClass(BaseClass):
 			'''
 
 			#set the left 
-			self.LeakedModelStr+=self.LeakingSymbolStr+' : '+self.LeakingDimensionStr
-
-		else:
+			self.LeakedModelStr+=self.LeakingSymbolStr+' : '+self.LeakedDimensionStr+"\n"
 
 			#debug
 			'''
@@ -477,17 +491,26 @@ class LeakerClass(BaseClass):
 				if self.LeakingTransferVariable!=None:
 
 					#Check
-					if type(self.LeakingTransferVariable)==str:
+					if type(
+						self.LeakingTransferVariable
+					)==str:
 
 						#debug
 						self.debug(
 							[
-								'It is a str transfer'
+								'It is a str transfer',
+								'We put it in themodel and replace the #CurrentStr by self.LeakedCurrentStr',
+								('self.',self,[
+									'LeakedCurrentStr'
+								])
 							]
 						)
 
 						#add
-						self.LeakedModelStr+='+'+self.LeakingTransferVariable+'('+self.LeakedCurrentStr+')'
+						self.LeakedModelStr+='+'+self.LeakingTransferVariable.replace(
+								'#CurrentStr',
+								self.LeakedCurrentStr
+							)
 
 					else:
 
@@ -525,9 +548,8 @@ class LeakerClass(BaseClass):
 				self.LeakedModelStr+='/('+self.LeakedTimeSymbolStr+'*'+self.LeakingTimeUnitStr+')'
 
 			#set the dimension
-			self.LeakedModelStr+=' : '+self.LeakingDimensionStr
+			self.LeakedModelStr+=' : '+self.LeakedDimensionStr+"\n"
 
-		#debug
 		'''
 		self.debug(
 			[
@@ -666,9 +688,13 @@ class LeakerClass(BaseClass):
 			)
 			'''
 
-			#define in the model
-			self.LeakedParentPopulationDeriveLeakerVariable.LeakedModelStr+=self.LeakedSymbolStr+' : '+self.LeakedParentPopulationDeriveLeakerVariable.LeakingDimensionStr+'\n'
+			#Check
+			if self.LeakedParentPopulationDeriveLeakerVariable.LeakedQuantityVariable==None:
+				self.LeakedParentPopulationDeriveLeakerVariable.setDimension()
 
+			#define in the model
+			self.LeakedParentPopulationDeriveLeakerVariable.LeakedModelStr+=self.LeakedSymbolStr+' : '+self.LeakedParentPopulationDeriveLeakerVariable.LeakedDimensionStr+"\n"
+			
 			#add in the current
 			self.LeakedParentPopulationDeriveLeakerVariable.addCurrentStr(
 				self.LeakedSymbolStr
@@ -716,9 +742,13 @@ class LeakerClass(BaseClass):
 					]
 				)
 
-				#define in the model
-				self.LeakedParentPopulationDeriveLeakerVariable.LeakedModelStr+=self.LeakedSymbolStr+'='+self.LeakingInputWeigthVariable+' : '+self.LeakedParentPopulationDeriveLeakerVariable.LeakingDimensionStr+'\n'
+				#Check
+				if self.LeakedParentPopulationDeriveLeakerVariable.LeakedQuantityVariable==None:
+					self.LeakedParentPopulationDeriveLeakerVariable.setDimension()
 
+				#define in the model
+				self.LeakedParentPopulationDeriveLeakerVariable.LeakedModelStr+=self.LeakedSymbolStr+'='+self.LeakingInputWeigthVariable+' : '+self.LeakedParentPopulationDeriveLeakerVariable.LeakedDimensionStr+"\n"
+				
 				#add in the current
 				self.LeakedParentPopulationDeriveLeakerVariable.addCurrentStr(
 					self.LeakedSymbolStr
@@ -735,9 +765,13 @@ class LeakerClass(BaseClass):
 			)
 			'''
 
-			#define in the model
-			self.LeakedParentPopulationDeriveLeakerVariable.LeakedModelStr+=self.LeakedSymbolStr+' : '+self.LeakedParentPopulationDeriveLeakerVariable.LeakingDimensionStr+'\n'
+			#Check
+			if self.LeakedParentPopulationDeriveLeakerVariable.LeakedQuantityVariable==None:
+				self.LeakedParentPopulationDeriveLeakerVariable.setDimension()
 
+			#define in the model
+			self.LeakedParentPopulationDeriveLeakerVariable.LeakedModelStr+=self.LeakedSymbolStr+' : '+self.LeakedParentPopulationDeriveLeakerVariable.LeakedDimensionStr+"\n"
+			
 			#add in the current
 			self.LeakedParentPopulationDeriveLeakerVariable.addCurrentStr(
 				#self.LeakedSymbolStr+'(t)'
@@ -935,7 +969,7 @@ class LeakerClass(BaseClass):
 
 				#add
 				self.LeakedModelStr+=LeakedInteractionWeigthStr+'*'+self.LeakedParentPopulationDeriveLeakerVariable.LeakedSymbolStr+"_pre : "
-				self.LeakedModelStr+=self.LeakedParentPopulationDeriveLeakerVariable.LeakingDimensionStr+" (summed)\n"
+				self.LeakedModelStr+=self.LeakedParentPopulationDeriveLeakerVariable.LeakedDimensionStr+"\n"
 
 			elif self.LeakedClampStr=='Variable':
 
@@ -947,7 +981,7 @@ class LeakerClass(BaseClass):
 				self.LeakedModelStr+=self.LeakedSymbolStr+"_post="
 				#self.LeakedModelStr+=self.LeakedSymbolStr+'*'+self.LeakedParentPopulationDeriveLeakerVariable.LeakedSymbolStr+"_pre : "
 				self.LeakedModelStr+=self.LeakingPrefixSymbolStr+'*'+self.LeakedParentPopulationDeriveLeakerVariable.LeakedSymbolStr+"_pre : "
-				self.LeakedModelStr+=self.LeakedParentPopulationDeriveLeakerVariable.LeakingDimensionStr+" (summed)\n"
+				self.LeakedModelStr+=self.LeakedParentPopulationDeriveLeakerVariable.LeakedDimensionStr+"\n"
 
 			#debug
 			self.debug(
@@ -963,8 +997,8 @@ class LeakerClass(BaseClass):
 			)
 
 			#define in the model
-			self.LeakedParentPopulationDeriveLeakerVariable.LeakedModelStr+=self.LeakedSymbolStr+' : '+self.LeakedParentPopulationDeriveLeakerVariable.LeakingDimensionStr+'\n'
-
+			self.LeakedParentPopulationDeriveLeakerVariable.LeakedModelStr+=self.LeakedSymbolStr+' : '+self.LeakedParentPopulationDeriveLeakerVariable.LeakedDimensionStr+"\n"
+			
 			#add in the current
 			self.LeakedParentPopulationDeriveLeakerVariable.addCurrentStr(self.LeakedSymbolStr)
 
@@ -1444,6 +1478,38 @@ class LeakerClass(BaseClass):
 		#leak
 		self.leak()
 
+	def setDimension(self):
+
+		#import 
+		import brian2
+
+		#get
+		self.LeakedQuantityVariable=getattr(
+			brian2,
+			self.LeakingQuantityStr
+		)
+
+		#repr
+		LeakedQuantityReprStr=repr(self.LeakedQuantityVariable)
+
+		#loop
+		for __DimensionStr in ['volt']:
+
+			#Check
+			if LeakedQuantityReprStr.endswith(__DimensionStr):
+				
+				#set
+				self.LeakedDimensionStr=__DimensionStr
+
+				#return
+				return
+
+		#str
+		self.LeakedDimensionStr=repr(
+			self.LeakedQuantityVariable.dim
+		)
+
+
 #</DefineClass>
 
 #</DefinePrint>
@@ -1452,12 +1518,15 @@ LeakerClass.PrintingClassSkipKeyStrsList.extend(
 		'LeakingUnitsInt',
 		'LeakingSymbolStr',
 		'LeakingTimeVariable',
-		'LeakingDimensionStr',
+		'LeakingQuantityStr',
 		'LeakingMonitorIndexIntsList',
 		'LeakingTimeUnitStr',
 		'LeakingInteractionStr',
 		'LeakingPrefixSymbolStr',
 		'LeakingWeigthVariable',
+		'LeakingTransferVariable',
+		'LeakedQuantityVariable',
+		'LeakedDimensionStr',
 		'LeakedClampStr',
 		'LeakedSymbolStr',
 		'LeakedModelStr',

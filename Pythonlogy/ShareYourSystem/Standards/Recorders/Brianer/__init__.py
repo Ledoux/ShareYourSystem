@@ -50,10 +50,11 @@ class BrianerClass(BaseClass):
 			_BrianingMoniterTuple=None,
 			_BrianingSpikesDict=None,
 			_BrianingPyplotDict=None,
-			_BrianingTimeUnitVariable=None,
+			_BrianingTimeQuantityStr='ms',
 			_BrianingPyplotBool=True,
 			_BrianingStepTimeFloat=0.1,
 			_BrianingDebugInt=0,
+			_BrianedTimeQuantityVariable=None,
 			_BrianedNetworkVariable=None,
 			_BrianedNeurongroupVariable=None,
 			_BrianedSynapsesVariable=None,
@@ -278,20 +279,16 @@ class BrianerClass(BaseClass):
 		#
 
 		#maybe should import
-		from brian2 import Network
+		import brian2
 
 		#set
-		self.BrianedNetworkVariable=Network()
+		self.BrianedNetworkVariable=brian2.Network()
 
-		#/####################/#
-		# adapt dimension time
-		#
-
-		#Check
-		if self.BrianingTimeUnitVariable==None:
-
-			from brian2 import ms 
-			self.BrianingTimeUnitVariable=ms
+		#get
+		self.BrianedTimeQuantityVariable=getattr(
+			brian2,
+			self.BrianingTimeQuantityStr
+		)
 
 		#/####################/#
 		# init a simulation clock
@@ -360,7 +357,7 @@ class BrianerClass(BaseClass):
 
 		#init
 		self.BrianedClockVariable=Clock(
-			dt=self.BrianingStepTimeFloat*self.BrianedParentNetworkDeriveBrianerVariable.BrianingTimeUnitVariable,
+			dt=self.BrianingStepTimeFloat*self.BrianedParentNetworkDeriveBrianerVariable.BrianedTimeQuantityVariable,
 			name=self.StructureTagStr
 		)
 
@@ -477,7 +474,7 @@ class BrianerClass(BaseClass):
 				from brian2 import network_operation,ms
 
 				@network_operation(
-					dt=self.BrianingDebugInt*self.BrianedParentNetworkDeriveBrianerVariable.BrianingTimeUnitVariable
+					dt=self.BrianingDebugInt*self.BrianedParentNetworkDeriveBrianerVariable.BrianedTimeQuantityVariable
 				)
 				def debugNeurongroup():
 
@@ -811,7 +808,7 @@ class BrianerClass(BaseClass):
 			from brian2 import network_operation,ms
 
 			@network_operation(
-				dt=self.BrianingDebugInt*self.BrianedParentNetworkDeriveBrianerVariable.BrianingTimeUnitVariable
+				dt=self.BrianingDebugInt*self.BrianedParentNetworkDeriveBrianerVariable.BrianedTimeQuantityVariable
 			)
 			def debugSynapses():
 
@@ -1108,14 +1105,9 @@ class BrianerClass(BaseClass):
 			# maybe set the X Chart also
 			#
 
-			#Check
-			if self.BrianedParentNeurongroupDeriveBrianerVariable.BrianingTimeUnitVariable==None:
-				from brian2 import ms
-				self.BrianedParentNeurongroupDeriveBrianerVariable.BrianingTimeUnitVariable=ms
-
 			#set
 			XLabelStr='$t\ ('+str(
-				self.BrianedParentNeurongroupDeriveBrianerVariable.BrianingTimeUnitVariable
+				self.BrianedParentNeurongroupDeriveBrianerVariable.BrianingTimeQuantityStr
 			)+')$'
 
 			#set
@@ -1627,7 +1619,7 @@ class BrianerClass(BaseClass):
 
 		#run with the brian method
 		self.BrianedNetworkVariable.run(
-			self.SimulatingStopTimeFloat*self.BrianingTimeUnitVariable
+			self.SimulatingStopTimeFloat*self.BrianedTimeQuantityVariable
 		)
 
 		#debug
@@ -1717,10 +1709,11 @@ BrianerClass.PrintingClassSkipKeyStrsList.extend(
 		'BrianingMoniterTuple',
 		'BrianingSpikesDict',
 		'BrianingPyplotDict',
-		'BrianingTimeUnitVariable',
+		'BrianingTimeQuantityStr',
 		'BrianingPyplotBool',
 		'BrianingStepTimeFloat',
 		'BrianingDebugInt',
+		'BrianedTimeQuantityVariable',
 		'BrianedNetworkVariable',
 		'BrianedNeurongroupVariable',
 		'BrianedSynapsesVariable',
