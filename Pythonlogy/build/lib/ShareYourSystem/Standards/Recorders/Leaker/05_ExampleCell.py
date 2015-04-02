@@ -16,7 +16,6 @@ MyLeaker=SYS.LeakerClass(
 			'-Populations':{
 				'|Default':{
 					'LeakingUnitsInt':2,
-					'LeakingTimeVariable':'#scalar:20.*ms',
 					'-Inputs':{
 						'|Default':{
 							#'LeakingWeigthVariable':SYS.getKrenelFloatsArray()

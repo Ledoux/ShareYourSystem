@@ -52,6 +52,9 @@ SYS._print(MyBrianer)
 # Do one simulation
 #
 
+print(MyBrianer.BrianedNeurongroupVariable.v)
+
+"""
 MyBrianer.simulate(
 		500.
 	)
@@ -64,4 +67,4 @@ MyBrianer['/-Traces/|*v/-Samples/|Default'].pyplot()
 #MyBrianer['/-Events/|Default'].pyplot()
 #MyBrianer.pyplot()
 SYS.matplotlib.pyplot.show()
-
+"""

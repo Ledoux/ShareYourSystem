@@ -54,6 +54,7 @@ class BrianerClass(BaseClass):
 			_BrianingPyplotBool=True,
 			_BrianingStepTimeFloat=0.1,
 			_BrianingDebugInt=0,
+			_BrianingRecordBool=True,
 			_BrianedTimeQuantityVariable=None,
 			_BrianedNetworkVariable=None,
 			_BrianedNeurongroupVariable=None,
@@ -588,7 +589,6 @@ class BrianerClass(BaseClass):
 					self.BrianedNeurongroupVariable
 				)
 
-
 				#/####################/#
 				# maybe pyplot a draw plot
 				#
@@ -858,8 +858,18 @@ class BrianerClass(BaseClass):
 		# we record
 		#
 
-		#record
-		self.record()
+		#Check
+		if self.BrianingRecordBool:
+
+			#debug
+			self.debug(
+				[
+					'We record here'
+				]
+			)
+
+			#record
+			self.record()
 
 		#/####################/#
 		# Set the parent
@@ -937,16 +947,16 @@ class BrianerClass(BaseClass):
 				'''
 
 				#manage
-				BrianedDefaultMoniter=BrianedSamplesDeriveManager.manage(
+				BrianedDefaultBrianer=BrianedSamplesDeriveManager.manage(
 					'Default',
 				).ManagedValueVariable
 
 				#set the monitor
-				BrianedDefaultMoniter.MoniteringLabelIndexIntsArray=[0] if self.BrianedParentNeurongroupDeriveBrianerVariable.BrianingNeurongroupDict[
+				BrianedDefaultBrianer.MoniteringLabelIndexIntsArray=[0] if self.BrianedParentNeurongroupDeriveBrianerVariable.BrianingNeurongroupDict[
 				'N']>0 else []
 
 				#brian
-				BrianedDefaultMoniter.parent(
+				BrianedDefaultBrianer.parent(
 					).brian(
 					)
 

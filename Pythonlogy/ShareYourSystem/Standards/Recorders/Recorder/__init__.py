@@ -108,7 +108,9 @@ class RecorderClass(BaseClass):
 
 		#Check
 		if self.ParentDeriveTeamerVariable==None or 'Traces' in self.TeamDict or self.ParentDeriveTeamerVariable.TeamTagStr not in [
-			'Traces','Samples']:
+			'Traces',
+			'Samples'
+		]:
 
 			#/###################/#
 			# Recorder level
@@ -124,16 +126,14 @@ class RecorderClass(BaseClass):
 			)
 			'''
 
-			#add
-			self.StructuringManagerCommandSetList=['record']
-
 			#structure
 			self.structure(
 				[
 					'Traces',
 					'Samples'
 				],
-				'#all'
+				'#all',
+				_ManagerCommandSetList=['record']
 			)
 			
 		#Check
@@ -243,74 +243,8 @@ class RecorderClass(BaseClass):
 				)
 				'''
 
-		else:
-
-			#/###################/#
-			# Samples level
-			#
-
-			#debug
-			self.debug(
-					[
-						'This is the Samples level',
-					]
-				)
-
-	"""
-	def propertize_setWatchAfterParentWithParenterBool(self,_SettingValueVariable):
-
-		#/##################/#
-		# Maybe record
-		#
-
-		#debug
-		'''
-		self.debug(
-			[
-				'We are going to parent but before',
-				('self.',self,['StructuringDoStr']),
-				'self.StructuringTopDeriveStructurerVariable!=self is ',
-				str(self.StructuringTopDeriveStructurerVariable!=self)
-			]
-		)
-		'''
-
-		#Check
-		if self.StructuringDoStr=='Record' and self.StructuringTopDeriveStructurerVariable!=self:
-
-			#record
-			self.record()
-
-		#/##################/#
-		# Base the base method
-		#
-
-		#debug
-		'''
-		self.debug(
-			[
-				'Now we call the base setParent method'
-			]
-		)
-		'''
-
-		#call the base method
-		BaseClass.propertize_setWatchAfterParentWithParenterBool(
-			self,
-			_SettingValueVariable
-		)
-	"""
-
 	
 #</DefineClass>
-
-#<DefineLocals>
-	[
-		('Trace','Traces'),
-		('Event','Events'),
-		('Sample','Samples')
-	]
-#</DefineLocals>
 
 #</DefinePrint>
 RecorderClass.PrintingClassSkipKeyStrsList.extend(
