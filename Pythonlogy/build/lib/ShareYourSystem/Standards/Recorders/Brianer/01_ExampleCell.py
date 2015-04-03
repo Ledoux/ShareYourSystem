@@ -2,6 +2,7 @@
 # Import modules
 #
 
+
 #ImportModules
 import ShareYourSystem as SYS
 
@@ -27,7 +28,9 @@ MyBrianer=SYS.BrianerClass(
 					'NumscipyingStdFloat':0.001,
 					'-Samples':{
 						'|Default':{
-							'MoniteringLabelIndexIntsArray':[0,1]						
+							'RecordingLabelVariable':[0,1],
+							#'ViewingXScaleFloat':1000.,
+							#'ViewingYScaleFloat':1.						
 						}
 					}
 				}
@@ -41,20 +44,9 @@ MyBrianer=SYS.BrianerClass(
 	)
 	
 #/###################/#
-# Print
-#
-
-#Definition the AttestedStr
-print('MyBrianer is ')
-SYS._print(MyBrianer) 
-
-#/###################/#
 # Do one simulation
 #
 
-print(MyBrianer.BrianedNeurongroupVariable.v)
-
-"""
 MyBrianer.simulate(
 		500.
 	)
@@ -63,8 +55,41 @@ MyBrianer.simulate(
 # View
 #
 
-MyBrianer['/-Traces/|*v/-Samples/|Default'].pyplot()
+MyBrianer['/-Traces/|*v/-Samples/|Default'].view(
+	).pyplot(
+	)
 #MyBrianer['/-Events/|Default'].pyplot()
 #MyBrianer.pyplot()
 SYS.matplotlib.pyplot.show()
+
+#/###################/#
+# Print
+#
+
+#Definition the AttestedStr
+print('MyBrianer is ')
+SYS._print(MyBrianer) 
+
 """
+import brian2
+from brian2 import *
+
+G=NeuronGroup(1,'''v:volt''')
+M=StateMonitor(G,'v',[0])
+G.v=1.*mV
+N=Network()
+N.add(G)
+N.add(M)
+N.run(10.*ms)
+#print(G.v.__dict__)
+#print(0.001*G.v.unit)
+print(dir(M.v))
+print(str(M.v))
+print(M.v.__array__())
+print(getattr(brian2,str(M.v).split(' ')[-1]))
+print(M.v/getattr(brian2,str(M.v).split(' ')[-1]))
+#from matplotlib import pyplot
+#pyplot.plot(M.v.__array__)
+#pyplot.show()
+"""
+

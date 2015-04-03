@@ -1356,17 +1356,79 @@ class BrianerClass(BaseClass):
 		#
 
 		#scale
-		#self.ViewingXVariable=self.BrianedStateMonitorVariable.t[:]
-		self.ViewingXVariable=self.BrianedStateMonitorVariable.t/(
-			#(1./self.ViewingXScaleFloat)
-			self.BrianedStateMonitorVariable.t.unit
-		)
+		self.ViewingXVariable=self.BrianedStateMonitorVariable.t[:]
 
 		#set
 		self.ViewingXLabelStr='$t\ ('+str(
 			(1./self.ViewingXScaleFloat)*self.BrianedStateMonitorVariable.t.unit
 		).split('.')[-1]+')$'
 	
+		"""
+		#set
+		SampleTagStr=self.BrianedParentPopulationDeriveBrianerVariable.BrianedNeurongroupVariable.name+'t'
+
+		#join
+		XlimLiargStr="".join([
+						">>SYS.set(SYS,'"+SampleTagStr+"LimFloatsArray',",
+						"[SYS.IdDict[#IdStr].ViewingXVariable.min(),",
+						"SYS.IdDict[#IdStr].ViewingXVariable.max()]",
+						').'+SampleTagStr+"LimFloatsArray"
+						])
+
+		#join
+		XticksLiargStr="".join([
+						">>SYS.set(SYS,'"+SampleTagStr+"TickFloatsArray',",
+						"map(lambda __Float:float('%.2f'%__Float),",
+						"SYS.getTickFloatsArray(",
+						'SYS.'+SampleTagStr+"LimFloatsArray,3",
+						")))."+SampleTagStr+"TickFloatsArray"
+						])
+
+		XtickLabelLiargStr="".join([
+						">>SYS.set(SYS,'"+SampleTagStr+"TickStrsArray',",
+						"map(lambda __Float:'$'+str(__Float)+'$',",
+						"SYS."+SampleTagStr+"TickFloatsArray))."+SampleTagStr+"TickStrsArray"
+						])
+				
+		#debug
+		'''
+		self.debug(
+			[
+				'Xself.ViewedLabelStr is ',
+				Xself.ViewedLabelStr,
+				'XlimLiargStr is',
+				XlimLiargStr,
+				'XticksLiargStr is ',
+				XticksLiargStr,
+				'XtickLabelLiargStr is ',
+				XtickLabelLiargStr
+			]
+		)
+		'''
+
+		#set
+		self.PyplotingChartVariable+=[
+			(
+				'set_xlabel',self.ViewingXLabelStr
+			),
+			(
+				'set_xlim',{
+					'#liarg:#map@get':[XlimLiargStr]
+				}
+			),
+			(
+				'set_xticks',{
+					'#liarg:#map@get':[XticksLiargStr]
+				}
+			),
+			(
+				'set_xticklabels',{
+					'#liarg:#map@get':[XtickLabelLiargStr]
+				}
+			)
+		]
+		"""
+
 		#/####################/#
 		# maybe set the Y Chart also
 		#
@@ -1380,25 +1442,11 @@ class BrianerClass(BaseClass):
 			]
 		)
 
-		#import
-		import brian2
-
-		#get
-		ViewingYVariable=getattr(
-						self.BrianedStateMonitorVariable,
-						self.BrianedParentDeriveRecorderVariable.RecordKeyStr
-				)
-
-		#split
-		BrianedDimensionStr=str(ViewingYVariable).split(' ')[-1]
-
-		#divide
-		#self.ViewingYVariable=ViewingYVariable/getattr(
-		#	brian2,BrianedDimensionStr
-		#)
-		self.ViewingYVariable=ViewingYVariable
-		self.ViewingYVariable=self.ViewingYVariable[:]
-		print(self.ViewingYVariable)
+		#alias
+		self.ViewingYVariable=getattr(
+							self.BrianedStateMonitorVariable,
+							self.BrianedParentDeriveRecorderVariable.RecordKeyStr
+					)
 
 		#set
 		self.ViewingYLabelStr='$'+self.BrianedParentDeriveRecorderVariable.RecordKeyStr
@@ -1410,10 +1458,12 @@ class BrianerClass(BaseClass):
 				)+')'
 
 		"""
-		self.ViewingYLabelStr+='\ ('+BrianedDimensionStr+')'
+		self.ViewingYLabelStr+='\ ('+str(
+					(1./self.ViewingYScaleFloat)*self.ViewingYVariable
+				).split(' ')[-1]+')'
 		self.ViewingYLabelStr+='$'
 
-
+		
 		#/################/#
 		# call the base view method
 		#
@@ -1421,16 +1471,79 @@ class BrianerClass(BaseClass):
 		#debug
 		self.debug(
 			[
-				('self.',self,[
-						'ViewingXVariable',
-						'ViewingYVariable'
-					]),
 				'Now we call the view'
 			]
 		)
 
 		#call 
 		BaseClass.view(self)
+
+
+		"""
+		#set
+		SampleTagStr=self.BrianedParentPopulationDeriveBrianerVariable.BrianedNeurongroupVariable.name+self.BrianedParentDeriveRecorderVariable.RecordKeyStr
+
+		#join
+		YlimLiargStr="".join([
+						">>SYS.set(SYS,'"+SampleTagStr+"LimFloatsArray',",
+						"[SYS.IdDict[#IdStr].BrianedStateMonitorVariable."+self.BrianedParentDeriveRecorderVariable.RecordKeyStr+".min(),",
+						"SYS.IdDict[#IdStr].BrianedStateMonitorVariable."+self.BrianedParentDeriveRecorderVariable.RecordKeyStr+".max()]",
+						').'+SampleTagStr+"LimFloatsArray"
+						])
+
+		#join
+		YticksLiargStr="".join([
+						">>SYS.set(SYS,'"+SampleTagStr+"TickFloatsArray',",
+						"map(lambda __Float:float('%.2f'%__Float),",
+						"SYS.getTickFloatsArray(",
+						'SYS.'+SampleTagStr+"LimFloatsArray,3",
+						")))."+SampleTagStr+"TickFloatsArray"
+						])
+
+		YtickLabelLiargStr="".join([
+						">>SYS.set(SYS,'"+SampleTagStr+"TickStrsArray',",
+						"map(lambda __Float:'$'+str(__Float)+'$',",
+						"SYS."+SampleTagStr+"TickFloatsArray))."+SampleTagStr+"TickStrsArray"
+						])
+				
+		#debug
+		'''
+		self.debug(
+			[
+				'Yself.ViewedLabelStr is ',
+				Yself.ViewedLabelStr,
+				'YlimLiargStr is',
+				YlimLiargStr,
+				'YticksLiargStr is ',
+				YticksLiargStr,
+				'YtickLabelLiargStr is ',
+				YtickLabelLiargStr
+			]
+		)
+		'''
+
+		#set
+		self.PyplotingChartVariable+=[
+			(
+				'set_ylabel',self.ViewingYLabelStr
+			),
+			(
+				'set_ylim',{
+					'#liarg:#map@get':[YlimLiargStr]
+				}
+			),
+			(
+				'set_yticks',{
+					'#liarg:#map@get':[YticksLiargStr]
+				}
+			),
+			(
+				'set_yticklabels',{
+					'#liarg:#map@get':[YtickLabelLiargStr]
+				}
+			)
+		]
+		"""
 
 		#/####################/#
 		# maybe set global Chart also

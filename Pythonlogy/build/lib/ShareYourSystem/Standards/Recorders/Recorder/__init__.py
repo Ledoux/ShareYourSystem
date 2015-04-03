@@ -39,6 +39,7 @@ class RecorderClass(BaseClass):
 	def default_init(self,
 						_RecordKeyStr="",
 						_RecordingKeyVariable=None,
+						_RecordingLabelVariable=None,
 						_RecordedTraceFloatsArray=None,
 						_RecordedInitFloatsArray=None,
 						_RecordedParentSingularStr="",		
@@ -251,6 +252,7 @@ RecorderClass.PrintingClassSkipKeyStrsList.extend(
 	[
 		'RecordKeyStr',
 		'RecordingKeyVariable',
+		'RecordingLabelVariable',
 		'RecordedTraceFloatsArray',
 		'RecordedInitFloatsArray',
 		'RecordedParentSingularStr'

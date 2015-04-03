@@ -1,0 +1,19 @@
+[
+	{ 
+		"keys": ["alt+m"], 
+		"command": "markdown_preview", 
+		"args": {"target": "browser", "parser":"markdown"} 
+	},
+	{ 
+		"keys": ["super+i"],
+		"command": "repl_open", "caption": "IPython notebook","mnemonic": "p",
+		"args": {
+					"type": "subprocess",
+					"encoding": "utf8",
+					"cmd": ["ipython", "notebook", "--pylab", "inline","$file"],
+					"cwd": "$file_path",
+					"syntax": "Packages/Python/Python.tmLanguage",
+					"external_id": "python"
+				}
+	}
+]

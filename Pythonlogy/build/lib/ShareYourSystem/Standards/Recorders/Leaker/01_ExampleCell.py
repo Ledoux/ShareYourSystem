@@ -17,7 +17,9 @@ MyLeaker=SYS.LeakerClass(
 			#'LeakingTimeVariable':'#scalar:20.*ms',
 			#'LeakingTimeVariable':20.,
 			#'LeakingTimeVariable':20.*SYS.brian2.ms,
-			'LeakingTimeVariable':[10.,20.,10.],
+			#'LeakingTimeVariable':[10.,20.,10.],
+
+			'RecordingLabelVariable':[0,1]
 		}
 	).leak(
 	).simulate(
@@ -37,8 +39,8 @@ SYS._print(MyLeaker)
 # View
 #
 
-#MyLeaker['/-Traces/|*v/-Samples/|Default'].pyplot()
+MyLeaker['/-Traces/|*U/-Samples/|Default'].pyplot()
 #MyLeaker['/-Events/|Default'].pyplot()
-MyLeaker.pyplot()
+#MyLeaker.pyplot()
 SYS.matplotlib.pyplot.show()
 

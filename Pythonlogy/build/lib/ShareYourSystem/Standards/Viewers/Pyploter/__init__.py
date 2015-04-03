@@ -188,12 +188,49 @@ class PyploterClass(BaseClass):
 				#link
 				self.PyplotedAxesVariable._figure = self.PyplotedFigureVariable	
 
+				#/#################/#
+				# Look for view argument
+				#
+
+				#debug
+				'''
+				self.debug(
+					[
+						'First look for view arguments'
+					]
+				)
+				'''
+
+				#map
+				map(
+					lambda __AxeStr:
+					self.pyplotAxe(__AxeStr),
+					[
+						'X',
+						'Y'
+					]
+				)
+
+				#debug
+				'''
+				self.debug(
+					[
+						'Ok we have maybe setted the PyplotingChartVariable',
+						('self.',self,[
+								'PyplotingChartVariable'
+							])
+					]
+				)
+				'''
+
 				#/###############/#
 				# pyplotDraw
 				#
 
 				#pyplotDraw
 				self.pyplotDraw()
+
+
 				
 			#/########################/#
 			# structure pyplot
@@ -566,7 +603,139 @@ class PyploterClass(BaseClass):
 							self.PyplotedParentChartDerivePyploterVariable.PyplotingChartVariable
 						)
 
+	def pyplotAxe(self,_AxeStr):
+
+		#debug
+		'''
+		self.debug(
+			[
+				'We pyplotAxe here',
+				('self.',self,[
+					'PyplotingChartVariable'
+				])
+			]
+		)
+		'''
+
+		#set
+		LowAxeStr=_AxeStr.lower()
+
+		#/###############/#
+		# Look for a label
+		#
+
+		#get
+		ViewingLabelStr=getattr(
+			self,
+			'Viewing'+_AxeStr+'LabelStr'
+		)
+
+		#Check
+		if ViewingLabelStr!="":
+
+			#append
+			self.PyplotingChartVariable.append(
+				(
+					'set_'+LowAxeStr+'label',ViewingLabelStr
+				)
+			)
+
+		#/###############/#
+		# Look for a lim
+		#
+
+		#get
+		ViewedLimLiargStr=getattr(
+			self,
+			'Viewed'+_AxeStr+'limLiargStr'
+		)
+
+		#Check
+		if ViewedLimLiargStr!="":
+
+			#append
+			self.PyplotingChartVariable.append(
+				(
+					'set_'+LowAxeStr+'lim',{
+						'#liarg:#map@get':[ViewedLimLiargStr]
+					}
+				)
+			)
+
+		#/###############/#
+		# Look for ticks
+		#
+
+		#get
+		ViewedTickLiargStr=getattr(
+			self,
+			'Viewed'+_AxeStr+'tickLiargStr'
+		)
+
+		#Check
+		if ViewedTickLiargStr!="":
+
+			#append
+			self.PyplotingChartVariable.append(
+				(
+					'set_'+LowAxeStr+'ticks',{
+						'#liarg:#map@get':[ViewedTickLiargStr]
+					}
+				)
+			)
+
+		#/###############/#
+		# Look for tick labels
+		#
+
+		#get
+		ViewedTickLabelLiargStr=getattr(
+			self,
+			'Viewed'+_AxeStr+'tickLabelLiargStr'
+		)
+
+		#Check
+		if ViewedTickLabelLiargStr!="":
+
+			#append
+			self.PyplotingChartVariable.append(
+				(
+					'set_'+LowAxeStr+'ticklabels',{
+						'#liarg:#map@get':[ViewedTickLabelLiargStr]
+					}
+				)
+			)
+
 	def pyplotChart(self):
+
+		#/#################/#
+		# Look for view argument
+		#
+
+		#debug
+		self.debug(
+			[
+				'First look for view arguments'
+			]
+		)
+
+		#map
+		map(
+			lambda __AxeStr:
+			self.pyplotAxe(__AxeStr),
+			['X','Y']
+		)
+
+		#debug
+		self.debug(
+			[
+				'Ok we have maybe setted the PyplotingChartVariable',
+				('self.',self,[
+						'PyplotingChartVariable'
+					])
+			]
+		)
+
 
 		#/#################/#
 		# First shift in the grid
