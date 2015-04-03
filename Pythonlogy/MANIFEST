@@ -44,34 +44,41 @@ ShareYourSystem/Specials/Muzikers/Streamer/__init__.py
 ShareYourSystem/Specials/Muzikers/Vexflower/01_ExampleDoc.py
 ShareYourSystem/Specials/Muzikers/Vexflower/Vexflower.py
 ShareYourSystem/Specials/Muzikers/Vexflower/__init__.py
-ShareYourSystem/Specials/Predicters/__init__.py
-ShareYourSystem/Specials/Predicters/Matrixer/00_ExampleDoc.md
-ShareYourSystem/Specials/Predicters/Matrixer/01_ExampleDoc.py
-ShareYourSystem/Specials/Predicters/Matrixer/__init__.py
-ShareYourSystem/Specials/Predicters/Matrixer/draft/01_ExampleDoc.py
-ShareYourSystem/Specials/Predicters/Matrixer/draft/__init__ copy 2.py
-ShareYourSystem/Specials/Predicters/Matrixer/draft/__init__.py
 ShareYourSystem/Specials/Predicters/Predicter/00_ExampleDoc.md
-ShareYourSystem/Specials/Predicters/Predicter/01_ExampleDoc.py
+ShareYourSystem/Specials/Predicters/Predicter/01_ExampleCell.py
 ShareYourSystem/Specials/Predicters/Predicter/__init__.py
+ShareYourSystem/Specials/Predicters/Predicter/draft/01_ExampleDoc copy 2.py
+ShareYourSystem/Specials/Predicters/Predicter/draft/01_ExampleDoc.py
 ShareYourSystem/Specials/Predicters/Predicter/draft/__init__ copy 2.py
 ShareYourSystem/Specials/Predicters/Predicter/draft/__init__.py
-ShareYourSystem/Specials/Predicters/Prediploter/00_ExampleDoc.md
-ShareYourSystem/Specials/Predicters/Prediploter/01_ExampleDoc.py
-ShareYourSystem/Specials/Predicters/Prediploter/__init__.py
-ShareYourSystem/Specials/Predicters/Predirater/00_ExampleDoc.md
-ShareYourSystem/Specials/Predicters/Predirater/01_ExampleDoc.py
-ShareYourSystem/Specials/Predicters/Predirater/__init__.py
-ShareYourSystem/Specials/Predicters/Predisenser/00_ExampleDoc.md
-ShareYourSystem/Specials/Predicters/Predisenser/01_ExampleDoc.py
-ShareYourSystem/Specials/Predicters/Predisenser/02_ExampleDoc.md
-ShareYourSystem/Specials/Predicters/Predisenser/03_ExampleDoc.py
-ShareYourSystem/Specials/Predicters/Predisenser/04_ExampleDoc.md
-ShareYourSystem/Specials/Predicters/Predisenser/05_ExampleDoc.py
-ShareYourSystem/Specials/Predicters/Predisenser/__init__.py
-ShareYourSystem/Specials/Predicters/Predispiker/00_ExampleDoc.md
-ShareYourSystem/Specials/Predicters/Predispiker/01_ExampleDoc.py
-ShareYourSystem/Specials/Predicters/Predispiker/__init__.py
+ShareYourSystem/Specials/_Predicters/__init__.py
+ShareYourSystem/Specials/_Predicters/Matrixer/00_ExampleDoc.md
+ShareYourSystem/Specials/_Predicters/Matrixer/01_ExampleDoc.py
+ShareYourSystem/Specials/_Predicters/Matrixer/__init__.py
+ShareYourSystem/Specials/_Predicters/Matrixer/draft/01_ExampleDoc.py
+ShareYourSystem/Specials/_Predicters/Matrixer/draft/__init__ copy 2.py
+ShareYourSystem/Specials/_Predicters/Matrixer/draft/__init__.py
+ShareYourSystem/Specials/_Predicters/Predicter/00_ExampleDoc.md
+ShareYourSystem/Specials/_Predicters/Predicter/01_ExampleDoc.py
+ShareYourSystem/Specials/_Predicters/Predicter/__init__.py
+ShareYourSystem/Specials/_Predicters/Predicter/draft/__init__ copy 2.py
+ShareYourSystem/Specials/_Predicters/Predicter/draft/__init__.py
+ShareYourSystem/Specials/_Predicters/Prediploter/00_ExampleDoc.md
+ShareYourSystem/Specials/_Predicters/Prediploter/01_ExampleDoc.py
+ShareYourSystem/Specials/_Predicters/Prediploter/__init__.py
+ShareYourSystem/Specials/_Predicters/Predirater/00_ExampleDoc.md
+ShareYourSystem/Specials/_Predicters/Predirater/01_ExampleDoc.py
+ShareYourSystem/Specials/_Predicters/Predirater/__init__.py
+ShareYourSystem/Specials/_Predicters/Predisenser/00_ExampleDoc.md
+ShareYourSystem/Specials/_Predicters/Predisenser/01_ExampleDoc.py
+ShareYourSystem/Specials/_Predicters/Predisenser/02_ExampleDoc.md
+ShareYourSystem/Specials/_Predicters/Predisenser/03_ExampleDoc.py
+ShareYourSystem/Specials/_Predicters/Predisenser/04_ExampleDoc.md
+ShareYourSystem/Specials/_Predicters/Predisenser/05_ExampleDoc.py
+ShareYourSystem/Specials/_Predicters/Predisenser/__init__.py
+ShareYourSystem/Specials/_Predicters/Predispiker/00_ExampleDoc.md
+ShareYourSystem/Specials/_Predicters/Predispiker/01_ExampleDoc.py
+ShareYourSystem/Specials/_Predicters/Predispiker/__init__.py
 ShareYourSystem/Standards/__init__.py
 ShareYourSystem/Standards/Classors/001_DocumentDoc.md
 ShareYourSystem/Standards/Classors/001_GithubDoc.md

@@ -37,6 +37,7 @@ MyLeaker=SYS.LeakerClass(
 		500.
 	)
 
+OnsemarreauxRigoles99
 
 #/###################/#
 # Print

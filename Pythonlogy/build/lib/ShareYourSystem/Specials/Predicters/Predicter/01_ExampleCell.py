@@ -10,15 +10,22 @@ import ShareYourSystem as SYS
 #
 
 #Define
-MyLeaker=SYS.LeakerClass(
+"""
+MyPredicter=SYS.PredicterClass(
 	).mapSet(
 		{
 			'-Populations':{
-				'|Default':{
+				'|Sensor':{
 					'LeakingUnitsInt':1,
 					'-Inputs':{
-						'|Default':{
-							'LeakingWeigthVariable':5.
+						'|Command':{
+							'LeakingWeigthVariable':(
+									'#network:#clock:200*ms',
+									lambda _ActivityQuantity,_TimeQuantity:
+									5.*SYS.brian2.mV 
+									if _TimeQuantity==200.*SYS.brian2.ms
+									else 0.*SYS.brian2.mV
+							)
 						}
 					},
 					'-Interactions':{
@@ -32,45 +39,33 @@ MyLeaker=SYS.LeakerClass(
 				}
 			}
 		}
-	).leak(
+	).predict(
 	).simulate(
 		500.
 	)
+"""
 
-OnsemarreauxRigoles99
+MyPredicter=SYS.PredicterClass(
+	).predict(
+	)
 
 #/###################/#
 # Print
 #
 
 #Definition the AttestedStr
-print('MyLeaker is ')
-SYS._print(MyLeaker) 
+print('MyPredicter is ')
+SYS._print(MyPredicter) 
 
 #/###################/#
 # View
 #
 
-MyLeaker['/-Populations/|Default'].pyplot()
-#print(MyLeaker['/-Populations/|Default/-Interactions/|/'].BrianedSynapsesVariable.J[:])
+"""
+MyPredicter['/-Populations/|Sensor'].pyplot()
+#print(MyPredicter['/-Populations/|Default/-Interactions/|/'].BrianedSynapsesVariable.J[:])
 SYS.matplotlib.pyplot.show()
-
 """
-from brian2 import Network,NeuronGroup,ms
 
-MyNetwork=Network()
-def F(_Float):
-	return _Float
-MyNetwork.F=F
-MyNeuronGroup=NeuronGroup(
-	1,
-	'''
-		dv/dt=(-v+F(0.5*v))/(20.*ms) : volt
-	'''
-)
-
-MyNetwork.add(MyNeuronGroup)
-MyNetwork.run(100.*ms)
-"""
 
 

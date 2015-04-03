@@ -632,6 +632,9 @@ class ManagerClass(BaseClass):
 		#return 
 		return BaseClass.set(self)
 
+	def __contains__(self,_KeyStr):
+		return _KeyStr in self.ManagementDict
+
 #</DefineClass>
 
 #set

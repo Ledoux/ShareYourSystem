@@ -2,23 +2,24 @@
 #ImportModules
 import ShareYourSystem as SYS
 
+
 #Define
-MyPredisenser=SYS.PredisenserClass(
+MyPredicter=SYS.PredicterClass(
 	).predict(
 		#PredictingUnitsInt
 		10,
 		#PredictingSensorsInt
-		5,
+		1,
 		#PredictingDynamicStr
-		'Gamma-Theta',
+		'leak',
 		#PredictingConstantTimeFloat (ms)
 		1.,
 		#PredictingInputStatStr
 		'norm',
 		#PredictingDecoderMeanWeightFloat
-		0.,
+		1.,
 		#PredictingDecoderStdWeightFloat
-		10.,
+		0.,
 		#PredictingNormalisationInt
 		0.5,			
 		#PredictingCostFloat
@@ -31,19 +32,8 @@ MyPredisenser=SYS.PredisenserClass(
 		'norm',
 		#PredictingLateralRandomStatStr
 		'norm'
-	).predisense(
-		#PredisensingRunTimeFloat (ms)
-		100.,
-		#PredisensingStepTimeFloat (ms)
-		0.1,
-		#PredisensingClampFloat
-		0.5,
-		#PredisensingMonitorIntsList
-		[0,1,2,3,4,5]
-	).draw(
-	).show(
 	)
 
 #print
-print('MyPredisenser is')
-SYS._print(MyPredisenser)
+print('MyPredicter is')
+SYS._print(MyPredicter)

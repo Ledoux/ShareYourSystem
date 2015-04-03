@@ -3,14 +3,12 @@
 import ShareYourSystem as SYS
 
 #Define
-MyPrediploter=SYS.PrediploterClass(
+MyPredicter=SYS.PredicterClass(
 	).predict(
 		#PredictingUnitsInt
 		10,
 		#PredictingSensorsInt
 		1,
-		#PredictingConstantTimeFloat
-		0.01,
 		#PredictingDecoderWeightFloat
 		10.,
 		#PredictingCostFloat
@@ -19,16 +17,8 @@ MyPrediploter=SYS.PrediploterClass(
 		0.5,
 		#PredictingPerturbativeWeightFloat
 		0.1
-	).predisense(
-		#PredisensingRunTimeFloat,
-		100.,
-		#PredisensingStepTimeFloat
-		0.1,
-		#PredisensingClampFloat
-		0.5
-	).prediplot(
 	)
 
 #print
-print('MyPrediploter is')
-SYS._print(MyPrediploter)
+print('MyPredicter is')
+SYS._print(MyPredicter)

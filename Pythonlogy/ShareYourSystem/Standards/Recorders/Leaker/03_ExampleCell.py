@@ -24,14 +24,19 @@ MyLeaker=SYS.LeakerClass(
 							#'LeakingWeigthVariable':[1.,3.],
 							#'LeakingWeigthVariable':SYS.getKrenelFloatsArray(),
 							#'LeakingWeigthVariable':'#equation:5.*mV*(1.+tanh(10.*(t-250.*ms)/ms))',
-							#'LeakingWeigthVariable':'#custom:#clock:10*ms:'+'''
+							#'LeakingWeigthVariable':'#custom:#clock:10*ms:'''
 							#	change=int(t>250*ms)
 							#	#SymbolStr:5.*mV*change
 							#''',
 							#'LeakingWeigthVariable':'#custom:5.*mV*(ms/(t+1*ms))',
-							'LeakingWeigthVariable':'#custom:#clock:10*ms:5.*mV*int(t>250*ms)',
-							#'LeakingWeigthVariable':('#network:10*ms',lambda _Float:_Float)
-
+							#'LeakingWeigthVariable':'#custom:#clock:200*ms:5.*mV*int(t==200*ms)',
+							'LeakingWeigthVariable':(
+								'#network:#clock:200*ms',
+								lambda _ActivityQuantity,_TimeQuantity:
+								5.*SYS.brian2.mV 
+								if _TimeQuantity==200.*SYS.brian2.ms
+								else 0.*SYS.brian2.mV
+							)
 						}
 					}
 				}
@@ -62,27 +67,6 @@ SYS.matplotlib.pyplot.show()
 
 
 
-"""
-from brian2 import *
-
-stimulus = TimedArray(np.hstack([[c, c, c, 0, 0]
-                                 for c in np.random.rand(1000)]),
-                                dt=10*ms)
-G = NeuronGroup(100, 'dv/dt = (-v + stimulus(t))/(10*ms) : 1',
-                threshold='v>1', reset='v=0')
-G.v = '0.5*rand()'  # different initial values for the neurons
-"""
 
 
-"""
-import numpy
-
-from matplotlib import pyplot
-
-pyplot.plot(
-	numpy.arctan(10.*numpy.arange(-10.,10.))
-)
-pyplot.show()
-
-"""
 

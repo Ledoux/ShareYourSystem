@@ -13,16 +13,16 @@
 #<DefineAugmentation>
 import ShareYourSystem as SYS
 import types
-BaseModuleStr="ShareYourSystem.Standards.Recorders.Leaker"
+BaseModuleStr="ShareYourSystem.Standards.Viewers.Pyploter"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 SYS.addDo('Predicter','Predict','Predicting','Predicted')
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
-Leaker=BaseModule
 import scipy.stats
 import numpy as np
+from matplotlib import pyplot
 #</ImportSpecificModules>
 
 #<DefineLocals>
@@ -37,18 +37,49 @@ def getNullFloatsArray(_FloatsArray, _RtolFloat=1e-5):
 class PredicterClass(BaseClass):
 	
 	def default_init(self,
-			_PredictingJacobianFloatsArray=None,
-			**_KwargVariablesDict
-		):
+
+						_PredictingUnitsInt=0,
+						_PredictingSensorsInt=0,
+
+						_PredictingDynamicStr="leak",
+						_PredictingConstantTimeFloat=1.,
+						_PredictingInputStatStr='norm',
+						_PredictingDecoderMeanWeigtFloat=0.,
+						_PredictingDecoderStdWeigtFloat=1.,
+						_PredictingNormalisationInt=1,			
+
+						_PredictingCostFloat=1.,
+						_PredictingPerturbativeInputWeightFloat=0.1,
+						_PredictingPerturbativeLateralWeightFloat=0.1,
+						_PredictingInputRandomStatStr='norm',
+						_PredictingLateralRandomStatStr='norm',
+
+						_PredictedSensorJacobianFloatsArray=None,
+						
+						_PredictedControlDecoderWeigthFloatsArray=None,
+						_PredictedExactDecoderWeigthFloatsArray=None,
+
+						_PredictedLeakWeigthFloatsArray=None,
+
+						_PredictedInputRandomFloatsArray=None,
+						_PredictedPerturbativeInputWeigthFloatsArray=None,
+						_PredictedNullFloatsArray=None,
+						_PredictedTotalPerturbativeInputWeigthFloatsArray=None,
+						
+						_PredictedExactLateralWeigthFloatsArray=None,
+						_PredictedLateralRandomFloatsArray=None,
+						_PredictedPerturbativeLateralWeigthFloatsArray=None,
+						_PredictedTotalPerturbativeLateralWeigthFloatsArray=None,
+					
+						**_KwargVariablesDict
+					):
 		""" """		
 
 		#Call the parent init method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
-	
 	def do_predict(self):
 
-		"""
 		#/#################/#
 		# Sensor care : Prepare the input weigth and the null matrix
 		#
@@ -238,224 +269,8 @@ class PredicterClass(BaseClass):
 				self.PredictedNullFloatsArray,
 				self.PredictedLateralRandomFloatsArray
 			)
-		"""
-
-		#/###################/#
-		# Call the base method
-		#
-
-		#debug
-		self.debug(
-			[
-				'Now we leak'
-			]
-		)
-
-		#leak
-		self.leak()
-
-	def leakNetwork(self):
-
-		#/###################/#
-		# Check for Populations
-		# 
-
-		#debug
-		self.debug(
-			[
-				'We leak predict network here',
-				'Check for a sensor population'
-			]
-		)
-
-		#Check
-		if 'Populations' in self.TeamDict:
-
-			#get
-			LeakedPopulationsDeriveManager=self.TeamDict[
-				'Populations'
-			]
-		else:
-
-			#team
-			LeakedPopulationsDeriveManager=self.team(
-				'Populations'
-			).TeamedValueVariable
-
-		#/###################/#
-		# Specify the Sensor Population
-		#
-
-		#Check
-		if 'Sensor' in LeakedPopulationsDeriveManager.ManagementDict:
-
-			#get
-			LeakedSensorDerivePredicter=LeakedPopulationsDeriveManager.ManagementDict[
-				'Sensor'
-			]
-
-		else:
-
-			#manage
-			LeakedSensorDerivePredicter=LeakedPopulationsDeriveManager.manage(
-				'Sensor'
-			).ManagedValueVariable
-
-		#/###################/#
-		# Check for Inputs in the Sensor
-		#
-
-		#Check
-		if 'Inputs' in LeakedSensorDerivePredicter.TeamDict:
-
-			#get
-			LeakedInputsDeriveManager=LeakedSensorDerivePredicter.TeamDict[
-				'Inputs'
-			]
-
-		else:
-
-			#team
-			LeakedInputsDeriveManager=LeakedSensorDerivePredicter.team(
-				'Inputs'
-			).TeamedValueVariable
-
-		#/###################/#
-		# Specify the Command Input in the Sensor
-		#
-
-		#Check
-		if 'Command' in LeakedInputsDeriveManager.ManagementDict:
-
-			#get
-			LeakedCommandDerivePredicter=LeakedPopulationsDeriveManager.ManagementDict[
-				'Command'
-			]
-
-		else:
-
-			#manage
-			LeakedCommandDerivePredicter=LeakedInputsDeriveManager.manage(
-				'Command'
-			).ManagedValueVariable
-
-		#/###################/#
-		# Check for Interactions in the Sensor
-		#
-
-		#Check
-		if 'Interactions' in LeakedSensorDerivePredicter.TeamDict:
-
-			#get
-			LeakedInteractionsDeriveManager=LeakedSensorDerivePredicter.TeamDict[
-				 'Interactions'
-			]
-
-		else:
-
-			#team
-			LeakedInteractionsDeriveManager=LeakedSensorDerivePredicter.team(
-				 'Interactions'
-			).TeamedValueVariable
-
-		#/###################/#
-		# Specify the Jacobian Interaction in the Sensor
-		#	
-
-		#Check
-		if 'Jacobian' in LeakedInteractionsDeriveManager.ManagementDict:
-
-			#get
-			LeakedCommandDerivePredicter=LeakedInteractionsDeriveManager.ManagementDict[
-				'Jacobian'
-			]
-
-		else:
-
-			#manage
-			LeakedCommandDerivePredicter=LeakedInteractionsDeriveManager.manage(
-				'Jacobian'
-			).ManagedValueVariable
-
-	"""
-	def leakPopulation(self):
-
-
-		#Check
-		if self.ManagementTagStr=='Sensor':
-
-			#debug
-			self.debug(
-				[
-					'We are in the sensor Population'
-				]
-			)
-
-		#/###################/#
-		# Set the same command input in the 
-		# neuron populations
-
-
-		#/###################/#
-		# Specify the Jacobian interaction
-		#
-
-		#Check
-		if 'Interactions' in self.TeamDict:
-
-			#get
-			LeakedInteractionDeriveManager=self.TeamDict[
-				'Interactions'
-			]
-		else:
-
-			#team
-			self.team(
-				'Interactions'
-			).TeamedValueVariable
-
-		#Check
-		if 'Jacobian' in LeakedInteractionDeriveManager.ManagementDict:
-
-			#get
-			LeakedJacobianDerivePredicter=LeakedInteractionDeriveManager.ManagementDict[
-				'Jacobian'
-			]
-		else:
-
-			#manage
-			LeakedJacobianDerivePredicter=LeakedInteractionDeriveManager.manage(
-				'Jacobian' 
-			)
-
-		#set
-		LeakedJacobianDerivePredicter
-
-
-
-		self.PredictingJacobianFloatsArray=
-
-		#/###################/#
-		# Call the base method
-		#
-
-		#debug
-		self.debug(
-			[
-				'Now we call the base method'
-			]
-		)
-
-		#leak
-		BaseClass.leakPopulation(self)
-	"""
-
 
 #</DefineClass>
-
-#</DefineLocals>
-Leaker.LeakersStructurerClass.ManagingValueClass=PredicterClass
-#<DefineLocals>
 
 #</DefinePrint>
 PredicterClass.PrintingClassSkipKeyStrsList.extend(
