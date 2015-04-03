@@ -70,4 +70,25 @@ SYS.matplotlib.pyplot.show()
 """
 
 
+MyLeaker=SYS.LeakerClass(
+	).mapSet(
+		{
+			'-Populations':{
+				'|Default':{
+					'LeakingUnitsInt':2,
+					'-Inputs':{
+						'|Default':{
+							'LeakingWeigthVariable':'#custom:#clock:200*ms:5.*mV*int(t==200*ms)',
+						}
+					},
+                    '-Interactions':{
+						'|/':{
+							'LeakingWeigthVariable':-1.,
+						}
+					},
+				}
+			}
+		}
+	).leak(
+	)
 
