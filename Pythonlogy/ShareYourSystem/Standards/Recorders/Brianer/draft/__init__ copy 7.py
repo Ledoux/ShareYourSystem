@@ -875,7 +875,7 @@ class BrianerClass(BaseClass):
 				'''
 
 				#record
-				self.recordTrace()
+				self.record()
 
 			#/###################/#
 			# Build the samples and maybe one default moniter
@@ -1061,13 +1061,6 @@ class BrianerClass(BaseClass):
 				self.BrianedStateMonitorVariable
 			)
 
-			#/####################/#
-			# record
-			#
-
-			#record
-			self.recordSample()
-
 			"""
 			#/####################/#
 			# maybe view a draw plot
@@ -1076,8 +1069,6 @@ class BrianerClass(BaseClass):
 			#call
 			self.viewSample()
 			"""
-
-
 
 	def brianEvent(self):
 
@@ -1291,7 +1282,6 @@ class BrianerClass(BaseClass):
 	def viewSample(self):
 
 		#debug
-		'''
 		self.debug(
 			[
 				'We complete a view so first fill the draw',
@@ -1301,16 +1291,6 @@ class BrianerClass(BaseClass):
 				])
 			]
 		)
-		'''
-
-		#/##################/#
-		# If there is just one plot
-		#
-
-		#init
-		self.PyplotingFigureVariable={
-			'figsize':(14,4)
-		}
 
 		#/##################/#
 		# Determine the way of labeling the variable names
@@ -1330,7 +1310,6 @@ class BrianerClass(BaseClass):
 			'''
 
 			#debug
-			'''
 			self.debug(
 				[
 					'We have specified the legend label',
@@ -1339,7 +1318,6 @@ class BrianerClass(BaseClass):
 					])
 				]
 			)
-			'''
 
 		#set
 		self.PyplotingDrawVariable=map(
@@ -1356,10 +1334,7 @@ class BrianerClass(BaseClass):
 						{
 							'label':self.ViewedLegendLabelStr+'^{'+str(__IndexInt)+'}$',
 							'linestyle':'-',
-							'linewidth':3,
-							#'color':'b'
-							'color':self.RecordedColorTuplesList[__IndexInt],
-
+							'color':'b'
 						},
 						**self.BrianingPyplotDict
 					)
@@ -1384,7 +1359,9 @@ class BrianerClass(BaseClass):
 		BrianedTimeUnit=self.BrianedStateMonitorVariable.t.unit
 
 		#scale
+		#self.ViewingXVariable=self.BrianedStateMonitorVariable.t[:]
 		self.ViewingXVariable=self.BrianedStateMonitorVariable.t/(
+			#(1./self.ViewingXScaleFloat)*BrianedTimeUnit
 			BrianedTimeUnit
 		)
 
@@ -1398,7 +1375,6 @@ class BrianerClass(BaseClass):
 		#
 
 		#debug
-		'''
 		self.debug(
 			[
 				'We set the y axis',
@@ -1406,7 +1382,9 @@ class BrianerClass(BaseClass):
 				str(self.BrianedParentDeriveRecorderVariable.RecordedTraceFloatsArray)
 			]
 		)
-		'''
+
+		#import
+		import brian2
 
 		#get
 		ViewingYVariable=getattr(
@@ -1415,20 +1393,35 @@ class BrianerClass(BaseClass):
 				)
 
 		#split
+		#BrianedDimensionStr=str(ViewingYVariable).split(' ')[-1]
 		BrianedActivityUnit=getattr(
 				self.BrianedParentPopulationDeriveBrianerVariable.BrianedNeurongroupVariable,
 				self.BrianedParentDeriveRecorderVariable.RecordKeyStr
 			).unit
 
 		#divide
+		#self.ViewingYVariable=ViewingYVariable/getattr(
+		#	brian2,BrianedDimensionStr
+		#)
 		self.ViewingYVariable=ViewingYVariable/(
 			BrianedActivityUnit
 		)
 		#self.ViewingYVariable=ViewingYVariable
 		self.ViewingYVariable=self.ViewingYVariable[:]
+		print(self.ViewingYVariable)
 
 		#set
 		self.ViewingYLabelStr='$'+self.BrianedParentDeriveRecorderVariable.RecordKeyStr
+		"""
+		self.ViewingYLabelStr+='_{'+str(
+			self.BrianedParentPopulationDeriveBrianerVariable.BrianedNeurongroupVariable.name
+				).replace('_','/')+'}(t)\ ('+str(
+					self.BrianedParentDeriveRecorderVariable.RecordedTraceFloatsArray.unit
+				)+')'
+
+		"""
+		
+		#self.ViewingYLabelStr+='\ ('+BrianedDimensionStr+')'
 		self.ViewingYLabelStr+='\ ('+str(
 			(1./self.ViewingYScaleFloat)*BrianedActivityUnit
 		).split('.')[-1]+')'
@@ -1440,7 +1433,6 @@ class BrianerClass(BaseClass):
 		#
 
 		#debug
-		'''
 		self.debug(
 			[
 				('self.',self,[
@@ -1449,8 +1441,7 @@ class BrianerClass(BaseClass):
 					]),
 				'Now we call the view'
 			]
-		)	
-		'''
+		)
 
 		#call 
 		BaseClass.view(self)
@@ -1771,10 +1762,10 @@ class BrianerClass(BaseClass):
 		self.debug('We stop running in brian')
 		'''
 
-	def recordTrace(self):
+	def mimic_record(self):
 
 		#base method
-		BaseClass.recordTrace(self)
+		BaseClass.record(self)
 
 		#debug
 		'''

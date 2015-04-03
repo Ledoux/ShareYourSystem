@@ -40,6 +40,7 @@ class RecorderClass(BaseClass):
 						_RecordKeyStr="",
 						_RecordingKeyVariable=None,
 						_RecordingLabelVariable=None,
+						_RecordingColorStr="blue",
 						_RecordedTraceFloatsArray=None,
 						_RecordedInitFloatsArray=None,
 						_RecordedParentSingularStr="",		
@@ -138,111 +139,197 @@ class RecorderClass(BaseClass):
 			)
 			
 		#Check
-		elif self.RecordedParentSingularStr=='Trace':
-
-			#/###################/#
-			# Traces level
-			#
-
-			#debug
-			'''
-			self.debug(
-					[
-						'This is the Traces level',
-						'First get the array to trace',
-						('self.',self,['RecordingKeyVariable'])
-					]
-				)
-			'''
-
-			#get
-			RecordedTopDeriveRecorderVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
-
-			#/##################/#
-			# First get the array to trace
-			#
-
-			#get
-			if type(self.RecordingKeyVariable)==None.__class__:
-
-				#Check
-				if self.ManagementTagStr.startswith(RecorderPrefixStr):
-
-					#debug
-					self.debug(
-						[
-							('self.',self,['ManagementTagStr'])
-						]
-					)
-
-					#get
-					self.RecordedTraceFloatsArray=getattr(
-						RecordedTopDeriveRecorderVariable,
-						SYS.deprefix(
-							self.ManagementTagStr,
-							RecorderPrefixStr
-						)
-					)
-
-			elif type(self.RecordingKeyVariable).__name__!='ndarray':
-		
-				#get
-				self.RecordedTraceFloatsArray=RecordedTopDeriveRecorderVariable[
-					self.RecordingKeyVariable
-				]
-
-			else:
-
-				#alias
-				self.RecordedTraceFloatsArray=self.RecordingKeyVariable
-
-				#alias
-				if self.RecordKeyStr=="":
-					self.RecordKeyStr=str(self.RecordingKeyVariable)
+		else:
 
 			#debug
 			'''
 			self.debug(
 				[
-					'We have getted the RecordedTraceFloatsArray',
-					('self.',self,['RecordedTraceFloatsArray']),
-					'Now set the init'
+					'Ok we check if this parentsingular has a special method ',
+					('self.',self,[
+						'RecordedParentSingularStr'
+					])
 				]
 			)
 			'''
 
+			#set
+			RecordedMethodKeyStr='record'+self.RecordedParentSingularStr
+
 			#Check
-			if type(self.RecordedTraceFloatsArray)!=None.__class__:
+			if hasattr(self,RecordedMethodKeyStr):
 
-				#/##################/#
-				# Prepare initial conditions
-				# with the Matrixer
-
-				#debug
-				'''
-				self.debug(
-					[
-						'We prepare the initial conditions',
-						'len(self.RecordedTraceFloatsArray) is ',
-						str(len(self.RecordedTraceFloatsArray))
-					]
-				)
-				'''
-
-				#matrix
-				self.RecordedInitFloatsArray=self.numscipy(
-						_SizeTuple=(len(self.RecordedTraceFloatsArray),1)
-					).NumscipiedRandomFloatsArray[:,0]
+				#/########################/#
+				# call the special record<RecordedParentSingularStr> method
+				#
 
 				#debug
 				'''
 				self.debug(
 					[
-						'We have prepared the initial conditions',
-						('self.',self,['RecordedInitFloatsArray'])
+						'It is a '+self.RecordedParentSingularStr+' level',
+						'We record<RecordedParentSingularStr>'
 					]
 				)
 				'''
+
+				#call
+				getattr(
+					self,
+					RecordedMethodKeyStr
+				)()
+
+				#debug
+				'''
+				self.debug(
+					[
+						'Ok we have setted record'+self.RecordedParentSingularStr
+					]
+				)
+				'''	
+
+	def recordTrace(self):
+		
+		#/###################/#
+		# Traces level
+		#
+
+		#debug
+		self.debug(
+				[
+					'This is the Traces level',
+					'First get the array to trace',
+					('self.',self,['RecordingKeyVariable'])
+				]
+			)
+
+		#get
+		RecordedTopDeriveRecorderVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
+
+		#/##################/#
+		# First get the array to trace
+		#
+
+		#get
+		if type(self.RecordingKeyVariable)==None.__class__:
+
+			#Check
+			if self.ManagementTagStr.startswith(RecorderPrefixStr):
+
+				#debug
+				self.debug(
+					[
+						('self.',self,['ManagementTagStr'])
+					]
+				)
+
+				#get
+				self.RecordedTraceFloatsArray=getattr(
+					RecordedTopDeriveRecorderVariable,
+					SYS.deprefix(
+						self.ManagementTagStr,
+						RecorderPrefixStr
+					)
+				)
+
+		elif type(self.RecordingKeyVariable).__name__!='ndarray':
+	
+			#get
+			self.RecordedTraceFloatsArray=RecordedTopDeriveRecorderVariable[
+				self.RecordingKeyVariable
+			]
+
+		else:
+
+			#alias
+			self.RecordedTraceFloatsArray=self.RecordingKeyVariable
+
+			#alias
+			if self.RecordKeyStr=="":
+				self.RecordKeyStr=str(self.RecordingKeyVariable)
+
+		#debug
+		'''
+		self.debug(
+			[
+				'We have getted the RecordedTraceFloatsArray',
+				('self.',self,['RecordedTraceFloatsArray']),
+				'Now set the init'
+			]
+		)
+		'''
+
+		#Check
+		if type(self.RecordedTraceFloatsArray)!=None.__class__:
+
+			#/##################/#
+			# Prepare initial conditions
+			# with the Matrixer
+
+			#debug
+			'''
+			self.debug(
+				[
+					'We prepare the initial conditions',
+					'len(self.RecordedTraceFloatsArray) is ',
+					str(len(self.RecordedTraceFloatsArray))
+				]
+			)
+			'''
+
+			#matrix
+			self.RecordedInitFloatsArray=self.numscipy(
+					_SizeTuple=(len(self.RecordedTraceFloatsArray),1)
+				).NumscipiedRandomFloatsArray[:,0]
+
+			#debug
+			'''
+			self.debug(
+				[
+					'We have prepared the initial conditions',
+					('self.',self,['RecordedInitFloatsArray'])
+				]
+			)
+			'''
+
+	def recordSample(self):
+
+		#debug
+		self.debug(
+			[
+				'This is the sample record level',
+				('self.',self,[
+					'RecordingLabelVariable'
+				])
+			]
+		)
+
+
+		#/##################/#
+		# Build the colors
+		#
+
+		#Check
+		if self.RecordingLabelVariable!=None:
+
+			#get		
+			self.RecordedColorTuplesList=SYS.getColorTuplesList(
+				'black',
+				self.RecordingColorStr,
+				len(self.RecordingLabelVariable)+3,
+				_PlotBool=False
+			)[3:]
+
+			#debug
+			self.debug(
+				[
+					'We have setted the colors',
+					('self.',self,[
+						'RecordedColorTuplesList'
+					])
+				]
+			)
+
 
 	
 #</DefineClass>
@@ -255,7 +342,8 @@ RecorderClass.PrintingClassSkipKeyStrsList.extend(
 		'RecordingLabelVariable',
 		'RecordedTraceFloatsArray',
 		'RecordedInitFloatsArray',
-		'RecordedParentSingularStr'
+		'RecordedParentSingularStr',
+		'RecordedColorTuplesList'
 	]
 )
 #<DefinePrint>

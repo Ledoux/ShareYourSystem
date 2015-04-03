@@ -29,8 +29,8 @@ MyBrianer=SYS.BrianerClass(
 					'-Samples':{
 						'|Default':{
 							'RecordingLabelVariable':[0,1],
-							#'ViewingXScaleFloat':1000.,
-							#'ViewingYScaleFloat':1.						
+							'ViewingXScaleFloat':1000.,
+							'ViewingYScaleFloat':1000.						
 						}
 					}
 				}
@@ -83,13 +83,25 @@ N.add(M)
 N.run(10.*ms)
 #print(G.v.__dict__)
 #print(0.001*G.v.unit)
-print(dir(M.v))
-print(str(M.v))
-print(M.v.__array__())
-print(getattr(brian2,str(M.v).split(' ')[-1]))
-print(M.v/getattr(brian2,str(M.v).split(' ')[-1]))
+#print(dir(M.v))
+#print(str(M.v))
+#print(M.v.__array__())
+#print(getattr(brian2,str(M.v).split(' ')[-1]))
+#print(M.v/getattr(brian2,str(M.v).split(' ')[-1]))
+#print(M.v/getattr(brian2,str(M.v).split(' ')[-1]))
+#print(dir(mV))
+#print(repr(mV))
+print(G.v.unit)
 #from matplotlib import pyplot
 #pyplot.plot(M.v.__array__)
 #pyplot.show()
 """
 
+"""
+from matplotlib import pyplot
+
+#PyplotingFigureVariable
+
+fig=pyplot.figure(**{'figsize':(5,1)})
+pyplot.show()
+"""

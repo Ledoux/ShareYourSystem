@@ -49,6 +49,7 @@ class PyploterClass(BaseClass):
 						_PyplotTooltipVariablesList=None,
 						_PyplotingGridIntsTuple=(20,20),
 						_PyplotingShapeIntsTuple=(5,5),
+						_PyplotingFigureVariable=None,
 						_PyplotingDrawVariable=None,
 						_PyplotingChartVariable=None,
 						_PyplotingShiftIntsTuple=(1,0),
@@ -145,7 +146,17 @@ class PyploterClass(BaseClass):
 			from matplotlib import pyplot
 
 			#init
-			self.PyplotedFigureVariable = pyplot.subplot()
+			if self.PyplotingFigureVariable!=None:
+
+				#init
+				self.PyplotedFigureVariable = pyplot.figure(
+					**self.PyplotingFigureVariable
+				)
+
+			else:
+
+				#init
+				self.PyplotedFigureVariable = pyplot.figure()
 
 			#/###############/#
 			# Case of a Figure Panel Axes Draws 
@@ -1284,6 +1295,7 @@ PyploterClass.PrintingClassSkipKeyStrsList.extend(
 		'PyplotTooltipVariablesList',
 		'PyplotingGridIntsTuple',
 		'PyplotingShapeIntsTuple',
+		'PyplotingFigureVariable',
 		'PyplotingDrawVariable',
 		'PyplotingChartVariable',
 		'PyplotingShiftIntsTuple',
