@@ -49,24 +49,23 @@ MyLeaker=SYS.LeakerClass(
 	
 
 #/###################/#
+# View
+#
+
+MyLeaker[
+		'/-Populations/|Sensor'
+	].view(
+	).pyplot(
+	)
+SYS.matplotlib.pyplot.show()
+
+#/###################/#
 # Print
 #
 
 #Definition the AttestedStr
 print('MyLeaker is ')
 SYS._print(MyLeaker) 
-
-#/###################/#
-# View
-#
-
-print(MyLeaker['/-Populations/|Sensor'].BrianedNeurongroupVariable.I_Command)
-
-MyLeaker['/-Populations/|Sensor'].pyplot()
-SYS.matplotlib.pyplot.show()
-
-
-
 
 
 

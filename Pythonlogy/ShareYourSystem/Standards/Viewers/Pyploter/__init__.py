@@ -572,7 +572,9 @@ class PyploterClass(BaseClass):
 				#
 
 				#Check
-				if self.ManagementIndexInt==(len(self.ParentDeriveTeamerVariable.ManagementDict)-1):
+				if self.ManagementIndexInt==(
+					len(self.ParentDeriveTeamerVariable.ManagementDict)-1
+				):
 
 					#debug
 					'''
@@ -724,12 +726,14 @@ class PyploterClass(BaseClass):
 		#
 
 		#debug
+		'''
 		self.debug(
 			[
 				'First look for view arguments'
 			]
 		)
-
+		'''
+		
 		#map
 		map(
 			lambda __AxeStr:
@@ -738,6 +742,7 @@ class PyploterClass(BaseClass):
 		)
 
 		#debug
+		'''
 		self.debug(
 			[
 				'Ok we have maybe setted the PyplotingChartVariable',
@@ -746,7 +751,7 @@ class PyploterClass(BaseClass):
 					])
 			]
 		)
-
+		'''
 
 		#/#################/#
 		# First shift in the grid

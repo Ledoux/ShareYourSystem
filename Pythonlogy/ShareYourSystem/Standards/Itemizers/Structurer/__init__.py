@@ -36,7 +36,11 @@ class StructurerClass(BaseClass):
 	def default_init(
 					self,
 					_StructureTagStr='Top',
-					_StructureTopDeriveStructurerVariable=None,
+					_StructureTopDeriveStructurerRigidVariable=None,
+					_StructureTeamerCommandKeyRigidVariable=None,
+					_StructureManagerCommandKeyRigidVariable=None,
+					_StructureTeamerCommandSetRigidList=None,
+					_StructureManagerCommandSetRigidList=None,
 					_StructureTargetStr='Top',
 					_StructureConnectPrefixStrsList=None,
 					_StructureFilterTeamTagStrsList=None,
@@ -58,7 +62,7 @@ class StructurerClass(BaseClass):
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
 		#init
-		self.StructureTopDeriveStructurerVariable=self
+		self.StructureTopDeriveStructurerRigidVariable=self
 
 	def do_structure(self):
 
@@ -71,14 +75,14 @@ class StructurerClass(BaseClass):
 		self.debug(
 			[
 				'We structure here',
-				'self.StructureTopDeriveStructurerVariable==self is ',
-				str(self.StructureTopDeriveStructurerVariable==self)
+				'self.StructureTopDeriveStructurerRigidVariable==self is ',
+				str(self.StructureTopDeriveStructurerRigidVariable==self)
 			]
 		)
 		'''
 
 		#set
-		self.StructureTopDeriveStructurerVariable=self
+		self.StructureTopDeriveStructurerRigidVariable=self
 
 		#debug
 		'''
@@ -218,7 +222,7 @@ class StructurerClass(BaseClass):
 		#
 
 		#set
-		self.StructureTopDeriveStructurerVariable=self
+		self.StructureTopDeriveStructurerRigidVariable=self
 		self.parent()
 
 		#/##################/#
@@ -234,10 +238,18 @@ class StructurerClass(BaseClass):
 		)
 		'''
 
-		#set
+		#link for setCommandingKeyVariable
+		self.StructureTeamerCommandKeyRigidVariable=self.StructuringTeamerCommandKeyVariable
+		self.StructureManagerCommandKeyRigidVariable=self.StructuringManagerCommandKeyVariable
 		self.setCommandingKeyVariable()
+
+		#link for setCommandingSetVariable
 		self.CommandTopDeriveCommanderRigidVariable=self
+		self.StructureTeamerCommandSetRigidList=self.StructuringTeamerCommandSetList
+		self.StructureManagerCommandSetRigidList=self.StructuringManagerCommandSetList
 		self.setCommandingSetVariable()
+
+		#Other
 		self.CommandingAfterWalkRigidBool=True
 		self.CommandingGetRigidBool=False
 		self.CommandingSetRigidBool=False
@@ -282,8 +294,8 @@ class StructurerClass(BaseClass):
 				'We setCommandingKeyVariable here',
 				('self.',self,[
 					'TeamedOnceBool',
-					'StructuringTeamerCommandKeyVariable',
-					'StructuringManagerCommandKeyVariable'
+					'StructureTeamerCommandKeyRigidVariable',
+					'StructureManagerCommandKeyRigidVariable'
 				]),
 				'We get the good team or management keys'
 			]
@@ -298,17 +310,17 @@ class StructurerClass(BaseClass):
 			#
 
 			#get
-			StructuringTeamerCommandKeyVariable=getattr(
+			StructureTeamerCommandKeyRigidVariable=getattr(
 				self,
-				'StructuringTeamerCommandKeyVariable'
+				'StructureTeamerCommandKeyRigidVariable'
 			)
 
 			#debug
 			'''
 			self.debug(
 				[
-					'StructuringTeamerCommandKeyVariable is ',
-					SYS._str(StructuringTeamerCommandKeyVariable)
+					'StructureTeamerCommandKeyRigidVariable is ',
+					SYS._str(StructureTeamerCommandKeyRigidVariable)
 				]
 			)
 			'''
@@ -318,23 +330,23 @@ class StructurerClass(BaseClass):
 			#
 
 			#Check
-			if StructuringTeamerCommandKeyVariable==None:
+			if StructureTeamerCommandKeyRigidVariable==None:
 
 				#all the key
 				StructureKeyStrsList=[]
 
 			#Check
-			elif type(StructuringTeamerCommandKeyVariable)==list and len(
-				StructuringTeamerCommandKeyVariable
+			elif type(StructureTeamerCommandKeyRigidVariable)==list and len(
+				StructureTeamerCommandKeyRigidVariable
 			)>0 and type(
-				StructuringTeamerCommandKeyVariable[0]
+				StructureTeamerCommandKeyRigidVariable[0]
 			)==str:
 
 				#alias
-				StructureKeyStrsList=StructuringTeamerCommandKeyVariable
+				StructureKeyStrsList=StructureTeamerCommandKeyRigidVariable
 			
 			#Check
-			elif StructuringTeamerCommandKeyVariable=="#all":
+			elif StructureTeamerCommandKeyRigidVariable=="#all":
 
 				#all the key
 				StructureKeyStrsList=self.TeamDict.keys()
@@ -343,7 +355,7 @@ class StructurerClass(BaseClass):
 
 				#mapCondition
 				StructureKeyStrsList=self.mapCondition(
-					StructuringTeamerCommandKeyVariable,
+					StructureTeamerCommandKeyRigidVariable,
 					self.TeamDict.keys(),
 					_SetAttrOrCallBool=True
 				)
@@ -399,27 +411,60 @@ class StructurerClass(BaseClass):
 			#
 
 			#get
-			StructuringManagerCommandKeyVariable=getattr(
+			StructureManagerCommandKeyRigidVariable=getattr(
 				self,
-				'StructuringManagerCommandKeyVariable'
+				'StructureManagerCommandKeyRigidVariable'
 			)
 
+			#/##################/#
+			# Sort the dict
+			#
+
+			#debug
+			'''
+			self.debug(
+				[
+					'before sort',
+					'self.ManagementDict.keys() is ',
+					SYS._str(self.ManagementDict.keys())
+				]
+			)
+			'''
+
+			#sort
+			self.ManagementDict.sort()
+
+			#debug
+			'''
+			self.debug(
+				[
+					'after sort',
+					'self.ManagementDict.keys() is ',
+					SYS._str(self.ManagementDict.keys())
+				]
+			)
+			'''
+			
+			#/##################/#
+			# determine the StructureKeyStrsList
+			#
+
 			#Check
-			if StructuringManagerCommandKeyVariable==None:
+			if StructureManagerCommandKeyRigidVariable==None:
 
 				#all the key 
 				StructureKeyStrsList=[]
 
 			#Check
-			elif type(StructuringManagerCommandKeyVariable
-			)==list and len(StructuringManagerCommandKeyVariable
-				)>0 and type(StructuringManagerCommandKeyVariable[0])==str:
+			elif type(StructureManagerCommandKeyRigidVariable
+			)==list and len(StructureManagerCommandKeyRigidVariable
+				)>0 and type(StructureManagerCommandKeyRigidVariable[0])==str:
 
 				#alias
-				StructureKeyStrsList=StructuringManagerCommandKeyVariable
+				StructureKeyStrsList=StructureManagerCommandKeyRigidVariable
 			
 			#Check
-			elif StructuringManagerCommandKeyVariable=="#all":
+			elif StructureManagerCommandKeyRigidVariable=="#all":
 
 				#all the key 
 				StructureKeyStrsList=self.ManagementDict.keys()
@@ -428,7 +473,7 @@ class StructurerClass(BaseClass):
 
 				#mapCondition
 				StructureKeyStrsList=self.mapCondition(
-					StructuringManagerCommandKeyVariable,
+					StructureManagerCommandKeyRigidVariable,
 					self.ManagementDict.keys(),
 					_SetAttrOrCallBool=True
 				)
@@ -448,19 +493,51 @@ class StructurerClass(BaseClass):
 			)
 			'''
 			
+			#filterNone
+			CommandingKeyVariable=SYS.filterNone(
+						map(
+							lambda __KeyStr:
+							self.ManagementDict[__KeyStr]
+							if __KeyStr in self.ManagementDict
+							else None,
+							StructureKeyStrsList
+						)
+					)
+
+			#/##################/#
+			# Maybe sort
+			#
+
+			"""
+			#debug
+			self.debug(
+				[
+					'before sort',
+					'CommandingKeyVariable is ',
+					SYS._str(CommandingKeyVariable)
+				]
+			)
+
+			#sort
+			CommandingKeyVariable=SYS.sort(
+					CommandingKeyVariable
+				)
+
+			#debug
+			self.debug(
+				[
+					'after sort',
+					'CommandingKeyVariable is ',
+					SYS._str(CommandingKeyVariable)
+				]
+			)
+			"""
+
 			#set
 			setattr(
 				self,
 				'CommandingKeyVariable',
-				SYS.filterNone(
-					map(
-						lambda __KeyStr:
-						self.ManagementDict[__KeyStr]
-						if __KeyStr in self.ManagementDict
-						else None,
-						StructureKeyStrsList
-					)
-				)
+				CommandingKeyVariable
 			)
 
 	def setCommandingSetVariable(self):
@@ -487,12 +564,12 @@ class StructurerClass(BaseClass):
 		if self.TeamedOnceBool:
 
 			#alias
-			self.CommandingSetVariable=self.StructuringTeamerCommandSetList
+			self.CommandingSetVariable=self.StructureTeamerCommandSetRigidList
 
 		else:
 
 			#alias
-			self.CommandingSetVariable=self.StructuringManagerCommandSetList
+			self.CommandingSetVariable=self.StructureManagerCommandSetRigidList
 
 		#debug
 		'''
@@ -507,18 +584,23 @@ class StructurerClass(BaseClass):
 
 		#init
 		CommandingSetVariable=[
-					('StructureTopDeriveStructurerVariable',self.CommandTopDeriveCommanderRigidVariable),
-					('StructuringTeamerCommandKeyVariable',self.StructuringTeamerCommandKeyVariable),
-					('StructuringManagerCommandKeyVariable',self.StructuringManagerCommandKeyVariable),
-					('StructuringTeamerCommandSetList',self.StructuringTeamerCommandSetList),
-					('StructuringManagerCommandSetList',self.StructuringManagerCommandSetList),
+					('StructureTopDeriveStructurerRigidVariable',self.CommandTopDeriveCommanderRigidVariable),
+					('StructureTeamerCommandKeyRigidVariable',self.StructureTeamerCommandKeyRigidVariable),
+					('StructureManagerCommandKeyRigidVariable',self.StructureManagerCommandKeyRigidVariable),
+					('StructureTeamerCommandSetRigidList',self.StructureTeamerCommandSetRigidList),
+					('StructureManagerCommandSetRigidList',self.StructureManagerCommandSetRigidList),
 					('parent')
 		]
 
 		#add
 		self.CommandingSetVariable=CommandingSetVariable+self.CommandingSetVariable+[
 			('setCommandingKeyVariable'),
-			('setCommandingSetVariable')
+			('setCommandingSetVariable'),
+			('StructureTopDeriveStructurerRigidVariable',None),
+			('StructureTeamerCommandKeyRigidVariable',None),
+			('StructureManagerCommandKeyRigidVariable',None),
+			('StructureTeamerCommandSetRigidList',None),
+			('StructureManagerCommandSetRigidList',None),
 		]
 
 		#debug
@@ -703,7 +785,11 @@ StructurerClass.TeamingValueClass=StructurerClass
 StructurerClass.PrintingClassSkipKeyStrsList.extend(
 	[
 		'StructureTagStr',
-		'StructureTopDeriveStructurerVariable',
+		'StructureTopDeriveStructurerRigidVariable',
+		'StructureTeamerCommandKeyRigidVariable',
+		'StructureManagerCommandKeyRigidVariable',
+		'StructureTeamerCommandSetRigidList',
+		'StructureManagerCommandSetRigidList',
 		'StructureTargetStr',
 		'StructureConnectPrefixStrsList',
 		'StructureFilterTeamTagStrsList',

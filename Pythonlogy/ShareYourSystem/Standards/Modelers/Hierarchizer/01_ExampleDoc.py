@@ -39,7 +39,7 @@ class SumerClass(SYS.ControllerClass):
 MySumer=SumerClass(
 		**{
 			'HdformatingFileKeyStr':'Sums_1.hdf5',
-			'FolderingPathStr':SYS.Hierarchizer.LocalFolderPathStr
+			'FolderingPathVariable':SYS.Hierarchizer.LocalFolderPathStr
 		}
 	).collect(
 		"Hierarchizers",

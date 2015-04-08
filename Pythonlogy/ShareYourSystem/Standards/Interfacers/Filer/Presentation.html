@@ -1821,13 +1821,13 @@ class FilerClass(BaseClass):
 
         #debug
         '''
-        self.debug(('self.',self,['FolderingPathStr']))
+        self.debug(('self.',self,['FolderingPathVariable']))
         '''
 
         #set the FiledPathStr
-        if self.FolderingPathStr[-1]!='/':
-            self.FolderingPathStr=self.FolderingPathStr+'/'
-        self.FiledPathStr=self.FolderingPathStr+self.FilingKeyStr
+        if self.FolderingPathVariable[-1]!='/':
+            self.FolderingPathVariable=self.FolderingPathVariable+'/'
+        self.FiledPathStr=self.FolderingPathVariable+self.FilingKeyStr
 
         #debug
         '''
@@ -1921,7 +1921,7 @@ In&nbsp;[3]:
 <span class="c">#Definition of an instance Filer and make it find the current dir</span>
 <span class="n">MyFiler</span><span class="o">=</span><span class="n">Filer</span><span class="o">.</span><span class="n">FilerClass</span><span class="p">()</span><span class="o">.</span><span class="n">file</span><span class="p">(</span><span class="s">&#39;MyFile.txt&#39;</span><span class="p">,</span><span class="s">&#39;w&#39;</span><span class="p">,</span>
     <span class="o">**</span><span class="p">{</span>
-    <span class="s">&#39;FolderingPathStr&#39;</span><span class="p">:</span>
+    <span class="s">&#39;FolderingPathVariable&#39;</span><span class="p">:</span>
     <span class="n">Filer</span><span class="o">.</span><span class="n">LocalFolderPathStr</span>
     <span class="p">}</span>
 <span class="p">)</span>

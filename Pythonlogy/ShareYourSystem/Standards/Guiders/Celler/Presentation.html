@@ -1850,7 +1850,7 @@ class CellerClass(BaseClass):
         '''
         self.debug(
                     ('self.',self,[
-                        'FolderingPathStr',
+                        'FolderingPathVariable',
                         #'CellingTextStr'
                         ]
                     )
@@ -1864,7 +1864,7 @@ class CellerClass(BaseClass):
             self.folder()
 
             #Definition the self.CelledOutputStr
-            if self.FolderingPathStr!=os.getcwd()+'/':        
+            if self.FolderingPathVariable!=os.getcwd()+'/':        
 
                 #capture and six method
                 self.CapturedPrintStrsList=[]
@@ -1966,7 +1966,7 @@ In&nbsp;[3]:
 <span class="c">#Definition an instance</span>
 <span class="n">MyCeller</span><span class="o">=</span><span class="n">Celler</span><span class="o">.</span><span class="n">CellerClass</span><span class="p">()</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
     <span class="o">**</span><span class="p">{</span>
-        <span class="s">&#39;FolderingPathStr&#39;</span><span class="p">:</span>
+        <span class="s">&#39;FolderingPathVariable&#39;</span><span class="p">:</span>
         <span class="n">SYS</span><span class="o">.</span><span class="n">ShareYourSystemLocalFolderPathStr</span><span class="o">+</span><span class="s">&#39;Pythonlogy/ShareYourSystem/Objects/Rebooter&#39;</span><span class="p">,</span>
         <span class="s">&#39;FilingKeyStr&#39;</span><span class="p">:</span><span class="s">&#39;01_ExampleDoc.py&#39;</span>
     <span class="p">}</span>

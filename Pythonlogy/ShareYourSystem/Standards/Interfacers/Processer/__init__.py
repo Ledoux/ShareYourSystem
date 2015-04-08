@@ -79,7 +79,7 @@ class ProcesserClass(BaseClass):
 				#
 
 				#Define
-				ProcessedBashPathStr=self.FolderingPathStr+ProcessFileStr+'.txt'
+				ProcessedBashPathStr=self.FolderingPathVariable+ProcessFileStr+'.txt'
 
 				#Check
 				if os.path.isfile(ProcessedBashPathStr):
@@ -264,7 +264,7 @@ def status(_ProcessStr,**_KwargVariablesDict):
 		).process(
 			"ps -ef | grep "+_ProcessStr,
 			**{
-				'FolderingPathStr':SYS.Processer.LocalFolderPathStr
+				'FolderingPathVariable':SYS.Processer.LocalFolderPathStr
 			}
 		).ProcessedBashStr
 

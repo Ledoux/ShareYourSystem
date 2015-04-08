@@ -55,3 +55,14 @@ MyGetList=SYS.GetList(None,SYS)
 print('MyGetList is ')
 print(MyGetList)
 
+#Init
+MyGetList=SYS.GetList([
+		{'GetSortInt':3},
+		{'GetSortInt':1}
+	])
+
+#print
+print('MyGetList is ')
+print(MyGetList)
+
+

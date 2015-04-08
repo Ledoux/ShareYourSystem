@@ -9,7 +9,7 @@ import operator,tables
 MyController=Controller.ControllerClass(
 		**{
 			'HdformatingFileKeyStr':"Datome.hdf5",
-			'FolderingPathStr':Merger.LocalFolderPathStr
+			'FolderingPathVariable':Merger.LocalFolderPathStr
 		}
 	).collect(
 	"Datome",

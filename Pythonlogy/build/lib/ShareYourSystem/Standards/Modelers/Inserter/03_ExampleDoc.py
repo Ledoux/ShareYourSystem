@@ -5,7 +5,7 @@ import ShareYourSystem as SYS
 #Define config
 MyInserter=SYS.InserterClass(
 		**{
-			'FolderingPathStr':SYS.Inserter.LocalFolderPathStr,
+			'FolderingPathVariable':SYS.Inserter.LocalFolderPathStr,
 			'HdformatingFileKeyStr':'ThingAndStuff.hdf5',
 			'ModelingDescriptionTuplesList':
 			[

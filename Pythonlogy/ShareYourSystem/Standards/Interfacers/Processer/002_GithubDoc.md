@@ -67,7 +67,7 @@ class ProcesserClass(BaseClass):
 		self.file(ProcessingFileStr+'.sh','w')
 
 		#Define
-		ProcessedBashPathStr=self.FolderingPathStr+ProcessingFileStr+'.txt'
+		ProcessedBashPathStr=self.FolderingPathVariable+ProcessingFileStr+'.txt'
 
 		#set
 		self.ProcessedBashStr='OUTPUT="$('+self.ProcessingBashStr+')"\n'

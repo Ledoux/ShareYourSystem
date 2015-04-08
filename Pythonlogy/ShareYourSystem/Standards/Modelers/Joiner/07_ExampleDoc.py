@@ -122,7 +122,7 @@ class ModulerClass(SYS.JoinerClass):
 #MyModuler
 MyModuler=ModulerClass(
 		**{
-			'FolderingPathStr':SYS.Joiner.LocalFolderPathStr,
+			'FolderingPathVariable':SYS.Joiner.LocalFolderPathStr,
 			'HdformatingFileKeyStr':'Modulus.hdf5'
 		}
 	).model(

@@ -71,7 +71,7 @@ class InstallerClass(BaseClass):
 		#Definition
 		self.load(
 			**{
-				'FolderingPathStr':InstallingSysFolderPathStr,
+				'FolderingPathVariable':InstallingSysFolderPathStr,
 				'FilingKeyStr':'setup.py'
 			}
 		)

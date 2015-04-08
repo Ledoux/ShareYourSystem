@@ -132,7 +132,7 @@ class CellerClass(BaseClass):
                 '''
                 self.debug(
                                         ('self.',self,[
-                                                'FolderingPathStr',
+                                                'FolderingPathVariable',
                                                 #'CellingTextStr'
                                                 ]
                                         )
@@ -146,7 +146,7 @@ class CellerClass(BaseClass):
                         self.folder()
 
                         #Definition the self.CelledOutputStr
-                        if self.FolderingPathStr!=os.getcwd()+'/':
+                        if self.FolderingPathVariable!=os.getcwd()+'/':
 
                                 #capture and six method
                                 self.CapturedPrintStrsList=[]
@@ -245,7 +245,7 @@ from ShareYourSystem.Guiders import Celler
 #Definition an instance
 MyCeller=Celler.CellerClass().load(
     **{
-        'FolderingPathStr':
+        'FolderingPathVariable':
         SYS.ShareYourSystemLocalFolderPathStr+'Pythonlogy/ShareYourSystem/Object
 s/Rebooter',
         'FilingKeyStr':'01_ExampleDoc.py'

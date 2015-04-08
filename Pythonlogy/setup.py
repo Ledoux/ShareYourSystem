@@ -100,6 +100,8 @@ setup(
 			 		'ShareYourSystem.Standards.Interfacers.Numscipyer',
 			 		'ShareYourSystem.Standards.Interfacers.Pymongoer',
 			 		'ShareYourSystem.Standards.Interfacers.Hdformater',
+			 		'ShareYourSystem.Standards.Guiders.Guider',
+			 		'ShareYourSystem.Standards.Guiders.Scriptbooker',
 			 		'ShareYourSystem.Standards.Modelers.Modeler',
 			 		'ShareYourSystem.Standards.Modelers.Rower',
 			 		'ShareYourSystem.Standards.Modelers.Inserter',
@@ -119,10 +121,11 @@ setup(
 			 		'ShareYourSystem.Standards.Recorders.Brianer',
 			 		'ShareYourSystem.Standards.Recorders.Leaker',
 			 		'ShareYourSystem.Specials.Predicters.Predicter',
-			 		#'ShareYourSystem.Specials.Predicters.Predisenser',
-			 		#'ShareYourSystem.Specials.Predicters.Prediploter',
-			 		#'ShareYourSystem.Specials.Predicters.Predirater',
-			 		#'ShareYourSystem.Specials.Predicters.Predispiker',
+			 		'ShareYourSystem.Specials.Oldpredicters.Oldpredicter',
+			 		'ShareYourSystem.Specials.Oldpredicters.Predisenser',
+			 		'ShareYourSystem.Specials.Oldpredicters.Prediploter',
+			 		'ShareYourSystem.Specials.Oldpredicters.Predirater',
+			 		'ShareYourSystem.Specials.Oldpredicters.Predispiker',
 			 		'ShareYourSystem.Standards.Classors',
 			 		'ShareYourSystem.Standards.Interfacers',
 			 		'ShareYourSystem.Standards.Tutorials',
@@ -132,7 +135,9 @@ setup(
 			 		'ShareYourSystem.Standards.Modelers',
 			 		'ShareYourSystem.Standards.Viewers',
 			 		'ShareYourSystem.Standards.Recorders',
+			 		'ShareYourSystem.Standards.Guiders',
 			 		'ShareYourSystem.Specials.Predicters',
+			 		'ShareYourSystem.Specials.Oldpredicters',
 			 		'ShareYourSystem.Standards',
 			 		'ShareYourSystem.Specials',
 			 		
@@ -149,7 +154,7 @@ setup(
     )
 
 """
-			 		'ShareYourSystem.Standards.Guiders.Guider',
+			 		
 			 		'ShareYourSystem.Standards.Guiders.Scriptbooker',
 			 		'ShareYourSystem.Standards.Guiders.Celler',
 			 		'ShareYourSystem.Standards.Guiders.Notebooker',

@@ -78,7 +78,7 @@ class ModulerClass(SYS.JoinerClass):
 						('ModelKeyStrsList',['ModulingPowerFloat'])
 					]),
 					('|Result',{
-						'ModelKeyStrsList',['ModuledTotalFloat'],
+						'ModelKeyStrsList':['ModuledTotalFloat'],
 						'-Jonctions':{
 								'<->/^/^/-Components/|Real/-Models/|Parameter':{},
 								'<->/^/^/-Components/|Image/-Models/|Parameter':{}
@@ -110,7 +110,7 @@ class ModulerClass(SYS.JoinerClass):
 
 MyModuler=ModulerClass(
 		**{
-			'FolderingPathStr':SYS.Joiner.LocalFolderPathStr,
+			'FolderingPathVariable':SYS.Joiner.LocalFolderPathStr,
 			'PymongoingDatabaseStr':'Modulus'
 		}
 	).model(

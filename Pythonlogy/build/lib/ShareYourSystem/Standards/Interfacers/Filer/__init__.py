@@ -60,13 +60,13 @@ class FilerClass(BaseClass):
 
 			#debug
 			'''
-			self.debug(('self.',self,['FolderingPathStr']))
+			self.debug(('self.',self,['FolderingPathVariable']))
 			'''
 
 			#set the FiledPathStr
-			if self.FolderingPathStr[-1]!='/':
-				self.FolderingPathStr=self.FolderingPathStr+'/'
-			self.FiledPathStr=self.FolderingPathStr+self.FilingKeyStr
+			if self.FolderingPathVariable[-1]!='/':
+				self.FolderingPathVariable=self.FolderingPathVariable+'/'
+			self.FiledPathStr=self.FolderingPathVariable+self.FilingKeyStr
 
 			#Check
 			if '.' in self.FilingKeyStr:
@@ -160,16 +160,22 @@ class FilerClass(BaseClass):
 					]
 				)
 			'''
-			
+
 			#Check
-			if self.FilingFormatStr in ['txt','sh']:
+			if self.FilingFormatStr in [
+						'md',
+						'txt',
+						'sh'
+					]:
 
 				#Check
 				if self.FilingWriteVariable==None:
 					self.FilingWriteVariable=""
 
 				#Read the FiledHardVariable
-				self.FiledHardVariable.write(self.FilingWriteVariable)
+				self.FiledHardVariable.write(
+					self.FilingWriteVariable
+				)
 
 			elif self.FilingFormatStr=='json':
 
@@ -233,7 +239,7 @@ class FilerClass(BaseClass):
 
 			elif self.FilingFormatStr=='yaml':
 
-				#Use the json decoder
+				#Use the json decoders
 				self.FiledReadVariable=yaml.load(self.FiledHardVariable)
 
 

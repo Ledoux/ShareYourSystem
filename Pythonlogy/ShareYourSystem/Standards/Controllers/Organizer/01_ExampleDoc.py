@@ -92,7 +92,7 @@ class FactorizerClass(SYS.OrganizerClass):
 #Definition of a Factorizer instance, organize structure and network
 MyFactorizer=FactorizerClass(
 		**{
-			'FolderingPathStr':SYS.Organizer.LocalFolderPathStr
+			'FolderingPathVariable':SYS.Organizer.LocalFolderPathStr
 		}
 	).walk(
 		{

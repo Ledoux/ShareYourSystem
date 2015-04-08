@@ -167,7 +167,7 @@ class FactorizerClass(SYS.ControllerClass):
 #Definition of a Factorizer instance, structure and network
 MyFactorizer=FactorizerClass(
 		**{
-			'FolderingPathStr':SYS.Hierarchizer.LocalFolderPathStr
+			'FolderingPathVariable':SYS.Hierarchizer.LocalFolderPathStr
 		}
 	).structure(
 		['Components']

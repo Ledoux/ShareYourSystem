@@ -37,7 +37,10 @@ def getNullFloatsArray(_FloatsArray, _RtolFloat=1e-5):
 class PredicterClass(BaseClass):
 	
 	def default_init(self,
-			_PredictingJacobianFloatsArray=None,
+			_PredictingSensorsInt=1,
+			_PredictingDaleBool=False,
+			_PredictingTimeVariable='#scalar:10.*ms',
+			_PredictingDynamicStr='Track',
 			**_KwargVariablesDict
 		):
 		""" """		
@@ -48,225 +51,284 @@ class PredicterClass(BaseClass):
 	
 	def do_predict(self):
 
-		"""
-		#/#################/#
-		# Sensor care : Prepare the input weigth and the null matrix
-		#
+		#Check
+		if self.ManagementTagStr=='Sensor':
 
-		if self.PredictingDynamicStr=="leak":
-
-			self.PredictedSensorJacobianFloatsArray=-np.diag(
-				(1./self.PredictingConstantTimeFloat)*np.ones(
-					self.PredictingSensorsInt
-				)
-			)
-
-		elif self.PredictingDynamicStr in ["Gamma","Gamma-Theta"]:
-
-			if self.PredictingDynamicStr=="Gamma" and self.PredictingSensorsInt<3:
-				self.PredictingSensorsInt=2
-			if self.PredictingDynamicStr=="Gamma-Theta" and self.PredictingSensorsInt<6:
-				self.PredictingSensorsInt=6
-
-			self.PredictedSensorJacobianFloatsArray=-np.diag(
-				(1./self.PredictingConstantTimeFloat)*np.ones(
-					self.PredictingSensorsInt
-				)
-			)
-
-			#set
-			self.PredictedSensorJacobianFloatsArray[0,0]+=(1.5/self.PredictingConstantTimeFloat)
-			self.PredictedSensorJacobianFloatsArray[1,0]+=-(3.7/self.PredictingConstantTimeFloat)
-			self.PredictedSensorJacobianFloatsArray[0,1]+=(3.7/self.PredictingConstantTimeFloat)
-			self.PredictedSensorJacobianFloatsArray[1,1]+=-(1./self.PredictingConstantTimeFloat)
-
-			if self.PredictingDynamicStr=="Gamma-Theta":
-
-				#set
-				self.PredictedSensorJacobianFloatsArray[2,3]+=(1./self.PredictingConstantTimeFloat)
-				self.PredictedSensorJacobianFloatsArray[3,4]+=-(1.2/self.PredictingConstantTimeFloat)
-				self.PredictedSensorJacobianFloatsArray[4,5]+=-(1.4/self.PredictingConstantTimeFloat)
-				self.PredictedSensorJacobianFloatsArray[5,2]+=-(1.6/self.PredictingConstantTimeFloat)
-
-		#debug
-		'''
-		self.debug(
-			[
-				'We have prepared the sensor jacobian',
-				('self.',self,['PredictedSensorJacobianFloatsArray'])
-			]
-		)
-		'''
-
-		#/#################/#
-		# Prepare the Decoders weigths
-		#
-
-		#Perturbative and exact 
-
-		#random
-		self.PredictedExactDecoderWeigthFloatsArray=(
-			self.PredictingDecoderMeanWeigtFloat+self.PredictingDecoderStdWeigtFloat*getattr(
-				scipy.stats,
-				self.PredictingInputStatStr
-			).rvs(
-				size=(
-					self.PredictingSensorsInt,
-					self.PredictingUnitsInt
-				)
-			)
-		)/(self.PredictingUnitsInt**self.PredictingNormalisationInt)
-		
-		#debug
-		'''
-		self.debug(
-			[
-				'We have setted the PredictedExactDecoderWeigthFloatsArray',
-				('self.',self,[
-					'PredictedExactDecoderWeigthFloatsArray',
-					'PredictingDecoderMeanWeigtFloat',
-					'PredictingDecoderStdWeigtFloat'
-				])
-			]
-		)
-		'''
-
-		#find the null space
-		self.PredictedNullFloatsArray=getNullFloatsArray(
-			self.PredictedExactDecoderWeigthFloatsArray
-		)
-
-		#debug
-		'''
-		PredictedProductArray=np.dot(
-			self.PredictedExactDecoderWeigthFloatsArray,
-			self.PredictedNullFloatsArray
-		)
-		self.debug(
+			#debug
+			self.debug(
 				[
+					'We predict in the Sensor',
 					('self.',self,[
-						'PredictedExactDecoderWeigthFloatsArray',
-						'PredictingUnitsInt'
-						]
-					),
-					("locals()['",locals(),['PredictedProductArray'],"']")
+							'PredictingTimeVariable'
+						])
 				]
 			)
-		'''
 
-		#debug
-		'''
-		PredictedPinvFloatsArray=np.dot(
-			self.PredictedControlDecoderWeigthFloatsArray,
-			self.PredictedExactDecoderWeigthFloatsArray.T
-		)
-		self.debug(
-			[
-				'PredictedPinvFloatsArray is ',
-				str(PredictedPinvFloatsArray)
-			]
-		)
-		'''
+			#Check
+			self.LeakingTimeVariable=self.PredictingTimeVariable
 
-		#/#################/#
-		# Build the perturbative input random matrices
-		#
+		#Check
+		if self.ManagementTagStr=='Decoder':
 
-		#random
-		self.PredictedInputRandomFloatsArray=self.PredictingPerturbativeInputWeightFloat*getattr(
-			scipy.stats,
-			self.PredictingInputRandomStatStr
-		).rvs(
-			size=(
-				np.shape(self.PredictedNullFloatsArray)[1],
-				self.PredictingSensorsInt
-			)
-		)
-
-		#dot
-		self.PredictedPerturbativeInputWeigthFloatsArray=np.dot(
-				self.PredictedNullFloatsArray,
-				self.PredictedInputRandomFloatsArray
-			)/(self.PredictingUnitsInt**self.PredictingNormalisationInt)
-
-		#/#################/#
-		# Build all the perturbative input
-		#
-
-		#sum
-		self.PredictedTotalPerturbativeInputWeigthFloatsArray=self.PredictedExactDecoderWeigthFloatsArray.T+self.PredictedPerturbativeInputWeigthFloatsArray
-
-
-		#/#################/#
-		# Build all the possible lateral connectivities
-		#
-
-		#Exact
-
-		#dot
-		self.PredictedExactLateralWeigthFloatsArray=np.dot(
-				self.PredictedExactDecoderWeigthFloatsArray.T,
-				self.PredictedExactDecoderWeigthFloatsArray
-			)
-
-		#debug
-		'''
-		self.debug(
+			#debug
+			self.debug(
 				[
+					'We predict in the Decoder',
 					('self.',self,[
-						'PredictedExactLateralWeigthFloatsArray',
+							'PredictingTimeVariable'
+						])
+				]
+			)
+
+			#Check
+			self.LeakingTimeVariable=self.PredictingTimeVariable
+
+		if self.ManagementTagStr=='Jacobian':
+
+			#debug
+			self.debug(
+				[
+					'We predict in the Jacobian',
+					('self.',self,[
+							'PredictingDynamicStr'
+						])
+				]
+			)
+
+			#Check
+			if self.PredictingDynamicStr=="Track":
+
+				#diag
+				self.PredictedJacobianFloatsArray=-np.diag(
+					np.ones(
+						self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable.LeakingUnitsInt
+					)
+				)
+
+			elif self.PredictingDynamicStr in ["Gamma","Gamma-Theta"]:
+
+				if self.PredictingDynamicStr=="Gamma" and self.PredictingSensorsInt<3:
+					self.PredictingSensorsInt=2
+				if self.PredictingDynamicStr=="Gamma-Theta" and self.PredictingSensorsInt<6:
+					self.PredictingSensorsInt=6
+
+				self.PredictedJacobianFloatsArray=-np.diag(
+					(1./self.PredictingTimeFloat)*np.ones(
+						self.PredictingSensorsInt
+					)
+				)
+
+				#set
+				self.PredictedJacobianFloatsArray[0,0]+=(1.5/self.PredictingTimeFloat)
+				self.PredictedJacobianFloatsArray[1,0]+=-(3.7/self.PredictingTimeFloat)
+				self.PredictedJacobianFloatsArray[0,1]+=(3.7/self.PredictingTimeFloat)
+				self.PredictedJacobianFloatsArray[1,1]+=-(1./self.PredictingTimeFloat)
+
+				if self.PredictingDynamicStr=="Gamma-Theta":
+
+					#set
+					self.PredictedJacobianFloatsArray[2,3]+=(1./self.PredictingTimeFloat)
+					self.PredictedJacobianFloatsArray[3,4]+=-(1.2/self.PredictingTimeFloat)
+					self.PredictedJacobianFloatsArray[4,5]+=-(1.4/self.PredictingTimeFloat)
+					self.PredictedJacobianFloatsArray[5,2]+=-(1.6/self.PredictingTimeFloat)
+
+			#debug
+			'''
+			self.debug(
+				[
+					'We have prepared the sensor jacobian',
+					('self.',self,['PredictedJacobianFloatsArray'])
+				]
+			)
+			'''
+
+			#link
+			self.LeakingWeigthVariable=self.PredictedJacobianFloatsArray
+
+			"""
+			#/#################/#
+			# Prepare the Decoders weigths
+			#
+
+			#Perturbative and exact 
+
+			#random
+			self.PredictedExactDecoderWeigthFloatsArray=(
+				self.PredictingDecoderMeanWeigtFloat+self.PredictingDecoderStdWeigtFloat*getattr(
+					scipy.stats,
+					self.PredictingInputStatStr
+				).rvs(
+					size=(
+						self.PredictingSensorsInt,
+						self.PredictingUnitsInt
+					)
+				)
+			)/(self.PredictingUnitsInt**self.PredictingNormalisationInt)
+			
+			#debug
+			'''
+			self.debug(
+				[
+					'We have setted the PredictedExactDecoderWeigthFloatsArray',
+					('self.',self,[
+						'PredictedExactDecoderWeigthFloatsArray',
+						'PredictingDecoderMeanWeigtFloat',
+						'PredictingDecoderStdWeigtFloat'
 					])
 				]
 			)
-		'''
+			'''
 
-		#Perturbative
-
-		#random
-		self.PredictedLateralRandomFloatsArray=self.PredictingPerturbativeLateralWeightFloat*getattr(
-			scipy.stats,
-			self.PredictingLateralRandomStatStr
-		).rvs(
-			size=(
-				np.shape(self.PredictedNullFloatsArray)[1],
-				self.PredictingUnitsInt
+			#find the null space
+			self.PredictedNullFloatsArray=getNullFloatsArray(
+				self.PredictedExactDecoderWeigthFloatsArray
 			)
-		)/(self.PredictingUnitsInt**(self.PredictingNormalisationInt/2.))
 
-		#dot
-		self.PredictedPerturbativeLateralWeigthFloatsArray=np.dot(
-				self.PredictedNullFloatsArray,
-				self.PredictedLateralRandomFloatsArray
+			#debug
+			'''
+			PredictedProductArray=np.dot(
+				self.PredictedExactDecoderWeigthFloatsArray,
+				self.PredictedNullFloatsArray
 			)
-		"""
+			self.debug(
+					[
+						('self.',self,[
+							'PredictedExactDecoderWeigthFloatsArray',
+							'PredictingUnitsInt'
+							]
+						),
+						("locals()['",locals(),['PredictedProductArray'],"']")
+					]
+				)
+			'''
+
+			#debug
+			'''
+			PredictedPinvFloatsArray=np.dot(
+				self.PredictedControlDecoderWeigthFloatsArray,
+				self.PredictedExactDecoderWeigthFloatsArray.T
+			)
+			self.debug(
+				[
+					'PredictedPinvFloatsArray is ',
+					str(PredictedPinvFloatsArray)
+				]
+			)
+			'''
+
+			#/#################/#
+			# Build the perturbative input random matrices
+			#
+
+			#random
+			self.PredictedInputRandomFloatsArray=self.PredictingPerturbativeInputWeightFloat*getattr(
+				scipy.stats,
+				self.PredictingInputRandomStatStr
+			).rvs(
+				size=(
+					np.shape(self.PredictedNullFloatsArray)[1],
+					self.PredictingSensorsInt
+				)
+			)
+
+			#dot
+			self.PredictedPerturbativeInputWeigthFloatsArray=np.dot(
+					self.PredictedNullFloatsArray,
+					self.PredictedInputRandomFloatsArray
+				)/(self.PredictingUnitsInt**self.PredictingNormalisationInt)
+
+			#/#################/#
+			# Build all the perturbative input
+			#
+
+			#sum
+			self.PredictedTotalPerturbativeInputWeigthFloatsArray=self.PredictedExactDecoderWeigthFloatsArray.T+self.PredictedPerturbativeInputWeigthFloatsArray
+
+
+			#/#################/#
+			# Build all the possible lateral connectivities
+			#
+
+			#Exact
+
+			#dot
+			self.PredictedExactLateralWeigthFloatsArray=np.dot(
+					self.PredictedExactDecoderWeigthFloatsArray.T,
+					self.PredictedExactDecoderWeigthFloatsArray
+				)
+
+			#debug
+			'''
+			self.debug(
+					[
+						('self.',self,[
+							'PredictedExactLateralWeigthFloatsArray',
+						])
+					]
+				)
+			'''
+
+			#Perturbative
+
+			#random
+			self.PredictedLateralRandomFloatsArray=self.PredictingPerturbativeLateralWeightFloat*getattr(
+				scipy.stats,
+				self.PredictingLateralRandomStatStr
+			).rvs(
+				size=(
+					np.shape(self.PredictedNullFloatsArray)[1],
+					self.PredictingUnitsInt
+				)
+			)/(self.PredictingUnitsInt**(self.PredictingNormalisationInt/2.))
+
+			#dot
+			self.PredictedPerturbativeLateralWeigthFloatsArray=np.dot(
+					self.PredictedNullFloatsArray,
+					self.PredictedLateralRandomFloatsArray
+				)
+			"""
+
+		else:
+
+			#/###################/#
+			# Call the base method
+			#
+
+			#debug
+			'''
+			self.debug(
+				[
+					'Network level',
+					'Now we leak'
+				]
+			)
+			'''
+
+			#leak
+			self.leak()
+
+	def leakNetwork(self):
 
 		#/###################/#
 		# Call the base method
-		#
+		# 
 
-		#debug
-		self.debug(
-			[
-				'Now we leak'
-			]
-		)
-
-		#leak
-		self.leak()
-
-	def leakNetwork(self):
+		#call
+		BaseClass.leakNetwork(self)
 
 		#/###################/#
 		# Check for Populations
 		# 
 
 		#debug
+		'''
 		self.debug(
 			[
 				'We leak predict network here',
 				'Check for a sensor population'
 			]
 		)
+		'''
 
 		#Check
 		if 'Populations' in self.TeamDict:
@@ -275,6 +337,7 @@ class PredicterClass(BaseClass):
 			LeakedPopulationsDeriveManager=self.TeamDict[
 				'Populations'
 			]
+
 		else:
 
 			#team
@@ -296,10 +359,44 @@ class PredicterClass(BaseClass):
 
 		else:
 
+
+
 			#manage
 			LeakedSensorDerivePredicter=LeakedPopulationsDeriveManager.manage(
 				'Sensor'
 			).ManagedValueVariable
+
+			#set default
+			LeakedSensorDerivePredicter.LeakingUnitsInt=1
+
+		#set
+		if LeakedSensorDerivePredicter.LeakingWeigthVariable==None:
+			LeakedSensorDerivePredicter.LeakingWeigthVariable='0'
+
+		#debug
+		'''
+		self.debug(
+			[
+				'We have defined the Sensor and a default LeakingUnitsInt',
+				'id(LeakedSensorDerivePredicter) is '+str(id(LeakedSensorDerivePredicter))
+			]
+		)
+		'''
+
+		#/###################/#
+		# Special Sensor setting
+		# 
+
+		#debug
+		'''
+		self.debug(
+			[
+				'we have maybe to define inside the Sensor Inputs and Interactions',
+				"'Inputs' in LeakedSensorDerivePredicter.TeamDict is '",
+				str('Inputs' in LeakedSensorDerivePredicter.TeamDict)
+			]
+		)
+		'''
 
 		#/###################/#
 		# Check for Inputs in the Sensor
@@ -328,7 +425,7 @@ class PredicterClass(BaseClass):
 		if 'Command' in LeakedInputsDeriveManager.ManagementDict:
 
 			#get
-			LeakedCommandDerivePredicter=LeakedPopulationsDeriveManager.ManagementDict[
+			LeakedCommandDerivePredicter=LeakedInputsDeriveManager.ManagementDict[
 				'Command'
 			]
 
@@ -338,6 +435,10 @@ class PredicterClass(BaseClass):
 			LeakedCommandDerivePredicter=LeakedInputsDeriveManager.manage(
 				'Command'
 			).ManagedValueVariable
+
+
+		#set
+		LeakedCommandDerivePredicter.LeakingWeigthVariable="#custom:#clock:200*ms:5.*mV*int(t==200*ms)"
 
 		#/###################/#
 		# Check for Interactions in the Sensor
@@ -366,89 +467,146 @@ class PredicterClass(BaseClass):
 		if 'Jacobian' in LeakedInteractionsDeriveManager.ManagementDict:
 
 			#get
-			LeakedCommandDerivePredicter=LeakedInteractionsDeriveManager.ManagementDict[
+			LeakedJacobianDerivePredicter=LeakedInteractionsDeriveManager.ManagementDict[
 				'Jacobian'
 			]
 
 		else:
 
 			#manage
-			LeakedCommandDerivePredicter=LeakedInteractionsDeriveManager.manage(
+			LeakedJacobianDerivePredicter=LeakedInteractionsDeriveManager.manage(
 				'Jacobian'
 			).ManagedValueVariable
 
-	"""
-	def leakPopulation(self):
-
-
-		#Check
-		if self.ManagementTagStr=='Sensor':
-
-			#debug
-			self.debug(
-				[
-					'We are in the sensor Population'
-				]
-			)
-
-		#/###################/#
-		# Set the same command input in the 
-		# neuron populations
-
-
-		#/###################/#
-		# Specify the Jacobian interaction
-		#
-
-		#Check
-		if 'Interactions' in self.TeamDict:
-
-			#get
-			LeakedInteractionDeriveManager=self.TeamDict[
-				'Interactions'
-			]
-		else:
-
-			#team
-			self.team(
-				'Interactions'
-			).TeamedValueVariable
-
-		#Check
-		if 'Jacobian' in LeakedInteractionDeriveManager.ManagementDict:
-
-			#get
-			LeakedJacobianDerivePredicter=LeakedInteractionDeriveManager.ManagementDict[
-				'Jacobian'
-			]
-		else:
-
-			#manage
-			LeakedJacobianDerivePredicter=LeakedInteractionDeriveManager.manage(
-				'Jacobian' 
-			)
+		#set the connect target
+		LeakedJacobianDerivePredicter.ConnectingKeyVariable=LeakedSensorDerivePredicter
 
 		#set
-		LeakedJacobianDerivePredicter
-
-
-
-		self.PredictingJacobianFloatsArray=
-
-		#/###################/#
-		# Call the base method
-		#
+		LeakedJacobianDerivePredicter.LeakingWeigthVariable='#array'
 
 		#debug
+		'''
 		self.debug(
 			[
-				'Now we call the base method'
+				'Ok we have setted the sensor',
+				'LeakedSensorDerivePredicter is ',
+				SYS._str(LeakedSensorDerivePredicter)
 			]
 		)
+		'''
 
-		#leak
+		"""
+		#Check
+		if self.PredictingDaleBool==False:
+
+			#/###################/#
+			# Specify the P Population
+			#
+
+			#Check
+			if 'P' not in LeakedPopulationsDeriveManager:
+
+				#get
+				LeakedPDerivePredicter=LeakedPopulationsDeriveManager.ManagementDict[
+					'P'
+				]
+
+			else:
+
+				#manage
+				LeakedPDerivePredicter=LeakedPopulationsDeriveManager.manage(
+					'P'
+				).ManagedValueVariable
+
+			#set
+			LeakedPDerivePredicter.LeakingUnitsInt=1
+
+			#debug
+			'''
+			self.debug(
+				[
+					'We have defined the rate P model and a default LeakingUnitsInt',
+					'id(LeakedPDerivePredicter) is '+str(id(LeakedPDerivePredicter))
+				]
+			)
+			'''
+
+			#/###################/#
+			# Check for Interactions in the P
+			#
+
+			#Check
+			if 'Interactions' in LeakedPDerivePredicter.TeamDict:
+
+				#get
+				LeakedInteractionsDeriveManager=LeakedPDerivePredicter.TeamDict[
+					 'Interactions'
+				]
+
+			else:
+
+				#team
+				LeakedInteractionsDeriveManager=LeakedPDerivePredicter.team(
+					 'Interactions'
+				).TeamedValueVariable
+
+			#/###################/#
+			# Specify the Fast interaction
+			#
+
+			#Check
+			if 'Fast' in LeakedInteractionsDeriveManager.ManagementDict:
+
+				#get
+				LeakedFastDerivePredicter=LeakedInteractionsDeriveManager.ManagementDict[
+					'Fast'
+				]
+
+			else:
+
+				#manage
+				LeakedFastDerivePredicter=LeakedInteractionsDeriveManager.manage(
+					'Fast'
+				).ManagedValueVariable
+
+			#set the connect target
+			LeakedFastDerivePredicter.ConnectingKeyVariable=LeakedPDerivePredicter
+
+			#debug
+			'''
+			self.debug(
+				[
+					'We have defined the Fast interaction in the P'
+				]
+			)
+			'''
+		"""
+
+
+	def leakPopulation(self):
+
+		#predict
+		self.predict()
+
+		#/##################/#
+		# Base method
+		#
+
+		#call
 		BaseClass.leakPopulation(self)
-	"""
+
+	def leakInteraction(self):
+
+		#predict
+		self.predict()
+
+		#/##################/#
+		# Base method
+		#
+
+		#call
+		BaseClass.leakInteraction(self)
+
 
 
 #</DefineClass>
@@ -460,11 +618,13 @@ Leaker.LeakersStructurerClass.ManagingValueClass=PredicterClass
 #</DefinePrint>
 PredicterClass.PrintingClassSkipKeyStrsList.extend(
 	[
+		'PredictingJacobianFloatsArray',
+
 		'PredictingUnitsInt',
 		'PredictingSensorsInt',
 		
 		'PredictingDynamicStr',
-		'PredictingConstantTimeFloat',
+		'PredictingTimeFloat',
 		'PredictingInputStatStr',
 		'PredictingDecoderMeanWeigtFloat',
 		'PredictingDecoderStdWeigtFloat',
@@ -476,7 +636,7 @@ PredicterClass.PrintingClassSkipKeyStrsList.extend(
 		'PredictingInputRandomStatStr',
 		'PredictingLateralRandomStatStr',
 
-		'PredictedSensorJacobianFloatsArray',
+		'PredictedJacobianFloatsArray',
 		
 		'PredictedLeakWeigthFloatsArray',
 

@@ -4,7 +4,7 @@ import ShareYourSystem as SYS
 #Definition 
 MyFindoer=SYS.FindoerClass(
 		**{
-			'FolderingPathStr':SYS.Findoer.LocalFolderPathStr,
+			'FolderingPathVariable':SYS.Findoer.LocalFolderPathStr,
 			'HdformatingFileKeyStr':'Thing.hdf',
 			'ModelingDescriptionTuplesList':
 			[

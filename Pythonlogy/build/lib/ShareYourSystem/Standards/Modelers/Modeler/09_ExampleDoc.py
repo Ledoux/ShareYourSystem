@@ -21,7 +21,7 @@ class MakerClass(SYS.ModelerClass):
 #Definition 
 MyMaker=MakerClass(
 		**{
-			'FolderingPathStr':SYS.Modeler.LocalFolderPathStr,
+			'FolderingPathVariable':SYS.Modeler.LocalFolderPathStr,
 			'HdformatingFileKeyStr':'Make.hdf',
 			'ModelKeyStrsList':['MyStr','MakingMyIntsList']
 		}

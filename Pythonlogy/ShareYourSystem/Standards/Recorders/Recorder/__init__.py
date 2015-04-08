@@ -24,7 +24,7 @@ SYS.addDo('Recorder','Record','Recording','Recorded')
 #</ImportSpecificModules>
 
 #<DefineLocals>
-RecorderPrefixStr='*'
+RecordPrefixStr='*'
 #</DefineLocals>
 
 #<DefineClass>
@@ -195,6 +195,7 @@ class RecorderClass(BaseClass):
 		#
 
 		#debug
+		'''
 		self.debug(
 				[
 					'This is the Traces level',
@@ -202,6 +203,7 @@ class RecorderClass(BaseClass):
 					('self.',self,['RecordingKeyVariable'])
 				]
 			)
+		'''
 
 		#get
 		RecordedTopDeriveRecorderVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
@@ -214,21 +216,23 @@ class RecorderClass(BaseClass):
 		if type(self.RecordingKeyVariable)==None.__class__:
 
 			#Check
-			if self.ManagementTagStr.startswith(RecorderPrefixStr):
+			if self.ManagementTagStr.startswith(RecordPrefixStr):
 
 				#debug
+				'''
 				self.debug(
 					[
 						('self.',self,['ManagementTagStr'])
 					]
 				)
+				'''
 
 				#get
 				self.RecordedTraceFloatsArray=getattr(
 					RecordedTopDeriveRecorderVariable,
 					SYS.deprefix(
 						self.ManagementTagStr,
-						RecorderPrefixStr
+						RecordPrefixStr
 					)
 				)
 
@@ -295,6 +299,7 @@ class RecorderClass(BaseClass):
 	def recordSample(self):
 
 		#debug
+		'''
 		self.debug(
 			[
 				'This is the sample record level',
@@ -303,7 +308,7 @@ class RecorderClass(BaseClass):
 				])
 			]
 		)
-
+		'''
 
 		#/##################/#
 		# Build the colors
@@ -321,6 +326,7 @@ class RecorderClass(BaseClass):
 			)[3:]
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We have setted the colors',
@@ -329,7 +335,8 @@ class RecorderClass(BaseClass):
 					])
 				]
 			)
-
+			'''
+			
 
 	
 #</DefineClass>
@@ -340,6 +347,7 @@ RecorderClass.PrintingClassSkipKeyStrsList.extend(
 		'RecordKeyStr',
 		'RecordingKeyVariable',
 		'RecordingLabelVariable',
+		'RecordingColorStr',
 		'RecordedTraceFloatsArray',
 		'RecordedInitFloatsArray',
 		'RecordedParentSingularStr',

@@ -18,7 +18,6 @@ MyLeaker=SYS.LeakerClass(
 			#'LeakingTimeVariable':20.,
 			#'LeakingTimeVariable':20.*SYS.brian2.ms,
 			#'LeakingTimeVariable':[10.,20.,10.],
-
 			'RecordingLabelVariable':[0,1]
 		}
 	).leak(
@@ -27,20 +26,25 @@ MyLeaker=SYS.LeakerClass(
 	)
 	
 #/###################/#
-# Print
-#
-
-#Definition the AttestedStr
-print('MyLeaker is ')
-SYS._print(MyLeaker) 
-
-
-#/###################/#
 # View
 #
 
-MyLeaker['/-Traces/|*U/-Samples/|Default'].pyplot()
-#MyLeaker['/-Events/|Default'].pyplot()
-#MyLeaker.pyplot()
+#MyLeaker[
+#	'/-Traces/|*U/-Samples/|Default'
+#	].view(
+#	).pyplot(
+#	)
+MyLeaker.view(
+	).pyplot(
+	)
 SYS.matplotlib.pyplot.show()
+
+#/###################/#
+# Print
+#
+
+#print
+print('MyLeaker is ')
+SYS._print(MyLeaker) 
+
 

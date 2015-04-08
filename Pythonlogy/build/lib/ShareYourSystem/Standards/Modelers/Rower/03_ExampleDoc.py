@@ -5,7 +5,7 @@ import ShareYourSystem as SYS
 #Definition 
 MyRower=SYS.RowerClass(
 		**{
-			'FolderingPathStr':SYS.Rower.LocalFolderPathStr,
+			'FolderingPathVariable':SYS.Rower.LocalFolderPathStr,
 			'HdformatingFileKeyStr':'Things.hdf',
 			'ModelingDescriptionTuplesList':
 				[

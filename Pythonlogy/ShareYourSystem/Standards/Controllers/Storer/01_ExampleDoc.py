@@ -5,7 +5,7 @@ import ShareYourSystem as SYS
 #Definition 
 MyController=SYS.ControllerClass(
 		**{
-			'FolderingPathStr':SYS.Inserter.LocalFolderPathStr,
+			'FolderingPathVariable':SYS.Inserter.LocalFolderPathStr,
 			'ControllingModelClassVariable':SYS.InserterClass
 		}
 	).set(

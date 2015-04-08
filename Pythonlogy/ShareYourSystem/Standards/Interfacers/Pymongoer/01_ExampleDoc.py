@@ -6,7 +6,7 @@ import ShareYourSystem as SYS
 MyPymongoer=SYS.PymongoerClass(
 	).pymongo(
 		**{
-			'FolderingPathStr':SYS.Pymongoer.LocalFolderPathStr
+			'FolderingPathVariable':SYS.Pymongoer.LocalFolderPathStr
 		}
 	)
 

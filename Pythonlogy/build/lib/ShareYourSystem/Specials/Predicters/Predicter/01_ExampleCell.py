@@ -10,7 +10,6 @@ import ShareYourSystem as SYS
 #
 
 #Define
-"""
 MyPredicter=SYS.PredicterClass(
 	).mapSet(
 		{
@@ -19,23 +18,30 @@ MyPredicter=SYS.PredicterClass(
 					'LeakingUnitsInt':1,
 					'-Inputs':{
 						'|Command':{
-							'LeakingWeigthVariable':(
-									'#network:#clock:200*ms',
-									lambda _ActivityQuantity,_TimeQuantity:
-									5.*SYS.brian2.mV 
-									if _TimeQuantity==200.*SYS.brian2.ms
-									else 0.*SYS.brian2.mV
-							)
+							'LeakingWeigthVariable':
+							{
+
+							}
 						}
 					},
 					'-Interactions':{
-						'|/':{
-							'LeakingWeigthVariable':-1.,
+						'|Jacobian':{
 						}
 					},
-					'LeakingTransferVariable':'1.*mV*tanh((#CurrentStr)/(1.*mV))',
+					#'LeakingTransferVariable':'1.*mV*tanh((#CurrentStr)/(1.*mV))',
 					#'LeakingTransferVariable':lambda __Float:__Float,
 					#'BrianingDebugInt':100
+				},
+				'|P':{
+					'LeakingUnitsInt':1,
+					'-Inputs':{
+						'|Command':{
+						}
+					},
+					'-Interactions':{
+						'|Fast':{
+						}
+					},
 				}
 			}
 		}
@@ -43,13 +49,27 @@ MyPredicter=SYS.PredicterClass(
 	).simulate(
 		500.
 	)
-"""
 
-MyPredicter=SYS.PredicterClass(
-	).predict(
-	).simulate(
-		500.
+#/###################/#
+# View
+#
+
+
+MyPredicter[
+		'/-Populations/|Sensor'
+	].view(
+	).pyplot(
 	)
+
+#MyPredicter[
+#		'/-Populations/|Sensor/-Traces/|*U/-Samples/|Default'
+#	].view(
+#	).pyplot(
+#	)
+
+#print(MyPredicter['/-Populations/|Default/-Interactions/|/'].BrianedSynapsesVariable.J[:])
+SYS.matplotlib.pyplot.show()
+
 
 #/###################/#
 # Print
@@ -58,37 +78,3 @@ MyPredicter=SYS.PredicterClass(
 #Definition the AttestedStr
 print('MyPredicter is ')
 SYS._print(MyPredicter) 
-
-#/###################/#
-# View
-#
-
-"""
-MyPredicter['/-Populations/|Sensor'].pyplot()
-#print(MyPredicter['/-Populations/|Default/-Interactions/|/'].BrianedSynapsesVariable.J[:])
-SYS.matplotlib.pyplot.show()
-"""
-
-
-MyLeaker=SYS.LeakerClass(
-	).mapSet(
-		{
-			'-Populations':{
-				'|Default':{
-					'LeakingUnitsInt':2,
-					'-Inputs':{
-						'|Default':{
-							'LeakingWeigthVariable':'#custom:#clock:200*ms:5.*mV*int(t==200*ms)',
-						}
-					},
-                    '-Interactions':{
-						'|/':{
-							'LeakingWeigthVariable':-1.,
-						}
-					},
-				}
-			}
-		}
-	).leak(
-	)
-

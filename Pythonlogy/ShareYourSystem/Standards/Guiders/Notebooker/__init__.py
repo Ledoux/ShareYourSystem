@@ -209,7 +209,7 @@ class NotebookerClass(BaseClass):
 				'''
 				self.debug(
 							('self.',self,[
-												'FolderingPathStr',
+												'FolderingPathVariable',
 												'FilingKeyStr',
 												'LoadingFormatStr'
 											])

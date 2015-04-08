@@ -255,7 +255,7 @@ self.NotebookedCodeDict['worksheets'][0]['cells'])
                                 '''
                                 self.debug(
                                                         ('self.',self,[
-                'FolderingPathStr',
+                'FolderingPathVariable',
                 'FilingKeyStr',
                 'LoadingFormatStr'
         ])

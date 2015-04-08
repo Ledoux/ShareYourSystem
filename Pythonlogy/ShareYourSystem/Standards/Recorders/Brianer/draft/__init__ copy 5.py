@@ -515,7 +515,7 @@ class BrianerClass(BaseClass):
 						),
 						map(
 							lambda __BrianedRecordKeyStr:
-							Recorder.RecorderPrefixStr+__BrianedRecordKeyStr,
+							Recorder.RecordPrefixStr+__BrianedRecordKeyStr,
 							self.BrianedRecordKeyStrsList
 						),
 						self.BrianedRecordKeyStrsList

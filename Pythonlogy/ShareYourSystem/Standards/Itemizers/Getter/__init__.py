@@ -80,6 +80,7 @@ GetMapSetGrabStr=Itemizer.ItemMapPrefixStr+'set'
 class GetterClass(BaseClass):
 	
 	def default_init(self,
+						_GetSortInt=-1,
 						_GettingKeyVariable=None,
 						_GettingItemBool=True,
 						_GettingNewBool=True,
@@ -805,11 +806,39 @@ class GetterClass(BaseClass):
 			else _MapVariable
 		)
 
+	def mimic__print(self,**_KwargVariablesDict):
+
+		#/##################/#
+		# Modify the printing Variable
+		#
+
+		#Check
+		if self.PrintingSelfBool:
+
+			#Check
+			if self.GetSortInt>-1:
+				
+				#forcePrint
+				self.forcePrint(
+					['GetSortInt'],
+					'GetterClass'
+				)
+
+
+		#/##################/#
+		# Call the base method
+		#
+
+		#call
+		BaseClass._print(self,**_KwargVariablesDict)
+
+
 #</DefineClass>
 
 #</DefinePrint>
 GetterClass.PrintingClassSkipKeyStrsList.extend(
 	[
+		'GetSortInt',
 		'GettingKeyVariable',
 		'GettingItemBool',
 		'GettingNewBool',

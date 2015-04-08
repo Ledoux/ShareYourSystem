@@ -30,7 +30,7 @@ class SumerClass(SYS.ControllerClass):
 MySumer=SumerClass(
 		**{
 				'HdformatingFileKeyStr':'Sums_2.hdf5',
-				'FolderingPathStr':SYS.Joiner.LocalFolderPathStr
+				'FolderingPathVariable':SYS.Joiner.LocalFolderPathStr
 			}
 	).collect(
 		"Joiners",

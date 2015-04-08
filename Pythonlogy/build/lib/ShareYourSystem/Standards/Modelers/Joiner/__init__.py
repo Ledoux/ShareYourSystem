@@ -274,7 +274,7 @@ class JoinerClass(BaseClass):
 		self.debug(
 				[
 					'We join model here',
-					('self.',self,['StructureTopDeriveStructurerVariable'])
+					('self.',self,['StructureTopDeriveStructurerRigidVariable'])
 				]
 			)
 		'''
@@ -286,7 +286,7 @@ class JoinerClass(BaseClass):
 			self.ModeledParentControllerDeriveModelerVariable=self
 
 		#set
-		self.ModeledTopControllerDeriveModelerVariable=self.StructureTopDeriveStructurerVariable
+		self.ModeledTopControllerDeriveModelerVariable=self.StructureTopDeriveStructurerRigidVariable
 
 		#debug
 		'''

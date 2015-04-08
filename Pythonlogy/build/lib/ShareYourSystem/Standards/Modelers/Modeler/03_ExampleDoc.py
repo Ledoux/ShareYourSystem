@@ -5,7 +5,7 @@ import ShareYourSystem as SYS
 #Definition 
 MyModeler=SYS.ModelerClass(
 		**{
-			'FolderingPathStr':SYS.Modeler.LocalFolderPathStr,
+			'FolderingPathVariable':SYS.Modeler.LocalFolderPathStr,
 			'HdformatingFileKeyStr':'Thing1.hdf',
 			'ModelKeyStrsList':[	
 				'MyStr',

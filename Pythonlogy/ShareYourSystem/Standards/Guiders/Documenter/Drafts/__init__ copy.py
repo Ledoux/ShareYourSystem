@@ -91,12 +91,12 @@ class DocumenterClass(BaseClass):
 						lambda _LiargVariablesList,_FolderPathStr,_FileKeyStrsList:
 						self.readme(
 							**{
-								'FolderingPathStr':_FolderPathStr
+								'FolderingPathVariable':_FolderPathStr
 							}
 						) if '__init__.py' in _FileKeyStrsList and _FolderPathStr.startswith('_'
 						)==False else None
 						,[],
-						**{'FolderingPathStr':self.DocumentingConceptFolderPathStr}
+						**{'FolderingPathVariable':self.DocumentingConceptFolderPathStr}
 					)
 		"""
 
@@ -112,7 +112,7 @@ class DocumenterClass(BaseClass):
 		self.DocumentedNameStrsList=SYS._filter(
 			lambda __FolderedDirKeyStr:
 			os.path.isdir(
-				self.FolderingPathStr+__FolderedDirKeyStr
+				self.FolderingPathVariable+__FolderedDirKeyStr
 			) and __FolderedDirKeyStr in Doer.DoerStrToDoStrOrderedDict.keys(),
 			self.FolderedDirKeyStrsList
 		)	
@@ -131,7 +131,7 @@ class DocumenterClass(BaseClass):
 		#map
 		self.DocumentedModulePathStrsList=map(
 			lambda __DocumentedNameStr:
-			self.FolderingPathStr+__DocumentedNameStr+'/',
+			self.FolderingPathVariable+__DocumentedNameStr+'/',
 			self.DocumentedNameStrsList
 		)	
 
@@ -144,7 +144,7 @@ class DocumenterClass(BaseClass):
 		'''
 
 		#Check
-		self.DocumentedConceptStr=self.FolderingPathStr.split('/')[-1] if self.FolderingPathStr[-1]!='/' else self.FolderingPathStr.split('/')[-2]
+		self.DocumentedConceptStr=self.FolderingPathVariable.split('/')[-1] if self.FolderingPathVariable[-1]!='/' else self.FolderingPathVariable.split('/')[-2]
 		if self.DocumentedConceptStr in PluralStrToSingularStrOrderedDict.keys():
 			self.DocumentedConceptModule=self.package(self.FolderedModuleStr).PackagingModuleVariable
 
@@ -170,7 +170,7 @@ class DocumenterClass(BaseClass):
 				lambda __DocumentedModulePathStr:
 				self.readme(
 					**{
-						'FolderingPathStr':__DocumentedModulePathStr
+						'FolderingPathVariable':__DocumentedModulePathStr
 					}
 				).load(
 					**{
@@ -182,7 +182,7 @@ class DocumenterClass(BaseClass):
 				else
 				self.load(
 					**{
-						'FolderingPathStr':__DocumentedModulePathStr,
+						'FolderingPathVariable':__DocumentedModulePathStr,
 						'FilingKeyStr':'Presentation.ipynb',
 						'LoadingFormatStr':'json'
 					}
@@ -235,7 +235,7 @@ class DocumenterClass(BaseClass):
 			self.write(
 				self.DocumentedConceptNotebookDict,
 				**{
-					'FolderingPathStr':self.DocumentingConceptFolderPathStr,
+					'FolderingPathVariable':self.DocumentingConceptFolderPathStr,
 					'FilingKeyStr':'Concept'+self.GuidingBookStr+'.ipynb',
 					'LoadingFormatStr':'json'
 				}
@@ -246,7 +246,7 @@ class DocumenterClass(BaseClass):
 			self.nbconvert(
 				_FormatStr='Slide',
 				**{
-					'FolderingPathStr':self.DocumentingConceptFolderPathStr,
+					'FolderingPathVariable':self.DocumentingConceptFolderPathStr,
 					'NotebookingFileKeyStr':'Concept'+self.GuidingBookStr+'.ipynb'
 				}
 			)

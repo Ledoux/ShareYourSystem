@@ -30,7 +30,36 @@ Teamer=BaseModule
 #<DefineLocals>
 ManagementChildPrefixStr="|"
 ManagementDirectChildPrefixStr="|#direct:"
-class ManagementDict(SYS.ListDict):pass
+sort=SYS.sort
+class ManagementDict(SYS.ListDict):
+	def sort(self):
+
+		#/#################/#
+		# Resort the dict
+		#
+
+		#sort
+		ValueVariablesList=sort(self.values())
+
+		#reset by deleting
+		map(
+			lambda __KeyStr:
+			self.__delitem__(__KeyStr),
+			self.keys()
+		)
+
+		#update
+		self.update(
+			zip(
+				map(
+					lambda __ValueVariable:
+					__ValueVariable.ManagementTagStr,
+					ValueVariablesList
+				),
+				ValueVariablesList
+			)
+		)
+		
 SYS.ManagementDict=ManagementDict
 #</DefineLocals>
 
@@ -389,8 +418,6 @@ class ManagerClass(BaseClass):
 					self.ManagedValueVariable['#map@set'](
 						self.ManagingAfterSetVariable	
 					)
-
-
 
 		else:
 

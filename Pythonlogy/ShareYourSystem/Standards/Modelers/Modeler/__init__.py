@@ -120,7 +120,7 @@ class ModelerClass(BaseClass):
 				'We model here',
 				'First look for deeper teams in the structure',
 				('self.',self,[
-					'FolderingPathStr',
+					'FolderingPathVariable',
 					'HdformatingFileKeyStr'
 				])
 			]
@@ -196,13 +196,13 @@ class ModelerClass(BaseClass):
 						[
 							'Component Controller Level',
 							'We set the ModeledTopControllerDeriveModelerVariable',
-							#('self.',self,['StructureTopDeriveStructurerVariable'])
+							#('self.',self,['StructureTopDeriveStructurerRigidVariable'])
 						]
 					)
 				'''
 
 				#set
-				self.ModeledTopControllerDeriveModelerVariable=self.StructureTopDeriveStructurerVariable
+				self.ModeledTopControllerDeriveModelerVariable=self.StructureTopDeriveStructurerRigidVariable
 
 			else:
 
@@ -251,8 +251,8 @@ class ModelerClass(BaseClass):
 				self.debug(
 					[
 						'Ok we have structured',
-						'self==self.StructureTopDeriveStructurerVariable is ',
-						str(self==self.StructureTopDeriveStructurerVariable),
+						'self==self.StructureTopDeriveStructurerRigidVariable is ',
+						str(self==self.StructureTopDeriveStructurerRigidVariable),
 						'self.HdformatingFileKeyStr is ',
 						self.HdformatingFileKeyStr
 					]
@@ -313,26 +313,26 @@ class ModelerClass(BaseClass):
 
 				
 				#set
-				if self.StructureTopDeriveStructurerVariable!=None:
+				if self.StructureTopDeriveStructurerRigidVariable!=None:
 
 					#debug
 					'''
 					self.debug(
 						[
-							'self.StructureTopDeriveStructurerVariable!=None'
+							'self.StructureTopDeriveStructurerRigidVariable!=None'
 						]
 					)
 					'''
 
 					#set
-					self.ModeledTopControllerDeriveModelerVariable=self.StructureTopDeriveStructurerVariable
+					self.ModeledTopControllerDeriveModelerVariable=self.StructureTopDeriveStructurerRigidVariable
 				else:
 
 					#debug
 					'''
 					self.debug(
 						[
-							'self.StructureTopDeriveStructurerVariable==None'
+							'self.StructureTopDeriveStructurerRigidVariable==None'
 						]
 					)
 					'''
@@ -365,7 +365,7 @@ class ModelerClass(BaseClass):
 					[
 						'Model Level',
 						'We determine the controller and top controller',
-						('self.',self,['StructureTopDeriveStructurerVariable'])
+						('self.',self,['StructureTopDeriveStructurerRigidVariable'])
 					]
 				)
 			'''
@@ -386,7 +386,7 @@ class ModelerClass(BaseClass):
 			self.ModeledParentControllerDeriveModelerVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
 
 			#set
-			self.ModeledTopControllerDeriveModelerVariable=self.StructureTopDeriveStructurerVariable
+			self.ModeledTopControllerDeriveModelerVariable=self.StructureTopDeriveStructurerRigidVariable
 
 			#debug
 			'''

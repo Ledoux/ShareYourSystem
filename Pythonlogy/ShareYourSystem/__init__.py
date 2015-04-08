@@ -1975,6 +1975,85 @@ def getFourierFloatsArray(
 
 	#return
 	return FourierFloatsArray
+
+def sort(_SortList):
+
+	#maybe order
+	[SortAttributeValueVariablesList,UnSortValueVariablesList]=groupby(
+		lambda __Variable:hasattr(
+			__Variable,
+			'GetSortInt'
+		) and __Variable.GetSortInt>-1,
+		_SortList
+	)
+
+	#maybe order
+	[SortItemValueVariablesList,UnSortValueVariablesList]=groupby(
+		lambda __Variable:hasattr(
+			__Variable,
+			'items'
+		) and 'GetSortInt' in __Variable and __Variable['GetSortInt']>-1,
+		UnSortValueVariablesList
+	)
+
+	#Debug
+	'''
+	print('SYS GetList')
+	print('SortItemValueVariablesList is ')
+	print(SortItemValueVariablesList)
+	print('UnSortValueVariablesList is ')
+	print(UnSortValueVariablesList)
+	print('order')
+	'''
+	
+	#map
+	SortAttributeTuplesList=map(
+		lambda __SortAttributeValueVariable:
+		(__SortAttributeValueVariable,__SortAttributeValueVariable.GetSortInt),
+		SortAttributeValueVariablesList
+	)
+
+	#map
+	SortItemTuplesList=map(
+		lambda __SortItemValueVariable:
+		(__SortItemValueVariable,__SortItemValueVariable['GetSortInt']),
+		SortItemValueVariablesList
+	)
+
+	#Debug
+	'''
+	print('SYS GetList')
+	print('SortAttributeTuplesList is ')
+	print(SortAttributeTuplesList)
+	print('SortItemTuplesList is ')
+	print(SortItemTuplesList)
+	print('order')
+	'''
+
+	#map
+	SortValueVariablesList=map(
+		lambda __SortTuple:
+		__SortTuple[0],
+		sorted(
+			SortAttributeTuplesList+SortItemTuplesList,
+			key=lambda __Variable:__Variable[1]
+		)
+	)
+
+	#Debug
+	'''
+	print('SYS GetList')
+	print('order')
+	print('SortValueVariablesList is ')
+	print(SortValueVariablesList)
+	print('UnSortValueVariablesList')
+	print(UnSortValueVariablesList)
+	print('')
+	'''
+	
+	#return
+	return SortValueVariablesList+UnSortValueVariablesList
+
 #</DefineFunctions>
 
 #<DefineLocals>
@@ -2119,10 +2198,24 @@ class GetList(list):
 		'''
 
 		#flat maybe
-		ValueVariable=flat(ValueVariable)
+		ValueVariablesList=flat(ValueVariable)
 
-		#filter
-		self.extend(filterNone(ValueVariable))
+		#filterNone
+		ValueVariablesList=filterNone(
+					ValueVariablesList
+				)
+
+		#/####################/#
+		# Maybe order
+		#
+
+		#sort
+		#ValueVariablesList=sort(ValueVariablesList)
+
+		#extend
+		self.extend(
+			ValueVariablesList
+		)
 
 class SetList(list):
 

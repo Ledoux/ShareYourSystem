@@ -8,7 +8,7 @@ MyHdformater=SYS.HdformaterClass(
 		#HdformatingFileKeyStr
 		'Hdformats.hdf5',
 		**{
-			'FolderingPathStr':SYS.Hdformater.LocalFolderPathStr
+			'FolderingPathVariable':SYS.Hdformater.LocalFolderPathStr
 		}
 	)
 

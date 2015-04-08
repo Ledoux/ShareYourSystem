@@ -84,7 +84,7 @@ class ModulizerClass(SYS.ControllerClass):
 #Definition of a Modulizer instance, structure and network
 MyModulizer=ModulizerClass(
 		**{
-			'FolderingPathStr':SYS.Joiner.LocalFolderPathStr
+			'FolderingPathVariable':SYS.Joiner.LocalFolderPathStr
 		}
 	).pymongo(
 	)

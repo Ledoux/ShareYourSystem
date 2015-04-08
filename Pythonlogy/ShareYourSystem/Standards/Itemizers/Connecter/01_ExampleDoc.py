@@ -12,7 +12,11 @@ MyConnecter=SYS.ConnecterClass(
 		}
 	)
 
-MyConnecter['/-Children/|Erwan'].connect('/^/|Aurelie')
+MyConnecter[
+		'/-Children/|Erwan'
+	].connect(
+		'/^/|Aurelie'
+	)
 
 #print
 print('MyConnecter is')

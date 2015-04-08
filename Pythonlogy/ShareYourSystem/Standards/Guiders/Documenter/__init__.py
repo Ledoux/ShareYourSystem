@@ -44,7 +44,7 @@ def getDocumentedReadmeInstanceVariableWithFolderPathStr(
 	#file first
 	return _InstanceVariable.notebook(
 			**{
-				'FolderingPathStr':_FolderPathStr,
+				'FolderingPathVariable':_FolderPathStr,
 				'GuidingBookStr':"Doc",
 				'NotebookingFileKeyStr':"Presentation.ipynb"
 			}
@@ -134,7 +134,7 @@ class DocumenterClass(BaseClass):
 		self.DocumentedSubNameStrsList=SYS._filter(
 			lambda __FolderedDirKeyStr:
 			os.path.isdir(
-				self.FolderingPathStr+__FolderedDirKeyStr
+				self.FolderingPathVariable+__FolderedDirKeyStr
 			) and __FolderedDirKeyStr in Doer.DoerStrToDoStrOrderedDict.keys(),
 			self.FolderedDirKeyStrsList
 		)	
@@ -158,9 +158,9 @@ class DocumenterClass(BaseClass):
 		)	
 
 		#Check
-		self.DocumentedConceptNameStr=self.FolderingPathStr.split(
+		self.DocumentedConceptNameStr=self.FolderingPathVariable.split(
 					'/'
-			)[-1] if self.FolderingPathStr[-1]!='/' else self.FolderingPathStr.split('/'
+			)[-1] if self.FolderingPathVariable[-1]!='/' else self.FolderingPathVariable.split('/'
 			)[-2]
 
 		#debug
@@ -330,7 +330,7 @@ class DocumenterClass(BaseClass):
 					lambda __DocumentedSubModuleFolderPathStr:
 					self.load(
 						**{
-							'FolderingPathStr':__DocumentedSubModuleFolderPathStr,
+							'FolderingPathVariable':__DocumentedSubModuleFolderPathStr,
 							'FilingKeyStr':'Presentation.ipynb',
 							'LoadingFormatStr':'json'
 						}
@@ -382,7 +382,7 @@ class DocumenterClass(BaseClass):
 			self.write(
 				self.DocumentedConceptNotebookDict,
 				**{
-					'FolderingPathStr':self.DocumentingConceptFolderPathStr,
+					'FolderingPathVariable':self.DocumentingConceptFolderPathStr,
 					'FilingKeyStr':'Concept'+self.GuidingBookStr+'.ipynb',
 					'LoadingFormatStr':'json'
 				}
@@ -394,7 +394,7 @@ class DocumenterClass(BaseClass):
 			self.nbconvert(
 				_FormatStr='Slide',
 				**{
-					'FolderingPathStr':self.DocumentingConceptFolderPathStr,
+					'FolderingPathVariable':self.DocumentingConceptFolderPathStr,
 					'NotebookingFileKeyStr':'Concept'+self.GuidingBookStr+'.ipynb'
 				}
 			)

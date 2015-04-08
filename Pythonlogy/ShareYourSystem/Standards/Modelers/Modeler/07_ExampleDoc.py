@@ -6,7 +6,7 @@ import ShareYourSystem as SYS
 MyModeler=SYS.ModelerClass(
 		).mapSet(
 			{
-				'FolderingPathStr':SYS.Modeler.LocalFolderPathStr,
+				'FolderingPathVariable':SYS.Modeler.LocalFolderPathStr,
 				'HdformatingFileKeyStr':'Stuff.hdf',
 				'UnitsInt':3,
 				'ModelingDescriptionTuplesList':

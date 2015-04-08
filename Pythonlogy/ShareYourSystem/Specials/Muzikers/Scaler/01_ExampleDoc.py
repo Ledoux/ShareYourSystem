@@ -15,7 +15,7 @@ MyScaler.write(
 		mode="html"
 	),
 	**{
-		'FolderingPathStr':'/Users/ledoux/Documents/MampLocalhost/vexflow/',
+		'FolderingPathVariable':'/Users/ledoux/Documents/MampLocalhost/vexflow/',
 		'FilingKeyStr':"Scale.html"
 	}
 ).close()

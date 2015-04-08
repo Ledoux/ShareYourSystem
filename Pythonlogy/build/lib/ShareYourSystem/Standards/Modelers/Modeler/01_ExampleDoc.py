@@ -4,7 +4,7 @@ import ShareYourSystem as SYS
 #Definition 
 MyModeler=SYS.ModelerClass(
 		**{
-			'FolderingPathStr':SYS.Modeler.LocalFolderPathStr,
+			'FolderingPathVariable':SYS.Modeler.LocalFolderPathStr,
 			'PymongoingDatabaseStr':"Thing"
 		}
 	).model(

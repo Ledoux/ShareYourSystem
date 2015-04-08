@@ -103,13 +103,13 @@ class FilerClass(BaseClass):
 
                 #debug
                 '''
-                self.debug(('self.',self,['FolderingPathStr']))
+                self.debug(('self.',self,['FolderingPathVariable']))
                 '''
 
                 #set the FiledPathStr
-                if self.FolderingPathStr[-1]!='/':
-                        self.FolderingPathStr=self.FolderingPathStr+'/'
-                self.FiledPathStr=self.FolderingPathStr+self.FilingKeyStr
+                if self.FolderingPathVariable[-1]!='/':
+                        self.FolderingPathVariable=self.FolderingPathVariable+'/'
+                self.FiledPathStr=self.FolderingPathVariable+self.FilingKeyStr
 
                 #debug
                 '''
@@ -200,7 +200,7 @@ from ShareYourSystem.Standards.Interfacers import Filer
 #Definition of an instance Filer and make it find the current dir
 MyFiler=Filer.FilerClass().file('MyFile.txt','w',
     **{
-    'FolderingPathStr':
+    'FolderingPathVariable':
     Filer.LocalFolderPathStr
     }
 )

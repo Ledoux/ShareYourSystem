@@ -55,7 +55,9 @@ MyBrianer.simulate(
 # View
 #
 
-MyBrianer['/-Traces/|*v/-Samples/|Default'].view(
+MyBrianer[
+		'/-Traces/|*v/-Samples/|Default'
+	].view(
 	).pyplot(
 	)
 #MyBrianer['/-Events/|Default'].pyplot()

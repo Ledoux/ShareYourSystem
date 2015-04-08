@@ -41,7 +41,7 @@ class SumerClass(SYS.JoinerClass):
 MySumer=SumerClass(
 	**{
 			'HdformatingFileKeyStr':'Sums.hdf5',
-			'FolderingPathStr':SYS.Joiner.LocalFolderPathStr
+			'FolderingPathVariable':SYS.Joiner.LocalFolderPathStr
 		}
 	).mapSet(
 		{

@@ -5,7 +5,7 @@ import ShareYourSystem as SYS
 #Definition 
 MyRetriever=SYS.RetrieverClass(
 		**{
-			'FolderingPathStr':SYS.Retriever.LocalFolderPathStr,
+			'FolderingPathVariable':SYS.Retriever.LocalFolderPathStr,
 			'PymongoingDatabaseStr':"Thing",
 			'ModelKeyStrsList':[
 				'MyInt',

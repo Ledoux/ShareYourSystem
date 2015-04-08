@@ -9,7 +9,7 @@ MyProcesser=SYS.ProcesserClass(
 		#ProcessingDirectStr
 		False,
 		**{
-			'FolderingPathStr':SYS.Processer.LocalFolderPathStr
+			'FolderingPathVariable':SYS.Processer.LocalFolderPathStr
 		}
 	)
 		

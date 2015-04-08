@@ -62,7 +62,7 @@ class BrianerClass(BaseClass):
 			_BrianedStateMonitorVariable=None,
 			_BrianedSpikeMonitorVariable=None,
 			_BrianedClockVariable=None,
-			_BrianedParentSingularStr=None,
+			_BrianedParentSingularStr="",
 			_BrianedRecordKeyStrsList=None,
 			_BrianedTraceDeriveBrianersList=None,
 			_BrianedSynapsesDeriveBrianersList=None,
@@ -409,6 +409,18 @@ class BrianerClass(BaseClass):
 		# Adapt the arg
 		#
 
+		#debug
+		'''
+		self.debug(
+			[
+				'Check for the Neurongroup dict ',
+				('self.',self,[
+						'BrianingNeurongroupDict'
+					])
+			]
+		)
+		'''
+
 		#Check
 		if 'N' not in self.BrianingNeurongroupDict:
 			self.BrianingNeurongroupDict['N']=0
@@ -576,7 +588,7 @@ class BrianerClass(BaseClass):
 							),
 							map(
 								lambda __BrianedRecordKeyStr:
-								Recorder.RecorderPrefixStr+__BrianedRecordKeyStr,
+								Recorder.RecordPrefixStr+__BrianedRecordKeyStr,
 								self.BrianedRecordKeyStrsList
 							),
 							self.BrianedRecordKeyStrsList
@@ -690,145 +702,186 @@ class BrianerClass(BaseClass):
 			'''
 			self.debug(
 				[
-					'We setConnection here'
+					'We setConnection here',
+					('self.',self,[
+							'ManagementTagStr',
+							'ConnectingKeyVariable'
+						])
 				]
 			)
 			'''
 
 			#setConnection
 			self.setConnection(
-				self.ManagementTagStr,
+				self.ManagementTagStr
+				if self.ConnectingKeyVariable==None
+				else self.ConnectingKeyVariable,
 				self,
 				self.BrianedParentPopulationDeriveBrianerVariable
 			)
 
-		#/####################/#
-		# Set the BrianedParentPopulationDeriveBrianerVariable
-		#
+		#Check
+		if self.ConnectedToVariable!=None:
 
-		#debug
-		'''
-		self.debug(
-			[
-				'Do we have to make parent-brian the connected variable ?',
-				'self.ConnectedToVariable.BrianedNeurongroupVariable is ',
-				str(self.ConnectedToVariable.BrianedNeurongroupVariable)
-			]
-		)
-		'''
-
-		#Check 
-		if self.ConnectedToVariable.BrianedNeurongroupVariable==None:
-
-			#parent brian
-			self.ConnectedToVariable.parent(
-				).brian(
-				)
-
-		#set
-		BrianedNameStr=self.BrianedParentPopulationDeriveBrianerVariable.StructureTagStr+'_To_'+self.ConnectedToVariable.StructureTagStr
-
-		#debug
-		'''
-		self.debug(
-			[
-				'We set the synapses',
-				'self.BrianedParentPopulationDeriveBrianerVariable.BrianedNeurongroupVariable is ',
-				str(self.BrianedParentPopulationDeriveBrianerVariable.BrianedNeurongroupVariable),
-				'self.ConnectedToVariable.BrianedNeurongroupVariable is ',
-				str(self.ConnectedToVariable.BrianedNeurongroupVariable),
-				'Maybe we have to make brian the post',
-				'BrianedNameStr is '+BrianedNameStr
-			]
-		)
-		'''
-
-		#import
-		from brian2 import Synapses
-
-		#init
-		self.BrianedSynapsesVariable=Synapses(
-			source=self.BrianedParentPopulationDeriveBrianerVariable.BrianedNeurongroupVariable,
-			target=self.ConnectedToVariable.BrianedNeurongroupVariable,
-			#name=BrianedNameStr.replace('/','_'),
-			**self.BrianingSynapsesDict
-		)
-
-		#/####################/#
-		# Connect options
-		#
-
-		#connect
-		if type(self.BrianingConnectVariable)==float:
+			#/####################/#
+			# Set the BrianedParentPopulationDeriveBrianerVariable
+			#
 
 			#debug
 			'''
 			self.debug(
 				[
-					'we connect with a sparsity of ',
+					'Do we have to make parent-brian the connected variable ?',
+					'self.ConnectedToVariable.BrianedNeurongroupVariable is ',
+					str(self.ConnectedToVariable.BrianedNeurongroupVariable)
+				]
+			)
+			'''
+
+			#Check 
+			if self.ConnectedToVariable.BrianedNeurongroupVariable==None:
+
+				#parent brian
+				self.ConnectedToVariable.parent(
+					).brian(
+					)
+
+			#set
+			BrianedNameStr=self.BrianedParentPopulationDeriveBrianerVariable.StructureTagStr+'_To_'+self.ConnectedToVariable.StructureTagStr
+
+			#debug
+			'''
+			self.debug(
+				[
+					'We set the synapses',
 					('self.',self,[
-						'BrianingConnectVariable'
+							'BrianedParentPopulationDeriveBrianerVariable',
+							'ConnectedToVariable'
+						]),
+					'self.BrianedParentPopulationDeriveBrianerVariable.BrianedNeurongroupVariable is ',
+					str(self.BrianedParentPopulationDeriveBrianerVariable.BrianedNeurongroupVariable),
+					'self.ConnectedToVariable.BrianedNeurongroupVariable is ',
+					str(self.ConnectedToVariable.BrianedNeurongroupVariable),
+					'Maybe we have to make brian the post',
+					'BrianedNameStr is '+BrianedNameStr
+				]
+			)
+			'''
+
+			#import
+			from brian2 import Synapses
+
+			#Check
+			if self.BrianedParentPopulationDeriveBrianerVariable.BrianedNeurongroupVariable!=None and self.ConnectedToVariable.BrianedNeurongroupVariable!=None:
+
+				#init
+				self.BrianedSynapsesVariable=Synapses(
+					source=self.BrianedParentPopulationDeriveBrianerVariable.BrianedNeurongroupVariable,
+					target=self.ConnectedToVariable.BrianedNeurongroupVariable,
+					#name=BrianedNameStr.replace('/','_'),
+					**self.BrianingSynapsesDict
+				)
+
+			else:
+
+				#debug
+				self.debug(
+					[
+						'The Synapse init didn t work...',
+						'self.BrianedParentPopulationDeriveBrianerVariable.BrianingNeurongroupDict is ',
+						SYS._str(self.BrianedParentPopulationDeriveBrianerVariable.BrianingNeurongroupDict),
+						'self.ConnectedToVariable.BrianingNeurongroupDict is ',
+						SYS._str(self.ConnectedToVariable.BrianingNeurongroupDict),
+					]
+				)
+
+			#/####################/#
+			# Connect options
+			#
+
+			#connect
+			if type(self.BrianingConnectVariable)==float:
+
+				#debug
+				'''
+				self.debug(
+					[
+						'we connect with a sparsity of ',
+						('self.',self,[
+							'BrianingConnectVariable'
+						])
+					]
+				)
+				'''
+
+				#connect
+				self.BrianedSynapsesVariable.connect(
+					True,
+					p=self.BrianingConnectVariable
+				)
+
+			#/####################/#
+			# add to the structure
+			#
+
+			#debug
+			'''
+			self.debug(
+				[
+					'Add to the Network brian this Synapses',
+					('self.',self,[
+						'BrianedSynapsesVariable'
 					])
 				]
 			)
 			'''
 
-			#connect
-			self.BrianedSynapsesVariable.connect(
-				True,
-				p=self.BrianingConnectVariable
-			)
-
-		#/####################/#
-		# add to the structure
-		#
-
-		#add
-		self.BrianedParentNetworkDeriveBrianerVariable.BrianedNetworkVariable.add(
-			self.BrianedSynapsesVariable
-		)
-
-		#/##################/#
-		# Define a debug
-		#
-
-		#Check
-		if self.BrianingDebugInt>0:
-
-			#import
-			from brian2 import network_operation,ms
-
-			@network_operation(
-				dt=self.BrianingDebugInt*self.BrianedParentNetworkDeriveBrianerVariable.BrianedTimeQuantityVariable
-			)
-			def debugSynapses():
-
-				#init
-				PrintStr='At time t='+str(self.BrianedSynapsesVariable.clock.t)+', \n'
-				PrintStr+='In the Synapses '+self.BrianedSynapsesVariable.name+' : \n'
-
-				#loop
-				for __KeyStr in self.BrianedSynapsesVariable.equations._equations.keys():
-
-					#set
-					PrintStr+=__KeyStr+" is "+str(
-						getattr(
-							self.BrianedSynapsesVariable,
-							__KeyStr
-						)
-					)+'\n'
-
-
-				#add
-				PrintStr+='\n'
-
-				#print
-				print PrintStr
-			
 			#add
 			self.BrianedParentNetworkDeriveBrianerVariable.BrianedNetworkVariable.add(
-				debugSynapses
+				self.BrianedSynapsesVariable
 			)
+
+			#/##################/#
+			# Define a debug
+			#
+
+			#Check
+			if self.BrianingDebugInt>0:
+
+				#import
+				from brian2 import network_operation,ms
+
+				@network_operation(
+					dt=self.BrianingDebugInt*self.BrianedParentNetworkDeriveBrianerVariable.BrianedTimeQuantityVariable
+				)
+				def debugSynapses():
+
+					#init
+					PrintStr='At time t='+str(self.BrianedSynapsesVariable.clock.t)+', \n'
+					PrintStr+='In the Synapses '+self.BrianedSynapsesVariable.name+' : \n'
+
+					#loop
+					for __KeyStr in self.BrianedSynapsesVariable.equations._equations.keys():
+
+						#set
+						PrintStr+=__KeyStr+" is "+str(
+							getattr(
+								self.BrianedSynapsesVariable,
+								__KeyStr
+							)
+						)+'\n'
+
+
+					#add
+					PrintStr+='\n'
+
+					#print
+					print PrintStr
+				
+				#add
+				self.BrianedParentNetworkDeriveBrianerVariable.BrianedNetworkVariable.add(
+					debugSynapses
+				)
 
 	def brianTrace(self):
 
@@ -934,20 +987,23 @@ class BrianerClass(BaseClass):
 					len(BrianedSamplesDeriveManager.ManagementDict)==1 and 'Default' in BrianedSamplesDeriveManager.ManagementDict
 				):
 
-					#debug
-					'''
-					self.debug(
-						[
-							'There is just one variable that we sample',
-							'we manage and make it brian'
-						]
-					)
-					'''
-
 					#manage
 					BrianedDefaultBrianer=BrianedSamplesDeriveManager.manage(
 						'Default',
 					).ManagedValueVariable
+
+					#debug
+					self.debug(
+						[
+							'There is just one variable that we sample',
+							'we have managed a Default',
+							'BrianedDefaultBrianer.RecordingLabelVariable is ',
+							str(BrianedDefaultBrianer.RecordingLabelVariable),
+							('self.',self,[
+									'RecordingLabelVariable'
+								])
+						]
+					)
 
 					#Check
 					if BrianedDefaultBrianer.RecordingLabelVariable==None:
@@ -1184,17 +1240,44 @@ class BrianerClass(BaseClass):
 			'''
 
 			#/########################/#
+			# Special Network level
+			# 
+
+			#Check
+			if 'Populations' not in self.TeamDict:
+		
+				#debug
+				'''
+				self.debug(
+					[
+						'It is a network with a one level pop',
+						'So viewPopulation'
+					]
+				)
+				'''
+
+				#viewPopulation
+				self.viewPopulation()
+
+				#debug
+				'''
+				self.debug(
+					[
+						'We end to viewPopulation for this network'
+					]
+				)
+				'''
+
+			#/########################/#
 			# structure
 			# 
 
 			#debug
-			'''
 			self.debug(
 				[
 					'We view structure in all the brian children...',
 				]
 			)
-			'''
 
 			#structure
 			self.structure(
@@ -1208,7 +1291,9 @@ class BrianerClass(BaseClass):
 					'Interactions'
 				],
 				'#all',
-				_ManagerCommandSetList=['view']
+				_ManagerCommandSetList=[
+					'view'
+				]
 			)
 
 			#debug
@@ -1220,10 +1305,12 @@ class BrianerClass(BaseClass):
 			)	
 			'''
 
-		else:
+		elif self.BrianedParentSingularStr!="":
+
+			#set
+			BrianedMethodKeyStr='view'+self.BrianedParentSingularStr
 
 			#debug
-			'''
 			self.debug(
 				[
 					'Ok we check if this parentsingular has a special method ',
@@ -1232,10 +1319,6 @@ class BrianerClass(BaseClass):
 					])
 				]
 			)
-			'''
-
-			#set
-			BrianedMethodKeyStr='view'+self.BrianedParentSingularStr
 
 			#Check
 			if hasattr(self,BrianedMethodKeyStr):
@@ -1269,16 +1352,33 @@ class BrianerClass(BaseClass):
 				)
 				'''	
 
-	def viewPopulation(self):
-
 		#debug
-		'''
 		self.debug(
 			[
-				'We complete a view so first fill the draw'
+				'End of mimic_view'
 			]
 		)
-		'''
+
+
+
+
+	def viewPopulation(self):
+
+		#/################/#
+		# Build the Charts to welcome the axes
+		#
+
+		#debug
+		self.debug(
+			[
+				'viewPopulation',
+				'We complete a view so first fill the draw',
+				('self.',self,[
+						'StructureTopDeriveStructurerRigidVariable',
+						'StructuringManagerCommandSetList'
+					])
+			]
+		)
 
 		#Check
 		if 'Charts' not in self.TeamDict:
@@ -1288,20 +1388,57 @@ class BrianerClass(BaseClass):
 		else:
 			BrianedChartsDeriveTeamer=self.TeamDict['Charts']
 
+		#/################/#
+		# Check if it was during a structure call or not
+		#
+
+		#Check
+		if self.StructureTopDeriveStructurerRigidVariable==None: 
+
+			#debug
+			self.debug(
+				[
+					'It was not during a structuring call so structure from this level to down'
+				]
+			)
+
+			#structure
+			self.structure(
+				[
+					'Traces',
+					'Events',
+					'Samples',
+					'Interactomes',
+					'Interactions'
+				],
+				'#all',
+				_ManagerCommandSetList=[
+					'view'
+				]
+			)
+
+			#debug
+			self.debug(
+				[
+					'End of structuring'
+				]
+			)
+
+
 	def viewSample(self):
 
 		#debug
-		'''
 		self.debug(
 			[
+				'viewSample',
 				'We complete a view so first fill the draw',
 				('self.',self,[
 					'RecordingLabelVariable',
-					'ViewedLegendLabelStr'
+					'ViewedLegendLabelStr',
+					'StructureTopDeriveStructurerRigidVariable'
 				])
 			]
 		)
-		'''
 
 		#/##################/#
 		# If there is just one plot
@@ -1572,7 +1709,9 @@ class BrianerClass(BaseClass):
 		#debug
 		self.debug(
 			[
-				'Maybe we also update the view in the parent population'
+				'Maybe we also update the view in the parent population',
+				"'Charts' in self.BrianedParentPopulationDeriveBrianerVariable.TeamDict is ",
+				str('Charts' in self.BrianedParentPopulationDeriveBrianerVariable.TeamDict)
 			]
 		)
 

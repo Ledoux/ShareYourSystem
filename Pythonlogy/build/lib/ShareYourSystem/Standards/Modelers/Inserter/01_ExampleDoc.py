@@ -5,7 +5,7 @@ import ShareYourSystem as SYS
 #Definition 
 MyInserter=SYS.InserterClass(
 		**{
-			'FolderingPathStr':SYS.Inserter.LocalFolderPathStr,
+			'FolderingPathVariable':SYS.Inserter.LocalFolderPathStr,
 			'PymongoingDatabaseStr':"Thing",
 			'ModelKeyStrsList':[
 				'MyInt',

@@ -1813,7 +1813,7 @@ class ProcesserClass(BaseClass):
         self.file(ProcessingFileStr+'.sh','w')
 
         #Define
-        ProcessedBashPathStr=self.FolderingPathStr+ProcessingFileStr+'.txt'
+        ProcessedBashPathStr=self.FolderingPathVariable+ProcessingFileStr+'.txt'
 
         #set
         self.ProcessedBashStr='OUTPUT="$('+self.ProcessingBashStr+')"\n'
@@ -1883,7 +1883,7 @@ In&nbsp;[3]:
 <span class="c">#Definition of an instance Processer and make it print hello</span>
 <span class="n">MyProcesser</span><span class="o">=</span><span class="n">Processer</span><span class="o">.</span><span class="n">ProcesserClass</span><span class="p">()</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="s">&#39;which python &#39;</span><span class="p">,</span>
     <span class="o">**</span><span class="p">{</span>
-    <span class="s">&#39;FolderingPathStr&#39;</span><span class="p">:</span><span class="n">Processer</span><span class="o">.</span><span class="n">LocalFolderPathStr</span>
+    <span class="s">&#39;FolderingPathVariable&#39;</span><span class="p">:</span><span class="n">Processer</span><span class="o">.</span><span class="n">LocalFolderPathStr</span>
     <span class="p">}</span>
 <span class="p">)</span>
     

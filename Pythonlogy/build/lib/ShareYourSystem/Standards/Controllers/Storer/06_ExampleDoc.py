@@ -75,7 +75,7 @@ class FactorizerClass(SYS.StorerClass):
 MyFactorizer=FactorizerClass(
 		**{
 			#'HdformatingFileKeyStr':"Datome.hdf5",
-			'FolderingPathStr':SYS.Storer.LocalFolderPathStr
+			'FolderingPathVariable':SYS.Storer.LocalFolderPathStr
 		}
 	)
 

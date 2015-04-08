@@ -9,7 +9,7 @@ MyFiler=SYS.FilerClass(
 		#FilingModeStr
 		'w',
 		**{
-			'FolderingPathStr':SYS.Filer.LocalFolderPathStr
+			'FolderingPathVariable':SYS.Filer.LocalFolderPathStr
 		}
 	).file(
 		_ModeStr='c'

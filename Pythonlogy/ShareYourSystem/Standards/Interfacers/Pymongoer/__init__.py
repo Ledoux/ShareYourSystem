@@ -219,12 +219,12 @@ class PymongoerClass(BaseClass):
 			'''
 
 			#set
-			self.PymongoneFolderPathStr=self.FolderingPathStr+'data/db/'
+			self.PymongoneFolderPathStr=self.FolderingPathVariable+'data/db/'
 
 			#Check
 			if os.path.isdir(self.PymongoneFolderPathStr)==False:
-				os.popen('mkdir '+self.FolderingPathStr+'data')
-				os.popen('mkdir '+self.FolderingPathStr+'data/db')
+				os.popen('mkdir '+self.FolderingPathVariable+'data')
+				os.popen('mkdir '+self.FolderingPathVariable+'data/db')
 
 			#popen
 			self.process(

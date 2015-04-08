@@ -7,7 +7,7 @@ MyFiler=SYS.FilerClass().file(
 	'w',
 	_WriteVariable="hello",
 	**{
-		'FolderingPathStr':SYS.Filer.LocalFolderPathStr,
+		'FolderingPathVariable':SYS.Filer.LocalFolderPathStr,
 	}
 	).file(
 		_ModeStr='c'

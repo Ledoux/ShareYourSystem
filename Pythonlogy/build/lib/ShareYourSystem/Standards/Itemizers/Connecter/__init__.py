@@ -70,77 +70,80 @@ class ConnecterClass(BaseClass):
 			]
 		)
 		'''
-
-		#Check
-		if self.ConnectingGetBool:
 		
-			#init
-			ConnectedValueVariable=self[self.ConnectingKeyVariable]
+		#Check
+		if self.ConnectingKeyVariable!=None:
 
-		else:
+			#Check
+			if self.ConnectingGetBool:
+			
+				#init
+				ConnectedValueVariable=self[self.ConnectingKeyVariable]
 
-			#alias
-			ConnectedValueVariable=self.ConnectingKeyVariable
+			else:
+
+				#alias
+				ConnectedValueVariable=self.ConnectingKeyVariable
 
 
-		#debug
-		'''
-		self.debug(
+			#debug
+			'''
+			self.debug(
+					[
+						'in the end, ConnectedValueVariable is ',
+						SYS._str(ConnectedValueVariable)
+					]
+				)
+			'''
+
+			#/####################/#
+			# Make it parent if it was not yet the case
+			#
+
+			#debug
+			'''
+			self.debug(
 				[
-					'in the end, ConnectedValueVariable is ',
-					SYS._str(ConnectedValueVariable)
+					'We make the ConnectedValueVariable parentUp',
+					'ConnectedValueVariable is ',
+					SYS._str(ConnectedValueVariable),
+					('ConnectedValueVariable.',ConnectedValueVariable,[
+							'ParentedTotalPathStr'
+						])
 				]
 			)
-		'''
+			'''
 
-		#/####################/#
-		# Make it parent if it was not yet the case
-		#
+			#parentUp
+			ConnectedValueVariable.parentUp()
 
-		#debug
-		'''
-		self.debug(
-			[
-				'We make the ConnectedValueVariable parentUp',
-				'ConnectedValueVariable is ',
-				SYS._str(ConnectedValueVariable),
-				('ConnectedValueVariable.',ConnectedValueVariable,[
-						'ParentedTotalPathStr'
-					])
-			]
-		)
-		'''
+			#debug
+			'''
+			self.debug(
+				[
+					'Ok it has connected',
+					('ConnectedValueVariable.',ConnectedValueVariable,[
+							'ParentedTotalPathStr'
+						])
+				]
+			)
+			'''
 
-		#parentUp
-		ConnectedValueVariable.parentUp()
+			#/####################/#
+			# Now set the ConnectedToVariable
+			# 
 
-		#debug
-		'''
-		self.debug(
-			[
-				'Ok it has connected',
-				('ConnectedValueVariable.',ConnectedValueVariable,[
-						'ParentedTotalPathStr'
-					])
-			]
-		)
-		'''
+			#debug
+			'''
+			self.debug(
+				[
+					'We just set the ConnectedToVariable'
+				]
+			)
+			'''
 
-		#/####################/#
-		# Now set the ConnectedToVariable
-		# 
-
-		#debug
-		'''
-		self.debug(
-			[
-				'We just set the ConnectedToVariable'
-			]
-		)
-		'''
-
-		#set
-		self.ConnectedToVariable=ConnectedValueVariable
+			#set
+			self.ConnectedToVariable=ConnectedValueVariable
 
 	def mimic_get(self):
 

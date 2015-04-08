@@ -5,7 +5,7 @@ import ShareYourSystem as SYS
 #Definition 
 MyRower=SYS.RowerClass(
 		**{
-			'FolderingPathStr':SYS.Rower.LocalFolderPathStr,
+			'FolderingPathVariable':SYS.Rower.LocalFolderPathStr,
 			'ModelKeyStrsList':['MyInt','MyStr','MyIntsList']	
 		}
 	).model(

@@ -66,7 +66,7 @@ class HdformaterClass(BaseClass):
 			self.folder()
 
 			#set
-			self.HdformatedFilePathStr=self.FolderingPathStr+self.HdformatingFileKeyStr
+			self.HdformatedFilePathStr=self.FolderingPathVariable+self.HdformatingFileKeyStr
 			
 			#Maybe we have to import
 			if self.HdformatingModuleStr not in sys.modules:

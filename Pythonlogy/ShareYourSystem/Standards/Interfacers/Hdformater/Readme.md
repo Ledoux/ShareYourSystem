@@ -113,7 +113,7 @@ BaseClass.__init__}]})
                         self.folder()
 
                         #set
-self.HdformatedFilePathStr=self.FolderingPathStr+self.HdformatingFileKeyStr
+self.HdformatedFilePathStr=self.FolderingPathVariable+self.HdformatingFileKeyStr
 
                         #Maybe we have to import
                         if self.HdformatingModuleStr not in sys.modules:
@@ -224,7 +224,7 @@ from ShareYourSystem.Standards.Interfacers import Hdformater
 MyHdformater=Hdformater.HdformaterClass().hdformat(
     _FileKeyStr='Hdformats.hdf5',
     **{
-    'FolderingPathStr':Hdformater.LocalFolderPathStr
+    'FolderingPathVariable':Hdformater.LocalFolderPathStr
 }
 ).hdfview().hdfclose()
 

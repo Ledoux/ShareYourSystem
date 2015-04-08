@@ -90,7 +90,7 @@ class CellerClass(BaseClass):
 		'''
 		self.debug(
 					('self.',self,[
-						'FolderingPathStr',
+						'FolderingPathVariable',
 						#'CellingTextStr'
 						]
 					)
@@ -104,7 +104,7 @@ class CellerClass(BaseClass):
 			self.folder()
 
 			#Definition the self.CelledOutputStr
-			if self.FolderingPathStr!=os.getcwd()+'/':		
+			if self.FolderingPathVariable!=os.getcwd()+'/':		
 		
 				#capture and six method
 				self.CapturedPrintStrsList=[]
