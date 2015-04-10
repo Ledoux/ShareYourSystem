@@ -17,12 +17,12 @@ MyPredicter=SYS.PredicterClass(
 				'|Sensor':{
 					'LeakingUnitsInt':1,
 					'-Inputs':{
-						'|Command':{
-							'LeakingWeigthVariable':
-							{
-
-							}
-						}
+						#'|Command':{
+						#	'LeakingWeigthVariable':
+						#	{
+						#
+						#	}
+						#}
 					},
 					'-Interactions':{
 						'|Jacobian':{
@@ -53,7 +53,6 @@ MyPredicter=SYS.PredicterClass(
 #/###################/#
 # View
 #
-
 
 MyPredicter[
 		'/-Populations/|Sensor'

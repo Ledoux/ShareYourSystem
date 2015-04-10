@@ -1311,6 +1311,7 @@ class BrianerClass(BaseClass):
 			BrianedMethodKeyStr='view'+self.BrianedParentSingularStr
 
 			#debug
+			'''
 			self.debug(
 				[
 					'Ok we check if this parentsingular has a special method ',
@@ -1319,6 +1320,7 @@ class BrianerClass(BaseClass):
 					])
 				]
 			)
+			'''
 
 			#Check
 			if hasattr(self,BrianedMethodKeyStr):
@@ -1353,14 +1355,13 @@ class BrianerClass(BaseClass):
 				'''	
 
 		#debug
+		'''
 		self.debug(
 			[
 				'End of mimic_view'
 			]
 		)
-
-
-
+		'''
 
 	def viewPopulation(self):
 
@@ -1369,6 +1370,7 @@ class BrianerClass(BaseClass):
 		#
 
 		#debug
+		'''
 		self.debug(
 			[
 				'viewPopulation',
@@ -1379,6 +1381,7 @@ class BrianerClass(BaseClass):
 					])
 			]
 		)
+		'''
 
 		#Check
 		if 'Charts' not in self.TeamDict:
@@ -1396,11 +1399,13 @@ class BrianerClass(BaseClass):
 		if self.StructureTopDeriveStructurerRigidVariable==None: 
 
 			#debug
+			'''
 			self.debug(
 				[
 					'It was not during a structuring call so structure from this level to down'
 				]
 			)
+			'''
 
 			#structure
 			self.structure(
@@ -1418,16 +1423,18 @@ class BrianerClass(BaseClass):
 			)
 
 			#debug
+			'''
 			self.debug(
 				[
 					'End of structuring'
 				]
 			)
-
+			'''
 
 	def viewSample(self):
 
 		#debug
+		'''
 		self.debug(
 			[
 				'viewSample',
@@ -1439,6 +1446,7 @@ class BrianerClass(BaseClass):
 				])
 			]
 		)
+		'''
 
 		#/##################/#
 		# If there is just one plot
@@ -1457,7 +1465,9 @@ class BrianerClass(BaseClass):
 		if self.ViewedLegendLabelStr=="":
 
 			#set
-			self.ViewedLegendLabelStr='$'+self.BrianedParentDeriveRecorderVariable.RecordKeyStr
+			self.ViewedLegendLabelStr='$'+self.getLabelStr(
+				self.BrianedParentDeriveRecorderVariable.RecordKeyStr
+			)
 			'''
 			self.ViewedLegendLabelStr+='_{'+str(	
 					#self.BrianedParentPopulationDeriveBrianerVariable.BrianedNeurongroupVariable.name
@@ -1565,12 +1575,24 @@ class BrianerClass(BaseClass):
 		self.ViewingYVariable=self.ViewingYVariable[:]
 
 		#set
-		self.ViewingYLabelStr='$'+self.BrianedParentDeriveRecorderVariable.RecordKeyStr
+		self.ViewingYLabelStr='$'+self.getLabelStr(
+			self.BrianedParentDeriveRecorderVariable.RecordKeyStr
+		)
 		self.ViewingYLabelStr+='\ ('+str(
 			(1./self.ViewingYScaleFloat)*BrianedActivityUnit
 		).split('.')[-1]+')'
 		self.ViewingYLabelStr+='$'
 
+		#debug
+		'''
+		self.debug(
+			[
+				('self.',self,[
+					'ViewingYLabelStr'
+					])
+			]
+		)
+		'''
 
 		#/################/#
 		# call the base view method
@@ -1638,7 +1660,7 @@ class BrianerClass(BaseClass):
 						)
 					)/2),
 					'loc':2,
-					'bbox_to_anchor':(1.05, 1)
+					'bbox_to_anchor':(1.,1.)
 				}
 			})
 		]
@@ -1728,6 +1750,52 @@ class BrianerClass(BaseClass):
 				self.BrianedParentDeriveRecorderVariable.ManagementTagStr
 			).ManagedValueVariable
 
+			#/####################/#
+			# Update the PyplotingChartVariable
+			#
+
+			#debug
+			'''
+			self.debug(
+				[
+					'Maybe we have to update the parent population chart',
+					('self.',self,[
+						'PyplotingChartVariable'
+					])
+				]
+			)
+			'''
+
+			#update
+			if BrianedChartDerivePyploter.PyplotingChartVariable==None:
+				BrianedChartDerivePyploter.PyplotingChartVariable=self.PyplotingChartVariable
+			else:
+				BrianedChartDerivePyploter.PyplotingChartVariable.update(
+					self.PyplotingChartVariable
+				)
+
+			#update the view
+			map(
+				lambda __KeyStr:
+				BrianedChartDerivePyploter.setAttr(
+					__KeyStr,
+					getattr(
+						self,
+						__KeyStr
+					)
+				),
+				[
+					'ViewingXLabelStr',
+					'ViewingYLabelStr',
+					'ViewingXVariable',
+					'ViewingYVariable'
+				]
+			)
+			BrianedChartDerivePyploter.view()
+
+			#/####################/#
+			# Team a Draws in this Chart
+			#
 
 			#debug
 			'''
@@ -1745,6 +1813,20 @@ class BrianerClass(BaseClass):
 			BrianedDrawDeriveManager=BrianedChartDerivePyploter.team(
 				'Draws'
 			).TeamedValueVariable
+
+			#/####################/#
+			# Manage a new draw
+			#
+
+			#debug
+			self.debug(
+				[
+					('self.',self,[
+							'ManagementIndexInt',
+							'PyplotingDrawVariable'
+						])
+				]
+			)
 
 			#manage
 			BrianedDrawDeriveManager.manage(
@@ -1853,7 +1935,7 @@ class BrianerClass(BaseClass):
 
 		#/####################/#
 		# Update maybe the 
-		# parent neuron group
+		# parent corresponding Chart Population
 
 		#get
 		BrianedChartDeriveManager=self.BrianedParentPopulationDeriveBrianerVariable.TeamDict[
@@ -1872,15 +1954,37 @@ class BrianerClass(BaseClass):
 				'We update in the parent neurongroup chart',
 				'BrianedChartDerivePyploter is ',
 				SYS._str(BrianedChartDerivePyploter),
-				('self.',self,[])
 			]
 		)
 		'''
+
+		#Check
+		if BrianedChartDerivePyploter.PyplotingChartVariable==None:
+			BrianedChartDerivePyploter.PyplotingChartVariable=self.PyplotingChartVariable
+		else:
+			BrianedChartDerivePyploter.PyplotingChartVariable.update(
+				self.PyplotingChartVariable
+			)
+		
+		#/####################/#
+		# team a Draws inside and manage a draw inside
+		#
 
 		#team
 		BrianedDrawDeriveManager=BrianedChartDerivePyploter.team(
 			'Draws'
 		).TeamedValueVariable
+
+		#debug
+		self.debug(
+			[
+				'We manage a new draw',
+				('self.',self,[
+						'ManagementIndexInt',
+						'PyplotingDrawVariable'
+					])
+			]
+		)
 
 		#manage
 		BrianedDrawDeriveManager.manage(

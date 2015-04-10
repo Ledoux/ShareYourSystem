@@ -186,6 +186,15 @@ class ViewerClass(BaseClass):
 		)
 		'''
 
+	def getLabelStr(self,_VariableStr):
+
+		#Check
+		if '_' in _VariableStr:
+			ViewedWordStrsList=_VariableStr.split('_')
+			return ViewedWordStrsList[0]+'_{'+",".join(ViewedWordStrsList[1:])+'}'
+		else:
+			return _VariableStr
+
 #</DefineClass>
 
 #<DefineLocals>

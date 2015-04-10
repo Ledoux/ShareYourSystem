@@ -102,6 +102,12 @@ setup(
 			 		'ShareYourSystem.Standards.Interfacers.Hdformater',
 			 		'ShareYourSystem.Standards.Guiders.Guider',
 			 		'ShareYourSystem.Standards.Guiders.Scriptbooker',
+			 		'ShareYourSystem.Standards.Guiders.Capturer',
+			 		'ShareYourSystem.Standards.Guiders.Celler',
+			 		'ShareYourSystem.Standards.Guiders.Notebooker',
+			 		'ShareYourSystem.Standards.Guiders.Nbconverter',
+			 		'ShareYourSystem.Standards.Guiders.Installer',
+			 		'ShareYourSystem.Standards.Guiders.Documenter',
 			 		'ShareYourSystem.Standards.Modelers.Modeler',
 			 		'ShareYourSystem.Standards.Modelers.Rower',
 			 		'ShareYourSystem.Standards.Modelers.Inserter',
@@ -153,12 +159,3 @@ setup(
 
     )
 
-"""
-			 		
-			 		'ShareYourSystem.Standards.Guiders.Scriptbooker',
-			 		'ShareYourSystem.Standards.Guiders.Celler',
-			 		'ShareYourSystem.Standards.Guiders.Notebooker',
-			 		'ShareYourSystem.Standards.Guiders.Nbconverter',
-			 		'ShareYourSystem.Standards.Guiders.Installer',
-			 		'ShareYourSystem.Standards.Guiders.Documenter',
-"""

@@ -222,12 +222,17 @@ class FilerClass(BaseClass):
 		elif self.FilingModeStr=='r':
 			
 			#debug
-			'''
-			self.debug(('self.',self,['FilingFormatStr']))
-			'''
+			self.debug(
+				[
+					'We are going to read',
+					('self.',self,[
+						'FilingFormatStr'
+						])
+				]
+			)
 
 			#Check
-			if self.FilingFormatStr=='txt':
+			if self.FilingFormatStr in ['txt','py']:
 
 				#Read the FiledHardVariable
 				self.FiledReadVariable=self.FiledHardVariable.read()

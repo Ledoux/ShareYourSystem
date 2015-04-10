@@ -204,19 +204,19 @@ class OldpredicterClass(BaseClass):
 		# Build the perturbative input random matrices
 		#
 
-		#random
-		self.OldpredictedInputRandomFloatsArray=self.OldpredictingPerturbativeInputWeightFloat*getattr(
-			scipy.stats,
-			self.OldpredictingInputRandomStatStr
-		).rvs(
-			size=(
-				np.shape(self.OldpredictedNullFloatsArray)[1],
-				self.OldpredictingSensorsInt
-			)
-		)
-
 		#dot
 		if self.OldpredictingPerturbativeNullBool:
+
+			#random
+			self.OldpredictedInputRandomFloatsArray=self.OldpredictingPerturbativeInputWeightFloat*getattr(
+				scipy.stats,
+				self.OldpredictingInputRandomStatStr
+			).rvs(
+				size=(
+					np.shape(self.OldpredictedNullFloatsArray)[1],
+					self.OldpredictingSensorsInt
+				)
+			)
 
 			#dot
 			self.OldpredictedPerturbativeInputWeigthFloatsArray=np.dot(
@@ -224,14 +224,19 @@ class OldpredicterClass(BaseClass):
 				self.OldpredictedInputRandomFloatsArray
 			)
 
-		else:
-
 			#debug
+			'''
 			self.debug(
 				[
-					'We just build a random input matrix'
+					'We have done the null dot',
+					('self.',self,[
+							'OldpredictedPerturbativeInputWeigthFloatsArray'
+						])
 				]
 			)
+			'''
+
+		else:
 
 			#get
 			self.OldpredictedPerturbativeInputWeigthFloatsArray=self.OldpredictingPerturbativeInputWeightFloat*getattr(
@@ -244,6 +249,20 @@ class OldpredicterClass(BaseClass):
 				)
 			)
 
+			#debug
+			'''
+			self.debug(
+				[
+					'We just build a random input matrix',
+					('self.',self,[
+							'OldpredictedPerturbativeInputWeigthFloatsArray'
+						])
+				]
+			)
+			'''
+
+
+			
 		#normalize
 		self.OldpredictedPerturbativeInputWeigthFloatsArray/=(self.OldpredictingUnitsInt**self.OldpredictingNormalisationInt)
 
@@ -300,14 +319,17 @@ class OldpredicterClass(BaseClass):
 					self.OldpredictedLateralRandomFloatsArray
 				)
 
-		else:
-
 			#debug
 			self.debug(
 				[
-					'We just build a random lateral matrix'
+					'We have done the null dot',
+					('self.',self,[
+						'OldpredictedPerturbativeLateralWeigthFloatsArray'
+					])
 				]
 			)
+
+		else:
 
 			#copy
 			self.OldpredictedPerturbativeLateralWeigthFloatsArray=self.OldpredictingPerturbativeLateralWeightFloat*getattr(
@@ -318,6 +340,16 @@ class OldpredicterClass(BaseClass):
 					self.OldpredictingUnitsInt,
 					self.OldpredictingUnitsInt
 				)
+			)
+
+			#debug
+			self.debug(
+				[
+					'We just build a random lateral matrix',
+					('self.',self,[
+						'OldpredictedPerturbativeLateralWeigthFloatsArray'
+					])
+				]
 			)
 
 		#normalize

@@ -64,10 +64,11 @@ class PrediraterClass(BaseClass):
 						_PrediratingInititalFloat=0.1,
 						_PrediratingCommandNoiseFloat=0.,
 						_PrediratingRateNoiseFloat=0.,
+						_PrediratingSymmetryFloat=1.,
 									
 						_PrediratedLeakWeigthFloatsArray=None,		
-						_PrediratedLeakExactLateralWeigthFloatsArray=None,
-						_PrediratedTotalPerturbativeLateralWeigthFloatsArray=None,
+						_PrediratedLeakExactFastLateralWeigthFloatsArray=None,
+						_PrediratedTotalPerturbativeFastLateralWeigthFloatsArray=None,
 						_PrediratedInitialRateFloatsArray=None,
 						_PrediratedControlDecoderWeigthFloatsArray=None,
 						
@@ -103,13 +104,31 @@ class PrediraterClass(BaseClass):
 			)
 		
 		#add
-		self.PrediratedLeakExactLateralWeigthFloatsArray=self.OldpredictedExactLateralWeigthFloatsArray-(
+		self.PrediratedLeakExactFastLateralWeigthFloatsArray=self.OldpredictedExactFastLateralWeigthFloatsArray-(
 			1.-(self.OldpredictingCostFloat*self.PrediratingConstantTimeFloat)
 		)*self.PrediratedLeakWeigthFloatsArray
 
-		#sum
-		self.PrediratedTotalPerturbativeLateralWeigthFloatsArray=self.PrediratedLeakExactLateralWeigthFloatsArray+self.OldpredictedPerturbativeLateralWeigthFloatsArray
+		#debug
+		self.debug(
+			[
+				('self.',self,[
+						'PrediratedLeakExactFastLateralWeigthFloatsArray'	
+					])
+			]
+		)
 
+		#sum
+		self.PrediratedTotalPerturbativeFastLateralWeigthFloatsArray=self.PrediratingSymmetryFloat*self.PrediratedLeakExactFastLateralWeigthFloatsArray+self.OldpredictedPerturbativeFastLateralWeigthFloatsArray
+
+		#debug
+		self.debug(
+			[
+				('self.',self,[
+						'PrediratedTotalPerturbativeFastLateralWeigthFloatsArray'	
+					])
+			]
+		)
+		
 		#pinv
 		self.PrediratedControlDecoderWeigthFloatsArray=(1./self.PrediratingConstantTimeFloat
 			)*np.linalg.pinv(
@@ -204,7 +223,7 @@ class PrediraterClass(BaseClass):
 
 			#Lateral Current
 			PrediratedPerturbativeUnitCurrentFloatsArray-=np.dot(
-				self.PrediratedTotalPerturbativeLateralWeigthFloatsArray,
+				self.PrediratedTotalPerturbativeFastLateralWeigthFloatsArray,
 				self.PrediratedPerturbativeUnitTraceFloatsArray[:,__IndexInt-1]
 			)
 
@@ -237,7 +256,7 @@ class PrediraterClass(BaseClass):
 
 			#Lateral Current
 			PrediratedExactUnitCurrentFloatsArray-=np.dot(
-				self.PrediratedLeakExactLateralWeigthFloatsArray,
+				self.PrediratedLeakExactFastLateralWeigthFloatsArray,
 				self.PrediratedExactUnitTraceFloatsArray[:,__IndexInt-1]
 			)
 			
@@ -712,10 +731,11 @@ PrediraterClass.PrintingClassSkipKeyStrsList.extend(
 		'PrediratingTransferVariable',
 		'PrediratingMonitorIntsList',
 		'PrediratingInititalFloat',
+		'PrediratingSymmetryFloat',
 			
 		'PrediratedLeakWeigthFloatsArray',		
-		'PrediratedLeakExactLateralWeigthFloatsArray',
-		'PrediratedTotalPerturbativeLateralWeigthFloatsArray',
+		'PrediratedLeakExactFastLateralWeigthFloatsArray',
+		'PrediratedTotalPerturbativeFastLateralWeigthFloatsArray',
 		'PrediratedInitialRateFloatsArray',
 		'PrediratedControlDecoderWeigthFloatsArray',
 

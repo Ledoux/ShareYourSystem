@@ -31,8 +31,52 @@ LeakEquationPrefixStr='#equation:'
 LeakCustomPrefixStr='#custom:'
 LeakClockPrefixStr='#clock:'
 LeakNetworkPrefixStr='#network:'
+LeakActivityPrefixStr="U"
 LeakInputPrefixStr="I"
 LeakInteractionPrefixStr="J"
+
+#define
+def detectThreshold(_VariablesList,_PopulationDeriveLeaker):
+
+	#set
+	SpikeArray = _VariablesList['_spikespace']
+	ActivityArray = _VariablesList[
+				_PopulationDeriveLeaker.LeakedSymbolStr
+			]
+	
+	#Choose
+	AboveArray=(ActivityArray > _PopulationDeriveLeaker.LeakingThresholdVariable).nonzero()[0]
+
+	#Debug
+	print('l 52 detectThreshold')
+	print('SpikeArray is ')
+	print(SpikeArray)
+	print('AboveArray is')
+	print(AboveArray)
+	print('')
+
+"""
+def filterSpike(_VariablesList,_ActivityStr,_ThresholdVariable):
+
+	#set
+	SpikeArray = _VariablesList['_spikespace']
+	ActivityArray = _VariablesList[
+				_ActivityStr
+			]
+	
+	#Choose
+	AboveArray=(ActivityArray > _ThresholdVariable).nonzero()[0]
+
+	#Check
+	if len(AboveArray):
+		# only let one neuron spike
+		SpikeArray[0] = AboveArray[0]
+		SpikeArray[-1] = 1
+	else:
+		SpikeArray[-1] = 0
+"""
+
+
 #</DefineLocals>
 
 #<DefineClass>
@@ -59,6 +103,8 @@ class LeakerClass(BaseClass):
 			_LeakingSymbolPrefixStr="",
 			_LeakingInteractionStr='Rate',
 			_LeakingTransferVariable=None,
+			_LeakingThresholdVariable=None,
+			_LeakingResetVariable=None,
 			_LeakedRecordSkipStrsList=None,
 			_LeakedQuantityVariable=None,
 			_LeakedDimensionStr="",
@@ -368,7 +414,7 @@ class LeakerClass(BaseClass):
 
 		#Check
 		if self.LeakingSymbolPrefixStr=="":
-			self.LeakingSymbolPrefixStr='U'
+			self.LeakingSymbolPrefixStr=LeakActivityPrefixStr
 
 		#set direct
 		self.LeakedSymbolStr=self.LeakingSymbolPrefixStr
@@ -511,6 +557,7 @@ class LeakerClass(BaseClass):
 			self.LeakedModelStr+="d"+self.LeakedSymbolStr+'/dt='
 
 			#debug
+			'''
 			self.debug(
 				[
 					'Check if we add a weigth',
@@ -519,6 +566,7 @@ class LeakerClass(BaseClass):
 						])
 				]
 			)
+			'''
 
 			#Check
 			if type(self.LeakingWeigthVariable)==str:
@@ -555,6 +603,7 @@ class LeakerClass(BaseClass):
 			if self.LeakedCurrentStr!="":
 
 				#debug
+				'''
 				self.debug(
 					[
 						'We maybe transfer',
@@ -564,6 +613,7 @@ class LeakerClass(BaseClass):
 							])
 					]
 				)
+				'''
 
 				#Check
 				if self.LeakedModelStr[-1]!='(':
@@ -663,7 +713,7 @@ class LeakerClass(BaseClass):
 		'''
 
 		#/################/#
-		# Now update the brianer stuff
+		# Now update the Traces
 		#
 
 		#team traces
@@ -704,27 +754,178 @@ class LeakerClass(BaseClass):
 			LeakedDefaultDeriveLeaker.RecordingLabelVariable=self.LeakingMonitorIndexIntsList
 
 		#/##################/#
-		# Update in the Neurongroup dict
+		# Init the Neurongroup dict
 		#
+
+		#init
+		BrianingNeurongroupDict={
+				}
+
+		#/##################/#
+		# Look for a Threshold 
+		#
+
+		#debug
+		self.debug(
+			[
+				'Look for a threshold',
+				('self.',self,[
+					'LeakingThresholdVariable'
+				])
+			]
+		)
+
+		#Check
+		if self.LeakingThresholdVariable!=None:
+
+			#type
+			LeakedType=type(self.LeakingThresholdVariable)
+
+			#Check
+			if LeakedType==str:
+
+				#Check
+				if self.LeakingThresholdVariable.startswith(LeakScalarPrefixStr):
+
+					#debug
+					self.debug(
+						[
+							'It is a scalar threshod'
+						]
+					)
+
+					#set
+					BrianingNeurongroupDict['threshold']=SYS.deprefix(
+						self.LeakingThresholdVariable,
+						LeakScalarPrefixStr
+					)
+
+			else:
+
+				#import 
+				import numpy
+
+				#Check
+				if LeakedType in [list,numpy.ndarray]:
+
+					#debug
+					self.debug(
+						[
+							'It is a variable threshod',
+							'add in the model'
+						]
+					)
+
+					#Define
+					self.LeakedModelStr+='Threshold : '+self.LeakedDimensionStr+"\n"
+
+					#set
+					BrianingNeurongroupDict['threshold']=self.LeakedSymbolStr+'>Threshold'
+					
+				else:
+	
+					#debug
+					self.debug(
+						[
+							'It is a CodeObject threshod',
+							'add in the model'
+						]
+					)
+
+					#import
+					from brian2 import CodeObject
+
+					#define
+					def ThresholdFunction(_VariablesList):
+
+						#map
+						map(
+							lambda __Method:
+							__Method(
+								_VariablesList,
+								self
+							),
+							self.LeakingThresholdVariable['MethodsList']
+						)
+
+
+					#Init
+					ThresholdCodeObject = CodeObject()(
+							ThresholdFunction,
+					    	uses_variables=[
+					    		'_spikespace',
+					    		self.LeakedSymbolStr
+					    	]
+					    )
+				
+		#/##################/#
+		# Look for a Reset
+		#
+
+		#debug
+		self.debug(
+			[
+				'Look for a threshold',
+				('self.',self,[
+					'LeakingResetVariable'
+				])
+			]
+		)
+
+		#Check
+		if self.LeakingResetVariable!=None:
+
+			#Check
+			if type(self.LeakingResetVariable)==str:
+
+				#Check
+				if self.LeakingResetVariable.startswith(LeakScalarPrefixStr):
+
+					#debug
+					self.debug(
+						[
+							'It is a scalar reset'
+						]
+					)
+
+					#set
+					BrianingNeurongroupDict['reset']=SYS.deprefix(
+						self.LeakingResetVariable,
+						LeakScalarPrefixStr
+					)
+					
+
+
+		#/##################/#
+		# Set
+		#
+
+		#set
+		BrianingNeurongroupDict['N']=self.LeakingUnitsInt
+		BrianingNeurongroupDict['model']=self.LeakedModelStr
 
 		#Check
 		if self.BrianingNeurongroupDict==None:
 		
 			#init
-			self.BrianingNeurongroupDict={
-					'N':self.LeakingUnitsInt,
-					'model':self.LeakedModelStr
-				}
+			self.BrianingNeurongroupDict=BrianingNeurongroupDict
 
 		else:
 
 			#update
 			self.BrianingNeurongroupDict.update(
-				{
-					'N':self.LeakingUnitsInt,
-					'model':self.LeakedModelStr
-				}
+				BrianingNeurongroupDict
 			)
+
+		#debug
+		self.debug(
+			[
+				'We have aliased the BrianingNeurongroupDict',
+				('self.',self,[
+						'BrianingNeurongroupDict'
+					])
+			]
+		)
 
 	def leakTrace(self):
 
@@ -890,6 +1091,7 @@ class LeakerClass(BaseClass):
 				if self.LeakingWeigthVariable[0].startswith(LeakNetworkPrefixStr):
 
 					#debug
+					'''
 					self.debug(
 						[
 							'It is a network operation',
@@ -898,6 +1100,7 @@ class LeakerClass(BaseClass):
 								])
 						]
 					)
+					'''
 
 					#set
 					self.LeakedClampStr='Network'
@@ -1054,8 +1257,8 @@ class LeakerClass(BaseClass):
 
 			#Check
 			if self.LeakedParentPopulationDeriveLeakerVariable.LeakingSymbolPrefixStr=="":
-				self.LeakedParentPopulationDeriveLeakerVariable.LeakingSymbolPrefixStr='U'
-				self.LeakedParentPopulationDeriveLeakerVariable.LeakedSymbolStr='U'
+				self.LeakedParentPopulationDeriveLeakerVariable.LeakingSymbolPrefixStr=LeakActivityPrefixStr
+				self.LeakedParentPopulationDeriveLeakerVariable.LeakedSymbolStr=LeakActivityPrefixStr
 
 			#init
 			self.LeakedClampStr='Variable'
@@ -1344,6 +1547,54 @@ class LeakerClass(BaseClass):
 		'''
 
 		#/###################/#
+		# Set maybe the threshold
+		#
+
+		#Check
+		if hasattr(
+				self.BrianedNeurongroupVariable,
+				'Threshold'
+			):
+
+			#debug
+			self.debug(
+				[
+					'We set the thresholds in the brian Neurongroup',
+					('self.',self,[
+							'LeakingThresholdVariable',
+							'LeakedQuantityVariable'
+						])
+				]
+			)
+
+			#import 
+			import numpy
+
+			#set
+			self.BrianedNeurongroupVariable.Threshold[:]=numpy.array(
+				self.LeakingThresholdVariable
+			)*self.LeakedQuantityVariable
+
+			#debug
+			self.debug(
+				[
+					'self.BrianedNeurongroupVariable.Threshold is ',
+					str(self.BrianedNeurongroupVariable.Threshold)
+				]
+			)
+
+			#set in the Threshold Trace to not record
+			self.TeamDict[
+				'Traces'
+			].ManagementDict[
+				'*Threshold'
+			].BrianingRecordBool=False
+
+
+
+
+
+		#/###################/#
 		# Reference the transfer function
 		#
 
@@ -1394,7 +1645,7 @@ class LeakerClass(BaseClass):
 			'''
 			self.debug(
 				[
-					'We are going to set brianInput like in all the input variables',
+					'We are going to set brianInput like in all the input _VariablesList',
 				]
 			)
 			'''
@@ -1407,36 +1658,45 @@ class LeakerClass(BaseClass):
 			)
 
 
-		#/###################/#
-		# Resort input traces
-		#
+			#/###################/#
+			# Resort input traces
+			#
 
-		#debug
-		self.debug(
-			[
-				'We resort the inputs traces'
-			]	
-		)
+			#get
+			BrianedTracesManager=self.TeamDict['Traces']
 
-		#get
-		BrianedTracesManager=self.TeamDict['Traces']
+			#debug
+			self.debug(
+				[
+					'We resort the inputs traces',
+					'self.TeamDict["Inputs"].ManagementDict.keys() is ',
+					str(self.TeamDict["Inputs"].ManagementDict.keys()),
+					'BrianedTracesManager.ManagementDict.keys() is ',
+					str(BrianedTracesManager.ManagementDict.keys())
 
-		#map
-		map(
-			lambda __IndexIntAndDeriveLeaker:
-			setattr(
-				BrianedTracesManager.ManagementDict[
-					Recorder.RecordPrefixStr+__IndexIntAndDeriveLeaker[
-						1
-					].LeakedSymbolStr
-				],
-				'GetSortInt',
-				__IndexIntAndDeriveLeaker[0]
-			),
-			enumerate(
-				self.TeamDict['Inputs'].ManagementDict.values()
+				]	
 			)
-		)
+
+			#map
+			map(
+				lambda __IndexIntAndDeriveLeaker:
+				setattr(
+					BrianedTracesManager.ManagementDict[
+						Recorder.RecordPrefixStr+__IndexIntAndDeriveLeaker[
+							1
+						].LeakedSymbolStr
+					],
+					'GetSortInt',
+					__IndexIntAndDeriveLeaker[0]
+				),
+				enumerate(
+					SYS._filter(
+						lambda __DeriveLeaker:
+						__DeriveLeaker.LeakedClampStr not in ["",'Scalar'],
+						self.TeamDict['Inputs'].ManagementDict.values()
+					)
+				)
+			)
 
 
 	def brianTrace(self):
@@ -1939,11 +2199,13 @@ class LeakerClass(BaseClass):
 		BaseClass.brianTrace(self)
 
 		#debug
+		'''
 		self.debug(
 			[
 				'We are going to  brian leak a Trace'
 			]
 		)
+		'''
 
 		#/##################/#
 		# Case of an input variable
@@ -1963,12 +2225,14 @@ class LeakerClass(BaseClass):
 			BrianedManagementStr='_'.join(BrianedInputStr.split('_')[1:])
 
 			#debug
+			'''
 			self.debug(
 				[
 					'It is an input trace',
 					'BrianedManagementStr is '+str(BrianedManagementStr),
 				]
 			)
+			'''
 
 			#get
 			BrianedInputDeriveLeaker=self.LeakedParentPopulationDeriveLeakerVariable.TeamDict[
@@ -1978,22 +2242,26 @@ class LeakerClass(BaseClass):
 			]
 
 			#debug
+			'''
 			self.debug(
 				[
 					'BrianedInputDeriveLeaker.LeakedClampStr is '+BrianedInputDeriveLeaker.LeakedClampStr,
 					'BrianedInputDeriveLeaker.LeakedOperationStr is '+BrianedInputDeriveLeaker.LeakedOperationStr
 				]
 			)
+			'''
 
 			#Check
 			if BrianedInputDeriveLeaker.LeakedClampStr not in ['Scalar','Variable']:
 
 				#debug
+				'''
 				self.debug(
 					[
 						'It is not a scalar neither a variable so we have to plot it'
 					]
 				)
+				'''
 
 				#manage
 				BrianedDefaultDeriveLeaker=self.TeamDict['Samples'].manage(
@@ -2004,11 +2272,13 @@ class LeakerClass(BaseClass):
 				if BrianedDefaultDeriveLeaker.RecordingLabelVariable==None:
 
 					#debug
+					'''
 					self.debug(
 						[
 							'This input has no special recording label variable so take the one of the parent population'
 						]
-					)
+					)	
+					'''
 
 					#alias
 					BrianedDefaultDeriveLeaker.RecordingLabelVariable=self.LeakedParentPopulationDeriveLeakerVariable.LeakingMonitorIndexIntsList
@@ -2276,6 +2546,8 @@ LeakerClass.PrintingClassSkipKeyStrsList.extend(
 		'LeakingSymbolPrefixStr',
 		'LeakingWeigthVariable',
 		'LeakingTransferVariable',
+		'LeakingThresholdVariable',
+		'LeakingResetVariable',
 		'LeakedRecordSkipStrsList',
 		'LeakedQuantityVariable',
 		'LeakedDimensionStr',

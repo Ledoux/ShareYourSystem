@@ -14,7 +14,7 @@ The Capturer
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Interfacers.Hdformater"
+BaseModuleStr="ShareYourSystem.Standards.Guiders.Scriptbooker"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -29,13 +29,6 @@ import copy
 @DecorationClass()
 class CapturerClass(BaseClass):
 	
-	#Definition
-	RepresentingKeyStrsList=[
-								'CapturingStopBool',
-								'CapturedStdoutVariable',
-								'CapturedPrintStrsList'
-							]
-
 	def default_init(self,
 						_CapturingStopBool={
 								'DefaultValueType':property,
@@ -50,7 +43,7 @@ class CapturerClass(BaseClass):
 		#Call the parent __init__ method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 	
-	def setCapturingStopBool(self,_SettingValueVariable):
+	def propertize_setCapturingStopBool(self,_SettingValueVariable):
 
 		#set
 		self._CapturingStopBool=_SettingValueVariable
@@ -84,4 +77,47 @@ class CapturerClass(BaseClass):
 		#init
 		sys.stdout = StringIO()
 
+
+	def mimic__print(self,**_KwargVariablesDict):
+
+		#/##################/#
+		# Modify the printing Variable
+		#
+
+		#Check
+		if self.PrintingSelfBool:
+
+			#/##################/#
+			# Display the Capture maybe
+			#
+
+			#Check
+			if self.CapturedPrintStrsList!=None:
+
+				#force
+				self.forcePrint(
+					[
+						'CapturedPrintStrsList'
+					],
+					'CapturerClass'
+				)
+
+
+		#/##################/#
+		# Call the base method
+		#
+
+		#call
+		BaseClass._print(self,**_KwargVariablesDict)
+
 #</DefineClass>
+
+#</DefinePrint>
+CapturerClass.PrintingClassSkipKeyStrsList.extend(
+	[
+		'CapturingStopBool',
+		'CapturedStdoutVariable',
+		'CapturedPrintStrsList'
+	]
+)
+#<DefinePrint>

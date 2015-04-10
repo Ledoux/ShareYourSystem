@@ -56,7 +56,16 @@ class ManagementDict(SYS.ListDict):
 					__ValueVariable.ManagementTagStr,
 					ValueVariablesList
 				),
-				ValueVariablesList
+				map(
+					lambda __IndexIntAndValueVariable:
+					__IndexIntAndValueVariable[1].setAttr(
+						'ManagementIndexInt',
+						__IndexIntAndValueVariable[0]
+					),
+					enumerate(
+						ValueVariablesList
+					)
+				)
 			)
 		)
 		

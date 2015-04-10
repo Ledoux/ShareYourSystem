@@ -1038,7 +1038,7 @@ class PrinterClass(BaseClass):
 					"<Spe><Instance>"+__PrintingKeyStr,
 					self.__dict__[__PrintingKeyStr]
 				) 
-				if __PrintingKeyStr in self.__dict__ and __PrintingKeyStr not in self.__class__.DefaultSpecificKeyStrsList
+				if __PrintingKeyStr in self.__dict__ and __PrintingKeyStr in self.__class__.DefaultSpecificKeyStrsList
 				else(
 						(
 							"<Base><Instance>"+__PrintingKeyStr,

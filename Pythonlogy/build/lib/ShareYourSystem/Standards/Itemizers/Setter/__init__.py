@@ -1635,7 +1635,7 @@ class SetterClass(BaseClass):
 		get=SYS.get
 
 		#map
-		return map(
+		VariablesList=map(
 				lambda __ArgumentTuple:
 				get(
 					_SetVariable,
@@ -1670,6 +1670,19 @@ class SetterClass(BaseClass):
 				),
 				ArgumentTuplesList
 			)
+
+		#debug
+		'''
+		self.debug(
+			[
+				'VariablesList is ',
+				SYS._str(VariablesList)
+			]
+		)
+		'''
+
+		#return 
+		return VariablesList
 
 	def setAttr(self,_KeyStr,_ValueVariable):
 

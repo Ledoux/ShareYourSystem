@@ -27,12 +27,7 @@ Guider=BaseModule
 #<DefineClass>
 @DecorationClass()
 class ScriptbookerClass(BaseClass):
-	
-	#Definition
-	RepresentingKeyStrsList=[
-								
-							]
-						
+
 	def default_init(self,
 						_ScriptbookingGuideTuplesList=[
 							('001','Document','Markdown'),
@@ -42,6 +37,7 @@ class ScriptbookerClass(BaseClass):
 						_ScriptbookedFileKeyStrsList=None,
 						_ScriptbookedNewGuideTuplesList=None,
 						_ScriptbookedOldGuideTuplesList=None,
+						_ScriptbookedSortDict=None,
 						**_KwargVariablesDict
 					):
 
@@ -163,7 +159,8 @@ ScriptbookerClass.PrintingClassSkipKeyStrsList.extend(
 		'ScriptbookingGuideTuplesList',
 		'ScriptbookedFileKeyStrsList',
 		'ScriptbookedNewGuideTuplesList',
-		'ScriptbookedOldGuideTuplesList'
+		'ScriptbookedOldGuideTuplesList',
+		'ScriptbookedSortDict'
 	]
 )
 #<DefinePrint>

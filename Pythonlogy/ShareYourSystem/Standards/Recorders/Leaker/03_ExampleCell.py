@@ -30,15 +30,21 @@ MyLeaker=SYS.LeakerClass(
 							#''',
 							#'LeakingWeigthVariable':'#custom:5.*mV*(ms/(t+1*ms))',
 							#'LeakingWeigthVariable':'#custom:#clock:200*ms:5.*mV*int(t==200*ms)',
+							#'LeakingWeigthVariable':(
+							#	'#network:#clock:200*ms',
+							#	lambda _ActivityQuantity,_TimeQuantity:
+							#	5.*SYS.brian2.mV 
+							#	if _TimeQuantity==200.*SYS.brian2.ms
+							#	else 0.*SYS.brian2.mV
+							#),
 							'LeakingWeigthVariable':(
-								'#network:#clock:200*ms',
+								'#network:#clock:1*ms',
 								lambda _ActivityQuantity,_TimeQuantity:
-								5.*SYS.brian2.mV 
-								if _TimeQuantity==200.*SYS.brian2.ms
-								else 0.*SYS.brian2.mV
+								SYS.scipy.stats.norm.rvs(size=2)*SYS.brian2.mV
 							)
 						}
-					}
+					},
+					'LeakingMonitorIndexIntsList':[0,1]
 				}
 			}
 		}
@@ -51,6 +57,18 @@ MyLeaker=SYS.LeakerClass(
 #/###################/#
 # View
 #
+
+#MyLeaker[
+#		'/-Populations/|Sensor/-Traces/|*I_Command/-Samples/|Default'
+#	].view(
+#	).pyplot(
+#	)
+
+#MyLeaker[
+#		'/-Populations/|Sensor/-Traces/|*U/-Samples/|Default'
+#	].view(
+#	).pyplot(
+#	)
 
 MyLeaker[
 		'/-Populations/|Sensor'
