@@ -345,7 +345,7 @@ class PyploterClass(BaseClass):
 							self.PyplotedParentPanelDerivePyploterVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
 
 							#alias
-							self.PyplotedParentFigureDerivePyploterVariable=self.PyplotedParentPanelDerivePyploterVariable.ParentDeriveTeamerVariable
+							self.PyplotedParentFigureDerivePyploterVariable=self.PyplotedParentPanelDerivePyploterVariable.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
 				
 						else:
 
@@ -577,12 +577,40 @@ class PyploterClass(BaseClass):
 		#Check
 		if ViewingLabelStr!="":
 
-			#append
-			self.PyplotingChartVariable.append(
-				(
-					'set_'+LowAxeStr+'label',ViewingLabelStr
+			#Init
+			ViewedLabelPlot=False
+
+			#Check
+			if (
+					_AxeStr=='X' and self.PyplotingShiftIntsTuple[0]>0
+				) or (
+					_AxeStr=='Y' and self.PyplotingShiftIntsTuple[1]>0
+				):
+
+				#Check
+				if self.ManagementIndexInt<len(self.ParentDeriveTeamerVariable.ManagementDict)-1:
+
+					#append
+					self.PyplotingChartVariable.append(
+						(
+							'set_'+LowAxeStr+'label',{
+								'#liarg':[""]
+							}
+						)
+					)
+
+					#set
+					ViewedLabelPlot=True
+
+			#Check
+			if ViewedLabelPlot==False:
+
+				#append
+				self.PyplotingChartVariable.append(
+					(
+						'set_'+LowAxeStr+'label',ViewingLabelStr
+					)
 				)
-			)
 
 		#/###############/#
 		# Look for a lim
@@ -641,14 +669,43 @@ class PyploterClass(BaseClass):
 		#Check
 		if ViewedTickLabelLiargStr!="":
 
-			#append
-			self.PyplotingChartVariable.append(
-				(
-					'set_'+LowAxeStr+'ticklabels',{
-						'#liarg:#map@get':[ViewedTickLabelLiargStr]
-					}
+			#Init
+			ViewedTickLabelPlot=False
+
+			#Check
+			if (
+					_AxeStr=='X' and self.PyplotingShiftIntsTuple[0]>0
+				) or (
+					_AxeStr=='Y' and self.PyplotingShiftIntsTuple[1]>0
+				):
+
+				#Check
+				if self.ManagementIndexInt<len(self.ParentDeriveTeamerVariable.ManagementDict)-1:
+
+					#append
+					self.PyplotingChartVariable.append(
+						(
+							'set_'+LowAxeStr+'ticklabels',{
+								'#liarg':[[]]
+							}
+						)
+					)
+
+					#set
+					ViewedTickLabelPlot=True
+
+			#Check
+			if ViewedTickLabelPlot==False:
+
+				#append
+				self.PyplotingChartVariable.append(
+					(
+						'set_'+LowAxeStr+'ticklabels',{
+							'#liarg:#map@get':[ViewedTickLabelLiargStr]
+						}
+					)
 				)
-			)
+
 
 	def pyplotChart(self):
 
@@ -898,7 +955,7 @@ class PyploterClass(BaseClass):
 		#
 
 		#Check
-		if self.ManagementIndexInt==(
+		if self.ParentDeriveTeamerVariable!=None and self.ManagementIndexInt==(
 			len(self.ParentDeriveTeamerVariable.ManagementDict)-1
 		):
 

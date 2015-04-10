@@ -1261,6 +1261,30 @@ def previous(_PathStr,_SplitStr='/'):
 	else:
 		return _SplitStr
 
+def _del(_Variable,_KeyVariable):
+
+	#Check
+	if hasattr(_Variable,'__delitem__'):
+
+		#type
+		KeyType=type(_KeyVariable)
+
+		#Check
+		if (
+				hasattr(_Variable,'items') and KeyType==str
+			) or KeyType==int:
+
+			#del
+			del _Variable[_KeyVariable]
+
+		else:
+
+			KeyInt=unzip(_Variable,[0]).index(_KeyVariable)
+			del _Variable[KeyInt]
+
+	#return
+	return _Variable
+
 def update(_ItemizableVariable,_UpdateVariable):
 
 	#Debug
@@ -2307,6 +2331,23 @@ class ListDict(collections.OrderedDict):
 			**_KwargDict
 		)
 
+	def getItem(self,_IndexInt):
+
+		#iterkeys
+		Iterator=self.iterkeys()
+		
+		#next
+		if _IndexInt==0:
+			NextVariable=Iterator.next()
+		else:
+			NextVariable=map(
+				lambda __Int:
+				Iterator.next(),
+				xrange(_IndexInt+1)
+			)[-1]
+
+		return (NextVariable,self[NextVariable])
+
 	def getKey(self,_IndexInt):
 
 		#iterkeys
@@ -2330,6 +2371,16 @@ class ListDict(collections.OrderedDict):
 		#iterkeys
 		Iterator=self.iterkeys()
 		
+		#Debug
+		'''
+		print('getValue l 2385')
+		print('_IndexInt is ')
+		print(_IndexInt)
+		print('self is ')
+		print(self)
+		print('')
+		'''
+		
 		#next
 		if _IndexInt==0:
 			NextVariable=Iterator.next()
@@ -2340,6 +2391,16 @@ class ListDict(collections.OrderedDict):
 				xrange(_IndexInt+1)
 			)[-1]
 
+		#Debug
+		'''
+		print('getValue l 2385')
+		print('_IndexInt is ')
+		print(_IndexInt)
+		print('NextVariable is ')
+		print(NextVariable)
+		print('')
+		'''
+		
 		#return
 		return self[NextVariable]
 

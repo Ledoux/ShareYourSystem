@@ -149,7 +149,6 @@ class FilerClass(BaseClass):
 		if self.FilingModeStr=='w':	
 			
 			#debug
-			'''
 			self.debug(
 					[
 						'We write here',
@@ -159,13 +158,12 @@ class FilerClass(BaseClass):
 						])
 					]
 				)
-			'''
 
 			#Check
 			if self.FilingFormatStr in [
 						'md',
 						'txt',
-						'sh'
+						'sh',
 					]:
 
 				#Check
@@ -177,7 +175,7 @@ class FilerClass(BaseClass):
 					self.FilingWriteVariable
 				)
 
-			elif self.FilingFormatStr=='json':
+			elif self.FilingFormatStr in ['json','ipynb']:
 
 				#import
 				import json

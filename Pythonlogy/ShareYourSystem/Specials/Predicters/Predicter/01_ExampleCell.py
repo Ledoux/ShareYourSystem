@@ -32,7 +32,7 @@ MyPredicter=SYS.PredicterClass(
 					#'LeakingTransferVariable':lambda __Float:__Float,
 					#'BrianingDebugInt':100
 				},
-				'|P':{
+				'|Agent':{
 					'LeakingUnitsInt':1,
 					'-Inputs':{
 						'|Command':{
@@ -54,11 +54,17 @@ MyPredicter=SYS.PredicterClass(
 # View
 #
 
-MyPredicter[
-		'/-Populations/|Sensor'
-	].view(
+print('\n\n\nNNNNN\n\n\n')
+
+MyPredicter.view(
 	).pyplot(
 	)
+
+#MyPredicter[
+#		'/-Populations/|Sensor'
+#	].view(
+#	).pyplot(
+#	)
 
 #MyPredicter[
 #		'/-Populations/|Sensor/-Traces/|*U/-Samples/|Default'

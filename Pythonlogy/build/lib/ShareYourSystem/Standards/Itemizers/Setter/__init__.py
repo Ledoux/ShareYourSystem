@@ -1733,6 +1733,30 @@ class SetterClass(BaseClass):
 		#return
 		return self
 
+	def mapManage(self,_ManageVariablesList):
+
+		#debug
+		'''
+		self.debug(
+			[
+				'We mapManage here',
+				'_ManageVariablesList is ',
+				str(_ManageVariablesList)
+			]
+		)
+		'''
+		
+		#map
+		map(
+			lambda __ManageVariable:
+			self.manage(
+				__ManageVariable[0],
+				__ManageVariable[1]
+			),
+			_ManageVariablesList
+		)
+
+
 
 #</DefineClass>
 

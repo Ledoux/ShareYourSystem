@@ -375,10 +375,6 @@ ShareYourSystem/Standards/Interfacers/Filer/05_ExampleDoc.py
 ShareYourSystem/Standards/Interfacers/Filer/MyOpenedFile.txt
 ShareYourSystem/Standards/Interfacers/Filer/MyReadedFile.txt
 ShareYourSystem/Standards/Interfacers/Filer/MyWrittenFile.txt
-ShareYourSystem/Standards/Interfacers/Filer/Readme
-ShareYourSystem/Standards/Interfacers/Filer/Readme.ipynb.md
-ShareYourSystem/Standards/Interfacers/Filer/Readme.md
-ShareYourSystem/Standards/Interfacers/Filer/Readme.md.md
 ShareYourSystem/Standards/Interfacers/Filer/Test.py
 ShareYourSystem/Standards/Interfacers/Filer/__init__.py
 ShareYourSystem/Standards/Interfacers/Folderer/001_DocumentDoc.md

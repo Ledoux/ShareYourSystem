@@ -1,33 +1,24 @@
 #ImportModules
 import ShareYourSystem as SYS
-from ShareYourSystem.Guiders import Notebooker
 
 #Definition a Notebooker
-MyNotebooker=Notebooker.NotebookerClass(
-	).package(
-		'ShareYourSystem.Standards.Objects.Concluder'
+MyNotebooker=SYS.NotebookerClass(
+	).folder(
+		SYS.Filer
 	).scriptbook(
 		**{
 			'GuidingBookStr':'Doc'
 		}
 	).notebook(
+		#NotebookingFileKeyStr
 		'Presentation.ipynb'
-)
+	)
 
 #Definition the AttestedStr
-SYS._attest(
-	[
-		'MyNotebooker is '+SYS._str(
-		MyNotebooker,
-		**{
-			'RepresentingBaseKeyStrsListBool':False,
-			'RepresentingAlineaIsBool':False
-		}
-		)
-	]
-)  
+print('MyNotebooker is ')
+SYS._print(MyNotebooker)
 
-#Print
+
 
 
 

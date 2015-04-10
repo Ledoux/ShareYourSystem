@@ -14,7 +14,7 @@ The Notebooker takes piece of .md,.py,.tex files for putting them in a IPython N
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Guiders.Celler"
+BaseModuleStr="ShareYourSystem.Standards.Guiders.Celler"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -23,7 +23,7 @@ SYS.setSubModule(globals())
 import copy
 import os
 import sys
-from ShareYourSystem.Standards.Interfacers import Filer,Loader
+from ShareYourSystem.Standards.Interfacers import Filer
 from ShareYourSystem.Standards.Guiders import Guider
 import importlib
 Celler=BaseModule
@@ -33,16 +33,6 @@ Celler=BaseModule
 @DecorationClass()
 class NotebookerClass(BaseClass):
 	
-	#Definition
-	RepresentingKeyStrsList=[
-								'NotebookingFileKeyStr',
-								'NotebookingWriteBool',
-								'NotebookedTextStrsList',
-								'NotebookedCodeDict',
-								'NotebookedPageStrsList',
-								'NotebookedSubslideStrsList'
-							]
-
 	def default_init(self,
 						_NotebookingFileKeyStr="",
 						_NotebookingWriteBool=True,
@@ -74,10 +64,11 @@ class NotebookerClass(BaseClass):
 			#map
 			self.NotebookedTextStrsList=map(
 					lambda __ScriptbookedFileKeyStr:
-					self.load(**{
-									'FilingKeyStr':__ScriptbookedFileKeyStr
-								}
-					).LoadedReadVariable,
+					self.file(
+								_KeyStr=__ScriptbookedFileKeyStr,
+								_ModeStr='r'
+								
+					).FiledReadVariable,
 					sorted(self.ScriptbookedSortDict.values())
 				)
 
@@ -102,17 +93,15 @@ class NotebookerClass(BaseClass):
 				]))
 			'''
 
-			#Update
-			self.LoadingFormatStr='json'
-
 			#file first
 			self.file(
 						self.NotebookingFileKeyStr,
-						'w'
+						_ModeStr='w',
+						_FormatStr='json'
 					)
 
 			#Copy
-			self.NotebookedCodeDict=copy.copy(Celler.CellingInitDict)
+			self.NotebookedCodeDict=copy.copy(Celler.CellInitDict)
 
 			#Fill the cells
 			self.NotebookedCodeDict['worksheets']=[
@@ -206,25 +195,39 @@ class NotebookerClass(BaseClass):
 			if self.NotebookingWriteBool:
 
 				#debug
-				'''
 				self.debug(
+						[
+							'We are going to write the notebook',
 							('self.',self,[
 												'FolderingPathVariable',
 												'FilingKeyStr',
-												'LoadingFormatStr'
+												'NotebookedCodeDict'
 											])
-						)
-				'''
+						]
+					)
 
 				#Write
-				self.write(self.NotebookedCodeDict)
+				self.file(
+					_WriteVariable=self.NotebookedCodeDict,
+					_ModeStr='w',
+				)
 
 				#Close
-				self.FiledHardVariable.close()
-
-
-		#Return self
-		#return self
+				self.FiledHardVariable.close(
+					)
 	
 #</DefineClass>
 
+
+#</DefinePrint>
+NotebookerClass.PrintingClassSkipKeyStrsList.extend(
+	[
+		'NotebookingFileKeyStr',
+		'NotebookingWriteBool',
+		'NotebookedTextStrsList',
+		'NotebookedCodeDict',
+		'NotebookedPageStrsList',
+		'NotebookedSubslideStrsList'
+	]
+)
+#<DefinePrint>

@@ -163,7 +163,6 @@ class FilerClass(BaseClass):
 		if self.FilingModeStr=='w':	
 			
 			#debug
-			'''
 			self.debug(
 					[
 						'We write here',
@@ -173,13 +172,12 @@ class FilerClass(BaseClass):
 						])
 					]
 				)
-			'''
 
 			#Check
 			if self.FilingFormatStr in [
 						'md',
 						'txt',
-						'sh'
+						'sh',
 					]:
 
 				#Check
@@ -191,7 +189,7 @@ class FilerClass(BaseClass):
 					self.FilingWriteVariable
 				)
 
-			elif self.FilingFormatStr=='json':
+			elif self.FilingFormatStr in ['json','ipynb']:
 
 				#import
 				import json
@@ -236,12 +234,17 @@ class FilerClass(BaseClass):
 		elif self.FilingModeStr=='r':
 			
 			#debug
-			'''
-			self.debug(('self.',self,['FilingFormatStr']))
-			'''
+			self.debug(
+				[
+					'We are going to read',
+					('self.',self,[
+						'FilingFormatStr'
+						])
+				]
+			)
 
 			#Check
-			if self.FilingFormatStr=='txt':
+			if self.FilingFormatStr in ['txt','py']:
 
 				#Read the FiledHardVariable
 				self.FiledReadVariable=self.FiledHardVariable.read()

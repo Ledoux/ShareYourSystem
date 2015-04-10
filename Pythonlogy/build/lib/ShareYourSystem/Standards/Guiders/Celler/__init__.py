@@ -26,7 +26,7 @@ import copy
 #</ImportSpecificModules>
 
 #<DefineLocals>
-CellingInitDict={
+CellInitDict={
 				'metadata': {
 								'name': "",
 								'signature': ""
@@ -36,7 +36,7 @@ CellingInitDict={
 				'worksheets': []
 			}
 
-CellingCodeCellDict={
+CellCodeCellDict={
 						'cell_type':'code',
 						'collapsed': False,
 						'input':[],
@@ -45,14 +45,14 @@ CellingCodeCellDict={
 						'prompt_number':0
 					}
 
-CellingOutputDict={
+CellOutputDict={
 						'output_type': "stream",
 						'stream': "stdout",
 						'text': [														
 								]
 					}
 
-CellingMarkdownCellDict={
+CellMarkdownCellDict={
 							'source': "", 
 							'cell_type': 'markdown', 
 							'metadata': {'slideshow':{'slide_type':"slide"}}
@@ -82,13 +82,18 @@ class CellerClass(BaseClass):
 			self.CellingTextStr=self.FiledReadVariable
 
 		#Debug
+		'''
 		self.debug(
-					('self.',self,[
-							'FolderingPathVariable',
-							'CellingTextStr'
-						]
-					)
+			[
+				'We cell here',
+				('self.',self,[
+						'FolderingPathVariable',
+						'CellingTextStr'
+					]
 				)
+			]
+		)
+		'''
 		
 		#Check Code case
 		if self.CellingScriptStr=='Python':
@@ -119,7 +124,7 @@ class CellerClass(BaseClass):
 
 			#Return 
 			self.CelledNoteDict=dict(
-				copy.deepcopy(CellingCodeCellDict),
+				copy.deepcopy(CellCodeCellDict),
 				**{
 					'input':map(	
 								lambda __LineStr:
@@ -135,7 +140,7 @@ class CellerClass(BaseClass):
 						),
 						"outputs":[
 						dict(
-							copy.copy(CellingOutputDict),
+							copy.copy(CellOutputDict),
 								**
 								{
 									"text":map(	
@@ -153,7 +158,7 @@ class CellerClass(BaseClass):
 		elif self.CellingScriptStr=='Markdown':
 
 			self.CelledNoteDict=dict(
-				copy.deepcopy(CellingMarkdownCellDict),
+				copy.deepcopy(CellMarkdownCellDict),
 				**{
 						'source':self.CellingTextStr
 				}
