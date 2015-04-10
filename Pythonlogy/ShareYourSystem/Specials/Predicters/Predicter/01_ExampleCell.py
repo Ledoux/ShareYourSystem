@@ -34,10 +34,6 @@ MyPredicter=SYS.PredicterClass(
 				},
 				'|Agent':{
 					'LeakingUnitsInt':1,
-					'-Inputs':{
-						'|Command':{
-						}
-					},
 					'-Interactions':{
 						'|Fast':{
 						}

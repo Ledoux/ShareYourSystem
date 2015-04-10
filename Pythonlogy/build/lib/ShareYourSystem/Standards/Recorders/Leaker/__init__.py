@@ -1176,13 +1176,14 @@ class LeakerClass(BaseClass):
 		#
 
 		#debug
-		'''
 		self.debug(
 			[
 				'It is an Interaction level',
+				('self.',self,[
+						'LeakingWeigthVariable'
+					])
 			]
 		)
-		'''
 
 		#/####################/#
 		# Determine the parent
@@ -1358,6 +1359,29 @@ class LeakerClass(BaseClass):
 			'''
 
 			#Check
+			if self.ConnectedToVariable==None:
+
+				#debug
+				self.debug(
+					[
+						'We setConnection here',
+						('self.',self,[
+								'ManagementTagStr',
+								'ConnectingKeyVariable'
+							])
+					]
+				)
+
+				#setConnection
+				self.setConnection(
+					self.ManagementTagStr
+					if self.ConnectingKeyVariable==None
+					else self.ConnectingKeyVariable,
+					self,
+					self.LeakedParentPopulationDeriveLeakerVariable
+				)
+
+			#Check
 			if self.LeakingInteractionStr=='Rate':
 
 				
@@ -1399,8 +1423,8 @@ class LeakerClass(BaseClass):
 					self.LeakedInteractionWeigthFloat=float(LeakedInteractionWeigthStr)
 
 					#add
-					self.LeakedModelStr+=LeakedInteractionWeigthStr+'*'+self.LeakedParentPopulationDeriveLeakerVariable.LeakedSymbolStr+"_pre : "
-					self.LeakedModelStr+=self.LeakedParentPopulationDeriveLeakerVariable.LeakedDimensionStr+" (summed)\n"
+					self.LeakedModelStr+=LeakedInteractionWeigthStr+'*'+self.ConnectedToVariable.LeakedSymbolStr+"_pre : "
+					self.LeakedModelStr+=self.ConnectedToVariable.LeakedDimensionStr+" (summed)\n"
 
 				elif self.LeakedClampStr=='Variable':
 
@@ -1419,9 +1443,8 @@ class LeakerClass(BaseClass):
 				
 					#do the operation
 					self.LeakedModelStr+=self.LeakedSymbolStr+"_post="
-					#self.LeakedModelStr+=self.LeakedSymbolStr+'*'+self.LeakedParentPopulationDeriveLeakerVariable.LeakedSymbolStr+"_pre : "
-					self.LeakedModelStr+=self.LeakingSymbolPrefixStr+'*'+self.LeakedParentPopulationDeriveLeakerVariable.LeakedSymbolStr+"_pre : "
-					self.LeakedModelStr+=self.LeakedParentPopulationDeriveLeakerVariable.LeakedDimensionStr+" (summed)\n"
+					self.LeakedModelStr+=self.LeakingSymbolPrefixStr+'*'+self.ConnectedToVariable.LeakedSymbolStr+"_pre : "
+					self.LeakedModelStr+=self.ConnectedToVariable.LeakedDimensionStr+" (summed)\n"
 
 				#debug
 				'''
@@ -1439,20 +1462,20 @@ class LeakerClass(BaseClass):
 				'''
 
 				#define in the model
-				self.LeakedParentPopulationDeriveLeakerVariable.LeakedModelStr+=self.LeakedSymbolStr+' : '+self.LeakedParentPopulationDeriveLeakerVariable.LeakedDimensionStr+"\n"
+				self.ConnectedToVariable.LeakedModelStr+=self.LeakedSymbolStr+' : '+self.ConnectedToVariable.LeakedDimensionStr+"\n"
 				
 				#add in the current
-				self.LeakedParentPopulationDeriveLeakerVariable.addCurrentStr(self.LeakedSymbolStr)
+				self.ConnectedToVariable.addCurrentStr(self.LeakedSymbolStr)
 
 				#debug
 				'''
 				self.debug(
 					[
 						'In the end',
-						'self.LeakedParentPopulationDeriveLeakerVariable.LeakedCurrentStr is ',
-						self.LeakedParentPopulationDeriveLeakerVariable.LeakedCurrentStr,
-						'self.LeakedParentPopulationDeriveLeakerVariable.LeakedModelStr is ',
-						self.LeakedParentPopulationDeriveLeakerVariable.LeakedModelStr
+						'self.ConnectedToVariable.LeakedCurrentStr is ',
+						self.ConnectedToVariable.LeakedCurrentStr,
+						'self.ConnectedToVariable.LeakedModelStr is ',
+						self.ConnectedToVariable.LeakedModelStr
 					]
 				)
 				'''
