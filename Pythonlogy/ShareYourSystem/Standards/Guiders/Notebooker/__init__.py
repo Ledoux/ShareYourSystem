@@ -58,7 +58,14 @@ class NotebookerClass(BaseClass):
 			
 			#debug
 			'''
-			self.debug(('self.',self,['ScriptbookedSortDict']))
+			self.debug(
+				[
+					('self.',self,[
+						'ScriptbookedSortDict',
+						'ScriptbookedFileKeyStrsList'
+					])
+				]
+			)
 			'''
 
 			#map
@@ -69,28 +76,36 @@ class NotebookerClass(BaseClass):
 								_ModeStr='r'
 								
 					).FiledReadVariable,
-					sorted(self.ScriptbookedSortDict.values())
+					sorted(
+						self.ScriptbookedFileKeyStrsList
+					)
 				)
 
 			#map
 			self.NotebookedScriptStrsList=map(
-					lambda __ScriptbookedFileKeyStr:
-					SYS.flip(
-						dict(
-									Guider.ScriptStrAndExtensionStrTuplesList
-							)
-					)[
-						'.'+__ScriptbookedFileKeyStr.split('.')[-1]
-					],
-					sorted(self.ScriptbookedSortDict.values())
+				lambda __ScriptbookedFileKeyStr:
+				SYS.flip(
+					dict(
+							Guider.GuideFormatTuplesList
+						)
+				)[
+					'.'+__ScriptbookedFileKeyStr.split('.')[-1]
+				],
+				sorted(
+					self.ScriptbookedFileKeyStrsList
 				)
+			)
 
 			#debug
 			'''
-			self.debug(('self.',self,[
-					'NotebookedTextStrsList',
-					'NotebookedScriptStrsList'
-				]))
+			self.debug(
+				[
+					('self.',self,[
+						'NotebookedTextStrsList',
+						'NotebookedScriptStrsList'
+					])
+				]
+			)
 			'''
 
 			#file first
@@ -135,6 +150,18 @@ class NotebookerClass(BaseClass):
 					sorted(self.ScriptbookedSortDict.values())
 				)
 
+			#debug
+			'''
+			self.debug(
+				[
+					'We have determined all the pages',
+					('self.',self,[
+						'NotebookedPageStrsList'
+					])
+				]
+			)
+			'''
+			
 			#map
 			self.NotebookedSubslideStrsList=map(
 					lambda __NotebookedPageStr,__PageIndexInt:
@@ -195,6 +222,7 @@ class NotebookerClass(BaseClass):
 			if self.NotebookingWriteBool:
 
 				#debug
+				'''
 				self.debug(
 						[
 							'We are going to write the notebook',
@@ -205,6 +233,7 @@ class NotebookerClass(BaseClass):
 											])
 						]
 					)
+				'''
 
 				#Write
 				self.file(

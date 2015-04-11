@@ -14,7 +14,7 @@ The Nbconverter
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Guiders.Notebooker"
+BaseModuleStr="ShareYourSystem.Standards.Guiders.Notebooker"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -61,11 +61,6 @@ NbconvertingFilePrefixStr=""
 @DecorationClass()
 class NbconverterClass(BaseClass):
 	
-	#Definition
-	RepresentingKeyStrsList=[
-								'NbconvertingFileKeyStr'
-							]
-
 	def default_init(self,
 						_NbconvertingFileKeyStr="",
 						_NbconvertingFormatStr="Markdown",
@@ -125,11 +120,9 @@ class NbconverterClass(BaseClass):
 			#Write
 			self.file(
 						self.NbconvertingFileKeyStr.replace('.md','.ipynb'),
-						'w'
-			).write(
-				self.NotebookedCodeDict,**{
-					'LoadingFormatStr':'json'
-				}
+						_ModeStr='w',
+						_WriteVariable=self.NotebookedCodeDict,
+						_FormatStr='json'
 			).FiledHardVariable.close()
 
 			#debug
@@ -178,15 +171,16 @@ class NbconverterClass(BaseClass):
 			)
 
 			#change the reveal.js directory
-			self.load(**{
-					'FilingKeyStr':self.FiledPathStr.split('/')[-1].replace(
+			self.file(
+				self.FiledPathStr.split('/')[-1].replace(
 						'.ipynb',
 						'.html'
 					),
-					'LoadingFormatStr':'txt'
-				})
+				_ModeStr='r',
+				_FormatStr='txt'
+			)
 
-			self.LoadedReadVariable=self.LoadedReadVariable.replace(
+			self.FiledReadVariable=self.FiledReadVariable.replace(
 				'reveal.js/','reveal/'
 			).replace(
 				"Reveal.initialize({",
@@ -198,7 +192,7 @@ class NbconverterClass(BaseClass):
 			#chunk
 			DocumentedOldChunkStrsList=SYS.chunk(
 						['<code class="language-python">','</code>'],
-						self.LoadedReadVariable,
+						self.FiledReadVariable,
 						**{'ChunksInt':"All"}
 					)
 			
@@ -266,18 +260,32 @@ class NbconverterClass(BaseClass):
 			map(
 					lambda __DocumentedOldChunkStr,__DocumentedNewChunkStr:
 					self.__setattr__(
-							'LoadedReadVariable',
-							self.LoadedReadVariable.replace(__DocumentedOldChunkStr,__DocumentedNewChunkStr)
+							'FiledReadVariable',
+							self.FiledReadVariable.replace(
+								__DocumentedOldChunkStr,
+								__DocumentedNewChunkStr
+							)
 						),
 					DocumentedOldChunkStrsList,
 					DocumentedNewChunkStrsList
 				)
 
 			#write
-			self.write(self.LoadedReadVariable).close()
-
-		#Return self
-		#return self	
-
+			self.file(
+				_ModeStr='w',
+				_WriteVariable=self.FiledReadVariable
+			).file(
+				_ModeStr='c'
+			)
+	
 #</DefineClass>
+
+#</DefinePrint>
+NbconverterClass.PrintingClassSkipKeyStrsList.extend(
+	[
+		'NbconvertingFileKeyStr'
+		'NbconvertingFormatStr'
+	]
+)
+#<DefinePrint>
 

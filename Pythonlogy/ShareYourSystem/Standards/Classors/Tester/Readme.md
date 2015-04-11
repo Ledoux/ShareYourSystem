@@ -29,6 +29,51 @@ system.ouvaton.org/Tester.ipynb)
 
 
 
+<!---
+FrozenIsBool True
+-->
+
+##Example
+
+The Incrementer from the previous Attester Module is now tested from its
+corresponding attesting function
+attest_increment. Here a test_increment method is implicitely defined in a
+unittest class and when we call
+the test method, a unittest.run is done.
+
+```python
+#ImportModules
+import ShareYourSystem as SYS
+
+#Attest the module
+SYS.DecrementerClass(
+    ).setAttest(
+        SYS.TesterClass.DeriveClassor.AttestingFolderPathStr
+    )
+SYS.Decrementer.test()
+
+
+
+
+```
+
+
+```console
+>>>
+
+###########################################
+
+AttestStr is :
+-1
+
+TestStr is :
+        -1
+
+
+```
+
+
+
 <!--
 FrozenIsBool False
 -->
@@ -38,6 +83,12 @@ FrozenIsBool False
 ----
 
 <ClassDocStr>
+
+<small>
+View the Tester sources on <a href="https://github.com/Ledoux/ShareYourSystem/tr
+ee/master/Pythonlogy/ShareYourSystem/Standards/Classors/Tester"
+target="_blank">Github</a>
+</small>
 
 ----
 
@@ -74,7 +125,7 @@ import os
 import sys
 import unittest
 import ShareYourSystem as SYS
-from ShareYourSystem.Standards.Classors import Representer
+from ShareYourSystem.Standards.Interfacers import Printer
 Attester=BaseModule
 #</ImportSpecificModules>
 
@@ -103,6 +154,14 @@ def setTestFunctionWithFolderPathStrAndAttestUnboundMethod(
         #Define
         def test(_InstanceVariable):
 
+                #Debug
+                '''
+                print('Tester l 62')
+                print('_FolderPathStr is '+_FolderPathStr)
+                print('AttestUnboundMethodStr is '+AttestUnboundMethodStr)
+                print('')
+                '''
+
                 #Get the AssertedStr
                 File=open(_FolderPathStr+AttestUnboundMethodStr+'.txt','r')
                 AttestStr=File.read()
@@ -121,9 +180,9 @@ TestModule.__name__ else TestModule
                                         )
 
                 #Bind with TestStr setting
-                Representer.RepresentingIdBool=False
-                TestStr=Representer.getRepresentedStrWithVariable(TestVariable)
-                Representer.RepresentingIdBool=True
+                Printer.RepresentingIdBool=False
+                TestStr=Printer.getPrintStr(TestVariable)
+                Printer.RepresentingIdBool=True
 
                 #Represent maybe
                 if TestModule.TestingPrintIsBool:
@@ -180,6 +239,13 @@ class TesterClass(BaseClass):
 
         def __call__(self,_Class):
 
+                #debug
+                '''
+                print('Tester l.146 __call__ method')
+                print('_Class is ',_Class)
+                print('')
+                '''
+
                 #Call the parent init method
                 BaseClass.__call__(self,_Class)
 
@@ -195,6 +261,14 @@ class TesterClass(BaseClass):
                 if hasattr(self.Module,'TestingPrintIsBool')==False:
                         self.Module.TestingPrintIsBool=True
                 self.Module.TestedOrderedDict=collections.OrderedDict()
+
+                #Debug
+                '''
+                print('Tester l 160')
+                print('self.AttestingFolderPathStr is
+'+self.AttestingFolderPathStr)
+                print('')
+                '''
 
                 #set the tests for each asserting function
                 map(
@@ -251,48 +325,4 @@ assor.AttestingFolderPathStr
 
 ```
 
-<small>
-View the Tester sources on <a href="https://github.com/Ledoux/ShareYourSystem/tr
-ee/master/Pythonlogy/ShareYourSystem/Classors/Tester" target="_blank">Github</a>
-</small>
-
-
-
-
-<!---
-FrozenIsBool True
--->
-
-##Example
-
-The Incrementer from the previous Attester Module is now tested from its
-corresponding attesting function
-attest_increment. Here a test_increment method is implicitely defined in a
-unittest class and when we call
-the test method, a unittest.run is done.
-
-```python
-#ImportModules
-import ShareYourSystem as SYS
-from ShareYourSystem.Standards.Classors import Tester
-from ShareYourSystem.Tutorials import Decrementer
-
-#Attest the module
-Decrementer.DecrementerClass().setAttest(
-    Tester.TesterClass.DeriveClassor.AttestingFolderPathStr
-)
-Decrementer.test()
-
-#Print
-
-
-
-```
-
-
-```console
->>>
-
-
-```
 

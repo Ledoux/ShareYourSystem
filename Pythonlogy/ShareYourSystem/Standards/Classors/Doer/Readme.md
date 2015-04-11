@@ -35,6 +35,98 @@ stem.ouvaton.org/Doer.ipynb)
 
 
 
+<!---
+FrozenIsBool True
+-->
+
+##Example
+
+The set,get Do,Doing,Done methods can be specific or not to a certain Mro Do
+class.
+
+```python
+#ImportModules
+import ShareYourSystem as SYS
+
+#Define
+@SYS.DoerClass()
+class MakerClass(object):
+
+    def default_init(self,
+                _MakingMyFloat=0.,
+                _MakingFirstList=None
+                ):
+        object.__init__(self)
+
+    def do_make(self):
+        pass
+
+#Define
+@SYS.DoerClass()
+class BuilderClass(MakerClass):
+
+    def default_init(self,
+                _BuildingMyStr=""
+                ):
+        MakerClass.__init__(self)
+
+    def do_build(self):
+        pass
+
+#define
+MyBuilder=BuilderClass(
+    ).make(
+        5.
+    )
+
+#print
+print('MyBuilder.getDo() is')
+print(SYS.indent(MyBuilder.getDo()))
+
+#print
+print('MyBuilder.__dict__ is')
+print(SYS.indent(MyBuilder.__dict__))
+
+#reset everything
+MyBuilder.setDoing()
+
+#print
+print('MyBuilder.__dict__ is')
+print(SYS.indent(MyBuilder.__dict__))
+
+
+
+
+
+```
+
+
+```console
+>>>
+MyBuilder.getDo() is
+{
+  "MakingMyFloat": "5.0",
+  "MakingFirstList": "[]",
+  "BuildingMyStr": ""
+}
+MyBuilder.__dict__ is
+{
+  "MakingMyFloat": "5.0",
+  "MakingFirstList": "[]",
+  "DefaultInitBool": "True"
+}
+MyBuilder.__dict__ is
+{
+  "MakingMyFloat": "0.0",
+  "MakingFirstList": "[]",
+  "DefaultInitBool": "True",
+  "BuildingMyStr": ""
+}
+
+```
+
+
+
 <!--
 FrozenIsBool False
 -->
@@ -44,6 +136,12 @@ FrozenIsBool False
 ----
 
 <ClassDocStr>
+
+<small>
+View the Doer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree
+/master/Pythonlogy/ShareYourSystem/Standards/Classors/Doer"
+target="_blank">Github</a>
+</small>
 
 ----
 
@@ -103,52 +201,140 @@ def callDo(_InstanceVariable):
                 _InstanceVariable.__class__.DoMethodStr
         )()
 
+def getDoing(_InstanceVariable,_DoClassVariable=None):
+
+        #check
+        DoClassesList=SYS.GetList(_DoClassVariable,SYS)
+        if len(DoClassesList)==0:
+                DoClassesList=_InstanceVariable.__class__.MroDoerClassesList
+
+        #Debug
+        """
+        print('l 83 Doer')
+        print('DoClassesList is ',DoClassesList)
+        print('')
+        """
+
+        #return
+        return collections.OrderedDict(
+                SYS.sum(
+                        map(
+                                lambda __DoClass:
+                                zip(
+__DoClass.DoingAttributeVariablesOrderedDict.keys(),
+                                map(
+                                                lambda __DoneKeyStr:
+getattr(_InstanceVariable,__DoneKeyStr),
+__DoClass.DoingAttributeVariablesOrderedDict.keys()
+                                        )
+                                ),
+                                DoClassesList
+                        )
+                )
+        )
+
 def setDoing(_InstanceVariable,_DoClassVariable=None,**_KwargVariablesDict):
 
         #check
-        if _DoClassVariable in SYS.StrTypesList:
-                _DoClassVariable=getattr(
-                        SYS,
-                        SYS.getClassStrWithNameStr(_DoClassVariable)
+        DoClassesList=SYS.GetList(_DoClassVariable,SYS)
+        if len(DoClassesList)==0:
+                DoClassesList=_InstanceVariable.__class__.MroDoerClassesList
+
+        #map
+        map(
+                        lambda __DoClass:
+                        _InstanceVariable.setDefault(
+                                __DoClass,
+__DoClass.DoingAttributeVariablesOrderedDict.keys(),
+                                **dict(
+                                        _KwargVariablesDict,
+                                        **{'DefaultMutableBool':True}
+                                )
+                        ),
+                        DoClassesList
                 )
-
-
-
-        #call
-        _InstanceVariable.setDefault(
-                _DoClassVariable,
-                _DoClassVariable.DoingAttributeVariablesOrderedDict.keys(),
-                **_KwargVariablesDict
-        )
 
         #return
         return _InstanceVariable
 
-def setDone(_InstanceVariable,_DoClassVariable=None,**_KwargVariablesDict):
+def getDone(_InstanceVariable,_DoClassVariable=None):
 
         #check
-        if _DoClassVariable in SYS.StrTypesList:
-                _DoClassVariable=getattr(
-                        SYS,
-                        SYS.getClassStrWithNameStr(_DoClassVariable)
-        )
+        DoClassesList=SYS.GetList(_DoClassVariable,SYS)
+        if len(DoClassesList)==0:
+                DoClassesList=_InstanceVariable.__class__.MroDoerClassesList
 
         #Debug
         """
-        print('l 74 Doer')
+        print('l 83 Doer')
         print('_DoClassVariable is ',_DoClassVariable)
         print('')
         """
 
-        #call
-        _InstanceVariable.setDefault(
-                _DoClassVariable,
-                _DoClassVariable.DoneAttributeVariablesOrderedDict.keys(),
-                **_KwargVariablesDict
+        #return
+        return collections.OrderedDict(
+                SYS.sum(
+                        map(
+                                lambda __DoClass:
+                                zip(
+__DoClass.DoneAttributeVariablesOrderedDict.keys(),
+                                map(
+                                                lambda __DoneKeyStr:
+getattr(_InstanceVariable,__DoneKeyStr),
+__DoClass.DoneAttributeVariablesOrderedDict.keys()
+                                        )
+                                ),
+                                DoClassesList
+                        )
+                )
         )
+
+def setDone(_InstanceVariable,_DoClassVariable=None,**_KwargVariablesDict):
+
+        #Debug
+        '''
+        print('l 137 Doer setDone before check')
+        print('_DoClassVariable is ',_DoClassVariable)
+        print('')
+        '''
+
+        #check
+        DoClassesList=SYS.GetList(_DoClassVariable,SYS)
+        if len(DoClassesList)==0:
+                DoClassesList=_InstanceVariable.__class__.MroDoerClassesList
+
+
+        #Debug
+        """
+        print('l 153 Doer')
+        print('_DoClassVariable is ',_DoClassVariable)
+        print('')
+        """
+
+        #map
+        map(
+                        lambda __DoClass:
+                        _InstanceVariable.setDefault(
+                                __DoClass,
+__DoClass.DoneAttributeVariablesOrderedDict.keys(),
+                                **dict(
+                                        _KwargVariablesDict,
+                                        **{'DefaultMutableBool':True}
+                                )
+                        ),
+                        DoClassesList
+                )
 
         #return
         return _InstanceVariable
+
+def getDo(_InstanceVariable,_DoClassVariable=None):
+
+        #call
+        return collections.OrderedDict(
+                        _InstanceVariable.getDoing(_DoClassVariable),
+                        **_InstanceVariable.getDone(_DoClassVariable)
+                )
 
 def setDo(_InstanceVariable,_DoClassVariable=None,**_KwargVariablesDict):
 
@@ -174,6 +360,10 @@ def do(
                 **_KwargVariablesDict
         ):
 
+        #/################/#
+        # Prepare the call of the do method
+        #
+
         #Define
         DoDecorationMethodStr=_KwargVariablesDict['DoDecorationMethodStr']
         DoMethodStr=DoDecorationMethodStr.split(
@@ -193,10 +383,14 @@ DoMethodStr[0]+DoMethodStr[1].upper()+DoMethodStr[2:]
         del _KwargVariablesDict['DoDecorationMethodStr']
         del _KwargVariablesDict['DoClassStr']
 
+        #/################/#
+        # Look in the Kwarg if there were specifications of doing attributes
+        #
+
         #debug
         '''
-        print('Doer l.112 inside of the function DoFunction')
-        print('InstanceVariable is ',_InstanceVariable)
+        print('Doer l.219 inside of the function DoFunction')
+        #print('InstanceVariable is ',_InstanceVariable)
         print('_LiargVariablesList is ',_LiargVariablesList)
         print('_KwargVariablesDict is ',_KwargVariablesDict)
         print('')
@@ -213,6 +407,14 @@ DoMethodStr[0]+DoMethodStr[1].upper()+DoMethodStr[2:]
                 else __KwargTuple,
                 _KwargVariablesDict.items()
         )
+
+        #Debug
+        '''
+        print('Doer l 239 ')
+        print('DoKwargTuplesList is')
+        print(DoKwargTuplesList)
+        print('')
+        '''
 
         #Check
         if len(DoKwargTuplesList)>0:
@@ -243,13 +445,22 @@ _InstanceVariable.__setattr__(*__DoTempAttributeItemTuple),
                 #Define
                 DoneKwargDict={}
 
+        #/################/#
+        # Set to default values the doing and done mutables
+        #
+
         #set
-        _InstanceVariable.setDefaultMutable(DoClass)
+        _InstanceVariable.setDefaultMutable(
+                DoClass,
+_AttributeKeyVariable=DoClass.DoingAttributeVariablesOrderedDict.keys(
+                        )+DoClass.DoneAttributeVariablesOrderedDict.keys()
+        )
 
         #debug
         '''
-        print('Doer l.274 we are going to call the DoWrapMethod')
-        print('DoWrapMethod is ',DoWrapMethod)
+        print('Doer l.274 we are going to call the DoWrapUnboundMethod')
+        print('DoWrapUnboundMethod is ',DoWrapUnboundMethod)
+        print('_LiargVariablesList is ',_LiargVariablesList)
         print('')
         '''
 
@@ -347,7 +558,7 @@ setattr(DoClass,__KeyStr,LocalVariablesDict[__KeyStr]),
 
                 #set a lists that will contain the tempory setting items during
 a call of the <do> method in the instance
-                DoClass.DoHistoryOrderedDict=collections.OrderedDict()
+                #DoClass.DoHistoryOrderedDict=collections.OrderedDict()
 
                 #Check
                 if hasattr(DoClass,'DefaultAttributeVariablesOrderedDict'):
@@ -375,6 +586,11 @@ __DefaultAttributeItemTuple[0].startswith(DoingStr),
 DoClass.DefaultAttributeVariablesOrderedDict.items()
                                 )
                         )
+                        DoClass.DoingDeprefixAttributeStrsList=map(
+                                        lambda __KeyStr:
+DoingAttributePrefixStr+SYS.deprefix(__KeyStr,DoingStr),
+DoClass.DoingAttributeVariablesOrderedDict.keys()
+                                )
 
                         #Definition
                         DoWrapMethodStr=DoingWrapPrefixStr+DoMethodStr
@@ -432,6 +648,10 @@ DoClass.DefaultAttributeVariablesOrderedDict.items()
                                 )
                         """
 
+                        #/#################/#
+                        # Define the shape of the args
+                        #
+
                         #Definition of the ExecStr that will define the function
                         DoDecorationMethodStr=DoingDecorationPrefixStr+DoingDeco
 rationTagStr+DoingDecorationSuffixStr+DoMethodStr
@@ -439,14 +659,20 @@ rationTagStr+DoingDecorationSuffixStr+DoMethodStr
 "+DoDecorationMethodStr+"(_InstanceVariable,"
                         DoExecStr+=",".join(
                                 map(
-                                        lambda __KeyStr:
-DoingAttributePrefixStr+__KeyStr+"=None",
-DoClass.DoingAttributeVariablesOrderedDict.keys()
+                                        lambda __DoingDeprefixAttributeStr:
+#DoingAttributePrefixStr+__KeyStr+"=None",
+                                        __DoingDeprefixAttributeStr+"=None",
+#DoClass.DoingAttributeVariablesOrderedDict.keys()
+                                        DoClass.DoingDeprefixAttributeStrsList
                                 )
                         )
                         DoExecStr+="," if DoExecStr[-1]!="," else ""
                         DoExecStr+="*_LiargVariablesList,"
                         DoExecStr+="**_KwargVariablesDict):\n\t"
+
+                        #/#################/#
+                        # Set the doing variables
+                        #
 
                         #Debug part
                         #DoExecStr+='\n\tprint("In '+DoDecorationMethodStr+'
@@ -468,48 +694,23 @@ len(_Class.DoingAttributeVariablesOrderedDict.keys())>0 else ''
 ",_KwargVariablesDict);\n\t'
                         '''
 
-                        #Set the doing variables
-                        """
-                        DoExecStr+="\n\t#set the doing variables"
-                        DoExecStr+="\n\tDoHistoryOrderedDict=_InstanceVariable._
-_class__.DoHistoryOrderedDict"
-                        DoExecStr+="\n\tif '"+DoDecorationMethodStr+"' not in Do
-HistoryOrderedDict:DoHistoryOrderedDict['"+DoDecorationMethodStr+"']=SYS.collect
-ions.OrderedDict()"
-                        DoExecStr+="\n\tDoneSpecificAttributesOrderedDict=DoHist
-oryOrderedDict['"+DoDecorationMethodStr+"']"
+                        #join
                         DoExecStr+=("\n"+";\n".join(
-                        map(
-                                lambda __KeyStr:
-                                "\n".join(
-                                        [
-                                                "\tif
-"+DoingAttributePrefixStr+__KeyStr+"!=None:",
-"\t\t_InstanceVariable."+__KeyStr+"="+DoingAttributePrefixStr+__KeyStr,
-                                                "\t\tDoneSpecificAttributesOrder
-edDict['"+__KeyStr+"']="+DoingAttributePrefixStr+__KeyStr,
-                                                "\telse:",
-"\t\tDoneSpecificAttributesOrderedDict['"+__KeyStr+"']=None"
-                                        ]
-                                ),
-DoClass.DoingAttributeVariablesOrderedDict.keys()
-                                )
-                        )+";\n") if len(
-DoClass.DoingAttributeVariablesOrderedDict.keys()
-                        )>0 else ''
-                        """
-
-                        DoExecStr+=("\n"+";\n".join(
-                        map(
-                                lambda __KeyStr:
-                                "\n".join(
-                                        [
-                                                "\tif
-"+DoingAttributePrefixStr+__KeyStr+"!=None:",
-"\t\t_InstanceVariable."+__KeyStr+"="+DoingAttributePrefixStr+__KeyStr,
-                                        ]
-                                ),
-DoClass.DoingAttributeVariablesOrderedDict.keys()
+                                map(
+                                        lambda
+__KeyStr,__DoingDeprefixAttributeStr:
+                                        "\n".join(
+                                                [
+                                                        #"\tif
+type("+DoingAttributePrefixStr+__KeyStr+")!=None.__class__:",
+#"\t\t_InstanceVariable."+__KeyStr+"="+DoingAttributePrefixStr+__KeyStr,
+                                                        "\tif
+type("+__DoingDeprefixAttributeStr+")!=None.__class__:",
+"\t\t_InstanceVariable."+__KeyStr+"="+__DoingDeprefixAttributeStr,
+                                                ]
+                                        ),
+DoClass.DoingAttributeVariablesOrderedDict.keys(),
+                                        DoClass.DoingDeprefixAttributeStrsList
                                 )
                         )+";\n") if len(
 DoClass.DoingAttributeVariablesOrderedDict.keys()
@@ -547,7 +748,7 @@ orationMethodStr':'"+DoDecorationMethodStr+"','DoClassStr':'"+DoClass.__name__+"
 
                         #Debug
                         '''
-                        print('Doer l 438')
+                        print('Doer l 546')
                         print('DoExecStr is ')
                         print(DoExecStr)
                         print('')
@@ -574,34 +775,61 @@ orationMethodStr':'"+DoDecorationMethodStr+"','DoClassStr':'"+DoClass.__name__+"
                         '''
 
                         #set with the specific name
-                        setattr(
-                                                DoClass,
-                                                DoDecorationMethodStr,
-                                                locals()[DoDecorationMethodStr]
-                                        )
+self.setMethod(DoDecorationMethodStr,locals()[DoDecorationMethodStr])
 
                         #set with the DoMethodStr shortcut
-                        setattr(
-                                                DoClass,
-                                                DoMethodStr,
-                                                locals()[DoDecorationMethodStr]
-                                        )
+self.setMethod(DoMethodStr,locals()[DoDecorationMethodStr])
 
+                        #set a pointer to the fundamental class
+                        locals()[DoDecorationMethodStr].BaseDoClass=DoClass
 
-                        #Set maybe if not already
+                        #/####################/#
+                        # Set maybe if not already the setDo methods
+                        #
+
+                        #Check
                         if hasattr(DoClass,'setDo')==False:
+
+                                #Debug
+                                '''
+                                print('Doer l 602')
+                                print('DoClass is')
+                                print(DoClass)
+                                print('')
+                                '''
 
                                 #map
                                 map(
                                         lambda __SetUnboundMethod:
                                         #set with the DoMethodStr shortcut
-                                        setattr(
-                                                                DoClass,
+                                        self.setMethod(
 __SetUnboundMethod.__name__,
 __SetUnboundMethod
                                                         ),
-                                        [setDo,setDoing,setDone,callDo]
+                                        [
+                                                getDo,getDoing,getDone,
+                                                setDo,setDoing,setDone,
+                                                callDo
+                                        ]
                                 )
+
+                        #/####################/#
+                        # Give a list of all the mro Doer and the do possible
+                        #
+
+                        #set a DoMethodStrsList
+                        if hasattr(DoClass.__bases__[0],'MroDoerClassesList'):
+                                DoClass.MroDoerClassesList=DoClass.__bases__[0
+                                ].MroDoerClassesList+[DoClass]
+                        else:
+                                DoClass.MroDoerClassesList=[DoClass]
+
+                        #set a DoMethodStrsList
+                        if hasattr(DoClass.__bases__[0],'DoMethodStrsList'):
+                                DoClass.DoMethodStrsList=DoClass.__bases__[0
+                                ].DoMethodStrsList+[DoMethodStr]
+                        else:
+                                DoClass.DoMethodStrsList=[DoMethodStr]
 
                 #Add to the KeyStrsList
                 DoClass.KeyStrsList+=[
@@ -611,11 +839,21 @@ __SetUnboundMethod
                                                                 'DoingStr',
 'DoneAttributeVariablesOrderedDict',
 'DoingAttributeVariablesOrderedDict',
+'DoingDeprefixAttributeStrsList',
+                                                                'DoMethodStr',
+'DoHistoryOrderedDict',
                                                                 DoExecStrKeyStr,
                                                                 'DoingGetBool',
 'DoTempAttributeItemTuplesList',
-'DoTempNotAttributeItemTupleItemsList'
+'DoTempNotAttributeItemTupleItemsList',
+'DoMethodStrsList',
+'MroDoerClassesList'
                                                 ]
+                                                #No need to add the doing and
+done keys because they are already in the defaults keys
+#+DoClass.DoingAttributeVariablesOrderedDict.keys(
+                                                #
+)+DoClass.DoneAttributeVariablesOrderedDict.keys()
 #</DefineClass>
 
 
@@ -626,7 +864,6 @@ DoStrsTuplesList=[
         ('Propertiser','Propertize','Propertizing','Propertized'),
         ('Inspecter','Inspect','Inspecting','Inspected'),
         ('Representer','Represent','Representing','Represented'),
-        ('Printer','_Print','Printing','Printed'),
         ('Debugger','Debug','Debugging','Debugged'),
         ('Functer','Funct','Functing','Functed'),
         ('Moduler','Module','Moduling','Moduled'),
@@ -684,6 +921,10 @@ DoStrsTuplesList=[
         ('Linker','Link','Linking','Linked'),
         ('Weaver','Weave','Weaving','Weaved'),
         ('Filterer','Filter','Filtering','Filterer'),
+        ('Cooper','Coop','Cooping','Cooped'),
+        ('Familiarizer','Familiarize','Familiarizing','Familiarized'),
+        ('Teamer','Team','Teaming','Teamed'),
+        ('Manager','Manage','Managing','Managed'),
         ('Noder','Node','Noding','Noded'),
         ('Outputer','Output','Outputing','Outputed'),
         ('Appender','Append','Appending','Appended'),
@@ -768,130 +1009,50 @@ DoStrsTuplesList=[
         ('Transmitter','Transmit','Transmitting','Transmitted'),
         ('Factorizer','Factorize','Factorizing','Factorized'),
         ('Organizer','Organize','Organizing','Organized'),
+        ('Neuroner','Neuron','Neuroning','Neuroned'),
+        ('Neurongrouper','Neurongroup','Neurongrouping','Neurongrouped'),
         ('Lifer','Lif','Lifing','Lifed'),
-        ('Grasper','Grasp','Grasping','Grasped')
+        ('Synapser','Synapse','Synapsing','Synapsed'),
+        ('Grasper','Grasp','Grasping','Grasped'),
+        ('Meteorer','Meteor','Meteoring','Meteored'),
+        ('Viewer','View','Viewing','Viewed'),
+        ('Boxer','Box','Boxing','Boxed'),
+        ('Consoler','Console','Consoling','Consoled'),
+        ('Systemer','System','Systeming','Systemed'),
+        ('Patcher','Patch','Patching','Patched'),
+        ('Arrayer','Array','Arraying','Arrayed'),
+        ('Matrixer','Matrix','Matrixing','Matrixed'),
+        ('Eulerer','Euler','Eulering','Eulered'),
+        ('Integrater','Integrate','Integrating','Integrated'),
+        ('Pydelayer','Pydelay','Pydelaying','Pydelayed'),
+        ('Equationer','Equation','Equationing','Equationed'),
+        ('Scaler','Scale','Scaling','Scaled'),
+        ('Streamer','Stream','Streaming','Streamed'),
+        ('Predicter','Predict','Predicting','Predicted'),
+        ('Predispiker','Predispike','Predispiking','Predispiked'),
+        ('Predirater','Predirate','Predirating','Predirated'),
+        ('Leaker','Leak','Leaking','Leaked'),
+        ('Expresser','Express','Expressing','Expressed'),
+        ('Pymongoer','Pymongo','Pymongoing','Pymongone'),
+        ('Texter','Text','Texting','Texted')
 ]
-
 DoerStrToDoStrOrderedDict=SYS.dictify(DoStrsTuplesList,0,1)
 DoStrToDoerStrOrderedDict=SYS.dictify(DoStrsTuplesList,1,0)
 DoStrToDoingStrOrderedDict=SYS.dictify(DoStrsTuplesList,1,2)
 DoStrToDoneStrOrderedDict=SYS.dictify(DoStrsTuplesList,1,3)
 DoneStrToDoingStrOrderedDict=SYS.dictify(DoStrsTuplesList,3,2)
+
+def addDo(*_DoStrsTuple):
+        DoStrsTuplesList.append(_DoStrsTuple)
+        DoerStrToDoStrOrderedDict[_DoStrsTuple[0]]=_DoStrsTuple[1]
+        DoStrToDoerStrOrderedDict[_DoStrsTuple[1]]=_DoStrsTuple[0]
+        DoStrToDoingStrOrderedDict[_DoStrsTuple[1]]=_DoStrsTuple[2]
+        DoStrToDoneStrOrderedDict[_DoStrsTuple[1]]=_DoStrsTuple[3]
+        DoneStrToDoingStrOrderedDict[_DoStrsTuple[3]]=_DoStrsTuple[2]
+SYS.addDo=addDo
 #</DefineLocals>
 
 
 ```
 
-<small>
-View the Doer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree
-/master/Pythonlogy/ShareYourSystem/Classors/Doer" target="_blank">Github</a>
-</small>
-
-
-
-
-<!---
-FrozenIsBool True
--->
-
-##Example
-
-It is possible to re set the Doing or Done attributes
-
-```python
-#ImportModules
-import ShareYourSystem as SYS
-from ShareYourSystem.Standards.Classors import Doer,Attester
-from ShareYourSystem.Standards.Objects import Initiator
-
-#Definition a MakerClass decorated by the DefaultorClass
-@Doer.DoerClass()
-class MakerClass(Initiator.InitiatorClass):
-
-    def default_init(self,
-                _MakingMyFloat=1.,
-                _MakingMyList=None,
-                _MakingFirstInt={'DefaultValueType':int},
-                _MakingSecondInt=0,
-                _MadeMyInt=0,
-                _MadeMyList=None,
-                ):
-        pass
-
-    def do_make(self):
-
-        #print
-        print('Maker : I am going to make')
-        print('self.MakingMyFloat is ',self.MakingMyFloat)
-        print('')
-
-        #set
-        self.MadeMyInt=int(self.MakingMyFloat)
-
-        #Return self
-        #return self
-
-#Definition of an instance and make
-MyMaker=MakerClass(
-    _MakingMyList=['hello'],
-    **{'MakingFirstInt':3}
-    ).superDo_make(
-        3.,['bonjour'],
-        _SecondInt=5
-    )
-
-print('MyMaker is ')
-SYS._print(MyMaker)
-
-print('we reset doing')
-MyMaker.setDoing(MakerClass)
-
-print('MyMaker after set doing is ')
-SYS._print(MyMaker)
-
-#Add
-AttestingStrsList=[
-        'MyMaker.__dict__ is '+SYS._str(MyMaker.__dict__,
-            **{'RepresentingAlineaIsBool':False})
-    ]
-
-#Definition
-SYS._attest(AttestingStrsList)
-
-#Print
-
-
-```
-
-
-```console
->>>
-Maker : I am going to make
-('self.MakingMyFloat is ', 3.0)
-
-MyMaker is
-<MakerClass object at 0x10e751550>
-we reset doing
-MyMaker after set doing is
-<MakerClass object at 0x10e751550>
-
-
-*****Start of the Attest *****
-
-MyMaker.__dict__ is
-   /{
-   /  'IdInt' : 4537521488
-   /  'MadeMyInt' : 3
-   /  'MadeMyList' : []
-   /  'MakingFirstInt' : 0
-   /  'MakingMyFloat' : 1.0
-   /  'MakingMyList' : []
-   /  'MakingSecondInt' : 0
-   /}
-
-*****End of the Attest *****
-
-
-
-```
 

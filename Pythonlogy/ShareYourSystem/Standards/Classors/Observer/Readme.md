@@ -25,6 +25,83 @@ ursystem.ouvaton.org/Observer.ipynb)
 
 
 
+<!---
+FrozenIsBool True
+-->
+
+##Example
+
+For this non directly very useful Module we just define a decorated FooClass
+for which the Functer decoration by default call the decorated method...
+
+```python
+#ImportModules
+import ShareYourSystem as SYS
+import operator
+
+#Definition a MakerClass decorated by the ObserverClass
+@SYS.ObserverClass(**{
+    'ObservingIsBool':True,
+    'ObservingWrapMethodStr':'make'
+})
+class MakerClass(object):
+
+    def default_init(self,
+                    _MakingMyFloat=0.,
+                    _MadeMyInt=0,
+                    **_KwarVariablesDict
+                ):
+        object.__init__(self,**_KwarVariablesDict)
+
+    def do_make(self):
+
+        #cast
+        self.MadeMyInt=int(self.MakingMyFloat)
+
+#Definition the AttestedStr
+SYS._attest(
+    [
+        'MakerClass.make is '+str(MakerClass.make),
+        'MakerClass.DeriveClassor.ObservingWrapMethodStr is '+str(
+            MakerClass.DeriveClassor.ObservingWrapMethodStr),
+        'MakerClass.DeriveClassor.ObservedWrapMethodStr is '+str(
+            MakerClass.DeriveClassor.ObservedWrapMethodStr),
+    ]
+)
+
+#Print
+
+
+
+
+
+```
+
+
+```console
+>>>
+
+
+*****Start of the Attest *****
+
+        MakerClass.make is <unbound method MakerClass.superDo_make>
+
+------
+
+        MakerClass.DeriveClassor.ObservingWrapMethodStr is make
+
+------
+
+        MakerClass.DeriveClassor.ObservedWrapMethodStr is superDo_make
+
+*****End of the Attest *****
+
+
+
+```
+
+
+
 <!--
 FrozenIsBool False
 -->
@@ -34,6 +111,12 @@ FrozenIsBool False
 ----
 
 <ClassDocStr>
+
+<small>
+View the Observer sources on <a href="https://github.com/Ledoux/ShareYourSystem/
+tree/master/Pythonlogy/ShareYourSystem/Standards/Classors/Observer"
+target="_blank">Github</a>
+</small>
 
 ----
 
@@ -74,14 +157,6 @@ def observe(_InstanceVariable,**_KwargVariablesDict):
 @DecorationClass()
 class ObserverClass(BaseClass):
 
-        #Definition
-        RepresentingKeyStrsList=[
-                                                'ObservingIsBool',
-                                                'ObservingWrapMethodStr',
-                                                'ObservedWrapUnboundMethod',
-                                                'ObservedWrapMethodStr'
-        ]
-
         def default_init(self,
                                         _ObservingIsBool=False,
                                         _ObservingWrapMethodStr="",
@@ -94,6 +169,13 @@ class ObserverClass(BaseClass):
                 BaseClass.__init__(self,**_KwargVariablesDict)
 
         def __call__(self,_Class):
+
+                #debug
+                '''
+                print('Observer l.54 __call__ method')
+                print('_Class is ',_Class)
+                print('')
+                '''
 
                 #Call the parent init method
                 BaseClass.__call__(self,_Class)
@@ -154,95 +236,4 @@ self.ObservedWrapMethodStr=self.ObservingWrapMethodStr
 
 ```
 
-<small>
-View the Observer sources on <a href="https://github.com/Ledoux/ShareYourSystem/
-tree/master/Pythonlogy/ShareYourSystem/Classors/Observer"
-target="_blank">Github</a>
-</small>
-
-
-
-
-<!---
-FrozenIsBool True
--->
-
-##Example
-
-For this non directly very useful Module we just define a decorated FooClass
-for which the Functer decoration by default call the decorated method...
-
-```python
-#ImportModules
-import ShareYourSystem as SYS
-from ShareYourSystem.Standards.Classors import Observer
-from ShareYourSystem.Standards.Objects import Initiator
-import operator
-
-#Definition a MakerClass decorated by the ObserverClass
-@Observer.ObserverClass(**{
-    'ObservingIsBool':True,
-    'ObservingWrapMethodStr':'make'
-})
-class MakerClass(Initiator.InitiatorClass):
-
-    #Definition
-    RepresentingKeyStrsList=[
-                                'MakingMyFloat',
-                                'MadeMyInt'
-                            ]
-
-    def default_init(self,
-                    _MakingMyFloat=0.,
-                    _MadeMyInt=0,
-                    **_KwarVariablesDict
-                ):
-        self.__class__.__bases__[0].__init__(self,**_KwarVariablesDict)
-
-    def do_make(self):
-
-        #cast
-        self.MadeMyInt=int(self.MakingMyFloat)
-
-#Definition the AttestedStr
-SYS._attest(
-    [
-        'MakerClass.make is '+str(MakerClass.make),
-        'MakerClass.DeriveClassor.ObservingWrapMethodStr is '+str(
-            MakerClass.DeriveClassor.ObservingWrapMethodStr),
-        'MakerClass.DeriveClassor.ObservedWrapMethodStr is '+str(
-            MakerClass.DeriveClassor.ObservedWrapMethodStr),
-    ]
-)
-
-#Print
-
-
-
-
-
-```
-
-
-```console
->>>
-
-
-*****Start of the Attest *****
-
-MakerClass.make is <unbound method MakerClass.superDo_make>
-
-------
-
-MakerClass.DeriveClassor.ObservingWrapMethodStr is make
-
-------
-
-MakerClass.DeriveClassor.ObservedWrapMethodStr is superDo_make
-
-*****End of the Attest *****
-
-
-
-```
 

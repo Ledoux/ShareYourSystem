@@ -27,6 +27,5 @@ MyMaker.MakingMyList=[3,4]
 #print
 print('MyMaker.__dict__ is ')
 print(SYS.indent(MyMaker))
-
 print(MyMaker.__class__.DefaultAttributeVariablesOrderedDict['MakingMyList'])
 

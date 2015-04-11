@@ -1,17 +1,3 @@
-
-<!--
-FrozenIsBool False
--->
-
-##Code
-
-----
-
-<ClassDocStr>
-
-----
-
-```python
 # -*- coding: utf-8 -*-
 """
 
@@ -28,7 +14,7 @@ The Documenter
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Guiders.Documenter"
+BaseModuleStr="ShareYourSystem.Standards.Guiders.Nbconverter"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -39,16 +25,26 @@ import os
 import copy
 import sys
 from ShareYourSystem.Standards.Classors import Doer
-from ShareYourSystem.Guiders import Celler
-Readmer=BaseModule
+from ShareYourSystem.Standards.Guiders import Celler
 #</ImportSpecificModules>
 
 #<DefineLocals>
-DocumentingOntologyLocalFolderPathStr=SYS.ShareYourSystemLocalFolderPathStr+'Ouvaton/'
-DocumentingNbviewerLocalFolderPathStr=SYS.ShareYourSystemLocalFolderPathStr+'Ouvaton/'
-DocumentingDocumentLocalFolderPathStr=SYS.ShareYourSystemLocalFolderPathStr+'docs/LibraryReference/'
-DocumentingOntologyOuvatonFolderPathStr='/httpdocs/slides/'
-DocumentingNbviewerOuvatonFolderPathStr='/httpdocs/ipython/'
+DocumentOntologyLocalFolderPathStr=SYS.ShareYourSystemLocalFolderPathStr+'Ouvaton/'
+DocumentNbviewerLocalFolderPathStr=SYS.ShareYourSystemLocalFolderPathStr+'Ouvaton/'
+DocumentDocumentLocalFolderPathStr=SYS.ShareYourSystemLocalFolderPathStr+'docs/LibraryReference/'
+DocumentOntologyOuvatonFolderPathStr='/httpdocs/slides/'
+DocumentNbviewerOuvatonFolderPathStr='/httpdocs/ipython/'
+DocumentModuleStrsList=SYS.lib()
+DocumentModulePathStrsList=map(
+	lambda __DocumentModuleStr:
+	__DocumentModuleStr.replace('.','/'),
+	DocumentModuleStrsList
+)
+DocumentNameStrsList=map(
+	lambda __DocumentModulePathStr:
+	__DocumentModulePathStr.split('/')[-1],
+	DocumentModulePathStrsList
+)
 #</DefineLocals>
 
 #<DefineFunctions>
@@ -73,21 +69,7 @@ class DocumenterClass(BaseClass):
 	
 	#Definition
 	RepresentingKeyStrsList=[
-								'DocumentingConceptFolderPathStr',
-								'DocumentingSubReadmeIsBool',
-								'DocumentingConceptReadmeIsBool',
-								'DocumentingConceptDocumentIsBool',
-								'DocumentingConceptSlideIsBool',
-								'DocumentingSiteDocumentIsBool',
-								'DocumentedConceptModule',
-								'DocumentedConceptModuleStr',
-								'DocumentedConceptModuleFolderPathStr',
-								'DocumentedSubNameStrsList',
-								'DocumentedSubModulesList',
-								'DocumentedSubModuleStrsList',
-								'DocumentedSubModuleLocalFolderPathStrsList',
-								#'DocumentedPresentationsDictsList',
-								#'DocumentedConceptNotebookDict'
+							
 							]
 
 	def default_init(self,
@@ -112,15 +94,19 @@ class DocumenterClass(BaseClass):
 		#Call the parent __init__ method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
-	def do_inform(self):
+	def do_document(self):
 		
 		#debug
 		'''
-		self.debug(('self.',self,['DocumentingSubReadmeIsBool','DocumentingConceptDocumentIsBool']))
+		self.debug(
+				[
+					('self.',self,[
+						'DocumentingSubReadmeIsBool',
+						'DocumentingConceptDocumentIsBool'
+					])
+				]
+			)
 		'''
-
-		#install first
-		self.install()
 
 		#Check
 		if self.DocumentingConceptFolderPathStr=="":
@@ -134,7 +120,9 @@ class DocumenterClass(BaseClass):
 		'''
 
 		#debug
-		self.folder(self.DocumentingConceptFolderPathStr)
+		self.folder(
+			self.DocumentingConceptFolderPathStr
+		)
 		self.DocumentedConceptModuleStr=self.FolderedModuleStr
 
 		#debug
@@ -156,14 +144,14 @@ class DocumenterClass(BaseClass):
 
 		#debug
 		'''
-		self.debug(('self.',self,['DocumentedSubNameStrsList','InstalledNameStrsList']))
+		self.debug(('self.',self,['DocumentedSubNameStrsList','DocumentNameStrsList']))
 		'''
 		
 		#sort
 		self.DocumentedSubNameStrsList=SYS._filter(
-				lambda __InstalledNameStr:
-				__InstalledNameStr in self.DocumentedSubNameStrsList,
-				self.InstalledNameStrsList
+				lambda __DocumentNameStr:
+				__DocumentNameStr in self.DocumentedSubNameStrsList,
+				DocumentNameStrsList
 			)
 		#map
 		self.DocumentedSubModuleStrsList=map(
@@ -190,10 +178,20 @@ class DocumenterClass(BaseClass):
 		#check
 		if self.DocumentedConceptNameStr in SYS.PluralStrToSingularStrOrderedDict.keys():
 			
-			#package
-			self.DocumentedConceptModule=self.package(
-				self.FolderedModuleStr
-			).PackagedModuleVariable
+			#debug
+			self.debug(
+				[
+					'We get the concept module',
+					('self.',self,[
+							'DocumentedConceptNameStr'
+						])
+				]
+			)
+
+			#folder
+			self.DocumentedConceptModule=self.folder(
+					getattr(SYS,self.DocumentedConceptNameStr)
+				).FolderedModuleDict['ModuleVariable']
 
 		#join
 		self.DocumentedConceptModuleFolderPathStr='/'.join(
@@ -239,7 +237,7 @@ class DocumenterClass(BaseClass):
 			#map
 			map(
 					lambda __DocumentedSubModuleStr:
-					self.package(
+					self.folder(
 							__DocumentedSubModuleStr
 						).scriptbook(
 						_GuideTuplesList=[
@@ -272,7 +270,7 @@ class DocumenterClass(BaseClass):
 			#map
 			map(
 					lambda __DocumentedSubModuleStr:
-					self.package(
+					self.folder(
 							__DocumentedSubModuleStr
 						).scriptbook(
 						_GuideTuplesList=[
@@ -298,7 +296,7 @@ class DocumenterClass(BaseClass):
 					os.popen(
 						'cp '+sys.modules[
 							__DocumentedSubModuleStr
-						].LocalFolderPathStr+'Presentation.ipynb '+DocumentingNbviewerLocalFolderPathStr+__DocumentedSubModuleStr.split(
+						].LocalFolderPathStr+'Presentation.ipynb '+DocumentNbviewerLocalFolderPathStr+__DocumentedSubModuleStr.split(
 								'.'
 							)[-1]+'.ipynb'
 					),
@@ -311,7 +309,7 @@ class DocumenterClass(BaseClass):
 					os.popen(
 						'cp '+sys.modules[
 							__DocumentedSubModuleStr
-						].LocalFolderPathStr+'Presentation.html '+DocumentingOntologyLocalFolderPathStr+__DocumentedSubModuleStr.split(
+						].LocalFolderPathStr+'Presentation.html '+DocumentOntologyLocalFolderPathStr+__DocumentedSubModuleStr.split(
 								'.'
 							)[-1]+'.html'
 					),
@@ -324,7 +322,7 @@ class DocumenterClass(BaseClass):
 					os.popen(
 						'cp '+sys.modules[
 							__DocumentedSubModuleStr
-						].LocalFolderPathStr+'Presentation.html '+DocumentingOntologyLocalFolderPathStr+__DocumentedSubModuleStr.split(
+						].LocalFolderPathStr+'Presentation.html '+DocumentOntologyLocalFolderPathStr+__DocumentedSubModuleStr.split(
 								'.'
 							)[-1]+'.php'
 					),
@@ -343,14 +341,15 @@ class DocumenterClass(BaseClass):
 			#map
 			self.DocumentedPresentationsDictsList=map(
 					lambda __DocumentedSubModuleFolderPathStr:
-					self.load(
-						**{
-							'FolderingPathVariable':__DocumentedSubModuleFolderPathStr,
-							'FilingKeyStr':'Presentation.ipynb',
-							'LoadingFormatStr':'json'
-						}
-					).close(
-					).LoadedReadVariable,
+					self.folder(
+							__DocumentedSubModuleFolderPathStr
+						).file(
+							'Presentation.ipynb',
+							_ModeStr='r',
+							_FormatStr='json'
+						).file(
+							_ModeStr='c'
+						).FiledReadVariable,
 					self.DocumentedSubModuleLocalFolderPathStrsList
 				)					
 
@@ -362,7 +361,7 @@ class DocumenterClass(BaseClass):
 			'''
 
 			#copy
-			self.DocumentedConceptNotebookDict=copy.copy(Celler.CellingInitDict)
+			self.DocumentedConceptNotebookDict=copy.copy(Celler.CellInitDict)
 
 			#flat
 			DocumentedFlatPresentationsDictsList=SYS.flat(
@@ -394,28 +393,27 @@ class DocumenterClass(BaseClass):
 			'''
 
 			#Write
-			self.write(
-				self.DocumentedConceptNotebookDict,
-				**{
-					'FolderingPathVariable':self.DocumentingConceptFolderPathStr,
-					'FilingKeyStr':'Concept'+self.GuidingBookStr+'.ipynb',
-					'LoadingFormatStr':'json'
-				}
-			).close()
-
+			self.folder(
+					self.DocumentingConceptFolderPathStr
+				).file(
+					_KeyStr='Concept'+self.GuidingBookStr+'.ipynb',
+					_WriteVariable=self.DocumentedConceptNotebookDict,
+					_FormatStr="json"
+				).file(
+					_ModeStr='c'
+				)
 
 			#nbconvert
 			self.NotebookedCodeDict=self.DocumentedConceptNotebookDict
-			self.nbconvert(
-				_FormatStr='Slide',
-				**{
-					'FolderingPathVariable':self.DocumentingConceptFolderPathStr,
-					'NotebookingFileKeyStr':'Concept'+self.GuidingBookStr+'.ipynb'
-				}
-			)
+			self.folder(
+					self.DocumentingConceptFolderPathStr
+				).nbconvert(
+					_FormatStr='Slide',
+					_FileKeyStr='Concept'+self.GuidingBookStr+'.ipynb'
+				)
 
 			#set
-			self.DocumentedSlideLocalFilePathStr=DocumentingOntologyLocalFolderPathStr+self.DocumentedConceptModule.__name__.split('.')[-1]+'.html'
+			self.DocumentedSlideLocalFilePathStr=DocumentOntologyLocalFolderPathStr+self.DocumentedConceptModule.__name__.split('.')[-1]+'.html'
 
 			#cp
 			os.popen('cp '+self.FiledPathStr+' '+self.DocumentedSlideLocalFilePathStr+self.DocumentedConceptModule.__name__.split('.')[-1]+'.ipynb')
@@ -443,7 +441,7 @@ class DocumenterClass(BaseClass):
 						[
 							(
 								self.DocumentedSlideLocalFilePathStr,
-								DocumentingOntologyOuvatonFolderPathStr+self.DocumentedConceptModule.__name__.split('.'
+								DocumentOntologyOuvatonFolderPathStr+self.DocumentedConceptModule.__name__.split('.'
 									)[-1]+'.php'
 							)
 						]
@@ -470,7 +468,7 @@ class DocumenterClass(BaseClass):
 			'''
 
 			#readme
-			self.package(
+			self.folder(
 					self.DocumentedConceptModuleStr
 				).scriptbook(
 					_GuideTuplesList=[
@@ -511,16 +509,13 @@ class DocumenterClass(BaseClass):
 			)	
 			'''
 
-			#package
-			self.package(self.DocumentedConceptModuleStr)
+			#folder
+			self.folder(self.DocumentedConceptModuleStr)
 
 			#mv with .php extension
 			os.popen(
-					'cp '+self.PackagedLocalFolderPathStr+'Readme.md  '+DocumentingDocumentLocalFolderPathStr+self.DocumentedConceptModuleStr.split('.')[-1]+'.md'
+					'cp '+self.PackagedLocalFolderPathStr+'Readme.md  '+DocumentDocumentLocalFolderPathStr+self.DocumentedConceptModuleStr.split('.')[-1]+'.md'
 				)
-
-			#Return self
-			#return self
 
 		if self.DocumentingSiteDocumentIsBool:
 
@@ -536,7 +531,7 @@ class DocumenterClass(BaseClass):
 						[
 							(
 								self.DocumentedSlideLocalFilePathStr,
-								DocumentingOntologyOuvatonFolderPathStr+self.DocumentedConceptModule.__name__.split('.'
+								DocumentOntologyOuvatonFolderPathStr+self.DocumentedConceptModule.__name__.split('.'
 									)[-1]+'.php'
 							)
 						]
@@ -547,9 +542,24 @@ class DocumenterClass(BaseClass):
 
 #</DefineClass>
 
-```
-
-<small>
-View the Documenter sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Guiders/Documenter" target="_blank">Github</a>
-</small>
-
+#</DefinePrint>
+DocumenterClass.PrintingClassSkipKeyStrsList.extend(
+	[
+		'DocumentingConceptFolderPathStr',
+		'DocumentingSubReadmeIsBool',
+		'DocumentingConceptReadmeIsBool',
+		'DocumentingConceptDocumentIsBool',
+		'DocumentingConceptSlideIsBool',
+		'DocumentingSiteDocumentIsBool',
+		'DocumentedConceptModule',
+		'DocumentedConceptModuleStr',
+		'DocumentedConceptModuleFolderPathStr',
+		'DocumentedSubNameStrsList',
+		'DocumentedSubModulesList',
+		'DocumentedSubModuleStrsList',
+		'DocumentedSubModuleLocalFolderPathStrsList',
+		#'DocumentedPresentationsDictsList',
+		#'DocumentedConceptNotebookDict'
+	]
+)
+#<DefinePrint>

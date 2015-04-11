@@ -9,6 +9,10 @@ FrozenIsBool False
 
 <ClassDocStr>
 
+<small>
+View the Filer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Standards/Interfacers/Filer" target="_blank">Github</a>
+</small>
+
 ----
 
 ```python
@@ -74,13 +78,13 @@ class FilerClass(BaseClass):
 
 			#debug
 			'''
-			self.debug(('self.',self,['FolderingPathVariable']))
+			self.debug(('self.',self,['FolderedPathStr']))
 			'''
 
 			#set the FiledPathStr
-			if self.FolderingPathVariable[-1]!='/':
-				self.FolderingPathVariable=self.FolderingPathVariable+'/'
-			self.FiledPathStr=self.FolderingPathVariable+self.FilingKeyStr
+			if self.FolderedPathStr[-1]!='/':
+				self.FolderedPathStr=self.FolderedPathStr+'/'
+			self.FiledPathStr=self.FolderedPathStr+self.FilingKeyStr
 
 			#Check
 			if '.' in self.FilingKeyStr:
@@ -163,6 +167,7 @@ class FilerClass(BaseClass):
 		if self.FilingModeStr=='w':	
 			
 			#debug
+			'''
 			self.debug(
 					[
 						'We write here',
@@ -172,6 +177,7 @@ class FilerClass(BaseClass):
 						])
 					]
 				)
+			'''
 
 			#Check
 			if self.FilingFormatStr in [
@@ -234,6 +240,7 @@ class FilerClass(BaseClass):
 		elif self.FilingModeStr=='r':
 			
 			#debug
+			'''
 			self.debug(
 				[
 					'We are going to read',
@@ -242,9 +249,14 @@ class FilerClass(BaseClass):
 						])
 				]
 			)
-
+			'''
+			
 			#Check
-			if self.FilingFormatStr in ['txt','py']:
+			if self.FilingFormatStr in [
+									'txt',
+									'md',
+									'py'
+								]:
 
 				#Read the FiledHardVariable
 				self.FiledReadVariable=self.FiledHardVariable.read()
@@ -281,8 +293,4 @@ FilerClass.PrintingClassSkipKeyStrsList.extend(
 
 
 ```
-
-<small>
-View the Filer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Standards/Interfacers/Filer" target="_blank">Github</a>
-</small>
 

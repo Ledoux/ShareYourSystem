@@ -106,7 +106,6 @@ setup(
 			 		'ShareYourSystem.Standards.Guiders.Celler',
 			 		'ShareYourSystem.Standards.Guiders.Notebooker',
 			 		'ShareYourSystem.Standards.Guiders.Nbconverter',
-			 		'ShareYourSystem.Standards.Guiders.Installer',
 			 		'ShareYourSystem.Standards.Guiders.Documenter',
 			 		'ShareYourSystem.Standards.Modelers.Modeler',
 			 		'ShareYourSystem.Standards.Modelers.Rower',

@@ -30,6 +30,47 @@ ursystem.ouvaton.org/Attester.ipynb)
 
 
 
+<!---
+FrozenIsBool True
+-->
+
+##Example
+
+Here we just decorate an IncrementerClass with an Attester and define an
+attest_increment
+function in the module that for which an AttestingStr will be written in a local
+Folder
+Attests/
+
+```python
+#ImportModules
+import ShareYourSystem as SYS
+
+#Attest the module
+SYS.IncrementerClass().setAttest(
+    SYS.AttesterClass.DeriveClassor.AttestingFolderPathStr
+)
+
+#Definition the AttestedStr
+print(
+'Attests file is written and is '+open(
+SYS.AttesterClass.DeriveClassor.AttestingFolderPathStr+'attest_increment.txt'
+).read()
+)
+
+
+
+```
+
+
+```console
+>>>
+Attests file is written and is         1
+
+```
+
+
+
 <!--
 FrozenIsBool False
 -->
@@ -39,6 +80,12 @@ FrozenIsBool False
 ----
 
 <ClassDocStr>
+
+<small>
+View the Attester sources on <a href="https://github.com/Ledoux/ShareYourSystem/
+tree/master/Pythonlogy/ShareYourSystem/Standards/Classors/Attester"
+target="_blank">Github</a>
+</small>
 
 ----
 
@@ -64,7 +111,7 @@ of the modules.
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Classors.Representer"
+BaseModuleStr="ShareYourSystem.Standards.Classors.Propertiser"
 DecorationModuleStr=BaseModuleStr
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -72,7 +119,7 @@ SYS.setSubModule(globals())
 #<ImportSpecificModules>
 import os
 import sys
-Representer=DecorationModule
+from ShareYourSystem.Standards.Interfacers import Printer
 #</ImportSpecificModules>
 
 #<DefineLocals>
@@ -87,9 +134,9 @@ def writeAttestedStrWithFolderPathStrAndMethodStrAndAttestVariable(
         _FolderPathStr,_MethodStr,_AttestVariable):
 
         #Bind with TestedStr setting
-        Representer.RepresentingIdBool=False
-        AttestedStr=Representer.getRepresentedStrWithVariable(_AttestVariable)
-        Representer.RepresentingIdBool=True
+        Printer.PrintIdBool=False
+        AttestedStr=Printer.getPrintStr(_AttestVariable)
+        Printer.PrintIdBool=True
 
         #Debug
         '''
@@ -115,8 +162,8 @@ def getAttestedStrWithStrsList(_StrsList):
         global AttestingBeginStr,AttestingJumpStr,AttestingEndStr
 
         #Reinit the alinea
-        Representer.RepresentedAlineaStr=""
-        Representer.RepresentedAlreadyVariablesList=[]
+        Printer.RepresentedAlineaStr=""
+        Printer.RepresentedAlreadyVariablesList=[]
 
         #Init AttestedStr
         AttestedStr=AttestingBeginStr
@@ -125,7 +172,7 @@ def getAttestedStrWithStrsList(_StrsList):
         AttestedStr+=AttestingJumpStr.join(
                 map(
                         lambda __Str:
-Representer.represent(__Str,**{'RepresentingAlineaIsBool':False}),
+Printer.represent(str(__Str),**{'PrintAlineaIsBool':False}),
                         _StrsList
                 )
         )
@@ -139,19 +186,19 @@ Representer.represent(__Str,**{'RepresentingAlineaIsBool':False}),
 #Definition an attest function for the classing class
 def setAttest(_InstanceVariable,_AttestFolderPathStr="",**_KwargVariablesDict):
 
+        #Debug
+        '''
+        print('l 92 Attester setAttest')
+        print('_AttestFolderPathStr is ',_AttestFolderPathStr)
+        print('')
+        '''
+
         #Set
         if _AttestFolderPathStr=="":
                 _AttestFolderPathStr=_InstanceVariable.__class__.DeriveClassor.A
 ttestingFolderPathStr
         _InstanceVariable.__class__.DeriveClassor.AttestingFolderPathStr=_Attest
 FolderPathStr
-
-        #Debug
-        '''
-        print('l 92 Attester')
-        print('AttestedFolderPathStr is ',AttestedFolderPathStr)
-        print('')
-        '''
 
         #Write the TestedStr made by each function and append an equivalent test
 method into the test ordered dict
@@ -171,7 +218,7 @@ _InstanceVariable.__class__.DeriveClassor.AttestedUnboundMethodsList
 class AttesterClass(BaseClass):
 
         #Definition
-        RepresentingKeyStrsList=[
+        PrintKeyStrsList=[
 'AttestingFolderPathStr',
                                                         'AttestedMethodStrsList'
                                                 ]
@@ -186,6 +233,13 @@ class AttesterClass(BaseClass):
                 BaseClass.__init__(self,**_KwargVariablesDict)
 
         def __call__(self,_Class):
+
+                #debug
+                '''
+                print('Attester l.143 __call__ method')
+                print('_Class is ',_Class)
+                print('')
+                '''
 
                 #Call the parent init method
                 BaseClass.__call__(self,_Class)
@@ -202,8 +256,8 @@ class AttesterClass(BaseClass):
                 if self.AttestingFolderPathStr=="":
 
                         #In the gl
-                        self.AttestingFolderPathStr=SYS.ShareYourSystemLocalFold
-erPathStr+self.DoClass.__module__.replace(
+                        self.AttestingFolderPathStr=SYS.PythonlogyLocalFolderPat
+hStr+self.DoClass.__module__.replace(
                                 '.','/')+'/Attests/'
 
                 #debug
@@ -257,65 +311,4 @@ Str+AttesterClass.__module__.replace(
 
 ```
 
-<small>
-View the Attester sources on <a href="https://github.com/Ledoux/ShareYourSystem/
-tree/master/Pythonlogy/ShareYourSystem/Classors/Attester"
-target="_blank">Github</a>
-</small>
-
-
-
-
-<!---
-FrozenIsBool True
--->
-
-##Example
-
-Here we just decorate an IncrementerClass with an Attester and define an
-attest_increment
-function in the module that for which an AttestingStr will be written in a local
-Folder
-Attests/
-
-```python
-#ImportModules
-import ShareYourSystem as SYS
-from ShareYourSystem.Standards.Classors import Attester
-from ShareYourSystem.Tutorials import Incrementer
-
-#Attest the module
-Incrementer.IncrementerClass().setAttest(
-    Attester.AttesterClass.DeriveClassor.AttestingFolderPathStr
-)
-
-#Definition the AttestedStr
-SYS._attest(
-    [
-'Attests file is written and is '+open(
-    Attester.AttesterClass.DeriveClassor.AttestingFolderPathStr+'attest_incremen
-t.txt'
-).read()
-    ]
-)
-
-#Print
-
-
-```
-
-
-```console
->>>
-
-
-*****Start of the Attest *****
-
-Attests file is written and is 1
-
-*****End of the Attest *****
-
-
-
-```
 

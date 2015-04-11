@@ -62,7 +62,7 @@ SYS._print(MyBuilder.__dict__)
 
 #make again
 print('Now we switch')
-MyMaker.setSwitch()
+MyBuilder.setSwitch()
 
 #Switch by default it is just the last Name and the the last do in the mro
 print('Now we switch')

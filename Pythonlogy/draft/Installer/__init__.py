@@ -1,17 +1,3 @@
-
-<!--
-FrozenIsBool False
--->
-
-##Code
-
-----
-
-<ClassDocStr>
-
-----
-
-```python
 # -*- coding: utf-8 -*-
 """
 
@@ -28,7 +14,7 @@ The Installer collects ModuleStrs to write
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Guiders.Nbconverter"
+BaseModuleStr="ShareYourSystem.Standards.Guiders.Nbconverter"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -36,7 +22,7 @@ SYS.setSubModule(globals())
 #<ImportSpecificModules>
 import os
 import copy
-from ShareYourSystem.Standards.Interfacers import Loader,Writer
+from ShareYourSystem.Standards.Interfacers import Filer
 #</ImportSpecificModules>
 
 #<DefineLocals>
@@ -50,12 +36,6 @@ InstallingLibraryFolderPathStr=InstallingSysFolderPathStr+'/docs/LibraryReferenc
 })
 class InstallerClass(BaseClass):
 	
-	#Definition
-	RepresentingKeyStrsList=[
-									'InstallingModuleStrsList',
-									'InstallingAllBool'
-								]
-
 	def default_init(self,
 						_InstallingModuleStrsList=None,
 						_InstallingAllBool=False,
@@ -64,43 +44,29 @@ class InstallerClass(BaseClass):
 
 		#Call the parent __init__ method
 		BaseClass.__init__(self,**_KwargVariablesDict)
-
-		
+	
 	def do_install(self):
 
-		#Definition
-		self.load(
-			**{
-				'FolderingPathVariable':InstallingSysFolderPathStr,
-				'FilingKeyStr':'setup.py'
-			}
-		)
+		#/##################/#
+		# First analyze all the modules
+		#
 
-		#chunk to set the InstalledModuleStrsList
-		InstalledPackageStr=SYS.chunk(
-			['packages=[','],'],self.LoadedReadVariable
-		)[0]
-		InstalledTextStrsList=InstalledPackageStr.split('\n')
-		InstalledTextStrListsList=SYS._filter(
-			lambda __InstalledChunkList:
-			len(__InstalledChunkList)>0,
-			map(
-					lambda __InstalledTextStr:
-					SYS.chunk(
-						["'ShareYourSystem","',"],
-						__InstalledTextStr
-					),
-					InstalledTextStrsList
+		"""
+		#folder
+		self.folder(
+				InstallingSysFolderPathStr
 			)
-		)
 
-		self.InstallingModuleStrsList=map(
-			lambda __InstalledTextStrList:
-			('ShareYourSystem'+__InstalledTextStrList[0])
-			if __InstalledTextStrList[0]!="'"
-			else 'ShareYourSystem',
-			InstalledTextStrListsList
+		#Definition
+		self.file(
+			'setup.py',
+			_ModeStr='r'
 		)
+		"""
+		
+		#chunk to set the InstalledModuleStrsList
+		if len(self.InstallingModuleStrsList)==0:
+			self.InstallingModuleStrsList=SYS.lib()
 
 		#debug
 		'''
@@ -125,15 +91,13 @@ class InstallerClass(BaseClass):
 					__InstalledModulePathStr.split('/')[-1],
 					self.InstalledModulePathStrsList
 			)
-
-		#Return self
-		#return self
-
 #</DefineClass>
 
-```
-
-<small>
-View the Installer sources on <a href="https://github.com/Ledoux/ShareYourSystem/tree/master/Pythonlogy/ShareYourSystem/Guiders/Installer" target="_blank">Github</a>
-</small>
-
+#</DefinePrint>
+InstallerClass.PrintingClassSkipKeyStrsList.extend(
+	[
+		'InstallingModuleStrsList',
+		'InstallingAllBool'
+	]
+)
+#<DefinePrint>

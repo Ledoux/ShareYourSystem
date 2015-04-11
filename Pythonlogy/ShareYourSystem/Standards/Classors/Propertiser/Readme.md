@@ -29,6 +29,64 @@ eyoursystem.ouvaton.org/Propertiser.ipynb)
 
 
 
+<!---
+FrozenIsBool True
+-->
+
+##Example
+
+In the opposite way
+
+```python
+#ImportModules
+import ShareYourSystem as SYS
+
+#Define
+@SYS.PropertiserClass()
+class MakerClass(object):
+
+    def default_init(self,
+            _MakingMyList=None,
+            _MakingMyInt={
+                            'DefaultValueType':property,
+                            'PropertyInitVariable':None,
+                            'PropertyDocStr':'I am doing the thing here',
+                            'ShapeDict':{
+                                'MakingMyList':0
+                            }
+                        },
+            _MadeMyInt=0
+        ):
+        object.__init__(self)
+
+
+#Define
+MyMaker=MakerClass()
+
+#Set and this will bind the value of MakingMyInt
+MyMaker.MakingMyInt=2
+
+#print
+print('MyMaker.__dict__ is ')
+print(SYS.indent(MyMaker))
+
+
+
+```
+
+
+```console
+>>>
+MyMaker.__dict__ is
+{
+  "DefaultInitBool": "True",
+  "_MakingMyInt": "2"
+}
+
+```
+
+
+
 <!--
 FrozenIsBool False
 -->
@@ -38,6 +96,12 @@ FrozenIsBool False
 ----
 
 <ClassDocStr>
+
+<small>
+View the Propertiser sources on <a href="https://github.com/Ledoux/ShareYourSyst
+em/tree/master/Pythonlogy/ShareYourSystem/Standards/Classors/Propertiser"
+target="_blank">Github</a>
+</small>
 
 ----
 
@@ -61,7 +125,7 @@ with high controlling features thanks to the binding
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Classors.Deriver"
+BaseModuleStr="ShareYourSystem.Standards.Classors.Doer"
 DecorationModuleStr=BaseModuleStr
 SYS.setSubModule(globals())
 #</DefineAugmentation>
@@ -69,22 +133,29 @@ SYS.setSubModule(globals())
 #<ImportSpecificModules>
 import inspect
 import collections
-
-from ShareYourSystem.Standards.Objects import Initiator
 #</ImportSpecificModules>
 
 #<DefineLocals>
-PropertizingGetStr="_"
-PropertizingRepresentationStr="p:"
+PropertyGetStr="_"
+PropertyRepresentationStr="p:"
+PropertyPrefixStr="propertize_"
 #</DefineLocals>
 
 #<DefineFunctions>
 def getPropertizedTupleWithItemTupleAndClass(_ItemTuple,_Class):
 
+        #Debug
+        '''
+        print('Propertiser l 39')
+        print('_ItemTuple is ')
+        print(_ItemTuple)
+        print('')
+        '''
+
         #Get the KeyStr, and the ValueVariable that should be a dict
         PropertizedKeyStr=_ItemTuple[0]
         PropertizedValueVariable=_ItemTuple[1]
-        PropertizedHideKeyStr=PropertizingGetStr+PropertizedKeyStr
+        PropertizedHideKeyStr=PropertyGetStr+PropertizedKeyStr
 
         #Check that this is a property yet or not
         if type(PropertizedValueVariable)!=property:
@@ -92,8 +163,14 @@ def getPropertizedTupleWithItemTupleAndClass(_ItemTuple,_Class):
                 #Init
                 PropertizedValueVariable=property()
 
+                #/###################/#
+                # Prepare the get property
+                #
+
                 #Definition the get function
-                PropertizedGetFunctionStr='get'+PropertizedKeyStr
+PropertizedGetFunctionStr=PropertyPrefixStr+'get'+PropertizedKeyStr
+
+                #Check
                 if hasattr(_Class,PropertizedGetFunctionStr):
 
                         #Check for an already defined method
@@ -102,28 +179,143 @@ PropertizedGetFunction=getattr(_Class,PropertizedGetFunctionStr)
                 else:
 
                         #Definition a default one
-                        def PropertizedGetFunction(self):
-                                return getattr(self,PropertizedHideKeyStr)
+                        def PropertizedGetFunction(_InstanceVariable):
+
+                                """
+                                #/#################/#
+                                # return the one hidden in the dict
+                                # else return the one in the class
+
+                                #Check
+                                if
+hasattr(_InstanceVariable,PropertizedHideKeyStr):
+
+                                        #return
+                                        return
+getattr(_InstanceVariable,PropertizedHideKeyStr)
+                                else:
+
+                                        #return
+                                        return
+getattr(_InstanceVariable.__class__,PropertizedKeyStr)
+                                """
+
+                                #/#################/#
+                                # return the one hidden in the dict
+                                # else return None
+
+                                if
+hasattr(_InstanceVariable,PropertizedHideKeyStr):
+
+                                        #return
+                                        return
+getattr(_InstanceVariable,PropertizedHideKeyStr)
+
+                                else:
+
+                                        return None
+
 PropertizedGetFunction.__name__=PropertizedGetFunctionStr
 
+                #/###################/#
+                # Prepare the set property
+                #
+
                 #Definition the set function
-                PropertizedSetFunctionStr='set'+PropertizedKeyStr
+PropertizedSetFunctionStr=PropertyPrefixStr+'set'+PropertizedKeyStr
 
                 #Check
                 if hasattr(_Class,PropertizedSetFunctionStr):
 
+                        #/######################/#
+                        # Case where there is already something
+                        #
+
                         #Check for an already defined method
 PropertizedSetFunction=getattr(_Class,PropertizedSetFunctionStr)
+
                 else:
 
-                        #Definition a default one
-                        def PropertizedSetFunction(self,_SettingValueVariable):
-self.__setattr__(PropertizedHideKeyStr,_SettingValueVariable)
-                        PropertizedSetFunction.__name__='set'+PropertizedKeyStr
+                        #/######################/#
+                        # Default case
+                        #
 
+                        #Definition a default one
+                        def
+PropertizedSetFunction(_InstanceVariable,_SettingValueVariable):
+_InstanceVariable.__setattr__(PropertizedHideKeyStr,_SettingValueVariable)
+PropertizedSetFunction.__name__=PropertizedSetFunctionStr
+
+                #/######################/#
+                # Case where we bind also the setting of the shaping atttributes
+                #
+
+                #Check
+                if 'ShapeKeyStrsList' in _ItemTuple[1]:
+
+                        #get
+PropertizedShapeKeyStrsList=_ItemTuple[1]['ShapeKeyStrsList']
+
+                        #Debug
+                        '''
+                        print('Propertiser l 111')
+                        print('There is a ShapeKeyStrsList')
+                        print('PropertizedShapeKeyStrsList is ')
+                        print(PropertizedShapeKeyStrsList)
+                        print('')
+                        '''
+
+                        #import
+                        import numpy as np
+
+                        def
+PropertizedShapeSetFunction(_InstanceVariable,_SettingValueVariable):
+
+                                #call the first
+PropertizedSetFunction(_InstanceVariable,_SettingValueVariable)
+
+                                #get the shape
+                                PropertizedShapeIntsList=np.shape(
+                                        getattr(
+                                                        _InstanceVariable,
+                                                        PropertizedHideKeyStr
+                                                )
+                                )
+
+                                #Debug
+                                '''
+                                print('Propertiser l 137')
+                                print('We shape here')
+                                print('PropertizedHideKeyStr is')
+                                print(PropertizedHideKeyStr)
+                                print('PropertizedShapeKeyStrsList is ')
+                                print(PropertizedShapeKeyStrsList)
+                                print('PropertizedShapeIntsList is ')
+                                print(PropertizedShapeIntsList)
+                                print('')
+                                '''
+
+                                #map a set
+                                map(
+                                                lambda
+__PropertizedShapeKeyStr,__PropertizedShapeInt:
+                                                setattr(
+                                                        _InstanceVariable,
+__PropertizedShapeKeyStr,
+                                                        __PropertizedShapeInt
+                                                ),
+                                                PropertizedShapeKeyStrsList,
+                                                PropertizedShapeIntsList
+                                        )
+
+                #/###################/#
+                # Prepare the del property
+                #
 
                 #Definition the del function
-                PropertizedDelFunctionStr='del'+PropertizedKeyStr
+PropertizedDelFunctionStr=PropertyPrefixStr+'del'+PropertizedKeyStr
+
+                #Check
                 if hasattr(_Class,PropertizedDelFunctionStr):
 
                         #Check for an already defined method
@@ -132,18 +324,64 @@ PropertizedDelFunction=getattr(_Class,PropertizedDelFunctionStr)
                 else:
 
                         #Definition a default one
-                        def PropertizedDelFunction(self):
-                                self.__delattr__(PropertizedHideKeyStr)
-                        PropertizedDelFunction.__name__='del'+PropertizedKeyStr
+                        def PropertizedDelFunction(_InstanceVariable):
+_InstanceVariable.__delattr__(PropertizedHideKeyStr)
+PropertizedDelFunction.__name__=PropertizedDelFunctionStr
+
+                #Debug
+                '''
+                print('Propertizer l 109')
+                print('PropertizedDetFunction is ')
+                print(PropertizedDetFunction)
+                print('')
+                '''
+
+                #/###################/#
+                # Now set in the class
+                #
+
+                if 'ShapeKeyStrsList' in _ItemTuple[1]:
+                        PropertizedBindSetFunction=PropertizedShapeSetFunction
+                else:
+                        PropertizedBindSetFunction=PropertizedSetFunction
+
+                #Define in the class...
+                map(
+                        lambda __PropertizedFunction:
+                        setattr(
+                                _Class,
+                                __PropertizedFunction.__name__,
+                                __PropertizedFunction
+                        ),
+                        [
+                                PropertizedGetFunction,
+                                PropertizedBindSetFunction,
+                                PropertizedDelFunction
+                        ]
+                )
+
+                #Define in the special dict...
+                map(
+                        lambda __Function:
+                        _Class.PropertyMethodsDict.__setitem__(
+                                __Function.__name__,
+                                __Function
+                        ),
+                        [
+                                PropertizedGetFunction,
+                                PropertizedBindSetFunction,
+                                PropertizedDelFunction
+                        ]
+                )
 
                 #Redefine
                 PropertizedValueVariable=property(
                                                         PropertizedGetFunction,
-                                                        PropertizedSetFunction,
+PropertizedBindSetFunction,
                                                         PropertizedDelFunction,
 _ItemTuple[1]['PropertyDocStr'
-                                                        ]if 'PropertyDocStr'
-in _ItemTuple[1]
+                                                        ]if 'PropertyDocStr' in
+_ItemTuple[1]
                                                         else "This is here a
 property but with no more details..."
                                                 )
@@ -182,7 +420,7 @@ class PropertiserClass(BaseClass):
 
                 #debug
                 '''
-                print('Defaultor l.31 __call__ method')
+                print('Propetizer l.179 __call__ method')
                 print('_Class is ',_Class)
                 print('')
                 '''
@@ -219,12 +457,24 @@ class PropertiserClass(BaseClass):
                 print('')
                 '''
 
+                #init
+                PropertizedClass.PropertyMethodsDict={}
+
+                #Add to the KeyStrsList
+                PropertizedClass.KeyStrsList+=[
+"PropertyMethodsDict"
+                                                                        ]
+
                 #debug
                 '''
                 print('Propertiser l.47 default method')
                 print('Class is ',Class)
                 print('')
                 '''
+
+                #/###################/#
+                # Check for new properties in the default dict
+                #
 
                 #Check
                 if
@@ -252,19 +502,19 @@ PropertizedClass.DefaultAttributeVariablesOrderedDict.items()
 
                         #debug
                         '''
+                        print('Propertiser l.266')
                         print('Before set
 PropertizedClass.PropertizedDefaultTuplesList is
 ',PropertizedClass.PropertizedDefaultTuplesList)
                         print('')
                         '''
 
-                        #set at the level of the class the
-PropertizingGetStr+KeyStr
+                        #set at the level of the class the PropertyGetStr+KeyStr
                         map(
                                         lambda __PropertizedDefaultTuple:
                                         setattr(
 PropertizedClass,
-PropertizingGetStr+__PropertizedDefaultTuple[0],
+PropertyGetStr+__PropertizedDefaultTuple[0],
 getPropertizedVariableWithItemTuple(__PropertizedDefaultTuple)
                                                         ),
 PropertizedClass.PropertizedDefaultTuplesList
@@ -283,9 +533,10 @@ PropertizedClass.PropertizedDefaultTuplesList
 
                         #debug
                         '''
+                        print('Propertiser l 293')
                         print('After set
-PropertizedClass.PropertizedDefaultTuplesList is
-',PropertizedClass.PropertizedDefaultTuplesList)
+PropertizedClass.PropertizedDefaultTuplesList is ',
+                                PropertizedClass.PropertizedDefaultTuplesList)
                         print('')
                         '''
 
@@ -299,15 +550,27 @@ PropertizedClass,
 PropertizedClass.PropertizedDefaultTuplesList
                                 )
 
+                        #Check
+                        if
+hasattr(PropertizedClass,'PrintingClassSkipKeyStrsList'):
 
+                                #map append in  the KeyStrsList
+                                map(
+                                                lambda
+__PropertizedDefaultTuple:
+PropertizedClass.PrintingClassSkipKeyStrsList.extend(
+                                                        [
+#__PropertizedDefaultTuple[0],
+PropertyGetStr+__PropertizedDefaultTuple[0]
+                                                        ]
+                                                ),
+PropertizedClass.PropertizedDefaultTuplesList
+                                        )
 
                         #Add to the KeyStrsList
                         PropertizedClass.KeyStrsList+=[
 "PropertizedDefaultTuplesList"
                                                                         ]
-
-
-
 
 #</Define_Class>
 
@@ -316,165 +579,4 @@ PropertizedClass.PropertizedDefaultTuplesList
 
 ```
 
-<small>
-View the Propertiser sources on <a href="https://github.com/Ledoux/ShareYourSyst
-em/tree/master/Pythonlogy/ShareYourSystem/Classors/Propertiser"
-target="_blank">Github</a>
-</small>
-
-
-
-
-<!---
-FrozenIsBool True
--->
-
-##Example
-
-Going back to the Doer cell when we invented a very minimalist Maker.
-We now define its MakingMyFloat as a property that can be then defined as
-a "binding" attribute thanks to the setMakingMyFloat method definition,
-that will be linked to the fset attribute of the property object.
-
-```python
-#ImportModules
-import ShareYourSystem as SYS
-from ShareYourSystem.Standards.Classors import Propertiser,Attester
-from ShareYourSystem.Standards.Objects import Initiator
-
-#Definition a MakerClass decorated by the PropertiserClass
-@Propertiser.PropertiserClass()
-class MakerClass(Initiator.InitiatorClass):
-
-    def default_init(self,
-            _MakingMyFloat={
-                            'DefaultValueType':property,
-                            'PropertyInitVariable':3.,
-                            'PropertyDocStr':'I am doing the thing here'
-                            },
-            _MakingMyList={
-                            'DefaultValueType':property,
-                            'PropertyInitVariable':[],
-                            'PropertyDocStr':'I am doing the thing here'
-                            },
-            _MakingMyInt={'DefaultValueType':int},
-            _MadeMyInt=0
-        ):
-        pass
-
-    #Definition a binding function
-    def setMakingMyFloat(self,_SettingValueVariable):
-
-        #Print
-        #print('I am going to make the job directly !')
-
-        #set the value of the "hidden" property variable
-        self._MakingMyFloat=_SettingValueVariable
-
-        #Bind with MadeInt setting
-        self.MadeMyInt=int(self._MakingMyFloat)
-
-    #Definition a binding function
-    def setMakingMyList(self,_SettingValueVariable):
-
-        #set the value of the "hidden" property variable
-        self._MakingMyList=_SettingValueVariable+['Hellllllo']
-
-
-#Definition a default instance
-DefaultMaker=MakerClass()
-
-#Definition a special instance
-SpecialMaker=MakerClass(_MakingMyFloat=5,_MakingMyList=[4])
-
-#Definition the AttestedStr
-SYS._attest(
-    [
-        'MakerClass.PropertizedDefaultTuplesList is '+SYS._str(
-            MakerClass.PropertizedDefaultTuplesList),
-        'What are you saying DefaultMaker ?',
-        'DefaultMaker.__dict__ is '+str(DefaultMaker.__dict__),
-        'DefaultMaker.MakingMyFloat is '+str(DefaultMaker.MakingMyFloat),
-        'DefaultMaker.MakingMyList is '+str(DefaultMaker.MakingMyList),
-        'DefaultMaker.MadeMyInt is '+str(DefaultMaker.MadeMyInt),
-        'What are you saying SpecialMaker ?',
-        'SpecialMaker.__dict__ is '+str(SpecialMaker.__dict__),
-        'SpecialMaker.MakingMyFloat is '+str(SpecialMaker.MakingMyFloat),
-        'SpecialMaker.MakingMyList is '+str(SpecialMaker.MakingMyList),
-        'SpecialMaker.MadeMyInt is '+str(SpecialMaker.MadeMyInt),
-    ]
-)
-
-#Print
-
-
-```
-
-
-```console
->>>
-
-
-*****Start of the Attest *****
-
-MakerClass.PropertizedDefaultTuplesList is
-   /[
-   /  0 :
-   /   /(
-   /   /  0 : MakingMyFloat
-   /   /  1 : <property object at 0x10e7fb628>
-   /   /)
-   /  1 :
-   /   /(
-   /   /  0 : MakingMyList
-   /   /  1 : <property object at 0x10e7fbd60>
-   /   /)
-   /]
-
-------
-
-What are you saying DefaultMaker ?
-
-------
-
-DefaultMaker.__dict__ is {'IdInt': 4537523408}
-
-------
-
-DefaultMaker.MakingMyFloat is 3.0
-
-------
-
-DefaultMaker.MakingMyList is []
-
-------
-
-DefaultMaker.MadeMyInt is 0
-
-------
-
-What are you saying SpecialMaker ?
-
-------
-
-SpecialMaker.__dict__ is {'IdInt': 4537523600, 'MadeMyInt': 5, '_MakingMyFloat':
-5, '_MakingMyList': [4, 'Hellllllo']}
-
-------
-
-SpecialMaker.MakingMyFloat is 5
-
-------
-
-SpecialMaker.MakingMyList is [4, 'Hellllllo']
-
-------
-
-SpecialMaker.MadeMyInt is 5
-
-*****End of the Attest *****
-
-
-
-```
 

@@ -101,6 +101,8 @@ class FoldererClass(BaseClass):
 						_FolderingPathVariable=None,
 						_FolderingMkdirBool=False,
 						_FolderingImportBool=True,
+						_FolderedPathStr="",
+						_FolderedModuleDict=None,
 						_FolderedDirKeyStrsList=None,	
 						_FolderedModuleStr="",
 						_FolderedParentModuleStr="",
@@ -117,133 +119,39 @@ class FoldererClass(BaseClass):
 		# Adapt the current path str
 		#
 
-		#Get the current
-		FolderedCurrentPathStr=os.getcwd()
+		#debug
+		'''
+		self.debug(
+			[
+				'We folder here',
+				('self.',self,[
+						'FolderingPathVariable'
+					])
+			]
+		)
+		'''
 
 		#set
 		if self.FolderingPathVariable==None:
-			self.FolderingPathVariable=FolderedCurrentPathStr+'/'
 
-		#/################/#
-		# This is a path str query
-		#
+			#/################/#
+			# Get the current
+			#
+
+			#Get the current
+			FolderedCurrentPathStr=os.getcwd()
+
+			#add
+			self.FolderedPathStr=FolderedCurrentPathStr+'/'
 
 		elif type(self.FolderingPathVariable)==str:
 
-			#debug
-			'''
-			print('self.FolderingPathVariable is '+self.FolderingPathVariable)
-			print('FolderedCurrentPathStr is '+FolderedCurrentPathStr)
-			print('')
-			'''
-				
-			#Check
-			if self.FolderingPathVariable!=None:
-
-				#Add the '/' if not in the end
-				if self.FolderingPathVariable[-1]!="/":
-					self.FolderingPathVariable+="/"
-
-				#/################/#
-				# Maybe build the dir
-				#
-
-				#Build intermediar pathes
-				if os.path.isdir(self.FolderingPathVariable)==False:
-
-					#Check
-					if self.FolderingMkdirBool:
-
-						#debug
-						'''
-						print('We are going to build the intermediar folder')
-						print('self.FolderingPathVariable is ',self.FolderingPathVariable)
-						print('')
-						'''
-
-						#Definition
-						FolderingPathVariablesList=self.FolderingPathVariable.split('/')
-						FolderedRootPathStr=FolderingPathVariablesList[0]
-						for _PathStr in FolderingPathVariablesList[1:]:
-
-							#debug
-							'''
-							print('FolderedRootPathStr is ',FolderedRootPathStr)
-							print('')
-							'''
-
-							#Mkdir if it doesn't exist
-							if FolderedRootPathStr!="" and os.path.isdir(FolderedRootPathStr)==False:
-								os.popen('mkdir '+FolderedRootPathStr)
-
-							#Add the following
-							FolderedRootPathStr+='/'+_PathStr
-
-						#Mkdir if it doesn't exist
-						if os.path.isdir(FolderedRootPathStr)==False:
-							os.popen('mkdir '+FolderedRootPathStr)
-
 			#/################/#
-			# Find the Module str maybe that is associated
+			# This is a path str query
 			#
 
-			#Recheck
-			if os.path.isdir(self.FolderingPathVariable):
-
-				#set
-				self.FolderedDirKeyStrsList=os.listdir(self.FolderingPathVariable)
-
-				#Check
-				if '__init__.py' in self.FolderedDirKeyStrsList:
-
-					#set maybe FolderedModuleStr and FolderedParentModuleStr if we are located in the SYS path
-					if 'ShareYourSystem' in self.FolderingPathVariable:
-
-						#set
-						self.FolderedModuleStr='ShareYourSystem'+self.FolderingPathVariable.split(
-							'ShareYourSystem')[-1].replace('/','.')
-
-						#Remove the ossibly last dot
-						if self.FolderedModuleStr[-1]=='.':
-							self.FolderedModuleStr=self.FolderedModuleStr[:-1]
-
-						#set
-						if '.' in self.FolderedModuleStr:
-
-							#set
-							self.FolderedNameStr=self.FolderedModuleStr.split('.')[-1]
-
-							#debug
-							'''
-							self.debug(('self.',self,['FolderingPathVariable','FolderedNameStr']))
-							'''
-							
-							#set the parent
-							self.FolderedParentModuleStr=self.FolderedNameStr.join(
-								self.FolderedModuleStr.split(self.FolderedNameStr)[:-1]
-							)
-							if len(self.FolderedParentModuleStr
-								)>0 and self.FolderedParentModuleStr[-1]=='.':
-								self.FolderedParentModuleStr=self.FolderedParentModuleStr[:-1]
-						else:
-							self.FolderedModuleStr=self.FolderedModuleStr
-
-				else:
-
-					#set
-					self.FolderedModuleStr=""
-					self.FolderedParentModuleStr=""
-
-
-			#/################/#
-			# Import the Module str maybe that is associated
-			#
-
-			#Check
-			if self.FolderedModuleStr!="" and self.FolderingImportBool:
-				self.FolderedModuleDict=ModuleDict(
-						_ModuleVariable=self.FolderedModuleStr
-					)
+			#set
+			self.FolderedPathStr=self.FolderingPathVariable
 
 		else:
 
@@ -251,9 +159,142 @@ class FoldererClass(BaseClass):
 			# Get info on the already imported module
 			#
 
+			#module
 			self.FolderedModuleDict=ModuleDict(
 						_ModuleVariable=self.FolderingPathVariable
 					)
+
+			#set
+			self.FolderedPathStr=self.FolderedModuleDict['LocalFolderPathStr']
+
+
+		#/################/#
+		# Now do things with that
+		#
+
+		#debug
+		'''
+		self.debug(
+			[
+				('self.',self,[
+						'FolderedPathStr'
+					])
+			]
+		)
+		'''
+			
+		#Check
+		if self.FolderedPathStr!="":
+
+			#Add the '/' if not in the end
+			if self.FolderedPathStr[-1]!="/":
+				self.FolderedPathStr+="/"
+
+			#/################/#
+			# Maybe build the dir
+			#
+
+			#Build intermediar pathes
+			if os.path.isdir(self.FolderedPathStr)==False:
+
+				#Check
+				if self.FolderingMkdirBool:
+
+					#debug
+					'''
+					print('We are going to build the intermediar folder')
+					print('self.FolderingPathVariable is ',self.FolderingPathVariable)
+					print('')
+					'''
+
+					#Definition
+					FolderedPathStrsList=self.FolderedPathStr.split('/')
+					FolderedRootPathStr=FolderedPathStrsList[0]
+					for _PathStr in FolderedPathStrsList[1:]:
+
+						#debug
+						'''
+						print('FolderedRootPathStr is ',FolderedRootPathStr)
+						print('')
+						'''
+
+						#Mkdir if it doesn't exist
+						if FolderedRootPathStr!="" and os.path.isdir(FolderedRootPathStr)==False:
+							os.popen('mkdir '+FolderedRootPathStr)
+
+						#Add the following
+						FolderedRootPathStr+='/'+_PathStr
+
+					#Mkdir if it doesn't exist
+					if os.path.isdir(FolderedRootPathStr)==False:
+						os.popen('mkdir '+FolderedRootPathStr)
+
+		#/################/#
+		# Find the Module str maybe that is associated
+		#
+
+		#Recheck
+		if os.path.isdir(self.FolderedPathStr):
+
+			#set
+			self.FolderedDirKeyStrsList=os.listdir(
+				self.FolderedPathStr
+			)
+
+			#Check
+			if '__init__.py' in self.FolderedDirKeyStrsList:
+
+				#set maybe FolderedModuleStr and FolderedParentModuleStr if we are located in the SYS path
+				if 'ShareYourSystem' in self.FolderedPathStr:
+
+					#Check
+					if self.FolderedModuleDict==None:
+
+						#module
+						self.FolderedModuleDict=ModuleDict(
+									_ModuleVariable=self.FolderingPathVariable
+								)
+
+					#set
+					self.FolderedModuleStr='ShareYourSystem'+self.FolderedPathStr.split(
+						'ShareYourSystem')[-1].replace('/','.')
+
+					#Remove the ossibly last dot
+					if self.FolderedModuleStr[-1]=='.':
+						self.FolderedModuleStr=self.FolderedModuleStr[:-1]
+
+					#set
+					if '.' in self.FolderedModuleStr:
+
+						#set
+						self.FolderedNameStr=self.FolderedModuleStr.split('.')[-1]
+
+						#debug
+						'''
+						self.debug(('self.',self,['FolderingPathVariable','FolderedNameStr']))
+						'''
+						
+						#set the parent
+						self.FolderedParentModuleStr=self.FolderedNameStr.join(
+							self.FolderedModuleStr.split(self.FolderedNameStr)[:-1]
+						)
+						if len(self.FolderedParentModuleStr
+							)>0 and self.FolderedParentModuleStr[-1]=='.':
+							self.FolderedParentModuleStr=self.FolderedParentModuleStr[:-1]
+					else:
+						self.FolderedModuleStr=self.FolderedModuleStr
+
+			else:
+
+				#set
+				self.FolderedModuleStr=""
+				self.FolderedParentModuleStr=""
+
+
+
+
+
+
 
 #</DefineClass>
 
@@ -263,7 +304,9 @@ FoldererClass.PrintingClassSkipKeyStrsList.extend(
 		'FolderingPathVariable',
 		'FolderingMkdirBool',
 		'FolderingImportBool',
+		'FolderedPathStr',
 		'FolderedDirKeyStrsList',	
+		'FolderedModuleDict',
 		'FolderedModuleStr',
 		'FolderedParentModuleStr',
 		'FolderedNameStr',

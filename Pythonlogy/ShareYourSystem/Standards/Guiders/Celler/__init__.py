@@ -183,15 +183,11 @@ class CellerClass(BaseClass):
 					self.PrintingCopyVariable.PrintingInstanceSkipKeyStrsList.append(
 						__KeyStr
 					) if getattr(self.PrintingCopyVariable,__KeyStr)==None
-					else (
-						self.PrintingCopyVariable.PrintingInstanceForceKeyStrsList.append(
-							__KeyStr
-						)
-						if self.__class__.__name__=='CellerClass'
-						else self.PrintingCopyVariable.PrintingInstanceForceBaseKeyStrsList.append(
-							__KeyStr
-						)
-					),
+					else 
+						self.forcePrint(
+							[__KeyStr],
+							'CellerClass'
+						),
 					[
 						'CelledNoteDict'
 					]

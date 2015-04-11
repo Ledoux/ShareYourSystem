@@ -31,8 +31,8 @@ class ScriptbookerClass(BaseClass):
 	def default_init(self,
 						_ScriptbookingGuideTuplesList=[
 							('001','Document','Markdown'),
-							('002','Github','Markdown'),
 							#('003','Ouvaton','Markdown')
+							('1','Github','Markdown'),
 						],
 						_ScriptbookedFileKeyStrsList=None,
 						_ScriptbookedNewGuideTuplesList=None,
@@ -48,9 +48,13 @@ class ScriptbookerClass(BaseClass):
 
 		#debug
 		'''
-		self.debug(('self.',self,['FolderedDirKeyStrsList']))
+		self.debug(
+			[
+				('self.',self,['FolderedDirKeyStrsList'])
+			]
+		)
 		'''
-		
+
 		#Definition
 		self.ScriptbookedFileKeyStrsList=SYS._filter(
 				lambda __DirKeyStr:
@@ -65,6 +69,17 @@ class ScriptbookerClass(BaseClass):
 				self.FolderedDirKeyStrsList
 		)
 
+		#debug
+		'''
+		self.debug(
+			[
+				('self.',self,[
+						'ScriptbookedFileKeyStrsList'
+					])
+			]
+		)
+		'''
+		
 		#Definition
 		ScriptbookedPageStrsList=map(
 									lambda __ScriptbookerScriptbookFileKeyStr:
@@ -77,7 +92,10 @@ class ScriptbookerClass(BaseClass):
 
 		#set
 		self.ScriptbookedSortDict=dict(
-				zip(ScriptbookedPageStrsList,self.ScriptbookedFileKeyStrsList)
+				zip(
+						ScriptbookedPageStrsList,
+						self.ScriptbookedFileKeyStrsList
+					)
 			)
 
 		#debug
@@ -108,47 +126,68 @@ class ScriptbookerClass(BaseClass):
 			]=SYS.groupby(
 				lambda __ScriptbookedGuideTuple:
 				__ScriptbookedGuideTuple[3] not in self.ScriptbookedSortDict,
-				ScriptbookedGuideTuplesList,
+				ScriptbookedGuideTuplesList
 			)
 
 			#debug
 			'''
-			self.debug(('self.',self,[
-							'ScriptbookedNewGuideTuplesList',
-							'ScriptbookedOldGuideTuplesList'
-						]))
+			self.debug(
+				[
+					('self.',self,[
+							'ScriptbookedNewGuideTuplesList'
+						])
+				]
+			)
 			'''
 			
 			#map a guide for the news
 			map(
-				lambda __ScriptbookingNewGuideTuple:
-				self.guide(__ScriptbookingNewGuideTuple[0],
-							__ScriptbookingNewGuideTuple[1],
-							self.GuidingBookStr,
-							__ScriptbookingNewGuideTuple[2]),
+				lambda __ScriptbookedNewGuideTuple:
+				self.guide(
+					__ScriptbookedNewGuideTuple[0],
+					__ScriptbookedNewGuideTuple[1],
+					self.GuidingBookStr,
+					__ScriptbookedNewGuideTuple[2]
+				),
 				self.ScriptbookedNewGuideTuplesList
 			)
 
+			#debug
+			'''
+			self.debug(
+				[
+					('self.',self,[
+							'ScriptbookedOldGuideTuplesList',
+							'ScriptbookedSortDict'
+						])
+				]
+			)
+			'''
+
 			#check if we rewrite for the olds
 			map(
-				lambda __ScriptbookingOldGuideTuple:
-				self.close() 
-				if "#FrozenIsBool True" in self.load(
-					_FormatStr='txt',
-					**{
-						'FilingKeyStr':self.ScriptbookedSortDict[
-						__ScriptbookingOldGuideTuple[3]
-						],
-						'FilingModeStr':'r'
-					}).LoadedReadVariable
-				else self.close().guide(
-							__ScriptbookingOldGuideTuple[0],
-							__ScriptbookingOldGuideTuple[1],
-							self.GuidingBookStr,
-							__ScriptbookingOldGuideTuple[2],
-						),
+				lambda __ScriptbookedOldGuideTuple:
+				self.file(
+					_ModeStr='c'
+				) 
+				if "#FrozenIsBool True" in self.file(
+						self.ScriptbookedSortDict[
+								__ScriptbookedOldGuideTuple[3]
+							],
+						_ModeStr='r',
+						_FormatStr='txt'
+					).FiledReadVariable
+				else self.file(
+						_ModeStr='c'
+					).guide(
+						__ScriptbookedOldGuideTuple[0],
+						__ScriptbookedOldGuideTuple[1],
+						self.GuidingBookStr,
+						__ScriptbookedOldGuideTuple[2]
+					),
 				self.ScriptbookedOldGuideTuplesList
 			)
+		
 
 	
 #</DefineClass>

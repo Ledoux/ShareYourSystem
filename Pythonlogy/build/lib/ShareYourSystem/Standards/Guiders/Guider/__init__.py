@@ -66,15 +66,15 @@ FrozenIsBool False
 
 <ClassDocStr>
 
+<small>
+View the <NameStr> sources on <a href="'''+SYS.GithubMasterUrlStr+'''/Pythonlogy/<GithubPathStr>" target="_blank">Github</a>
+</small>
+
 ----
 
 ```python
 <CodeStr>
 ```
-
-<small>
-View the <NameStr> sources on <a href="'''+SYS.GithubMasterUrlStr+'''/Pythonlogy/<GithubPathStr>" target="_blank">Github</a>
-</small>
 
 '''
 
@@ -240,7 +240,7 @@ class GuiderClass(BaseClass):
 		#Write a new file
 		self.file(
 					self.GuidingIndexStr+GuidingSortStr+self.GuidingPageStr+self.GuidingBookStr+(
-								dict(
+						dict(
 							GuideFormatTuplesList
 						)
 					)[self.GuidingScriptStr],

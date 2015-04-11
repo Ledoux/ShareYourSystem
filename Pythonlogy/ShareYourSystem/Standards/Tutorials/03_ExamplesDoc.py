@@ -1,3 +1,4 @@
+"""
 import pymongo
 MyClient=pymongo.MongoClient('mongodb://localhost:27017/')
 
@@ -44,3 +45,4 @@ if operator.gt(4,5)
 
 
 #MyClient.MyDatabase.MyCollection.find()
+"""

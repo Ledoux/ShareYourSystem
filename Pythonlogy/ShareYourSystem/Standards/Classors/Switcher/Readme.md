@@ -25,6 +25,146 @@ ursystem.ouvaton.org/Switcher.ipynb)
 
 
 
+<!---
+FrozenIsBool True
+-->
+
+##Example
+
+Note that the swith can be specific to a Name and an Do
+
+```python
+#ImportModules
+import ShareYourSystem as SYS
+
+#Definition a MakerClass with decorated make by a Switcher
+@SYS.SwitcherClass(**{
+    'SwitchingIsBool':True,
+    'SwitchingWrapMethodStr':'make'
+})
+class MakerClass(object):
+
+    def default_init(self,
+                _MakingMyFloat=1.,
+                _MadeMyInt=0
+                ):
+        object.__init__(self)
+
+    def do_make(self):
+
+        #Cast
+        self.MadeMyInt=int(self.MakingMyFloat)
+
+        #print
+        print('self.MadeMyInt is ')
+        print(self.MadeMyInt)
+
+#Definition a MakerClass with decorated make by a Switcher
+@SYS.SwitcherClass()
+class BuilderClass(MakerClass):
+
+    def default_init(self,
+                ):
+        MakerClass.__init__(self)
+
+
+#print
+print('BuilderClass.SwitchMethodDict is ')
+print(SYS.indent(BuilderClass.SwitchMethodDict))
+
+#Definition an instance
+MyBuilder=BuilderClass()
+
+#Print
+print('Before make, MyBuilder.__dict__ is ')
+SYS._print(MyBuilder.__dict__)
+
+#print
+print('MyBuilder.getSwitch()')
+print(SYS.indent(MyBuilder.getSwitch()))
+
+#make once
+print('We make')
+print(MyBuilder.make)
+MyBuilder.make(3.)
+
+#print
+print('MyBuilder.getSwitch()')
+print(SYS.indent(MyBuilder.getSwitch()))
+
+#Print
+print('After the make, MyBuilder.__dict__ is ')
+SYS._print(MyBuilder.__dict__)
+
+#make again
+print('Now we switch')
+MyBuilder.setSwitch()
+
+#Switch by default it is just the last Name and the the last do in the mro
+print('Now we switch')
+MyBuilder.setSwitch('make')
+
+#Print
+print('After the switch MyBuilder.__dict__ is ')
+SYS._print(MyBuilder.__dict__)
+
+
+
+
+```
+
+
+```console
+>>>
+BuilderClass.SwitchMethodDict is
+{
+  "make": "[<class 'MakerClass'>]"
+}
+Before make, MyBuilder.__dict__ is
+
+   /{
+   /  'DefaultInitBool' : True
+   /}
+MyBuilder.getSwitch()
+{
+  "WatchBeforeMakeWithMakerBool": "None",
+  "WatchAfterMakeWithMakerBool": "None"
+}
+We make
+<bound method BuilderClass.switch_watch_superDo_make of <BuilderClass object at
+0x1071460d0>>
+self.MadeMyInt is
+3
+MyBuilder.getSwitch()
+{
+  "WatchBeforeMakeWithMakerBool": "True",
+  "WatchAfterMakeWithMakerBool": "True"
+}
+After the make, MyBuilder.__dict__ is
+
+   /{
+   /  'DefaultInitBool' : True
+   /  'MadeMyInt' : 3
+   /  'MakingMyFloat' : 3.0
+   /  '_WatchAfterMakeWithMakerBool' : True
+   /  '_WatchBeforeMakeWithMakerBool' : True
+   /}
+Now we switch
+Now we switch
+After the switch MyBuilder.__dict__ is
+
+   /{
+   /  'DefaultInitBool' : True
+   /  'MadeMyInt' : 3
+   /  'MakingMyFloat' : 3.0
+   /  '_WatchAfterMakeWithMakerBool' : False
+   /  '_WatchBeforeMakeWithMakerBool' : False
+   /}
+
+```
+
+
+
 <!--
 FrozenIsBool False
 -->
@@ -34,6 +174,12 @@ FrozenIsBool False
 ----
 
 <ClassDocStr>
+
+<small>
+View the Switcher sources on <a href="https://github.com/Ledoux/ShareYourSystem/
+tree/master/Pythonlogy/ShareYourSystem/Standards/Classors/Switcher"
+target="_blank">Github</a>
+</small>
 
 ----
 
@@ -61,37 +207,174 @@ SYS.setSubModule(globals())
 
 #<ImportSpecificModules>
 import operator
+import copy
 from ShareYourSystem.Standards.Classors import Doer,Observer
 #</ImportSpecificModules>
 
 #<DefineFunctions>
-def setSwitch(_InstanceVariable,_ClassVariable=None,_DoStrsList=None):
+def setSwitch(
+                        _InstanceVariable,
+                        _DoMethodVariable=None,
+                        _DoerClassVariable=None,
+                        _HookVariable=None
+                ):
 
         #Debug
         '''
         print('l 31 setSwitch')
-        print('_DoStrsList is ',_DoStrsList)
-        print('_InstanceVariable.__class__.NameStr is
+        print('_DoerVariable is ',_DoerVariable)
+        print('_DoVariable is ',_DoVariable)
+        print('_HookVariable is ',_HookVariable)
+        #print('_InstanceVariable.__class__.NameStr is
 ',_InstanceVariable.__class__.NameStr)
         print('')
         '''
 
-        #get
-        SwitchClass=_InstanceVariable.getClass(_ClassVariable)
+        #/#################/#
+        # Adapt the shape of the do method str to switch
+        #
 
-        #check
-        if _DoStrsList==None:
-                _DoStrsList=[SwitchClass.DoStr]
+        #Check
+        if type(_DoMethodVariable)!=list:
+
+                #Check
+                if _DoMethodVariable==None:
+
+                        #/#################/#
+                        # Give all the do method str
+                        #
+
+                        #alias
+                        #DoMethodStrsList=_InstanceVariable.DoMethodStrsList
+
+                        #/#################/#
+                        # Give just the last DoMethodStr
+                        #
+
+                        #Check
+                        if _InstanceVariable.__class__.DoMethodStr in
+_InstanceVariable.__class__.SwitchMethodDict:
+
+                                #listify
+DoMethodStrsList=[_InstanceVariable.__class__.DoMethodStr]
+
+                        else:
+
+                                #listify
+                                DoMethodStrsList=[]
+
+                else:
+
+                        #listify
+                        DoMethodStrsList=[_DoMethodVariable]
+
+
+        else:
+
+                #just alias
+                DoMethodStrsList=_DoMethodVariable
+
+        #/#################/#
+        # Adapt the shape of the mro doer to switch
+        #
+
+        #get
+        DoerClassesList=SYS.GetList(_DoerClassVariable)
+
+        #Debug
+        '''
+        print('l 94 Switcher')
+        print('_DoerClassVariable is')
+        print(_DoerClassVariable)
+        print('DoerClassesList is')
+        print(DoerClassesList)
+        print('')
+        '''
+
+        #Check
+        if _DoerClassVariable==None:
+
+                #/#################/#
+                # by default this is all the mro doer that have all the switch
+do method
+                # so do the intersection
+
+                #Check
+                if len(DoMethodStrsList)>0:
+
+                        #intersection
+                        DoerClassesList=list(
+                                set.intersection(*
+                                        map(
+                                                lambda __DoMethodStr:
+set(_InstanceVariable.__class__.SwitchMethodDict[__DoMethodStr]),
+                                                DoMethodStrsList
+                                        )
+                                )
+                        )
+
+                else:
+
+                        #init
+                        DoerClassesList=[]
+
+        #/#################/#
+        # Adapt the shape of the hook strs
+        #
+
+        #Check
+        if type(_HookVariable)!=list:
+                if _HookVariable==None:
+                        HookStrsList=['Before','After']
+                else:
+                        HookStrsList=[_HookVariable]
+        else:
+                HookStrsList=_HookVariable
+
+
+        #/#################/#
+        # Now map the switch
+        #
+
+        #Debug
+        '''
+        print('l 139 Switcher')
+        #print('_InstanceVariable is ')
+        #print(_InstanceVariable)
+        print('DoMethodStrsList is')
+        print(DoMethodStrsList)
+        print('DoerClassesList is ')
+        print(DoerClassesList)
+        print('HookStrsList is ')
+        print(HookStrsList)
+        print('')
+        '''
 
         #map
         map(
-                        lambda __MethodStr:
-                        _InstanceVariable.__setattr__(
-'Watch'+__MethodStr+'With'+SwitchClass.NameStr+'Bool',
-                                False
+                lambda __HookStr:
+                map(
+                        lambda __DoerClass:
+                        map(
+                                        lambda __DoMethodStr:
+                                        _InstanceVariable.__setattr__(
+'Watch'+__HookStr+__DoMethodStr[0].upper(
+)+__DoMethodStr[1:]+'With'+__DoerClass.NameStr+'Bool',
+                                                False
+                                        ),
+                                        DoMethodStrsList,
+                                ),
+                        DoerClassesList
                         ),
-                        _DoStrsList,
+                HookStrsList
                 )
+
+        #Debug
+        '''
+        print('l 170 Switcher')
+        print('End of setSwitch')
+        print('')
+        '''
 
         #return
         return _InstanceVariable
@@ -100,7 +383,7 @@ def switch(_InstanceVariable,*_LiargVariablesList,**_KwargVariablesDict):
 
         #Debug
         '''
-        print('l 51')
+        print('l 196 Switcher')
         print('In the switch function ')
         print('_KwargVariablesDict is ')
         print(_KwargVariablesDict)
@@ -122,13 +405,30 @@ def switch(_InstanceVariable,*_LiargVariablesList,**_KwargVariablesDict):
         """
 
         #Check
-        if hasattr(_InstanceVariable,_KwargVariablesDict['WatchDoBoolKeyStr']):
+        if
+hasattr(_InstanceVariable,_KwargVariablesDict['WatchBeforeDoBoolKeyStr']):
+
+                #Debug
+                '''
+                print('Switcher l 201')
+                print('Check for a WatchBeforeDoBoolKeyStr')
+                print("_KwargVariablesDict['WatchBeforeDoBoolKeyStr'] is ")
+                print(_KwargVariablesDict['WatchBeforeDoBoolKeyStr'])
+                print('')
+                '''
 
                 #get
                 WatchDoBool=getattr(
                                 _InstanceVariable,
-                                _KwargVariablesDict['WatchDoBoolKeyStr']
-                                )
+                                _KwargVariablesDict['WatchBeforeDoBoolKeyStr']
+                        )
+
+                #Debug
+                '''
+                print('Switcher l 236')
+                print('WatchDoBool is')
+                print(WatchDoBool)
+                '''
 
                 #Switch
                 if WatchDoBool:
@@ -147,7 +447,11 @@ def switch(_InstanceVariable,*_LiargVariablesList,**_KwargVariablesDict):
         map(
                         lambda __KeyStr:
                         _KwargVariablesDict.__delitem__(__KeyStr),
-['BindObserveWrapMethodStr','BindDoClassStr','WatchDoBoolKeyStr']
+                        [
+                                'BindObserveWrapMethodStr',
+                                'BindDoClassStr',
+                                'WatchBeforeDoBoolKeyStr'
+                        ]
                 )
 
         #Call
@@ -156,6 +460,87 @@ def switch(_InstanceVariable,*_LiargVariablesList,**_KwargVariablesDict):
                 *_LiargVariablesList,
                 **_KwargVariablesDict
         )
+
+def getSwitch(_InstanceVariable,_MethodVariable=None):
+
+        #Check
+        if _MethodVariable==None:
+                SwitchItemTuplesList=_InstanceVariable.SwitchMethodDict.items()
+        elif type(_MethodVariable) in [list,tuple]:
+                SwitchItemTuplesList=map(
+                        lambda __MethodStr:
+                        (
+                                __MethodStr,
+                                _InstanceVariable.SwitchMethodDict[__MethodStr]
+                        ),
+                        _MethodVariable
+                )
+        else:
+                SwitchItemTuplesList=[
+                        (
+                                _MethodVariable,
+_InstanceVariable.SwitchMethodDict[_MethodVariable]
+                        )
+                ]
+
+
+        #Debug
+        '''
+        print('getSwitch l 266')
+        print('_MethodVariable is ')
+        print(_MethodVariable)
+        print('SwitchItemTuplesList is ')
+        print(SwitchItemTuplesList)
+        print('')
+        '''
+
+        #return
+        WatchKeyStrsList=SYS.flat(
+                SYS.flat(
+                        map(
+                                lambda __SwitchItemTuple:
+                                map(
+                                        lambda __ClassStr:
+                                        map(
+                                                lambda __HookStr:
+'Watch'+__HookStr+SYS.getUpperWordStr(
+                                                        __SwitchItemTuple[0]
+)+'With'+SYS.getNameStrWithClassStr(
+                                                        __ClassStr
+                                                )+'Bool',
+                                                ['Before','After']
+                                        ),
+                                        map(lambda
+__Class:__Class.__name__,__SwitchItemTuple[1])
+                                ),
+                                SwitchItemTuplesList
+                        )
+                )
+        )
+
+        #Debug
+        '''
+        print('getSwitch l 300')
+        print('WatchKeyStrsList is ')
+        print(WatchKeyStrsList)
+        print('WatchKeyStrsList is ')
+        print(WatchKeyStrsList)
+        print('')
+        '''
+
+        #return
+        return dict(
+                                zip(
+                                        WatchKeyStrsList,
+                                        map(
+                                                lambda __WatchKeyStr:
+getattr(_InstanceVariable,__WatchKeyStr),
+                                                WatchKeyStrsList
+                                        )
+                                )
+                        )
+
+
 #</DefineFunctions>
 
 #<DefineClass>
@@ -193,6 +578,9 @@ class SwitcherClass(BaseClass):
                 #Check
                 if self.SwitchingIsBool:
 
+                        #alias
+                        SwitchedClass=self.DoClass
+
                         #Debug
                         '''
                         print('l 195 Switcher')
@@ -221,202 +609,140 @@ class SwitcherClass(BaseClass):
                                                 switch,
                                                 "",
                                                 switch.__name__,
-[('WatchDoBoolKeyStr',self.WatchedDoBoolKeyStr)],
+[('WatchBeforeDoBoolKeyStr',self.WatchedBeforeDoBoolKeyStr)],
 **{'ObservingWrapMethodStr':self.WatchedDecorationMethodStr}
+                                        )
+
+                        #Define
+                        SwitchedDecorationUnboundMethod=getattr(
+                                                SwitchedClass,
+                                                self.BindedDecorationMethodStr
                                         )
 
                         #Now make the amalgam
                         setattr(
-                                        self.DoClass,
+                                        SwitchedClass,
                                         self.SwitchingWrapMethodStr,
-                                        getattr(
-                                                self.DoClass,
-                                                self.BindedDecorationMethodStr
-                                        )
+                                        SwitchedDecorationUnboundMethod
                                 )
 
+                        #/##################/#
+                        # Set maybe for the first time
+                        # the setSwitch and the getSwitch
+
                         #Check
-                        if hasattr(self.DoClass,'setSwitch')==False:
+                        if hasattr(SwitchedClass,'setSwitch')==False:
+
+                                #set
                                 setattr(
-                                                self.DoClass,
+                                                SwitchedClass,
                                                 setSwitch.__name__,
                                                 setSwitch
                                         )
+
+                                #get the unbound
+                                setSwitchUnboundMethod=getattr(
+                                        SwitchedClass,
+                                        setSwitch.__name__
+                                )
+
+                                #add in the inspect
+SwitchedClass.InspectMethodDict[setSwitch.__name__]=setSwitchUnboundMethod
+SwitchedClass.InspectInspectDict[setSwitch.__name__]=SYS.InspectDict(
+                                        setSwitchUnboundMethod
+                                )
+
+                                #set
+                                self.setMethod(
+                                        getSwitch.__name__,
+                                        getSwitch
+                                )
+
+                        #/##################/#
+                        # Init the SwitchMethodDict
+                        #
+
+                        #Check
+                        if hasattr(SwitchedClass,'SwitchMethodDict')==False:
+
+                                #Debug
+                                '''
+                                print('Switcher l 345')
+                                print('SwitchedClass is ')
+                                print(SwitchedClass)
+                                print('we init a SwitchMethodDict')
+                                print('')
+                                '''
+
+                                #Check
+                                if
+hasattr(SwitchedClass.__bases__[0],'SwitchMethodDict'):
+
+                                        #Debug
+                                        print('Switcher l 488')
+                                        print('SwitchedClass is ')
+                                        print(SwitchedClass)
+                                        print('SwitchedClass.__bases__[0] is ')
+                                        print(SwitchedClass.__bases__[0])
+                                        print('')
+
+                                        #copy
+SwitchedClass.SwitchMethodDict=copy.copy(
+SwitchedClass.__bases__[0].SwitchMethodDict
+                                        )
+
+                                else:
+
+                                        #init
+                                        SwitchedClass.SwitchMethodDict={
+self.SwitchingWrapMethodStr:[SwitchedClass]
+                                        }
+
+                        else:
+
+                                #/##################/#
+                                # add
+                                #
+
+                                #Debug
+                                '''
+                                print('Switcher l 514')
+                                print('SwitchedClass is ')
+                                print(SwitchedClass)
+                                print('there is already a SwitchMethodDict')
+                                print('self.SwitchingWrapMethodStr  is ')
+                                print(self.SwitchingWrapMethodStr)
+                                print('SwitchedClass.SwitchMethodDict is ')
+                                print(SwitchedClass.SwitchMethodDict)
+                                print('')
+                                '''
+
+                                #copy
+                                SwitchedClass.SwitchMethodDict=copy.copy(
+                                        SwitchedClass.SwitchMethodDict
+                                )
+
+                                #update
+                                if self.SwitchingWrapMethodStr in
+self.DoClass.SwitchMethodDict:
+                                        SwitchedClass.SwitchMethodDict[
+                                                self.SwitchingWrapMethodStr
+                                        ].append(SwitchedClass)
+                                else:
+                                        SwitchedClass.SwitchMethodDict[
+                                                self.SwitchingWrapMethodStr
+                                        ]=[SwitchedClass]
+
+                        #Add to the KeyStrsList
+                        SwitchedClass.KeyStrsList+=[
+'SwitchMethodDict'
+                                                                ]
+
+
+
 #</DefineClass>
 
 
 ```
 
-<small>
-View the Switcher sources on <a href="https://github.com/Ledoux/ShareYourSystem/
-tree/master/Pythonlogy/ShareYourSystem/Classors/Switcher"
-target="_blank">Github</a>
-</small>
-
-
-
-
-<!---
-FrozenIsBool True
--->
-
-##Example
-
-For this non directly very useful Module we just define a decorated FooClass
-for which the Functer decoration by default call the decorated method...
-
-```python
-#ImportModules
-import ShareYourSystem as SYS
-from ShareYourSystem.Standards.Classors import Switcher,Attester
-from ShareYourSystem.Standards.Objects import Initiator
-
-#Definition a MakerClass with decorated make by a Switcher
-@Switcher.SwitcherClass(**{
-    'SwitchingIsBool':True,
-    #'ObservingWrapMethodStr':'do_make'
-    #'ObservingWrapMethodStr':'superDo_make'
-    'SwitchingWrapMethodStr':'make'
-})
-class MakerClass(Initiator.InitiatorClass):
-
-    #Definition
-    RepresentingKeyStrsList=[
-                                'MakingMyFloat',
-                                'MadeMyInt'
-                            ]
-
-    def default_init(self,
-                _MakingMyFloat=1.,
-                _MadeMyInt=0
-                ):
-        Initiator.InitiatorClass.__init__(self)
-
-    def do_make(self):
-
-        #print
-        print('self.MakingMyFloat is '+str(self.MakingMyFloat))
-        print('self.MadeMyInt is '+str(self.MadeMyInt))
-        print('')
-
-        #Cast
-        self.MadeMyInt=int(self.MakingMyFloat)
-
-#Definition an instance
-MyMaker=MakerClass()
-
-#Print
-print('Before make, MyMaker is ')
-SYS._print(MyMaker)
-
-#make once
-MyMaker.make(3.)
-
-#Print
-print('After the first make, MyMaker is ')
-SYS._print(MyMaker)
-
-#make again
-MyMaker.make(5.)
-
-#Print
-print('After the second make, MyMaker is ')
-SYS._print(MyMaker)
-
-#make again
-print('Now we switch')
-MyMaker.setSwitch()
-
-#Print
-print('After the switch MyMaker is ')
-SYS._print(MyMaker)
-
-#make again
-MyMaker.make(7.)
-
-#Print
-print('After the third make, MyMaker is ')
-SYS._print(MyMaker)
-
-#Definition the AttestedStr
-SYS._attest(
-    [
-        'MakerClass.make is '+str(MakerClass.make),
-        'MyMaker is '+SYS._str(
-            MyMaker,**{'RepresentingAlineaIsBool':False}
-        ),
-    ]
-)
-
-#Print
-
-
-
-```
-
-
-```console
->>>
-Before make, MyMaker is
-< (MakerClass), 4538485392>
-   /{
-   /  '<New><Instance>IdInt' : 4538485392
-   /  '<Spe><Class>MadeMyInt' : 0
-   /  '<Spe><Class>MakingMyFloat' : 1.0
-   /}
-self.MakingMyFloat is 3.0
-self.MadeMyInt is 0
-
-After the first make, MyMaker is
-< (MakerClass), 4538485392>
-   /{
-   /  '<New><Instance>IdInt' : 4538485392
-   /  '<Spe><Instance>MadeMyInt' : 3
-   /  '<Spe><Instance>MakingMyFloat' : 3.0
-   /}
-After the second make, MyMaker is
-< (MakerClass), 4538485392>
-   /{
-   /  '<New><Instance>IdInt' : 4538485392
-   /  '<Spe><Instance>MadeMyInt' : 3
-   /  '<Spe><Instance>MakingMyFloat' : 3.0
-   /}
-Now we switch
-After the switch MyMaker is
-< (MakerClass), 4538485392>
-   /{
-   /  '<New><Instance>IdInt' : 4538485392
-   /  '<Spe><Instance>MadeMyInt' : 3
-   /  '<Spe><Instance>MakingMyFloat' : 3.0
-   /}
-self.MakingMyFloat is 7.0
-self.MadeMyInt is 3
-
-After the third make, MyMaker is
-< (MakerClass), 4538485392>
-   /{
-   /  '<New><Instance>IdInt' : 4538485392
-   /  '<Spe><Instance>MadeMyInt' : 7
-   /  '<Spe><Instance>MakingMyFloat' : 7.0
-   /}
-
-
-*****Start of the Attest *****
-
-MakerClass.make is <unbound method MakerClass.switch_watch_superDo_make>
-
-------
-
-MyMaker is < (MakerClass), 4538485392>
-   /{
-   /  '<New><Instance>IdInt' : 4538485392
-   /  '<Spe><Instance>MadeMyInt' : 7
-   /  '<Spe><Instance>MakingMyFloat' : 7.0
-   /}
-
-*****End of the Attest *****
-
-
-
-```
 
