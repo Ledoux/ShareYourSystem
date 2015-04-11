@@ -41,6 +41,542 @@ FrozenIsBool True
 
 ##Example
 
+Let's invent our first class decorated by a Doer, the MakerClass
+that will have the job of casting a Float into a Int...
+
+```python
+#ImportModules
+import ShareYourSystem as SYS
+
+#Definition a MakerClass decorated by the DefaultorClass
+@SYS.DoerClass()
+class MakerClass(object):
+
+    def default_init(self,
+                _MakingMyFloat=1.,
+                _MakingShareList=['bonjour'],
+                _MakingSpecificList=None,
+                _MakingMyInt={'DefaultValueType':int}
+                ):
+        object.__init__(self)
+
+
+#print at the class level
+print("\n".join(
+    [
+        'MakerClass has some special attributes',
+        'MakerClass.DoingAttributeVariablesOrderedDict is '+SYS.indent(
+            MakerClass.DoingAttributeVariablesOrderedDict),
+        'MakerClass.DoneAttributeVariablesOrderedDict is '+SYS.indent(
+            MakerClass.DoneAttributeVariablesOrderedDict)
+    ])
+)
+
+#Definition a default instance
+DefaultMaker=MakerClass()
+
+#print
+print(
+    '\n'+'\n'.join(
+        [
+            'What are you saying DefaultMaker ?',
+            'DefaultMaker.__dict__ is '+SYS.indent(DefaultMaker.__dict__),
+            'DefaultMaker.getDo() is '+SYS.indent(DefaultMaker.getDo()),
+        ]
+    )
+)
+
+#Definition a special instance
+SpecialMaker=MakerClass(
+    _MakingSpecificList=['hello'],
+    **{
+        'MakingMyFloat':3.
+    }
+)
+
+#print
+print(
+    '\n'+'\n'.join(
+        [
+            'What are you saying SpecialMaker ?',
+            'SpecialMaker.__dict__ is '+SYS.indent(SpecialMaker.__dict__),
+            'SpecialMaker.getDo() is '+SYS.indent(SpecialMaker.getDo())
+        ]
+    )
+)
+
+
+
+
+
+
+
+```
+
+
+```console
+>>>
+MakerClass has some special attributes
+MakerClass.DoingAttributeVariablesOrderedDict is {
+  "MakingMyFloat": "1.0",
+  "MakingMyInt": "0",
+  "MakingSpecificList": "None",
+  "MakingShareList": "['bonjour']"
+}
+MakerClass.DoneAttributeVariablesOrderedDict is {}
+
+What are you saying DefaultMaker ?
+DefaultMaker.__dict__ is {
+  "DefaultInitBool": "True"
+}
+DefaultMaker.getDo() is {
+  "MakingMyFloat": "1.0",
+  "MakingMyInt": "0",
+  "MakingSpecificList": "None",
+  "MakingShareList": "['bonjour']"
+}
+
+What are you saying SpecialMaker ?
+SpecialMaker.__dict__ is {
+  "MakingMyFloat": "3.0",
+  "DefaultInitBool": "True",
+  "MakingSpecificList": "['hello']"
+}
+SpecialMaker.getDo() is {
+  "MakingMyFloat": "3.0",
+  "MakingMyInt": "0",
+  "MakingSpecificList": "['hello']",
+  "MakingShareList": "['bonjour']"
+}
+
+```
+
+
+
+<!---
+FrozenIsBool True
+-->
+
+##Example
+
+Now we add a wrapped do_make method
+
+```python
+#ImportModules
+import ShareYourSystem as SYS
+
+#Definition a MakerClass decorated by the DefaultorClass
+@SYS.DoerClass()
+class MakerClass(object):
+
+    def default_init(self,
+                _MakingMyFloat=1.,
+                _MakingShareList=['bonjour'],
+                _MakingRestrictList=None,
+                _MakingMyInt={'DefaultValueType':int}
+                ):
+        object.__init__(self)
+
+    def do_make(self):
+
+        #print
+        print('Maker : I am going to make')
+        print('')
+
+        #set
+        self.MadeMyInt=int(self.MakingMyFloat)
+
+#print
+print('InspectMethodDict is ')
+print(SYS.indent(MakerClass.InspectMethodDict))
+
+#print
+print("\n".join([
+    'MakerClass.do_make is '+str(MakerClass.do_make),
+    'MakerClass.doWithmake is '+str(MakerClass.superDo_make),
+    'MakerClass.make is '+str(MakerClass.make),
+    'MakerClass.callDo is '+str(MakerClass.callDo),
+]))
+
+
+
+
+```
+
+
+```console
+>>>
+InspectMethodDict is
+{
+  "getDone": "<function getDone at 0x109393b90>",
+  "getClass": "<unbound method MakerClass.getClass>",
+  "setDoing": "<function setDoing at 0x109393b18>",
+  "setDo": "<function setDo at 0x109393cf8>",
+  "default_init": "<unbound method MakerClass.default_init>",
+  "make": "<function superDo_make at 0x10bf9c758>",
+  "do_make": "<unbound method MakerClass.do_make>",
+  "getDoing": "<function getDoing at 0x109393aa0>",
+  "getDo": "<function getDo at 0x109393c80>",
+  "callDo": "<function callDo at 0x109393938>",
+  "setDone": "<function setDone at 0x109393c08>",
+  "callAllMro": "<unbound method MakerClass.callAllMro>",
+  "superDo_make": "<function superDo_make at 0x10bf9c758>"
+}
+MakerClass.do_make is <unbound method MakerClass.do_make>
+MakerClass.doWithmake is <unbound method MakerClass.superDo_make>
+MakerClass.make is <unbound method MakerClass.superDo_make>
+MakerClass.callDo is <unbound method MakerClass.callDo>
+
+```
+
+
+
+<!---
+FrozenIsBool True
+-->
+
+##Example
+
+Let's invent our first class decorated by a Doer, the MakerClass
+that will have the job of casting a Float into a Int...
+
+```python
+#ImportModules
+import ShareYourSystem as SYS
+import numpy as np
+
+#Define
+@SYS.DoerClass()
+class MakerClass(object):
+
+    def default_init(self,
+                _MakingMyFloat=1.,
+                _MakingMyArray=None,
+                _MakingMyList=None,
+                _MakingFirstInt={'DefaultValueType':int},
+                _MakingSecondInt=0,
+                _MakingThirdInt=1,
+                _MadeMyInt=0,
+                _MadeMyList=None,
+                ):
+        object.__init__(self)
+
+    def do_make(self):
+
+        #print
+        print('Maker : I am going to make')
+        print('self.MakingMyFloat is ',self.MakingMyFloat)
+        print('')
+
+        #set
+        self.MadeMyInt=int(self.MakingMyFloat)
+
+#Look at the decorated make method
+AttestingStrsList=['MakerClass.make is '+str(MakerClass.make)]
+
+#Definition of an instance and make
+MyMaker=MakerClass(
+        _MakingMyList=['hello'],
+        **{'MakingFirstInt':3}
+    ).superDo_make(
+        3.,
+        np.array([5]),
+        _SecondInt=5,
+        **{'MakingThirdInt':6}
+    )
+
+#Add
+print("\n".join([
+        'After the make ',
+        'MyMaker.MakingMyFloat is '+str(MyMaker.MakingMyFloat),
+        #Special numpy variables also...check Doer l 431 to compare them to
+None...
+        'MyMaker.MakingMyArray is '+str(MyMaker.MakingMyArray),
+        'MyMaker.MakingMyList is '+str(MyMaker.MakingMyList),
+        'MyMaker.MakingFirstInt is '+str(MyMaker.MakingFirstInt),
+        'MyMaker.MakingSecondInt is '+str(MyMaker.MakingSecondInt),
+        'MyMaker.MakingThirdInt is '+str(MyMaker.MakingThirdInt),
+        'MyMaker.MadeMyInt is '+str(MyMaker.MadeMyInt),
+        'MyMaker.MadeMyList is '+str(MyMaker.MadeMyList)
+    ]
+))
+
+
+
+```
+
+
+```console
+>>>
+Maker : I am going to make
+('self.MakingMyFloat is ', 3.0)
+
+After the make
+MyMaker.MakingMyFloat is 3.0
+MyMaker.MakingMyArray is [5]
+MyMaker.MakingMyList is ['hello']
+MyMaker.MakingFirstInt is 3
+MyMaker.MakingSecondInt is 5
+MyMaker.MakingThirdInt is 6
+MyMaker.MadeMyInt is 3
+MyMaker.MadeMyList is []
+
+```
+
+
+
+<!---
+FrozenIsBool True
+-->
+
+##Example
+
+The call of the do method initializes also the
+object that has to be setted at the level of the instance
+
+```python
+#ImportModules
+import ShareYourSystem as SYS
+
+#Define
+@SYS.DoerClass()
+class MakerClass(object):
+
+    def default_init(self,
+                _MakingMyFloat=0.,
+                _MadeShareClassor=SYS.ClassorClass(),
+                _MadeSpecificClassor=None
+                ):
+        object.__init__(self)
+
+    def do_make(self):
+
+        #print
+        print('Maker : I am going to make... but I do nothing')
+        print('')
+
+
+#Definition of an instance and make
+MakerClass.MadeShareClassor.MyInt=5
+MyMaker=MakerClass(
+    ).make(
+        3.
+    )
+
+#Add
+print("\n".join([
+        'After the make ',
+        'MakerClass.MadeSpecificClassor is
+'+str(MakerClass.MadeSpecificClassor),
+        'MyMaker.MadeShareClassor.__dict__ is
+'+str(MyMaker.MadeShareClassor.__dict__),
+        'MyMaker.MadeSpecificClassor is '+str(MyMaker.MadeSpecificClassor)
+    ]))
+
+
+
+
+```
+
+
+```console
+>>>
+Maker : I am going to make... but I do nothing
+
+After the make
+MakerClass.MadeSpecificClassor is None
+MyMaker.MadeShareClassor.__dict__ is {'MyInt': 5}
+MyMaker.MadeSpecificClassor is
+<ShareYourSystem.Standards.Classors.Classor.ClassorClass object at 0x10bf8ca50>
+
+```
+
+
+
+<!---
+FrozenIsBool True
+-->
+
+##Example
+
+It is possible to re set the Doing or Done attributes
+
+```python
+#ImportModules
+import ShareYourSystem as SYS
+
+#Define
+@SYS.DoerClass()
+class MakerClass(SYS.PrinterClass):
+
+    def default_init(self,
+                _MakingMyFloat=1.,
+                _MakingMyList=None,
+                _MakingFirstInt={'DefaultValueType':int},
+                _MakingSecondInt=0,
+                _MadeMyInt=0,
+                _MadeMyList=None,
+                ):
+        object.__init__(self)
+
+    def do_make(self):
+
+        #print
+        print('Maker : I am going to make')
+        print('self.MakingMyFloat is ',self.MakingMyFloat)
+        print('')
+
+        #set
+        self.MadeMyInt=int(self.MakingMyFloat)
+
+
+MyMaker=SYS.MakerClass(
+    ).make(
+        2.,
+        **{'MakingSecondInt':5}
+    )
+
+
+print(MyMaker)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"""
+#Definition of an instance and make
+MyMaker=MakerClass(
+    _MakingMyList=['hello'],
+    **{'MakingFirstInt':3}
+    ).superDo_make(
+        3.,
+        _SecondInt=5
+    )
+
+#print
+print('MyMaker.getDo() is ')
+print(SYS.indent(MyMaker.getDo()))
+print('')
+
+#print
+print('we reset doing')
+MyMaker.setDoing(MakerClass)
+print('')
+
+#print
+print('MyMaker.getDo() after set doing is ')
+print(SYS.indent(MyMaker.getDo()))
+print('')
+
+#Add
+print('MyMaker.__dict__ is '+SYS.indent(MyMaker.__dict__))
+"""
+
+
+
+```
+
+
+```console
+>>>
+Maker : I am going to make
+('self.MakingMyFloat is ', 2.0)
+
+            < (MakerClass), 0 >
+               /{
+               /  '<Spe><Class>MakingFirstInt' : 0
+               /  '<Spe><Instance>MadeMyInt' : 2
+               /  '<Spe><Instance>MadeMyList' : []
+               /  '<Spe><Instance>MakingMyFloat' : 2.0
+               /  '<Spe><Instance>MakingMyList' : []
+               /  '<Spe><Instance>MakingSecondInt' : 5
+               /}
+
+```
+
+
+
+<!---
+FrozenIsBool True
+-->
+
+##Example
+
+And note that a Doer has a DoMethodStrsList to recapitulate all that it can do.
+
+```python
+#ImportModules
+import ShareYourSystem as SYS
+
+#Define
+@SYS.DoerClass()
+class MakerClass(object):
+
+    def default_init(self,
+                ):
+        object.__init__(self)
+
+    def do_make(self):
+        pass
+
+#Define
+@SYS.DoerClass()
+class BuilderClass(MakerClass):
+
+    def default_init(self,
+                ):
+        MakerClass.__init__(self)
+
+    def do_build(self):
+        pass
+
+#print
+print('MakerClass.MroDoerClassesList is')
+print(MakerClass.MroDoerClassesList)
+print('BuilderClass.MroDoerClassesList is')
+print(BuilderClass.MroDoerClassesList)
+
+#print
+print('MakerClass.DoMethodStrsList is')
+print(MakerClass.DoMethodStrsList)
+print('BuilderClass.DoMethodStrsList is')
+print(BuilderClass.DoMethodStrsList)
+
+
+```
+
+
+```console
+>>>
+MakerClass.MroDoerClassesList is
+[<class 'MakerClass'>]
+BuilderClass.MroDoerClassesList is
+[<class 'MakerClass'>, <class 'BuilderClass'>]
+MakerClass.DoMethodStrsList is
+['make']
+BuilderClass.DoMethodStrsList is
+['make', 'build']
+
+```
+
+
+
+<!---
+FrozenIsBool True
+-->
+
+##Example
+
 The set,get Do,Doing,Done methods can be specific or not to a certain Mro Do
 class.
 

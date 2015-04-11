@@ -47,13 +47,14 @@ class ScriptbookerClass(BaseClass):
 	def do_scriptbook(self):
 
 		#debug
-		'''
 		self.debug(
 			[
-				('self.',self,['FolderedDirKeyStrsList'])
+				'We scriptbook here',
+				('self.',self,[
+					'FolderedDirKeyStrsList'
+				])
 			]
 		)
-		'''
 
 		#Definition
 		self.ScriptbookedFileKeyStrsList=SYS._filter(
@@ -82,13 +83,13 @@ class ScriptbookerClass(BaseClass):
 		
 		#Definition
 		ScriptbookedPageStrsList=map(
-									lambda __ScriptbookerScriptbookFileKeyStr:
-									Guider.GuidingSortStr.join(
-										__ScriptbookerScriptbookFileKeyStr.split(
-											Guider.GuidingSortStr)[1:]
-										),
-									self.ScriptbookedFileKeyStrsList
-								)
+			lambda __ScriptbookerScriptbookFileKeyStr:
+			Guider.GuidingSortStr.join(
+				__ScriptbookerScriptbookFileKeyStr.split(
+					Guider.GuidingSortStr)[1:]
+				),
+			self.ScriptbookedFileKeyStrsList
+		)
 
 		#set
 		self.ScriptbookedSortDict=dict(

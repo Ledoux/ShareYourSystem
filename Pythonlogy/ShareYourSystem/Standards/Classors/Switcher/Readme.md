@@ -31,7 +31,587 @@ FrozenIsBool True
 
 ##Example
 
+For this non directly very useful Module we just define a decorated FooClass
+for which the Functer decoration by default call the decorated method...
+
+```python
+#ImportModules
+import ShareYourSystem as SYS
+
+#Definition a MakerClass with decorated make by a Switcher
+@SYS.SwitcherClass(**{
+    'SwitchingIsBool':True,
+    #'ObservingWrapMethodStr':'do_make'
+    #'ObservingWrapMethodStr':'superDo_make'
+    'SwitchingWrapMethodStr':'make'
+})
+class MakerClass(object):
+
+    def default_init(self,
+                _MakingMyFloat=1.,
+                _MadeMyInt=0
+                ):
+        object.__init__(self)
+
+    def do_make(self):
+
+        #print
+        print('self.MakingMyFloat is '+str(self.MakingMyFloat))
+        print('self.MadeMyInt is '+str(self.MadeMyInt))
+        print('')
+
+        #Cast
+        self.MadeMyInt=int(self.MakingMyFloat)
+
+#print
+print('MakerClass.SwitchMethodDict is ')
+print(SYS.indent(MakerClass.SwitchMethodDict))
+
+#Definition an instance
+MyMaker=MakerClass()
+
+#print
+print('MyMaker.getSwitch() is ')
+print(SYS.indent(MyMaker.getSwitch()))
+
+#Print
+print('Before make, MyMaker.__dict__ is ')
+SYS._print(MyMaker.__dict__)
+
+#make once
+print('We make for the first time')
+MyMaker.make(3.)
+
+#Print
+print('After the first make, MyMaker.__dict__ is ')
+SYS._print(MyMaker.__dict__)
+
+#print
+print('MyMaker.getSwitch() is ')
+print(SYS.indent(MyMaker.getSwitch()))
+
+#make again
+MyMaker.make(5.)
+
+#Print
+print('After the second make, MyMaker.__dict__ is ')
+SYS._print(MyMaker.__dict__)
+
+#make again
+print('Now we switch')
+MyMaker.setSwitch()
+
+#Print
+print('After the switch MyMaker.__dict__ is ')
+SYS._print(MyMaker.__dict__)
+
+#print
+print('MyMaker.getSwitch() is ')
+print(SYS.indent(MyMaker.getSwitch()))
+
+#make again
+MyMaker.make(7.)
+
+#Print
+print('After the third make, MyMaker.__dict__ is ')
+SYS._print(MyMaker.__dict__)
+
+#print
+print('MakerClass.make is '+str(MakerClass.make))
+
+#print
+print('MyMaker.__dict__ is '+SYS._str(MyMaker.__dict__))
+
+
+
+
+```
+
+
+```console
+>>>
+MakerClass.SwitchMethodDict is
+{
+  "make": "[<class 'MakerClass'>]"
+}
+MyMaker.getSwitch() is
+{
+  "WatchBeforeMakeWithMakerBool": "None",
+  "WatchAfterMakeWithMakerBool": "None"
+}
+Before make, MyMaker.__dict__ is
+
+   /{
+   /  'DefaultInitBool' : True
+   /}
+We make for the first time
+self.MakingMyFloat is 3.0
+self.MadeMyInt is 0
+
+After the first make, MyMaker.__dict__ is
+
+   /{
+   /  'DefaultInitBool' : True
+   /  'MadeMyInt' : 3
+   /  'MakingMyFloat' : 3.0
+   /  '_WatchAfterMakeWithMakerBool' : True
+   /  '_WatchBeforeMakeWithMakerBool' : True
+   /}
+MyMaker.getSwitch() is
+{
+  "WatchBeforeMakeWithMakerBool": "True",
+  "WatchAfterMakeWithMakerBool": "True"
+}
+After the second make, MyMaker.__dict__ is
+
+   /{
+   /  'DefaultInitBool' : True
+   /  'MadeMyInt' : 3
+   /  'MakingMyFloat' : 3.0
+   /  '_WatchAfterMakeWithMakerBool' : True
+   /  '_WatchBeforeMakeWithMakerBool' : True
+   /}
+Now we switch
+After the switch MyMaker.__dict__ is
+
+   /{
+   /  'DefaultInitBool' : True
+   /  'MadeMyInt' : 3
+   /  'MakingMyFloat' : 3.0
+   /  '_WatchAfterMakeWithMakerBool' : False
+   /  '_WatchBeforeMakeWithMakerBool' : False
+   /}
+MyMaker.getSwitch() is
+{
+  "WatchBeforeMakeWithMakerBool": "False",
+  "WatchAfterMakeWithMakerBool": "False"
+}
+self.MakingMyFloat is 7.0
+self.MadeMyInt is 3
+
+After the third make, MyMaker.__dict__ is
+
+   /{
+   /  'DefaultInitBool' : True
+   /  'MadeMyInt' : 7
+   /  'MakingMyFloat' : 7.0
+   /  '_WatchAfterMakeWithMakerBool' : True
+   /  '_WatchBeforeMakeWithMakerBool' : True
+   /}
+MakerClass.make is <unbound method MakerClass.switch_watch_superDo_make>
+MyMaker.__dict__ is
+   /{
+   /  'DefaultInitBool' : True
+   /  'MadeMyInt' : 7
+   /  'MakingMyFloat' : 7.0
+   /  '_WatchAfterMakeWithMakerBool' : True
+   /  '_WatchBeforeMakeWithMakerBool' : True
+   /}
+
+```
+
+
+
+<!---
+FrozenIsBool True
+-->
+
+##Example
+
+We can augment a Watch<DoStr>With<NameStr>Bool with a property to make it
+reactive
+
+```python
+#ImportModules
+import ShareYourSystem as SYS
+
+#Definition a MakerClass with decorated make by a Switcher
+@SYS.SwitcherClass(**{
+    'SwitchingIsBool':True,
+    #'ObservingWrapMethodStr':'do_make'
+    #'ObservingWrapMethodStr':'superDo_make'
+    'SwitchingWrapMethodStr':'make'
+})
+class MakerClass(object):
+
+    def default_init(self,
+                _MakingMyFloat=1.,
+                _MadeMyInt=0
+                ):
+        object.__init__(self)
+
+    def do_make(self):
+
+        #print
+        #print('self.MakingMyFloat is '+str(self.MakingMyFloat))
+        #print('self.MadeMyInt is '+str(self.MadeMyInt))
+        #print('')
+
+        #Cast
+        self.MadeMyInt=int(self.MakingMyFloat)
+
+    def getWatchAfterMakeWithMakerBool(self):
+
+        #try
+        try:
+            return getattr(self,'_WatchAfterMakeWithMakerBool')
+        except:
+            return False
+
+    def setWatchAfterMakeWithMakerBool(self,_SettingValueVariable):
+
+        #set the value of the "hidden" property variable
+        self._WatchAfterMakeWithMakerBool=_SettingValueVariable
+
+        #Check
+        if _SettingValueVariable:
+
+            #debug
+            print('\n**We have Made here !**')
+            print('self.MakingMyFloat is '+str(self.MakingMyFloat))
+            print('self.MadeMyInt is '+str(self.MadeMyInt))
+            print('')
+
+        else:
+
+            #debug
+            print(
+                '\n**We have switch the Make here !**\n'
+            )
+
+    def delWatchAfterMakeWithMakerBool(self):
+        self.__delattr__('_WatchAfterMakeWithMakerBool')
+
+    WatchAfterMakeWithMakerBool=property(
+            getWatchAfterMakeWithMakerBool,
+            setWatchAfterMakeWithMakerBool,
+            delWatchAfterMakeWithMakerBool,
+            'WatchAfterMakeWithMakerBool is now reactive !'
+        )
+
+#Definition an instance
+MyMaker=MakerClass()
+
+#Print
+print('Before make, MyMaker.__dict__ is ')
+SYS._print(MyMaker.__dict__)
+
+#make once
+MyMaker.make(3.)
+
+#Print
+print('After the first make, MyMaker.__dict__ is ')
+SYS._print(MyMaker.__dict__)
+
+#make again
+MyMaker.make(5.)
+
+#Print
+print('After the second make, MyMaker.__dict__ is ')
+SYS._print(MyMaker.__dict__)
+
+#make again
+print('Now we switch')
+MyMaker.setSwitch()
+
+#Print
+print('After the switch MyMaker.__dict__ is ')
+SYS._print(MyMaker.__dict__)
+
+#make again
+MyMaker.make(7.)
+
+#Print
+print('After the third make, MyMaker.__dict__ is ')
+SYS._print(MyMaker.__dict__)
+
+#print
+print('MakerClass.make is '+str(MakerClass.make))
+
+#print
+print('MyMaker.__dict__ is '+SYS._str(MyMaker.__dict__))
+
+
+
+
+
+```
+
+
+```console
+>>>
+Before make, MyMaker.__dict__ is
+
+   /{
+   /  'DefaultInitBool' : True
+   /}
+
+**We have Made here !**
+self.MakingMyFloat is 3.0
+self.MadeMyInt is 3
+
+After the first make, MyMaker.__dict__ is
+
+   /{
+   /  'DefaultInitBool' : True
+   /  'MadeMyInt' : 3
+   /  'MakingMyFloat' : 3.0
+   /  '_WatchAfterMakeWithMakerBool' : True
+   /  '_WatchBeforeMakeWithMakerBool' : True
+   /}
+After the second make, MyMaker.__dict__ is
+
+   /{
+   /  'DefaultInitBool' : True
+   /  'MadeMyInt' : 3
+   /  'MakingMyFloat' : 3.0
+   /  '_WatchAfterMakeWithMakerBool' : True
+   /  '_WatchBeforeMakeWithMakerBool' : True
+   /}
+Now we switch
+
+**We have switch the Make here !**
+
+After the switch MyMaker.__dict__ is
+
+   /{
+   /  'DefaultInitBool' : True
+   /  'MadeMyInt' : 3
+   /  'MakingMyFloat' : 3.0
+   /  '_WatchAfterMakeWithMakerBool' : False
+   /  '_WatchBeforeMakeWithMakerBool' : False
+   /}
+
+**We have Made here !**
+self.MakingMyFloat is 7.0
+self.MadeMyInt is 7
+
+After the third make, MyMaker.__dict__ is
+
+   /{
+   /  'DefaultInitBool' : True
+   /  'MadeMyInt' : 7
+   /  'MakingMyFloat' : 7.0
+   /  '_WatchAfterMakeWithMakerBool' : True
+   /  '_WatchBeforeMakeWithMakerBool' : True
+   /}
+MakerClass.make is <unbound method MakerClass.switch_watch_superDo_make>
+MyMaker.__dict__ is
+   /{
+   /  'DefaultInitBool' : True
+   /  'MadeMyInt' : 7
+   /  'MakingMyFloat' : 7.0
+   /  '_WatchAfterMakeWithMakerBool' : True
+   /  '_WatchBeforeMakeWithMakerBool' : True
+   /}
+
+```
+
+
+
+<!---
+FrozenIsBool True
+-->
+
+##Example
+
 Note that the swith can be specific to a Name and an Do
+
+```python
+#ImportModules
+import ShareYourSystem as SYS
+
+#Definition a MakerClass with decorated make by a Switcher
+@SYS.SwitcherClass(**{
+    'SwitchingIsBool':True,
+    'SwitchingWrapMethodStr':'make'
+})
+class MakerClass(object):
+
+    def default_init(self,
+                _MakingMyFloat=1.,
+                _MadeMyInt=0
+                ):
+        object.__init__(self)
+
+    def do_make(self):
+
+        #Cast
+        self.MadeMyInt=int(self.MakingMyFloat)
+
+#Definition a MakerClass with decorated make by a Switcher
+@SYS.SwitcherClass(**{
+    'SwitchingIsBool':True,
+    'SwitchingWrapMethodStr':'build'
+})
+class BuilderClass(MakerClass):
+
+    def default_init(self,
+                _BuiltMyStr=""
+                ):
+        object.__init__(self)
+
+    def do_build(self):
+
+        #print
+        print('We build here')
+
+        #first make
+        self.make()
+
+        #Cast
+        self.BuiltMyStr='My MadeMyInt is '+str(self.MadeMyInt)
+
+#print
+print('BuilderClass.SwitchMethodDict is ')
+print(SYS.indent(BuilderClass.SwitchMethodDict))
+
+#Definition an instance
+MyBuilder=BuilderClass()
+
+#Print
+print('Before make, MyBuilder.__dict__ is ')
+SYS._print(MyBuilder.__dict__)
+
+#make once
+print('NOW we build')
+MyBuilder.build(**{'MakingMyFloat':3.})
+
+#Print
+print('After the build, MyBuilder.__dict__ is ')
+SYS._print(MyBuilder.__dict__)
+
+#Switch by default it is just the last Name and the the last do in the mro
+print('Now we switch')
+MyBuilder.setSwitch()
+
+#Print
+print('After the switch MyBuilder.__dict__ is ')
+SYS._print(MyBuilder.__dict__)
+
+#Definition an instance
+MyBuilder=BuilderClass()
+
+#Print
+print('\nNow an other trial, \nBefore make, MyBuilder.__dict__ is ')
+SYS._print(MyBuilder.__dict__)
+
+#make once
+MyBuilder.build(**{'MakingMyFloat':3.})
+
+#Print
+print('After the build, MyBuilder.__dict__ is ')
+SYS._print(MyBuilder.__dict__)
+
+#Switch by default it is just the last Name and the the last do in the mro
+print('Now we switch')
+MyBuilder.setSwitch('make',MakerClass,'Before')
+
+#Print
+print('After the switch MyBuilder.__dict__ is ')
+SYS._print(MyBuilder.__dict__)
+
+#make once
+MyBuilder.build(**{'MakingMyFloat':6.})
+
+#Print
+print('After the final build, MyBuilder.__dict__ is ')
+SYS._print(MyBuilder.__dict__)
+
+
+
+
+
+```
+
+
+```console
+>>>
+BuilderClass.SwitchMethodDict is
+{
+  "make": "[<class 'MakerClass'>]",
+  "build": "[<class 'BuilderClass'>]"
+}
+Before make, MyBuilder.__dict__ is
+
+   /{
+   /  'DefaultInitBool' : True
+   /}
+NOW we build
+We build here
+After the build, MyBuilder.__dict__ is
+
+   /{
+   /  'BuiltMyStr' : My MadeMyInt is 3
+   /  'DefaultInitBool' : True
+   /  'MadeMyInt' : 3
+   /  'MakingMyFloat' : 3.0
+   /  '_WatchAfterBuildWithBuilderBool' : True
+   /  '_WatchAfterMakeWithMakerBool' : True
+   /  '_WatchBeforeBuildWithBuilderBool' : True
+   /  '_WatchBeforeMakeWithMakerBool' : True
+   /}
+Now we switch
+After the switch MyBuilder.__dict__ is
+
+   /{
+   /  'BuiltMyStr' : My MadeMyInt is 3
+   /  'DefaultInitBool' : True
+   /  'MadeMyInt' : 3
+   /  'MakingMyFloat' : 3.0
+   /  '_WatchAfterBuildWithBuilderBool' : False
+   /  '_WatchAfterMakeWithMakerBool' : True
+   /  '_WatchBeforeBuildWithBuilderBool' : False
+   /  '_WatchBeforeMakeWithMakerBool' : True
+   /}
+
+Now an other trial,
+Before make, MyBuilder.__dict__ is
+
+   /{
+   /  'DefaultInitBool' : True
+   /}
+We build here
+After the build, MyBuilder.__dict__ is
+
+   /{
+   /  'BuiltMyStr' : My MadeMyInt is 3
+   /  'DefaultInitBool' : True
+   /  'MadeMyInt' : 3
+   /  'MakingMyFloat' : 3.0
+   /  '_WatchAfterBuildWithBuilderBool' : True
+   /  '_WatchAfterMakeWithMakerBool' : True
+   /  '_WatchBeforeBuildWithBuilderBool' : True
+   /  '_WatchBeforeMakeWithMakerBool' : True
+   /}
+Now we switch
+After the switch MyBuilder.__dict__ is
+
+   /{
+   /  'BuiltMyStr' : My MadeMyInt is 3
+   /  'DefaultInitBool' : True
+   /  'MadeMyInt' : 3
+   /  'MakingMyFloat' : 3.0
+   /  '_WatchAfterBuildWithBuilderBool' : True
+   /  '_WatchAfterMakeWithMakerBool' : True
+   /  '_WatchBeforeBuildWithBuilderBool' : True
+   /  '_WatchBeforeMakeWithMakerBool' : False
+   /}
+After the final build, MyBuilder.__dict__ is
+
+   /{
+   /  'BuiltMyStr' : My MadeMyInt is 3
+   /  'DefaultInitBool' : True
+   /  'MadeMyInt' : 3
+   /  'MakingMyFloat' : 3.0
+   /  '_WatchAfterBuildWithBuilderBool' : True
+   /  '_WatchAfterMakeWithMakerBool' : True
+   /  '_WatchBeforeBuildWithBuilderBool' : True
+   /  '_WatchBeforeMakeWithMakerBool' : False
+   /}
+
+```
+
 
 ```python
 #ImportModules
@@ -132,7 +712,7 @@ MyBuilder.getSwitch()
 }
 We make
 <bound method BuilderClass.switch_watch_superDo_make of <BuilderClass object at
-0x1071460d0>>
+0x10c0c9210>>
 self.MadeMyInt is
 3
 MyBuilder.getSwitch()

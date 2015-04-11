@@ -2515,6 +2515,7 @@ def getTickFloatsArray(_LimList,_SampleFloat):
 
 	#Debug
 	'''
+	print('SYS l 2517')
 	print('getTickFloatsArray l 64')
 	print('_LimList is')
 	print(_LimList)
@@ -2522,13 +2523,96 @@ def getTickFloatsArray(_LimList,_SampleFloat):
 	print(_SampleFloat)
 	print('')
 	'''
-	
+
 	#return
-	return numpy.array(list(numpy.arange(
-		_LimList[0],
-		_LimList[1],
-		(_LimList[1]-_LimList[0])/float(_SampleFloat)
-	))+[_LimList[1]])
+	TickFloatsArray=numpy.array(
+		list(
+			numpy.arange(
+				_LimList[0],
+				_LimList[1],
+				(_LimList[1]-_LimList[0])/float(_SampleFloat)
+			)
+		)+[_LimList[1]]
+	)
+
+	#Debug
+	'''
+	print('TickFloatsArray l 2536')
+	print('TickFloatsArray is')
+	print(TickFloatsArray)
+	print('')
+	'''
+
+	#return 
+	return TickFloatsArray
+
+def getFloatStr(_Float):
+
+	#Debug
+	print('SYS l 2552')
+	print('_Float is')
+	print(_Float)
+	print('')
+
+	#Check
+	if _Float==0.:
+
+		#return
+		FloatStr='0'
+
+	else:
+
+		#Check
+		if _Float>1.:
+
+			#format
+			FloatStr='%.2f'%_Float
+
+		else:
+
+			#str
+			FloatStr=str(_Float)
+
+			#Debug
+			'''
+			print('SYS l 2551')
+			print('FloatStr is')
+			print(FloatStr)
+			print('')
+			'''
+			
+			#index
+			DecimalInt=map(
+				lambda __Str:
+				__Str!='0' and __Str!='.',
+				FloatStr
+			).index(True)
+
+			#Debug
+			'''
+			print('DecimalInt is')
+			print(DecimalInt)
+			print('')
+			'''
+
+			#get
+			FloatStr=FloatStr[:DecimalInt+2]
+
+	
+		#remove 0 on the right
+		while FloatStr[-1]=='0':
+			FloatStr=FloatStr[:-1]
+
+	#Debug
+	print('SYS l 2594')
+	print('FloatStr is')
+	print(FloatStr)
+	print('')
+
+	#return
+	return FloatStr
+
+
 
 #</DefineLocals>
 

@@ -46,6 +46,10 @@ class ViewerClass(BaseClass):
 						_ViewedLegendLabelStr="",
 						_ViewedXLabelStr="",
 						_ViewedYLabelStr="",
+						_ViewedXlimMinStrsList=None,
+						_ViewedXlimMaxStrsList=None,
+						_ViewedYlimMinStrsList=None,
+						_ViewedYlimMaxStrsList=None,
 						_ViewedXlimLiargStr="",
 						_ViewedYlimLiargStr="",
 						_ViewedXtickLiargStr="",
@@ -116,7 +120,6 @@ class ViewerClass(BaseClass):
 
 	def viewAxe(self,_AxeStr):
 
-
 		#/##################/#
 		# Set a certain axis
 		#
@@ -131,17 +134,47 @@ class ViewerClass(BaseClass):
 			ViewedTagStr
 		)
 
-		#join
+		#get
+		LimMinStrsList=getattr(
+			self,
+			'Viewed'+_AxeStr+'limMinStrsList'
+		)
+		if LimMinStrsList==None:
+			LimMinStrsList=[]
 
+		LimMinStrsList.append(
+			"SYS.IdDict["+self.ViewingIdStr+"].Viewing"+_AxeStr+"Variable.min()"
+		)
+
+		#get 
+		LimMaxStrsList=getattr(
+			self,
+			'Viewed'+_AxeStr+'limMaxStrsList'
+		)
+		if LimMaxStrsList==None:
+			LimMaxStrsList=[]
+		LimMaxStrsList.append(
+			"SYS.IdDict["+self.ViewingIdStr+"].Viewing"+_AxeStr+"Variable.max()"
+		)
+
+		#set
 		setattr(
 			self,
 			'Viewed'+_AxeStr+'limLiargStr',
 			"".join([
-						">>SYS.set(SYS,'"+ViewedTagStr+"LimFloatsArray',",
-						"[SYS.IdDict["+self.ViewingIdStr+"].Viewing"+_AxeStr+"Variable.min(),",
-						"SYS.IdDict["+self.ViewingIdStr+"].Viewing"+_AxeStr+"Variable.max()]",
-						').'+ViewedTagStr+"LimFloatsArray"
-						])
+				">>SYS.set(SYS,'"+ViewedTagStr+"LimFloatsArray',",
+				"[",
+				#"SYS.IdDict["+self.ViewingIdStr+"].Viewing"+_AxeStr+"Variable.min()",
+				"min("+",".join(LimMinStrsList)+")"
+				if len(LimMinStrsList)>1
+				else LimMinStrsList[0],
+				",",
+				#"SYS.IdDict["+self.ViewingIdStr+"].Viewing"+_AxeStr+"Variable.max()]",
+				"max("+",".join(LimMaxStrsList)+")"
+				if len(LimMaxStrsList)>1
+				else LimMaxStrsList[0],
+				']).'+ViewedTagStr+"LimFloatsArray"
+			])
 		)
 
 		#join
@@ -150,11 +183,21 @@ class ViewerClass(BaseClass):
 			'Viewed'+_AxeStr+'tickLiargStr',
 			"".join([
 						">>SYS.set(SYS,'"+ViewedTagStr+"TickFloatsArray',",
-						"map(lambda __Float:float('%.2f'%__Float),",
+						"map(lambda __Float:float(SYS.getFloatStr(__Float)),",
 						"SYS.getTickFloatsArray(",
 						'SYS.'+ViewedTagStr+"LimFloatsArray,3",
 						")))."+ViewedTagStr+"TickFloatsArray"
 						])
+		)
+
+		#debug
+		self.debug(
+			[
+				'Scale the tick labels',
+				('self.',self,[
+						"Viewing"+_AxeStr+"ScaleFloat"
+					])
+			]
 		)
 
 		#set
@@ -163,11 +206,12 @@ class ViewerClass(BaseClass):
 			'Viewed'+_AxeStr+'tickLabelLiargStr',
 			"".join([
 						">>SYS.set(SYS,'"+ViewedTagStr+"TickStrsArray',",
-						"map(lambda __Float:'$'+str(self.Viewing"+_AxeStr+"ScaleFloat*__Float)+'$',",
+						"map(lambda __Float:'$'+SYS.getFloatStr(SYS.IdDict["+self.ViewingIdStr+"].Viewing"+_AxeStr+"ScaleFloat*__Float)+'$',",
+						#"map(lambda __Float:'$'+str(self.Viewing"+_AxeStr+"ScaleFloat*__Float)+'$',",
 						"SYS."+ViewedTagStr+"TickFloatsArray))."+ViewedTagStr+"TickStrsArray"
 						])
 		)
-				
+
 		#debug
 		'''
 		self.debug(
@@ -220,6 +264,10 @@ ViewerClass.PrintingClassSkipKeyStrsList.extend(
 		'ViewedLegendLabelStr',
 		'ViewedXLabelStr',
 		'ViewedYLabelStr',
+		'ViewedXlimMinStrsList',
+		'ViewedXlimMaxStrsList',
+		'ViewedYlimMinStrsList',
+		'ViewedYlimMaxStrsList',
 		'ViewedXlimLiargStr',
 		'ViewedYlimLiargStr',
 		'ViewedXtickLiargStr',

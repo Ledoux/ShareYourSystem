@@ -870,11 +870,18 @@ class PrinterClass(BaseClass):
 		print('')
 		'''
 		
+		#Check
+		if self.PrintingClassSkipKeyStrsList==None:
+			self.PrintingClassSkipKeyStrsList=[]
+		if self.PrintingInstanceSkipKeyStrsList==None:
+			self.PrintingInstanceSkipKeyStrsList=[]
+
 		#filter the skip key strs
 		PrintedDefaultSpecificKeyStrsList=SYS._filter(
 				lambda __DefaultSpecificKeyStr:
 				__DefaultSpecificKeyStr not in list(
-					self.PrintingInstanceSkipKeyStrsList)+list(
+					self.PrintingInstanceSkipKeyStrsList
+				)+list(
 					self.PrintingClassSkipKeyStrsList), 
 				self.__class__.DefaultSpecificKeyStrsList
 			)
@@ -1031,6 +1038,10 @@ class PrinterClass(BaseClass):
 		print('')
 		'''
 		
+		#Check
+		if self.PrintingInstanceForceKeyStrsList==None:
+			self.PrintingInstanceForceKeyStrsList=[]
+
 		#map
 		PrintTuplesList+=map(
 				lambda __PrintingKeyStr:

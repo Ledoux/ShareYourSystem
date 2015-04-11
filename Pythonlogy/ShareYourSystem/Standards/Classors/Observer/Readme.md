@@ -84,15 +84,15 @@ SYS._attest(
 
 *****Start of the Attest *****
 
-        MakerClass.make is <unbound method MakerClass.superDo_make>
+            MakerClass.make is <unbound method MakerClass.superDo_make>
 
 ------
 
-        MakerClass.DeriveClassor.ObservingWrapMethodStr is make
+            MakerClass.DeriveClassor.ObservingWrapMethodStr is make
 
 ------
 
-        MakerClass.DeriveClassor.ObservedWrapMethodStr is superDo_make
+            MakerClass.DeriveClassor.ObservedWrapMethodStr is superDo_make
 
 *****End of the Attest *****
 

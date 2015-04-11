@@ -31,6 +31,221 @@ FrozenIsBool True
 
 ##Example
 
+For this non directly very useful Module we just define a decorated FooClass
+for which the Functer decoration by default call the decorated method...
+
+```python
+#ImportModules
+import ShareYourSystem as SYS
+import operator
+
+#Definition
+@SYS.ClasserClass(**{
+    'ClassingSwitchMethodStrsList':[
+        'make'
+    ]
+})
+class MakerClass(object):
+
+    def default_init(self,
+                    _MakingMyFloat=0.,
+                    _MadeMyInt=0,
+                    **_KwarVariablesDict
+                ):
+        object.__init__(self,**_KwarVariablesDict)
+
+    def do_make(self):
+
+        #print
+        print('I am in the do_make of the Maker')
+
+        #cast
+        self.MadeMyInt=int(self.MakingMyFloat)
+
+#Definition
+@SYS.ClasserClass(**{
+    'ClassingSwitchMethodStrsList':[
+        'make',
+        'build'
+    ]
+}
+)
+class BuilderClass(MakerClass):
+
+    def default_init(self,
+                    **_KwarVariablesDict
+                ):
+        MakerClass.__init__(self,**_KwarVariablesDict)
+
+    def mimic_make(self):
+
+        #print
+        print('I am in the mimic_make of the Builder')
+
+        #call the parent method
+        MakerClass.make(self)
+
+        #cast
+        self.MadeMyInt+=10
+
+    def do_build(self):
+        pass
+
+#Definition an instance
+MyBuilder=BuilderClass()
+
+#Print
+print('Before make, MyBuilder.__dict__ is ')
+SYS._print(MyBuilder.__dict__)
+
+#make once
+MyBuilder.make(3.)
+
+#Print
+print('After the first make, MyBuilder.__dict__ is ')
+SYS._print(MyBuilder.__dict__)
+
+#make again
+MyBuilder.make(5.)
+
+#Print
+print('After the second make, MyBuilder.__dict__ is ')
+SYS._print(MyBuilder.__dict__)
+
+#make again
+print('Now we switch all')
+MyBuilder.setSwitch('make',BuilderClass)
+
+#Print
+print('After the switch MyBuilder.__dict__ is ')
+SYS._print(MyBuilder.__dict__)
+
+#make again
+MyBuilder.make(7.)
+
+#Print
+print('After the third make, MyBuilder.__dict__ is ')
+SYS._print(MyBuilder.__dict__)
+
+#Definition the AttestedStr
+SYS._attest(
+    [
+        'BuilderClass.WatchBeforeMakeWithMakerBool is
+'+str(BuilderClass.WatchBeforeMakeWithMakerBool),
+        'BuilderClass.make is '+str(BuilderClass.make),
+        'BuilderClass.build is '+str(BuilderClass.build),
+        'MyBuilder.__dict__ is '+SYS._str(
+            MyBuilder.__dict__
+        )
+    ]
+)
+
+#Print
+
+
+
+
+
+```
+
+
+```console
+>>>
+Before make, MyBuilder.__dict__ is
+
+   /{
+   /  'DefaultInitBool' : True
+   /}
+I am in the mimic_make of the Builder
+I am in the do_make of the Maker
+After the first make, MyBuilder.__dict__ is
+
+   /{
+   /  'DefaultInitBool' : True
+   /  'MadeMyInt' : 13
+   /  'MakingMyFloat' : 3.0
+   /  '_WatchAfterMakeWithBuilderBool' : True
+   /  '_WatchAfterMakeWithMakerBool' : True
+   /  '_WatchBeforeMakeWithBuilderBool' : True
+   /  '_WatchBeforeMakeWithMakerBool' : True
+   /}
+After the second make, MyBuilder.__dict__ is
+
+   /{
+   /  'DefaultInitBool' : True
+   /  'MadeMyInt' : 13
+   /  'MakingMyFloat' : 3.0
+   /  '_WatchAfterMakeWithBuilderBool' : True
+   /  '_WatchAfterMakeWithMakerBool' : True
+   /  '_WatchBeforeMakeWithBuilderBool' : True
+   /  '_WatchBeforeMakeWithMakerBool' : True
+   /}
+Now we switch all
+After the switch MyBuilder.__dict__ is
+
+   /{
+   /  'DefaultInitBool' : True
+   /  'MadeMyInt' : 13
+   /  'MakingMyFloat' : 3.0
+   /  '_WatchAfterMakeWithBuilderBool' : False
+   /  '_WatchAfterMakeWithMakerBool' : True
+   /  '_WatchBeforeMakeWithBuilderBool' : False
+   /  '_WatchBeforeMakeWithMakerBool' : True
+   /}
+I am in the mimic_make of the Builder
+After the third make, MyBuilder.__dict__ is
+
+   /{
+   /  'DefaultInitBool' : True
+   /  'MadeMyInt' : 23
+   /  'MakingMyFloat' : 7.0
+   /  '_WatchAfterMakeWithBuilderBool' : True
+   /  '_WatchAfterMakeWithMakerBool' : True
+   /  '_WatchBeforeMakeWithBuilderBool' : True
+   /  '_WatchBeforeMakeWithMakerBool' : True
+   /}
+
+
+*****Start of the Attest *****
+
+            BuilderClass.WatchBeforeMakeWithMakerBool is <property object at
+0x10c0f20a8>
+
+------
+
+            BuilderClass.make is <unbound method
+BuilderClass.switch_watch_superMimic_switch_watch_superDo_make>
+
+------
+
+            BuilderClass.build is <unbound method
+BuilderClass.switch_watch_superDo_build>
+
+------
+
+            MyBuilder.__dict__ is
+               /{
+               /  'DefaultInitBool' : True
+               /  'MadeMyInt' : 23
+               /  'MakingMyFloat' : 7.0
+               /  '_WatchAfterMakeWithBuilderBool' : True
+               /  '_WatchAfterMakeWithMakerBool' : True
+               /  '_WatchBeforeMakeWithBuilderBool' : True
+               /  '_WatchBeforeMakeWithMakerBool' : True
+               /}
+
+*****End of the Attest *****
+
+
+
+```
+
+
+
+<!---
+FrozenIsBool True
+-->
+
 Note that now setting a propertize method in a derived class works also and
 overwrite the previous one. (without redefine the property)
 
@@ -122,326 +337,4 @@ SpecialBuilder.MakingMyList is []
 SpecialBuilder.MadeMyInt is 0
 
 ```
-
-
-
-<!--
-FrozenIsBool False
--->
-
-##Code
-
-----
-
-<ClassDocStr>
-
-<small>
-View the Classer sources on <a href="https://github.com/Ledoux/ShareYourSystem/t
-ree/master/Pythonlogy/ShareYourSystem/Standards/Classors/Classer"
-target="_blank">Github</a>
-</small>
-
-----
-
-```python
-# -*- coding: utf-8 -*-
-"""
-
-
-<DefineSource>
-@Date : Fri Nov 14 13:20:38 2014 \n
-@Author : Erwan Ledoux \n\n
-</DefineSource>
-
-
-The Classer
-
-"""
-
-#<DefineAugmentation>
-import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Classors.Mimicker"
-DecorationModuleStr="ShareYourSystem.Standards.Classors.Tester"
-SYS.setSubModule(globals())
-#</DefineAugmentation>
-
-#<ImportSpecificModules>
-Mimicker=BaseModule
-from ShareYourSystem.Standards.Classors import Propertiser
-#</ImportSpecificModules>
-
-#<Define_Class>
-@DecorationClass()
-class ClasserClass(BaseClass):
-
-        def default_init(self,
-_ClassingSwitchMethodStrsList=None,
-_ClassingWatchMethodStrsList=None,
-                                                _ClassingStructureVariable=None,
-                                                **_KwargVariablesDict
-                                ):
-
-                #Call the parent init method
-                BaseClass.__init__(self,**_KwargVariablesDict)
-
-        def __call__(self,_Class):
-
-                #Call the parent method
-                Mimicker.MimickerClass.__bases__[0].__call__(self,_Class)
-
-                #class
-                self._class()
-
-                #Return
-                return _Class
-
-        def do__class(self):
-
-                #Definition the MethodsList
-                ClassedFunctionsList=SYS._filter(
-                        lambda __ListedVariable:
-                                type(__ListedVariable).__name__=="function"
-                                if hasattr(__ListedVariable,'__name__')
-                                else False,
-                                self.DoClass.__dict__.values()
-                )
-
-                #debug
-                '''
-                print('l 66 Classer')
-                print("ClassedFunctionsList is ",WatchedFunctionsList)
-                print('Set all the mimick methods')
-                print('')
-                '''
-
-                #/###################/#
-                # Mimic all that you can find
-                #
-
-                #Get all the hooking methods
-                ClassedMimickFunctionsList=SYS._filter(
-                        lambda __ListedVariable:
-                        __ListedVariable.__name__.startswith(
-                                        Mimicker.MimickingWrapPrefixStr
-                        )
-                        if hasattr(__ListedVariable,'__name__')
-                        else False,
-                        ClassedFunctionsList
-                )
-
-                #debug
-                '''
-                print('l 82 Classer')
-                print("ClassedMimickFunctionsList is
-",ClassedMimickFunctionsList)
-                print('')
-                '''
-
-                #map
-                map(
-                                lambda __ClassedMimickFunction:
-                                self.mimic(
-                                        Mimicker.MimickingWrapPrefixStr.join(
-__ClassedMimickFunction.__name__.split(
-Mimicker.MimickingWrapPrefixStr)[1:]
-                                                )
-                                ),
-                                ClassedMimickFunctionsList
-                        )
-
-                #/###################/#
-                # Set the watch methods
-                #
-
-                #debug
-                '''
-                print('l 104 Classer')
-                print('set the watch functions')
-                print('self.ClassingWatchMethodStrsList is
-',self.ClassingWatchMethodStrsList)
-                print('self.DoClass.DoMethodStr is ',self.DoClass.DoMethodStr)
-                print('')
-                '''
-
-                #map
-                map(
-                                lambda __ClassingWatchUnboundMethodStr:
-                                self.watch(
-                                        True,
-**{'ObservingWrapMethodStr':__ClassingWatchUnboundMethodStr}
-                                ),
-                                self.ClassingWatchMethodStrsList
-                        )
-
-                #/###################/#
-                # Set the switch methods
-                #
-
-                #debug
-                '''
-                print('l 104 Classer')
-                print('set the switch functions')
-                print('self.ClassingSwitchMethodStrsList is
-',self.ClassingSwitchMethodStrsList)
-                print('self.DoClass.DoMethodStr is ',self.DoClass.DoMethodStr)
-                print('')
-                '''
-
-                #map
-                map(
-                                lambda __ClassingSwitchUnboundMethodStr:
-                                self.switch(
-                                        True,
-                                        __ClassingSwitchUnboundMethodStr
-                                ),
-                                self.ClassingSwitchMethodStrsList
-                        )
-
-                #/###################/#
-                # Check for overriden propertize_ methods
-                #
-
-                #Debug
-                '''
-                print('Classer l 125')
-                print('Check for overriden propertize_ methods ')
-                print('self.DoClass.InspectMethodDict')
-                print(self.DoClass.InspectMethodDict)
-                print('')
-                '''
-
-                #filter
-                ClassedPropertyNewMethodDict=dict(
-                        SYS._filter(
-                                lambda __MethodItemTuple:
-                                __MethodItemTuple[0].startswith(
-                                                Propertiser.PropertyPrefixStr
-                                        ) and (
-SYS.getNewMethodBool(self.DoClass,__MethodItemTuple[0])
-                                        #getattr(
-                                        #       self.DoClass.__bases__[0],
-                                        #       __MethodItemTuple[0]
-                                        #)!=__MethodItemTuple[1]
-                                        #if hasattr(self.DoClass.__bases__[0],
-                                        #       __MethodItemTuple[0]
-                                        #) else True
-                                ),
-                                self.DoClass.InspectMethodDict.items()
-                        )
-                )
-
-                #Debug
-                '''
-                print('Classer l 147')
-                print('self.DoClass is ')
-                print(self.DoClass)
-                print('ClassedPropertyNewMethodDict is')
-                print(SYS.indent(ClassedPropertyNewMethodDict))
-                print('')
-                '''
-
-                #map
-                ClassedPropertyKeyStrsList=map(
-                                lambda __PropertizedKeyStr:
-                                SYS.deprefix(
-                                        __PropertizedKeyStr,
-                                        Propertiser.PropertyPrefixStr
-                                )[3:],
-                                ClassedPropertyNewMethodDict.keys()
-                        )
-
-                #map reset the properties
-                map(
-                                lambda __PropertyKeyStr:
-                                setattr(
-                                                self.DoClass,
-                                                __PropertyKeyStr,
-                                                property(
-                                                                getattr(
-self.DoClass,
-Propertiser.PropertyPrefixStr+'get'+__PropertyKeyStr
-                                                                ),
-                                                                getattr(
-self.DoClass,
-Propertiser.PropertyPrefixStr+'set'+__PropertyKeyStr
-                                                                ),
-                                                                getattr(
-self.DoClass,
-Propertiser.PropertyPrefixStr+'del'+__PropertyKeyStr
-                                                                )
-                                                        )
-                                        ),
-                                ClassedPropertyKeyStrsList
-                        )
-
-                #/###################/#
-                # Set maybe a structure
-                #
-
-                #Check
-                if self.ClassingStructureVariable!=None:
-
-                        #Check
-                        if hasattr(
-                                        self.ClassingStructureVariable,'items'
-                                ):
-ClassedStructureVariable=self.ClassingStructureVariable.items()
-                        else:
-ClassedStructureVariable=self.ClassingStructureVariable
-
-
-                        #debug
-                        '''
-                        print('Classer l 241')
-                        print('We structure here')
-                        print('self.ClassingStructureVariable is ')
-                        print(self.ClassingStructureVariable)
-                        print('')
-                        '''
-
-                        #map add the sing plurals
-                        map(
-                                lambda __ItemTuple:
-                                SYS.addSingPlural(
-                                        *__ItemTuple
-                                ),
-                                ClassedStructureVariable
-                        )
-
-                        #Define a class
-                        class StructureClass(SYS.StructurerClass):pass
-                        StructureClass.__name__=SYS.getClassStrWithNameStr(self.
-DoClass.NameStr+'sStructurer')
-                        StructureClass.ManagingValueClass=self.DoClass
-
-                        #set
-                        setattr(
-                                self.Module,
-                                StructureClass.__name__,
-                                StructureClass
-                        )
-
-                        #dict
-                        ClassesDict=dict(
-                                        map(
-                                                lambda __ItemTuple:
-                                                (__ItemTuple[1],StructureClass),
-                                                ClassedStructureVariable
-                                        )
-                                )
-
-                        #map
-                        if self.DoClass.TeamingClassesDict==None:
-                                self.DoClass.TeamingClassesDict=ClassesDict
-                        else:
-                                self.DoClass.TeamingClassesDict.update(
-                                        ClassesDict
-                                )
-
-
-#</DefineClass>
-
-
-```
-
 

@@ -45,6 +45,7 @@ class PredicterClass(BaseClass):
 			_PredictingTimeVariable='#scalar:10.*ms',
 			_PredictingDynamicStr='Track',
 			_PredictedDecoderFloatsArray=None,
+			_PredictedJacobianFloatsArray=None,
 			_PredictedParentSingularStr="",
 			_PredictedSensorDerivePredicterVariable=None,
 			_PredictedAgentDerivePredicterVariable=None,
@@ -150,7 +151,9 @@ class PredicterClass(BaseClass):
 					'Interactions',
 				],
 				'#all',
-				_ManagerCommandSetList=['predict']
+				_ManagerCommandSetList=[
+						'predict'
+					]
 			)
 
 			#/########################/#
@@ -272,12 +275,31 @@ class PredicterClass(BaseClass):
 		# Check for Agent
 		# 
 
+		#Check
+		if 'Agent' in LeakedPopulationsDeriveManager.ManagementDict:
+
+			#get
+			LeakedAgentDerivePredicter=LeakedPopulationsDeriveManager.ManagementDict[
+				'Agent'
+			]
+
+		else:
+
+			#manage
+			LeakedAgentDerivePredicter=LeakedPopulationsDeriveManager.manage(
+				'Agent'
+			).ManagedValueVariable
+
+			#set default
+			LeakedAgentDerivePredicter.LeakingUnitsInt=1
+
 	def predictPopulation(self):
 
 		#Check
 		if self.ManagementTagStr=='Sensor':
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We predict in the Sensor',
@@ -286,6 +308,7 @@ class PredicterClass(BaseClass):
 						])
 				]
 			)
+			'''
 
 			#Check
 			self.LeakingTimeVariable=self.PredictingTimeVariable
@@ -416,6 +439,7 @@ class PredicterClass(BaseClass):
 		elif self.ManagementTagStr=='Agent':
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We predict in the Agent',
@@ -426,6 +450,7 @@ class PredicterClass(BaseClass):
 						])
 				]
 			)
+			'''
 
 			#/####################/#
 			# Find the Sensor Population
@@ -515,6 +540,7 @@ class PredicterClass(BaseClass):
 			LeakedFastDerivePredicter.ConnectingKeyVariable=self
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We have defined the Fast interaction in the Agent',
@@ -523,16 +549,19 @@ class PredicterClass(BaseClass):
 					str(self.PredictedNetworkDerivePredicterVariable.PredictingDynamicBool)
 				]
 			)
+			'''
 
 			#Check
 			if self.PredictedNetworkDerivePredicterVariable.PredictingDynamicBool:
 
 				#debug
+				'''
 				self.debug(
 					[
 						'PredictingDynamicBool is true'
 					]
 				)
+				'''
 
 				#/###################/#
 				# Specify the Slow interaction
@@ -569,6 +598,7 @@ class PredicterClass(BaseClass):
 		elif self.ManagementTagStr=='Decoder':
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We predict in the Decoder',
@@ -577,6 +607,7 @@ class PredicterClass(BaseClass):
 						])
 				]
 			)
+			'''
 
 			#Check
 			self.LeakingTimeVariable=self.PredictingTimeVariable
@@ -594,6 +625,7 @@ class PredicterClass(BaseClass):
 		if self.ManagementTagStr=='Jacobian':
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We predict in the Jacobian',
@@ -602,6 +634,7 @@ class PredicterClass(BaseClass):
 						])
 				]
 			)
+			'''
 
 			#/################/#
 			# Determine the relations
@@ -614,7 +647,7 @@ class PredicterClass(BaseClass):
 			self.PredictedAgentDerivePredicterVariable=self.PredictedSensorDerivePredicterVariable.ParentDeriveTeamerVariable.ManagementDict['Agent']
 
 			#set
-			self.ConnectingKeyVariable=self.PredictedAgentDerivePredicterVariable
+			self.ConnectingKeyVariable=self.PredictedSensorDerivePredicterVariable
 
 			#/################/#
 			# Build the Jacobian
@@ -674,6 +707,7 @@ class PredicterClass(BaseClass):
 		elif self.ManagementTagStr=='Encoder':
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We predict in the Encoder interaction',
@@ -681,6 +715,7 @@ class PredicterClass(BaseClass):
 						])
 				]
 			)
+			'''
 
 			#/################/#
 			# Determine the relations
@@ -697,6 +732,43 @@ class PredicterClass(BaseClass):
 
 			#link
 			self.LeakingWeigthVariable=self.PredictedAgentDerivePredicterVariable.PredictedDecoderFloatsArray
+
+
+	def viewSample(self):
+
+		#debug
+		self.debug(
+			[
+				'We predict view sample here'
+			]
+		)
+		
+		#Check
+		self.ViewingXScaleFloat=1000.
+		self.ViewingYScaleFloat=1000.
+
+		#base
+		BaseClass.viewSample(self)
+		
+		
+
+		
+	"""
+	def leakSample(self):
+
+		#debug
+		'''
+		self.debug(
+			[
+				'We predict leak Sample here'
+			]
+		)
+		'''
+
+		#set
+		self.ViewingXScaleFloat=1000.
+		self.ViewingYScaleFloat=1000.
+	"""
 
 #</DefineClass>
 
@@ -715,6 +787,7 @@ PredicterClass.PrintingClassSkipKeyStrsList.extend(
 		'PredictingTimeVariable',
 		'PredictingDynamicStr',
 		'PredictedDecoderFloatsArray',
+		'PredictedJacobianFloatsArray',
 		'PredictedParentSingularStr',
 		'PredictedSensorDerivePredicterVariable',
 		'PredictedAgentDerivePredicterVariable',

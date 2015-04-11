@@ -766,6 +766,7 @@ class LeakerClass(BaseClass):
 		#
 
 		#debug
+		'''
 		self.debug(
 			[
 				'Look for a threshold',
@@ -774,6 +775,7 @@ class LeakerClass(BaseClass):
 				])
 			]
 		)
+		'''
 
 		#Check
 		if self.LeakingThresholdVariable!=None:
@@ -788,11 +790,13 @@ class LeakerClass(BaseClass):
 				if self.LeakingThresholdVariable.startswith(LeakScalarPrefixStr):
 
 					#debug
+					'''
 					self.debug(
 						[
 							'It is a scalar threshod'
 						]
 					)
+					'''
 
 					#set
 					BrianingNeurongroupDict['threshold']=SYS.deprefix(
@@ -809,12 +813,14 @@ class LeakerClass(BaseClass):
 				if LeakedType in [list,numpy.ndarray]:
 
 					#debug
+					'''
 					self.debug(
 						[
 							'It is a variable threshod',
 							'add in the model'
 						]
 					)
+					'''
 
 					#Define
 					self.LeakedModelStr+='Threshold : '+self.LeakedDimensionStr+"\n"
@@ -825,12 +831,14 @@ class LeakerClass(BaseClass):
 				else:
 	
 					#debug
+					'''
 					self.debug(
 						[
 							'It is a CodeObject threshod',
 							'add in the model'
 						]
 					)
+					'''
 
 					#import
 					from brian2 import CodeObject
@@ -863,14 +871,16 @@ class LeakerClass(BaseClass):
 		#
 
 		#debug
+		'''
 		self.debug(
 			[
-				'Look for a threshold',
+				'Look for a reset',
 				('self.',self,[
 					'LeakingResetVariable'
 				])
 			]
 		)
+		'''
 
 		#Check
 		if self.LeakingResetVariable!=None:
@@ -882,11 +892,13 @@ class LeakerClass(BaseClass):
 				if self.LeakingResetVariable.startswith(LeakScalarPrefixStr):
 
 					#debug
+					'''
 					self.debug(
 						[
 							'It is a scalar reset'
 						]
 					)
+					'''
 
 					#set
 					BrianingNeurongroupDict['reset']=SYS.deprefix(
@@ -918,6 +930,7 @@ class LeakerClass(BaseClass):
 			)
 
 		#debug
+		'''
 		self.debug(
 			[
 				'We have aliased the BrianingNeurongroupDict',
@@ -926,6 +939,7 @@ class LeakerClass(BaseClass):
 					])
 			]
 		)
+		'''
 
 	def leakTrace(self):
 
@@ -1016,6 +1030,7 @@ class LeakerClass(BaseClass):
 					)
 
 					#debug
+					'''
 					self.debug(
 						[
 							'It is an external scalar so just add Current',
@@ -1023,6 +1038,7 @@ class LeakerClass(BaseClass):
 							self.LeakedParentPopulationDeriveLeakerVariable.LeakedModelStr
 						]
 					)
+					'''
 
 					#add in the current
 					self.LeakedParentPopulationDeriveLeakerVariable.addCurrentStr(
@@ -1176,6 +1192,7 @@ class LeakerClass(BaseClass):
 		#
 
 		#debug
+		'''
 		self.debug(
 			[
 				'It is an Interaction level',
@@ -1184,6 +1201,7 @@ class LeakerClass(BaseClass):
 					])
 			]
 		)
+		'''
 
 		#/####################/#
 		# Determine the parent
@@ -1196,7 +1214,7 @@ class LeakerClass(BaseClass):
 			'''
 			self.debug(
 				[
-					'We are in a projectome structure'
+					'We are in a interactome structure'
 				]
 			)
 			'''
@@ -1213,7 +1231,7 @@ class LeakerClass(BaseClass):
 			'''
 			self.debug(
 				[
-					'There is no projectome structure'
+					'There is no interactome structure'
 				]
 			)
 			'''
@@ -1232,6 +1250,34 @@ class LeakerClass(BaseClass):
 			#get
 			self.LeakedParentNetworkDeriveLeakerVariable=self.LeakedParentPopulationDeriveLeakerVariable
 
+		#/####################/#
+		# Maybe we have to connect
+		#
+
+		#Check
+		if self.ConnectedToVariable==None:
+
+			#debug
+			'''
+			self.debug(
+				[
+					'We setConnection here',
+					('self.',self,[
+							'ManagementTagStr',
+							'ConnectingKeyVariable'
+						])
+				]
+			)
+			'''
+
+			#setConnection
+			self.setConnection(
+				self.ManagementTagStr
+				if self.ConnectingKeyVariable==None
+				else self.ConnectingKeyVariable,
+				self,
+				self.LeakedParentPopulationDeriveLeakerVariable
+			)
 
 		#/####################/#
 		# Check the clamp of the interaction
@@ -1257,9 +1303,9 @@ class LeakerClass(BaseClass):
 				self.LeakingSymbolPrefixStr=LeakInteractionPrefixStr
 
 			#Check
-			if self.LeakedParentPopulationDeriveLeakerVariable.LeakingSymbolPrefixStr=="":
-				self.LeakedParentPopulationDeriveLeakerVariable.LeakingSymbolPrefixStr=LeakActivityPrefixStr
-				self.LeakedParentPopulationDeriveLeakerVariable.LeakedSymbolStr=LeakActivityPrefixStr
+			if self.ConnectedToVariable.LeakingSymbolPrefixStr=="":
+				self.ConnectedToVariable.LeakingSymbolPrefixStr=LeakActivityPrefixStr
+				self.ConnectedToVariable.LeakedSymbolStr=LeakActivityPrefixStr
 
 			#init
 			self.LeakedClampStr='Variable'
@@ -1302,7 +1348,7 @@ class LeakerClass(BaseClass):
 		#set
 		self.LeakedSymbolStr=self.LeakingSymbolPrefixStr+self.ParentTagStr.split(
 			'Interactions'
-		)[-1].replace('/','_')+self.LeakedParentPopulationDeriveLeakerVariable.LeakedSymbolStr
+		)[-1].replace('/','_')+self.ConnectedToVariable.LeakedSymbolStr
 
 		#Check
 		if self.LeakedClampStr=='Variable':
@@ -1320,17 +1366,19 @@ class LeakerClass(BaseClass):
 			)
 			'''
 
+
+
 			#append
-			if self.LeakedParentPopulationDeriveLeakerVariable.LeakedRecordSkipStrsList==None:
-				self.LeakedParentPopulationDeriveLeakerVariable.LeakedRecordSkipStrsList=[self.LeakedSymbolStr]
+			if self.ConnectedToVariable.LeakedRecordSkipStrsList==None:
+				self.ConnectedToVariable.LeakedRecordSkipStrsList=[self.LeakedSymbolStr]
 			else:
-				self.LeakedParentPopulationDeriveLeakerVariable.LeakedRecordSkipStrsList.append(
+				self.ConnectedToVariable.LeakedRecordSkipStrsList.append(
 					self.LeakedSymbolStr
 				)
 
 			#Check
-			if self.LeakedParentPopulationDeriveLeakerVariable.LeakedDimensionStr=="":
-				self.LeakedParentPopulationDeriveLeakerVariable.setDimension()
+			if self.ConnectedToVariable.LeakedDimensionStr=="":
+				self.ConnectedToVariable.setDimension()
 
 			#debug
 			'''
@@ -1357,29 +1405,6 @@ class LeakerClass(BaseClass):
 				]
 			)
 			'''
-
-			#Check
-			if self.ConnectedToVariable==None:
-
-				#debug
-				self.debug(
-					[
-						'We setConnection here',
-						('self.',self,[
-								'ManagementTagStr',
-								'ConnectingKeyVariable'
-							])
-					]
-				)
-
-				#setConnection
-				self.setConnection(
-					self.ManagementTagStr
-					if self.ConnectingKeyVariable==None
-					else self.ConnectingKeyVariable,
-					self,
-					self.LeakedParentPopulationDeriveLeakerVariable
-				)
 
 			#Check
 			if self.LeakingInteractionStr=='Rate':
@@ -1689,6 +1714,7 @@ class LeakerClass(BaseClass):
 			BrianedTracesManager=self.TeamDict['Traces']
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We resort the inputs traces',
@@ -1699,7 +1725,8 @@ class LeakerClass(BaseClass):
 
 				]	
 			)
-
+			'''
+			
 			#map
 			map(
 				lambda __IndexIntAndDeriveLeaker:

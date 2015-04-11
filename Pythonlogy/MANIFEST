@@ -18,6 +18,8 @@ ShareYourSystem/06_ExampleDoc.md
 ShareYourSystem/07_ExampleDoc.py
 ShareYourSystem/08_ExampleDoc.md
 ShareYourSystem/09_ExampleDoc.py
+ShareYourSystem/10_ExampleDoc.md
+ShareYourSystem/11_ExampleDoc.py
 ShareYourSystem/Readme.md
 ShareYourSystem/__init__.py
 ShareYourSystem/lib.py
@@ -88,7 +90,6 @@ ShareYourSystem/Standards/Classors/Attester/Readme.md
 ShareYourSystem/Standards/Classors/Attester/__init__.py
 ShareYourSystem/Standards/Classors/Attester/Attests/attest_decrement.txt
 ShareYourSystem/Standards/Classors/Binder/001_DocumentDoc.md
-ShareYourSystem/Standards/Classors/Binder/002_GithubDoc.md
 ShareYourSystem/Standards/Classors/Binder/00_ExampleDoc.md
 ShareYourSystem/Standards/Classors/Binder/01_ExampleDoc.py
 ShareYourSystem/Standards/Classors/Binder/02_ExampleDoc.md
@@ -101,12 +102,10 @@ ShareYourSystem/Standards/Classors/Binder/Drafts/01_ExampleDocJSAISPAS.py
 ShareYourSystem/Standards/Classors/Binder/Drafts/__init__ copy 2.py
 ShareYourSystem/Standards/Classors/Binder/Drafts/__init__JSAISPAS.py
 ShareYourSystem/Standards/Classors/Classer/001_DocumentDoc.md
-ShareYourSystem/Standards/Classors/Classer/002_GithubDoc.md
 ShareYourSystem/Standards/Classors/Classer/00_ExampleDoc.md
 ShareYourSystem/Standards/Classors/Classer/01_ExampleDoc.py
 ShareYourSystem/Standards/Classors/Classer/02_ExampleDoc.md
 ShareYourSystem/Standards/Classors/Classer/03_ExampleDoc.py
-ShareYourSystem/Standards/Classors/Classer/1_GithubDoc.md
 ShareYourSystem/Standards/Classors/Classer/Readme.md
 ShareYourSystem/Standards/Classors/Classer/__init__.py
 ShareYourSystem/Standards/Classors/Classor/001_DocumentDoc.md
@@ -116,11 +115,10 @@ ShareYourSystem/Standards/Classors/Classor/02_ExampleDoc.md
 ShareYourSystem/Standards/Classors/Classor/03_ExampleDoc.py
 ShareYourSystem/Standards/Classors/Classor/04_ExampleDoc.md
 ShareYourSystem/Standards/Classors/Classor/05_ExampleDoc.py
-ShareYourSystem/Standards/Classors/Classor/1_GithubDoc.md
-ShareYourSystem/Standards/Classors/Classor/Install.py
 ShareYourSystem/Standards/Classors/Classor/Readme.md
 ShareYourSystem/Standards/Classors/Classor/__init__.py
 ShareYourSystem/Standards/Classors/Classor/Drafts/__init__ copy 2.py
+ShareYourSystem/Standards/Classors/Defaultor/001_DocumentDoc.md
 ShareYourSystem/Standards/Classors/Defaultor/00_ExampleDoc.md
 ShareYourSystem/Standards/Classors/Defaultor/01_ExampleDoc.py
 ShareYourSystem/Standards/Classors/Defaultor/02_ExampleDoc.md
@@ -163,7 +161,6 @@ ShareYourSystem/Standards/Classors/Doer/Drafts/__init__ copy 3.py
 ShareYourSystem/Standards/Classors/Doer/Drafts/__init__OOO.py
 ShareYourSystem/Standards/Classors/Doer/Drafts/__init__do.py
 ShareYourSystem/Standards/Classors/Mimicker/001_DocumentDoc.md
-ShareYourSystem/Standards/Classors/Mimicker/002_GithubDoc.md
 ShareYourSystem/Standards/Classors/Mimicker/00_ExampleDoc.md
 ShareYourSystem/Standards/Classors/Mimicker/01_ExampleDoc.py
 ShareYourSystem/Standards/Classors/Mimicker/02_ExampleDoc.md
@@ -172,7 +169,6 @@ ShareYourSystem/Standards/Classors/Mimicker/1_GithubDoc.md
 ShareYourSystem/Standards/Classors/Mimicker/Readme.md
 ShareYourSystem/Standards/Classors/Mimicker/__init__.py
 ShareYourSystem/Standards/Classors/Observer/001_DocumentDoc.md
-ShareYourSystem/Standards/Classors/Observer/002_GithubDoc.md
 ShareYourSystem/Standards/Classors/Observer/00_ExampleDoc.md
 ShareYourSystem/Standards/Classors/Observer/01_ExampleDoc.py
 ShareYourSystem/Standards/Classors/Observer/1_GithubDoc.md
@@ -181,7 +177,6 @@ ShareYourSystem/Standards/Classors/Observer/Readme.md
 ShareYourSystem/Standards/Classors/Observer/Test.py
 ShareYourSystem/Standards/Classors/Observer/__init__.py
 ShareYourSystem/Standards/Classors/Propertiser/001_DocumentDoc.md
-ShareYourSystem/Standards/Classors/Propertiser/002_GithubDoc.md
 ShareYourSystem/Standards/Classors/Propertiser/00_ExampleDoc.md
 ShareYourSystem/Standards/Classors/Propertiser/01_ExampleDoc.py
 ShareYourSystem/Standards/Classors/Propertiser/02_ExampleDoc.md
@@ -198,7 +193,6 @@ ShareYourSystem/Standards/Classors/Propertiser/Readme.md
 ShareYourSystem/Standards/Classors/Propertiser/Test.py
 ShareYourSystem/Standards/Classors/Propertiser/__init__.py
 ShareYourSystem/Standards/Classors/Switcher/001_DocumentDoc.md
-ShareYourSystem/Standards/Classors/Switcher/002_GithubDoc.md
 ShareYourSystem/Standards/Classors/Switcher/00_ExampleDoc.md
 ShareYourSystem/Standards/Classors/Switcher/01_ExampleDoc.py
 ShareYourSystem/Standards/Classors/Switcher/02_ExampleDoc.md
@@ -218,7 +212,6 @@ ShareYourSystem/Standards/Classors/Switcher/Drafts/__init__ copy 7.py
 ShareYourSystem/Standards/Classors/Switcher/Drafts/__init__AAA.py
 ShareYourSystem/Standards/Classors/Switcher/Drafts/__init__Proper....py
 ShareYourSystem/Standards/Classors/Tester/001_DocumentDoc.md
-ShareYourSystem/Standards/Classors/Tester/002_GithubDoc.md
 ShareYourSystem/Standards/Classors/Tester/00_ExampleDoc.md
 ShareYourSystem/Standards/Classors/Tester/01_ExampleDoc.py
 ShareYourSystem/Standards/Classors/Tester/1_GithubDoc.md
@@ -226,7 +219,6 @@ ShareYourSystem/Standards/Classors/Tester/Readme.md
 ShareYourSystem/Standards/Classors/Tester/Test.py
 ShareYourSystem/Standards/Classors/Tester/__init__.py
 ShareYourSystem/Standards/Classors/Watcher/001_DocumentDoc.md
-ShareYourSystem/Standards/Classors/Watcher/002_GithubDoc.md
 ShareYourSystem/Standards/Classors/Watcher/00_ExampleDoc.md
 ShareYourSystem/Standards/Classors/Watcher/01_ExampleDoc.py
 ShareYourSystem/Standards/Classors/Watcher/02_ExampleDoc.md
@@ -956,8 +948,8 @@ ShareYourSystem/Standards/Recorders/Simulater/01_ExampleCell.py
 ShareYourSystem/Standards/Recorders/Simulater/Readme.md
 ShareYourSystem/Standards/Recorders/Simulater/__init__.py
 ShareYourSystem/Standards/Tutorials/00_ExampleDoc.md
-ShareYourSystem/Standards/Tutorials/01_ExampleDoc.md
 ShareYourSystem/Standards/Tutorials/01_ExampleDoc.py
+ShareYourSystem/Standards/Tutorials/02_ExampleDoc.md
 ShareYourSystem/Standards/Tutorials/03_ExamplesDoc.py
 ShareYourSystem/Standards/Tutorials/Readme.md
 ShareYourSystem/Standards/Tutorials/__init__.py

@@ -30,15 +30,15 @@ MyPredicter=SYS.PredicterClass(
 					},
 					#'LeakingTransferVariable':'1.*mV*tanh((#CurrentStr)/(1.*mV))',
 					#'LeakingTransferVariable':lambda __Float:__Float,
-					#'BrianingDebugInt':100
+					#'BrianingDebugInt':100,
 				},
-				'|Agent':{
-					'LeakingUnitsInt':1,
-					'-Interactions':{
-						'|Fast':{
-						}
-					},
-				}
+				#'|Agent':{
+				#	'LeakingUnitsInt':1,
+				#	'-Interactions':{
+				#		'|Fast':{
+				#		}
+				#	},
+				#}
 			}
 		}
 	).predict(

@@ -159,12 +159,12 @@ class CommanderClass(BaseClass):
 			'''
 			self.debug(
 				[
-					'we are going to walk before the command',
+					'we are going to walk before the local command',
 					'before we setCommand'
 				]
 			)
 			'''
-
+			
 			#set
 			self.setCommand()
 

@@ -4,11 +4,13 @@ import ShareYourSystem as SYS
 
 #Definition an Documenter instance
 MyDocumenter=SYS.DocumenterClass(
-	_DocumentingSubReadmeIsBool=True,
-	_DocumentingConceptReadmeIsBool=True,
-	_DocumentingDocumentIsBool=True,
-	_DocumentingConceptSlideIsBool=True,
-	**{}
+	**{
+		'DocumentingSubReadmeBool':True,
+		'DocumentingConceptReadmeBool':False,
+		'DocumentingConceptLibraryBool':False,
+		'DocumentingDocumentBool':False,
+		'DocumentingConceptSlideBool':False
+	}
 )
 
 #map

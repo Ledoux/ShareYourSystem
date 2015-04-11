@@ -1313,11 +1313,13 @@ class BrianerClass(BaseClass):
 			# 
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We view structure in all the brian children...',
 				]
 			)
+			'''
 
 			#structure
 			self.structure(
@@ -1485,12 +1487,14 @@ class BrianerClass(BaseClass):
 			if 'Panels' in self.BrianedParentNetworkDeriveBrianerVariable.TeamDict:
 
 				#debug
+				'''
 				self.debug(
 					[
 						'We update the Run Panel in the Network',
 
 					]
 				)
+				'''
 
 				#get
 				ViewedChartsManager=self.BrianedParentNetworkDeriveBrianerVariable.TeamDict[
@@ -1502,6 +1506,7 @@ class BrianerClass(BaseClass):
 				]
 
 				#debug
+				'''
 				self.debug(
 					[
 						'We map manage each Chart in the network one',
@@ -1509,6 +1514,7 @@ class BrianerClass(BaseClass):
 						str(self.TeamDict['Charts'].ManagementDict.keys())
 					]
 				)
+				'''
 
 				#map
 				map(
@@ -1532,7 +1538,9 @@ class BrianerClass(BaseClass):
 								'ViewingXLabelStr',
 								'ViewingYLabelStr',
 								'ViewingXVariable',
-								'ViewingYVariable'
+								'ViewingYVariable',
+								'ViewingXScaleFloat',
+								'ViewingYScaleFloat'
 							]
 						)
 					).view(
@@ -1553,9 +1561,9 @@ class BrianerClass(BaseClass):
 					self.TeamDict['Charts'].ManagementDict.values()
 				)
 
-			#Set a gap
-			if len(ViewedChartsManager.ManagementDict)>0:
-				ViewedChartsManager.ManagementDict.getValue(0).PyplotingShiftIntsTuple=(2,0)
+				#Set a gap
+				if len(ViewedChartsManager.ManagementDict)>0:
+					ViewedChartsManager.ManagementDict.getValue(0).PyplotingShiftIntsTuple=(2,0)
 
 	def viewTrace(self):
 
@@ -1690,6 +1698,19 @@ class BrianerClass(BaseClass):
 		self.ViewingXVariable=self.BrianedStateMonitorVariable.t/(
 			BrianedTimeUnit
 		)
+
+		#debug
+		'''
+		self.debug(
+			[
+				'We have putted without dimension the X time variable',
+				('self.',self,[
+						'ViewingXVariable'
+					]
+				)
+			]
+		)
+		'''
 
 		#set
 		self.ViewingXLabelStr='$t\ ('+str(
@@ -1966,7 +1987,9 @@ class BrianerClass(BaseClass):
 					'ViewingXLabelStr',
 					'ViewingYLabelStr',
 					'ViewingXVariable',
-					'ViewingYVariable'
+					'ViewingYVariable',
+					'ViewingXScaleFloat',
+					'ViewingYScaleFloat'
 				]
 			)
 			BrianedChartDerivePyploter.view()

@@ -21,3 +21,6 @@ methods like the 'default_init' (cf. Defaultor),'do_<DoMethodStr>'
 import ShareYourSystem as SYS
 SYS.setConceptModule(globals())
 #</DefineConcept>
+
+#import
+from ShareYourSystem.Standards.Classors import Classor

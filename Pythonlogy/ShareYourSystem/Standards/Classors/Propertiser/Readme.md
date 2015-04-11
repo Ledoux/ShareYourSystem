@@ -35,6 +35,616 @@ FrozenIsBool True
 
 ##Example
 
+Let's create a class with one property value.
+By default the class has also a _<PropertyKeyStr> value that is the init value.
+
+```python
+#ImportModules
+import ShareYourSystem as SYS
+
+#Define
+@SYS.PropertiserClass()
+class MakerClass(SYS.PrinterClass):
+
+    def default_init(self,
+            _MakingMyFloat={
+                            'DefaultValueType':property,
+                            'PropertyInitVariable':3.,
+                            'PropertyDocStr':'I am doing the thing here'
+                            }
+        ):
+        SYS.PrinterClass.__init__(self)
+
+#Print and show that the class has already propertize_(get,set,del)MakingMyFloat
+# a default _MakingMyFloat value and the MakingMyFloat prop
+print('SYS.MakerClass.__dict__ is')
+print(SYS.indent(SYS.MakerClass.__dict__))
+
+#Define
+MyMaker=SYS.MakerClass()
+
+#print the __dict__, there is no things related to the
+#MakingMyFloat property
+print('MyMaker.__dict__ before set is ')
+SYS._print(MyMaker.__dict__)
+
+#set
+MyMaker.MakingMyFloat=7.
+
+#print the __dict__, now there is the hidden attribute
+print('MyMaker.__dict__ after set is ')
+SYS._print(MyMaker.__dict__)
+
+#Define
+MyMaker=SYS.MakerClass()
+
+#print the repr : the instance just show the MakingMyFloat key
+#that is actually the get of _MakingMyFloat in the class
+print('MyMaker before set is ')
+SYS._print(MyMaker)
+
+#set
+MyMaker.MakingMyFloat=7.
+
+#print the repr : now the instance shows the _MakingMyFloat
+#value that is particulat for the instance
+print('MyMaker after set is ')
+SYS._print(MyMaker)
+
+```
+
+
+```console
+>>>
+SYS.MakerClass.__dict__ is
+{
+  "__module__": "__builtin__",
+  "DoneAttributeVariablesOrderedDict": "OrderedDict()",
+  "MakingMyFloat": "<property object at 0x10bf55310>",
+  "DoneStr": "Made",
+  "DoMakerExecStr": "def superDo_make(_InstanceVariable,_MyFloat=None,*_LiargVar
+iablesList,**_KwargVariablesDict):\n\t\n\tif type(_MyFloat)!=None.__class__:\n\t
+\t_InstanceVariable.MakingMyFloat=_MyFloat;\n",
+  "__init__": "<function superDefault_init at 0x10a9ce758>",
+  "DoerStr": "Maker",
+  "ConceptModuleStr": "",
+  "DeriveClassor":
+"<ShareYourSystem.Standards.Classors.Propertiser.PropertiserClass object at
+0x10bfc3790>",
+  "SelfClass": "<class 'MakerClass'>",
+  "default_init": "<function default_init at 0x10bfb6398>",
+  "make": "<function superDo_make at 0x10a458410>",
+  "DefaultBaseKeyStrsList": "['PrintIdInt', 'PrintStr', 'PrintingCopyVariable',
+'PrintingInstanceSkipKeyStrsList', 'PrintingInstanceForceKeyStrsList',
+'PrintingClassSkipKeyStrsList', 'PrintingClassForceKeyStrsList',
+'PrintingBaseBool', 'PrintingNewInstanceBool', 'PrintingNewClassBool',
+'PrintingOutBool', 'PrintingSelfBool', 'PrintingInfoStr',
+'PrintingInstanceForceBaseKeyStrsList']",
+  "superDefault_init": "<function superDefault_init at 0x10a9ce758>",
+  "PropertizedDefaultTuplesList": "[('MakingMyFloat', <property object at
+0x10bf55310>)]",
+  "DoingAttributeVariablesOrderedDict": "OrderedDict([('MakingMyFloat',
+{'PropertyDocStr': 'I am doing the thing here', 'PropertyInitVariable': 3.0,
+'DefaultValueType': <type 'property'>})])",
+  "KeyStrsList": "['ConceptModuleStr', 'DeriveClassor', 'SelfClass',
+'MroClassesDict', 'MroClassesList', 'Module', 'InspectMethodDict', 'NameStr',
+'InspectInspectDict', 'KeyStrsList', 'DefaultInitBool',
+'DefaultAttributeVariablesOrderedDict', 'InitInspectDict',
+'DefaultBaseKeyStrsList', 'DefaultSpecificKeyStrsList', 'MakingMyFloat',
+'DoerStr', 'DoStr', 'DoneStr', 'DoingStr', 'DoneAttributeVariablesOrderedDict',
+'DoingAttributeVariablesOrderedDict', 'DoingDeprefixAttributeStrsList',
+'DoMethodStr', 'DoHistoryOrderedDict', 'DoMakerExecStr', 'DoingGetBool',
+'DoTempAttributeItemTuplesList', 'DoTempNotAttributeItemTupleItemsList',
+'DoMethodStrsList', 'MroDoerClassesList', 'PropertyMethodsDict',
+'PropertizedDefaultTuplesList']",
+  "PropertyMethodsDict": "{'propertize_getMakingMyFloat': <function
+propertize_getMakingMyFloat at 0x10bf9ce60>, 'propertize_delMakingMyFloat':
+<function propertize_delMakingMyFloat at 0x10bf9cc80>,
+'propertize_setMakingMyFloat': <function propertize_setMakingMyFloat at
+0x10bf9ced8>}",
+  "DoStr": "Make",
+  "__doc__": "None",
+  "DoMethodStrsList": "['interface', '_print', 'make']",
+  "propertize_getMakingMyFloat": "<function propertize_getMakingMyFloat at
+0x10bf9ce60>",
+  "DoingDeprefixAttributeStrsList": "['_MyFloat']",
+  "DoingStr": "Making",
+  "InitInspectDict": "InspectDict([('DefaultIndexInt', 1), ('InputKeyStrsList',
+['self', '_MakingMyFloat']), ('LiargVariablesListKeyStr', ''),
+('KwargVariablesSetTagStr', ''), ('DefaultOrderedDict',
+OrderedDict([('_MakingMyFloat', {'PropertyDocStr': 'I am doing the thing here',
+'PropertyInitVariable': 3.0, 'DefaultValueType': <type 'property'>})])),
+('FunctionNameStr', 'default_init')])",
+  "InspectInspectDict": "{'getClass': InspectDict([('DefaultIndexInt', 1),
+('InputKeyStrsList', ['_InstanceVariable', '_ClassVariable']),
+('LiargVariablesListKeyStr', ''), ('KwargVariablesSetTagStr', ''),
+('DefaultOrderedDict', OrderedDict([('_ClassVariable', None)])),
+('FunctionNameStr', 'getClass')]), 'callDo': InspectDict([('DefaultIndexInt',
+1), ('InputKeyStrsList', ['_InstanceVariable']), ('LiargVariablesListKeyStr',
+''), ('KwargVariablesSetTagStr', ''), ('DefaultOrderedDict', OrderedDict()),
+('FunctionNameStr', 'callDo')]), '_print': InspectDict([('DefaultIndexInt', 1),
+('InputKeyStrsList', ['_InstanceVariable', '_CopyVariable',
+'_InstanceSkipKeyStrsList', '_InstanceForceKeyStrsList',
+'_ClassSkipKeyStrsList', '_ClassForceKeyStrsList', '_BaseBool',
+'_NewInstanceBool', '_NewClassBool', '_OutBool', '_SelfBool', '_InfoStr',
+'_InstanceForceBaseKeyStrsList']), ('LiargVariablesListKeyStr',
+'_LiargVariablesList'), ('KwargVariablesSetTagStr', '_KwargVariablesDict'),
+('DefaultOrderedDict', OrderedDict([('_CopyVariable', None),
+('_InstanceSkipKeyStrsList', None), ('_InstanceForceKeyStrsList', None),
+('_ClassSkipKeyStrsList', None), ('_ClassForceKeyStrsList', None), ('_BaseBool',
+None), ('_NewInstanceBool', None), ('_NewClassBool', None), ('_OutBool', None),
+('_SelfBool', None), ('_InfoStr', None), ('_InstanceForceBaseKeyStrsList',
+None)])), ('FunctionNameStr', 'superDo__print')]), 'forcePrint':
+InspectDict([('DefaultIndexInt', 3), ('InputKeyStrsList', ['self',
+'_KeyStrsList', '_ClassStr']), ('LiargVariablesListKeyStr', ''),
+('KwargVariablesSetTagStr', ''), ('DefaultOrderedDict', OrderedDict()),
+('FunctionNameStr', 'forcePrint')]), 'callAllMro':
+InspectDict([('DefaultIndexInt', 2), ('InputKeyStrsList', ['_InstanceVariable',
+'_MethodStr']), ('LiargVariablesListKeyStr', '_LiargVariablesList'),
+('KwargVariablesSetTagStr', '_KwargVariablesDict'), ('DefaultOrderedDict',
+OrderedDict()), ('FunctionNameStr', 'callAllMro')]), '__init__':
+InspectDict([('DefaultIndexInt', 1), ('InputKeyStrsList',
+['_InstanceVariable']), ('LiargVariablesListKeyStr', '_LiargVariablesList'),
+('KwargVariablesSetTagStr', '_KwargVariablesDict'), ('DefaultOrderedDict',
+OrderedDict()), ('FunctionNameStr', 'superDefault_init')]), 'setDo':
+InspectDict([('DefaultIndexInt', 1), ('InputKeyStrsList', ['_InstanceVariable',
+'_DoClassVariable']), ('LiargVariablesListKeyStr', ''),
+('KwargVariablesSetTagStr', '_KwargVariablesDict'), ('DefaultOrderedDict',
+OrderedDict([('_DoClassVariable', None)])), ('FunctionNameStr', 'setDo')]),
+'getDoing': InspectDict([('DefaultIndexInt', 1), ('InputKeyStrsList',
+['_InstanceVariable', '_DoClassVariable']), ('LiargVariablesListKeyStr', ''),
+('KwargVariablesSetTagStr', ''), ('DefaultOrderedDict',
+OrderedDict([('_DoClassVariable', None)])), ('FunctionNameStr', 'getDoing')]),
+'getReprStr': InspectDict([('DefaultIndexInt', 1), ('InputKeyStrsList',
+['self']), ('LiargVariablesListKeyStr', ''), ('KwargVariablesSetTagStr',
+'_KwargVariablesDict'), ('DefaultOrderedDict', OrderedDict()),
+('FunctionNameStr', 'getReprStr')]), 'make': InspectDict([('DefaultIndexInt',
+1), ('InputKeyStrsList', ['_InstanceVariable', '_MyFloat']),
+('LiargVariablesListKeyStr', '_LiargVariablesList'), ('KwargVariablesSetTagStr',
+'_KwargVariablesDict'), ('DefaultOrderedDict', OrderedDict([('_MyFloat',
+None)])), ('FunctionNameStr', 'superDo_make')]), 'superDefault_init':
+InspectDict([('DefaultIndexInt', 1), ('InputKeyStrsList',
+['_InstanceVariable']), ('LiargVariablesListKeyStr', '_LiargVariablesList'),
+('KwargVariablesSetTagStr', '_KwargVariablesDict'), ('DefaultOrderedDict',
+OrderedDict()), ('FunctionNameStr', 'superDefault_init')]), 'do__print':
+InspectDict([('DefaultIndexInt', 1), ('InputKeyStrsList', ['self']),
+('LiargVariablesListKeyStr', ''), ('KwargVariablesSetTagStr',
+'_KwargVariablesDict'), ('DefaultOrderedDict', OrderedDict()),
+('FunctionNameStr', 'do__print')]), 'superDo__print':
+InspectDict([('DefaultIndexInt', 1), ('InputKeyStrsList', ['_InstanceVariable',
+'_CopyVariable', '_InstanceSkipKeyStrsList', '_InstanceForceKeyStrsList',
+'_ClassSkipKeyStrsList', '_ClassForceKeyStrsList', '_BaseBool',
+'_NewInstanceBool', '_NewClassBool', '_OutBool', '_SelfBool', '_InfoStr',
+'_InstanceForceBaseKeyStrsList']), ('LiargVariablesListKeyStr',
+'_LiargVariablesList'), ('KwargVariablesSetTagStr', '_KwargVariablesDict'),
+('DefaultOrderedDict', OrderedDict([('_CopyVariable', None),
+('_InstanceSkipKeyStrsList', None), ('_InstanceForceKeyStrsList', None),
+('_ClassSkipKeyStrsList', None), ('_ClassForceKeyStrsList', None), ('_BaseBool',
+None), ('_NewInstanceBool', None), ('_NewClassBool', None), ('_OutBool', None),
+('_SelfBool', None), ('_InfoStr', None), ('_InstanceForceBaseKeyStrsList',
+None)])), ('FunctionNameStr', 'superDo__print')]), 'superDo_make':
+InspectDict([('DefaultIndexInt', 1), ('InputKeyStrsList', ['_InstanceVariable',
+'_MyFloat']), ('LiargVariablesListKeyStr', '_LiargVariablesList'),
+('KwargVariablesSetTagStr', '_KwargVariablesDict'), ('DefaultOrderedDict',
+OrderedDict([('_MyFloat', None)])), ('FunctionNameStr', 'superDo_make')]),
+'getDone': InspectDict([('DefaultIndexInt', 1), ('InputKeyStrsList',
+['_InstanceVariable', '_DoClassVariable']), ('LiargVariablesListKeyStr', ''),
+('KwargVariablesSetTagStr', ''), ('DefaultOrderedDict',
+OrderedDict([('_DoClassVariable', None)])), ('FunctionNameStr', 'getDone')]),
+'setDefault': InspectDict([('DefaultIndexInt', 2), ('InputKeyStrsList',
+['_InstanceVariable', '_ClassVariable', '_AttributeKeyVariable']),
+('LiargVariablesListKeyStr', ''), ('KwargVariablesSetTagStr',
+'_KwargVariablesDict'), ('DefaultOrderedDict',
+OrderedDict([('_AttributeKeyVariable', None)])), ('FunctionNameStr',
+'setDefault')]), 'do_interface': InspectDict([('DefaultIndexInt', 1),
+('InputKeyStrsList', ['self']), ('LiargVariablesListKeyStr', ''),
+('KwargVariablesSetTagStr', '_KwargVariablesDict'), ('DefaultOrderedDict',
+OrderedDict()), ('FunctionNameStr', 'do_interface')]), 'interface':
+InspectDict([('DefaultIndexInt', 1), ('InputKeyStrsList',
+['_InstanceVariable']), ('LiargVariablesListKeyStr', '_LiargVariablesList'),
+('KwargVariablesSetTagStr', '_KwargVariablesDict'), ('DefaultOrderedDict',
+OrderedDict()), ('FunctionNameStr', 'superDo_interface')]), 'superDo_interface':
+InspectDict([('DefaultIndexInt', 1), ('InputKeyStrsList',
+['_InstanceVariable']), ('LiargVariablesListKeyStr', '_LiargVariablesList'),
+('KwargVariablesSetTagStr', '_KwargVariablesDict'), ('DefaultOrderedDict',
+OrderedDict()), ('FunctionNameStr', 'superDo_interface')]), 'setDoing':
+InspectDict([('DefaultIndexInt', 1), ('InputKeyStrsList', ['_InstanceVariable',
+'_DoClassVariable']), ('LiargVariablesListKeyStr', ''),
+('KwargVariablesSetTagStr', '_KwargVariablesDict'), ('DefaultOrderedDict',
+OrderedDict([('_DoClassVariable', None)])), ('FunctionNameStr', 'setDoing')]),
+'setDefaultMutable': InspectDict([('DefaultIndexInt', 2), ('InputKeyStrsList',
+['_InstanceVariable', '_ClassVariable', '_AttributeKeyVariable']),
+('LiargVariablesListKeyStr', ''), ('KwargVariablesSetTagStr',
+'_KwargVariablesDict'), ('DefaultOrderedDict',
+OrderedDict([('_AttributeKeyVariable', None)])), ('FunctionNameStr',
+'setDefaultMutable')]), 'default_init': InspectDict([('DefaultIndexInt', 1),
+('InputKeyStrsList', ['self', '_MakingMyFloat']), ('LiargVariablesListKeyStr',
+''), ('KwargVariablesSetTagStr', ''), ('DefaultOrderedDict',
+OrderedDict([('_MakingMyFloat', {'PropertyDocStr': 'I am doing the thing here',
+'PropertyInitVariable': 3.0, 'DefaultValueType': <type 'property'>})])),
+('FunctionNameStr', 'default_init')]), 'getDo': InspectDict([('DefaultIndexInt',
+1), ('InputKeyStrsList', ['_InstanceVariable', '_DoClassVariable']),
+('LiargVariablesListKeyStr', ''), ('KwargVariablesSetTagStr', ''),
+('DefaultOrderedDict', OrderedDict([('_DoClassVariable', None)])),
+('FunctionNameStr', 'getDo')]), '__repr__': InspectDict([('DefaultIndexInt', 1),
+('InputKeyStrsList', ['self']), ('LiargVariablesListKeyStr', ''),
+('KwargVariablesSetTagStr', '_KwargVariablesDict'), ('DefaultOrderedDict',
+OrderedDict()), ('FunctionNameStr', '__repr__')]), 'setDone':
+InspectDict([('DefaultIndexInt', 1), ('InputKeyStrsList', ['_InstanceVariable',
+'_DoClassVariable']), ('LiargVariablesListKeyStr', ''),
+('KwargVariablesSetTagStr', '_KwargVariablesDict'), ('DefaultOrderedDict',
+OrderedDict([('_DoClassVariable', None)])), ('FunctionNameStr', 'setDone')])}",
+  "superDo_make": "<function superDo_make at 0x10a458410>",
+  "DoMethodStr": "make",
+  "propertize_delMakingMyFloat": "<function propertize_delMakingMyFloat at
+0x10bf9cc80>",
+  "DefaultSpecificKeyStrsList": "['MakingMyFloat']",
+  "_MakingMyFloat": "3.0",
+  "MroDoerClassesList": "[<class
+'ShareYourSystem.Standards.Interfacers.Interfacer.InterfacerClass'>, <class
+'ShareYourSystem.Standards.Interfacers.Printer.PrinterClass'>, <class
+'MakerClass'>]",
+  "InspectMethodDict": "MethodDict([('__init__', <unbound method
+MakerClass.superDefault_init>), ('__repr__', <unbound method
+MakerClass.__repr__>), ('_print', <unbound method MakerClass.superDo__print>),
+('callAllMro', <unbound method MakerClass.callAllMro>), ('callDo', <unbound
+method MakerClass.callDo>), ('default_init', <unbound method
+MakerClass.default_init>), ('do__print', <unbound method MakerClass.do__print>),
+('do_interface', <unbound method MakerClass.do_interface>), ('forcePrint',
+<unbound method MakerClass.forcePrint>), ('getClass', <unbound method
+MakerClass.getClass>), ('getDo', <unbound method MakerClass.getDo>),
+('getDoing', <unbound method MakerClass.getDoing>), ('getDone', <unbound method
+MakerClass.getDone>), ('getReprStr', <unbound method MakerClass.getReprStr>),
+('interface', <unbound method MakerClass.superDo_interface>), ('setDefault',
+<unbound method MakerClass.setDefault>), ('setDefaultMutable', <unbound method
+MakerClass.setDefaultMutable>), ('setDo', <unbound method MakerClass.setDo>),
+('setDoing', <unbound method MakerClass.setDoing>), ('setDone', <unbound method
+MakerClass.setDone>), ('superDefault_init', <unbound method
+MakerClass.superDefault_init>), ('superDo__print', <unbound method
+MakerClass.superDo__print>), ('superDo_interface', <unbound method
+MakerClass.superDo_interface>), ('superDo_make', <function superDo_make at
+0x10a458410>), ('make', <function superDo_make at 0x10a458410>)])",
+  "DoingGetBool": "False",
+  "Module": "<module '__builtin__' (built-in)>",
+  "DefaultAttributeVariablesOrderedDict": "OrderedDict([('MakingMyFloat',
+{'PropertyDocStr': 'I am doing the thing here', 'PropertyInitVariable': 3.0,
+'DefaultValueType': <type 'property'>})])",
+  "propertize_setMakingMyFloat": "<function propertize_setMakingMyFloat at
+0x10bf9ced8>",
+  "MroClassesList": "(<class 'MakerClass'>, <class
+'ShareYourSystem.Standards.Interfacers.Printer.PrinterClass'>, <class
+'ShareYourSystem.Standards.Interfacers.Interfacer.InterfacerClass'>, <type
+'object'>)",
+  "MroClassesDict": "{'PrinterClass': <class
+'ShareYourSystem.Standards.Interfacers.Printer.PrinterClass'>,
+'InterfacerClass': <class
+'ShareYourSystem.Standards.Interfacers.Interfacer.InterfacerClass'>,
+'MakerClass': <class 'MakerClass'>, 'object': <type 'object'>}",
+  "NameStr": "Maker"
+}
+MyMaker.__dict__ before set is
+
+   /{
+   /  'DefaultInitBool' : True
+   /  'PrintIdInt' : 4495470544
+   /  'PrintingInstanceForceKeyStrsList' : []
+   /  'PrintingInstanceSkipKeyStrsList' : []
+   /}
+MyMaker.__dict__ after set is
+
+   /{
+   /  'DefaultInitBool' : True
+   /  'PrintIdInt' : 4495470544
+   /  'PrintingInstanceForceKeyStrsList' : []
+   /  'PrintingInstanceSkipKeyStrsList' : []
+   /  '_MakingMyFloat' : 7.0
+   /}
+MyMaker before set is
+< (MakerClass), 4495821648 >
+   /{
+   /  '<Spe><Class>MakingMyFloat' : 3.0
+   /}
+MyMaker after set is
+< (MakerClass), 4495821648 >
+   /{
+   /  '<Spe><Class>MakingMyFloat' : 7.0
+   /}
+
+```
+
+
+
+<!---
+FrozenIsBool True
+-->
+
+##Example
+
+Going back to the Doer cell when we invented a very minimalist Maker.
+We now define its MakingMyFloat as a property that can be then defined as
+a "binding" attribute thanks to the setMakingMyFloat method definition,
+that will be linked to the fset attribute of the property object.
+
+```python
+#ImportModules
+import ShareYourSystem as SYS
+
+#Define
+@SYS.PropertiserClass()
+class MakerClass(object):
+
+    def default_init(self,
+            _MakingMyFloat={
+                            'DefaultValueType':property,
+                            'PropertyInitVariable':3.,
+                            'PropertyDocStr':'I am doing the thing here'
+                            },
+            _MakingMyList={
+                            'DefaultValueType':property,
+                            'PropertyInitVariable':[],
+                            'PropertyDocStr':'I am doing the thing here'
+                            },
+            _MakingMyInt={'DefaultValueType':int},
+            _MadeMyInt=0
+        ):
+        object.__init__(self)
+
+    #Definition a binding function
+    def propertize_setMakingMyFloat(self,_SettingValueVariable):
+
+        #Print
+        #print('I am going to make the job directly !')
+
+        #set the value of the "hidden" property variable
+        self._MakingMyFloat=_SettingValueVariable
+
+        #Bind with MadeInt setting
+        self.MadeMyInt=int(self._MakingMyFloat)
+
+    #Definition a binding function
+    def propertize_setMakingMyList(self,_SettingValueVariable):
+
+        #set the value of the "hidden" property variable
+        self._MakingMyList=_SettingValueVariable+['Hellllllo']
+
+
+#Definition a default instance
+DefaultMaker=MakerClass()
+
+#Definition a special instance
+SpecialMaker=MakerClass(_MakingMyFloat=5,_MakingMyList=[4])
+
+#Definition the AttestedStr
+print('\n'.join(
+    [
+        'MakerClass.PropertizedDefaultTuplesList is '+SYS._str(
+            MakerClass.PropertizedDefaultTuplesList),
+        'What are you saying DefaultMaker ?',
+        'DefaultMaker.__dict__ is '+str(DefaultMaker.__dict__),
+        'DefaultMaker.MakingMyFloat is '+str(DefaultMaker.MakingMyFloat),
+        'DefaultMaker.MakingMyList is '+str(DefaultMaker.MakingMyList),
+        'DefaultMaker.MadeMyInt is '+str(DefaultMaker.MadeMyInt),
+        'What are you saying SpecialMaker ?',
+        'SpecialMaker.__dict__ is '+str(SpecialMaker.__dict__),
+        'SpecialMaker.MakingMyFloat is '+str(SpecialMaker.MakingMyFloat),
+        'SpecialMaker.MakingMyList is '+str(SpecialMaker.MakingMyList),
+        'SpecialMaker.MadeMyInt is '+str(SpecialMaker.MadeMyInt),
+    ]
+    )
+)
+
+#Print
+
+
+```
+
+
+```console
+>>>
+MakerClass.PropertizedDefaultTuplesList is
+   /[
+   /  0 :
+   /   /(
+   /   /  0 : MakingMyFloat
+   /   /  1 : <property object at 0x10c00a520>
+   /   /)
+   /  1 :
+   /   /(
+   /   /  0 : MakingMyList
+   /   /  1 : <property object at 0x10c00a470>
+   /   /)
+   /]
+What are you saying DefaultMaker ?
+DefaultMaker.__dict__ is {'DefaultInitBool': True}
+DefaultMaker.MakingMyFloat is 3.0
+DefaultMaker.MakingMyList is []
+DefaultMaker.MadeMyInt is 0
+What are you saying SpecialMaker ?
+SpecialMaker.__dict__ is {'DefaultInitBool': True, 'MadeMyInt': 5,
+'_MakingMyFloat': 5, '_MakingMyList': [4, 'Hellllllo']}
+SpecialMaker.MakingMyFloat is 5
+SpecialMaker.MakingMyList is [4, 'Hellllllo']
+SpecialMaker.MadeMyInt is 5
+
+```
+
+
+
+<!---
+FrozenIsBool True
+-->
+
+##Example
+
+Note that setting a propertize method in a derived class works also and
+overwrite the previous one. But we need to redefine the property. This will be
+automatic in the Classer.
+
+```python
+#ImportModules
+import ShareYourSystem as SYS
+
+#Define
+@SYS.PropertiserClass()
+class MakerClass(object):
+
+    def default_init(self,
+            _MakingMyFloat={
+                            'DefaultValueType':property,
+                            'PropertyInitVariable':3.,
+                            'PropertyDocStr':'I am doing the thing here'
+                            },
+            _MakingMyList={
+                            'DefaultValueType':property,
+                            'PropertyInitVariable':[],
+                            'PropertyDocStr':'I am doing the thing here'
+                            },
+            _MakingMyInt={'DefaultValueType':int},
+            _MadeMyInt=0
+        ):
+        object.__init__(self)
+
+    def propertize_setMakingMyFloat(self,_SettingValueVariable):
+
+        #Print
+        #print('I am going to make the job directly !')
+
+        #set the value of the "hidden" property variable
+        self._MakingMyFloat=_SettingValueVariable
+
+        #Bind with MadeInt setting
+        self.MadeMyInt=int(self._MakingMyFloat)
+
+    def propertize_setMakingMyList(self,_SettingValueVariable):
+
+        #set the value of the "hidden" property variable
+        self._MakingMyList=_SettingValueVariable+['Hellllllo']
+
+
+#Define
+@SYS.PropertiserClass()
+class BuilderClass(MakerClass):
+
+    def default_init(
+                        self
+                    ):
+        SYS.MakerClass.__init__(self)
+
+    def propertize_setMakingMyList(self,_SettingValueVariable):
+
+        #call the base method
+        MakerClass.propertize_setMakingMyList(self,_SettingValueVariable)
+
+        #set the value of the "hidden" property variable
+        self._MakingMyList+=['Build en plus !']
+
+    #We need here to redefine
+    MakingMyList=property(
+            MakerClass.MakingMyList.fget,
+            propertize_setMakingMyList,
+            MakerClass.MakingMyList.fdel
+        )
+
+#Definition a special instance
+SpecialBuilder=BuilderClass(_MakingMyFloat=5,_MakingMyList=[4])
+
+#Definition the AttestedStr
+print('\n'.join(
+    [
+        'What are you saying SpecialBuilder ?',
+        'SpecialBuilder.__dict__ is '+str(SpecialBuilder.__dict__),
+        'SpecialBuilder.MakingMyFloat is '+str(SpecialBuilder.MakingMyFloat),
+        'SpecialBuilder.MakingMyList is '+str(SpecialBuilder.MakingMyList),
+        'SpecialBuilder.MadeMyInt is '+str(SpecialBuilder.MadeMyInt),
+    ]
+    )
+)
+
+#Print
+
+
+```
+
+
+```console
+>>>
+What are you saying SpecialBuilder ?
+SpecialBuilder.__dict__ is {'DefaultInitBool': True}
+SpecialBuilder.MakingMyFloat is 3.0
+SpecialBuilder.MakingMyList is []
+SpecialBuilder.MadeMyInt is 0
+
+```
+
+
+
+<!---
+FrozenIsBool True
+-->
+
+##Example
+
+Note that there is an option in the property to define binding shape attributes
+for an array.
+
+```python
+#ImportModules
+import ShareYourSystem as SYS
+
+#Define
+@SYS.PropertiserClass()
+class MakerClass(object):
+
+    def default_init(self,
+            _MakingMyList={
+                            'DefaultValueType':property,
+                            'PropertyInitVariable':None,
+                            'PropertyDocStr':'I am doing the thing here',
+                            'ShapeKeyStrsList':['MakingMyInt']
+                            },
+            _MakingMyInt=3,
+            _MadeMyInt=0
+        ):
+        object.__init__(self)
+
+
+#Define
+MyMaker=MakerClass()
+
+#Set and this will bind the value of MakingMyInt
+MyMaker.MakingMyList=[3,4]
+
+#print
+print('MyMaker.__dict__ is ')
+print(SYS.indent(MyMaker))
+print(MyMaker.__class__.DefaultAttributeVariablesOrderedDict['MakingMyList'])
+
+
+
+```
+
+
+```console
+>>>
+MyMaker.__dict__ is
+{
+  "DefaultInitBool": "True",
+  "_MakingMyList": "[3, 4]",
+  "MakingMyInt": "2"
+}
+{'ShapeKeyStrsList': ['MakingMyInt'], 'PropertyDocStr': 'I am doing the thing
+here', 'PropertyInitVariable': None, 'DefaultValueType': <type 'property'>}
+
+```
+
+
+
+<!---
+FrozenIsBool True
+-->
+
+##Example
+
 In the opposite way
 
 ```python
