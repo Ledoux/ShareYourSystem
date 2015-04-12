@@ -50,8 +50,6 @@ MyPredicter=SYS.PredicterClass(
 # View
 #
 
-print('\n\n\nNNNNN\n\n\n')
-
 MyPredicter.view(
 	).pyplot(
 	)

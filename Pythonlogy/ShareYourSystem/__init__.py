@@ -2514,7 +2514,6 @@ def getTickFloatsArray(_LimList,_SampleFloat):
 	import numpy
 
 	#Debug
-	'''
 	print('SYS l 2517')
 	print('getTickFloatsArray l 64')
 	print('_LimList is')
@@ -2522,7 +2521,6 @@ def getTickFloatsArray(_LimList,_SampleFloat):
 	print('_SampleFloat is ')
 	print(_SampleFloat)
 	print('')
-	'''
 
 	#return
 	TickFloatsArray=numpy.array(
@@ -2536,12 +2534,10 @@ def getTickFloatsArray(_LimList,_SampleFloat):
 	)
 
 	#Debug
-	'''
 	print('TickFloatsArray l 2536')
 	print('TickFloatsArray is')
 	print(TickFloatsArray)
 	print('')
-	'''
 
 	#return 
 	return TickFloatsArray
@@ -2549,10 +2545,12 @@ def getTickFloatsArray(_LimList,_SampleFloat):
 def getFloatStr(_Float):
 
 	#Debug
+	'''
 	print('SYS l 2552')
 	print('_Float is')
 	print(_Float)
 	print('')
+	'''
 
 	#Check
 	if _Float==0.:
@@ -2563,29 +2561,43 @@ def getFloatStr(_Float):
 	else:
 
 		#Check
-		if _Float>1.:
+		if abs(_Float)>1.:
 
 			#format
 			FloatStr='%.2f'%_Float
 
+			#remove 0 on the right
+			while FloatStr[-1]=='0':
+				FloatStr=FloatStr[:-1]
+
+		elif abs(_Float)<0.000000001:
+
+			#return
+			FloatStr='0'
+
 		else:
 
 			#str
-			FloatStr=str(_Float)
+			#FloatStr=str(_Float)
+			FloatStr='%.10f'%_Float
 
 			#Debug
-			'''
-			print('SYS l 2551')
+			print('SYS l 2576')
 			print('FloatStr is')
 			print(FloatStr)
 			print('')
-			'''
 			
+			#Check
+			if FloatStr[0]=='-':
+				DecimalFloatStr=FloatStr[1:]
+			else:
+				DecimalFloatStr=FloatStr
+
 			#index
 			DecimalInt=map(
 				lambda __Str:
-				__Str!='0' and __Str!='.',
-				FloatStr
+				__Str not in '0' and __Str!='.',
+				DecimalFloatStr
 			).index(True)
 
 			#Debug
@@ -2596,23 +2608,28 @@ def getFloatStr(_Float):
 			'''
 
 			#get
-			FloatStr=FloatStr[:DecimalInt+2]
+			if FloatStr[0]=='-':
+				FloatStr='-'+DecimalFloatStr[:DecimalInt+2]
+			else:
+				FloatStr=DecimalFloatStr[:DecimalInt+2]
 
-	
-		#remove 0 on the right
-		while FloatStr[-1]=='0':
-			FloatStr=FloatStr[:-1]
+			#Debug
+			print('FloatStr is')
+			print(FloatStr)
+			print('')
+
+			#remove 0 on the right
+			while FloatStr[-1]=='0':
+				FloatStr=FloatStr[:-1]
 
 	#Debug
-	print('SYS l 2594')
+	print('SYS l 2612')
 	print('FloatStr is')
 	print(FloatStr)
 	print('')
 
 	#return
 	return FloatStr
-
-
 
 #</DefineLocals>
 

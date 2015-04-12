@@ -67,42 +67,35 @@ class ViewerClass(BaseClass):
 
 	def do_view(self):
 
-		#debug
-		'''
-		self.debug(
-				[
-					'We view here',
-					('self.',self,[
-						'ViewingQtBool'
-					])
-				]
-			)
-		'''
-
 		#Check
 		if self.ViewingIdStr=="":
 			self.ViewingIdStr=str(self.PrintIdInt)
 
+		#set
+		#self.ViewedTagStr='_'+self.ViewingIdStr+'_'+self.StructureTagStr.replace('*','')
+		self.ViewedTagStr='_'+self.ViewingIdStr+'_'
+
 		#debug
-		'''
 		self.debug(
-			[
-				"id(self) is ",
-				str(id(self)),
-				('self.',self,['ViewingIdStr']),
-				'SYS.IdDict["+self.ViewingIdStr+"]',
-				SYS._str(SYS.IdDict[int(self.ViewingIdStr)]),
+				[
+					'We view here',
+					('self.',self,[
+						'ViewingIdStr',
+						'ViewedTagStr'
+						]
+					),
+				#"id(self) is ",
+				#str(id(self)),
+				#('self.',self,['ViewingIdStr']),
+				#'SYS.IdDict["+self.ViewingIdStr+"]',
+				#SYS._str(SYS.IdDict[int(self.ViewingIdStr)]),
 				#SYS._str(SYS.IdDict[id(self)]),
-				('self.',self,[
-					'ViewingXVariable',
-					'ViewingYVariable'
-				])
+				#('self.',self,[
+				#	'ViewingXVariable',
+				#	'ViewingYVariable'
+				#])
 			]
 		)
-		'''
-
-		#set
-		self.ViewedTagStr=self.StructureTagStr.replace('*','')
 
 		#/####################/#
 		# Now we view each Axe
@@ -191,6 +184,7 @@ class ViewerClass(BaseClass):
 		)
 
 		#debug
+		'''
 		self.debug(
 			[
 				'Scale the tick labels',
@@ -199,6 +193,7 @@ class ViewerClass(BaseClass):
 					])
 			]
 		)
+		'''
 
 		#set
 		setattr(

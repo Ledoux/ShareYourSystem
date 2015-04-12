@@ -44,13 +44,14 @@ class ExecuterClass(BaseClass):
 	def do_execute(self):
 
 		#debug
-		'''
 		self.debug(
-			('self.',self,[
-					'ExecutingCodeStr'
-				])
+			[
+				'We execute here',
+				('self.',self,[
+						'ExecutingCodeStr'
+					])
+			]
 		)
-		'''
 		
 		#give the sys
 		locals()['SYS']=SYS

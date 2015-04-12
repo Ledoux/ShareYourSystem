@@ -737,11 +737,13 @@ class PredicterClass(BaseClass):
 	def viewSample(self):
 
 		#debug
+		'''
 		self.debug(
 			[
 				'We predict view sample here'
 			]
 		)
+		'''
 		
 		#Check
 		self.ViewingXScaleFloat=1000.

@@ -334,12 +334,15 @@ class PyploterClass(BaseClass):
 						if self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable.PyplotedParentSingularStr=='Panel':
 
 							#debug
+							'''
 							self.debug(
 								[
 									'Ok there is a parent Panel for this Chart',
 									'Check now for a parent figure'
 								]
-							)
+							)	
+							'''
+
 
 							#alias
 							self.PyplotedParentPanelDerivePyploterVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
@@ -356,6 +359,7 @@ class PyploterClass(BaseClass):
 							self.PyplotedParentFigureDerivePyploterVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
 								
 							#debug
+							'''
 							self.debug(
 									[
 										'There is no Panel parent',
@@ -365,11 +369,13 @@ class PyploterClass(BaseClass):
 											])
 									]
 								)
+							'''
 
 							#set
 							if self.PyplotingShapeVariable==None:
 
 								#debug
+								'''
 								self.debug(
 									[
 										('self.',self,[
@@ -380,7 +386,8 @@ class PyploterClass(BaseClass):
 										str(self.PyplotedParentPanelDerivePyploterVariable.PyplotedCursorIntsList)
 									]
 								)
-
+								'''
+								
 								#set	
 								self.PyplotingShapeVariable=list(
 									self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridIntsTuple
