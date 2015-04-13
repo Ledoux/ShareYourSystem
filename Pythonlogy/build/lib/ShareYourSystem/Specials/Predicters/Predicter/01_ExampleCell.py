@@ -13,9 +13,11 @@ import ShareYourSystem as SYS
 MyPredicter=SYS.PredicterClass(
 	).mapSet(
 		{
+			'PredictingDynamicBool':False,
 			'-Populations':{
 				'|Sensor':{
 					'LeakingUnitsInt':1,
+					'LeakingMonitorIndexIntsList':[0],
 					'-Inputs':{
 						#'|Command':{
 						#	'LeakingWeigthVariable':
@@ -32,13 +34,14 @@ MyPredicter=SYS.PredicterClass(
 					#'LeakingTransferVariable':lambda __Float:__Float,
 					#'BrianingDebugInt':100,
 				},
-				#'|Agent':{
-				#	'LeakingUnitsInt':1,
-				#	'-Interactions':{
-				#		'|Fast':{
-				#		}
-				#	},
-				#}
+				'|Agent':{
+					'LeakingUnitsInt':3,
+					'LeakingMonitorIndexIntsList':[0,1,2],
+					#'-Interactions':{
+					#	'|Fast':{
+					#	}
+					#},
+				}
 			}
 		}
 	).predict(

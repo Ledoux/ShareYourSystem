@@ -37,15 +37,16 @@ RecordPrefixStr='*'
 class RecorderClass(BaseClass):
 	
 	def default_init(self,
-						_RecordKeyStr="",
-						_RecordingKeyVariable=None,
-						_RecordingLabelVariable=None,
-						_RecordingColorStr="blue",
-						_RecordedTraceFloatsArray=None,
-						_RecordedInitFloatsArray=None,
-						_RecordedParentSingularStr="",		
-						**_KwargVariablesDict
-					):
+			_RecordKeyStr="",
+			_RecordingKeyVariable=None,
+			_RecordingLabelVariable=None,
+			_RecordingColorStr="blue",
+			_RecordedTraceFloatsArray=None,
+			_RecordedInitFloatsArray=None,
+			_RecordedParentSingularStr="",	
+			_RecordedColorTuplesList=None,	
+			**_KwargVariablesDict
+		):
 
 		#Call the parent __init__ method
 		BaseClass.__init__(self,**_KwargVariablesDict)

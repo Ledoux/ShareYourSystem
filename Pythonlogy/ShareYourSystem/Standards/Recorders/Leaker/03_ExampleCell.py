@@ -16,6 +16,7 @@ MyLeaker=SYS.LeakerClass(
 			'-Populations':{
 				'|Sensor':{
 					'LeakingUnitsInt':2,
+					'LeakingSymbolPrefixStr':'r',
 					'-Inputs':{
 						'|Command':{
 							#'LeakingWeigthVariable':'#scalar:3.*mV',

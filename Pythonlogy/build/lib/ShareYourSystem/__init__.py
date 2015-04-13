@@ -2514,6 +2514,7 @@ def getTickFloatsArray(_LimList,_SampleFloat):
 	import numpy
 
 	#Debug
+	'''
 	print('SYS l 2517')
 	print('getTickFloatsArray l 64')
 	print('_LimList is')
@@ -2521,7 +2522,8 @@ def getTickFloatsArray(_LimList,_SampleFloat):
 	print('_SampleFloat is ')
 	print(_SampleFloat)
 	print('')
-
+	'''
+	
 	#return
 	TickFloatsArray=numpy.array(
 		list(
@@ -2534,10 +2536,12 @@ def getTickFloatsArray(_LimList,_SampleFloat):
 	)
 
 	#Debug
+	'''
 	print('TickFloatsArray l 2536')
 	print('TickFloatsArray is')
 	print(TickFloatsArray)
 	print('')
+	'''
 
 	#return 
 	return TickFloatsArray
@@ -2582,11 +2586,13 @@ def getFloatStr(_Float):
 			FloatStr='%.10f'%_Float
 
 			#Debug
+			'''
 			print('SYS l 2576')
 			print('FloatStr is')
 			print(FloatStr)
 			print('')
-			
+			'''
+
 			#Check
 			if FloatStr[0]=='-':
 				DecimalFloatStr=FloatStr[1:]
@@ -2614,19 +2620,23 @@ def getFloatStr(_Float):
 				FloatStr=DecimalFloatStr[:DecimalInt+2]
 
 			#Debug
+			'''
 			print('FloatStr is')
 			print(FloatStr)
 			print('')
+			'''
 
 			#remove 0 on the right
 			while FloatStr[-1]=='0':
 				FloatStr=FloatStr[:-1]
 
 	#Debug
+	'''
 	print('SYS l 2612')
 	print('FloatStr is')
 	print(FloatStr)
 	print('')
+	'''
 
 	#return
 	return FloatStr

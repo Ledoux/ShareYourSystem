@@ -37,8 +37,8 @@ def getNullFloatsArray(_FloatsArray, _RtolFloat=1e-5):
 class PredicterClass(BaseClass):
 	
 	def default_init(self,
-			_PredictingSensorsInt=1,
-			_PredictingUnitsInt=1,
+			_PredictingSensorsInt=-1,
+			_PredictingUnitsInt=-1,
 			_PredictingDaleBool=False,
 			_PredictingDynamicBool=True,
 			_PredictingDecoderVariable=None,
@@ -268,9 +268,6 @@ class PredicterClass(BaseClass):
 				'Sensor'
 			).ManagedValueVariable
 
-			#set default
-			LeakedSensorDerivePredicter.LeakingUnitsInt=1
-
 		#/###################/#
 		# Check for Agent
 		# 
@@ -290,10 +287,40 @@ class PredicterClass(BaseClass):
 				'Agent'
 			).ManagedValueVariable
 
-			#set default
-			LeakedAgentDerivePredicter.LeakingUnitsInt=1
+		#/###################/#
+		# Check for Decoder
+		# 
+
+		#Check
+		if 'Decoder' in LeakedPopulationsDeriveManager.ManagementDict:
+
+			#get
+			LeakedDecoderDerivePredicter=LeakedPopulationsDeriveManager.ManagementDict[
+				'Decoder'
+			]
+
+		else:
+
+			#manage
+			LeakedDecoderDerivePredicter=LeakedPopulationsDeriveManager.manage(
+				'Decoder'
+			).ManagedValueVariable
+
+		#debug
+		self.debug(
+			[
+				'Ok we have created the Decoder'
+			]
+		)
 
 	def predictPopulation(self):
+
+		#debug
+		self.debug(
+			[
+				'We predict Population here'
+			]
+		)
 
 		#Check
 		if self.ManagementTagStr=='Sensor':
@@ -313,20 +340,35 @@ class PredicterClass(BaseClass):
 			#Check
 			self.LeakingTimeVariable=self.PredictingTimeVariable
 
-			#/###################/#
-			# Special Sensor setting
-			# 
+			#/####################/#
+			# Find the Sensor Population
+			#
+
+			#set
+			self.PredictedNetworkDerivePredicterVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
+
+			#/####################/#
+			# Determine the number of leaking units
+			#
 
 			#debug
-			'''
 			self.debug(
 				[
-					'we have maybe to define inside the Sensor Inputs and Interactions',
-					"'Inputs' in LeakedSensorDerivePredicter.TeamDict is '",
-					str('Inputs' in LeakedSensorDerivePredicter.TeamDict)
+					'Look for LeakingUnitsInt',
+					('self.',self,[
+							'LeakingUnitsInt',
+							'PredictingSensorsInt'
+						])
 				]
 			)
-			'''
+
+			#set default
+			if self.LeakingUnitsInt==0:
+				self.LeakingUnitsInt=1
+
+			#set
+			if self.PredictedNetworkDerivePredicterVariable.PredictingSensorsInt>-1:
+				self.LeakingUnitsInt=self.PredictedNetworkDerivePredicterVariable.PredictingSensorsInt
 
 			#/###################/#
 			# Check for Inputs in the Sensor
@@ -413,18 +455,18 @@ class PredicterClass(BaseClass):
 				#
 
 				#Check
-				if 'Encoder' in LeakedInteractionsDeriveManager.ManagementDict:
+				if 'Encod' in LeakedInteractionsDeriveManager.ManagementDict:
 
 					#get
 					LeakedEncoderDerivePredicter=LeakedInteractionsDeriveManager.ManagementDict[
-						'Encoder'
+						'Encod'
 					]
 
 				else:
 
 					#manage
 					LeakedEncoderDerivePredicter=LeakedInteractionsDeriveManager.manage(
-						'Encoder'
+						'Encod'
 					).ManagedValueVariable
 
 				#debug
@@ -463,6 +505,30 @@ class PredicterClass(BaseClass):
 			self.PredictedNetworkDerivePredicterVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
 
 			#/####################/#
+			# LeakingUnitsInt
+			#
+
+			#debug
+			self.debug(
+				[
+					'Look for LeakingUnitsInt',
+					('self.',self,[
+							'LeakingUnitsInt'
+						]),
+					'self.PredictedNetworkDerivePredicterVariable.PredictingUnitsInt is ',
+					str(self.PredictedNetworkDerivePredicterVariable.PredictingUnitsInt)
+				]
+			)
+
+			#set default
+			if self.LeakingUnitsInt==0:
+				self.LeakingUnitsInt=1
+
+			#set
+			if self.PredictedNetworkDerivePredicterVariable.PredictingUnitsInt>-1:
+				self.LeakingUnitsInt=self.PredictedNetworkDerivePredicterVariable.PredictingUnitsInt
+
+			#/####################/#
 			# Build the decoder weigths
 			#
 
@@ -475,9 +541,7 @@ class PredicterClass(BaseClass):
 			)
 			'''
 
-			#set
-			self.LeakingUnitsInt=self.PredictingUnitsInt
-
+			
 			#import 
 			import numpy
 
@@ -496,6 +560,9 @@ class PredicterClass(BaseClass):
 
 				#Check
 				self.PredictedDecoderFloatsArray=self.NumscipiedRandomFloatsArray
+
+
+			
 
 
 			#/###################/#
@@ -540,7 +607,6 @@ class PredicterClass(BaseClass):
 			LeakedFastDerivePredicter.ConnectingKeyVariable=self
 
 			#debug
-			'''
 			self.debug(
 				[
 					'We have defined the Fast interaction in the Agent',
@@ -549,7 +615,6 @@ class PredicterClass(BaseClass):
 					str(self.PredictedNetworkDerivePredicterVariable.PredictingDynamicBool)
 				]
 			)
-			'''
 
 			#Check
 			if self.PredictedNetworkDerivePredicterVariable.PredictingDynamicBool:
@@ -582,18 +647,56 @@ class PredicterClass(BaseClass):
 						'Slow'
 					).ManagedValueVariable
 
-				#set the connect target
-				LeakedSlowDerivePredicter.ConnectingKeyVariable=self
-
 				#debug
 				'''
 				self.debug(
 					[
-						'We have defined the Slow interaction in the Agent'
+						'We have defined the Decod interaction in the Agent'
 					]
 				)
 				'''
-	
+
+				#set the connect target
+				LeakedSlowDerivePredicter.ConnectingKeyVariable=self
+
+			else:
+
+				#Check
+				if self.LeakingInteractionStr=='Rate':
+
+					#debug
+					self.debug(
+						[
+							'PredictingDynamicBool is False',
+							"self.LeakingInteractionStr=='Rate'",
+							'So set a direct interaction'
+						]
+					)
+
+					#/###################/#
+					# Specify the Decoder interaction
+					#
+
+					#Check
+					if 'Decod' in LeakedInteractionsDeriveManager.ManagementDict:
+
+						#get
+						LeakedDecodDerivePredicter=LeakedInteractionsDeriveManager.ManagementDict[
+							'Decod'
+						]
+
+					else:
+
+						#manage
+						LeakedDecodDerivePredicter=LeakedInteractionsDeriveManager.manage(
+							'Decod'
+						).ManagedValueVariable
+
+					#set the connect target
+					LeakedDecodDerivePredicter.ConnectingKeyVariable=self.ParentDeriveTeamerVariable.ManagementDict[
+						'Decoder'
+					]
+
 		#Check
 		elif self.ManagementTagStr=='Decoder':
 
@@ -609,12 +712,64 @@ class PredicterClass(BaseClass):
 			)
 			'''
 
+			#set
+			#self.LeakingSymbolPrefixStr="\hat{x}"
+
+			#/####################/#
+			# Determine the parent
+			#
+
+			#set
+			self.PredictedAgentDerivePredicterVariable=self.ParentDeriveTeamerVariable.ManagementDict['Agent']
+
+			#set
+			self.PredictedNetworkDerivePredicterVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
+
+			#/####################/#
+			# Determine the number of leaking units
+			#
+
+			#debug
+			self.debug(
+				[
+					'Look for LeakingUnitsInt',
+					('self.',self,[
+							'LeakingUnitsInt',
+							'PredictingSensorsInt'
+						])
+				]
+			)
+
+			#set default
+			if self.LeakingUnitsInt==0:
+				self.LeakingUnitsInt=1
+
+			#set
+			if self.PredictedNetworkDerivePredicterVariable.PredictingSensorsInt>-1:
+				self.LeakingUnitsInt=self.PredictedNetworkDerivePredicterVariable.PredictingSensorsInt
+
+
+			#/####################/#
+			# The Decoder
+			#
+
 			#Check
-			self.LeakingTimeVariable=self.PredictingTimeVariable
+			if self.PredictedNetworkDerivePredicterVariable.PredictingDynamicBool==False:
 
+				#debug
+				self.debug(
+					[
+						'self.PredictedNetworkDerivePredicterVariable.PredictingDynamicBool is False',
+						'set LeakingTimeVariable to 0'
+					]
+				)
 
+				#set
+				self.LeakingTimeVariable==0.
+			
 	def predictInput(self):
 
+		#Check
 		if self.ManagementTagStr=='Command':
 	
 			#set
@@ -622,6 +777,7 @@ class PredicterClass(BaseClass):
 
 	def predictInteraction(self):
 
+		#Check
 		if self.ManagementTagStr=='Jacobian':
 
 			#debug
@@ -649,6 +805,18 @@ class PredicterClass(BaseClass):
 			#set
 			self.ConnectingKeyVariable=self.PredictedSensorDerivePredicterVariable
 
+			#debug
+			'''
+			self.debug(
+				[
+					'We have determine the relations for predictInteraction',
+					('self.',self,[
+						'ConnectingKeyVariable'
+					])
+				]
+			)
+			'''
+			
 			#/################/#
 			# Build the Jacobian
 			#
@@ -704,13 +872,13 @@ class PredicterClass(BaseClass):
 			self.LeakingWeigthVariable=self.PredictedJacobianFloatsArray
 
 		#Check
-		elif self.ManagementTagStr=='Encoder':
+		elif self.ManagementTagStr=='Encod':
 
 			#debug
 			'''
 			self.debug(
 				[
-					'We predict in the Encoder interaction',
+					'We predict in the Encod interaction',
 					('self.',self,[
 						])
 				]
@@ -730,8 +898,65 @@ class PredicterClass(BaseClass):
 			#set
 			self.ConnectingKeyVariable=self.PredictedAgentDerivePredicterVariable
 
+			#/################/#
+			# Build the LeakingWeigthVariable
+			#
+
+			#debug
+			self.debug(
+				[
+					'We set the weigths in the Encod',
+					'self.PredictedAgentDerivePredicterVariable.PredictedDecoderFloatsArray is ',
+					str(self.PredictedAgentDerivePredicterVariable.PredictedDecoderFloatsArray)
+				]
+			)
+
+			#link
+			self.LeakingWeigthVariable=self.PredictedAgentDerivePredicterVariable.PredictedDecoderFloatsArray.T
+
+		elif self.ManagementTagStr=='Decod':
+
+			#debug
+			'''
+			self.debug(
+				[
+					'We predict in the Decod interaction',
+					('self.',self,[
+						])
+				]
+			)
+			'''
+
+			#/################/#
+			# Determine the relations
+			#
+
+			#set
+			self.PredictedAgentDerivePredicterVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
+
+			#set
+			self.PredictedDecoderDerivePredicterVariable=self.PredictedAgentDerivePredicterVariable.ParentDeriveTeamerVariable.ManagementDict['Decoder']
+
+			#set
+			self.ConnectingKeyVariable=self.PredictedDecoderDerivePredicterVariable
+
+			#/################/#
+			# Build the LeakingWeigthVariable
+			#
+
+			#debug
+			self.debug(
+				[
+					'We set the weigths in the Decod',
+					'self.PredictedAgentDerivePredicterVariable.PredictedDecoderFloatsArray is ',
+					str(self.PredictedAgentDerivePredicterVariable.PredictedDecoderFloatsArray)
+				]
+			)
+
 			#link
 			self.LeakingWeigthVariable=self.PredictedAgentDerivePredicterVariable.PredictedDecoderFloatsArray
+
+
 
 
 	def viewSample(self):
@@ -752,7 +977,56 @@ class PredicterClass(BaseClass):
 		#base
 		BaseClass.viewSample(self)
 		
+	def brianTrace(self):
+
+		#Check
+		if self.ManagementTagStr=='*U':
+
+			#Check
+			if self.LeakedParentPopulationDeriveLeakerVariable.ManagementTagStr=='Sensor':
+
+				#debug
+				self.debug(
+					[
+						'We set a special label name for the Sensor'
+					]
+				)
+
+				#set
+				self.BrianingActivityStr="x"
+
+			#Check
+			elif self.LeakedParentPopulationDeriveLeakerVariable.ManagementTagStr=='Decoder':
+
+				#debug
+				self.debug(
+					[
+						'We set a special label name for the Sensor'
+					]
+				)
+
+				#set
+				self.BrianingActivityStr="\hat{x}"
+
+		#Check
+		elif self.ManagementTagStr=='*I_Command':
+
+			#debug
+			self.debug(
+				[
+					'We set a special label name for the I_Command'
+				]
+			)
+
+			#set
+			self.BrianingActivityStr="c"
+
+
 		
+
+
+		#call the base
+		BaseClass.brianTrace(self)
 
 		
 	"""

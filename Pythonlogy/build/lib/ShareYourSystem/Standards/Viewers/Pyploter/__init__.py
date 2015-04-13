@@ -47,7 +47,7 @@ class PyploterClass(BaseClass):
 	
 	def default_init(self,
 						_PyplotTooltipVariablesList=None,
-						_PyplotingGridIntsTuple=(20,20),
+						_PyplotingGridIntsTuple=(22,20),
 						_PyplotingShapeVariable=None,
 						_PyplotingFigureVariable=None,
 						_PyplotingDrawVariable=None,

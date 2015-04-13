@@ -16,6 +16,7 @@ MyLeaker=SYS.LeakerClass(
 			'-Populations':{
 				'|Default':{
 					'LeakingUnitsInt':2,
+					'LeakingSymbolPrefixStr':'r',
 					'-Inputs':{
 						'|Default':{
 							'LeakingWeigthVariable':'#scalar:4.*mV'
@@ -24,7 +25,7 @@ MyLeaker=SYS.LeakerClass(
 					'-Interactions':{
 						'|/':{
 							#'LeakingWeigthVariable':'#scalar:0.',
-							#'LeakingWeigthVariable':'#scalar:-1.',
+							'LeakingWeigthVariable':'#scalar:-1.',
 							#'LeakingWeigthVariable':-1.,
 							#'LeakingWeigthVariable':[0.1,-0.2,0.5,0.8],
 							#'LeakingWeigthVariable':[[0.1,-0.2],[0.5,0.8]],
@@ -55,6 +56,7 @@ SYS._print(MyLeaker)
 # View
 #
 
-MyLeaker['/-Populations/|Default'].pyplot()
+MyLeaker['/-Populations/|Default'].view(
+	).pyplot()
 #print(MyLeaker['/-Populations/|Default/-Interactions/|/'].BrianedSynapsesVariable.J[:])
 SYS.matplotlib.pyplot.show()

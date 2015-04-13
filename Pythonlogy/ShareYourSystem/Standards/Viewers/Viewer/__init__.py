@@ -76,6 +76,7 @@ class ViewerClass(BaseClass):
 		self.ViewedTagStr='_'+self.ViewingIdStr+'_'
 
 		#debug
+		'''
 		self.debug(
 				[
 					'We view here',
@@ -96,7 +97,8 @@ class ViewerClass(BaseClass):
 				#])
 			]
 		)
-
+		'''
+		
 		#/####################/#
 		# Now we view each Axe
 		#

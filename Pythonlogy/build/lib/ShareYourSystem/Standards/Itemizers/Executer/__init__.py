@@ -44,6 +44,7 @@ class ExecuterClass(BaseClass):
 	def do_execute(self):
 
 		#debug
+		'''
 		self.debug(
 			[
 				'We execute here',
@@ -52,6 +53,7 @@ class ExecuterClass(BaseClass):
 					])
 			]
 		)
+		'''
 		
 		#give the sys
 		locals()['SYS']=SYS

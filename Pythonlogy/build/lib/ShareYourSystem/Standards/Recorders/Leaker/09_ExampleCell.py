@@ -17,6 +17,7 @@ MyLeaker=SYS.LeakerClass(
 			'-Populations':{
 				'|P':{
 					'LeakingUnitsInt':2,
+					'LeakingSymbolPrefixStr':'r',
 					'LeakingMonitorIndexIntsList':[0,1],
 					'-Inputs':{
 						'|Rest':{

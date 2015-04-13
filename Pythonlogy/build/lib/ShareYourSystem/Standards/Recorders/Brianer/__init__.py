@@ -56,6 +56,7 @@ class BrianerClass(BaseClass):
 			_BrianingDebugInt=0,
 			_BrianingRecordBool=True,
 			_BrianingViewNetworkBool=False,
+			_BrianingActivityStr="",
 			_BrianedTimeQuantityVariable=None,
 			_BrianedNetworkVariable=None,
 			_BrianedNeurongroupVariable=None,
@@ -96,7 +97,9 @@ class BrianerClass(BaseClass):
 		'''
 
 		#Check
-		if self.ParentedTotalSingularListDict!=None and len(self.ParentedTotalSingularListDict)>0:
+		if self.ParentedTotalSingularListDict!=None and len(
+			self.ParentedTotalSingularListDict
+		)>0:
 
 			#debug
 			'''
@@ -444,7 +447,7 @@ class BrianerClass(BaseClass):
 			]
 		)
 		'''
-
+		
 		#/################/#
 		# Set the brian neurongroup
 		#
@@ -1521,9 +1524,11 @@ class BrianerClass(BaseClass):
 					lambda __DeriveChartPyploter:
 					ViewedChartsManager.manage(
 						self.ManagementTagStr+'_'+ __DeriveChartPyploter.ManagementTagStr,
-					).ManagedValueVariable.setAttr(
-						'PyplotingChartVariable',
-						__DeriveChartPyploter.PyplotingChartVariable
+					).ManagedValueVariable.mapSetAttr(
+						{
+							'PyplotingChartVariable':__DeriveChartPyploter.PyplotingChartVariable,
+							'PyplotingShapeVariable':(5,17)
+						}
 					).mapSetAttr(
 						map(
 							lambda __KeyStr:
@@ -1628,10 +1633,22 @@ class BrianerClass(BaseClass):
 		#set
 		if self.ViewedLegendLabelStr=="":
 
+			#debug
+			self.debug(
+				[
+					'Determine the legend label',
+					'self.BrianedParentDeriveRecorderVariable.BrianingActivityStr is ',
+					self.BrianedParentDeriveRecorderVariable.BrianingActivityStr
+				]
+			)
+
 			#set
 			self.ViewedLegendLabelStr='$'+self.getLabelStr(
+				self.BrianedParentDeriveRecorderVariable.BrianingActivityStr
+			) if self.BrianedParentDeriveRecorderVariable.BrianingActivityStr!="" else '$'+self.getLabelStr(
 				self.BrianedParentDeriveRecorderVariable.RecordKeyStr
 			)
+			
 			'''
 			self.ViewedLegendLabelStr+='_{'+str(	
 					#self.BrianedParentPopulationDeriveBrianerVariable.BrianedNeurongroupVariable.name
@@ -1651,6 +1668,17 @@ class BrianerClass(BaseClass):
 				]
 			)
 			'''
+
+
+		#debug
+		self.debug(
+			[
+				'we set the PyplotingDrawVariable',
+				('self.',self,[
+						'RecordedColorTuplesList'
+					])
+			]
+		)
 
 		#set
 		self.PyplotingDrawVariable=map(
@@ -1752,9 +1780,14 @@ class BrianerClass(BaseClass):
 		self.ViewingYVariable=self.ViewingYVariable[:]
 
 		#set
-		self.ViewingYLabelStr='$'+self.getLabelStr(
-			self.BrianedParentDeriveRecorderVariable.RecordKeyStr
+		self.ViewingYLabelStr='$'+(
+			self.getLabelStr(
+				self.BrianedParentDeriveRecorderVariable.RecordKeyStr
+			) if self.BrianedParentDeriveRecorderVariable.BrianingActivityStr=="" else self.getLabelStr(
+				self.BrianedParentDeriveRecorderVariable.BrianingActivityStr
+			) 
 		)
+
 		self.ViewingYLabelStr+='\ ('+str(
 			(1./self.ViewingYScaleFloat)*BrianedActivityUnit
 		).split('.')[-1]+')'
@@ -2328,6 +2361,7 @@ BrianerClass.PrintingClassSkipKeyStrsList.extend(
 		'BrianingDebugInt',
 		'BrianingRecordBool',
 		'BrianingViewNetworkBool',
+		'BrianingActivityStr',
 		'BrianedTimeQuantityVariable',
 		'BrianedNetworkVariable',
 		'BrianedNeurongroupVariable',
