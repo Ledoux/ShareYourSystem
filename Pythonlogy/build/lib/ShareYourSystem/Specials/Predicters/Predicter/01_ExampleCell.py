@@ -13,38 +13,27 @@ import ShareYourSystem as SYS
 MyPredicter=SYS.PredicterClass(
 	).mapSet(
 		{
-			'PredictingDynamicBool':False,
-			'-Populations':{
-				'|Sensor':{
-					'LeakingUnitsInt':1,
+			'-Populations':[
+				('|Sensor',{
 					'LeakingMonitorIndexIntsList':[0],
-					'-Inputs':{
-						#'|Command':{
-						#	'LeakingWeigthVariable':
-						#	{
-						#
-						#	}
-						#}
-					},
-					'-Interactions':{
-						'|Jacobian':{
-						}
-					},
-					#'LeakingTransferVariable':'1.*mV*tanh((#CurrentStr)/(1.*mV))',
-					#'LeakingTransferVariable':lambda __Float:__Float,
-					#'BrianingDebugInt':100,
-				},
-				'|Agent':{
-					'LeakingUnitsInt':3,
-					'LeakingMonitorIndexIntsList':[0,1,2],
-					#'-Interactions':{
-					#	'|Fast':{
-					#	}
-					#},
-				}
-			}
+					'BrianingDebugInt':100,
+				}),
+				('|Agent',{
+					#'LeakingMonitorIndexIntsList':[0,1,2],
+					'BrianingDebugInt':100
+				}),
+				('|Decoder',{
+					'LeakingMonitorIndexIntsList':[0],
+					'BrianingDebugInt':100
+				})
+			]
 		}
 	).predict(
+		_SensorUnitsInt=1,
+		_AgentUnitsInt=1,
+		_DynamicBool=False,
+		_DynamicStr='Track',
+		_TimeFloat=1.,
 	).simulate(
 		500.
 	)

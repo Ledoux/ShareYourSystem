@@ -442,14 +442,15 @@ class LeakerClass(BaseClass):
 		#
 
 		#debug
-		'''
 		self.debug(
 			[
 				'We set a population here',
-				'look for the time constant'
+				'look for the time constant',
+				('self.',self,[
+						'LeakingTimeVariable'
+					])
 			]
 		)
-		'''
 
 		#Check
 		if type(
@@ -491,14 +492,17 @@ class LeakerClass(BaseClass):
 			)
 			'''
 
-			#set
-			self.LeakedTimeSymbolStr="tau_"+self.LeakingSymbolPrefixStr
+			#Check
+			if self.LeakingTimeVariable!=0.:
 
-			#append
-			self.LeakedRecordSkipStrsList.append(self.LeakedTimeSymbolStr)
+				#set
+				self.LeakedTimeSymbolStr="tau_"+self.LeakingSymbolPrefixStr
 
-			#define the time constant variable
-			self.LeakedModelStr+=self.LeakedTimeSymbolStr+' : second\n'
+				#append
+				self.LeakedRecordSkipStrsList.append(self.LeakedTimeSymbolStr)
+
+				#define the time constant variable
+				self.LeakedModelStr+=self.LeakedTimeSymbolStr+' : second\n'
 
 		#/################/#
 		# Define the main leak equation
@@ -526,18 +530,26 @@ class LeakerClass(BaseClass):
 		if self.LeakingTimeVariable==0 or LeakedDirectVariableBool:
 
 			#debug
-			'''
 			self.debug(
 				[
 					'Time constant is null',
-					'Build just a variable definition',
-					('self.',self,['LeakingTimeVariable'])
+					'Build just a variable definition clamped to the current',
+					('self.',self,[
+						'LeakingTimeVariable',
+						'LeakedCurrentStr',
+						'LeakedDimensionStr'
+					])
 				]
 			)
-			'''
 
 			#set the left 
-			self.LeakedModelStr+=self.LeakingSymbolPrefixStr+' : '+self.LeakedDimensionStr+"\n"
+			self.LeakedModelStr+=self.LeakingSymbolPrefixStr
+
+			#add
+			self.LeakedModelStr+='='+self.LeakedCurrentStr
+
+			#add
+			self.LeakedModelStr+=' : '+self.LeakedDimensionStr+"\n"
 
 		else:
 
@@ -572,15 +584,22 @@ class LeakerClass(BaseClass):
 			if type(self.LeakingWeigthVariable)==str:
 
 				#Check
-				if self.LeakingWeigthVariable=='0':
+				if self.LeakingWeigthVariable in ['0',0.]:
 
 					#set the right
 					self.LeakedModelStr+='('
 
+				elif type(self.LeakingWeigthVariable) in [list]:
+
+					#link
+					self.LeakedModelStr='''
+						mu : 1
+					'''+self.LeakedModelStr
+
 				else:
 
 					#set the right
-					self.LeakedModelStr+='(-'+self.LeakingWeigthVariable+self.LeakedSymbolStr
+					self.LeakedModelStr+='(-'+str(self.LeakingWeigthVariable)+'*'+self.LeakedSymbolStr
 
 			else:
 
@@ -703,14 +722,14 @@ class LeakerClass(BaseClass):
 			#set the dimension
 			self.LeakedModelStr+=' : '+self.LeakedDimensionStr+"\n"
 
-		'''
 		self.debug(
 			[
 				'We have defined the leak model str',
-				('self.',self,['LeakedModelStr'])
+				('self.',self,[
+					'LeakedModelStr'
+				])
 			]
 		)
-		'''
 
 		#/################/#
 		# Now update the Traces
@@ -1582,12 +1601,15 @@ class LeakerClass(BaseClass):
 			)
 			'''
 
-			#set
-			getattr(
-				self.BrianedNeurongroupVariable,
-				self.LeakedTimeSymbolStr
-			)[:]=self.LeakingTimeVariable*self.BrianedParentNetworkDeriveBrianerVariable.BrianedTimeQuantityVariable
-			
+			#Check
+			if self.LeakingTimeVariable!=0.:
+
+				#set
+				getattr(
+					self.BrianedNeurongroupVariable,
+					self.LeakedTimeSymbolStr
+				)[:]=self.LeakingTimeVariable*self.BrianedParentNetworkDeriveBrianerVariable.BrianedTimeQuantityVariable
+				
 		#debug
 		'''
 		self.debug(
@@ -1761,7 +1783,6 @@ class LeakerClass(BaseClass):
 		#
 
 		#debug
-		'''
 		self.debug(
 			[
 				'We are in brian trace',
@@ -1771,14 +1792,17 @@ class LeakerClass(BaseClass):
 				]),
 				'self.LeakedParentPopulationDeriveLeakerVariable.LeakedRecordSkipStrsList is ',
 				self.LeakedParentPopulationDeriveLeakerVariable.LeakedRecordSkipStrsList,
+				'self.LeakedParentPopulationDeriveLeakerVariable.LeakingTimeVariable is ',
+				str(self.LeakedParentPopulationDeriveLeakerVariable.LeakingTimeVariable)
 			]
 		)
-		'''
 
 		#Check
 		if self.ManagementTagStr.split(
 			Recorder.RecordPrefixStr
-		)[1] in self.LeakedParentPopulationDeriveLeakerVariable.LeakedRecordSkipStrsList:
+		)[1] in self.LeakedParentPopulationDeriveLeakerVariable.LeakedRecordSkipStrsList or (
+			self.LeakedParentPopulationDeriveLeakerVariable.LeakingTimeVariable in ['0',0.]
+		):
 
 			#debug
 			'''
@@ -2585,6 +2609,8 @@ class LeakerClass(BaseClass):
 		self.LeakedParentPopulationDeriveLeakerVariable.addCurrentStr(
 			self.LeakedSymbolStr
 		)
+
+
 
 #</DefineClass>
 

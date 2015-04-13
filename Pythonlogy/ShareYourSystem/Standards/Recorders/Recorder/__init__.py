@@ -277,7 +277,10 @@ class RecorderClass(BaseClass):
 				[
 					'We prepare the initial conditions',
 					'len(self.RecordedTraceFloatsArray) is ',
-					str(len(self.RecordedTraceFloatsArray))
+					str(len(self.RecordedTraceFloatsArray)),
+					('self.',self,[
+							'NumscipyingStdFloat'
+						])
 				]
 			)
 			'''
@@ -292,11 +295,13 @@ class RecorderClass(BaseClass):
 			self.debug(
 				[
 					'We have prepared the initial conditions',
-					('self.',self,['RecordedInitFloatsArray'])
+					('self.',self,[
+						'RecordedInitFloatsArray'
+					])
 				]
 			)
 			'''
-
+			
 	def recordSample(self):
 
 		#debug

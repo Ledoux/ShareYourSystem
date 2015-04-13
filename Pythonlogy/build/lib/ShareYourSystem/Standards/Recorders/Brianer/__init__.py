@@ -495,27 +495,8 @@ class BrianerClass(BaseClass):
 				)
 				def debugNeurongroup():
 
-					#init
-					PrintStr='At time t='+str(self.BrianedNeurongroupVariable.clock.t)+', \n'
-					PrintStr+='In the NeuronGroup '+self.BrianedNeurongroupVariable.name+' : \n'
-
-					#loop
-					for __KeyStr in self.BrianedNeurongroupVariable.equations._equations.keys():
-
-						#set
-						PrintStr+=__KeyStr+" is "+str(
-							getattr(
-								self.BrianedNeurongroupVariable,
-								__KeyStr
-							)
-						)+'\n'
-
-
-					#add
-					PrintStr+='\n'
-
-					#print
-					print PrintStr
+					#call
+					self.setDebugNeurongroup()
 				
 				#add
 				self.BrianedParentNetworkDeriveBrianerVariable.BrianedNetworkVariable.add(
@@ -625,6 +606,53 @@ class BrianerClass(BaseClass):
 			]
 		)
 		'''
+
+	def setDebugNeurongroup(self):
+
+		PrintStr='At time t='+str(self.BrianedNeurongroupVariable.clock.t)+', \n'
+		PrintStr+='In the NeuronGroup '+self.BrianedNeurongroupVariable.name+' '+self.StructureTagStr+' : \n'
+
+		#loop
+		for __KeyStr in self.BrianedNeurongroupVariable.equations._equations.keys():
+
+			#set
+			PrintStr+=__KeyStr+" is "+str(
+				getattr(
+					self.BrianedNeurongroupVariable,
+					__KeyStr
+				)
+			)+'\n'
+
+
+		#add
+		PrintStr+='\n'
+
+		#print
+		print PrintStr
+
+	def setDebugSynapses(self):
+
+		#init
+		PrintStr='At time t='+str(self.BrianedSynapsesVariable.clock.t)+', \n'
+		PrintStr+='In the Synapses '+self.BrianedSynapsesVariable.name+' : \n'
+
+		#loop
+		for __KeyStr in self.BrianedSynapsesVariable.equations._equations.keys():
+
+			#set
+			PrintStr+=__KeyStr+" is "+str(
+				getattr(
+					self.BrianedSynapsesVariable,
+					__KeyStr
+				)
+			)+'\n'
+
+
+		#add
+		PrintStr+='\n'
+
+		#print
+		print PrintStr
 
 	def brianInteraction(self):
 
@@ -859,28 +887,9 @@ class BrianerClass(BaseClass):
 					dt=self.BrianingDebugInt*self.BrianedParentNetworkDeriveBrianerVariable.BrianedTimeQuantityVariable
 				)
 				def debugSynapses():
-
-					#init
-					PrintStr='At time t='+str(self.BrianedSynapsesVariable.clock.t)+', \n'
-					PrintStr+='In the Synapses '+self.BrianedSynapsesVariable.name+' : \n'
-
-					#loop
-					for __KeyStr in self.BrianedSynapsesVariable.equations._equations.keys():
-
-						#set
-						PrintStr+=__KeyStr+" is "+str(
-							getattr(
-								self.BrianedSynapsesVariable,
-								__KeyStr
-							)
-						)+'\n'
-
-
-					#add
-					PrintStr+='\n'
-
-					#print
-					print PrintStr
+					
+					#call
+					self.setDebugSynapses()
 				
 				#add
 				self.BrianedParentNetworkDeriveBrianerVariable.BrianedNetworkVariable.add(
@@ -997,6 +1006,7 @@ class BrianerClass(BaseClass):
 					).ManagedValueVariable
 
 					#debug
+					'''
 					self.debug(
 						[
 							'There is just one variable that we sample',
@@ -1008,7 +1018,7 @@ class BrianerClass(BaseClass):
 								])
 						]
 					)
-
+					'''
 					#Check
 					if BrianedDefaultBrianer.RecordingLabelVariable==None:
 
@@ -1634,6 +1644,7 @@ class BrianerClass(BaseClass):
 		if self.ViewedLegendLabelStr=="":
 
 			#debug
+			'''
 			self.debug(
 				[
 					'Determine the legend label',
@@ -1641,6 +1652,7 @@ class BrianerClass(BaseClass):
 					self.BrianedParentDeriveRecorderVariable.BrianingActivityStr
 				]
 			)
+			'''
 
 			#set
 			self.ViewedLegendLabelStr='$'+self.getLabelStr(
@@ -1671,6 +1683,7 @@ class BrianerClass(BaseClass):
 
 
 		#debug
+		'''
 		self.debug(
 			[
 				'we set the PyplotingDrawVariable',
@@ -1679,6 +1692,7 @@ class BrianerClass(BaseClass):
 					])
 			]
 		)
+		'''
 
 		#set
 		self.PyplotingDrawVariable=map(
@@ -2235,6 +2249,7 @@ class BrianerClass(BaseClass):
 		).TeamedValueVariable
 
 		#debug
+		'''
 		self.debug(
 			[
 				'We manage a new draw',
@@ -2244,6 +2259,7 @@ class BrianerClass(BaseClass):
 					])
 			]
 		)
+		'''
 
 		#manage
 		BrianedDrawDeriveManager.manage(

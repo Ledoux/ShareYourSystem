@@ -90,6 +90,19 @@ class NumscipyerClass(BaseClass):
 		#Check
 		if self.NumscipyingStatStr=='norm':
 
+			#debug
+			'''
+			self.debug(
+				[
+					'This is a random norm distribution',
+					('self.',self,[
+							'NumscipyingMeanFloat',
+							'NumscipyingStdFloat'
+						])
+				]
+			)
+			'''
+			
 			#set
 			self.NumscipiedRandomFloatsArray=self.NumscipyingStdFloat*self.NumscipiedStatFunction(
 				self.NumscipyingMeanFloat,
