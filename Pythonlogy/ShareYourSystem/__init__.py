@@ -579,7 +579,6 @@ def add(_VariableA,_VariableB):
 		#return
 		return _VariableA
 
-
 def stdout(_PrintStr):
 	sys.stdout.write(_PrintStr+'\n')
 	sys.stdout.flush()
@@ -633,11 +632,13 @@ def pick(_Variable,_GetVariablesList,_GetMethodStr='getattr'):
 def match(_KeyList,_ValueList):
 
 	#Debug
+	'''
 	print('SYS l 632')
 	print('_KeyList is ')
 	print(_KeyList)
 	print('_ValueList is ')
 	print(_ValueList)
+	'''
 
 	#Check
 	if len(_KeyList)<len(_ValueList):
@@ -652,9 +653,11 @@ def match(_KeyList,_ValueList):
 		)
 
 	#Debug
+	'''
 	print('MatchTuplesList is ')
 	print(MatchTuplesList)
 	print('')
+	'''
 
 	#return
 	return MatchTuplesList
@@ -2507,6 +2510,55 @@ class InspectDict(collections.OrderedDict):
 					('FunctionNameStr',_Function.__name__)
 				]
 			)
+
+
+def getExtremumFloat(_Variable,_MinOrMaxStr='min'):
+
+	#import numpy
+	import numpy as np
+
+	#Debug
+	'''
+	print('SYS l 2518')
+	print('np.shape(_Variable) is ')
+	print(np.shape(_Variable))
+	print('_MinOrMaxStr is '+_MinOrMaxStr)
+	print('len(_Variable)>0 is ')
+	print(len(_Variable)>0)
+	print('')
+	'''
+
+	#Check
+	if np.shape(_Variable)[-1]>0:
+
+		#Debug
+		'''
+		print('We get the min or max')
+		print('_Variable[0] is ')
+		print(_Variable[0])
+		print('')
+		'''
+
+		#get
+		ExtremumFloat=getattr(
+			_Variable,
+			_MinOrMaxStr
+		)()
+
+	else:
+
+		#set
+		ExtremumFloat=-0.00000000001 if _MinOrMaxStr=='min' else 0.000000000001
+
+	#Debug
+	'''
+	print('ExtremumFloat is ')
+	print(ExtremumFloat)
+	print('')	
+	'''
+	
+	#return
+	return ExtremumFloat
 
 def getTickFloatsArray(_LimList,_SampleFloat):
 

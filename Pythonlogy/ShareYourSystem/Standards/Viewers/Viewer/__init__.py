@@ -138,7 +138,7 @@ class ViewerClass(BaseClass):
 			LimMinStrsList=[]
 
 		LimMinStrsList.append(
-			"SYS.IdDict["+self.ViewingIdStr+"].Viewing"+_AxeStr+"Variable.min()"
+			"SYS.getExtremumFloat(SYS.IdDict["+self.ViewingIdStr+"].Viewing"+_AxeStr+"Variable,'min')"
 		)
 
 		#get 
@@ -149,7 +149,7 @@ class ViewerClass(BaseClass):
 		if LimMaxStrsList==None:
 			LimMaxStrsList=[]
 		LimMaxStrsList.append(
-			"SYS.IdDict["+self.ViewingIdStr+"].Viewing"+_AxeStr+"Variable.max()"
+			"SYS.getExtremumFloat(SYS.IdDict["+self.ViewingIdStr+"].Viewing"+_AxeStr+"Variable,'max')"
 		)
 
 		#set

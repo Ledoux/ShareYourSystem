@@ -29,7 +29,7 @@ MyLeaker=SYS.LeakerClass(
 					},
 					'LeakingTransferVariable':'1.*mV*tanh((#CurrentStr)/(1.*mV))',
 					#'LeakingTransferVariable':lambda __Float:__Float,
-					#'BrianingDebugInt':100
+					#'BrianingDebugVariable':100
 				}
 			}
 		}

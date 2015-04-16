@@ -19,22 +19,25 @@ MyLeaker=SYS.LeakerClass(
 					'LeakingSymbolPrefixStr':'r',
 					'-Inputs':{
 						'|Default':{
-							'LeakingWeigthVariable':'#scalar:4.*mV'
+							#'LeakingWeigthVariable':'#scalar:4.*mV'
+							'LeakingWeigthVariable':4.
 						}
 					},
 					'-Interactions':{
 						'|/':{
 							#'LeakingWeigthVariable':'#scalar:0.',
-							'LeakingWeigthVariable':'#scalar:-1.',
+							#'LeakingWeigthVariable':'#scalar:-1.',
 							#'LeakingWeigthVariable':-1.,
-							#'LeakingWeigthVariable':[0.1,-0.2,0.5,0.8],
-							#'LeakingWeigthVariable':[[0.1,-0.2],[0.5,0.8]],
+							#'LeakingWeigthVariable':[-0.,-0.5,-0.,-0.],
+							'LeakingWeigthVariable':[[0.,0.],[0.,-0.4]],
 							#'LeakingWeigthVariable':'#array',
 							#'NumscipyingStdFloat':0.1,
-							#'BrianingDebugInt':50
+							'LeakingVariableStr':'I_Default',
+							#'BrianingDebugVariable':0.1,
 						}
 					},
-					'BrianingDebugInt':100
+					#'BrianingDebugVariable':0.1,
+					'LeakingMonitorIndexIntsList':[0,1]
 				}
 			}
 		}

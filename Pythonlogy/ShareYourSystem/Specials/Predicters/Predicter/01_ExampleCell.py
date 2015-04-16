@@ -16,15 +16,21 @@ MyPredicter=SYS.PredicterClass(
 			'-Populations':[
 				('|Sensor',{
 					'LeakingMonitorIndexIntsList':[0],
-					'BrianingDebugInt':100,
+					'BrianingDebugVariable':0
 				}),
 				('|Agent',{
-					#'LeakingMonitorIndexIntsList':[0,1,2],
-					'BrianingDebugInt':100
+					'LeakingMonitorIndexIntsList':[0],
+					'BrianingDebugVariable':0,
+					'-Interactions':{
+						'|Fast':{
+							'BrianingDebugVariable':0
+						}
+					}
+
 				}),
 				('|Decoder',{
 					'LeakingMonitorIndexIntsList':[0],
-					'BrianingDebugInt':100
+					'BrianingDebugVariable':0
 				})
 			]
 		}
@@ -33,7 +39,16 @@ MyPredicter=SYS.PredicterClass(
 		_AgentUnitsInt=1,
 		_DynamicBool=False,
 		_DynamicStr='Track',
-		_TimeFloat=1.,
+		_EncodPerturbStdFloat=0.,
+		#_DecoderTimeFloat=1.,
+		#_RateCostVariable=0.1,
+		#_RateTransferVariable='1.*mV*tanh((#CurrentStr)/(1.*mV))',
+		_FastSymmetryFloat=1.,
+		#_FastPerturbStdFloat=0.,
+		_DecoderVariable='#array',
+		#_DecoderStdFloat=20.,
+		_DecoderNormalisationInt=1,
+		_InteractionStr="Rate"
 	).simulate(
 		500.
 	)

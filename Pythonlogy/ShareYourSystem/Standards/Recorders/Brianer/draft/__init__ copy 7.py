@@ -53,7 +53,7 @@ class BrianerClass(BaseClass):
 			_BrianingTimeQuantityStr='ms',
 			_BrianingPyplotBool=True,
 			_BrianingStepTimeFloat=0.1,
-			_BrianingDebugInt=0,
+			_BrianingDebugVariable=0,
 			_BrianingRecordBool=True,
 			_BrianedTimeQuantityVariable=None,
 			_BrianedNetworkVariable=None,
@@ -469,13 +469,13 @@ class BrianerClass(BaseClass):
 			#
 
 			#Check
-			if self.BrianingDebugInt>0:
+			if self.BrianingDebugVariable>0:
 
 				#import
 				from brian2 import network_operation,ms
 
 				@network_operation(
-					dt=self.BrianingDebugInt*self.BrianedParentNetworkDeriveBrianerVariable.BrianedTimeQuantityVariable
+					dt=self.BrianingDebugVariable*self.BrianedParentNetworkDeriveBrianerVariable.BrianedTimeQuantityVariable
 				)
 				def debugNeurongroup():
 
@@ -793,13 +793,13 @@ class BrianerClass(BaseClass):
 		#
 
 		#Check
-		if self.BrianingDebugInt>0:
+		if self.BrianingDebugVariable>0:
 
 			#import
 			from brian2 import network_operation,ms
 
 			@network_operation(
-				dt=self.BrianingDebugInt*self.BrianedParentNetworkDeriveBrianerVariable.BrianedTimeQuantityVariable
+				dt=self.BrianingDebugVariable*self.BrianedParentNetworkDeriveBrianerVariable.BrianedTimeQuantityVariable
 			)
 			def debugSynapses():
 
@@ -1847,7 +1847,7 @@ BrianerClass.PrintingClassSkipKeyStrsList.extend(
 		'BrianingTimeQuantityStr',
 		'BrianingPyplotBool',
 		'BrianingStepTimeFloat',
-		'BrianingDebugInt',
+		'BrianingDebugVariable',
 		'BrianingRecordBool',
 		'BrianedTimeQuantityVariable',
 		'BrianedNetworkVariable',

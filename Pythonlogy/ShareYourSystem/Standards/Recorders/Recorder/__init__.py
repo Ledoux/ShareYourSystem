@@ -331,6 +331,9 @@ class RecorderClass(BaseClass):
 				_PlotBool=False
 			)[3:]
 
+			#reverse
+			self.RecordedColorTuplesList.reverse()
+
 			#debug
 			'''
 			self.debug(

@@ -59,7 +59,10 @@ class ExecuterClass(BaseClass):
 		locals()['SYS']=SYS
 
 		#Execute
-		six.exec_(self.ExecutingCodeStr,locals())
+		six.exec_(
+			self.ExecutingCodeStr,
+			locals()
+		)
 
 		#alias
 		self.ExecutedLocalsDict=locals()
@@ -211,8 +214,8 @@ class ExecuterClass(BaseClass):
 
 				#execute
 				self.execute(
-						ExecutedStr
-					)
+					ExecutedStr
+				)
 
 				#alias
 				self[self.SettingKeyVariable]=self.ExecutedLocalsDict['ExecutedVariable']
@@ -225,7 +228,8 @@ class ExecuterClass(BaseClass):
 		#
 
 		#Check
-		if type(self.SettingKeyVariable
+		if type(
+				self.SettingKeyVariable
 			)==str:
 
 			#Check

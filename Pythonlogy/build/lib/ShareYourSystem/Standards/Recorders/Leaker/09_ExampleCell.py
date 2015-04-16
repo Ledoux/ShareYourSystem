@@ -36,7 +36,7 @@ MyLeaker=SYS.LeakerClass(
 					#	'ThresholdVariable':[-55.,-52.5,-50.]
 					#},
 					'LeakingResetVariable':'#scalar:U=-70*mV',
-					#'BrianingDebugInt':100
+					#'BrianingDebugVariable':100
 				}
 			}
 		}

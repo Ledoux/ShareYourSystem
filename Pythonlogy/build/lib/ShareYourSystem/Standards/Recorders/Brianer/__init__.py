@@ -53,7 +53,7 @@ class BrianerClass(BaseClass):
 			_BrianingTimeQuantityStr='ms',
 			_BrianingPyplotBool=True,
 			_BrianingStepTimeFloat=0.1,
-			_BrianingDebugInt=0,
+			_BrianingDebugVariable=0,
 			_BrianingRecordBool=True,
 			_BrianingViewNetworkBool=False,
 			_BrianingActivityStr="",
@@ -485,13 +485,13 @@ class BrianerClass(BaseClass):
 			#
 
 			#Check
-			if self.BrianingDebugInt>0:
+			if self.BrianingDebugVariable>0:
 
 				#import
 				from brian2 import network_operation,ms
 
 				@network_operation(
-					dt=self.BrianingDebugInt*self.BrianedParentNetworkDeriveBrianerVariable.BrianedTimeQuantityVariable
+					dt=self.BrianingDebugVariable*self.BrianedParentNetworkDeriveBrianerVariable.BrianedTimeQuantityVariable
 				)
 				def debugNeurongroup():
 
@@ -878,13 +878,13 @@ class BrianerClass(BaseClass):
 			#
 
 			#Check
-			if self.BrianingDebugInt>0:
+			if self.BrianingDebugVariable>0:
 
 				#import
 				from brian2 import network_operation,ms
 
 				@network_operation(
-					dt=self.BrianingDebugInt*self.BrianedParentNetworkDeriveBrianerVariable.BrianedTimeQuantityVariable
+					dt=self.BrianingDebugVariable*self.BrianedParentNetworkDeriveBrianerVariable.BrianedTimeQuantityVariable
 				)
 				def debugSynapses():
 					
@@ -1097,7 +1097,7 @@ class BrianerClass(BaseClass):
 			self.BrianedStateMonitorVariable=StateMonitor(
 					self.BrianedParentPopulationDeriveBrianerVariable.BrianedNeurongroupVariable,
 					self.BrianedParentDeriveRecorderVariable.RecordKeyStr,
-					self.RecordingLabelVariable,
+					self.RecordingLabelVariable
 				)
 
 			#debug
@@ -1683,16 +1683,15 @@ class BrianerClass(BaseClass):
 
 
 		#debug
-		'''
 		self.debug(
 			[
 				'we set the PyplotingDrawVariable',
 				('self.',self,[
-						'RecordedColorTuplesList'
+						'RecordedColorTuplesList',
+						'RecordingLabelVariable'
 					])
 			]
 		)
-		'''
 
 		#set
 		self.PyplotingDrawVariable=map(
@@ -2374,7 +2373,7 @@ BrianerClass.PrintingClassSkipKeyStrsList.extend(
 		'BrianingTimeQuantityStr',
 		'BrianingPyplotBool',
 		'BrianingStepTimeFloat',
-		'BrianingDebugInt',
+		'BrianingDebugVariable',
 		'BrianingRecordBool',
 		'BrianingViewNetworkBool',
 		'BrianingActivityStr',
