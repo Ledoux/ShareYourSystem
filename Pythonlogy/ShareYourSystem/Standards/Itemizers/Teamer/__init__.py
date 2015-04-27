@@ -557,6 +557,23 @@ class TeamerClass(BaseClass):
 
 	def __contains__(self,_KeyStr):
 		return _KeyStr in self.ManagementDict
+
+	def getTeamer(self,_KeyStr):
+
+		#Check
+		if _KeyStr in self.TeamDict:
+
+			#get
+			return self.TeamDict[
+				_KeyStr
+			]
+
+		else:
+
+			#team
+			return self.team(
+				_KeyStr
+			).TeamedValueVariable
 		
 #</DefineClass>
 

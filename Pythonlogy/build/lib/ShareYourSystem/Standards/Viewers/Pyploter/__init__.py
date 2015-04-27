@@ -21,6 +21,7 @@ SYS.addDo("Pyploter","Pyplot","Pyploting","Pyploted")
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
+from ShareYourSystem.Standards.Interfacers import Printer
 from ShareYourSystem.Standards.Itemizers import Setter,Manager
 from ShareYourSystem.Standards.Controllers import Controller
 import copy
@@ -53,6 +54,7 @@ class PyploterClass(BaseClass):
 						_PyplotingDrawVariable=None,
 						_PyplotingChartVariable=None,
 						_PyplotingShiftIntsTuple=(1,0),
+						_PyplotingPrintBool=True,
 						_PyplotedTeamTagStr="",
 						_PyplotedParentFigureDerivePyploterVariable=None,
 						_PyplotedParentPanelDerivePyploterVariable=None,
@@ -133,11 +135,13 @@ class PyploterClass(BaseClass):
 			#
 
 			#debug
+			'''
 			self.debug(
 					[
 						'Figure Level'
 					]
 				)
+			'''
 
 			#import pyplot
 			from matplotlib import pyplot
@@ -265,12 +269,14 @@ class PyploterClass(BaseClass):
 			)
 
 			#debug
+			'''
 			self.debug(
 				[
 					'Ok we have structure Panels, Charts, Draws'
 				]
 			)
-
+			'''
+			
 		else:
 
 			#/########################/#
@@ -915,7 +921,9 @@ class PyploterClass(BaseClass):
 		if self.ParentDeriveTeamerVariable!=None:
 
 			#Check
-			if self.ManagementIndexInt==(len(self.ParentDeriveTeamerVariable.ManagementDict)-1):
+			if self.ManagementIndexInt==(
+				len(self.ParentDeriveTeamerVariable.ManagementDict)-1
+			):
 
 				#debug
 				'''
@@ -1332,6 +1340,56 @@ class PyploterClass(BaseClass):
 					]
 				)
 
+			#Debug
+			'''
+			print('self.__class__ is ')
+			print(self.__class__)
+			print('self.PyplotingPrintBool')
+			print(self.__class__.PyplotingPrintBool)
+			print('self.__class__.PyplotingPrintBool')
+			print(self.__class__.PyplotingPrintBool)
+			print('')
+			'''
+
+			#/##################/#
+			# Maybe just give a pointer repr of the children
+			# pyplot objects
+
+			#Check
+			if self.__class__.PyplotingPrintBool==False or self.PyplotingPrintBool==False:
+
+				#Debug
+				'''
+				print('We remove the pyplot teams')
+				print('self.TeamDict.keys() is ')
+				print(self.TeamDict.keys())
+				print('self.PrintingCopyVariable.TeamDict.keys() is ')
+				print(self.PrintingCopyVariable.TeamDict.keys())
+				print('')
+				'''
+
+				#map
+				map(
+					lambda __TeamStr:
+					self.PrintingCopyVariable.TeamDict.__setitem__(
+						__TeamStr,
+						Printer.getPointerStr(
+							self.TeamDict[
+								__TeamStr
+							]
+						)
+					) if __TeamStr in self.TeamDict
+					else None,
+					['Draws','Charts','Panels']
+				)
+
+				#Debug
+				'''
+				print('We remove the pyplot teams')
+				print('self.TeamDict.keys() is ')
+				print(self.TeamDict.keys())
+				print('')
+				'''
 
 		#/##################/#
 		# Call the base method
@@ -1352,6 +1410,7 @@ PyploterClass.PrintingClassSkipKeyStrsList.extend(
 		'PyplotingDrawVariable',
 		'PyplotingChartVariable',
 		'PyplotingShiftIntsTuple',
+		'PyplotingPrintBool',
 		'PyplotedTeamTagStr',
 		'PyplotedParentFigureDerivePyploterVariable',
 		'PyplotedParentPanelDerivePyploterVariable',

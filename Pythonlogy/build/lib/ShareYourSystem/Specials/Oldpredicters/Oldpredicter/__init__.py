@@ -66,11 +66,11 @@ class OldpredicterClass(BaseClass):
 						_OldpredictedPerturbativeInputWeigthFloatsArray=None,
 						_OldpredictedNullFloatsArray=None,
 						_OldpredictedTotalPerturbativeInputWeigthFloatsArray=None,
-						
-						_OldpredictedExactLateralWeigthFloatsArray=None,
+
+						_OldpredictedExactFastLateralWeigthFloatsArray=None,
 						_OldpredictedLateralRandomFloatsArray=None,
-						_OldpredictedPerturbativeLateralWeigthFloatsArray=None,
-						_OldpredictedTotalPerturbativeLateralWeigthFloatsArray=None,
+						_OldpredictedPerturbativeFastLateralWeigthFloatsArray=None,
+						_OldpredictedTotalPerturbativeFastLateralWeigthFloatsArray=None,
 					
 						**_KwargVariablesDict
 					):
@@ -281,7 +281,7 @@ class OldpredicterClass(BaseClass):
 		#Exact
 
 		#dot
-		self.OldpredictedExactLateralWeigthFloatsArray=np.dot(
+		self.OldpredictedExactFastLateralWeigthFloatsArray=np.dot(
 				self.OldpredictedExactDecoderWeigthFloatsArray.T,
 				self.OldpredictedExactDecoderWeigthFloatsArray
 			)
@@ -291,7 +291,7 @@ class OldpredicterClass(BaseClass):
 		self.debug(
 				[
 					('self.',self,[
-						'OldpredictedExactLateralWeigthFloatsArray',
+						'OldpredictedExactFastLateralWeigthFloatsArray',
 					])
 				]
 			)
@@ -314,7 +314,7 @@ class OldpredicterClass(BaseClass):
 			)
 
 			#dot
-			self.OldpredictedPerturbativeLateralWeigthFloatsArray=np.dot(
+			self.OldpredictedPerturbativeFastLateralWeigthFloatsArray=np.dot(
 					self.OldpredictedNullFloatsArray,
 					self.OldpredictedLateralRandomFloatsArray
 				)
@@ -324,7 +324,7 @@ class OldpredicterClass(BaseClass):
 				[
 					'We have done the null dot',
 					('self.',self,[
-						'OldpredictedPerturbativeLateralWeigthFloatsArray'
+						'OldpredictedPerturbativeFastLateralWeigthFloatsArray'
 					])
 				]
 			)
@@ -332,7 +332,7 @@ class OldpredicterClass(BaseClass):
 		else:
 
 			#copy
-			self.OldpredictedPerturbativeLateralWeigthFloatsArray=self.OldpredictingPerturbativeLateralWeightFloat*getattr(
+			self.OldpredictedPerturbativeFastLateralWeigthFloatsArray=self.OldpredictingPerturbativeLateralWeightFloat*getattr(
 				scipy.stats,
 				self.OldpredictingLateralRandomStatStr
 			).rvs(
@@ -347,13 +347,13 @@ class OldpredicterClass(BaseClass):
 				[
 					'We just build a random lateral matrix',
 					('self.',self,[
-						'OldpredictedPerturbativeLateralWeigthFloatsArray'
+						'OldpredictedPerturbativeFastLateralWeigthFloatsArray'
 					])
 				]
 			)
 
 		#normalize
-		self.OldpredictedPerturbativeLateralWeigthFloatsArray/=(
+		self.OldpredictedPerturbativeFastLateralWeigthFloatsArray/=(
 			self.OldpredictingUnitsInt**(self.OldpredictingNormalisationInt/2.)
 		)
 
@@ -393,10 +393,10 @@ OldpredicterClass.PrintingClassSkipKeyStrsList.extend(
 		'OldpredictedNullFloatsArray',
 		'OldpredictedTotalPerturbativeInputWeigthFloatsArray',
 		
-		'OldpredictedExactLateralWeigthFloatsArray',
+		'OldpredictedExactFastLateralWeigthFloatsArray',
 		'OldpredictedLateralRandomFloatsArray',
-		'OldpredictedPerturbativeLateralWeigthFloatsArray',
-		'OldpredictedTotalPerturbativeLateralWeigthFloatsArray',
+		'OldpredictedPerturbativeFastLateralWeigthFloatsArray',
+		'OldpredictedTotalPerturbativeFastLateralWeigthFloatsArray',
 	]
 )
 #<DefinePrint>

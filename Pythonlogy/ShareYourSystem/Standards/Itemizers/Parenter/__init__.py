@@ -1018,6 +1018,22 @@ class ParenterClass(BaseClass):
 		#return self
 		return self
 
+	def getParenterStr(self):
+
+		#get
+		ParenterStr=Printer.getPointerStr(
+						self
+					)
+
+		#Check
+		if self.TeamedOnceBool:
+			ParenterStr+=' with : '+str(self.TeamDict.keys())
+		elif self.ManagedOnceBool:
+			ParenterStr+=' with : '+str(self.ManagementDict.keys())
+
+		#return
+		return ParenterStr
+
 #</DefineClass>
 
 #Set

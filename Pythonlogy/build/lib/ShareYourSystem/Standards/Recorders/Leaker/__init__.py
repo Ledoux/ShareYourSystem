@@ -101,11 +101,13 @@ class LeakerClass(BaseClass):
 			_LeakingQuantityStr='mV',
 			_LeakingMonitorIndexIntsList=None,
 			_LeakingSymbolPrefixStr="",
-			_LeakingInteractionStr='Rate',
+			_LeakingInteractionStr="Rate",
 			_LeakingVariableStr="",
 			_LeakingTransferVariable=None,
 			_LeakingThresholdVariable=None,
 			_LeakingResetVariable=None,
+			_LeakingRecordBool=False,
+			_LeakingNoiseStdVariable=None,
 			_LeakedRecordSkipStrsList=None,
 			_LeakedQuantityVariable=None,
 			_LeakedDimensionStr="",
@@ -463,7 +465,7 @@ class LeakerClass(BaseClass):
 			if self.LeakingTimeVariable.startswith(LeakScalarPrefixStr):
 
 				#set
-				self.LeakedClampStr='Scalar'
+				self.LeakedClampStr="Scalar"
 
 				#debug
 				'''
@@ -483,7 +485,7 @@ class LeakerClass(BaseClass):
 		else:
 
 			#set
-			self.LeakedClampStr='Variable'
+			self.LeakedClampStr="Variable"
 
 			#debug
 			'''
@@ -524,7 +526,7 @@ class LeakerClass(BaseClass):
 
 		#Check
 		LeakedDirectVariableBool=False
-		if self.LeakedClampStr=='Scalar':
+		if self.LeakedClampStr=="Scalar":
 			if float(self.LeakedTimeSymbolStr.split('*')[0])==0.:
 				LeakedDirectVariableBool=True
 
@@ -532,6 +534,7 @@ class LeakerClass(BaseClass):
 		if self.LeakingTimeVariable==0 or LeakedDirectVariableBool:
 
 			#debug
+			'''
 			self.debug(
 				[
 					'Time constant is null',
@@ -543,6 +546,7 @@ class LeakerClass(BaseClass):
 					])
 				]
 			)
+			'''
 
 			#set the left 
 			self.LeakedModelStr+=self.LeakingSymbolPrefixStr
@@ -715,16 +719,36 @@ class LeakerClass(BaseClass):
 			)
 			'''
 
+
+			#Check
+			if self.LeakingNoiseStdVariable!=None:
+
+				#Check
+				self.LeakedModelStr+='+'
+
+				if type(self.LeakingNoiseStdVariable)==str:
+
+					#add
+					self.LeakedModelStr+=self.LeakingNoiseStdVariable
+
+				else:
+
+					#str
+					self.LeakedModelStr+=str(
+						self.LeakingNoiseStdVariable
+					)+'*'+str(self.LeakedQuantityVariable)
+
+			#Check
+			if self.LeakingNoiseStdVariable!=None:
+
+				#add
+				self.LeakedModelStr+='*sqrt('+self.LeakedTimeSymbolStr+')*xi'
+
 			#set
 			self.LeakedModelStr+=')'
 
 			#set the right denominator
-			if self.LeakedClampStr=='Scalar':
-
-				#add
-				self.LeakedModelStr+='/('+self.LeakedTimeSymbolStr+')'
-
-			elif self.LeakedClampStr=='Variable':
+			if self.LeakedClampStr in ["Scalar","Variable"]:
 
 				#add
 				self.LeakedModelStr+='/('+self.LeakedTimeSymbolStr+')'
@@ -776,7 +800,9 @@ class LeakerClass(BaseClass):
 		else:
 
 			#Check
-			if len(self.LeakingMonitorIndexIntsList)==0:
+			if len(self.LeakingMonitorIndexIntsList
+				)==0 or len(
+				self.LeakingMonitorIndexIntsList)>self.LeakingUnitsInt:
 				self.LeakingMonitorIndexIntsList=[0]
 
 			#set
@@ -1063,7 +1089,7 @@ class LeakerClass(BaseClass):
 				if self.LeakingWeigthVariable.startswith(LeakScalarPrefixStr):
 
 					#set
-					self.LeakedClampStr='Scalar'
+					self.LeakedClampStr="Scalar"
 
 					#set
 					self.LeakedSymbolStr=SYS.deprefix(
@@ -1175,7 +1201,7 @@ class LeakerClass(BaseClass):
 			else:
 
 				#set
-				self.LeakedClampStr='Variable'
+				self.LeakedClampStr="Variable"
 
 				#debug
 				'''
@@ -1191,13 +1217,25 @@ class LeakerClass(BaseClass):
 				)
 				'''
 
-				#append
-				if self.LeakedParentPopulationDeriveLeakerVariable.LeakedRecordSkipStrsList==None:
-					self.LeakedParentPopulationDeriveLeakerVariable.LeakedRecordSkipStrsList=[self.LeakedSymbolStr]
-				else:
-					self.LeakedParentPopulationDeriveLeakerVariable.LeakedRecordSkipStrsList.append(
-						self.LeakedSymbolStr
+				#Check
+				if self.LeakingRecordBool==False:
+
+					#debug
+					self.debug(
+						[
+							'we skip record this input'
+						]
 					)
+
+					#append
+					if self.LeakedParentPopulationDeriveLeakerVariable.LeakedRecordSkipStrsList==None:
+						self.LeakedParentPopulationDeriveLeakerVariable.LeakedRecordSkipStrsList=[
+							self.LeakedSymbolStr
+						]
+					else:
+						self.LeakedParentPopulationDeriveLeakerVariable.LeakedRecordSkipStrsList.append(
+							self.LeakedSymbolStr
+						)
 
 				#Check
 				if self.LeakedParentPopulationDeriveLeakerVariable.LeakedQuantityVariable==None:
@@ -1300,6 +1338,7 @@ class LeakerClass(BaseClass):
 		if self.ConnectedToVariable==None:
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We setConnection here',
@@ -1309,6 +1348,7 @@ class LeakerClass(BaseClass):
 						])
 				]
 			)
+			'''
 
 			#setConnection
 			self.setConnection(
@@ -1330,306 +1370,414 @@ class LeakerClass(BaseClass):
 			# Check the clamp of the interaction
 			#
 
-			#Check
-			if type(self.LeakingWeigthVariable)!=None.__class__:
-
-				#debug
-				'''
-				self.debug(
-					[
-						'We check the clamp of the interaction',
-						('self.',self,[
+			#debug
+			'''
+			self.debug(
+				[
+					'What is LeakingWeigthVariable',
+					('self.',self,[
 							'LeakingWeigthVariable'
 						])
+				]
+			)
+			'''
+			
+			#Check
+			if type(self.LeakingWeigthVariable)==None.__class__:
+
+				#set
+				self.LeakingWeigthVariable='#scalar:0.'
+
+				#debug
+				self.debug(
+					[
+						'We set a default J equal to scalar 0',
+						('self.',self,[
+								'LeakingWeigthVariable'
+							])
 					]
 				)
-				'''
 
+			#debug
+			'''
+			self.debug(
+				[
+					'We check the clamp of the interaction',
+					('self.',self,[
+						'LeakingWeigthVariable'
+					])
+				]
+			)
+			'''
 
-				#/##################/#
-				# Check that the ConnectedToVariable has already its LeakedSymbolStr
-				#
+			#/##################/#
+			# Check that the ConnectedToVariable has already its LeakedSymbolStr
+			#
 
-				#Check
-				if self.ConnectedToVariable.LeakingSymbolPrefixStr=="":
-					self.ConnectedToVariable.LeakingSymbolPrefixStr=LeakActivityPrefixStr
-					self.ConnectedToVariable.LeakedSymbolStr=LeakActivityPrefixStr
-				else:
-					self.ConnectedToVariable.LeakedSymbolStr=self.ConnectedToVariable.LeakingSymbolPrefixStr
+			#Check
+			if self.ConnectedToVariable.LeakingSymbolPrefixStr=="":
+				self.ConnectedToVariable.LeakingSymbolPrefixStr=LeakActivityPrefixStr
+				self.ConnectedToVariable.LeakedSymbolStr=LeakActivityPrefixStr
+			else:
+				self.ConnectedToVariable.LeakedSymbolStr=self.ConnectedToVariable.LeakingSymbolPrefixStr
 
-				#/##################/#
-				# Look if it is Scalar or Variable interaction
-				#
+			#/##################/#
+			# Look if it is Scalar or Variable interaction
+			#
 
-				#init
-				self.LeakedClampStr='Variable'
+			#init
+			self.LeakedClampStr="Variable"
 
-				#Check
-				if type(self.LeakingWeigthVariable)==str:
-
-					#Check
-					if self.LeakingWeigthVariable.startswith(
-						LeakScalarPrefixStr
-					):
-
-						#debug
-						'''
-						self.debug(
-							[
-								'It is a scalar constant connection'
-							]
-						)
-						'''
-
-						#set
-						self.LeakedClampStr='Scalar'
-
-
-				#/##################/#
-				# Choose the variable in the pre to be clamp in the post
-				#
+			#Check
+			if type(self.LeakingWeigthVariable)==str:
 
 				#Check
-				if self.LeakingSymbolPrefixStr=="":
+				if self.LeakingWeigthVariable.startswith(
+					LeakScalarPrefixStr
+				):
 
 					#debug
+					'''
 					self.debug(
 						[
-							'There is no LeakingSymbolPrefixStr here',
-							'So we set it to the LeakInteractionPrefixStr'
+							'It is a scalar constant connection'
 						]
 					)
+					'''
 
 					#set
-					self.LeakingSymbolPrefixStr=LeakInteractionPrefixStr
+					self.LeakedClampStr="Scalar"
 
-				
-				#/####################/#
-				# Write the LeakedSymbolStr
-				#
+
+			#/##################/#
+			# Choose the variable in the pre to be clamp in the post
+			#
+
+			#Check
+			if self.LeakingSymbolPrefixStr=="":
 
 				#debug
 				'''
 				self.debug(
 					[
-						'We set the LeakedSymbolStr',
-						('self.',self,[
-							'LeakingSymbolPrefixStr'
-						]),
-						'self.ConnectedToVariable.LeakedSymbolStr is ',
-						self.ConnectedToVariable.LeakedSymbolStr
+						'There is no LeakingSymbolPrefixStr here',
+						'So we set it to the LeakInteractionPrefixStr'
 					]
 				)
 				'''
 
 				#set
-				self.LeakedSymbolStr=self.LeakingSymbolPrefixStr
+				self.LeakingSymbolPrefixStr=LeakInteractionPrefixStr
 
-				#split
-				self.LeakedSymbolStr+=self.ParentTagStr.split(
-					'Interactions'
-				)[-1].replace(
-					'/',
-					'_'
-				)
+			
+			#/####################/#
+			# Write the LeakedSymbolStr
+			#
 
-				#debug
-				self.debug(
-					[
-						'We add a suffix corresponding to the observed variable',
-						('self.',self,[
-								'LeakingVariableStr'
-							])
-					]
-				)
-				
+			#Check
+			#if self.LeakingInteractionStr=="Rate":
+
+			#debug
+			'''
+			self.debug(
+				[
+					'We set the LeakedSymbolStr',
+					('self.',self,[
+						'LeakingSymbolPrefixStr'
+					]),
+					'self.ConnectedToVariable.LeakedSymbolStr is ',
+					self.ConnectedToVariable.LeakedSymbolStr
+				]
+			)
+			'''
+
+			#set
+			self.LeakedSymbolStr=self.LeakingSymbolPrefixStr
+
+			#split
+			self.LeakedSymbolStr+=self.ParentTagStr.split(
+				'Interactions'
+			)[-1].replace(
+				'/',
+				'_'
+			)
+
+			#debug
+			self.debug(
+				[
+					'We add a suffix corresponding to the observed variable',
+					('self.',self,[
+							'LeakingVariableStr'
+						])
+				]
+			)
+			
+			#Check
+			if self.LeakingVariableStr=="":
+
 				#Check
-				if self.LeakingVariableStr=='':
+				if self.LeakingInteractionStr=="Rate":
+
+					#debug
+					self.debug(
+						[
+							'It is a rate interaction',
+							'So the LeakedVariableStr has to be the ConnectedToVariable.LeakedSymbolStr by default'
+						]
+					)
 
 					#add
 					self.LeakedSymbolStr+=self.ConnectedToVariable.LeakedSymbolStr
+
+					#Check
 					self.LeakedVariableStr=self.ConnectedToVariable.LeakedSymbolStr
 
-				else:
-
-					#add
-					self.LeakedSymbolStr+=self.LeakingVariableStr
-					self.LeakedVariableStr=self.LeakingVariableStr
-
-				#/####################/#
-				# Say that the ConnectedToVariable has to record skip this variable
-				#
-
-				#Check
-				if self.LeakedClampStr=='Variable':
+				"""
+				elif self.LeakingInteractionStr=="Spike":
 
 					#debug
-					'''
 					self.debug(
 						[
-							'It is a variable',
-							('self.',self,[
-									'LeakedSymbolStr'
-								]),
-							'We append in the ConnectedToVariable',
+							'It is a spike interaction',
+							'So the LeakedVariableStr has to be the J'
+						
 						]
 					)
-					'''
+
+					#add
+					self.LeakedSymbolStr+='delta'
+
+					#Check
+					self.LeakedVariableStr=self.LeakingSymbolPrefixStr
+				"""
+
+			else:
+
+				#add
+				self.LeakedSymbolStr+=self.LeakingVariableStr
+				self.LeakedVariableStr=self.LeakingVariableStr
+
+			#/####################/#
+			# Say that the ConnectedToVariable has to record skip this variable
+			#
+
+			#Check
+			if self.LeakedClampStr=="Variable":
+
+				#debug
+				'''
+				self.debug(
+					[
+						'It is a variable',
+						('self.',self,[
+								'LeakedSymbolStr'
+							]),
+						'We append in the ConnectedToVariable',
+					]
+				)
+				'''
+
+				#Check
+				if self.LeakingRecordBool==False:
+
+					#debug
+					self.debug(
+						[
+							'we skip record this interaction'
+						]
+					)
 
 					#append
 					if self.ConnectedToVariable.LeakedRecordSkipStrsList==None:
+
+						#init
 						self.ConnectedToVariable.LeakedRecordSkipStrsList=[
 							self.LeakedSymbolStr
 						]
 					else:
+
+						#append
 						self.ConnectedToVariable.LeakedRecordSkipStrsList.append(
 							self.LeakedSymbolStr
 						)
 
-					#debug
-					'''
-					self.debug(
-						[
-							'in the end',
-							('self.',self,[
-								'LeakedSymbolStr'
-							])
-						]
-					)
-					'''
-
-				#/####################/#
-				# Build the interaction model
-				#
 
 				#debug
 				'''
 				self.debug(
 					[
-						'We set Interaction here',
-						'Look for the type of interaction'
+						'in the end',
+						('self.',self,[
+							'LeakedSymbolStr'
+						])
 					]
 				)
 				'''
 
-				#Check
-				if self.LeakingInteractionStr=='Rate':
+			#/####################/#
+			# Build the interaction model
+			#
+
+			#debug
+			self.debug(
+				[
+					'First we set the model in the synapse',
+					('self.',self,[
+						'LeakedClampStr'
+					])
+				]
+			)
+
+			#Check
+			if self.LeakedClampStr=="Variable":
+
+				#define
+				self.LeakedModelStr+="\n"+self.LeakingSymbolPrefixStr+" : 1 \n"
+
+			#Check
+			if self.LeakingInteractionStr=="Rate":
+
+				#set
+				if self.LeakedClampStr=="Scalar":
 
 					#debug
 					'''
 					self.debug(
 						[
-							'It is a rate interaction',
-							'First we set the model in the synapse',
-							('self.',self,[
-								'LeakedSymbolStr'
-							])
+							'The interaction is a scalar',
+							'so just define the post pre relation'
 						]
 					)
 					'''
+
+					#do the operation
+					self.LeakedModelStr+=self.LeakedSymbolStr+"_post"
+
+					#deprefix
+					LeakedInteractionWeigthStr=SYS.deprefix(
+						self.LeakingWeigthVariable,
+						LeakScalarPrefixStr
+					)
 
 					#set
-					if self.LeakedClampStr=='Scalar':
+					self.LeakedInteractionWeigthFloat=float(LeakedInteractionWeigthStr)
 
-						#debug
-						'''
-						self.debug(
-							[
-								'The interaction is a scalar',
-								'so just define the post pre relation'
-							]
-						)
-						'''
+					#add
+					self.LeakedModelStr+="="+LeakedInteractionWeigthStr+'*'+self.LeakedVariableStr+"_pre"
 
-						#do the operation
-						self.LeakedModelStr+=self.LeakedSymbolStr+"_post="
-
-						#deprefix
-						LeakedInteractionWeigthStr=SYS.deprefix(
-							self.LeakingWeigthVariable,
-							LeakScalarPrefixStr
-						)
-
-						#set
-						self.LeakedInteractionWeigthFloat=float(LeakedInteractionWeigthStr)
-
-						#add
-						self.LeakedModelStr+=LeakedInteractionWeigthStr+'*'+self.LeakedVariableStr+"_pre : "
-						self.LeakedModelStr+=self.ConnectedToVariable.LeakedDimensionStr+" (summed)\n"
-
-					elif self.LeakedClampStr=='Variable':
-
-						#debug
-						'''
-						self.debug(
-							[
-								'The interaction is a variable, so define the variable and the post pre relation'
-							]
-						)
-						'''
-
-						#define
-						#self.LeakedModelStr+="\n"+self.LeakedSymbolStr+" : 1 \n"
-						self.LeakedModelStr+="\n"+self.LeakingSymbolPrefixStr+" : 1 \n"
-					
-						#do the operation
-						self.LeakedModelStr+=self.LeakedSymbolStr+"_post="
-						self.LeakedModelStr+=self.LeakingSymbolPrefixStr+'*'+self.LeakedVariableStr+"_pre : "
-						self.LeakedModelStr+=self.ConnectedToVariable.LeakedDimensionStr+" (summed)\n"
-
-					#debug
-					self.debug(
-						[
-							'Ok',
-							('self.',self,[
-									'LeakedSymbolStr',
-									'LeakedModelStr'
-								]),
-							'We add the interaction in the connected model',
-							'self.ConnectedToVariable.LeakedModelStr is ',
-							self.ConnectedToVariable.LeakedModelStr,
-							'self.ConnectedToVariable.LeakedCurrentStr is ',
-							self.ConnectedToVariable.LeakedCurrentStr,
-							'self.ConnectedToVariable.LeakedDimensionStr is ',
-							self.ConnectedToVariable.LeakedDimensionStr
-						]
-					)
-					
-					#define in the model
-					self.ConnectedToVariable.LeakedModelStr+=self.LeakedSymbolStr+' : '+self.ConnectedToVariable.LeakedDimensionStr+"\n"
-					
-					#add in the current
-					self.ConnectedToVariable.addCurrentStr(self.LeakedSymbolStr)
+				elif self.LeakedClampStr=="Variable":
 
 					#debug
 					'''
 					self.debug(
 						[
-							'In the end',
-							'self.ConnectedToVariable.LeakedCurrentStr is ',
-							self.ConnectedToVariable.LeakedCurrentStr,
-							'self.ConnectedToVariable.LeakedModelStr is ',
-							self.ConnectedToVariable.LeakedModelStr
+							'The interaction is a variable, so define the variable and the post pre relation'
 						]
 					)
 					'''
 
-				#/##################/#
-				# Update in the Synapses dict
-				#
+					#do the operation
+					self.LeakedModelStr+=self.LeakedSymbolStr+"_post"
+
+					#add
+					self.LeakedModelStr+='='+self.LeakingSymbolPrefixStr+'*'+self.LeakedVariableStr+"_pre"
+
+				#add
+				self.LeakedModelStr+=" : "+self.ConnectedToVariable.LeakedDimensionStr
+
+				#debug
+				self.debug(
+					[
+						'It is a rate interaction so we add the summed term'
+					]
+				)
 
 				#Check
-				if self.BrianingSynapsesDict==None:
+				self.LeakedModelStr+=" (summed)"
+
+				#add
+				self.LeakedModelStr+="\n"
+
+				#debug
+				self.debug(
+					[
+						'Ok',
+						('self.',self,[
+								'LeakedSymbolStr',
+								'LeakedModelStr'
+							]),
+						'We add the interaction in the connected model',
+						'self.ConnectedToVariable.LeakedModelStr is ',
+						self.ConnectedToVariable.LeakedModelStr,
+						'self.ConnectedToVariable.LeakedCurrentStr is ',
+						self.ConnectedToVariable.LeakedCurrentStr,
+						'self.ConnectedToVariable.LeakedDimensionStr is ',
+						self.ConnectedToVariable.LeakedDimensionStr
+					]
+				)
 				
-					#init
-					self.BrianingSynapsesDict={
-							'model':self.LeakedModelStr
-						}
+				#define in the model
+				self.ConnectedToVariable.LeakedModelStr+=self.LeakedSymbolStr+' : '+self.ConnectedToVariable.LeakedDimensionStr+"\n"
+				
+				#add in the current
+				self.ConnectedToVariable.addCurrentStr(self.LeakedSymbolStr)
 
-				else:
+				#debug
+				'''
+				self.debug(
+					[
+						'In the end',
+						'self.ConnectedToVariable.LeakedCurrentStr is ',
+						self.ConnectedToVariable.LeakedCurrentStr,
+						'self.ConnectedToVariable.LeakedModelStr is ',
+						self.ConnectedToVariable.LeakedModelStr
+					]
+				)
+				'''
 
-					#update
-					self.BrianingSynapsesDict['model']=self.LeakedModelStr
+			#/##################/#
+			# Update in the Synapses dict
+			#
+
+			#Check
+			if self.BrianingSynapsesDict==None:
+			
+				#init
+				self.BrianingSynapsesDict={
+						'model':self.LeakedModelStr
+					}
+
+			else:
+
+				#update
+				self.BrianingSynapsesDict['model']=self.LeakedModelStr
+
+			#Check
+			if self.LeakingInteractionStr=="Spike":
+
+				#debug
+				self.debug(
+					[
+						'It is a spike interaction add int the BrianingSynapsesDict pre',
+						'self.ConnectedToVariable.LeakedSymbolStr is ',
+						self.ConnectedToVariable.LeakedSymbolStr
+					]
+				)
+
+				#add
+				self.BrianingSynapsesDict['pre']=self.ConnectedToVariable.LeakedSymbolStr+'_post+='+self.LeakingSymbolPrefixStr+'*'+str(
+					self.LeakedParentPopulationDeriveLeakerVariable.LeakedQuantityVariable
+				)
+
+			#debug
+			self.debug(
+				[
+					'In the end',
+					('self.',self,[
+						'BrianingSynapsesDict'
+					])
+				]
+			)
 
 
 	def brianPopulation(self):
@@ -1668,7 +1816,7 @@ class LeakerClass(BaseClass):
 		'''
 
 		#Check
-		if self.LeakedClampStr=='Variable':
+		if self.LeakedClampStr=="Variable":
 
 			#debug
 			'''
@@ -1749,6 +1897,28 @@ class LeakerClass(BaseClass):
 			].ManagementDict[
 				'*Threshold'
 			].BrianingRecordBool=False
+
+
+		#/###################/#
+		# Specify a plot of the events
+		#
+
+		#Check
+		if type(self.LeakingThresholdVariable)!=None.__class__:
+
+			#debug
+			self.debug(
+				[
+					'We add a record of the events'
+				]
+			)
+
+			#get
+			self.getTeamer(
+					"Events"
+				).getManager(
+					"Default"
+				)
 
 
 
@@ -1854,7 +2024,7 @@ class LeakerClass(BaseClass):
 				enumerate(
 					SYS._filter(
 						lambda __DeriveLeaker:
-						__DeriveLeaker.LeakedClampStr not in ["",'Scalar'],
+						__DeriveLeaker.LeakedClampStr not in ["","Scalar"],
 						self.TeamDict['Inputs'].ManagementDict.values()
 					)
 				)
@@ -1877,7 +2047,7 @@ class LeakerClass(BaseClass):
 		if self.LeakingWeigthVariable!=None:
 
 			#Check
-			if self.LeakedClampStr=='Variable':
+			if self.LeakedClampStr=="Variable":
 
 				#get
 				Variable=getattr(
@@ -2136,7 +2306,6 @@ class LeakerClass(BaseClass):
 		#
 
 		#debug
-		'''
 		self.debug(
 			[
 				'We set interaction brian here',
@@ -2145,10 +2314,9 @@ class LeakerClass(BaseClass):
 					])
 			]
 		)
-		'''
 
 		#Check
-		if self.LeakedClampStr=='Scalar':
+		if self.LeakedClampStr=="Scalar":
 
 			#debug
 			'''
@@ -2178,13 +2346,12 @@ class LeakerClass(BaseClass):
 					True
 				)
 
-		elif self.LeakedClampStr=='Variable':
+		elif self.LeakedClampStr=="Variable":
 
 			#type
 			BrianedInteractionType=type(self.LeakingWeigthVariable)
 
 			#debug
-			'''
 			self.debug(
 				[
 					'We have to set the connect variable',
@@ -2195,7 +2362,6 @@ class LeakerClass(BaseClass):
 					str(BrianedInteractionType)
 				]
 			)
-			'''
 
 			#import
 			import numpy as np
@@ -2218,6 +2384,13 @@ class LeakerClass(BaseClass):
 
 				#Check
 				if self.LeakingWeigthVariable!=0.:
+
+					#debug
+					self.debug(
+						[
+							'We are going to connect this Variable for each index'
+						]
+					)
 
 					#connect
 					self.BrianedSynapsesVariable.connect(
@@ -2285,6 +2458,7 @@ class LeakerClass(BaseClass):
 					if len(BrianedShape)!=2:
 
 						#debug
+						'''
 						self.debug(
 							[
 								'We reshape',
@@ -2295,6 +2469,7 @@ class LeakerClass(BaseClass):
 								'BrianedColsInt is '+str(BrianedColsInt)
 							]
 						)
+						'''
 
 						#reshape
 						BrianedFloatsArray=np.reshape(
@@ -2349,6 +2524,7 @@ class LeakerClass(BaseClass):
 				BrianedInteractionArray[:]=BrianedFloatsArray
 
 				#debug
+				'''
 				self.debug(
 					[
 						'In the end ',
@@ -2356,6 +2532,7 @@ class LeakerClass(BaseClass):
 						str(BrianedInteractionArray)
 					]
 				)
+				'''
 
 	def brianTrace(self):
 
@@ -2460,7 +2637,7 @@ class LeakerClass(BaseClass):
 			'''
 
 			#Check
-			if BrianedInputDeriveLeaker.LeakedClampStr not in ['Scalar','Variable']:
+			if BrianedInputDeriveLeaker.LeakedClampStr not in ["Scalar","Variable"]:
 
 				#debug
 				'''
@@ -2488,9 +2665,29 @@ class LeakerClass(BaseClass):
 					)	
 					'''
 
-					#alias
-					BrianedDefaultDeriveLeaker.RecordingLabelVariable=self.LeakedParentPopulationDeriveLeakerVariable.LeakingMonitorIndexIntsList
+					#Check
+					if self.LeakedParentPopulationDeriveLeakerVariable.BrianedNeurongroupVariable.N>len(
+							self.LeakedParentPopulationDeriveLeakerVariable.LeakingMonitorIndexIntsList
+						):
 
+						#alias
+						BrianedDefaultDeriveLeaker.RecordingLabelVariable=self.LeakedParentPopulationDeriveLeakerVariable.LeakingMonitorIndexIntsList
+
+					else:
+
+						#debug
+						self.debug(
+							[
+								'WARNING : size is not good',
+								'self.LeakedParentPopulationDeriveLeakerVariable.BrianedNeurongroupVariable.N is',
+								str(self.LeakedParentPopulationDeriveLeakerVariable.BrianedNeurongroupVariable.N),
+								'self.LeakedParentPopulationDeriveLeakerVariable.LeakingMonitorIndexIntsList is ',
+								str(self.LeakedParentPopulationDeriveLeakerVariable.LeakingMonitorIndexIntsList)
+							]
+						)
+
+						#alias
+						BrianedDefaultDeriveLeaker.RecordingLabelVariable=[0]
 
 	def mimic__print(self,**_KwargVariablesDict):
 
@@ -2709,21 +2906,6 @@ class LeakerClass(BaseClass):
 		)
 		'''
 
-		#append
-		if self.LeakedParentPopulationDeriveLeakerVariable.LeakedRecordSkipStrsList==None:
-
-			#init
-			self.LeakedParentPopulationDeriveLeakerVariable.LeakedRecordSkipStrsList=[
-				self.LeakedSymbolStr
-			]
-
-		else:
-
-			#append
-			self.LeakedParentPopulationDeriveLeakerVariable.LeakedRecordSkipStrsList.append(
-				self.LeakedSymbolStr
-			)
-
 		#Check
 		if self.LeakedParentPopulationDeriveLeakerVariable.LeakedQuantityVariable==None:
 			self.LeakedParentPopulationDeriveLeakerVariable.setDimension()
@@ -2759,6 +2941,8 @@ LeakerClass.PrintingClassSkipKeyStrsList.extend(
 		'LeakingThresholdVariable',
 		'LeakingResetVariable',
 		'LeakingVariableStr',
+		'LeakingRecordBool',
+		'LeakingNoiseStdVariable',
 		'LeakedRecordSkipStrsList',
 		'LeakedQuantityVariable',
 		'LeakedDimensionStr',

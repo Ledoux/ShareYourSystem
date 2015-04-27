@@ -27,6 +27,7 @@ MyLeaker=SYS.LeakerClass(
 							'LeakingWeigthVariable':'#scalar:11*mV'
 						}
 					},
+					'LeakingNoiseStdVariable':0.1,
 					'LeakingThresholdVariable':'#scalar:V>-50*mV',
 					#'LeakingThresholdVariable':[-55.,-52.5],
 					#'LeakingThresholdVariable':{
@@ -36,6 +37,13 @@ MyLeaker=SYS.LeakerClass(
 					#	'ThresholdVariable':[-55.,-52.5,-50.]
 					#},
 					'LeakingResetVariable':'#scalar:V=-70*mV',
+					'-Interactions':{
+						'|/':{
+							'BrianingDebugVariable':100,
+							'LeakingWeigthVariable':[[0.,0.],[-2.,0.]],#[[0.,-0.01],[0.,0.]]
+							'LeakingInteractionStr':"Spike"
+						}
+					}
 					#'BrianingDebugVariable':100
 				}
 			}

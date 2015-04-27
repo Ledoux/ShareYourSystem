@@ -888,29 +888,29 @@ class PrinterClass(BaseClass):
 
 		#Represent the Specific KeyStrs
 		PrintTuplesList=map(
-									lambda __SpecificKeyStr:
-									(
-										"<Spe>"+("<Instance>"
-										if __SpecificKeyStr in self.__dict__ 
-										else (
-											"<Instance>_"
-											if hasattr(
-													self.__class__,__SpecificKeyStr
-											) and type(getattr(
-												self.__class__,__SpecificKeyStr
-											))==property and getattr(
-												self.__class__,'_'+__SpecificKeyStr
-											)!=getattr(self,'_'+__SpecificKeyStr) and (
-											'_'+__SpecificKeyStr not in self.PrintingClassSkipKeyStrsList and __SpecificKeyStr not in self.PrintingInstanceSkipKeyStrsList
-											)
-											else
-											"<Class>"
-											)
-										)+__SpecificKeyStr,
-										getattr(self,__SpecificKeyStr)
-									),
-									PrintedDefaultSpecificKeyStrsList
+					lambda __SpecificKeyStr:
+					(
+						"<Spe>"+("<Instance>"
+						if __SpecificKeyStr in self.__dict__ 
+						else (
+							"<Instance>_"
+							if hasattr(
+									self.__class__,__SpecificKeyStr
+							) and type(getattr(
+								self.__class__,__SpecificKeyStr
+							))==property and getattr(
+								self.__class__,'_'+__SpecificKeyStr
+							)!=getattr(self,'_'+__SpecificKeyStr) and (
+							'_'+__SpecificKeyStr not in self.PrintingClassSkipKeyStrsList and __SpecificKeyStr not in self.PrintingInstanceSkipKeyStrsList
 							)
+							else
+							"<Class>"
+							)
+						)+__SpecificKeyStr,
+						getattr(self,__SpecificKeyStr)
+					),
+					PrintedDefaultSpecificKeyStrsList
+			)
 
 		#/###################/#
 		# Print the Default Base Key Strs... form the Instance or the still the Class

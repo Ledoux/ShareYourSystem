@@ -1604,7 +1604,7 @@ class SetterClass(BaseClass):
 		print(_MapVariable)
 		print('')
 		'''
-
+		
 		#map
 		ArgumentTuplesList=map(
 				lambda __ItemTuple:

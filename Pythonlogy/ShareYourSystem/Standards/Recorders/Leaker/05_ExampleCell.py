@@ -29,7 +29,7 @@ MyLeaker=SYS.LeakerClass(
 							#'LeakingWeigthVariable':'#scalar:-1.',
 							#'LeakingWeigthVariable':-1.,
 							#'LeakingWeigthVariable':[-0.,-0.5,-0.,-0.],
-							'LeakingWeigthVariable':[[0.,0.],[0.,-0.4]],
+							#'LeakingWeigthVariable':[[0.,0.],[0.,-0.4]],
 							#'LeakingWeigthVariable':'#array',
 							#'NumscipyingStdFloat':0.1,
 							'LeakingVariableStr':'I_Default',

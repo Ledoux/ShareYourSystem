@@ -42,9 +42,11 @@ class PredicterClass(BaseClass):
 			_PredictingDaleBool=False,
 			_PredictingDynamicBool=True,
 			_PredictingDynamicStr='Track',
+			_PredictingCommandVariable=None,
 			_PredictingEncodPerturbStdFloat=0.,
 			_PredictingRateCostVariable=None,
 			_PredictingRateTransferVariable=None,
+			_PredictingAgentTimeFloat=10.,
 			_PredictingFastSymmetryFloat=1.,
 			_PredictingDecoderVariable=None,
 			_PredictingDecoderStdFloat=1.,
@@ -55,6 +57,7 @@ class PredicterClass(BaseClass):
 			_PredictedSensorJacobianFloatsArray=None,
 			_PredictedDecoderFloatsArray=None,
 			_PredictedFastFloatsArray=None,
+			_PredictedThresholdFloatsArray=None,
 			_PredictedSlowFloatsArray=None,
 			_PredictedParentSingularStr="",
 			_PredictedSensorDerivePredicterVariable=None,
@@ -119,7 +122,7 @@ class PredicterClass(BaseClass):
 			'Samples',
 			'Events',
 			'Interactomes',
-			'Interactions',
+			"Interactions",
 			'Inputs'
 		]) and self.PredictedParentSingularStr!='Population':
 
@@ -158,7 +161,7 @@ class PredicterClass(BaseClass):
 					"Populations",
 					'Inputs',
 					'Interactomes',
-					'Interactions',
+					"Interactions",
 				],
 				'#all',
 				_ManagerCommandSetList=[
@@ -233,6 +236,9 @@ class PredicterClass(BaseClass):
 		# Check for Populations
 		# 
 
+		#get
+		LeakedPopulationsDeriveManager=self.getTeamer("Populations")
+
 		#debug
 		'''
 		self.debug(
@@ -243,85 +249,35 @@ class PredicterClass(BaseClass):
 		)
 		'''
 
-		#Check
-		if "Populations" in self.TeamDict:
-
-			#get
-			LeakedPopulationsDeriveManager=self.TeamDict[
-				"Populations"
-			]
-
-		else:
-
-			#team
-			LeakedPopulationsDeriveManager=self.team(
-				"Populations"
-			).TeamedValueVariable
-
-
 		#/###################/#
 		# Check for Sensor
 		# 
 
-		#Check
-		if "Sensor" in LeakedPopulationsDeriveManager.ManagementDict:
-
-			#get
-			LeakedSensorDerivePredicter=LeakedPopulationsDeriveManager.ManagementDict[
-				"Sensor"
-			]
-
-		else:
-
-			#manage
-			LeakedSensorDerivePredicter=LeakedPopulationsDeriveManager.manage(
-				"Sensor"
-			).ManagedValueVariable
+		#get
+		LeakedSensorDerivePredicter=LeakedPopulationsDeriveManager.getManager("Sensor")
 
 		#/###################/#
 		# Check for Agent
 		# 
 
-		#Check
-		if "Agent" in LeakedPopulationsDeriveManager.ManagementDict:
-
-			#get
-			LeakedAgentDerivePredicter=LeakedPopulationsDeriveManager.ManagementDict[
-				"Agent"
-			]
-
-		else:
-
-			#manage
-			LeakedAgentDerivePredicter=LeakedPopulationsDeriveManager.manage(
-				"Agent"
-			).ManagedValueVariable
+		#get
+		LeakedAgentDerivePredicter=LeakedPopulationsDeriveManager.getManager("Agent")
 
 		#/###################/#
 		# Check for Decoder
 		# 
 
-		#Check
-		if "Decoder" in LeakedPopulationsDeriveManager.ManagementDict:
-
-			#get
-			LeakedDecoderDerivePredicter=LeakedPopulationsDeriveManager.ManagementDict[
-				"Decoder"
-			]
-
-		else:
-
-			#manage
-			LeakedDecoderDerivePredicter=LeakedPopulationsDeriveManager.manage(
-				"Decoder"
-			).ManagedValueVariable
+		#get
+		LeakedDecoderDerivePredicter=LeakedPopulationsDeriveManager.getManager("Decoder")
 
 		#debug
+		'''
 		self.debug(
 			[
 				'Ok we have created the Decoder'
 			]
 		)
+		'''
 
 		#import
 		import numpy as np
@@ -333,8 +289,15 @@ class PredicterClass(BaseClass):
 		#Check
 		if self.PredictingDynamicStr=="Track":
 
+			#debug
+			self.debug(
+				[
+					'We set a sensor variable leaking at 100ms'
+				]
+			)
+
 			#diag
-			self.PredictedSensorJacobianFloatsArray=-(1./0.01)*np.diag(
+			self.PredictedSensorJacobianFloatsArray=-0.1*np.diag(
 				np.ones(
 					self.PredictingSensorUnitsInt
 				)
@@ -392,12 +355,51 @@ class PredicterClass(BaseClass):
 				self.PredictingDecoderVariable
 			)
 
+			#shape
+			PredictedShapeIntsList=list(np.shape(self.PredictingDecoderVariable))
+
+			#debug
+			self.debug(
+				[
+					'Update the PredictingAgentUnitsInt with the size of the array',
+					'PredictedShapeIntsList is ',
+					str(PredictedShapeIntsList),
+					'len(PredictedShapeIntsList) is',
+					str(len(PredictedShapeIntsList))
+				]
+			)
+
+			#Check
+			if len(PredictedShapeIntsList)==1:
+
+				#get
+				self.PredictingAgentUnitsInt=PredictedShapeIntsList[0]
+
+				#recast into a 2D array
+				self.PredictedDecoderFloatsArray=np.array(
+					[self.PredictedDecoderFloatsArray]
+				)
+			else:
+
+				#get
+				self.PredictingAgentUnitsInt=PredictedShapeIntsList[1]
+
+			#debug
+			self.debug(
+				[
+					'Now',
+					('self.',self,[
+							'PredictingAgentUnitsInt'
+						])
+				]
+			)
+
 		else:
 
 			#numscipy
 			self.NumscipyingStdFloat=self.PredictingDecoderStdFloat
-			self.NumscipyingRowsInt=self.PredictingAgentUnitsInt
-			self.NumscipyingColsInt=self.PredictingSensorUnitsInt
+			self.NumscipyingRowsInt=self.PredictingSensorUnitsInt
+			self.NumscipyingColsInt=self.PredictingAgentUnitsInt
 			self.numscipy()
 
 			#Check
@@ -428,15 +430,16 @@ class PredicterClass(BaseClass):
 				[
 					'We build a symmetry fast connectivity',
 					('self.',self,[
-							'PredictingFastSymmetryFloat'
+							'PredictingFastSymmetryFloat',
+							'PredictedDecoderFloatsArray'
 						])
 				]
 			)
 
 			#diag
 			self.PredictedFastFloatsArray=-self.PredictingFastSymmetryFloat*np.dot(
-				self.PredictedDecoderFloatsArray,
-				self.PredictedDecoderFloatsArray.T
+				self.PredictedDecoderFloatsArray.T,
+				self.PredictedDecoderFloatsArray
 			)
 
 		else:
@@ -471,6 +474,16 @@ class PredicterClass(BaseClass):
 			self.NumscipyingColsInt=self.PredictingAgentUnitsInt
 			self.numscipy()
 
+			#debug
+			self.debug(
+				[
+					'We are going to add',
+					('self.',self,[
+							'NumscipiedRandomFloatsArray'
+						])
+				]
+			)
+
 			#link
 			self.PredictedFastFloatsArray+=self.NumscipiedRandomFloatsArray
 
@@ -484,6 +497,16 @@ class PredicterClass(BaseClass):
 			]
 		)
 
+		#/################/#
+		# Build the Thresholds
+		#
+
+		#Check
+		if self.PredictingInteractionStr=="Spike":
+
+			#Compute
+			self.PredictedFastFloatsArray=(self.PredictedDecoderFloatsArray**2)/2.
+
 		#Check
 		if self.PredictingDynamicBool:
 
@@ -494,28 +517,73 @@ class PredicterClass(BaseClass):
 			#debug
 			self.debug(
 				[
-					'We build the slow connection'
+					'We build the PredictedSlowFloatsArray',
+					'CAREFUL PredictingDecoderTimeFloat has to be in ms',
+					('self.',self,[
+						'PredictedSensorJacobianFloatsArray',
+						'PredictingDecoderTimeFloat'
+						]),
+					'AND ALSO here Slow is D.T(A+lambdaI) just (not D.T(A+lambdaI)D)'
 				]
 			)
 
 			#diag
-			self.PredictedSlowFloatsArray=self.PredictedSensorJacobianFloatsArray+self.PredictingDecoderTimeFloat*np.diag(
+			self.PredictedSlowFloatsArray=self.PredictedSensorJacobianFloatsArray+(
+				1./self.PredictingDecoderTimeFloat
+			)*np.diag(
 				np.ones(
 					self.PredictingSensorUnitsInt
 				)
 			)
 
-			#dot
-			self.PredictedSlowFloatsArray=np.dot(
-				self.PredictedSlowFloatsArray,
-				self.PredictedDecoderFloatsArray.T
+			#debug
+			self.debug(
+				[
+					'In intermediate values',
+					('self.',self,[
+							'PredictedSlowFloatsArray'
+						])
+				]
 			)
 
 			#link
 			self.PredictedSlowFloatsArray=np.dot(
-				self.PredictedDecoderFloatsArray,
+				self.PredictedDecoderFloatsArray.T,
 				self.PredictedSlowFloatsArray
 			)
+
+			#debug
+			self.debug(
+				[
+					'We have built the slow connection',
+					('self.',self,[
+							'PredictedSlowFloatsArray',
+							'PredictedSensorJacobianFloatsArray',
+							'PredictingDecoderTimeFloat',
+							'PredictedDecoderFloatsArray'
+						])
+				]
+			)
+
+		#/###############/#
+		# Renormalize compared to the rate model time constant
+		#
+
+		#debug
+		self.debug(
+			[
+				'As we divide by a rate time constant of 10ms in the agent',
+				'We need here to multiply by 10 the connectivity',
+				('self.',self,[
+						'PredictingAgentTimeFloat'
+					])
+			]
+		)
+
+		#set
+		self.PredictedFastFloatsArray*=self.PredictingAgentTimeFloat
+		if type(self.PredictedSlowFloatsArray)!=None.__class__:
+			self.PredictedSlowFloatsArray*=self.PredictingAgentTimeFloat
 
 	def predictPopulation(self):
 
@@ -548,7 +616,7 @@ class PredicterClass(BaseClass):
 			#
 
 			#set
-			self.LeakingTimeVariable='#scalar:1.*second'
+			self.LeakingTimeVariable='#scalar:1.*ms'
 
 			#set
 			self.LeakingWeigthVariable='0'
@@ -589,96 +657,36 @@ class PredicterClass(BaseClass):
 			# Check for Inputs in the Sensor
 			#
 
-			#Check
-			if 'Inputs' in self.TeamDict:
-
-				#get
-				LeakedInputsDeriveManager=self.TeamDict[
-					'Inputs'
-				]
-
-			else:
-
-				#team
-				LeakedInputsDeriveManager=self.team(
-					'Inputs'
-				).TeamedValueVariable
+			#get
+			LeakedInputsDeriveManager=self.getTeamer("Inputs")
 
 			#/###################/#
 			# Specify the Command Input in the Sensor
 			#
 
-			#Check
-			if 'Command' in LeakedInputsDeriveManager.ManagementDict:
-
-				#get
-				LeakedCommandDerivePredicter=LeakedInputsDeriveManager.ManagementDict[
-					'Command'
-				]
-
-			else:
-
-				#manage
-				LeakedCommandDerivePredicter=LeakedInputsDeriveManager.manage(
-					'Command'
-				).ManagedValueVariable
+			#get
+			LeakedCommandDerivePredicter=LeakedInputsDeriveManager.getManager("Command")
 
 			#/###################/#
 			# Check for Interactions in the Sensor
 			#
 
-			#Check
-			if 'Interactions' in self.TeamDict:
-
-				#get
-				LeakedInteractionsDeriveManager=self.TeamDict[
-					 'Interactions'
-				]
-
-			else:
-
-				#team
-				LeakedInteractionsDeriveManager=self.team(
-					 'Interactions'
-				).TeamedValueVariable
+			#get
+			LeakedInteractionsDerivePredicter=self.getTeamer("Interactions")
 
 			#/###################/#
 			# Specify the Jacobian Interaction in the Sensor
 			#	
 
-			#Check
-			if "Jacobian" in LeakedInteractionsDeriveManager.ManagementDict:
-
-				#get
-				LeakedJacobianDerivePredicter=LeakedInteractionsDeriveManager.ManagementDict[
-					"Jacobian"
-				]
-
-			else:
-
-				#manage
-				LeakedJacobianDerivePredicter=LeakedInteractionsDeriveManager.manage(
-					"Jacobian"
-				).ManagedValueVariable
+			#get
+			LeakedJacobianDerivePredicter=LeakedInteractionsDerivePredicter.getManager("Jacobian")
 
 			#/###################/#
 			# Specify the Sensor to Agent interaction
 			#
 
-			#Check
-			if "Encod" in LeakedInteractionsDeriveManager.ManagementDict:
-
-				#get
-				LeakedEncoderDerivePredicter=LeakedInteractionsDeriveManager.ManagementDict[
-					"Encod"
-				]
-
-			else:
-
-				#manage
-				LeakedEncoderDerivePredicter=LeakedInteractionsDeriveManager.manage(
-					"Encod"
-				).ManagedValueVariable
+			#get
+			LeakedEncoderDerivePredicter=LeakedInteractionsDerivePredicter.getManager("Encod")
 
 			#debug
 			'''
@@ -734,11 +742,12 @@ class PredicterClass(BaseClass):
 			self.debug(
 				[
 					'self.PredictedNetworkDerivePredicterVariable.PredictingRateCostVariable is ',
-					str(self.PredictedNetworkDerivePredicterVariable.PredictingRateCostVariable),
-					'Determine the Time constant',
-					('self.',self,[
-							'LeakingInteractionStr'
-						])
+					str(
+						self.PredictedNetworkDerivePredicterVariable.PredictingRateCostVariable
+					),
+					'Determine the interaction',
+					'self.PredictedNetworkDerivePredicterVariable.PredictingInteractionStr is ',
+					self.PredictedNetworkDerivePredicterVariable.PredictingInteractionStr
 				]
 			)
 
@@ -746,11 +755,52 @@ class PredicterClass(BaseClass):
 			# Set the time constant
 			#
 
+			#set
+			self.LeakingInteractionStr=self.PredictedNetworkDerivePredicterVariable.PredictingInteractionStr
+
 			#Check
-			if self.LeakingInteractionStr=="Rate":
+			if self.LeakingInteractionStr=="Spike":
 				
-				#set
-				self.LeakingTimeVariable='#scalar:1.*ms'
+				#alias
+				self.LeakingThresholdVariable=self.PredictedNetworkDerivePredicterVariable.PredictedThresholdFloatsArray
+
+				#debug
+				self.debug(
+					[
+						'The agents are IF models',
+						('self.',self,[
+								'LeakingThresholdVariable'
+							])
+					]
+				)
+
+			else:
+
+				#debug
+				'''
+				self.debug(
+					[
+						'The agents are rate models',
+						'In the Agent, we set a time constant that is 10ms'
+					]
+				)
+				'''
+
+				pass
+
+			#debug
+			self.debug(
+				[
+					'The agents are rate models',
+					'self.PredictedNetworkDerivePredicterVariable.PredictingAgentTimeFloat is ',
+					str(self.PredictedNetworkDerivePredicterVariable.PredictingAgentTimeFloat)
+				]
+			)
+
+			#set
+			self.LeakingTimeVariable='#scalar:'+str(
+				self.PredictedNetworkDerivePredicterVariable.PredictingAgentTimeFloat
+			)+'*ms'
 
 
 			#/####################/#
@@ -783,20 +833,10 @@ class PredicterClass(BaseClass):
 			# Check for Interactions in the Agent
 			#
 
-			#Check
-			if 'Interactions' in self.TeamDict:
-
-				#get
-				LeakedInteractionsDeriveManager=self.TeamDict[
-					 'Interactions'
-				]
-
-			else:
-
-				#team
-				LeakedInteractionsDeriveManager=self.team(
-					 'Interactions'
-				).TeamedValueVariable
+			#get
+			LeakedInteractionsDerivePredicter=self.getTeamer(
+				"Interactions"
+			)
 
 			#/###################/#
 			# Specify the Fast interaction
@@ -805,20 +845,8 @@ class PredicterClass(BaseClass):
 			#Check
 			if self.PredictedNetworkDerivePredicterVariable.PredictingFastSymmetryFloat>0.:	
 
-				#Check
-				if "Fast" in LeakedInteractionsDeriveManager.ManagementDict:
-
-					#get
-					LeakedFastDerivePredicter=LeakedInteractionsDeriveManager.ManagementDict[
-						"Fast"
-					]
-
-				else:
-
-					#manage
-					LeakedFastDerivePredicter=LeakedInteractionsDeriveManager.manage(
-						"Fast"
-					).ManagedValueVariable
+				#get
+				LeakedFastDerivePredicter=LeakedInteractionsDerivePredicter.getManager("Fast")
 
 				#set the connect target
 				LeakedFastDerivePredicter.ConnectingKeyVariable=self
@@ -835,161 +863,127 @@ class PredicterClass(BaseClass):
 				)
 				'''
 
+
+			#/###################/#
+			# Specify the Decoder interaction
+			#
+
+			#get
+			LeakedDecodDerivePredicter=LeakedInteractionsDerivePredicter.getManager("Decod")
+
+			#set the connect target
+			LeakedDecodDerivePredicter.ConnectingKeyVariable=self.ParentDeriveTeamerVariable.ManagementDict[
+				"Decoder"
+			]
+
+			#/###################/#
+			# Rate Case
+			#
+
 			#Check
-			if self.PredictedNetworkDerivePredicterVariable.PredictingDynamicBool:
+			if self.LeakingInteractionStr=="Rate":
 
 				#debug
-				'''
 				self.debug(
 					[
-						'PredictingDynamicBool is true'
+						'PredictingDynamicBool is False',
+						"self.LeakingInteractionStr=='Rate' ",
+						'So set a direct interaction'
 					]
 				)
-				'''
 
-				#/###################/#
-				# Specify the Slow interaction
+				
+				#/####################/#
+				# Transfer function Case
 				#
 
 				#Check
-				if 'Slow' in LeakedInteractionsDeriveManager.ManagementDict:
-
-					#get
-					LeakedSlowDerivePredicter=LeakedInteractionsDeriveManager.ManagementDict[
-						'Slow'
-					]
-
-				else:
-
-					#manage
-					LeakedSlowDerivePredicter=LeakedInteractionsDeriveManager.manage(
-						'Slow'
-					).ManagedValueVariable
-
-				#debug
-				'''
-				self.debug(
-					[
-						'We have defined the Decod interaction in the Agent'
-					]
-				)
-				'''
-
-				#set the connect target
-				LeakedSlowDerivePredicter.ConnectingKeyVariable=self
-
-			else:
-
-				#Check
-				if self.LeakingInteractionStr=="Rate":
+				if self.LeakingTransferVariable!=None:
 
 					#debug
 					self.debug(
 						[
-							'PredictingDynamicBool is False',
-							"self.LeakingInteractionStr=='Rate' ",
-							'So set a direct interaction'
+							'We are in the rate and there is a transfer function',
+							'build the antileak connection'
 						]
 					)
 
 					#/###################/#
-					# Specify the Decoder interaction
+					# Specify the Antileak interaction
 					#
 
 					#Check
-					if 'Decod' in LeakedInteractionsDeriveManager.ManagementDict:
+					if "Antileak" in LeakedInteractionsDerivePredicter.ManagementDict:
 
 						#get
-						LeakedDecodDerivePredicter=LeakedInteractionsDeriveManager.ManagementDict[
-							'Decod'
+						LeakedAntileakDerivePredicter=LeakedInteractionsDerivePredicter.ManagementDict[
+							"Antileak"
 						]
 
 					else:
 
 						#manage
-						LeakedDecodDerivePredicter=LeakedInteractionsDeriveManager.manage(
-							'Decod'
+						LeakedAntileakDerivePredicter=LeakedInteractionsDerivePredicter.manage(
+							"Antileak"
 						).ManagedValueVariable
 
 					#set the connect target
-					LeakedDecodDerivePredicter.ConnectingKeyVariable=self.ParentDeriveTeamerVariable.ManagementDict[
-						"Decoder"
-					]
+					LeakedAntileakDerivePredicter.ConnectingKeyVariable=self
 
-					#/####################/#
-					# Transfer function case
-					#
+					#debug
+					'''
+					self.debug(
+						[
+							"We have defined the Antileak interaction in the Agent"
+						]
+					)
+					'''
+
+				else:
 
 					#Check
-					if self.LeakingTransferVariable!=None:
+					if self.PredictedNetworkDerivePredicterVariable.PredictingRateCostVariable==None:
 
 						#debug
 						self.debug(
 							[
-								'We are in the rate and there is a transfer function',
-								'build the antileak connection'
+								"There is no transfer function neither rate cost ",
+								"so put the leak term to null"
 							]
 						)
 
-						#/###################/#
-						# Specify the Antileak interaction
-						#
-
-						#Check
-						if "Antileak" in LeakedInteractionsDeriveManager.ManagementDict:
-
-							#get
-							LeakedAntileakDerivePredicter=LeakedInteractionsDeriveManager.ManagementDict[
-								"Antileak"
-							]
-
-						else:
-
-							#manage
-							LeakedAntileakDerivePredicter=LeakedInteractionsDeriveManager.manage(
-								"Antileak"
-							).ManagedValueVariable
-
-						#set the connect target
-						LeakedAntileakDerivePredicter.ConnectingKeyVariable=self
-
-						#debug
-						'''
-						self.debug(
-							[
-								"We have defined the Antileak interaction in the Agent"
-							]
-						)
-						'''
+						#set
+						self.LeakingWeigthVariable='0'
 
 					else:
 
-						#Check
-						if self.PredictedNetworkDerivePredicterVariable.PredictingRateCostVariable==None:
+						#debug
+						self.debug(
+							[
+								"There is no transfer function neither rate cost ",
+								"so put the leak term to null"
+							]
+						)
 
-							#debug
-							self.debug(
-								[
-									"There is no transfer function neither rate cost ",
-									"so put the leak term to null"
-								]
-							)
+						#set
+						self.LeakingWeigthVariable=self.PredictedNetworkDerivePredicterVariable.PredictingRateCostVariable
 
-							#set
-							self.LeakingWeigthVariable='0'
+			"""
+			#/###################/#
+			# Specify the *J_EncodI_Command' 
+			#
 
-						else:
-
-							#debug
-							self.debug(
-								[
-									"There is no transfer function neither rate cost ",
-									"so put the leak term to null"
-								]
-							)
-
-							#set
-							self.LeakingWeigthVariable=self.PredictedNetworkDerivePredicterVariable.PredictingRateCostVariable
+			#get
+			self.getTeamer(
+					"Traces"
+				).getManager(
+					"*J_EncodI_Command"
+				).getTeamer(
+					"Samples"
+				).getManager(
+					"Default"
+				)
+			"""
 
 		#Check
 		elif self.ManagementTagStr=="Decoder":
@@ -1064,6 +1058,54 @@ class PredicterClass(BaseClass):
 
 				#set
 				self.LeakingTimeVariable=0.
+
+			else:
+
+				#set
+				self.LeakingTimeVariable=self.PredictingDecoderTimeFloat
+
+
+			#/###################/#
+			# PredictingDynamicBool
+			#
+
+			#Check
+			if self.PredictedNetworkDerivePredicterVariable.PredictingDynamicBool:
+
+				#debug
+				'''
+				self.debug(
+					[
+						'PredictingDynamicBool is true'
+					]
+				)
+				'''
+
+				#/###################/#
+				# Specify the Slow interaction
+				#
+
+				#get
+				LeakedSlowDerivePredicter=self.getTeamer(
+						"Interactions"
+					).getManager(
+						"Slow"
+					)
+
+				#debug
+				'''
+				self.debug(
+					[
+						'We have defined the Decod interaction in the Agent'
+					]
+				)
+				'''
+
+				#set the connect target
+				LeakedSlowDerivePredicter.ConnectingKeyVariable=self.ParentDeriveTeamerVariable.ManagementDict[
+					"Agent"
+				]
+
 			
 	def predictInput(self):
 
@@ -1084,9 +1126,27 @@ class PredicterClass(BaseClass):
 			# Determine the LeakingWeigthVariable
 			#
 	
-			#set
-			self.LeakingWeigthVariable="#custom:#clock:200*ms:5.*mV*int(t==200*ms)"
+			#Check
+			if self.PredictedNetworkDerivePredicterVariable.PredictingCommandVariable!=None:
 
+				#set
+				self.LeakingWeigthVariable=self.PredictedNetworkDerivePredicterVariable.PredictingCommandVariable
+			
+			else:
+
+				#set
+				self.LeakingWeigthVariable="#custom:#clock:200*ms:5.*mV*int(t==200*ms)"
+
+
+			#debug
+			self.debug(
+				[
+					'We set here the Command dynamic',
+					('self.',self,[
+							'LeakingWeigthVariable'
+						])
+				]
+			)
 
 	def predictInteraction(self):
 
@@ -1172,15 +1232,32 @@ class PredicterClass(BaseClass):
 			# Build the variable in the sensor to be the input in the Agent
 			#
 
+			#debug
+			self.debug(
+				[
+					'Is it Rate : put x as post',
+					'Is it Spike : put c as post',
+					"self.PredictedNetworkDerivePredicterVariable.PredictingDynamicBool is ",
+					self.PredictedNetworkDerivePredicterVariable.PredictingDynamicBool
+				]
+			)
+
 			#set
 			self.LeakingInteractionStr='Rate'
 
 			#Check
-			'''
-			if self.PredictedNetworkDerivePredicterVariable.PredictingInteractionStr=='Rate':
+			if self.PredictedNetworkDerivePredicterVariable.PredictingDynamicBool:
 
-				#
-			'''
+				#debug
+				self.debug(
+					[
+						'There is a dynamic to transfer',
+						'so we bind c instead of x'
+					]
+				)
+
+				#set
+				self.LeakingVariableStr='I_Command'
 
 			#/################/#
 			# Build the LeakingWeigthVariable
@@ -1192,15 +1269,22 @@ class PredicterClass(BaseClass):
 				[
 					'We set the weigths in the Encod',
 					'self.PredictedNetworkDerivePredicterVariable.PredictedDecoderFloatsArray is ',
-					str(self.PredictedNetworkDerivePredicterVariable.PredictedDecoderFloatsArray)
+					str(
+						self.PredictedNetworkDerivePredicterVariable.PredictedDecoderFloatsArray
+					),
+					'but dont forget to also multiply by the agent time constant',
+					('self.',self,[
+
+					])
 				]
 			)
 			'''
-
+			
 			#link
-			self.LeakingWeigthVariable=self.PredictedNetworkDerivePredicterVariable.PredictedDecoderFloatsArray.T
+			self.LeakingWeigthVariable=self.PredictedNetworkDerivePredicterVariable.PredictingAgentTimeFloat*self.PredictedNetworkDerivePredicterVariable.PredictedDecoderFloatsArray.T
 
 			#debug
+			'''
 			self.debug(
 				[
 					'Look if we have to perturb',
@@ -1208,21 +1292,28 @@ class PredicterClass(BaseClass):
 					str(self.PredictedNetworkDerivePredicterVariable.PredictingEncodPerturbStdFloat)
 				]
 			)
+			'''
 
 			#Check
 			if self.PredictedNetworkDerivePredicterVariable.PredictingEncodPerturbStdFloat>0.:
 
 				#numscipy
 				self.NumscipyingStdFloat=self.PredictedNetworkDerivePredicterVariable.PredictingEncodPerturbStdFloat
-				self.NumscipyingRowsInt=self.PredictedNetworkDerivePredicterVariable.PredictingSensorUnitsInt
-				self.NumscipyingColsInt=self.PredictedNetworkDerivePredicterVariable.PredictingAgentUnitsInt
+				self.NumscipyingRowsInt=self.PredictedNetworkDerivePredicterVariable.PredictingAgentUnitsInt
+				self.NumscipyingColsInt=self.PredictedNetworkDerivePredicterVariable.PredictingSensorUnitsInt
 				self.numscipy()
 
 				#link
 				self.LeakingWeigthVariable+=self.NumscipiedRandomFloatsArray
 
+			#/################/#
+			# Say that we want to record it
+			#
 
-		elif self.ManagementTagStr=='Decod':
+			#set
+			self.LeakingRecordBool=True
+
+		elif self.ManagementTagStr=="Decod":
 
 			#debug
 			'''
@@ -1256,7 +1347,6 @@ class PredicterClass(BaseClass):
 			#
 
 			#debug
-			'''
 			self.debug(
 				[
 					'We set the weigths in the Decod',
@@ -1264,10 +1354,22 @@ class PredicterClass(BaseClass):
 					str(self.PredictedNetworkDerivePredicterVariable.PredictedDecoderFloatsArray)
 				]
 			)
-			'''
 
 			#link
-			self.LeakingWeigthVariable=self.PredictedNetworkDerivePredicterVariable.PredictedDecoderFloatsArray
+			self.LeakingWeigthVariable=self.PredictedNetworkDerivePredicterVariable.PredictedDecoderFloatsArray.T
+
+			#Check
+			if self.PredictedNetworkDerivePredicterVariable.PredictingDynamicBool:
+
+				#debug
+				self.debug(
+					[
+						'We have to rescale with the time constant of the decoder'
+					]
+				)
+
+				#set
+				self.LeakingWeigthVariable*=self.PredictedNetworkDerivePredicterVariable.PredictingDecoderTimeFloat
 
 		elif self.ManagementTagStr=="Fast":
 
@@ -1297,7 +1399,6 @@ class PredicterClass(BaseClass):
 			#
 
 			#debug
-			'''
 			self.debug(
 				[
 					'We set the weigths in the Fast',
@@ -1305,12 +1406,11 @@ class PredicterClass(BaseClass):
 					str(self.PredictedNetworkDerivePredicterVariable.PredictedFastFloatsArray)
 				]
 			)
-			'''
 
 			#link
 			self.LeakingWeigthVariable=self.PredictedNetworkDerivePredicterVariable.PredictedFastFloatsArray
 
-		elif self.ManagementTagStr=='Slow':
+		elif self.ManagementTagStr=="Slow":
 
 			#debug
 			'''
@@ -1351,8 +1451,21 @@ class PredicterClass(BaseClass):
 			)
 			'''
 
-			#link
-			self.LeakingWeigthVariable=self.PredictedNetworkDerivePredicterVariable.PredictedSlowFloatsArray
+			#Check
+			if type(self.LeakingWeigthVariable)==None.__class__:
+
+				#link
+				self.LeakingWeigthVariable=self.PredictedNetworkDerivePredicterVariable.PredictedSlowFloatsArray
+
+			#debug
+			self.debug(
+				[
+					'In the end slow is ',
+					('self.',self,[
+							'LeakingWeigthVariable'
+						])
+				]
+			)
 
 
 		elif self.ManagementTagStr=="Antileak":
@@ -1386,11 +1499,13 @@ class PredicterClass(BaseClass):
 			#
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We have setted the LeakingWeigthVariable in the antileak'
 				]
 			)
+			'''
 
 			#set
 			#self.LeakingWeigthVariable='#scalar:1.'
@@ -1404,11 +1519,13 @@ class PredicterClass(BaseClass):
 			if self.PredictedNetworkDerivePredicterVariable.PredictingRateCostVariable!=None:
 
 				#debug
+				'''
 				self.debug(
 					[
 						'There is a cost'
 					]
 				)
+				'''
 
 				#mul
 				self.LeakingWeigthVariable*=self.PredictedNetworkDerivePredicterVariable.PredictingRateCostVariable
@@ -1435,13 +1552,14 @@ class PredicterClass(BaseClass):
 	def viewSample(self):
 
 		#debug
-		'''
 		self.debug(
 			[
-				'We predict view sample here'
+				'We predict view sample here',
+				('self.',self,[
+						'StructureTagStr'
+					])
 			]
 		)
-		'''
 		
 		#Check
 		self.ViewingXScaleFloat=1000.
@@ -1451,11 +1569,87 @@ class PredicterClass(BaseClass):
 		BaseClass.viewSample(self)
 
 		#/#################/#
+		# Special Agent case
+		#
+
+		#Check
+		if self.BrianedParentPopulationDeriveBrianerVariable.ManagementTagStr=="Agent":
+
+			#Check
+			"""
+			if self.BrianedParentPopulationDeriveBrianerVariable.PredictedNetworkDerivePredicterVariable.PredictingDynamicBool:
+
+				#Check
+				ViewedCommandDerivePredicter=self.BrianedParentPopulationDeriveBrianerVariable.TeamDict[
+					'Traces'
+				].ManagementDict[
+					'*J_EncodI_Command'
+				].TeamDict[
+					'Samples'
+				].ManagementDict[
+					'Default'
+				]
+
+				#debug
+				self.debug(
+					[
+						'We view Sample Agent here',
+						'We add also the view of the command',
+						#'ViewedSensorDerivePredicter is ',
+						#SYS._str(ViewedSensorDerivePredicter),
+						'ViewedCommandDerivePredicter.PyplotingDrawVariable is ',
+						SYS._str(ViewedCommandDerivePredicter.PyplotingDrawVariable)
+					]
+				)
+
+				#import 
+				import copy
+
+				#copy
+				ViewedPyplotDrawVariable=copy.deepcopy(
+					ViewedSensorDerivePredicter.PyplotingDrawVariable
+				)
+
+				#set
+				map(
+					lambda __ItemTuple:
+					__ItemTuple[1][
+						'#kwarg'
+					].update(
+						{
+							'linestyle':'--',
+							'linewidth':1
+						}
+					),
+					ViewedPyplotDrawVariable
+					#self.PyplotingDrawVariable
+				)
+
+				#add
+				self.PyplotingDrawVariable.extend(
+					ViewedPyplotDrawVariable
+				)
+
+				#debug
+				'''
+				self.debug(
+					[
+						'In the end',
+						('self.',self,[
+							'PyplotingDrawVariable'
+						])
+						
+					]
+				)
+				'''
+			"""
+
+		#/#################/#
 		# Special Decoder case
 		#
 
 		#Check
-		if self.BrianedParentPopulationDeriveBrianerVariable.ManagementTagStr=="Decoder":
+		elif self.BrianedParentPopulationDeriveBrianerVariable.ManagementTagStr=="Decoder":
 
 			#
 			ViewedSensorDerivePredicter=self.BrianedParentPopulationDeriveBrianerVariable.PredictedSensorDerivePredicterVariable.TeamDict[
@@ -1507,6 +1701,7 @@ class PredicterClass(BaseClass):
 			)
 
 			#debug
+			'''
 			self.debug(
 				[
 					'In the end',
@@ -1516,6 +1711,7 @@ class PredicterClass(BaseClass):
 					
 				]
 			)
+			'''
 
 	def setDebugNeurongroup(self):
 
@@ -1531,7 +1727,8 @@ class PredicterClass(BaseClass):
 
 			#Check
 			PrintStr='In the Decod, LeakingWeigthVariable is \n'
-			LeakingWeigthVariable=self.PredictedAgentDerivePredicterVariable.TeamDict['Interactions'].ManagementDict['Decod'].LeakingWeigthVariable
+			LeakingWeigthVariable=self.PredictedAgentDerivePredicterVariable.TeamDict["Interactions"
+			].ManagementDict["Decod"].LeakingWeigthVariable
 			PrintStr+=str(LeakingWeigthVariable)
 
 			#print
@@ -1555,7 +1752,7 @@ class PredicterClass(BaseClass):
 		'''
 
 		#set
-		self.NumscipyingStdFloat=0.00001
+		self.NumscipyingStdFloat=0.001
 
 		#/################/#
 		# switch case
@@ -1619,12 +1816,14 @@ class PredicterClass(BaseClass):
 		#
 
 		#debug
+		'''
 		self.debug(
 			[
 				'We call the base method',
 				str(BaseClass.brianTrace)
 			]
 		)
+		'''
 
 		#call the base
 		BaseClass.brianTrace(self)
@@ -1664,6 +1863,7 @@ PredicterClass.PrintingClassSkipKeyStrsList.extend(
 		'PredictingDynamicBool',
 		'PredictingDynamicStr',
 		'PredictingEncodPerturbStdFloat',
+		'PredictingCommandVariable',
 		'PredictingRateCostVariable',
 		'PredictingRateTransferVariable',
 		'PredictingFastSymmetryFloat',

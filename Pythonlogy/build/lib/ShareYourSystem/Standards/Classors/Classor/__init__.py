@@ -73,6 +73,42 @@ def callAllMro(_InstanceVariable,_MethodStr,*_LiargVariablesList,**_KwargVariabl
 	
 	#return 
 	return _InstanceVariable
+
+def setAllMro(_InstanceVariable,_KeyStr,_ValueVariable):
+
+	#map
+	map(
+		lambda __Class:
+		setattr(
+			__Class,
+			_KeyStr,_ValueVariable
+		) if hasattr(__Class,_KeyStr)
+		else None,
+		_InstanceVariable.__class__.__mro__
+	)
+
+	#return
+	return _InstanceVariable
+
+def mapSetAllMro(_InstanceVariable,_MapVariable):
+
+	#Check
+	if hasattr(_MapVariable,'items'):
+		MapVariablesList=_MapVariable.items()
+	else:
+		MapVariablesList=_MapVariable
+
+	#map
+	map(
+		lambda __MapVariable:
+		setAllMro(_InstanceVariable,__MapVariable[0],__MapVariable[1]),
+		MapVariablesList
+	)
+
+	#return
+	return _InstanceVariable
+
+
 #</DefineLocals>
 
 #<DefineClass>
@@ -152,6 +188,16 @@ class ClassorClass(object):
 					_Class,
 					callAllMro.__name__,
 					callAllMro
+				)
+			setattr(
+					_Class,
+					setAllMro.__name__,
+					setAllMro
+				)
+			setattr(
+					_Class,
+					mapSetAllMro.__name__,
+					mapSetAllMro
 				)
 			setattr(
 					_Class,

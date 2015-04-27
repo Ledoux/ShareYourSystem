@@ -39,6 +39,10 @@ class ViewerClass(BaseClass):
 						_ViewingYScaleFloat=1.,
 						_ViewingXLabelStr="",
 						_ViewingYLabelStr="",
+						_ViewingAddXMinFloat=0.,
+						_ViewingAddXMaxFloat=0.,
+						_ViewingAddYMinFloat=0.,
+						_ViewingAddYMaxFloat=0.,
 						_ViewedTagStr="",
 						_ViewedXTagStr="",
 						_ViewedYTagStr="",
@@ -76,7 +80,6 @@ class ViewerClass(BaseClass):
 		self.ViewedTagStr='_'+self.ViewingIdStr+'_'
 
 		#debug
-		'''
 		self.debug(
 				[
 					'We view here',
@@ -97,7 +100,6 @@ class ViewerClass(BaseClass):
 				#])
 			]
 		)
-		'''
 		
 		#/####################/#
 		# Now we view each Axe
@@ -152,6 +154,18 @@ class ViewerClass(BaseClass):
 			"SYS.getExtremumFloat(SYS.IdDict["+self.ViewingIdStr+"].Viewing"+_AxeStr+"Variable,'max')"
 		)
 
+		#get
+		ViewingAddMinFloat=getattr(self,'ViewingAdd'+_AxeStr+'MinFloat')
+		ViewingAddMaxFloat=getattr(self,'ViewingAdd'+_AxeStr+'MaxFloat')
+
+		#debug
+		self.debug(
+			[
+				'ViewingAddMinFloat is '+str(ViewingAddMinFloat),
+				'ViewingAddMaxFloat is '+str(ViewingAddMaxFloat)
+			]
+		)
+
 		#set
 		setattr(
 			self,
@@ -160,16 +174,25 @@ class ViewerClass(BaseClass):
 				">>SYS.set(SYS,'"+ViewedTagStr+"LimFloatsArray',",
 				"[",
 				#"SYS.IdDict["+self.ViewingIdStr+"].Viewing"+_AxeStr+"Variable.min()",
-				"min("+",".join(LimMinStrsList)+")"
+				"min("+",".join(LimMinStrsList)+")"+'+'+str(ViewingAddMinFloat)
 				if len(LimMinStrsList)>1
-				else LimMinStrsList[0],
+				else LimMinStrsList[0]+'+('+str(ViewingAddMinFloat)+')',
 				",",
 				#"SYS.IdDict["+self.ViewingIdStr+"].Viewing"+_AxeStr+"Variable.max()]",
-				"max("+",".join(LimMaxStrsList)+")"
+				"max("+",".join(LimMaxStrsList)+")"+'+'+str(ViewingAddMaxFloat)
 				if len(LimMaxStrsList)>1
-				else LimMaxStrsList[0],
+				else LimMaxStrsList[0]+'+('+str(ViewingAddMaxFloat)+')',
 				']).'+ViewedTagStr+"LimFloatsArray"
 			])
+		)
+
+
+		#debug
+		self.debug(
+			[
+				"getattr(self,'Viewed'+_AxeStr+'limLiargStr') is",
+				getattr(self,'Viewed'+_AxeStr+'limLiargStr')
+			]
 		)
 
 		#join
@@ -254,6 +277,10 @@ ViewerClass.PrintingClassSkipKeyStrsList.extend(
 		'ViewingYScaleFloat',
 		'ViewingXLabelStr',
 		'ViewingYLabelStr',
+		'ViewingAddXMinFloat',
+		'ViewingAddXMaxFloat',
+		'ViewingAddYMinFloat',
+		'ViewingAddYMaxFloat',
 		'ViewedTagStr',
 		'ViewedXTagStr',
 		'ViewedYTagStr',

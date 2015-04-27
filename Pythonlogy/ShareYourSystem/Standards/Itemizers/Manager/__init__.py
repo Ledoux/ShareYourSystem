@@ -671,6 +671,24 @@ class ManagerClass(BaseClass):
 	def __contains__(self,_KeyStr):
 		return _KeyStr in self.ManagementDict
 
+	def getManager(self,_KeyStr):
+
+		#Check
+		if _KeyStr in self.ManagementDict:
+
+			#get
+			return self.ManagementDict[
+				_KeyStr
+			]
+
+		else:
+
+			#manage
+			return self.manage(
+				_KeyStr
+			).ManagedValueVariable
+
+
 #</DefineClass>
 
 #set

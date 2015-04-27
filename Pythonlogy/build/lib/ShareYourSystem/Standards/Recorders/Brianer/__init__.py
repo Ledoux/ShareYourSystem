@@ -20,12 +20,9 @@ SYS.setSubModule(globals())
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
+from ShareYourSystem.Standards.Interfacers import Printer
 from ShareYourSystem.Standards.Recorders import Recorder
 #</ImportSpecificModules>
-
-#<DefineLocals>
-BrianConnectPrefixStr='Synaps'
-#</DefineLocals>
 
 #<DefineClass>
 @DecorationClass(**{
@@ -43,6 +40,11 @@ BrianConnectPrefixStr='Synaps'
 class BrianerClass(BaseClass):
 		
 	def default_init(self,
+			_BrianDebugTimeFloat={
+				'DefaultValueType':property,
+				'PropertyInitVariable':0.,
+				'PropertyDocStr':'I am displaying bug'
+			},
 			_BrianingNeurongroupDict=None,
 			_BrianingSynapsesDict=None,
 			_BrianingConnectVariable=None,
@@ -57,6 +59,7 @@ class BrianerClass(BaseClass):
 			_BrianingRecordBool=True,
 			_BrianingViewNetworkBool=False,
 			_BrianingActivityStr="",
+			_BrianingPrintBool=True,
 			_BrianedTimeQuantityVariable=None,
 			_BrianedNetworkVariable=None,
 			_BrianedNeurongroupVariable=None,
@@ -79,6 +82,30 @@ class BrianerClass(BaseClass):
 
 		#Call the parent __init__ method
 		BaseClass.__init__(self,**_KwargVariablesDict)
+
+	def propertize_setBrianDebugTimeFloat(self,_ValueVariable):
+
+		#Check
+		if _ValueVariable>self._BrianDebugTimeFloat:
+
+			###########
+			#set
+			PrintStr="#/##########################################/#\n"
+			PrintStr+='      t='+str(_ValueVariable)+'\n'
+			PrintStr+="#/##########################################/#\n"
+			print PrintStr
+
+		#set
+		self._BrianDebugTimeFloat=_ValueVariable
+
+		#debug
+		'''
+		self.debug(
+			[
+				'We have setted the _BrianDebugTimeFloat'
+			]
+		)
+		'''
 
 	def do_brian(self):
 
@@ -609,8 +636,14 @@ class BrianerClass(BaseClass):
 
 	def setDebugNeurongroup(self):
 
+		#/##################/#
+		# build the print
+		#
+
+		#print
 		PrintStr='At time t='+str(self.BrianedNeurongroupVariable.clock.t)+', \n'
-		PrintStr+='In the NeuronGroup '+self.BrianedNeurongroupVariable.name+' '+self.StructureTagStr+' : \n'
+		PrintStr+='SYS Object is : '+self.StructureTagStr+', \n'
+		PrintStr+='Brian NeuronGroup is : '+self.BrianedNeurongroupVariable.name+' \n'
 
 		#loop
 		for __KeyStr in self.BrianedNeurongroupVariable.equations._equations.keys():
@@ -627,14 +660,26 @@ class BrianerClass(BaseClass):
 		#add
 		PrintStr+='\n'
 
+		#/##################/#
+		# add in the net
+		#
+
+		#set
+		self.BrianedParentNetworkDeriveBrianerVariable.BrianDebugTimeFloat=self.BrianedNeurongroupVariable.clock.t
+
 		#print
 		print PrintStr
 
 	def setDebugSynapses(self):
 
+		#/##################/#
+		# build the print
+		#
+
 		#init
 		PrintStr='At time t='+str(self.BrianedSynapsesVariable.clock.t)+', \n'
-		PrintStr+='In the Synapses '+self.BrianedSynapsesVariable.name+' : \n'
+		PrintStr+='SYS Object is : '+self.StructureTagStr+', \n'
+		PrintStr+='Brian Synapses is : '+self.BrianedSynapsesVariable.name+' \n'
 
 		#loop
 		for __KeyStr in self.BrianedSynapsesVariable.equations._equations.keys():
@@ -650,6 +695,13 @@ class BrianerClass(BaseClass):
 
 		#add
 		PrintStr+='\n'
+
+		#/##################/#
+		# add in the net
+		#
+
+		#set
+		self.BrianedParentNetworkDeriveBrianerVariable.BrianDebugTimeFloat=self.BrianedSynapsesVariable.clock.t
 
 		#print
 		print PrintStr
@@ -805,6 +857,15 @@ class BrianerClass(BaseClass):
 
 			#Check
 			if self.BrianedParentPopulationDeriveBrianerVariable.BrianedNeurongroupVariable!=None and self.ConnectedToVariable.BrianedNeurongroupVariable!=None:
+
+				#debug
+				self.debug(
+					[
+						('self.',self,[
+								'BrianingSynapsesDict'
+							])
+					]
+				)
 
 				#init
 				self.BrianedSynapsesVariable=Synapses(
@@ -1593,7 +1654,8 @@ class BrianerClass(BaseClass):
 
 		#Check
 		if self.ManagementIndexInt==len(
-			self.ParentDeriveTeamerVariable.ManagementDict)-1:
+			self.ParentDeriveTeamerVariable.ManagementDict
+		)-1:
 
 			#Check
 			'''
@@ -1692,7 +1754,7 @@ class BrianerClass(BaseClass):
 					])
 			]
 		)
-
+		
 		#set
 		self.PyplotingDrawVariable=map(
 			lambda __IndexInt:
@@ -2110,6 +2172,76 @@ class BrianerClass(BaseClass):
 
 	def viewEvent(self):
 
+		#/################/#
+		# prepare the view
+		#
+
+		#get
+		BrianedStateMonitorVariable=self.BrianedParentPopulationDeriveBrianerVariable.TeamDict[
+			'Traces'
+		].ManagementDict.getValue(
+			0
+		).TeamDict[
+			'Samples'
+		].ManagementDict.getValue(
+			0
+		).BrianedStateMonitorVariable
+
+		#get
+		BrianedTimeUnit=BrianedStateMonitorVariable.t.unit
+
+		#debug
+		self.debug(
+			[
+				'BrianedStateMonitorVariable is ',
+				str(BrianedStateMonitorVariable)
+			]
+		)
+
+		#set
+		self.ViewingXVariable=BrianedStateMonitorVariable.t/BrianedTimeUnit
+
+		#import
+		import numpy as np
+
+		#divide
+		self.ViewingYVariable=np.array(self.BrianedSpikeMonitorVariable.i)
+
+		#set
+		self.ViewingXLabelStr='$t\ ('+str(
+			(1./self.ViewingXScaleFloat)*BrianedTimeUnit
+		).split('.')[-1]+')$'
+
+		#set
+		self.ViewingYLabelStr='#$index$'
+		
+
+		#/################/#
+		# call the base view method
+		#
+
+		#debug
+		self.debug(
+			[
+				('self.',self,[
+						'ViewingXVariable',
+						'ViewingYVariable'
+					]),
+				'Now we call the view'
+			]
+		)	
+
+		#add mn and float
+		self.ViewingAddYMinFloat=-1.
+		self.ViewingAddYMaxFloat=1.
+
+		#call 
+		BaseClass.view(self)
+
+		#/################/#
+		# set pyplot draw
+		#
+
 		#debug
 		'''
 		self.debug(
@@ -2131,7 +2263,7 @@ class BrianerClass(BaseClass):
 				{
 					'#liarg:#map@get':[
 						'#IdGetStr.BrianedSpikeMonitorVariable.t',
-						'>>SYS.IdDict[#IdStr].BrianedSpikeMonitorVariable.i'
+						'>>SYS.IdDict[#IdStr].ViewingYVariable'
 					],
 					'#kwarg':dict(
 						{
@@ -2142,6 +2274,46 @@ class BrianerClass(BaseClass):
 						},
 						**self.BrianingPyplotDict
 					)
+				}
+			)
+		]
+
+		#/####################/#
+		# maybe set global Chart also
+		#
+
+		#Check
+		if self.PyplotingChartVariable==None:
+			self.PyplotingChartVariable=[]
+
+		#add
+		self.PyplotingChartVariable+=[
+			(
+				'tick_params',{
+					'#kwarg':{
+						'length':10,
+						'width':5,
+						'which':'major'
+					}
+				}
+			),
+			(
+				'tick_params',{
+					'#kwarg':{
+						'length':5,
+						'width':2,
+						'which':'minor'
+					}
+				}
+			),
+			('xaxis.set_ticks_position',
+				{
+					'#liarg':['bottom']
+				}
+			),
+			('yaxis.set_ticks_position',
+				{
+					'#liarg':['left']
 				}
 			)
 		]
@@ -2238,6 +2410,49 @@ class BrianerClass(BaseClass):
 				self.PyplotingChartVariable
 			)
 		
+
+
+
+		#/####################/#
+		# Update maybe the 
+		# parent neuron group
+
+		#debug
+		'''
+		self.debug(
+			[
+				'Maybe we also update the view in the parent population',
+				"'Charts' in self.BrianedParentPopulationDeriveBrianerVariable.TeamDict is ",
+				str('Charts' in self.BrianedParentPopulationDeriveBrianerVariable.TeamDict)
+			]
+		)
+		'''
+
+		#update the view
+		map(
+			lambda __KeyStr:
+			BrianedChartDerivePyploter.setAttr(
+				__KeyStr,
+				getattr(
+					self,
+					__KeyStr
+				)
+			),
+			[
+				'ViewingXLabelStr',
+				'ViewingYLabelStr',
+				'ViewingXVariable',
+				'ViewingYVariable',
+				'ViewingAddXMinFloat',
+				'ViewingAddXMaxFloat',
+				'ViewingAddYMinFloat',
+				'ViewingAddYMaxFloat',
+				'ViewingXScaleFloat',
+				'ViewingYScaleFloat'
+			]
+		)
+		BrianedChartDerivePyploter.view()
+
 		#/####################/#
 		# team a Draws inside and manage a draw inside
 		#
@@ -2350,6 +2565,85 @@ class BrianerClass(BaseClass):
 					]
 				)
 
+			#Check
+			if self.PrintingCopyVariable.BrianedNeurongroupVariable!=None:
+
+				#repr
+				BaseReprStrsList=self.PrintingCopyVariable.BrianedNeurongroupVariable.__repr__(
+					).split('NeuronGroup(')
+
+				#split
+				ReprStr='NeuronGroup(N='+str(self.PrintingCopyVariable.BrianedNeurongroupVariable.N)+','
+				ReprStr+=BaseReprStrsList[1]
+
+				#add the number of N
+				self.PrintingCopyVariable.BrianedNeurongroupVariable=ReprStr
+
+			#Check
+			if self.PrintingCopyVariable.BrianedSynapsesVariable!=None:
+
+				#Check
+				if 'pre' in self.PrintingCopyVariable.BrianingSynapsesDict:
+
+					#repr
+					BaseReprStrsList=self.PrintingCopyVariable.BrianedSynapsesVariable.__repr__(
+						).split('Synapses(')
+
+					#Debug
+					'''
+					print('BaseReprStrsList is '+str(BaseReprStrsList))
+					'''
+
+					#split
+					ReprStr='Synapses(pre='+str(
+						self.PrintingCopyVariable.BrianingSynapsesDict['pre']
+					)+','
+					ReprStr+=BaseReprStrsList[1]
+
+					#add the pre option
+					self.PrintingCopyVariable.BrianedSynapsesVariable=ReprStr
+
+
+			#/##################/#
+			# Maybe just give a pointer repr of the children
+			# brian objects
+
+			#Check
+			if self.__class__.BrianingPrintBool==False or self.BrianingPrintBool==False:
+
+				#Debug
+				'''
+				print('We remove the pyplot teams')
+				print('self.TeamDict.keys() is ')
+				print(self.TeamDict.keys())
+				print('self.PrintingCopyVariable.TeamDict.keys() is ')
+				print(self.PrintingCopyVariable.TeamDict.keys())
+				print('')
+				'''
+
+				#map
+				map(
+					lambda __TeamStr:
+					self.PrintingCopyVariable.TeamDict.__setitem__(
+						__TeamStr,
+						self.TeamDict[
+								__TeamStr
+							].getParenterStr()
+					)
+					if __TeamStr in self.TeamDict
+					else None,
+					['Traces','Clocks']
+				)
+
+				#Debug
+				'''
+				print('We remove the pyplot teams')
+				print('self.TeamDict.keys() is ')
+				print(self.TeamDict.keys())
+				print('')
+				'''
+
+
 
 		#/##################/#
 		# Call the base method
@@ -2363,6 +2657,7 @@ class BrianerClass(BaseClass):
 #</DefinePrint>
 BrianerClass.PrintingClassSkipKeyStrsList.extend(
 	[
+		'BrianDebugTimeFloat',
 		'BrianingNeurongroupDict',
 		'BrianingSynapsesDict',
 		'BrianingConnectVariable',
@@ -2377,6 +2672,7 @@ BrianerClass.PrintingClassSkipKeyStrsList.extend(
 		'BrianingRecordBool',
 		'BrianingViewNetworkBool',
 		'BrianingActivityStr',
+		'BrianingPrintBool',
 		'BrianedTimeQuantityVariable',
 		'BrianedNetworkVariable',
 		'BrianedNeurongroupVariable',
