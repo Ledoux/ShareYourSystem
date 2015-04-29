@@ -22,7 +22,7 @@ MyPyploter=SYS.PyploterClass(
 												{
 													'#liarg':[
 														[1,2,3],
-														[2,6,3]
+														[0,1,2]
 													],
 													'#kwarg':{
 														'linestyle':"",
@@ -40,7 +40,7 @@ MyPyploter=SYS.PyploterClass(
 												{
 													'#liarg':[
 														[0,1,2],
-														[2,3,4]
+														[2,1,0]
 													],
 													'#kwarg':{
 														'linestyle':"--",
@@ -62,10 +62,10 @@ MyPyploter=SYS.PyploterClass(
 												{
 													'#liarg':[
 														[1,2,3],
-														[2,6,3]
+														[1,1,1]
 													],
 													'#kwarg':{
-														'linestyle':"",
+														'linestyle':"-",
 														'marker':'o'
 													}
 												}
@@ -91,10 +91,10 @@ MyPyploter=SYS.PyploterClass(
 												{
 													'#liarg':[
 														[1,2,3],
-														[2,6,3]
+														[2,4,2]
 													],
 													'#kwarg':{
-														'linestyle':"",
+														'linestyle':"-",
 														'marker':'o'
 													}
 												}
@@ -109,7 +109,7 @@ MyPyploter=SYS.PyploterClass(
 												{
 													'#liarg':[
 														[0,1,2],
-														[2,3,4]
+														[4,2,4]
 													],
 													'#kwarg':{
 														'linestyle':"--",
@@ -131,10 +131,10 @@ MyPyploter=SYS.PyploterClass(
 												{
 													'#liarg':[
 														[1,2,3],
-														[2,6,3]
+														[0,10,1]
 													],
 													'#kwarg':{
-														'linestyle':"",
+														'linestyle':"-",
 														'marker':'o'
 													}
 												}

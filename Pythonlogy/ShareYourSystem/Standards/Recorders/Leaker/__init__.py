@@ -308,13 +308,21 @@ class LeakerClass(BaseClass):
 				[
 					'We structure leak brian all the children...',
 					'self.TeamDict.keys() is ',
-					str(self.TeamDict.keys())
+					str(self.TeamDict.keys()),
+					'but map brian Clock first'
 				]
 			)
 			'''
 
 			#set
 			self.StructureFilterTeamTagStrsList=None
+
+			#map brian clock first
+			map(
+				lambda __DeriveBrianer:
+				__DeriveBrianer.brianClock(),
+				self.TeamDict["Clocks"].ManagementDict.values()
+			)
 
 			#structure
 			self.structure(
@@ -446,6 +454,7 @@ class LeakerClass(BaseClass):
 		#
 
 		#debug
+		'''
 		self.debug(
 			[
 				'We set a population here',
@@ -455,6 +464,7 @@ class LeakerClass(BaseClass):
 					])
 			]
 		)
+		'''
 
 		#Check
 		if type(
@@ -575,6 +585,7 @@ class LeakerClass(BaseClass):
 			self.LeakedModelStr+="d"+self.LeakedSymbolStr+'/dt='
 
 			#debug
+			'''
 			self.debug(
 				[
 					'Check if we add a weigth',
@@ -583,6 +594,7 @@ class LeakerClass(BaseClass):
 						])
 				]
 			)
+			'''
 
 			#type
 			LeakedType=type(self.LeakingWeigthVariable)
@@ -756,6 +768,8 @@ class LeakerClass(BaseClass):
 			#set the dimension
 			self.LeakedModelStr+=' : '+self.LeakedDimensionStr+"\n"
 
+		#debug
+		'''
 		self.debug(
 			[
 				'We have defined the leak model str',
@@ -764,6 +778,7 @@ class LeakerClass(BaseClass):
 				])
 			]
 		)
+		'''
 
 		#/################/#
 		# Now update the Traces
@@ -833,7 +848,7 @@ class LeakerClass(BaseClass):
 		'''
 
 		#Check
-		if self.LeakingThresholdVariable!=None:
+		if type(self.LeakingThresholdVariable)!=None.__class__:
 
 			#type
 			LeakedType=type(self.LeakingThresholdVariable)
@@ -1221,11 +1236,13 @@ class LeakerClass(BaseClass):
 				if self.LeakingRecordBool==False:
 
 					#debug
+					'''
 					self.debug(
 						[
 							'we skip record this input'
 						]
 					)
+					'''
 
 					#append
 					if self.LeakedParentPopulationDeriveLeakerVariable.LeakedRecordSkipStrsList==None:
@@ -1389,6 +1406,7 @@ class LeakerClass(BaseClass):
 				self.LeakingWeigthVariable='#scalar:0.'
 
 				#debug
+				'''
 				self.debug(
 					[
 						'We set a default J equal to scalar 0',
@@ -1397,6 +1415,7 @@ class LeakerClass(BaseClass):
 							])
 					]
 				)
+				'''
 
 			#debug
 			'''
@@ -1474,9 +1493,6 @@ class LeakerClass(BaseClass):
 			# Write the LeakedSymbolStr
 			#
 
-			#Check
-			#if self.LeakingInteractionStr=="Rate":
-
 			#debug
 			'''
 			self.debug(
@@ -1503,6 +1519,7 @@ class LeakerClass(BaseClass):
 			)
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We add a suffix corresponding to the observed variable',
@@ -1511,7 +1528,8 @@ class LeakerClass(BaseClass):
 						])
 				]
 			)
-			
+			'''
+
 			#Check
 			if self.LeakingVariableStr=="":
 
@@ -1519,12 +1537,14 @@ class LeakerClass(BaseClass):
 				if self.LeakingInteractionStr=="Rate":
 
 					#debug
+					'''
 					self.debug(
 						[
 							'It is a rate interaction',
 							'So the LeakedVariableStr has to be the ConnectedToVariable.LeakedSymbolStr by default'
 						]
 					)
+					'''
 
 					#add
 					self.LeakedSymbolStr+=self.ConnectedToVariable.LeakedSymbolStr
@@ -1581,11 +1601,13 @@ class LeakerClass(BaseClass):
 				if self.LeakingRecordBool==False:
 
 					#debug
+					'''
 					self.debug(
 						[
 							'we skip record this interaction'
 						]
 					)
+					'''
 
 					#append
 					if self.ConnectedToVariable.LeakedRecordSkipStrsList==None:
@@ -1619,6 +1641,7 @@ class LeakerClass(BaseClass):
 			#
 
 			#debug
+			'''
 			self.debug(
 				[
 					'First we set the model in the synapse',
@@ -1627,6 +1650,7 @@ class LeakerClass(BaseClass):
 					])
 				]
 			)
+			'''
 
 			#Check
 			if self.LeakedClampStr=="Variable":
@@ -1686,11 +1710,13 @@ class LeakerClass(BaseClass):
 				self.LeakedModelStr+=" : "+self.ConnectedToVariable.LeakedDimensionStr
 
 				#debug
+				'''
 				self.debug(
 					[
 						'It is a rate interaction so we add the summed term'
 					]
 				)
+				'''
 
 				#Check
 				self.LeakedModelStr+=" (summed)"
@@ -1699,6 +1725,7 @@ class LeakerClass(BaseClass):
 				self.LeakedModelStr+="\n"
 
 				#debug
+				'''
 				self.debug(
 					[
 						'Ok',
@@ -1715,7 +1742,8 @@ class LeakerClass(BaseClass):
 						self.ConnectedToVariable.LeakedDimensionStr
 					]
 				)
-				
+				'''
+
 				#define in the model
 				self.ConnectedToVariable.LeakedModelStr+=self.LeakedSymbolStr+' : '+self.ConnectedToVariable.LeakedDimensionStr+"\n"
 				
@@ -1756,6 +1784,7 @@ class LeakerClass(BaseClass):
 			if self.LeakingInteractionStr=="Spike":
 
 				#debug
+				'''
 				self.debug(
 					[
 						'It is a spike interaction add int the BrianingSynapsesDict pre',
@@ -1763,6 +1792,7 @@ class LeakerClass(BaseClass):
 						self.ConnectedToVariable.LeakedSymbolStr
 					]
 				)
+				'''
 
 				#add
 				self.BrianingSynapsesDict['pre']=self.ConnectedToVariable.LeakedSymbolStr+'_post+='+self.LeakingSymbolPrefixStr+'*'+str(
@@ -1770,6 +1800,7 @@ class LeakerClass(BaseClass):
 				)
 
 			#debug
+			'''
 			self.debug(
 				[
 					'In the end',
@@ -1778,7 +1809,7 @@ class LeakerClass(BaseClass):
 					])
 				]
 			)
-
+			'''
 
 	def brianPopulation(self):
 
@@ -1865,6 +1896,7 @@ class LeakerClass(BaseClass):
 			):
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We set the thresholds in the brian Neurongroup',
@@ -1874,6 +1906,7 @@ class LeakerClass(BaseClass):
 						])
 				]
 			)
+			'''
 
 			#import 
 			import numpy
@@ -1884,12 +1917,14 @@ class LeakerClass(BaseClass):
 			)*self.LeakedQuantityVariable
 
 			#debug
+			'''
 			self.debug(
 				[
 					'self.BrianedNeurongroupVariable.Threshold is ',
 					str(self.BrianedNeurongroupVariable.Threshold)
 				]
 			)
+			'''
 
 			#set in the Threshold Trace to not record
 			self.TeamDict[
@@ -1907,11 +1942,13 @@ class LeakerClass(BaseClass):
 		if type(self.LeakingThresholdVariable)!=None.__class__:
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We add a record of the events'
 				]
 			)
+			'''
 
 			#get
 			self.getTeamer(
@@ -2306,6 +2343,7 @@ class LeakerClass(BaseClass):
 		#
 
 		#debug
+		'''
 		self.debug(
 			[
 				'We set interaction brian here',
@@ -2314,6 +2352,7 @@ class LeakerClass(BaseClass):
 					])
 			]
 		)
+		'''
 
 		#Check
 		if self.LeakedClampStr=="Scalar":
@@ -2352,6 +2391,7 @@ class LeakerClass(BaseClass):
 			BrianedInteractionType=type(self.LeakingWeigthVariable)
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We have to set the connect variable',
@@ -2362,6 +2402,7 @@ class LeakerClass(BaseClass):
 					str(BrianedInteractionType)
 				]
 			)
+			'''
 
 			#import
 			import numpy as np
@@ -2386,11 +2427,16 @@ class LeakerClass(BaseClass):
 				if self.LeakingWeigthVariable!=0.:
 
 					#debug
+					'''
 					self.debug(
 						[
-							'We are going to connect this Variable for each index'
+							'We are going to connect this Variable for each index',
+							('self.',self,[
+									'LeakingWeigthVariable'
+								])
 						]
 					)
+					'''
 
 					#connect
 					self.BrianedSynapsesVariable.connect(
@@ -2497,6 +2543,7 @@ class LeakerClass(BaseClass):
 				)
 
 				#debug
+				'''
 				self.debug(
 					[
 						'It is an already defined array',
@@ -2508,7 +2555,8 @@ class LeakerClass(BaseClass):
 						'BrianedFloatsArray is '+str(BrianedFloatsArray)
 					]
 				)
-
+				'''
+				
 				#connect
 				self.BrianedSynapsesVariable.connect(
 					True
@@ -2676,6 +2724,7 @@ class LeakerClass(BaseClass):
 					else:
 
 						#debug
+						'''
 						self.debug(
 							[
 								'WARNING : size is not good',
@@ -2685,7 +2734,8 @@ class LeakerClass(BaseClass):
 								str(self.LeakedParentPopulationDeriveLeakerVariable.LeakingMonitorIndexIntsList)
 							]
 						)
-
+						'''
+						
 						#alias
 						BrianedDefaultDeriveLeaker.RecordingLabelVariable=[0]
 

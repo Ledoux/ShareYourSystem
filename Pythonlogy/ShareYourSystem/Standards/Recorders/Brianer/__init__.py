@@ -24,6 +24,21 @@ from ShareYourSystem.Standards.Interfacers import Printer
 from ShareYourSystem.Standards.Recorders import Recorder
 #</ImportSpecificModules>
 
+#<DefineLocals>
+BrianViewKeyStrsList=[
+				'ViewingXLabelStr',
+				'ViewingYLabelStr',
+				'ViewingXVariable',
+				'ViewingYVariable',
+				'ViewingAddXMinFloat',
+				'ViewingAddXMaxFloat',
+				'ViewingAddYMinFloat',
+				'ViewingAddYMaxFloat',
+				'ViewingXScaleFloat',
+				'ViewingYScaleFloat'
+			]
+#</DefineLocals>
+
 #<DefineClass>
 @DecorationClass(**{
 	'ClassingSwitchMethodStrsList':['brian'],
@@ -218,14 +233,23 @@ class BrianerClass(BaseClass):
 			self.debug(
 				[
 					'We brian structure in all the brian children...',
+					'but first make brianClock the clocks',
+					'self.TeamDict["Clocks"].ManagementDict.keys()',
+					str(self.TeamDict["Clocks"].ManagementDict.keys())
 				]
 			)
 			'''
 
+			#map brian clock first
+			map(
+				lambda __DeriveBrianer:
+				__DeriveBrianer.brianClock(),
+				self.TeamDict["Clocks"].ManagementDict.values()
+			)
+
 			#structure
 			self.structure(
 				[
-					'Clocks',
 					'Populations',
 					'Traces',
 					'Events',
@@ -336,30 +360,12 @@ class BrianerClass(BaseClass):
 		'''
 
 		#Check
-		if 'Clocks' not in self.TeamDict:
-			ClocksDeriveManager=self.team('Clocks').TeamedValueVariable
-		else:
-			ClocksDeriveManager=self.TeamDict['Clocks']
+		self.getTeamer(
+			"Clocks"
+		).getManager(
+			"Simulation"
+		)
 
-		#manage
-		if 'Simulation' not in ClocksDeriveManager.ManagementDict:
-
-			#debug
-			'''
-			self.debug(
-				[
-					'We init a simulation clock here'
-				]
-			)
-			'''
-
-			#manage
-			SimulationDeriveBrianer=ClocksDeriveManager.manage(
-				'Simulation',
-				{
-					'BrianingStepTimeFloat':self.BrianingStepTimeFloat
-				}
-			)
 
 	def brianClock(self):
 
@@ -387,9 +393,19 @@ class BrianerClass(BaseClass):
 		)
 		'''
 
+		#set
+		if self.ManagementTagStr=="Simulation":
+
+			#set
+			BrianedStepTimeFloat=self.BrianedParentNetworkDeriveBrianerVariable.BrianingStepTimeFloat
+		else:
+
+			#set
+			BrianedStepTimeFloat=0.1
+
 		#init
 		self.BrianedClockVariable=Clock(
-			dt=self.BrianingStepTimeFloat*self.BrianedParentNetworkDeriveBrianerVariable.BrianedTimeQuantityVariable,
+			dt=BrianedStepTimeFloat*self.BrianedParentNetworkDeriveBrianerVariable.BrianedTimeQuantityVariable,
 			#name=self.StructureTagStr
 		)
 
@@ -480,7 +496,26 @@ class BrianerClass(BaseClass):
 		#
 
 		#Check
-		if self.BrianingNeurongroupDict['N']>0 and self.BrianingNeurongroupDict['model']!="":
+		if self.BrianingNeurongroupDict['N'
+			]>0 and self.BrianingNeurongroupDict['model']!="":
+
+			#get
+			BrianedClockVariable=self.BrianedParentNetworkDeriveBrianerVariable.TeamDict[
+							'Clocks'
+						].ManagementDict[
+							'Simulation'
+						].BrianedClockVariable
+
+			#debug
+			'''
+			self.debug(
+				[
+					'We set the neurongroup',
+					'BrianedClockVariable is ',
+					str(BrianedClockVariable)
+				]
+			)
+			'''
 
 			#init
 			self.BrianedNeurongroupVariable=NeuronGroup(
@@ -488,9 +523,7 @@ class BrianerClass(BaseClass):
 					self.BrianingNeurongroupDict,
 					**{
 						#'name':self.ParentedTotalPathStr.replace('/','_')+'_'+self.ManagementTagStr,
-						#'clock':self.BrianedParentNetworkDeriveBrianerVariable.TeamDict[
-						#	'Clocks'
-						#].ManagementDict['Simulation'].BrianedClockVariable
+						'clock':BrianedClockVariable
 					} 
 				)
 			)
@@ -858,19 +891,30 @@ class BrianerClass(BaseClass):
 			#Check
 			if self.BrianedParentPopulationDeriveBrianerVariable.BrianedNeurongroupVariable!=None and self.ConnectedToVariable.BrianedNeurongroupVariable!=None:
 
+				#get the clock
+				BrianedClockVariable=self.BrianedParentNetworkDeriveBrianerVariable.TeamDict[
+						'Clocks'
+					].ManagementDict[
+						'Simulation'
+					].BrianedClockVariable
+
 				#debug
+				'''
 				self.debug(
 					[
 						('self.',self,[
 								'BrianingSynapsesDict'
-							])
+							]),
+						'BrianedClockVariable is '+str(BrianedClockVariable)
 					]
 				)
+				'''
 
 				#init
 				self.BrianedSynapsesVariable=Synapses(
 					source=self.BrianedParentPopulationDeriveBrianerVariable.BrianedNeurongroupVariable,
 					target=self.ConnectedToVariable.BrianedNeurongroupVariable,
+					clock=BrianedClockVariable,
 					#name=BrianedNameStr.replace('/','_'),
 					**self.BrianingSynapsesDict
 				)
@@ -878,6 +922,7 @@ class BrianerClass(BaseClass):
 			else:
 
 				#debug
+				'''
 				self.debug(
 					[
 						'The Synapse init didn t work...',
@@ -887,7 +932,8 @@ class BrianerClass(BaseClass):
 						SYS._str(self.ConnectedToVariable.BrianingNeurongroupDict),
 					]
 				)
-
+				'''
+				
 			#/####################/#
 			# Connect options
 			#
@@ -1199,17 +1245,6 @@ class BrianerClass(BaseClass):
 			#record
 			self.recordSample()
 
-			"""
-			#/####################/#
-			# maybe view a draw plot
-			#
-
-			#call
-			self.viewSample()
-			"""
-
-
-
 	def brianEvent(self):
 
 		#debug
@@ -1278,15 +1313,6 @@ class BrianerClass(BaseClass):
 			self.BrianedParentNetworkDeriveBrianerVariable.BrianedNetworkVariable.add(
 				self.BrianedSpikeMonitorVariable
 			)
-
-			"""
-			#/####################/#
-			# maybe view a draw plot
-			#
-
-			#call
-			self.viewEvent()
-			"""
 
 	def mimic_view(self):
 
@@ -1610,14 +1636,7 @@ class BrianerClass(BaseClass):
 									__KeyStr
 								)
 							),
-							[
-								'ViewingXLabelStr',
-								'ViewingYLabelStr',
-								'ViewingXVariable',
-								'ViewingYVariable',
-								'ViewingXScaleFloat',
-								'ViewingYScaleFloat'
-							]
+							BrianViewKeyStrsList
 						)
 					).view(
 					).team(
@@ -1745,6 +1764,7 @@ class BrianerClass(BaseClass):
 
 
 		#debug
+		'''
 		self.debug(
 			[
 				'we set the PyplotingDrawVariable',
@@ -1754,7 +1774,8 @@ class BrianerClass(BaseClass):
 					])
 			]
 		)
-		
+		'''
+
 		#set
 		self.PyplotingDrawVariable=map(
 			lambda __IndexInt:
@@ -1782,6 +1803,64 @@ class BrianerClass(BaseClass):
 			self.RecordingLabelVariable
 		)
 
+		#/####################/#
+		# maybe set spikes
+		#
+
+		#Check
+		if "Events" in self.BrianedParentPopulationDeriveBrianerVariable.TeamDict:
+
+			#get
+			BrianedSpikeMonitorVariable=self.BrianedParentPopulationDeriveBrianerVariable.TeamDict[
+				"Events"
+			].ManagementDict[
+				"Default"
+			].BrianedSpikeMonitorVariable
+
+			#debug
+			self.debug(
+				[
+					'Look for spikes to plot on the traces',
+					'BrianedSpikeMonitorVariable.i is '+str(
+						BrianedSpikeMonitorVariable.i
+					)
+				]
+			) 
+
+			#import
+			import numpy as np
+
+			#add
+			self.PyplotingDrawVariable+=map(
+				lambda __IndexInt,__FloatTime:
+				(
+					'plot',
+					{
+						'#liarg':[
+							[__FloatTime,__FloatTime],
+							[
+								self.BrianedParentPopulationDeriveBrianerVariable.BrianedNeurongroupVariable.Threshold[
+									__IndexInt
+								],10.
+							]
+						],
+						'#kwarg':dict(
+							{
+								'linestyle':'-',
+								'linewidth':3,
+								'color':self.RecordedColorTuplesList[__IndexInt],
+
+							},
+							**self.BrianingPyplotDict
+						)
+					}
+				),
+				np.array(BrianedSpikeMonitorVariable.i),
+				np.array(BrianedSpikeMonitorVariable.t)
+			)
+			
+
+			
 
 		#/####################/#
 		# maybe set for the Chart
@@ -1906,6 +1985,7 @@ class BrianerClass(BaseClass):
 		#Check
 		if self.ManagementIndexInt==len(self.ParentDeriveTeamerVariable.ManagementDict)-1:
 
+			#add
 			self.PyplotingChartVariable+=[
 				(
 					'tick_params',{
@@ -2068,7 +2148,9 @@ class BrianerClass(BaseClass):
 					'Maybe we have to update the parent population chart',
 					('self.',self,[
 						'PyplotingChartVariable'
-					])
+					]),
+					'BrianedChartDerivePyploter.PyplotingChartVariable is ',
+					str(BrianedChartDerivePyploter.PyplotingChartVariable)
 				]
 			)
 			'''
@@ -2077,7 +2159,7 @@ class BrianerClass(BaseClass):
 			if BrianedChartDerivePyploter.PyplotingChartVariable==None:
 				BrianedChartDerivePyploter.PyplotingChartVariable=self.PyplotingChartVariable
 			else:
-				BrianedChartDerivePyploter.PyplotingChartVariable.update(
+				BrianedChartDerivePyploter.PyplotingChartVariable.extend(
 					self.PyplotingChartVariable
 				)
 
@@ -2091,14 +2173,7 @@ class BrianerClass(BaseClass):
 						__KeyStr
 					)
 				),
-				[
-					'ViewingXLabelStr',
-					'ViewingYLabelStr',
-					'ViewingXVariable',
-					'ViewingYVariable',
-					'ViewingXScaleFloat',
-					'ViewingYScaleFloat'
-				]
+				BrianViewKeyStrsList
 			)
 			BrianedChartDerivePyploter.view()
 
@@ -2191,12 +2266,14 @@ class BrianerClass(BaseClass):
 		BrianedTimeUnit=BrianedStateMonitorVariable.t.unit
 
 		#debug
+		'''
 		self.debug(
 			[
 				'BrianedStateMonitorVariable is ',
 				str(BrianedStateMonitorVariable)
 			]
 		)
+		'''
 
 		#set
 		self.ViewingXVariable=BrianedStateMonitorVariable.t/BrianedTimeUnit
@@ -2221,6 +2298,7 @@ class BrianerClass(BaseClass):
 		#
 
 		#debug
+		'''
 		self.debug(
 			[
 				('self.',self,[
@@ -2229,7 +2307,8 @@ class BrianerClass(BaseClass):
 					]),
 				'Now we call the view'
 			]
-		)	
+		)
+		'''
 
 		#add mn and float
 		self.ViewingAddYMinFloat=-1.
@@ -2252,7 +2331,7 @@ class BrianerClass(BaseClass):
 		'''
 
 		#set
-		self.ViewedLabelStr='$'+self.ManagementTagStr+'_{'+str(
+		ViewedLabelStr='$'+self.ManagementTagStr+'_{'+str(
 			self.BrianedParentPopulationDeriveBrianerVariable.BrianedNeurongroupVariable.name
 							).replace('_','/')+'}'
 
@@ -2267,7 +2346,7 @@ class BrianerClass(BaseClass):
 					],
 					'#kwarg':dict(
 						{
-							'label':self.ViewedLabelStr,
+							'label':ViewedLabelStr,
 							'linestyle':'',
 							'marker':'.',
 							'color':'b'
@@ -2404,15 +2483,17 @@ class BrianerClass(BaseClass):
 
 		#Check
 		if BrianedChartDerivePyploter.PyplotingChartVariable==None:
+
+			#alias
 			BrianedChartDerivePyploter.PyplotingChartVariable=self.PyplotingChartVariable
 		else:
-			BrianedChartDerivePyploter.PyplotingChartVariable.update(
+
+			#update
+			SYS.update(
+				BrianedChartDerivePyploter.PyplotingChartVariable,
 				self.PyplotingChartVariable
-			)
+			) 
 		
-
-
-
 		#/####################/#
 		# Update maybe the 
 		# parent neuron group
@@ -2438,18 +2519,7 @@ class BrianerClass(BaseClass):
 					__KeyStr
 				)
 			),
-			[
-				'ViewingXLabelStr',
-				'ViewingYLabelStr',
-				'ViewingXVariable',
-				'ViewingYVariable',
-				'ViewingAddXMinFloat',
-				'ViewingAddXMaxFloat',
-				'ViewingAddYMinFloat',
-				'ViewingAddYMaxFloat',
-				'ViewingXScaleFloat',
-				'ViewingYScaleFloat'
-			]
+			BrianViewKeyStrsList
 		)
 		BrianedChartDerivePyploter.view()
 
@@ -2482,6 +2552,27 @@ class BrianerClass(BaseClass):
 				'PyplotingDrawVariable':self.PyplotingDrawVariable
 			}
 		)
+
+		#/####################/#
+		# Update maybe the 
+		# network view
+
+		#Check
+		if self.ManagementIndexInt==len(
+			self.ParentDeriveTeamerVariable.ManagementDict)-1:
+
+			#Check
+			'''
+			self.debug(
+				[
+					'This is the last Sample for this record',
+					'We viewTrace here (that will call viewPopulation again'
+				]
+			)
+			'''
+
+			#call
+			self.viewTrace()
 
 	def mimic_simulate(self):
 

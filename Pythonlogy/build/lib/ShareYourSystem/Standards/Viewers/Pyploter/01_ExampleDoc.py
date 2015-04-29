@@ -35,5 +35,6 @@ MyPyploter=SYS.PyploterClass(
 print('MyPyploter is ')
 SYS._print(MyPyploter)
 
-#show
+
+
 SYS.matplotlib.pyplot.show()

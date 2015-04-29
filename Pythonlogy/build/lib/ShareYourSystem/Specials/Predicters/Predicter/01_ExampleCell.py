@@ -10,14 +10,15 @@ import ShareYourSystem as SYS
 #
 
 #Simulation time
-SimulationTimeFloat=500.
+SimulationTimeFloat=150.
 #SimulationTimeFloat=0.2
-BrianingDebugVariable=0.1 if SimulationTimeFloat<0.5 else 50.
+BrianingDebugVariable=0.1 if SimulationTimeFloat<0.5 else 25.
 
 #Define
 MyPredicter=SYS.PredicterClass(
 	).mapSet(
 		{
+			'BrianingStepTimeFloat':0.05,
 			'-Populations':[
 				('|Sensor',{
 					'LeakingMonitorIndexIntsList':[0],
@@ -30,12 +31,16 @@ MyPredicter=SYS.PredicterClass(
 				}),
 				('|Agent',{
 					'LeakingMonitorIndexIntsList':[0,1,2],
-					'BrianingDebugVariable':BrianingDebugVariable,
+					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Fast':{
-							#'BrianingDebugVariable':BrianingDebugVariable
+							'BrianingDebugVariable':BrianingDebugVariable
+						},
+						'|Antileak':{
+							'BrianingDebugVariable':BrianingDebugVariable
 						}
-					}
+					},
+					#'LeakingNoiseStdVariable':0.01
 				}),
 				('|Decoder',{
 					'LeakingMonitorIndexIntsList':[0],
@@ -52,32 +57,19 @@ MyPredicter=SYS.PredicterClass(
 	).predict(
 		_SensorUnitsInt=1,
 		_AgentUnitsInt=1,
-		_DynamicBool=True,
-		_DynamicStr='Track',
-		_CommandVariable="#custom:#clock:200*ms:0.5*mV*int(t==200*ms)",#2.,
-		#_DecoderTimeFloat=1.,
-		#_RateCostVariable=0.1,
-		#_RateTransferVariable='<ThresFloat>*mV*tanh((#CurrentStr)/(<ThresFloat>*mV))'.replace(
-		#		'<ThresFloat>',
-		#		'500'
-		#	),
-		#_FastPerturbStdFloat=1.,
-		_DecoderVariable=[1.],#[[1.,1.]],#[[0.33,0.79]],#[1.],#[[0.33,0.79]],#[1.],#'#array',#[1.,1.],#
-		_DecoderStdFloat=1.,#40.,
+		_DynamicBool=False,
+		_DynamicDict={
+			'ModeStr':"Track",
+			'ConstantTimeFloat':2. #(ms)
+		},
+		_CommandVariable="#custom:#clock:50*ms:1.*mV*int(t==50*ms)",#2.,
+		_RateTransferVariable='#CurrentStr',
+		_DecoderVariable=[2.],
 		_DecoderNormalisationInt=1,
-		_InteractionStr="Spike",
-		#_EncodPerturbStdFloat=40./100.,
-		#_FastPerturbStdFloat=0.1
+		_InteractionStr="Rate"
 	).simulate(
 		SimulationTimeFloat
 	)
-
-#print(MyPredicter['/-Populations/|Sensor/-Traces/|*U/-Samples/|Default'
-#	].BrianedStateMonitorVariable.t)
-#print(MyPredicter['/-Populations/|Decoder/-Traces/|*U/-Samples/|Default'
-#	].BrianedStateMonitorVariable.t)
-
-
 
 #/###################/#
 # View
@@ -91,20 +83,6 @@ MyPredicter.mapSetAllMro(
 	).view(
 	).pyplot(
 	)
-
-#MyPredicter[
-#		'/-Populations/|Sensor'
-#	].view(
-#	).pyplot(
-#	)
-
-#MyPredicter[
-#		'/-Populations/|Sensor/-Traces/|*U/-Samples/|Default'
-#	].view(
-#	).pyplot(
-#	)
-
-#print(MyPredicter['/-Populations/|Default/-Interactions/|/'].BrianedSynapsesVariable.J[:])
 SYS.matplotlib.pyplot.show()
 
 
@@ -115,3 +93,8 @@ SYS.matplotlib.pyplot.show()
 #Definition the AttestedStr
 print('MyPredicter is ')
 SYS._print(MyPredicter) 
+
+
+
+
+

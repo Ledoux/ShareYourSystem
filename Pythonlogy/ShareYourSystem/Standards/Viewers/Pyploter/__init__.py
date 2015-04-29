@@ -33,6 +33,15 @@ PyplotBarKeyStr='#bar'
 PyplotScatterKeyStr='#scatter'
 PyplotAxesKeyStr='#axes'
 PyplotMpld3KeyStr='#mpld3.plugins.'
+def getFiguresList():
+
+	#import 
+	import matplotlib._pylab_helpers
+
+	#return
+	return [
+		Manager.canvas.figure for Manager in matplotlib._pylab_helpers.Gcf.get_all_fig_managers()
+	]
 #</DefineLocals>
 
 #<DefineClass>
@@ -70,6 +79,8 @@ class PyploterClass(BaseClass):
 						},
 						_PyplotedPanelShapeIntsList=None,
 						_PyplotedCursorIntsList=[0,0],
+						_PyplotedChartTuplesList=None,
+						_PyplotedDrawTuplesList=None,
 						_PyplotedParentSingularStr="",
 						**_KwargVariablesDict
 					):
@@ -130,117 +141,12 @@ class PyploterClass(BaseClass):
 			'Draws'
 		]):
 
-			#/###############/#
-			# If it is the top then init the pyplot
+			#/########################/#
+			# pyplotFigure
 			#
 
-			#debug
-			'''
-			self.debug(
-					[
-						'Figure Level'
-					]
-				)
-			'''
-
-			#import pyplot
-			from matplotlib import pyplot
-
-			#init
-			if self.PyplotingFigureVariable!=None:
-
-				#init
-				self.PyplotedFigureVariable = pyplot.figure(
-					**self.PyplotingFigureVariable
-				)
-
-			else:
-
-				#init
-				self.PyplotedFigureVariable = pyplot.figure()
-
-			#/###############/#
-			# Case of a Figure Panel Axes Draws 
-			#
-
-			#Check
-			if all(
-				map(
-					lambda __KeyStr:
-					__KeyStr not in self.TeamDict,
-					['Charts','Panels']
-				)
-			):
-
-				#/###############/#
-				# Set parent 
-				#
-
-				#
-				self.PyplotedParentFigureDerivePyploterVariable=self
-				self.PyplotedParentPanelDerivePyploterVariable=self
-				self.PyplotedParentChartDerivePyploterVariable=self
-
-				#/###############/#
-				# pyplotChart 
-				#
-
-				#debug
-				'''
-				self.debug(
-					[
-						'We are in the case of a Figure Panel Axes draw'
-					]
-				)
-				'''
-
-				#init
-				self.PyplotedAxesVariable = pyplot.axes()
-
-				#link
-				self.PyplotedAxesVariable._figure = self.PyplotedFigureVariable	
-
-				#/#################/#
-				# Look for view argument
-				#
-
-				#debug
-				'''
-				self.debug(
-					[
-						'First look for view arguments'
-					]
-				)
-				'''
-
-				#map
-				map(
-					lambda __AxeStr:
-					self.pyplotAxe(__AxeStr),
-					[
-						'X',
-						'Y'
-					]
-				)
-
-				#debug
-				'''
-				self.debug(
-					[
-						'Ok we have maybe setted the PyplotingChartVariable',
-						('self.',self,[
-								'PyplotingChartVariable'
-							])
-					]
-				)
-				'''
-
-				#/###############/#
-				# pyplotDraw
-				#
-
-				#pyplotDraw
-				self.pyplotDraw()
+			#call
+			self.pyplotFigure()
 
 			#/########################/#
 			# structure pyplot
@@ -272,11 +178,13 @@ class PyploterClass(BaseClass):
 			'''
 			self.debug(
 				[
-					'Ok we have structure Panels, Charts, Draws'
+					'Ok we have structure Panels, Charts, Draws',
+					'getFiguresList is ',
+					str(getFiguresList())
 				]
 			)
 			'''
-			
+
 		else:
 
 			#/########################/#
@@ -560,6 +468,144 @@ class PyploterClass(BaseClass):
 				#pyplotDraw
 				self.pyplotDraw()
 
+		#debug
+		'''
+		self.debug(
+			[
+				'In the end',
+				'getFiguresList is ',
+				str(getFiguresList())
+			]
+		)
+		'''
+
+	def pyplotFigure(self):
+
+		#/###############/#
+		# If it is the top then init the pyplot
+		#
+
+		#debug
+		'''
+		self.debug(
+				[
+					'Figure Level'
+				]
+			)
+		'''
+		
+		#import pyplot
+		from matplotlib import pyplot
+
+		#init
+		if self.PyplotingFigureVariable!=None:
+
+			#init
+			self.PyplotedFigureVariable = pyplot.figure(
+				**self.PyplotingFigureVariable
+			)
+
+		else:
+
+			#init
+			self.PyplotedFigureVariable = pyplot.figure()
+
+		#/###############/#
+		# Case of a Figure Panel Axes Draws 
+		#
+
+		#Check
+		if all(
+			map(
+				lambda __KeyStr:
+				__KeyStr not in self.TeamDict,
+				['Charts','Panels']
+			)
+		):
+
+			#/###############/#
+			# Set parent 
+			#
+
+			#
+			self.PyplotedParentFigureDerivePyploterVariable=self
+			self.PyplotedParentPanelDerivePyploterVariable=self
+			self.PyplotedParentChartDerivePyploterVariable=self
+
+			#/###############/#
+			# pyplotChart 
+			#
+
+			#debug
+			'''
+			self.debug(
+				[
+					'We are in the case of a Figure Panel Axes draw'
+				]
+			)
+			'''
+
+			#init
+			self.PyplotedAxesVariable = pyplot.axes()
+
+			#link
+			self.PyplotedAxesVariable._figure=self.PyplotedFigureVariable
+
+			#/#################/#
+			# Look for view argument
+			#
+
+			#debug
+			'''
+			self.debug(
+				[
+					'First look for view arguments'
+				]
+			)
+			'''
+
+			#map
+			map(
+				lambda __AxeStr:
+				self.pyplotAxe(__AxeStr),
+				[
+					'X',
+					'Y'
+				]
+			)
+
+			#debug
+			'''
+			self.debug(
+				[
+					'Ok we have maybe setted the PyplotingChartVariable',
+					('self.',self,[
+							'PyplotingChartVariable'
+						]),
+					'getFiguresList is ',
+					str(getFiguresList())
+				]
+			)
+			'''
+
+			#/###############/#
+			# pyplotDraw
+			#
+
+			#pyplotDraw
+			self.pyplotDraw()
+
+			#debug
+			'''
+			self.debug(
+				[
+					'after pyplotDraw',
+					'getFiguresList is ',
+					str(getFiguresList())
+				]
+			)
+			'''
+
 	def pyplotAxe(self,_AxeStr):
 
 		#debug
@@ -568,7 +614,8 @@ class PyploterClass(BaseClass):
 			[
 				'We pyplotAxe here',
 				('self.',self,[
-					'PyplotingChartVariable'
+					'PyplotingChartVariable',
+					'PyplotedChartTuplesList',
 				])
 			]
 		)
@@ -604,7 +651,7 @@ class PyploterClass(BaseClass):
 				if self.ManagementIndexInt<len(self.ParentDeriveTeamerVariable.ManagementDict)-1:
 
 					#append
-					self.PyplotingChartVariable.append(
+					self.PyplotedChartTuplesList.append(
 						(
 							'set_'+LowAxeStr+'label',{
 								'#liarg':[""]
@@ -619,7 +666,7 @@ class PyploterClass(BaseClass):
 			if ViewedLabelPlot==False:
 
 				#append
-				self.PyplotingChartVariable.append(
+				self.PyplotedChartTuplesList.append(
 					(
 						'set_'+LowAxeStr+'label',ViewingLabelStr
 					)
@@ -639,7 +686,7 @@ class PyploterClass(BaseClass):
 		if ViewedLimLiargStr!="":
 
 			#append
-			self.PyplotingChartVariable.append(
+			self.PyplotedChartTuplesList.append(
 				(
 					'set_'+LowAxeStr+'lim',{
 						'#liarg:#map@get':[ViewedLimLiargStr]
@@ -661,7 +708,7 @@ class PyploterClass(BaseClass):
 		if ViewedTickLiargStr!="":
 
 			#append
-			self.PyplotingChartVariable.append(
+			self.PyplotedChartTuplesList.append(
 				(
 					'set_'+LowAxeStr+'ticks',{
 						'#liarg:#map@get':[ViewedTickLiargStr]
@@ -696,7 +743,7 @@ class PyploterClass(BaseClass):
 				if self.ManagementIndexInt<len(self.ParentDeriveTeamerVariable.ManagementDict)-1:
 
 					#append
-					self.PyplotingChartVariable.append(
+					self.PyplotedChartTuplesList.append(
 						(
 							'set_'+LowAxeStr+'ticklabels',{
 								'#liarg':[[]]
@@ -711,7 +758,7 @@ class PyploterClass(BaseClass):
 			if ViewedTickLabelPlot==False:
 
 				#append
-				self.PyplotingChartVariable.append(
+				self.PyplotedChartTuplesList.append(
 					(
 						'set_'+LowAxeStr+'ticklabels',{
 							'#liarg:#map@get':[ViewedTickLabelLiargStr]
@@ -721,6 +768,20 @@ class PyploterClass(BaseClass):
 
 
 	def pyplotChart(self):
+
+		#/#################/#
+		# Check
+		#
+
+		#Check
+		if self.PyplotingChartVariable!=None:
+
+			#copy
+			self.PyplotedChartTuplesList+=copy.copy(
+				self.PyplotingChartVariable.items()
+				if hasattr(self.PyplotingChartVariable,'items')
+				else self.PyplotingChartVariable
+			)
 
 		#/#################/#
 		# Look for view argument
@@ -746,9 +807,9 @@ class PyploterClass(BaseClass):
 		'''
 		self.debug(
 			[
-				'Ok we have maybe setted the PyplotingChartVariable',
+				'Ok we have maybe setted the PyplotedChartTuplesList,
 				('self.',self,[
-						'PyplotingChartVariable'
+						'PyplotedChartTuplesList'
 					])
 			]
 		)
@@ -816,36 +877,172 @@ class PyploterClass(BaseClass):
 			)
 
 		#/#################/#
-		# init
+		# Check if the size is going to be correct
 		#
+
+		#init
+		from matplotlib import pyplot
 
 		#debug
 		'''
 		self.debug(
 				[
 					'Ok we set an axes here',
+					'self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridIntsTuple is ',
+					str(self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridIntsTuple),
 					('self.',self,[
-							'PyplotingGridIntsTuple',
 							'PyplotedAnchorIntsList',
 							'PyplotingShapeVariable'
-						]),
-					''
+						])
 				]
 			)
 		'''
-
+		
 		#Check
 		if self.PyplotingShapeVariable==None:
 			self.PyplotingShapeVariable=(5,5)
 
 		#init
-		from matplotlib import pyplot
+		PyplotedResetBool=False
+
+		#Check
+		if self.PyplotedAnchorIntsList[0] > self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridIntsTuple[0]:
+
+			#tuple
+			self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridIntsTuple=(
+				self.PyplotedAnchorIntsList[0]+self.PyplotingShapeVariable[0],
+				self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridIntsTuple[1]
+			)
+
+			#set
+			PyplotedResetBool=True
+
+		elif self.PyplotedAnchorIntsList[1] > self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridIntsTuple[1]:
+
+			#tuple
+			self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridIntsTuple=(
+				self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridIntsTuple[0],
+				self.PyplotedAnchorIntsList[1]+self.PyplotingShapeVariable[1],
+			)
+
+			#set
+			PyplotedResetBool=True 
+		
+		#Check
+		if PyplotedResetBool:
+
+			#debug
+			self.debug(
+				[
+					'We reset the figure here because the size of the axes is too big'
+				]
+			)
+
+		'''
+			#list
+			PyplotedOldAxesList=self.PyplotedParentFigureDerivePyploterVariable.PyplotedFigureVariable._axstack.as_list()
+
+			#temp
+			PyplotedOldFigure=self.PyplotedParentFigureDerivePyploterVariable.PyplotedFigureVariable
+
+			#reinit figure
+			self.PyplotedParentFigureDerivePyploterVariable.PyplotedFigureVariable=pyplot.figure()
+
+			#reinit axes with the new grids
+			PyplotedNewAxesList=map(
+				lambda __PyplotedOldAxes:
+				pyplot.subplot2grid(
+					self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridIntsTuple, 
+					__PyplotedOldAxes.ParentPyploter.PyplotedAnchorIntsList, 
+					rowspan=__PyplotedOldAxes.ParentPyploter.PyplotingShapeVariable[0],
+					colspan=__PyplotedOldAxes.ParentPyploter.PyplotingShapeVariable[1]
+				),
+				PyplotedOldAxesList
+			)
+
+			#map set_figure
+			map(
+				lambda __PyplotedNewAxes:
+				setattr(
+					__PyplotedNewAxes,
+					'_figure',
+					self.PyplotedParentFigureDerivePyploterVariable.PyplotedFigureVariable
+				),
+				PyplotedNewAxesList
+			)
+			
+			#map set_axes
+			"""
+			map(
+				lambda __PyplotedNewAxes,__PyplotedOldAxes:
+				__PyplotedNewAxes.set_axes(
+					__PyplotedOldAxes
+				),
+				PyplotedNewAxesList,
+				PyplotedOldAxesList
+			)
+			"""
+
+			#map
+			map(
+				lambda __PyplotedNewAxes,__PyplotedOldAxes:
+				setattr(
+					__PyplotedNewAxes,
+					'ParentPyploter',
+					__PyplotedOldAxes.ParentPyploter
+				),
+				PyplotedNewAxesList,
+				PyplotedOldAxesList
+			)
+
+			#map
+			map(
+				lambda __PyplotedNewAxes,__PyplotedOldAxes:
+				setattr(
+					__PyplotedNewAxes,
+					'ParentPyploter',
+					__PyplotedOldAxes.ParentPyploter
+				),
+				PyplotedNewAxesList,
+				PyplotedOldAxesList
+			)
+
+			#close the old one
+			pyplot.close(PyplotedOldFigure)
+
+			#setDoing
+			self.setDoing([SYS.PyploterClass])
+			map(
+				lambda __PyplotedNewAxes:
+				__PyplotedNewAxes.ParentPyploter.setDoing(
+					[SYS.PyploterClass]
+				),
+				PyplotedNewAxesList
+			)
+
+			#review and re pyplot 
+			self.PyplotedParentFigureDerivePyploterVariable.view(
+				).pyplot(
+				)
+
+			#return
+			return self
+		'''
+
+		#/#################/#
+		# init
+		#
+
+		#subplot2grid
 		self.PyplotedAxesVariable=pyplot.subplot2grid(
 				self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridIntsTuple, 
 				self.PyplotedAnchorIntsList, 
 				rowspan=self.PyplotingShapeVariable[0],
 				colspan=self.PyplotingShapeVariable[1]
 			)
+
+		#give a pointer back
+		self.PyplotedAxesVariable.ParentPyploter=self
 
 		#debug
 		'''
@@ -862,7 +1059,8 @@ class PyploterClass(BaseClass):
 		#
 
 		#link
-		self.PyplotedAxesVariable._figure=self.PyplotedFigureVariable	
+		self.PyplotedAxesVariable._figure=self.PyplotedParentFigureDerivePyploterVariable.PyplotedFigureVariable
+		
 
 		#debug
 		'''
@@ -874,6 +1072,20 @@ class PyploterClass(BaseClass):
 		'''
 
 	def pyplotDraw(self):
+
+		#/#################/#
+		# Check
+		#
+
+		#Check
+		if self.PyplotingDrawVariable!=None:
+
+			#copy
+			self.PyplotedDrawTuplesList+=copy.copy(
+				self.PyplotingDrawVariable.items()
+				if hasattr(self.PyplotingDrawVariable,'items')
+				else self.PyplotingDrawVariable
+			)
 
 		#/#################/#
 		# We mapArgument draw in the parent axes
@@ -898,7 +1110,7 @@ class PyploterClass(BaseClass):
 		self.PyplotedLinesList.extend(
 			self.PyplotedParentFigureDerivePyploterVariable.mapArgument(
 				self.PyplotedParentChartDerivePyploterVariable.PyplotedAxesVariable,
-				self.PyplotingDrawVariable
+				self.PyplotedDrawTuplesList
 			)
 		)
 
@@ -953,8 +1165,8 @@ class PyploterClass(BaseClass):
 							#('self.',self,[
 							#	'PyplotedParentChartDerivePyploterVariable'
 							#]),
-							'self.PyplotedParentChartDerivePyploterVariable.PyplotingChartVariable is ',
-							SYS._str(self.PyplotedParentChartDerivePyploterVariable.PyplotingChartVariable)
+							'self.PyplotedParentChartDerivePyploterVariable.PyplotedChartVariablesList is ',
+							SYS._str(self.PyplotedParentChartDerivePyploterVariable.PyplotedChartVariablesList)
 						]
 					)
 					'''
@@ -962,66 +1174,17 @@ class PyploterClass(BaseClass):
 					#map argument
 					self.PyplotedParentFigureDerivePyploterVariable.mapArgument(
 						self.PyplotedParentChartDerivePyploterVariable.PyplotedAxesVariable,
-						self.PyplotedParentChartDerivePyploterVariable.PyplotingChartVariable
+						self.PyplotedParentChartDerivePyploterVariable.PyplotedChartTuplesList
 					)
-
-		#/###################/#
-		# If it is the last then trigger the axes to set also
-		#
-
-		#Check
-		if self.ParentDeriveTeamerVariable!=None and self.ManagementIndexInt==(
-			len(self.ParentDeriveTeamerVariable.ManagementDict)-1
-		):
-
-			#debug
-			'''
-			self.debug(
-				[
-					'I am the last draw of this axes !',
-					'Lets the axes setting itself now',
-					('self.PyplotedParentChartDerivePyploterVariable.',
-						self.PyplotedParentChartDerivePyploterVariable,
-						['PyplotingDrawVariable'])
-				]
-			)	
-			'''
-
-			#Check
-			if self.PyplotedParentChartDerivePyploterVariable.PyplotingChartVariable!=None:
-
-				#/#################/#
-				# We map argument in the axes
-				#
-
-				#debug
-				'''
-				self.debug(
-					[
-						'We chart in the parent axe',
-						('self.',self,[
-							'PyplotedParentChartDerivePyploterVariable'
-						]),
-						'self.PyplotedParentChartDerivePyploterVariable.PyplotingChartVariable is ',
-						SYS._str(self.PyplotedParentChartDerivePyploterVariable.PyplotingChartVariable)
-					]
-				)
-				'''
-
-				#map argument
-				self.PyplotedParentFigureDerivePyploterVariable.mapArgument(
-					self.PyplotedParentChartDerivePyploterVariable.PyplotedAxesVariable,
-					self.PyplotedParentChartDerivePyploterVariable.PyplotingChartVariable
-				)
 					
 	def mimic_set(self):
 
 		#Check
 		if self.SettingKeyVariable in [
-											PyplotPlotKeyStr,
-											PyplotScatterKeyStr,
-											PyplotBarKeyStr
-										]:
+					PyplotPlotKeyStr,
+					PyplotScatterKeyStr,
+					PyplotBarKeyStr
+				]:
 
 			#/####################/#
 			# first maybe pyplot if it was not already
@@ -1330,15 +1493,18 @@ class PyploterClass(BaseClass):
 			#map
 			map(
 					lambda __KeyStr:
-					self.PrintingCopyVariable.PrintingInstanceSkipKeyStrsList.append(
-						__KeyStr
-					) if getattr(self.PrintingCopyVariable,__KeyStr)==None
+					self.forcePrint(
+						[__KeyStr],
+						'PyploterClass'
+					)
+					if getattr(self.PrintingCopyVariable,__KeyStr)!=None
 					else None,
 					[
 						'PyplotedFigureVariable',
 						'PyplotedAxesVariable'
 					]
 				)
+
 
 			#Debug
 			'''
@@ -1415,13 +1581,15 @@ PyploterClass.PrintingClassSkipKeyStrsList.extend(
 		'PyplotedParentFigureDerivePyploterVariable',
 		'PyplotedParentPanelDerivePyploterVariable',
 		'PyplotedParentChartDerivePyploterVariable',
-		#'PyplotedFigureVariable',
-		#'PyplotedAxesVariable',
+		'PyplotedFigureVariable',
+		'PyplotedAxesVariable',
 		'PyplotedLinesList',
 		'PyplotedAnchorIntsList',
 		'PyplotedShiftTuplesList',
 		'PyplotedPanelShapeIntsList',
 		'PyplotedCursorIntsList',
+		'PyplotedChartTuplesList',
+		'PyplotedDrawTuplesList',
 		'PyplotedParentSingularStr'
 	]
 )

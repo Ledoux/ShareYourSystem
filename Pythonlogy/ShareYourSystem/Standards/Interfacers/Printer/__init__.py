@@ -784,28 +784,44 @@ class PrinterClass(BaseClass):
 			print('')
 			'''
 
-			#copy
-			#self.PrintingCopyVariable.__dict__[__ItemTuple[0]]=copy.copy(
-			#	__ItemTuple[1]
-			#)
+			#Check
+			if type(__ItemTuple[1]).__name__ not in ['Figure']:
 
-			#try
-			try:
+				#Debug
+				'''
+				print('Ok this is not an annoying type like pyplot Figure')
+				print('try a copy')
+				print('')
+				'''
 
+				#try
+				try:
+
+					#copy
+					self.PrintingCopyVariable.__dict__[__ItemTuple[0]]=copy.copy(
+						__ItemTuple[1]
+					)
+				except:
+
+
+					#debug
+					#print('Try to copy but FAILED')
+					#print(__ItemTuple[0])
+					#print('')
+
+					#pass
+					pass
+
+			else:
+
+				#Debug
+				'''
+				print('Ok this is like a pyplot figure... just alias')
+				print('')
+				'''
+				
 				#copy
-				self.PrintingCopyVariable.__dict__[__ItemTuple[0]]=copy.copy(
-					__ItemTuple[1]
-				)
-			except:
-
-
-				#debug
-				#print('Try to copy but FAILED')
-				#print(__ItemTuple[0])
-				#print('')
-
-				#pass
-				pass
+				self.PrintingCopyVariable.__dict__[__ItemTuple[0]]=__ItemTuple[1]
 				
 
 		#Debug

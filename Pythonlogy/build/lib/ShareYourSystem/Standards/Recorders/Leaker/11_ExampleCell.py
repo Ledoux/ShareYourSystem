@@ -57,10 +57,14 @@ MyLeaker=SYS.LeakerClass(
 # View
 #
 
-MyLeaker['/-Populations/|P'].view(
+MyLeaker.view(
 	).pyplot(
 	)
-#print(MyLeaker['/-Populations/|Default/-Interactions/|/'].BrianedSynapsesVariable.J[:])
+
+#MyLeaker['/-Populations/|P'].view(
+#	).pyplot(
+#	)
+
 SYS.matplotlib.pyplot.show()
 
 #/###################/#

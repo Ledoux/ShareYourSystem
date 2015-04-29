@@ -80,6 +80,7 @@ class ViewerClass(BaseClass):
 		self.ViewedTagStr='_'+self.ViewingIdStr+'_'
 
 		#debug
+		'''
 		self.debug(
 				[
 					'We view here',
@@ -100,7 +101,8 @@ class ViewerClass(BaseClass):
 				#])
 			]
 		)
-		
+		'''
+
 		#/####################/#
 		# Now we view each Axe
 		#
@@ -159,12 +161,14 @@ class ViewerClass(BaseClass):
 		ViewingAddMaxFloat=getattr(self,'ViewingAdd'+_AxeStr+'MaxFloat')
 
 		#debug
+		'''
 		self.debug(
 			[
 				'ViewingAddMinFloat is '+str(ViewingAddMinFloat),
 				'ViewingAddMaxFloat is '+str(ViewingAddMaxFloat)
 			]
 		)
+		'''
 
 		#set
 		setattr(
@@ -188,13 +192,15 @@ class ViewerClass(BaseClass):
 
 
 		#debug
+		'''
 		self.debug(
 			[
 				"getattr(self,'Viewed'+_AxeStr+'limLiargStr') is",
 				getattr(self,'Viewed'+_AxeStr+'limLiargStr')
 			]
 		)
-
+		'''
+		
 		#join
 		setattr(
 			self,

@@ -329,7 +329,7 @@ class PrediraterClass(BaseClass):
 				)
 
 				PrediratedArray[:,__IndexInt]=PrediratedArray[:,__IndexInt-1]+LocalDict[
-				'Predirated'+__TagStr+'UnitCurrentFloatsArray'
+					'Predirated'+__TagStr+'UnitCurrentFloatsArray'
 				]*self.PredisensingStepTimeFloat
 
 				#set

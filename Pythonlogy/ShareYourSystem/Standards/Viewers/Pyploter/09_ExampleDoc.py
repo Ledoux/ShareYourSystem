@@ -65,7 +65,7 @@ MyPyploter=SYS.PyploterClass(
 														[2,6,3]
 													],
 													'#kwarg':{
-														'linestyle':"",
+														'linestyle':"-",
 														'marker':'o'
 													}
 												}
