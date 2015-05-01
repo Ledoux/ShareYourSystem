@@ -30,6 +30,27 @@ def getNullFloatsArray(_FloatsArray, _RtolFloat=1e-5):
 	u, s, v = np.linalg.svd(_FloatsArray)
 	RankInt = (s > _RtolFloat*s[0]).sum()
 	return v[RankInt:].T.copy()
+
+class DynamicDict(dict):
+
+	def __init__(self,*_LiargVariablesList,**_KwargVariablesDict):
+
+		#init
+		dict.__init__(self,*_LiargVariablesList,**_KwargVariablesDict)
+
+		#map
+		map(
+			lambda __ItemTuple:
+			self.__setitem__(
+				*__ItemTuple
+			) if __ItemTuple[0] not in self
+			else None,
+			[
+				('ModeStr',"Track"),
+				('ConstantTimeFloat',2.)
+			]
+		)
+
 #</DefineLocals>
 
 #<DefineClass>
@@ -37,23 +58,29 @@ def getNullFloatsArray(_FloatsArray, _RtolFloat=1e-5):
 class PredicterClass(BaseClass):
 	
 	def default_init(self,
-			_PredictingSensorUnitsInt=-1,
-			_PredictingAgentUnitsInt=-1,
+			_PredictingSensorUnitsInt=1,
+			_PredictingAgentUnitsInt=1,
 			_PredictingDaleBool=False,
 			_PredictingDynamicBool=True,
-			_PredictingDynamicDict='Track',
+			_PredictingJacobianVariable=None,
 			_PredictingCommandVariable=None,
 			_PredictingEncodPerturbStdFloat=0.,
 			_PredictingRateCostVariable=None,
 			_PredictingRateTransferVariable=None,
+			_PredictingAgentRestVariable=None,
+			_PredictingAgentResetVariable=None,
 			_PredictingAgentTimeFloat=10.,
 			_PredictingFastSymmetryFloat=1.,
 			_PredictingDecoderVariable=None,
+			_PredictingDecoderMeanFloat=1.,
 			_PredictingDecoderStdFloat=1.,
+			_PredictingDecoderProbabilityFloat=0.,
 			_PredictingDecoderTimeFloat=1.,
 			_PredictingDecoderNormalisationInt=1,
 			_PredictingFastPerturbStdFloat=0.,
+			_PredictingSlowPerturbStdFloat=0.,
 			_PredictingInteractionStr="Rate",
+			_PredictedDynamicDict=None,
 			_PredictedSensorJacobianFloatsArray=None,
 			_PredictedDecoderFloatsArray=None,
 			_PredictedFastFloatsArray=None,
@@ -297,12 +324,18 @@ class PredicterClass(BaseClass):
 		# Build the Jacobian
 		#
 
+		#init
+		self.PredictedDynamicDict=DynamicDict(
+				self.PredictingJacobianVariable
+			) if self.PredictingJacobianVariable!=None else DynamicDict()
+
+		#alias
+		PredictedConstantTimeFloat=self.PredictedDynamicDict['ConstantTimeFloat']
+
 		#Check
-		if self.PredictingDynamicDict["ModeStr"]=="Track":
+		if self.PredictedDynamicDict["ModeStr"]=="Track":
 
-			#set
-			PredictedConstantTimeFloat=1. if "ConstantTimeFloat" not in self.PredictingDynamicDict else self.PredictingDynamicDict["ConstantTimeFloat"]
-
+			
 			#debug
 			'''
 			self.debug(
@@ -313,41 +346,53 @@ class PredicterClass(BaseClass):
 			'''
 
 			#diag
-			self.PredictedSensorJacobianFloatsArray=-PredictedConstantTimeFloat*np.diag(
+			self.PredictedSensorJacobianFloatsArray=-(1./PredictedConstantTimeFloat)*np.diag(
 				np.ones(
 					self.PredictingSensorUnitsInt
 				)
 			)
 
-		elif self.PredictingDynamicDict["ModeStr"] in ["Gamma","Gamma-Theta"]:
+		elif self.PredictedDynamicDict["ModeStr"]=="Damp":
 
 			#Check
-			if self.PredictingDynamicDict=="Gamma" and self.PredictingSensorUnitsInt<3:
+			if self.PredictedDynamicDict["LoopIntsList"]==[1.]:
 				self.PredictingSensorUnitsInt=2
-			if self.PredictingDynamicDict=="Gamma-Theta" and self.PredictingSensorUnitsInt<6:
+			if self.PredictedDynamicDict["LoopIntsList"]==[1.,2.]:
 				self.PredictingSensorUnitsInt=6
+
+			#debug
+			'''
+			self.debug(
+				[
+					'We build the oscillatory jacobian matrix',
+					('self.',self,[
+							'PredictingSensorUnitsInt'
+						])
+				]
+			)
+			'''
 
 			#diag
 			self.PredictedSensorJacobianFloatsArray=-np.diag(
-				(1./self.PredictingDecoderTimeFloat)*np.ones(
+				(1./PredictedConstantTimeFloat)*np.ones(
 					self.PredictingSensorUnitsInt
 				)
 			)
 
 			#set
-			self.PredictedSensorJacobianFloatsArray[0,0]+=(1.5/self.PredictingDecoderTimeFloat)
-			self.PredictedSensorJacobianFloatsArray[1,0]+=-(3.7/self.PredictingDecoderTimeFloat)
-			self.PredictedSensorJacobianFloatsArray[0,1]+=(3.7/self.PredictingDecoderTimeFloat)
-			self.PredictedSensorJacobianFloatsArray[1,1]+=-(1./self.PredictingDecoderTimeFloat)
+			self.PredictedSensorJacobianFloatsArray[0,0]+=(1.5/PredictedConstantTimeFloat)
+			self.PredictedSensorJacobianFloatsArray[1,0]+=-(3.7/PredictedConstantTimeFloat)
+			self.PredictedSensorJacobianFloatsArray[0,1]+=(3.7/PredictedConstantTimeFloat)
+			self.PredictedSensorJacobianFloatsArray[1,1]+=-(1./PredictedConstantTimeFloat)
 
 			#Check
-			if self.PredictingDynamicDict=="Gamma-Theta":
+			if self.PredictedDynamicDict["LoopIntsList"]==[1.,2.]:
 
 				#set
-				self.PredictedSensorJacobianFloatsArray[2,3]+=(1./self.PredictingDecoderTimeFloat)
-				self.PredictedSensorJacobianFloatsArray[3,4]+=-(1.2/self.PredictingDecoderTimeFloat)
-				self.PredictedSensorJacobianFloatsArray[4,5]+=-(1.4/self.PredictingDecoderTimeFloat)
-				self.PredictedSensorJacobianFloatsArray[5,2]+=-(1.6/self.PredictingDecoderTimeFloat)
+				self.PredictedSensorJacobianFloatsArray[2,3]+=(1./PredictedConstantTimeFloat)
+				self.PredictedSensorJacobianFloatsArray[3,4]+=-(1.2/PredictedConstantTimeFloat)
+				self.PredictedSensorJacobianFloatsArray[4,5]+=-(1.4/PredictedConstantTimeFloat)
+				self.PredictedSensorJacobianFloatsArray[5,2]+=-(1.6/PredictedConstantTimeFloat)
 
 		#debug
 		'''
@@ -372,7 +417,9 @@ class PredicterClass(BaseClass):
 			)
 
 			#shape
-			PredictedShapeIntsList=list(np.shape(self.PredictingDecoderVariable))
+			PredictedShapeIntsList=list(
+				np.shape(self.PredictingDecoderVariable)
+			)
 
 			#debug
 			'''
@@ -417,6 +464,8 @@ class PredicterClass(BaseClass):
 		else:
 
 			#numscipy
+			self.NumscipyingProbabilityFloat=self.PredictingDecoderProbabilityFloat
+			self.NumscipyingMeanFloat=self.PredictingDecoderMeanFloat
 			self.NumscipyingStdFloat=self.PredictingDecoderStdFloat
 			self.NumscipyingRowsInt=self.PredictingSensorUnitsInt
 			self.NumscipyingColsInt=self.PredictingAgentUnitsInt
@@ -426,16 +475,15 @@ class PredicterClass(BaseClass):
 			self.PredictedDecoderFloatsArray=self.NumscipiedRandomFloatsArray
 
 		#debug
-		'''
 		self.debug(
 			[
 				'We normalize the PredictedDecoderFloatsArray',
 				('self.',self,[
+						'PredictedDecoderFloatsArray',
 						'PredictingDecoderNormalisationInt'
 					])
 			]
 		)
-		'''
 
 		#norm
 		self.PredictedDecoderFloatsArray/=self.PredictingAgentUnitsInt**self.PredictingDecoderNormalisationInt
@@ -537,21 +585,28 @@ class PredicterClass(BaseClass):
 		if self.PredictingInteractionStr=="Spike":
 
 			#Compute
-			self.PredictedThresholdFloatsArray=np.sum(
-				(self.PredictedDecoderFloatsArray**2)/2.,axis=0
+			#self.PredictedThresholdFloatsArray=np.sum(
+			#	(self.PredictedDecoderFloatsArray**2)/2.,axis=0
+			#)
+			#set
+			self.PredictedThresholdFloatsArray=np.array(
+				[
+					sum(
+						self.PredictedDecoderFloatsArray[:,__IndexInt]**2
+					)/2. for __IndexInt in xrange(self.PredictingAgentUnitsInt)
+				]
 			)
 
 			#debug
-			'''
 			self.debug(
 				[
 					'We have setted the thresholds',
 					('self.',self,[
+							'PredictedDecoderFloatsArray',
 							'PredictedThresholdFloatsArray'
 						])
 				]
 			)
-			'''
 
 		#/################/#
 		# PredictingDynamicBool Case
@@ -620,6 +675,38 @@ class PredicterClass(BaseClass):
 				]
 			)
 			'''
+
+			#/################/#
+			# Perturb maybe
+			#
+
+			#Check
+			if self.PredictingSlowPerturbStdFloat>0.:
+
+				#numscipy
+				self.NumscipyingStdFloat=self.PredictingSlowPerturbStdFloat
+				self.NumscipyingSizeTuple=(
+					self.PredictingAgentUnitsInt,
+					self.PredictingSensorUnitsInt
+				)
+				self.numscipy()
+
+				#debug
+				'''
+				self.debug(
+					[
+						'We are going to add this perturbation to fast',
+						('self.',self,[
+								'NumscipiedRandomFloatsArray',
+								'PredictedSlowFloatsArray'
+							])
+					]
+				)
+				'''
+
+				#link
+				self.PredictedSlowFloatsArray+=self.NumscipiedRandomFloatsArray
+
 
 		#/###############/#
 		# Renormalize compared to the rate model time constant
@@ -853,11 +940,79 @@ class PredicterClass(BaseClass):
 			#set
 			self.LeakingInteractionStr=self.PredictedNetworkDerivePredicterVariable.PredictingInteractionStr
 
+			#/####################/#
+			# LeakingUnitsInt
+			#
+
+			#debug
+			'''
+			self.debug(
+				[
+					'Look for LeakingUnitsInt',
+					('self.',self,[
+							'LeakingUnitsInt'
+						]),
+					'self.PredictedNetworkDerivePredicterVariable.PredictingAgentUnitsInt is ',
+					str(self.PredictedNetworkDerivePredicterVariable.PredictingAgentUnitsInt)
+				]
+			)
+			'''
+
+			#set default
+			if self.LeakingUnitsInt==0:
+				self.LeakingUnitsInt=1
+
+			#set
+			if self.PredictedNetworkDerivePredicterVariable.PredictingAgentUnitsInt>-1:
+				self.LeakingUnitsInt=self.PredictedNetworkDerivePredicterVariable.PredictingAgentUnitsInt
+
+			#/####################/#
+			# Spike case 
+			#
+
 			#Check
 			if self.LeakingInteractionStr=="Spike":
 				
+				#/####################/#
+				# Add a rest input
+				#
+
+				#Check
+				if self.PredictedNetworkDerivePredicterVariable.PredictingAgentRestVariable!=None:
+					PredictedRestVariable=self.PredictedNetworkDerivePredicterVariable.PredictingAgentRestVariable
+				else:
+					PredictedRestVariable=-0.06
+
 				#alias
-				self.LeakingThresholdVariable=self.PredictedNetworkDerivePredicterVariable.PredictedThresholdFloatsArray
+				self.getTeamer(
+					"Inputs"
+				).getManager(
+					"Rest"
+				).setAttr(
+					"LeakingWeigthVariable",
+					PredictedRestVariable
+				)
+
+				#/####################/#
+				# Add a reset if units >1
+				#
+
+				#debug
+				'''
+				self.debug(
+					[
+						'do we have to add a reset',
+						('self.',self,['LeakingUnitsInt'])
+					]
+				)
+				'''
+
+				#Check
+				if self.LeakingUnitsInt>1 and self.PredictedNetworkDerivePredicterVariable.PredictingAgentResetVariable:
+
+					#Check
+					self.LeakingResetVariable=self.PredictedNetworkDerivePredicterVariable.PredictingAgentResetVariable
+					
 
 				#debug
 				'''
@@ -867,6 +1022,29 @@ class PredicterClass(BaseClass):
 						('self.',self,[
 								'LeakingThresholdVariable'
 							])
+					]
+				)
+				'''
+
+				#/####################/#
+				# Set a threshold
+				#
+
+				#alias
+				self.LeakingThresholdVariable=1000.*PredictedRestVariable+self.PredictedNetworkDerivePredicterVariable.PredictedThresholdFloatsArray
+
+				#debug
+				'''
+				self.debug(
+					[
+						'We have setted the LeakingThresholdVariable',
+						('self.',self,[
+								'LeakingThresholdVariable'
+							]),
+						'PredictedRestVariable is',
+						str(PredictedRestVariable),
+						'self.PredictedNetworkDerivePredicterVariable.PredictedThresholdFloatsArray is ',
+						str(self.PredictedNetworkDerivePredicterVariable.PredictedThresholdFloatsArray)
 					]
 				)
 				'''
@@ -899,33 +1077,6 @@ class PredicterClass(BaseClass):
 			self.LeakingTimeVariable='#scalar:'+str(
 				self.PredictedNetworkDerivePredicterVariable.PredictingAgentTimeFloat
 			)+'*ms'
-
-
-			#/####################/#
-			# LeakingUnitsInt
-			#
-
-			#debug
-			'''
-			self.debug(
-				[
-					'Look for LeakingUnitsInt',
-					('self.',self,[
-							'LeakingUnitsInt'
-						]),
-					'self.PredictedNetworkDerivePredicterVariable.PredictingAgentUnitsInt is ',
-					str(self.PredictedNetworkDerivePredicterVariable.PredictingAgentUnitsInt)
-				]
-			)
-			'''
-
-			#set default
-			if self.LeakingUnitsInt==0:
-				self.LeakingUnitsInt=1
-
-			#set
-			if self.PredictedNetworkDerivePredicterVariable.PredictingAgentUnitsInt>-1:
-				self.LeakingUnitsInt=self.PredictedNetworkDerivePredicterVariable.PredictingAgentUnitsInt
 
 			#/###################/#
 			# Check for Interactions in the Agent
@@ -1703,6 +1854,38 @@ class PredicterClass(BaseClass):
 			self.BrianedSynapsesVariable.connect('i==j')
 	"""
 
+	def leakInput(self):
+
+		#call the base
+		BaseClass.leakInput(self)
+
+		#Check
+		if self.ManagementTagStr=='Command':
+
+			#/####################/#
+			# Remove from record if it is DynamicBool False
+			#
+
+			#Check
+			if self.PredictedNetworkDerivePredicterVariable.PredictingDynamicBool==False:
+
+				#append
+				self.LeakedParentPopulationDeriveLeakerVariable.LeakedRecordSkipStrsList=SYS.append(
+							self.LeakedParentPopulationDeriveLeakerVariable.LeakedRecordSkipStrsList,
+							self.LeakedSymbolStr
+						)
+
+				#debug
+				'''
+				self.debug(
+					[
+						'We have removed the I_Command from record and plot',
+						'self.LeakedParentPopulationDeriveLeakerVariable.LeakedRecordSkipStrsList is ',
+						str(self.LeakedParentPopulationDeriveLeakerVariable.LeakedRecordSkipStrsList)
+					]
+				)
+				'''
+
 	def viewSample(self):
 
 		#debug
@@ -1847,13 +2030,28 @@ class PredicterClass(BaseClass):
 					'#kwarg'
 				].update(
 					{
-						'linestyle':'--',
-						'color':'black'
+						'alpha':0.3
 					}
 				),
-				#ViewedPyplotDrawVariable
+				ViewedPyplotDrawVariable
+			)
+
+			#set
+			map(
+				lambda __ItemTuple:
+				__ItemTuple[1][
+					'#kwarg'
+				].update(
+					{
+						'linestyle':'--'
+					}
+				),
 				self.PyplotingDrawVariable
 			)
+
+			#:
+			ViewedReversePyplotDrawVariable=ViewedPyplotDrawVariable[:]
+			ViewedReversePyplotDrawVariable.reverse()
 
 			#add
 			map(
@@ -1862,7 +2060,7 @@ class PredicterClass(BaseClass):
 					0,
 					__Variable
 				),
-				ViewedPyplotDrawVariable
+				ViewedReversePyplotDrawVariable
 			)
 
 			#debug
@@ -1982,6 +2180,48 @@ class PredicterClass(BaseClass):
 				self.BrianingActivityStr="x"
 
 			#Check
+			if self.LeakedParentPopulationDeriveLeakerVariable.ManagementTagStr=="Agent":
+
+				#debug
+				'''
+				self.debug(
+					[
+						'We set a special label name for the Agent'
+					]
+				)
+				'''
+
+				#Check
+				if self.LeakedParentPopulationDeriveLeakerVariable.PredictedNetworkDerivePredicterVariable.PredictingInteractionStr=="Rate":
+
+					#set
+					self.BrianingActivityStr="r" 
+
+				else:
+
+					#set
+					self.BrianingActivityStr="V"
+
+					#debug
+					'''
+					self.debug(
+						[
+							'We init under the thresholds',
+							'self.LeakedParentPopulationDeriveLeakerVariable.LeakingThresholdVariable is ',
+							str(self.LeakedParentPopulationDeriveLeakerVariable.LeakingThresholdVariable)
+						]
+					)
+					'''
+
+					#set
+					self.NumscipyingMeanFloat=100.*(
+						self.LeakedParentPopulationDeriveLeakerVariable.LeakingThresholdVariable.min()-0.5
+					)
+
+
+
+
+			#Check
 			elif self.LeakedParentPopulationDeriveLeakerVariable.ManagementTagStr=="Decoder":
 
 				#debug
@@ -2068,13 +2308,18 @@ PredicterClass.PrintingClassSkipKeyStrsList.extend(
 		'PredictingRateCostVariable',
 		'PredictingRateTransferVariable',
 		'PredictingAgentTimeFloat',
+		'PredictingAgentRestVariable',
+		'PredictingAgentResetVariable',
 		'PredictingFastSymmetryFloat',
+		'PredictingSlowPerturbStdFloat',
 		'PredictingDecoderVariable',
 		'PredictingDecoderStdFloat',
+		'PredictingDecoderProbabilityFloat',
 		'PredictingDecoderTimeFloat',
 		'PredictingDecoderNormalisationInt',
 		'PredictingFastPerturbStdFloat',
 		'PredictingInteractionStr',
+		'PredictedDynamicDict',
 		'PredictedSensorJacobianFloatsArray',
 		'PredictedDecoderFloatsArray',
 		'PredictedFastFloatsArray',

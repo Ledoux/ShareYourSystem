@@ -34,14 +34,17 @@ class NumscipyerClass(BaseClass):
 			_NumscipyingSizeTuple=None,
 			_NumscipyingMeanFloat=0.,
 			_NumscipyingStdFloat=1.,
+			_NumscipyingProbabilityFloat=0.,
 			_NumscipyingNormalisationFunction=None,
 			_NumscipyingDivideVariable=None,
-			_NumscipyingStatStr="norm",
+			_NumscipyingDiscreteStatStr="bernoulli",
+			_NumscipyingContinuousStatStr="norm",
 			_NumscipyingDiagFloatsArray=None,
 			_NumscipyingSpecificTagVariablesArray=None,
 			_NumscipyingRowTagVariablesArray=None,
 			_NumscipyingColTagVariablesArray=None,
-			_NumscipiedStatFunction=None,
+			_NumscipiedDiscreteStatRigidFunction=None,
+			_NumscipiedContinuousStatRigidFunction=None,
 			_NumscipiedRandomFloatsArray=None,
 			**_KwargVariablesDict
 		):
@@ -50,64 +53,166 @@ class NumscipyerClass(BaseClass):
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
 	def do_numscipy(
-				self,
+				self
 			):	
-
-		#/#################/#
-		# Build the possible random numscipy
-		#
 
 		#debug
 		'''
 		self.debug(
 				[
-					'We numscipy here'
+					'We numscipy here',
 				]
 			)
 		'''
-		
+
+		#/#################/#
+		# Set the size of the matrix
+		#
+
+		#set
+		if self.NumscipyingSizeTuple==None or len(self.NumscipyingSizeTuple)==0 :
+
+			#set
+			self.NumscipyingSizeTuple=(
+				self.NumscipyingRowsInt,
+				self.NumscipyingColsInt
+			)
+
+		#debug
+		'''
+		self.debug(
+			[
+				'We have setted the shape of the matrix',
+				('self.',self,['NumscipyingSizeTuple'])
+			]
+		)
+		'''
+
+		#/#################/#
+		# Get the continuous stat
+		#
+
 		#Check
-		if self.NumscipyingStatStr!="":
+		if self.NumscipyingStdFloat>0.:
 
 			#import
 			import scipy.stats
 
 			#get
-			self.NumscipiedStatFunction=getattr(
+			self.NumscipiedContinuousStatRigidFunction=getattr(
 				scipy.stats,
-				self.NumscipyingStatStr
+				self.NumscipyingContinuousStatStr
 			).rvs
 
-		#set
-		if self.NumscipyingSizeTuple==None or len(self.NumscipyingSizeTuple)==0 :
-			self.NumscipyingSizeTuple=(self.NumscipyingRowsInt,self.NumscipyingColsInt)
 
-		#debug
-		'''
-		self.debug(('self.',self,['NumscipyingSizeTuple']))
-		'''
+		#/#################/#
+		# Get the discrete stat
+		#
+
+		#init
+		self.NumscipiedRandomFloatsArray=None
 
 		#Check
-		if self.NumscipyingStatStr=='norm':
+		if self.NumscipyingProbabilityFloat>0.:
 
 			#debug
-			'''
 			self.debug(
 				[
-					'This is a random norm distribution',
+					'We numscipy here',
+					'We set a discrete skeleton',
 					('self.',self,[
-							'NumscipyingMeanFloat',
-							'NumscipyingStdFloat'
+							'NumscipyingDiscreteStatStr',
+							'NumscipyingProbabilityFloat'
 						])
 				]
 			)
-			'''
-			
+
+			#/#################/#
+			# Get a list of one or zero
+			#
+
+			#import
+			import scipy.stats
+
+			#get
+			self.NumscipiedDiscreteStatRigidFunction=getattr(
+				scipy.stats,
+				self.NumscipyingDiscreteStatStr
+			).rvs
+
+			#prod
+			NumscipiedSizeInt=np.prod(self.NumscipyingSizeTuple)
+
 			#set
-			self.NumscipiedRandomFloatsArray=self.NumscipyingStdFloat*self.NumscipiedStatFunction(
-				self.NumscipyingMeanFloat,
-				size=self.NumscipyingSizeTuple
+			NumscipiedRandomIntsArray=self.NumscipiedDiscreteStatRigidFunction(
+				self.NumscipyingProbabilityFloat,
+				size=NumscipiedSizeInt
 			)
+
+			#/#################/#
+			# Maybe set a continuous stat for non zero values
+			#
+
+			#map
+			if self.NumscipiedContinuousStatRigidFunction!=None:
+
+				#Check
+				self.NumscipiedRandomFloatsArray=np.array(
+					map(
+						lambda __IndexInt,__BoolInt:
+						self.NumscipyingStdFloat*self.NumscipiedContinuousStatRigidFunction(
+							self.NumscipyingMeanFloat
+						)
+						if __BoolInt==1
+						else 0.,
+						xrange(NumscipiedSizeInt),
+						NumscipiedRandomIntsArray,
+					)
+				)
+			else:
+
+				#just floatify
+				self.NumscipiedRandomFloatsArray=np.array(
+					map(
+						float,
+						NumscipiedRandomIntsArray
+					)
+				)
+
+			#reshape
+			self.NumscipiedRandomFloatsArray=self.NumscipiedRandomFloatsArray.reshape(
+				self.NumscipyingSizeTuple
+			)
+
+		#/#################/#
+		# If it is a dense matrix then 
+		# set direct all the matrix
+
+		#Check
+		if type(self.NumscipiedRandomFloatsArray)==None.__class__:
+
+				#debug
+				'''
+				self.debug(
+					[
+						'This is a random norm distribution',
+						('self.',self,[
+								'NumscipyingMeanFloat',
+								'NumscipyingStdFloat'
+							])
+					]
+				)
+				'''
+				
+				#set
+				self.NumscipiedRandomFloatsArray=self.NumscipyingStdFloat*self.NumscipiedContinuousStatRigidFunction(
+					self.NumscipyingMeanFloat,
+					size=self.NumscipyingSizeTuple
+				)
+
+		#/#################/#
+		# Normalize maybe 
+		# 
 
 		#Check
 		if self.NumscipyingDivideVariable!=None:
@@ -123,6 +228,10 @@ class NumscipyerClass(BaseClass):
 				self.NumscipiedRandomFloatsArray/=self.NumscipyingNormalisationFunction(
 					self.NumscipyingSizeTuple[0]
 				)
+
+		#/#################/#
+		# Maybe set a specific diagonal
+		# 
 
 		#Check
 		if type(self.NumscipyingDiagFloatsArray)!=None.__class__ and len(
@@ -145,7 +254,14 @@ class NumscipyerClass(BaseClass):
 					xrange(len(self.NumscipiedRandomFloatsArray)),
 					self.NumscipyingDiagFloatsArray
 				)
-	
+
+		#/#################/#
+		# Reset to None
+		# 
+
+		#set
+		self.NumscipiedDiscreteStatRigidFunction=None
+		self.NumscipiedContinuousStatRigidFunction=None
 
 	def mimic__print(self,**_KwargVariablesDict):
 
@@ -193,14 +309,15 @@ NumscipyerClass.PrintingClassSkipKeyStrsList.extend(
 		'NumscipyingSizeTuple',
 		'NumscipyingMeanFloat',
 		'NumscipyingStdFloat',
+		'NumscipyingProbabilityFloat',
 		'NumscipyingNormalisationFunction',
 		'NumscipyingDivideVariable',
-		'NumscipyingStatStr',
+		'NumscipyingDenseStatStr',
 		'NumscipyingDiagFloatsArray',
 		'NumscipyingSpecificTagVariablesArray',
 		'NumscipyingRowTagVariablesArray',
 		'NumscipyingColTagVariablesArray',
-		'NumscipiedStatFunction',
+		'NumscipiedContinuousStatRigidFunction',
 		'NumscipiedRandomFloatsArray'
 	]
 )

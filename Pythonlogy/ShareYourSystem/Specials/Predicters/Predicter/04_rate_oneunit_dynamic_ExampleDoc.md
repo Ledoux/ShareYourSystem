@@ -5,4 +5,4 @@ FrozenIsBool False
 
 ##Example
 
-Now do the rate model predictive dynamic
+Let's do the one unit dynamic rate model

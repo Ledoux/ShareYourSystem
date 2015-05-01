@@ -1288,6 +1288,13 @@ def _del(_Variable,_KeyVariable):
 	#return
 	return _Variable
 
+def append(_List,_Variable):
+	if _List==None:
+		return [_Variable]
+	else:
+		_List.append(_Variable)
+		return _List
+
 def update(_ItemizableVariable,_UpdateVariable):
 
 	#Debug

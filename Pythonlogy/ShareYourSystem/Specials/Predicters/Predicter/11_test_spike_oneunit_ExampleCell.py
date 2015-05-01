@@ -9,10 +9,8 @@ import ShareYourSystem as SYS
 # Build the model
 #
 
-#Simulation time
-SimulationTimeFloat=150.
-#SimulationTimeFloat=0.2
-BrianingDebugVariable=0.1 if SimulationTimeFloat<0.5 else 25.
+#set
+BrianingDebugVariable=25.
 
 #Define
 MyPredicter=SYS.PredicterClass(
@@ -30,7 +28,7 @@ MyPredicter=SYS.PredicterClass(
 					}
 				}),
 				('|Agent',{
-					'LeakingMonitorIndexIntsList':[0,1,2],
+					'LeakingMonitorIndexIntsList':[0],
 					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Fast':{
@@ -55,20 +53,12 @@ MyPredicter=SYS.PredicterClass(
 			]
 		}
 	).predict(
-		_SensorUnitsInt=1,
 		_AgentUnitsInt=1,
-		_DynamicBool=False,
-		_DynamicDict={
-			'ModeStr':"Track",
-			'ConstantTimeFloat':2. #(ms)
-		},
-		_CommandVariable="#custom:#clock:50*ms:1.*mV*int(t==50*ms)",#2.,
-		_RateTransferVariable='#CurrentStr',
+		_CommandVariable="#custom:#clock:20*ms:1.*mV+1.*mV*int(t==20*ms)",#2.,
 		_DecoderVariable=[2.],
-		_DecoderNormalisationInt=1,
-		_InteractionStr="Rate"
+		_InteractionStr="Spike"
 	).simulate(
-		SimulationTimeFloat
+		50.
 	)
 
 #/###################/#
@@ -93,8 +83,5 @@ SYS.matplotlib.pyplot.show()
 #Definition the AttestedStr
 print('MyPredicter is ')
 SYS._print(MyPredicter) 
-
-
-
 
 

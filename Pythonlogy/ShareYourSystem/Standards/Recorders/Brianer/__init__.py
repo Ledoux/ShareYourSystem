@@ -71,7 +71,8 @@ class BrianerClass(BaseClass):
 			_BrianingPyplotBool=True,
 			_BrianingStepTimeFloat=0.1,
 			_BrianingDebugVariable=0,
-			_BrianingRecordBool=True,
+			_BrianingRecordInitBool=True,
+			_BrianingRecordSkipKeyStrsList=None,
 			_BrianingViewNetworkBool=False,
 			_BrianingActivityStr="",
 			_BrianingPrintBool=True,
@@ -571,8 +572,25 @@ class BrianerClass(BaseClass):
 				# team States first all the brian variables
 				#
 
-				#get
-				self.BrianedRecordKeyStrsList=self.BrianedNeurongroupVariable.equations._equations.keys()
+				#Check
+				self.BrianedRecordKeyStrsList=filter(
+					lambda __BrianedRecordKeyStr:
+					__BrianedRecordKeyStr not in self.BrianingRecordSkipKeyStrsList,
+					self.BrianedNeurongroupVariable.equations._equations.keys()
+				)
+
+				#debug
+				'''
+				self.debug(
+					[
+						'We have setted the variable to record',
+						('self.',self,[
+							'BrianingRecordSkipKeyStrsList',
+							'BrianedRecordKeyStrsList'
+						])
+					]
+				)
+				'''
 
 				#Check
 				if len(self.BrianedRecordKeyStrsList)>0:
@@ -1036,7 +1054,7 @@ class BrianerClass(BaseClass):
 			#
 
 			#Check
-			if self.BrianingRecordBool:
+			if self.BrianingRecordInitBool:
 
 				#debug
 				'''
@@ -1698,6 +1716,26 @@ class BrianerClass(BaseClass):
 		self.debug(
 			[
 				'viewSample',
+				'self.BrianedParentDeriveRecorderVariable.BrianingRecordInitBool is ',
+				str(self.BrianedParentDeriveRecorderVariable.BrianingRecordInitBool),
+				'self.BrianedParentPopulationDeriveBrianerVariable.BrianedRecordKeyStrsList is ',
+				str(self.BrianedParentPopulationDeriveBrianerVariable.BrianedRecordKeyStrsList),
+				'self.BrianedParentDeriveRecorderVariable.ManagementTagStr is ',
+				str(self.BrianedParentDeriveRecorderVariable.ManagementTagStr)
+			]
+		)
+		'''
+
+		#Check
+		if self.BrianedParentDeriveRecorderVariable.ManagementTagStr not in self.BrianedParentPopulationDeriveBrianerVariable.BrianedRecordKeyStrsList==False:
+
+			#return
+			return self
+
+		#debug
+		'''
+		self.debug(
+			[
 				'We complete a view so first fill the draw',
 				('self.',self,[
 					'RecordingLabelVariable',
@@ -1807,6 +1845,29 @@ class BrianerClass(BaseClass):
 		# maybe set spikes
 		#
 
+		#get
+		ViewingYVariable=getattr(
+						self.BrianedStateMonitorVariable,
+						self.BrianedParentDeriveRecorderVariable.RecordKeyStr
+				)
+
+		#split
+		BrianedActivityUnit=getattr(
+				self.BrianedParentPopulationDeriveBrianerVariable.BrianedNeurongroupVariable,
+				self.BrianedParentDeriveRecorderVariable.RecordKeyStr
+			).unit
+
+		#divide
+		self.ViewingYVariable=ViewingYVariable/(
+			BrianedActivityUnit
+		)
+		#self.ViewingYVariable=ViewingYVariable
+		self.ViewingYVariable=self.ViewingYVariable[:]
+
+		#max
+		ViewedMinFloat=self.ViewingYVariable.max()-(abs(self.ViewingYVariable.max()-self.ViewingYVariable.min())/2.)
+		ViewedMaxFloat=self.ViewingYVariable.max()+abs(self.ViewingYVariable.max()-self.ViewingYVariable.min())
+
 		#Check
 		if "Events" in self.BrianedParentPopulationDeriveBrianerVariable.TeamDict:
 
@@ -1818,49 +1879,114 @@ class BrianerClass(BaseClass):
 			].BrianedSpikeMonitorVariable
 
 			#debug
+			'''
 			self.debug(
 				[
 					'Look for spikes to plot on the traces',
 					'BrianedSpikeMonitorVariable.i is '+str(
 						BrianedSpikeMonitorVariable.i
-					)
+					),
+					'BrianedSpikeMonitorVariable.t is '+str(
+						BrianedSpikeMonitorVariable.t
+					),
+					('self.',self,[
+							'RecordedColorTuplesList'
+						])
 				]
 			) 
+			'''
 
 			#import
 			import numpy as np
 
 			#add
-			self.PyplotingDrawVariable+=map(
-				lambda __IndexInt,__FloatTime:
-				(
-					'plot',
-					{
-						'#liarg':[
-							[__FloatTime,__FloatTime],
-							[
-								self.BrianedParentPopulationDeriveBrianerVariable.BrianedNeurongroupVariable.Threshold[
-									__IndexInt
-								],10.
-							]
-						],
-						'#kwarg':dict(
+			PyplotedSpikeTuplesList=SYS.filterNone(
+				map(
+					lambda __IndexInt,__FloatTime:
+					(
+						__IndexInt,
+						(
+							'plot',
 							{
-								'linestyle':'-',
-								'linewidth':3,
-								'color':self.RecordedColorTuplesList[__IndexInt],
+								'#liarg':[
+									[__FloatTime,__FloatTime],
+									[
+										ViewedMinFloat,ViewedMaxFloat
+									]
+								],
+								'#kwarg':dict(
+									{
+										'linestyle':'-',
+										'linewidth':2,
+										'color':self.RecordedColorTuplesList[__IndexInt],
 
-							},
-							**self.BrianingPyplotDict
+									},
+									**self.BrianingPyplotDict
+								)
+							}
 						)
-					}
-				),
-				np.array(BrianedSpikeMonitorVariable.i),
-				np.array(BrianedSpikeMonitorVariable.t)
+					)
+					if __IndexInt<len(self.RecordedColorTuplesList)
+					else None,
+					np.array(BrianedSpikeMonitorVariable.i),
+					np.array(BrianedSpikeMonitorVariable.t)
+				)
+			)
+
+			#/###############/#
+			# So now we need to insert these plost between the plot traces
+			#
+
+			SpikeDict=dict(
+				zip(
+					self.RecordingLabelVariable,
+					[[] for _Int in xrange(len(self.RecordingLabelVariable))]		
+				)
+			)
+
+			#set
+			map(
+				lambda __PyplotedSpikeTuple:
+				SpikeDict[
+					__PyplotedSpikeTuple[0]
+				].append(__PyplotedSpikeTuple[1]),
+				PyplotedSpikeTuplesList
+			)
+
+			#debug
+			'''
+			self.debug(
+				[
+					'before the end ',
+					('self.',self,[
+							'PyplotingDrawVariable'
+						])
+				]
+			)
+			'''
+
+			#map
+			self.PyplotingDrawVariable=SYS.sum(
+				map(
+					lambda __IndexInt:
+					[self.PyplotingDrawVariable[__IndexInt]]+SpikeDict[
+						__IndexInt
+					],
+					self.RecordingLabelVariable
+				)
 			)
 			
-
-			
+			#debug
+			'''
+			self.debug(
+				[
+					'In the end ',
+					('self.',self,[
+							'PyplotingDrawVariable'
+						])
+				]
+			)
+			'''
 
 		#/####################/#
 		# maybe set for the Chart
@@ -1914,24 +2040,23 @@ class BrianerClass(BaseClass):
 		)
 		'''
 
-		#get
-		ViewingYVariable=getattr(
-						self.BrianedStateMonitorVariable,
-						self.BrianedParentDeriveRecorderVariable.RecordKeyStr
-				)
+		#Check
+		if "Events" in self.BrianedParentPopulationDeriveBrianerVariable.TeamDict:
+		
+			#debug
+			'''
+			self.debug(
+				[
+					'We set the min and max of the viewing events Y variable',
+					('self.',self,[
+							'ViewingYVariable'
+						])
+				]
+			)
+			'''
 
-		#split
-		BrianedActivityUnit=getattr(
-				self.BrianedParentPopulationDeriveBrianerVariable.BrianedNeurongroupVariable,
-				self.BrianedParentDeriveRecorderVariable.RecordKeyStr
-			).unit
-
-		#divide
-		self.ViewingYVariable=ViewingYVariable/(
-			BrianedActivityUnit
-		)
-		#self.ViewingYVariable=ViewingYVariable
-		self.ViewingYVariable=self.ViewingYVariable[:]
+			#set
+			self.ViewingYVariable[0][0]=ViewedMaxFloat
 
 		#set
 		self.ViewingYLabelStr='$'+(
@@ -2018,7 +2143,7 @@ class BrianerClass(BaseClass):
 				('legend',{
 					'#liarg':[],
 					'#kwarg':{
-						'fontsize':10,
+						'fontsize':20,
 						'shadow':True,
 						'fancybox':True,
 						'ncol':max(1,len(
@@ -2045,7 +2170,10 @@ class BrianerClass(BaseClass):
 						{
 							'#liarg':[
 				'$'+self.BrianedParentPopulationDeriveBrianerVariable.ManagementTagStr+'$'
-							]
+							],
+							'#kwarg':{
+								'fontsize':20
+							}
 						}
 					)
 				]
@@ -2619,6 +2747,7 @@ class BrianerClass(BaseClass):
 		'''
 		self.debug(
 			[
+				'after the set',
 				('self.',self,['RecordedTraceFloatsArray'])
 			]
 		)
@@ -2760,7 +2889,8 @@ BrianerClass.PrintingClassSkipKeyStrsList.extend(
 		'BrianingPyplotBool',
 		'BrianingStepTimeFloat',
 		'BrianingDebugVariable',
-		'BrianingRecordBool',
+		'BrianingRecordInitBool',
+		'BrianingRecordSkipKeyStrsList',
 		'BrianingViewNetworkBool',
 		'BrianingActivityStr',
 		'BrianingPrintBool',

@@ -55,6 +55,31 @@ def detectThreshold(_VariablesList,_PopulationDeriveLeaker):
 	print(AboveArray)
 	print('')
 
+def getShapeArray(_Variable,_RowsInt,_ColsInt):
+
+	#import
+	import numpy as np 
+
+	#shape
+	ShapeTuple=np.shape(_Variable)
+
+	#Check
+	if len(ShapeTuple)!=2:
+
+		#reshape
+		return np.reshape(
+			np.array(
+				_Variable
+			),
+			(_RowsInt,_ColsInt)
+		)
+
+	else:
+		
+		#alias
+		return _Variable
+
+
 """
 def filterSpike(_VariablesList,_ActivityStr,_ThresholdVariable):
 
@@ -108,6 +133,7 @@ class LeakerClass(BaseClass):
 			_LeakingResetVariable=None,
 			_LeakingRecordBool=False,
 			_LeakingNoiseStdVariable=None,
+			_LeakingDelayVariable=None,
 			_LeakedRecordSkipStrsList=None,
 			_LeakedQuantityVariable=None,
 			_LeakedDimensionStr="",
@@ -814,11 +840,32 @@ class LeakerClass(BaseClass):
 			LeakedDefaultDeriveLeaker.RecordingLabelVariable=self.RecordingLabelVariable
 		else:
 
+			#debug
+			'''
+			self.debug(
+				[
+					'Check the monitor indexes',
+					('self.',self,[
+							'LeakingMonitorIndexIntsList',
+							'LeakingUnitsInt'
+						])
+				]
+			)
+			'''
+
 			#Check
 			if len(self.LeakingMonitorIndexIntsList
-				)==0 or len(
-				self.LeakingMonitorIndexIntsList)>self.LeakingUnitsInt:
+				)==0:
+
+				#set
 				self.LeakingMonitorIndexIntsList=[0]
+				
+			elif len(
+				self.LeakingMonitorIndexIntsList
+			)>self.LeakingUnitsInt:
+
+				#set
+				self.LeakingMonitorIndexIntsList=self.LeakingMonitorIndexIntsList[:self.LeakingUnitsInt]
 
 			#set
 			LeakedDefaultDeriveLeaker.RecordingLabelVariable=self.LeakingMonitorIndexIntsList
@@ -975,6 +1022,22 @@ class LeakerClass(BaseClass):
 						self.LeakingResetVariable,
 						LeakScalarPrefixStr
 					)
+
+			else: 
+
+				#import 
+				import numpy
+
+				#Check
+				if type(self.LeakingResetVariable) in [float,numpy.float64]:
+
+					#set
+					BrianingNeurongroupDict['reset']=self.LeakedSymbolStr+"="+str(
+						self.LeakingResetVariable
+					)+'*'+str(
+						self.LeakedQuantityVariable
+					)
+
 					
 
 
@@ -1814,6 +1877,13 @@ class LeakerClass(BaseClass):
 	def brianPopulation(self):
 
 		#/##################/#
+		# link
+		#
+
+		#alias
+		self.BrianingRecordSkipKeyStrsList=self.LeakedRecordSkipStrsList
+
+		#/##################/#
 		# Call the base method
 		#
 
@@ -1931,7 +2001,7 @@ class LeakerClass(BaseClass):
 				'Traces'
 			].ManagementDict[
 				'*Threshold'
-			].BrianingRecordBool=False
+			].BrianingRecordInitBool=False
 
 
 		#/###################/#
@@ -2045,29 +2115,30 @@ class LeakerClass(BaseClass):
 				]	
 			)
 			'''
-			
+
 			#map
 			map(
-				lambda __IndexIntAndDeriveLeaker:
+				lambda __IndexIntAndRecordKeyStr:
 				setattr(
 					BrianedTracesManager.ManagementDict[
-						Recorder.RecordPrefixStr+__IndexIntAndDeriveLeaker[
-							1
-						].LeakedSymbolStr
+						__IndexIntAndRecordKeyStr[1]
 					],
 					'GetSortInt',
-					__IndexIntAndDeriveLeaker[0]
-				),
+					__IndexIntAndRecordKeyStr[0]
+				) if __IndexIntAndRecordKeyStr[1] in BrianedTracesManager.ManagementDict
+				else None,
 				enumerate(
-					SYS._filter(
+					map(
 						lambda __DeriveLeaker:
-						__DeriveLeaker.LeakedClampStr not in ["","Scalar"],
-						self.TeamDict['Inputs'].ManagementDict.values()
+						Recorder.RecordPrefixStr+__DeriveLeaker.LeakedSymbolStr,
+						SYS._filter(
+							lambda __DeriveLeaker:
+							__DeriveLeaker.LeakedClampStr not in ["","Scalar"],
+							self.TeamDict['Inputs'].ManagementDict.values()
+						)
 					)
 				)
 			)
-
-
 
 	def brianInput(self):
 
@@ -2338,6 +2409,15 @@ class LeakerClass(BaseClass):
 		#call
 		BaseClass.brianInteraction(self)
 
+
+		#/###############/#
+		# Determine the good row and col ints
+		#
+
+		#get
+		BrianedRowsInt=self.BrianedSynapsesVariable.source.N
+		BrianedColsInt=self.BrianedSynapsesVariable.target.N
+
 		#/##################/#
 		# Maybe we specify the connection
 		#
@@ -2464,14 +2544,6 @@ class LeakerClass(BaseClass):
 			else:
 
 				#/###############/#
-				# Determine the good row and col ints
-				#
-
-				#get
-				BrianedRowsInt=self.BrianedSynapsesVariable.source.N
-				BrianedColsInt=self.BrianedSynapsesVariable.target.N
-
-				#/###############/#
 				# Build or not the matrix array
 				#
 
@@ -2493,42 +2565,16 @@ class LeakerClass(BaseClass):
 					self.numscipy()
 
 					#alias
-					BrianedFloatsArray=self.NumscipiedRandomFloatsArray
+					BrianedWeigthFloatsArray=self.NumscipiedRandomFloatsArray
 
 				else:
 
 					#shape
-					BrianedShape=np.shape(self.LeakingWeigthVariable)
-
-					#Check
-					if len(BrianedShape)!=2:
-
-						#debug
-						'''
-						self.debug(
-							[
-								'We reshape',
-								('self.',self,[
-										'LeakingWeigthVariable'
-									]),
-								'BrianedRowsInt is '+str(BrianedRowsInt),
-								'BrianedColsInt is '+str(BrianedColsInt)
-							]
-						)
-						'''
-
-						#reshape
-						BrianedFloatsArray=np.reshape(
-							np.array(
-								self.LeakingWeigthVariable
-							),
-							(BrianedRowsInt,BrianedColsInt)
-						)
-
-					else:
-						
-						#alias
-						BrianedFloatsArray=self.LeakingWeigthVariable
+					BrianedWeigthFloatsArray=getShapeArray(
+						self.LeakingWeigthVariable,
+						BrianedRowsInt,
+						BrianedColsInt
+					)
 
 				#/###############/#
 				# Shape correctly
@@ -2537,7 +2583,7 @@ class LeakerClass(BaseClass):
 				#reshape
 				BrianedFloatsArray=np.reshape(
 					np.array(
-						BrianedFloatsArray
+						BrianedWeigthFloatsArray
 					).T,
 					BrianedRowsInt*BrianedColsInt
 				)
@@ -2582,6 +2628,98 @@ class LeakerClass(BaseClass):
 				)
 				'''
 
+		#/##################/#
+		# Look for delay
+		#
+
+		#type
+		LeakedDelayType=type(self.LeakingDelayVariable)
+
+		#Check
+		if LeakedDelayType!=None.__class__:
+
+			#debug
+			self.debug(
+				[
+					'We are going to add delay',
+					('self.',self,[
+							'LeakingDelayVariable'
+						])
+				]
+			)
+
+			#Check
+			if self.LeakingInteractionStr=="Spike":
+
+				#Check
+				if LeakedDelayType in [float,np.float64]:
+
+					#debug
+					self.debug(
+						[
+							'We set the float delay',
+							'self.BrianedSynapsesVariable.pre.delay is ',
+							str(self.BrianedSynapsesVariable.pre.delay)
+						]
+					)
+
+					#set
+					self.BrianedSynapsesVariable.pre.delay=self.LeakingDelayVariable*self.LeakedParentNetworkDeriveLeakerVariable.BrianedTimeQuantityVariable
+
+					#debug
+					self.debug(
+						[
+							'We set the float delay',
+							'self.BrianedSynapsesVariable.pre.delay is ',
+							str(self.BrianedSynapsesVariable.pre.delay)
+						]
+					)
+
+				elif LeakedDelayType in [np.ndarray,list]:
+
+					#debug
+					self.debug(
+						[
+							'We set the array delay',
+							'self.BrianedSynapsesVariable.pre.delay is ',
+							str(self.BrianedSynapsesVariable.pre.delay),
+
+						]
+					)
+
+					#shape
+					BrianedDelayFloatsArray=getShapeArray(
+						self.LeakingDelayVariable,
+						BrianedRowsInt,
+						BrianedColsInt
+					)
+
+					#reshape
+					BrianedDelayFloatsArray=np.reshape(
+						np.array(
+							BrianedDelayFloatsArray
+						).T,
+						BrianedRowsInt*BrianedColsInt
+					)
+
+					#set
+					self.BrianedSynapsesVariable.pre.delay[:
+					]=BrianedDelayFloatsArray*self.LeakedParentNetworkDeriveLeakerVariable.BrianedTimeQuantityVariable
+
+					#debug
+					self.debug(
+						[
+							'We set the array delay',
+							'self.BrianedSynapsesVariable.pre.delay is ',
+							str(self.BrianedSynapsesVariable.pre.delay),
+							'BrianedDelayFloatsArray is ',
+							str(BrianedDelayFloatsArray)
+						]
+					)
+
+
+
+
 	def brianTrace(self):
 
 		#/##################/#
@@ -2616,13 +2754,13 @@ class LeakerClass(BaseClass):
 			'''
 			self.debug(
 				[
-					'We are not recording this variable'
+					'We are not recording init this variable'
 				]
 			)
 			'''
 
 			#set to false
-			self.BrianingRecordBool=False
+			self.BrianingRecordInitBool=False
 
 		#/##################/#
 		# Call the base method
@@ -2975,6 +3113,30 @@ class LeakerClass(BaseClass):
 
 #</DefineClass>
 
+#<DefineLocals>
+
+#map
+map(
+	lambda __ItemTuple:
+	map(
+		lambda __Class:
+		setattr(
+			__Class,
+			__ItemTuple[0],__ItemTuple[1]
+		) if hasattr(__Class,__ItemTuple[0])
+		else None,
+		LeakerClass.__mro__
+	),
+	dict(
+		{
+			'PyplotingPrintBool':False,
+			'BrianingPrintBool':False
+		}
+	).items()
+)
+
+#</DefineLocals>
+
 #</DefinePrint>
 LeakerClass.PrintingClassSkipKeyStrsList.extend(
 	[
@@ -2993,6 +3155,7 @@ LeakerClass.PrintingClassSkipKeyStrsList.extend(
 		'LeakingVariableStr',
 		'LeakingRecordBool',
 		'LeakingNoiseStdVariable',
+		'LeakingDelayVariable',
 		'LeakedRecordSkipStrsList',
 		'LeakedQuantityVariable',
 		'LeakedDimensionStr',

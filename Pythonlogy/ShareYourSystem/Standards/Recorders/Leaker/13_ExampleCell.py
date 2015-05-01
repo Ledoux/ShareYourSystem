@@ -29,20 +29,14 @@ MyLeaker=SYS.LeakerClass(
 					},
 					'LeakingNoiseStdVariable':0.1,
 					'LeakingThresholdVariable':'#scalar:V>-50*mV',
-					#'LeakingThresholdVariable':[-55.,-52.5],
-					#'LeakingThresholdVariable':{
-					#	'MethodsList':[
-					#		SYS.Leaker.detectThreshold
-					#	],
-					#	'ThresholdVariable':[-55.,-52.5,-50.]
-					#},
-					#'LeakingResetVariable':'#scalar:V=-70*mV',
-					'LeakingResetVariable':-70.,
+					'LeakingResetVariable':'#scalar:V=-70*mV',
 					'-Interactions':{
 						'|/':{
 							'BrianingDebugVariable':100,
-							'LeakingWeigthVariable':[[0.,0.],[-2.,0.]],#[[0.,-0.01],[0.,0.]]
-							'LeakingInteractionStr':"Spike"
+							'LeakingWeigthVariable':[[0.,-1.],[-2.,0.]],
+							'LeakingInteractionStr':"Spike",
+							#'LeakingDelayVariable':5., #ms
+							#'LeakingDelayVariable':[[0.,1.],[5.,0.]], #ms
 						}
 					}
 					#'BrianingDebugVariable':100
@@ -51,7 +45,7 @@ MyLeaker=SYS.LeakerClass(
 		}
 	).leak(
 	).simulate(
-		500.
+		200.
 	)
 
 #/###################/#
@@ -77,27 +71,4 @@ print('MyLeaker is ')
 SYS._print(MyLeaker) 
 
 
-"""
-from brian2 import *
-from matplotlib import pyplot
-Vr=[0.5,0.6]
-G=NeuronGroup(2,'''Vr:1
-				dv/dt=(-v+1)/(1.*ms) : 1''',threshold='v>Vr',reset='v=0')
-M=StateMonitor(G,'v',[0,1])
-N=Network()
-N.add(G)
-N.add(M)
-print(G.Vr)
-G.Vr[:]=Vr
-N.run(5*ms)
-pyplot.plot(
-	M.t,M.v.T
-)
-pyplot.show()
-"""
-"""
-from brian2 import CodeObject
 
-print(help(CodeObject))
-
-"""

@@ -222,6 +222,9 @@ class PyploterClass(BaseClass):
 				#set
 				self.PyplotedParentFigureDerivePyploterVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
 
+				#pyplotPanel
+				self.pyplotPanel()
+
 			elif self.ParentDeriveTeamerVariable.TeamTagStr=='Charts':
 
 				#debug
@@ -482,6 +485,30 @@ class PyploterClass(BaseClass):
 	def pyplotFigure(self):
 
 		#/###############/#
+		# Close the old ones
+		#
+
+		#get
+		PyplotedOldFiguresList=getFiguresList()
+
+		#debug
+		'''
+		self.debug(
+			[
+				'The old figures was',
+				str(PyplotedOldFiguresList)
+			]
+		)
+		'''
+
+		#map
+		map(
+			lambda __Figure:
+			pyplot.close(__Figure),
+			getFiguresList()
+		)
+		
+		#/###############/#
 		# If it is the top then init the pyplot
 		#
 
@@ -606,6 +633,26 @@ class PyploterClass(BaseClass):
 			)
 			'''
 
+	def pyplotPanel(self):
+
+
+		#debug
+		'''
+		self.debug(
+			[
+				'We pyplot Panel here',
+				('self.',self,[
+						'PyplotedCursorIntsList'
+					]
+				),
+				'We reinit the cursor'
+			]
+		)
+		'''
+
+		#set
+		self.PyplotedCursorIntsList=[0,0]
+
 	def pyplotAxe(self,_AxeStr):
 
 		#debug
@@ -665,12 +712,36 @@ class PyploterClass(BaseClass):
 			#Check
 			if ViewedLabelPlot==False:
 
+				#debug
+				'''
+				self.debug(
+					[
+						'We set axis label',
+						'ViewingLabelStr is ',
+						str(ViewingLabelStr)
+					]
+				)
+				'''
+
+				#append
+				#self.PyplotedChartTuplesList.append(
+				#	(
+				#		'set_'+LowAxeStr+'label',ViewingLabelStr
+				#	)
+				#)
+
 				#append
 				self.PyplotedChartTuplesList.append(
 					(
-						'set_'+LowAxeStr+'label',ViewingLabelStr
+						'set_'+LowAxeStr+'label',{
+								'#liarg':[ViewingLabelStr],
+								'#kwarg':{
+									'fontsize':20
+								}
+							}
 					)
 				)
+				
 
 		#/###############/#
 		# Look for a lim
@@ -761,7 +832,10 @@ class PyploterClass(BaseClass):
 				self.PyplotedChartTuplesList.append(
 					(
 						'set_'+LowAxeStr+'ticklabels',{
-							'#liarg:#map@get':[ViewedTickLabelLiargStr]
+							'#liarg:#map@get':[ViewedTickLabelLiargStr],
+							'#kwarg':{
+								'fontsize':15
+							}
 						}
 					)
 				)
@@ -932,11 +1006,13 @@ class PyploterClass(BaseClass):
 		if PyplotedResetBool:
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We reset the figure here because the size of the axes is too big'
 				]
 			)
+			'''
 
 		'''
 			#list
