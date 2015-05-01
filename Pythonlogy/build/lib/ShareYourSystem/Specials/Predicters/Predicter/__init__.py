@@ -80,6 +80,8 @@ class PredicterClass(BaseClass):
 			_PredictingFastPerturbStdFloat=0.,
 			_PredictingSlowPerturbStdFloat=0.,
 			_PredictingInteractionStr="Rate",
+			_PredictingEncodPlasticBool=False,
+			_PredictingFastPlasticBool=False,
 			_PredictedDynamicDict=None,
 			_PredictedSensorJacobianFloatsArray=None,
 			_PredictedDecoderFloatsArray=None,
@@ -1886,6 +1888,187 @@ class PredicterClass(BaseClass):
 				)
 				'''
 
+
+	def leakInteraction(self):
+
+		#call the base
+		BaseClass.leakInteraction(self)
+
+		#Check
+		if self.ManagementTagStr=="Encod":
+
+			#Check
+			if self.PredictedNetworkDerivePredicterVariable.PredictingEncodPlasticBool:
+
+				#debug
+				self.debug(
+					[
+						'We make the encod synapses plastic'
+					]
+				)
+
+				#Check
+				if self.LeakingInteractionStr=="Rate":
+					
+					#debug
+					self.debug(
+						[
+							'It is a rate model',
+							('self.',self,[
+									'LeakedSymbolStr',
+									'LeakingSymbolStr',
+									'BrianingSynapsesDict'
+								])
+						]
+					)
+
+					#set
+					BrianedModelStr='beta : 1'
+					BrianedModelStr='\nlambda : 1'
+					BrianedModelStr+='\nd'+self.LeakingSymbolPrefixStr+'/dt=beta*('
+					BrianedModelStr+='I_Command_post-lambda*'+self.LeakingSymbolPrefixStr+')'	
+
+					#add
+					self.BrianingSynapsesDict['model']+=BrianedModelStr
+
+					#debug
+					self.debug(
+						[
+							'after update of the model',
+							('self.',self,[
+									'BrianingSynapsesDict'
+								])
+						]
+					)
+
+
+				else:
+
+					#debug
+					self.debug(
+						[
+							'It is a spike model',
+							('self.',self,[
+									'LeakedSymbolStr',
+									'LeakingSymbolStr',
+									'BrianingSynapsesDict'
+								])
+						]
+					)
+
+
+					#set
+					BrianedPreStr='\n'+self.LeakingSymbolPrefixStr+'+=0.*('+self.PredictedDecoderDerivePredicterVariable.LeakedSymbolStr+'_post'
+					BrianedPreStr+='/mV)-'+self.LeakingSymbolPrefixStr
+
+					#add
+					self.BrianingSynapsesDict['pre']+=BrianedPreStr
+
+					#debug
+					self.debug(
+						[
+							'after update of the model',
+							('self.',self,[
+									'BrianingSynapsesDict'
+								])
+						]
+					)
+
+		#Check
+		elif self.ManagementTagStr=='Fast':
+
+			#Check
+			if self.PredictedNetworkDerivePredicterVariable.PredictingFastPlasticBool:
+
+				#debug
+				self.debug(
+					[
+						'We make the fast synapses plastic'
+					]
+				)
+
+				#Check
+				if self.LeakingInteractionStr=="Rate":
+					
+					#debug
+					self.debug(
+						[
+							'It is a rate model',
+							('self.',self,[
+									'LeakedSymbolStr',
+									'LeakingSymbolStr',
+									'BrianingSynapsesDict'
+								])
+						]
+					)
+
+					#set
+					BrianedModelStr='epsilon : 1'
+					BrianedModelStr+='\nalpha : 1'
+					BrianedModelStr+='\nd'+self.LeakingSymbolPrefixStr+'/dt=epsilon*('
+					BrianedModelStr+='dot(I_Command_post,'+self.PredictedAgentDerivePredicterVariable.LeakedSymbolStr+'_post)-alpha*'+self.LeakingSymbolPrefixStr+')'	
+
+					#add
+					self.BrianingSynapsesDict['model']+=BrianedModelStr
+
+					#debug
+					self.debug(
+						[
+							'after update of the model',
+							('self.',self,[
+									'BrianingSynapsesDict'
+								])
+						]
+					)
+
+				else:
+
+					#debug
+					self.debug(
+						[
+							'It is a spike model',
+							('self.',self,[
+									'LeakedSymbolStr',
+									'LeakingSymbolStr',
+									'BrianingSynapsesDict'
+								])
+						]
+					)
+
+					#add
+					self.BrianingSynapsesDict['model']+='alpha : 1'
+
+					#set
+					BrianedPreStr='\n'+self.LeakingSymbolPrefixStr+'+=0.*(('+self.PredictedAgentDerivePredicterVariable.LeakedSymbolStr+'_post'
+					if self.PredictedNetworkDerivePredicterVariable.PredictingAgentRestVariable!=None:
+						BrianedPreStr+=str(
+							self.PredictedNetworkDerivePredicterVariable.PredictingAgentRestVariable
+						)+')/mV)+0.*((1+alpha)/2.)*'+self.LeakingSymbolPrefixStr
+					else:
+						BrianedPreStr+=')/mV)+0.*((1+alpha)/2.)*'+self.LeakingSymbolPrefixStr
+
+					#add
+					self.BrianingSynapsesDict['pre']+=BrianedPreStr
+
+					#debug
+					self.debug(
+						[
+							'after update of the model',
+							('self.',self,[
+									'BrianingSynapsesDict'
+								])
+						]
+					)
+
+
+
+
+
+
+
+		
+
+
 	def viewSample(self):
 
 		#debug
@@ -2302,7 +2485,7 @@ PredicterClass.PrintingClassSkipKeyStrsList.extend(
 		'PredictingAgentUnitsInt',
 		'PredictingDaleBool',
 		'PredictingDynamicBool',
-		'PredictingDynamicDict',
+		'PredictingJacobianVariable',
 		'PredictingEncodPerturbStdFloat',
 		'PredictingCommandVariable',
 		'PredictingRateCostVariable',
@@ -2313,12 +2496,15 @@ PredicterClass.PrintingClassSkipKeyStrsList.extend(
 		'PredictingFastSymmetryFloat',
 		'PredictingSlowPerturbStdFloat',
 		'PredictingDecoderVariable',
+		'PredictingDecoderMeanFloat',
 		'PredictingDecoderStdFloat',
 		'PredictingDecoderProbabilityFloat',
 		'PredictingDecoderTimeFloat',
 		'PredictingDecoderNormalisationInt',
+		'PredictingEncodPlasticBool',
 		'PredictingFastPerturbStdFloat',
 		'PredictingInteractionStr',
+		'PredictingFastPlasticBool',
 		'PredictedDynamicDict',
 		'PredictedSensorJacobianFloatsArray',
 		'PredictedDecoderFloatsArray',

@@ -25,12 +25,13 @@ MyPredicter=SYS.PredicterClass(
 					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Encod':{
-							#'BrianingDebugVariable':BrianingDebugVariable
+							'BrianingDebugVariable':BrianingDebugVariable
 						}
 					}
 				}),
 				('|Agent',{
-					'LeakingMonitorIndexIntsList':[0,1,2],
+					'LeakingMonitorIndexIntsList':[0],
+					'LeakingNoiseStdVariable':0.05,
 					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Fast':{
@@ -44,7 +45,7 @@ MyPredicter=SYS.PredicterClass(
 				}),
 				('|Decoder',{
 					'LeakingMonitorIndexIntsList':[0],
-					#'BrianingDebugVariable':BrianingDebugVariable
+					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Slow':{
 							'BrianingDebugVariable':BrianingDebugVariable,
@@ -55,15 +56,16 @@ MyPredicter=SYS.PredicterClass(
 			]
 		}
 	).predict(
-		_DynamicBool=False,
+		_AgentUnitsInt=1,
 		_JacobianVariable={
 			'ModeStr':"Track",
 			'ConstantTimeFloat':2. #(ms)
 		},
-		_CommandVariable="#custom:#clock:50*ms:1.*mV*int(t==50*ms)",#2.,
-		_RateTransferVariable='#CurrentStr',
-		_DecoderVariable=[2.],
-		_InteractionStr="Rate"
+		_CommandVariable="#custom:#clock:50*ms:1.*mV+1.*mV*int(t==50*ms)",#2.,
+		_DecoderVariable=[1.],
+		_InteractionStr="Spike",
+		_FastPlasticBool=True,
+		#_AgentResetVariable=-60.5
 	).simulate(
 		SimulationTimeFloat
 	)
@@ -72,7 +74,12 @@ MyPredicter=SYS.PredicterClass(
 # View
 #
 
-MyPredicter.view(
+MyPredicter.mapSetAllMro(
+		{
+			'PyplotingPrintBool':False,
+			'BrianingPrintBool':False
+		}
+	).view(
 	).pyplot(
 	)
 SYS.matplotlib.pyplot.show()
@@ -85,8 +92,5 @@ SYS.matplotlib.pyplot.show()
 #Definition the AttestedStr
 print('MyPredicter is ')
 SYS._print(MyPredicter) 
-
-
-
 
 

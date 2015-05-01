@@ -19,22 +19,19 @@ MyLeaker=SYS.LeakerClass(
 					'LeakingUnitsInt':2,
 					'LeakingSymbolPrefixStr':'r',
 					'LeakingMonitorIndexIntsList':[0,1],
-					'LeakingTransferVariable':'1.*mV*tanh((#CurrentStr)/(1.*mV))',
 					'-Interactions':{
 						'|/':{
-							'BrianingDebugVariable':100,
-							'LeakingWeigthVariable':[[0.,-1.],[-2.,0.]],
-							#'LeakingDelayVariable':5., #ms
-							#'LeakingDelayVariable':[[0.,1.],[5.,0.]], #ms
+							#'BrianingDebugVariable':10,
+							'LeakingWeigthVariable':[[0.,-2.],[0.,0.]],
+							'LeakingDelayVariable':5., 
 						}
 					}
-					#'BrianingDebugVariable':100
 				}
 			}
 		}
 	).leak(
 	).simulate(
-		200.
+		50.
 	)
 
 #/###################/#
@@ -44,10 +41,6 @@ MyLeaker=SYS.LeakerClass(
 MyLeaker.view(
 	).pyplot(
 	)
-
-#MyLeaker['/-Populations/|P'].view(
-#	).pyplot(
-#	)
 
 SYS.matplotlib.pyplot.show()
 

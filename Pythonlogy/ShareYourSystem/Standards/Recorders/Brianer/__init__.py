@@ -1801,6 +1801,38 @@ class BrianerClass(BaseClass):
 			'''
 
 
+		#/##################/#
+		# add a zero y line
+		#
+
+		#list
+		self.PyplotingDrawVariable=[
+			(
+				'plot',
+				{
+					'#liarg':[
+						[
+							self.BrianedStateMonitorVariable.t[0],
+							self.BrianedStateMonitorVariable.t[-1]
+						],
+						[0.,0.]
+					],
+					'#kwarg':dict(
+						{
+							'linestyle':'--',
+							'linewidth':1,
+							'color':'black'
+						}
+					)
+				}
+			)
+		]
+
+		#/##################/#
+		# add the traces
+		#
+
+
 		#debug
 		'''
 		self.debug(
@@ -1815,7 +1847,7 @@ class BrianerClass(BaseClass):
 		'''
 
 		#set
-		self.PyplotingDrawVariable=map(
+		self.PyplotingDrawVariable+=map(
 			lambda __IndexInt:
 			(
 				'plot',
@@ -1993,7 +2025,8 @@ class BrianerClass(BaseClass):
 		#
 
 		#init
-		self.PyplotingChartVariable=[]
+		self.PyplotingChartVariable=[
+		]
 
 		#/####################/#
 		# maybe set the X Chart also

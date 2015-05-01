@@ -152,6 +152,8 @@ class LeakerClass(BaseClass):
 			_LeakedParentInteractomeDeriveLeakerVariable=None,
 			_LeakedTimedArrayVariable=None,
 			_LeakedVariableStr="",
+			_LeakedDelayTimeFloat=0.,
+			_LeakedDelayTimeInt=0,
 			**_KwargVariablesDict
 		):
 
@@ -1826,6 +1828,85 @@ class LeakerClass(BaseClass):
 				)
 				'''
 
+				#/####################/#
+				# add delay
+				#
+
+				#type
+				LeakedDelayType=type(self.LeakingDelayVariable)
+
+				#Check
+				if type(self.LeakingDelayVariable)!=None.__class__:
+
+					#debug
+					'''
+					self.debug(
+						[
+							'We are going to model delays in the rate',
+							('self.',self,[
+									'LeakedModelStr'
+								]),
+							'self.LeakedParentPopulationDeriveLeakerVariable.LeakingTimeVariable is',
+							str(self.LeakedParentPopulationDeriveLeakerVariable.LeakingTimeVariable)
+						]
+					)
+					'''
+					
+					#import
+					import numpy as np
+
+					#Check
+					if LeakedDelayType in [float,np.float64]:
+
+						#import
+						from brian import ms
+
+						#set
+						self.LeakedStepTimeFloat=self.LeakedParentNetworkDeriveLeakerVariable.BrianingStepTimeFloat
+
+						#set
+						self.LeakedDelayTimeFloat=self.LeakingDelayVariable
+
+
+					#divide and put that in ms...(rough)
+					self.LeakedDelayTimeInt=(int)(
+						self.LeakedDelayTimeFloat/
+							self.LeakedStepTimeFloat
+					)
+
+					#get
+					LeakedSymbolStr=self.LeakedParentPopulationDeriveLeakerVariable.LeakedSymbolStr
+
+					#join
+					LeakedDefinitionStr="\n".join(
+						map(
+								lambda __IndexInt:
+								LeakedSymbolStr+"_delayer_"+str(
+									__IndexInt
+								)+" : "+self.LeakedParentPopulationDeriveLeakerVariable.LeakedDimensionStr,
+								xrange(self.LeakedDelayTimeInt)
+							)
+					)
+
+					#add
+					self.LeakedModelStr=self.LeakedModelStr.replace(
+						LeakedSymbolStr+'_pre',
+						LeakedSymbolStr+"_delayer_"+str(self.LeakedDelayTimeInt-1)
+					)
+					self.LeakedModelStr+=LeakedDefinitionStr
+
+			#debug
+			'''
+			self.debug(
+				[
+					'after having setting the delay',
+					('self.',self,[
+						'LeakedModelStr'
+					])	
+				]
+			)	
+			'''
+
 			#/##################/#
 			# Update in the Synapses dict
 			#
@@ -2409,6 +2490,9 @@ class LeakerClass(BaseClass):
 		#call
 		BaseClass.brianInteraction(self)
 
+		#Check
+		if self.BrianedSynapsesVariable==None:
+			return
 
 		#/###############/#
 		# Determine the good row and col ints
@@ -2639,6 +2723,7 @@ class LeakerClass(BaseClass):
 		if LeakedDelayType!=None.__class__:
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We are going to add delay',
@@ -2647,6 +2732,7 @@ class LeakerClass(BaseClass):
 						])
 				]
 			)
+			'''
 
 			#Check
 			if self.LeakingInteractionStr=="Spike":
@@ -2655,6 +2741,7 @@ class LeakerClass(BaseClass):
 				if LeakedDelayType in [float,np.float64]:
 
 					#debug
+					'''
 					self.debug(
 						[
 							'We set the float delay',
@@ -2662,11 +2749,13 @@ class LeakerClass(BaseClass):
 							str(self.BrianedSynapsesVariable.pre.delay)
 						]
 					)
+					'''
 
 					#set
 					self.BrianedSynapsesVariable.pre.delay=self.LeakingDelayVariable*self.LeakedParentNetworkDeriveLeakerVariable.BrianedTimeQuantityVariable
 
 					#debug
+					'''
 					self.debug(
 						[
 							'We set the float delay',
@@ -2674,10 +2763,12 @@ class LeakerClass(BaseClass):
 							str(self.BrianedSynapsesVariable.pre.delay)
 						]
 					)
+					'''
 
 				elif LeakedDelayType in [np.ndarray,list]:
 
 					#debug
+					'''
 					self.debug(
 						[
 							'We set the array delay',
@@ -2686,6 +2777,7 @@ class LeakerClass(BaseClass):
 
 						]
 					)
+					'''
 
 					#shape
 					BrianedDelayFloatsArray=getShapeArray(
@@ -2707,6 +2799,7 @@ class LeakerClass(BaseClass):
 					]=BrianedDelayFloatsArray*self.LeakedParentNetworkDeriveLeakerVariable.BrianedTimeQuantityVariable
 
 					#debug
+					'''
 					self.debug(
 						[
 							'We set the array delay',
@@ -2716,9 +2809,53 @@ class LeakerClass(BaseClass):
 							str(BrianedDelayFloatsArray)
 						]
 					)
+					'''
 
+			else:
 
+				#debug
+				self.debug(
+					[
+						'This is a rate model',
+						'add the delay as a custom operation',
+						('self.',self,[
+								'LeakedDelayTimeInt'
+							])
+					]
+				)
 
+				#alias
+				LeakedSymbolStr=self.LeakedParentPopulationDeriveLeakerVariable.LeakedSymbolStr
+
+				#join
+				BrianedDelayStr='\n'.join(
+					map(
+							lambda __IndexInt:
+							LeakedSymbolStr+"_delayer_"+str(
+								__IndexInt
+							)+"="+LeakedSymbolStr+"_delayer_"+str(
+								__IndexInt-1
+							),
+							xrange(self.LeakedDelayTimeInt-1,0,-1)
+						)+[
+						LeakedSymbolStr+"_delayer_0="+LeakedSymbolStr+'_pre'
+					]
+				)
+				
+				#debug
+				self.debug(
+					[
+						'BrianedDelayStr is '+str(BrianedDelayStr)
+					]
+				)
+
+				#custom
+				self.LeakedParentNetworkDeriveLeakerVariable.BrianedNetworkVariable.add(
+					self.BrianedSynapsesVariable.custom_operation(
+						BrianedDelayStr,
+						dt=self.BrianedSynapsesVariable.clock.dt
+					)
+				)
 
 	def brianTrace(self):
 
@@ -3173,7 +3310,9 @@ LeakerClass.PrintingClassSkipKeyStrsList.extend(
 		'LeakedParentPopulationDeriveLeakerVariable',
 		'LeakedParentInteractomeDeriveLeakerVariable',
 		'LeakedTimedArrayVariable',
-		'LeakedVariableStr'
+		'LeakedVariableStr',
+		'LeakedDelayTimeFloat',
+		'LeakedDelayTimeInt'
 	]
 )
 #<DefinePrint>
