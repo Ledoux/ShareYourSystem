@@ -4,18 +4,19 @@
 #
 #######################
 
-CXX=gcc
+CXX=/usr/bin/gcc
 ARCH=-arch x86_64
 CFLAGS= -I/System/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7
+SWIG=/usr/local/bin/swig
 
-FILE_0=../../CTool
+FILE_0=../../../Standards/Interfacers/Swiger/CTool
 FILE_1=CIntegrateAndFireTransferFunction
 
 all: ${FILE_1}_wrap.cpp ${FILE_1}.o ${FILE_1}_wrap.o ${FILE_1}.so 
 
 ${FILE_1}_wrap.cpp :${FILE_1}.swig ${FILE_1}.h ${FILE_0}.h
 	@echo "=======prepare ${FILE_1} module for python==="
-	swig -c++ -python -o ${FILE_1}_wrap.cpp ${FILE_1}.swig
+	$(SWIG) -c++ -python -o ${FILE_1}_wrap.cpp ${FILE_1}.swig
 	@echo "\n"
 
 ${FILE_1}.o :${FILE_1}.cpp ${FILE_1}.h ${FILE_0}.h

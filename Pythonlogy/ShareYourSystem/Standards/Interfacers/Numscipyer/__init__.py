@@ -40,12 +40,23 @@ class NumscipyerClass(BaseClass):
 			_NumscipyingDiscreteStatStr="bernoulli",
 			_NumscipyingContinuousStatStr="norm",
 			_NumscipyingDiagFloatsArray=None,
+			_NumscipyingSymmetryFloat=0.,
+			_NumscipyingSymmetryStr='Fuzzy',
 			_NumscipyingSpecificTagVariablesArray=None,
 			_NumscipyingRowTagVariablesArray=None,
 			_NumscipyingColTagVariablesArray=None,
+			_NumscipyingEigenvalueBool=False,
+			_NumscipyingEigenvectorBool=False,
+			_NumscipyingStatBool=True,
 			_NumscipiedDiscreteStatRigidFunction=None,
 			_NumscipiedContinuousStatRigidFunction=None,
 			_NumscipiedRandomFloatsArray=None,
+			_NumscipiedSymmetricsInt=0,
+			_NumscipiedVarianceFloat=0,
+			_NumscipiedDeviationFloat=0,
+			_NumscipiedCovarianceFloat=0,
+			_NumscipiedEigenvalueComplexesArray=None,
+			_NumscipiedEigenvectorComplexesArray=None,
 			**_KwargVariablesDict
 		):
 
@@ -77,6 +88,11 @@ class NumscipyerClass(BaseClass):
 				self.NumscipyingRowsInt,
 				self.NumscipyingColsInt
 			)
+		else:
+
+			#set
+			self.NumscipyingRowsInt=self.NumscipyingSizeTuple[0]
+			self.NumscipyingColsInt=self.NumscipyingSizeTuple[1]
 
 		#debug
 		'''
@@ -102,6 +118,9 @@ class NumscipyerClass(BaseClass):
 			self.NumscipiedContinuousStatRigidFunction=getattr(
 				scipy.stats,
 				self.NumscipyingContinuousStatStr
+			)(
+				self.NumscipyingMeanFloat,
+				self.NumscipyingStdFloat
 			).rvs
 
 
@@ -116,6 +135,7 @@ class NumscipyerClass(BaseClass):
 		if self.NumscipyingProbabilityFloat>0.:
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We numscipy here',
@@ -126,7 +146,8 @@ class NumscipyerClass(BaseClass):
 						])
 				]
 			)
-
+			'''
+			
 			#/#################/#
 			# Get a list of one or zero
 			#
@@ -198,17 +219,180 @@ class NumscipyerClass(BaseClass):
 						'This is a random norm distribution',
 						('self.',self,[
 								'NumscipyingMeanFloat',
-								'NumscipyingStdFloat'
+								'NumscipyingStdFloat',
+								'NumscipiedContinuousStatRigidFunction'
 							])
 					]
 				)
 				'''
-				
+
 				#set
-				self.NumscipiedRandomFloatsArray=self.NumscipyingStdFloat*self.NumscipiedContinuousStatRigidFunction(
-					self.NumscipyingMeanFloat,
+				self.NumscipiedRandomFloatsArray=self.NumscipiedContinuousStatRigidFunction(
 					size=self.NumscipyingSizeTuple
 				)
+
+
+		#debug
+		'''
+		self.debug(
+			[
+				'at this step',
+				('self.',self,[
+						'NumscipiedRandomFloatsArray',
+						'NumscipyingMeanFloat'
+					])
+			]
+		)
+		'''
+
+		#/#################/#
+		# Symmetrize maybe 
+		# 
+
+		#Check
+		if self.NumscipyingSymmetryFloat!=0.:
+
+			#debug
+			self.debug(
+				[
+					'We are going to symmetrize',
+					('self.',self,[
+						'NumscipyingSymmetryFloat'
+					])
+
+				]
+			)
+
+			#import 
+			import itertools
+
+			#copy
+			NumscipiedRandomFloatsArray=self.NumscipiedRandomFloatsArray[:]
+
+			#build the scale factor
+			NumscipiedScaleFloat=(
+				(
+					self.NumscipyingSymmetryFloat-1.
+				)*0.5
+			)+1
+
+			#Build a more or less DisSymmetricRandomArray
+			self.NumscipiedRandomFloatsArray=2.*(
+				(NumscipiedScaleFloat/2.)*(NumscipiedRandomFloatsArray+NumscipiedRandomFloatsArray.T)
+					+(0.5-(NumscipiedScaleFloat/2.))*(NumscipiedRandomFloatsArray-NumscipiedRandomFloatsArray.T)
+				)
+
+			"""
+			CELIAN version
+
+			#normalize
+			NumscipiedRandomFloatsArray/=self.HopfingUnitsInt**self.HopfingNormalisationInt
+	
+			#compute
+			NumscipiedScaleFloat = np.sqrt(
+	        	self.HopfingSymmetryFloat**2-self.HopfingSymmetryFloat+0.5
+	        )
+
+	        #compute the anti-symm martix
+			self.NumscipiedRandomFloatsArray = (
+				self.NumscipyingSymmetryFloat * (
+					NumscipiedRandomFloatsArray + NumscipiedRandomFloatsArray.T
+				)/2 + (1-self.NumscipyingSymmetryFloat) * (
+					NumscipiedRandomFloatsArray - NumscipiedRandomFloatsArray.T
+				)/2
+			) / NumscipiedScaleFloat
+			"""
+
+			#fill diagonal
+			np.fill_diagonal(
+				self.NumscipiedRandomFloatsArray,
+				np.diagonal(NumscipiedRandomFloatsArray)
+			) 
+
+			"""
+			#Rescale the diagonal
+			map(
+					lambda __IndexInt:
+					self.NumscipiedRandomFloatsArray.__setitem__(
+						(__IndexInt,__IndexInt),
+						NumscipiedDeviationFloat*scipy.stats.norm.rvs()
+					),
+					xrange(self.NumscipyingColsInt)
+				)
+			"""
+
+		#/#################/#
+		# Compute statistic
+		# 
+
+		#Check
+		if self.NumscipyingStatBool and self.NumscipyingRowsInt==self.NumscipyingColsInt:
+
+			#import
+			import itertools
+
+			#compute
+			self.NumscipiedSymmetricsInt=(
+				self.NumscipyingColsInt*(self.NumscipyingColsInt-1)
+			)
+
+			#debug
+			self.debug(
+				[
+					'We compute the variance',
+					('self.',self,[
+							'NumscipiedSymmetricsInt'
+						])
+				]
+			)
+
+			#variance
+			self.NumscipiedVarianceFloat=np.sum(
+						np.array(
+								filter(
+										lambda __Float:
+										__Float!=None,
+										map(
+											lambda __Tuple:
+											self.NumscipiedRandomFloatsArray[__Tuple]**2
+											if __Tuple[0]!=__Tuple[1] else None
+											,itertools.product(
+												xrange(self.NumscipyingRowsInt),
+												xrange(self.NumscipyingColsInt)
+											)
+										)
+									)
+								)
+							)/(float(self.NumscipiedSymmetricsInt))
+
+			#deviation
+			self.NumscipiedDeviationFloat=np.sqrt(self.NumscipiedVarianceFloat)
+
+			#covariance
+			self.NumscipiedCovarianceFloat=self.NumscipyingColsInt*np.sum(
+						np.array(
+								filter(
+										lambda __Float:
+										__Float!=None,
+										map(
+											lambda __Tuple:
+			(
+				self.NumscipiedRandomFloatsArray[__Tuple]
+			)*(
+				self.NumscipiedRandomFloatsArray[(__Tuple[1],__Tuple[0])]
+			) 
+											if __Tuple[0]!=__Tuple[1] else None
+											,itertools.product(
+												xrange(self.NumscipyingColsInt),
+												xrange(self.NumscipyingColsInt)
+											)
+										)
+									)
+								)
+							)/(float(
+								self.NumscipiedVarianceFloat*self.NumscipiedSymmetricsInt
+							)
+						)	
 
 		#/#################/#
 		# Normalize maybe 
@@ -245,6 +429,7 @@ class NumscipyerClass(BaseClass):
 			'''
 			
 			#map
+			'''
 			map(
 					lambda __RowInt,__NumscipyingDiagFloat:
 					self.NumscipiedRandomFloatsArray.__setitem__(
@@ -254,6 +439,59 @@ class NumscipyerClass(BaseClass):
 					xrange(len(self.NumscipiedRandomFloatsArray)),
 					self.NumscipyingDiagFloatsArray
 				)
+			'''
+
+			#fill diagonal
+			np.fill_diagonal(
+				self.NumscipiedRandomFloatsArray,
+				np.diagonal(self.NumscipyingDiagFloatsArray)
+			) 
+
+		#/#################/#
+		# Get the eigenvalues
+		#
+
+		#Check
+		if self.NumscipyingEigenvectorBool:
+			
+			pass
+
+		#Check
+		if self.NumscipyingEigenvalueBool:
+
+			#debug
+			'''
+			self.debug(
+				[
+					'We compute the eigenvalues'
+				]
+			)
+			'''
+
+			#Check
+			if self.NumscipyingSymmetryFloat==1.:
+
+				#compute
+				self.NumscipiedEigenvalueComplexesArray=np.linalg.eigvalsh(
+					self.NumscipiedRandomFloatsArray
+				)
+			else:
+
+				#compute
+				self.NumscipiedEigenvalueComplexesArray=np.linalg.eigvals(
+					self.NumscipiedRandomFloatsArray
+				)
+
+			#debug
+			self.debug(
+				[
+					'We have computed the eigenvalues',
+					('self.',self,[
+							'NumscipiedEigenvalueComplexesArray'
+						])
+				]
+			)
+
 
 		#/#################/#
 		# Reset to None
@@ -315,12 +553,23 @@ NumscipyerClass.PrintingClassSkipKeyStrsList.extend(
 		'NumscipyingDiscreteStatStr',
 		'NumscipyingContinuousStatStr',
 		'NumscipyingDiagFloatsArray',
+		'NumscipyingSymmetryFloat',
+		'NumscipyingSymmetryStr',
 		'NumscipyingSpecificTagVariablesArray',
 		'NumscipyingRowTagVariablesArray',
 		'NumscipyingColTagVariablesArray',
+		'NumscipyingStatBool',
 		'NumscipiedDiscreteStatRigidFunction',
 		'NumscipiedContinuousStatRigidFunction',
-		'NumscipiedRandomFloatsArray'
+		'NumscipiedRandomFloatsArray',
+		'NumscipiedSymmetricsInt',
+		'NumscipiedVarianceFloat',
+		'NumscipiedDeviationFloat',
+		'NumscipiedCovarianceFloat',
+		'NumscipyingEigenvalueBool',
+		'NumscipyingEigenvectorBool',
+		'NumscipiedEigenvalueComplexesArray',
+		'NumscipiedEigenvectorComplexesArray'
 	]
 )
 #<DefinePrint>

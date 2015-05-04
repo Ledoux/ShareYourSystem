@@ -33,9 +33,6 @@ MyPredicter=SYS.PredicterClass(
 					'-Interactions':{
 						'|Fast':{
 							'BrianingDebugVariable':BrianingDebugVariable
-						},
-						'|Antileak':{
-							'BrianingDebugVariable':BrianingDebugVariable
 						}
 					},
 					#'LeakingNoiseStdVariable':0.01
@@ -83,5 +80,4 @@ SYS.matplotlib.pyplot.show()
 #Definition the AttestedStr
 print('MyPredicter is ')
 SYS._print(MyPredicter) 
-
 

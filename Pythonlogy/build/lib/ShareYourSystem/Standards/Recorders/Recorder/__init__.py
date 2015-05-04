@@ -272,26 +272,26 @@ class RecorderClass(BaseClass):
 			# with the Matrixer
 
 			#debug
-			'''
 			self.debug(
 				[
 					'We prepare the initial conditions',
 					'len(self.RecordedTraceFloatsArray) is ',
 					str(len(self.RecordedTraceFloatsArray)),
 					('self.',self,[
-							'NumscipyingStdFloat'
+							'NumscipyingStdFloat',
+							'NumscipyingMeanFloat',
+							'RecordedTraceFloatsArray'
 						])
 				]
 			)
-			'''
 
 			#matrix
 			self.RecordedInitFloatsArray=self.numscipy(
-					_SizeTuple=(len(self.RecordedTraceFloatsArray),1)
+					_SizeTuple=(len(self.RecordedTraceFloatsArray),1),
+					_StatBool=False
 				).NumscipiedRandomFloatsArray[:,0]
 
 			#debug
-			'''
 			self.debug(
 				[
 					'We have prepared the initial conditions',
@@ -300,7 +300,6 @@ class RecorderClass(BaseClass):
 					])
 				]
 			)
-			'''
 			
 	def recordSample(self):
 

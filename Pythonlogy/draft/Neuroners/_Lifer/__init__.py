@@ -108,7 +108,9 @@ class Lifer(SYS.FunctorClass):
 				)
 			)
 		)
-		self.LifTransferFunctorSwig.DoubleDict["TotalStationaryCurrent"]=_TotalStationaryCurrentFloat;
+		self.LifTransferFunctorSwig.DoubleDict[
+			"TotalStationaryCurrent"
+		]=self.LifingTotalStationaryCurrentFloat
 		
 		#Compute the IntegralLowerBound and the IntegralUpperBound
 		self.LifTransferFunctorSwig.computeIntegralLowerBound();

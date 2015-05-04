@@ -1,6 +1,6 @@
 #ifndef CIntegrateAndFireTransferFunction_H
 #define  CIntegrateAndFireTransferFunction_H
-#include "../../CTool.h"
+#include "../../../Standards/Interfacers/Swiger/CTool.h"
 #include <map>
 #include <iostream>
 #include <cstdlib>

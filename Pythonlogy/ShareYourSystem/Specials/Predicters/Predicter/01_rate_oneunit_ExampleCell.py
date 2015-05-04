@@ -35,9 +35,6 @@ MyPredicter=SYS.PredicterClass(
 					'-Interactions':{
 						'|Fast':{
 							'BrianingDebugVariable':BrianingDebugVariable
-						},
-						'|Antileak':{
-							'BrianingDebugVariable':BrianingDebugVariable
 						}
 					},
 					#'LeakingNoiseStdVariable':0.01
@@ -61,7 +58,6 @@ MyPredicter=SYS.PredicterClass(
 			'ConstantTimeFloat':2. #(ms)
 		},
 		_CommandVariable="#custom:#clock:50*ms:1.*mV*int(t==50*ms)",#2.,
-		_RateTransferVariable='#CurrentStr',
 		_DecoderVariable=[2.],
 		_InteractionStr="Rate"
 	).simulate(

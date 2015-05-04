@@ -546,7 +546,21 @@ class PredicterClass(BaseClass):
 		#Check
 		if self.PredictingFastPerturbStdFloat>0.:
 
+			#debug
+			'''
+			self.debug(
+				[
+					'before setting the perturb fast matrix',
+					('self.',self,[
+							'NumscipyingMeanFloat',
+							'NumscipyingStdFloat'
+						])
+				]
+			)
+			'''
+
 			#numscipy
+			self.NumscipyingMeanFloat=0.,
 			self.NumscipyingStdFloat=self.PredictingFastPerturbStdFloat
 			self.NumscipyingSizeTuple=(self.PredictingAgentUnitsInt,self.PredictingAgentUnitsInt)
 			self.numscipy()
@@ -1565,6 +1579,7 @@ class PredicterClass(BaseClass):
 			if self.PredictedNetworkDerivePredicterVariable.PredictingEncodPerturbStdFloat>0.:
 
 				#numscipy
+				self.NumscipyingStdFloat=0.
 				self.NumscipyingStdFloat=self.PredictedNetworkDerivePredicterVariable.PredictingEncodPerturbStdFloat
 				self.NumscipyingRowsInt=self.PredictedNetworkDerivePredicterVariable.PredictingAgentUnitsInt
 				self.NumscipyingColsInt=self.PredictedNetworkDerivePredicterVariable.PredictingSensorUnitsInt
@@ -1923,24 +1938,20 @@ class PredicterClass(BaseClass):
 					)
 
 					#set
-					BrianedModelStr='beta : 1'
-					BrianedModelStr+='\nlambda : 1'
-					BrianedModelStr+='\nd'+self.LeakingSymbolPrefixStr+'/dt=beta*('
-					BrianedModelStr+='I_Command_post-lambda*'+self.LeakingSymbolPrefixStr+')'	
-
-					#add
-					self.BrianingSynapsesDict['model']+=BrianedModelStr
+					self.LeakingPlasticVariable='beta : 1'
+					self.LeakingPlasticVariable+='\nlambda : 1'
+					self.LeakingPlasticVariable+='\nd'+self.LeakingSymbolPrefixStr+'/dt=beta*('
+					self.LeakingPlasticVariable+='I_Command_post-lambda*'+self.LeakingSymbolPrefixStr+')'	
 
 					#debug
 					self.debug(
 						[
 							'after update of the model',
 							('self.',self,[
-									'BrianingSynapsesDict'
+									'LeakingPlasticVariable'
 								])
 						]
 					)
-
 
 				else:
 
@@ -1951,25 +1962,21 @@ class PredicterClass(BaseClass):
 							('self.',self,[
 									'LeakedSymbolStr',
 									'LeakingSymbolStr',
-									'BrianingSynapsesDict'
 								])
 						]
 					)
 
 
 					#set
-					BrianedPreStr='\n'+self.LeakingSymbolPrefixStr+'+=0.*('+self.PredictedDecoderDerivePredicterVariable.LeakedSymbolStr+'_post'
-					BrianedPreStr+='/mV)-'+self.LeakingSymbolPrefixStr
-
-					#add
-					self.BrianingSynapsesDict['pre']+=BrianedPreStr
+					self.LeakingPlasticVariable='\n'+self.LeakingSymbolPrefixStr+'+=0.*('+self.PredictedDecoderDerivePredicterVariable.LeakedSymbolStr+'_post'
+					self.LeakingPlasticVariable+='/mV)-'+self.LeakingSymbolPrefixStr
 
 					#debug
 					self.debug(
 						[
 							'after update of the model',
 							('self.',self,[
-									'BrianingSynapsesDict'
+									'LeakingPlasticVariable'
 								])
 						]
 					)
@@ -1997,26 +2004,22 @@ class PredicterClass(BaseClass):
 							('self.',self,[
 									'LeakedSymbolStr',
 									'LeakingSymbolStr',
-									'BrianingSynapsesDict'
 								])
 						]
 					)
 
 					#set
-					BrianedModelStr='epsilon : 1'
-					BrianedModelStr+='\nalpha : 1'
-					BrianedModelStr+='\nd'+self.LeakingSymbolPrefixStr+'/dt=epsilon*('
-					BrianedModelStr+='dot(I_Command_post,'+self.PredictedAgentDerivePredicterVariable.LeakedSymbolStr+'_post)-alpha*'+self.LeakingSymbolPrefixStr+')'	
-
-					#add
-					self.BrianingSynapsesDict['model']+=BrianedModelStr
+					self.LeakingPlasticVariable='epsilon : 1'
+					self.LeakingPlasticVariable+='\nalpha : 1'
+					self.LeakingPlasticVariable+='\nd'+self.LeakingSymbolPrefixStr+'/dt=epsilon*('
+					self.LeakingPlasticVariable+='dot(I_Command_post,'+self.PredictedAgentDerivePredicterVariable.LeakedSymbolStr+'_post)-alpha*'+self.LeakingSymbolPrefixStr+')'	
 
 					#debug
 					self.debug(
 						[
 							'after update of the model',
 							('self.',self,[
-									'BrianingSynapsesDict'
+									'LeakingPlasticVariable'
 								])
 						]
 					)
@@ -2035,27 +2038,21 @@ class PredicterClass(BaseClass):
 						]
 					)
 
-					#add
-					self.BrianingSynapsesDict['model']+='alpha : 1'
-
 					#set
-					BrianedPreStr='\n'+self.LeakingSymbolPrefixStr+'+=0.*(('+self.PredictedAgentDerivePredicterVariable.LeakedSymbolStr+'_post'
+					self.LeakingPlasticVariable=self.LeakingSymbolPrefixStr+'+=(('+self.PredictedAgentDerivePredicterVariable.LeakedSymbolStr+'_post'
 					if self.PredictedNetworkDerivePredicterVariable.PredictingAgentRestVariable!=None:
-						BrianedPreStr+=str(
+						self.LeakingPlasticVariable+=str(
 							self.PredictedNetworkDerivePredicterVariable.PredictingAgentRestVariable
 						)+')/mV)+0.*((1+alpha)/2.)*'+self.LeakingSymbolPrefixStr
 					else:
-						BrianedPreStr+=')/mV)+0.*((1+alpha)/2.)*'+self.LeakingSymbolPrefixStr
-
-					#add
-					self.BrianingSynapsesDict['pre']+=BrianedPreStr
+						self.LeakingPlasticVariable+=')/mV)+0.*((1+alpha)/2.)*'+self.LeakingSymbolPrefixStr
 
 					#debug
 					self.debug(
 						[
 							'after update of the model',
 							('self.',self,[
-									'BrianingSynapsesDict'
+									'LeakingPlasticVariable'
 								])
 						]
 					)
@@ -2385,6 +2382,7 @@ class PredicterClass(BaseClass):
 					#set
 					self.BrianingActivityStr="V"
 
+					"""
 					#debug
 					'''
 					self.debug(
@@ -2400,7 +2398,7 @@ class PredicterClass(BaseClass):
 					self.NumscipyingMeanFloat=100.*(
 						self.LeakedParentPopulationDeriveLeakerVariable.LeakingThresholdVariable.min()-0.5
 					)
-
+					"""
 
 
 

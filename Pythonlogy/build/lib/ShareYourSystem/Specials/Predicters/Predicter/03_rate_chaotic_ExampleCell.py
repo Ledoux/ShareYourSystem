@@ -35,22 +35,12 @@ MyPredicter=SYS.PredicterClass(
 					'-Interactions':{
 						'|Fast':{
 							#'BrianingDebugVariable':BrianingDebugVariable
-						},
-						'|Antileak':{
-							#'BrianingDebugVariable':BrianingDebugVariable
 						}
-					},
-					#'LeakingNoiseStdVariable':0.01
+					}
 				}),
 				('|Decoder',{
 					'LeakingMonitorIndexIntsList':[0],
 					#'BrianingDebugVariable':BrianingDebugVariable
-					'-Interactions':{
-						'|Slow':{
-							#'BrianingDebugVariable':BrianingDebugVariable,
-							#'LeakingWeigthVariable':0.
-						}
-					}
 				})
 			]
 		}

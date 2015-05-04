@@ -356,6 +356,7 @@ class DynamicClass(SYS.ObjectsClass):
 									)
 								)/(float(self.VarianceFloat*self.SymmetricConnectionsInt))
 			print('CoVariance Float is ',self.CoVarianceFloat)
+			
 			self.HalfWidthFloat=self.DeviationFloat*(1.+self.CoVarianceFloat)
 			self.HalfHeigthFloat=self.DeviationFloat*(1.-self.CoVarianceFloat)
 

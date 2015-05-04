@@ -501,6 +501,9 @@ class PyploterClass(BaseClass):
 		)
 		'''
 
+		#import
+		from matplotlib import pyplot
+
 		#map
 		map(
 			lambda __Figure:
@@ -695,7 +698,7 @@ class PyploterClass(BaseClass):
 				):
 
 				#Check
-				if self.ManagementIndexInt<len(self.ParentDeriveTeamerVariable.ManagementDict)-1:
+				if self.ParentDeriveTeamerVariable!=None and self.ManagementIndexInt<len(self.ParentDeriveTeamerVariable.ManagementDict)-1:
 
 					#append
 					self.PyplotedChartTuplesList.append(

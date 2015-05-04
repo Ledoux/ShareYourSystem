@@ -35,9 +35,6 @@ MyPredicter=SYS.PredicterClass(
 					'-Interactions':{
 						'|Fast':{
 							'BrianingDebugVariable':BrianingDebugVariable
-						},
-						'|Antileak':{
-							'BrianingDebugVariable':BrianingDebugVariable
 						}
 					},
 					#'LeakingNoiseStdVariable':0.01
