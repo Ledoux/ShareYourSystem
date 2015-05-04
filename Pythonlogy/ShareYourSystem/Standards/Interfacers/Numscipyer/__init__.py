@@ -53,8 +53,10 @@ class NumscipyerClass(BaseClass):
 			_NumscipiedRandomFloatsArray=None,
 			_NumscipiedSymmetricsInt=0,
 			_NumscipiedVarianceFloat=0,
-			_NumscipiedDeviationFloat=0,
+			_NumscipiedMeanFloat=0,
+			_NumscipiedStdFloat=0,
 			_NumscipiedCovarianceFloat=0,
+			_NumscipiedSommersFloat=0.,
 			_NumscipiedEigenvalueComplexesArray=None,
 			_NumscipiedEigenvectorComplexesArray=None,
 			**_KwargVariablesDict
@@ -181,9 +183,7 @@ class NumscipyerClass(BaseClass):
 				self.NumscipiedRandomFloatsArray=np.array(
 					map(
 						lambda __IndexInt,__BoolInt:
-						self.NumscipyingStdFloat*self.NumscipiedContinuousStatRigidFunction(
-							self.NumscipyingMeanFloat
-						)
+						self.NumscipiedContinuousStatRigidFunction()
 						if __BoolInt==1
 						else 0.,
 						xrange(NumscipiedSizeInt),
@@ -256,13 +256,66 @@ class NumscipyerClass(BaseClass):
 		'''
 
 		#/#################/#
+		# Normalize maybe 
+		# 
+
+		#debug
+		'''
+		self.debug(
+			[
+				'Do we have to normalize',
+				('self.',self,[
+						'NumscipyingDivideVariable',
+						'NumscipyingNormalisationFunction'
+					])
+			]
+		)
+		'''
+
+		#Check
+		if self.NumscipyingDivideVariable!=None:
+
+			#divide
+			self.NumscipiedRandomFloatsArray=(
+				self.NumscipiedRandomFloatsArray.T/self.NumscipyingDivideVariable
+			).T
+		
+		#Check
+		if self.NumscipyingNormalisationFunction!=None and len(
+			self.NumscipyingSizeTuple) and self.NumscipyingSizeTuple[0]==self.NumscipyingSizeTuple[1]:
+
+				#set
+				NumscipiedNormVariable=self.NumscipyingNormalisationFunction(
+					self.NumscipyingSizeTuple[0]
+				)
+
+				#debug
+				self.debug(
+					[
+						'We normalize with',
+						'NumscipiedNormVariable is',
+						str(NumscipiedNormVariable),
+						('self.',self,[
+								'NumscipyingStdFloat'
+							])
+					]
+				)
+
+				#normalize
+				self.NumscipiedRandomFloatsArray/=NumscipiedNormVariable
+
+		#/#################/#
 		# Symmetrize maybe 
 		# 
+
+		#set
+		NumscipiedShiftSymmetryFloat=0.5*(self.NumscipyingSymmetryFloat+1.)
 
 		#Check
 		if self.NumscipyingSymmetryFloat!=0.:
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We are going to symmetrize',
@@ -272,6 +325,7 @@ class NumscipyerClass(BaseClass):
 
 				]
 			)
+			'''
 
 			#import 
 			import itertools
@@ -279,7 +333,11 @@ class NumscipyerClass(BaseClass):
 			#copy
 			NumscipiedRandomFloatsArray=self.NumscipiedRandomFloatsArray[:]
 
+			
+
 			#build the scale factor
+			"""
+			#ERWAN version
 			NumscipiedScaleFloat=(
 				(
 					self.NumscipyingSymmetryFloat-1.
@@ -291,137 +349,29 @@ class NumscipyerClass(BaseClass):
 				(NumscipiedScaleFloat/2.)*(NumscipiedRandomFloatsArray+NumscipiedRandomFloatsArray.T)
 					+(0.5-(NumscipiedScaleFloat/2.))*(NumscipiedRandomFloatsArray-NumscipiedRandomFloatsArray.T)
 				)
-
 			"""
-			CELIAN version
 
-			#normalize
-			NumscipiedRandomFloatsArray/=self.HopfingUnitsInt**self.HopfingNormalisationInt
-	
+			#CELIAN version
+
 			#compute
 			NumscipiedScaleFloat = np.sqrt(
-	        	self.HopfingSymmetryFloat**2-self.HopfingSymmetryFloat+0.5
+	        	NumscipiedShiftSymmetryFloat**2-NumscipiedShiftSymmetryFloat+0.5
 	        )
 
 	        #compute the anti-symm martix
 			self.NumscipiedRandomFloatsArray = (
-				self.NumscipyingSymmetryFloat * (
+				NumscipiedShiftSymmetryFloat * (
 					NumscipiedRandomFloatsArray + NumscipiedRandomFloatsArray.T
-				)/2 + (1-self.NumscipyingSymmetryFloat) * (
+				)/2. + (1.-NumscipiedShiftSymmetryFloat) * (
 					NumscipiedRandomFloatsArray - NumscipiedRandomFloatsArray.T
-				)/2
+				)/2.
 			) / NumscipiedScaleFloat
-			"""
 
 			#fill diagonal
 			np.fill_diagonal(
-				self.NumscipiedRandomFloatsArray,
-				np.diagonal(NumscipiedRandomFloatsArray)
-			) 
-
-			"""
-			#Rescale the diagonal
-			map(
-					lambda __IndexInt:
-					self.NumscipiedRandomFloatsArray.__setitem__(
-						(__IndexInt,__IndexInt),
-						NumscipiedDeviationFloat*scipy.stats.norm.rvs()
-					),
-					xrange(self.NumscipyingColsInt)
-				)
-			"""
-
-		#/#################/#
-		# Compute statistic
-		# 
-
-		#Check
-		if self.NumscipyingStatBool and self.NumscipyingRowsInt==self.NumscipyingColsInt:
-
-			#import
-			import itertools
-
-			#compute
-			self.NumscipiedSymmetricsInt=(
-				self.NumscipyingColsInt*(self.NumscipyingColsInt-1)
-			)
-
-			#debug
-			self.debug(
-				[
-					'We compute the variance',
-					('self.',self,[
-							'NumscipiedSymmetricsInt'
-						])
-				]
-			)
-
-			#variance
-			self.NumscipiedVarianceFloat=np.sum(
-						np.array(
-								filter(
-										lambda __Float:
-										__Float!=None,
-										map(
-											lambda __Tuple:
-											self.NumscipiedRandomFloatsArray[__Tuple]**2
-											if __Tuple[0]!=__Tuple[1] else None
-											,itertools.product(
-												xrange(self.NumscipyingRowsInt),
-												xrange(self.NumscipyingColsInt)
-											)
-										)
-									)
-								)
-							)/(float(self.NumscipiedSymmetricsInt))
-
-			#deviation
-			self.NumscipiedDeviationFloat=np.sqrt(self.NumscipiedVarianceFloat)
-
-			#covariance
-			self.NumscipiedCovarianceFloat=self.NumscipyingColsInt*np.sum(
-						np.array(
-								filter(
-										lambda __Float:
-										__Float!=None,
-										map(
-											lambda __Tuple:
-			(
-				self.NumscipiedRandomFloatsArray[__Tuple]
-			)*(
-				self.NumscipiedRandomFloatsArray[(__Tuple[1],__Tuple[0])]
-			) 
-											if __Tuple[0]!=__Tuple[1] else None
-											,itertools.product(
-												xrange(self.NumscipyingColsInt),
-												xrange(self.NumscipyingColsInt)
-											)
-										)
-									)
-								)
-							)/(float(
-								self.NumscipiedVarianceFloat*self.NumscipiedSymmetricsInt
-							)
-						)	
-
-		#/#################/#
-		# Normalize maybe 
-		# 
-
-		#Check
-		if self.NumscipyingDivideVariable!=None:
-			self.NumscipiedRandomFloatsArray=(
-				self.NumscipiedRandomFloatsArray.T/self.NumscipyingDivideVariable
-			).T
-		
-		#Check
-		if self.NumscipyingNormalisationFunction!=None and len(
-			self.NumscipyingSizeTuple) and self.NumscipyingSizeTuple[0]==self.NumscipyingSizeTuple[1]:
-
-				#normalize
-				self.NumscipiedRandomFloatsArray/=self.NumscipyingNormalisationFunction(
-					self.NumscipyingSizeTuple[0]
-				)
+				NumscipiedRandomFloatsArray,
+				np.diagonal(self.NumscipiedRandomFloatsArray)
+			) 		
 
 		#/#################/#
 		# Maybe set a specific diagonal
@@ -457,6 +407,121 @@ class NumscipyerClass(BaseClass):
 				np.diagonal(self.NumscipyingDiagFloatsArray)
 			) 
 
+
+		#/#################/#
+		# Compute statistic
+		# 
+
+		#Check
+		if self.NumscipyingStatBool and self.NumscipyingRowsInt==self.NumscipyingColsInt:
+
+			#import
+			import itertools
+
+			#compute
+			self.NumscipiedSymmetricsInt=(
+				self.NumscipyingColsInt*(self.NumscipyingColsInt-1)
+			)
+
+			#debug
+			'''
+			self.debug(
+				[
+					'We compute the variance',
+					('self.',self,[
+							'NumscipiedSymmetricsInt'
+						])
+				]
+			)
+			'''
+
+			#list
+			NumscipiedLateralIndexIntsList=list(
+				itertools.product(
+										xrange(self.NumscipyingRowsInt),
+										xrange(self.NumscipyingColsInt)
+									)
+			)
+
+			#variance
+			self.NumscipiedMeanFloat=np.sum(
+				np.array(
+						filter(
+								lambda __Float:
+								__Float!=None,
+								map(
+									lambda __Tuple:
+									self.NumscipiedRandomFloatsArray[__Tuple]
+									if __Tuple[0]!=__Tuple[1] else None
+									,
+									NumscipiedLateralIndexIntsList
+								)
+							)
+						)
+					)/(float(self.NumscipiedSymmetricsInt))
+
+			#debug
+			'''
+			self.debug(
+				[
+					('self.',self,[
+							'NumscipiedMeanFloat'
+						])
+				]
+			)
+			'''
+
+			#variance
+			self.NumscipiedVarianceFloat=np.sum(
+				np.array(
+					filter(
+							lambda __Float:
+							__Float!=None,
+							map(
+								lambda __Tuple:
+								(
+									self.NumscipiedRandomFloatsArray[__Tuple]-self.NumscipiedMeanFloat
+								)**2
+								if __Tuple[0]!=__Tuple[1] else None
+								,NumscipiedLateralIndexIntsList
+							)
+						)
+					)
+				)/(float(self.NumscipiedSymmetricsInt-1))
+
+			#
+			self.NumscipiedSommersFloat = (
+				2.*NumscipiedShiftSymmetryFloat-1.
+			)/(2.*NumscipiedShiftSymmetryFloat*(NumscipiedShiftSymmetryFloat-1.
+				)+1.)
+
+			#deviation
+			self.NumscipiedStdFloat=np.sqrt(self.NumscipiedVarianceFloat)
+
+			#covariance
+			self.NumscipiedCovarianceFloat=self.NumscipyingColsInt*np.sum(
+						np.array(
+								filter(
+										lambda __Float:
+										__Float!=None,
+										map(
+											lambda __Tuple:
+			(
+				self.NumscipiedRandomFloatsArray[__Tuple]-self.NumscipiedMeanFloat
+			)*(
+				self.NumscipiedRandomFloatsArray[(__Tuple[1],__Tuple[0])]-self.NumscipiedMeanFloat
+			) 
+											if __Tuple[0]!=__Tuple[1] else None
+											,NumscipiedLateralIndexIntsList
+										)
+									)
+								)
+							)/(
+							float(
+								self.NumscipiedSymmetricsInt-1
+							)
+						)	
+
 		#/#################/#
 		# Get the eigenvalues
 		#
@@ -473,7 +538,10 @@ class NumscipyerClass(BaseClass):
 			'''
 			self.debug(
 				[
-					'We compute the eigenvalues'
+					'We compute the eigenvalues',
+					('self.',self,[
+							'NumscipiedRandomFloatsArray'
+						])
 				]
 			)
 			'''
@@ -493,6 +561,7 @@ class NumscipyerClass(BaseClass):
 				)
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We have computed the eigenvalues',
@@ -501,7 +570,7 @@ class NumscipyerClass(BaseClass):
 						])
 				]
 			)
-
+			'''
 
 		#/#################/#
 		# Reset to None
@@ -574,8 +643,10 @@ NumscipyerClass.PrintingClassSkipKeyStrsList.extend(
 		'NumscipiedRandomFloatsArray',
 		'NumscipiedSymmetricsInt',
 		'NumscipiedVarianceFloat',
-		'NumscipiedDeviationFloat',
+		'NumscipiedMeanFloat',
+		'NumscipiedStdFloat',
 		'NumscipiedCovarianceFloat',
+		'NumscipiedSommersFloat',
 		'NumscipyingEigenvalueBool',
 		'NumscipyingEigenvectorBool',
 		'NumscipiedEigenvalueComplexesArray',

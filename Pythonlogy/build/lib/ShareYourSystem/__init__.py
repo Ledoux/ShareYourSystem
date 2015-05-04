@@ -2548,7 +2548,7 @@ def getExtremumFloat(_Variable,_MinOrMaxStr='min'):
 
 		#get
 		ExtremumFloat=getattr(
-			_Variable,
+			np.array(_Variable),
 			_MinOrMaxStr
 		)()
 

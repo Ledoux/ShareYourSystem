@@ -158,9 +158,11 @@ class LeakerClass(BaseClass):
 			_LeakedDelayTimeInt=0,
 			_LeakedMinFloat=0.,
 			_LeakedMaxFloat=0.,
-			_LeakedMeanFloatsArray=None,
-			_LeakedStdFloatsArray=None,
-			_LeakedSimulationStateMonitorVariable=None,
+			#_LeakedGlobalSynapsesVariable=None,
+			_LeakedMeanStateMonitorVariable=None,
+			_LeakedVarStateMonitorVariable=None,
+			'LeakedMeanFloatsArray',
+			'LeakedStdFloatsArray'
 			**_KwargVariablesDict
 		):
 
@@ -1046,6 +1048,41 @@ class LeakerClass(BaseClass):
 					)+'*'+str(
 						self.LeakedQuantityVariable
 					)
+
+		"""
+		#/##################/#
+		# Is there a global variable to compute
+		#
+
+		#Check
+		if self.LeakingGlobalBool:
+
+			#debug
+			self.debug(
+				[
+					'We compute a global statistical variables',
+					('self.',self,[
+							'LeakedModelStr'
+						])
+				]
+			)
+
+			#add
+			self.LeakedModelStr+='Mean_'+self.LeakedSymbolStr +' : '+self.LeakedDimensionStr
+
+			#add
+			self.LeakedModelStr+='\n'+'Var_'+self.LeakedSymbolStr +' : 1'
+
+			#debug
+			self.debug(
+				[
+					'In the end',
+					('self.',self,[
+							'LeakedModelStr'
+						])
+				]
+			)
+		"""
 
 		#/##################/#
 		# Set the neurongroup dict
@@ -2361,6 +2398,97 @@ class LeakerClass(BaseClass):
 				)
 			)
 
+		"""
+		#/################/#
+		# Look for computing a global variable
+		#
+
+		#Check
+		if self.LeakingGlobalBool:
+
+			#debug
+			'''
+			self.debug(
+				[
+					'We compute global statistical variables'
+				]
+			)
+			'''
+
+			#import
+			from brian2 import Synapses,StateMonitor
+
+			#set
+			LeakedMeanGlobalSymbolStr='Mean_'+self.LeakedSymbolStr
+			LeakedVarGlobalSymbolStr='Var_'+self.LeakedSymbolStr
+
+			#set
+			LeakedGlobalModelStr=LeakedMeanGlobalSymbolStr+'_post = '+self.LeakedSymbolStr+'_pre/'+str(
+				self.LeakingUnitsInt
+			)+' : '+self.LeakedDimensionStr+' (summed)\n'
+
+			#set
+			LeakedGlobalModelStr+=LeakedVarGlobalSymbolStr+'_post = (1/'+self.LeakedDimensionStr+')*(('+self.LeakedSymbolStr+'_pre-'+LeakedMeanGlobalSymbolStr+'_pre)**2)/'+str(
+				self.LeakingUnitsInt-1
+			)+' : 1 (summed)\n'
+
+			#debug
+			self.debug(
+				[
+					'LeakedGlobalModelStr is ',
+					LeakedGlobalModelStr
+				]
+			)
+
+			#init
+			self.LeakedGlobalSynapsesVariable=Synapses(
+				self.BrianedNeurongroupVariable,
+				self.BrianedNeurongroupVariable,
+				LeakedGlobalModelStr,
+				clock=self.BrianedNeurongroupVariable.clock
+			)
+			self.LeakedGlobalSynapsesVariable.connect(True)
+
+			#init
+			self.LeakedMeanStateMonitorVariable=StateMonitor(
+				self.LeakedGlobalSynapsesVariable,
+				LeakedMeanGlobalSymbolStr,
+				[0]
+			)
+
+			#init
+			self.LeakedVarStateMonitorVariable=StateMonitor(
+				self.LeakedGlobalSynapsesVariable,
+				LeakedVarGlobalSymbolStr,
+				[0]
+			)
+
+			#debug
+			'''
+			self.debug(
+				[
+					'self.BrianedNeurongroupVariable.N is ',
+					str(self.BrianedNeurongroupVariable.N),
+					('self.',self,[
+						'LeakedGlobalSynapsesVariable',
+						'LeakedMeanStateMonitorVariable'
+					])
+				]
+			)
+			'''
+
+			#add
+			self.BrianedParentNetworkDeriveBrianerVariable.BrianedNetworkVariable.add(
+				self.LeakedGlobalSynapsesVariable
+			)
+			self.BrianedParentNetworkDeriveBrianerVariable.BrianedNetworkVariable.add(
+				self.LeakedMeanStateMonitorVariable
+			)
+			self.BrianedParentNetworkDeriveBrianerVariable.BrianedNetworkVariable.add(
+				self.LeakedVarStateMonitorVariable
+			)
+		"""
+
 	def brianInput(self):
 
 		#debug
@@ -3488,32 +3616,14 @@ class LeakerClass(BaseClass):
 		)
 		'''
 
-
-		#get
-		ViewedDrawsDerivePyploter=self.getTeamer(
-				'Charts'
-			).getManager(
-				Recorder.RecordPrefixStr+self.LeakedSymbolStr
-			).getTeamer(
-				'Draws'
-			)
-
 		#Check
-		ViewedMaxStdFloatsArray=self.LeakedMeanFloatsArray+(
-										self.LeakedStdFloatsArray/2.
-									)
-
-		ViewedMinStdFloatsArray=self.LeakedMeanFloatsArray-(
-										self.LeakedStdFloatsArray/2.
-									)
-
-		#Check
-		if len(ViewedDrawsDerivePyploter.ManagementDict)>0:
+		if self.BrianingViewNetworkBool:
 
 			#Check
-			if self.LeakingGlobalBool:
+			if self.LeakedMeanStateMonitorVariable!=None:
 
 				#debug
+				'''
 				self.debug(
 					[
 						'We add the global variable to the view',
@@ -3522,17 +3632,63 @@ class LeakerClass(BaseClass):
 							])
 					]
 				)
+				'''
+
+				#import
+				import brian2
+
+				#get
+				ViewedMonitorVariable=getattr(
+										self.LeakedMeanStateMonitorVariable,
+										'Mean_'+self.LeakedSymbolStr
+									)
+
+				#get 
+				ViewedMeanFloatsArray=getattr(
+										self.LeakedMeanStateMonitorVariable,
+										'Mean_'+self.LeakedSymbolStr
+									)[0,:]/getattr(
+										self.BrianedNeurongroupVariable,
+										'Mean_'+self.LeakedSymbolStr
+									).unit
+
+				#import
+				import numpy as np
+
+				#get
+				ViewedStdFloatsArray=np.sqrt(
+					getattr(
+										self.LeakedVarStateMonitorVariable,
+										'Var_'+self.LeakedSymbolStr
+									)[0,:]
+				)
+
+				#debug
+				self.debug(
+					[
+						'ViewedMeanFloatsArray is ',
+						str(ViewedMeanFloatsArray),
+						'ViewedStdFloatsArray is ',
+						str(ViewedStdFloatsArray)
+					]
+				)
 
 				#add
-				ViewedDrawsDerivePyploter.getManager(
+				self.getTeamer(
+						'Charts'
+					).getManager(
+						Recorder.RecordPrefixStr+self.LeakedSymbolStr
+					).getTeamer(
+						'Draws'
+					).getManager(
 						'Global'
 					).PyplotingDrawVariable=[
 						(	
 							'plot',
 							{
 								'#liarg':[
-									self.LeakedSimulationStateMonitorVariable.t,
-									self.LeakedMeanFloatsArray
+									self.LeakedMeanStateMonitorVariable.t,
+									ViewedMeanFloatsArray
 								],
 								'#kwarg':dict(
 									{
@@ -3549,8 +3705,8 @@ class LeakerClass(BaseClass):
 							'plot',
 							{
 								'#liarg':[
-									self.LeakedSimulationStateMonitorVariable.t,
-									ViewedMaxStdFloatsArray
+									self.LeakedMeanStateMonitorVariable.t,
+									ViewedMeanFloatsArray+(ViewedStdFloatsArray/2.)
 								],
 								'#kwarg':dict(
 									{
@@ -3567,9 +3723,8 @@ class LeakerClass(BaseClass):
 							'plot',
 							{
 								'#liarg':[
-									self.LeakedSimulationStateMonitorVariable.t,
-									ViewedMinStdFloatsArray
-									
+									self.LeakedMeanStateMonitorVariable.t,
+									ViewedMeanFloatsArray-(ViewedStdFloatsArray/2.)
 								],
 								'#kwarg':dict(
 									{
@@ -3579,22 +3734,6 @@ class LeakerClass(BaseClass):
 									}
 								)
 							}	
-						),
-						(
-							'fill_between',
-							{
-								'#liarg':[
-									self.LeakedSimulationStateMonitorVariable.t,
-									ViewedMinStdFloatsArray,
-									ViewedMaxStdFloatsArray
-								],
-								'#kwarg':dict(
-									{
-										'color':'black',
-										'alpha':0.2
-									}
-								)
-							}
 						)
 					]
 
@@ -3761,54 +3900,21 @@ class LeakerClass(BaseClass):
 	def simulatePopulation(self):
 
 		#debug
-		'''
 		self.debug(
 			[
 				'We simulate population here'
 			]
 		)
-		'''
-		
+
 		#Check
 		if self.LeakingGlobalBool:
 
-			#get
-			self.LeakedSimulationStateMonitorVariable=self.TeamDict[
-					'Traces'
-				].ManagementDict[
-					Recorder.RecordPrefixStr+self.LeakedSymbolStr
-				].TeamDict[
-					'Samples'
-				].ManagementDict[
-					'Default'
-				].BrianedStateMonitorVariable
-
-			#get
 			SimulatedFloatsArray=getattr(
-				self.LeakedSimulationStateMonitorVariable,
+				self.BrianedNeurongroupVariable
 				self.LeakedSymbolStr
-			)[:]
-
-			#debug
-			'''
-			self.debug(
-				[
-					'SimulatedFloatsArray is ',
-					str(SimulatedFloatsArray)
-				]
-			)
-			'''
-
-			#mean
-			self.LeakedMeanFloatsArray=SimulatedFloatsArray.mean(
-				axis=0
 			)
 
-			#std
-			self.LeakedStdFloatsArray=SimulatedFloatsArray.std(
-				axis=0
-			)
-
+			self.LeakedMeanFloatsArray=
 
 
 #</DefineClass>
@@ -3880,9 +3986,11 @@ LeakerClass.PrintingClassSkipKeyStrsList.extend(
 		'LeakedDelayTimeInt',
 		'LeakedMinFloat',
 		'LeakedMaxFloat',
+		#'LeakedGlobalSynapsesVariable',
+		#'LeakedMeanStateMonitorVariable',
+		#'LeakedVarStateMonitorVariable'
 		'LeakedMeanFloatsArray',
-		'LeakedStdFloatsArray',
-		'LeakedSimulationStateMonitorVariable'
+		'LeakedStdFloatsArray'
 	]
 )
 #<DefinePrint>

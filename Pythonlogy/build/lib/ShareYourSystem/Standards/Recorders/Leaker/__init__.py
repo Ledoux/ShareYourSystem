@@ -135,6 +135,7 @@ class LeakerClass(BaseClass):
 			_LeakingNoiseStdVariable=None,
 			_LeakingDelayVariable=None,
 			_LeakingPlasticVariable=None,
+			_LeakingGlobalBool=False,
 			_LeakedRecordSkipStrsList=None,
 			_LeakedQuantityVariable=None,
 			_LeakedDimensionStr="",
@@ -157,6 +158,9 @@ class LeakerClass(BaseClass):
 			_LeakedDelayTimeInt=0,
 			_LeakedMinFloat=0.,
 			_LeakedMaxFloat=0.,
+			_LeakedMeanFloatsArray=None,
+			_LeakedStdFloatsArray=None,
+			_LeakedSimulationStateMonitorVariable=None,
 			**_KwargVariablesDict
 		):
 
@@ -1043,11 +1047,8 @@ class LeakerClass(BaseClass):
 						self.LeakedQuantityVariable
 					)
 
-					
-
-
 		#/##################/#
-		# Set
+		# Set the neurongroup dict
 		#
 
 		#debug
@@ -1091,6 +1092,9 @@ class LeakerClass(BaseClass):
 			]
 		)
 		'''
+
+
+
 
 	def leakTrace(self):
 
@@ -3467,6 +3471,344 @@ class LeakerClass(BaseClass):
 			self.LeakedSymbolStr
 		)
 
+	def viewPopulation(self):
+
+		#base
+		BaseClass.viewPopulation(self)
+
+		#debug
+		'''
+		self.debug(
+			[
+				'We view leak pop here',
+				('self.',self,[
+						'BrianingViewNetworkBool'
+					])
+			]
+		)
+		'''
+
+
+		#get
+		ViewedDrawsDerivePyploter=self.getTeamer(
+				'Charts'
+			).getManager(
+				Recorder.RecordPrefixStr+self.LeakedSymbolStr
+			).getTeamer(
+				'Draws'
+			)
+
+		#Check
+		ViewedMaxStdFloatsArray=self.LeakedMeanFloatsArray+(
+										self.LeakedStdFloatsArray/2.
+									)
+
+		ViewedMinStdFloatsArray=self.LeakedMeanFloatsArray-(
+										self.LeakedStdFloatsArray/2.
+									)
+
+		#Check
+		if len(ViewedDrawsDerivePyploter.ManagementDict)>0:
+
+			#Check
+			if self.LeakingGlobalBool:
+
+				#debug
+				self.debug(
+					[
+						'We add the global variable to the view',
+						('self.',self,[
+								'LeakedSymbolStr'
+							])
+					]
+				)
+
+				#add
+				ViewedDrawsDerivePyploter.getManager(
+						'Global'
+					).PyplotingDrawVariable=[
+						(	
+							'plot',
+							{
+								'#liarg':[
+									self.LeakedSimulationStateMonitorVariable.t,
+									self.LeakedMeanFloatsArray
+								],
+								'#kwarg':dict(
+									{
+										'linestyle':'-',
+										'linewidth':3,
+										'color':'black',
+										#'label':'$<'+self.LeakedSymbolStr+'>$'
+										'label':'$mean('+self.LeakedSymbolStr+')$'
+									}
+								)
+							}	
+						),
+						(	
+							'plot',
+							{
+								'#liarg':[
+									self.LeakedSimulationStateMonitorVariable.t,
+									ViewedMaxStdFloatsArray
+								],
+								'#kwarg':dict(
+									{
+										'linestyle':'--',
+										'linewidth':1,
+										'color':'black',
+										#'label':'$<('+self.LeakedSymbolStr+'-<'+self.LeakedSymbolStr+'>)^2>$'
+										'label':'$std('+self.LeakedSymbolStr+')$'
+									}
+								)
+							}	
+						),
+						(	
+							'plot',
+							{
+								'#liarg':[
+									self.LeakedSimulationStateMonitorVariable.t,
+									ViewedMinStdFloatsArray
+									
+								],
+								'#kwarg':dict(
+									{
+										'linestyle':'--',
+										'linewidth':1,
+										'color':'black',
+									}
+								)
+							}	
+						),
+						(
+							'fill_between',
+							{
+								'#liarg':[
+									self.LeakedSimulationStateMonitorVariable.t,
+									ViewedMinStdFloatsArray,
+									ViewedMaxStdFloatsArray
+								],
+								'#kwarg':dict(
+									{
+										'color':'black',
+										'alpha':0.2
+									}
+								)
+							}
+						)
+					]
+
+	def mimic_simulate(self):
+
+		#/########################/#
+		# Network level
+		# 
+
+		#Check
+		if (self.ParentDeriveTeamerVariable==None or 'Populations' in self.TeamDict or self.ParentDeriveTeamerVariable.TeamTagStr not in [
+			'Clocks',
+			'Traces',
+			'Samples',
+			'Events',
+			'Interactomes',
+			'Interactions'
+		]) and self.BrianedParentSingularStr!='Population':
+
+			#debug
+			'''
+			self.debug(
+				[
+					'It is a Network level',
+					'We sructure simulate'
+				]
+			)
+			'''
+
+			#/########################/#
+			# Special Network level
+			# 
+
+			#Check
+			if 'Populations' not in self.TeamDict:
+		
+				#debug
+				'''
+				self.debug(
+					[
+						'It is a network with a one level pop',
+						'So simulatePopulation'
+					]
+				)
+				'''
+
+				#simulatePopulation
+				self.simulatePopulation()
+
+				#debug
+				'''
+				self.debug(
+					[
+						'We end to simulatePopulation for this network'
+					]
+				)
+				'''
+
+
+			#/########################/#
+			# simulate first
+			#	
+
+			#self
+			BaseClass.simulate(self)
+
+			#/########################/#
+			# structure
+			# 
+
+			#debug
+			'''
+			self.debug(
+				[
+					'We view structure in all the brian children...',
+				]
+			)
+			'''
+
+			#structure
+			self.structure(
+				[
+					'Clocks',
+					'Populations',
+					'Traces',
+					'Events',
+					'Samples',
+					'Interactomes',
+					'Interactions'
+				],
+				'#all',
+				_ManagerCommandSetList=[
+					'simulate'
+				]
+			)
+
+			#debug
+			'''
+			self.debug(
+				[
+					'Ok we have simulate structured all the brian children...',
+				]
+			)	
+			'''
+
+		elif self.BrianedParentSingularStr!="":
+
+			#set
+			BrianedMethodKeyStr='simulate'+self.BrianedParentSingularStr
+
+			#debug
+			'''
+			self.debug(
+				[
+					'Ok we check if this parentsingular has a special method ',
+					('self.',self,[
+						'BrianedParentSingularStr'
+					])
+				]
+			)
+			'''
+
+			#Check
+			if hasattr(self,BrianedMethodKeyStr):
+
+				#/########################/#
+				# call the special view<BrianedParentSingularStr> method
+				#
+
+				#debug
+				'''
+				self.debug(
+					[
+						'It is a '+self.BrianedParentSingularStr+' level',
+						'We view<BrianedParentSingularStr>'
+					]
+				)
+				'''
+
+				#call
+				getattr(
+					self,
+					BrianedMethodKeyStr
+				)()
+
+				#debug
+				'''
+				self.debug(
+					[
+						'Ok we have setted simulate'+self.BrianedParentSingularStr
+					]
+				)
+				'''	
+
+		#debug
+		'''
+		self.debug(
+			[
+				'End of mimic_simulate'
+			]
+		)
+		'''
+
+	def simulatePopulation(self):
+
+		#debug
+		'''
+		self.debug(
+			[
+				'We simulate population here'
+			]
+		)
+		'''
+		
+		#Check
+		if self.LeakingGlobalBool:
+
+			#get
+			self.LeakedSimulationStateMonitorVariable=self.TeamDict[
+					'Traces'
+				].ManagementDict[
+					Recorder.RecordPrefixStr+self.LeakedSymbolStr
+				].TeamDict[
+					'Samples'
+				].ManagementDict[
+					'Default'
+				].BrianedStateMonitorVariable
+
+			#get
+			SimulatedFloatsArray=getattr(
+				self.LeakedSimulationStateMonitorVariable,
+				self.LeakedSymbolStr
+			)[:]
+
+			#debug
+			'''
+			self.debug(
+				[
+					'SimulatedFloatsArray is ',
+					str(SimulatedFloatsArray)
+				]
+			)
+			'''
+
+			#mean
+			self.LeakedMeanFloatsArray=SimulatedFloatsArray.mean(
+				axis=0
+			)
+
+			#std
+			self.LeakedStdFloatsArray=SimulatedFloatsArray.std(
+				axis=0
+			)
+
 
 
 #</DefineClass>
@@ -3515,6 +3857,7 @@ LeakerClass.PrintingClassSkipKeyStrsList.extend(
 		'LeakingNoiseStdVariable',
 		'LeakingDelayVariable',
 		'LeakingPlasticVariable',
+		'LeakingGlobalBool',
 		'LeakedRecordSkipStrsList',
 		'LeakedQuantityVariable',
 		'LeakedDimensionStr',
@@ -3536,7 +3879,10 @@ LeakerClass.PrintingClassSkipKeyStrsList.extend(
 		'LeakedDelayTimeFloat',
 		'LeakedDelayTimeInt',
 		'LeakedMinFloat',
-		'LeakedMaxFloat'
+		'LeakedMaxFloat',
+		'LeakedMeanFloatsArray',
+		'LeakedStdFloatsArray',
+		'LeakedSimulationStateMonitorVariable'
 	]
 )
 #<DefinePrint>

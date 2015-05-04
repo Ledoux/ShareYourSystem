@@ -850,6 +850,18 @@ class PyploterClass(BaseClass):
 		# Check
 		#
 
+		#debug
+		'''
+		self.debug(
+			[
+				'We pyplot Chart here',
+				('self.',self,[
+					'PyplotingChartVariable'
+				])
+			]
+		)
+		'''
+
 		#Check
 		if self.PyplotingChartVariable!=None:
 
@@ -884,14 +896,14 @@ class PyploterClass(BaseClass):
 		'''
 		self.debug(
 			[
-				'Ok we have maybe setted the PyplotedChartTuplesList,
+				'Ok we have maybe setted the PyplotedChartTuplesList',
 				('self.',self,[
 						'PyplotedChartTuplesList'
 					])
 			]
 		)
 		'''
-
+		
 		#/#################/#
 		# First shift in the grid
 		#
@@ -1208,6 +1220,17 @@ class PyploterClass(BaseClass):
 		# If it is the last then trigger the axes to set also
 		#
 
+		#debug
+		'''
+		self.debug(
+			[
+				'Check if we have to make trigger the parent Chart',
+				'self.ParentDeriveTeamerVariable!=None is ',
+				str(self.ParentDeriveTeamerVariable!=None)
+			]
+		)
+		'''
+
 		#Check
 		if self.ParentDeriveTeamerVariable!=None:
 
@@ -1224,13 +1247,18 @@ class PyploterClass(BaseClass):
 						'Lets the axes setting itself now',
 						('self.PyplotedParentChartDerivePyploterVariable.',
 							self.PyplotedParentChartDerivePyploterVariable,
-							['PyplotingDrawVariable'])
+							[
+								'PyplotingDrawVariable',
+								'PyplotedChartTuplesList'
+							])
 					]
 				)	
 				'''
-
+				
 				#Check
-				if self.PyplotedParentChartDerivePyploterVariable.PyplotingChartVariable!=None:
+				if len(
+					self.PyplotedParentChartDerivePyploterVariable.PyplotedChartTuplesList
+					)>0:
 
 					#/#################/#
 					# We map argument in the axes
@@ -1244,8 +1272,8 @@ class PyploterClass(BaseClass):
 							#('self.',self,[
 							#	'PyplotedParentChartDerivePyploterVariable'
 							#]),
-							'self.PyplotedParentChartDerivePyploterVariable.PyplotedChartVariablesList is ',
-							SYS._str(self.PyplotedParentChartDerivePyploterVariable.PyplotedChartVariablesList)
+							'self.PyplotedParentChartDerivePyploterVariable.PyplotedChartTuplesList is ',
+							SYS._str(self.PyplotedParentChartDerivePyploterVariable.PyplotedChartTuplesList)
 						]
 					)
 					'''

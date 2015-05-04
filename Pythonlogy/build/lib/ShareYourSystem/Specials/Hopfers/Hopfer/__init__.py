@@ -36,15 +36,17 @@ class HopferClass(BaseClass):
 			_HopfingUnitsInt = 1,
 			_HopfingDelayTimeFloat = 2.0,
 			_HopfingConstantTimeFloat = 10.0,
-			_HopfingWeightStdFloat = 1.0,
-			_HopfingWeightMeanFloat = 0.0,
+			_HopfingMeanWeightFloat = 0.0,
+			_HopfingStdWeightFloat = 1.0,
 			_HopfingNormalisationInt= 0.5,
 			_HopfingSymmetryFloat = 0.5,
 			_HopfedLateralWeigthFloatsArray = None,
 			_HopfedRealEigenvalueFloatsArray = None,
 			_HopfedImagEigenvalueFloatsArray = None,
 			_HopfedHalfHeightFloat=0.,
-			_HopfedHalfWidthFloat=0.,  
+			_HopfedHalfWidthFloat=0., 
+			_HopfedContourComplexesArray=None, 
+			_HopfedEigenComplex=None,
 			**_KwargVariablesDict
 		):
 		""" """		
@@ -60,29 +62,30 @@ class HopferClass(BaseClass):
 		#
 
 		#debug
+		'''
 		self.debug(
 			[
 				'Ok we build the laterals'
 			]
 		)
+		'''
 
 		#numscipy
-		'''
 		self.NumscipyingRowsInt=self.HopfingUnitsInt
 		self.NumscipyingColsInt=self.HopfingUnitsInt
-		self.NumscipyingStdFloat=self.HopfingWeightStdFloat
-		self.NumscipyingMeanFloat=self.HopfingWeightStdFloat
+		self.NumscipyingStdFloat=self.HopfingStdWeightFloat
+		self.NumscipyingMeanFloat=self.HopfingMeanWeightFloat
+		self.NumscipyingSymmetryFloat=self.HopfingSymmetryFloat
+		self.NumscipyingEigenvalueBool=True
+		self.NumscipyingNormalisationFunction=lambda __ColsInt:__ColsInt**0.5
 		self.numscipy(
 			)
-		'''
 
 		#alias
 		self.HopfedLateralWeigthFloatsArray=self.NumscipiedRandomFloatsArray
 
-		#add mean
-		self.HopfedLateralWeigthFloatsArray -= self.HopfingWeightMeanFloat/float(self.HopfingUnitsInt)
-
 		#debug
+		'''
 		self.debug(
 			[
 				'We have setted the laterals',
@@ -91,17 +94,34 @@ class HopferClass(BaseClass):
 				])
 			]
 		)
+		'''
 
 		#/###############/#
 		# Determine the contour properties
 		#
 
-		#set
-		self.HopfedHalfWidthFloat=self.NumscipiedDeviationFloat*(
-			1.+self.NumscipiedCovarianceFloat
+		#debug
+		self.debug(
+			[
+				'We set the contour of the ellipse',
+				('self.',self,[
+						'NumscipiedVarianceFloat',
+						'NumscipiedStdFloat',
+						'NumscipiedCovarianceFloat',
+						'NumscipiedSommersFloat'
+					])
+			]
 		)
-		self.HopfedHalfHeightFloat=self.NumscipiedDeviationFloat*(
-			1.-self.NumscipiedCovarianceFloat
+
+		#set
+		self.HopfedHalfWidthFloat=self.HopfingUnitsInt*(
+			#1.+self.NumscipiedCovarianceFloat
+			1.+self.NumscipiedSommersFloat
+
+		)
+		self.HopfedHalfHeightFloat=self.HopfingUnitsInt*(
+			#1.-self.NumscipiedCovarianceFloat
+			1.-self.NumscipiedSommersFloat
 		)
 
 		#debug
@@ -119,25 +139,15 @@ class HopferClass(BaseClass):
 		# Build the eigen values real and imag
 		#
 
+		#real and imag
 		self.HopfedRealEigenvalueFloatsArray=np.real(self.NumscipiedEigenvalueComplexesArray)
 		self.HopfedImagEigenvalueFloatsArray=np.imag(self.NumscipiedEigenvalueComplexesArray)
-
-	def pyplotDraw(self):
-
-		#get
-		#ViewedChartDerivePyploter=self.getTeamer(
-		#	'Panels'
-		#).getManager(
-		#	'Eigen'
-		#).getTeamer(
-		#	'Charts'
-		#)
 
 		#debug
 		'''
 		self.debug(
 			[
-				'We build a view of the eigenvalues',
+				'We have built the real and imag',
 				('self.',self,[
 						'HopfedRealEigenvalueFloatsArray',
 						'HopfedImagEigenvalueFloatsArray'
@@ -146,6 +156,137 @@ class HopferClass(BaseClass):
 		)
 		'''
 
+		#/###############/#
+		# Build the contour of the eigen values real and ima
+		#
+
+		self.HopfedContourComplexesArray=[
+			__Float + (
+				1.-self.NumscipiedSommersFloat
+			)*np.sqrt(
+				1-(__Float/(1+self.NumscipiedSommersFloat))**2
+			)*1j for __Float in np.arange(
+				-1.-self.NumscipiedSommersFloat,
+				1.+self.NumscipiedSommersFloat,
+				0.005
+			)
+		]
+		self.HopfedContourComplexesArray+=list(
+			np.array(
+			self.HopfedContourComplexesArray
+			).conjugate()[::-1]  
+		)
+		self.HopfedContourComplexesArray=np.array(
+			self.HopfedContourComplexesArray
+		)
+          	      
+		#/###############/#
+		# Compute for each eigen of the contour a possible solution
+		#
+
+		#map
+		HopfedSolutionFloatsTuplesList=map(
+			lambda __HopfedContourComplex:
+			self.setAttr(
+				'HopfedEigenComplex',
+				__HopfedContourComplex
+			).getSolutionFloatsTuple(),
+			self.HopfedContourComplexesArray
+		)
+
+		#debug
+		self.debug(
+			[
+				'HopfedSolutionFloatsTuplesList is ',
+				str(HopfedSolutionFloatsTuplesList)
+			]
+		)
+
+		"""
+			FinalContourEvals[i] = Sol[0] + Sol[1]*1j
+			ContourList = ContourEvals
+			TransformedContourList = list(FinalContourEvals)
+			LEV = np.array(TransformedContourList)[np.argmax(np.array(TransformedContourList).real)]
+			if LEV.real > 0:
+			if np.abs(LEV.imag) == 0:
+			    TheoreticalStability += [0]
+			else:     
+			    TheoreticalStability += [1]
+			else:
+			TheoreticalStability += [2]
+			print(WeightFloat, TauSommersFloat)
+		"""
+
+	def getRootFloatsTuple(self,_PerturbationComplex):
+			
+		#split
+		PerturbationRealFloat,PerturbationImagFloat = _PerturbationComplex
+
+		#compute
+		PrefixComplex=(1./self.HopfingStdWeightFloat)*np.exp(
+				PerturbationRealFloat*self.HopfingDelayTimeFloat
+			)
+
+		#compute
+		CosFloat=np.cos(PerturbationImagFloat*self.HopfingDelayTimeFloat)
+		SinFloat=np.sin(PerturbationImagFloat*self.HopfingDelayTimeFloat)
+
+		#compute
+		NeuralFloat=(1.+self.HopfingConstantTimeFloat*PerturbationRealFloat)
+
+		#compute
+		FirstRootFloat = PrefixComplex*(
+			NeuralFloat*CosFloat-self.HopfingConstantTimeFloat*PerturbationImagFloat*SinFloat
+		)-self.HopfedEigenComplex.real
+
+		#compute
+		SecondRootFloat = PrefixComplex*(
+			self.HopfingConstantTimeFloat*PerturbationImagFloat*CosFloat+NeuralFloat*SinFloat
+		)-self.HopfedEigenComplex.imag
+		
+		#return
+		return (FirstRootFloat,SecondRootFloat)
+
+	def getSolutionFloatsTuple(self):
+
+		#import
+		import scipy.optimize
+
+		#return
+		return scipy.optimize.fsolve(self.getRootFloatsTuple, (0,0))
+
+
+	def mimic_view(self):
+
+		#/################/#
+		# Build an Eigen Panel with Charts
+		#
+
+		#get
+		ViewedChartsDerivePyploter=self.getTeamer(
+			'Panels'
+		).getManager(
+			'Eigen'
+		).getTeamer(
+			'Charts'
+		)
+
+		#/################/#
+		# Build an Eigen J Chart
+		#
+
+		#get
+		ViewedConnectivityChartDerivePyploter=ViewedChartsDerivePyploter.getManager(
+			'Connectivity'
+		)
+
+		#get
+		ViewedConnectivityDrawDerivePyploter=ViewedConnectivityChartDerivePyploter.getTeamer(
+			'Draws'
+		).getManager(
+			'Default'
+		)
+
 		#/##################/#
 		# Build the theoritical ellipse
 		#
@@ -153,25 +294,88 @@ class HopferClass(BaseClass):
 		#import
 		import matplotlib.patches
 
-		#Add the Wiener Ellipse
+		#Add the matrix contour Ellipse
 		PyplotedBifurcationEllipse=matplotlib.patches.Ellipse(
-							xy=(self.HopfingWeightMeanFloat,0.), 
+							xy=(self.HopfingMeanWeightFloat,0.), 
 						 	width=2.*self.HopfedHalfWidthFloat,
 						 	height=2.*self.HopfedHalfHeightFloat,
 						 	color='r',
 					)
 		PyplotedBifurcationEllipse.set_alpha(0.2)
 
+		#Add the Wiener Circle
+		PyplotedBifurcationCircle=matplotlib.patches.Ellipse(
+							xy=(self.HopfingMeanWeightFloat,0.), 
+						 	width=2.,
+						 	height=2.,
+						 	linewidth=2,
+						 	color='black',
+						 	fill=False
+					)
+		PyplotedBifurcationCircle.set_alpha(0.4)
+
 
 		#/##################/#
-		# Build the PyplotingDrawVariable
+		# draw
 		#
 
 		#list
-		self.PyplotingDrawVariable=[
+		ViewedConnectivityDrawDerivePyploter.PyplotingDrawVariable=[
+			(
+				'plot',
+				{
+					'#liarg':[
+						[-2.,2.],
+						[0.,0.]
+					],
+					'#kwarg':dict(
+						{
+							'linestyle':"--",
+							'linewidth':1,
+							'color':'black'
+						}
+					)
+				}
+			),
+			(
+				'plot',
+				{
+					'#liarg':[
+						[-0.,0.],
+						[-2.,2.]
+					],
+					'#kwarg':dict(
+						{
+							'linestyle':"--",
+							'linewidth':1,
+							'color':'black'
+						}
+					)
+				}
+			),
 			(
 				'add_artist',
 				PyplotedBifurcationEllipse
+			),
+			(
+				'add_artist',
+				PyplotedBifurcationCircle
+			),
+			(
+				'plot',
+				{
+					'#liarg':[
+						np.real(self.HopfedContourComplexesArray),
+						np.imag(self.HopfedContourComplexesArray)
+					],
+					'#kwarg':dict(
+						{
+							'linestyle':"-",
+							'color':'red',
+							'linewidth':5
+						}
+					)
+				}
 			),
 			(
 				'plot',
@@ -191,44 +395,32 @@ class HopferClass(BaseClass):
 			)
 		]
 		
-		#pyplotChart
-		#self.pyplotChart()
+		#/##################/#
+		# view chart
+		#
 
-		#view
-		self.view(
-			_XLabelStr="$Im(\lambda)$",
-			_YLabelStr="$Re(\lambda)$",
-			_XVariable=[-2.,2.],
-			_YVariable=[-2.,2.]
-		)
+		#set
+		ViewedConnectivityChartDerivePyploter.PyplotingShapeVariable=(10,8)
 
-		#debug
-		self.debug(
+		#concatenate
+		ViewedVariablesArray=np.concatenate(
 			[
-				('self.',self,[
-					'PyplotingChartVariable'
-					]
-				)
+				self.HopfedRealEigenvalueFloatsArray,
+				self.HopfedImagEigenvalueFloatsArray
 			]
 		)
-
-		#return
-		return BaseClass.pyplotDraw(self)
-
-	"""
-	def pyplotChart(self):
+		ViewedMinFloat=ViewedVariablesArray.min()
+		ViewedMaxFloat=ViewedVariablesArray.max()
+		ViewedLimFloatsArray=[ViewedMinFloat,ViewedMaxFloat]
 
 		#view
-		self.view(
+		ViewedConnectivityChartDerivePyploter.view(
 			_XLabelStr="$Im(\lambda)$",
 			_YLabelStr="$Re(\lambda)$",
-			_XVariable=[-2.,2.],
-			_YVariable=[-2.,2.]
+			_XVariable=ViewedLimFloatsArray,
+			_YVariable=ViewedLimFloatsArray
 		)
 
-		#return
-		return BaseClass.pyplotChart(self)
-	"""
 
 #</DefineClass>
 
@@ -246,7 +438,9 @@ HopferClass.PrintingClassSkipKeyStrsList.extend(
 		'HopfedHalfHeightFloat',
 		'HopfedHalfWidthFloat',
 		'HopfedRealEigenvalueFloatsArray',
-		'HopfedImagEigenvalueFloatsArray' 
+		'HopfedImagEigenvalueFloatsArray',
+		'HopfedContourComplexesArray',
+		'HopfedEigenComplex'
 	]
 )
 #<DefinePrint>

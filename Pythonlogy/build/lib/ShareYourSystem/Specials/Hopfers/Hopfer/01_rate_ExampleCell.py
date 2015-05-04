@@ -11,11 +11,9 @@ import ShareYourSystem as SYS
 
 #Define
 MyHopfer=SYS.HopferClass(
-	).numscipy(
-		_SizeTuple=(100,100),
-		_SymmetryFloat=0.,
-		_EigenvalueBool=True
 	).hopf(
+		_UnitsInt=100,
+		_SymmetryFloat=-0.5,
 	)
 	#.simulate(
 	#	SimulationTimeFloat
@@ -25,7 +23,8 @@ MyHopfer=SYS.HopferClass(
 # View
 #
 
-MyHopfer.pyplot(
+MyHopfer.view(
+	).pyplot(
 	)
 SYS.matplotlib.pyplot.show()
 

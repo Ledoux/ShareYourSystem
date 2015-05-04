@@ -1628,14 +1628,12 @@ class BrianerClass(BaseClass):
 		]) and self.BrianedParentSingularStr!='Population':
 
 			#debug
-			'''
 			self.debug(
 				[
 					'It is a Network level',
 					'We sructure view'
 				]
 			)
-			'''
 
 			#/########################/#
 			# Special Network level
@@ -1645,14 +1643,12 @@ class BrianerClass(BaseClass):
 			if 'Populations' not in self.TeamDict:
 		
 				#debug
-				'''
 				self.debug(
 					[
 						'It is a network with a one level pop',
 						'So viewPopulation'
 					]
 				)
-				'''
 
 				#viewPopulation
 				self.viewPopulation()
@@ -1710,13 +1706,11 @@ class BrianerClass(BaseClass):
 			# 
 
 			#debug
-			'''
 			self.debug(
 				[
 					'We view structure in all the brian children...',
 				]
 			)
-			'''
 
 			#structure
 			self.structure(
@@ -1736,13 +1730,11 @@ class BrianerClass(BaseClass):
 			)
 
 			#debug
-			'''
 			self.debug(
 				[
 					'Ok we have view structured all the brian children...',
 				]
 			)	
-			'''
 
 		elif self.BrianedParentSingularStr!="":
 
@@ -1803,6 +1795,13 @@ class BrianerClass(BaseClass):
 		'''
 
 	def viewPopulation(self):
+
+		#debug
+		self.debug(
+			[
+				'we view population brian here'
+			]
+		)
 
 		#Check
 		if self.BrianingViewNetworkBool==False:
@@ -3284,20 +3283,23 @@ class BrianerClass(BaseClass):
 		#parent method
 		BaseClass.simulate(self)
 
-		#debug
-		'''
-		self.debug('We start simulate in brian')
-		'''
+		#Check
+		if self.BrianedNetworkVariable!=None:
 
-		#run with the brian method
-		self.BrianedNetworkVariable.run(
-			self.SimulatingStopTimeFloat*self.BrianedTimeQuantityVariable
-		)
+			#debug
+			'''
+			self.debug('We start simulate in brian')
+			'''
 
-		#debug
-		'''
-		self.debug('We stop running in brian')
-		'''
+			#run with the brian method
+			self.BrianedNetworkVariable.run(
+				self.SimulatingStopTimeFloat*self.BrianedTimeQuantityVariable
+			)
+
+			#debug
+			'''
+			self.debug('We stop running in brian')
+			'''
 
 	def recordTrace(self):
 
