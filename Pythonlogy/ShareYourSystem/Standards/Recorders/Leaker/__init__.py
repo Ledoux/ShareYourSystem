@@ -1115,6 +1115,7 @@ class LeakerClass(BaseClass):
 			if self.RecordKeyStr==self.LeakedParentPopulationDeriveLeakerVariable.LeakedSymbolStr:
 
 				#debug
+				'''
 				self.debug(
 					[
 						'We init under the thresholds',
@@ -1126,7 +1127,8 @@ class LeakerClass(BaseClass):
 						str(self.LeakedParentPopulationDeriveLeakerVariable.LeakingThresholdVariable)
 					]
 				)
-
+				'''
+				
 				#type
 				LeakedThresholdType=type(self.LeakedParentPopulationDeriveLeakerVariable.LeakingThresholdVariable)
 
@@ -1143,6 +1145,7 @@ class LeakerClass(BaseClass):
 				self.NumscipyingMeanFloat=self.LeakedMaxFloat
 
 				#debug
+				'''
 				self.debug(
 					[
 						'Mean is then around',
@@ -1151,7 +1154,7 @@ class LeakerClass(BaseClass):
 							])
 					]
 				)
-
+				'''
 
 	def leakInput(self):
 
@@ -3091,6 +3094,7 @@ class LeakerClass(BaseClass):
 				self.LeakedMinFloat=self.LeakedMaxFloat-0.1*self.LeakedMaxFloat
 
 				#debug
+				'''
 				self.debug(
 					[
 						'We init under the thresholds',
@@ -3103,6 +3107,7 @@ class LeakerClass(BaseClass):
 							])
 					]
 				)
+				'''
 
 				#type
 				LeakedThresholdType=type(self.LeakedParentPopulationDeriveLeakerVariable.LeakingThresholdVariable)
@@ -3120,6 +3125,7 @@ class LeakerClass(BaseClass):
 				)
 
 				#debug
+				'''
 				self.debug(
 					[
 						'In the end ',
@@ -3128,6 +3134,7 @@ class LeakerClass(BaseClass):
 							])
 					]
 				)
+				'''
 
 		#/##################/#
 		# Case of an input variable

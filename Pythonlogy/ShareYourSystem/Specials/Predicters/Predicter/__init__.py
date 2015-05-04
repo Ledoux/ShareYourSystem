@@ -322,6 +322,84 @@ class PredicterClass(BaseClass):
 		#import
 		import numpy as np
 
+		#/###################/#
+		# When Decoder matrix is already specified
+		# 
+
+		#type
+		PredictedDecoderType=type(self.PredictingDecoderVariable)
+
+		#Check
+		if PredictedDecoderType in [list,tuple,np.ndarray]: 
+
+			#Check
+			self.PredictedDecoderFloatsArray=np.array(
+				self.PredictingDecoderVariable
+			)
+
+			#shape
+			PredictedShapeIntsList=list(
+				np.shape(self.PredictingDecoderVariable)
+			)
+
+			#debug
+			'''
+			self.debug(
+				[
+					'Update the PredictingAgentUnitsInt with the size of the array',
+					'PredictedShapeIntsList is ',
+					str(PredictedShapeIntsList),
+					'len(PredictedShapeIntsList) is',
+					str(len(PredictedShapeIntsList))
+				]
+			)
+			'''
+
+			#Check
+			if len(PredictedShapeIntsList)==1:
+
+				#get
+				self.PredictingAgentUnitsInt=PredictedShapeIntsList[0]
+
+				#recast into a 2D array
+				self.PredictedDecoderFloatsArray=np.array(
+					[self.PredictedDecoderFloatsArray]
+				)
+			else:
+
+				#get
+				self.PredictingAgentUnitsInt=PredictedShapeIntsList[1]
+
+			#debug
+			'''
+			self.debug(
+				[
+					'Now',
+					('self.',self,[
+							'PredictingAgentUnitsInt'
+						])
+				]
+			)
+			'''
+
+		#/###################/#
+		# When Decoder matrix has to be sparse
+		# 
+
+		#Check
+		if self.PredictingDecoderProbabilityFloat>0.:
+
+			#debug
+			self.debug(
+				[
+					'The decoder is built from a sparse matrix, so it infers that',
+					'the number of sensors is the same as the number of agents'
+				]
+			)
+
+			#set
+			self.PredictingSensorUnitsInt=self.PredictingAgentUnitsInt
+
 		#/################/#
 		# Build the Jacobian
 		#
@@ -411,59 +489,7 @@ class PredicterClass(BaseClass):
 		#
 
 		#Check
-		if type(self.PredictingDecoderVariable) in [list,tuple,np.ndarray]: 
-
-			#Check
-			self.PredictedDecoderFloatsArray=np.array(
-				self.PredictingDecoderVariable
-			)
-
-			#shape
-			PredictedShapeIntsList=list(
-				np.shape(self.PredictingDecoderVariable)
-			)
-
-			#debug
-			'''
-			self.debug(
-				[
-					'Update the PredictingAgentUnitsInt with the size of the array',
-					'PredictedShapeIntsList is ',
-					str(PredictedShapeIntsList),
-					'len(PredictedShapeIntsList) is',
-					str(len(PredictedShapeIntsList))
-				]
-			)
-			'''
-
-			#Check
-			if len(PredictedShapeIntsList)==1:
-
-				#get
-				self.PredictingAgentUnitsInt=PredictedShapeIntsList[0]
-
-				#recast into a 2D array
-				self.PredictedDecoderFloatsArray=np.array(
-					[self.PredictedDecoderFloatsArray]
-				)
-			else:
-
-				#get
-				self.PredictingAgentUnitsInt=PredictedShapeIntsList[1]
-
-			#debug
-			'''
-			self.debug(
-				[
-					'Now',
-					('self.',self,[
-							'PredictingAgentUnitsInt'
-						])
-				]
-			)
-			'''
-
-		else:
+		if PredictedDecoderType==str:
 
 			#numscipy
 			self.NumscipyingProbabilityFloat=self.PredictingDecoderProbabilityFloat
@@ -477,6 +503,7 @@ class PredicterClass(BaseClass):
 			self.PredictedDecoderFloatsArray=self.NumscipiedRandomFloatsArray
 
 		#debug
+		'''
 		self.debug(
 			[
 				'We normalize the PredictedDecoderFloatsArray',
@@ -486,6 +513,7 @@ class PredicterClass(BaseClass):
 					])
 			]
 		)
+		'''
 
 		#norm
 		self.PredictedDecoderFloatsArray/=self.PredictingAgentUnitsInt**self.PredictingDecoderNormalisationInt
@@ -614,6 +642,7 @@ class PredicterClass(BaseClass):
 			)
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We have setted the thresholds',
@@ -623,6 +652,7 @@ class PredicterClass(BaseClass):
 						])
 				]
 			)
+			'''
 
 		#/################/#
 		# PredictingDynamicBool Case

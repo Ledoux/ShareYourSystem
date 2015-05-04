@@ -1034,6 +1034,16 @@ class ParenterClass(BaseClass):
 		#return
 		return ParenterStr
 
+	def __contains__(self,_KeyStr):
+
+		#Check
+		if self.TeamedOnceBool:
+			return _KeyStr in self.TeamDict
+		elif self.TeamedOnceBool:
+			return _KeyStr in self.ManagementDict
+		else:
+			return (_KeyStr in self.TeamDict) or (_KeyStr in self.ManagementDict)
+
 #</DefineClass>
 
 #Set

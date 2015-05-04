@@ -43,6 +43,10 @@ class ViewerClass(BaseClass):
 						_ViewingAddXMaxFloat=0.,
 						_ViewingAddYMinFloat=0.,
 						_ViewingAddYMaxFloat=0.,
+						_ViewingXIndexBool=False,
+						_ViewingYIndexBool=False,
+						_ViewingXSampleInt=3,
+						_ViewingYSampleInt=3,
 						_ViewedTagStr="",
 						_ViewedXTagStr="",
 						_ViewedYTagStr="",
@@ -201,18 +205,41 @@ class ViewerClass(BaseClass):
 		)
 		'''
 		
-		#join
-		setattr(
+		#get
+		ViewedIndexBool=getattr(
 			self,
-			'Viewed'+_AxeStr+'tickLiargStr',
-			"".join([
-						">>SYS.set(SYS,'"+ViewedTagStr+"TickFloatsArray',",
-						"map(lambda __Float:float(SYS.getFloatStr(__Float)),",
-						"SYS.getTickFloatsArray(",
-						'SYS.'+ViewedTagStr+"LimFloatsArray,3",
-						")))."+ViewedTagStr+"TickFloatsArray"
-						])
+			'Viewing'+_AxeStr+'IndexBool'
 		)
+
+		#join
+		if ViewedIndexBool:
+			setattr(
+				self,
+				'Viewed'+_AxeStr+'tickLiargStr',
+				"".join([
+							">>SYS.set(SYS,'"+ViewedTagStr+"TickVariablesArray',",
+							"SYS.getTickIntsArray(",
+							'SYS.'+ViewedTagStr+"LimFloatsArray,"+str(
+								getattr(self,'Viewing'+_AxeStr+'SampleInt')
+							),
+							"))."+ViewedTagStr+"TickVariablesArray"
+							])
+			)
+
+		else:
+			setattr(
+				self,
+				'Viewed'+_AxeStr+'tickLiargStr',
+				"".join([
+							">>SYS.set(SYS,'"+ViewedTagStr+"TickVariablesArray',",
+							"map(lambda __Float:float(SYS.getFloatStr(__Float)),",
+							"SYS.getTickFloatsArray(",
+							'SYS.'+ViewedTagStr+"LimFloatsArray,"+str(
+								getattr(self,'Viewing'+_AxeStr+'SampleInt')
+							),
+							")))."+ViewedTagStr+"TickVariablesArray"
+							])
+			)
 
 		#debug
 		'''
@@ -226,17 +253,33 @@ class ViewerClass(BaseClass):
 		)
 		'''
 
-		#set
-		setattr(
-			self,
-			'Viewed'+_AxeStr+'tickLabelLiargStr',
-			"".join([
-						">>SYS.set(SYS,'"+ViewedTagStr+"TickStrsArray',",
-						"map(lambda __Float:'$'+SYS.getFloatStr(SYS.IdDict["+self.ViewingIdStr+"].Viewing"+_AxeStr+"ScaleFloat*__Float)+'$',",
-						#"map(lambda __Float:'$'+str(self.Viewing"+_AxeStr+"ScaleFloat*__Float)+'$',",
-						"SYS."+ViewedTagStr+"TickFloatsArray))."+ViewedTagStr+"TickStrsArray"
-						])
-		)
+		#Check
+		if ViewedIndexBool:
+
+			#set
+			setattr(
+				self,
+				'Viewed'+_AxeStr+'tickLabelLiargStr',
+				"".join([
+							">>SYS.set(SYS,'"+ViewedTagStr+"TickStrsArray',",
+							"map(lambda __Float:'$'+str(int(SYS.IdDict["+self.ViewingIdStr+"].Viewing"+_AxeStr+"ScaleFloat*__Float))+'$',",
+							#"map(lambda __Float:'$'+str(self.Viewing"+_AxeStr+"ScaleFloat*__Float)+'$',",
+							"SYS."+ViewedTagStr+"TickVariablesArray))."+ViewedTagStr+"TickStrsArray"
+							])
+			)
+		else:
+
+			#set
+			setattr(
+				self,
+				'Viewed'+_AxeStr+'tickLabelLiargStr',
+				"".join([
+							">>SYS.set(SYS,'"+ViewedTagStr+"TickStrsArray',",
+							"map(lambda __Float:'$'+SYS.getFloatStr(SYS.IdDict["+self.ViewingIdStr+"].Viewing"+_AxeStr+"ScaleFloat*__Float)+'$',",
+							#"map(lambda __Float:'$'+str(self.Viewing"+_AxeStr+"ScaleFloat*__Float)+'$',",
+							"SYS."+ViewedTagStr+"TickVariablesArray))."+ViewedTagStr+"TickStrsArray"
+							])
+			)
 
 		#debug
 		'''
@@ -287,6 +330,10 @@ ViewerClass.PrintingClassSkipKeyStrsList.extend(
 		'ViewingAddXMaxFloat',
 		'ViewingAddYMinFloat',
 		'ViewingAddYMaxFloat',
+		'ViewingXIndexBool',
+		'ViewingYIndexBool',
+		'ViewingXSampleInt',
+		'ViewingYSampleInt',
 		'ViewedTagStr',
 		'ViewedXTagStr',
 		'ViewedYTagStr',

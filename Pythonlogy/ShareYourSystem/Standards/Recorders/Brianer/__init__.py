@@ -35,7 +35,11 @@ BrianViewKeyStrsList=[
 				'ViewingAddYMinFloat',
 				'ViewingAddYMaxFloat',
 				'ViewingXScaleFloat',
-				'ViewingYScaleFloat'
+				'ViewingYScaleFloat',
+				'ViewingXIndexBool',
+				'ViewingYIndexBool',
+				'ViewingXSampleInt',
+				'ViewingYSampleInt'
 			]
 #</DefineLocals>
 
@@ -2972,6 +2976,9 @@ class BrianerClass(BaseClass):
 		#set
 		self.ViewingYLabelStr='#$index$'
 		
+		#set
+		self.ViewingYIndexBool=True
+		self.ViewingYSampleInt=2
 
 		#/################/#
 		# call the base view method
@@ -3140,8 +3147,22 @@ class BrianerClass(BaseClass):
 		# Update maybe the 
 		# parent corresponding Chart Population
 
+		#debug
+		'''
+		self.debug(
+			[
+				'Are we putting the events view in the charts population ?',
+				'"Charts" not in self.BrianedParentPopulationDeriveBrianerVariable is',
+				str('Charts' not in self.BrianedParentPopulationDeriveBrianerVariable.TeamDict),
+				#('self.',self,[
+				#		'BrianedParentPopulationDeriveBrianerVariable'
+				#	])
+			]
+		)
+		'''
+		
 		#Check
-		if 'Charts' not in self.BrianedParentPopulationDeriveBrianerVariable:
+		if 'Charts' not in self.BrianedParentPopulationDeriveBrianerVariable.TeamDict:
 			return 
 
 		#get
@@ -3284,6 +3305,7 @@ class BrianerClass(BaseClass):
 		BaseClass.recordTrace(self)
 
 		#debug
+		'''
 		self.debug(
 			[
 				'We have traced, alias the init in the brian object',
@@ -3297,7 +3319,9 @@ class BrianerClass(BaseClass):
 				str(self.RecordedTraceFloatsArray.unit)
 			]
 		)
+		'''
 
+		#Check
 		if str(self.RecordedTraceFloatsArray.unit) in ['V']:
 
 			#import

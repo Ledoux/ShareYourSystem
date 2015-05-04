@@ -28,7 +28,7 @@ MyPredicter=SYS.PredicterClass(
 					}
 				}),
 				('|Agent',{
-					'LeakingMonitorIndexIntsList':[0],
+					'LeakingMonitorIndexIntsList':[0,1],
 					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Fast':{
@@ -50,9 +50,12 @@ MyPredicter=SYS.PredicterClass(
 			]
 		}
 	).predict(
-		_AgentUnitsInt=1,
+		_AgentUnitsInt=100,
 		_CommandVariable="#custom:#clock:20*ms:1.*mV+1.*mV*int(t==20*ms)",#2.,
-		_DecoderVariable=[2.],
+		_DecoderVariable="#array",
+		_DecoderStdFloat=0.,
+		_DecoderMeanFloat=2.,
+		#_AgentResetVariable=-60.5
 		_InteractionStr="Spike"
 	).simulate(
 		50.
@@ -62,7 +65,12 @@ MyPredicter=SYS.PredicterClass(
 # View
 #
 
-MyPredicter.view(
+MyPredicter.mapSetAllMro(
+		{
+			'PyplotingPrintBool':False,
+			'BrianingPrintBool':False
+		}
+	).view(
 	).pyplot(
 	)
 SYS.matplotlib.pyplot.show()

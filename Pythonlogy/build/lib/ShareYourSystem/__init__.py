@@ -2605,6 +2605,47 @@ def getTickFloatsArray(_LimList,_SampleFloat):
 	#return 
 	return TickFloatsArray
 
+def getTickIntsArray(_LimList,_SampleInt):
+
+	#import
+	import numpy
+
+	#max
+	MinInt=max(0,_LimList[0])
+
+	#Debug
+	'''
+	print('SYS l 2517')
+	print('getTickIntsArray l 64')
+	print('_LimList is')
+	print(_LimList)
+	print('_SampleInt is ')
+	print(_SampleInt)
+	print('int(_LimList[1]-MinInt)/_SampleInt is')
+	print(int(_LimList[1]-MinInt)/_SampleInt)
+	print('')
+	'''
+	
+	#return
+	TickIntsArray=numpy.array(
+		range(
+				MinInt,
+				int(_LimList[1]),
+				int(_LimList[1]-MinInt)/_SampleInt
+			)+[int(_LimList[1])]
+	)
+
+	#Debug
+	'''
+	print('TickIntsArray l 2536')
+	print('TickIntsArray is')
+	print(TickIntsArray)
+	print('')
+	'''
+
+	#return 
+	return TickIntsArray
+
 def getFloatStr(_Float):
 
 	#Debug

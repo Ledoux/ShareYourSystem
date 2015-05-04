@@ -9,8 +9,10 @@ import ShareYourSystem as SYS
 # Build the model
 #
 
-#set
-BrianingDebugVariable=25.
+#Simulation time
+SimulationTimeFloat=150.
+#SimulationTimeFloat=0.2
+BrianingDebugVariable=0.1 if SimulationTimeFloat<0.5 else 25.
 
 #Define
 MyPredicter=SYS.PredicterClass(
@@ -23,15 +25,19 @@ MyPredicter=SYS.PredicterClass(
 					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Encod':{
-							#'BrianingDebugVariable':BrianingDebugVariable
+							'BrianingDebugVariable':BrianingDebugVariable
 						}
 					}
 				}),
 				('|Agent',{
 					'LeakingMonitorIndexIntsList':[0],
+					'LeakingNoiseStdVariable':0.05,
 					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Fast':{
+							'BrianingDebugVariable':BrianingDebugVariable
+						},
+						'|Antileak':{
 							'BrianingDebugVariable':BrianingDebugVariable
 						}
 					},
@@ -39,7 +45,7 @@ MyPredicter=SYS.PredicterClass(
 				}),
 				('|Decoder',{
 					'LeakingMonitorIndexIntsList':[0],
-					#'BrianingDebugVariable':BrianingDebugVariable
+					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Slow':{
 							'BrianingDebugVariable':BrianingDebugVariable,
@@ -51,18 +57,29 @@ MyPredicter=SYS.PredicterClass(
 		}
 	).predict(
 		_AgentUnitsInt=1,
-		_CommandVariable="#custom:#clock:20*ms:1.*mV+1.*mV*int(t==20*ms)",#2.,
-		_DecoderVariable=[2.],
-		_InteractionStr="Spike"
+		_JacobianVariable={
+			'ModeStr':"Track",
+			'ConstantTimeFloat':2. #(ms)
+		},
+		_CommandVariable="#custom:#clock:50*ms:1.*mV+1.*mV*int(t==50*ms)",#2.,
+		_DecoderVariable=[1.],
+		_InteractionStr="Spike",
+		#_FastPlasticBool=True,
+		#_AgentResetVariable=-60.5
 	).simulate(
-		50.
+		SimulationTimeFloat
 	)
 
 #/###################/#
 # View
 #
 
-MyPredicter.view(
+MyPredicter.mapSetAllMro(
+		{
+			'PyplotingPrintBool':False,
+			'BrianingPrintBool':False
+		}
+	).view(
 	).pyplot(
 	)
 SYS.matplotlib.pyplot.show()
@@ -75,4 +92,5 @@ SYS.matplotlib.pyplot.show()
 #Definition the AttestedStr
 print('MyPredicter is ')
 SYS._print(MyPredicter) 
+
 

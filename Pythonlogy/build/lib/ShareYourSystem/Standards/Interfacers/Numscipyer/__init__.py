@@ -226,10 +226,20 @@ class NumscipyerClass(BaseClass):
 				)
 				'''
 
-				#set
-				self.NumscipiedRandomFloatsArray=self.NumscipiedContinuousStatRigidFunction(
-					size=self.NumscipyingSizeTuple
-				)
+				#Check
+				if self.NumscipiedContinuousStatRigidFunction!=None:
+
+					#set
+					self.NumscipiedRandomFloatsArray=self.NumscipiedContinuousStatRigidFunction(
+						size=self.NumscipyingSizeTuple
+					)
+
+				else:
+
+					#set
+					self.NumscipiedRandomFloatsArray=self.NumscipyingMeanFloat*np.ones(
+						self.NumscipyingSizeTuple
+					)
 
 
 		#debug
