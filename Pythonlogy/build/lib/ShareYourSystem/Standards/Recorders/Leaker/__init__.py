@@ -856,6 +856,7 @@ class LeakerClass(BaseClass):
 		#
 
 		#debug
+		'''
 		self.debug(
 			[
 				('self.',self,[
@@ -863,6 +864,7 @@ class LeakerClass(BaseClass):
 				])
 			]
 		)
+		'''
 
 		#Check
 		if self.RecordingLabelVariable!=None:
@@ -3326,6 +3328,7 @@ class LeakerClass(BaseClass):
 			)
 
 		#debug
+		'''
 		self.debug(
 			[
 				'In the end',
@@ -3334,7 +3337,8 @@ class LeakerClass(BaseClass):
 				])
 			]
 		)
-
+		'''
+		
 		#/################/#
 		# Call the base
 		#

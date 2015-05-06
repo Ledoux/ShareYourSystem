@@ -40,8 +40,8 @@ SYS.TeamDict=TeamDict
 class TeamerClass(BaseClass):
 
 	def default_init(self,
-				_ManagementTagStr="",
-				_ManagementIndexInt=-1,
+				_TeamTagStr="",
+				_TeamIndexInt=-1,
 				_TeamDict=None,
 				_TeamingKeyStr="",	
 				_TeamingValueRigidVariable=None,	
@@ -51,6 +51,7 @@ class TeamerClass(BaseClass):
 				_TeamingBeforeSetVariable=None,
 				_TeamingAfterSetVariable=None,
 				_TeamingWrapBool=True,
+				_TeamingIndexInt=-1,
 				_TeamedValueVariable=None,	
 				_TeamedInBool=False,
 				_TeamedOnceBool=False,																
@@ -227,10 +228,43 @@ class TeamerClass(BaseClass):
 			# Set different way to access it in the object
 			# 
 
-			#put in the dict
-			self.TeamDict[
-				self.TeamingKeyStr
-			]=self.TeamedValueVariable
+			#Check
+			if self.TeamingIndexInt>-1:
+
+				#debug
+				'''
+				self.debug(
+					[
+						'We team by inserting',
+						('self.',self,[
+								'TeamingIndexInt'
+							])
+					]
+				)
+				'''
+
+				#insert
+				self.TeamDict.insert(
+					self.TeamingIndexInt,
+					self.TeamedValueVariable,
+					self.TeamingKeyStr
+				)
+
+			else:
+
+				#debug
+				'''
+				self.debug(
+					[
+						'We team by just setting'
+					]
+				)
+				'''
+				
+				#put in the dict
+				self.TeamDict[
+					self.TeamingKeyStr
+				]=self.TeamedValueVariable
 
 			#Check
 			if self.TeamingWrapBool:
@@ -257,7 +291,10 @@ class TeamerClass(BaseClass):
 				self.TeamedValueVariable.TeamTagStr=self.TeamingKeyStr
 
 				#index
-				self.TeamedValueVariable.TeamIndexInt=len(self.TeamDict)-1
+				if self.TeamingIndexInt>-1:
+					self.TeamedValueVariable.TeamIndexInt=self.TeamingIndexInt
+				else:
+					self.TeamedValueVariable.TeamIndexInt=len(self.TeamDict)-1
 
 				#/##########################/
 				# If there are shared before set values
@@ -558,7 +595,7 @@ class TeamerClass(BaseClass):
 	def __contains__(self,_KeyStr):
 		return _KeyStr in self.ManagementDict
 
-	def getTeamer(self,_KeyStr):
+	def getTeamer(self,_KeyStr,_IndexInt=-1):
 
 		#Check
 		if _KeyStr in self.TeamDict:
@@ -572,7 +609,8 @@ class TeamerClass(BaseClass):
 
 			#team
 			return self.team(
-				_KeyStr
+				_KeyStr,
+				_IndexInt=_IndexInt
 			).TeamedValueVariable
 		
 #</DefineClass>
@@ -581,8 +619,8 @@ class TeamerClass(BaseClass):
 #</DefinePrint>
 TeamerClass.PrintingClassSkipKeyStrsList.extend(
 	[
-		'ManagementTagStr',
-		'ManagementIndexInt',
+		'TeamTagStr',
+		'TeamIndexInt',
 		'TeamDict',
 		'TeamingKeyStr',
 		'TeamingValueRigidVariable',
@@ -593,6 +631,7 @@ TeamerClass.PrintingClassSkipKeyStrsList.extend(
 		'TeamingBeforeSetVariable',
 		'TeamingAfterSetVariable',
 		'TeamingWrapBool',
+		'TeamingIndexInt',
 		'TeamedValueVariable',
 		'TeamedInBool',
 		'TeamedOnceBool'

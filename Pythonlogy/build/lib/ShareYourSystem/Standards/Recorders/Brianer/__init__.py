@@ -1423,6 +1423,7 @@ class BrianerClass(BaseClass):
 	def brianSample(self):
 
 		#debug
+		'''
 		self.debug(
 			[
 				'It is a Sample State Moniter level',
@@ -1432,6 +1433,7 @@ class BrianerClass(BaseClass):
 						])
 			]
 		)
+		'''
 
 		#/####################/#
 		# Set the parent
@@ -1490,6 +1492,7 @@ class BrianerClass(BaseClass):
 			#
 		
 			#debug
+			'''
 			self.debug(
 				[
 					'We set the state monitor',
@@ -1504,7 +1507,8 @@ class BrianerClass(BaseClass):
 					#str(self.ParentedTotalManagementOrderedDict.keys())
 				]
 			)
-
+			'''
+			
 			#import
 			from brian2 import StateMonitor
 

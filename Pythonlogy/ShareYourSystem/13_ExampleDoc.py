@@ -2,15 +2,21 @@
 #ImportModules
 import ShareYourSystem as SYS
 
-#get
-print(SYS.getFloatStr(4.))
-print('ET LA \n')
-print(SYS.getFloatStr(0.4))
-print('ET LA \n')
-print(SYS.getFloatStr(0.45))
-print('ET LA \n')
-print(SYS.getFloatStr(0.456))
-print('ET LA \n')
-print(SYS.getFloatStr(0.0456))
-print('ET LA \n')
-print(SYS.getFloatStr(0.00456))
+#init
+MyListDict=SYS.ListDict()
+
+#update
+MyListDict.update(
+	[
+		('MyInt',66),
+		('MyDict',{'n':22})
+	]
+)
+
+#insert
+MyListDict.insert(1,'salut')
+MyListDict.insert(1,'bonjour','MyStr')
+
+#print
+print('MyListDict is ')
+print(MyListDict)

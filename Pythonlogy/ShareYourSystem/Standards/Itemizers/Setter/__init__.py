@@ -344,8 +344,11 @@ class ArgumentDict(collections.OrderedDict):
 
 		else:
 
-			#append
-			self['LiargVariablesList'].append(_ArgumentDict)
+			#Check
+			if _ArgumentDict!="Noarg":
+
+				#append
+				self['LiargVariablesList'].append(_ArgumentDict)
 
 #</DefineLocals>
 
@@ -1621,7 +1624,6 @@ class SetterClass(BaseClass):
 			)
 
 		#debug
-		'''
 		self.debug(
 				[
 					'We have setted the map arguments',
@@ -1629,7 +1631,6 @@ class SetterClass(BaseClass):
 					SYS._str(ArgumentTuplesList),
 				]
 			)
-		'''
 
 		#alias
 		get=SYS.get

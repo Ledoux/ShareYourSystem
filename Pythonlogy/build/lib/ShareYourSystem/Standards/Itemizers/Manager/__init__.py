@@ -32,6 +32,7 @@ ManagementChildPrefixStr="|"
 ManagementDirectChildPrefixStr="|#direct:"
 sort=SYS.sort
 class ManagementDict(SYS.ListDict):
+	
 	def sort(self):
 
 		#/#################/#
@@ -78,8 +79,8 @@ class ManagerClass(BaseClass):
 
 	def default_init(
 				self,
-				_TeamTagStr="",
-				_TeamIndexInt=-1,
+				_ManagementTagStr="",
+				_ManagementIndexInt=-1,
 				_ManagementDict=None,
 				_ManagingKeyStr="",
 				_ManagingValueRigidVariable=None,
@@ -88,6 +89,7 @@ class ManagerClass(BaseClass):
 				_ManagingAfterSetVariable=None,
 				_ManagingClassesDict=None,
 				_ManagingWrapBool=True,
+				_ManagingIndexInt=-1,
 				_ManagedValueVariable=None,
 				_ManagedInBool=False,
 				_ManagedOnceBool=False,
@@ -297,6 +299,45 @@ class ManagerClass(BaseClass):
 			# Set different way to access it in the object
 			# 
 
+			#Check
+			if self.ManagingIndexInt>-1:
+
+				#debug
+				'''
+				self.debug(
+					[
+						'We manage by inserting',
+						('self.',self,[
+								'ManagingIndexInt'
+							])
+					]
+				)
+				'''
+
+				#insert
+				self.ManagementDict.insert(
+					self.ManagingIndexInt,
+					self.ManagedValueVariable,
+					self.ManagingKeyStr
+				)
+
+			else:
+
+				#debug
+				'''
+				self.debug(
+					[
+						'We manage by just setting'
+					]
+				)
+				'''
+
+				#put in the dict
+				self.ManagementDict[
+					self.ManagingKeyStr
+				]=self.ManagedValueVariable
+
+
 			#put in the dict
 			self.ManagementDict[
 				self.ManagingKeyStr
@@ -336,7 +377,10 @@ class ManagerClass(BaseClass):
 				self.ManagedValueVariable.ManagementTagStr=self.ManagingKeyStr
 
 				#index
-				self.ManagedValueVariable.ManagementIndexInt=len(self.ManagementDict)-1
+				if self.ManagingIndexInt>-1:
+					self.ManagedValueVariable.ManagementIndexInt=self.ManagingIndexInt
+				else:
+					self.ManagedValueVariable.ManagementIndexInt=len(self.ManagementDict)-1
 
 				#/##########################/
 				# If there are shared before set values
@@ -671,7 +715,7 @@ class ManagerClass(BaseClass):
 	def __contains__(self,_KeyStr):
 		return _KeyStr in self.ManagementDict
 
-	def getManager(self,_KeyStr):
+	def getManager(self,_KeyStr,_IndexInt=-1):
 
 		#Check
 		if _KeyStr in self.ManagementDict:
@@ -685,7 +729,8 @@ class ManagerClass(BaseClass):
 
 			#manage
 			return self.manage(
-				_KeyStr
+				_KeyStr,
+				_IndexInt=_IndexInt
 			).ManagedValueVariable
 
 
@@ -697,8 +742,8 @@ SYS.TeamerClass.TeamingValueClass=ManagerClass
 #</DefinePrint>
 ManagerClass.PrintingClassSkipKeyStrsList.extend(
 	[
-		'TeamTagStr',
-		'TeamIndexInt',
+		'ManagementTagStr',
+		'ManagementIndexInt',
 		'ManagementDict',
 		'ManagingKeyStr',
 		'ManagingValueRigidVariable',
@@ -707,6 +752,7 @@ ManagerClass.PrintingClassSkipKeyStrsList.extend(
 		'ManagingBeforeSetVariable',
 		'ManagingAfterSetVariable',
 		'ManagingWrapBool',
+		'ManagingIndexInt',
 		'ManagedValueVariable',
 		'ManagedInBool',
 		'ManagedOnceBool'

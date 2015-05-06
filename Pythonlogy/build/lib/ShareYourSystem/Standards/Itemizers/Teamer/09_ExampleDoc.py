@@ -10,7 +10,7 @@ print('MyTeamDict is ')
 SYS._print(MyTeamDict)
 
 #get
-print(MyTeamDict.get(0))
-print(MyTeamDict.get(1))
+print(MyTeamDict.getValue(0))
+print(MyTeamDict.getValue(1))
 
 

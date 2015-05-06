@@ -2414,6 +2414,37 @@ class ListDict(collections.OrderedDict):
 		#return
 		return self[NextVariable]
 
+	def insert(self,_IndexInt,_ValueVariable,_KeyVariable=None):
+
+		#get
+		KeyVariablesList=self.keys()
+		ValueVariablesList=self.values()
+
+		#del
+		map(
+			lambda __KeyVariable:
+			self.__delitem__(
+				__KeyVariable
+			),
+			KeyVariablesList
+		)
+
+		#set
+		KeyStr=str(_IndexInt) if _KeyVariable==None else _KeyVariable
+
+		#insert
+		KeyVariablesList.insert(_IndexInt,KeyStr)
+		ValueVariablesList.insert(_IndexInt,_ValueVariable)
+
+		#update
+		self.update(
+			zip(
+					KeyVariablesList,
+					ValueVariablesList
+				)
+		)
+
+
 class MethodDict(collections.OrderedDict):
 
 	def __init__(self,_Class=None):

@@ -1044,6 +1044,15 @@ class ParenterClass(BaseClass):
 		else:
 			return (_KeyStr in self.TeamDict) or (_KeyStr in self.ManagementDict)
 
+	def __len__(self):
+
+		#Check
+		if self.TeamedOnceBool:
+			return len(self.TeamDict)
+		elif self.TeamedOnceBool:
+			return len(self.ManagementDict)
+		else:
+			return 0
 #</DefineClass>
 
 #Set

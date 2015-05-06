@@ -391,12 +391,14 @@ class PredicterClass(BaseClass):
 		if self.PredictingDecoderProbabilityFloat>0.:
 
 			#debug
+			'''
 			self.debug(
 				[
 					'The decoder is built from a sparse matrix, so it infers that',
 					'the number of sensors is the same as the number of agents'
 				]
 			)
+			'''
 
 			#set
 			self.PredictingSensorUnitsInt=self.PredictingAgentUnitsInt
@@ -510,6 +512,7 @@ class PredicterClass(BaseClass):
 				self.NumscipyingMeanFloat=self.NumscipyingMeanFloat=self.PredictingDecoderMeanFloat
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We have setted the mean of the decoder to have neuron threshold',
@@ -519,6 +522,7 @@ class PredicterClass(BaseClass):
 						])
 				]
 			)
+			'''
 
 			#numscipy
 			self.NumscipyingProbabilityFloat=self.PredictingDecoderProbabilityFloat
@@ -672,6 +676,7 @@ class PredicterClass(BaseClass):
 			)
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We have setted the thresholds',
@@ -681,6 +686,7 @@ class PredicterClass(BaseClass):
 						])
 				]
 			)
+			'''
 
 		#/################/#
 		# PredictingDynamicBool Case
@@ -1354,11 +1360,13 @@ class PredicterClass(BaseClass):
 			if self.PredictedNetworkDerivePredicterVariable.PredictingDecoderProbabilityFloat>0.:
 
 				#debug
+				'''
 				self.debug(
 					[
 						'We are going to compute the stats in the decoder'
 					]
-				)
+				)	
+				'''
 
 				#Check
 				self.LeakingGlobalBool=True

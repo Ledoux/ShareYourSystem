@@ -14,11 +14,18 @@ MyTeamer.team(
 		#TeamingKeyStr
 		'Partners',
 		#TeamingValueVariable
-		SYS.PointerClass()
+		SYS.CommanderClass()
 	)
 
 #With a set
-MyTeamer['-Clients']=SYS.PointerClass()
+MyTeamer['-Clients']=SYS.CommanderClass()
+
+#With also a team insert
+MyTeamer.team(
+		'Collegues',
+		_IndexInt=1
+	)
+
 
 #print
 print('MyTeamer is ')

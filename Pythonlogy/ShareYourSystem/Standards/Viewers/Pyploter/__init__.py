@@ -222,6 +222,19 @@ class PyploterClass(BaseClass):
 				#set
 				self.PyplotedParentFigureDerivePyploterVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
 
+				#/#################/#
+				# pyplotPanel
+				#
+
+				#debug
+				'''
+				self.debug(
+					[
+						'pyplotPanel'
+					]
+				)
+				'''
+
 				#pyplotPanel
 				self.pyplotPanel()
 
@@ -259,7 +272,6 @@ class PyploterClass(BaseClass):
 								]
 							)	
 							'''
-
 
 							#alias
 							self.PyplotedParentPanelDerivePyploterVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
@@ -654,7 +666,51 @@ class PyploterClass(BaseClass):
 		'''
 
 		#set
-		self.PyplotedCursorIntsList=[0,0]
+		if self.ManagementIndexInt>0:
+
+			#debug
+			self.debug(
+				[
+					'self.ParentDeriveTeamerVariable.ManagementDict.keys() is',
+					str(self.ParentDeriveTeamerVariable.ManagementDict),
+					('self.',self,['ManagementIndexInt'])
+				]
+			)
+
+			#get
+			self.PyplotedCursorIntsList=self.ParentDeriveTeamerVariable.ManagementDict.getValue(
+				self.ManagementIndexInt-1
+			).PyplotedCursorIntsList
+
+		else:
+
+			#Check
+			self.PyplotedCursorIntsList=[0,0]
+
+
+		#get
+		PyplotedLabelDerivePyploter=self.getTeamer(
+			'Charts'
+		).getManager(
+			'Label',
+			0
+		)
+
+		#set the size
+		PyplotedLabelDerivePyploter.PyplotingShapeVariable=(2,2)
+
+		#set
+		PyplotedLabelDerivePyploter.PyplotingChartVariable=[
+			('plot',[]),
+			('text',{
+						'#liarg':[0,0,self.ManagementTagStr],
+						'#kwarg':{
+							'fontsize':20
+						}
+					}
+			),
+			('set_axis_off',"Noarg")
+		]
 
 	def pyplotAxe(self,_AxeStr):
 
@@ -851,7 +907,6 @@ class PyploterClass(BaseClass):
 		#
 
 		#debug
-		'''
 		self.debug(
 			[
 				'We pyplot Chart here',
@@ -860,10 +915,13 @@ class PyploterClass(BaseClass):
 				])
 			]
 		)
-		'''
 
 		#Check
 		if self.PyplotingChartVariable!=None:
+
+			#Check
+			if self.PyplotedChartTuplesList==None:
+				self.PyplotedChartTuplesList=[]
 
 			#copy
 			self.PyplotedChartTuplesList+=copy.copy(
@@ -1162,6 +1220,19 @@ class PyploterClass(BaseClass):
 			)
 		'''
 
+		#/#################/#
+		# Direct set if there are no draws
+		#
+
+		#Check
+		if 'Draws' not in self.TeamDict or len(self.TeamDict['Draws'])==0:
+
+			#map argument
+			self.mapArgument(
+				self.PyplotedAxesVariable,
+				self.PyplotedChartTuplesList
+			)
+
 	def pyplotDraw(self):
 
 		#/#################/#
@@ -1258,7 +1329,7 @@ class PyploterClass(BaseClass):
 				#Check
 				if len(
 					self.PyplotedParentChartDerivePyploterVariable.PyplotedChartTuplesList
-					)>0:
+				)>0:
 
 					#/#################/#
 					# We map argument in the axes
