@@ -2611,7 +2611,7 @@ def getTickIntsArray(_LimList,_SampleInt):
 	import numpy
 
 	#max
-	MinInt=max(0,_LimList[0])
+	MinInt=max(0,int(_LimList[0]))
 
 	#Debug
 	'''
@@ -2626,12 +2626,17 @@ def getTickIntsArray(_LimList,_SampleInt):
 	print('')
 	'''
 	
+	#set
+	StepInt=int(_LimList[1]-MinInt)/_SampleInt
+	if StepInt==0:
+		StepInt=1
+
 	#return
 	TickIntsArray=numpy.array(
 		range(
 				MinInt,
 				int(_LimList[1]),
-				int(_LimList[1]-MinInt)/_SampleInt
+				StepInt
 			)+[int(_LimList[1])]
 	)
 

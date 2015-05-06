@@ -18,7 +18,6 @@ MyLeaker=SYS.LeakerClass(
 				'|P':{
 					'LeakingUnitsInt':2,
 					'LeakingSymbolPrefixStr':'V',
-					'LeakingMonitorIndexIntsList':[0,1],
 					'-Inputs':{
 						'|Rest':{
 							'LeakingWeigthVariable':'#scalar:-60*mV'
@@ -44,7 +43,8 @@ MyLeaker=SYS.LeakerClass(
 							'LeakingWeigthVariable':[[0.,0.],[-2.,0.]],#[[0.,-0.01],[0.,0.]]
 							'LeakingInteractionStr':"Spike"
 						}
-					}
+					},
+					'BrianingMonitorIndexIntsList':[0,1]
 					#'BrianingDebugVariable':100
 				}
 			}
@@ -77,27 +77,3 @@ print('MyLeaker is ')
 SYS._print(MyLeaker) 
 
 
-"""
-from brian2 import *
-from matplotlib import pyplot
-Vr=[0.5,0.6]
-G=NeuronGroup(2,'''Vr:1
-				dv/dt=(-v+1)/(1.*ms) : 1''',threshold='v>Vr',reset='v=0')
-M=StateMonitor(G,'v',[0,1])
-N=Network()
-N.add(G)
-N.add(M)
-print(G.Vr)
-G.Vr[:]=Vr
-N.run(5*ms)
-pyplot.plot(
-	M.t,M.v.T
-)
-pyplot.show()
-"""
-"""
-from brian2 import CodeObject
-
-print(help(CodeObject))
-
-"""

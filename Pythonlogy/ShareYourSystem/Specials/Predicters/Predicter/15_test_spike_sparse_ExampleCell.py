@@ -16,10 +16,10 @@ BrianingDebugVariable=25.
 MyPredicter=SYS.PredicterClass(
 	).mapSet(
 		{
-			'BrianingStepTimeFloat':0.05,
+			'BrianingStepTimeFloat':0.01,
 			'-Populations':[
 				('|Sensor',{
-					'LeakingMonitorIndexIntsList':[0],
+					'LeakingMonitorIndexIntsList':[0,1],
 					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Encod':{
@@ -38,7 +38,7 @@ MyPredicter=SYS.PredicterClass(
 					#'LeakingNoiseStdVariable':0.01
 				}),
 				('|Decoder',{
-					'LeakingMonitorIndexIntsList':[0],
+					'LeakingMonitorIndexIntsList':[0,1],
 					#'BrianingDebugVariable':BrianingDebugVariable
 					'-Interactions':{
 						'|Slow':{
@@ -54,8 +54,8 @@ MyPredicter=SYS.PredicterClass(
 		_CommandVariable="#custom:#clock:20*ms:1.*mV+1.*mV*int(t==20*ms)",#2.,
 		_DecoderVariable="#array",
 		_DecoderStdFloat=0.,
-		_DecoderMeanFloat=2.,
-		#_AgentResetVariable=-60.5
+		_DecoderProbabilityFloat=0.2,
+		#_AgentResetVariable=-60.,
 		_InteractionStr="Spike"
 	).simulate(
 		50.

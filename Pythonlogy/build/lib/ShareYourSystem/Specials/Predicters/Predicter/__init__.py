@@ -67,6 +67,7 @@ class PredicterClass(BaseClass):
 			_PredictingEncodPerturbStdFloat=0.,
 			_PredictingRateCostVariable=None,
 			_PredictingRateTransferVariable=None,
+			_PredictingAgentThresholdVariable=10.,
 			_PredictingAgentRestVariable=None,
 			_PredictingAgentResetVariable=None,
 			_PredictingAgentTimeFloat=10.,
@@ -400,6 +401,7 @@ class PredicterClass(BaseClass):
 			#set
 			self.PredictingSensorUnitsInt=self.PredictingAgentUnitsInt
 
+
 		#/################/#
 		# Build the Jacobian
 		#
@@ -491,9 +493,35 @@ class PredicterClass(BaseClass):
 		#Check
 		if PredictedDecoderType==str:
 
+			#/################/#
+			# Maybe be we want to scale the weights in order to build realistic neuron threshold
+			#
+
+			#Check
+			if self.PredictingDecoderProbabilityFloat>0.:
+
+				#sqrt
+				self.NumscipyingMeanFloat=np.sqrt(
+					2.*self.PredictingAgentUnitsInt*self.PredictingAgentThresholdVariable/self.PredictingDecoderProbabilityFloat
+				)
+			else:
+
+				#set
+				self.NumscipyingMeanFloat=self.NumscipyingMeanFloat=self.PredictingDecoderMeanFloat
+
+			#debug
+			self.debug(
+				[
+					'We have setted the mean of the decoder to have neuron threshold',
+					('self.',self,[
+							'NumscipyingMeanFloat',
+							'PredictingDecoderProbabilityFloat'
+						])
+				]
+			)
+
 			#numscipy
 			self.NumscipyingProbabilityFloat=self.PredictingDecoderProbabilityFloat
-			self.NumscipyingMeanFloat=self.PredictingDecoderMeanFloat
 			self.NumscipyingStdFloat=self.PredictingDecoderStdFloat
 			self.NumscipyingRowsInt=self.PredictingSensorUnitsInt
 			self.NumscipyingColsInt=self.PredictingAgentUnitsInt
@@ -632,6 +660,8 @@ class PredicterClass(BaseClass):
 			#self.PredictedThresholdFloatsArray=np.sum(
 			#	(self.PredictedDecoderFloatsArray**2)/2.,axis=0
 			#)
+
+		
 			#set
 			self.PredictedThresholdFloatsArray=np.array(
 				[
@@ -642,7 +672,6 @@ class PredicterClass(BaseClass):
 			)
 
 			#debug
-			'''
 			self.debug(
 				[
 					'We have setted the thresholds',
@@ -652,7 +681,6 @@ class PredicterClass(BaseClass):
 						])
 				]
 			)
-			'''
 
 		#/################/#
 		# PredictingDynamicBool Case
@@ -1318,6 +1346,23 @@ class PredicterClass(BaseClass):
 			self.PredictedNetworkDerivePredicterVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
 
 			
+			#/####################/#
+			# Determine if we have to compute the stats
+			#
+
+			#Check
+			if self.PredictedNetworkDerivePredicterVariable.PredictingDecoderProbabilityFloat>0.:
+
+				#debug
+				self.debug(
+					[
+						'We are going to compute the stats in the decoder'
+					]
+				)
+
+				#Check
+				self.LeakingGlobalBool=True
+
 			#/####################/#
 			# Determine the number of leaking units
 			#

@@ -1584,6 +1584,14 @@ class PyploterClass(BaseClass):
 		'''
 
 
+	def show(self):
+
+		#import
+		from matplotlib import pyplot
+
+		#show
+		pyplot.show()
+
 	def mimic__print(self,**_KwargVariablesDict):
 
 		#/##################/#

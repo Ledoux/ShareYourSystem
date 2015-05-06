@@ -17,14 +17,14 @@ MyLeaker=SYS.LeakerClass(
 			'-Populations':{
 				'|P':{
 					'LeakingUnitsInt':100,
-					'LeakingMonitorIndexIntsList':[0,1,2],
 					'LeakingTransferVariable':'mV*tanh((#CurrentStr)/mV)',
 					'-Interactions':{
 						'|/':{
 							'LeakingWeigthVariable':'#array',
 						}
 					},
-					'LeakingGlobalBool':True
+					'LeakingGlobalBool':True,
+					'RecordingLabelVariable':[0,1,2]
 				}
 			}
 		}
@@ -37,13 +37,13 @@ MyLeaker=SYS.LeakerClass(
 # View
 #
 
-#MyLeaker.view(
-#	).pyplot(
-#	)
-
-MyLeaker['/-Populations/|P'].view(
+MyLeaker.view(
 	).pyplot(
 	)
+
+#MyLeaker['/-Populations/|P'].view(
+#	).pyplot(
+#	)
 
 SYS.matplotlib.pyplot.show()
 

@@ -190,15 +190,19 @@ class NumscipyerClass(BaseClass):
 						NumscipiedRandomIntsArray,
 					)
 				)
+
+
 			else:
 
 				#just floatify
-				self.NumscipiedRandomFloatsArray=np.array(
+				self.NumscipiedRandomFloatsArray=self.NumscipyingMeanFloat*np.array(
 					map(
 						float,
 						NumscipiedRandomIntsArray
 					)
 				)
+
+
 
 			#reshape
 			self.NumscipiedRandomFloatsArray=self.NumscipiedRandomFloatsArray.reshape(

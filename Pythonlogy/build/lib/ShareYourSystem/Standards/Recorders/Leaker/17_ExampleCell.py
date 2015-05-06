@@ -18,7 +18,6 @@ MyLeaker=SYS.LeakerClass(
 				'|P':{
 					'LeakingUnitsInt':2,
 					'LeakingSymbolPrefixStr':'V',
-					'LeakingMonitorIndexIntsList':[0,1],
 					'-Inputs':{
 						'|Rest':{
 							'LeakingWeigthVariable':'#scalar:-60*mV'
@@ -40,7 +39,8 @@ MyLeaker=SYS.LeakerClass(
 							#'LeakingPlasticVariable':"J-=0.5*J",
 							'RecordingLabelVariable':[1,2]
 						}
-					}
+					},
+					'BrianingMonitorIndexIntsList':[0,1],
 					#'BrianingDebugVariable':100
 				}
 			}

@@ -13,11 +13,10 @@ import ShareYourSystem as SYS
 MyHopfer=SYS.HopferClass(
 	).hopf(
 		_UnitsInt=100,
-		_SymmetryFloat=-0.5,
+		_SymmetryFloat=-0.7,
+	).simulate(
+		200.
 	)
-	#.simulate(
-	#	SimulationTimeFloat
-	#)
 
 #/###################/#
 # View
@@ -25,14 +24,14 @@ MyHopfer=SYS.HopferClass(
 
 MyHopfer.view(
 	).pyplot(
+	).show(
 	)
-SYS.matplotlib.pyplot.show()
 
 #/###################/#
 # Print
 #
 
-#Definition the AttestedStr
+#print
 print('MyHopfer is ')
 SYS._print(MyHopfer) 
 

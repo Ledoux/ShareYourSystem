@@ -45,7 +45,7 @@ MyLeaker=SYS.LeakerClass(
 							)
 						}
 					},
-					'LeakingMonitorIndexIntsList':[0,1]
+					'BrianingMonitorIndexIntsList':[0,1]
 				}
 			}
 		}

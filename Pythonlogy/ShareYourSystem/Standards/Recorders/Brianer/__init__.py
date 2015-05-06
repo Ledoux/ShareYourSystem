@@ -81,6 +81,7 @@ class BrianerClass(BaseClass):
 			_BrianingViewNetworkBool=False,
 			_BrianingActivityStr="",
 			_BrianingPrintBool=True,
+			_BrianingMonitorIndexIntsList=None,
 			_BrianedTimeQuantityVariable=None,
 			_BrianedNetworkVariable=None,
 			_BrianedNeurongroupVariable=None,
@@ -1428,7 +1429,8 @@ class BrianerClass(BaseClass):
 				'It is a Sample State Moniter level',
 				('self.',self,[
 							'RecordingLabelVariable',
-							])
+							'BrianingMonitorIndexIntsList'
+						])
 			]
 		)
 		'''
@@ -1471,7 +1473,20 @@ class BrianerClass(BaseClass):
 		#Check
 		if self.BrianedParentPopulationDeriveBrianerVariable.BrianedNeurongroupVariable!=None:
 
-		
+			#/####################/#
+			# Add in the monitor indexes
+			#
+
+			#map
+			map(
+				lambda __IndexInt:
+				self.BrianingMonitorIndexIntsList.append(
+					__IndexInt
+				) if __IndexInt not in self.BrianingMonitorIndexIntsList
+				else None,
+				self.RecordingLabelVariable
+			)
+
 			#/####################/#
 			# Set the brian monitor
 			#
@@ -1482,16 +1497,18 @@ class BrianerClass(BaseClass):
 				[
 					'We set the state monitor',
 					('self.',self,[
-						#'BrianedParentPopulationDeriveBrianerVariable'
+							#'BrianedParentPopulationDeriveBrianerVariable'
+							'RecordingLabelVariable',
+							'BrianingMonitorIndexIntsList'
 						]),
 					#'self.BrianedParentDeriveRecorderVariable.RecordKeyStr is ',
 					#str(self.BrianedParentDeriveRecorderVariable.RecordKeyStr)
-					'self.ParentedTotalManagementOrderedDict.keys() is ',
-					str(self.ParentedTotalManagementOrderedDict.keys())
+					#'self.ParentedTotalManagementOrderedDict.keys() is ',
+					#str(self.ParentedTotalManagementOrderedDict.keys())
 				]
 			)
 			'''
-
+			
 			#import
 			from brian2 import StateMonitor
 
@@ -1501,7 +1518,7 @@ class BrianerClass(BaseClass):
 					if self.BrianedParentDeriveRecorderVariable.BrianedParentDeriveBrianerStr=="Population"
 					else self.BrianedParentInteractionDeriveBrianerVariable.BrianedSynapsesVariable,
 					self.BrianedParentDeriveRecorderVariable.RecordKeyStr,
-					self.RecordingLabelVariable
+					self.BrianingMonitorIndexIntsList
 				)
 
 			#debug
@@ -1628,12 +1645,14 @@ class BrianerClass(BaseClass):
 		]) and self.BrianedParentSingularStr!='Population':
 
 			#debug
+			'''
 			self.debug(
 				[
 					'It is a Network level',
-					'We sructure view'
+					'We structure view'
 				]
 			)
+			'''
 
 			#/########################/#
 			# Special Network level
@@ -1706,11 +1725,13 @@ class BrianerClass(BaseClass):
 			# 
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We view structure in all the brian children...',
 				]
 			)
+			'''
 
 			#structure
 			self.structure(
@@ -1730,11 +1751,13 @@ class BrianerClass(BaseClass):
 			)
 
 			#debug
+			'''
 			self.debug(
 				[
 					'Ok we have view structured all the brian children...',
 				]
 			)	
+			'''
 
 		elif self.BrianedParentSingularStr!="":
 
@@ -1797,11 +1820,13 @@ class BrianerClass(BaseClass):
 	def viewPopulation(self):
 
 		#debug
+		'''
 		self.debug(
 			[
 				'we view population brian here'
 			]
 		)
+		'''
 
 		#Check
 		if self.BrianingViewNetworkBool==False:
@@ -3520,6 +3545,7 @@ BrianerClass.PrintingClassSkipKeyStrsList.extend(
 		'BrianingViewNetworkBool',
 		'BrianingActivityStr',
 		'BrianingPrintBool',
+		'BrianingMonitorIndexIntsList',
 		'BrianedTimeQuantityVariable',
 		'BrianedNetworkVariable',
 		'BrianedNeurongroupVariable',

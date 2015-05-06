@@ -16,9 +16,8 @@ MyLeaker=SYS.LeakerClass(
 		{
 			'-Populations':{
 				'|P':{
-					'LeakingUnitsInt':2,
+					'LeakingUnitsInt':3,
 					'LeakingSymbolPrefixStr':'V',
-					'LeakingMonitorIndexIntsList':[0,1],
 					'-Inputs':{
 						'|Rest':{
 							'LeakingWeigthVariable':'#scalar:-60*mV'
@@ -36,6 +35,7 @@ MyLeaker=SYS.LeakerClass(
 					#	'ThresholdVariable':[-55.,-52.5,-50.]
 					#},
 					'LeakingResetVariable':'#scalar:V=-70*mV',
+					'BrianingMonitorIndexIntsList':[0,1,2],
 					#'BrianingDebugVariable':100
 				}
 			}
