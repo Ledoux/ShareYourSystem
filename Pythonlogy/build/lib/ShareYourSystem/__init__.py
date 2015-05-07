@@ -1453,6 +1453,16 @@ def endswith(_FirstStr,_SecondStr):
 
 def set(_Variable,_KeyVariable,_ValueVariable):
 
+	#Debug
+	'''
+	print('We set SYS here l 1457')
+	print('_Variable is')
+	print(_Variable)
+	print('_KeyVariable is ')
+	print(_KeyVariable)
+	print('')
+	'''
+
 	#Check
 	if type(_KeyVariable)==str:
 
@@ -1620,8 +1630,8 @@ def set(_Variable,_KeyVariable,_ValueVariable):
 				#call
 				_GetVariable(*_ValueVariable)
 
-		#return
-		return _Variable
+			#return
+			return _Variable
 
 
 	#/#################/#
@@ -1656,7 +1666,7 @@ def set(_Variable,_KeyVariable,_ValueVariable):
 	print('_KeyStr')
 	print('')
 	'''
-
+	
 	#set
 	setattr(
 			_Variable,
@@ -2361,16 +2371,26 @@ class ListDict(collections.OrderedDict):
 	def getKey(self,_IndexInt):
 
 		#iterkeys
-		Iterator=self.iterkeys()
+		if _IndexInt>=0:
+			Iterator=self.iterkeys()
+			IndexInt=_IndexInt
+		else:
+			Iterator=reversed(self.keys())
+			IndexInt=-_IndexInt
 		
 		#next
 		if _IndexInt==0:
+
+			#next
 			NextVariable=Iterator.next()
+
 		else:
+
+			#map
 			NextVariable=map(
 				lambda __Int:
 				Iterator.next(),
-				xrange(_IndexInt+1)
+				xrange(IndexInt+1)
 			)[-1]
 
 		#return
@@ -2379,26 +2399,42 @@ class ListDict(collections.OrderedDict):
 	def getValue(self,_IndexInt):
 
 		#iterkeys
-		Iterator=self.iterkeys()
-		
+		if _IndexInt>=0:
+			Iterator=self.iterkeys()
+			#DebugIterator=self.iterkeys()
+			IndexInt=_IndexInt
+		else:
+			Iterator=reversed(self.keys())
+			#DebugIterator=reversed(self.keys())
+			IndexInt=-_IndexInt-1
+
 		#Debug
 		'''
 		print('getValue l 2385')
 		print('_IndexInt is ')
 		print(_IndexInt)
-		print('self is ')
-		print(self)
+		print('IndexInt is ')
+		print(IndexInt)
+		print('list(DebugIterator) is ')
+		print(list(DebugIterator))
+		#print('self is ')
+		#print(self)
 		print('')
 		'''
-		
+
 		#next
-		if _IndexInt==0:
+		if IndexInt==0:
+
+			#next
 			NextVariable=Iterator.next()
+
 		else:
+
+			#map
 			NextVariable=map(
 				lambda __Int:
 				Iterator.next(),
-				xrange(_IndexInt+1)
+				xrange(IndexInt+1)
 			)[-1]
 
 		#Debug
@@ -2406,6 +2442,8 @@ class ListDict(collections.OrderedDict):
 		print('getValue l 2385')
 		print('_IndexInt is ')
 		print(_IndexInt)
+		print('IndexInt is ')
+		print(IndexInt)
 		print('NextVariable is ')
 		print(NextVariable)
 		print('')
@@ -2414,7 +2452,12 @@ class ListDict(collections.OrderedDict):
 		#return
 		return self[NextVariable]
 
-	def insert(self,_IndexInt,_ValueVariable,_KeyVariable=None):
+	def insert(self,
+			_IndexInt,
+			_ValueVariable,
+			_KeyVariable=None,
+			_PrefixKeyStr=""
+		):
 
 		#get
 		KeyVariablesList=self.keys()
@@ -2443,6 +2486,32 @@ class ListDict(collections.OrderedDict):
 					ValueVariablesList
 				)
 		)
+
+		#Check
+		if _PrefixKeyStr!="":
+
+			#set
+			IndexIntKeyStr=_PrefixKeyStr+"IndexInt"
+
+			#Debug
+			'''
+			print('IndexIntKeyStr is ')
+			print(IndexIntKeyStr)
+			print('KeyVariablesList is ')
+			print(KeyVariablesList)
+			print('')
+			'''
+
+			#map
+			map(
+				lambda __IndexInt:
+				_set(
+					ValueVariablesList[__IndexInt],
+					IndexIntKeyStr,
+					__IndexInt
+				),
+				xrange(len(ValueVariablesList))
+			)
 
 
 class MethodDict(collections.OrderedDict):

@@ -1624,6 +1624,7 @@ class SetterClass(BaseClass):
 			)
 
 		#debug
+		'''
 		self.debug(
 				[
 					'We have setted the map arguments',
@@ -1631,7 +1632,8 @@ class SetterClass(BaseClass):
 					SYS._str(ArgumentTuplesList),
 				]
 			)
-
+		'''
+		
 		#alias
 		get=SYS.get
 

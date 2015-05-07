@@ -20,6 +20,10 @@ SYS.setSubModule(globals())
 SYS.addDo("Viewer","View","Viewing","Viewed")
 #</DefineAugmentation>
 
+#<DefineLocals>
+ViewAlphabetStr="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+#</DefineLocals>
+
 #<ImportSpecificModules>
 from ShareYourSystem.Standards.Controllers import Controller
 import copy

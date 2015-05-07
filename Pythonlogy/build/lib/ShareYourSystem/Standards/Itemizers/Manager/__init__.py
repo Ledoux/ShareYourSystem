@@ -318,7 +318,8 @@ class ManagerClass(BaseClass):
 				self.ManagementDict.insert(
 					self.ManagingIndexInt,
 					self.ManagedValueVariable,
-					self.ManagingKeyStr
+					self.ManagingKeyStr,
+					"Management"
 				)
 
 			else:

@@ -35,7 +35,3 @@ MyHopfer.view(
 print('MyHopfer is ')
 SYS._print(MyHopfer) 
 
-
-
-
-

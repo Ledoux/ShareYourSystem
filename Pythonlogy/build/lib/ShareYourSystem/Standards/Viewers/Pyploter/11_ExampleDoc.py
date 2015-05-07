@@ -79,9 +79,28 @@ MyPyploter=SYS.PyploterClass(
 				),
 				('|B',
 					{
+						'PyplotingShiftVariable':[0,2],
 						'-Charts':
 						[
-							('|a',{
+							
+						]
+					}
+				)
+			]
+		}
+	).pyplot(
+	)
+
+#print
+print('MyPyploter is ')
+SYS._print(MyPyploter)
+
+#show
+SYS.matplotlib.pyplot.show()
+
+
+"""
+('|a',{
 								'-Draws':[
 									('|0',{
 										'PyplotingDrawVariable':
@@ -91,7 +110,7 @@ MyPyploter=SYS.PyploterClass(
 												{
 													'#liarg':[
 														[1,2,3],
-														[2,4,2]
+														[4,2,4]
 													],
 													'#kwarg':{
 														'linestyle':"-",
@@ -100,28 +119,13 @@ MyPyploter=SYS.PyploterClass(
 												}
 											)
 										]
-									}),
-									('|1',{
-										'PyplotingDrawVariable':
-										[
-											(
-												'plot',
-												{
-													'#liarg':[
-														[0,1,2],
-														[4,2,4]
-													],
-													'#kwarg':{
-														'linestyle':"--",
-														'color':'r'
-													}
-												}
-											)
-										],
 									})
 								]
 							}),
-							('|b',{
+"""
+
+"""
+('|b',{
 								'-Draws':[
 									('|0',{
 										'PyplotingDrawVariable':
@@ -143,17 +147,4 @@ MyPyploter=SYS.PyploterClass(
 									})
 								]
 							})
-						]
-					}
-				)
-			]
-		}
-	).pyplot(
-	)
-
-#print
-print('MyPyploter is ')
-SYS._print(MyPyploter)
-
-#show
-SYS.matplotlib.pyplot.show()
+"""

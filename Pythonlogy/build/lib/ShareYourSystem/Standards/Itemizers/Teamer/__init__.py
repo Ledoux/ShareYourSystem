@@ -247,7 +247,8 @@ class TeamerClass(BaseClass):
 				self.TeamDict.insert(
 					self.TeamingIndexInt,
 					self.TeamedValueVariable,
-					self.TeamingKeyStr
+					self.TeamingKeyStr,
+					"Team"
 				)
 
 			else:

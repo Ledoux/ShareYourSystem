@@ -42,3 +42,7 @@ SYS._print(MyTeamer['-.values'])
 #Shortcut for getting all the teamed instances
 print("MyTeamer['-.keys'] is ")
 SYS._print(MyTeamer['-.keys'])
+
+#print
+print("MyTeamer['-Clients'].TeamIndexInt is ")
+print(MyTeamer['-Clients'].TeamIndexInt)

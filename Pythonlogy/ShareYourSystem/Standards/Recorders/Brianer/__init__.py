@@ -1942,7 +1942,7 @@ class BrianerClass(BaseClass):
 					).ManagedValueVariable.mapSetAttr(
 						{
 							'PyplotingChartVariable':__DeriveChartPyploter.PyplotingChartVariable,
-							'PyplotingShapeVariable':(5,17)
+							'PyplotingShapeVariable':[5,17]
 						}
 					).mapSetAttr(
 						map(
@@ -2079,7 +2079,7 @@ class BrianerClass(BaseClass):
 					).ManagedValueVariable.mapSetAttr(
 						{
 							'PyplotingChartVariable':__DeriveChartPyploter.PyplotingChartVariable,
-							'PyplotingShapeVariable':(5,17)
+							'PyplotingShapeVariable':[5,17]
 						}
 					).mapSetAttr(
 						map(

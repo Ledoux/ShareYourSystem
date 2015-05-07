@@ -324,14 +324,17 @@ class HopferClass(BaseClass):
 
 	def mimic_view(self):
 
+		#get the Panels
+		ViewedPanelsDerivePyploter=self.getTeamer(
+			'Panels'
+		)
+
 		#/################/#
 		# Build an Eigen Panel with Charts
 		#
 
 		#get
-		ViewedChartsDerivePyploter=self.getTeamer(
-			'Panels'
-		).getManager(
+		ViewedChartsDerivePyploter=ViewedPanelsDerivePyploter.getManager(
 			'Eigen'
 		).getTeamer(
 			'Charts'
@@ -601,6 +604,16 @@ class HopferClass(BaseClass):
 			_YVariable=ViewedLimFloatsArray
 		)
 		
+		#/################/#
+		# Prepare a Run Panel
+		#
+
+		#get
+		ViewedPanelsDerivePyploter.getManager(
+				'Run'
+			)
+		ViewedPanelsDerivePyploter.PyplotingShiftIntsList=[1,0]
+
 		#/###############/#
 		# Call the base method
 		#
