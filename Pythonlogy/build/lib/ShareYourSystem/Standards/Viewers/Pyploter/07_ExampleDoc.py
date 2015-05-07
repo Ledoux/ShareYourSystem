@@ -6,6 +6,10 @@ import ShareYourSystem as SYS
 MyPyploter=SYS.PyploterClass(
 	).mapSet(
 		{
+			#'PyplotingFigureVariable':{
+			#	'figsize':(10,7)
+			#},
+			#'PyplotingGridIntsTuple':(10,30),
 			'-Charts':
 			[
 				('|a',{

@@ -73,18 +73,18 @@ class PyploterClass(BaseClass):
 						_PyplotedFigureVariable=None,
 						_PyplotedAxesVariable=None,
 						_PyplotedLinesList=None,
-						_PyplotedAnchorIntsList=[0,0],
+						_PyplotedPreviousAnchorIntsList=[0,0],
+						_PyplotedPreviousShapeIntsList=[0,0],
+						_PyplotedAnchorIntsList=None,
 						_PyplotedShiftIntsList=None,
 						_PyplotedHitIntsList=None,
 						_PyplotedPanelShapeIntsList=None,
-						_PyplotedPreviousCursorIntsList=[0,0],
-						_PyplotedCursorIntsList=None,
 						_PyplotedShapeIntsList=[5,5],
 						_PyplotedChartTuplesList=None,
 						_PyplotedDrawTuplesList=None,
 						_PyplotedParentSingularStr="",
-						_PyplotedPreviousChartPyploterVariable=None,
-						_PyplotedPreviousPanelPyploterVariable=None,
+						_PyplotedPreviousChartDerivePyploterVariable=None,
+						_PyplotedPreviousPanelDerivePyploterVariable=None,
 						**_KwargVariablesDict
 					):
 
@@ -302,69 +302,7 @@ class PyploterClass(BaseClass):
 									]
 								)
 							'''
-
-							#set
-							if self.PyplotingShapeVariable==None:
-
-								#debug
-								'''
-								self.debug(
-									[
-										('self.',self,[
-											'PyplotingShiftVariable',
-											'PyplotedCursorIntsList'
-										]),
-										'self.PyplotedParentPanelDerivePyploterVariable.PyplotedCursorIntsList is ',
-										str(self.PyplotedParentPanelDerivePyploterVariable.PyplotedCursorIntsList)
-									]
-								)
-								'''
 								
-								#set	
-								self.PyplotingShapeVariable=list(
-									self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridIntsTuple
-								)
-
-								#/################/#
-								# redetermine PyplotingShiftVariable
- 								#
-
- 								#init
-								if self.PyplotedParentPanelDerivePyploterVariable.PyplotingShiftVariable!=None and self.ManagementIndexInt==0:
-									
-									#alias
-									self.PyplotedShiftIntsList=copy.copy(
-										self.PyplotedParentPanelDerivePyploterVariable.PyplotingShiftVariable
-									)
-
-								elif self.PyplotingShiftVariable==None:
-
-									#set
-									self.PyplotedShiftIntsList=[1,0]
-
-								#/################/#
-								# adapt PyplotedShapeIntsList
- 								#
-
-								#Check
-								if self.PyplotedShiftIntsList[0]>0:
-
-									self.PyplotedShapeIntsList[0]/=len(
-											self.PyplotedParentFigureDerivePyploterVariable.TeamDict[
-												'Charts'
-											].ManagementDict
-										)
-									self.PyplotedShapeIntsList[1]-=2
-									
-								else:
-
-									self.PyplotedShapeIntsList[1]/=len(
-											self.PyplotedParentFigureDerivePyploterVariable.TeamDict[
-												'Charts'
-											].ManagementDict
-										)
-									
-
 				#debug
 				'''
 				self.debug(
@@ -703,7 +641,11 @@ class PyploterClass(BaseClass):
 		PyplotedLabelDerivePyploter.PyplotingChartVariable=[
 			('plot',[]),
 			('text',{
-						'#liarg':[-0.25,-0.2,'$\mathbf{'+PyplotedLabelStr+'}$'],
+						'#liarg':[
+							-0.25,
+							-0.,#0.2,
+							'$\mathbf{'+PyplotedLabelStr+'}$'
+						],
 						'#kwarg':{
 							'fontsize':20,
 						}
@@ -747,41 +689,46 @@ class PyploterClass(BaseClass):
 			ViewedLabelPlot=False
 
 			#/################/#
-			# Redetermine maybe the shift
-			#
+			# Determine the next possible shift
+ 			#
 
 			#init
-			if self.PyplotedParentPanelDerivePyploterVariable.PyplotingShiftVariable!=None and self.ManagementIndexInt==0:
-				
-				#alias
-				self.PyplotedShiftIntsList=copy.copy(
-					self.PyplotedParentPanelDerivePyploterVariable.PyplotingShiftVariable
+			ViewedShiftIntsList=None
+
+			#Check
+			if len(self.ParentDeriveTeamerVariable.ManagementDict)>1:
+
+				#get
+				ViewedNextDerivePyploter=self.ParentDeriveTeamerVariable.ManagementDict.getValue(
+					1
 				)
 
-			elif self.PyplotingShiftVariable==None:
-
-				#set
-				self.PyplotedShiftIntsList=[1,0]
+				#Check
+				if type(ViewedNextDerivePyploter.PyplotingShiftVariable)==list:
+					ViewedShiftIntsList=ViewedNextDerivePyploter.PyplotingShiftVariable[:]
+				else:
+					ViewedShiftIntsList=[1,0]
 
 			#debug
+			'''
 			self.debug(
 				[
-					('self.',self,[
-							'PyplotedShiftIntsList'
-						]
-					)
+					'We have looked to a maybe next plot to see if wee print the label on axes',
+					'ViewedShiftIntsList is '+str(ViewedShiftIntsList)
 				]
 			)
+			'''
 
 			#/################/#
 			# Simplify the labels to print 
 			# if plots are sorted in columns or rows
+			#
 
 			#Check
 			if (
-					_AxeStr=='X' and self.PyplotedShiftIntsList[0]>0
+					_AxeStr=='X' and ViewedShiftIntsList[0]>0
 				) or (
-					_AxeStr=='Y' and self.PyplotedShiftIntsList[1]>0
+					_AxeStr=='Y' and ViewedShiftIntsList[1]>0
 				):
 
 				#Check
@@ -896,28 +843,31 @@ class PyploterClass(BaseClass):
 			ViewedTickLabelPlot=False
 
 			#Check
-			if (
-					_AxeStr=='X' and self.PyplotedShiftIntsList[0]>0
-				) or (
-					_AxeStr=='Y' and self.PyplotedShiftIntsList[1]>0
-				):
+			if ViewedShiftIntsList!=None:
 
 				#Check
-				if self.ManagementIndexInt<len(
-					self.ParentDeriveTeamerVariable.ManagementDict
-				)-1:
+				if (
+						_AxeStr=='X' and ViewedShiftIntsList[0]>0
+					) or (
+						_AxeStr=='Y' and ViewedShiftIntsList[1]>0
+					):
 
-					#append
-					self.PyplotedChartTuplesList.append(
-						(
-							'set_'+LowAxeStr+'ticklabels',{
-								'#liarg':[[]]
-							}
+					#Check
+					if self.ManagementIndexInt<len(
+						self.ParentDeriveTeamerVariable.ManagementDict
+					)-1:
+
+						#append
+						self.PyplotedChartTuplesList.append(
+							(
+								'set_'+LowAxeStr+'ticklabels',{
+									'#liarg':[[]]
+								}
+							)
 						)
-					)
 
-					#set
-					ViewedTickLabelPlot=True
+						#set
+						ViewedTickLabelPlot=True
 
 			#Check
 			if ViewedTickLabelPlot==False:
@@ -1017,7 +967,7 @@ class PyploterClass(BaseClass):
 			'''
 
 			#get
-			self.PyplotedPreviousChartPyploterVariable=self.ParentDeriveTeamerVariable.ManagementDict.getValue(
+			self.PyplotedPreviousChartDerivePyploterVariable=self.ParentDeriveTeamerVariable.ManagementDict.getValue(
 				self.ManagementIndexInt-1
 			)
 
@@ -1037,7 +987,7 @@ class PyploterClass(BaseClass):
 			'''
 
 			#get
-			self.PyplotedPreviousChartPyploterVariable=self.PyplotedParentPanelDerivePyploterVariable.ParentDeriveTeamerVariable.ManagementDict.getValue(
+			self.PyplotedPreviousChartDerivePyploterVariable=self.PyplotedParentPanelDerivePyploterVariable.ParentDeriveTeamerVariable.ManagementDict.getValue(
 				self.PyplotedParentPanelDerivePyploterVariable.ManagementIndexInt-1
 			).TeamDict[
 				'Charts'
@@ -1049,10 +999,10 @@ class PyploterClass(BaseClass):
 			'''
 			self.debug(
 				[
-					#'PyplotedPreviousChartPyploterVariable is ',
-					#SYS._str(PyplotedPreviousChartPyploterVariable),
-					'PyplotedPreviousChartPyploterVariable.ParentTagStr is ',
-					SYS._str(PyplotedPreviousChartPyploterVariable.ParentTagStr),
+					#'PyplotedPreviousChartDerivePyploterVariable is ',
+					#SYS._str(PyplotedPreviousChartDerivePyploterVariable),
+					'PyplotedPreviousChartDerivePyploterVariable.ParentTagStr is ',
+					SYS._str(PyplotedPreviousChartDerivePyploterVariable.ParentTagStr),
 					'self.PyplotedParentPanelDerivePyploterVariable.PyplotedCursorIntsList is ',
 					str(self.PyplotedParentPanelDerivePyploterVariable.PyplotedCursorIntsList)
 				]
@@ -1062,15 +1012,15 @@ class PyploterClass(BaseClass):
 		else:
 
 			#set
-			self.PyplotedPreviousChartPyploterVariable=None
+			self.PyplotedPreviousChartDerivePyploterVariable=None
 
 
 		#debug
 		'''
 		self.debug(
 			[
-				'PyplotedPreviousChartPyploterVariable is ',
-				SYS._str(PyplotedPreviousChartPyploterVariable)
+				'PyplotedPreviousChartDerivePyploterVariable is ',
+				SYS._str(PyplotedPreviousChartDerivePyploterVariable)
 			]
 		)
 		'''
@@ -1092,7 +1042,7 @@ class PyploterClass(BaseClass):
 		'''
 
 		#set
-		self.setShift()
+		self.setAnchor()
 
 		#debug
 		'''
@@ -1101,7 +1051,7 @@ class PyploterClass(BaseClass):
 				('self.',self,[
 						'PyplotingShiftVariable',
 						'PyplotedShiftIntsList',
-						'PyplotedPreviousCursorIntsList'
+						'PyplotedAnchorIntsList',
 				])
 			]
 		)
@@ -1111,236 +1061,345 @@ class PyploterClass(BaseClass):
 		# list maybe direct things
 		#
 
+		#debug
+		'''
+		self.debug(
+			[
+				'We determine the shape',
+				('self.',self,[
+						'PyplotingShapeVariable'
+					])
+			]
+		)
+		'''
+
 		#Check
 		if type(self.PyplotingShapeVariable)==list:
-			self.PyplotedShapeIntsList=self.PyplotingShapeVariable
 
-		#Check
-		if self.PyplotedPreviousChartPyploterVariable!=None:
+			#copy
+			self.PyplotedShapeIntsList=self.PyplotingShapeVariable[:]
 
-			#init
-			PyplotedResetBoolsList=[False,False]
+		else:
 
-			#debug
-			self.debug(
-				[
-					'We begin to find the good shift',
-					('self.',self,[
-							'PyplotingShiftVariable'
-						]),
-					'self.PyplotedParentPanelDerivePyploterVariable.PyplotedCursorIntsList is',
-					str(self.PyplotedParentPanelDerivePyploterVariable.PyplotedCursorIntsList)
-				]
-			)
+			#/################/#
+			# Case of one panel
+			#
 
-			#init
-			PyplotedCountInt=0
-
-			#while
-			while PyplotedResetBoolsList!=[True,True] and PyplotedCountInt<2:
+			#Check
+			if self.PyplotedParentPanelDerivePyploterVariable==self.PyplotedParentFigureDerivePyploterVariable:
 
 				#debug
 				'''
 				self.debug(
 					[
-						'Now we check if the anchor is still inside the figure',
-						#'PyplotedPreviousChartPyploterVariable is ',
-						#SYS._str(PyplotedPreviousChartPyploterVariable),
+						'This is just one panel case',
+						'self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridIntsTuple is',
+						str(self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridIntsTuple),
 						('self.',self,[
-								'PyplotingShiftVariable',
-								'PyplotingShapeVariable'
-							]),
-						'PyplotedCountInt is '+str(PyplotedCountInt),
-						'self.PyplotedParentPanelDerivePyploterVariable.PyplotedCursorIntsList is ',
-						str(self.PyplotedParentPanelDerivePyploterVariable.PyplotedCursorIntsList)
-					]
-				)
-				'''
-
-				#shift and check
-				for __AxeInt in [0,1]:
-				
-					#debug
-					self.debug(
-						[	
-							'__AxeInt is '+str(__AxeInt),
-							('self.',self,[
-									'PyplotedAnchorIntsList',
-									'PyplotedPreviousCursorIntsList',
-									'PyplotedShiftIntsList'
-								])
-						]
-					)
-
-					#set
-					self.PyplotedAnchorIntsList[
-						__AxeInt
-					]=self.PyplotedPreviousCursorIntsList[
-							__AxeInt
-						]+self.PyplotedShiftIntsList[
-							__AxeInt
-						]
-			
-					#debug
-					'''
-					self.debug(
-							[
-								'Ok we have shifted for ',
-								'__AxeInt is ',
-								str(__AxeInt),
-								'now we link with the fig',
-								('self.',self,[
-									'PyplotedAnchorIntsList'
-								]),
-								'self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridIntsTuple is ',
-								str(self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridIntsTuple)
-							]
-						)
-					'''
-
-					#/#################/#
-					# Check if the size is going to be correct
-					#
-
-					#Check
-					if self.PyplotedAnchorIntsList[
-							__AxeInt
-						] < self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridIntsTuple[
-							__AxeInt
-						]:
-
-						#set
-						PyplotedMaxAnchorInt=self.PyplotedAnchorIntsList[
-								__AxeInt
-							]+self.PyplotedShapeIntsList[
-								__AxeInt
-							]
-
-						#debug
-						'''
-						self.debug(
-							[
-								'Ok the anchor for this axe is good',
-								'but now check if the total chart can be included',
-								'PyplotedMaxAnchorInt is ',
-								str(PyplotedMaxAnchorInt)
-							]
-						)
-						'''
-
-						#Check
-						if PyplotedMaxAnchorInt > self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridIntsTuple[
-								__AxeInt
-							]:
-
-							#set
-							self.PyplotingShapeVariable[
-								__AxeInt
-							]=self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridIntsTuple[
-								__AxeInt
-							]-self.PyplotedAnchorIntsList[
-								__AxeInt
-							]
-
-							#debug
-							'''
-							self.debug(
-								[
-									'Nope we have reduced the size of the Chart',
-									('self.',self,[
-											'PyplotedShapeIntsList'
-										]
-									)
-								]
-							)
-							'''
-
-						#set
-						PyplotedResetBoolsList[
-							__AxeInt
-						]=True
-
-					#/#################/#
-					# Check if the shift was good
-					#
-
-					#Check
-					if PyplotedResetBoolsList[
-							__AxeInt
-						]==False:
-
-						#Check
-						if __AxeInt==0:
-
-							#debug
-							'''
-							self.debug(
-								[
-									'We can maybe shift on the right'
-								]
-							)
-							'''
-
-							#reset
-							self.PyplotingShiftVariable=[0,1]
-							PyplotedResetBoolsList=[False,False]
-
-							#break
-							break
-
-						elif __AxeInt==1:
-
-							#debug
-							'''
-							self.debug(
-								[
-									'We can maybe shift below'
-								]
-							)
-							'''
-
-							#reset
-							self.PyplotingShiftVariable=[1,0]
-							PyplotedResetBoolsList=[False,False]
-
-							#break
-							break
-
-				#debug
-				'''
-				self.debug(
-					[
-						'In the end of a trial',
-						'PyplotedResetBoolsList is ',
-						str(PyplotedResetBoolsList),
-						('self.',self,[
-								'PyplotedAnchorIntsList'
+								'PyplotedShiftIntsList'
 							])
 					]
 				)
 				'''
 
-				#increment
-				PyplotedCountInt+=1
+				#init
+				self.PyplotedShapeIntsList=list(
+						self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridIntsTuple
+					)
 
-		else:
+				#/################/#
+				# Look for the next panel to see if shift has to be
+				# down or right
 
-			#init
-			PyplotedResetBoolsList=[True,True]
+				PyplotedChartsDerivePyploter=self.PyplotedParentFigureDerivePyploterVariable.TeamDict[
+							'Charts'
+						]
 
-		#/#################/#
-		# Compute a new place for the cursor
-		# If th shift is equal to 1, then just shift with the size 
-		# of the axes, either shift with also thee size of the shift int
+				#Check
+				if len(
+						PyplotedChartsDerivePyploter.ManagementDict
+					)>1:
+
+					#debug
+					'''
+					self.debug(
+						[
+							'PyplotedChartsDerivePyploter.ManagementDict.keys() is ',
+							str(PyplotedChartsDerivePyploter.ManagementDict.keys())
+						]
+					)
+					'''
+
+					#get
+					PyplotedNextChartDerivePyloter=PyplotedChartsDerivePyploter.ManagementDict.getValue(
+						1
+					)
+
+					#Check
+					if PyplotedNextChartDerivePyloter.PyplotingShiftVariable!=None:
+
+						#copy
+						PyplotedShiftIntsListt=PyplotedNextChartDerivePyloter.PyplotingShiftVariable[:]
+					else:
+
+						#default
+						PyplotedShiftIntsList=[1,0]
+
+				else:
+
+					#set
+					PyplotedShiftIntsList=[1,0]
+
+				#/################/#
+				# Then divide the shape 
+				# given the number of charts
+
+				#Check
+				if PyplotedShiftIntsList[0]>0:
+
+					#divide
+					self.PyplotedShapeIntsList[0]/=len(
+							self.PyplotedParentFigureDerivePyploterVariable.TeamDict[
+								'Charts'
+							].ManagementDict
+						)
+					self.PyplotedShapeIntsList[1]-=2
+					
+				else:
+
+					#divide
+					self.PyplotedShapeIntsList[1]/=len(
+							self.PyplotedParentFigureDerivePyploterVariable.TeamDict[
+								'Charts'
+							].ManagementDict
+						)
+
+			else:
+
+				#init
+				self.PyplotedShapeIntsList=[5,5]
 
 		#debug
 		'''
 		self.debug(
 			[
-				'We build the PyplotedCursorIntsList',
+				'In the end',
+				('self.',self,[
+						'PyplotedShapeIntsList'
+					])
+			]
+		)
+		'''
+
+		#/#################/#
+		# Do the check for the anchor and the size 
+		# of the Chart
+
+		#init
+		PyplotedResetBoolsList=[False,False]
+
+		#debug
+		'''
+		self.debug(
+			[
+				'We begin to find the good shift'
+			]
+		)
+		'''
+
+		#init
+		PyplotedCountInt=0
+
+		#while
+		while PyplotedResetBoolsList!=[True,True] and PyplotedCountInt<2:
+
+			#/#################/#
+			# Check if the anchor is good
+			#
+
+			#debug
+			'''
+			self.debug(
+				[
+					'Now we check if the anchor is still inside the figure',
+					('self.',self,[
+							'PyplotingShiftVariable',
+							'PyplotingShapeVariable'
+						]),
+					'PyplotedCountInt is '+str(PyplotedCountInt)
+				]
+			)
+			'''
+
+			#shift and check
+			for __AxeInt in [0,1]:
+			
+				#debug
+				'''
+				self.debug(
+					[	
+						'__AxeInt is '+str(__AxeInt),
+						('self.',self,[
+								'PyplotedAnchorIntsList',
+							])
+					]
+				)
+				'''
+
+				#Check
+				if self.PyplotedAnchorIntsList[
+						__AxeInt
+					] < self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridIntsTuple[
+						__AxeInt
+					]:
+
+					#/#################/#
+					# Now check if the shape is good
+					#
+
+					#set
+					PyplotedMaxAnchorInt=self.PyplotedAnchorIntsList[
+							__AxeInt
+						]+self.PyplotedShapeIntsList[
+							__AxeInt
+						]
+
+					#debug
+					'''
+					self.debug(
+						[
+							'Ok the anchor for this axe is good',
+							'but now check if the total chart can be included',
+							'PyplotedMaxAnchorInt is ',
+							str(PyplotedMaxAnchorInt)
+						]
+					)
+					'''
+
+					#Check
+					if PyplotedMaxAnchorInt > self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridIntsTuple[
+							__AxeInt
+						]:
+
+						#debug
+						'''
+						self.debug(
+							[
+								'It doesn t fit',
+								('self.',self,[
+										'PyplotedAnchorIntsList'
+									])
+							]
+						)
+						'''
+
+						#set
+						self.PyplotedShapeIntsList[
+							__AxeInt
+						]=self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridIntsTuple[
+							__AxeInt
+						]-self.PyplotedAnchorIntsList[
+							__AxeInt
+						]
+
+						#debug
+						'''
+						self.debug(
+							[
+								'Nope we have reduced the size of the Chart',
+								('self.',self,[
+										'PyplotedShapeIntsList'
+									]
+								)
+							]
+						)
+						'''
+
+					#set
+					PyplotedResetBoolsList[
+						__AxeInt
+					]=True
+
+				#/#################/#
+				# Check if the shift was good
+				#
+
+				#Check
+				if PyplotedResetBoolsList[
+						__AxeInt
+					]==False:
+
+					#Check
+					if __AxeInt==0:
+
+						#debug
+						'''
+						self.debug(
+							[
+								'We can maybe shift on the right'
+							]
+						)
+						'''
+
+						#reset
+						self.PyplotingShiftVariable=[0,1]
+						PyplotedResetBoolsList=[False,False]
+
+						#set again
+						self.setAnchor()
+
+						#break
+						break
+
+					elif __AxeInt==1:
+
+						#debug
+						'''
+						self.debug(
+							[
+								'We can maybe shift below'
+							]
+						)
+						'''
+
+						#reset
+						self.PyplotingShiftVariable=[1,0]
+						PyplotedResetBoolsList=[False,False]
+
+						#set again
+						self.setAnchor()
+
+						#break
+						break
+
+			#debug
+			'''
+			self.debug(
+				[
+					'In the end of a trial',
+					'PyplotedResetBoolsList is ',
+					str(PyplotedResetBoolsList),
+					('self.',self,[
+							'PyplotedAnchorIntsList'
+						])
+				]
+			)
+			'''
+
+			#increment
+			PyplotedCountInt+=1
+
+		#/#################/#
+		# Compute the hit
+		#
+
+		#debug
+		'''
+		self.debug(
+			[
+				'We build the PyplotedHitIntsList',
 				('self.',self,[
 						'PyplotedAnchorIntsList',
-						'PyplotedShiftIntsList',
 						'PyplotedShapeIntsList'
 					])
 			]
@@ -1348,96 +1407,25 @@ class PyploterClass(BaseClass):
 		'''
 
 		#map
-		PyplotedTrueShiftIntsList=map(
-			lambda __PyplotedShiftInt:
-			__PyplotedShiftInt-1
-			if __PyplotedShiftInt>0
-			else 0,
-			self.PyplotedShiftIntsList
-		)
-		#PyplotedTrueShiftIntsList=self.PyplotedShiftIntsList
-
-		#map
 		self.PyplotedHitIntsList=map(
-			lambda __PyplotedAnchorInt,__PyplotedTrueShiftInt,__PyplotedShapeInt:
-			 __PyplotedAnchorInt+__PyplotedTrueShiftInt+__PyplotedShapeInt,
+			lambda __PyplotedAnchorInt,__PyplotedShapeInt:
+			 __PyplotedAnchorInt+__PyplotedShapeInt,
 			self.PyplotedAnchorIntsList,
-			PyplotedTrueShiftIntsList,
 			self.PyplotedShapeIntsList
 		)
-
-		#list
-		self.PyplotedCursorIntsList=map(
-			lambda __PyplotedAnchorInt,__PyplotedShiftInt,__PyplotedTrueShiftInt,__PyplotedShapeInt:
-			__PyplotedAnchorInt+__PyplotedTrueShiftInt+int(__PyplotedShiftInt>0)*__PyplotedShapeInt,
-			self.PyplotedAnchorIntsList,
-			self.PyplotedShiftIntsList,
-			PyplotedTrueShiftIntsList,
-			self.PyplotedShapeIntsList
-		)
-
-		#/#################/#
-		# Update at the panel scale
-		#
 
 		#debug
 		'''
 		self.debug(
 			[
-				'PyplotedResetBoolsList is ',
-				str(PyplotedResetBoolsList),
-				'self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridIntsTuple is ',
-				str(self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridIntsTuple),
-				'we update the cursor maybe in the panel',
+				'In the end',
 				('self.',self,[
-						'PyplotedAnchorIntsList',
-						'PyplotedCursorIntsList',
-						#'PyplotedParentPanelDerivePyploterVariable'
+						'PyplotedHitIntsList'
 					])
-
 			]
 		)
 		'''
-
-		#set
-		if self.PyplotedParentPanelDerivePyploterVariable!=None:
-
-			#debug
-			self.debug(
-				[
-					'We update the PyplotedCursorIntsList in the panel',
-					('self.',self,[
-							'PyplotedCursorIntsList'
-						])
-				]
-			)
-
-			#copy
-			self.PyplotedParentPanelDerivePyploterVariable.PyplotedCursorIntsList=copy.copy(
-				self.PyplotedCursorIntsList
-			)
-
-			#Check
-			if self.ManagementIndexInt==0:
-
-				#debug
-				self.debug(
-					[
-						'We update the anchor in the panel',
-						('self.',self,[
-								'PyplotedAnchorIntsList'
-							])
-					]
-				)
-
-				#copy
-				self.PyplotedParentPanelDerivePyploterVariable.PyplotedAnchorIntsList=self.PyplotedAnchorIntsList[:]
-
-		#copy
-		self.PyplotedParentFigureDerivePyploterVariable.PyplotedCursorIntsList=copy.copy(
-			self.PyplotedCursorIntsList
-		)
-
+		
 		#/#################/#
 		# init
 		#
@@ -1486,7 +1474,6 @@ class PyploterClass(BaseClass):
 		#link
 		self.PyplotedAxesVariable._figure=self.PyplotedParentFigureDerivePyploterVariable.PyplotedFigureVariable
 		
-
 		#debug
 		'''
 		self.debug(
@@ -1965,122 +1952,220 @@ class PyploterClass(BaseClass):
 		#call
 		BaseClass._print(self,**_KwargVariablesDict)
 
-	def setShift(self):
+	def setAnchor(self):
 
 		#init
-		if self.PyplotedParentPanelDerivePyploterVariable.PyplotingShiftVariable!=None and self.ManagementIndexInt==0:
+		if self.ManagementIndexInt==0:
 
 			#debug
+			'''
 			self.debug(
 				[
-					'This is the case where this is a first axes of a new panel',
-					'and we want to shift compare to the max of the cursor in the previous panel'
+					'This is the case where this is a first axes of a new panel'
 				]
 			)
-				
-			#get
-			self.PyplotedPreviousPanelPyploterVariable=self.PyplotedParentPanelDerivePyploterVariable.ParentDeriveTeamerVariable.ManagementDict.getValue(
-					self.PyplotedParentPanelDerivePyploterVariable.ManagementIndexInt-1
+			'''
+
+			#Check
+			if self.PyplotedParentPanelDerivePyploterVariable!=None and self.PyplotedParentPanelDerivePyploterVariable.ManagementIndexInt>0:
+
+				#debug
+				'''
+				self.debug(
+					[
+						'And we want to shift compare to the previous panel'
+					]
+				)
+				'''
+
+				#get
+				self.PyplotedPreviousPanelDerivePyploterVariable=self.PyplotedParentPanelDerivePyploterVariable.ParentDeriveTeamerVariable.ManagementDict.getValue(
+						self.PyplotedParentPanelDerivePyploterVariable.ManagementIndexInt-1
+					)
+
+				#get
+				PyplotedHitIntsListsList=map(
+					lambda __DerivePyploter:
+					__DerivePyploter.PyplotedHitIntsList,
+					self.PyplotedPreviousPanelDerivePyploterVariable.TeamDict[
+						'Charts'
+					].ManagementDict.values()
 				)
 
+				#map
+
+				#map
+				self.PyplotedPreviousPanelDerivePyploterVariable.PyplotedHitIntsList=map(
+					lambda __ZipList:
+					max(__ZipList),
+					SYS.unzip(PyplotedHitIntsListsList,[0,1])
+				)
+
+				#/###################/#
+				# Determine the previous 
+				# 
+
+				#copy
+				self.PyplotedPreviousAnchorIntsList=self.PyplotedPreviousPanelDerivePyploterVariable.PyplotedAnchorIntsList
+				self.PyplotedPreviousShapeIntsList=self.PyplotedPreviousPanelDerivePyploterVariable.PyplotedHitIntsList
+
+				#/###################/#
+				# Determine the shift 
+				# 
+
+				#debug
+				'''
+				self.debug(
+					[
+						'We determine the shift',
+						('self.',self,[
+								'PyplotingShiftVariable',
+							]),
+						'self.PyplotedParentPanelDerivePyploterVariable.PyplotingShiftVariable is ',
+						str(self.PyplotedParentPanelDerivePyploterVariable.PyplotingShiftVariable)
+					]
+				)
+				'''
+
+				#Check
+				if self.PyplotingShiftVariable!=None:
+
+					#list
+					self.PyplotedShiftIntsList=list(self.PyplotingShiftVariable)
+				elif self.PyplotedParentPanelDerivePyploterVariable.PyplotingShiftVariable!=None:
+
+					#copy
+					self.PyplotedShiftIntsList=self.PyplotedParentPanelDerivePyploterVariable.PyplotingShiftVariable[:]
+				else:
+
+					#default
+					self.PyplotedShiftIntsList=[1,0]
+
+			else:
+
+				#debug
+				'''
+				self.debug(
+					[
+						'And this is the first panel'
+					]
+				)
+				'''
+
+				#/###################/#
+				# Determine the shift 
+				#
+
+				#Check
+				if self.PyplotingShiftVariable!=None:
+
+					#list
+					self.PyplotedShiftIntsList=list(self.PyplotingShiftVariable)
+				else:
+
+					#default
+					self.PyplotedShiftIntsList=[0,0]		
+		else:
+
+			#debug
+			'''
+			self.debug(
+				[
+					'This is the case where this is an axes in the panel',
+					'and we want to shift compare to the previous axes'
+				]
+			)
+			'''
+
+			#/###################/#
+			# Look for the previous Chart in the same panel
+			#
 
 			#get
-			PyplotedHitIntsListsList=map(
-				lambda __DerivePyploter:
-				__DerivePyploter.PyplotedHitIntsList,
-				self.PyplotedPreviousPanelPyploterVariable.TeamDict[
-					'Charts'
-				].ManagementDict.values()
+			self.PyplotedPreviousChartDerivePyploterVariable=self.ParentDeriveTeamerVariable.ManagementDict.getValue(
+				self.ManagementIndexInt-1
 			)
 
-			#map
+			#/###################/#
+			# Determine the previous 
+			# 
 
-			#map
-			self.PyplotedPreviousPanelPyploterVariable.PyplotedHitIntsList=map(
-				lambda __ZipList:
-				max(__ZipList),
-				SYS.unzip(PyplotedHitIntsListsList,[0,1])
-			)
-			
-			#debug
-			self.debug(
-				[
-					'We compute the previous cursor',
-					('self.PyplotedPreviousPanelPyploterVariable.',
-						self.PyplotedPreviousPanelPyploterVariable,
-						[
-							'ParentTagStr',
-							'PyplotedHitIntsList',
-							'PyplotedAnchorIntsList'
-						]
-					),
-					('self.PyplotedParentPanelDerivePyploterVariable.',
-						self.PyplotedParentPanelDerivePyploterVariable,
-						[
-							'PyplotingShiftVariable'
-						]
-					)
-				]
-			)
+			#copy
+			self.PyplotedPreviousAnchorIntsList=self.PyplotedPreviousChartDerivePyploterVariable.PyplotedAnchorIntsList
+			self.PyplotedPreviousShapeIntsList=self.PyplotedPreviousChartDerivePyploterVariable.PyplotedShapeIntsList
 
-			#map
-			PyplotedTrueShiftIntsList=map(
-				lambda __PyplotedShiftInt:
-				__PyplotedShiftInt-1 if __PyplotedShiftInt>0
-				else 0,
-				self.PyplotedParentPanelDerivePyploterVariable.PyplotingShiftVariable
-			)
+			#/###################/#
+			# Determine the shift 
+			# 
 
-			#set
-			self.PyplotedPreviousCursorIntsList=map(
-				lambda __PyplotedCursorInt,__PyplotedShiftInt,__PyplotedTrueShiftInt,__PyplotedShapeInt:
-				__PyplotedCursorInt+__PyplotedTrueShiftInt+int(__PyplotedShiftInt>0)*__PyplotedShapeInt,
-				self.PyplotedPreviousPanelPyploterVariable.PyplotedAnchorIntsList,
-				self.PyplotedParentPanelDerivePyploterVariable.PyplotingShiftVariable,
-				PyplotedTrueShiftIntsList,
-				self.PyplotedPreviousPanelPyploterVariable.PyplotedHitIntsList
-			)
+			#Check
+			if self.PyplotingShiftVariable!=None:
 
-			#debug
-			self.debug(
-				[
-					'In the end',
-					('self.',self,[
-							'PyplotedPreviousCursorIntsList'
-						])
-				]
-			)
-
-			#set
-			self.PyplotedParentPanelDerivePyploterVariable.PyplotedCursorIntsList=self.PyplotedPreviousCursorIntsList
-
-			#set
-			if type(self.PyplotingShiftVariable)==list:
-				self.PyplotedShiftIntsList=self.PyplotingShiftVariable
+				#list
+				self.PyplotedShiftIntsList=list(self.PyplotingShiftVariable)
 			else:
-				self.PyplotedShiftIntsList=PyplotedTrueShiftIntsList
 
-		elif self.PyplotingShiftVariable==None:
-
-			#set
-			self.PyplotedPreviousCursorIntsList=self.PyplotedParentPanelDerivePyploterVariable.PyplotedCursorIntsList
-
-			#set
-			if type(self.PyplotingShiftVariable)==list:
-				self.PyplotedShiftIntsList=self.PyplotingShiftVariable
-			else:
+				#init
 				self.PyplotedShiftIntsList=[1,0]
 
+		#/###################/#
+		# Compute the anchor
+		#	
+
+		#map
+		PyplotedTrueShiftIntsList=map(
+			lambda __PyplotedShiftInt:
+			__PyplotedShiftInt-1 if __PyplotedShiftInt>0
+			else 0,
+			self.PyplotedShiftIntsList
+		)
+
 		#debug
+		'''
+		self.debug(
+			[
+				'We compute the anchor compared to the previous',
+				('self.',self,[
+						'PyplotedPreviousAnchorIntsList',
+						'PyplotedShiftIntsList',
+						'PyplotedPreviousShapeIntsList',
+					]),
+				'PyplotedTrueShiftIntsList is '+str(PyplotedTrueShiftIntsList)
+			]
+		)
+		'''
+
+		#set
+		self.PyplotedAnchorIntsList=map(
+			lambda __PyplotedPreviousAnchorInt,__PyplotedShiftInt,__PyplotedTrueShiftInt,__PyplotedPreviousShapeInt:
+			__PyplotedPreviousAnchorInt+__PyplotedTrueShiftInt+int(__PyplotedShiftInt>0)*__PyplotedPreviousShapeInt,
+			self.PyplotedPreviousAnchorIntsList,
+			self.PyplotedShiftIntsList,
+			PyplotedTrueShiftIntsList,
+			self.PyplotedPreviousShapeIntsList
+		)
+
+		#debug
+		'''
 		self.debug(
 			[
 				'In the end',
 				('self.',self,[
-						'PyplotingShiftVariable',
-						'PyplotedShiftIntsList'
+						'PyplotedAnchorIntsList'
 					])
 			]
 		)
+		'''
+
+		#/###################/#
+		# give to the panel
+		#
+
+		#Check
+		if self.ManagementIndexInt==0:
+
+			#alias
+			self.PyplotedParentPanelDerivePyploterVariable.PyplotedAnchorIntsList=self.PyplotedAnchorIntsList
 
 #</DefineClass>
 
@@ -2103,18 +2188,18 @@ PyploterClass.PrintingClassSkipKeyStrsList.extend(
 		'PyplotedFigureVariable',
 		'PyplotedAxesVariable',
 		'PyplotedLinesList',
+		'PyplotedPreviousAnchorIntsList',
+		'PyplotedPreviousShapeIntsList',
 		'PyplotedAnchorIntsList',
 		'PyplotedShiftIntsList',
 		'PyplotedHitIntsList',
 		'PyplotedPanelShapeIntsList',
-		'PyplotedPreviousCursorIntsList',
-		'PyplotedCursorIntsList',
 		'PyplotedShapeIntsList',
 		'PyplotedChartTuplesList',
 		'PyplotedDrawTuplesList',
 		'PyplotedParentSingularStr',
-		'PyplotedPreviousChartPyploterVariable',
-		'PyplotedPreviousPanelPyploterVariable'
+		'PyplotedPreviousChartDerivePyploterVariable',
+		'PyplotedPreviousPanelDerivePyploterVariable'
 	]
 )
 #<DefinePrint>

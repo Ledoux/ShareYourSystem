@@ -1659,16 +1659,18 @@ class BrianerClass(BaseClass):
 			# 
 
 			#Check
-			if 'Populations' not in self.TeamDict:
+			if 'Populations' not in self.TeamDict and self.BrianedNetworkVariable!=None:
 		
 				#debug
+				'''
 				self.debug(
 					[
 						'It is a network with a one level pop',
 						'So viewPopulation'
 					]
 				)
-
+				'''
+				
 				#viewPopulation
 				self.viewPopulation()
 
@@ -1941,6 +1943,7 @@ class BrianerClass(BaseClass):
 						self.ManagementTagStr+'_'+ __DeriveChartPyploter.ManagementTagStr,
 					).ManagedValueVariable.mapSetAttr(
 						{
+							'PyplotingShiftVariable':[3,0],
 							'PyplotingChartVariable':__DeriveChartPyploter.PyplotingChartVariable,
 							'PyplotingShapeVariable':[5,17]
 						}

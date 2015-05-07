@@ -14,9 +14,10 @@ MyHopfer=SYS.HopferClass(
 	).hopf(
 		_UnitsInt=100,
 		_SymmetryFloat=-0.7,
-	).simulate(
-		200.
 	)
+	#.simulate(
+	#	200.
+	#)
 
 #/###################/#
 # View

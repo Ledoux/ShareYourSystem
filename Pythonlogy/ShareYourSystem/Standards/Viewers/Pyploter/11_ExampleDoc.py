@@ -53,6 +53,7 @@ MyPyploter=SYS.PyploterClass(
 								]
 							}),
 							('|b',{
+								'PyplotingShiftVariable':[2,0],
 								'-Draws':[
 									('|0',{
 										'PyplotingDrawVariable':
@@ -79,7 +80,7 @@ MyPyploter=SYS.PyploterClass(
 				),
 				('|B',
 					{
-						'PyplotingShiftVariable':[0,2],
+						'PyplotingShiftVariable':[0,3],
 						'-Charts':
 						[
 							('|a',{
@@ -103,29 +104,7 @@ MyPyploter=SYS.PyploterClass(
 										]
 									})
 								]
-							}),
-						]
-					}
-				)
-			]
-		}
-	).pyplot(
-	)
-
-#print
-print('MyPyploter is ')
-SYS._print(MyPyploter)
-
-#show
-SYS.matplotlib.pyplot.show()
-
-
-"""
-
-"""
-
-"""
-('|b',{
+							}),('|b',{
 								'-Draws':[
 									('|0',{
 										'PyplotingDrawVariable':
@@ -147,4 +126,26 @@ SYS.matplotlib.pyplot.show()
 									})
 								]
 							})
+						]
+					}
+				)
+			]
+		}
+	).pyplot(
+	)
+
+#print
+print('MyPyploter is ')
+SYS._print(MyPyploter)
+
+#show
+SYS.matplotlib.pyplot.show()
+
+
+"""
+
+"""
+
+"""
+
 """

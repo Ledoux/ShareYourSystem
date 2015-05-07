@@ -2140,15 +2140,6 @@ class PredicterClass(BaseClass):
 						]
 					)
 
-
-
-
-
-
-
-		
-
-
 	def viewSample(self):
 
 		#debug
@@ -2339,6 +2330,16 @@ class PredicterClass(BaseClass):
 			)
 			'''
 
+		#/################/#
+		# Specify the shift
+		#
+
+		#set
+		self.BrianedParentDeriveRecorderVariable.PyplotingShiftVariable=[2,0]
+
+
+
+
 	def pyplotFigure(self):
 
 		#debug
@@ -2367,7 +2368,7 @@ class PredicterClass(BaseClass):
 
 			#add
 			self.PyplotingGridIntsTuple=(
-				self.PyplotingGridIntsTuple[0]+7,
+				self.PyplotingGridIntsTuple[0]+15,
 				self.PyplotingGridIntsTuple[1]
 			)
 

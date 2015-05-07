@@ -51,6 +51,7 @@ class HopferClass(BaseClass):
 			_HopfedEigenComplex=None,
 			_HopfedRealPerturbationEigenFloatsArray = None,
 			_HopfedImagPerturbationEigenFloatsArray = None,
+			_HopfedInstabilityIndexInt=-1,
 			_HopfedInstabilityComplex=None,
 			_HopfedStableBool=True,
 			_HopfedInstabilityStr="",
@@ -108,6 +109,7 @@ class HopferClass(BaseClass):
 		#
 
 		#debug
+		'''
 		self.debug(
 			[
 				'We set the contour of the ellipse',
@@ -119,6 +121,7 @@ class HopferClass(BaseClass):
 					])
 			]
 		)
+		'''
 
 		#/###############/#
 		# Build the eigen values real and imag
@@ -213,6 +216,7 @@ class HopferClass(BaseClass):
 				self.HopfedInstabilityStr='Rate' if self.HopfedImagPerturbationEigenFloatsArray[self.HopfedInstabilityIndexInt]==0. else 'Hopf'
 
 			#debug
+			'''
 			self.debug(
 				[
 					('self.',self,[
@@ -223,8 +227,7 @@ class HopferClass(BaseClass):
 						])
 				]
 			)
-
-
+			'''
 
 		else:
 
@@ -241,9 +244,6 @@ class HopferClass(BaseClass):
 					).getSolutionFloatsTuple(
 					)
 
-
-
-
 		#debug
 		'''
 		self.debug(
@@ -256,6 +256,8 @@ class HopferClass(BaseClass):
 			]
 		)
 		'''
+
+	def mimic_simulate(self):
 
 		#/###############/#
 		# Build the simulation structure
@@ -282,6 +284,14 @@ class HopferClass(BaseClass):
 			}
 		).leak(
 		)
+
+		#/###############/#
+		# Call the base
+		#
+
+		#call
+		BaseClass.simulate(self)
+
 
 	def getRootFloatsTuple(self,_PerturbationComplex):
 			
@@ -356,6 +366,16 @@ class HopferClass(BaseClass):
 			'Default'
 		)
 
+		#debug
+		'''
+		self.debug(
+			[
+				'self.TeamDict.keys() is ',
+				str(self.TeamDict.keys())
+			]
+		)
+		'''
+		
 		#/##################/#
 		# Build the theoritical ellipse
 		#
@@ -608,18 +628,52 @@ class HopferClass(BaseClass):
 		# Prepare a Run Panel
 		#
 
-		#get
-		ViewedPanelsDerivePyploter.getManager(
-				'Run'
+		#Check
+		if 'Populations' in self.TeamDict:
+
+			#debug
+			'''
+			self.debug(
+				[
+					'We put the Run on the right'
+				]
 			)
-		ViewedPanelsDerivePyploter.PyplotingShiftIntsList=[1,0]
+			'''
+
+			#get
+			ViewedRunDerivePyploter=ViewedPanelsDerivePyploter.getManager(
+					'Run'
+				)
+			ViewedRunDerivePyploter.PyplotingShiftIntsList=[3,0]
 
 		#/###############/#
 		# Call the base method
 		#
 
+		#debug
+		'''
+		self.debug(
+			[
+				'self.TeamDict.keys() is ',
+				str(self.TeamDict.keys()),
+				'BaseClass.view is ',
+				str(BaseClass.view)
+			]
+		)
+		'''
+
 		#view
 		BaseClass.view(self)
+
+		#debug
+		'''
+		self.debug(
+			[
+				'self.TeamDict.keys() is ',
+				str(self.TeamDict.keys())
+			]
+		)
+		'''
 
 #</DefineClass>
 
@@ -644,6 +698,7 @@ HopferClass.PrintingClassSkipKeyStrsList.extend(
 		'HopfedEigenComplex',
 		'HopfedRealPerturbationEigenFloatsArray',
 		'HopfedImagPerturbationEigenFloatsArray',
+		'HopfedInstabilityIndexInt',
 		'HopfedInstabilityComplex',
 		'HopfedStableBool',
 		'HopfedInstabilityStr'

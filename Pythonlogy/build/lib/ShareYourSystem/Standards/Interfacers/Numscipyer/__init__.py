@@ -294,6 +294,7 @@ class NumscipyerClass(BaseClass):
 				)
 
 				#debug
+				'''
 				self.debug(
 					[
 						'We normalize with',
@@ -304,7 +305,8 @@ class NumscipyerClass(BaseClass):
 							])
 					]
 				)
-
+				'''
+				
 				#normalize
 				self.NumscipiedRandomFloatsArray/=NumscipiedNormVariable
 
