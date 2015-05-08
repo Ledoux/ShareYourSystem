@@ -66,6 +66,7 @@ class PyploterClass(BaseClass):
 						_PyplotingShiftVariable=None,
 						_PyplotingPrintBool=True,
 						_PyplotingLabelStr="",
+						_PyplotingLegendDict=None,
 						_PyplotedTeamTagStr="",
 						_PyplotedParentFigureDerivePyploterVariable=None,
 						_PyplotedParentPanelDerivePyploterVariable=None,
@@ -884,7 +885,6 @@ class PyploterClass(BaseClass):
 					)
 				)
 
-
 	def pyplotChart(self):
 
 		#/#################/#
@@ -1589,34 +1589,8 @@ class PyploterClass(BaseClass):
 				)	
 				'''
 				
-				#Check
-				if len(
-					self.PyplotedParentChartDerivePyploterVariable.PyplotedChartTuplesList
-				)>0:
-
-					#/#################/#
-					# We map argument in the axes
-					#
-
-					#debug
-					'''
-					self.debug(
-						[
-							'We chart in the parent axe',
-							#('self.',self,[
-							#	'PyplotedParentChartDerivePyploterVariable'
-							#]),
-							'self.PyplotedParentChartDerivePyploterVariable.PyplotedChartTuplesList is ',
-							SYS._str(self.PyplotedParentChartDerivePyploterVariable.PyplotedChartTuplesList)
-						]
-					)
-					'''
-
-					#map argument
-					self.PyplotedParentFigureDerivePyploterVariable.mapArgument(
-						self.PyplotedParentChartDerivePyploterVariable.PyplotedAxesVariable,
-						self.PyplotedParentChartDerivePyploterVariable.PyplotedChartTuplesList
-					)
+				#call
+				self.PyplotedParentChartDerivePyploterVariable.setEndAxes()
 					
 	def mimic_set(self):
 
@@ -1952,6 +1926,105 @@ class PyploterClass(BaseClass):
 		#call
 		BaseClass._print(self,**_KwargVariablesDict)
 
+	def setEndAxes(self):
+
+		#add
+		self.PyplotedChartTuplesList+=[
+				(
+					'tick_params',{
+						'#kwarg':{
+							'length':10,
+							'width':5,
+							'which':'major'
+						}
+					}
+				),
+				(
+					'tick_params',{
+						'#kwarg':{
+							'length':5,
+							'width':2,
+							'which':'minor'
+						}
+					}
+				),
+				('xaxis.set_ticks_position',
+					{
+						'#liarg':['bottom']
+					}
+				),
+				('yaxis.set_ticks_position',
+					{
+						'#liarg':['left']
+					}
+				)
+		]
+
+		#debug
+		'''
+		self.debug(
+			[
+				'Are we going to add a legend',
+				('self.',self,[
+					'PyplotingLegendDict'
+				])
+			]
+		)
+		'''
+
+		#Check
+		if self.PyplotingLegendDict!=None and len(self.PyplotingLegendDict)>0:
+
+			#complete
+			SYS.complete(
+				self.PyplotingLegendDict,
+				{
+					'fontsize':20,
+					'shadow':True,
+					'fancybox':True,
+					'loc':2,
+					'bbox_to_anchor':(1.,1.)
+				}
+			)
+
+			#debug
+			self.debug(
+				[
+					'We add a legend'
+				]
+			)
+		
+			#add
+			self.PyplotedChartTuplesList+=[
+				('legend',{
+					'#liarg':[],
+					'#kwarg':self.PyplotingLegendDict
+				})
+			]
+
+		#/#################/#
+		# We map argument in the axes
+		#
+
+		#debug
+		'''
+		self.debug(
+			[
+				'We chart in the parent axe',
+				('self.',self,[
+					'PyplotedChartTuplesList'
+				])
+			]
+		)
+		'''
+
+		#map argument
+		self.mapArgument(
+			self.PyplotedAxesVariable,
+			self.PyplotedChartTuplesList
+		)
+
+
 	def setAnchor(self):
 
 		#init
@@ -2181,6 +2254,7 @@ PyploterClass.PrintingClassSkipKeyStrsList.extend(
 		'PyplotingShiftVariable',
 		'PyplotingPrintBool',
 		'PyplotingLabelStr',
+		'PyplotingLegendDict',
 		'PyplotedTeamTagStr',
 		'PyplotedParentFigureDerivePyploterVariable',
 		'PyplotedParentPanelDerivePyploterVariable',

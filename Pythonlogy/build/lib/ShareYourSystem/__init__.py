@@ -1387,6 +1387,22 @@ def update(_ItemizableVariable,_UpdateVariable):
 	#return
 	return _ItemizableVariable
 
+def complete(_Dict,_CompleteVariable):
+
+	#map
+	map(
+		lambda __ItemTuple:
+		_Dict.__setitem__(
+			*__ItemTuple
+		) 
+		if __ItemTuple[0] not in _Dict
+		else None,
+		_CompleteVariable.items()
+		if hasattr(_CompleteVariable,'items')
+		else _CompleteVariable
+	)
+
+
 def get(_Variable,_KeyVariable):
 
 	#/#################/#

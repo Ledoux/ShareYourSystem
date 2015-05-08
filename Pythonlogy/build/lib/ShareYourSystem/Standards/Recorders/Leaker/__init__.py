@@ -3642,6 +3642,7 @@ class LeakerClass(BaseClass):
 		BaseClass.viewPopulation(self)
 
 		#debug
+		'''
 		self.debug(
 			[
 				'We view leak pop here',
@@ -3650,7 +3651,8 @@ class LeakerClass(BaseClass):
 					])
 			]
 		)
-
+		'''
+		
 		#/##################/#
 		# view at the population scale
 		#
@@ -3680,6 +3682,7 @@ class LeakerClass(BaseClass):
 											)
 
 				#debug
+				'''
 				self.debug(
 					[
 						'We add the global variable to the view',
@@ -3688,7 +3691,8 @@ class LeakerClass(BaseClass):
 							])
 					]
 				)
-
+				'''
+				
 				#add
 				ViewedDrawsDerivePyploter.getManager(
 						'Global'

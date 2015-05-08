@@ -269,7 +269,7 @@ class HopferClass(BaseClass):
 				'-Populations':{
 					'|P':{
 						'LeakingUnitsInt':100,
-						'LeakingMonitorIndexIntsList':[0,1,2],
+						'RecordingLabelVariable':[0,1,2],
 						'LeakingTransferVariable':'mV*tanh((#CurrentStr)/mV)',
 						'-Interactions':{
 							'|/':{
@@ -375,7 +375,7 @@ class HopferClass(BaseClass):
 			]
 		)
 		'''
-		
+
 		#/##################/#
 		# Build the theoritical ellipse
 		#
@@ -644,7 +644,7 @@ class HopferClass(BaseClass):
 			ViewedRunDerivePyploter=ViewedPanelsDerivePyploter.getManager(
 					'Run'
 				)
-			ViewedRunDerivePyploter.PyplotingShiftIntsList=[3,0]
+			ViewedRunDerivePyploter.PyplotingShiftVariable=[0,3]
 
 		#/###############/#
 		# Call the base method

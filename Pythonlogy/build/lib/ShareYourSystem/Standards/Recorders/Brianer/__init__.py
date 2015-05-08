@@ -1655,11 +1655,19 @@ class BrianerClass(BaseClass):
 			'''
 
 			#/########################/#
+			# Do we need
+			# 
+
+			#Check
+			if self.BrianedNetworkVariable==None:
+				return
+
+			#/########################/#
 			# Special Network level
 			# 
 
 			#Check
-			if 'Populations' not in self.TeamDict and self.BrianedNetworkVariable!=None:
+			if 'Populations' not in self.TeamDict:
 		
 				#debug
 				'''
@@ -1925,6 +1933,10 @@ class BrianerClass(BaseClass):
 					'Charts'
 				]
 
+				#/################/#
+				# Manage each Chart
+				#
+
 				#debug
 				'''
 				self.debug(
@@ -1936,6 +1948,12 @@ class BrianerClass(BaseClass):
 				)
 				'''
 
+				#Check
+				if self.PyplotingShapeVariable==None:
+					self.PyplotingShapeVariable=[5,17]
+				if self.PyplotingShiftVariable==None:
+					self.PyplotingShiftVariable=[3,0]
+
 				#map
 				map(
 					lambda __DeriveChartPyploter:
@@ -1943,9 +1961,10 @@ class BrianerClass(BaseClass):
 						self.ManagementTagStr+'_'+ __DeriveChartPyploter.ManagementTagStr,
 					).ManagedValueVariable.mapSetAttr(
 						{
-							'PyplotingShiftVariable':[3,0],
+							'PyplotingShiftVariable':self.PyplotingShiftVariable,
+							'PyplotingLegendDict':__DeriveChartPyploter.PyplotingLegendDict,
 							'PyplotingChartVariable':__DeriveChartPyploter.PyplotingChartVariable,
-							'PyplotingShapeVariable':[5,17]
+							'PyplotingShapeVariable':self.PyplotingShapeVariable,
 						}
 					).mapSetAttr(
 						map(
@@ -1979,7 +1998,11 @@ class BrianerClass(BaseClass):
 
 				#Set a gap
 				if len(ViewedChartsManager.ManagementDict)>0:
-					ViewedChartsManager.ManagementDict.getValue(0).PyplotingShiftIntsTuple=(2,0)
+
+					#set
+					ViewedChartsManager.ManagementDict.getValue(
+						0
+					).PyplotingShiftIntsTuple=[2,0]
 
 	def viewInteraction(self):
 
@@ -2645,6 +2668,56 @@ class BrianerClass(BaseClass):
 		)
 		'''
 
+		#/####################/#
+		# Set the Chart globally and look if we have to finish
+		#
+
+		#Check
+		if self.ManagementIndexInt==len(self.ParentDeriveTeamerVariable.ManagementDict)-1:
+
+			#Check
+			if self.PyplotingLegendDict==None:
+				self.PyplotingLegendDict={
+				}
+
+			#Check
+			if self.BrianedParentNetworkDeriveBrianerVariable.PyplotingLegendDict!=None:
+
+				#alias
+				SYS.complete(
+					self.PyplotingLegendDict,
+					self.BrianedParentNetworkDeriveBrianerVariable.PyplotingLegendDict
+				)
+
+			#Check
+			if self.BrianedParentPopulationDeriveBrianerVariable.PyplotingLegendDict!=None:
+
+				#alias
+				SYS.complete(
+					self.PyplotingLegendDict,
+					self.BrianedParentPopulationDeriveBrianerVariable.PyplotingLegendDict
+				)
+
+			#Check
+			if 'ncol' not in self.PyplotingLegendDict:
+
+				#set
+				self.PyplotingLegendDict['ncol']=max(1,len(
+						self.RecordingLabelVariable
+					)/2)
+
+			#debug
+			self.debug(
+				[
+					'We give a legend to the Chart',
+					('self.',self,[
+							'PyplotingLegendDict'
+						])
+				]
+			)
+
+				
+
 		#/################/#
 		# call the base view method
 		#
@@ -2665,60 +2738,9 @@ class BrianerClass(BaseClass):
 		#call 
 		BaseClass.view(self)
 
-		#/####################/#
-		# maybe set global Chart also
+		#/################/#
+		# Set a title if it is the first Chart
 		#
-
-		#Check
-		if self.ManagementIndexInt==len(self.ParentDeriveTeamerVariable.ManagementDict)-1:
-
-			#add
-			self.PyplotingChartVariable+=[
-				(
-					'tick_params',{
-						'#kwarg':{
-							'length':10,
-							'width':5,
-							'which':'major'
-						}
-					}
-				),
-				(
-					'tick_params',{
-						'#kwarg':{
-							'length':5,
-							'width':2,
-							'which':'minor'
-						}
-					}
-				),
-				('xaxis.set_ticks_position',
-					{
-						'#liarg':['bottom']
-					}
-				),
-				('yaxis.set_ticks_position',
-					{
-						'#liarg':['left']
-					}
-				),
-				('legend',{
-					'#liarg':[],
-					'#kwarg':{
-						'fontsize':20,
-						'shadow':True,
-						'fancybox':True,
-						'ncol':max(1,len(
-							getattr(
-								self.BrianedStateMonitorVariable,
-								self.BrianedParentDeriveRecorderVariable.RecordKeyStr
-							)
-						)/2),
-						'loc':2,
-						'bbox_to_anchor':(1.,1.)
-					}
-				})
-			]
 
 		#Check
 		if self.ManagementIndexInt==0:
@@ -2849,6 +2871,25 @@ class BrianerClass(BaseClass):
 			).ManagedValueVariable
 
 			#/####################/#
+			# Update the PyplotingLegendDict
+			#
+
+			#debug
+			self.debug(
+				[
+					'We update a legend',
+					('self.',self,[
+							'PyplotingLegendDict'
+						]),
+					'BrianedChartDerivePyploter.ManagementTagStr is ',
+					BrianedChartDerivePyploter.ManagementTagStr
+				]
+			)
+
+			#alias
+			BrianedChartDerivePyploter.PyplotingLegendDict=self.PyplotingLegendDict
+
+			#/####################/#
 			# Update the PyplotingChartVariable
 			#
 
@@ -2868,8 +2909,12 @@ class BrianerClass(BaseClass):
 
 			#update
 			if BrianedChartDerivePyploter.PyplotingChartVariable==None:
+
+				#alias
 				BrianedChartDerivePyploter.PyplotingChartVariable=self.PyplotingChartVariable
 			else:
+
+				#extend
 				BrianedChartDerivePyploter.PyplotingChartVariable.extend(
 					self.PyplotingChartVariable
 				)
@@ -2940,7 +2985,8 @@ class BrianerClass(BaseClass):
 
 		#Check
 		if self.ManagementIndexInt==len(
-			self.ParentDeriveTeamerVariable.ManagementDict)-1:
+			self.ParentDeriveTeamerVariable.ManagementDict
+		)-1:
 
 			#Check
 			'''

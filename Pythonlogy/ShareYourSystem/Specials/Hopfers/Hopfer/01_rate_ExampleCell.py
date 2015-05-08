@@ -13,17 +13,31 @@ import ShareYourSystem as SYS
 MyHopfer=SYS.HopferClass(
 	).hopf(
 		_UnitsInt=100,
+		_StdWeightFloat=1.5,
 		_SymmetryFloat=-0.7,
+	).simulate(
+		200.
 	)
-	#.simulate(
-	#	200.
-	#)
 
 #/###################/#
 # View
 #
 
-MyHopfer.view(
+#mapSet
+MyHopfer.mapSet(
+		{
+			'-Populations':{
+				'|P':{
+					#'PyplotingShiftVariable':[0,5],
+					'PyplotingShapeVariable':[5,7],
+					'PyplotingLegendDict':{
+						'fontsize':10,
+						'ncol':2
+					}
+				}
+			}
+		}
+	).view(
 	).pyplot(
 	).show(
 	)
