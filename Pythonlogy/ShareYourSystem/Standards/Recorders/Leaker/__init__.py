@@ -157,8 +157,8 @@ class LeakerClass(BaseClass):
 			_LeakedDelayTimeInt=0,
 			_LeakedMinFloat=0.,
 			_LeakedMaxFloat=0.,
-			_LeakedMeanFloatsArray=None,
-			_LeakedStdFloatsArray=None,
+			_LeakedMeanGlobalFloatsArray=None,
+			_LeakedStdGlobalFloatsArray=None,
 			_LeakedSimulationStateMonitorVariable=None,
 			**_KwargVariablesDict
 		):
@@ -3619,14 +3619,86 @@ class LeakerClass(BaseClass):
 			'''
 
 			#mean
-			self.LeakedMeanFloatsArray=SimulatedFloatsArray.mean(
+			self.LeakedMeanGlobalFloatsArray=SimulatedFloatsArray.mean(
 				axis=0
 			)
 
 			#std
-			self.LeakedStdFloatsArray=SimulatedFloatsArray.std(
+			self.LeakedStdGlobalFloatsArray=SimulatedFloatsArray.std(
 				axis=0
 			)
+
+			#debug
+			'''
+			self.debug(
+				[
+					('self.',self,[
+						'LeakedMeanGlobalFloatsArray'
+						]
+					)
+				]
+			)
+			'''
+
+			#/###############/#
+			# Compute correlations
+			#
+
+			#import
+			from scipy import signal
+
+			#acf
+			self.LeakedAutocorrelationGlobalFloatsArray=signal.correlate(
+				self.LeakedMeanGlobalFloatsArray,
+				self.LeakedMeanGlobalFloatsArray,
+				mode="same"
+			)
+
+			#cut
+			#self.LeakedAutocorrelationGlobalFloatsArray=self.LeakedAutocorrelationGlobalFloatsArray[
+			#	self.LeakedAutocorrelationGlobalFloatsArray.size/2:
+			#]
+
+			#debug
+			self.debug(
+				[
+					'We computed the correlations',
+					('self.',self,[
+							'LeakedAutocorrelationGlobalFloatsArray'
+						])
+				]
+			)
+
+			#/###############/#
+			# Compute local maxima
+			#
+
+			#Maxima
+			self.LeakedMaxGlobalIndexIntsArray=SYS.argmax(
+				self.LeakedMeanGlobalFloatsArray
+			)
+			
+			#debug
+			'''
+			self.debug(
+				[
+					'We found the local extrema',
+					('self.',self,[
+							'LeakedMaxGlobalIndexIntsArray'
+						])
+				]
+			)
+			'''
+			
+			#map
+			LeakedMaxIndexIntsArray=map(
+				lambda __SimulatedFloatsArray:
+				SYS.argmax(__SimulatedFloatsArray),
+				SimulatedFloatsArray
+			)
+
+			
+
 
 	#/##################/#
 	# view methods
@@ -3673,12 +3745,12 @@ class LeakerClass(BaseClass):
 			if self.LeakingGlobalBool:
 
 				#Check
-				ViewedMaxStdFloatsArray=self.LeakedMeanFloatsArray+(
-												self.LeakedStdFloatsArray/2.
+				ViewedMaxStdFloatsArray=self.LeakedMeanGlobalFloatsArray+(
+												self.LeakedStdGlobalFloatsArray/2.
 											)
 
-				ViewedMinStdFloatsArray=self.LeakedMeanFloatsArray-(
-												self.LeakedStdFloatsArray/2.
+				ViewedMinStdFloatsArray=self.LeakedMeanGlobalFloatsArray-(
+												self.LeakedStdGlobalFloatsArray/2.
 											)
 
 				#debug
@@ -3702,7 +3774,7 @@ class LeakerClass(BaseClass):
 							{
 								'#liarg':[
 									self.LeakedSimulationStateMonitorVariable.t,
-									self.LeakedMeanFloatsArray
+									self.LeakedMeanGlobalFloatsArray
 								],
 								'#kwarg':dict(
 									{
@@ -3788,6 +3860,45 @@ class LeakerClass(BaseClass):
 					).PyplotingDrawVariable=ViewedDrawsDerivePyploter.ManagementDict[
 						'Global'
 					].PyplotingDrawVariable
+
+				#/##################/#
+				# add a stat view
+				#
+
+				#get
+				ViewedStatDerivePyploter=self.BrianedParentNetworkDeriveBrianerVariable.getTeamer(
+					'Panels'
+				).getManager(
+					'Stat'
+				)
+
+				#get
+				ViewedStatDerivePyploter.getTeamer(
+					'Charts'
+				).getManager(
+					'Correlation'
+				).getTeamer(
+					'Draws'
+				).getManager(
+					'Global'
+				).PyplotingDrawVariable=[
+					(	
+						'plot',
+						{
+							'#liarg':[
+								self.LeakedAutocorrelationGlobalFloatsArray
+								
+							],
+							'#kwarg':dict(
+								{
+									'linestyle':'-',
+									'linewidth':2,
+									'color':'black',
+								}
+							)
+						}	
+					)
+				]
 
 	#/###################/#
 	# Other methods
@@ -4028,8 +4139,8 @@ LeakerClass.PrintingClassSkipKeyStrsList.extend(
 		'LeakedDelayTimeInt',
 		'LeakedMinFloat',
 		'LeakedMaxFloat',
-		'LeakedMeanFloatsArray',
-		'LeakedStdFloatsArray',
+		'LeakedMeanGlobalFloatsArray',
+		'LeakedStdGlobalFloatsArray',
 		'LeakedSimulationStateMonitorVariable'
 	]
 )

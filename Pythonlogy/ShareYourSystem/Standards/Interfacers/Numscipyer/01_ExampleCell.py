@@ -20,6 +20,6 @@ MyNumscipyer=SYS.NumscipyerClass(
 	)
 
 #print
-print('MyNumscipyer.NumscipiedRandomFloatsArray is ')
-SYS._print(MyNumscipyer.NumscipiedRandomFloatsArray)
+print('MyNumscipyer.NumscipiedValueFloatsArray is ')
+SYS._print(MyNumscipyer.NumscipiedValueFloatsArray)
 

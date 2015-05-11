@@ -22,6 +22,8 @@ ShareYourSystem/10_ExampleDoc.md
 ShareYourSystem/11_ExampleDoc.py
 ShareYourSystem/12_ExampleDoc.md
 ShareYourSystem/13_ExampleDoc.py
+ShareYourSystem/14_ExampleDoc.md
+ShareYourSystem/15_ExampleDoc.py
 ShareYourSystem/Readme.md
 ShareYourSystem/__init__.py
 ShareYourSystem/lib.py
@@ -33,6 +35,8 @@ ShareYourSystem/Specials/Diffusers/Diffuser/__init__.py
 ShareYourSystem/Specials/Hopfers/__init__.py
 ShareYourSystem/Specials/Hopfers/Hopfer/00_rate_ExampleDoc.md
 ShareYourSystem/Specials/Hopfers/Hopfer/01_rate_ExampleCell.py
+ShareYourSystem/Specials/Hopfers/Hopfer/02_spike_ExampleDoc.md
+ShareYourSystem/Specials/Hopfers/Hopfer/03_spike_ExampleCell.py
 ShareYourSystem/Specials/Hopfers/Hopfer/__init__.py
 ShareYourSystem/Specials/Hopfers/Lifer/00_rate_ExampleDoc.md
 ShareYourSystem/Specials/Hopfers/Lifer/01_rate_ExampleCell.py
@@ -438,6 +442,12 @@ ShareYourSystem/Standards/Interfacers/Numscipyer/00_ExampleCell.md
 ShareYourSystem/Standards/Interfacers/Numscipyer/01_ExampleCell.py
 ShareYourSystem/Standards/Interfacers/Numscipyer/02_ExampleCell.md
 ShareYourSystem/Standards/Interfacers/Numscipyer/03_ExampleCell.py
+ShareYourSystem/Standards/Interfacers/Numscipyer/04_ExampleCell.md
+ShareYourSystem/Standards/Interfacers/Numscipyer/05_ExampleCell.py
+ShareYourSystem/Standards/Interfacers/Numscipyer/06_ExampleCell.md
+ShareYourSystem/Standards/Interfacers/Numscipyer/07_ExampleCell.py
+ShareYourSystem/Standards/Interfacers/Numscipyer/08_ExampleCell.md
+ShareYourSystem/Standards/Interfacers/Numscipyer/09_ExampleCell.py
 ShareYourSystem/Standards/Interfacers/Numscipyer/__init__.py
 ShareYourSystem/Standards/Interfacers/Printer/001_DocumentDoc.md
 ShareYourSystem/Standards/Interfacers/Printer/002_GithubDoc.md

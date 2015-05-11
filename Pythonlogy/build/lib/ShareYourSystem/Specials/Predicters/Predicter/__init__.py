@@ -532,7 +532,7 @@ class PredicterClass(BaseClass):
 			self.numscipy()
 
 			#Check
-			self.PredictedDecoderFloatsArray=self.NumscipiedRandomFloatsArray
+			self.PredictedDecoderFloatsArray=self.NumscipiedValueFloatsArray
 
 		#debug
 		'''
@@ -631,7 +631,7 @@ class PredicterClass(BaseClass):
 				[
 					'We are going to add this perturbation to fast',
 					('self.',self,[
-							'NumscipiedRandomFloatsArray',
+							'NumscipiedValueFloatsArray',
 							'PredictedFastFloatsArray'
 						])
 				]
@@ -639,7 +639,7 @@ class PredicterClass(BaseClass):
 			'''
 
 			#link
-			self.PredictedFastFloatsArray+=self.NumscipiedRandomFloatsArray
+			self.PredictedFastFloatsArray+=self.NumscipiedValueFloatsArray
 
 		#debug
 		'''
@@ -777,7 +777,7 @@ class PredicterClass(BaseClass):
 					[
 						'We are going to add this perturbation to fast',
 						('self.',self,[
-								'NumscipiedRandomFloatsArray',
+								'NumscipiedValueFloatsArray',
 								'PredictedSlowFloatsArray'
 							])
 					]
@@ -785,7 +785,7 @@ class PredicterClass(BaseClass):
 				'''
 
 				#link
-				self.PredictedSlowFloatsArray+=self.NumscipiedRandomFloatsArray
+				self.PredictedSlowFloatsArray+=self.NumscipiedValueFloatsArray
 
 
 		#/###############/#
@@ -1669,7 +1669,7 @@ class PredicterClass(BaseClass):
 				self.numscipy()
 
 				#link
-				self.LeakingWeigthVariable+=self.NumscipiedRandomFloatsArray
+				self.LeakingWeigthVariable+=self.NumscipiedValueFloatsArray
 
 			#/################/#
 			# Say that we want to record it

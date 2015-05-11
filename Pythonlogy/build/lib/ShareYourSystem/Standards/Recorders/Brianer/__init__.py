@@ -1925,19 +1925,79 @@ class BrianerClass(BaseClass):
 				'''
 
 				#get
-				ViewedChartsManager=self.BrianedParentNetworkDeriveBrianerVariable.TeamDict[
+				ViewedRunDerivePyploter=self.BrianedParentNetworkDeriveBrianerVariable.TeamDict[
 					'Panels'
 				].ManagementDict[
 					'Run'
-				].TeamDict[
+				]
+
+				#get
+				ViewedChartsManager=ViewedRunDerivePyploter.TeamDict[
 					'Charts'
 				]
+
+				#/################/#
+				# Transfer or not some properties
+				#
+
+				#debug
+				'''
+				self.debug(
+					[
+						'Are we going to transfer things',
+						('self.',self,[
+								'PyplotingShapeVariable',
+								'PyplotingShiftVariable'
+							])
+					]
+				)
+				'''
+
+				#Check
+				if self.PyplotingShapeVariable==None:
+
+					#Check
+					if ViewedRunDerivePyploter.PyplotingShapeVariable!=None:
+
+						#copy
+						self.PyplotingShapeVariable= ViewedRunDerivePyploter.PyplotingShapeVariable[:]
+
+					#Check
+					else:
+
+						#default
+						self.PyplotingShapeVariable=[5,17]
+
+
+				#Check
+				if self.PyplotingShiftVariable==None:
+
+					#debug
+					'''
+					self.debug(
+						[
+							'ViewedRunDerivePyploter.PyplotingShiftVariable is ',
+							str(ViewedRunDerivePyploter.PyplotingShiftVariable)
+						]
+					)
+					'''
+
+					#Check
+					if ViewedRunDerivePyploter.PyplotingShiftVariable!=None:
+
+						#copy
+						self.PyplotingShiftVariable= ViewedRunDerivePyploter.PyplotingShiftVariable[:]
+
+					#Check
+					else:
+
+						#default
+						self.PyplotingShiftVariable=[3,0]
 
 				#/################/#
 				# Manage each Chart
 				#
 
-				#debug
 				'''
 				self.debug(
 					[
@@ -1948,21 +2008,69 @@ class BrianerClass(BaseClass):
 				)
 				'''
 
-				#Check
-				if self.PyplotingShapeVariable==None:
-					self.PyplotingShapeVariable=[5,17]
-				if self.PyplotingShiftVariable==None:
-					self.PyplotingShiftVariable=[3,0]
+				#get
+				ViewedPopulationChartDerivePyplotersList=self.TeamDict['Charts'].ManagementDict.values()
+
+				#map
+				ViewedNetworkChartDerivePyplotersList=map(
+					lambda __ViewedPopulationChartDerivePyploter:
+					ViewedChartsManager.getManager(
+						self.ManagementTagStr+'_'+ __ViewedPopulationChartDerivePyploter.ManagementTagStr,
+					),
+					ViewedPopulationChartDerivePyplotersList
+				)
+
+				#debug
+				'''
+				self.debug(
+					[
+						'We are going to transfer',
+						('self.',self,[
+							'PyplotingShiftVariable',
+							'PyplotingShapeVariable'
+						])
+					]
+				)
+				'''
+				
+				#/################/#
+				# Look at transfering legend
+				#
+
+				#debug
+				'''
+				self.debug(
+					[
+						'Are we tranfering some legends'
+					]
+				)
+				'''
 
 				#map
 				map(
+					lambda __ViewedNetworkChartDerivePyplotersList,__ViewedPopulationChartDerivePyploter:
+					__ViewedNetworkChartDerivePyplotersList.setAttr(
+						'PyplotingLegendDict',
+						__ViewedPopulationChartDerivePyploter
+					) 
+					if __ViewedNetworkChartDerivePyplotersList.PyplotingLegendDict==None
+					else None,
+					ViewedNetworkChartDerivePyplotersList,
+					ViewedPopulationChartDerivePyplotersList
+				)
+
+				#/################/#
+				# Look at transfering other things
+				#
+				
+				#map
+				map(
 					lambda __DeriveChartPyploter:
-					ViewedChartsManager.manage(
+					ViewedChartsManager.getManager(
 						self.ManagementTagStr+'_'+ __DeriveChartPyploter.ManagementTagStr,
-					).ManagedValueVariable.mapSetAttr(
+					).mapSetAttr(
 						{
 							'PyplotingShiftVariable':self.PyplotingShiftVariable,
-							'PyplotingLegendDict':__DeriveChartPyploter.PyplotingLegendDict,
 							'PyplotingChartVariable':__DeriveChartPyploter.PyplotingChartVariable,
 							'PyplotingShapeVariable':self.PyplotingShapeVariable,
 						}
@@ -1979,9 +2087,9 @@ class BrianerClass(BaseClass):
 							BrianViewKeyStrsList
 						)
 					).view(
-					).team(
+					).getTeamer(
 						'Draws'
-					).TeamedValueVariable.mapManage(
+					).mapManage(
 						map(
 							lambda __ItemTuple:
 							(
@@ -1993,7 +2101,7 @@ class BrianerClass(BaseClass):
 							__DeriveChartPyploter.TeamDict['Draws'].ManagementDict.items()
 						)
 					),
-					self.TeamDict['Charts'].ManagementDict.values()
+					ViewedPopulationChartDerivePyplotersList
 				)
 
 				#Set a gap
@@ -2707,6 +2815,7 @@ class BrianerClass(BaseClass):
 					)/2)
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We give a legend to the Chart',
@@ -2715,9 +2824,8 @@ class BrianerClass(BaseClass):
 						])
 				]
 			)
-
-				
-
+			'''
+			
 		#/################/#
 		# call the base view method
 		#
@@ -2875,6 +2983,7 @@ class BrianerClass(BaseClass):
 			#
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We update a legend',
@@ -2882,12 +2991,18 @@ class BrianerClass(BaseClass):
 							'PyplotingLegendDict'
 						]),
 					'BrianedChartDerivePyploter.ManagementTagStr is ',
-					BrianedChartDerivePyploter.ManagementTagStr
+					BrianedChartDerivePyploter.ManagementTagStr,
+					'BrianedChartDerivePyploter.PyplotingLegendDict is ',
+					str(BrianedChartDerivePyploter.PyplotingLegendDict)
 				]
 			)
+			'''
 
 			#alias
-			BrianedChartDerivePyploter.PyplotingLegendDict=self.PyplotingLegendDict
+			if BrianedChartDerivePyploter.PyplotingLegendDict==None:
+
+				#set
+				BrianedChartDerivePyploter.PyplotingLegendDict=self.PyplotingLegendDict
 
 			#/####################/#
 			# Update the PyplotingChartVariable

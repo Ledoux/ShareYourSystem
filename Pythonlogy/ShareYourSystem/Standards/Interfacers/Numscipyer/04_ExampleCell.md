@@ -5,4 +5,4 @@ FrozenIsBool True
 
 ##Example
 
-Make this dense array disymmetrized
+Make this sparse array disymmetrized

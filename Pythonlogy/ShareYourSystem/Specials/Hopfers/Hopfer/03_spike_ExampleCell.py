@@ -14,11 +14,15 @@ import ShareYourSystem as SYS
 MyHopfer=SYS.HopferClass(
 	).hopf(
 		_UnitsInt=100,
-		_StdWeightFloat=1.5,
-		_SymmetryFloat=-0.7,
-	).simulate(
-		500.
+		_MeanWeightFloat=1.,
+		_StdWeightFloat=0.,
+		_ProbabilityWeigthFloat=0.2,
+		#_SymmetryFloat=-0.7,
+		_InteractionStr="Spike"
 	)
+	#.simulate(
+	#	500.
+	#)
 
 #/###################/#
 # View

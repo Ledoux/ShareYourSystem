@@ -291,7 +291,7 @@ class RecorderClass(BaseClass):
 			self.RecordedInitFloatsArray=self.numscipy(
 					_SizeTuple=(len(self.RecordedTraceFloatsArray),1),
 					_StatBool=False
-				).NumscipiedRandomFloatsArray[:,0]
+				).NumscipiedValueFloatsArray[:,0]
 
 			#debug
 			'''

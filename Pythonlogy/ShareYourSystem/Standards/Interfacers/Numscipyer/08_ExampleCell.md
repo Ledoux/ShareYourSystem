@@ -5,4 +5,4 @@ FrozenIsBool True
 
 ##Example
 
-Make this dense array disymmetrized
+Compute correlations between rows

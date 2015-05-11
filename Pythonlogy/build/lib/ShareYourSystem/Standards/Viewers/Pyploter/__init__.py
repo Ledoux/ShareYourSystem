@@ -67,6 +67,7 @@ class PyploterClass(BaseClass):
 						_PyplotingPrintBool=True,
 						_PyplotingLabelStr="",
 						_PyplotingLegendDict=None,
+						_PyplotingTextVariable=None,
 						_PyplotedTeamTagStr="",
 						_PyplotedParentFigureDerivePyploterVariable=None,
 						_PyplotedParentPanelDerivePyploterVariable=None,
@@ -86,6 +87,7 @@ class PyploterClass(BaseClass):
 						_PyplotedParentSingularStr="",
 						_PyplotedPreviousChartDerivePyploterVariable=None,
 						_PyplotedPreviousPanelDerivePyploterVariable=None,
+						_PyplotedTextIntsList=None,
 						**_KwargVariablesDict
 					):
 
@@ -638,13 +640,33 @@ class PyploterClass(BaseClass):
 		else:
 			PyplotedLabelStr=self.PyplotingLabelStr
 
+		#Check
+		if self.PyplotingTextVariable==None:
+
+			#Check
+			if self.PyplotedParentFigureDerivePyploterVariable.PyplotingTextVariable!=None:
+
+				#list
+				self.PyplotedTextIntsList=list(
+					self.PyplotedParentFigureDerivePyploterVariable.PyplotingTextVariable
+				)
+				
+			else:
+
+				#default
+				self.PyplotedTextIntsList=[-0.25,-0.2]
+		else:
+
+			#list
+			self.PyplotedTextIntsList=list(self.PyplotingTextVariable)
+
 		#set
 		PyplotedLabelDerivePyploter.PyplotingChartVariable=[
 			('plot',[]),
 			('text',{
 						'#liarg':[
-							-0.25,
-							-0.,#0.2,
+							self.PyplotedTextIntsList[0],
+							self.PyplotedTextIntsList[1],
 							'$\mathbf{'+PyplotedLabelStr+'}$'
 						],
 						'#kwarg':{
@@ -1082,11 +1104,30 @@ class PyploterClass(BaseClass):
 		else:
 
 			#/################/#
+			# Case of a command shape for all the charts 
+			#
+
+			#Check
+			if type(self.PyplotedParentPanelDerivePyploterVariable.PyplotingShapeVariable)==list:
+
+				#debug
+				'''
+				self.debug(
+					[
+						'Shape is determined from the parent panel'
+					]
+				)
+				'''
+
+				#copy
+				self.PyplotedShapeIntsList=self.PyplotedParentPanelDerivePyploterVariable.PyplotingShapeVariable[:]
+
+			#/################/#
 			# Case of one panel
 			#
 
 			#Check
-			if self.PyplotedParentPanelDerivePyploterVariable==self.PyplotedParentFigureDerivePyploterVariable:
+			elif self.PyplotedParentPanelDerivePyploterVariable==self.PyplotedParentFigureDerivePyploterVariable:
 
 				#debug
 				'''
@@ -1988,12 +2029,14 @@ class PyploterClass(BaseClass):
 			)
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We add a legend'
 				]
 			)
-		
+			'''
+
 			#add
 			self.PyplotedChartTuplesList+=[
 				('legend',{
@@ -2255,6 +2298,7 @@ PyploterClass.PrintingClassSkipKeyStrsList.extend(
 		'PyplotingPrintBool',
 		'PyplotingLabelStr',
 		'PyplotingLegendDict',
+		'PyplotingTextVariable',
 		'PyplotedTeamTagStr',
 		'PyplotedParentFigureDerivePyploterVariable',
 		'PyplotedParentPanelDerivePyploterVariable',
@@ -2273,7 +2317,8 @@ PyploterClass.PrintingClassSkipKeyStrsList.extend(
 		'PyplotedDrawTuplesList',
 		'PyplotedParentSingularStr',
 		'PyplotedPreviousChartDerivePyploterVariable',
-		'PyplotedPreviousPanelDerivePyploterVariable'
+		'PyplotedPreviousPanelDerivePyploterVariable',
+		'PyplotingTextIntsList'
 	]
 )
 #<DefinePrint>

@@ -685,23 +685,59 @@ def reverse(_List):
 	ReversedList.reverse()
 	return ReversedList
 
-def sum(_VariablesList):
+def sum(_VariablesListOrArray):
 
-	#Check
-	if len(_VariablesList)>0:
+	#import
+	import numpy as np
 
-		#reduce
-		return functools.reduce(
-								lambda __List,__Variable:
-								__List+list(__Variable) 
-								if type(__Variable) in [list,tuple] 
-								else __List+[__Variable],
-								_VariablesList
-							)
+	if type(_VariablesListOrArray)==np.ndarray:
+
+		#Check
+		if type(_VariablesListOrArray[0])==np.ndarray:
+
+			#list
+			ShapeIntsList=list(np.shape(_VariablesListOrArray))
+
+			#add
+			NewShapeIntsList=[ShapeIntsList[0]*ShapeIntsList[1]]+ShapeIntsList[2:]
+
+			#Debug
+			'''
+			print('l 705 sum SYS')
+			print('ShapeIntsList is ')
+			print(ShapeIntsList)
+			print('NewShapeIntsList is ')
+			print(NewShapeIntsList)
+			print('')
+			'''
+
+			#return
+			return _VariablesListOrArray.reshape(
+					NewShapeIntsList
+				)
+
+		else:
+
+			#return
+			return np.sum(_VariablesListOrArray)
+
 	else:
 
-		#return
-		return []
+		#Check
+		if len(_VariablesListOrArray)>0:
+
+			#reduce
+			return functools.reduce(
+									lambda __List,__Variable:
+									__List+list(__Variable) 
+									if type(__Variable) in [list,tuple] 
+									else __List+[__Variable],
+									_VariablesListOrArray
+								)
+		else:
+
+			#return
+			return []
 
 def flat(_VariablesList):
 	if len(_VariablesList)>0:
@@ -801,6 +837,103 @@ def dictify(_TuplesList,_KeyIndexInt,_ValueIndexInt):
 def listify(_List):
 	return map(lambda __ElementVariable:[__ElementVariable],_List)
 
+def arrayify(_VariablesList,_ShapeIntsList=None):
+
+	#Debug
+	'''
+	print('SYS l 807 arrayify')
+	print('_VariablesList is ')
+	print(_VariablesList)
+	print('')
+	'''
+
+	#unzip
+	[
+		IndexIntsTuplesList,
+		ValueVariablesList
+	]=unzip(_VariablesList,[0,1])
+
+	#Debug
+	'''
+	print('SYS l 818 arrayify')
+	print('IndexIntsTuplesList is ')
+	print(IndexIntsTuplesList)
+	print('')
+	'''
+
+	#get
+	DimensionsInt=len(IndexIntsTuplesList[0])
+
+	#Check
+	if _ShapeIntsList==None:
+
+		#unzip
+		ShapeIntsList=map(
+			lambda __DimensionInt:
+			max(unzip(IndexIntsTuplesList,[__DimensionInt]))+1,
+			xrange(DimensionsInt)
+		)
+	else:
+
+		#set
+		ShapeIntsList=_ShapeIntsList
+
+	#Debug
+	'''
+	print('SYS l 820 arrayify')
+	print('ShapeIntsList is ')
+	print(ShapeIntsList)
+	print('')
+	'''
+
+	#import
+	import numpy as np
+
+	#init
+	if type(_VariablesList[0][1]) in [list,np.ndarray]:
+
+		#init
+		VariablesArray=np.zeros(
+			ShapeIntsList+[len(_VariablesList[0][1])],
+			dtype=type(_VariablesList[0][1])
+		)
+
+		#set
+		map(
+			lambda __IndexIntsTuple,__ValueVariable:
+			VariablesArray.__setitem__(
+				__IndexIntsTuple,
+				np.array(__ValueVariable)
+			),
+			IndexIntsTuplesList,
+			ValueVariablesList
+		)
+
+	else:
+
+		#init
+		VariablesArray=np.zeros(
+			ShapeIntsList,
+			dtype=type(_VariablesList[0][1])
+		)
+
+		#set
+		map(
+			lambda __IndexIntsTuple,__ValueVariable:
+			VariablesArray.__setitem__(
+				__IndexIntsTuple,
+				np.array(__ValueVariable)
+			),
+			IndexIntsTuplesList,
+			ValueVariablesList
+		)
+
+
+	
+
+	#return
+	return VariablesArray
+	
 def where(_DictsList,_TuplesList,**_KwargsDict):
 
 	if 'IsInCheckingBool' in _KwargsDict and _KwargsDict['IsInCheckingBool']:
@@ -2861,6 +2994,19 @@ def getFloatStr(_Float):
 
 	#return
 	return FloatStr
+
+def argmax(_Array):
+
+	#import
+	import numpy as np
+	from scipy.signal import argrelextrema
+
+	#Maxima
+	return argrelextrema(
+		_Array, 
+		np.greater
+	)[0]
+
 
 #</DefineLocals>
 
