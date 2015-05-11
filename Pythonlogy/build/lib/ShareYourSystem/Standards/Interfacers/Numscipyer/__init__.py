@@ -63,7 +63,8 @@ class NumscipyerClass(BaseClass):
 			_NumscipyingSizeTuple=None,
 			_NumscipyingMeanFloat=0.,
 			_NumscipyingStdFloat=1.,
-			_NumscipyingProbabilityFloat=0.,
+			_NumscipyingSparseFloat=0.,
+			_NumscipyingSwitchFloat=0.,
 			_NumscipyingNormalisationFunction=None,
 			_NumscipyingDivideVariable=None,
 			_NumscipyingDiscreteStatStr="bernoulli",
@@ -74,6 +75,7 @@ class NumscipyerClass(BaseClass):
 			_NumscipiedNonNullIndexIntsTuplesList=None,
 			_NumscipiedNullIndexIntsListsList=None,
 			_NumscipiedNullIndexIntsTuplesList=None,
+			_NumscipiedToSwitchIndexIntsTuplesList=None,
 			_NumscipiedIsDisymmetrizeIndexIntsListsList=None,
 			_NumscipiedToDissymetrizeIndexIntsTuplesList=None,
 			_NumscipiedToDissymetricsInt=0,
@@ -222,7 +224,7 @@ class NumscipyerClass(BaseClass):
 		#
 
 		#Check
-		if self.NumscipyingProbabilityFloat>0.:
+		if self.NumscipyingSparseFloat>0.:
 
 			#debug
 			'''
@@ -232,7 +234,7 @@ class NumscipyerClass(BaseClass):
 					'We set a discrete skeleton',
 					('self.',self,[
 							'NumscipyingDiscreteStatStr',
-							'NumscipyingProbabilityFloat'
+							'NumscipyingSparseFloat'
 						])
 				]
 			)
@@ -256,7 +258,7 @@ class NumscipyerClass(BaseClass):
 
 			#set
 			NumscipiedRandomIntsArray=self.NumscipiedDiscreteStatRigidFunction(
-				self.NumscipyingProbabilityFloat,
+				self.NumscipyingSparseFloat,
 				size=NumscipiedSizeInt
 			)
 
@@ -296,6 +298,111 @@ class NumscipyerClass(BaseClass):
 			self.NumscipiedValueFloatsArray=self.NumscipiedValueFloatsArray.reshape(
 				self.NumscipyingSizeTuple
 			)
+
+			#Check
+			if self.NumscipyingSwitchFloat>0.:
+
+				#/##################/#
+				# Switch the sgn 
+				#
+
+				#debug
+				'''
+				self.debug(
+					[
+						'We switch the sign',
+						('self.',self,[
+								'NumscipyingSwitchFloat'
+							])
+					]
+				)
+				'''
+
+				#import
+				import itertools
+
+				#filter the upper index tuples
+				self.NumscipiedIndexIntsTuplesList=filter(
+					lambda __Tuple:
+					__Tuple[1]!=__Tuple[0],
+					itertools.product(
+						xrange(self.NumscipyingColsInt),
+						xrange(self.NumscipyingColsInt)
+					)
+				)
+
+				#/#################/#
+				# group by the null and non null index tuples
+				#
+
+				#filter
+				[
+					self.NumscipiedNonNullIndexIntsTuplesList,
+					self.NumscipiedNullIndexIntsTuplesList
+				]=SYS.groupby(
+					lambda __IndexIntsTuple:
+					self.NumscipiedValueFloatsArray[
+						__IndexIntsTuple
+					]!=0.,
+					self.NumscipiedIndexIntsTuplesList
+				)
+
+				#len
+				NumscipiedSwitchsInt=int(self.NumscipyingSwitchFloat*len(
+						self.NumscipiedNonNullIndexIntsTuplesList
+					)
+				)
+
+				#copy
+				self.NumscipiedToSwitchIndexIntsTuplesList=self.NumscipiedNonNullIndexIntsTuplesList[:]
+
+				#debug
+				'''
+				self.debug(
+					[
+						'Before shuffle to switch',
+						('self.',self,[
+								'NumscipiedToSwitchIndexIntsTuplesList'
+							]),
+					]
+				)
+				'''
+
+				#Shuffle and pick the NumscipiedToSwitchIndexIntsTuplesList
+				np.random.shuffle(
+					self.NumscipiedToSwitchIndexIntsTuplesList
+				)
+
+				#cut
+				self.NumscipiedToSwitchIndexIntsTuplesList=self.NumscipiedToSwitchIndexIntsTuplesList[
+					:NumscipiedSwitchsInt
+				] 
+
+				#debug
+				'''
+				self.debug(
+					[
+						'We map switch here',
+						('self.',self,[
+								'NumscipiedToSwitchIndexIntsTuplesList'
+							]),
+						'NumscipiedSwitchsInt is '+str(NumscipiedSwitchsInt)
+					]
+				)
+				'''
+
+				#map switch
+				map(
+					lambda __NumscipiedToSwitchIndexIntsTuple:
+					self.NumscipiedValueFloatsArray.__setitem__(
+						__NumscipiedToSwitchIndexIntsTuple,
+						-self.NumscipiedValueFloatsArray[
+							__NumscipiedToSwitchIndexIntsTuple
+						]
+					),
+					self.NumscipiedToSwitchIndexIntsTuplesList
+				)	
+
 
 		#/#################/#
 		# If it is a dense matrix then 
@@ -426,7 +533,7 @@ class NumscipyerClass(BaseClass):
 			'''
 
 			#Check
-			if self.NumscipyingProbabilityFloat==0. and self.NumscipyingStdFloat>0.:
+			if self.NumscipyingSparseFloat==0. and self.NumscipyingStdFloat>0.:
 
 				#/#################/#
 				# This is a diluting symmetrization
@@ -483,7 +590,7 @@ class NumscipyerClass(BaseClass):
 					np.diagonal(self.NumscipiedValueFloatsArray)
 				) 
 
-			elif self.NumscipyingProbabilityFloat>0.:
+			elif self.NumscipyingSparseFloat>0.:
 
 				#/#################/#
 				# This is a sparse symmetrization
@@ -515,18 +622,21 @@ class NumscipyerClass(BaseClass):
 						)
 					)
 
-				#import
-				import itertools
+				#Check
+				if self.NumscipiedIndexIntsTuplesList==None:
 
-				#filter the upper index tuples
-				self.NumscipiedIndexIntsTuplesList=filter(
-											lambda __Tuple:
-											__Tuple[1]!=__Tuple[0],
-											itertools.product(
-												xrange(self.NumscipyingColsInt),
-												xrange(self.NumscipyingColsInt)
-											)
-										)
+					#import
+					import itertools
+
+					#filter the upper index tuples
+					self.NumscipiedIndexIntsTuplesList=filter(
+						lambda __Tuple:
+						__Tuple[1]!=__Tuple[0],
+						itertools.product(
+							xrange(self.NumscipyingColsInt),
+							xrange(self.NumscipyingColsInt)
+						)
+					)
 
 				#/#################/#
 				# group by the null and non null index tuples
@@ -830,25 +940,32 @@ class NumscipyerClass(BaseClass):
 					)
 				)/(float(self.NumscipiedSymmetricsInt-1))
 
-			#compute
+			#set
 			self.NumscipiedSommersFloat = (
 				2.*NumscipiedShiftSymmetryFloat-1.
 			)/(2.*NumscipiedShiftSymmetryFloat*(NumscipiedShiftSymmetryFloat-1.
 				)+1.)
 
+			#Check
+			if self.NumscipyingStdFloat==0.:
+
+				#mul
+				self.NumscipiedSommersFloat*=self.NumscipyingSparseFloat*(
+					1.-self.NumscipyingSparseFloat
+				)
+
 			#debug
-			'''
 			self.debug(
 				[
 					('self.',self,
 						[
 							'NumscipiedVarianceFloat',
+							'NumscipiedSommersFloat',
 							'NumscipiedSymmetricsInt'
 						]
 					)
 				]
 			)
-			'''
 
 			#deviation
 			self.NumscipiedStdFloat=np.sqrt(self.NumscipiedVarianceFloat)
@@ -1499,7 +1616,8 @@ NumscipyerClass.PrintingClassSkipKeyStrsList.extend(
 		'NumscipyingSizeTuple',
 		'NumscipyingMeanFloat',
 		'NumscipyingStdFloat',
-		'NumscipyingProbabilityFloat',
+		'NumscipyingSparseFloat',
+		'NumscipyingSwitchFloat',
 		'NumscipyingNormalisationFunction',
 		'NumscipyingDivideVariable',
 		'NumscipyingDiscreteStatStr',
@@ -1522,6 +1640,7 @@ NumscipyerClass.PrintingClassSkipKeyStrsList.extend(
 		'NumscipiedNonNullIndexIntsTuplesList',
 		'NumscipiedNullIndexIntsListsList',
 		'NumscipiedNullIndexIntsTuplesList',
+		'NumscipiedToSwitchIndexIntsTuplesList',
 		'NumscipiedIsDisymmetrizeIndexIntsListsList',
 		'NumscipiedToDissymetrizeIndexIntsTuplesList',
 		'NumscipiedToDissymetricsInt',

@@ -2318,7 +2318,7 @@ PyploterClass.PrintingClassSkipKeyStrsList.extend(
 		'PyplotedParentSingularStr',
 		'PyplotedPreviousChartDerivePyploterVariable',
 		'PyplotedPreviousPanelDerivePyploterVariable',
-		'PyplotingTextIntsList'
+		'PyplotedTextIntsList'
 	]
 )
 #<DefinePrint>

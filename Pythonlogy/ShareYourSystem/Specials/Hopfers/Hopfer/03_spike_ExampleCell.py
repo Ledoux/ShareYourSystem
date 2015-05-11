@@ -16,7 +16,8 @@ MyHopfer=SYS.HopferClass(
 		_UnitsInt=100,
 		_MeanWeightFloat=1.,
 		_StdWeightFloat=0.,
-		_ProbabilityWeigthFloat=0.2,
+		_SparseWeigthFloat=0.2,
+		_SwitchWeigthFloat=0.5,
 		#_SymmetryFloat=-0.7,
 		_InteractionStr="Spike"
 	)

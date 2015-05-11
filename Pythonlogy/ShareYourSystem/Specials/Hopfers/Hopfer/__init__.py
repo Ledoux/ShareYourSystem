@@ -38,7 +38,8 @@ class HopferClass(BaseClass):
 			_HopfingConstantTimeFloat = 10.0,
 			_HopfingMeanWeightFloat = 0.0,
 			_HopfingStdWeightFloat = 1.0,
-			_HopfingProbabilityWeigthFloat=0.2,
+			_HopfingSparseWeigthFloat=0.2,
+			_HopfingSwitchWeigthFloat=0.5,
 			_HopfingNormalisationInt= 0.5,
 			_HopfingSymmetryFloat = 0.0,
 			_HopfingPerturbationEnvelopBool=True,
@@ -93,8 +94,9 @@ class HopferClass(BaseClass):
 		self.NumscipyingNormalisationFunction=lambda __ColsInt:__ColsInt**0.5
 
 		#Check
-		if self.HopfingInteractionStr=="Spike":
-			self.NumscipyingProbabilityFloat=self.HopfingProbabilityWeigthFloat
+		#if self.HopfingInteractionStr=="Spike":
+		self.NumscipyingSparseFloat=self.HopfingSparseWeigthFloat
+		self.NumscipyingSwitchFloat=self.HopfingSwitchWeigthFloat
 
 		#numscipy
 		self.numscipy(
@@ -464,9 +466,15 @@ class HopferClass(BaseClass):
 		#import
 		import matplotlib.patches
 
+		#compute the center
+		PyplotedCenterFloat=(
+			self.HopfingSwitchWeigthFloat*self.HopfingMeanWeightFloat-(
+				1.-self.HopfingSwitchWeigthFloat
+			)*self.HopfingMeanWeightFloat)/2.
+
 		#Add the matrix contour Ellipse
 		PyplotedBifurcationEllipse=matplotlib.patches.Ellipse(
-							xy=(self.HopfingMeanWeightFloat,0.), 
+							xy=(PyplotedCenterFloat,0.), 
 						 	width=2.*(1.+self.NumscipiedSommersFloat),
 						 	height=2.*(1.-self.NumscipiedSommersFloat),
 						 	color='r',
@@ -475,7 +483,7 @@ class HopferClass(BaseClass):
 
 		#Add the Wiener Circle
 		PyplotedBifurcationCircle=matplotlib.patches.Ellipse(
-							xy=(self.HopfingMeanWeightFloat,0.), 
+							xy=(PyplotedCenterFloat,0.), 
 						 	width=2.,
 						 	height=2.,
 						 	linewidth=2,
@@ -776,7 +784,8 @@ HopferClass.PrintingClassSkipKeyStrsList.extend(
 		'HopfingConstantTimeFloat',
 		'HopfingMeanWeightFloat',
 		'HopfingStdWeightFloat',
-		'HopfingProbabilityWeigthFloat',
+		'HopfingSparseWeigthFloat',
+		'HopfingSwitchWeigthFloat',
 		'HopfingNormalisationInt',
 		'HopfingSymmetryFloat',
 		'HopfingPerturbationEnvelopBool',
