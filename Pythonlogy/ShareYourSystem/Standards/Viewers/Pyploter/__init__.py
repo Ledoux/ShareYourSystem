@@ -68,6 +68,8 @@ class PyploterClass(BaseClass):
 						_PyplotingLabelStr="",
 						_PyplotingLegendDict=None,
 						_PyplotingTextVariable=None,
+						_PyplotingXSkipTickBool=False,
+						_PyplotingYSkipTickBool=False,
 						_PyplotedTeamTagStr="",
 						_PyplotedParentFigureDerivePyploterVariable=None,
 						_PyplotedParentPanelDerivePyploterVariable=None,
@@ -695,6 +697,12 @@ class PyploterClass(BaseClass):
 		#set
 		LowAxeStr=_AxeStr.lower()
 
+		#get
+		ViewedSkipTickBool=getattr(
+				self,
+				'Pyploting'+_AxeStr+'SkipTickBool'
+			)
+
 		#/###############/#
 		# Look for a label
 		#
@@ -716,21 +724,21 @@ class PyploterClass(BaseClass):
  			#
 
 			#init
-			ViewedShiftIntsList=None
+			ViewedShiftIntsList=[1,0]
 
 			#Check
-			if len(self.ParentDeriveTeamerVariable.ManagementDict)>1:
+			if len(self.ParentDeriveTeamerVariable.ManagementDict)>(self.ManagementIndexInt+1):
 
 				#get
 				ViewedNextDerivePyploter=self.ParentDeriveTeamerVariable.ManagementDict.getValue(
-					1
+					self.ManagementIndexInt+1
 				)
 
 				#Check
 				if type(ViewedNextDerivePyploter.PyplotingShiftVariable)==list:
+
+					#copy
 					ViewedShiftIntsList=ViewedNextDerivePyploter.PyplotingShiftVariable[:]
-				else:
-					ViewedShiftIntsList=[1,0]
 
 			#debug
 			'''
@@ -747,29 +755,42 @@ class PyploterClass(BaseClass):
 			# if plots are sorted in columns or rows
 			#
 
+			#debug
+			'''
+			self.debug(
+				[
+					'Do we have to simplfy the tick print',
+					'ViewedSkipTickBool is '+str(ViewedSkipTickBool)
+				]
+			)
+			'''
+			
 			#Check
-			if (
-					_AxeStr=='X' and ViewedShiftIntsList[0]>0
-				) or (
-					_AxeStr=='Y' and ViewedShiftIntsList[1]>0
-				):
+			if ViewedSkipTickBool:
 
 				#Check
-				if self.ParentDeriveTeamerVariable!=None and self.ManagementIndexInt<len(
-					self.ParentDeriveTeamerVariable.ManagementDict
-				)-1:
+				if (
+						_AxeStr=='X' and ViewedShiftIntsList[0]>0
+					) or (
+						_AxeStr=='Y' and ViewedShiftIntsList[1]>0
+					):
 
-					#append
-					self.PyplotedChartTuplesList.append(
-						(
-							'set_'+LowAxeStr+'label',{
-								'#liarg':[""]
-							}
+					#Check
+					if self.ParentDeriveTeamerVariable!=None and self.ManagementIndexInt<len(
+						self.ParentDeriveTeamerVariable.ManagementDict
+					)-1:
+
+						#append
+						self.PyplotedChartTuplesList.append(
+							(
+								'set_'+LowAxeStr+'label',{
+									'#liarg':[""]
+								}
+							)
 						)
-					)
 
-					#set
-					ViewedLabelPlot=True
+						#set
+						ViewedLabelPlot=True
 
 			#Check
 			if ViewedLabelPlot==False:
@@ -865,32 +886,65 @@ class PyploterClass(BaseClass):
 			#Init
 			ViewedTickLabelPlot=False
 
+			#debug
+			'''
+			self.debug(
+				[
+					'_AxeStr is '+str(_AxeStr),
+					'ViewedShiftIntsList is '+str(ViewedShiftIntsList),
+					'ViewedSkipTickBool is '+str(ViewedSkipTickBool),
+					('self.',self,[
+							'ManagementIndexInt'
+						]),
+					'self.ManagementIndexInt<len(self.ParentDeriveTeamerVariable.ManagementDict)-1 is ',
+					str(self.ManagementIndexInt<len(self.ParentDeriveTeamerVariable.ManagementDict)-1)
+				]
+			)
+			'''
+
 			#Check
 			if ViewedShiftIntsList!=None:
 
+				#/################/#
+				# Simplify the ticklabels to print 
+				# if plots are sorted in columns or rows
+				#
+
 				#Check
-				if (
-						_AxeStr=='X' and ViewedShiftIntsList[0]>0
-					) or (
-						_AxeStr=='Y' and ViewedShiftIntsList[1]>0
-					):
+				if ViewedSkipTickBool:
 
 					#Check
-					if self.ManagementIndexInt<len(
-						self.ParentDeriveTeamerVariable.ManagementDict
-					)-1:
+					if (
+							_AxeStr=='X' and ViewedShiftIntsList[0]>0
+						) or (
+							_AxeStr=='Y' and ViewedShiftIntsList[1]>0
+						):
 
-						#append
-						self.PyplotedChartTuplesList.append(
-							(
-								'set_'+LowAxeStr+'ticklabels',{
-									'#liarg':[[]]
-								}
+						#Check
+						if self.ManagementIndexInt<len(
+							self.ParentDeriveTeamerVariable.ManagementDict
+						)-1:
+
+							#debug
+							'''
+							self.debug(
+								[
+									'We remove the tick labels'
+								]
 							)
-						)
+							'''
 
-						#set
-						ViewedTickLabelPlot=True
+							#append
+							self.PyplotedChartTuplesList.append(
+								(
+									'set_'+LowAxeStr+'ticklabels',{
+										'#liarg':[[]]
+									}
+								)
+							)
+
+							#set
+							ViewedTickLabelPlot=True
 
 			#Check
 			if ViewedTickLabelPlot==False:
@@ -1180,7 +1234,7 @@ class PyploterClass(BaseClass):
 					if PyplotedNextChartDerivePyloter.PyplotingShiftVariable!=None:
 
 						#copy
-						PyplotedShiftIntsListt=PyplotedNextChartDerivePyloter.PyplotingShiftVariable[:]
+						PyplotedShiftIntsList=PyplotedNextChartDerivePyloter.PyplotingShiftVariable[:]
 					else:
 
 						#default
@@ -2016,6 +2070,18 @@ class PyploterClass(BaseClass):
 		#Check
 		if self.PyplotingLegendDict!=None and len(self.PyplotingLegendDict)>0:
 
+			#debug
+			'''
+			self.debug(
+				[
+					'We complete the legend',
+					('self.',self,[
+							'PyplotingLegendDict'
+						])
+				]
+			)
+			'''
+
 			#complete
 			SYS.complete(
 				self.PyplotingLegendDict,
@@ -2032,11 +2098,14 @@ class PyploterClass(BaseClass):
 			'''
 			self.debug(
 				[
-					'We add a legend'
+					'We add a legend',
+					('self.',self,[
+							'PyplotingLegendDict'
+						])
 				]
 			)
 			'''
-
+			
 			#add
 			self.PyplotedChartTuplesList+=[
 				('legend',{
@@ -2069,6 +2138,18 @@ class PyploterClass(BaseClass):
 
 
 	def setAnchor(self):
+
+		#debug
+		'''
+		self.debug(
+			[
+				'We setAnchor here',
+				('self.',self,[
+						'ManagementIndexInt'
+					])
+			]
+		)
+		'''
 
 		#init
 		if self.ManagementIndexInt==0:
@@ -2214,6 +2295,17 @@ class PyploterClass(BaseClass):
 			# Determine the shift 
 			# 
 
+			#debug
+			'''
+			self.debug(
+				[
+					('self.',self,[
+							'PyplotingShiftVariable'
+						])
+				]
+			)
+			'''
+
 			#Check
 			if self.PyplotingShiftVariable!=None:
 
@@ -2250,7 +2342,7 @@ class PyploterClass(BaseClass):
 			]
 		)
 		'''
-
+		
 		#set
 		self.PyplotedAnchorIntsList=map(
 			lambda __PyplotedPreviousAnchorInt,__PyplotedShiftInt,__PyplotedTrueShiftInt,__PyplotedPreviousShapeInt:
@@ -2299,6 +2391,8 @@ PyploterClass.PrintingClassSkipKeyStrsList.extend(
 		'PyplotingLabelStr',
 		'PyplotingLegendDict',
 		'PyplotingTextVariable',
+		'PyplotingXSkipTickBool',
+		'PyplotingYSkipTickBool',
 		'PyplotedTeamTagStr',
 		'PyplotedParentFigureDerivePyploterVariable',
 		'PyplotedParentPanelDerivePyploterVariable',

@@ -20,7 +20,7 @@ SYS.addDo('Predicter','Predict','Predicting','Predicted')
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
-Leaker=BaseModule
+from ShareYourSystem.Standards.Recorders import Leaker
 import scipy.stats
 import numpy as np
 #</ImportSpecificModules>
@@ -75,7 +75,7 @@ class PredicterClass(BaseClass):
 			_PredictingDecoderVariable=None,
 			_PredictingDecoderMeanFloat=1.,
 			_PredictingDecoderStdFloat=1.,
-			_PredictingDecoderProbabilityFloat=0.,
+			_PredictingDecoderSparseFloat=0.,
 			_PredictingDecoderTimeFloat=1.,
 			_PredictingDecoderNormalisationInt=1,
 			_PredictingFastPerturbStdFloat=0.,
@@ -83,6 +83,7 @@ class PredicterClass(BaseClass):
 			_PredictingInteractionStr="Rate",
 			_PredictingEncodPlasticBool=False,
 			_PredictingFastPlasticBool=False,
+			_PredictingDelayFloat=0.,
 			_PredictedDynamicDict=None,
 			_PredictedSensorJacobianFloatsArray=None,
 			_PredictedDecoderFloatsArray=None,
@@ -101,7 +102,10 @@ class PredicterClass(BaseClass):
 		#Call the parent init method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
-	
+	#/######################/#
+	# predict
+	#
+
 	def do_predict(self):
 
 		#/#################/#
@@ -295,21 +299,30 @@ class PredicterClass(BaseClass):
 		# 
 
 		#get
-		LeakedSensorDerivePredicter=LeakedPopulationsDeriveManager.getManager("Sensor")
+		PredictedSensorDerivePredicter=LeakedPopulationsDeriveManager.getManager(
+			"Sensor",
+			_IndexInt=0
+		)
 
 		#/###################/#
 		# Check for Agent
 		# 
 
 		#get
-		LeakedAgentDerivePredicter=LeakedPopulationsDeriveManager.getManager("Agent")
+		PredictedAgentDerivePredicter=LeakedPopulationsDeriveManager.getManager(
+			"Agent",
+			_IndexInt=1
+		)
 
 		#/###################/#
 		# Check for Decoder
 		# 
 
 		#get
-		LeakedDecoderDerivePredicter=LeakedPopulationsDeriveManager.getManager("Decoder")
+		PredictedDecoderDerivePredicter=LeakedPopulationsDeriveManager.getManager(
+			"Decoder",
+			_IndexInt=2
+		)
 
 		#debug
 		'''
@@ -388,7 +401,7 @@ class PredicterClass(BaseClass):
 		# 
 
 		#Check
-		if self.PredictingDecoderProbabilityFloat>0.:
+		if self.PredictingDecoderSparseFloat>0.:
 
 			#debug
 			'''
@@ -500,16 +513,16 @@ class PredicterClass(BaseClass):
 			#
 
 			#Check
-			if self.PredictingDecoderProbabilityFloat>0.:
+			if self.PredictingDecoderSparseFloat>0.:
 
 				#sqrt
 				self.NumscipyingMeanFloat=np.sqrt(
-					2.*self.PredictingAgentUnitsInt*self.PredictingAgentThresholdVariable/self.PredictingDecoderProbabilityFloat
+					2.*self.PredictingAgentUnitsInt*self.PredictingAgentThresholdVariable/self.PredictingDecoderSparseFloat
 				)
 			else:
 
 				#set
-				self.NumscipyingMeanFloat=self.NumscipyingMeanFloat=self.PredictingDecoderMeanFloat
+				self.NumscipyingMeanFloat=self.PredictingDecoderMeanFloat
 
 			#debug
 			'''
@@ -518,14 +531,14 @@ class PredicterClass(BaseClass):
 					'We have setted the mean of the decoder to have neuron threshold',
 					('self.',self,[
 							'NumscipyingMeanFloat',
-							'PredictingDecoderProbabilityFloat'
+							'PredictingDecoderSparseFloat'
 						])
 				]
 			)
 			'''
 
 			#numscipy
-			self.NumscipyingProbabilityFloat=self.PredictingDecoderProbabilityFloat
+			self.NumscipyingSparseFloat=self.PredictingDecoderSparseFloat
 			self.NumscipyingStdFloat=self.PredictingDecoderStdFloat
 			self.NumscipyingRowsInt=self.PredictingSensorUnitsInt
 			self.NumscipyingColsInt=self.PredictingAgentUnitsInt
@@ -620,7 +633,7 @@ class PredicterClass(BaseClass):
 			'''
 
 			#numscipy
-			self.NumscipyingMeanFloat=0.,
+			self.NumscipyingMeanFloat=0.
 			self.NumscipyingStdFloat=self.PredictingFastPerturbStdFloat
 			self.NumscipyingSizeTuple=(self.PredictingAgentUnitsInt,self.PredictingAgentUnitsInt)
 			self.numscipy()
@@ -916,35 +929,41 @@ class PredicterClass(BaseClass):
 			#
 
 			#get
-			LeakedInputsDeriveManager=self.getTeamer("Inputs")
+			PredictedInputsDeriveManager=self.getTeamer("Inputs")
 
 			#/###################/#
 			# Specify the Command Input in the Sensor
 			#
 
 			#get
-			LeakedCommandDerivePredicter=LeakedInputsDeriveManager.getManager("Command")
+			PredictedCommandDerivePredicter=PredictedInputsDeriveManager.getManager("Command")
 
 			#/###################/#
 			# Check for Interactions in the Sensor
 			#
 
 			#get
-			LeakedInteractionsDerivePredicter=self.getTeamer("Interactions")
+			PredictedInteractionsDerivePredicter=self.getTeamer(
+				"Interactions"
+			)
 
 			#/###################/#
 			# Specify the Jacobian Interaction in the Sensor
 			#	
 
 			#get
-			LeakedJacobianDerivePredicter=LeakedInteractionsDerivePredicter.getManager("Jacobian")
+			PredictedJacobianDerivePredicter=PredictedInteractionsDerivePredicter.getManager(
+				"Jacobian"
+			)
 
 			#/###################/#
 			# Specify the Sensor to Agent interaction
 			#
 
 			#get
-			LeakedEncoderDerivePredicter=LeakedInteractionsDerivePredicter.getManager("Encod")
+			PredictedEncoderDerivePredicter=PredictedInteractionsDerivePredicter.getManager(
+				"Encod"
+			)
 
 			#debug
 			'''
@@ -1163,7 +1182,7 @@ class PredicterClass(BaseClass):
 			#
 
 			#get
-			LeakedInteractionsDerivePredicter=self.getTeamer(
+			PredictedInteractionsDerivePredicter=self.getTeamer(
 				"Interactions"
 			)
 
@@ -1175,7 +1194,7 @@ class PredicterClass(BaseClass):
 			if self.PredictedNetworkDerivePredicterVariable.PredictingFastSymmetryFloat>0.:	
 
 				#get
-				LeakedFastDerivePredicter=LeakedInteractionsDerivePredicter.getManager("Fast")
+				LeakedFastDerivePredicter=PredictedInteractionsDerivePredicter.getManager("Fast")
 
 				#set the connect target
 				LeakedFastDerivePredicter.ConnectingKeyVariable=self
@@ -1198,7 +1217,7 @@ class PredicterClass(BaseClass):
 			#
 
 			#get
-			LeakedDecodDerivePredicter=LeakedInteractionsDerivePredicter.getManager("Decod")
+			LeakedDecodDerivePredicter=PredictedInteractionsDerivePredicter.getManager("Decod")
 
 			#set the connect target
 			LeakedDecodDerivePredicter.ConnectingKeyVariable=self.ParentDeriveTeamerVariable.ManagementDict[
@@ -1246,17 +1265,17 @@ class PredicterClass(BaseClass):
 					#
 
 					#Check
-					if "Antileak" in LeakedInteractionsDerivePredicter.ManagementDict:
+					if "Antileak" in PredictedInteractionsDerivePredicter.ManagementDict:
 
 						#get
-						LeakedAntileakDerivePredicter=LeakedInteractionsDerivePredicter.ManagementDict[
+						LeakedAntileakDerivePredicter=PredictedInteractionsDerivePredicter.ManagementDict[
 							"Antileak"
 						]
 
 					else:
 
 						#manage
-						LeakedAntileakDerivePredicter=LeakedInteractionsDerivePredicter.manage(
+						LeakedAntileakDerivePredicter=PredictedInteractionsDerivePredicter.manage(
 							"Antileak"
 						).ManagedValueVariable
 
@@ -1357,7 +1376,7 @@ class PredicterClass(BaseClass):
 			#
 
 			#Check
-			if self.PredictedNetworkDerivePredicterVariable.PredictingDecoderProbabilityFloat>0.:
+			if self.PredictedNetworkDerivePredicterVariable.PredictingDecoderSparseFloat>0.:
 
 				#debug
 				'''
@@ -1812,6 +1831,17 @@ class PredicterClass(BaseClass):
 			#link
 			self.LeakingWeigthVariable=self.PredictedNetworkDerivePredicterVariable.PredictedFastFloatsArray
 
+			#/################/#
+			# Consider maybe delay
+			#
+
+			#Check
+			if self.PredictedNetworkDerivePredicterVariable.PredictingDelayFloat!=0.:
+			
+				#set
+				self.LeakingDelayVariable=self.PredictedNetworkDerivePredicterVariable.PredictingDelayFloat
+
+
 		elif self.ManagementTagStr=="Slow":
 
 			#debug
@@ -1858,6 +1888,17 @@ class PredicterClass(BaseClass):
 
 				#link
 				self.LeakingWeigthVariable=self.PredictedNetworkDerivePredicterVariable.PredictedSlowFloatsArray
+
+			#/################/#
+			# Consider maybe delay
+			#
+
+			#Check
+			if self.PredictedNetworkDerivePredicterVariable.PredictingDelayFloat!=0.:
+			
+				#set
+				self.LeakingDelayVariable=self.PredictedNetworkDerivePredicterVariable.PredictingDelayFloat
+
 
 			#debug
 			'''
@@ -1935,24 +1976,10 @@ class PredicterClass(BaseClass):
 				self.LeakingWeigthVariable*=self.PredictedNetworkDerivePredicterVariable.PredictingRateCostVariable
 		"""
 
-	"""
-	def brianInteraction(self):
 
-		#/################/#
-		# Base method
-		#
-
-		BaseClass.brianInteraction(self)
-
-		#Check
-		if self.ManagementTagStr=="Antileak":
-
-			#special unique self connect
-			self.BrianedSynapsesVariable.connect(False)
-
-			#special unique self connect
-			self.BrianedSynapsesVariable.connect('i==j')
-	"""
+	#/######################/#
+	# Augment leak
+	#
 
 	def leakInput(self):
 
@@ -1999,16 +2026,19 @@ class PredicterClass(BaseClass):
 			if self.PredictedNetworkDerivePredicterVariable.PredictingEncodPlasticBool:
 
 				#debug
+				'''
 				self.debug(
 					[
 						'We make the encod synapses plastic'
 					]
 				)
+				'''
 
 				#Check
 				if self.LeakingInteractionStr=="Rate":
 					
 					#debug
+					'''
 					self.debug(
 						[
 							'It is a rate model',
@@ -2019,6 +2049,7 @@ class PredicterClass(BaseClass):
 								])
 						]
 					)
+					'''
 
 					#set
 					self.LeakingPlasticVariable='beta : 1'
@@ -2027,6 +2058,7 @@ class PredicterClass(BaseClass):
 					self.LeakingPlasticVariable+='I_Command_post-lambda*'+self.LeakingSymbolPrefixStr+')'	
 
 					#debug
+					'''
 					self.debug(
 						[
 							'after update of the model',
@@ -2035,10 +2067,12 @@ class PredicterClass(BaseClass):
 								])
 						]
 					)
+					'''
 
 				else:
 
 					#debug
+					'''
 					self.debug(
 						[
 							'It is a spike model',
@@ -2048,13 +2082,14 @@ class PredicterClass(BaseClass):
 								])
 						]
 					)
-
+					'''
 
 					#set
 					self.LeakingPlasticVariable='\n'+self.LeakingSymbolPrefixStr+'+=0.*('+self.PredictedDecoderDerivePredicterVariable.LeakedSymbolStr+'_post'
 					self.LeakingPlasticVariable+='/mV)-'+self.LeakingSymbolPrefixStr
 
 					#debug
+					'''
 					self.debug(
 						[
 							'after update of the model',
@@ -2063,6 +2098,7 @@ class PredicterClass(BaseClass):
 								])
 						]
 					)
+					'''
 
 		#Check
 		elif self.ManagementTagStr=='Fast':
@@ -2081,6 +2117,7 @@ class PredicterClass(BaseClass):
 				if self.LeakingInteractionStr=="Rate":
 					
 					#debug
+					'''
 					self.debug(
 						[
 							'It is a rate model',
@@ -2090,6 +2127,7 @@ class PredicterClass(BaseClass):
 								])
 						]
 					)
+					'''
 
 					#set
 					self.LeakingPlasticVariable='epsilon : 1'
@@ -2098,6 +2136,7 @@ class PredicterClass(BaseClass):
 					self.LeakingPlasticVariable+='dot(I_Command_post,'+self.PredictedAgentDerivePredicterVariable.LeakedSymbolStr+'_post)-alpha*'+self.LeakingSymbolPrefixStr+')'	
 
 					#debug
+					'''
 					self.debug(
 						[
 							'after update of the model',
@@ -2106,10 +2145,12 @@ class PredicterClass(BaseClass):
 								])
 						]
 					)
+					'''
 
 				else:
 
 					#debug
+					'''
 					self.debug(
 						[
 							'It is a spike model',
@@ -2120,17 +2161,26 @@ class PredicterClass(BaseClass):
 								])
 						]
 					)
+					'''
 
 					#set
 					self.LeakingPlasticVariable=self.LeakingSymbolPrefixStr+'+=(('+self.PredictedAgentDerivePredicterVariable.LeakedSymbolStr+'_post'
+					
+					#Check
 					if self.PredictedNetworkDerivePredicterVariable.PredictingAgentRestVariable!=None:
+
+						#add
 						self.LeakingPlasticVariable+=str(
 							self.PredictedNetworkDerivePredicterVariable.PredictingAgentRestVariable
 						)+')/mV)+0.*((1+alpha)/2.)*'+self.LeakingSymbolPrefixStr
+					
 					else:
+
+						#add
 						self.LeakingPlasticVariable+=')/mV)+0.*((1+alpha)/2.)*'+self.LeakingSymbolPrefixStr
 
 					#debug
+					'''
 					self.debug(
 						[
 							'after update of the model',
@@ -2139,244 +2189,11 @@ class PredicterClass(BaseClass):
 								])
 						]
 					)
+					'''
 
-	def viewSample(self):
-
-		#debug
-		'''
-		self.debug(
-			[
-				'We predict view sample here',
-				('self.',self,[
-						'StructureTagStr'
-					])
-			]
-		)
-		'''
-
-		#Check
-		self.ViewingXScaleFloat=1000.
-		self.ViewingYScaleFloat=1000.
-
-		#base
-		BaseClass.viewSample(self)
-
-		#/#################/#
-		# Special Agent case
-		#
-
-		#Check
-		if self.BrianedParentPopulationDeriveBrianerVariable.ManagementTagStr=="Agent":
-
-			#Check
-			"""
-			if self.BrianedParentPopulationDeriveBrianerVariable.PredictedNetworkDerivePredicterVariable.PredictingDynamicBool:
-
-				#Check
-				ViewedCommandDerivePredicter=self.BrianedParentPopulationDeriveBrianerVariable.TeamDict[
-					'Traces'
-				].ManagementDict[
-					'*J_EncodI_Command'
-				].TeamDict[
-					'Samples'
-				].ManagementDict[
-					'Default'
-				]
-
-				#debug
-				self.debug(
-					[
-						'We view Sample Agent here',
-						'We add also the view of the command',
-						#'ViewedSensorDerivePredicter is ',
-						#SYS._str(ViewedSensorDerivePredicter),
-						'ViewedCommandDerivePredicter.PyplotingDrawVariable is ',
-						SYS._str(ViewedCommandDerivePredicter.PyplotingDrawVariable)
-					]
-				)
-
-				#import 
-				import copy
-
-				#copy
-				ViewedPyplotDrawVariable=copy.deepcopy(
-					ViewedSensorDerivePredicter.PyplotingDrawVariable
-				)
-
-				#set
-				map(
-					lambda __ItemTuple:
-					__ItemTuple[1][
-						'#kwarg'
-					].update(
-						{
-							'linestyle':'--',
-							'linewidth':1
-						}
-					),
-					ViewedPyplotDrawVariable
-					#self.PyplotingDrawVariable
-				)
-
-				#add
-				self.PyplotingDrawVariable.extend(
-					ViewedPyplotDrawVariable
-				)
-
-				#debug
-				'''
-				self.debug(
-					[
-						'In the end',
-						('self.',self,[
-							'PyplotingDrawVariable'
-						])
-						
-					]
-				)
-				'''
-			"""
-
-		#/#################/#
-		# Special Decoder case
-		#
-
-		#Check
-		elif self.BrianedParentPopulationDeriveBrianerVariable.ManagementTagStr=="Decoder":
-
-			#
-			ViewedSensorDerivePredicter=self.BrianedParentPopulationDeriveBrianerVariable.PredictedSensorDerivePredicterVariable.TeamDict[
-				'Traces'
-			].ManagementDict[
-				'*U'
-			].TeamDict[
-				'Samples'
-			].ManagementDict[
-				'Default'
-			]
-
-			#debug
-			'''
-			self.debug(
-				[
-					'We view Sample Decoder here',
-					'We add also the view of the sensor',
-					#'ViewedSensorDerivePredicter is ',
-					#SYS._str(ViewedSensorDerivePredicter),
-					'ViewedSensorDerivePredicter.PyplotingDrawVariable is ',
-					SYS._str(ViewedSensorDerivePredicter.PyplotingDrawVariable)
-				]
-			)
-			'''
-			
-			#import 
-			import copy
-
-			#copy
-			ViewedPyplotDrawVariable=copy.deepcopy(
-				ViewedSensorDerivePredicter.PyplotingDrawVariable
-			)
-
-			#set
-			map(
-				lambda __ItemTuple:
-				__ItemTuple[1][
-					'#kwarg'
-				].update(
-					{
-						'alpha':0.3
-					}
-				),
-				ViewedPyplotDrawVariable
-			)
-
-			#set
-			map(
-				lambda __ItemTuple:
-				__ItemTuple[1][
-					'#kwarg'
-				].update(
-					{
-						'linestyle':'--'
-					}
-				),
-				self.PyplotingDrawVariable
-			)
-
-			#:
-			ViewedReversePyplotDrawVariable=ViewedPyplotDrawVariable[:]
-			ViewedReversePyplotDrawVariable.reverse()
-
-			#add
-			map(
-				lambda __Variable:
-				self.PyplotingDrawVariable.insert(
-					0,
-					__Variable
-				),
-				ViewedReversePyplotDrawVariable
-			)
-
-			#debug
-			'''
-			self.debug(
-				[
-					'In the end',
-					('self.',self,[
-						'PyplotingDrawVariable'
-					])
-					
-				]
-			)
-			'''
-
-		#/################/#
-		# Specify the shift
-		#
-
-		#set
-		self.BrianedParentDeriveRecorderVariable.PyplotingShiftVariable=[2,0]
-
-
-
-
-	def pyplotFigure(self):
-
-		#debug
-		'''
-		self.debug(
-			[
-				'We pyplot figure predict here'
-			]
-		)
-		'''
-
-		#Check
-		if self.PredictedNetworkDerivePredicterVariable.PredictingInteractionStr=="Spike":
-
-			#debug
-			'''
-			self.debug(
-				[
-					"It it a spike model, we make bigger the size",
-					('self.',self,[
-							'PyplotingShapeVariable'
-						])
-				]
-			)
-			'''
-
-			#add
-			self.PyplotingGridIntsTuple=(
-				self.PyplotingGridIntsTuple[0]+15,
-				self.PyplotingGridIntsTuple[1]
-			)
-
-		#call the base
-		BaseClass.pyplotFigure(self)
-
-
-
+	#/######################/#
+	# Augment brian
+	#
 
 	def setDebugNeurongroup(self):
 
@@ -2535,24 +2352,250 @@ class PredicterClass(BaseClass):
 		BaseClass.brianTrace(self)
 
 
+	#/######################/#
+	# Augment view
+	#
 
-		
-	"""
-	def leakSample(self):
+	def viewSample(self):
 
 		#debug
 		'''
 		self.debug(
 			[
-				'We predict leak Sample here'
+				'We predict view sample here',
+				('self.',self,[
+						'StructureTagStr'
+					])
 			]
 		)
 		'''
 
-		#set
+		#Check
 		self.ViewingXScaleFloat=1000.
 		self.ViewingYScaleFloat=1000.
-	"""
+
+		#base
+		BaseClass.viewSample(self)
+
+		#/#################/#
+		# Special Agent case
+		#
+
+		#Check
+		if self.BrianedParentPopulationDeriveBrianerVariable.ManagementTagStr=="Agent":
+
+			#Check
+			"""
+			if self.BrianedParentPopulationDeriveBrianerVariable.PredictedNetworkDerivePredicterVariable.PredictingDynamicBool:
+
+				#Check
+				ViewedCommandDerivePredicter=self.BrianedParentPopulationDeriveBrianerVariable.TeamDict[
+					'Traces'
+				].ManagementDict[
+					'*J_EncodI_Command'
+				].TeamDict[
+					'Samples'
+				].ManagementDict[
+					'Default'
+				]
+
+				#debug
+				self.debug(
+					[
+						'We view Sample Agent here',
+						'We add also the view of the command',
+						#'ViewedSensorDerivePredicter is ',
+						#SYS._str(ViewedSensorDerivePredicter),
+						'ViewedCommandDerivePredicter.PyplotingDrawVariable is ',
+						SYS._str(ViewedCommandDerivePredicter.PyplotingDrawVariable)
+					]
+				)
+
+				#import 
+				import copy
+
+				#copy
+				ViewedPyplotDrawVariable=copy.deepcopy(
+					ViewedSensorDerivePredicter.PyplotingDrawVariable
+				)
+
+				#set
+				map(
+					lambda __ItemTuple:
+					__ItemTuple[1][
+						'#kwarg'
+					].update(
+						{
+							'linestyle':'--',
+							'linewidth':1
+						}
+					),
+					ViewedPyplotDrawVariable
+					#self.PyplotingDrawVariable
+				)
+
+				#add
+				self.PyplotingDrawVariable.extend(
+					ViewedPyplotDrawVariable
+				)
+
+				#debug
+				'''
+				self.debug(
+					[
+						'In the end',
+						('self.',self,[
+							'PyplotingDrawVariable'
+						])
+						
+					]
+				)
+				'''
+			"""
+
+		#/#################/#
+		# Special Decoder case
+		#
+
+		#Check
+		elif self.BrianedParentPopulationDeriveBrianerVariable.ManagementTagStr=="Decoder":
+
+			#
+			ViewedSensorDerivePredicter=self.BrianedParentPopulationDeriveBrianerVariable.PredictedSensorDerivePredicterVariable.TeamDict[
+				'Traces'
+			].ManagementDict[
+				'*U'
+			].TeamDict[
+				'Samples'
+			].ManagementDict[
+				'Default'
+			]
+
+			#debug
+			'''
+			self.debug(
+				[
+					'We view Sample Decoder here',
+					'We add also the view of the sensor',
+					#'ViewedSensorDerivePredicter is ',
+					#SYS._str(ViewedSensorDerivePredicter),
+					'ViewedSensorDerivePredicter.PyplotingDrawVariable is ',
+					SYS._str(ViewedSensorDerivePredicter.PyplotingDrawVariable)
+				]
+			)
+			'''
+			
+			#import 
+			import copy
+
+			#copy
+			ViewedPyplotDrawVariable=copy.deepcopy(
+				ViewedSensorDerivePredicter.PyplotingDrawVariable
+			)
+
+			#set
+			map(
+				lambda __ItemTuple:
+				__ItemTuple[1][
+					'#kwarg'
+				].update(
+					{
+						'alpha':0.3
+					}
+				),
+				ViewedPyplotDrawVariable
+			)
+
+			#set
+			map(
+				lambda __ItemTuple:
+				__ItemTuple[1][
+					'#kwarg'
+				].update(
+					{
+						'linestyle':'-',
+						'linewidth':1
+					}
+				),
+				self.PyplotingDrawVariable
+			)
+
+			#:
+			ViewedReversePyplotDrawVariable=ViewedPyplotDrawVariable[:]
+			ViewedReversePyplotDrawVariable.reverse()
+
+			#add
+			map(
+				lambda __Variable:
+				self.PyplotingDrawVariable.insert(
+					0,
+					__Variable
+				),
+				ViewedReversePyplotDrawVariable
+			)
+
+			#debug
+			'''
+			self.debug(
+				[
+					'In the end',
+					('self.',self,[
+						'PyplotingDrawVariable'
+					])
+					
+				]
+			)
+			'''
+
+		#/################/#
+		# Specify the shift
+		#
+
+		#set
+		self.BrianedParentDeriveRecorderVariable.PyplotingShiftVariable=[2,0]
+
+	def pyplotFigure(self):
+
+		#debug
+		'''
+		self.debug(
+			[
+				'We pyplot figure predict here'
+			]
+		)
+		'''
+
+		#Check
+		if self.PredictedNetworkDerivePredicterVariable.PredictingInteractionStr=="Spike":
+
+			#debug
+			'''
+			self.debug(
+				[
+					"It it a spike model, we make bigger the size",
+					('self.',self,[
+							'PyplotingShapeVariable'
+						])
+				]
+			)
+			'''
+
+			#add
+			self.PyplotingGridIntsTuple=(
+				self.PyplotingGridIntsTuple[0]+15,
+				self.PyplotingGridIntsTuple[1]
+			)
+
+		#call the base
+		BaseClass.pyplotFigure(self)
+
+
+
+
+	
+
+
+
 
 #</DefineClass>
 
@@ -2573,6 +2616,7 @@ PredicterClass.PrintingClassSkipKeyStrsList.extend(
 		'PredictingRateCostVariable',
 		'PredictingRateTransferVariable',
 		'PredictingAgentTimeFloat',
+		'PredictingAgentThresholdVariable',
 		'PredictingAgentRestVariable',
 		'PredictingAgentResetVariable',
 		'PredictingFastSymmetryFloat',
@@ -2580,13 +2624,14 @@ PredicterClass.PrintingClassSkipKeyStrsList.extend(
 		'PredictingDecoderVariable',
 		'PredictingDecoderMeanFloat',
 		'PredictingDecoderStdFloat',
-		'PredictingDecoderProbabilityFloat',
+		'PredictingDecoderSparseFloat',
 		'PredictingDecoderTimeFloat',
 		'PredictingDecoderNormalisationInt',
 		'PredictingEncodPlasticBool',
 		'PredictingFastPerturbStdFloat',
 		'PredictingInteractionStr',
 		'PredictingFastPlasticBool',
+		'PredictingDelayFloat',
 		'PredictedDynamicDict',
 		'PredictedSensorJacobianFloatsArray',
 		'PredictedDecoderFloatsArray',

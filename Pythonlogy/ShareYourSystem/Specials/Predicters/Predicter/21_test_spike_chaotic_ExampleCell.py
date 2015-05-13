@@ -64,8 +64,7 @@ MyPredicter=SYS.PredicterClass(
 		_CommandVariable="#custom:#clock:50*ms:1.*mV+1.*mV*int(t==50*ms)",#2.,
 		_DecoderVariable="#array",
 		_DecoderStdFloat=0.,
-		_DecoderMeanFloat=2.,
-		_DecoderProbabilityFloat=0.5,
+		_DecoderSparseFloat=0.2,
 		_InteractionStr="Spike",
 		#_AgentResetVariable=-60.5
 	).simulate(

@@ -38,7 +38,7 @@ class HopferClass(BaseClass):
 			_HopfingConstantTimeFloat = 10.0,
 			_HopfingMeanWeightFloat = 0.0,
 			_HopfingStdWeightFloat = 1.0,
-			_HopfingSparseWeigthFloat=0.2,
+			_HopfingSparseWeigthFloat=0.,
 			_HopfingSwitchWeigthFloat=0.5,
 			_HopfingNormalisationInt= 0.5,
 			_HopfingSymmetryFloat = 0.0,
@@ -46,7 +46,7 @@ class HopferClass(BaseClass):
 			_HopfingStabilityBool=True,
 			_HopfingContourSamplesInt=50,
 			_HopfingInteractionStr="Rate",
-			_HopfedLateralWeigthFloatsArray = None,
+			_HopfedLateralWeigthFloatsArray=None,
 			_HopfedMeanfieldWeigthFloat=0.,
 			_HopfedRealLateralEigenFloatsArray = None,
 			_HopfedImagLateralEigenFloatsArray = None,
@@ -61,6 +61,10 @@ class HopferClass(BaseClass):
 			_HopfedInstabilityContourComplex=None,
 			_HopfedStableBool=True,
 			_HopfedInstabilityStr="",
+			_HopfedStdSparseFloat=0.,
+			_HopfedParentSingularStr="",
+			_HopfedAgentDeriveHopferVariable=None,
+			_HopfedNetworkDeriveHopferVariable=None,
 			**_KwargVariablesDict
 		):
 		""" """		
@@ -70,6 +74,175 @@ class HopferClass(BaseClass):
 
 	
 	def do_hopf(self):
+
+		#/#################/#
+		# Determine if it is an inside structure or the top
+		#
+
+		#debug
+		'''
+		self.debug(
+			[
+				'We leak here',
+				'First look for deeper teams in the structure',
+			]
+		)
+		'''
+
+		#Check
+		if self.ParentedTotalSingularListDict!=None and len(
+			self.ParentedTotalSingularListDict
+		)>0:
+
+			#debug
+			'''
+			self.debug(
+				[
+					'self.ParentedTotalSingularListDict.keys() is ',
+					str(self.ParentedTotalSingularListDict.keys())
+				]
+			)
+			'''
+
+			#get
+			self.HopfedParentSingularStr=self.ParentedTotalSingularListDict.keys()[0]
+
+		#debug
+		'''
+		self.debug(
+			[
+				'Ok',
+				('self.',self,['HopfedParentSingularStr'])
+			]
+		)
+		'''
+
+		#Check
+		if (self.ParentDeriveTeamerVariable==None or "Populations" in self.TeamDict or self.ParentDeriveTeamerVariable.TeamTagStr not in [
+			'Traces',
+			'Samples',
+			'Events',
+			'Interactomes',
+			"Interactions",
+			'Inputs'
+		]) and self.HopfedParentSingularStr!='Population':
+
+			#/########################/#
+			# Network level
+			# 
+
+			#debug
+			'''
+			self.debug(
+				[
+					'It is a Network level for the hopf',
+				]
+			)
+			'''
+
+			#/########################/#
+			# Determine parent level
+			# 
+
+			#alias
+			self.HopfedNetworkDeriveHopferVariable=self
+
+			#/########################/#
+			# hopfNetwork
+			# 
+
+			#hopf
+			self.hopfNetwork()
+
+			#/########################/#
+			# structure hopf 
+			# 
+
+			#debug
+			'''
+			self.debug(
+				[
+					'We structure all the hopfing children...'
+				]
+			)	
+			'''
+
+			#structure
+			self.structure(
+				[
+					"Populations",
+					'Inputs',
+					'Interactomes',
+					"Interactions",
+				],
+				'#all',
+				_ManagerCommandSetList=[
+						'hopf'
+					]
+			)
+
+			#/########################/#
+			# leak
+			#
+
+			#leak
+			self.leak()
+			
+
+		else:
+
+			#/########################/#
+			# Inside structure
+			#
+
+			#debug
+			'''
+			self.debug(
+				[
+					'Ok we check if this parentsingular has a special method ',
+					('self.',self,[
+						'HopfedParentSingularStr'
+					])
+				]
+			)
+			'''
+
+			#set
+			HopfedMethodKeyStr='hopf'+self.HopfedParentSingularStr
+
+			#Check
+			if hasattr(self,HopfedMethodKeyStr):
+
+				#/########################/#
+				# call the special hopf<HopfedParentSingularStr> method
+				#
+
+				#debug
+				'''
+				self.debug(
+					[
+						'It is a '+self.HopfedParentSingularStr+' level',
+						'We hopf<HopfedParentSingularStr>'
+					]
+				)
+				'''
+
+				#call
+				getattr(
+					self,
+					HopfedMethodKeyStr
+				)()
+
+				#debug
+				'''
+				self.debug(
+					[
+						'Ok we have setted hopf'+self.HopfedParentSingularStr
+					]
+				)
+				'''	
+	
+	def hopfNetwork(self):
 
 		#/###############/#
 		# Build the laterals
@@ -115,6 +288,18 @@ class HopferClass(BaseClass):
 			]
 		)
 
+		#set
+		self.HopfedMeanfieldWeigthFloat=self.HopfingStdWeightFloat if self.HopfingStdWeightFloat>0. else self.HopfingMeanWeightFloat
+
+		#Check
+		if self.HopfedMeanfieldWeigthFloat==0.:
+
+			#return
+			self.HopfedStableBool=True
+
+			#return 
+			return self
+
 		#/###############/#
 		# Determine the contour properties
 		#
@@ -139,8 +324,12 @@ class HopferClass(BaseClass):
 		#
 
 		#real and imag
-		self.HopfedRealLateralEigenFloatsArray=np.real(self.NumscipiedEigenvalueComplexesArray)
-		self.HopfedImagLateralEigenFloatsArray=np.imag(self.NumscipiedEigenvalueComplexesArray)
+		self.HopfedRealLateralEigenFloatsArray=np.real(
+			self.NumscipiedEigenvalueComplexesArray
+		)
+		self.HopfedImagLateralEigenFloatsArray=np.imag(
+			self.NumscipiedEigenvalueComplexesArray
+		)
 
 		#debug
 		'''
@@ -158,9 +347,6 @@ class HopferClass(BaseClass):
 		#/###############/#
 		# Compute for each eigenvalues a possible solution
 		#
-
-		#set
-		self.HopfedMeanfieldWeigthFloat=self.HopfingStdWeightFloat if self.HopfingStdWeightFloat>0. else self.HopfingMeanWeightFloat
 
 		#Check
 		if self.HopfingPerturbationEnvelopBool:
@@ -206,6 +392,7 @@ class HopferClass(BaseClass):
 		# Build the contour of the eigen values real and ima
 		#
 
+		#list
 		self.HopfedLateralContourComplexesArray=[
 			__Float + (
 				1.-self.NumscipiedSommersFloat
@@ -217,14 +404,32 @@ class HopferClass(BaseClass):
 				self.HopfingContourSamplesInt
 			)
 		]
+
+		#list
 		self.HopfedLateralContourComplexesArray+=list(
 			np.array(
 			self.HopfedLateralContourComplexesArray
 			).conjugate()[::-1]  
 		)
+
+		#array
 		self.HopfedLateralContourComplexesArray=np.array(
 			self.HopfedLateralContourComplexesArray
 		)
+
+		#Check
+		if self.HopfingStdWeightFloat>0.:
+
+			#set
+			self.HopfedLateralContourComplexesArray*=self.HopfingStdWeightFloat
+
+		else:
+
+			#sqrt
+			self.HopfedStdSparseFloat=np.sqrt(self.NumscipyingSparseFloat*(1.-self.NumscipyingSparseFloat))
+			
+			#set
+			self.HopfedLateralContourComplexesArray*=self.HopfedStdSparseFloat
           	      
 		#/###############/#
 		# Compute for each eigen of the contour a possible solution
@@ -323,58 +528,191 @@ class HopferClass(BaseClass):
 		)
 		'''
 
-	def mimic_simulate(self):
+		#/###################/#
+		# Check for Populations
+		# 
 
-		#/###############/#
-		# Build the simulation structure
-		#
-
-		#map
-		self.mapSet(
-			{
-				'-Populations':{
-					'|P':{
-						'LeakingUnitsInt':100,
-						'RecordingLabelVariable':[0,1,2],
-						'LeakingTransferVariable':'mV*tanh((#CurrentStr)/mV)',
-						'-Interactions':{
-							'|/':{
-								'LeakingWeigthVariable':self.HopfedLateralWeigthFloatsArray,
-								'LeakingDelayVariable':self.HopfingDelayTimeFloat
-							}
-						},
-						'LeakingGlobalBool':True,
-						'LeakingTimeVariable':self.HopfingConstantTimeFloat,
-						'LeakingInteractionStr':self.HopfingInteractionStr
-					}
-				}
-			}
-		).leak(
+		#get
+		HopfedPopulationsDeriveManager=self.getTeamer(
+			"Populations"
 		)
 
-		#/###############/#
-		# Call the base
-		#
+		#debug
+		'''
+		self.debug(
+			[
+				'We predict network here',
+				'Check for a sensor population'
+			]
+		)
+		'''
 
-		#call
-		BaseClass.simulate(self)
+		#/###################/#
+		# Check for Agent
+		# 
 
-	"""
-	def simulatePopulation(self):
+		#get
+		LeakedAgentDeriveHopfer=HopfedPopulationsDeriveManager.getManager(
+			"Agent"
+		)
 
-		#/###############/#
-		# Compute phase frequency
-		#
+	def hopfPopulation(self):
 
+		#Check
+		if self.ManagementTagStr=='Agent':
 
+			#/####################/#
+			# Determine the relations
+			#
 
-		#/###############/#
-		# Call the base
-		#
+			#set
+			self.HopfedNetworkDeriveHopferVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
 
-		#simulate
-		BaseClass.simulatePopulation(self)
-	"""
+			#/####################/#
+			# Set properties
+			#
+
+			#set
+			self.LeakingUnitsInt=self.HopfedNetworkDeriveHopferVariable.HopfingUnitsInt
+
+			#set
+			self.LeakingGlobalBool=True
+
+			#Check
+			if self.RecordingLabelVariable==None:
+				self.RecordingLabelVariable=[0,1,2]
+
+			#set
+			self.LeakingTimeVariable=self.HopfedNetworkDeriveHopferVariable.HopfingConstantTimeFloat
+			
+			#set
+			self.LeakingInteractionStr=self.HopfedNetworkDeriveHopferVariable.HopfingInteractionStr
+
+			#debug
+			'''
+			self.debug(
+				[
+					('self.',self,[
+							'LeakingInteractionStr'
+						])
+				]
+			)
+			'''
+
+			#/####################/#
+			# Rate case
+			#
+
+			#Check
+			if self.LeakingInteractionStr=="Rate":
+
+				#Check
+				if self.LeakingTransferVariable==None:
+					
+					#set
+					self.LeakingTransferVariable='mV*tanh((#CurrentStr)/mV)'
+
+			#/####################/#
+			# Spike case
+			#
+
+			else:
+
+				#/####################/#
+				# Check for Inputs
+				#
+
+				#get
+				HopfedInputsDeriveHopfer=self.getTeamer(
+					"Inputs"
+				)
+
+				#get
+				HopfedInputsDeriveHopfer.getManager(
+					"Rest"
+				)	
+
+			#/####################/#
+			# Check for Interactions
+			#
+
+			#get
+			HopfedInteractionsDeriveHopfer=self.getTeamer(
+				"Interactions"
+			)
+
+			#get
+			HopfedInteractionsDeriveHopfer.getManager(
+				"/"
+			)
+
+	def hopfInteraction(self):
+
+		#Check
+		if self.ManagementTagStr=='/':
+
+			#/####################/#
+			# Determine the relations
+			#
+
+			#set
+			self.HopfedAgentDeriveHopferVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
+
+			#set
+			self.HopfedNetworkDeriveHopferVariable=self.HopfedAgentDeriveHopferVariable.HopfedNetworkDeriveHopferVariable
+
+			#/####################/#
+			# Set properties
+			#
+
+			#alias
+			self.LeakingWeigthVariable=self.HopfedNetworkDeriveHopferVariable.HopfedLateralWeigthFloatsArray
+
+			#Check
+			if self.HopfedNetworkDeriveHopferVariable.HopfingDelayTimeFloat!=0.:
+				self.LeakingDelayVariable=self.HopfedNetworkDeriveHopferVariable.HopfingDelayTimeFloat
+
+			#set
+			self.LeakingInteractionStr=self.HopfedNetworkDeriveHopferVariable.HopfingInteractionStr
+
+	def hopfInput(self):
+
+		#debug
+		self.debug(
+			[
+				'We hopfInput here'
+			]
+		)
+
+		#Check
+		if self.ManagementTagStr=="Rest":
+
+			#debug
+			self.debug(
+				[
+					'We hopf Input Rest here'
+				]
+			)
+
+			#/####################/#
+			# Determine the relations
+			#
+
+			#set
+			self.HopfedAgentDeriveHopferVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
+
+			#set
+			self.HopfedNetworkDeriveHopferVariable=self.HopfedAgentDeriveHopferVariable.HopfedNetworkDeriveHopferVariable
+
+			#/####################/#
+			# Set properties
+			#
+
+			#Check
+			if self.LeakingWeigthVariable==None:
+
+				#get
+				self.LeakingWeigthVariable='#scalar:-60*mV'
 	
 	def getRootFloatsTuple(self,_PerturbationComplex):
 			
@@ -414,336 +752,380 @@ class HopferClass(BaseClass):
 		#return
 		return scipy.optimize.fsolve(self.getRootFloatsTuple, (0,0))
 
+	#/######################/#
+	# Augment view
+	#
 
-	def mimic_view(self):
-
-		#get the Panels
-		ViewedPanelsDerivePyploter=self.getTeamer(
-			'Panels'
-		)
-
-		#/################/#
-		# Build an Eigen Panel with Charts
-		#
-
-		#get
-		ViewedChartsDerivePyploter=ViewedPanelsDerivePyploter.getManager(
-			'Eigen'
-		).getTeamer(
-			'Charts'
-		)
-
-		#/################/#
-		# Build an Eigen J Chart
-		#
-
-		#get
-		ViewedConnectivityChartDerivePyploter=ViewedChartsDerivePyploter.getManager(
-			'Connectivity'
-		)
-
-		#get
-		ViewedConnectivityDrawDerivePyploter=ViewedConnectivityChartDerivePyploter.getTeamer(
-			'Draws'
-		).getManager(
-			'Default'
-		)
+	def viewSample(self):
 
 		#debug
 		'''
 		self.debug(
 			[
-				'self.TeamDict.keys() is ',
-				str(self.TeamDict.keys())
+				'We predict view sample here',
+				('self.',self,[
+						'StructureTagStr'
+					])
 			]
 		)
 		'''
 
-		#/##################/#
-		# Build the theoritical ellipse
-		#
+		#Check
+		self.ViewingXScaleFloat=1000.
+		self.ViewingYScaleFloat=1000.
 
-		#import
-		import matplotlib.patches
+		#base
+		BaseClass.viewSample(self)
 
-		#compute the center
-		PyplotedCenterFloat=(
-			self.HopfingSwitchWeigthFloat*self.HopfingMeanWeightFloat-(
-				1.-self.HopfingSwitchWeigthFloat
-			)*self.HopfingMeanWeightFloat)/2.
-
-		#Add the matrix contour Ellipse
-		PyplotedBifurcationEllipse=matplotlib.patches.Ellipse(
-							xy=(PyplotedCenterFloat,0.), 
-						 	width=2.*(1.+self.NumscipiedSommersFloat),
-						 	height=2.*(1.-self.NumscipiedSommersFloat),
-						 	color='r',
-					)
-		PyplotedBifurcationEllipse.set_alpha(0.2)
-
-		#Add the Wiener Circle
-		PyplotedBifurcationCircle=matplotlib.patches.Ellipse(
-							xy=(PyplotedCenterFloat,0.), 
-						 	width=2.,
-						 	height=2.,
-						 	linewidth=2,
-						 	color='black',
-						 	fill=False
-					)
-		PyplotedBifurcationCircle.set_alpha(0.4)
-
-		#/##################/#
-		# draw
-		#
-
-		#list
-		ViewedConnectivityDrawDerivePyploter.PyplotingDrawVariable=[
-			(
-				'plot',
-				{
-					'#liarg':[
-						[-2.,2.],
-						[0.,0.]
-					],
-					'#kwarg':dict(
-						{
-							'linestyle':"--",
-							'linewidth':1,
-							'color':'black'
-						}
-					)
-				}
-			),
-			(
-				'plot',
-				{
-					'#liarg':[
-						[-0.,0.],
-						[-2.,2.]
-					],
-					'#kwarg':dict(
-						{
-							'linestyle':"--",
-							'linewidth':1,
-							'color':'black'
-						}
-					)
-				}
-			),
-			(
-				'plot',
-				{
-					'#liarg':[
-						[1.,1.],
-						[-2.,2.]
-					],
-					'#kwarg':dict(
-						{
-							'linestyle':"-",
-							'linewidth':2,
-							'color':'black',
-							'alpha':0.5
-						}
-					)
-				}
-			),
-			(
-				'add_artist',
-				PyplotedBifurcationEllipse
-			),
-			(
-				'add_artist',
-				PyplotedBifurcationCircle
-			),
-			(
-				'plot',
-				{
-					'#liarg':[
-						np.real(self.HopfedLateralContourComplexesArray),
-						np.imag(self.HopfedLateralContourComplexesArray)
-					],
-					'#kwarg':dict(
-						{
-							'linestyle':"-",
-							'color':'red',
-							'linewidth':5
-						}
-					)
-				}
-			),
-			(
-				'plot',
-				{
-					'#liarg':[
-						self.HopfedRealLateralEigenFloatsArray,
-						self.HopfedImagLateralEigenFloatsArray
-					],
-					'#kwarg':dict(
-						{
-							'linestyle':"",
-							'marker':'o',
-							'color':'black'
-						}
-					)
-				}
-			)
-		]
 		
-		#/##################/#
-		# View chart
-		#
-
-		#concatenate
-		ViewedVariablesArray=np.concatenate(
-			[
-				self.HopfedRealLateralEigenFloatsArray,
-				self.HopfedImagLateralEigenFloatsArray
-			]
-		)
-		ViewedMinFloat=ViewedVariablesArray.min()
-		ViewedMaxFloat=max(ViewedVariablesArray.max(),1.)
-		ViewedLimFloatsArray=[ViewedMinFloat,ViewedMaxFloat]
-
-		#view
-		ViewedConnectivityChartDerivePyploter.view(
-			_XLabelStr="$Re(\lambda_{J})$",
-			_YLabelStr="$Im(\lambda_{J})$",
-			_XVariable=ViewedLimFloatsArray,
-			_YVariable=ViewedLimFloatsArray
-		)
-
-		#/################/#
-		# Build an Eigen Perturb Chart
-		#
-
-		#get
-		ViewedPerturbationChartDerivePyploter=ViewedChartsDerivePyploter.getManager(
-			'Perturbation'
-		)
-
-		#get
-		ViewedPerturbationDrawDerivePyploter=ViewedPerturbationChartDerivePyploter.getTeamer(
-			'Draws'
-		).getManager(
-			'Default'
-		)
-
-		#/##################/#
-		# draw
-		#
-
-		#list
-		ViewedPerturbationDrawDerivePyploter.PyplotingDrawVariable=[
-			(
-				'plot',
-				{
-					'#liarg':[
-						[-2.,2.],
-						[0.,0.]
-					],
-					'#kwarg':dict(
-						{
-							'linestyle':"--",
-							'linewidth':1,
-							'color':'black'
-						}
-					)
-				}
-			),
-			(
-				'plot',
-				{
-					'#liarg':[
-						[-0.,0.],
-						[-2.,2.]
-					],
-					'#kwarg':dict(
-						{
-							'linestyle':"--",
-							'linewidth':1,
-							'color':'black'
-						}
-					)
-				}
-			),
-			(
-				'plot',
-				{
-					'#liarg':[
-						self.HopfedPerturbationContourRealFloatsArray,
-						self.HopfedPerturbationContourImagFloatsArray
-					],
-					'#kwarg':dict(
-						{
-							'linestyle':"-",
-							'linewidth':3,
-							'color':'red'
-						}
-					)
-				}
-			),
-			(
-				'plot',
-				{
-					'#liarg':[
-						self.HopfedPerturbationRealFloatsArray,
-						self.HopfedPerturbationImagFloatsArray
-					],
-					'#kwarg':dict(
-						{
-							'linestyle':"",
-							'marker':"o",
-							'color':'black'
-						}
-					)
-				}
-			)
-		]
-
-		#/##################/#
-		# view chart
-		#
-
-		#concatenate
-		ViewedVariablesArray=np.concatenate(
-			[
-				self.HopfedPerturbationContourRealFloatsArray,
-				self.HopfedPerturbationContourImagFloatsArray
-			]
-		)
-		ViewedMinFloat=ViewedVariablesArray.min()
-		ViewedMaxFloat=ViewedVariablesArray.max()
-		ViewedLimFloatsArray=[ViewedMinFloat,ViewedMaxFloat]
-
-		#view
-		ViewedPerturbationChartDerivePyploter.view(
-			_XLabelStr="$Re(\lambda_{P})$",
-			_YLabelStr="$Im(\lambda_{P})$",
-			_XVariable=ViewedLimFloatsArray,
-			_YVariable=ViewedLimFloatsArray
-		)
-		
-		#/################/#
-		# Prepare a Run Panel
-		#
+	def mimic_view(self):
 
 		#Check
-		if 'Populations' in self.TeamDict:
+		if self.HopfedNetworkDeriveHopferVariable==self:
+
+			#get the Panels
+			ViewedPanelsDerivePyploter=self.getTeamer(
+				'Panels'
+			)
 
 			#debug
 			'''
 			self.debug(
 				[
-					'We put the Run on the right'
+					'ViewedPanelsDerivePyploter is '+str(ViewedPanelsDerivePyploter)
 				]
 			)
 			'''
 
+			#Check
+			if self.HopfedMeanfieldWeigthFloat==0.:
+
+				#del
+				del ViewedPanelsDerivePyploter.ManagementDict['Eigen']
+
+				#view
+				BaseClass.view(self)
+
+				#return
+				return
+
+			#/################/#
+			# Build an Eigen Panel with Charts
+			#
+
 			#get
-			ViewedRunDerivePyploter=ViewedPanelsDerivePyploter.getManager(
-					'Run'
+			ViewedChartsDerivePyploter=ViewedPanelsDerivePyploter.getManager(
+				'Eigen'
+			).getTeamer(
+				'Charts'
+			)
+
+			#/################/#
+			# Build an Eigen J Chart
+			#
+
+			#get
+			ViewedConnectivityChartDerivePyploter=ViewedChartsDerivePyploter.getManager(
+				'Connectivity',
+				_IndexInt=0
+			)
+
+			#get
+			ViewedConnectivityDrawDerivePyploter=ViewedConnectivityChartDerivePyploter.getTeamer(
+				'Draws'
+			).getManager(
+				'Default'
+			)
+
+			#debug
+			'''
+			self.debug(
+				[
+					'self.TeamDict.keys() is ',
+					str(self.TeamDict.keys())
+				]
+			)
+			'''
+
+			#/##################/#
+			# Build the theoritical ellipse
+			#
+
+			#import
+			import matplotlib.patches
+
+			#Add the matrix contour Ellipse
+			PyplotedBifurcationEllipse=matplotlib.patches.Ellipse(
+								xy=(self.NumscipiedCenterFloat,0.), 
+							 	width=self.NumscipiedWidthFloat,
+							 	height=self.NumscipiedHeightFloat,
+							 	color='r',
+						)
+			PyplotedBifurcationEllipse.set_alpha(0.2)
+
+			#Add the Wiener Circle
+			PyplotedBifurcationCircle=matplotlib.patches.Ellipse(
+								xy=(self.NumscipiedCenterFloat,0.), 
+							 	width=2.,
+							 	height=2.,
+							 	linewidth=2,
+							 	color='black',
+							 	fill=False
+						)
+			PyplotedBifurcationCircle.set_alpha(0.4)
+
+			#/##################/#
+			# draw
+			#
+
+			#list
+			ViewedConnectivityDrawDerivePyploter.PyplotingDrawVariable=[
+				(
+					'plot',
+					{
+						'#liarg':[
+							[-2.,2.],
+							[0.,0.]
+						],
+						'#kwarg':dict(
+							{
+								'linestyle':"--",
+								'linewidth':1,
+								'color':'black'
+							}
+						)
+					}
+				),
+				(
+					'plot',
+					{
+						'#liarg':[
+							[-0.,0.],
+							[-2.,2.]
+						],
+						'#kwarg':dict(
+							{
+								'linestyle':"--",
+								'linewidth':1,
+								'color':'black'
+							}
+						)
+					}
+				),
+				(
+					'plot',
+					{
+						'#liarg':[
+							[1.,1.],
+							[-2.,2.]
+						],
+						'#kwarg':dict(
+							{
+								'linestyle':"-",
+								'linewidth':2,
+								'color':'black',
+								'alpha':0.5
+							}
+						)
+					}
+				),
+				(
+					'add_artist',
+					PyplotedBifurcationEllipse
+				),
+				(
+					'add_artist',
+					PyplotedBifurcationCircle
+				),
+				(
+					'plot',
+					{
+						'#liarg':[
+							np.real(self.HopfedLateralContourComplexesArray),
+							np.imag(self.HopfedLateralContourComplexesArray)
+						],
+						'#kwarg':dict(
+							{
+								'linestyle':"-",
+								'color':'red',
+								'linewidth':5
+							}
+						)
+					}
+				),
+				(
+					'plot',
+					{
+						'#liarg':[
+							self.HopfedRealLateralEigenFloatsArray,
+							self.HopfedImagLateralEigenFloatsArray
+						],
+						'#kwarg':dict(
+							{
+								'linestyle':"",
+								'marker':'o',
+								'color':'black'
+							}
+						)
+					}
 				)
-			#ViewedRunDerivePyploter.PyplotingShiftVariable=[0,3]
+			]
+			
+			#/##################/#
+			# View chart
+			#
+
+			#concatenate
+			ViewedVariablesArray=np.concatenate(
+				[
+					self.HopfedRealLateralEigenFloatsArray,
+					self.HopfedImagLateralEigenFloatsArray
+				]
+			)
+			ViewedMinFloat=ViewedVariablesArray.min()
+			ViewedMaxFloat=max(ViewedVariablesArray.max(),1.)
+			ViewedLimFloatsArray=[ViewedMinFloat,ViewedMaxFloat]
+
+			#view
+			ViewedConnectivityChartDerivePyploter.view(
+				_XLabelStr="$Re(\lambda_{J})$",
+				_YLabelStr="$Im(\lambda_{J})$",
+				_XVariable=ViewedLimFloatsArray,
+				_YVariable=ViewedLimFloatsArray
+			)
+
+			#/################/#
+			# Build an Eigen Perturb Chart
+			#
+
+			#get
+			ViewedPerturbationChartDerivePyploter=ViewedChartsDerivePyploter.getManager(
+				'Perturbation'
+			)
+
+			#get
+			ViewedPerturbationDrawDerivePyploter=ViewedPerturbationChartDerivePyploter.getTeamer(
+				'Draws'
+			).getManager(
+				'Default'
+			)
+
+			#/##################/#
+			# draw
+			#
+
+			#list
+			ViewedPerturbationDrawDerivePyploter.PyplotingDrawVariable=[
+				(
+					'plot',
+					{
+						'#liarg':[
+							[-2.,2.],
+							[0.,0.]
+						],
+						'#kwarg':dict(
+							{
+								'linestyle':"--",
+								'linewidth':1,
+								'color':'black'
+							}
+						)
+					}
+				),
+				(
+					'plot',
+					{
+						'#liarg':[
+							[-0.,0.],
+							[-2.,2.]
+						],
+						'#kwarg':dict(
+							{
+								'linestyle':"--",
+								'linewidth':1,
+								'color':'black'
+							}
+						)
+					}
+				),
+				(
+					'plot',
+					{
+						'#liarg':[
+							self.HopfedPerturbationContourRealFloatsArray,
+							self.HopfedPerturbationContourImagFloatsArray
+						],
+						'#kwarg':dict(
+							{
+								'linestyle':"-",
+								'linewidth':3,
+								'color':'red'
+							}
+						)
+					}
+				),
+				(
+					'plot',
+					{
+						'#liarg':[
+							self.HopfedPerturbationRealFloatsArray,
+							self.HopfedPerturbationImagFloatsArray
+						],
+						'#kwarg':dict(
+							{
+								'linestyle':"",
+								'marker':"o",
+								'color':'black'
+							}
+						)
+					}
+				)
+			]
+
+			#/##################/#
+			# view chart
+			#
+
+			#concatenate
+			ViewedVariablesArray=np.concatenate(
+				[
+					self.HopfedPerturbationContourRealFloatsArray,
+					self.HopfedPerturbationContourImagFloatsArray
+				]
+			)
+			ViewedMinFloat=ViewedVariablesArray.min()
+			ViewedMaxFloat=ViewedVariablesArray.max()
+			ViewedLimFloatsArray=[ViewedMinFloat,ViewedMaxFloat]
+
+			#view
+			ViewedPerturbationChartDerivePyploter.view(
+				_XLabelStr="$Re(\lambda_{P})$",
+				_YLabelStr="$Im(\lambda_{P})$",
+				_XVariable=ViewedLimFloatsArray,
+				_YVariable=ViewedLimFloatsArray
+			)
+			
+			#/################/#
+			# Prepare a Run Panel
+			#
+
+			#Check
+			if 'Populations' in self.TeamDict:
+
+				#debug
+				'''
+				self.debug(
+					[
+						'We put the Run on the right'
+					]
+				)
+				'''
+
+				#get
+				ViewedRunDerivePyploter=ViewedPanelsDerivePyploter.getManager(
+						'Run'
+					)
+				#ViewedRunDerivePyploter.PyplotingShiftVariable=[0,3]
 
 		#/###############/#
 		# Call the base method
@@ -775,6 +1157,10 @@ class HopferClass(BaseClass):
 		'''
 
 #</DefineClass>
+
+#</DefineLocals>
+Leaker.LeakersStructurerClass.ManagingValueClass=HopferClass
+#<DefineLocals>
 
 #</DefinePrint>
 HopferClass.PrintingClassSkipKeyStrsList.extend(
@@ -809,7 +1195,11 @@ HopferClass.PrintingClassSkipKeyStrsList.extend(
 		'HopfedInstabilityContourIndexInt',
 		'HopfedInstabilityContourComplex',
 		'HopfedStableBool',
-		'HopfedInstabilityStr'
+		'HopfedInstabilityStr',
+		'HopfedStdSparseFloat',
+		'HopfedParentSingularStr',
+		'HopfedAgentDeriveHopferVariable',
+		'HopfedNetworkDeriveHopferVariable'
 	]
 )
 #<DefinePrint>

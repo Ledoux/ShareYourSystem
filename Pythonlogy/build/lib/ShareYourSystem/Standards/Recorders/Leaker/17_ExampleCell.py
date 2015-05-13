@@ -40,7 +40,7 @@ MyLeaker=SYS.LeakerClass(
 							'RecordingLabelVariable':[1,2]
 						}
 					},
-					'BrianingMonitorIndexIntsList':[0,1],
+					'RecordingLabelVariable':[0,1],
 					#'BrianingDebugVariable':100
 				}
 			}

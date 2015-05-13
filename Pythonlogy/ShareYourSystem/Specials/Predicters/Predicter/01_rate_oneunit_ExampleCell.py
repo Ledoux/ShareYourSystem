@@ -21,7 +21,6 @@ MyPredicter=SYS.PredicterClass(
 			'BrianingStepTimeFloat':0.05,
 			'-Populations':[
 				('|Sensor',{
-					'LeakingMonitorIndexIntsList':[0],
 					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Encod':{
@@ -30,7 +29,6 @@ MyPredicter=SYS.PredicterClass(
 					}
 				}),
 				('|Agent',{
-					'LeakingMonitorIndexIntsList':[0,1,2],
 					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Fast':{
@@ -40,7 +38,6 @@ MyPredicter=SYS.PredicterClass(
 					#'LeakingNoiseStdVariable':0.01
 				}),
 				('|Decoder',{
-					'LeakingMonitorIndexIntsList':[0],
 					#'BrianingDebugVariable':BrianingDebugVariable
 					'-Interactions':{
 						'|Slow':{
@@ -70,8 +67,7 @@ MyPredicter=SYS.PredicterClass(
 
 MyPredicter.view(
 	).pyplot(
-	)
-SYS.matplotlib.pyplot.show()
+	).show()
 
 
 #/###################/#

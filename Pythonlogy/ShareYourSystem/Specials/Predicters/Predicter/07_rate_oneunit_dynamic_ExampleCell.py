@@ -21,7 +21,7 @@ MyPredicter=SYS.PredicterClass(
 			'BrianingStepTimeFloat':0.05,
 			'-Populations':[
 				('|Sensor',{
-					'LeakingMonitorIndexIntsList':[0,1],
+					'RecordingLabelVariable':[0],
 					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Encod':{
@@ -30,48 +30,37 @@ MyPredicter=SYS.PredicterClass(
 					}
 				}),
 				('|Agent',{
-					'LeakingMonitorIndexIntsList':[0,1,2],
+					'RecordingLabelVariable':[0],
 					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Fast':{
-							#'BrianingDebugVariable':BrianingDebugVariable
-						},
-						'|Antileak':{
 							#'BrianingDebugVariable':BrianingDebugVariable
 						}
 					},
 					#'LeakingNoiseStdVariable':0.01
 				}),
 				('|Decoder',{
-					'LeakingMonitorIndexIntsList':[0,1],
+					'RecordingLabelVariable':[0],
 					#'BrianingDebugVariable':BrianingDebugVariable
 					'-Interactions':{
 						'|Slow':{
-							'BrianingDebugVariable':BrianingDebugVariable
+							#'BrianingDebugVariable':BrianingDebugVariable,
+							#'LeakingWeigthVariable':0.
 						}
 					}
 				})
 			]
 		}
 	).predict(
-		_AgentUnitsInt=100,
+		_AgentUnitsInt=1,
 		_DynamicBool=True,
-		#_JacobianVariable={
-		#	'ModeStr':"Track",
-		#	'ConstantTimeFloat':30. #(ms)
-		#},
 		_JacobianVariable={
-			'ModeStr':"Damp",
-			'ConstantTimeFloat':5., #(ms)
-			'LoopIntsList':[1]
+			'ModeStr':"Track",
+			'ConstantTimeFloat':30. #(ms)
 		},
-		_CommandVariable="#custom:#clock:50*ms:1.*mV*int(t==50*ms)",#2.,
-		_DecoderVariable="#array",
-		_DecoderStdFloat=20.,
-		#_DecoderNormalisationInt=1,
-		#_EncodPerturbStdFloat=5./100.,
-		#_FastPerturbStdFloat=0.01,
-		#_InteractionStr="Rate"
+		_CommandVariable="#custom:#clock:50*ms:1.*mV*int(t==50*ms)",
+		_DecoderVariable=[5.],
+		_InteractionStr="Rate"
 	).simulate(
 		SimulationTimeFloat
 	)
@@ -80,29 +69,18 @@ MyPredicter=SYS.PredicterClass(
 # View
 #
 
-MyPredicter.mapSetAllMro(
+MyPredicter.mapSet(
 		{
-			'PyplotingPrintBool':False,
-			'BrianingPrintBool':False
+			'PyplotingFigureVariable':{
+				'figsize':(10,8)
+			},
+			'PyplotingGridIntsTuple':(30,30),
+			'-Panels':[
+			]
 		}
 	).view(
 	).pyplot(
-	)
-
-#MyPredicter[
-#		'/-Populations/|Sensor'
-#	].view(
-#	).pyplot(
-#	)
-
-#MyPredicter[
-#		'/-Populations/|Sensor/-Traces/|*U/-Samples/|Default'
-#	].view(
-#	).pyplot(
-#	)
-
-#print(MyPredicter['/-Populations/|Default/-Interactions/|/'].BrianedSynapsesVariable.J[:])
-SYS.matplotlib.pyplot.show()
+	).show()
 
 
 #/###################/#
@@ -112,7 +90,6 @@ SYS.matplotlib.pyplot.show()
 #Definition the AttestedStr
 print('MyPredicter is ')
 SYS._print(MyPredicter) 
-
 
 
 

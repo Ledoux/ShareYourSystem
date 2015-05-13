@@ -36,6 +36,7 @@ MyPredicter=SYS.PredicterClass(
 						}
 					},
 					#'LeakingNoiseStdVariable':0.01
+					'LeakingThresholdMethodStr':'filterSpikespace'
 				}),
 				('|Decoder',{
 					'LeakingMonitorIndexIntsList':[0],

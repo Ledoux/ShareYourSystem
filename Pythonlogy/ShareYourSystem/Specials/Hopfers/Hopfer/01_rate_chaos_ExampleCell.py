@@ -2,7 +2,6 @@
 # Import modules
 #
 
-
 #ImportModules
 import ShareYourSystem as SYS
 
@@ -12,18 +11,26 @@ import ShareYourSystem as SYS
 
 #Define
 MyHopfer=SYS.HopferClass(
+	).mapSet(
+		{
+			'-Populations':{
+				'|Agent':{
+					'-Traces':{
+						'|*U':{
+							'RecordingInitStdVariable':0.5
+						}
+					}
+					#'BrianingDebugVariable':100
+				}
+			}
+		}
 	).hopf(
 		_UnitsInt=100,
-		_MeanWeightFloat=1.,
-		_StdWeightFloat=0.,
-		_SparseWeigthFloat=0.2,
-		_SwitchWeigthFloat=0.5,
-		#_SymmetryFloat=-0.7,
-		_InteractionStr="Spike"
+		_StdWeightFloat=1.2,
+	).simulate(
+		500.
 	)
-	#.simulate(
-	#	500.
-	#)
+
 
 #/###################/#
 # View
@@ -42,6 +49,11 @@ MyHopfer.mapSet(
 					{
 						'PyplotingTextVariable':[-0.6,0.],
 						'PyplotingShapeVariable':[10,10],
+						'-Charts':{
+							'|Perturbation':{
+									'PyplotingShiftVariable':[4,0],
+								}
+							}
 					}
 				),
 				(
@@ -51,7 +63,7 @@ MyHopfer.mapSet(
 						'PyplotingShiftVariable':[0,4],
 						'PyplotingShapeVariable':[8,9],
 						'-Charts':{
-							'|P_*U':{
+							'|Agent_*U':{
 								'PyplotingLegendDict':{
 									'fontsize':10,
 									'ncol':2
@@ -72,8 +84,7 @@ MyHopfer.mapSet(
 		}
 	).view(
 	).pyplot(
-	).show(
-	)
+	).show()
 
 #/###################/#
 # Print

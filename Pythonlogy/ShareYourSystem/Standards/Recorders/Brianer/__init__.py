@@ -346,6 +346,7 @@ class BrianerClass(BaseClass):
 
 		#maybe should import
 		import brian2
+		brian2.prefs.codegen.target = 'cython'
 
 		#set
 		self.BrianedNetworkVariable=brian2.Network()
@@ -1201,6 +1202,11 @@ class BrianerClass(BaseClass):
 			#set
 			BrianedRecordBool=BrianedParentDeriveBrianer.BrianedUnitsInt>0
 
+		else:
+
+			#set
+			BrianedRecordBool=False
+
 		#debug
 		'''
 		self.debug(
@@ -1317,18 +1323,32 @@ class BrianerClass(BaseClass):
 						if self.BrianedParentPopulationDeriveBrianerVariable.RecordingLabelVariable!=None:
 
 							#get
-							BrianedDefaultBrianer.RecordingLabelVariable=self.BrianedParentPopulationDeriveBrianerVariable.RecordingLabelVariable
+							BrianedDefaultBrianer.RecordingLabelVariable=self.BrianedParentPopulationDeriveBrianerVariable.RecordingLabelVariable[:]
 						
 						else:
 
 							#set the record labels
-							BrianedDefaultBrianer.RecordingLabelVariable=[0] if self.BrianedParentPopulationDeriveBrianerVariable.BrianingNeurongroupDict[
-							'N']>0 else []
+							BrianedDefaultBrianer.RecordingLabelVariable=[
+								0
+							] if self.BrianedParentPopulationDeriveBrianerVariable.BrianingNeurongroupDict[
+								'N'
+							]>0 else []
 
 						#brian
 						BrianedDefaultBrianer.parent(
 							).brian(
 							)
+
+					#debug
+					'''
+					self.debug(
+						[
+							'We have sette the default Brianer',
+							'BrianedDefaultBrianer.RecordingLabelVariable is ',
+							str(BrianedDefaultBrianer.RecordingLabelVariable)
+						]
+					)
+					'''
 
 			elif self.BrianedParentDeriveBrianerStr=="Interaction":
 
@@ -1434,7 +1454,7 @@ class BrianerClass(BaseClass):
 			]
 		)
 		'''
-
+		
 		#/####################/#
 		# Set the parent
 		#
@@ -1464,8 +1484,19 @@ class BrianerClass(BaseClass):
 
 		else:
 
+			#debug
+			'''
+			self.debug(
+				[
+					('self.',self,[
+							'BrianedParentDeriveRecorderVariable'
+						])
+				]
+			)
+			'''
+
 			#get
-			self.BrianedParentPopulationDeriveBrianerVariable=self.BrianedParentDeriveRecorderVariable.BrianedParentPopulationDeriveBrianerVariable
+			self.BrianedParentPopulationDeriveBrianerVariable=self.BrianedParentDeriveRecorderVariable.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
 
 		#get
 		self.BrianedParentNetworkDeriveBrianerVariable=self.BrianedParentPopulationDeriveBrianerVariable.BrianedParentNetworkDeriveBrianerVariable
@@ -1477,6 +1508,19 @@ class BrianerClass(BaseClass):
 			# Add in the monitor indexes
 			#
 
+			#debug
+			'''
+			self.debug(
+				[
+					'We add in the monitor index',
+					('self.',self,[
+							'RecordingLabelVariable',
+							'BrianingMonitorIndexIntsList'
+						])
+				]
+			)
+			'''
+
 			#map
 			map(
 				lambda __IndexInt:
@@ -1486,6 +1530,22 @@ class BrianerClass(BaseClass):
 				else None,
 				self.RecordingLabelVariable
 			)
+
+			#debug
+			'''
+			self.debug(
+				[
+					'If it is empty then just set with the zero index trace'
+				]
+			)
+			'''
+			
+			#Check
+			if len(self.BrianingMonitorIndexIntsList)==0:
+
+				#set
+				self.BrianingMonitorIndexIntsList=[0]
+				self.RecordingLabelVariable=self.BrianingMonitorIndexIntsList
 
 			#/####################/#
 			# Set the brian monitor
@@ -1968,6 +2028,18 @@ class BrianerClass(BaseClass):
 						#default
 						self.PyplotingShapeVariable=[5,17]
 
+				#debug
+				'''
+				self.debug(
+					[
+						'In the start',
+						('self.',self,[
+								'PyplotingShiftVariable',
+								'ManagementIndexInt'
+							])
+					]
+				)
+				'''
 
 				#Check
 				if self.PyplotingShiftVariable==None:
@@ -1986,13 +2058,25 @@ class BrianerClass(BaseClass):
 					if ViewedRunDerivePyploter.PyplotingShiftVariable!=None:
 
 						#copy
-						self.PyplotingShiftVariable= ViewedRunDerivePyploter.PyplotingShiftVariable[:]
+						self.PyplotingShiftVariable=ViewedRunDerivePyploter.PyplotingShiftVariable[:]
 
 					#Check
 					else:
 
 						#default
 						self.PyplotingShiftVariable=[3,0]
+
+				#debug
+				'''
+				self.debug(
+					[
+						'In the end',
+						('self.',self,[
+								'PyplotingShiftVariable'
+							])
+					]
+				)
+				'''
 
 				#/################/#
 				# Manage each Chart
@@ -2051,7 +2135,7 @@ class BrianerClass(BaseClass):
 					lambda __ViewedNetworkChartDerivePyplotersList,__ViewedPopulationChartDerivePyploter:
 					__ViewedNetworkChartDerivePyplotersList.setAttr(
 						'PyplotingLegendDict',
-						__ViewedPopulationChartDerivePyploter
+						__ViewedPopulationChartDerivePyploter.PyplotingLegendDict
 					) 
 					if __ViewedNetworkChartDerivePyplotersList.PyplotingLegendDict==None
 					else None,
@@ -2065,12 +2149,13 @@ class BrianerClass(BaseClass):
 				
 				#map
 				map(
-					lambda __DeriveChartPyploter:
+					lambda __DeriveChartPyploter,__IndexInt:
 					ViewedChartsManager.getManager(
 						self.ManagementTagStr+'_'+ __DeriveChartPyploter.ManagementTagStr,
 					).mapSetAttr(
 						{
-							'PyplotingShiftVariable':self.PyplotingShiftVariable,
+							'PyplotingXSkipTickBool':True,
+							'PyplotingShiftVariable':self.PyplotingShiftVariable if __IndexInt==0 else [2,0],
 							'PyplotingChartVariable':__DeriveChartPyploter.PyplotingChartVariable,
 							'PyplotingShapeVariable':self.PyplotingShapeVariable,
 						}
@@ -2101,7 +2186,8 @@ class BrianerClass(BaseClass):
 							__DeriveChartPyploter.TeamDict['Draws'].ManagementDict.items()
 						)
 					),
-					ViewedPopulationChartDerivePyplotersList
+					ViewedPopulationChartDerivePyplotersList,
+					xrange(len(ViewedPopulationChartDerivePyplotersList))
 				)
 
 				#Set a gap
@@ -2111,144 +2197,6 @@ class BrianerClass(BaseClass):
 					ViewedChartsManager.ManagementDict.getValue(
 						0
 					).PyplotingShiftIntsTuple=[2,0]
-
-	def viewInteraction(self):
-
-		#debug
-		'''
-		self.debug(
-			[
-				'We view an interaction here',
-				('self.',self,[
-						'BrianingViewNetworkBool'
-					])
-			]
-		)
-		'''
-
-		#Check
-		if self.BrianingViewNetworkBool==False:
-			
-			#pass
-			pass
-
-		else:
-
-			#debug
-			'''
-			self.debug(
-				[
-					'We add this interaction in a new Chart in the Charts of the post',
-					'connected variable'
-				]
-			)
-			'''
-
-			#/################/#
-			# Update the view in the connected variable
-			#
-
-			"""
-			#get
-			ViewedChartsDeriveManager=self.ConnectedToVariable.TeamDict[
-				'Charts'
-			]
-
-			#get
-			ViewedInteractionDerivePyploter=ViewedChartsDeriveManager.getManager(
-				self.ManagementTagStr
-			)
-
-			#.getTeamer(
-			#	'Draws'
-			#).getManager(
-			#	'Default'
-			#)
-			"""
-
-
-			"""
-			#/################/#
-			# Update the Run Panel in the Network
-			#
-
-			#Check
-			if 'Panels' in self.BrianedParentNetworkDeriveBrianerVariable.TeamDict:
-
-				#debug
-				'''
-				self.debug(
-					[
-						'We update the Run Panel in the Network',
-
-					]
-				)
-				'''
-
-				#get
-				ViewedChartsManager=self.BrianedParentNetworkDeriveBrianerVariable.TeamDict[
-					'Panels'
-				].ManagementDict[
-					'Run'
-				].TeamDict[
-					'Charts'
-				]
-
-				#debug
-				'''
-				self.debug(
-					[
-						'We map manage each Chart in the network one',
-						'self.TeamDict["Charts"].ManagementDict.keys() is',
-						str(self.TeamDict['Charts'].ManagementDict.keys())
-					]
-				)
-				'''
-
-				#map
-				map(
-					lambda __DeriveChartPyploter:
-					ViewedChartsManager.manage(
-						self.ManagementTagStr+'_'+ __DeriveChartPyploter.ManagementTagStr,
-					).ManagedValueVariable.mapSetAttr(
-						{
-							'PyplotingChartVariable':__DeriveChartPyploter.PyplotingChartVariable,
-							'PyplotingShapeVariable':[5,17]
-						}
-					).mapSetAttr(
-						map(
-							lambda __KeyStr:
-							(
-								__KeyStr,
-								getattr(
-									__DeriveChartPyploter,
-									__KeyStr
-								)
-							),
-							BrianViewKeyStrsList
-						)
-					).view(
-					).team(
-						'Draws'
-					).TeamedValueVariable.mapManage(
-						map(
-							lambda __ItemTuple:
-							(
-								__ItemTuple[0],
-								{
-									'PyplotingDrawVariable':__ItemTuple[1].PyplotingDrawVariable
-								}
-							),
-							__DeriveChartPyploter.TeamDict['Draws'].ManagementDict.items()
-						)
-					),
-					self.TeamDict['Charts'].ManagementDict.values()
-				)
-
-				#Set a gap
-				if len(ViewedChartsManager.ManagementDict)>0:
-					ViewedChartsManager.ManagementDict.getValue(0).PyplotingShiftIntsTuple=(2,0)
-			"""
 
 	def viewTrace(self):
 
@@ -2538,6 +2486,15 @@ class BrianerClass(BaseClass):
 		)
 		#self.ViewingYVariable=ViewingYVariable
 		self.ViewingYVariable=self.ViewingYVariable[:]
+
+		#debug
+		'''
+		self.debug(
+			[
+				'ViewingYVariable is '+str(ViewingYVariable)
+			]
+		)
+		'''
 
 		#max
 		ViewedMinFloat=self.ViewingYVariable.max()-(
@@ -2977,6 +2934,13 @@ class BrianerClass(BaseClass):
 			BrianedChartDerivePyploter=BrianedChartsDeriveManager.manage(
 				self.BrianedParentDeriveRecorderVariable.ManagementTagStr
 			).ManagedValueVariable
+
+			#/####################/#
+			# set to True
+			#
+
+			#set
+			BrianedChartDerivePyploter.PyplotingXSkipTickBool=True
 
 			#/####################/#
 			# Update the PyplotingLegendDict
@@ -3480,14 +3444,28 @@ class BrianerClass(BaseClass):
 			self.debug('We start simulate in brian')
 			'''
 
+			#import
+			import time
+
+			#clock
+			SimulatedTimeInt=time.clock()
+
 			#run with the brian method
 			self.BrianedNetworkVariable.run(
 				self.SimulatingStopTimeFloat*self.BrianedTimeQuantityVariable
 			)
 
+			#clock
+			SimulatedTimeInt=time.clock()-SimulatedTimeInt
+
 			#debug
 			'''
-			self.debug('We stop running in brian')
+			self.debug(
+				[
+					'We stop running in brian',
+					'SimulatedTimeInt is '+str(SimulatedTimeInt)+ 's'
+				]
+			)
 			'''
 
 	def recordTrace(self):
@@ -3584,7 +3562,8 @@ class BrianerClass(BaseClass):
 					).split('NeuronGroup(')
 
 				#split
-				ReprStr='NeuronGroup(N='+str(self.PrintingCopyVariable.BrianedNeurongroupVariable.N)+','
+				ReprStr='NeuronGroup(N='+str(self.PrintingCopyVariable.BrianedNeurongroupVariable.N
+					)+', '
 				ReprStr+=BaseReprStrsList[1]
 
 				#add the number of N
@@ -3608,7 +3587,7 @@ class BrianerClass(BaseClass):
 					#split
 					ReprStr='Synapses(pre='+str(
 						self.PrintingCopyVariable.BrianingSynapsesDict['pre']
-					)+','
+					)+', '
 					ReprStr+=BaseReprStrsList[1]
 
 					#add the pre option

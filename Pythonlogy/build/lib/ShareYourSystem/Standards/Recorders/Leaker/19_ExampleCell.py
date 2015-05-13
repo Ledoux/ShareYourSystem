@@ -21,9 +21,10 @@ MyLeaker=SYS.LeakerClass(
 					'-Interactions':{
 						'|/':{
 							'LeakingWeigthVariable':'#array',
+							'LeakingEigenBool':True
 						}
 					},
-					'LeakingGlobalBool':True,
+					#'LeakingGlobalBool':True,
 					'RecordingLabelVariable':[0,1,2]
 				}
 			}
@@ -39,13 +40,7 @@ MyLeaker=SYS.LeakerClass(
 
 MyLeaker.view(
 	).pyplot(
-	)
-
-#MyLeaker['/-Populations/|P'].view(
-#	).pyplot(
-#	)
-
-SYS.matplotlib.pyplot.show()
+	).show()
 
 #/###################/#
 # Print

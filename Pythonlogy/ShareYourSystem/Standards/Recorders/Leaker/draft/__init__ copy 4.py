@@ -36,6 +36,25 @@ LeakInputPrefixStr="I"
 LeakInteractionPrefixStr="J"
 
 #define
+def detectThreshold(_VariablesList,_PopulationDeriveLeaker):
+
+	#set
+	SpikeArray = _VariablesList['_spikespace']
+	ActivityArray = _VariablesList[
+				_PopulationDeriveLeaker.LeakedSymbolStr
+			]
+	
+	#Choose
+	AboveArray=(ActivityArray > _PopulationDeriveLeaker.LeakingThresholdVariable).nonzero()[0]
+
+	#Debug
+	print('l 52 detectThreshold')
+	print('SpikeArray is ')
+	print(SpikeArray)
+	print('AboveArray is')
+	print(AboveArray)
+	print('')
+
 def getShapeArray(_Variable,_RowsInt,_ColsInt):
 
 	#import
@@ -59,6 +78,30 @@ def getShapeArray(_Variable,_RowsInt,_ColsInt):
 		
 		#alias
 		return _Variable
+
+
+"""
+def filterSpike(_VariablesList,_ActivityStr,_ThresholdVariable):
+
+	#set
+	SpikeArray = _VariablesList['_spikespace']
+	ActivityArray = _VariablesList[
+				_ActivityStr
+			]
+	
+	#Choose
+	AboveArray=(ActivityArray > _ThresholdVariable).nonzero()[0]
+
+	#Check
+	if len(AboveArray):
+		# only let one neuron spike
+		SpikeArray[0] = AboveArray[0]
+		SpikeArray[-1] = 1
+	else:
+		SpikeArray[-1] = 0
+"""
+
+
 #</DefineLocals>
 
 #<DefineClass>
@@ -92,8 +135,6 @@ class LeakerClass(BaseClass):
 			_LeakingDelayVariable=None,
 			_LeakingPlasticVariable=None,
 			_LeakingGlobalBool=False,
-			_LeakingThresholdMethodStr="",
-			_LeakingEigenBool=False,
 			_LeakedRecordSkipStrsList=None,
 			_LeakedQuantityVariable=None,
 			_LeakedDimensionStr="",
@@ -119,8 +160,6 @@ class LeakerClass(BaseClass):
 			_LeakedMeanGlobalFloatsArray=None,
 			_LeakedStdGlobalFloatsArray=None,
 			_LeakedSimulationStateMonitorVariable=None,
-			_LeakedThresholdMethod=None,
-			_LeakedRandomFunction=None,
 			**_KwargVariablesDict
 		):
 
@@ -670,11 +709,11 @@ class LeakerClass(BaseClass):
 				'''
 
 				#Check
-				if self.LeakingTransferVariable!=None:
+				if self.LeakedModelStr[-1]!='(':
+					self.LeakedModelStr+='+'
 
-					#Check
-					if self.LeakedModelStr[-1]!='(':
-						self.LeakedModelStr+='+'
+				#Check
+				if self.LeakingTransferVariable!=None:
 
 					#Check
 					if type(
@@ -697,9 +736,7 @@ class LeakerClass(BaseClass):
 						#add
 						self.LeakedModelStr+=self.LeakingTransferVariable.replace(
 								'#CurrentStr',
-								('+'+self.LeakedCurrentStr)
-								if self.LeakedCurrentStr[0]!='-'
-								else self.LeakedCurrentStr
+								self.LeakedCurrentStr
 							)
 
 					else:
@@ -722,20 +759,10 @@ class LeakerClass(BaseClass):
 					'''
 					self.debug(
 						[
-							'We add directly the leaked current',
-							('self.',self,[
-									'LeakedCurrentStr',
-									'LeakedModelStr'
-								])
+							'We add directly the leaked current'
 						]
 					)
 					'''
-
-					#Check
-					if self.LeakedCurrentStr[0]!='-' and self.LeakedModelStr[-1]!='(':
-
-						#Check
-						self.LeakedModelStr+='+'
 
 					#Check
 					self.LeakedModelStr+=self.LeakedCurrentStr
@@ -746,12 +773,12 @@ class LeakerClass(BaseClass):
 				[
 					'We divide by the time',
 					('self.',self,[
-						'LeakedClampStr',
-						'LeakedModelStr'
+						'LeakedClampStr'
 					])
 				]
 			)
 			'''
+
 
 			#Check
 			if self.LeakingNoiseStdVariable!=None:
@@ -842,8 +869,8 @@ class LeakerClass(BaseClass):
 		#Check
 		if self.RecordingLabelVariable!=None:
 
-			#copy
-			LeakedDefaultDeriveLeaker.RecordingLabelVariable=self.RecordingLabelVariable[:]
+			#alias
+			LeakedDefaultDeriveLeaker.RecordingLabelVariable=self.RecordingLabelVariable
 
 		else:
 
@@ -895,8 +922,7 @@ class LeakerClass(BaseClass):
 			[
 				'Look for a threshold',
 				('self.',self,[
-					'LeakingThresholdVariable',
-					'LeakingThresholdMethodStr'
+					'LeakingThresholdVariable'
 				])
 			]
 		)
@@ -953,30 +979,44 @@ class LeakerClass(BaseClass):
 					#set
 					BrianingNeurongroupDict['threshold']=self.LeakedSymbolStr+'>Threshold'
 					
-		#Check
-		if self.LeakingThresholdMethodStr!="":
+				else:
 	
-			#import
-			from brian2 import network_operation
-			import numpy as np
+					#debug
+					'''
+					self.debug(
+						[
+							'It is a CodeObject threshod',
+							'add in the model'
+						]
+					)
+					'''
 
-			#randint
-			self.LeakedRandomFunction=np.random.randint
+					#import
+					from brian2 import CodeObject
 
-			#define
-			@network_operation(when='after_thresholds')
-			def ThresholdFunction():
+					#define
+					def ThresholdFunction(_VariablesList):
 
-				#get
-				getattr(
-					self,
-					self.LeakingThresholdMethodStr
-				)(
-				)
+						#map
+						map(
+							lambda __Method:
+							__Method(
+								_VariablesList,
+								self
+							),
+							self.LeakingThresholdVariable['MethodsList']
+						)
 
-			#alias
-			self.LeakedThresholdMethod=ThresholdFunction
 
+					#Init
+					ThresholdCodeObject = CodeObject()(
+							ThresholdFunction,
+					    	uses_variables=[
+					    		'_spikespace',
+					    		self.LeakedSymbolStr
+					    	]
+					    )
+				
 		#/##################/#
 		# Look for a Reset
 		#
@@ -1371,14 +1411,10 @@ class LeakerClass(BaseClass):
 
 					#append
 					if self.LeakedParentPopulationDeriveLeakerVariable.LeakedRecordSkipStrsList==None:
-
-						#add
 						self.LeakedParentPopulationDeriveLeakerVariable.LeakedRecordSkipStrsList=[
 							self.LeakedSymbolStr
 						]
 					else:
-
-						#append
 						self.LeakedParentPopulationDeriveLeakerVariable.LeakedRecordSkipStrsList.append(
 							self.LeakedSymbolStr
 						)
@@ -1396,6 +1432,7 @@ class LeakerClass(BaseClass):
 				)
 
 			#debug
+			'''
 			self.debug(
 				[
 					'In the end',
@@ -1404,11 +1441,11 @@ class LeakerClass(BaseClass):
 					"self.LeakedParentPopulationDeriveLeakerVariable.LeakedModelStr is ",
 					self.LeakedParentPopulationDeriveLeakerVariable.LeakedModelStr,
 					('self.',self,[
-							'LeakedSymbolStr',
-							'LeakingRecordBool'
+							'LeakedSymbolStr'
 						])
 				]
 			)
+			'''
 
 	def leakInteraction(self):
 
@@ -1977,16 +2014,6 @@ class LeakerClass(BaseClass):
 		# Look for plasticity in the rate
 		#
 
-		#debug
-		self.debug(
-			[
-				('self.',self,[
-						'LeakingPlasticVariable',
-						'LeakingInteractionStr'
-					])
-			]
-		)
-
 		#Check
 		if self.LeakingPlasticVariable!=None:
 
@@ -2068,15 +2095,16 @@ class LeakerClass(BaseClass):
 			if self.LeakingPlasticVariable!=None:
 
 				#debug
+				'''
 				self.debug(
 					[
 						'It is a spike model',
 						('self.',self,[
-								'LeakedSymbolStr',
-								'LeakingPlasticVariable'
+								'LeakedSymbolStr'
 							])
 					]
 				)
+				'''
 
 				#add
 				self.BrianingSynapsesDict['pre']+='\n'+self.LeakingPlasticVariable
@@ -2104,7 +2132,6 @@ class LeakerClass(BaseClass):
 			]
 		)
 		'''
-
 
 	#/##################/#
 	# brian methods
@@ -2239,13 +2266,6 @@ class LeakerClass(BaseClass):
 				'*Threshold'
 			].BrianingRecordInitBool=False
 
-		#Check
-		if self.LeakedThresholdMethod!=None:
-
-			#add
-			self.LeakedParentNetworkDeriveLeakerVariable.BrianedNetworkVariable.add(
-				self.LeakedThresholdMethod
-			)
 
 		#/###################/#
 		# Specify a plot of the events
@@ -2663,7 +2683,6 @@ class LeakerClass(BaseClass):
 		#get
 		BrianedRowsInt=self.BrianedSynapsesVariable.source.N
 		BrianedColsInt=self.BrianedSynapsesVariable.target.N
-		BrianedWeigthFloatsArray=None
 
 		#/##################/#
 		# Maybe we specify the connection
@@ -2812,7 +2831,7 @@ class LeakerClass(BaseClass):
 					self.numscipy()
 
 					#alias
-					BrianedWeigthFloatsArray=self.NumscipiedValueFloatsArray
+					BrianedWeigthFloatsArray=self.NumscipiedRandomFloatsArray
 
 				else:
 
@@ -3023,43 +3042,6 @@ class LeakerClass(BaseClass):
 						dt=self.BrianedSynapsesVariable.clock.dt
 					)
 				)
-
-		#/####################/#
-		# Do we compute some things on the connectivity
-		#
-
-		#Check
-		if type(BrianedFloatsArray)!=None.__class__:
-
-			#Check
-			if self.LeakingEigenBool:
-
-				#set
-				self.NumscipyingValueVariable=BrianedWeigthFloatsArray
-				self.NumscipyingEigenvalueBool=True
-
-				#debug
-				self.debug(
-					[
-						'We are going to look to the Eigen of the connectivity'
-					]
-				)
-
-				#numscipy
-				self.numscipy()
-
-				#debug
-				self.debug(
-					[
-						'The eigen of the connectivity gives',
-						('self.',self,[
-							'NumscipiedCenterFloat',
-							'NumscipiedWidthFloat',
-							'NumscipiedHeightFloat'
-						])
-					]	
-				)
-
 
 	def brianTrace(self):
 
@@ -3381,31 +3363,9 @@ class LeakerClass(BaseClass):
 
 		#Check
 		if self.LeakedCurrentStr=="":
-
-			#set
 			self.LeakedCurrentStr=_CurrentStr
-
-		elif _CurrentStr[0]=='-':
-
-			#add
-			self.LeakedCurrentStr+=_CurrentStr
-
 		else:
-
-			#add
 			self.LeakedCurrentStr+='+'+_CurrentStr
-
-		#debug
-		'''
-		self.debug(
-			[
-				'In the end',
-				('self.',self,[
-					'LeakedCurrentStr'
-				])
-			]
-		)
-		'''
 
 	def filterLeak(self):
 
@@ -3631,15 +3591,6 @@ class LeakerClass(BaseClass):
 		#Check
 		if self.LeakingGlobalBool:
 
-			#debug
-			'''
-			self.debug(
-				[
-					'We compute the global properties'
-				]
-			)
-			'''
-			
 			#get
 			self.LeakedSimulationStateMonitorVariable=self.TeamDict[
 					'Traces'
@@ -3651,20 +3602,103 @@ class LeakerClass(BaseClass):
 					'Default'
 				].BrianedStateMonitorVariable
 
-			#import 
-			import numpy as np
+			"""
+			#get
+			SimulatedFloatsArray=getattr(
+				self.LeakedSimulationStateMonitorVariable,
+				self.LeakedSymbolStr
+			)[:]
 
-			#numscipy
-			self.NumscipyingValueVariable=np.array(
-				getattr(
-					self.LeakedSimulationStateMonitorVariable,
-					self.LeakedSymbolStr
-				)
+			#debug
+			'''
+			self.debug(
+				[
+					'SimulatedFloatsArray is ',
+					str(SimulatedFloatsArray)
+				]
 			)
-			self.NumscipyingSampleFloatsArray=np.array(self.LeakedSimulationStateMonitorVariable.t)
-			self.NumscipyingGlobalBool=self.LeakingGlobalBool
-			self.numscipy()
+			'''
 
+			#mean
+			self.LeakedMeanGlobalFloatsArray=SimulatedFloatsArray.mean(
+				axis=0
+			)
+
+			#std
+			self.LeakedStdGlobalFloatsArray=SimulatedFloatsArray.std(
+				axis=0
+			)
+
+			#debug
+			'''
+			self.debug(
+				[
+					('self.',self,[
+						'LeakedMeanGlobalFloatsArray'
+						]
+					)
+				]
+			)
+			'''
+
+			#/###############/#
+			# Compute correlations
+			#
+
+			#import
+			from scipy import signal
+
+			#acf
+			self.LeakedAutocorrelationGlobalFloatsArray=signal.correlate(
+				self.LeakedMeanGlobalFloatsArray,
+				self.LeakedMeanGlobalFloatsArray,
+				mode="same"
+			)
+
+			#cut
+			#self.LeakedAutocorrelationGlobalFloatsArray=self.LeakedAutocorrelationGlobalFloatsArray[
+			#	self.LeakedAutocorrelationGlobalFloatsArray.size/2:
+			#]
+
+			#debug
+			self.debug(
+				[
+					'We computed the correlations',
+					('self.',self,[
+							'LeakedAutocorrelationGlobalFloatsArray'
+						])
+				]
+			)
+
+			#/###############/#
+			# Compute local maxima
+			#
+
+			#Maxima
+			self.LeakedMaxGlobalIndexIntsArray=SYS.argmax(
+				self.LeakedMeanGlobalFloatsArray
+			)
+			
+			#debug
+			'''
+			self.debug(
+				[
+					'We found the local extrema',
+					('self.',self,[
+							'LeakedMaxGlobalIndexIntsArray'
+						])
+				]
+			)
+			'''
+			
+			#map
+			LeakedMaxIndexIntsArray=map(
+				lambda __SimulatedFloatsArray:
+				SYS.argmax(__SimulatedFloatsArray),
+				SimulatedFloatsArray
+			)
+
+			
 
 
 	#/##################/#
@@ -3712,12 +3746,12 @@ class LeakerClass(BaseClass):
 			if self.LeakingGlobalBool:
 
 				#Check
-				ViewedMaxStdFloatsArray=self.NumscipiedMeanGlobalFloatsArray+(
-												self.NumscipiedStdGlobalFloatsArray/2.
+				ViewedMaxStdFloatsArray=self.LeakedMeanGlobalFloatsArray+(
+												self.LeakedStdGlobalFloatsArray/2.
 											)
 
-				ViewedMinStdFloatsArray=self.NumscipiedMeanGlobalFloatsArray-(
-												self.NumscipiedStdGlobalFloatsArray/2.
+				ViewedMinStdFloatsArray=self.LeakedMeanGlobalFloatsArray-(
+												self.LeakedStdGlobalFloatsArray/2.
 											)
 
 				#debug
@@ -3741,7 +3775,7 @@ class LeakerClass(BaseClass):
 							{
 								'#liarg':[
 									self.LeakedSimulationStateMonitorVariable.t,
-									self.NumscipiedMeanGlobalFloatsArray
+									self.LeakedMeanGlobalFloatsArray
 								],
 								'#kwarg':dict(
 									{
@@ -3832,8 +3866,6 @@ class LeakerClass(BaseClass):
 				# add a stat view
 				#
 
-				"""
-
 				#get
 				ViewedStatDerivePyploter=self.BrianedParentNetworkDeriveBrianerVariable.getTeamer(
 					'Panels'
@@ -3868,191 +3900,6 @@ class LeakerClass(BaseClass):
 						}	
 					)
 				]
-				"""
-
-	def viewInteraction(self):
-
-		#Check
-		if self.LeakingEigenBool:
-
-
-			#debug
-			self.debug(
-				[
-					'We want to see the eigen of the connectivity',
-					('self.',self,[
-							'NumscipiedRealEigenvalueFloatsArray'
-						])
-				]
-			)
-
-			#/##################/#
-			# Build the theoritical ellipse
-			#
-
-			#import
-			import matplotlib.patches
-
-			#Add the matrix contour Ellipse
-			PyplotedBifurcationEllipse=matplotlib.patches.Ellipse(
-								xy=(self.NumscipiedCenterFloat,0.), 
-							 	width=self.NumscipiedWidthFloat,
-							 	height=self.NumscipiedHeightFloat,
-							 	color='r',
-						)
-			PyplotedBifurcationEllipse.set_alpha(0.2)
-
-			#Add the Wiener Circle
-			PyplotedBifurcationCircle=matplotlib.patches.Ellipse(
-								xy=(self.NumscipiedCenterFloat,0.), 
-							 	width=2.,
-							 	height=2.,
-							 	linewidth=2,
-							 	color='black',
-							 	fill=False
-						)
-			PyplotedBifurcationCircle.set_alpha(0.4)
-
-			#/##################/#
-			# draw
-			#
-
-			#debug
-			self.debug(
-				[
-					'We draw',
-					('self.',self,[
-							'PyplotingDrawVariable'
-						])
-				]
-			)
-
-			#list
-			self.PyplotingDrawVariable=[
-				(
-					'plot',
-					{
-						'#liarg':[
-							[-2.,2.],
-							[0.,0.]
-						],
-						'#kwarg':dict(
-							{
-								'linestyle':"--",
-								'linewidth':1,
-								'color':'black'
-							}
-						)
-					}
-				),
-				(
-					'plot',
-					{
-						'#liarg':[
-							[-0.,0.],
-							[-2.,2.]
-						],
-						'#kwarg':dict(
-							{
-								'linestyle':"--",
-								'linewidth':1,
-								'color':'black'
-							}
-						)
-					}
-				),
-				(
-					'plot',
-					{
-						'#liarg':[
-							[1.,1.],
-							[-2.,2.]
-						],
-						'#kwarg':dict(
-							{
-								'linestyle':"-",
-								'linewidth':2,
-								'color':'black',
-								'alpha':0.5
-							}
-						)
-					}
-				),
-				(
-					'add_artist',
-					PyplotedBifurcationEllipse
-				),
-				(
-					'add_artist',
-					PyplotedBifurcationCircle
-				),
-				(
-					'plot',
-					{
-						'#liarg':[
-							self.NumscipiedRealEigenvalueFloatsArray,
-							self.NumscipiedImagEigenvalueFloatsArray
-						],
-						'#kwarg':dict(
-							{
-								'linestyle':"",
-								'marker':'o',
-								'color':'black'
-							}
-						)
-					}
-				)
-			]
-			
-			#/##################/#
-			# View chart
-			#
-
-			#import
-			import numpy as np
-
-			#concatenate
-			ViewedVariablesArray=np.concatenate(
-				[
-					self.NumscipiedRealEigenvalueFloatsArray,
-					self.NumscipiedImagEigenvalueFloatsArray
-				]
-			)
-			ViewedMinFloat=ViewedVariablesArray.min()
-			ViewedMaxFloat=max(ViewedVariablesArray.max(),1.)
-			ViewedLimFloatsArray=[ViewedMinFloat,ViewedMaxFloat]
-
-
-			#/##################/#
-			# set at the level of the network
-			#
-
-
-			#get
-			ViewedConnectivityChartDerivePyploter=self.LeakedParentNetworkDeriveLeakerVariable.getTeamer(
-				'Panels'
-			).getManager(
-				'Eigen',
-				_IndexInt=0
-			).getTeamer(
-				'Charts'
-			).getManager(
-				'Connectivity'
-			)
-
-			#alias
-			ViewedConnectivityChartDerivePyploter.PyplotingDrawVariable=self.PyplotingDrawVariable
-
-			#view
-			ViewedConnectivityChartDerivePyploter.view(
-				_XLabelStr="$Re(\lambda_{J})$",
-				_YLabelStr="$Im(\lambda_{J})$",
-				_XVariable=ViewedLimFloatsArray,
-				_YVariable=ViewedLimFloatsArray
-			)
-
-
-
 
 	#/###################/#
 	# Other methods
@@ -4223,51 +4070,6 @@ class LeakerClass(BaseClass):
 		#call
 		BaseClass._print(self,**_KwargVariablesDict)
 
-	def filterSpikespace(self):
-
-		#get
-		#SpikespaceArray=self.BrianedNeurongroupVariable.variables[
-		#	'_spikespace'
-		#].get_value()
-		Spikespace=self.BrianedNeurongroupVariable._spikespace
-
-		#get
-		SpikesInt = Spikespace[-1]
-
-		#debug
-		self.debug(
-			[
-				'We filterSpikespace here',
-				'SpikesInt is '+str(SpikesInt),
-				#('self.',self,[
-				#		'BrianedNeurongroupVariable'
-				#	])
-			]
-		)
-
-		#Check
-		if SpikesInt > 0:
-
-			#get
-			RandomInt = self.LeakedRandomFunction(SpikesInt)
-
-			#Set the first spike
-			Spikespace[0] = Spikespace[
-				:SpikesInt
-			][
-				RandomInt
-			]
-
-			# Set the total number of spikes to 1
-			Spikespace[-1]=1
-
-			#debug
-			self.debug(
-				[
-					'We have chosen the '+str(RandomInt)+' index to spike',
-					'Spikespace is '+str(Spikespace)
-				]
-			)
 
 #</DefineClass>
 
@@ -4316,8 +4118,6 @@ LeakerClass.PrintingClassSkipKeyStrsList.extend(
 		'LeakingDelayVariable',
 		'LeakingPlasticVariable',
 		'LeakingGlobalBool',
-		'LeakingThresholdMethodStr',
-		'LeakingEigenBool',
 		'LeakedRecordSkipStrsList',
 		'LeakedQuantityVariable',
 		'LeakedDimensionStr',
@@ -4342,9 +4142,7 @@ LeakerClass.PrintingClassSkipKeyStrsList.extend(
 		'LeakedMaxFloat',
 		'LeakedMeanGlobalFloatsArray',
 		'LeakedStdGlobalFloatsArray',
-		'LeakedSimulationStateMonitorVariable',
-		'LeakedThresholdMethod',
-		'LeakedRandomFunction'
+		'LeakedSimulationStateMonitorVariable'
 	]
 )
 #<DefinePrint>

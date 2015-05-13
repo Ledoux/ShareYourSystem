@@ -99,8 +99,13 @@ class NumscipyerClass(BaseClass):
 			_NumscipiedStdFloat=0,
 			_NumscipiedCovarianceFloat=0,
 			_NumscipiedSommersFloat=0.,
+			_NumscipiedCenterFloat=0.,
+			_NumscipiedWidthFloat=0.,
+			_NumscipiedHeightFloat=0.,
 			_NumscipiedEigenvalueComplexesArray=None,
 			_NumscipiedEigenvectorComplexesArray=None,
+			_NumscipiedRealEigenvalueFloatsArray=None,
+			_NumscipiedImagEigenvalueFloatsArray=None,
 			_NumscipiedMeanGlobalFloatsArray=None,
 			_NumscipiedStdGlobalFloatsArray=None,
 			_NumscipiedSampleStepFloat=0.,
@@ -111,9 +116,15 @@ class NumscipyerClass(BaseClass):
 			_NumscipiedFourierPhaseGlobalFloatsArray=None,
 			_NumscipiedFourierMaxAmplitudeIndexIntsArray=None,
 			_NumscipiedFourierMaxAmplitudeFloatsArray=None,
+			_NumscipiedFourierMaxTupleFloatsArray=None,
+			_NumscipiedFourierComplexesArray=None,
+			_NumscipiedFourierCrossPhaseFloatsArray=None,
+			_NumscipiedFourierMaxCrossPhaseFloatsArray=None,
+			_NumscipiedFourierGlobalComplexesArray=None,
 			_NumscipiedAutocorrelationFloatsArray=None,
 			_NumscipiedAutocorrelationGlobalFloatsArray=None,
 			_NumscipiedCrosscorrelationFloatsArray=None,
+			_NumscipiedStdSparseFloat=0.,
 			**_KwargVariablesDict
 		):
 
@@ -129,6 +140,10 @@ class NumscipyerClass(BaseClass):
 		self.debug(
 				[
 					'We numscipy here',
+					('self.',self,[
+							'NumscipyingValueVariable',
+							'NumscipiedValueFloatsArray'
+						])
 				]
 			)
 		'''
@@ -189,256 +204,263 @@ class NumscipyerClass(BaseClass):
 			#alias
 			self.NumscipiedValueFloatsArray=self.NumscipyingValueVariable
 
-		#debug
-		'''
-		self.debug(
-			[
-				'We have setted the shape of the matrix',
-				('self.',self,['NumscipyingSizeTuple'])
-			]
-		)
-		'''
-
-		#/#################/#
-		# Get the continuous stat
-		#
-
-		#Check
-		if self.NumscipyingStdFloat>0.:
-
-			#import
-			import scipy.stats
-
-			#get
-			self.NumscipiedContinuousStatRigidFunction=getattr(
-				scipy.stats,
-				self.NumscipyingContinuousStatStr
-			)(
-				self.NumscipyingMeanFloat,
-				self.NumscipyingStdFloat
-			).rvs
-
-
-		#/#################/#
-		# Get the discrete stat
-		#
-
-		#Check
-		if self.NumscipyingSparseFloat>0.:
-
 			#debug
 			'''
 			self.debug(
 				[
-					'We numscipy here',
-					'We set a discrete skeleton',
-					('self.',self,[
-							'NumscipyingDiscreteStatStr',
-							'NumscipyingSparseFloat'
-						])
+					'We have setted the shape of the matrix',
+					('self.',self,['NumscipyingSizeTuple'])
 				]
 			)
 			'''
-			
-			#/#################/#
-			# Get a list of one or zero
-			#
 
-			#import
-			import scipy.stats
+		#/#################/#
+		# Build maybe
+		#
 
-			#get
-			self.NumscipiedDiscreteStatRigidFunction=getattr(
-				scipy.stats,
-				self.NumscipyingDiscreteStatStr
-			).rvs
-
-			#prod
-			NumscipiedSizeInt=np.prod(self.NumscipyingSizeTuple)
-
-			#set
-			NumscipiedRandomIntsArray=self.NumscipiedDiscreteStatRigidFunction(
-				self.NumscipyingSparseFloat,
-				size=NumscipiedSizeInt
-			)
+		#Check
+		if type(self.NumscipyingValueVariable)==None.__class__:
 
 			#/#################/#
-			# Maybe set a continuous stat for non zero values
+			# Get the continuous stat
 			#
-
-			#map
-			if self.NumscipiedContinuousStatRigidFunction!=None:
-
-				#Check
-				self.NumscipiedValueFloatsArray=np.array(
-					map(
-						lambda __IndexInt,__BoolInt:
-						self.NumscipiedContinuousStatRigidFunction()
-						if __BoolInt==1
-						else 0.,
-						xrange(NumscipiedSizeInt),
-						NumscipiedRandomIntsArray,
-					)
-				)
-
-
-			else:
-
-				#just floatify
-				self.NumscipiedValueFloatsArray=self.NumscipyingMeanFloat*np.array(
-					map(
-						float,
-						NumscipiedRandomIntsArray
-					)
-				)
-
-
-
-			#reshape
-			self.NumscipiedValueFloatsArray=self.NumscipiedValueFloatsArray.reshape(
-				self.NumscipyingSizeTuple
-			)
 
 			#Check
-			if self.NumscipyingSwitchFloat>0.:
+			if self.NumscipyingStdFloat>0.:
 
-				#/##################/#
-				# Switch the sgn 
-				#
+				#import
+				import scipy.stats
+
+				#get
+				self.NumscipiedContinuousStatRigidFunction=getattr(
+					scipy.stats,
+					self.NumscipyingContinuousStatStr
+				)(
+					self.NumscipyingMeanFloat,
+					self.NumscipyingStdFloat
+				).rvs
+
+
+			#/#################/#
+			# Get the discrete stat
+			#
+
+			#Check
+			if self.NumscipyingSparseFloat>0.:
 
 				#debug
 				'''
 				self.debug(
 					[
-						'We switch the sign',
+						'We numscipy here',
+						'We set a discrete skeleton',
 						('self.',self,[
-								'NumscipyingSwitchFloat'
+								'NumscipyingDiscreteStatStr',
+								'NumscipyingSparseFloat'
+							])
+					]
+				)
+				'''
+				
+				#/#################/#
+				# Get a list of one or zero
+				#
+
+				#import
+				import scipy.stats
+
+				#get
+				self.NumscipiedDiscreteStatRigidFunction=getattr(
+					scipy.stats,
+					self.NumscipyingDiscreteStatStr
+				).rvs
+
+				#prod
+				NumscipiedSizeInt=np.prod(self.NumscipyingSizeTuple)
+
+				#set
+				NumscipiedRandomIntsArray=self.NumscipiedDiscreteStatRigidFunction(
+					self.NumscipyingSparseFloat,
+					size=NumscipiedSizeInt
+				)
+
+				#/#################/#
+				# Maybe set a continuous stat for non zero values
+				#
+
+				#map
+				if self.NumscipiedContinuousStatRigidFunction!=None:
+
+					#Check
+					self.NumscipiedValueFloatsArray=np.array(
+						map(
+							lambda __IndexInt,__BoolInt:
+							self.NumscipiedContinuousStatRigidFunction()
+							if __BoolInt==1
+							else 0.,
+							xrange(NumscipiedSizeInt),
+							NumscipiedRandomIntsArray,
+						)
+					)
+
+
+				else:
+
+					#just floatify
+					self.NumscipiedValueFloatsArray=self.NumscipyingMeanFloat*np.array(
+						map(
+							float,
+							NumscipiedRandomIntsArray
+						)
+					)
+
+
+
+				#reshape
+				self.NumscipiedValueFloatsArray=self.NumscipiedValueFloatsArray.reshape(
+					self.NumscipyingSizeTuple
+				)
+
+				#Check
+				if self.NumscipyingSwitchFloat>0.:
+
+					#/##################/#
+					# Switch the sgn 
+					#
+
+					#debug
+					'''
+					self.debug(
+						[
+							'We switch the sign',
+							('self.',self,[
+									'NumscipyingSwitchFloat'
+								])
+						]
+					)
+					'''
+
+					#import
+					import itertools
+
+					#filter the upper index tuples
+					self.NumscipiedIndexIntsTuplesList=filter(
+						lambda __Tuple:
+						__Tuple[1]!=__Tuple[0],
+						itertools.product(
+							xrange(self.NumscipyingColsInt),
+							xrange(self.NumscipyingColsInt)
+						)
+					)
+
+					#/#################/#
+					# group by the null and non null index tuples
+					#
+
+					#filter
+					[
+						self.NumscipiedNonNullIndexIntsTuplesList,
+						self.NumscipiedNullIndexIntsTuplesList
+					]=SYS.groupby(
+						lambda __IndexIntsTuple:
+						self.NumscipiedValueFloatsArray[
+							__IndexIntsTuple
+						]!=0.,
+						self.NumscipiedIndexIntsTuplesList
+					)
+
+					#len
+					NumscipiedSwitchsInt=int(self.NumscipyingSwitchFloat*len(
+							self.NumscipiedNonNullIndexIntsTuplesList
+						)
+					)
+
+					#copy
+					self.NumscipiedToSwitchIndexIntsTuplesList=self.NumscipiedNonNullIndexIntsTuplesList[:]
+
+					#debug
+					'''
+					self.debug(
+						[
+							'Before shuffle to switch',
+							('self.',self,[
+									'NumscipiedToSwitchIndexIntsTuplesList'
+								]),
+						]
+					)
+					'''
+
+					#Shuffle and pick the NumscipiedToSwitchIndexIntsTuplesList
+					np.random.shuffle(
+						self.NumscipiedToSwitchIndexIntsTuplesList
+					)
+
+					#cut
+					self.NumscipiedToSwitchIndexIntsTuplesList=self.NumscipiedToSwitchIndexIntsTuplesList[
+						:NumscipiedSwitchsInt
+					] 
+
+					#debug
+					'''
+					self.debug(
+						[
+							'We map switch here',
+							('self.',self,[
+									'NumscipiedToSwitchIndexIntsTuplesList'
+								]),
+							'NumscipiedSwitchsInt is '+str(NumscipiedSwitchsInt)
+						]
+					)
+					'''
+
+					#map switch
+					map(
+						lambda __NumscipiedToSwitchIndexIntsTuple:
+						self.NumscipiedValueFloatsArray.__setitem__(
+							__NumscipiedToSwitchIndexIntsTuple,
+							-self.NumscipiedValueFloatsArray[
+								__NumscipiedToSwitchIndexIntsTuple
+							]
+						),
+						self.NumscipiedToSwitchIndexIntsTuplesList
+					)	
+
+
+			#/#################/#
+			# If it is a dense matrix then 
+			# set direct all the matrix
+
+			#Check
+			if type(self.NumscipiedValueFloatsArray)==None.__class__:
+
+				#debug
+				'''
+				self.debug(
+					[
+						'This is a random norm distribution',
+						('self.',self,[
+								'NumscipyingMeanFloat',
+								'NumscipyingStdFloat',
+								'NumscipiedContinuousStatRigidFunction'
 							])
 					]
 				)
 				'''
 
-				#import
-				import itertools
+				#Check
+				if self.NumscipiedContinuousStatRigidFunction!=None:
 
-				#filter the upper index tuples
-				self.NumscipiedIndexIntsTuplesList=filter(
-					lambda __Tuple:
-					__Tuple[1]!=__Tuple[0],
-					itertools.product(
-						xrange(self.NumscipyingColsInt),
-						xrange(self.NumscipyingColsInt)
+					#set
+					self.NumscipiedValueFloatsArray=self.NumscipiedContinuousStatRigidFunction(
+						size=self.NumscipyingSizeTuple
 					)
-				)
 
-				#/#################/#
-				# group by the null and non null index tuples
-				#
+				else:
 
-				#filter
-				[
-					self.NumscipiedNonNullIndexIntsTuplesList,
-					self.NumscipiedNullIndexIntsTuplesList
-				]=SYS.groupby(
-					lambda __IndexIntsTuple:
-					self.NumscipiedValueFloatsArray[
-						__IndexIntsTuple
-					]!=0.,
-					self.NumscipiedIndexIntsTuplesList
-				)
-
-				#len
-				NumscipiedSwitchsInt=int(self.NumscipyingSwitchFloat*len(
-						self.NumscipiedNonNullIndexIntsTuplesList
+					#set
+					self.NumscipiedValueFloatsArray=self.NumscipyingMeanFloat*np.ones(
+						self.NumscipyingSizeTuple
 					)
-				)
-
-				#copy
-				self.NumscipiedToSwitchIndexIntsTuplesList=self.NumscipiedNonNullIndexIntsTuplesList[:]
-
-				#debug
-				'''
-				self.debug(
-					[
-						'Before shuffle to switch',
-						('self.',self,[
-								'NumscipiedToSwitchIndexIntsTuplesList'
-							]),
-					]
-				)
-				'''
-
-				#Shuffle and pick the NumscipiedToSwitchIndexIntsTuplesList
-				np.random.shuffle(
-					self.NumscipiedToSwitchIndexIntsTuplesList
-				)
-
-				#cut
-				self.NumscipiedToSwitchIndexIntsTuplesList=self.NumscipiedToSwitchIndexIntsTuplesList[
-					:NumscipiedSwitchsInt
-				] 
-
-				#debug
-				'''
-				self.debug(
-					[
-						'We map switch here',
-						('self.',self,[
-								'NumscipiedToSwitchIndexIntsTuplesList'
-							]),
-						'NumscipiedSwitchsInt is '+str(NumscipiedSwitchsInt)
-					]
-				)
-				'''
-
-				#map switch
-				map(
-					lambda __NumscipiedToSwitchIndexIntsTuple:
-					self.NumscipiedValueFloatsArray.__setitem__(
-						__NumscipiedToSwitchIndexIntsTuple,
-						-self.NumscipiedValueFloatsArray[
-							__NumscipiedToSwitchIndexIntsTuple
-						]
-					),
-					self.NumscipiedToSwitchIndexIntsTuplesList
-				)	
-
-
-		#/#################/#
-		# If it is a dense matrix then 
-		# set direct all the matrix
-
-		#Check
-		if type(self.NumscipiedValueFloatsArray)==None.__class__:
-
-			#debug
-			'''
-			self.debug(
-				[
-					'This is a random norm distribution',
-					('self.',self,[
-							'NumscipyingMeanFloat',
-							'NumscipyingStdFloat',
-							'NumscipiedContinuousStatRigidFunction'
-						])
-				]
-			)
-			'''
-
-			#Check
-			if self.NumscipiedContinuousStatRigidFunction!=None:
-
-				#set
-				self.NumscipiedValueFloatsArray=self.NumscipiedContinuousStatRigidFunction(
-					size=self.NumscipyingSizeTuple
-				)
-
-			else:
-
-				#set
-				self.NumscipiedValueFloatsArray=self.NumscipyingMeanFloat*np.ones(
-					self.NumscipyingSizeTuple
-				)
 
 		#debug
 		'''
@@ -536,15 +558,17 @@ class NumscipyerClass(BaseClass):
 			if self.NumscipyingSparseFloat==0. and self.NumscipyingStdFloat>0.:
 
 				#/#################/#
-				# This is a diluting symmetrization
+				# This is a dense symmetrization
 				# 
 
 				#debug
+				'''
 				self.debug(
 					[
-						'We do a diluted symmetrization'
+						'We do a dense symmetrization'
 					]
 				)
+				'''
 
 				#import 
 				import itertools
@@ -868,6 +892,23 @@ class NumscipyerClass(BaseClass):
 		# Compute statistic
 		# 
 
+		#debug
+		'''
+		self.debug(
+			[
+				'Do we compute statistics on the matrix ?',
+				('self.',self,[
+						'NumscipyingStatBool',
+						'NumscipyingRowsInt',
+						'NumscipyingColsInt'	
+					]),
+				'self.NumscipyingRowsInt==self.NumscipyingColsInt is '+str(
+					self.NumscipyingRowsInt==self.NumscipyingColsInt
+				)
+			]
+		)
+		'''
+		
 		#Check
 		if self.NumscipyingStatBool and self.NumscipyingRowsInt==self.NumscipyingColsInt:
 
@@ -943,8 +984,11 @@ class NumscipyerClass(BaseClass):
 			#set
 			self.NumscipiedSommersFloat = (
 				2.*NumscipiedShiftSymmetryFloat-1.
-			)/(2.*NumscipiedShiftSymmetryFloat*(NumscipiedShiftSymmetryFloat-1.
-				)+1.)
+			)/(
+				2.*NumscipiedShiftSymmetryFloat*(
+					NumscipiedShiftSymmetryFloat-1.
+				)+1.
+			)
 
 			#Check
 			if self.NumscipyingStdFloat==0.:
@@ -955,10 +999,13 @@ class NumscipyerClass(BaseClass):
 				)
 
 			#debug
+			'''
 			self.debug(
 				[
+					'NumscipiedShiftSymmetryFloat is '+str(NumscipiedShiftSymmetryFloat),
 					('self.',self,
 						[
+							'NumscipyingSparseFloat',
 							'NumscipiedVarianceFloat',
 							'NumscipiedSommersFloat',
 							'NumscipiedSymmetricsInt'
@@ -966,6 +1013,7 @@ class NumscipyerClass(BaseClass):
 					)
 				]
 			)
+			'''
 
 			#deviation
 			self.NumscipiedStdFloat=np.sqrt(self.NumscipiedVarianceFloat)
@@ -993,6 +1041,51 @@ class NumscipyerClass(BaseClass):
 								self.NumscipiedSymmetricsInt-1
 							)
 						)	
+
+			#debug
+			'''
+			self.debug(
+				[
+					'We compute the center',
+					('self.',self,[
+							'NumscipyingSwitchFloat',
+							'NumscipyingMeanFloat'
+						])
+				]
+			)
+			'''
+
+			#compute the center
+			self.NumscipiedCenterFloat=(
+				self.NumscipyingSwitchFloat*self.NumscipyingMeanFloat-(
+					1.-self.NumscipyingSwitchFloat
+				)*self.NumscipyingMeanFloat)/2.
+
+			#set
+			self.NumscipiedWidthFloat=2.*(1.+self.NumscipiedSommersFloat)
+			self.NumscipiedHeightFloat=2.*(1.-self.NumscipiedSommersFloat)
+
+			#Check
+			if self.NumscipyingStdFloat>0.:
+
+				#mul
+				self.NumscipiedWidthFloat*=self.NumscipyingStdFloat
+				self.NumscipiedHeightFloat*=self.NumscipyingStdFloat
+			else:
+
+				#sqrt
+				self.NumscipiedStdSparseFloat=np.sqrt(
+					self.NumscipyingSparseFloat*(
+						1.-self.NumscipyingSparseFloat)
+				)
+			
+				#mul
+				self.NumscipiedWidthFloat*=self.NumscipiedStdSparseFloat
+				self.NumscipiedHeightFloat*=self.NumscipiedStdSparseFloat
+
+
+
+
 
 		#/#################/#
 		# Get the eigenvalues
@@ -1031,6 +1124,14 @@ class NumscipyerClass(BaseClass):
 				self.NumscipiedEigenvalueComplexesArray=np.linalg.eigvals(
 					self.NumscipiedValueFloatsArray
 				)
+
+			#project
+			self.NumscipiedRealEigenvalueFloatsArray=np.real(
+				self.NumscipiedEigenvalueComplexesArray
+			)
+			self.NumscipiedImagEigenvalueFloatsArray=np.imag(
+				self.NumscipiedEigenvalueComplexesArray
+			)
 
 			#debug
 			'''
@@ -1310,6 +1411,7 @@ class NumscipyerClass(BaseClass):
 			)
 
 			#debug
+			'''
 			self.debug(
 				[
 					('self.',self,[
@@ -1317,7 +1419,7 @@ class NumscipyerClass(BaseClass):
 						])
 				]
 			)
-
+			'''
 
 			#	(
 			#		xrange(self.NumscipyingColsInt),
@@ -1651,9 +1753,14 @@ NumscipyerClass.PrintingClassSkipKeyStrsList.extend(
 		'NumscipiedStdFloat',
 		'NumscipiedCovarianceFloat',
 		'NumscipiedSommersFloat',
+		'NumscipiedCenterFloat',
+		'NumscipiedWidthFloat',
+		'NumscipiedHeightFloat',
 		'NumscipyingEigenvalueBool',
 		'NumscipyingEigenvectorBool',
 		'NumscipiedEigenvalueComplexesArray',
+		'NumscipiedRealEigenvalueFloatsArray',
+		'NumscipiedImagEigenvalueFloatsArray',
 		'NumscipiedEigenvectorComplexesArray',
 		'NumscipiedMeanGlobalFloatsArray',
 		'NumscipiedStdGlobalFloatsArray',
@@ -1665,9 +1772,15 @@ NumscipyerClass.PrintingClassSkipKeyStrsList.extend(
 		'NumscipiedFourierPhaseGlobalFloatsArray',
 		'NumscipiedFourierMaxAmplitudeIndexIntsArray',
 		'NumscipiedFourierMaxAmplitudeFloatsArray',
+		'NumscipiedFourierMaxTupleFloatsArray',
+		'NumscipiedFourierComplexesArray',
+		'NumscipiedFourierCrossPhaseFloatsArray',
+		'NumscipiedFourierMaxCrossPhaseFloatsArray',
+		'NumscipiedFourierGlobalComplexesArray',
 		'NumscipiedAutocorrelationFloatsArray',
 		'NumscipiedAutocorrelationGlobalFloatsArray',
-		'NumscipiedCrosscorrelationFloatsArray'
+		'NumscipiedCrosscorrelationFloatsArray',
+		'NumscipiedStdSparseFloat'
 	]
 )
 #<DefinePrint>

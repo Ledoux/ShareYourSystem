@@ -2,6 +2,7 @@
 # Import modules
 #
 
+
 #ImportModules
 import ShareYourSystem as SYS
 
@@ -9,10 +10,8 @@ import ShareYourSystem as SYS
 # Build the model
 #
 
-#Simulation time
-SimulationTimeFloat=150.
-#SimulationTimeFloat=0.2
-BrianingDebugVariable=0.1 if SimulationTimeFloat<0.5 else 25.
+#set
+BrianingDebugVariable=25.
 
 #Define
 MyPredicter=SYS.PredicterClass(
@@ -30,22 +29,19 @@ MyPredicter=SYS.PredicterClass(
 					}
 				}),
 				('|Agent',{
-					'LeakingMonitorIndexIntsList':[0],
-					'LeakingNoiseStdVariable':0.05,
+					'LeakingMonitorIndexIntsList':[0,1],
 					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Fast':{
 							'BrianingDebugVariable':BrianingDebugVariable
-						},
-						'|Antileak':{
-							'BrianingDebugVariable':BrianingDebugVariable
 						}
 					},
 					#'LeakingNoiseStdVariable':0.01
+					'LeakingThresholdMethodStr':'filterSpikespace'
 				}),
 				('|Decoder',{
 					'LeakingMonitorIndexIntsList':[0],
-					#'BrianingDebugVariable':BrianingDebugVariable,
+					#'BrianingDebugVariable':BrianingDebugVariable
 					'-Interactions':{
 						'|Slow':{
 							'BrianingDebugVariable':BrianingDebugVariable,
@@ -56,18 +52,15 @@ MyPredicter=SYS.PredicterClass(
 			]
 		}
 	).predict(
-		_AgentUnitsInt=1,
-		_JacobianVariable={
-			'ModeStr':"Track",
-			'ConstantTimeFloat':2. #(ms)
-		},
-		_CommandVariable="#custom:#clock:50*ms:1.*mV+1.*mV*int(t==50*ms)",#2.,
-		_DecoderVariable=[1.],
-		_InteractionStr="Spike",
-		#_FastPlasticBool=True,
+		_AgentUnitsInt=100,
+		_CommandVariable="#custom:#clock:20*ms:1.*mV+1.*mV*int(t==20*ms)",#2.,
+		_DecoderVariable="#array",
+		_DecoderStdFloat=0.,
+		_DecoderMeanFloat=2.,
 		#_AgentResetVariable=-60.5
+		_InteractionStr="Spike"
 	).simulate(
-		SimulationTimeFloat
+		5.
 	)
 
 #/###################/#
@@ -94,3 +87,25 @@ print('MyPredicter is ')
 SYS._print(MyPredicter) 
 
 
+"""
+from brian2 import *
+
+G = NeuronGroup(100, '', threshold='t/dt >= i')
+mon = SpikeMonitor(G)
+
+@network_operation(when='after_thresholds')
+def one_spike():
+    print(G._spikespace);n_spikes = G._spikespace[-1]
+    if n_spikes > 0:
+        random_index = np.random.randint(n_spikes)
+        # Set the first spike
+        G._spikespace[0] = G._spikespace[:n_spikes][random_index]
+        # Set the total number of spikes to 1
+        G._spikespace[-1] = 1
+
+        print(G._spikespace)
+
+run(len(G)*defaultclock.dt)
+plot(mon.t/ms, mon.i, '.')
+show()
+"""

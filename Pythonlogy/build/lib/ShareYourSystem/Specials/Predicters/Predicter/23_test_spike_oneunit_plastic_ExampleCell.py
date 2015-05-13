@@ -21,34 +21,31 @@ MyPredicter=SYS.PredicterClass(
 			'BrianingStepTimeFloat':0.05,
 			'-Populations':[
 				('|Sensor',{
-					'LeakingMonitorIndexIntsList':[0],
+					'RecordingLabelVariable':[0],
 					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Encod':{
-							'BrianingDebugVariable':BrianingDebugVariable
+							#'BrianingDebugVariable':BrianingDebugVariable
 						}
 					}
 				}),
 				('|Agent',{
-					'LeakingMonitorIndexIntsList':[0],
+					'RecordingLabelVariable':[0],
 					'LeakingNoiseStdVariable':0.05,
 					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Fast':{
-							'BrianingDebugVariable':BrianingDebugVariable
-						},
-						'|Antileak':{
-							'BrianingDebugVariable':BrianingDebugVariable
+							#'BrianingDebugVariable':BrianingDebugVariable
 						}
 					},
 					#'LeakingNoiseStdVariable':0.01
 				}),
 				('|Decoder',{
-					'LeakingMonitorIndexIntsList':[0],
+					'RecordingLabelVariable':[0],
 					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Slow':{
-							'BrianingDebugVariable':BrianingDebugVariable,
+							#'BrianingDebugVariable':BrianingDebugVariable,
 							#'LeakingWeigthVariable':0.
 						}
 					}
@@ -64,7 +61,7 @@ MyPredicter=SYS.PredicterClass(
 		_CommandVariable="#custom:#clock:50*ms:1.*mV+1.*mV*int(t==50*ms)",#2.,
 		_DecoderVariable=[1.],
 		_InteractionStr="Spike",
-		#_FastPlasticBool=True,
+		_FastPlasticBool=True,
 		#_AgentResetVariable=-60.5
 	).simulate(
 		SimulationTimeFloat
@@ -74,15 +71,9 @@ MyPredicter=SYS.PredicterClass(
 # View
 #
 
-MyPredicter.mapSetAllMro(
-		{
-			'PyplotingPrintBool':False,
-			'BrianingPrintBool':False
-		}
-	).view(
+MyPredicter.view(
 	).pyplot(
-	)
-SYS.matplotlib.pyplot.show()
+	).show()
 
 
 #/###################/#

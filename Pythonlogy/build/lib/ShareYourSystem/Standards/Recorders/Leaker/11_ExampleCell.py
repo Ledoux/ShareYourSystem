@@ -44,7 +44,7 @@ MyLeaker=SYS.LeakerClass(
 							'LeakingInteractionStr':"Spike"
 						}
 					},
-					'BrianingMonitorIndexIntsList':[0,1]
+					'RecordingLabelVariable':[0,1]
 					#'BrianingDebugVariable':100
 				}
 			}

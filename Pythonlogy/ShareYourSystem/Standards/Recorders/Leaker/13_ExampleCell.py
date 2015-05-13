@@ -38,7 +38,7 @@ MyLeaker=SYS.LeakerClass(
 							#'LeakingDelayVariable':[[0.,1.],[5.,0.]], #ms
 						}
 					},
-					'BrianingMonitorIndexIntsList':[0,1],
+					'RecordingLabelVariable':[0,1],
 					#'BrianingDebugVariable':100
 				}
 			}
