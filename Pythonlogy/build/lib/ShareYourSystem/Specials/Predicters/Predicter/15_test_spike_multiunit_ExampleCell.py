@@ -60,7 +60,7 @@ MyPredicter=SYS.PredicterClass(
 		#_AgentResetVariable=-60.5
 		_InteractionStr="Spike"
 	).simulate(
-		5.
+		50.
 	)
 
 #/###################/#

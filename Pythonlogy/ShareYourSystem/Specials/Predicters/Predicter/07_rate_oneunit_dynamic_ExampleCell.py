@@ -80,7 +80,8 @@ MyPredicter.mapSet(
 		}
 	).view(
 	).pyplot(
-	).show()
+	).show(
+	)
 
 
 #/###################/#

@@ -586,10 +586,16 @@ class BrianerClass(BaseClass):
 				# team States first all the brian variables
 				#
 
+				#add
+				BrianedRecordSkipKeyStrsList=self.BrianingRecordSkipKeyStrsList+[
+					'lastspike',
+					'not_refractory'
+				]
+
 				#Check
 				self.BrianedRecordKeyStrsList=filter(
 					lambda __BrianedRecordKeyStr:
-					__BrianedRecordKeyStr not in self.BrianingRecordSkipKeyStrsList,
+					__BrianedRecordKeyStr not in BrianedRecordSkipKeyStrsList,
 					self.BrianedNeurongroupVariable.equations._equations.keys()
 				)
 
@@ -2717,9 +2723,29 @@ class BrianerClass(BaseClass):
 			) 
 		)
 
-		self.ViewingYLabelStr+='\ ('+str(
+		#str
+		ViewedDimensionStr=str(
 			(1./self.ViewingYScaleFloat)*BrianedActivityUnit
-		).split('.')[-1]+')'
+		).split('.')[-1]
+
+		#Check
+		if str(BrianedActivityUnit)=='1':
+			ViewedDimensionStr='1'
+
+		#debug
+		self.debug(
+			[
+				'set the ViewingYLabelStr',
+				'self.BrianedParentDeriveRecorderVariable.BrianingActivityStr is ',
+				str(self.BrianedParentDeriveRecorderVariable.BrianingActivityStr),
+				'ViewedDimensionStr is '+ViewedDimensionStr,
+				'BrianedActivityUnit is '+str(BrianedActivityUnit),
+				('self.',self,['ViewingYScaleFloat'])
+			]
+		)
+
+		#add
+		self.ViewingYLabelStr+='\ ('+ViewedDimensionStr+')'
 		self.ViewingYLabelStr+='$'
 
 		#debug
@@ -3490,6 +3516,21 @@ class BrianerClass(BaseClass):
 		)
 		'''
 
+		#set
+		self.setBrianInit()
+
+		#debug
+		'''
+		self.debug(
+			[
+				'after the set',
+				('self.',self,['RecordedTraceFloatsArray'])
+			]
+		)
+		'''
+
+	def setBrianInit(self):
+
 		#Check
 		if str(self.RecordedTraceFloatsArray.unit) in ['V']:
 
@@ -3506,21 +3547,22 @@ class BrianerClass(BaseClass):
 
 		else:
 
+			#debug
+			'''
+			self.debug(
+				[
+					'We just set direct',
+					('self.',self,[
+							'RecordedInitFloatsArray'
+						])
+				]
+			)
+			'''
+			
 			#alias
 			self.RecordedTraceFloatsArray[
 				:
 			]=self.RecordedInitFloatsArray
-
-
-		#debug
-		'''
-		self.debug(
-			[
-				'after the set',
-				('self.',self,['RecordedTraceFloatsArray'])
-			]
-		)
-		'''
 
 	def mimic__print(self,**_KwargVariablesDict):
 
@@ -3564,6 +3606,16 @@ class BrianerClass(BaseClass):
 				#split
 				ReprStr='NeuronGroup(N='+str(self.PrintingCopyVariable.BrianedNeurongroupVariable.N
 					)+', '
+
+				#Check
+				if 'threshold' in self.PrintingCopyVariable.BrianingNeurongroupDict:
+
+					#add
+					ReprStr+='thres='+self.PrintingCopyVariable.BrianingNeurongroupDict[
+						'threshold'
+					]+', '
+
+				#add
 				ReprStr+=BaseReprStrsList[1]
 
 				#add the number of N

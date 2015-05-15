@@ -23,6 +23,7 @@ SYS.addDo('Predicter','Predict','Predicting','Predicted')
 from ShareYourSystem.Standards.Recorders import Leaker
 import scipy.stats
 import numpy as np
+PredictSlowTimeFloat=5.
 #</ImportSpecificModules>
 
 #<DefineLocals>
@@ -47,7 +48,7 @@ class DynamicDict(dict):
 			else None,
 			[
 				('ModeStr',"Track"),
-				('ConstantTimeFloat',2.)
+				('ConstantTimeFloat',PredictSlowTimeFloat)
 			]
 		)
 
@@ -71,14 +72,14 @@ class PredicterClass(BaseClass):
 			_PredictingAgentRestVariable=None,
 			_PredictingAgentResetVariable=None,
 			_PredictingAgentTimeFloat=10.,
-			_PredictingFastSymmetryFloat=1.,
 			_PredictingDecoderVariable=None,
 			_PredictingDecoderMeanFloat=1.,
 			_PredictingDecoderStdFloat=1.,
 			_PredictingDecoderSparseFloat=0.,
-			_PredictingDecoderTimeFloat=1.,
+			_PredictingDecoderTimeFloat=PredictSlowTimeFloat,
 			_PredictingDecoderNormalisationInt=1,
 			_PredictingFastPerturbStdFloat=0.,
+			_PredictingFastSymmetryFloat=1.,
 			_PredictingSlowPerturbStdFloat=0.,
 			_PredictingInteractionStr="Rate",
 			_PredictingEncodPlasticBool=False,
@@ -90,7 +91,9 @@ class PredicterClass(BaseClass):
 			_PredictedFastFloatsArray=None,
 			_PredictedThresholdFloatsArray=None,
 			_PredictedSlowFloatsArray=None,
+			_PredictedDelayFloatsArray=None,
 			_PredictedParentSingularStr="",
+			_PredictedSlowBool=True,
 			_PredictedSensorDerivePredicterVariable=None,
 			_PredictedAgentDerivePredicterVariable=None,
 			_PredictedDecoderDerivePredicterVariable=None,
@@ -728,7 +731,7 @@ class PredicterClass(BaseClass):
 			'''
 
 			#diag
-			self.PredictedSlowFloatsArray=self.PredictedSensorJacobianFloatsArray+(
+			PredictedRightSlowFloatsArray=self.PredictedSensorJacobianFloatsArray+(
 				1./self.PredictingDecoderTimeFloat
 			)*np.diag(
 				np.ones(
@@ -736,38 +739,58 @@ class PredicterClass(BaseClass):
 				)
 			)
 
-			#debug
-			'''
-			self.debug(
-				[
-					'In intermediate values',
-					('self.',self,[
-							'PredictedSlowFloatsArray'
-						])
-				]
-			)
-			'''
+			#Check 
+			if (PredictedRightSlowFloatsArray==0.).all():
 
-			#link
-			self.PredictedSlowFloatsArray=np.dot(
-				self.PredictedDecoderFloatsArray.T,
-				self.PredictedSlowFloatsArray
-			)
+				#debug
+				'''
+				self.debug(
+					[
+						'Actually the slow is a null matrix'
+					]
+				)
+				'''
 
-			#debug
-			'''
-			self.debug(
-				[
-					'We have built the slow connection',
-					('self.',self,[
-							'PredictedSlowFloatsArray',
-							'PredictedSensorJacobianFloatsArray',
-							'PredictingDecoderTimeFloat',
-							'PredictedDecoderFloatsArray'
-						])
-				]
-			)
-			'''
+				#Check
+				if self.PredictingSlowPerturbStdFloat==0.:
+
+					#set
+					self.PredictedSlowBool=False
+
+			else:
+
+				#debug
+				'''
+				self.debug(
+					[
+						'In intermediate values',
+						('self.',self,[
+								'PredictedSlowFloatsArray'
+							])
+					]
+				)
+				'''
+
+				#link
+				self.PredictedSlowFloatsArray=np.dot(
+					self.PredictedDecoderFloatsArray.T,
+					PredictedRightSlowFloatsArray
+				)
+
+				#debug
+				'''
+				self.debug(
+					[
+						'We have built the slow connection',
+						('self.',self,[
+								'PredictedSlowFloatsArray',
+								#'PredictedSensorJacobianFloatsArray',
+								#'PredictingDecoderTimeFloat',
+								#'PredictedDecoderFloatsArray'
+							])
+					]
+				)
+				'''
 
 			#/################/#
 			# Perturb maybe
@@ -775,6 +798,9 @@ class PredicterClass(BaseClass):
 
 			#Check
 			if self.PredictingSlowPerturbStdFloat>0.:
+
+				#set
+				self.PredictedSlowBool=True
 
 				#numscipy
 				self.NumscipyingStdFloat=self.PredictingSlowPerturbStdFloat
@@ -798,7 +824,16 @@ class PredicterClass(BaseClass):
 				'''
 
 				#link
-				self.PredictedSlowFloatsArray+=self.NumscipiedValueFloatsArray
+				if type(self.PredictedSlowFloatsArray)==None.__class__:
+	
+					#alias
+					self.PredictedSlowFloatsArray=self.NumscipiedValueFloatsArray
+
+				else:
+
+					#add
+					self.PredictedSlowFloatsArray+=self.NumscipiedValueFloatsArray
+
 
 
 		#/###############/#
@@ -855,6 +890,42 @@ class PredicterClass(BaseClass):
 					self.PredictingAgentUnitsInt
 				)
 			)
+
+		#/################/#
+		# Build a delay matrice ?
+		# 
+
+		#Check
+		if self.PredictingDelayFloat>0.:
+
+			#set
+			self.PredictedFloatsArray=self.PredictedNetworkDerivePredicterVariable.PredictingDelayFloat*np.ones(
+				(
+					self.PredictedNetworkDerivePredicterVariable.PredictingAgentUnitsInt,
+					self.PredictedNetworkDerivePredicterVariable.PredictingAgentUnitsInt
+				)
+			)
+
+			#remove diag
+			self.PredictedFloatsArray-=np.diag(
+				np.diagonal(
+					self.PredictedFloatsArray
+					)
+				)
+
+			#debug
+			'''
+			self.debug(
+				[
+					'We add some delay',
+					('self.',self,[
+							'PredictedFloatsArray'
+						]),
+					'but not on the autapses'
+				]
+			)
+			'''
+
 
 	def predictPopulation(self):
 
@@ -1069,6 +1140,17 @@ class PredicterClass(BaseClass):
 			# Spike case 
 			#
 
+			#debug
+			'''
+			self.debug(
+				[
+					('self.',self,[
+							'LeakingInteractionStr'
+						])
+				]
+			)
+			'''
+
 			#Check
 			if self.LeakingInteractionStr=="Spike":
 				
@@ -1078,9 +1160,23 @@ class PredicterClass(BaseClass):
 
 				#Check
 				if self.PredictedNetworkDerivePredicterVariable.PredictingAgentRestVariable!=None:
+					
+					#get
 					PredictedRestVariable=self.PredictedNetworkDerivePredicterVariable.PredictingAgentRestVariable
+				
 				else:
+
+					#default
 					PredictedRestVariable=-0.06
+
+				#debug
+				'''
+				self.debug(
+					[
+						'PredictedRestVariable is '+str(PredictedRestVariable)
+					]
+				)
+				'''
 
 				#alias
 				self.getTeamer(
@@ -1446,8 +1542,24 @@ class PredicterClass(BaseClass):
 			# PredictingDynamicBool
 			#
 
+			#debug
+			self.debug(
+				[
+					'Look if we have to add slow connection from decoder to agents',
+					('self.',self,[
+
+						]),
+					'self.PredictedNetworkDerivePredicterVariable.PredictingDynamicBool is '+str(
+						self.PredictedNetworkDerivePredicterVariable.PredictingDynamicBool
+					),
+					'self.PredictedNetworkDerivePredicterVariable.PredictedSlowBool is '+str(
+						self.PredictedNetworkDerivePredicterVariable.PredictedSlowBool
+						)
+				]
+			)
+
 			#Check
-			if self.PredictedNetworkDerivePredicterVariable.PredictingDynamicBool:
+			if self.PredictedNetworkDerivePredicterVariable.PredictingDynamicBool and self.PredictedNetworkDerivePredicterVariable.PredictedSlowBool:
 
 				#debug
 				'''
@@ -1483,6 +1595,21 @@ class PredicterClass(BaseClass):
 					"Agent"
 				]
 
+			else:
+
+				#delete
+				del self.TeamDict[
+						"Interactions"
+					]
+
+				"""
+				#delete
+				del self.getTeamer(
+						"Interactions"
+					).ManagementDict[
+						"Slow"
+					]
+				"""
 			
 	def predictInput(self):
 
@@ -1837,10 +1964,9 @@ class PredicterClass(BaseClass):
 
 			#Check
 			if self.PredictedNetworkDerivePredicterVariable.PredictingDelayFloat!=0.:
-			
+				
 				#set
-				self.LeakingDelayVariable=self.PredictedNetworkDerivePredicterVariable.PredictingDelayFloat
-
+				self.LeakingDelayVariable=self.PredictedNetworkDerivePredicterVariable.PredictedDelayFloatsArray
 
 		elif self.ManagementTagStr=="Slow":
 
@@ -1893,12 +2019,13 @@ class PredicterClass(BaseClass):
 			# Consider maybe delay
 			#
 
+			"""
 			#Check
 			if self.PredictedNetworkDerivePredicterVariable.PredictingDelayFloat!=0.:
 			
 				#set
 				self.LeakingDelayVariable=self.PredictedNetworkDerivePredicterVariable.PredictingDelayFloat
-
+			"""
 
 			#debug
 			'''
@@ -2016,14 +2143,15 @@ class PredicterClass(BaseClass):
 
 	def leakInteraction(self):
 
-		#call the base
-		BaseClass.leakInteraction(self)
-
 		#Check
 		if self.ManagementTagStr=="Encod":
 
 			#Check
 			if self.PredictedNetworkDerivePredicterVariable.PredictingEncodPlasticBool:
+
+				#Check
+				if self.LeakingSymbolPrefixStr=="":
+					self.LeakingSymbolPrefixStr=LeakActivityPrefixStr
 
 				#debug
 				'''
@@ -2106,10 +2234,18 @@ class PredicterClass(BaseClass):
 			#Check
 			if self.PredictedNetworkDerivePredicterVariable.PredictingFastPlasticBool:
 
+				#Check
+				if self.LeakingSymbolPrefixStr=="":
+					self.LeakingSymbolPrefixStr=Leaker.LeakInteractionPrefixStr
+
 				#debug
 				self.debug(
 					[
-						'We make the fast synapses plastic'
+						'We make the fast synapses plastic',
+						('self.',self,[
+								'LeakingInteractionStr',
+								'LeakingSymbolPrefixStr'
+							])
 					]
 				)
 
@@ -2150,34 +2286,85 @@ class PredicterClass(BaseClass):
 				else:
 
 					#debug
-					'''
 					self.debug(
 						[
 							'It is a spike model',
 							('self.',self,[
+									'LeakedModelStr',
 									'LeakedSymbolStr',
-									'LeakingSymbolStr',
-									'BrianingSynapsesDict'
+									'LeakingSymbolPrefixStr',
+									'LeakingThresholdVariable'
 								])
 						]
 					)
-					'''
+
+					#/################/#
+					# We first set the thresholds
+					#
+
+					#set
+					self.PredictedAgentDerivePredicterVariable.LeakingThresholdVariable=-50.
+
+					#/################/#
+					# Build the plastic rule
+					#
 
 					#set
 					self.LeakingPlasticVariable=self.LeakingSymbolPrefixStr+'+=(('+self.PredictedAgentDerivePredicterVariable.LeakedSymbolStr+'_post'
 					
 					#Check
-					if self.PredictedNetworkDerivePredicterVariable.PredictingAgentRestVariable!=None:
+					if 'Rest' in self.PredictedAgentDerivePredicterVariable.TeamDict[
+						'Inputs'
+					].ManagementDict:
 
-						#add
-						self.LeakingPlasticVariable+=str(
-							self.PredictedNetworkDerivePredicterVariable.PredictingAgentRestVariable
-						)+')/mV)+0.*((1+alpha)/2.)*'+self.LeakingSymbolPrefixStr
-					
+						#get
+						PredictedRestVariable=self.PredictedAgentDerivePredicterVariable.TeamDict[
+							'Inputs'
+						].ManagementDict[
+							'Rest'
+						].LeakingWeigthVariable
+
+
+						#debug
+						self.debug(
+							[
+								'We set a plasticity rule regarding the deviation compared to the rest',
+								'PredictedRestVariable is '+str(PredictedRestVariable)
+							]
+						)
+
+						#import
+						import numpy as np
+
+						#type
+						PredictedRestType=type(PredictedRestVariable)
+
+						#Check
+						if PredictedRestType in [float,np.float64]:
+
+							#str
+							PredictedRestStr=str(
+								PredictedRestVariable
+							)
+
+							if PredictedRestStr[0]=='-':
+
+								#add
+								self.LeakingPlasticVariable+='+'+PredictedRestStr[1:]+'*volt)/mV)+((1.+alpha)/2.)*'+self.LeakingSymbolPrefixStr
+						
+							else:
+
+								#add
+								self.LeakingPlasticVariable+='-'+PredictedRestStr+'*volt)/mV)+((1.+alpha)/2.)*'+self.LeakingSymbolPrefixStr
+						
+
 					else:
 
 						#add
-						self.LeakingPlasticVariable+=')/mV)+0.*((1+alpha)/2.)*'+self.LeakingSymbolPrefixStr
+						self.LeakingPlasticVariable+=')/mV)+((1.+alpha)/2.)*'+self.LeakingSymbolPrefixStr
+
+					#add in the model
+					self.LeakedModelStr+="alpha : 1"
 
 					#debug
 					'''
@@ -2190,6 +2377,10 @@ class PredicterClass(BaseClass):
 						]
 					)
 					'''
+
+		#call the base
+		BaseClass.leakInteraction(self)
+
 
 	#/######################/#
 	# Augment brian
@@ -2359,21 +2550,16 @@ class PredicterClass(BaseClass):
 	def viewSample(self):
 
 		#debug
-		'''
 		self.debug(
 			[
 				'We predict view sample here',
 				('self.',self,[
-						'StructureTagStr'
+						'StructureTagStr',
+						'ManagementTagStr'
 					])
 			]
 		)
-		'''
-
-		#Check
-		self.ViewingXScaleFloat=1000.
-		self.ViewingYScaleFloat=1000.
-
+		
 		#base
 		BaseClass.viewSample(self)
 
@@ -2639,6 +2825,8 @@ PredicterClass.PrintingClassSkipKeyStrsList.extend(
 		'PredictedThresholdFloatsArray',
 		'PredictedSlowFloatsArray',
 		'PredictedParentSingularStr',
+		'PredictedSlowBool',
+		'PredictedFloatsArray',
 		'PredictedSensorDerivePredicterVariable',
 		'PredictedAgentDerivePredicterVariable',
 		'PredictedDecoderDerivePredicterVariable',

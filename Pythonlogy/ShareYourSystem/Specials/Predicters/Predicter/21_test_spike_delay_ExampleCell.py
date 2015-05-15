@@ -35,7 +35,7 @@ MyPredicter=SYS.PredicterClass(
 							'BrianingDebugVariable':BrianingDebugVariable
 						}
 					},
-					'LeakingThresholdMethodStr':"filterSpikespace"
+					#'LeakingThresholdMethodStr':"filterSpikespace"
 					#'LeakingNoiseStdVariable':0.01
 				}),
 				('|Decoder',{
@@ -58,7 +58,7 @@ MyPredicter=SYS.PredicterClass(
 		_DecoderSparseFloat=0.2,
 		#_AgentResetVariable=-60.,
 		_InteractionStr="Spike",
-		_DelayFloat=0.5,
+		_DelayFloat=1.,
 	).simulate(
 		50.
 	)

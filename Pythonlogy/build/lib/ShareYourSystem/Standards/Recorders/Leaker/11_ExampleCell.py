@@ -60,13 +60,8 @@ MyLeaker=SYS.LeakerClass(
 
 MyLeaker.view(
 	).pyplot(
+	).show(
 	)
-
-#MyLeaker['/-Populations/|P'].view(
-#	).pyplot(
-#	)
-
-SYS.matplotlib.pyplot.show()
 
 #/###################/#
 # Print

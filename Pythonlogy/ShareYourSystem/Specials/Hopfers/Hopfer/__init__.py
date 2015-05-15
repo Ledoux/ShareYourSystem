@@ -755,28 +755,6 @@ class HopferClass(BaseClass):
 	#/######################/#
 	# Augment view
 	#
-
-	def viewSample(self):
-
-		#debug
-		'''
-		self.debug(
-			[
-				'We predict view sample here',
-				('self.',self,[
-						'StructureTagStr'
-					])
-			]
-		)
-		'''
-
-		#Check
-		self.ViewingXScaleFloat=1000.
-		self.ViewingYScaleFloat=1000.
-
-		#base
-		BaseClass.viewSample(self)
-
 		
 	def mimic_view(self):
 

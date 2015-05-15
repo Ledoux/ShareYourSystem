@@ -87,6 +87,7 @@ class LeakerClass(BaseClass):
 			_LeakingTransferVariable=None,
 			_LeakingThresholdVariable=None,
 			_LeakingResetVariable=None,
+			_LeakingRefractoryVariable=None,
 			_LeakingRecordBool=False,
 			_LeakingNoiseStdVariable=None,
 			_LeakingDelayVariable=None,
@@ -994,7 +995,7 @@ class LeakerClass(BaseClass):
 		'''
 
 		#Check
-		if self.LeakingResetVariable!=None:
+		if type(self.LeakingResetVariable)!=None.__class__:
 
 			#Check
 			if type(self.LeakingResetVariable)==str:
@@ -1031,6 +1032,50 @@ class LeakerClass(BaseClass):
 					)+'*'+str(
 						self.LeakedQuantityVariable
 					)
+
+		#/##################/#
+		# Look for a refractory period 
+		#
+
+		#type
+		LeakedRefractoryType=type(self.LeakingRefractoryVariable)
+
+		#Check
+		if LeakedRefractoryType!=None.__class__:
+
+			#import
+			import numpy as np
+
+			#Check
+			if LeakedRefractoryType in [float,np.float64]:
+
+				#import
+				import brian2
+
+				#set
+				BrianingNeurongroupDict[
+					'refractory'
+				]=self.LeakingRefractoryVariable*getattr(
+					brian2,
+					self.BrianingTimeQuantityStr
+				)
+			
+			#/###############/#
+			# Add in the model
+			#
+
+			#debug
+			self.debug(
+				[
+					('self.',self,[
+							'LeakedModelStr'
+						])
+				]
+			)
+
+			#add
+			self.LeakedModelStr+=' (unless refractory)'
+
 
 		#/##################/#
 		# Set the neurongroup dict
@@ -1132,7 +1177,9 @@ class LeakerClass(BaseClass):
 				'''
 				
 				#type
-				LeakedThresholdType=type(self.LeakedParentPopulationDeriveLeakerVariable.LeakingThresholdVariable)
+				LeakedThresholdType=type(
+					self.LeakedParentPopulationDeriveLeakerVariable.LeakingThresholdVariable
+				)
 
 				#import
 				import numpy as np
@@ -1147,7 +1194,6 @@ class LeakerClass(BaseClass):
 				self.NumscipyingMeanFloat=self.LeakedMaxFloat
 
 				#debug
-				'''
 				self.debug(
 					[
 						'Mean is then around',
@@ -1156,7 +1202,6 @@ class LeakerClass(BaseClass):
 							])
 					]
 				)
-				'''
 
 	def leakInput(self):
 
@@ -1978,6 +2023,7 @@ class LeakerClass(BaseClass):
 		#
 
 		#debug
+		'''
 		self.debug(
 			[
 				('self.',self,[
@@ -1986,6 +2032,7 @@ class LeakerClass(BaseClass):
 					])
 			]
 		)
+		'''
 
 		#Check
 		if self.LeakingPlasticVariable!=None:
@@ -1994,6 +2041,7 @@ class LeakerClass(BaseClass):
 			if self.LeakingInteractionStr=="Rate":
 				
 				#debug
+				'''
 				self.debug(
 					[
 						'It is a rate model',
@@ -2004,6 +2052,7 @@ class LeakerClass(BaseClass):
 							])
 					]
 				)
+				'''
 
 				#set
 				#BrianedModelStr='beta : 1'
@@ -2015,6 +2064,7 @@ class LeakerClass(BaseClass):
 				self.LeakedModelStr+="\n"+self.LeakingPlasticVariable
 
 				#debug
+				'''
 				self.debug(
 					[
 						'after update of the model',
@@ -2023,6 +2073,7 @@ class LeakerClass(BaseClass):
 							])
 					]
 				)
+				'''
 
 		#/##################/#
 		# Update in the Synapses dict
@@ -2068,6 +2119,7 @@ class LeakerClass(BaseClass):
 			if self.LeakingPlasticVariable!=None:
 
 				#debug
+				'''
 				self.debug(
 					[
 						'It is a spike model',
@@ -2077,7 +2129,8 @@ class LeakerClass(BaseClass):
 							])
 					]
 				)
-
+				'''
+				
 				#add
 				self.BrianingSynapsesDict['pre']+='\n'+self.LeakingPlasticVariable
 
@@ -2958,7 +3011,8 @@ class LeakerClass(BaseClass):
 					)
 
 					#set
-					self.BrianedSynapsesVariable.pre.delay[:
+					self.BrianedSynapsesVariable.pre.delay[
+						:
 					]=BrianedDelayFloatsArray*self.LeakedParentNetworkDeriveLeakerVariable.BrianedTimeQuantityVariable
 
 					#debug
@@ -3114,7 +3168,9 @@ class LeakerClass(BaseClass):
 		if BrianedParentInteractionDeriveBrianerVariable.BrianedSynapsesVariable!=None:
 
 			#Check
-			if BrianedParentInteractionDeriveBrianerVariable.LeakingPlasticVariable!=None and BrianedParentInteractionDeriveBrianerVariable.LeakingWeigthVariable!=None:
+			if BrianedParentInteractionDeriveBrianerVariable.LeakingPlasticVariable!=None and type(
+				BrianedParentInteractionDeriveBrianerVariable.LeakingWeigthVariable
+			)!=None.__class__:
 
 				#debug
 				'''
@@ -3159,7 +3215,12 @@ class LeakerClass(BaseClass):
 
 				#min value
 				self.LeakedMinFloat=self.RecordedInitFloatsArray.min()
-				self.LeakedMinFloat=self.LeakedMaxFloat-0.1*self.LeakedMaxFloat
+
+				#set
+				LeakedShiftFloat=-0.05*abs(self.LeakedMaxFloat)
+
+				#set
+				LeakedSubthresholdFloat=self.LeakedMaxFloat+LeakedShiftFloat
 
 				#debug
 				'''
@@ -3170,9 +3231,11 @@ class LeakerClass(BaseClass):
 								'ManagementTagStr',
 								'RecordKeyStr',
 								'RecordedInitFloatsArray',
-								'LeakedMaxFloat',
-								'LeakedMinFloat'
-							])
+								'LeakedMaxFloat'
+							]),
+						'LeakedSubthresholdFloat is '+str(
+							LeakedSubthresholdFloat
+						)
 					]
 				)
 				'''
@@ -3185,11 +3248,17 @@ class LeakerClass(BaseClass):
 					lambda __IndexInt:
 					self.RecordedInitFloatsArray.__setitem__(
 						__IndexInt,
-						self.LeakedMinFloat
+						self.RecordedInitFloatsArray.__getitem__(
+							__IndexInt
+						)+LeakedShiftFloat
 					)
-					if self.RecordedInitFloatsArray[__IndexInt]>self.LeakedMaxFloat
+					if self.RecordedInitFloatsArray[
+						__IndexInt
+					]>LeakedSubthresholdFloat
 					else None,
-					xrange(len(self.RecordedInitFloatsArray))
+					xrange(
+						len(self.RecordedInitFloatsArray)
+					)
 				)
 
 				#debug
@@ -3203,6 +3272,9 @@ class LeakerClass(BaseClass):
 					]
 				)
 				'''
+
+				#call
+				self.setBrianInit()
 
 		#/##################/#
 		# Case of an input variable
@@ -3666,10 +3738,30 @@ class LeakerClass(BaseClass):
 			self.numscipy()
 
 
-
-	#/##################/#
-	# view methods
+	#/######################/#
+	# Augment view
 	#
+
+	def viewSample(self):
+
+		#debug
+		self.debug(
+			[
+				'We predict view sample here',
+				('self.',self,[
+						'StructureTagStr',
+						'ManagementTagStr'
+					])
+			]
+		)
+
+		#Check
+		if self.ParentGrandManagementTagStr!="*J":
+			self.ViewingXScaleFloat=1000.
+			self.ViewingYScaleFloat=1000.
+
+		#base
+		BaseClass.viewSample(self)
 
 	def viewPopulation(self):
 
@@ -4310,6 +4402,7 @@ LeakerClass.PrintingClassSkipKeyStrsList.extend(
 		'LeakingTransferVariable',
 		'LeakingThresholdVariable',
 		'LeakingResetVariable',
+		'LeakingRefractoryVariable',
 		'LeakingVariableStr',
 		'LeakingRecordBool',
 		'LeakingNoiseStdVariable',

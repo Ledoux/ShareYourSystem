@@ -10,9 +10,9 @@ import ShareYourSystem as SYS
 #
 
 #Simulation time
-SimulationTimeFloat=150.
+SimulationTimeFloat=50.
 #SimulationTimeFloat=0.2
-BrianingDebugVariable=0.1 if SimulationTimeFloat<0.5 else 25.
+BrianingDebugVariable=0.1 if SimulationTimeFloat<0.5 else 2.
 
 #Define
 MyPredicter=SYS.PredicterClass(
@@ -32,10 +32,10 @@ MyPredicter=SYS.PredicterClass(
 				('|Agent',{
 					'RecordingLabelVariable':[0],
 					'LeakingNoiseStdVariable':0.05,
-					#'BrianingDebugVariable':BrianingDebugVariable,
+					'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Fast':{
-							#'BrianingDebugVariable':BrianingDebugVariable
+							'BrianingDebugVariable':BrianingDebugVariable
 						}
 					},
 					#'LeakingNoiseStdVariable':0.01
@@ -71,7 +71,16 @@ MyPredicter=SYS.PredicterClass(
 # View
 #
 
-MyPredicter.view(
+MyPredicter.mapSet(
+		{
+			'PyplotingFigureVariable':{
+				'figsize':(10,10)
+			},
+			'PyplotingGridIntsTuple':(35,30),
+			'-Panels':[
+			]
+		}
+	).view(
 	).pyplot(
 	).show()
 

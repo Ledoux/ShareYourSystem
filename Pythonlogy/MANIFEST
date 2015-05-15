@@ -108,7 +108,6 @@ ShareYourSystem/Specials/Predicters/Predicter/09_rate_dynamic_damp.py
 ShareYourSystem/Specials/Predicters/Predicter/10_test_rate_twounitstwosensors_ExampleDoc.md
 ShareYourSystem/Specials/Predicters/Predicter/11_test_rate_twounitstwosensors_ExampleCell.py
 ShareYourSystem/Specials/Predicters/Predicter/12_test_spike_oneunit_ExampleDoc.md
-ShareYourSystem/Specials/Predicters/Predicter/13_test_spike_multiunit_ExampleCell.py
 ShareYourSystem/Specials/Predicters/Predicter/13_test_spike_oneunit_ExampleCell.py
 ShareYourSystem/Specials/Predicters/Predicter/14_test_spike_multiunit_ExampleDoc.md
 ShareYourSystem/Specials/Predicters/Predicter/15_test_spike_multiunit_ExampleCell.py
@@ -991,6 +990,8 @@ ShareYourSystem/Standards/Recorders/Leaker/16_ExampleDoc.md
 ShareYourSystem/Standards/Recorders/Leaker/17_ExampleCell.py
 ShareYourSystem/Standards/Recorders/Leaker/18_ExampleDoc.md
 ShareYourSystem/Standards/Recorders/Leaker/19_ExampleCell.py
+ShareYourSystem/Standards/Recorders/Leaker/20_ExampleDoc.md
+ShareYourSystem/Standards/Recorders/Leaker/21_ExampleCell.py
 ShareYourSystem/Standards/Recorders/Leaker/__init__.py
 ShareYourSystem/Standards/Recorders/Leaker/draft/01_ExampleCell.py
 ShareYourSystem/Standards/Recorders/Leaker/draft/02_ExampleDoc.md
