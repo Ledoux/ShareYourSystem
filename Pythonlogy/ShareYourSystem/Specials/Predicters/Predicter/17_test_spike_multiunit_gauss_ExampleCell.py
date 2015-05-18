@@ -67,15 +67,19 @@ MyPredicter=SYS.PredicterClass(
 # View
 #
 
-MyPredicter.mapSetAllMro(
+MyPredicter.mapSet(
 		{
-			'PyplotingPrintBool':False,
-			'BrianingPrintBool':False
+			'PyplotingFigureVariable':{
+				'figsize':(10,8)
+			},
+			'PyplotingGridIntsTuple':(30,30),
+			'-Panels':[
+			]
 		}
 	).view(
 	).pyplot(
+	).show(
 	)
-SYS.matplotlib.pyplot.show()
 
 
 #/###################/#
@@ -86,26 +90,3 @@ SYS.matplotlib.pyplot.show()
 print('MyPredicter is ')
 SYS._print(MyPredicter) 
 
-
-"""
-from brian2 import *
-
-G = NeuronGroup(100, '', threshold='t/dt >= i')
-mon = SpikeMonitor(G)
-
-@network_operation(when='after_thresholds')
-def one_spike():
-    print(G._spikespace);n_spikes = G._spikespace[-1]
-    if n_spikes > 0:
-        random_index = np.random.randint(n_spikes)
-        # Set the first spike
-        G._spikespace[0] = G._spikespace[:n_spikes][random_index]
-        # Set the total number of spikes to 1
-        G._spikespace[-1] = 1
-
-        print(G._spikespace)
-
-run(len(G)*defaultclock.dt)
-plot(mon.t/ms, mon.i, '.')
-show()
-"""

@@ -62,10 +62,19 @@ MyPredicter=SYS.PredicterClass(
 # View
 #
 
-MyPredicter.view(
+MyPredicter.mapSet(
+		{
+			'PyplotingFigureVariable':{
+				'figsize':(10,8)
+			},
+			'PyplotingGridIntsTuple':(30,30),
+			'-Panels':[
+			]
+		}
+	).view(
 	).pyplot(
+	).show(
 	)
-SYS.matplotlib.pyplot.show()
 
 
 #/###################/#

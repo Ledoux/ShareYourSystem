@@ -2,6 +2,7 @@
 # Import modules
 #
 
+
 #ImportModules
 import ShareYourSystem as SYS
 
@@ -9,10 +10,8 @@ import ShareYourSystem as SYS
 # Build the model
 #
 
-#Simulation time
-SimulationTimeFloat=150.
-#SimulationTimeFloat=0.2
-BrianingDebugVariable=0.1 if SimulationTimeFloat<0.5 else 25.
+#set
+BrianingDebugVariable=25.
 
 #Define
 MyPredicter=SYS.PredicterClass(
@@ -21,16 +20,16 @@ MyPredicter=SYS.PredicterClass(
 			'BrianingStepTimeFloat':0.05,
 			'-Populations':[
 				('|Sensor',{
-					'LeakingMonitorIndexIntsList':[0,1],
+					'LeakingMonitorIndexIntsList':[0],
 					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Encod':{
-							#'BrianingDebugVariable':BrianingDebugVariable
+							'BrianingDebugVariable':BrianingDebugVariable
 						}
 					}
 				}),
 				('|Agent',{
-					'LeakingMonitorIndexIntsList':[0,1,2],
+					'LeakingMonitorIndexIntsList':[0,1],
 					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Fast':{
@@ -38,9 +37,10 @@ MyPredicter=SYS.PredicterClass(
 						}
 					},
 					#'LeakingNoiseStdVariable':0.01
+					#'LeakingThresholdMethodStr':'filterSpikespace'
 				}),
 				('|Decoder',{
-					'LeakingMonitorIndexIntsList':[0,1],
+					'LeakingMonitorIndexIntsList':[0],
 					#'BrianingDebugVariable':BrianingDebugVariable
 					'-Interactions':{
 						'|Slow':{
@@ -52,27 +52,34 @@ MyPredicter=SYS.PredicterClass(
 			]
 		}
 	).predict(
-		_AgentUnitsInt=1,
-		_CommandVariable="#custom:#clock:50*ms:1.*mV*int(t==50*ms)",#2.,
-		_DecoderVariable=[1.],
+		_AgentUnitsInt=100,
+		_CommandVariable="#custom:#clock:20*ms:1.*mV+1.*mV*int(t==20*ms)",#2.,
+		_DecoderVariable="#array",
+		_DecoderStdFloat=0.,
+		_DecoderMeanFloat=2.,
+		#_AgentResetVariable=-60.5
 		_InteractionStr="Spike"
 	).simulate(
-		SimulationTimeFloat
+		50.
 	)
 
 #/###################/#
 # View
 #
 
-MyPredicter.mapSetAllMro(
+MyPredicter.mapSet(
 		{
-			'PyplotingPrintBool':False,
-			'BrianingPrintBool':False
+			'PyplotingFigureVariable':{
+				'figsize':(10,8)
+			},
+			'PyplotingGridIntsTuple':(30,30),
+			'-Panels':[
+			]
 		}
 	).view(
 	).pyplot(
+	).show(
 	)
-SYS.matplotlib.pyplot.show()
 
 
 #/###################/#
@@ -82,5 +89,4 @@ SYS.matplotlib.pyplot.show()
 #Definition the AttestedStr
 print('MyPredicter is ')
 SYS._print(MyPredicter) 
-
 

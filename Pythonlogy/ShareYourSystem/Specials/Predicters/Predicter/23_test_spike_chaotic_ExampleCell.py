@@ -56,12 +56,14 @@ MyPredicter=SYS.PredicterClass(
 	).predict(
 		_AgentUnitsInt=100,
 		_CommandVariable="#custom:#clock:20*ms:1.*mV+1.*mV*int(t==20*ms)",#2.,
+		#_DecoderSwitchFloat=0.5,
 		_DecoderVariable="#array",
 		_DecoderStdFloat=0.,
 		_DecoderSparseFloat=0.2,
 		#_AgentResetVariable=-60.,
 		_InteractionStr="Spike",
-		_FastPerturbStdFloat=1.,
+		_FastPerturbStdFloat=10.,
+		#_DelayFloat=1.
 	).simulate(
 		50.
 	)

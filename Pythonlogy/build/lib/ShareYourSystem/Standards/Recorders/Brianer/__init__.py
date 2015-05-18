@@ -1527,6 +1527,9 @@ class BrianerClass(BaseClass):
 			)
 			'''
 
+			#if self.BrianingMonitorIndexIntsList==None:
+			#	self.BrianingMonitorIndexIntsList=[]
+
 			#map
 			map(
 				lambda __IndexInt:
@@ -1546,6 +1549,9 @@ class BrianerClass(BaseClass):
 			)
 			'''
 			
+			#if self.BrianingMonitorIndexIntsList==None:
+			#	self.BrianingMonitorIndexIntsList=[]
+
 			#Check
 			if len(self.BrianingMonitorIndexIntsList)==0:
 
@@ -1570,11 +1576,29 @@ class BrianerClass(BaseClass):
 					#'self.BrianedParentDeriveRecorderVariable.RecordKeyStr is ',
 					#str(self.BrianedParentDeriveRecorderVariable.RecordKeyStr)
 					#'self.ParentedTotalManagementOrderedDict.keys() is ',
-					#str(self.ParentedTotalManagementOrderedDict.keys())
+					#str(self.ParentedTotalManagementOrderedDict.keys()),
+					'self.BrianedParentPopulationDeriveBrianerVariable.BrianedNeurongroupVariable.N is '+str(
+						self.BrianedParentPopulationDeriveBrianerVariable.BrianedNeurongroupVariable.N
+					)
 				]
 			)
 			'''
+
+			#Check
+			if len(
+				self.BrianingMonitorIndexIntsList
+			)>self.BrianedParentPopulationDeriveBrianerVariable.BrianedNeurongroupVariable.N:
 			
+				#cut
+				BrianedMonitorIndexIntsList=self.BrianingMonitorIndexIntsList[
+					:self.BrianedParentPopulationDeriveBrianerVariable.BrianedNeurongroupVariable.N
+				]
+			else:
+
+				#alias
+				BrianedMonitorIndexIntsList=self.BrianingMonitorIndexIntsList
+
+
 			#import
 			from brian2 import StateMonitor
 
@@ -1584,7 +1608,7 @@ class BrianerClass(BaseClass):
 					if self.BrianedParentDeriveRecorderVariable.BrianedParentDeriveBrianerStr=="Population"
 					else self.BrianedParentInteractionDeriveBrianerVariable.BrianedSynapsesVariable,
 					self.BrianedParentDeriveRecorderVariable.RecordKeyStr,
-					self.BrianingMonitorIndexIntsList
+					BrianedMonitorIndexIntsList
 				)
 
 			#debug
@@ -2425,6 +2449,37 @@ class BrianerClass(BaseClass):
 		)
 		'''
 
+		#import
+		import numpy as np
+
+		#len
+		BrianedMonitorsInt=len(
+			np.array(
+				getattr(
+					self.BrianedStateMonitorVariable,
+					self.BrianedParentDeriveRecorderVariable.RecordKeyStr
+				)
+			)
+		)
+
+		#debug
+		'''
+		self.debug(
+			[
+				('self.',self,[
+						'RecordingLabelVariable'
+					]),
+				'BrianedMonitorsInt is '+str(BrianedMonitorsInt)
+			]
+		)
+		'''
+
+		#Check
+		if len(self.RecordingLabelVariable)>BrianedMonitorsInt:
+			RecordedLabelVariable=self.RecordingLabelVariable[:BrianedMonitorsInt]
+		else:
+			RecordedLabelVariable=self.RecordingLabelVariable
+
 		#set
 		self.PyplotingDrawVariable+=map(
 			lambda __IndexInt,__SelectInt:
@@ -2454,8 +2509,8 @@ class BrianerClass(BaseClass):
 					)
 				}
 			),
-			xrange(len(self.RecordingLabelVariable)),
-			self.RecordingLabelVariable
+			xrange(len(RecordedLabelVariable)),
+			RecordedLabelVariable
 		)
 
 		#debug
@@ -2733,6 +2788,7 @@ class BrianerClass(BaseClass):
 			ViewedDimensionStr='1'
 
 		#debug
+		'''
 		self.debug(
 			[
 				'set the ViewingYLabelStr',
@@ -2743,6 +2799,7 @@ class BrianerClass(BaseClass):
 				('self.',self,['ViewingYScaleFloat'])
 			]
 		)
+		'''
 
 		#add
 		self.ViewingYLabelStr+='\ ('+ViewedDimensionStr+')'

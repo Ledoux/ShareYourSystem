@@ -77,8 +77,7 @@ MyPredicter.mapSetAllMro(
 		}
 	).view(
 	).pyplot(
-	)
-SYS.matplotlib.pyplot.show()
+	).show()
 
 
 #/###################/#

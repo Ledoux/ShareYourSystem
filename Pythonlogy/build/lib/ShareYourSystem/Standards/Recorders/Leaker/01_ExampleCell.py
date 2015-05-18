@@ -32,15 +32,9 @@ MyLeaker=SYS.LeakerClass(
 # View
 #
 
-#MyLeaker[
-#	'/-Traces/|*U/-Samples/|Default'
-#	].view(
-#	).pyplot(
-#	)
 MyLeaker.view(
 	).pyplot(
-	)
-SYS.matplotlib.pyplot.show()
+	).show()
 
 #/###################/#
 # Print

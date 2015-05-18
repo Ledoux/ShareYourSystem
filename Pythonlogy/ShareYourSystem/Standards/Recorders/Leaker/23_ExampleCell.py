@@ -1,3 +1,4 @@
+
 #/###################/#
 # Import modules
 #
@@ -16,17 +17,15 @@ MyLeaker=SYS.LeakerClass(
 		{
 			'-Populations':{
 				'|P':{
-					'LeakingUnitsInt':2,
+					'LeakingUnitsInt':1,
 					'LeakingSymbolPrefixStr':'r',
-					'-Interactions':{
-						'|/':{
-							#'BrianingDebugVariable':10,
-							'LeakingWeigthVariable':[[0.,-2.],[0.,0.]],
-							'LeakingDelayVariable':5.,
-							#'LeakingDelayCustomBool':False 
+					'-Inputs':{
+						'|External':{
+							'LeakingWeigthVariable':'#custom:1.*mV*cos(2.*pi*t*0.1/ms)'
 						}
 					},
-					'RecordingLabelVariable':[0,1]
+					'LeakingMaxBool':True
+					#'BrianingDebugVariable':100
 				}
 			}
 		}
@@ -41,7 +40,8 @@ MyLeaker=SYS.LeakerClass(
 
 MyLeaker.view(
 	).pyplot(
-	).show()
+	).show(
+	)
 
 #/###################/#
 # Print
@@ -50,4 +50,6 @@ MyLeaker.view(
 #print
 print('MyLeaker is ')
 SYS._print(MyLeaker) 
+
+
 

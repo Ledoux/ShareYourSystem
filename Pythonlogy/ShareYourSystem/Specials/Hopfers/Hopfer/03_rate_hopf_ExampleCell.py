@@ -14,8 +14,10 @@ import ShareYourSystem as SYS
 MyHopfer=SYS.HopferClass(
 	).mapSet(
 		{
+			'BrianingStepTimeFloat':0.1,
 			'-Populations':{
 				'|Agent':{
+					'LeakingTotalBool':True,
 					'-Traces':{
 						'|*U':{
 							'RecordingInitStdVariable':0.5
@@ -29,6 +31,8 @@ MyHopfer=SYS.HopferClass(
 		_UnitsInt=100,
 		_StdWeightFloat=1.2,
 		_SymmetryFloat=-0.7,
+		#_GlobalBool=True,
+		#_TotalBool=False
 	).simulate(
 		500.
 	)

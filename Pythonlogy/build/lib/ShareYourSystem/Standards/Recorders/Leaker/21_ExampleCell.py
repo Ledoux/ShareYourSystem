@@ -29,7 +29,7 @@ MyLeaker=SYS.LeakerClass(
 					'LeakingNoiseStdVariable':0.1,
 					'LeakingThresholdVariable':'#scalar:V>-50*mV',
 					'LeakingResetVariable':-70.,
-					'LeakingRefractoryVariable':10.,
+					'LeakingRefractoryVariable':2.,
 					#'BrianingDebugVariable':100
 				}
 			}

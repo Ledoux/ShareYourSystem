@@ -576,7 +576,7 @@ class HopferClass(BaseClass):
 			self.LeakingUnitsInt=self.HopfedNetworkDeriveHopferVariable.HopfingUnitsInt
 
 			#set
-			self.LeakingGlobalBool=True
+			#self.LeakingGlobalBool=True
 
 			#Check
 			if self.RecordingLabelVariable==None:

@@ -21,7 +21,7 @@ MyPredicter=SYS.PredicterClass(
 			'BrianingStepTimeFloat':0.05,
 			'-Populations':[
 				('|Sensor',{
-					'LeakingMonitorIndexIntsList':[0,1],
+					'RecordingLabelVariable':[0,1],
 					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Encod':{
@@ -30,20 +30,17 @@ MyPredicter=SYS.PredicterClass(
 					}
 				}),
 				('|Agent',{
-					'LeakingMonitorIndexIntsList':[0,1,2],
+					'RecordingLabelVariable':[0,1,2],
 					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Fast':{
-							#'BrianingDebugVariable':BrianingDebugVariable
-						},
-						'|Antileak':{
 							#'BrianingDebugVariable':BrianingDebugVariable
 						}
 					},
 					#'LeakingNoiseStdVariable':0.01
 				}),
 				('|Decoder',{
-					'LeakingMonitorIndexIntsList':[0,1],
+					'RecordingLabelVariable':[0,1],
 					#'BrianingDebugVariable':BrianingDebugVariable
 					'-Interactions':{
 						'|Slow':{
@@ -56,10 +53,6 @@ MyPredicter=SYS.PredicterClass(
 	).predict(
 		_AgentUnitsInt=100,
 		_DynamicBool=True,
-		#_JacobianVariable={
-		#	'ModeStr':"Track",
-		#	'ConstantTimeFloat':30. #(ms)
-		#},
 		_JacobianVariable={
 			'ModeStr':"Damp",
 			'ConstantTimeFloat':5., #(ms)
@@ -68,6 +61,7 @@ MyPredicter=SYS.PredicterClass(
 		_CommandVariable="#custom:#clock:50*ms:1.*mV*int(t==50*ms)",#2.,
 		_DecoderVariable="#array",
 		_DecoderStdFloat=20.,
+		_AgentTimeFloat=0.01,
 		#_DecoderNormalisationInt=1,
 		#_EncodPerturbStdFloat=5./100.,
 		#_FastPerturbStdFloat=0.01,
@@ -80,15 +74,19 @@ MyPredicter=SYS.PredicterClass(
 # View
 #
 
-MyPredicter.mapSetAllMro(
+MyPredicter.mapSet(
 		{
-			'PyplotingPrintBool':False,
-			'BrianingPrintBool':False
+			'PyplotingFigureVariable':{
+				'figsize':(10,8)
+			},
+			'PyplotingGridIntsTuple':(30,30),
+			'-Panels':[
+			]
 		}
 	).view(
 	).pyplot(
-	).show()
-
+	).show(
+	)
 
 #/###################/#
 # Print

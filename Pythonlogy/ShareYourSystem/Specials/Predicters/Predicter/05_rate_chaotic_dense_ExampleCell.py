@@ -70,15 +70,9 @@ MyPredicter=SYS.PredicterClass(
 # View
 #
 
-MyPredicter.mapSetAllMro(
-		{
-			'PyplotingPrintBool':False,
-			'BrianingPrintBool':False
-		}
-	).view(
+MyPredicter.view(
 	).pyplot(
-	)
-SYS.matplotlib.pyplot.show()
+	).show()
 
 
 #/###################/#

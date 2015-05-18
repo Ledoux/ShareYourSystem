@@ -2,7 +2,6 @@
 # Import modules
 #
 
-
 #ImportModules
 import ShareYourSystem as SYS
 
@@ -21,10 +20,10 @@ MyLeaker=SYS.LeakerClass(
 					'-Interactions':{
 						'|/':{
 							'LeakingWeigthVariable':'#array',
-							'LeakingEigenBool':True
+							#'LeakingEigenBool':True
 						}
 					},
-					#'LeakingGlobalBool':True,
+					'LeakingGlobalBool':True,
 					'RecordingLabelVariable':[0,1,2]
 				}
 			}

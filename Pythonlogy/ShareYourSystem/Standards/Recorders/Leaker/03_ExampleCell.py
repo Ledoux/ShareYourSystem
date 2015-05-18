@@ -30,7 +30,15 @@ MyLeaker=SYS.LeakerClass(
 							#	#SymbolStr:5.*mV*change
 							#''',
 							#'LeakingWeigthVariable':'#custom:5.*mV*(ms/(t+1*ms))',
-							#'LeakingWeigthVariable':'#custom:#clock:200*ms:5.*mV*int(t==200*ms)',
+							#'LeakingWeigthVariable':'#custom:#clock:200*ms:5.*mV*(t==200*ms)*(i==0)',
+							#'LeakingWeigthVariable':'#custom:#clock:200*ms:5.*mV*(t==200*ms)*(i==0)',
+							'LeakingWeigthVariable':(
+								'#custom:#clock:100*ms',
+								[
+									'5.*mV*int(t==200*ms)',
+									'-2.*mV*int(t==100*ms)'
+								]
+							),
 							#'LeakingWeigthVariable':(
 							#	'#network:#clock:200*ms',
 							#	lambda _ActivityQuantity,_TimeQuantity:
@@ -38,14 +46,15 @@ MyLeaker=SYS.LeakerClass(
 							#	if _TimeQuantity==200.*SYS.brian2.ms
 							#	else 0.*SYS.brian2.mV
 							#),
-							'LeakingWeigthVariable':(
-								'#network:#clock:1*ms',
-								lambda _ActivityQuantity,_TimeQuantity:
-								SYS.scipy.stats.norm.rvs(size=2)*SYS.brian2.mV
-							)
+							#'LeakingWeigthVariable':(
+							#	'#network:#clock:1*ms',
+							#	lambda _ActivityQuantity,_TimeQuantity:
+							#	SYS.scipy.stats.norm.rvs(size=2)*SYS.brian2.mV
+							#),
+							'RecordingLabelVariable':[0,1]
 						}
 					},
-					'BrianingMonitorIndexIntsList':[0,1]
+					'RecordingLabelVariable':[0,1]
 				}
 			}
 		}

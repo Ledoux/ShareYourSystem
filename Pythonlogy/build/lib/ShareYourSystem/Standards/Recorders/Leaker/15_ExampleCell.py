@@ -22,7 +22,8 @@ MyLeaker=SYS.LeakerClass(
 						'|/':{
 							#'BrianingDebugVariable':10,
 							'LeakingWeigthVariable':[[0.,-2.],[0.,0.]],
-							'LeakingDelayVariable':5., 
+							'LeakingDelayVariable':5.,
+							#'LeakingDelayCustomBool':False 
 						}
 					},
 					'RecordingLabelVariable':[0,1]
@@ -40,9 +41,7 @@ MyLeaker=SYS.LeakerClass(
 
 MyLeaker.view(
 	).pyplot(
-	)
-
-SYS.matplotlib.pyplot.show()
+	).show()
 
 #/###################/#
 # Print
