@@ -81,7 +81,7 @@ MyPredicter=SYS.PredicterClass(
 #
 
 MyPredicter.view(
-		).mapSet(
+	).mapSet(
 		{
 			'PyplotingFigureVariable':{
 				'figsize':(10,8)

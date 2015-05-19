@@ -12,31 +12,18 @@ import ShareYourSystem as SYS
 
 #Define
 MyHopfer=SYS.HopferClass(
-	).mapSet(
-		{
-			'BrianingStepTimeFloat':0.1,
-			'-Populations':{
-				'|Agent':{
-					'LeakingTotalBool':True,
-					'-Traces':{
-						'|*U':{
-							'RecordingInitStdVariable':0.5
-						}
-					},
-					#'BrianingDebugVariable':100
-				}
-			}
-		}
 	).hopf(
 		_UnitsInt=100,
-		_StdWeightFloat=1.2,
-		_SymmetryFloat=-0.7,
-		#_GlobalBool=True,
-		#_TotalBool=False
-	).leak(
-	).simulate(
-		500.
+		_MeanWeightFloat=1.,
+		_StdWeightFloat=0.,
+		_SparseWeigthFloat=0.2,
+		_SwitchWeigthFloat=0.5,
+		#_SymmetryFloat=-0.7,
+		_InteractionStr="Spike"
 	)
+	#.simulate(
+	#	500.
+	#)
 
 #/###################/#
 # View
@@ -57,9 +44,9 @@ MyHopfer.mapSet(
 						'PyplotingShapeVariable':[10,10],
 						'-Charts':{
 							'|Perturbation':{
-									'PyplotingShiftVariable':[4,0],
-								}
+								'PyplotingShiftVariable':[4,0],
 							}
+						}
 					}
 				),
 				(
@@ -92,8 +79,6 @@ MyHopfer.mapSet(
 	).pyplot(
 	).show(
 	)
-
-print(MyHopfer['/-Panels/|Run/-Charts'])
 
 #/###################/#
 # Print

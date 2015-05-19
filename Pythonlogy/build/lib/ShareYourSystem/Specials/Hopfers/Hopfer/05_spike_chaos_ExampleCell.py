@@ -28,6 +28,7 @@ MyHopfer=SYS.HopferClass(
 		_SwitchWeigthFloat=0.5,
 		#_SymmetryFloat=-0.7,
 		_InteractionStr="Spike"
+	).leak(
 	).simulate(
 		500.
 	)

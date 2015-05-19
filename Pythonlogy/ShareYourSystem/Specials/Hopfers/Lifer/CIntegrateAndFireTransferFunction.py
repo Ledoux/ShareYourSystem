@@ -1382,6 +1382,13 @@ class CIntegrateAndFireTransferFunctionClass(CToolClass):
     __getattr__ = lambda self, name: _swig_getattr(self, CIntegrateAndFireTransferFunctionClass, name)
     __repr__ = _swig_repr
 
+    def __init__(self):
+        this = _CIntegrateAndFireTransferFunction.new_CIntegrateAndFireTransferFunctionClass()
+        try:
+            self.this.append(this)
+        except:
+            self.this = this
+
     def computeIntegralUpperBound(self):
         return _CIntegrateAndFireTransferFunction.CIntegrateAndFireTransferFunctionClass_computeIntegralUpperBound(self)
 
@@ -1394,8 +1401,8 @@ class CIntegrateAndFireTransferFunctionClass(CToolClass):
     def getLIFStationaryRate(self):
         return _CIntegrateAndFireTransferFunction.CIntegrateAndFireTransferFunctionClass_getLIFStationaryRate(self)
 
-    def getRatePerturbativeRate(self, arg2):
-        return _CIntegrateAndFireTransferFunction.CIntegrateAndFireTransferFunctionClass_getRatePerturbativeRate(self, arg2)
+    def getLeakPerturbativeRate(self, arg2):
+        return _CIntegrateAndFireTransferFunction.CIntegrateAndFireTransferFunctionClass_getLeakPerturbativeRate(self, arg2)
 
     def getLIFPerturbativeRate0(self):
         return _CIntegrateAndFireTransferFunction.CIntegrateAndFireTransferFunctionClass_getLIFPerturbativeRate0(self)
@@ -1445,13 +1452,6 @@ class CIntegrateAndFireTransferFunctionClass(CToolClass):
 
     def getHakimLIFPerturbativeRate(self, lamda):
         return _CIntegrateAndFireTransferFunction.CIntegrateAndFireTransferFunctionClass_getHakimLIFPerturbativeRate(self, lamda)
-
-    def __init__(self):
-        this = _CIntegrateAndFireTransferFunction.new_CIntegrateAndFireTransferFunctionClass()
-        try:
-            self.this.append(this)
-        except:
-            self.this = this
     __swig_destroy__ = _CIntegrateAndFireTransferFunction.delete_CIntegrateAndFireTransferFunctionClass
     __del__ = lambda self: None
 CIntegrateAndFireTransferFunctionClass_swigregister = _CIntegrateAndFireTransferFunction.CIntegrateAndFireTransferFunctionClass_swigregister

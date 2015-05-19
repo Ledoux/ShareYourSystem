@@ -21656,6 +21656,19 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_new_CIntegrateAndFireTransferFunctionClass(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  CIntegrateAndFireTransferFunctionClass *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)":new_CIntegrateAndFireTransferFunctionClass")) SWIG_fail;
+  result = (CIntegrateAndFireTransferFunctionClass *)new CIntegrateAndFireTransferFunctionClass();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_CIntegrateAndFireTransferFunctionClass, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_CIntegrateAndFireTransferFunctionClass_computeIntegralUpperBound(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   CIntegrateAndFireTransferFunctionClass *arg1 = (CIntegrateAndFireTransferFunctionClass *) 0 ;
@@ -21751,7 +21764,7 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_CIntegrateAndFireTransferFunctionClass_getRatePerturbativeRate(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+SWIGINTERN PyObject *_wrap_CIntegrateAndFireTransferFunctionClass_getLeakPerturbativeRate(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   CIntegrateAndFireTransferFunctionClass *arg1 = (CIntegrateAndFireTransferFunctionClass *) 0 ;
   std::complex< double > arg2 ;
@@ -21763,18 +21776,18 @@ SWIGINTERN PyObject *_wrap_CIntegrateAndFireTransferFunctionClass_getRatePerturb
   PyObject * obj1 = 0 ;
   std::map< std::string,std::complex< double >,std::less< std::string >,std::allocator< std::pair< std::string const,std::complex< double > > > > result;
   
-  if (!PyArg_ParseTuple(args,(char *)"OO:CIntegrateAndFireTransferFunctionClass_getRatePerturbativeRate",&obj0,&obj1)) SWIG_fail;
+  if (!PyArg_ParseTuple(args,(char *)"OO:CIntegrateAndFireTransferFunctionClass_getLeakPerturbativeRate",&obj0,&obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_CIntegrateAndFireTransferFunctionClass, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CIntegrateAndFireTransferFunctionClass_getRatePerturbativeRate" "', argument " "1"" of type '" "CIntegrateAndFireTransferFunctionClass *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CIntegrateAndFireTransferFunctionClass_getLeakPerturbativeRate" "', argument " "1"" of type '" "CIntegrateAndFireTransferFunctionClass *""'"); 
   }
   arg1 = reinterpret_cast< CIntegrateAndFireTransferFunctionClass * >(argp1);
   ecode2 = SWIG_AsVal_std_complex_Sl_double_Sg_(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CIntegrateAndFireTransferFunctionClass_getRatePerturbativeRate" "', argument " "2"" of type '" "std::complex< double >""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CIntegrateAndFireTransferFunctionClass_getLeakPerturbativeRate" "', argument " "2"" of type '" "std::complex< double >""'");
   } 
   arg2 = static_cast< std::complex< double > >(val2);
-  result = (arg1)->getRatePerturbativeRate(arg2);
+  result = (arg1)->getLeakPerturbativeRate(arg2);
   resultobj = swig::from(static_cast< std::map<std::string,std::complex< double >,std::less< std::string >,std::allocator< std::pair< std::string const,std::complex< double > > > > >(result));
   return resultobj;
 fail:
@@ -22750,19 +22763,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_new_CIntegrateAndFireTransferFunctionClass(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  CIntegrateAndFireTransferFunctionClass *result = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)":new_CIntegrateAndFireTransferFunctionClass")) SWIG_fail;
-  result = (CIntegrateAndFireTransferFunctionClass *)new CIntegrateAndFireTransferFunctionClass();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_CIntegrateAndFireTransferFunctionClass, SWIG_POINTER_NEW |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_delete_CIntegrateAndFireTransferFunctionClass(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   CIntegrateAndFireTransferFunctionClass *arg1 = (CIntegrateAndFireTransferFunctionClass *) 0 ;
@@ -23150,11 +23150,12 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"vecZeros", _wrap_vecZeros, METH_VARARGS, NULL},
 	 { (char *)"vecVecOnes", _wrap_vecVecOnes, METH_VARARGS, NULL},
 	 { (char *)"vecVecZeros", _wrap_vecVecZeros, METH_VARARGS, NULL},
+	 { (char *)"new_CIntegrateAndFireTransferFunctionClass", _wrap_new_CIntegrateAndFireTransferFunctionClass, METH_VARARGS, NULL},
 	 { (char *)"CIntegrateAndFireTransferFunctionClass_computeIntegralUpperBound", _wrap_CIntegrateAndFireTransferFunctionClass_computeIntegralUpperBound, METH_VARARGS, NULL},
 	 { (char *)"CIntegrateAndFireTransferFunctionClass_computeIntegralLowerBound", _wrap_CIntegrateAndFireTransferFunctionClass_computeIntegralLowerBound, METH_VARARGS, NULL},
 	 { (char *)"CIntegrateAndFireTransferFunctionClass_getErrorFunction", _wrap_CIntegrateAndFireTransferFunctionClass_getErrorFunction, METH_VARARGS, NULL},
 	 { (char *)"CIntegrateAndFireTransferFunctionClass_getLIFStationaryRate", _wrap_CIntegrateAndFireTransferFunctionClass_getLIFStationaryRate, METH_VARARGS, NULL},
-	 { (char *)"CIntegrateAndFireTransferFunctionClass_getRatePerturbativeRate", _wrap_CIntegrateAndFireTransferFunctionClass_getRatePerturbativeRate, METH_VARARGS, NULL},
+	 { (char *)"CIntegrateAndFireTransferFunctionClass_getLeakPerturbativeRate", _wrap_CIntegrateAndFireTransferFunctionClass_getLeakPerturbativeRate, METH_VARARGS, NULL},
 	 { (char *)"CIntegrateAndFireTransferFunctionClass_getLIFPerturbativeRate0", _wrap_CIntegrateAndFireTransferFunctionClass_getLIFPerturbativeRate0, METH_VARARGS, NULL},
 	 { (char *)"CIntegrateAndFireTransferFunctionClass_gsurg", _wrap_CIntegrateAndFireTransferFunctionClass_gsurg, METH_VARARGS, NULL},
 	 { (char *)"CIntegrateAndFireTransferFunctionClass_onefone", _wrap_CIntegrateAndFireTransferFunctionClass_onefone, METH_VARARGS, NULL},
@@ -23172,7 +23173,6 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"CIntegrateAndFireTransferFunctionClass_odeint", _wrap_CIntegrateAndFireTransferFunctionClass_odeint, METH_VARARGS, NULL},
 	 { (char *)"CIntegrateAndFireTransferFunctionClass_phi_t_rka", _wrap_CIntegrateAndFireTransferFunctionClass_phi_t_rka, METH_VARARGS, NULL},
 	 { (char *)"CIntegrateAndFireTransferFunctionClass_getHakimLIFPerturbativeRate", _wrap_CIntegrateAndFireTransferFunctionClass_getHakimLIFPerturbativeRate, METH_VARARGS, NULL},
-	 { (char *)"new_CIntegrateAndFireTransferFunctionClass", _wrap_new_CIntegrateAndFireTransferFunctionClass, METH_VARARGS, NULL},
 	 { (char *)"delete_CIntegrateAndFireTransferFunctionClass", _wrap_delete_CIntegrateAndFireTransferFunctionClass, METH_VARARGS, NULL},
 	 { (char *)"CIntegrateAndFireTransferFunctionClass_swigregister", CIntegrateAndFireTransferFunctionClass_swigregister, METH_VARARGS, NULL},
 	 { NULL, NULL, 0, NULL }

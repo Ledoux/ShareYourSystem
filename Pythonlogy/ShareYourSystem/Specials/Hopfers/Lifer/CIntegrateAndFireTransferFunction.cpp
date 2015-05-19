@@ -38,6 +38,22 @@ using namespace std;
 /***************ZERO ORDER DYNAMIC*********************/
 
 
+/***CONSTRUCTORS***/
+CIntegrateAndFireTransferFunctionClass::CIntegrateAndFireTransferFunctionClass()
+{
+	DoubleDict["MembraneConstantTimeFloat"]=0.02;
+	DoubleDict["RefractoryPeriodFloat"]=0.;
+	DoubleDict["TotalStationaryCurrentFloat"]=-55.;
+	DoubleDict["VoltageNoiseFloat"]=5.;
+	DoubleDict["VoltageResetFloat"]=-70.; 
+	DoubleDict["VoltageThresholdFloat"]=-50.;
+	DoubleDict["VoltageThreshold"]=1.;
+	DoubleDict["StationaryRate"]=0.;
+	IntDict["StationaryCompute"]=1;
+	IntDict["StationarySet"]=1;
+}
+
+
 /*** compute upper and lower bounds of the integrals***/
 void CIntegrateAndFireTransferFunctionClass::computeIntegralUpperBound()
 {
@@ -124,6 +140,12 @@ double CIntegrateAndFireTransferFunctionClass::getLIFStationaryRate()
 		}
 	}
 	
+	//set
+	if(IntDict["StationarySet"]==1){
+		DoubleDict["StationaryRate"]=w;
+	}
+
+	//return
 	return w;
 }
 
@@ -140,6 +162,9 @@ std::map<std::string,double> CIntegrateAndFireTransferFunctionClass::getLIFPertu
 	static std::string VariableName;
 	DeltaVariable=0.01;
 	
+	//Check
+	IntDict["StationarySet"]=false;
+
 	/**** partial derivative****/
 	for(int VariableIdx=0;VariableIdx<sizeof(VariableNames)/sizeof(std::string);VariableIdx++)
 	{
@@ -160,7 +185,12 @@ std::map<std::string,double> CIntegrateAndFireTransferFunctionClass::getLIFPertu
 		computeIntegralUpperBound();
 		computeIntegralLowerBound();
 		OutputDict[VariableName]=DeltaFunction/(2.*DeltaVariable);
+
 	}
+
+	//Check
+	IntDict["StationarySet"]=true;
+
 	/**** return OutputDict***/
 	return OutputDict;
 }
@@ -168,7 +198,7 @@ std::map<std::string,double> CIntegrateAndFireTransferFunctionClass::getLIFPertu
 /***LIF Linear Perturbative Transfer Function***/
 
 /***get the first order pass-filter***/
-std::map<std::string,std::complex<double> > CIntegrateAndFireTransferFunctionClass::getRatePerturbativeRate(std::complex<double> lambda)
+std::map<std::string,std::complex<double> > CIntegrateAndFireTransferFunctionClass::getLeakPerturbativeRate(std::complex<double> lambda)
 {
 	/*******init output ********/
 	std::map<std::string,std::complex<double> > OutputDict;
@@ -422,6 +452,8 @@ std::map<std::string,std::complex<double> > CIntegrateAndFireTransferFunctionCla
 	static std::map<std::string,double > drate0Dict;
 	static double rate0;
 	static int indicator,indict,indich;
+
+	//set
 	omt=DoubleDict["MembraneConstantTime"]*lambda;
 		
 	/***** omega nul exception*****/
@@ -436,12 +468,14 @@ std::map<std::string,std::complex<double> > CIntegrateAndFireTransferFunctionCla
 	else
 	{
 		/****** U23 numerators*****/
+
 		/***** numerator  numu *****/
 		u23(omt,DoubleDict["IntegralUpperBound"],&series,&indicator);
 		u23_yt=series;indict=indicator;
 		u23(omt,DoubleDict["IntegralLowerBound"],&series,&indicator);
 		u23_yr=series;indich=indicator;
-		cout<<"BRUNEL u23 Complex "<<u23_yr.real()<<" "<<u23_yr.imag()<<" "<<indich<<endl;
+		//cout<<"BRUNEL u23 Complex "<<u23_yr.real()<<" "<<u23_yr.imag()<<" "<<indich<<endl;
+
 		/***** numerator numu *****/
 		OutputDict["TotalStationaryCurrent"]=u23_yt-u23_yr;
 		OutputDict["VoltageNoise"]=DoubleDict["IntegralUpperBound"]*u23_yt-DoubleDict["IntegralLowerBound"]*u23_yr;
@@ -452,24 +486,28 @@ std::map<std::string,std::complex<double> > CIntegrateAndFireTransferFunctionCla
 		u01_yt=series;indict=indicator;
 		u01(omt,DoubleDict["IntegralLowerBound"],&series,&indicator);
 		u01_yr=series;indich=indicator;
-		cout<<"BRUNEL u01 Complex "<<u01_yr.real()<<" "<<u01_yr.imag()<<" "<<indich<<endl;
+
+		//cout<<"BRUNEL u01 Complex "<<u01_yr.real()<<" "<<u01_yr.imag()<<" "<<indich<<endl;
 		/***** denominator numu *****/
 		OutputDict["TotalStationaryCurrent"]/=u01_yt-u01_yr;
 		OutputDict["VoltageNoise"]/=u01_yt-u01_yr;
-		OutputDict["VoltageNoise"]+=getComplex(0.,1.)*omt;
+		OutputDict["VoltageNoise"]+=omt;
 		OutputDict["MembraneConstantTime"]=1.;
 			
 		/******* rate low-pass filter*************/
-		rate0=getLIFStationaryRate();
-		rateDict=getRatePerturbativeRate(omt);
-		cout<<"BRUNEL rate Complex "<<rateDict["TotalStationaryCurrent"].real()<<" "<<rateDict["TotalStationaryCurrent"].imag()<<" "<<indich<<endl;
+		if(IntDict["StationaryCompute"]==1){
+			DoubleDict["StationaryRate"]=getLIFStationaryRate();
+		}
+
+		rateDict=getLeakPerturbativeRate(omt);
+		//cout<<"BRUNEL rate Complex "<<rateDict["TotalStationaryCurrent"].real()<<" "<<rateDict["TotalStationaryCurrent"].imag()<<" "<<indich<<endl;
 		
 		/******* build everything ***********/
-		OutputDict["TotalStationaryCurrent"]*=rate0*rateDict["TotalStationaryCurrent"]/DoubleDict["VoltageNoise"];
-		OutputDict["VoltageNoise"]*=rate0*rateDict["VoltageNoise"]/(DoubleDict["VoltageNoise"]*DoubleDict["VoltageNoise"]);
+		OutputDict["TotalStationaryCurrent"]*=DoubleDict["StationaryRate"]*rateDict["TotalStationaryCurrent"]/DoubleDict["VoltageNoise"];
+		OutputDict["VoltageNoise"]*=DoubleDict["StationaryRate"]*rateDict["VoltageNoise"]/(DoubleDict["VoltageNoise"]*DoubleDict["VoltageNoise"]);
 		DoubleDict["VoltageCapacitance"]=1.;
-		OutputDict["MembraneConstantTime"]*=-rate0*rateDict["MembraneConstantTime"]/(DoubleDict["VoltageCapacitance"]);
-		cout<<"BRUNEL rlif Complex "<<OutputDict["TotalStationaryCurrent"].real()<<" "<<OutputDict["TotalStationaryCurrent"].imag()<<" "<<indich<<endl;
+		OutputDict["MembraneConstantTime"]*=-DoubleDict["StationaryRate"]*rateDict["MembraneConstantTime"]/(DoubleDict["VoltageCapacitance"]);
+		//cout<<"BRUNEL rlif Complex "<<OutputDict["TotalStationaryCurrent"].real()<<" "<<OutputDict["TotalStationaryCurrent"].imag()<<" "<<indich<<endl;
 		
 	
 	
@@ -634,25 +672,31 @@ std::map<std::string,std::complex<double> > CIntegrateAndFireTransferFunctionCla
 	static std::map<std::string,std::complex<double> > OutputDict,rateDict;
 	static std::complex<double> omt;
 	static double rate0;
-	omt=getComplex(0.,1.)*DoubleDict["MembraneConstantTime"]*lambda;
-	
+	//omt=getComplex(0.,1.)*DoubleDict["MembraneConstantTime"]*lambda;
+	omt=DoubleDict["MembraneConstantTime"]*lambda;
+
 	/****** hypergeo compute*****/
 	std::complex<double> phi_yth_pr;
 	std::complex<double> phi_yth=phi_t_rka(DoubleDict["IntegralUpperBound"],omt,phi_yth_pr);
 	std::complex<double> phi_yr_pr;
 	std::complex<double> phi_yr=phi_t_rka(DoubleDict["IntegralLowerBound"],omt,phi_yr_pr);
-	cout<<"Class "<<DoubleDict["IntegralUpperBound"]<<" "<<DoubleDict["IntegralLowerBound"]<<" "<<phi_yth.real()<<" "<<phi_yth.imag()<<endl;
+	//cout<<"Class "<<DoubleDict["IntegralUpperBound"]<<" "<<DoubleDict["IntegralLowerBound"]<<" "<<phi_yth.real()<<" "<<phi_yth.imag()<<endl;
 	
 	OutputDict["TotalStationaryCurrent"]=(phi_yr_pr-phi_yth_pr)/((1.+omt)*(phi_yr-phi_yth));
 	OutputDict["VoltageNoise"]=((DoubleDict["IntegralLowerBound"]*phi_yr_pr-DoubleDict["IntegralUpperBound"]*phi_yth_pr)/(phi_yr-phi_yth)-2.)/(2.+omt)+1.;
 	OutputDict["MembraneConstantTime"]=1.;
 	
+	/******* compute stationary*************/
+	if(IntDict["StationaryCompute"]==1){
+		cout<<"We compute stationary"<<endl;
+		DoubleDict["StationaryRate"]=getLIFStationaryRate();
+	}
+
 	/******* rate low-pass filter*************/
-	rate0=getLIFStationaryRate();
-	OutputDict["TotalStationaryCurrent"]*=rate0/(DoubleDict["VoltageNoise"]);
-	OutputDict["VoltageNoise"]*=rate0/(DoubleDict["VoltageNoise"]*DoubleDict["VoltageNoise"]);
+	OutputDict["TotalStationaryCurrent"]*=DoubleDict["StationaryRate"]/(DoubleDict["VoltageNoise"]);
+	OutputDict["VoltageNoise"]*=DoubleDict["StationaryRate"]/(DoubleDict["VoltageNoise"]*DoubleDict["VoltageNoise"]);
 	DoubleDict["VoltageCapacitance"]=1.;
-	OutputDict["MembraneConstantTime"]*=-rate0*rateDict["MembraneConstantTime"]/(DoubleDict["VoltageCapacitance"]);
+	OutputDict["MembraneConstantTime"]*=-DoubleDict["StationaryRate"]*rateDict["MembraneConstantTime"]/(DoubleDict["VoltageCapacitance"]);
 
 	/******* return output************/
 	return OutputDict;

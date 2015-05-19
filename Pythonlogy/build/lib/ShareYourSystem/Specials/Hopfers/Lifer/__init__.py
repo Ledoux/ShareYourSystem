@@ -20,20 +20,39 @@ SYS.addDo('Lifer','Lif','Lifing','Lifed')
 #</DefineAugmentation>
 
 #<DefineLocals>
-def getFilterDictByType(**Dict):
-    FilteredDict={'DoubleDict':{},'IntDict':{},'StringDict':{}};
-    for Key,Value in Dict.items():
-        TypeDictName=getCTypeNameFromPythonType(type(Value))+'Dict';
-        FilteredDict[TypeDictName][Key]=Value;
-    return FilteredDict;
+def getFilterDictByType(**_Dict):
+
+	#init
+	FilteredDict={'DoubleDict':{},'IntDict':{},'StringDict':{}};
+
+	#map
+	map(
+		lambda __ItemTuple:
+		FilteredDict[
+			getCTypeNameFromPythonType(
+				type(
+					__ItemTuple[1]
+					)
+			)+'Dict'
+		].__setitem__(*__ItemTuple),
+		_Dict.items()
+	)	
+
+	#return
+	return FilteredDict;
 SYS.getFilterDictByType=getFilterDictByType
-def getCTypeNameFromPythonType(PythonType):
-    if PythonType in [float]:
-        return 'Double';
-    elif PythonType in [int]:
-        return 'Int';
-    elif PythonType in [str]:
-        return 'String'; 
+def getCTypeNameFromPythonType(_PythonType):
+
+	#import
+	import numpy as np
+
+	#check
+	if _PythonType in [float,np.float64]:
+		return 'Double'
+	elif _PythonType in [int]:
+		return 'Int'
+	elif _PythonType in [str]:
+		return 'String'; 
 SYS.getCTypeNameFromPythonType=getCTypeNameFromPythonType
 def getCArgsFromDict(Dict):
     CArgs=[]
@@ -57,9 +76,16 @@ class LiferClass(BaseClass):
 			_LifingVoltageNoiseFloat=5., 
 			_LifingVoltageResetFloat=-70., 
 			_LifingVoltageThresholdFloat=-50.,
-			_LifingPerturbVariable=True,
+			_LifingStationaryBool=True,
+			_LifingPerturbLambdaVariable=None,
+			_LifingPerturbFrequencyFloat=None,
+			_LifingPerturbMethodStr='Brunel',
 			_LifedSwigVariable=None,
-			_LifedStationaryRateVariable=None,
+			_LifedStationaryRateFloat=0.,
+			_LifedPerturbNullFloat=0.,
+			_LifedPerturbMethodVariable=None,
+			_LifedPerturbMeanComplexVariable=None,
+			_LifedPerturbNoiseComplexVariable=None,
 			**_KwargVariablesDict
 		):
 		""" """		
@@ -67,7 +93,6 @@ class LiferClass(BaseClass):
 		#Call the parent init method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
-	
 	def do_lif(self):
 		
 		#/##################/#
@@ -78,6 +103,9 @@ class LiferClass(BaseClass):
 		if self.LifedSwigVariable==None:
 
 			#import
+			import sys
+			from os.path import dirname
+			sys.path.append(dirname(__file__))
 			import CIntegrateAndFireTransferFunction
 
 			#get
@@ -100,7 +128,24 @@ class LiferClass(BaseClass):
 		#
 
 		#Check
-		if self.LifedStationaryRateVariable==None:
+		if self.LifingStationaryBool:
+
+			#debug
+			'''
+			self.debug(
+				[
+					'We lif compute stationary here',
+					('self.',self,[
+							'LifingMembraneConstantTimeFloat',
+							'LifingRefractoryPeriodFloat',
+							'LifingTotalStationaryCurrentFloat',
+							'LifingVoltageNoiseFloat',
+							'LifingVoltageResetFloat',
+							'LifingVoltageThresholdFloat'
+						])
+				]
+			)
+			'''
 
 			#Set inside the Swig
 			self.LifedSwigVariable.setDicts(
@@ -129,52 +174,103 @@ class LiferClass(BaseClass):
 		#
 
 		#Check
-		if type(self.LifingPerturbVariable)!=None.__class__:
+		if self.LifingPerturbFrequencyFloat!=0. or self.LifingPerturbLambdaVariable!=None:
 
-			#debug
-			self.debug(
-				[
-					'We compute a LIF perturbation here'
-				]
-			)
-
-			#type
-			LifedFrequencyType=type(self.LifingPerturbVariable)
-
-			#import 
-			import numpy as np
-
-			#Check
-			if LifedFrequencyType in [list,np.ndarray]
-
-				#get
-				LifedPulsationFloatsArray=np.array(
-					self.LifingPerturbVariable
-				)*2.*np.pi;
-
-			else:
-
-				#Frequencies=np.array(logspace(0,3,100));
-				#Pulsations=[0.00000001]+linspace(0.1,1000.,100);
-				pass
-
-
-		elif self.LifingPerturbVariable==0.:
+			#/##################/#
+			# Get the method
+			#
 
 			#get
-			self.LifedNullPerturbFloat=self.LifedSwigVariable.getLIFPerturbativeRate0();
+			self.LifedPerturbMethodVariable=getattr(
+				self.LifedSwigVariable,
+				'get'+self.LifingPerturbMethodStr+'LIFPerturbativeRate'
+			)
 
-		#get
-		LifedPerturbMethod=getattr(
-			self.LifedSwigVariable,
-			'get'+self.LifingPerturbMethodStr+'LIFPerturbativeRate'
-		)
+			#get
+			self.LifedPerturbNullFloat=self.LifedSwigVariable.getLIFPerturbativeRate0()[
+				"TotalStationaryCurrent"
+			]
 
-		self.LifedPerturbComplexesArray=map(
-			lambda __LifedPulsationFloat:
-			LifedPerturbMethod,
-			LifedPulsationFloatsArray
-		)
+			#Choose
+			if self.LifingPerturbFrequencyFloat!=0.:
+
+				#import
+				import numpy as np
+
+				#set
+				LifedPerturbPreVariable=2.*np.pi*self.LifingPerturbFrequencyFloat
+			else:
+
+				#set
+				LifedPerturbPreVariable=self.LifingPerturbLambdaVariable
+
+			#call
+			LifedPerturbDict=self.LifedPerturbMethodVariable(
+				LifedPerturbPreVariable
+			)
+
+			#unpack
+			self.LifedPerturbMeanComplexVariable=LifedPerturbDict["TotalStationaryCurrent"]
+			self.LifedPerturbNoiseComplexVariable=LifedPerturbDict["VoltageNoise"]
+
+			#debug
+			'''
+			self.debug(
+				[
+					('self.',self,[
+							'LifedPerturbMeanComplexVariable'
+						]),
+					'LifedPerturbPreVariable is '+str(LifedPerturbPreVariable)
+				]
+			)
+			'''
+
+	def mimic__print(self,**_KwargVariablesDict):
+
+		#/##################/#
+		# Modify the printing Variable
+		#
+
+		#Check
+		if self.PrintingSelfBool:
+
+			#/##################/#
+			# Print things if they are computed
+			#
+
+			#map
+			map(
+					lambda __KeyStr:
+					self.forcePrint(
+						[__KeyStr],
+						'LiferClass'
+					)
+					if getattr(self.PrintingCopyVariable,__KeyStr) not in [None,0.]
+					else None,
+					[
+						'LifingMembraneConstantTimeFloat', 
+						'LifingRefractoryPeriodFloat',
+						'LifingTotalStationaryCurrentFloat', 
+						'LifingVoltageNoiseFloat', 
+						'LifingVoltageResetFloat', 
+						'LifingVoltageThresholdFloat',
+						'LifingPerturbLambdaVariable',
+						'LifingPerturbFrequencyFloat',
+						'LifingPerturbMethodStr',
+						'LifedStationaryRateFloat',
+						'LifedPerturbNullFloat',
+						'LifedPerturbMeanComplexVariable',
+						'LifedPerturbNoiseComplexVariable'
+					]
+				)
+
+		#/##################/#
+		# Call the base method
+		#
+
+		#call
+		BaseClass._print(self,**_KwargVariablesDict)
+
 
 	def pyplot(self):
 
@@ -265,8 +361,17 @@ LiferClass.PrintingClassSkipKeyStrsList.extend(
 		'LifingVoltageNoiseFloat', 
 		'LifingVoltageResetFloat', 
 		'LifingVoltageThresholdFloat',
+		'LifingStationaryBool',
+		'LifingPerturbLambdaVariable',
+		'LifingPerturbFrequencyFloat',
+		'LifingPerturbMethodStr',
 		'LifedSwigVariable',
-		#'LifedStationaryRateFloat'
+		'LifedStationaryRateFloat',
+		'LifedPerturbNullFloat',
+		'LifedPerturbMethodVariable',
+		'LifedPerturbNullFloat=0.,',
+		'LifedPerturbMeanComplexVariable',
+		'LifedPerturbNoiseComplexVariable'
 	]
 )
 #<DefinePrint>

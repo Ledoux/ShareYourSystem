@@ -7,10 +7,15 @@ import ShareYourSystem as SYS
 
 #define
 MyLifer=SYS.LiferClass(
-	).lif(
+	).setAttr(
+        'LifingTotalStationaryCurrentFloat',
+        -50.
+    ).lif(
 	)
 
 
 #print
 print('MyLifer is')
 SYS._print(MyLifer)
+
+

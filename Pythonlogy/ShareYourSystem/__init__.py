@@ -3007,6 +3007,22 @@ def argmax(_Array):
 		np.greater
 	)[0]
 
+def getInverseFunction(_Function,_SeedVariable=0.):
+
+	#import
+	import scipy.optimize
+
+	#define
+	def getRootFloat(_SearchVariable,_TargetVariable):
+		return _Function(_SearchVariable)-_TargetVariable
+
+	#return
+	return lambda __Variable:scipy.optimize.fsolve(
+		getRootFloat,
+		_SeedVariable,
+		args=[__Variable]
+	)[0]
+
 
 #</DefineLocals>
 
@@ -3026,6 +3042,10 @@ class ShareYourSystem():
 			_WrapModule.ModuleStrsList
 		)
 		_WrapModule.ClassStrsList=map(getClassStrWithNameStr,_WrapModule.NameStrsList)
+
+		#figure
+		_WrapModule.Figure=None
+		_WrapModule.Axes=None
 
 	def __setattr__(self,_KeyVariable,_ValueVariable):
 		
@@ -3055,13 +3075,46 @@ class ShareYourSystem():
 		#numpy, matplotlib operator functions as if it was in the SYS library...
 		#(but it's then simpler as the pylab module)
 		if _KeyVariable=='array':
+
+			#import
 			import numpy
 			return numpy.array
+
 		elif _KeyVariable=='contains':
+
+			#return
 			return operator.contains
+
 		elif _KeyVariable in ['plot','show']:
+
+			#import
 			from matplotlib import pyplot
-			return getattr(pyplot,_KeyVariable)
+
+			#Check
+			if WrapModule.Figure==None:
+				WrapModule.Figure=pyplot.figure()
+				WrapModule.Axes=None
+
+			#Check
+			if WrapModule.Axes==None:
+				WrapModule.Axes=pyplot.axes()
+				WrapModule.Axes._figure=WrapModule.Figure
+
+			#Check
+			if _KeyVariable=='plot':
+
+				#return
+				return getattr(
+						WrapModule.Axes,
+						_KeyVariable
+					)
+			else:
+
+				#return
+				return getattr(
+						pyplot,
+						_KeyVariable
+					)
 
 		#Check for maybe automatically importing submodules
 		if hasattr(WrapModule,_KeyVariable)==False:

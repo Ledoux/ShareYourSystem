@@ -910,7 +910,7 @@ class LeakerClass(BaseClass):
 
 			#add
 			self.LeakedModelStr+=self.LeakedSymbolStr+'_diff : '+self.LeakedDimensionStr+'\n'
-			self.LeakedModelStr+=self.LeakedSymbolStr+'_diff_diff : '+self.LeakedDimensionStr+'\n'
+			self.LeakedModelStr+=self.LeakedSymbolStr+'_diff_max : '+self.LeakedDimensionStr+'\n'
 
 			#join
 			LeakedDiffStr='\n'.join(
@@ -919,7 +919,7 @@ class LeakerClass(BaseClass):
 					self.LeakedSymbolStr+'_differenciater_'+str(
 						__IndexInt
 					)+' : '+self.LeakedDimensionStr,
-					xrange(2,-1,-1)
+					xrange(1,-1,-1)
 				)
 			)+'\n'
 			self.LeakedModelStr+=LeakedDiffStr
@@ -947,8 +947,10 @@ class LeakerClass(BaseClass):
 			)
 			'''
 
-			
-			BrianingNeurongroupDict['threshold']='r_diff_diff<0*mV'
+			#define the threshold
+			BrianingNeurongroupDict[
+				'threshold'
+			]='r_diff_max<0*mV'
 
 
 		
@@ -1466,7 +1468,7 @@ class LeakerClass(BaseClass):
 			elif LeakedWeigthVariable in [list,tuple]:
 
 				#Check
-				if self.LeakingWeigthVariable[0].startswith(LeakNetworkPrefixStr):
+				if self.LeakingWeigthVariable[0].startswith(LeakNetworkPrefixStr[:-1]):
 
 					#debug
 					'''
@@ -1492,7 +1494,7 @@ class LeakerClass(BaseClass):
 					#setOperation
 					self.setOperation()
 
-				elif self.LeakingWeigthVariable[0].startswith(LeakCustomPrefixStr):
+				elif self.LeakingWeigthVariable[0].startswith(LeakCustomPrefixStr[:-1]):
 
 					#debug
 					'''
@@ -1512,8 +1514,24 @@ class LeakerClass(BaseClass):
 					#set
 					self.LeakedOperationStr=SYS.deprefix(
 						self.LeakingWeigthVariable[0],
-						LeakCustomPrefixStr
-					)+':'+"+".join(
+						LeakCustomPrefixStr[:-1]
+					)
+
+					#debug
+					self.debug(
+						[
+							('self.',self,[
+									'LeakedOperationStr'
+								])
+						]
+					)
+
+					#Check
+					if self.LeakedOperationStr[0]==':':
+						self.LeakedOperationStr=self.LeakedOperationStr[1:]+':'
+
+					#join
+					self.LeakedOperationStr+="+".join(
 							map(
 								lambda __IndexInt,__CustomOperationStr:
 								__CustomOperationStr+'*(i=='+str(
@@ -2163,10 +2181,10 @@ class LeakerClass(BaseClass):
 
 					#replace
 					self.LeakedModelStr=self.LeakedModelStr.replace(
-
-
 						LeakedPopulationSymbolStr+'_pre',
-						LeakedPopulationSymbolStr+"_delayer_"+str(self.LeakedDelayTimeIntsList-1)
+						LeakedPopulationSymbolStr+"_delayer_"+str(
+							self.LeakedDelayTimeIntsList[0]-1
+						)
 					)
 
 					#add
@@ -2446,9 +2464,13 @@ class LeakerClass(BaseClass):
 		#Check
 		if self.LeakingMaxBool:
 
+			#/###################/#
+			# Define the custom operation
+			#
+
 			#set
 			BrianedCustomStr=self.LeakedSymbolStr+'_diff=(r-r_differenciater_0) \n'
-			BrianedCustomStr+=self.LeakedSymbolStr+'_diff=(1./'+self.LeakedDimensionStr+')*(r_differenciater_2-r_differenciater_1)*(r_differenciater_0-r) \n'
+			BrianedCustomStr+=self.LeakedSymbolStr+'_diff_max=(1./'+self.LeakedDimensionStr+')*(r_differenciater_0-r_differenciater_1)*'+self.LeakedSymbolStr+'_diff*('+self.LeakedSymbolStr+'_diff<0.*mV'+') \n'
 
 			#join
 			BrianedCustomStr+='\n'.join(
@@ -2467,6 +2489,14 @@ class LeakerClass(BaseClass):
 				)
 			)
 
+			#debug
+			self.debug(
+				[
+					'picking the max',
+					'BrianedCustomStr is '+str(BrianedCustomStr)
+				]
+			)
+
 			#custom
 			BrianedCustomOperation=self.BrianedNeurongroupVariable.custom_operation(
 				BrianedCustomStr
@@ -2477,6 +2507,10 @@ class LeakerClass(BaseClass):
 				BrianedCustomOperation
 			)
 			
+			#/###################/#
+			# Define the way to record
+			#
+
 			#import
 			from brian2 import SpikeMonitor
 
@@ -2485,6 +2519,23 @@ class LeakerClass(BaseClass):
 				self.BrianedNeurongroupVariable
 			)
 
+			#add
+			self.BrianedParentNetworkDeriveBrianerVariable.BrianedNetworkVariable.add(
+				self.LeakedMaxSpikeMonitor
+			)
+	
+			#import
+			from brian2 import StateMonitor
+
+			#init
+			self.LeakedMaxStateMonitor=StateMonitor(self.BrianedNeurongroupVariable,'r_diff_max',True)
+
+			#add
+			self.BrianedParentNetworkDeriveBrianerVariable.BrianedNetworkVariable.add(
+				self.LeakedMaxStateMonitor
+			)
+
+			#def record
 
 
 		#/###################/#
@@ -2880,7 +2931,6 @@ class LeakerClass(BaseClass):
 					LeakedEquationStr=self.LeakedSymbolStr+"="+self.LeakedEquationStr
 
 				#debug
-				'''
 				self.debug(
 					[
 						'In the end',
@@ -2891,7 +2941,6 @@ class LeakerClass(BaseClass):
 						'LeakedEquationStr is '+LeakedEquationStr
 					]
 				)
-				'''
 
 				#Check
 				if self.LeakedClockStr=="":
@@ -2966,6 +3015,7 @@ class LeakerClass(BaseClass):
 				#alias
 				BrianedNeurongroupVariable=self.LeakedParentPopulationDeriveLeakerVariable.BrianedNeurongroupVariable
 
+				#get
 				BrianedInputQuantity=getattr(
 						BrianedNeurongroupVariable,
 						self.LeakedSymbolStr
@@ -3397,7 +3447,7 @@ class LeakerClass(BaseClass):
 
 
 								),
-								xrange(self.LeakedDelayTimeIntsList-1,0,-1)
+								xrange(self.LeakedDelayTimeIntsList[0]-1,0,-1)
 							)+[
 							LeakedSymbolStr+"_delayer_0="+LeakedSymbolStr+'_pre'
 						]
@@ -4461,6 +4511,7 @@ class LeakerClass(BaseClass):
 					'Draws'
 				)
 
+				#get
 				ViewedNetworkDrawsDerivePyploter.getManager(
 						'Global'
 					).PyplotingDrawVariable=ViewedPopulationDrawsDerivePyploter.ManagementDict[
@@ -4517,12 +4568,17 @@ class LeakerClass(BaseClass):
 					[
 						'We plot the max',
 						('self.',self,[
-								'LeakedMaxSpikeMonitor'
-							])
+								'LeakedMaxSpikeMonitor',
+								'LeakedMaxStateMonitor'
+							]),
+						'self.LeakedMaxSpikeMonitor.t is '+str(
+								self.LeakedMaxSpikeMonitor.t
+							),
+						'self.LeakedMaxStateMonitor.r_diff_max is '+str(
+								self.LeakedMaxStateMonitor.r_diff_max
+							)
 					]
 				)
-
-				
 
 				#add
 				ViewedPopulationDrawsDerivePyploter.getManager(
@@ -4865,6 +4921,7 @@ class LeakerClass(BaseClass):
 
 			#add
 			self.LeakedParentPopulationDeriveLeakerVariable.LeakedModelStr+=self.LeakedSymbolStr+'='+self.LeakedEquationStr+' : '+self.LeakedParentPopulationDeriveLeakerVariable.LeakedDimensionStr+"\n"
+		
 		elif self.LeakedClampStr in ['Custom','Network']:
 
 			#debug

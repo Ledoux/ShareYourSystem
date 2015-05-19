@@ -156,6 +156,9 @@ setup(
       	package_data={
           'ShareYourSystem':[
           		'Package.json'
+          ],
+          'ShareYourSystem.Specials.Hopfers.Lifer':[
+          	'_CIntegrateAndFireTransferFunction.so'
           ]
 		},
 

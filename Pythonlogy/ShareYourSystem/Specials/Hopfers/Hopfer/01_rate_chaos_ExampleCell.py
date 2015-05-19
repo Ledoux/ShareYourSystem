@@ -27,6 +27,7 @@ MyHopfer=SYS.HopferClass(
 	).hopf(
 		_UnitsInt=100,
 		_StdWeightFloat=1.2,
+	).leak(
 	).simulate(
 		500.
 	)

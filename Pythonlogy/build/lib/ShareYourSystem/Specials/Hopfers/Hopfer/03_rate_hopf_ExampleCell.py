@@ -33,6 +33,7 @@ MyHopfer=SYS.HopferClass(
 		_SymmetryFloat=-0.7,
 		#_GlobalBool=True,
 		#_TotalBool=False
+	).leak(
 	).simulate(
 		500.
 	)

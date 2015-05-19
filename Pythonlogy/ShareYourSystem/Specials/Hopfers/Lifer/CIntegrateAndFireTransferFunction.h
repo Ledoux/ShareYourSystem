@@ -15,6 +15,9 @@ class CIntegrateAndFireTransferFunctionClass : public CToolClass
 	public:
 	
 		/*** COMPUTE METHODS ***/
+
+		/*** CONSTRUCTOR ***/
+		CIntegrateAndFireTransferFunctionClass();
 		
 		/*** INTEGRALS BOUNDARIES***/
 		void computeIntegralUpperBound();
@@ -29,7 +32,7 @@ class CIntegrateAndFireTransferFunctionClass : public CToolClass
 		/*** LINEAR PERTURBATIONS ***/
 		
 		/*** RatePerturbation***/
-		std::map<std::string,std::complex<double> > getRatePerturbativeRate(std::complex<double> lambda);
+		std::map<std::string,std::complex<double> > getLeakPerturbativeRate(std::complex<double> lambda);
 		
 		/*** LIF perturbation at zero frequency***/
 		std::map<std::string,double> getLIFPerturbativeRate0();
@@ -56,15 +59,6 @@ class CIntegrateAndFireTransferFunctionClass : public CToolClass
 		
 
 };
-
-//class CToolClass;
-//class CIntegrateAndFireTransferFunctionClass;
-
-//class CIntegrateAndFireTransferFunctionClass: public CToolClass {
-//	public:
-//
-//}
-
 
 #endif
 
