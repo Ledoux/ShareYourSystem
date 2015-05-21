@@ -1834,6 +1834,121 @@ def setAttrOrCall(_Variable,_ItemVariable):
 		getattr(_Variable,_ItemVariable)()
 	return _Variable
 
+def setRowArray(_SettedArray,_SettingVariable):
+
+	#Debug
+	'''
+	print('setRowArray l 1840')
+	print('Before setting')
+	print('_SettedArray is')
+	print(_SettedArray)
+	print('_SettingVariable is ')
+	print(_SettingVariable)
+	print('')
+	'''
+
+	#set
+	_SettedArray[:]=_SettingVariable
+
+	#Debug
+	'''
+	print('setRowArray l 1846')
+	print('After setting')
+	print('_SettedArray is')
+	print(_SettedArray)
+	print('_SettingVariable is ')
+	print(_SettingVariable)
+	print('')
+	'''
+
+	#return
+	return _SettedArray
+
+def setMatrixArray(
+		_SettedArray,
+		_SettingVariable,
+		_SetMethod=setRowArray,
+		_AxisInt=0
+	):
+
+	#import 
+	import numpy as np
+
+	#Debug
+	'''
+	print('setMatrixArray l 1846')
+	print('_SettedArray is')
+	print(_SettedArray)
+	print('_SettingVariable is ')
+	print(_SettingVariable)
+	print('_SetMethod is ')
+	print(_SetMethod)
+	print('')
+	'''
+	
+	#type
+	SettingType=type(_SettingVariable)
+
+	#Check
+	#if SettingType in [int,float,np.float64,complex,np.complex,str,bool]:
+	if hasattr(_SettingVariable,'__iter__')==False or type(_SettingVariable)==str:
+
+		#map
+		map(
+			lambda __IndexInt:
+			_SettedArray.__setitem__(
+				__IndexInt,
+				_SetMethod(
+					_SettedArray[__IndexInt],
+					_SettingVariable
+				)
+			),
+			xrange(len(_SettedArray))
+		)
+
+	else:
+
+		#Check
+		if _AxisInt==1:
+			_SettedArray=_SettedArray.T
+			_SettingVariable=_SettingVariable.T
+
+		#shape
+		#SettingShapeIntsTuple=np.shape(_SettingArray)
+
+		#map
+		map(
+			lambda __IndexInt:
+			_SettedArray.__setitem__(
+				__IndexInt,
+				_SetMethod(
+					_SettedArray[__IndexInt],
+					_SettingVariable[__IndexInt]
+				)
+			)
+			#if type(_SettingVariable[__IndexInt]) in [
+			#	int,float,np.float64,complex,str,bool
+			#]
+			if hasattr(_SettingVariable[__IndexInt],'__iter__')==False or type(_SettingVariable[__IndexInt])==str 
+			else _SettedArray.__setitem__(
+				__IndexInt,
+				_SetMethod(
+					_SettedArray[__IndexInt],
+					_SettingVariable[__IndexInt][:]
+				)
+			),
+			xrange(len(_SettedArray))
+		)
+
+		#Check
+		if _AxisInt==1:
+			_SettedArray=_SettedArray.T
+			_SettingVariable=_SettingVariable.T
+
+	#return
+	return _SettedArray
+
+
 def getIsTuplesListBool(_TuplesList):
 
 	#Check for list of tuples

@@ -35,8 +35,8 @@ class HopferClass(BaseClass):
 	def default_init(self,
 			_HopfingUnitsInt = 1,
 			_HopfingLateralWeigthVariable = None,
-			_HopfingConstantTimeVariable = 10.0,
-			_HopfingDelayTimeVariable = 2.0,
+			_HopfingConstantTimeVariable = 0.01, 
+			_HopfingDelayTimeVariable = 0.002,
 			_HopfingDecayTimeVariable = 0.,
 			_HopfingRiseTimeVariable = 0.,
 			_HopfingMeanWeightFloat = 0.0,
@@ -67,9 +67,14 @@ class HopferClass(BaseClass):
 			_HopfedInstabilityStr="",
 			_HopfedStdSparseFloat=0.,
 			_HopfedParentSingularStr="",
-			_HopfedConstantTimeFloatsArray=None,
-			_HopfedDelayTimeFloatsArray=None,
-			_HopfedNeuralPerturbationComplexesArray=None,
+			_HopfedIndexIntsTuplesList=None,
+			_HopfedPerturbationNullVariable=None,
+			_HopfedPerturbationWeigthFloatsArray=None,
+			_HopfedConstantTimeVariable=None,
+			_HopfedDelayTimeVariable=None,
+			_HopfedDecayTimeVariable=None,
+			_HopfedRiseTimeVariable=None,
+			_HopfedNeuralPerturbationVariable=None,
 			_HopfedSynapticPerturbationComplexesArray=None,
 			_HopfedTotalPerturbationComplexesArray=None,
 			_HopfedAgentDeriveHopferVariable=None,
@@ -601,10 +606,8 @@ class HopferClass(BaseClass):
 			self.HopfingUnitsInt=len(self.HopfedLateralWeigthFloatsArray)
 
 			#/###################/#
-			# Determine the time constant
+			# Determine the time constant structure
 			# 
-
-			
 
 			#map
 			map(
@@ -619,9 +622,6 @@ class HopferClass(BaseClass):
 					'Rise'
 				]
 			)
-			
-
-
 
 			#/###################/#
 			# Determine the stationary solutions
@@ -648,52 +648,145 @@ class HopferClass(BaseClass):
 				if self.HopfingInteractionStr=="Rate":
 
 					#ones
-					self.HopfedNullPerturbationFloatsArray=np.ones(
-						self.HopfingUnitsInt
+					#self.HopfedPerturbationNullVariable=np.ones(
+					#	self.HopfingUnitsInt
+					#)
+
+					self.HopfedPerturbationNullVariable=1.
+
+				#debug
+				'''
+				self.debug(
+					[
+						'We compute the HopfedPerturbationWeigthFloatsArray',
+						('self.',self,[
+								'HopfedLateralWeigthFloatsArray',
+								'HopfedPerturbationNullVariable',
+								'HopfedConstantTimeVariable'
+							])
+					]
+				)
+				'''
+
+				#set
+				self.HopfedPerturbationWeigthFloatsArray=self.HopfedLateralWeigthFloatsArray[
+					:
+				]
+
+				#mul
+				SYS.setMatrixArray(
+					self.HopfedPerturbationWeigthFloatsArray,
+					self.HopfedPerturbationNullVariable,
+					np.ndarray.__mul__
+				)
+
+				#mul
+				SYS.setMatrixArray(
+					self.HopfedPerturbationWeigthFloatsArray,
+					self.HopfedConstantTimeVariable,
+					np.ndarray.__mul__
+				)
+
+				#debug
+				'''
+				self.debug(
+					[
+						'In the end',
+						('self.',self,[
+								'HopfedPerturbationWeigthFloatsArray'
+							])
+					]
+				)
+				'''
+
+				#get
+				self.HopfedNeuralPerturbationMethodVariable=getattr(
+					self,
+					'get'+self.HopfingInteractionStr+'NeuralPerturbationVariable'
+				)
+
+				#import 
+				import itertools
+
+				#list
+				self.HopfedIndexIntsTuplesList=list(
+					itertools.product(
+						xrange(self.HopfingUnitsInt),
+						xrange(self.HopfingUnitsInt)
 					)
+				)
+
+				#debug
+				'''
+				self.debug(
+					[
+						'We set a one root get',
+						('self.',self,[
+								'HopfedIndexIntsTuplesList'
+							])	
+					]
+				)
+				self.getGlobalPerturbationRootFloatsTuple(
+									(0.1,2.*np.pi*1.)
+								)
+				'''
+
+				#import
+				from numpy import linalg
+
+				#set
+				self.HopfedDeterminantFunctionVariable=linalg.det
+
+				#import 
+				import scipy.optimize
+
+				#loop
+				for __FrequencyFloat in np.logspace(0,3,10):
+
+					#debug
+					self.debug(
+						[
+							'We try to find an instability around '+str(__FrequencyFloat)+'Hz'
+						]
+					)
+
+					#Get the solve of the ScipyOptimizeRoot
+					HopfedOptimizeRoot=scipy.optimize.root(
+							self.getGlobalPerturbationRootFloatsTuple,
+							#(-0.1,2.*np.pi*__FrequencyFloat),
+							(0.,0.),
+							#method='lm',
+							#tol=0.001
+							options={
+										#'maxiter':1000,
+										#'ftol':0.001,
+										#'direc':np.array([-0.1,0.1])
+									},
+							)
+
+					#Check
+					if HopfedOptimizeRoot.success:
+
+						#Check
+						if HopfedOptimizeRoot.x[0]>0.:
+
+							#set
+							self.HopfedIsStableBool=False
+
+							#break
+							break
 
 				#debug
 				self.debug(
 					[
-						'We compute the perturbative solutions',
+						'In the end ',
 						('self.',self,[
-								'HopfedLateralWeigthFloatsArray',
-								'HopfedNullPerturbationFloatsArray',
-								'HopfedConstantTimeFloatsArray'
-							])
+							'HopfedIsStableBool'
+						])
 					]
 				)
 
-				#get
-				self.HopfedSetNeuralComplexMethod=getattr(
-					self,
-					'set'+self.HopfingInteractionStr+'NeuralPerturbationComplex'
-				)
-
-				#set
-				self.HopfedPerturbationWeigthFloatsArray=np.array(
-					map(
-						lambda __RowInt:
-						self.HopfedLateralWeigthFloatsArray[
-							__RowInt,
-							:
-						]*self.HopfedNullPerturbationFloatsArray[
-							__RowInt
-						]*self.HopfedConstantTimeFloatsArray[
-							__RowInt
-						],
-						xrange(
-							self.HopfingUnitsInt
-						)
-					)
-				)
-
-				#self.HopfedPerturbationWeigthFloatsArray
-				#self.HopfedNullPerturbationFloatsArray
-		
 	
-
-
 	def setTimeFloatsArray(self,_KeyStr):
 
 		#get
@@ -711,7 +804,7 @@ class HopferClass(BaseClass):
 			#array
 			setattr(
 				self,
-				'Hopfed'+_KeyStr+'TimeFloatsArray',
+				'Hopfed'+_KeyStr+'TimeVariable',
 				np.array(
 					HopfingTimeVariable
 				)
@@ -722,52 +815,212 @@ class HopferClass(BaseClass):
 			#array
 			setattr(
 				self,
-				'Hopfed'+_KeyStr+'TimeFloatsArray',
-				np.array(
-					[HopfingTimeVariable]*self.HopfingUnitsInt
-				)
+				'Hopfed'+_KeyStr+'TimeVariable',
+				#np.array(
+					#[HopfingTimeVariable]*self.HopfingUnitsInt
+				#)	
+				HopfingTimeVariable
 			)
 
+	def getSynapticPerturbationVariable(self,_PerturbationComplex):
 
-	def setPerturbationWeigthFloat(_RowInt,_ColInt):
+		#debug
+		'''
+		self.debug(
+			[
+				('self.',self,[
+						'HopfedDelayTimeVariable',
+						'HopfedDecayTimeVariable',
+						'HopfedRiseTimeVariable'
+					]),
+				'_PerturbationComplex is '+str(_PerturbationComplex)
+			]
+		)
+		'''
 
-		#set
-		self.HopfedPerturbationWeigthFloatsArray[
-			_RowInt,_ColInt
-		]=self.HopfedLateralWeigthFloatsArray[
-				_RowInt,_ColInt
-		]*self.HopfedNullPerturbationFloatsArray[
-			_RowInt
-		]*self.HopfedConstantTimeFloatsArray[
-			_RowInt
-		]
+		#return
+		return SYS.setMatrixArray(
+					SYS.setMatrixArray(
+						SYS.setMatrixArray(
+							np.ones(
+										(self.HopfingUnitsInt,self.HopfingUnitsInt),
+										dtype=complex
+									),
+							np.exp(
+								-self.HopfedDelayTimeVariable*_PerturbationComplex
+							),
+							np.ndarray.__mul__,
+							_AxisInt=1
+						),
+						1.+self.HopfedDecayTimeVariable*_PerturbationComplex,
+						np.ndarray.__div__,
+						_AxisInt=1
+					),
+					1.+self.HopfedRiseTimeVariable*_PerturbationComplex,
+					np.ndarray.__div__,
+					_AxisInt=1
+				)
 
-	def setRateNeuralPerturbationComplex(_PulsationVariable,_RowInt):
+	def getRateNeuralPerturbationVariable(self,_PerturbationComplex):
 
-		#set
-		self.HopfedNeuralPerturbationComplexesArray=self.HopfedNullPerturbationFloatsArray/(
-			1.+_PulsationVariable*self.HopfedConstantTimeFloatsArray
+		#debug
+		'''
+		self.debug(
+			[
+				('self.',self,[
+						'HopfedPerturbationNullVariable',
+						'HopfedConstantTimeVariable'
+					]),
+				'_PerturbationComplex is '+str(_PerturbationComplex)
+			]
+		)
+		'''
+
+		#return
+		return self.HopfedPerturbationNullVariable/(
+			1.+_PerturbationComplex*self.HopfedConstantTimeVariable
 		)
 
-	def setSpikeNeuralPerturbationComplex(_PulsationVariable,_RowInt):
+	def getSpikeNeuralPerturbationComplex(self,_PulsationVariable):
 
 		pass
 
-	def setSynapticPerturbationComplex(_PulsationVariable,_RowInt,_ColInt):
+	def getGlobalPerturbationRootFloatsTuple(self,_PerturbationFloatsTuple):
 
-		#exp
-		self.HopfedSynapticPerturbationComplexesArray=np.exp(
-			-_PulsationVariable*self.HopfedDelayTimeFloatsArray[
-				_RowInt,_ColInt
-			]
-		)/(
-			(1.+_PulsationVariable*self.HopfedDecayTimeFloatsArray[
-				_RowInt,_ColInt
-			])*(
-			1.+_PulsationVariable*self.HopfedRiseTimeFloatsArray[
-				_RowInt,_ColInt
-			])
+		#/###############/#
+		# Prepare the complex pulsation perturbation
+		# init HopfedTotalPerturbationComplexesArray
+
+		#pack
+		PerturbationComplex=_PerturbationFloatsTuple[
+			0
+		]+1j*_PerturbationFloatsTuple[
+			1
+		]
+
+		#copy
+		self.HopfedTotalPerturbationComplexesArray=-np.array(
+			self.HopfedPerturbationWeigthFloatsArray[:],
+			dtype=complex
 		)
+
+		#/###############/#
+		# Synaptic coupling
+		#
+
+		"""
+		#exp
+		self.HopfedSynapticPerturbationVariable=self.getSynapticPerturbationVariable(
+				PerturbationComplex
+			)
+
+		#debug
+		self.debug(
+			[
+				('self.',self,[
+						'HopfedSynapticPerturbationVariable'
+					])
+			]
+		)
+		"""
+
+		#mul
+		SYS.setMatrixArray(
+			self.HopfedTotalPerturbationComplexesArray,
+			self.getSynapticPerturbationVariable(
+				PerturbationComplex
+			),
+			np.ndarray.__mul__
+		)
+
+		#debug
+		'''
+		self.debug(
+			[
+				'Ok we have mul the synaptic coupling',
+				('self.',self,[
+						'HopfedTotalPerturbationComplexesArray'
+					])
+			]
+		)
+		'''
+
+		#/###############/#
+		# Neural response coupling
+		#
+
+		"""
+		#exp
+		self.HopfedNeuralPerturbationVariable=self.HopfedNeuralPerturbationMethodVariable(
+			PerturbationComplex
+		)
+
+		#debug
+		self.debug(
+			[
+				('self.',self,[
+						'HopfedNeuralPerturbationVariable'
+					])
+			]
+		)
+		"""
+
+		#mul
+		SYS.setMatrixArray(
+			self.HopfedTotalPerturbationComplexesArray,
+			self.HopfedNeuralPerturbationMethodVariable(
+				PerturbationComplex
+			),
+			np.ndarray.__mul__
+		)
+
+		#debug
+		'''
+		self.debug(
+			[
+				'Ok we have mul the neural coupling',
+				('self.',self,[
+						'HopfedTotalPerturbationComplexesArray'
+					])
+			]
+		)
+		'''
+
+		#/###############/#
+		# fill diagonal
+		#
+
+		#fill
+		np.fill_diagonal(
+			self.HopfedTotalPerturbationComplexesArray,
+			1.+np.diag(self.HopfedTotalPerturbationComplexesArray)
+		)
+
+		#/###############/#
+		# compute det
+		#
+
+		#det
+		HopfedDeterminantComplex=self.HopfedDeterminantFunctionVariable(self.HopfedTotalPerturbationComplexesArray)
+	
+		#debug
+		self.debug(
+			[
+				'In the end ',
+				('self.',self,[
+						'HopfedTotalPerturbationComplexesArray'
+					]),
+				'PerturbationComplex is '+str(PerturbationComplex),
+				'HopfedDeterminantComplex is '+str(HopfedDeterminantComplex)
+			]
+		)
+
+		#return
+		return (
+			HopfedDeterminantComplex.real,
+			HopfedDeterminantComplex.imag
+		)
+
 
 	def hopfPopulation(self):
 
@@ -932,46 +1185,12 @@ class HopferClass(BaseClass):
 		#return
 		return 0.
 
-	def getGlobalPerturbationRootFloatsTuple(self,_PerturbationComplex):
+	
 
-		#split
-		PerturbationRealFloat,PerturbationImagFloat = _PerturbationComplex
-
-		#map
-		map(
-			lambda __HopfedIndexIntsTuple:
-			self.setSynapticPerturbationComplex(
-				__HopfedIndexIntsTuple
-			).HopfedSetNeuralComplexMethod(
-				__HopfedIndexIntsTuple[0]
-			),
-			self.HopfedIndexIntsTuplesList
-		)
-
-		#mul
-		self.HopfedTotalPerturbationComplexesArray=self.HopfedPerturbationWeigthFloatsArray*self.HopfedSynapticPerturbationComplexesArray
-			
-		#map 
-		map(
-			lambda __RowInt:
-			self.HopfedTotalPerturbationComplexesArray.__setitem__(
-				__RowInt,
-				self.HopfedNeuralPerturbationComplexesArray
-			),
-			xrange(self.HopfingUnitsInt)
-		)
-
-		#fill
-		np.fill_diagonal(
-			self.HopfedTotalPerturbationComplexesArray,
-			1.-np.diag(self.HopfedTotalPerturbationComplexesArray)
-		)
-		
-
-	def getUniqueDelayPerturbationRootFloatsTuple(self,_PerturbationComplex):
+	def getUniqueDelayPerturbationRootFloatsTuple(self,_PerturbationFloatsTuple):
 			
 		#split
-		PerturbationRealFloat,PerturbationImagFloat = _PerturbationComplex
+		PerturbationRealFloat,PerturbationImagFloat = _PerturbationFloatsTuple
 
 		#compute
 		PrefixComplex=(1./self.HopfedMeanfieldWeigthFloat)*np.exp(
@@ -1434,9 +1653,14 @@ HopferClass.PrintingClassSkipKeyStrsList.extend(
 		'HopfedInstabilityStr',
 		'HopfedStdSparseFloat',
 		'HopfedParentSingularStr',
-		'HopfedConstantTimeFloatsArray',
-		'HopfedDelayTimeFloatsArray',
-		'HopfedNeuralPerturbationComplexesArray',
+		'HopfedIndexIntsTuplesList',
+		'HopfedPerturbationNullVariable',
+		'HopfedPerturbationWeigthFloatsArray',
+		'HopfedConstantTimeVariable',
+		'HopfedDelayTimeVariable',
+		'HopfedDecayTimeVariable',
+		'HopfedRiseTimeVariable',
+		'HopfedNeuralPerturbationVariable',
 		'HopfedSynapticPerturbationComplexesArray',
 		'HopfedTotalPerturbationComplexesArray',
 		'HopfedAgentDeriveHopferVariable',

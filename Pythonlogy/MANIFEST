@@ -26,6 +26,8 @@ ShareYourSystem/14_ExampleDoc.md
 ShareYourSystem/15_ExampleDoc.py
 ShareYourSystem/16_ExampleDoc.md
 ShareYourSystem/17_ExampleDoc.py
+ShareYourSystem/18_ExampleDoc.md
+ShareYourSystem/19_ExampleDoc.py
 ShareYourSystem/Readme.md
 ShareYourSystem/__init__.py
 ShareYourSystem/lib.py
@@ -50,7 +52,7 @@ ShareYourSystem/Specials/Hopfers/Hopfer/11_stationary_lif_ExampleCell.py
 ShareYourSystem/Specials/Hopfers/Hopfer/12_stability_rate_ExampleDoc.md
 ShareYourSystem/Specials/Hopfers/Hopfer/13_stability_rate_ExampleCell.py
 ShareYourSystem/Specials/Hopfers/Hopfer/14_stability_lif_ExampleDoc.md
-ShareYourSystem/Specials/Hopfers/Hopfer/15_stability_rate_ExampleCell.py
+ShareYourSystem/Specials/Hopfers/Hopfer/15_stability_lif_ExampleCell.py
 ShareYourSystem/Specials/Hopfers/Hopfer/16_transfer_rate_ExampleDoc.md
 ShareYourSystem/Specials/Hopfers/Hopfer/17_transfer_rate_ExampleCell.py
 ShareYourSystem/Specials/Hopfers/Hopfer/18_transfer_lif_ExampleDoc.md
