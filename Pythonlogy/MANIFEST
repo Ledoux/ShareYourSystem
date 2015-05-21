@@ -30,6 +30,7 @@ ShareYourSystem/18_ExampleDoc.md
 ShareYourSystem/19_ExampleDoc.py
 ShareYourSystem/Readme.md
 ShareYourSystem/__init__.py
+ShareYourSystem/custom.css
 ShareYourSystem/lib.py
 ShareYourSystem/Specials/__init__.py
 ShareYourSystem/Specials/Diffusers/__init__.py

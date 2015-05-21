@@ -80,6 +80,27 @@ IdDict=collections.OrderedDict()
 #</DefineLocals>
 
 #<DefineFunctions>
+def setStyle(_FilePathStr=""):
+
+	#import
+	from IPython import utils
+	from IPython.core.display import HTML,display
+	import os
+
+	#Check
+	if _FilePathStr=="":
+		_FilePathStr=os.getcwd()+'/custom.css'
+
+	#Load
+	StyleStr = "<style>\n%s\n</style>" % (open(_FilePathStr,'r').read())
+	
+	#display
+	display(
+		HTML(
+			StyleStr
+			)
+		)
+
 def setConceptModule(_ModuleGlobalsDict):
 
 	#Debug
@@ -2362,12 +2383,17 @@ def sort(_SortList):
 	#return
 	return SortValueVariablesList+UnSortValueVariablesList
 
-#</DefineFunctions>
+#/##############/#
+# Special Singular and Plural dicts
+# 
 
-#<DefineLocals>
 SingularAndPluralTuplesList=copy.copy(ConceptStrsTuplesList)
 SingularStrToPluralStrOrderedDict=dictify(ConceptStrsTuplesList,0,1)
 PluralStrToSingularStrOrderedDict=dictify(ConceptStrsTuplesList,1,0)
+
+#/##############/#
+# Special derives list and dict classes
+# 
 
 class ClassesList(list):
 
@@ -3015,6 +3041,23 @@ def getTickIntsArray(_LimList,_SampleInt):
 	#return 
 	return TickIntsArray
 
+def getIsNullBool(_NullVariable):
+
+	#import
+	import numpy as np
+
+	#type
+	NullVariableType=type(_NullVariable)
+
+	#Check
+	if NullVariableType==np.ndarray:
+
+		#return
+		return _NullVariable.all()==0
+
+	#return
+	return _NullVariable==0
+
 def getFloatStr(_Float):
 
 	#Debug
@@ -3137,8 +3180,6 @@ def getInverseFunction(_Function,_SeedVariable=0.):
 		_SeedVariable,
 		args=[__Variable]
 	)[0]
-
-
 #</DefineLocals>
 
 #<DefineClass>
@@ -3206,17 +3247,17 @@ class ShareYourSystem():
 			from matplotlib import pyplot
 
 			#Check
-			if WrapModule.Figure==None:
-				WrapModule.Figure=pyplot.figure()
-				WrapModule.Axes=None
-
-			#Check
-			if WrapModule.Axes==None:
-				WrapModule.Axes=pyplot.axes()
-				WrapModule.Axes._figure=WrapModule.Figure
-
-			#Check
 			if _KeyVariable=='plot':
+
+				#Check
+				if WrapModule.Figure==None:
+					WrapModule.Figure=pyplot.figure()
+					WrapModule.Axes=None
+
+				#Check
+				if WrapModule.Axes==None:
+					WrapModule.Axes=pyplot.axes()
+					WrapModule.Axes._figure=WrapModule.Figure
 
 				#return
 				return getattr(

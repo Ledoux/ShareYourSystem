@@ -1,89 +1,49 @@
-#/###################/#
-# Import modules
-#
-
-
 #ImportModules
 import ShareYourSystem as SYS
 
-#/###################/#
-# Build the model
-#
-
 #Define
 MyHopfer=SYS.HopferClass(
-	).hopf(
-		_UnitsInt=100,
-		_MeanWeightFloat=1.,
-		_StdWeightFloat=0.,
-		_SparseWeigthFloat=0.2,
-		_SwitchWeigthFloat=0.5,
-		#_SymmetryFloat=-0.7,
-		_InteractionStr="Spike"
-	)
-	#.simulate(
-	#	500.
-	#)
+    ).mapSet(
+        {
+            'HopfingDelayTimeVariable':0.001,
+            'HopfingDoStabilityBool':True,
+            'PyplotingMarkerVariable':'#direct:o',
+            'PyplotingColorVariable':SYS.GetClass(
+            	lambda __SelfVariable:
+            	"black" if __SelfVariable.HopfedIsStableBool else "red"
+            )
+        }
+    )
 
-#/###################/#
-# View
-#
+#hopf and plot
+VariablesList=map(
+        lambda __IndexInt:
+        MyHopfer.setAttr(
+            'HopfingLateralWeigthVariable',
+            SYS.numpy.array(
+                [0.5]+list(
+                	SYS.numpy.array(
+                		[
+                			SYS.numpy.sqrt(
+                				1200000.*SYS.scipy.stats.uniform.rvs()
+                			)
+                		]*2
+                    )*SYS.numpy.array(
+                    	[-1.,1.]
+                    )
+                )+[
+                		-3000.*SYS.scipy.stats.uniform.rvs()
+                	]
+                ).reshape(
+                    (2,2)
+                )
+            ).hopf(
+            ).pyplot(
+                '>>-self.HopfingLateralWeigthVariable[0,1]*self.HopfingLateralWeigthVariable[1,0]',
+                '>>-self.HopfingLateralWeigthVariable[1,1]',
+            ).setSwitch('pyplot'),
+        xrange(1000)
+    )
+SYS.show()
 
-#mapSet
-MyHopfer.mapSet(
-		{
-			'PyplotingFigureVariable':{
-				'figsize':(10,8)
-			},
-			'PyplotingGridIntsTuple':(30,30),
-			'-Panels':[
-				(
-					'|Eigen',
-					{
-						'PyplotingTextVariable':[-0.6,0.],
-						'PyplotingShapeVariable':[10,10],
-						'-Charts':{
-							'|Perturbation':{
-								'PyplotingShiftVariable':[4,0],
-							}
-						}
-					}
-				),
-				(
-					'|Run',
-					{
-						'PyplotingTextVariable':[-0.4,0.],
-						'PyplotingShiftVariable':[0,4],
-						'PyplotingShapeVariable':[8,9],
-						'-Charts':{
-							'|Agent_*U':{
-								'PyplotingLegendDict':{
-									'fontsize':10,
-									'ncol':2
-								}
-							}
-						}
-					}
-				),
-				(
-					'|Stat',
-					{
-						'PyplotingTextVariable':[-0.4,0.],
-						'PyplotingShiftVariable':[4,0],
-						'PyplotingShapeVariable':[5,9],
-					}
-				)
-			]
-		}
-	).view(
-	).pyplot(
-	).show(
-	)
-
-#/###################/#
-# Print
-#
-
-#print
-print('MyHopfer is ')
-SYS._print(MyHopfer) 
+print(MyHopfer.HopfingLateralWeigthVariable)

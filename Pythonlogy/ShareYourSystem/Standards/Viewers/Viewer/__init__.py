@@ -312,6 +312,7 @@ class ViewerClass(BaseClass):
 		else:
 			return _VariableStr
 
+
 #</DefineClass>
 
 #<DefineLocals>

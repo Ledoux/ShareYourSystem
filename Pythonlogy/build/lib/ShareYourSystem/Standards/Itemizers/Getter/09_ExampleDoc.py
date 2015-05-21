@@ -10,7 +10,9 @@ MyGetter.MyInt=1
 NewInt=MyGetter[
 	{
 		'#key':"MyInt",
-		'#modify':SYS.GetClass(lambda _SelfVariable:_SelfVariable.GettedValueVariable+1)
+		'#modify':SYS.GetClass(
+			lambda _SelfVariable:_SelfVariable.GettedValueVariable+1
+		)
 	}
 ]
 

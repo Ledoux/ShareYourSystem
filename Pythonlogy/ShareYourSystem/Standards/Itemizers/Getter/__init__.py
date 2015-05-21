@@ -438,6 +438,25 @@ class GetterClass(BaseClass):
 					self.GettingKeyVariable
 				]
 
+				#Check
+				if type(self.GettedValueVariable)==GetClass:
+
+					#debug
+					'''
+					self.debug(
+						[
+							'Actually the getted value is a GetClass'
+						]
+					)
+					'''
+					
+					#set
+					self.GettedValueVariable.SelfVariable=self
+
+					#call
+					self.GettedValueVariable=self.GettedValueVariable()
+
+
 				#debug
 				'''
 				self.debug(

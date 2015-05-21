@@ -58,6 +58,10 @@ class PyploterClass(BaseClass):
 	
 	def default_init(self,
 						_PyplotTooltipVariablesList=None,
+						_PyplotingXVariable=None,
+						_PyplotingYVariable=None,
+						_PyplotingZVariable=None,
+						_PyplotingCloseBool=True,
 						_PyplotingGridIntsTuple=(22,20),
 						_PyplotingShapeVariable=None,
 						_PyplotingFigureVariable=None,
@@ -70,6 +74,9 @@ class PyploterClass(BaseClass):
 						_PyplotingTextVariable=None,
 						_PyplotingXSkipTickBool=False,
 						_PyplotingYSkipTickBool=False,
+						_PyplotingMarkerVariable=None,
+						_PyplotingColorVariable=None,
+						_PyplotedSingleBool=False,
 						_PyplotedTeamTagStr="",
 						_PyplotedParentFigureDerivePyploterVariable=None,
 						_PyplotedParentPanelDerivePyploterVariable=None,
@@ -90,13 +97,16 @@ class PyploterClass(BaseClass):
 						_PyplotedPreviousChartDerivePyploterVariable=None,
 						_PyplotedPreviousPanelDerivePyploterVariable=None,
 						_PyplotedTextIntsList=None,
+						_PyplotedXVariable=None,
+						_PyplotedYVariable=None,
+						_PyplotedZVariable=None,
 						**_KwargVariablesDict
 					):
 
 		#Call the parent __init__ method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
-	def do_pyplot(self):	
+	def do_pyplot(self,**_KwargVariablesDict):	
 		
 		#/#################/#
 		# Determine if it is an inside structure or the top
@@ -154,7 +164,7 @@ class PyploterClass(BaseClass):
 			#
 
 			#call
-			self.pyplotFigure()
+			self.pyplotFigure(**_KwargVariablesDict)
 
 			#/########################/#
 			# structure pyplot
@@ -170,6 +180,10 @@ class PyploterClass(BaseClass):
 				]
 			)
 			'''
+
+			#Check
+			if self.PyplotedSingleBool:
+				return
 
 			#structure
 			self.structure(
@@ -465,159 +479,307 @@ class PyploterClass(BaseClass):
 		)
 		'''
 
-	def pyplotFigure(self):
-
-		#/###############/#
-		# Close the old ones
-		#
-
-		#get
-		PyplotedOldFiguresList=getFiguresList()
+	def pyplotFigure(self,**_KwargVariablesDict):
 
 		#debug
 		'''
 		self.debug(
 			[
-				'The old figures was',
-				str(PyplotedOldFiguresList)
+				'We pyplot figure here',
+				('self.',self,[
+						'PyplotedSingleBool'
+					])
 			]
 		)
 		'''
 
-		#import
-		from matplotlib import pyplot
+		#Check
+		if self.PyplotedSingleBool==False:
 
-		#map
-		map(
-			lambda __Figure:
-			pyplot.close(__Figure),
-			getFiguresList()
-		)
-		
-		#/###############/#
-		# If it is the top then init the pyplot
-		#
+			#Check
+			if self.PyplotingCloseBool:
 
-		#debug
-		'''
-		self.debug(
-				[
-					'Figure Level'
-				]
-			)
-		'''
-		
-		#import pyplot
-		from matplotlib import pyplot
+				#/###############/#
+				# Close the old ones
+				#
 
-		#init
-		if self.PyplotingFigureVariable!=None:
+				#get
+				PyplotedOldFiguresList=getFiguresList()
+
+				#debug
+				'''
+				self.debug(
+					[
+						'The old figures was',
+						str(PyplotedOldFiguresList)
+					]
+				)
+				'''
+
+				#import
+				from matplotlib import pyplot
+
+				#map
+				map(
+					lambda __Figure:
+					pyplot.close(__Figure),
+					getFiguresList()
+				)
+			
+			#/###############/#
+			# If it is the top then init the pyplot
+			#
+
+			#debug
+			'''
+			self.debug(
+					[
+						'Figure Level'
+					]
+				)
+			'''
+			
+			#import pyplot
+			from matplotlib import pyplot
 
 			#init
-			self.PyplotedFigureVariable = pyplot.figure(
-				**self.PyplotingFigureVariable
-			)
+			if self.PyplotingFigureVariable!=None:
 
-		else:
+				#init
+				self.PyplotedFigureVariable = pyplot.figure(
+					**self.PyplotingFigureVariable
+				)
 
-			#init
-			self.PyplotedFigureVariable = pyplot.figure()
+			else:
 
-		#/###############/#
-		# Case of a Figure Panel Axes Draws 
-		#
+				#init
+				self.PyplotedFigureVariable = pyplot.figure()
+
+			#/###############/#
+			# Case of a Figure Panel Axes Draws 
+			#
+
+			#Check
+			if all(
+				map(
+					lambda __KeyStr:
+					__KeyStr not in self.TeamDict,
+					['Charts','Panels']
+				)
+			):
+
+				#set
+				self.PyplotedSingleBool=True
+
+				#/###############/#
+				# Set parent 
+				#
+
+				#
+				self.PyplotedParentFigureDerivePyploterVariable=self
+				self.PyplotedParentPanelDerivePyploterVariable=self
+				self.PyplotedParentChartDerivePyploterVariable=self
+
+				#/###############/#
+				# pyplotChart 
+				#
+
+				#debug
+				'''
+				self.debug(
+					[
+						'We are in the case of a Figure Panel Axes draw'
+					]
+				)
+				'''
+
+				#init
+				self.PyplotedAxesVariable = pyplot.axes()
+
+				#link
+				self.PyplotedAxesVariable._figure=self.PyplotedFigureVariable
+
+				#/#################/#
+				# Look for view argument
+				#
+
+				#debug
+				'''
+				self.debug(
+					[
+						'First look for view arguments'
+					]
+				)
+				'''
+
+				#map
+				map(
+					lambda __AxeStr:
+					self.pyplotAxe(__AxeStr),
+					[
+						'X',
+						'Y'
+					]
+				)
+
+				#debug
+				'''
+				self.debug(
+					[
+						'Ok we have maybe setted the PyplotingChartVariable',
+						('self.',self,[
+								'PyplotingChartVariable'
+							]),
+						'getFiguresList is ',
+						str(getFiguresList())
+					]
+				)
+				'''
+
+				#/###############/#
+				# pyplotDraw
+				#
+
+				#pyplotDraw
+				self.pyplotDraw()
+
+				#debug
+				'''
+				self.debug(
+					[
+						'after pyplotDraw',
+						'getFiguresList is ',
+						str(getFiguresList())
+					]
+				)
+				'''
 
 		#Check
-		if all(
+		if self.PyplotedSingleBool:
+
+			#/###############/#
+			# First get
+			#
+
+			#get
 			map(
-				lambda __KeyStr:
-				__KeyStr not in self.TeamDict,
-				['Charts','Panels']
+				lambda __AxisStr:
+				setattr(
+					self,
+					'Pyploted'+__AxisStr+'Variable',
+					self[	
+						getattr(self,'Pyploting'+__AxisStr+'Variable')
+					]
+				)
+				if type(
+					getattr(self,'Pyploting'+__AxisStr+'Variable')
+				)==str
+				else None,
+				[
+					'X','Y','Z'
+				]
 			)
-		):
-
-			#/###############/#
-			# Set parent 
-			#
-
-			#
-			self.PyplotedParentFigureDerivePyploterVariable=self
-			self.PyplotedParentPanelDerivePyploterVariable=self
-			self.PyplotedParentChartDerivePyploterVariable=self
-
-			#/###############/#
-			# pyplotChart 
-			#
 
 			#debug
 			'''
 			self.debug(
 				[
-					'We are in the case of a Figure Panel Axes draw'
+					('self.',self,[
+							'PyplotingXVariable',
+							'PyplotingYVariable',
+							'PyplotingZVariable',
+							'PyplotedXVariable',
+							'PyplotedYVariable',
+							'PyplotedZVariable'
+						])
 				]
 			)
 			'''
 
-			#init
-			self.PyplotedAxesVariable = pyplot.axes()
+			#map
+			PyplotedListsList=map(
+				lambda __PlotStr:
+				[__PlotStr,'Pyploting'+__PlotStr+'Variable',None],
+				[
+					'Marker',
+					'Color'
+				]
+			)
 
-			#link
-			self.PyplotedAxesVariable._figure=self.PyplotedFigureVariable
+			#map
+			map(
+				lambda __PyplotedList:
+				__PyplotedList.__setitem__(
+					2,
+					getattr(
+						self,
+						__PyplotedList[1]
+					)
+				),
+				PyplotedListsList
+			)
 
-			#/#################/#
-			# Look for view argument
-			#
-
+			#filter
+			PyplotedListsList=SYS._filter(
+				lambda __PyplotedList:
+				type(
+					__PyplotedList[2]
+					)!=None.__class__,
+				PyplotedListsList
+			)
+			
 			#debug
 			'''
 			self.debug(
 				[
-					'First look for view arguments'
+					'PyplotedListsList is ',
+					str(PyplotedListsList),
+					self['#direct:o']
 				]
 			)
 			'''
 
 			#map
 			map(
-				lambda __AxeStr:
-				self.pyplotAxe(__AxeStr),
-				[
-					'X',
-					'Y'
-				]
+				lambda __PyplotedList:
+				_KwargVariablesDict.__setitem__(
+					__PyplotedList[0][0].lower()+__PyplotedList[0][1:],
+					self[
+						__PyplotedList[2]
+					]
+				),
+				PyplotedListsList
 			)
-
+				
 			#debug
 			'''
 			self.debug(
 				[
-					'Ok we have maybe setted the PyplotingChartVariable',
-					('self.',self,[
-							'PyplotingChartVariable'
-						]),
-					'getFiguresList is ',
-					str(getFiguresList())
+					'We have setted the kwarg',
+					'_KwargVariablesDict is '+str(_KwargVariablesDict)
 				]
 			)
 			'''
 
-			#/###############/#
-			# pyplotDraw
-			#
+			#Check
+			if self.PyplotingZVariable==None:
 
-			#pyplotDraw
-			self.pyplotDraw()
+				#plot 
+				self.PyplotedAxesVariable.plot(
+					self.PyplotedXVariable,
+					self.PyplotedYVariable,
+					**_KwargVariablesDict
+				)
 
-			#debug
-			'''
-			self.debug(
-				[
-					'after pyplotDraw',
-					'getFiguresList is ',
-					str(getFiguresList())
-				]
-			)
-			'''
+			else:
+
+				#plot 
+				self.PyplotedAxesVariable.plot(
+					self.PyplotedXVariable,
+					self.PyplotedYVariable,
+					self.PyplotedZVariable,
+					**_KwargVariablesDict
+				)
 
 	def pyplotPanel(self):
 
@@ -2381,6 +2543,9 @@ class PyploterClass(BaseClass):
 PyploterClass.PrintingClassSkipKeyStrsList.extend(
 	[
 		'PyplotTooltipVariablesList',
+		'PyplotingXVariable',
+		'PyplotingYVariable',
+		'PyplotingZVariable',
 		'PyplotingGridIntsTuple',
 		'PyplotingShapeVariable',
 		'PyplotingFigureVariable',
@@ -2393,6 +2558,10 @@ PyploterClass.PrintingClassSkipKeyStrsList.extend(
 		'PyplotingTextVariable',
 		'PyplotingXSkipTickBool',
 		'PyplotingYSkipTickBool',
+		'PyplotingMarkerVariable',
+		'PyplotingColorVariable',
+		'PyplotingCloseBool',
+		'PyplotedSingleBool',
 		'PyplotedTeamTagStr',
 		'PyplotedParentFigureDerivePyploterVariable',
 		'PyplotedParentPanelDerivePyploterVariable',
@@ -2412,7 +2581,10 @@ PyploterClass.PrintingClassSkipKeyStrsList.extend(
 		'PyplotedParentSingularStr',
 		'PyplotedPreviousChartDerivePyploterVariable',
 		'PyplotedPreviousPanelDerivePyploterVariable',
-		'PyplotedTextIntsList'
+		'PyplotedTextIntsList',
+		'PyplotedXVariable',
+		'PyplotedYVariable',
+		'PyplotedZVariable'
 	]
 )
 #<DefinePrint>

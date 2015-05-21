@@ -39,7 +39,15 @@ print('Get #get:#get:SecondRedirectStr returns '+SYS._str(
 print('Get GetClass(lambda self:self.MyInt+2) returns '+SYS._str(
 	MyGetter[SYS.GetClass(lambda self:self.MyInt+2)]))
 
-#bound
+#bound at the scale class
 SYS.GetterClass.printHello=lambda _SelfVariable:SYS._print(_SelfVariable.HelloStr)
 print("Doing MyGetter['#call:printHello'] gives ")
 MyGetter['#call:printHello']
+
+#bound at the scale of the object
+MyGetter.MyFunction=SYS.GetClass(
+			lambda __SelfVariable:__SelfVariable.MyInt+1
+		)
+print(MyGetter['MyFunction'])
+
+
