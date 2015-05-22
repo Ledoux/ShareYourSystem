@@ -1072,6 +1072,10 @@ class CToolClass(_object):
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, CToolClass, name)
     __repr__ = _swig_repr
+    __swig_setmethods__["ComplexDict"] = _CIntegrateAndFireTransferFunction.CToolClass_ComplexDict_set
+    __swig_getmethods__["ComplexDict"] = _CIntegrateAndFireTransferFunction.CToolClass_ComplexDict_get
+    if _newclass:
+        ComplexDict = _swig_property(_CIntegrateAndFireTransferFunction.CToolClass_ComplexDict_get, _CIntegrateAndFireTransferFunction.CToolClass_ComplexDict_set)
     __swig_setmethods__["DoubleDict"] = _CIntegrateAndFireTransferFunction.CToolClass_DoubleDict_set
     __swig_getmethods__["DoubleDict"] = _CIntegrateAndFireTransferFunction.CToolClass_DoubleDict_get
     if _newclass:
@@ -1085,8 +1089,8 @@ class CToolClass(_object):
     if _newclass:
         StringDict = _swig_property(_CIntegrateAndFireTransferFunction.CToolClass_StringDict_get, _CIntegrateAndFireTransferFunction.CToolClass_StringDict_set)
 
-    def setDicts(self, _DoubleDict, _IntDict, _StringDict):
-        return _CIntegrateAndFireTransferFunction.CToolClass_setDicts(self, _DoubleDict, _IntDict, _StringDict)
+    def setDicts(self, _ComplexDict, _DoubleDict, _IntDict, _StringDict):
+        return _CIntegrateAndFireTransferFunction.CToolClass_setDicts(self, _ComplexDict, _DoubleDict, _IntDict, _StringDict)
 
     def __init__(self):
         this = _CIntegrateAndFireTransferFunction.new_CToolClass()
@@ -1371,6 +1375,32 @@ vecVecOnes = _CIntegrateAndFireTransferFunction.vecVecOnes
 def vecVecZeros(sizeVec):
     return _CIntegrateAndFireTransferFunction.vecVecZeros(sizeVec)
 vecVecZeros = _CIntegrateAndFireTransferFunction.vecVecZeros
+class doublecomplex(_object):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, doublecomplex, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, doublecomplex, name)
+    __repr__ = _swig_repr
+    __swig_setmethods__["r"] = _CIntegrateAndFireTransferFunction.doublecomplex_r_set
+    __swig_getmethods__["r"] = _CIntegrateAndFireTransferFunction.doublecomplex_r_get
+    if _newclass:
+        r = _swig_property(_CIntegrateAndFireTransferFunction.doublecomplex_r_get, _CIntegrateAndFireTransferFunction.doublecomplex_r_set)
+    __swig_setmethods__["i"] = _CIntegrateAndFireTransferFunction.doublecomplex_i_set
+    __swig_getmethods__["i"] = _CIntegrateAndFireTransferFunction.doublecomplex_i_get
+    if _newclass:
+        i = _swig_property(_CIntegrateAndFireTransferFunction.doublecomplex_i_get, _CIntegrateAndFireTransferFunction.doublecomplex_i_set)
+
+    def __init__(self):
+        this = _CIntegrateAndFireTransferFunction.new_doublecomplex()
+        try:
+            self.this.append(this)
+        except:
+            self.this = this
+    __swig_destroy__ = _CIntegrateAndFireTransferFunction.delete_doublecomplex
+    __del__ = lambda self: None
+doublecomplex_swigregister = _CIntegrateAndFireTransferFunction.doublecomplex_swigregister
+doublecomplex_swigregister(doublecomplex)
+
 class CIntegrateAndFireTransferFunctionClass(CToolClass):
     __swig_setmethods__ = {}
     for _s in [CToolClass]:
@@ -1398,14 +1428,62 @@ class CIntegrateAndFireTransferFunctionClass(CToolClass):
     def getErrorFunction(self, z):
         return _CIntegrateAndFireTransferFunction.CIntegrateAndFireTransferFunctionClass_getErrorFunction(self, z)
 
-    def getLIFStationaryRate(self):
-        return _CIntegrateAndFireTransferFunction.CIntegrateAndFireTransferFunctionClass_getLIFStationaryRate(self)
+    def getLifStationaryRate(self):
+        return _CIntegrateAndFireTransferFunction.CIntegrateAndFireTransferFunctionClass_getLifStationaryRate(self)
 
-    def getLeakPerturbativeRate(self, arg2):
-        return _CIntegrateAndFireTransferFunction.CIntegrateAndFireTransferFunctionClass_getLeakPerturbativeRate(self, arg2)
+    def old_gsurg(self, xx, yy):
+        return _CIntegrateAndFireTransferFunction.CIntegrateAndFireTransferFunctionClass_old_gsurg(self, xx, yy)
 
-    def getLIFPerturbativeRate0(self):
-        return _CIntegrateAndFireTransferFunction.CIntegrateAndFireTransferFunctionClass_getLIFPerturbativeRate0(self)
+    def old_onefone(self, a, c, z, series, deriv):
+        return _CIntegrateAndFireTransferFunction.CIntegrateAndFireTransferFunctionClass_old_onefone(self, a, c, z, series, deriv)
+
+    def old_correctionlargey(self, a, c, z, series):
+        return _CIntegrateAndFireTransferFunction.CIntegrateAndFireTransferFunctionClass_old_correctionlargey(self, a, c, z, series)
+
+    def old_u01(self, omc, y, seriesu, indic):
+        return _CIntegrateAndFireTransferFunction.CIntegrateAndFireTransferFunctionClass_old_u01(self, omc, y, seriesu, indic)
+
+    def old_u23(self, omc, y, seriesu, indic):
+        return _CIntegrateAndFireTransferFunction.CIntegrateAndFireTransferFunctionClass_old_u23(self, omc, y, seriesu, indic)
+
+    def RLIF(self, _omega, i):
+        return _CIntegrateAndFireTransferFunction.CIntegrateAndFireTransferFunctionClass_RLIF(self, _omega, i)
+
+    def Complex(self, re, im):
+        return _CIntegrateAndFireTransferFunction.CIntegrateAndFireTransferFunctionClass_Complex(self, re, im)
+
+    def Cadd(self, a, b):
+        return _CIntegrateAndFireTransferFunction.CIntegrateAndFireTransferFunctionClass_Cadd(self, a, b)
+
+    def Csub(self, a, b):
+        return _CIntegrateAndFireTransferFunction.CIntegrateAndFireTransferFunctionClass_Csub(self, a, b)
+
+    def Cmul(self, a, b):
+        return _CIntegrateAndFireTransferFunction.CIntegrateAndFireTransferFunctionClass_Cmul(self, a, b)
+
+    def Cdiv(self, a, b):
+        return _CIntegrateAndFireTransferFunction.CIntegrateAndFireTransferFunctionClass_Cdiv(self, a, b)
+
+    def Conjg(self, z):
+        return _CIntegrateAndFireTransferFunction.CIntegrateAndFireTransferFunctionClass_Conjg(self, z)
+
+    def Csqrt(self, z):
+        return _CIntegrateAndFireTransferFunction.CIntegrateAndFireTransferFunctionClass_Csqrt(self, z)
+
+    def Cexp(self, a):
+        return _CIntegrateAndFireTransferFunction.CIntegrateAndFireTransferFunctionClass_Cexp(self, a)
+
+    def RCmul(self, x, a):
+        return _CIntegrateAndFireTransferFunction.CIntegrateAndFireTransferFunctionClass_RCmul(self, x, a)
+
+    def Cabs(self, z):
+        return _CIntegrateAndFireTransferFunction.CIntegrateAndFireTransferFunctionClass_Cabs(self, z)
+
+    def Carg(self, z):
+        return _CIntegrateAndFireTransferFunction.CIntegrateAndFireTransferFunctionClass_Carg(self, z)
+
+    def getLifPerturbationNullRate(self, DiffVariable):
+        return _CIntegrateAndFireTransferFunction.CIntegrateAndFireTransferFunctionClass_getLifPerturbationNullRate(self, DiffVariable)
 
     def gsurg(self, xx, yy):
         return _CIntegrateAndFireTransferFunction.CIntegrateAndFireTransferFunctionClass_gsurg(self, xx, yy)
@@ -1422,8 +1500,8 @@ class CIntegrateAndFireTransferFunctionClass(CToolClass):
     def u23(self, omc, y, seriesu, indic):
         return _CIntegrateAndFireTransferFunction.CIntegrateAndFireTransferFunctionClass_u23(self, omc, y, seriesu, indic)
 
-    def getBrunelLIFPerturbativeRate(self, arg2):
-        return _CIntegrateAndFireTransferFunction.CIntegrateAndFireTransferFunctionClass_getBrunelLIFPerturbativeRate(self, arg2)
+    def setBrunelLifPerturbationRate(self, arg2):
+        return _CIntegrateAndFireTransferFunction.CIntegrateAndFireTransferFunctionClass_setBrunelLifPerturbationRate(self, arg2)
 
     def inside_integ(self, x):
         return _CIntegrateAndFireTransferFunction.CIntegrateAndFireTransferFunctionClass_inside_integ(self, x)
@@ -1450,8 +1528,8 @@ class CIntegrateAndFireTransferFunctionClass(CToolClass):
     def phi_t_rka(self, y, lamda, phi_pr):
         return _CIntegrateAndFireTransferFunction.CIntegrateAndFireTransferFunctionClass_phi_t_rka(self, y, lamda, phi_pr)
 
-    def getHakimLIFPerturbativeRate(self, lamda):
-        return _CIntegrateAndFireTransferFunction.CIntegrateAndFireTransferFunctionClass_getHakimLIFPerturbativeRate(self, lamda)
+    def setHakimLifPerturbationRate(self, lamda):
+        return _CIntegrateAndFireTransferFunction.CIntegrateAndFireTransferFunctionClass_setHakimLifPerturbationRate(self, lamda)
     __swig_destroy__ = _CIntegrateAndFireTransferFunction.delete_CIntegrateAndFireTransferFunctionClass
     __del__ = lambda self: None
 CIntegrateAndFireTransferFunctionClass_swigregister = _CIntegrateAndFireTransferFunction.CIntegrateAndFireTransferFunctionClass_swigregister

@@ -1072,6 +1072,10 @@ class CToolClass(_object):
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, CToolClass, name)
     __repr__ = _swig_repr
+    __swig_setmethods__["ComplexDict"] = _CTool.CToolClass_ComplexDict_set
+    __swig_getmethods__["ComplexDict"] = _CTool.CToolClass_ComplexDict_get
+    if _newclass:
+        ComplexDict = _swig_property(_CTool.CToolClass_ComplexDict_get, _CTool.CToolClass_ComplexDict_set)
     __swig_setmethods__["DoubleDict"] = _CTool.CToolClass_DoubleDict_set
     __swig_getmethods__["DoubleDict"] = _CTool.CToolClass_DoubleDict_get
     if _newclass:
@@ -1085,8 +1089,8 @@ class CToolClass(_object):
     if _newclass:
         StringDict = _swig_property(_CTool.CToolClass_StringDict_get, _CTool.CToolClass_StringDict_set)
 
-    def setDicts(self, _DoubleDict, _IntDict, _StringDict):
-        return _CTool.CToolClass_setDicts(self, _DoubleDict, _IntDict, _StringDict)
+    def setDicts(self, _ComplexDict, _DoubleDict, _IntDict, _StringDict):
+        return _CTool.CToolClass_setDicts(self, _ComplexDict, _DoubleDict, _IntDict, _StringDict)
 
     def __init__(self):
         this = _CTool.new_CToolClass()

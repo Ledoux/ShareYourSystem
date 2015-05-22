@@ -23,7 +23,7 @@ SYS.addDo('Lifer','Lif','Lifing','Lifed')
 def getFilterDictByType(**_Dict):
 
 	#init
-	FilteredDict={'DoubleDict':{},'IntDict':{},'StringDict':{}};
+	FilteredDict={'ComplexDict':{},'DoubleDict':{},'IntDict':{},'StringDict':{}};
 
 	#map
 	map(
@@ -70,15 +70,15 @@ SYS.getCArgsFromDict=getCArgsFromDict
 class LiferClass(BaseClass):
 	
 	def default_init(self, 
-			_LifingMembraneConstantTimeFloat=0.02, 
+			_LifingConstantTimeFloat=0.02, 
 			_LifingRefractoryPeriodFloat=0.,
 			_LifingStationaryCurrentFloat=-55., 
 			_LifingVoltageNoiseFloat=5., 
 			_LifingVoltageResetFloat=-70., 
 			_LifingVoltageThresholdFloat=-50.,
-			_LifingIsStationaryBool=True,
-			_LifingPerturbLambdaVariable=None,
-			_LifingPerturbFrequencyFloat=None,
+			_LifingComputeStationaryBool=True,
+			_LifingPerturbationLambdaVariable=None,
+			_LifingPerturbationFrequencyFloat=None,
 			_LifingPerturbationMethodStr='Brunel',
 			_LifedSwigVariable=None,
 			_LifedStationaryRateFloat=0.,
@@ -127,8 +127,13 @@ class LiferClass(BaseClass):
 		# Look if the stationary point was already computed
 		#
 
+		#set
+		self.LifedSwigVariable.IntDict['ComputeStationary']=int(
+			self.LifingComputeStationaryBool
+		)
+
 		#Check
-		if self.LifingIsStationaryBool:
+		if self.LifingComputeStationaryBool:
 
 			#debug
 			'''
@@ -136,7 +141,7 @@ class LiferClass(BaseClass):
 				[
 					'We lif compute stationary here',
 					('self.',self,[
-							'LifingMembraneConstantTimeFloat',
+							'LifingConstantTimeFloat',
 							'LifingRefractoryPeriodFloat',
 							'LifingStationaryCurrentFloat',
 							'LifingVoltageNoiseFloat',
@@ -151,9 +156,9 @@ class LiferClass(BaseClass):
 			self.LifedSwigVariable.setDicts(
 				*getCArgsFromDict(
 					getFilterDictByType(**{
-							'MembraneConstantTime':self.LifingMembraneConstantTimeFloat,
+							'ConstantTime':self.LifingConstantTimeFloat,
 							'RefractoryPeriod':self.LifingRefractoryPeriodFloat,
-							'TotalStationaryCurrent':self.LifingStationaryCurrentFloat, 
+							'StationaryCurrent':self.LifingStationaryCurrentFloat, 
 							'VoltageNoise':self.LifingVoltageNoiseFloat, 
 							'VoltageReset':self.LifingVoltageResetFloat, 
 							'VoltageThreshold':self.LifingVoltageThresholdFloat
@@ -167,14 +172,14 @@ class LiferClass(BaseClass):
 			self.LifedSwigVariable.computeIntegralUpperBound();
 	    	
 			#set
-			self.LifedStationaryRateFloat=self.LifedSwigVariable.getLIFStationaryRate();
+			self.LifedStationaryRateFloat=self.LifedSwigVariable.getLifStationaryRate();
 
 		#/##################/#
 		# Compute a perturbaton
 		#
 
 		#Check
-		if self.LifingPerturbFrequencyFloat!=0. or self.LifingPerturbLambdaVariable!=None:
+		if self.LifingPerturbationFrequencyFloat!=0. or self.LifingPerturbationLambdaVariable!=None:
 
 			#/##################/#
 			# Get the method
@@ -183,35 +188,47 @@ class LiferClass(BaseClass):
 			#get
 			self.LifedPerturbationMethodVariable=getattr(
 				self.LifedSwigVariable,
-				'get'+self.LifingPerturbationMethodStr+'LIFPerturbativeRate'
+				'set'+self.LifingPerturbationMethodStr+'LifPerturbationRate'
 			)
 
 			#get
-			self.LifedPerturbationNullFloat=self.LifedSwigVariable.getLIFPerturbativeRate0()[
-				"TotalStationaryCurrent"
-			]
+			self.LifedPerturbationNullFloat=self.LifedSwigVariable.getLifPerturbationNullRate(
+					'StationaryCurrent'
+				)
 
+			#debug
+			'''
+			self.debug(
+				[
+					('self.',self,[
+							'LifedPerturbationNullFloat'
+						])
+				]
+			)
+			'''
+			
 			#Choose
-			if self.LifingPerturbFrequencyFloat!=0.:
+			if self.LifingPerturbationFrequencyFloat!=0.:
 
 				#import
 				import numpy as np
 
 				#set
-				LifedPerturbationPreVariable=2.*np.pi*self.LifingPerturbFrequencyFloat
+				LifedPerturbationPreVariable=2.*np.pi*self.LifingPerturbationFrequencyFloat*1j
+
 			else:
 
 				#set
-				LifedPerturbationPreVariable=self.LifingPerturbLambdaVariable
+				LifedPerturbationPreVariable=self.LifingPerturbationLambdaVariable
 
 			#call
-			LifedPerturbDict=self.LifedPerturbationMethodVariable(
+			self.LifedPerturbationMethodVariable(
 				LifedPerturbationPreVariable
 			)
 
 			#unpack
-			self.LifedPerturbationMeanComplexVariable=LifedPerturbDict["TotalStationaryCurrent"]
-			self.LifedPerturbationNoiseComplexVariable=LifedPerturbDict["VoltageNoise"]
+			self.LifedPerturbationMeanComplexVariable=self.LifedSwigVariable.ComplexDict["PerturbationMean"]
+			self.LifedPerturbationNoiseComplexVariable=self.LifedSwigVariable.ComplexDict["PerturbationNoise"]
 
 			#debug
 			'''
@@ -248,14 +265,14 @@ class LiferClass(BaseClass):
 					if getattr(self.PrintingCopyVariable,__KeyStr) not in [None,0.]
 					else None,
 					[
-						'LifingMembraneConstantTimeFloat', 
+						'LifingConstantTimeFloat', 
 						'LifingRefractoryPeriodFloat',
 						'LifingStationaryCurrentFloat', 
 						'LifingVoltageNoiseFloat', 
 						'LifingVoltageResetFloat', 
 						'LifingVoltageThresholdFloat',
-						'LifingPerturbLambdaVariable',
-						'LifingPerturbFrequencyFloat',
+						'LifingPerturbationLambdaVariable',
+						'LifingPerturbationFrequencyFloat',
 						'LifingPerturbationMethodStr',
 						'LifedStationaryRateFloat',
 						'LifedPerturbationNullFloat',
@@ -271,99 +288,20 @@ class LiferClass(BaseClass):
 		#call
 		BaseClass._print(self,**_KwargVariablesDict)
 
-
-	def pyplot(self):
-
-		pass
-
-		"""
-		###PLOT#####
-		VoltageNoises=[0.,1.,2.5,5.]
-		colors=["black","black","black","black"];
-		linestyle=[":","--","-.","-"];
-		TotalStationaryCurrents=arange(-70.,-40.,0.1);
-		for VoltageNoiseIdx in xrange(len(VoltageNoises)):    
-		    myLIFTransfer.DoubleDict["VoltageNoise"]=VoltageNoises[VoltageNoiseIdx];
-		    plot(TotalStationaryCurrents,
-		         map(getFrequencyFromTotalStationaryCurrent,TotalStationaryCurrents),
-		         linestyle=linestyle[VoltageNoiseIdx],color=colors[VoltageNoiseIdx],
-		         lw=5,label="$\sigma=%.0f\ mV$"%VoltageNoises[VoltageNoiseIdx]);
-
-		###BEAUTIFY PLOY
-		legend()
-		xlabel('$\mu_{0}\ (mV)$',fontsize=25)
-		ylabel('$f\ (Hz)$',fontsize=25)
-		"""
-		
-		"""
-		####PLOT#####
-		subplot(2,2,1);
-		plot(Frequencies,abs(CurrentBrunelLIFPerturbativeRates)/r0,color='brown',linestyle=linestyle[VoltageNoiseIdx],lw=10);
-		plot(Frequencies,abs(CurrentHakimLIFPerturbativeRates)/r0,color='red',linestyle=linestyle[VoltageNoiseIdx],lw=5);
-		subplot(2,2,3);
-		plot(Frequencies,(180./np.pi)*np.angle(CurrentBrunelLIFPerturbativeRates),color='brown',linestyle=linestyle[VoltageNoiseIdx],lw=10);
-		plot(Frequencies,(180./np.pi)*np.angle(CurrentHakimLIFPerturbativeRates),color='red',linestyle=linestyle[VoltageNoiseIdx],lw=5);
-		subplot(2,2,2);
-		plot([-1.,-1.],[-1.,-1.],color='black',linestyle=linestyle[VoltageNoiseIdx],label="$\sigma=%.0f\,mV$"%VoltageNoise,lw=5);
-		plot(Frequencies,abs(NoiseBrunelLIFPerturbativeRates)/r0,color='brown',linestyle=linestyle[VoltageNoiseIdx],lw=10);
-		plot(Frequencies,abs(NoiseHakimLIFPerturbativeRates)/r0,color='red',linestyle=linestyle[VoltageNoiseIdx],lw=5);
-		subplot(2,2,4);
-		plot(Frequencies,(180./np.pi)*np.angle(NoiseBrunelLIFPerturbativeRates),color='brown',linestyle=linestyle[VoltageNoiseIdx],lw=10);
-		plot(Frequencies,(180./np.pi)*np.angle(NoiseHakimLIFPerturbativeRates),color='red',linestyle=linestyle[VoltageNoiseIdx],lw=5);
-		    
-		_maxMu=max(_maxMu,max((abs(CurrentBrunelLIFPerturbativeRates)/r0).max(),(abs(CurrentHakimLIFPerturbativeRates)/r0).max()));
-		_maxSigma=max(_maxSigma,max((abs(NoiseBrunelLIFPerturbativeRates)/r0).max(),(abs(NoiseHakimLIFPerturbativeRates)/r0).max()));
-
-		####BEAUTIFY PLOTS###
-		ax=subplot(2,2,1);
-		ax.plot([-1.,-1.],[-1.,-1.],color='brown',linestyle=linestyle[VoltageNoiseIdx],label="Brunel",lw=5);
-		ax.plot([-1.,-1.],[-1.,-1.],color='red',linestyle=linestyle[VoltageNoiseIdx],label="Hakim",lw=5);
-		ax.legend();
-		ax.set_xscale('log');
-		ax.set_xticks([0.1,1.,10.,100.,1000.]);
-		ax.set_xticklabels([]);
-		ax.set_xlim([min(Frequencies),max(Frequencies)]);
-		ax.set_ylabel('$|\\tilde{R}_{\mu_{0}}(f=\\frac{\omega}{2\pi})|/r_{0} $',fontsize=25);
-		ax.set_ylim([0,_maxMu]);
-		ax=subplot(2,2,3);
-		ax.set_xlabel('$f\ (Hz)$',fontsize=25);
-		ax.set_xscale('log');
-		ax.set_xticks([0.1,1.,10.,100.,1000.]);
-		ax.set_xlim([min(Frequencies),max(Frequencies)]);
-		ax.set_ylabel('$\Phi(\\tilde{R}_{\mu_{0}}(f=\\frac{\omega}{2\pi})) $',fontsize=25);
-		ax.set_ylim([-180.,180.]);
-		ax=subplot(2,2,2);
-		ax.legend();
-		ax.set_xscale('log');
-		ax.set_xticks([0.1,1.,10.,100.,1000.]);
-		ax.set_xticklabels([]);
-		ax.set_xlim([min(Frequencies),max(Frequencies)]);
-		ax.set_ylabel('$|\\tilde{R}_{\sigma}(f=\\frac{\omega}{2\pi})|/r_{0} $',fontsize=25);
-		ax.set_ylim([0,_maxSigma]);
-		ax=subplot(2,2,4);
-		ax.set_xlabel('$f\ (Hz)$',fontsize=25);
-		ax.set_xscale('log');
-		ax.set_xticks([0.1,1.,10.,100.,1000.]);
-		ax.set_xlim([min(Frequencies),max(Frequencies)]);
-		ax.set_ylabel('$\Phi(\\tilde{R}_{\sigma}(f=\\frac{\omega}{2\pi})) $',fontsize=25);
-		ax.set_ylim([-180.,180.]);
-		"""
-
-
 #</DefineClass>
 
 #</DefinePrint>
 LiferClass.PrintingClassSkipKeyStrsList.extend(
 	[
-		'LifingMembraneConstantTimeFloat', 
+		'LifingConstantTimeFloat', 
 		'LifingRefractoryPeriodFloat',
 		'LifingStationaryCurrentFloat', 
 		'LifingVoltageNoiseFloat', 
 		'LifingVoltageResetFloat', 
 		'LifingVoltageThresholdFloat',
-		'LifingIsStationaryBool',
-		'LifingPerturbLambdaVariable',
-		'LifingPerturbFrequencyFloat',
+		'LifingComputeStationaryBool',
+		'LifingPerturbationLambdaVariable',
+		'LifingPerturbationFrequencyFloat',
 		'LifingPerturbationMethodStr',
 		'LifedSwigVariable',
 		'LifedStationaryRateFloat',

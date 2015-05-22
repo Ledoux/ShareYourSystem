@@ -65,6 +65,8 @@ ShareYourSystem/Specials/Hopfers/Lifer/02_perturb_ExampleDoc.md
 ShareYourSystem/Specials/Hopfers/Lifer/03_perturb_ExampleCell.py
 ShareYourSystem/Specials/Hopfers/Lifer/04_transfer_ExampleDoc.md
 ShareYourSystem/Specials/Hopfers/Lifer/05_transfer_ExampleCell.py
+ShareYourSystem/Specials/Hopfers/Lifer/06_transfer_plot_ExampleDoc.md
+ShareYourSystem/Specials/Hopfers/Lifer/07_transfer_plot_ExampleCell.py
 ShareYourSystem/Specials/Hopfers/Lifer/CIntegrateAndFireTransferFunction.cpp
 ShareYourSystem/Specials/Hopfers/Lifer/CIntegrateAndFireTransferFunction.h
 ShareYourSystem/Specials/Hopfers/Lifer/CIntegrateAndFireTransferFunction.o
@@ -514,6 +516,7 @@ ShareYourSystem/Standards/Interfacers/Swiger/CTool.h
 ShareYourSystem/Standards/Interfacers/Swiger/CTool.o
 ShareYourSystem/Standards/Interfacers/Swiger/CTool.py
 ShareYourSystem/Standards/Interfacers/Swiger/CTool.swig
+ShareYourSystem/Standards/Interfacers/Swiger/CTool_wrap.cpp
 ShareYourSystem/Standards/Interfacers/Swiger/CTool_wrap.o
 ShareYourSystem/Standards/Interfacers/Swiger/Makefile
 ShareYourSystem/Standards/Interfacers/Swiger/SwigConfigs.swig

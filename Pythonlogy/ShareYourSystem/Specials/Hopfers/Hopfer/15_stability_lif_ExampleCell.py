@@ -45,5 +45,3 @@ VariablesList=map(
         xrange(1000)
     )
 SYS.show()
-
-print(MyHopfer.HopfingLateralWeigthVariable)

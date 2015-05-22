@@ -15,16 +15,20 @@ using namespace std;
 
 
 /***PYTHONIZE DICT ATTRIBUTES CONTAINER C++ CLASS LIKE***/
-
+std::map<std::string,std::complex<double> > _DefaultStringComplexMap;
 std::map<std::string,double> _DefaultStringDoubleMap;
 std::map<std::string,int> _DefaultStringIntMap;
 std::map<std::string,std::string> _DefaultStringStringMap;
+
+
 void CToolClass::setDicts(
-						  std::map<std::string,double> _DoubleDict=_DefaultStringDoubleMap,
-						  std::map<std::string,int> _IntDict=_DefaultStringIntMap,
-						  std::map<std::string,std::string> _StringDict=_DefaultStringStringMap
-						  )
+						std::map<std::string,std::complex<double> > _ComplexDict=_DefaultStringComplexMap,
+						std::map<std::string,double> _DoubleDict=_DefaultStringDoubleMap,
+						std::map<std::string,int> _IntDict=_DefaultStringIntMap,
+						std::map<std::string,std::string> _StringDict=_DefaultStringStringMap
+					)
 {
+	setDict(&ComplexDict,_ComplexDict);
 	setDict(&DoubleDict,_DoubleDict);
 	setDict(&IntDict,_IntDict);
 	setDict(&StringDict,_StringDict);

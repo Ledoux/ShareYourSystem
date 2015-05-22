@@ -19,6 +19,7 @@ class CToolClass
 	public:
 	
 		/*** DICT ATTRIBUTES ***/
+		std::map<std::string, std::complex<double> > ComplexDict;
 		std::map<std::string, double> DoubleDict;
 		std::map<std::string, int> IntDict;
 		std::map<std::string,std::string> StringDict;
@@ -36,6 +37,7 @@ class CToolClass
 		};
 		
 		void setDicts(
+						std::map<std::string, std::complex<double> > _ComplexDict,
 						std::map<std::string, double> _DoubleDict,
 						std::map<std::string, int> _IntDict,
 						std::map<std::string,std::string> _StringDict

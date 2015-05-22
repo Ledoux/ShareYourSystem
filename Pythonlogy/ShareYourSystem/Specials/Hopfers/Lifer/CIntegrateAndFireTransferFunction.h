@@ -10,6 +10,9 @@
 #include <string>
 #include <vector>
 
+typedef struct DOUBLECOMPLEX { double r, i; } doublecomplex;
+
+
 class CIntegrateAndFireTransferFunctionClass : public CToolClass
 {
 	public:
@@ -27,15 +30,40 @@ class CIntegrateAndFireTransferFunctionClass : public CToolClass
 		
 		/*** STATIONARY RATES ****/
 		double getErrorFunction(double z);
-		double getLIFStationaryRate();
+		double getLifStationaryRate();
 		
 		/*** LINEAR PERTURBATIONS ***/
-		
-		/*** RatePerturbation***/
-		std::map<std::string,std::complex<double> > getLeakPerturbativeRate(std::complex<double> lambda);
-		
-		/*** LIF perturbation at zero frequency***/
-		std::map<std::string,double> getLIFPerturbativeRate0();
+
+
+
+		doublecomplex old_gsurg(doublecomplex xx,doublecomplex yy);
+		void old_onefone(doublecomplex a, doublecomplex c, 
+			doublecomplex z, doublecomplex *series, doublecomplex *deriv); 
+		void old_correctionlargey(doublecomplex a, 
+			doublecomplex c, doublecomplex z, doublecomplex *series); 
+		void old_u01(
+			double omc, double y, doublecomplex *seriesu, int *indic
+		);
+		void old_u23(
+			double omc, double y, doublecomplex *seriesu, int *indic
+		);
+		doublecomplex RLIF(double _omega,int i); 
+		doublecomplex Complex(double re, double im); //defined in inline functions
+		doublecomplex Cadd(doublecomplex a, doublecomplex b); //defined in inline functions
+		doublecomplex Csub(doublecomplex a, doublecomplex b); //defined in inline functions
+		doublecomplex Cmul(doublecomplex a, doublecomplex b); //defined in inline functions
+		doublecomplex Cdiv(doublecomplex a, doublecomplex b); //defined in inline functions
+		doublecomplex Conjg(doublecomplex z); //defined in inline functions
+		doublecomplex Csqrt(doublecomplex z); //defined in inline functions
+		doublecomplex Cexp(doublecomplex a); //defined in inline functions
+		doublecomplex RCmul(double x, doublecomplex a); //defined in inline functions
+		double Cabs(doublecomplex z); //defined in inline functions
+		double Carg(doublecomplex z); //defined in inline functions
+
+
+
+		/*** Lif perturbation at zero frequency***/
+		double getLifPerturbationNullRate(std::string DiffVariable);
 		
 		/*** Brunel Methods ***/
 		std::complex<double> gsurg(std::complex<double> xx,std::complex<double> yy);
@@ -43,7 +71,7 @@ class CIntegrateAndFireTransferFunctionClass : public CToolClass
 		void correctionlargey(std::complex<double> a, std::complex<double> c, std::complex<double> z, std::complex<double> *series); 
 		void u01(std::complex<double> omc, double y, std::complex<double> *seriesu, int *indic);
 		void u23(std::complex<double> omc, double y, std::complex<double> *seriesu, int *indic);
-		std::map<std::string,std::complex<double> > getBrunelLIFPerturbativeRate(std::complex<double> lambda);
+		void setBrunelLifPerturbationRate(std::complex<double> lambda);
 		
 		/*** Hakim Ostojic Methods ***/
 		double inside_integ(double x);
@@ -55,10 +83,12 @@ class CIntegrateAndFireTransferFunctionClass : public CToolClass
 		double odeint(std::vector<std::complex<double> >& ystart, const double x1, const double x2, const double eps, const double h1,  const double hmin, std::complex<double> lamda,
 						void (CIntegrateAndFireTransferFunctionClass::*derivs)(double, std::vector<std::complex<double> >&, std::vector<std::complex<double> >&, std::complex<double>));
 		std::complex<double> phi_t_rka(double y, std::complex<double> lamda, std::complex<double>& phi_pr);
-		std::map<std::string,std::complex<double> > getHakimLIFPerturbativeRate(std::complex<double> lamda);
+		void setHakimLifPerturbationRate(std::complex<double> lamda);
 		
 
 };
+
+
 
 #endif
 

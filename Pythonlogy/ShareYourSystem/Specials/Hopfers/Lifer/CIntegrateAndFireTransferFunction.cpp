@@ -10,6 +10,11 @@
 #include <stdio.h>
 #include <iostream>
 
+
+#define ONE Complex(1.0e0,0.0e0)
+#define TWO Complex(2.0e0,0.0e0)
+#define HALF Complex(0.5e0,0.0e0)
+
 const double PSHRNK=-0.25;
 const double PGROW=-0.2;
 const double SAFETY=0.9;
@@ -29,8 +34,6 @@ const double a9= -.82215223;
 const double a10= .17087277;
 const double SQPI=sqrt(4.0e0*atan(1.0e0));
 const double TWOPI=8.*atan(1.);
-const std::string VariableNames[3]={"TotalStationaryCurrent","VoltageNoise","MembraneConstantTime"};
-
 using namespace std;
 
 
@@ -41,27 +44,39 @@ using namespace std;
 /***CONSTRUCTORS***/
 CIntegrateAndFireTransferFunctionClass::CIntegrateAndFireTransferFunctionClass()
 {
-	DoubleDict["MembraneConstantTimeFloat"]=0.02;
-	DoubleDict["RefractoryPeriodFloat"]=0.;
-	DoubleDict["TotalStationaryCurrentFloat"]=-55.;
-	DoubleDict["VoltageNoiseFloat"]=5.;
-	DoubleDict["VoltageResetFloat"]=-70.; 
-	DoubleDict["VoltageThresholdFloat"]=-50.;
-	DoubleDict["VoltageThreshold"]=1.;
-	DoubleDict["StationaryRate"]=0.;
-	IntDict["StationaryCompute"]=1;
-	IntDict["StationarySet"]=1;
+	//DoubleDict["ConstantTime"]=0.02;
+	//DoubleDict["RefractoryPeriod"]=0.;
+	//DoubleDict["StationaryCurrent"]=-55.;
+	//DoubleDict["VoltageNoise"]=5.;
+	//DoubleDict["VoltageReset"]=-70.; 
+	//DoubleDict["VoltageThreshold"]=-50.;
+	//DoubleDict["StationaryRate"]=0.;
+	IntDict["ComputeStationary"]=1;
+	IntDict["IsStationary"]=1;
 }
 
 
 /*** compute upper and lower bounds of the integrals***/
 void CIntegrateAndFireTransferFunctionClass::computeIntegralUpperBound()
 {
-	DoubleDict["IntegralUpperBound"]=(DoubleDict["VoltageThreshold"]-DoubleDict["TotalStationaryCurrent"])/DoubleDict["VoltageNoise"];
+
+	//print
+	/*
+	cout<<"StationaryCurrent is "<<DoubleDict["StationaryCurrent"]<<endl;
+	cout<<"VoltageNoise is "<<DoubleDict["VoltageNoise"]<<endl;
+	cout<<endl;
+	*/
+
+	//compute
+	DoubleDict["IntegralUpperBound"]=(
+		DoubleDict["VoltageThreshold"]-DoubleDict["StationaryCurrent"]
+	)/DoubleDict["VoltageNoise"];
 }
 void CIntegrateAndFireTransferFunctionClass::computeIntegralLowerBound()
 {
-	DoubleDict["IntegralLowerBound"]=(DoubleDict["VoltageReset"]-DoubleDict["TotalStationaryCurrent"])/DoubleDict["VoltageNoise"];
+	DoubleDict["IntegralLowerBound"]=(
+		DoubleDict["VoltageReset"]-DoubleDict["StationaryCurrent"]
+	)/DoubleDict["VoltageNoise"];
 }
 
 
@@ -81,58 +96,68 @@ double CIntegrateAndFireTransferFunctionClass::getErrorFunction(double z)
 
 
 
-/***LIF static transduction function***/
-double CIntegrateAndFireTransferFunctionClass::getLIFStationaryRate()
+/***Lif static transduction function***/
+double CIntegrateAndFireTransferFunctionClass::getLifStationaryRate()
 {
-	static double w,z,cont,ylow;
+	static double w,z,cont,ylow,intuppbound,intlowbound;
  	static int i,N;
 	
 	if(DoubleDict["VoltageNoise"]>0.)
 	{
+
+		//set
+		intuppbound=DoubleDict["IntegralUpperBound"];
+		intlowbound=DoubleDict["IntegralLowerBound"];
+
 		N=10000;
 		//algorithm integration
 		w=0.;
-		if(DoubleDict["IntegralUpperBound"]<-100.&&DoubleDict["IntegralLowerBound"]<-100.) 
+		if(intuppbound<-100.&&intlowbound<-100.) 
 		{
-			w=log(DoubleDict["IntegralLowerBound"]/DoubleDict["IntegralUpperBound"])-0.25/pow(DoubleDict["IntegralUpperBound"],2.)+0.25/pow(DoubleDict["IntegralLowerBound"],2.);
-			w=1./(DoubleDict["RefractoryPeriod"]+DoubleDict["MembraneConstantTime"]*w);
+			w=log(intlowbound/intuppbound
+				)-0.25/pow(intuppbound,2.)+0.25/pow(
+				intlowbound,2.
+			);
+			w=1./(DoubleDict["RefractoryPeriod"]+DoubleDict["ConstantTime"]*w);
 		}
-		else if(DoubleDict["IntegralLowerBound"]<-100.) 
+		else if(intlowbound<-100.) 
 		{
 			ylow=-100.; 
-			N=(int)(100.*(DoubleDict["IntegralUpperBound"]-ylow));
+			N=(int)(100.*(intuppbound-ylow));
 			for(i=0;i<=N;i++) 
 			{
-				z=ylow+(DoubleDict["IntegralUpperBound"]-ylow)*(double)(i)/(double)(N);
+				z=ylow+(intuppbound-ylow)*(double)(i)/(double)(N);
 				cont=getErrorFunction(z);
 				if(i==0||i==N) {w+=0.5*cont;}
 				else {w+=cont;}
 			}
-			w*=(DoubleDict["IntegralUpperBound"]-ylow)*SQPI/(double)(N);
-			w+=log(-DoubleDict["IntegralLowerBound"]/100.)-0.000025+0.25/pow(DoubleDict["IntegralLowerBound"],2.);
-			w=1./(DoubleDict["RefractoryPeriod"]+DoubleDict["MembraneConstantTime"]*w);
+			w*=(intuppbound-ylow)*SQPI/(double)(N);
+			w+=log(-intlowbound/100.)-0.000025+0.25/pow(intlowbound,2.);
+			w=1./(DoubleDict["RefractoryPeriod"]+DoubleDict["ConstantTime"]*w);
 		}	
 		else 
 		{
-			ylow=DoubleDict["IntegralLowerBound"];
-			N=(int)(100.*(DoubleDict["IntegralUpperBound"]-ylow));
+			ylow=intlowbound;
+			N=(int)(100.*(intuppbound-ylow));
 			for(i=0;i<=N;i++) 
 			{
-				z=ylow+(DoubleDict["IntegralUpperBound"]-ylow)*(double)(i)/(double)(N);
+				z=ylow+(intuppbound-ylow)*(double)(i)/(double)(N);
 				cont=getErrorFunction(z);
 				if(i==0||i==N){w+=0.5*cont;}
 				else{w+=cont;}
 			}
-			w*=(DoubleDict["IntegralUpperBound"]-ylow)*SQPI/(double)(N);
-			w=1./(DoubleDict["RefractoryPeriod"]+DoubleDict["MembraneConstantTime"]*w);
+			w*=(intuppbound-ylow)*SQPI/(double)(N);
+			w=1./(DoubleDict["RefractoryPeriod"]+DoubleDict["ConstantTime"]*w);
 		}
 	}
 	else
 	{
 		//zero noise case
-		if(DoubleDict["TotalStationaryCurrent"]>DoubleDict["VoltageThreshold"])
+		if(DoubleDict["StationaryCurrent"]>DoubleDict["VoltageThreshold"])
 		{
-			return 1./(DoubleDict["RefractoryPeriod"]+DoubleDict["MembraneConstantTime"]*log((DoubleDict["VoltageReset"]-DoubleDict["TotalStationaryCurrent"])/(DoubleDict["VoltageThreshold"]-DoubleDict["TotalStationaryCurrent"])));
+			return 1./(DoubleDict["RefractoryPeriod"]+DoubleDict["ConstantTime"]*log(
+				(DoubleDict["VoltageReset"]-DoubleDict["StationaryCurrent"]
+			)/(DoubleDict["VoltageThreshold"]-DoubleDict["StationaryCurrent"])));
 		}
 		else
 		{
@@ -141,7 +166,7 @@ double CIntegrateAndFireTransferFunctionClass::getLIFStationaryRate()
 	}
 	
 	//set
-	if(IntDict["StationarySet"]==1){
+	if(IntDict["IsStationary"]==1){
 		DoubleDict["StationaryRate"]=w;
 	}
 
@@ -154,65 +179,126 @@ double CIntegrateAndFireTransferFunctionClass::getLIFStationaryRate()
 /******************************************************/
 /***************FIRST ORDER DYNAMIC*********************/
 
-/***LIF Linear Perturbative Transfer Function at zero frequency***/
-std::map<std::string,double> CIntegrateAndFireTransferFunctionClass::getLIFPerturbativeRate0()
+/***Lif Linear Perturbative Transfer Function at zero frequency***/
+double CIntegrateAndFireTransferFunctionClass::getLifPerturbationNullRate(
+		std::string DiffVariable="StationaryCurrent"
+	)
 {
 	std::map<std::string,double> OutputDict;
-	static double DeltaVariable,Variable,DeltaFunction;
-	static std::string VariableName;
+	static double DeltaVariable,Variable,DeltaFunction,PerturbationNullRate;
 	DeltaVariable=0.01;
 	
 	//Check
-	IntDict["StationarySet"]=false;
+	IntDict["IsStationary"]=false;
 
-	/**** partial derivative****/
-	for(int VariableIdx=0;VariableIdx<sizeof(VariableNames)/sizeof(std::string);VariableIdx++)
-	{
-		/*** set the name***/
-		VariableName=VariableNames[VariableIdx];
+	//temp
+	Variable=DoubleDict[DiffVariable];
 	
-		/*** current***/
-		Variable=DoubleDict[VariableName];
-		DoubleDict[VariableName]+=DeltaVariable;
-		computeIntegralUpperBound();
-		computeIntegralLowerBound();
-		DeltaFunction=getLIFStationaryRate();
-		DoubleDict[VariableName]-=2.*DeltaVariable;
-		computeIntegralUpperBound();
-		computeIntegralLowerBound();
-		DeltaFunction-=getLIFStationaryRate();
-		DoubleDict[VariableName]=Variable;
-		computeIntegralUpperBound();
-		computeIntegralLowerBound();
-		OutputDict[VariableName]=DeltaFunction/(2.*DeltaVariable);
+	//compute forward
+	DoubleDict[DiffVariable]+=DeltaVariable;
+	computeIntegralUpperBound();
+	computeIntegralLowerBound();
+	DeltaFunction=getLifStationaryRate();
 
-	}
+	//compute just behind
+	DoubleDict[DiffVariable]-=2.*DeltaVariable;
+	computeIntegralUpperBound();
+	computeIntegralLowerBound();
+	DeltaFunction-=getLifStationaryRate();
 
+	//compute
+	PerturbationNullRate=DeltaFunction/(2.*DeltaVariable);
+
+	//reset
+	DoubleDict[DiffVariable]=Variable;
+	computeIntegralUpperBound();
+	computeIntegralLowerBound();
+	
 	//Check
-	IntDict["StationarySet"]=true;
+	IntDict["IsStationary"]=true;
 
 	/**** return OutputDict***/
-	return OutputDict;
-}
-
-/***LIF Linear Perturbative Transfer Function***/
-
-/***get the first order pass-filter***/
-std::map<std::string,std::complex<double> > CIntegrateAndFireTransferFunctionClass::getLeakPerturbativeRate(std::complex<double> lambda)
-{
-	/*******init output ********/
-	std::map<std::string,std::complex<double> > OutputDict;
-	OutputDict["TotalStationaryCurrent"]=1./(1.+getComplex(0.,1.)*lambda);
-	OutputDict["VoltageNoise"]=1./(2.+getComplex(0.,1.)*lambda);
-	OutputDict["MembraneConstantTime"]=1.;
-	
-	/**** return output****/
-	return OutputDict;
+	return PerturbationNullRate;
 }
 
 /***Brunel methods****/
 
 /***all complex function to compute RLIF***/
+doublecomplex CIntegrateAndFireTransferFunctionClass::old_gsurg(doublecomplex xx,doublecomplex yy) 
+{	
+	static double cof[6]={76.18009172947146,-86.50532032941677,24.01409824083091,-1.231739572450155,0.1208650973866179e-2,-0.5395239384953e-5};
+	static int j;
+  	static doublecomplex xdemi,xxx,xgdemi,ydemi,ygdemi,yyy,expx,expy,ser,roro,nano,rano;
+	if(xx.r<=0.) 
+	{
+		xdemi=Cadd(xx,Complex(1.5,0.0));
+		xgdemi=Cadd(xx,Complex(6.5,0.0));
+		xxx=Cadd(xx,Complex(2.,0.0));
+	}
+	else if(xx.r<=1.) 
+	{
+		xdemi=Cadd(xx,Complex(0.5,0.0));
+		xgdemi=Cadd(xx,Complex(5.5,0.0));
+		xxx=Cadd(xx,Complex(1.,0.0));	
+	}
+	else 
+	{
+		xdemi=Cadd(xx,Complex(-0.5,0.0));
+		xgdemi=Cadd(xx,Complex(4.5,0.0));
+		xxx=xx;
+	}
+	if(yy.r<=0.) 
+	{
+		ydemi=Cadd(yy,Complex(1.5,0.0));
+		ygdemi=Cadd(yy,Complex(6.5,0.0));
+		yyy=Cadd(yy,Complex(2.,0.0));
+	}
+	else if(yy.r<=1.) 
+	{
+		ydemi=Cadd(yy,Complex(0.5,0.0));
+		ygdemi=Cadd(yy,Complex(5.5,0.0));
+		yyy=Cadd(yy,Complex(1.0,0.0));	
+	}
+	else 
+	{
+		ydemi=Cadd(yy,Complex(-0.5,0.0));
+		ygdemi=Cadd(yy,Complex(4.5,0.0));		
+		yyy=yy;
+	}
+	expx.r=log(Cabs(xgdemi));
+	expx.i=asin(xx.i/Cabs(xgdemi));
+	expy.r=log(Cabs(ygdemi));
+	expy.i=asin(yy.i/Cabs(ygdemi));
+	roro=Cmul(expx,xdemi);
+	roro=Csub(roro,xgdemi);
+	roro=Csub(roro,Cmul(expy,ydemi));
+	roro=Cadd(roro,ygdemi);	
+	nano.r=exp(roro.r)*cos(roro.i);
+	nano.i=exp(roro.r)*sin(roro.i);
+	ser=Complex(1.000000000190015,0.0);
+	for (j=0;j<=5;j++) 
+	{
+		ser=Cadd(ser,RCmul(cof[j],Cdiv(ONE,xxx)));
+		xxx=Cadd(xxx,ONE);
+	}
+	rano=ser;
+	ser=Complex(1.000000000190015,0.0);
+	for (j=0;j<=5;j++) 
+	{
+		ser=Cadd(ser,RCmul(cof[j],Cdiv(ONE,yyy)));
+		yyy=Cadd(yyy,ONE);
+	}
+	rano=Cdiv(rano,ser);
+	nano=Cmul(nano,rano);
+	if(xx.r<=0.0) nano=Cdiv(nano,Cmul(xx,Cadd(ONE,xx)));
+	else if(xx.r<=1.0) nano=Cdiv(nano,xx);
+	if(yy.r<=0.0) nano=Cmul(nano,Cmul(yy,Cadd(ONE,yy)));
+	else if(yy.r<=1.0) nano=Cmul(nano,yy);
+	return(nano);
+}
+
+
+/***all complex function to compute RLif***/
 std::complex<double> CIntegrateAndFireTransferFunctionClass::gsurg(std::complex<double> xx,std::complex<double> yy) 
 {	
 	static double cof[6]={76.18009172947146,-86.50532032941677,24.01409824083091,-1.231739572450155,0.1208650973866179e-2,-0.5395239384953e-5};
@@ -279,8 +365,38 @@ std::complex<double> CIntegrateAndFireTransferFunctionClass::gsurg(std::complex<
 	else if(yy.real()<=1.0) nano*=yy;
 	return(nano);
 }
-	
-void CIntegrateAndFireTransferFunctionClass::onefone(std::complex<double> a, std::complex<double> c, std::complex<double> z, std::complex<double> *series, std::complex<double> *deriv) 
+
+void CIntegrateAndFireTransferFunctionClass::old_onefone(doublecomplex a, doublecomplex c, doublecomplex z, doublecomplex *series, doublecomplex *deriv) 
+{	
+	static int n;
+ 	static doublecomplex aa,cc,fac,temp;
+	deriv->r=0.0e0;
+	deriv->i=0.0e0;
+	fac=Complex(1.0e0,0.0e0);
+	temp=fac;	
+	aa=a;
+	cc=c;
+	for (n=1;n<=10000;n++) 
+	{
+		fac=Cmul(fac,Cdiv(aa,cc));
+		deriv->r+=fac.r;
+		deriv->i+=fac.i;
+		fac=Cmul(fac,RCmul(1.0e0/n,z));
+		*series=Cadd(temp,fac);
+		if (series->r == temp.r && series->i == temp.i) return;
+		temp= *series;
+		aa=Cadd(aa,ONE);
+		cc=Cadd(cc,ONE);
+	}
+}
+
+void CIntegrateAndFireTransferFunctionClass::onefone(
+	std::complex<double> a, 
+	std::complex<double> c, 
+	std::complex<double> z, 
+	std::complex<double> *series, 
+	std::complex<double> *deriv
+) 
 {	
 	static int n;
  	static std::complex<double> aa,cc,fac,temp;
@@ -302,6 +418,31 @@ void CIntegrateAndFireTransferFunctionClass::onefone(std::complex<double> a, std
 	}
 }
 
+
+void CIntegrateAndFireTransferFunctionClass::old_correctionlargey(doublecomplex a, doublecomplex c, doublecomplex z, doublecomplex *series) 
+{
+	static int n;
+ 	static doublecomplex aa,cc,fac,temp;
+	temp=ONE;
+	fac=ONE;
+	aa=a;
+	cc=Csub(Cadd(a,ONE),c);
+	for(n=1;n<=10;n++) 
+	{
+		fac=Cmul(fac,Cmul(aa,cc));
+		fac=Cdiv(fac,RCmul(-n,z));
+		*series=Cadd(temp,fac);
+		if (series->r == temp.r && series->i == temp.i) return;
+		temp=*series;
+		aa=Cadd(aa,ONE);
+		cc=Cadd(cc,ONE);
+	}
+}
+
+
+
+
+
 void CIntegrateAndFireTransferFunctionClass::correctionlargey(std::complex<double> a, std::complex<double> c, std::complex<double> z, std::complex<double> *series) 
 {
 	static int n;
@@ -321,24 +462,147 @@ void CIntegrateAndFireTransferFunctionClass::correctionlargey(std::complex<doubl
 		cc+=1.;
 	}
 }
-	
-void CIntegrateAndFireTransferFunctionClass::u01(std::complex<double> omc, double y, std::complex<double> *seriesu, int *indic)
+
+void CIntegrateAndFireTransferFunctionClass::old_u01(double omc, double y, doublecomplex *seriesu, int *indic) 
 {	
+	static doublecomplex ah,sqom,series,deriv,asymptoty,asymptotom,ut;
+  	static double alpha;
+	ah=Complex(0.,0.5*omc);
+	
+
+	//Debug
+	cout<<"Old Brunel omc "<<omc<<endl;
+	cout<<"ah is "<<ah.r<<" "<<ah.i<<endl;
+	cout<<endl;
+
+	if(omc<10.5 && y>-3.5) 
+	{
+		*indic=1;
+		old_onefone(ah,HALF,Complex(y*y,0.),&series,&deriv);
+		ut=RCmul(0.5,Cmul(series,old_gsurg(ah,Cadd(HALF,ah))));
+		old_onefone(Cadd(HALF,ah),Cadd(ONE,HALF),Complex(y*y,0.),&series,&deriv);
+		ut=Cadd(ut,RCmul(y,series));
+		ut=RCmul(2.*SQPI,Cdiv(ut,old_gsurg(ah,ONE)));
+		*seriesu=ut;
+	}
+	else 
+	{
+		if(y<-3.5-0.15*(omc-10.5)) 
+		{ 
+			asymptoty=Complex(cos(omc*log(fabs(y))),-sin(omc*log(fabs(y))));
+			//cout<<"WTF real"<<asymptoty.r<<" "<<asymptoty.i<<endl;
+			old_correctionlargey(ah,HALF,Complex(y*y,0.),&series);
+			asymptoty=Cmul(asymptoty,series);
+		}
+		if(y>-3.5-0.25*(omc-10.5)) 
+		{
+			//set
+			sqom=Complex(sqrt(omc),sqrt(omc));
+
+			//Debug
+			cout<<"old Brunel sqom is "<<sqom.r<<" "<<sqom.i<<endl;
+			cout<<endl;
+
+			//set
+			asymptotom=RCmul(y,sqom);
+			asymptotom=Cadd(asymptotom,RCmul(pow(y,3)/6.-y/2.,Cdiv(ONE,sqom)));
+			asymptotom=Cadd(asymptotom,RCmul(-0.24*pow(y,2),Cdiv(ONE,Cmul(sqom,sqom))));
+			asymptotom=Cadd(asymptotom,RCmul(-pow(y,5)/40.+pow(y,3)/12.+y/8.,Cdiv(ONE,Cmul(Cmul(sqom,sqom),sqom))));
+			asymptotom=Cadd(asymptotom,RCmul(pow(y,4)/8.-pow(y,2)/4.,Cdiv(ONE,Cmul(Cmul(sqom,sqom),Cmul(sqom,sqom)))));
+			asymptotom=RCmul(SQPI*exp(0.5*y*y),Cexp(asymptotom));
+			asymptotom=Cdiv(asymptotom,old_gsurg(Cadd(HALF,ah),ONE));
+		}
+		if(y<-3.5-0.25*(omc-10.5)) 
+		{
+			*indic=2;
+			*seriesu=asymptoty;
+		}
+		else if(y>-3.5-0.15*(omc-10.5)) 
+		{ 
+			*indic=3;
+			*seriesu=asymptotom;
+		}
+		else { 
+			*indic=4;
+			alpha=-((y+3.5)/(omc-10.5)+0.15)/0.1;
+			*seriesu=Cadd(RCmul(alpha,asymptoty),RCmul(1.-alpha,asymptotom));
+		}
+	}
+}
+
+void CIntegrateAndFireTransferFunctionClass::u01(
+	std::complex<double> omc, 
+	double y, 
+	std::complex<double> *seriesu, 
+	int *indic
+)
+{	
+	//define
 	static std::complex<double> ah,_sqom,sqom,series,deriv,asymptoty,asymptotom,ut;
   	static double alpha;
-	ah=getComplex(0.,0.5)*omc;
-	_sqom=sqrt(abs(omc))*exp(getComplex(0.,arg(omc)/2.));
-	sqom=_sqom+getComplex(0.,1.)*_sqom;
+
+  	//Debug
+  	cout<<"omc is "<<omc.real()<<" "<<omc.imag()<<endl;
+  	cout<<"y is "<<y<<" "<<endl;
+  	cout<<endl;
+
+  	//set
+	//ah=getComplex(-0.5*omc.imag(),0.5*omc.real());
+	ah=0.5*omc;
+	
+	//Debug
+  	cout<<"ah is "<<ah.real()<<" "<<ah.imag()<<endl;
+  	cout<<endl;
+
+	//Check
 	if(abs(omc)<10.5 && y>-3.5)
 	{
-	 /***** use normal series ******/
+		//Debug
+		/*
+		cout<<"We use normal series"<<endl;
+		cout<<endl;
+		*/
+
+		//onefone
 		*indic=1;
-		onefone(ah,0.5,std::complex<double>(y*y,0.),&series,&deriv);
+		onefone(
+				ah,
+				0.5,
+				std::complex<double>(y*y,0.),
+				&series,
+				&deriv
+			);
 		ut=0.5*series*gsurg(ah,0.5+ah);
-		onefone(0.5+ah,1.+0.5,std::complex<double>(y*y,0.),&series,&deriv);
+
+		//Debug
+		/*
+		cout<<"after first onefone"<<endl;
+		cout<<"series is "<<series.real()<<" "<<series.imag()<<endl,
+		cout<<"ut is "<<ut.real()<<" "<<ut.imag()<<endl;
+		cout<<endl;
+		*/
+
+		//onefone
+		onefone(
+					0.5+ah,
+					1.+0.5,
+					std::complex<double>(y*y,0.),
+					&series,
+					&deriv
+				);
 		ut+=(y*series);
 		ut*=2.*SQPI/gsurg(ah,1.);
+
+		//Debug
+		/*
+		cout<<"after second onefone"<<endl;
+		cout<<"ut is "<<ut.real()<<" "<<ut.imag()<<endl;
+		cout<<endl;
+		*/
+
+		//point
 		*seriesu=ut;
+
 	}
 	else {
 		if(y<-3.5-0.15*(abs(omc)-10.5))
@@ -350,6 +614,20 @@ void CIntegrateAndFireTransferFunctionClass::u01(std::complex<double> omc, doubl
 		}
 		if(y>-3.5-0.25*(abs(omc)-10.5))
 		{ 
+
+			//Debug
+			cout<<"We use large omega expansion"<<endl;
+			cout<<endl;
+
+			//set
+			sqom=getComplex(sqrt(abs(omc)),sqrt(abs(omc)));
+			//sqom=sqrt(abs(omc))*exp(getComplex(0.,arg(omc)/2.));
+			//sqom=_sqom+getComplex(0.,1.)*_sqom;
+
+			//Debug
+			cout<<"sqom is "<<sqom.real()<<" "<<sqom.imag()<<endl;
+			cout<<endl;
+
 			/******* large omega expansion *********/
 			asymptotom=y*sqom;
 			asymptotom+=(pow(y,3)/6.-y/2.)/sqom;
@@ -379,24 +657,91 @@ void CIntegrateAndFireTransferFunctionClass::u01(std::complex<double> omc, doubl
 		}
 	}
 }
-	
+
+void CIntegrateAndFireTransferFunctionClass::old_u23(double omc, double y, doublecomplex *seriesu, int *indic) 
+{ 
+	static doublecomplex ah,sqom,series,deriv,asymptoty,asymptotom,ut,prefac;
+  	static double alpha;
+	ah=Complex(0.,0.5*omc);
+	sqom=Complex(sqrt(omc),sqrt(omc));	
+	if(omc<10.5 && y>-3.5)
+ 	{
+		*indic=1;
+		old_onefone(Cadd(ONE,ah),Cadd(HALF,ONE),Complex(y*y,0.),&series,&deriv);
+		ut=Cmul(Complex(0.,omc*y),Cmul(series,old_gsurg(ah,Cadd(HALF,ah))));
+		old_onefone(Cadd(HALF,ah),HALF,Complex(y*y,0.),&series,&deriv);
+		ut=Cadd(ut,series);
+		ut=RCmul(2.*SQPI,Cdiv(ut,old_gsurg(ah,ONE)));
+		*seriesu=ut;
+	}
+	else {
+		if(y<-3.5-0.15*(omc-10.5)) 
+		{
+			asymptoty=Complex(cos(omc*log(fabs(y)))/fabs(y),-sin(omc*log(fabs(y)))/fabs(y));
+			old_correctionlargey(Cadd(ah,ONE),Cadd(HALF,ONE),Complex(y*y,0.),&series);
+			asymptoty=Cmul(asymptoty,series);
+			asymptoty=Cmul(asymptoty,Complex(0.,omc));
+			//cout<<"WTF u23 real"<<asymptoty.r<<" "<<asymptoty.i<<endl;
+		}
+		if(y>-3.5-0.25*(omc-10.5)) 
+		{ 
+			asymptotom=RCmul(y,sqom);
+			asymptotom=Cadd(asymptotom,RCmul(pow(y,3)/6.-y/2.,Cdiv(ONE,sqom)));
+			asymptotom=Cadd(asymptotom,RCmul(-0.24*pow(y,2),Cdiv(ONE,Cmul(sqom,sqom))));
+			asymptotom=Cadd(asymptotom,RCmul(-pow(y,5)/40.+pow(y,3)/12.+y/8.,Cdiv(ONE,Cmul(Cmul(sqom,sqom),sqom))));
+			asymptotom=Cadd(asymptotom,RCmul(pow(y,4)/8.-pow(y,2)/4.,Cdiv(ONE,Cmul(Cmul(sqom,sqom),Cmul(sqom,sqom)))));
+			asymptotom=RCmul(SQPI*exp(0.5*y*y),Cexp(asymptotom));
+			prefac=Cadd(sqom,Complex(y,0.));
+			prefac=Cadd(prefac,RCmul(0.5*y*y-0.5,Cdiv(ONE,sqom)));
+			prefac=Cadd(prefac,RCmul(-0.48*y,Cdiv(ONE,Cmul(sqom,sqom))));
+			prefac=Cadd(prefac,RCmul(-pow(y,4)/8.+pow(y,2)/4.+1./8.,Cdiv(ONE,Cmul(Cmul(sqom,sqom),sqom))));
+			prefac=Cadd(prefac,RCmul(pow(y,3)/2.-y/2.,Cdiv(ONE,Cmul(Cmul(sqom,sqom),Cmul(sqom,sqom)))));
+			asymptotom=Cdiv(Cmul(prefac,asymptotom),old_gsurg(Cadd(HALF,ah),ONE));
+		}
+		if(y<-3.5-0.25*(omc-10.5))
+		{
+			*indic=2;
+			*seriesu=asymptoty;
+		}
+		else if(y>-3.5-0.15*(omc-10.5)) 
+		{ 
+			*indic=3;
+			*seriesu=asymptotom;
+		}
+		else { 
+			*indic=4;
+			alpha=-((y+3.5)/(omc-10.5)+0.15)/0.1;
+			*seriesu=Cadd(RCmul(alpha,asymptoty),RCmul(1.-alpha,asymptotom));
+		}
+	}
+}
+
 void CIntegrateAndFireTransferFunctionClass::u23(std::complex<double> omc, double y, std::complex<double> *seriesu, int *indic)
 { 	
 	static std::complex<double> ah,_sqom,sqom,series,deriv,asymptoty,asymptotom,ut,prefac;
   	static double alpha;
-	ah=getComplex(0.,0.5)*omc;
-	_sqom=sqrt(abs(omc))*exp(getComplex(0.,arg(omc)/2.));
-	sqom=_sqom+getComplex(0.,1.)*_sqom;
+	//ah=getComplex(-0.5*omc.imag(),0.5*omc.real());
+	ah=0.5*omc;
+	
 	if(abs(omc)<10.5 && y>-3.5)
 	{
 	 	/***** use normal series ******/
 		*indic=1;
 		onefone(1.+ah,1.5,std::complex<double>(y*y,0.),&series,&deriv);
-		ut=getComplex(0.,y)*omc*series*gsurg(ah,0.5+ah);
+		ut=y*omc*series*gsurg(ah,0.5+ah);
+
 		onefone(0.5+ah,0.5,std::complex<double>(y*y,0.),&series,&deriv);
 		ut+=series;
 		ut*=(2.*SQPI)/gsurg(ah,1.);
 		*seriesu=ut;
+
+		/*
+		old_onefone(Cadd(ONE,ah),Cadd(HALF,ONE),Complex(y*y,0.),&series,&deriv);
+		ut=Cmul(Complex(0.,omc*y),Cmul(series,old_gsurg(ah,Cadd(HALF,ah))));
+		old_onefone(Cadd(HALF,ah),HALF,Complex(y*y,0.),&series,&deriv);
+		ut=Cadd(ut,series);
+		ut=RCmul(2.*SQPI,Cdiv(ut,old_gsurg(ah,ONE)));
+		*/
 	}
 	else 
 	{
@@ -410,7 +755,13 @@ void CIntegrateAndFireTransferFunctionClass::u23(std::complex<double> omc, doubl
 		}
 		if(y>-3.5-0.25*(abs(omc)-10.5))
 		{
-			 /******* large omega expansion *********/
+
+			//set
+			sqom=getComplex(sqrt(abs(omc)),sqrt(abs(omc)));
+			//_sqom=sqrt(abs(omc))*exp(getComplex(0.,arg(omc)/2.));
+			//sqom=_sqom+getComplex(0.,1.)*_sqom;
+
+			/******* large omega expansion *********/
 			asymptotom=y*sqom;
 			asymptotom+=(pow(y,3)/6.-y/2.)/sqom;
 			asymptotom+=-0.24*pow(y,2)/(sqom*sqom);
@@ -443,79 +794,157 @@ void CIntegrateAndFireTransferFunctionClass::u23(std::complex<double> omc, doubl
 	}
 }
 
-/***compute the perturbative complex rate comp1.nt for LIF neuron***/ 
-std::map<std::string,std::complex<double> > CIntegrateAndFireTransferFunctionClass::getBrunelLIFPerturbativeRate(std::complex<double> lambda)
+/*** compute the oscillatory rate component for LIF neuron***/
+doublecomplex CIntegrateAndFireTransferFunctionClass::RLIF(double _omega,int i) 
+{	
+	static doublecomplex series,numerator,denominator,hypergeo,rate,rlif;
+	static doublecomplex u01_yt,u01_yr,u23_yt,u23_yr;
+  	static int indicator,indict,indich;
+  	static double omt,thetatil,hvrtil;	
+
+  	//set
+	thetatil=DoubleDict["IntegralUpperBound"];
+	hvrtil=DoubleDict["IntegralLowerBound"];
+	omt=_omega*DoubleDict["ConstantTime"];
+	
+	/***** numerator  numu *****/
+	old_u23(omt,thetatil,&series,&indicator);
+	u23_yt=series;
+	indict=indicator;
+	old_u23(omt,hvrtil,&series,&indicator);
+	u23_yr=series;
+	indich=indicator;
+	numerator=Csub(u23_yt,u23_yr);
+	
+	/***** denominator numu *****/
+		
+	old_u01(omt,thetatil,&series,&indicator);
+	u01_yt=series;
+	indict=indicator;
+	old_u01(omt,hvrtil,&series,&indicator);
+	u01_yr=series;
+	indich=indicator;
+	denominator=Csub(u01_yt,u01_yr);
+
+	//Debug
+	cout<<"old BRUNEL u23_yt Complex "<<u23_yt.r<<" "<<u23_yt.i<<" "<<endl;
+	cout<<"old BRUNEL u23_yr Complex "<<u23_yr.r<<" "<<u23_yr.i<<" "<<endl;
+	cout<<"old BRUNEL u01_yt Complex "<<u01_yt.r<<" "<<u01_yt.i<<" "<<endl;
+	cout<<"old BRUNEL u01_yr Complex "<<u01_yr.r<<" "<<u01_yr.i<<" "<<endl;
+		
+
+	/****** LIF perturbation*****/
+	hypergeo=Cdiv(numerator,denominator);
+	//cout<<"hypergeo CState Real "<<hypergeo.r<<" "<<hypergeo.i<<endl;
+	
+	/******* rate low-pass filter*************/
+	rate=Cdiv(Complex(1.,0.),Complex(1.,omt));
+	//cout<<"rate CState Real "<<rate.r<<' '<<rate.i<<endl;
+	
+	/******* build everything ******/
+	rlif=Cmul(RCmul(DoubleDict["StationaryRate"]/(DoubleDict["VoltageNoise"]),
+		rate),hypergeo);
+	//cout<<"rlif CState Real "<<rlif.r<<" "<<rlif.i<<" "<<indich<<endl;
+
+	//Debug
+	cout<<"old BRUNEL mean is "<<rlif.r<<" "<<rlif.i<<endl;
+	cout<<endl;
+
+	//return
+	return rlif;
+}
+
+
+
+/***compute the perturbative complex rate comp1.nt for Lif neuron***/ 
+void CIntegrateAndFireTransferFunctionClass::setBrunelLifPerturbationRate(
+	std::complex<double> lambda
+)
 {
 	static std::complex<double> u01_yt,u01_yr,u23_yt,u23_yr;
-	static std::complex<double> omt,series;
-	static std::map<std::string,std::complex<double> > rateDict,OutputDict;
-	static std::map<std::string,double > drate0Dict;
-	static double rate0;
+	static std::complex<double> omt,series,mean,noise;
+	static double rate0,yup,ylow;
 	static int indicator,indict,indich;
 
+	//call the brunel old one
+	RLIF(lambda.imag(),0);
+
 	//set
-	omt=DoubleDict["MembraneConstantTime"]*lambda;
+	omt=DoubleDict["ConstantTime"]*lambda;
 		
 	/***** omega nul exception*****/
 	if(abs(omt)==0.)
 	{
-		drate0Dict=getLIFPerturbativeRate0();
-		OutputDict["TotalStationaryCurrent"]=drate0Dict["TotalStationaryCurrent"];
-		OutputDict["VoltageNoise"]=drate0Dict["VoltageNoise"];
-		DoubleDict["VoltageCapacitance"]=1.;
-		OutputDict["MembraneConstantTime"]=-rate0*drate0Dict["MembraneConstantTime"]/(DoubleDict["VoltageCapacitance"]);
+		DoubleDict["PerturbationMean"]=getLifPerturbationNullRate();
+		DoubleDict["PerturbationNoise"]=getLifPerturbationNullRate("VoltageNoise");
 	}
 	else
 	{
+		//set
+		ylow=DoubleDict["IntegralLowerBound"];
+		yup=DoubleDict["IntegralUpperBound"];
+
 		/****** U23 numerators*****/
 
 		/***** numerator  numu *****/
-		u23(omt,DoubleDict["IntegralUpperBound"],&series,&indicator);
-		u23_yt=series;indict=indicator;
-		u23(omt,DoubleDict["IntegralLowerBound"],&series,&indicator);
-		u23_yr=series;indich=indicator;
-		//cout<<"BRUNEL u23 Complex "<<u23_yr.real()<<" "<<u23_yr.imag()<<" "<<indich<<endl;
-
-		/***** numerator numu *****/
-		OutputDict["TotalStationaryCurrent"]=u23_yt-u23_yr;
-		OutputDict["VoltageNoise"]=DoubleDict["IntegralUpperBound"]*u23_yt-DoubleDict["IntegralLowerBound"]*u23_yr;
-		OutputDict["MembraneConstantTime"]=1.;
+		u23(omt,yup,&series,&indicator);
+		u23_yt=series;
+		indict=indicator;
+		u23(omt,ylow,&series,&indicator);
+		u23_yr=series;
+		indich=indicator;
 		
 		/****** U01 denominators*****/
-		u01(omt,DoubleDict["IntegralUpperBound"],&series,&indicator);
-		u01_yt=series;indict=indicator;
-		u01(omt,DoubleDict["IntegralLowerBound"],&series,&indicator);
-		u01_yr=series;indich=indicator;
+		u01(omt,yup,&series,&indicator);
+		u01_yt=series;
+		indict=indicator;
+		u01(omt,ylow,&series,&indicator);
+		u01_yr=series;
+		indich=indicator;
 
-		//cout<<"BRUNEL u01 Complex "<<u01_yr.real()<<" "<<u01_yr.imag()<<" "<<indich<<endl;
-		/***** denominator numu *****/
-		OutputDict["TotalStationaryCurrent"]/=u01_yt-u01_yr;
-		OutputDict["VoltageNoise"]/=u01_yt-u01_yr;
-		OutputDict["VoltageNoise"]+=omt;
-		OutputDict["MembraneConstantTime"]=1.;
+		cout<<"BRUNEL u23_yt Complex "<<u23_yt.real()<<" "<<u23_yt.imag()<<" "<<endl;
+		cout<<"BRUNEL u23_yr Complex "<<u23_yr.real()<<" "<<u23_yr.imag()<<" "<<endl;
+		cout<<"BRUNEL u01_yt Complex "<<u01_yt.real()<<" "<<u01_yt.imag()<<" "<<endl;
+		cout<<"BRUNEL u01_yr Complex "<<u01_yr.real()<<" "<<u01_yr.imag()<<" "<<endl;
 			
-		/******* rate low-pass filter*************/
-		if(IntDict["StationaryCompute"]==1){
-			DoubleDict["StationaryRate"]=getLIFStationaryRate();
+		/******* compute stationary maybe*************/
+		if(IntDict["ComputeStationary"]==1){
+			DoubleDict["StationaryRate"]=getLifStationaryRate();
 		}
+		
+		/******* build mean ***********/
+		mean=(u23_yt-u23_yr)/((1.+omt)*(u01_yt-u01_yr));
 
-		rateDict=getLeakPerturbativeRate(omt);
-		//cout<<"BRUNEL rate Complex "<<rateDict["TotalStationaryCurrent"].real()<<" "<<rateDict["TotalStationaryCurrent"].imag()<<" "<<indich<<endl;
+		//normalize
+		mean*=DoubleDict[
+				"StationaryRate"
+			]/DoubleDict[
+				"VoltageNoise"
+			];
 		
-		/******* build everything ***********/
-		OutputDict["TotalStationaryCurrent"]*=DoubleDict["StationaryRate"]*rateDict["TotalStationaryCurrent"]/DoubleDict["VoltageNoise"];
-		OutputDict["VoltageNoise"]*=DoubleDict["StationaryRate"]*rateDict["VoltageNoise"]/(DoubleDict["VoltageNoise"]*DoubleDict["VoltageNoise"]);
-		DoubleDict["VoltageCapacitance"]=1.;
-		OutputDict["MembraneConstantTime"]*=-DoubleDict["StationaryRate"]*rateDict["MembraneConstantTime"]/(DoubleDict["VoltageCapacitance"]);
-		//cout<<"BRUNEL rlif Complex "<<OutputDict["TotalStationaryCurrent"].real()<<" "<<OutputDict["TotalStationaryCurrent"].imag()<<" "<<indich<<endl;
-		
+		//Debug
+		cout<<"BRUNEL mean is "<<mean.real()<<" "<<mean.imag()<<endl;
+		cout<<endl;
+
+		/******* build noise ***********/
+		noise=yup*u23_yt-ylow*u23_yr;
+		noise/=u01_yt-u01_yr;
+		noise+=omt;
+		noise*=DoubleDict[
+			"StationaryRate"
+		]/(
+			DoubleDict["VoltageNoise"]*DoubleDict["VoltageNoise"]
+		);
+		noise/=(2.+omt);
+		//cout<<"BRUNEL rlif Complex "<<OutputDict["PerturbationMean"].real()<<" "<<OutputDict["PerturbationMean"].imag()<<" "<<indich<<endl;
 	
-	
+		/*** set ****/
+		ComplexDict["PerturbationMean"]=mean;
+		ComplexDict["PerturbationNoise"]=noise;
+
 	}
 	
 	//cout<<"BRUNEL rate Complex "<<mu_rate.real()<<" "<<mu_rate.imag()<<endl;
-	/***** return output****/
-	return OutputDict;
 }
 
 /****Hakim and Ostojic Methods***/
@@ -667,44 +1096,336 @@ std::complex<double> CIntegrateAndFireTransferFunctionClass::phi_t_rka(double y,
   return out;
 }
 
-std::map<std::string,std::complex<double> > CIntegrateAndFireTransferFunctionClass::getHakimLIFPerturbativeRate(std::complex<double> lambda){
+void CIntegrateAndFireTransferFunctionClass::setHakimLifPerturbationRate(std::complex<double> lambda){
 	
-	static std::map<std::string,std::complex<double> > OutputDict,rateDict;
-	static std::complex<double> omt;
+	static std::complex<double> omt,mean,noise;
 	static double rate0;
-	//omt=getComplex(0.,1.)*DoubleDict["MembraneConstantTime"]*lambda;
-	omt=DoubleDict["MembraneConstantTime"]*lambda;
+	//omt=getComplex(0.,1.)*DoubleDict["ConstantTime"]*lambda;
+	omt=DoubleDict["ConstantTime"]*lambda;
 
 	/****** hypergeo compute*****/
-	std::complex<double> phi_yth_pr;
-	std::complex<double> phi_yth=phi_t_rka(DoubleDict["IntegralUpperBound"],omt,phi_yth_pr);
-	std::complex<double> phi_yr_pr;
-	std::complex<double> phi_yr=phi_t_rka(DoubleDict["IntegralLowerBound"],omt,phi_yr_pr);
-	//cout<<"Class "<<DoubleDict["IntegralUpperBound"]<<" "<<DoubleDict["IntegralLowerBound"]<<" "<<phi_yth.real()<<" "<<phi_yth.imag()<<endl;
-	
-	OutputDict["TotalStationaryCurrent"]=(phi_yr_pr-phi_yth_pr)/((1.+omt)*(phi_yr-phi_yth));
-	OutputDict["VoltageNoise"]=((DoubleDict["IntegralLowerBound"]*phi_yr_pr-DoubleDict["IntegralUpperBound"]*phi_yth_pr)/(phi_yr-phi_yth)-2.)/(2.+omt)+1.;
-	OutputDict["MembraneConstantTime"]=1.;
-	
+	std::complex<double> u23_yt;
+	std::complex<double> u01_yt=phi_t_rka(
+		DoubleDict["IntegralUpperBound"],omt,u23_yt
+	);
+	std::complex<double> u23_yr;
+	std::complex<double> u01_yr=phi_t_rka(
+		DoubleDict["IntegralLowerBound"],omt,u23_yr
+	);
+
+	cout<<"HAKIM u23_yt Complex "<<u23_yt.real()<<" "<<u23_yt.imag()<<" "<<endl;
+	cout<<"HAKIM u23_yr Complex "<<u23_yr.real()<<" "<<u23_yr.imag()<<" "<<endl;
+	cout<<"HAKIM u01_yt Complex "<<u01_yt.real()<<" "<<u01_yt.imag()<<" "<<endl;
+	cout<<"HAKIM u01_yr Complex "<<u01_yr.real()<<" "<<u01_yr.imag()<<" "<<endl;
+
 	/******* compute stationary*************/
-	if(IntDict["StationaryCompute"]==1){
-		cout<<"We compute stationary"<<endl;
-		DoubleDict["StationaryRate"]=getLIFStationaryRate();
+	if(IntDict["ComputeStationary"]==1){
+		DoubleDict["StationaryRate"]=getLifStationaryRate();
 	}
 
-	/******* rate low-pass filter*************/
-	OutputDict["TotalStationaryCurrent"]*=DoubleDict["StationaryRate"]/(DoubleDict["VoltageNoise"]);
-	OutputDict["VoltageNoise"]*=DoubleDict["StationaryRate"]/(DoubleDict["VoltageNoise"]*DoubleDict["VoltageNoise"]);
-	DoubleDict["VoltageCapacitance"]=1.;
-	OutputDict["MembraneConstantTime"]*=-DoubleDict["StationaryRate"]*rateDict["MembraneConstantTime"]/(DoubleDict["VoltageCapacitance"]);
+	/**** build mean ***/
+	mean=(u23_yt-u23_yr)/((1.+omt)*(u01_yt-u01_yr));
 
-	/******* return output************/
-	return OutputDict;
+	//normalize
+	mean*=DoubleDict[
+		"StationaryRate"
+	]/DoubleDict[
+		"VoltageNoise"
+	];
+
+	//Debug
+	cout<<"HAKIM mean is "<<mean.real()<<" "<<mean.imag()<<endl;
+	cout<<endl;
+
+	/*** build noise ***/
+	noise=((
+		DoubleDict["IntegralLowerBound"]*u23_yr-DoubleDict["IntegralUpperBound"]*u23_yt
+	)/(u01_yr-u01_yt)-2.)/(2.+omt)+1.;
+	noise*=DoubleDict["StationaryRate"]/(
+		DoubleDict["VoltageNoise"]*DoubleDict["VoltageNoise"]
+	);
+
+	/**** set ***/
+	ComplexDict["PerturbationMean"]=mean;
+	ComplexDict["PerturbationNoise"]=noise;
 
 }
 
 
+/*
+void CIntegrateAndFireTransferFunctionClass::u01Complex(doublecomplex omc, double y, doublecomplex *seriesu, int *indic) 
+{	
+	static doublecomplex ah,sqom,series,deriv,asymptoty,asymptotom,ut;
+  	static double alpha;
+	ah=RCmul(0.5,omc);
+	sqom=RCmul(sqrt(2*Cabs(omc)),Cexp(Complex(0.,Carg(omc)/2)));
+		
+	if(Cabs(omc)<10.5 && y>-3.5) 
+	{
+		*indic=1;
+		onefone(ah,0.5,Complex(y*y,0.),&series,&deriv);
+		ut=RCmul(0.5,Cmul(series,gsurg(ah,Cadd(0.5,ah))));
+		onefone(Cadd(0.5,ah),Cadd(1.,0.5),Complex(y*y,0.),&series,&deriv);
+		ut=Cadd(ut,RCmul(y,series));
+		ut=RCmul(2.*SQPI,Cdiv(ut,gsurg(ah,1.)));
+		*seriesu=ut;
+	}
+	else {
+		if(y<-3.5-0.15*(Cabs(omc)-10.5)) 
+		{ 	
+			asymptoty=RCmul(exp(-omc.r*log(fabs(y))),Complex(cos(omc.i*log(fabs(y))),-sin(omc.i*log(fabs(y)))));
+			correctionlargey(ah,0.5,Complex(y*y,0.),&series);
+			asymptoty=Cmul(asymptoty,series);
+		}
+		if(y>-3.5-0.25*(Cabs(omc)-10.5)) 
+		{ 
+			asymptotom=RCmul(y,sqom);
+			asymptotom=Cadd(asymptotom,RCmul(pow(y,3)/6.-y/2.,Cdiv(1.,sqom)));
+			asymptotom=Cadd(asymptotom,RCmul(-0.24*pow(y,2),Cdiv(1.,Cmul(sqom,sqom))));
+			asymptotom=Cadd(asymptotom,RCmul(-pow(y,5)/40.+pow(y,3)/12.+y/8.,Cdiv(1.,Cmul(Cmul(sqom,sqom),sqom))));
+			asymptotom=Cadd(asymptotom,RCmul(pow(y,4)/8.-pow(y,2)/4.,Cdiv(1.,Cmul(Cmul(sqom,sqom),Cmul(sqom,sqom)))));
+			asymptotom=RCmul(SQPI*exp(0.5*y*y),Cexp(asymptotom));
+			asymptotom=Cdiv(asymptotom,gsurg(Cadd(0.5,ah),1.));
+		}
+		if(y<-3.5-0.25*(Cabs(omc)-10.5)) 
+		{ 
+			*indic=2;
+			*seriesu=asymptoty;
+		}
+		else if(y>-3.5-0.15*(Cabs(omc)-10.5)) 
+		{
+			*indic=3;
+			*seriesu=asymptotom;
+		}
+		else { 
+			*indic=4;
+			alpha=-((y+3.5)/(Cabs(omc)-10.5)+0.15)/0.1;
+			*seriesu=Cadd(RCmul(alpha,asymptoty),RCmul(1.-alpha,asymptotom));
+		}
+	}
+}
+	
+void CIntegrateAndFireTransferFunctionClass::u23Complex(doublecomplex omc, double y, doublecomplex *seriesu, int *indic) 
+{ 	
+	static doublecomplex ah,sqom,series,deriv,asymptoty,asymptotom,ut,prefac;
+  	static double alpha;
+	ah=RCmul(0.5,omc);
+	sqom=RCmul(sqrt(2*Cabs(omc)),Cexp(Complex(0.,Carg(omc)/2)));	
+	if(Cabs(omc)<10.5 && y>-3.5) 
+	{
+		*indic=1;
+		onefone(Cadd(1.,ah),Cadd(0.5,1.),Complex(y*y,0.),&series,&deriv);
+		ut=Cmul(RCmul(y,omc),Cmul(series,gsurg(ah,Cadd(0.5,ah))));
+		onefone(Cadd(0.5,ah),0.5,Complex(y*y,0.),&series,&deriv);
+		ut=Cadd(ut,series);
+		ut=RCmul(2.*SQPI,Cdiv(ut,gsurg(ah,1.)));
+		*seriesu=ut;
+	}
+	else 
+	{
+		if(y<-3.5-0.15*(Cabs(omc)-10.5))
+ 		{ 
+			asymptoty=RCmul(exp(-omc.r*log(fabs(y))/fabs(y)),Complex(cos(omc.i*log(fabs(y)))/fabs(y),-sin(omc.i*log(fabs(y)))/fabs(y)));
+			correctionlargey(Cadd(ah,1.),Cadd(0.5,1.),Complex(y*y,0.),&series);
+			asymptoty=Cmul(asymptoty,series);
+			asymptoty=Cmul(asymptoty,Complex(0.,Cabs(omc)));
+		}
+		if(y>-3.5-0.25*(Cabs(omc)-10.5)) 
+		{
+			asymptotom=RCmul(y,sqom);
+			asymptotom=Cadd(asymptotom,RCmul(pow(y,3)/6.-y/2.,Cdiv(1.,sqom)));
+			asymptotom=Cadd(asymptotom,RCmul(-0.24*pow(y,2),Cdiv(1.,Cmul(sqom,sqom))));
+			asymptotom=Cadd(asymptotom,RCmul(-pow(y,5)/40.+pow(y,3)/12.+y/8.,Cdiv(1.,Cmul(Cmul(sqom,sqom),sqom))));
+			asymptotom=Cadd(asymptotom,RCmul(pow(y,4)/8.-pow(y,2)/4.,Cdiv(1.,Cmul(Cmul(sqom,sqom),Cmul(sqom,sqom)))));
+			asymptotom=RCmul(SQPI*exp(0.5*y*y),Cexp(asymptotom));
+			prefac=Cadd(sqom,Complex(y,0.));
+			prefac=Cadd(prefac,RCmul(0.5*y*y-0.5,Cdiv(1.,sqom)));
+			prefac=Cadd(prefac,RCmul(-0.48*y,Cdiv(1.,Cmul(sqom,sqom))));
+			prefac=Cadd(prefac,RCmul(-pow(y,4)/8.+pow(y,2)/4.+1./8.,Cdiv(1.,Cmul(Cmul(sqom,sqom),sqom))));
+			prefac=Cadd(prefac,RCmul(pow(y,3)/2.-y/2.,Cdiv(1.,Cmul(Cmul(sqom,sqom),Cmul(sqom,sqom)))));
+			asymptotom=Cdiv(Cmul(prefac,asymptotom),gsurg(Cadd(0.5,ah),1.));
+		}
+		if(y<-3.5-0.25*(Cabs(omc)-10.5)) {
+			*indic=2;
+			*seriesu=asymptoty;
+		}
+		else if(y>-3.5-0.15*(Cabs(omc)-10.5)) { 
+			*indic=3;
+			*seriesu=asymptotom;
+		}
+		else { 
+			*indic=4;
+			alpha=-((y+3.5)/(Cabs(omc)-10.5)+0.15)/0.1;
+			*seriesu=Cadd(RCmul(alpha,asymptoty),RCmul(1.-alpha,asymptotom));
+		}
+	}
+}
+ 
+doublecomplex CIntegrateAndFireTransferFunctionClass::RLifComplex(doublecomplex lambda,int i) 
+{		
+	static doublecomplex series,numerator,denominator;
+	static doublecomplex ut,uh,omt;
+	static int indicator,indict,indich;
+	static double thetatil,hvrtil;
+	thetatil=(V_threshold[i]-mu0[i])/(sigmaNoise[i]);
+	hvrtil=(V_reset[i]-mu0[i])/(sigmaNoise[i]);
+	omt=RCmul(taum[i],lambda);
+		
+	u01Complex(omt,thetatil,&series,&indicator);
+	ut=series;
+	indict=indicator;
+	u01Complex(omt,hvrtil,&series,&indicator);
+	uh=series;
+	indich=indicator;
+	denominator=Csub(ut,uh);
+		
+	u23Complex(omt,thetatil,&series,&indicator);
+	ut=series;
+	indict=indicator;
+	u23Complex(omt,hvrtil,&series,&indicator);
+	uh=series;
+	indich=indicator;
+	numerator=Csub(ut,uh);
+		
+	return (RCmul(r0[i]/(sigmaNoise[i]),Cdiv(numerator,Cmul(Cadd(Complex(1.,0.),omt),denominator))));
+}
+*/
 
+/***COMPLEX NUMBER METHODS***/
+
+/***create a complex number***/
+doublecomplex CIntegrateAndFireTransferFunctionClass::Complex(double re, double im) 
+{
+	static doublecomplex c;
+	c.r=re;
+	c.i=im;
+	return c;
+}
+
+/***addition of two complex numbers***/
+doublecomplex CIntegrateAndFireTransferFunctionClass::Cadd(doublecomplex a,doublecomplex b) {
+	static doublecomplex c;
+	c.r=a.r+b.r;
+	c.i=a.i+b.i;
+	return c;
+}
+
+/***substraction of two complex numbers***/
+doublecomplex CIntegrateAndFireTransferFunctionClass::Csub(doublecomplex a, doublecomplex b) {
+	static doublecomplex c;
+	c.r=a.r-b.r;
+	c.i=a.i-b.i;
+	return c;
+}
+
+/***multiplication of two complex numbers***/
+doublecomplex CIntegrateAndFireTransferFunctionClass::Cmul(doublecomplex a, doublecomplex b) {
+	static doublecomplex c;
+	c.r=a.r*b.r-a.i*b.i;
+	c.i=a.i*b.r+a.r*b.i;
+	return c;
+}
+
+/***division of two complex numbers***/
+doublecomplex CIntegrateAndFireTransferFunctionClass::Cdiv(doublecomplex a, doublecomplex b) {
+	static doublecomplex c;
+	double r,den;
+	if (fabs(b.r) >= fabs(b.i)) {
+	r=b.i/b.r;
+	den=b.r+r*b.i;
+	c.r=(a.r+r*a.i)/den;
+	c.i=(a.i-r*a.r)/den;
+	} else {
+	r=b.r/b.i;
+	den=b.i+r*b.r;
+	c.r=(a.r*r+a.i)/den;
+	c.i=(a.i*r-a.r)/den;
+	}
+	return c;
+}
+
+/***conjugate of a complex numbers***/
+doublecomplex CIntegrateAndFireTransferFunctionClass::Conjg(doublecomplex z) {
+	static doublecomplex c;
+	c.r=z.r;
+	c.i = -z.i;
+	return c;
+}
+
+/***square root a complex numbers***/
+doublecomplex CIntegrateAndFireTransferFunctionClass::Csqrt(doublecomplex z) {
+	static doublecomplex c;
+	static double x,y,w,r;
+	if ((z.r == 0.0e0) && (z.i == 0.0e0)) {
+		c.r=0.0e0;
+		c.i=0.0e0;
+	return c;
+	} 
+	else {
+		x=fabs(z.r);
+		y=fabs(z.i);
+	if (x >= y) {
+		r=y/x;
+		w=sqrt(x)*sqrt(0.5e0*(1.0e0+sqrt(1.0e0+r*r)));
+	} 
+	else {
+		r=x/y;
+		w=sqrt(y)*sqrt(0.5e0*(r+sqrt(1.0e0+r*r)));
+	}
+	if (z.r >= 0.0e0) {
+		c.r=w;
+		c.i=z.i/(2.0e0*w);
+	} 
+	else {
+		c.i=(z.i >= 0.0e0) ? w : -w;
+		c.r=z.i/(2.0e0*c.i);
+	}
+	return c;
+	}
+}
+
+/***exponential of a  complex numbers***/
+doublecomplex CIntegrateAndFireTransferFunctionClass::Cexp(doublecomplex a) {
+	static doublecomplex c;
+	c.r=exp(a.r)*cos(a.i);
+	c.i=exp(a.r)*sin(a.i);
+	return c;
+}
+
+/***multiplication of a complex numbers with a real***/
+doublecomplex CIntegrateAndFireTransferFunctionClass::RCmul(double x, doublecomplex a) {
+	static doublecomplex c;
+	c.r=x*a.r;
+	c.i=x*a.i;
+	return c;
+}
+
+/***module of a complex numbers ***/
+double CIntegrateAndFireTransferFunctionClass::Cabs(doublecomplex z) 
+{
+	static double x,y,ans,temp;
+	x=fabs(z.r);
+	y=fabs(z.i);
+	if (x == 0.0e0)
+		ans=y;
+	else if (y == 0.0e0)
+		ans=x;
+	else if (x > y) {
+		temp=y/x;
+		ans=x*sqrt(1.0e0+temp*temp);
+	} 
+	else {
+		temp=x/y;
+		ans=y*sqrt(1.0e0+temp*temp);
+	}
+	return ans;
+}
+
+/***argument of a complex numbers ***/
+double CIntegrateAndFireTransferFunctionClass::Carg(doublecomplex a)
+{
+	return (2.*atan(a.i/(sqrt((a.i)*(a.i)+(a.r)*(a.r))+a.r)));
+}
 
 #endif
 
