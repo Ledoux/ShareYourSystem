@@ -1324,91 +1324,8 @@ class NumscipyerClass(BaseClass):
 			)
 			'''
 
-			#/###############/#
-			# Compute at max amplitudes
-			#
-
-			#argmax 
-			self.NumscipiedFourierMaxAmplitudeIndexIntsArray=np.array(
-				map(
-					lambda __NumscipiedFourierAmplitudeFloatsArray:
-					SYS.argmax(
-						__NumscipiedFourierAmplitudeFloatsArray
-					),
-					self.NumscipiedFourierAmplitudeFloatsArray
-				)
-			)
-
-			#debug
-			'''
-			self.debug(
-				[
-					('self.',self,[
-							'NumscipiedFourierAmplitudeFloatsArray', 
-							'NumscipiedFourierFrequencyFloatsArray',
-							'NumscipiedFourierMaxAmplitudeIndexIntsArray'
-						])
-				]
-			)
-			'''
-
-			#tuple freq and amp at max
-			self.NumscipiedFourierMaxTupleFloatsArray=np.array(
-				map(
-					lambda __NumscipiedFourierMaxAmplitudeIndexIntsArray,__IndexInt:
-					map(
-						lambda __NumscipiedFourierMaxAmplitudeIndexInt:
-						(
-							self.NumscipiedFourierFrequencyFloatsArray[
-								__NumscipiedFourierMaxAmplitudeIndexInt
-							],
-							self.NumscipiedFourierAmplitudeFloatsArray[
-								__IndexInt,
-								__NumscipiedFourierMaxAmplitudeIndexInt
-							]
-						),
-						__NumscipiedFourierMaxAmplitudeIndexIntsArray
-					),
-					self.NumscipiedFourierMaxAmplitudeIndexIntsArray,
-					xrange(len(self.NumscipiedFourierMaxAmplitudeIndexIntsArray))
-				)
-			)
-
-			#debug
-			'''
-			self.debug(
-				[
-					('self.',self,[ 
-							'NumscipiedFourierMaxTupleFloatsArray'
-						])
-				]
-			)
-			'''
-
-			#array
-			self.NumscipiedFourierMaxCrossPhaseFloatsArray=np.array(
-				map(
-					lambda __RowIndexInt,__NumscipiedFourierMaxAmplitudeIndexIntsArray:
-					map(
-						lambda __NumscipiedFourierMaxAmplitudeIndexInt:
-						(
-							self.NumscipiedFourierFrequencyFloatsArray[
-								__NumscipiedFourierMaxAmplitudeIndexInt
-							],
-							map(
-								lambda __ColIndexInt:
-								self.NumscipiedFourierCrossPhaseFloatsArray[
-									__RowIndexInt,__ColIndexInt,__NumscipiedFourierMaxAmplitudeIndexInt
-								],
-								xrange(len(self.NumscipiedFourierCrossPhaseFloatsArray))
-							)
-						),
-						__NumscipiedFourierMaxAmplitudeIndexIntsArray
-					),
-					xrange(len(self.NumscipiedFourierMaxAmplitudeIndexIntsArray)),
-					self.NumscipiedFourierMaxAmplitudeIndexIntsArray
-				)
-			)
+			#setExtremum
+			self.setExtremum()
 
 			#debug
 			'''
@@ -1518,6 +1435,94 @@ class NumscipyerClass(BaseClass):
 		#set
 		self.NumscipiedDiscreteStatRigidFunction=None
 		self.NumscipiedContinuousStatRigidFunction=None
+
+	def setExtremum(self):
+
+		#/###############/#
+		# Compute at max amplitudes
+		#
+
+		#argmax 
+		self.NumscipiedFourierMaxAmplitudeIndexIntsArray=np.array(
+			map(
+				lambda __NumscipiedFourierAmplitudeFloatsArray:
+				SYS.argmax(
+					__NumscipiedFourierAmplitudeFloatsArray
+				),
+				self.NumscipiedFourierAmplitudeFloatsArray
+			)
+		)
+
+		#debug
+		'''
+		self.debug(
+			[
+				('self.',self,[
+						'NumscipiedFourierAmplitudeFloatsArray', 
+						'NumscipiedFourierFrequencyFloatsArray',
+						'NumscipiedFourierMaxAmplitudeIndexIntsArray'
+					])
+			]
+		)
+		'''
+
+		#tuple freq and amp at max
+		self.NumscipiedFourierMaxTupleFloatsArray=np.array(
+			map(
+				lambda __NumscipiedFourierMaxAmplitudeIndexIntsArray,__IndexInt:
+				map(
+					lambda __NumscipiedFourierMaxAmplitudeIndexInt:
+					(
+						self.NumscipiedFourierFrequencyFloatsArray[
+							__NumscipiedFourierMaxAmplitudeIndexInt
+						],
+						self.NumscipiedFourierAmplitudeFloatsArray[
+							__IndexInt,
+							__NumscipiedFourierMaxAmplitudeIndexInt
+						]
+					),
+					__NumscipiedFourierMaxAmplitudeIndexIntsArray
+				),
+				self.NumscipiedFourierMaxAmplitudeIndexIntsArray,
+				xrange(len(self.NumscipiedFourierMaxAmplitudeIndexIntsArray))
+			)
+		)
+
+		#debug
+		'''
+		self.debug(
+			[
+				('self.',self,[ 
+						'NumscipiedFourierMaxTupleFloatsArray'
+					])
+			]
+		)
+		'''
+
+		#array
+		self.NumscipiedFourierMaxCrossPhaseFloatsArray=np.array(
+			map(
+				lambda __RowIndexInt,__NumscipiedFourierMaxAmplitudeIndexIntsArray:
+				map(
+					lambda __NumscipiedFourierMaxAmplitudeIndexInt:
+					(
+						self.NumscipiedFourierFrequencyFloatsArray[
+							__NumscipiedFourierMaxAmplitudeIndexInt
+						],
+						map(
+							lambda __ColIndexInt:
+							self.NumscipiedFourierCrossPhaseFloatsArray[
+								__RowIndexInt,__ColIndexInt,__NumscipiedFourierMaxAmplitudeIndexInt
+							],
+							xrange(len(self.NumscipiedFourierCrossPhaseFloatsArray))
+						)
+					),
+					__NumscipiedFourierMaxAmplitudeIndexIntsArray
+				),
+				xrange(len(self.NumscipiedFourierMaxAmplitudeIndexIntsArray)),
+				self.NumscipiedFourierMaxAmplitudeIndexIntsArray
+			)
+		)
 
 	def setDisymmetrize(self,_IndexTuple):
 
@@ -1666,10 +1671,6 @@ class NumscipyerClass(BaseClass):
 			]
 		)
 		'''
-
-		
-
-
 
 	def mimic__print(self,**_KwargVariablesDict):
 

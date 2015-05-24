@@ -62,7 +62,8 @@ class PyploterClass(BaseClass):
 						_PyplotingYVariable=None,
 						_PyplotingZVariable=None,
 						_PyplotingCloseBool=True,
-						_PyplotingGridIntsTuple=(22,20),
+						_PyplotingGridVariable=None,
+						_PyplotingSubplotInt=1,
 						_PyplotingShapeVariable=None,
 						_PyplotingFigureVariable=None,
 						_PyplotingDrawVariable=None,
@@ -83,6 +84,7 @@ class PyploterClass(BaseClass):
 						_PyplotedParentChartDerivePyploterVariable=None,						
 						_PyplotedFigureVariable=None,
 						_PyplotedAxesVariable=None,
+						_PyplotedAxesList=None,
 						_PyplotedLinesList=None,
 						_PyplotedPreviousAnchorIntsList=[0,0],
 						_PyplotedPreviousShapeIntsList=[0,0],
@@ -588,16 +590,23 @@ class PyploterClass(BaseClass):
 				'''
 				self.debug(
 					[
-						'We are in the case of a Figure Panel Axes draw'
+						'We are in the case of a Figure Panel Axes draw',
+						('self.',self,['PyplotingSubplotInt'])
 					]
 				)
 				'''
 
-				#init
-				self.PyplotedAxesVariable = pyplot.axes()
+				#Check
+				if len(self.PyplotedAxesList)==0 and self.PyplotingSubplotInt>0:
 
-				#link
-				self.PyplotedAxesVariable._figure=self.PyplotedFigureVariable
+					#Check
+					if self.PyplotingGridVariable==None:
+						self.PyplotingGridVariable=(1,self.PyplotingSubplotInt)
+
+					#set
+					self.PyplotedAxesList=[
+						None
+					]*self.PyplotingGridVariable[0]*self.PyplotingGridVariable[1]
 
 				#/#################/#
 				# Look for view argument
@@ -657,8 +666,44 @@ class PyploterClass(BaseClass):
 		#Check
 		if self.PyplotedSingleBool:
 
+
 			#/###############/#
-			# First get
+			# First get the axes
+			#
+
+			#debug
+			'''
+			self.debug(
+				[
+					'We get the axes',
+					('self',self,[
+							'PyplotedAxesList',
+							'PyplotingSubplotInt'
+						])
+				]
+			)
+			'''
+			
+			#decrement
+			PyplotedIndexInt=self.PyplotingSubplotInt-1
+
+			#Check
+			if self.PyplotedAxesList[PyplotedIndexInt]==None:
+
+				#init
+				self.PyplotedAxesList[PyplotedIndexInt] = self.PyplotedFigureVariable.add_subplot(
+					self.PyplotingGridVariable[0],
+					self.PyplotingGridVariable[1],
+					self.PyplotingSubplotInt
+				)
+
+			#get
+			self.PyplotedAxesVariable=self.PyplotedAxesList[
+				PyplotedIndexInt
+			]
+
+			#/###############/#
+			# First get the option to set
 			#
 
 			#get
@@ -762,15 +807,24 @@ class PyploterClass(BaseClass):
 			'''
 
 			#Check
-			if self.PyplotingZVariable==None:
+			if type(self.PyplotingZVariable)==None.__class__:
 
-				#plot 
-				self.PyplotedAxesVariable.plot(
-					self.PyplotedXVariable,
-					self.PyplotedYVariable,
-					**_KwargVariablesDict
-				)
+				if type(self.PyplotingYVariable)==None.__class__:
 
+					#plot 
+					self.PyplotedAxesVariable.plot(
+						self.PyplotedXVariable,
+						**_KwargVariablesDict
+					)
+
+				else:
+
+					#plot 
+					self.PyplotedAxesVariable.plot(
+						self.PyplotedXVariable,
+						self.PyplotedYVariable,
+						**_KwargVariablesDict
+					)
 			else:
 
 				#plot 
@@ -780,6 +834,29 @@ class PyploterClass(BaseClass):
 					self.PyplotedZVariable,
 					**_KwargVariablesDict
 				)
+
+			#/###############/#
+			# Look for Chart setting
+			#
+
+			#Check
+			if self.PyplotingChartVariable!=None:
+
+				#debug
+				'''
+				self.debug(
+					[
+						'In this single plot'
+					]
+				)
+				'''
+
+				#mapArgument
+				self.mapArgument(
+					self.PyplotedAxesVariable,
+					self.PyplotingChartVariable
+				)
+
 
 	def pyplotPanel(self):
 
@@ -1350,8 +1427,8 @@ class PyploterClass(BaseClass):
 				self.debug(
 					[
 						'This is just one panel case',
-						'self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridIntsTuple is',
-						str(self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridIntsTuple),
+						'self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridVariable is',
+						str(self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridVariable),
 						('self.',self,[
 								'PyplotedShiftIntsList'
 							])
@@ -1359,9 +1436,13 @@ class PyploterClass(BaseClass):
 				)
 				'''
 
+				#Check
+				if self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridVariable==None:
+					self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridVariable=(22,20)
+
 				#init
 				self.PyplotedShapeIntsList=list(
-						self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridIntsTuple
+						self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridVariable
 					)
 
 				#/################/#
@@ -1506,7 +1587,7 @@ class PyploterClass(BaseClass):
 				#Check
 				if self.PyplotedAnchorIntsList[
 						__AxeInt
-					] < self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridIntsTuple[
+					] < self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridVariable[
 						__AxeInt
 					]:
 
@@ -1534,7 +1615,7 @@ class PyploterClass(BaseClass):
 					'''
 
 					#Check
-					if PyplotedMaxAnchorInt > self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridIntsTuple[
+					if PyplotedMaxAnchorInt > self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridVariable[
 							__AxeInt
 						]:
 
@@ -1553,7 +1634,7 @@ class PyploterClass(BaseClass):
 						#set
 						self.PyplotedShapeIntsList[
 							__AxeInt
-						]=self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridIntsTuple[
+						]=self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridVariable[
 							__AxeInt
 						]-self.PyplotedAnchorIntsList[
 							__AxeInt
@@ -1705,7 +1786,7 @@ class PyploterClass(BaseClass):
 
 		#subplot2grid
 		self.PyplotedAxesVariable=pyplot.subplot2grid(
-				self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridIntsTuple, 
+				self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridVariable, 
 				self.PyplotedAnchorIntsList, 
 				rowspan=self.PyplotedShapeIntsList[0],
 				colspan=self.PyplotedShapeIntsList[1]
@@ -2546,7 +2627,8 @@ PyploterClass.PrintingClassSkipKeyStrsList.extend(
 		'PyplotingXVariable',
 		'PyplotingYVariable',
 		'PyplotingZVariable',
-		'PyplotingGridIntsTuple',
+		'PyplotingGridVariable',
+		'PyplotingSubplotInt',
 		'PyplotingShapeVariable',
 		'PyplotingFigureVariable',
 		'PyplotingDrawVariable',
@@ -2560,6 +2642,7 @@ PyploterClass.PrintingClassSkipKeyStrsList.extend(
 		'PyplotingYSkipTickBool',
 		'PyplotingMarkerVariable',
 		'PyplotingColorVariable',
+		'PyplotingSubplotInt',
 		'PyplotingCloseBool',
 		'PyplotedSingleBool',
 		'PyplotedTeamTagStr',
@@ -2568,6 +2651,7 @@ PyploterClass.PrintingClassSkipKeyStrsList.extend(
 		'PyplotedParentChartDerivePyploterVariable',
 		'PyplotedFigureVariable',
 		'PyplotedAxesVariable',
+		'PyplotedAxesList',
 		'PyplotedLinesList',
 		'PyplotedPreviousAnchorIntsList',
 		'PyplotedPreviousShapeIntsList',

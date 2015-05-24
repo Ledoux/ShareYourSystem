@@ -6,11 +6,9 @@ object Scalogy{
 		println("Hi")
 
 		//import
-		import Teamer._
+		import scala.Teamer._
 		println(TeamerClass)
+		new TeamerClass().team("kkk",new TeamerClass())
 
 	}
-
-	
-	
 }

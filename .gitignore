@@ -3,3 +3,8 @@ site
 Pythonlogy/dist
 Pythonlogy/build
 Pythonlogy/draft
+Coffeelogy/bower_components
+Coffeelogy/node_modules
+Scalogy/project
+Scalogy/target
+Scalogy/src/main/target

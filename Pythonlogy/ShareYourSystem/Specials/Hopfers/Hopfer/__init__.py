@@ -48,8 +48,11 @@ class HopferClass(BaseClass):
 			_HopfingPerturbationEnvelopBool=True,
 			_HopfingDoStationaryBool=False,
 			_HopfingDoStabilityBool=False,
+			_HopfingDoTransferBool=False,
 			_HopfingContourSamplesInt=50,
 			_HopfingInteractionStr="Rate",
+			_HopfingTransferFrequencySamplesInt=100,
+			_HopfingTransferCurrentVariable=None,
 			_HopfedLateralWeigthFloatsArray=None,
 			_HopfedMeanfieldWeigthFloat=0.,
 			_HopfedRealLateralEigenFloatsArray = None,
@@ -76,6 +79,7 @@ class HopferClass(BaseClass):
 			_HopfedDelayTimeVariable=None,
 			_HopfedDecayTimeVariable=None,
 			_HopfedRiseTimeVariable=None,
+			_HopfedPerturbationComplex=None,
 			_HopfedNeuralPerturbationVariable=None,
 			_HopfedSynapticPerturbationComplexesArray=None,
 			_HopfedSynapticPerturbationMethodVariable=None,
@@ -83,6 +87,11 @@ class HopferClass(BaseClass):
 			_HopfedTotalPerturbationComplexesArray=None,
 			_HopfedDeterminantFunctionVariable=None,
 			_HopfedDeterminantFloatsTuple=None,
+			_HopfedTransferFrequencyFloatsArray=None,
+			_HopfedTransferCurrentFloatsArray=None,
+			_HopfedTransferRateComplexesArray=None,
+			_HopfedTransferRateAmplitudeFloatsArray=None,
+			_HopfedTransferRatePhaseFloatsArray=None,
 			_HopfedAgentDeriveHopferVariable=None,
 			_HopfedNetworkDeriveHopferVariable=None,
 			**_KwargVariablesDict
@@ -257,6 +266,16 @@ class HopferClass(BaseClass):
 	def hopfNetwork(self):
 
 		#/###############/#
+		# Set implication
+		#
+
+		#Check
+		if self.HopfingDoTransferBool:
+
+			#set
+			self.HopfingDoStabilityBool=True
+
+		#/###############/#
 		# Build the laterals
 		#
 
@@ -281,7 +300,7 @@ class HopferClass(BaseClass):
 			self.NumscipyingStdFloat=self.HopfingStdWeightFloat
 			self.NumscipyingMeanFloat=self.HopfingMeanWeightFloat
 			self.NumscipyingSymmetryFloat=self.HopfingSymmetryFloat
-			self.NumscipyingEigenvalueBool=True
+			self.NumscipyingEigenvalueBool=self.HopfingPerturbationEnvelopBool or self.HopfingDoStabilityBool
 			self.NumscipyingNormalisationFunction=lambda __ColsInt:__ColsInt**0.5
 
 			#Check
@@ -869,6 +888,155 @@ class HopferClass(BaseClass):
 								#break
 								break
 
+
+					#/################/#
+					# Do tranfer maybe
+					#
+
+					#Check
+					if self.HopfingDoTransferBool:
+
+						#debug
+						'''
+						self.debug(
+							[
+								"We compute transfer here",
+								('self.',self,[
+										'HopfingTransferCurrentVariable'
+									])
+							]
+						)
+						'''
+
+						#type
+						HopfedTransferCurrentType=type(
+							self.HopfingTransferCurrentVariable
+						)
+
+						#Check
+						if HopfedTransferCurrentType==None.__class__:
+
+							#array
+							self.HopfedTransferCurrentFloatsArray=[1.]*self.HopfingUnitsInt
+
+						elif HopfedTransferCurrentType in [np.float64,float]:
+
+							#array
+							self.HopfedTransferCurrentFloatsArray=[
+									self.HopfingTransferCurrentVariable
+								]*self.HopfingUnitsInt
+
+						else:
+
+							#array
+							self.HopfedTransferCurrentFloatsArray=self.HopfingTransferCurrentVariable
+
+						#array
+						self.HopfedTransferCurrentFloatsArray=np.array(
+							self.HopfedTransferCurrentFloatsArray
+						)
+
+						#import 
+						import scipy.linalg
+
+						#init
+						self.HopfedTransferFrequencyFloatsArray=np.logspace(
+							0,
+							3,
+							self.HopfingTransferFrequencySamplesInt
+						)
+
+						#init
+						self.HopfedTransferRateComplexesArray=np.zeros(
+								(
+									self.HopfingUnitsInt,
+									len(self.HopfedTransferFrequencyFloatsArray)
+								),
+								dtype=complex
+							)
+						self.HopfedTransferRateAmplitudeFloatsArray=np.zeros(
+								(
+									self.HopfingUnitsInt,
+									len(self.HopfedTransferFrequencyFloatsArray)
+								),
+								dtype=float
+							)
+						self.HopfedTransferRatePhaseFloatsArray=np.zeros(
+								(
+									self.HopfingUnitsInt,
+									len(self.HopfedTransferFrequencyFloatsArray)
+								),
+								dtype=float
+							)
+
+						#loop
+						for __IndexInt,__FrequencyFloat in enumerate(
+							self.HopfedTransferFrequencyFloatsArray
+						):
+
+							#set
+							self.HopfedPerturbationComplex=1j*2.*np.pi*__FrequencyFloat
+
+							#set
+							self.setHopfedTotalPerturbationComplexesArray()
+
+							#solve
+							HopfedTransferRateComplexesArray = scipy.linalg.solve(
+								self.HopfedTotalPerturbationComplexesArray,
+								self.HopfedTransferCurrentFloatsArray
+							)
+
+							#lu
+							self.HopfedTransferRateComplexesArray[
+								:,
+								__IndexInt
+							]=HopfedTransferRateComplexesArray
+
+							#amp and phase
+							self.HopfedTransferRateAmplitudeFloatsArray[
+								:,
+								__IndexInt
+							]=np.abs(
+								HopfedTransferRateComplexesArray
+							)
+							self.HopfedTransferRatePhaseFloatsArray[
+								:,
+								__IndexInt
+							]=np.angle(
+								HopfedTransferRateComplexesArray
+							)
+
+						#debug
+						'''
+						self.debug(
+							[
+								'after the solve decomposition',
+								('self.',self,[
+									'HopfedTransferCurrentFloatsArray',
+									'HopfedTransferRateComplexesArray',
+									'HopfedTransferRateAmplitudeFloatsArray',
+									'HopfedTransferRatePhaseFloatsArray'
+								])	
+							]
+						)
+						'''
+
+						#find the Extremum
+						self.NumscipiedFourierFrequencyFloatsArray=self.HopfedTransferFrequencyFloatsArray
+						self.NumscipiedFourierAmplitudeFloatsArray=self.HopfedTransferRateAmplitudeFloatsArray
+						self.NumscipiedFourierPhaseFloatsArray=self.HopfedTransferRatePhaseFloatsArray
+						self.setExtremum()
+
+						#debug
+						self.debug(
+							[
+								('self.',self,[ 
+										'NumscipiedFourierMaxTupleFloatsArray',
+										'NumscipiedFourierMaxCrossPhaseFloatsArray'
+									])
+							]
+						)
+
 				else:
 
 					#set
@@ -1085,18 +1253,14 @@ class HopferClass(BaseClass):
 
 		pass
 
-	def getGlobalPerturbationRootFloatsTuple(self,_PerturbationFloatsTuple):
+	def setHopfedTotalPerturbationComplexesArray(self):
 
 		#/###############/#
 		# Prepare the complex pulsation perturbation
 		# init HopfedTotalPerturbationComplexesArray
 
-		#pack
-		PerturbationComplex=_PerturbationFloatsTuple[
-			0
-		]+1j*_PerturbationFloatsTuple[
-			1
-		]
+		#alias
+		PerturbationComplex=self.HopfedPerturbationComplex
 
 		#copy
 		self.HopfedTotalPerturbationComplexesArray=-np.array(
@@ -1201,12 +1365,26 @@ class HopferClass(BaseClass):
 				)+np.diag(self.HopfedTotalPerturbationComplexesArray)
 		)
 
+	def getGlobalPerturbationRootFloatsTuple(self,_PerturbationFloatsTuple):
+
+		#pack
+		self.HopfedPerturbationComplex=_PerturbationFloatsTuple[
+			0
+		]+1j*_PerturbationFloatsTuple[
+			1
+		]
+
+		#set
+		self.setHopfedTotalPerturbationComplexesArray()
+
 		#/###############/#
 		# compute det
 		#
 
 		#det
-		HopfedDeterminantComplex=self.HopfedDeterminantFunctionVariable(self.HopfedTotalPerturbationComplexesArray)
+		HopfedDeterminantComplex=self.HopfedDeterminantFunctionVariable(
+			self.HopfedTotalPerturbationComplexesArray
+		)
 	
 		#debug
 		'''
@@ -1888,6 +2066,8 @@ HopferClass.PrintingClassSkipKeyStrsList.extend(
 		'HopfingDoStabilityBool',
 		'HopfingContourSamplesInt',
 		'HopfingInteractionStr',
+		'HopfingTransferFrequencySamplesInt',
+		'HopfingTransferCurrentVariable',
 		'HopfedLateralWeigthFloatsArray',
 		'HopfedHalfHeightFloat',
 		'HopfedLateralHalfWidthFloat',
@@ -1915,6 +2095,7 @@ HopferClass.PrintingClassSkipKeyStrsList.extend(
 		'HopfedDelayTimeVariable',
 		'HopfedDecayTimeVariable',
 		'HopfedRiseTimeVariable',
+		'HopfedPerturbationComplex',
 		'HopfedNeuralPerturbationVariable',
 		'HopfedSynapticPerturbationComplexesArray',
 		'HopfedSynapticPerturbationMethodVariable',
@@ -1924,6 +2105,11 @@ HopferClass.PrintingClassSkipKeyStrsList.extend(
 		'HopfedInstabilityFrequencyFloat',
 		'HopfedDeterminantFunctionVariable',
 		'HopfedDeterminantFloatsTuple',
+		'HopfedTransferFrequencyFloatsArray',
+		'HopfedTransferCurrentFloatsArray',
+		'HopfedTransferRateComplexesArray',
+		'HopfedTransferRateAmplitudeFloatsArray',
+		'HopfedTransferRatePhaseFloatsArray',
 		'HopfedAgentDeriveHopferVariable',
 		'HopfedNetworkDeriveHopferVariable'
 	]
