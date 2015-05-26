@@ -484,16 +484,15 @@ class PyploterClass(BaseClass):
 	def pyplotFigure(self,**_KwargVariablesDict):
 
 		#debug
-		'''
 		self.debug(
 			[
 				'We pyplot figure here',
 				('self.',self,[
-						'PyplotedSingleBool'
+						'PyplotedSingleBool',
+						'PyplotedAxesVariable'
 					])
 			]
 		)
-		'''
 
 		#Check
 		if self.PyplotedSingleBool==False:
@@ -570,9 +569,6 @@ class PyploterClass(BaseClass):
 				)
 			):
 
-				#set
-				self.PyplotedSingleBool=True
-
 				#/###############/#
 				# Set parent 
 				#
@@ -587,81 +583,84 @@ class PyploterClass(BaseClass):
 				#
 
 				#debug
-				'''
 				self.debug(
 					[
 						'We are in the case of a Figure Panel Axes draw',
-						('self.',self,['PyplotingSubplotInt'])
+						('self.',self,[
+							'PyplotingSubplotInt',
+							'PyplotedAxesList'
+						])
 					]
 				)
-				'''
 
 				#Check
-				if len(self.PyplotedAxesList)==0 and self.PyplotingSubplotInt>0:
-
-					#Check
-					if self.PyplotingGridVariable==None:
-						self.PyplotingGridVariable=(1,self.PyplotingSubplotInt)
+				if 'Draws' not in self.TeamDict:
 
 					#set
-					self.PyplotedAxesList=[
-						None
-					]*self.PyplotingGridVariable[0]*self.PyplotingGridVariable[1]
+					self.PyplotedSingleBool=True
 
-				#/#################/#
-				# Look for view argument
-				#
+					#Check
+					if len(self.PyplotedAxesList)==0 and self.PyplotingSubplotInt>0:
 
-				#debug
-				'''
-				self.debug(
-					[
-						'First look for view arguments'
-					]
-				)
-				'''
+						#Check
+						if self.PyplotingGridVariable==None:
+							self.PyplotingGridVariable=(1,self.PyplotingSubplotInt)
 
-				#map
-				map(
-					lambda __AxeStr:
-					self.pyplotAxe(__AxeStr),
-					[
-						'X',
-						'Y'
-					]
-				)
+						#set
+						self.PyplotedAxesList=[
+							None
+						]*self.PyplotingGridVariable[0]*self.PyplotingGridVariable[1]
 
-				#debug
-				'''
-				self.debug(
-					[
-						'Ok we have maybe setted the PyplotingChartVariable',
-						('self.',self,[
-								'PyplotingChartVariable'
-							]),
-						'getFiguresList is ',
-						str(getFiguresList())
-					]
-				)
-				'''
 
-				#/###############/#
-				# pyplotDraw
-				#
+				else:
 
-				#pyplotDraw
-				self.pyplotDraw()
+					#axes
+					self.PyplotedAxesVariable=pyplot.axes()
+					self.PyplotedAxesVariable._figure=self.PyplotedFigureVariable
 
-				#debug
-				'''
-				self.debug(
-					[
-						'after pyplotDraw',
-						'getFiguresList is ',
-						str(getFiguresList())
-					]
-				)
-				'''
+					#/###############/#
+					# pyplotDraw
+					#
+
+					#pyplotDraw
+					self.pyplotDraw()
+
+					#/#################/#
+					# Look for view argument
+					#
+
+					#debug
+					'''
+					self.debug(
+						[
+							'First look for view arguments'
+						]
+					)
+					'''
+
+					#map
+					map(
+						lambda __AxeStr:
+						self.pyplotAxe(__AxeStr),
+						[
+							'X',
+							'Y'
+						]
+					)
+
+					#debug
+					'''
+					self.debug(
+						[
+							'Ok we have maybe setted the PyplotingChartVariable',
+							('self.',self,[
+									'PyplotingChartVariable'
+								]),
+							'getFiguresList is ',
+							str(getFiguresList())
+						]
+					)
+					'''
 
 		#Check
 		if self.PyplotedSingleBool:
@@ -701,6 +700,24 @@ class PyploterClass(BaseClass):
 			self.PyplotedAxesVariable=self.PyplotedAxesList[
 				PyplotedIndexInt
 			]
+
+			#debug
+			'''
+			self.debug(
+				[
+					'after pyplotDraw',
+					'getFiguresList is ',
+					str(getFiguresList())
+				]
+			)
+			'''
+
+			#/###############/#
+			# pyplotDraw
+			#
+
+			#pyplotDraw
+			self.pyplotDraw()
 
 			#/###############/#
 			# First get the option to set
@@ -1579,10 +1596,16 @@ class PyploterClass(BaseClass):
 						'__AxeInt is '+str(__AxeInt),
 						('self.',self,[
 								'PyplotedAnchorIntsList',
-							])
+							]),
+						'self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridVariable is ',
+						str(self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridVariable)
 					]
 				)
 				'''
+
+				#Check
+				if self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridVariable==None:
+					self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridVariable=(22,20)
 
 				#Check
 				if self.PyplotedAnchorIntsList[
@@ -1828,6 +1851,18 @@ class PyploterClass(BaseClass):
 		#Check
 		if 'Draws' not in self.TeamDict or len(self.TeamDict['Draws'])==0:
 
+			#debug
+			'''
+			self.debug(
+				[
+					'We mapArgument here',
+					('self.',self,[
+							'PyplotedChartTuplesList'
+						])
+				]
+			)	
+			'''
+
 			#map argument
 			self.mapArgument(
 				self.PyplotedAxesVariable,
@@ -1863,8 +1898,8 @@ class PyploterClass(BaseClass):
 					'PyplotingDrawVariable',
 					#'PyplotedParentFigureDerivePyploterVariable'
 				]),
-				#'self.PyplotedParentChartDerivePyploterVariable.PyplotedAxesVariable is ',
-				#str(self.PyplotedParentChartDerivePyploterVariable.PyplotedAxesVariable)
+				'self.PyplotedParentChartDerivePyploterVariable.PyplotedAxesVariable is ',
+				str(self.PyplotedParentChartDerivePyploterVariable.PyplotedAxesVariable)
 			]
 		)
 		'''

@@ -17,7 +17,7 @@ MyHopfer=SYS.HopferClass(
 			'BrianingStepTimeFloat':0.1,
 			'-Populations':{
 				'|Agent':{
-					'LeakingTotalBool':True,
+					'LeakingGlobalBool':True,
 					'-Traces':{
 						'|*U':{
 							'RecordingInitStdVariable':0.5
@@ -29,10 +29,8 @@ MyHopfer=SYS.HopferClass(
 		}
 	).hopf(
 		_UnitsInt=100,
-		_StdWeightFloat=1.2,
-		_SymmetryFloat=-0.7,
-		#_GlobalBool=True,
-		#_TotalBool=False
+		_StdWeightFloat=1.1,
+		_SymmetryFloat=-0.7
 	).leak(
 	).simulate(
 		500.
@@ -48,7 +46,7 @@ MyHopfer.mapSet(
 			'PyplotingFigureVariable':{
 				'figsize':(10,8)
 			},
-			'PyplotingGridIntsTuple':(30,30),
+			'PyplotingGridVariable':(30,30),
 			'-Panels':[
 				(
 					'|Eigen',
@@ -67,12 +65,12 @@ MyHopfer.mapSet(
 					{
 						'PyplotingTextVariable':[-0.4,0.],
 						'PyplotingShiftVariable':[0,4],
-						'PyplotingShapeVariable':[8,9],
+						'PyplotingShapeVariable':[8,12],
 						'-Charts':{
 							'|Agent_*U':{
 								'PyplotingLegendDict':{
 									'fontsize':10,
-									'ncol':2
+									'ncol':1
 								}
 							}
 						}
@@ -92,8 +90,6 @@ MyHopfer.mapSet(
 	).pyplot(
 	).show(
 	)
-
-print(MyHopfer['/-Panels/|Run/-Charts'])
 
 #/###################/#
 # Print

@@ -14,6 +14,7 @@ import ShareYourSystem as SYS
 MyLeaker=SYS.LeakerClass(
 	).mapSet(
 		{
+			'BrianingStepTimeFloat':0.01,
 			'-Populations':{
 				'|P':{
 					'LeakingUnitsInt':2,
@@ -21,9 +22,12 @@ MyLeaker=SYS.LeakerClass(
 					'-Interactions':{
 						'|/':{
 							#'BrianingDebugVariable':10,
-							'LeakingWeigthVariable':[[0.,-2.],[0.,0.]],
+							'LeakingWeigthVariable':[[0.,-20.],[1.,0.]],
 							'LeakingDelayVariable':5.,
-							#'LeakingDelayCustomBool':False 
+							#'LeakingDelayVariable':[[2.,1.],0.5], #PRE-POST matrix
+							#'LeakingDelayPrepostBool':True,
+							#'LeakingDelayVariable':[[0.5,5.],[0.2,1.]],
+							#'LeakingDelayCustomBool':True
 						}
 					},
 					'RecordingLabelVariable':[0,1]
@@ -32,7 +36,7 @@ MyLeaker=SYS.LeakerClass(
 		}
 	).leak(
 	).simulate(
-		50.
+		10.
 	)
 
 #/###################/#
@@ -50,4 +54,6 @@ MyLeaker.view(
 #print
 print('MyLeaker is ')
 SYS._print(MyLeaker) 
+
+
 

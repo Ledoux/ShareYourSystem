@@ -1198,7 +1198,7 @@ class NumscipyerClass(BaseClass):
 
 			#fft
 			self.NumscipiedFourierGlobalComplexesArray=fft(
-				self.NumscipiedStdGlobalFloatsArray
+				self.NumscipiedMeanGlobalFloatsArray
 			)
 
 			#amplitude
