@@ -55,16 +55,26 @@ MyBrianer.simulate(
 # View
 #
 
-#MyBrianer[
-#		'/-Traces/|*v/-Samples/|Default'
-#	].view(
-#	).pyplot(
-#	)
-#MyBrianer['/-Events/|Default'].view(
-#	).pyplot()
+"""
+MyBrianer[
+		'/-Traces/|*v/-Samples/|Default'
+	].view(
+	).pyplot(
+	).show(
+	)
+"""
+
+"""
+MyBrianer['/-Events/|Default'].view(
+	).pyplot(
+	).show(
+	)
+"""
+
 MyBrianer.view(
-	).pyplot()
-SYS.matplotlib.pyplot.show()
+	).pyplot(
+	).show(
+	)
 
 #/###################/#
 # Print

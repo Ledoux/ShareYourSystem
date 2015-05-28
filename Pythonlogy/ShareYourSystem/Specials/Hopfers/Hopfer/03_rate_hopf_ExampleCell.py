@@ -18,6 +18,7 @@ MyHopfer=SYS.HopferClass(
 			'-Populations':{
 				'|Agent':{
 					'LeakingGlobalBool':True,
+					'LeakingMaxBool':True,
 					'-Traces':{
 						'|*U':{
 							'RecordingInitStdVariable':0.5
@@ -29,12 +30,13 @@ MyHopfer=SYS.HopferClass(
 		}
 	).hopf(
 		_UnitsInt=100,
-		_StdWeightFloat=1.3,
+		_StdWeightFloat=1.5,
 		_SymmetryFloat=-0.7
 	).leak(
 	).simulate(
-		500.
+		200.
 	)
+
 
 #/###################/#
 # View

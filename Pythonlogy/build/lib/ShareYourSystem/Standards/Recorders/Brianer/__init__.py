@@ -48,7 +48,7 @@ BrianViewKeyStrsList=[
 	'ClassingSwitchMethodStrsList':['brian'],
 	'ClassingStructureVariable':[
 			('Clock','Clocks'),
-			('Population','Populations'),
+			("Population",'Populations'),
 			('Trace','Traces'),
 			('Sample','Samples'),
 			('Event','Events'),
@@ -97,6 +97,7 @@ class BrianerClass(BaseClass):
 			_BrianedSynapsesDeriveBrianersList=None,
 			_BrianedStateDeriveBrianersList=None,
 			_BrianedSpikeDeriveBrianersList=None,
+			_BrianedViewTraceBool=False,
 			_BrianedParentNetworkDeriveBrianerVariable=None,
 			_BrianedParentPopulationDeriveBrianerVariable=None,
 			_BrianedParentInteractomeDeriveBrianerVariable=None,
@@ -190,7 +191,7 @@ class BrianerClass(BaseClass):
 			'Events',
 			'Interactomes',
 			'Interactions'
-		]) and self.BrianedParentSingularStr!='Population':
+		]) and self.BrianedParentSingularStr!="Population":
 
 			#debug
 			'''
@@ -1732,7 +1733,7 @@ class BrianerClass(BaseClass):
 			'Events',
 			'Interactomes',
 			'Interactions'
-		]) and self.BrianedParentSingularStr!='Population':
+		]) and self.BrianedParentSingularStr!="Population":
 
 			#debug
 			'''
@@ -1794,31 +1795,17 @@ class BrianerClass(BaseClass):
 				'''
 
 				#/########################/#
-				# Team Panels
+				# Build a Panel Run Charts 
 				#
 
-				#team
-				ViewedPanelsManager=self.team(
-					'Panels'
-				).TeamedValueVariable
-
-				#/########################/#
-				# Manage a Run Panel
-				#
-
-				#manage
-				ViewedRunDerivePyploter=ViewedPanelsManager.manage(
-					'Run'
-				).ManagedValueVariable
-
-				#/########################/#
-				# Team Charts
-				#
-
-				#team
-				ViewedChartsManager=ViewedRunDerivePyploter.team(
-					'Charts'
-				).TeamedValueVariable
+				#get
+				self.getTeamer(
+						"Panels"
+					).getManager(
+						"Run"
+					).getTeamer(
+						"Charts"
+					)
 
 			#/########################/#
 			# structure
@@ -1920,19 +1907,20 @@ class BrianerClass(BaseClass):
 	def viewPopulation(self):
 
 		#debug
-		'''
 		self.debug(
 			[
-				'we view population brian here'
+				'we view population brian here',
+				('self.',self,[
+						'BrianingViewNetworkBool'
+					])
 			]
 		)
-		'''
 
 		#Check
 		if self.BrianingViewNetworkBool==False:
 
 			#/################/#
-			# Build the Charts to welcome the axes
+			# Build the Panels Charts to welcome the axes
 			#
 
 			#debug
@@ -1951,7 +1939,11 @@ class BrianerClass(BaseClass):
 
 			#Check
 			self.getTeamer(
-					'Charts'
+					"Panels"
+				).getManager(
+					"Run"
+				).getTeamer(
+					"Charts"
 				)
 
 			#/################/#
@@ -2002,7 +1994,7 @@ class BrianerClass(BaseClass):
 			#
 
 			#Check
-			if 'Panels' in self.BrianedParentNetworkDeriveBrianerVariable.TeamDict:
+			if "Panels" in self.BrianedParentNetworkDeriveBrianerVariable.TeamDict:
 
 				#debug
 				'''
@@ -2015,15 +2007,15 @@ class BrianerClass(BaseClass):
 				'''
 
 				#get
-				ViewedRunDerivePyploter=self.BrianedParentNetworkDeriveBrianerVariable.TeamDict[
-					'Panels'
+				ViewedNetworkRunDerivePyploter=self.BrianedParentNetworkDeriveBrianerVariable.TeamDict[
+					"Panels"
 				].ManagementDict[
-					'Run'
+					"Run"
 				]
 
 				#get
-				ViewedChartsManager=ViewedRunDerivePyploter.TeamDict[
-					'Charts'
+				ViewedNetworkRunChartsManager=ViewedNetworkRunDerivePyploter.TeamDict[
+					"Charts"
 				]
 
 				#/################/#
@@ -2047,16 +2039,16 @@ class BrianerClass(BaseClass):
 				if self.PyplotingShapeVariable==None:
 
 					#Check
-					if ViewedRunDerivePyploter.PyplotingShapeVariable!=None:
+					if ViewedNetworkRunDerivePyploter.PyplotingShapeVariable!=None:
 
 						#copy
-						self.PyplotingShapeVariable= ViewedRunDerivePyploter.PyplotingShapeVariable[:]
+						self.PyplotingShapeVariable = ViewedNetworkRunDerivePyploter.PyplotingShapeVariable[:]
 
 					#Check
 					else:
 
 						#default
-						self.PyplotingShapeVariable=[5,17]
+						self.PyplotingShapeVariable = [5,17]
 
 				#debug
 				'''
@@ -2078,17 +2070,17 @@ class BrianerClass(BaseClass):
 					'''
 					self.debug(
 						[
-							'ViewedRunDerivePyploter.PyplotingShiftVariable is ',
+							'ViewedNetworkRunDerivePyploter.PyplotingShiftVariable is ',
 							str(ViewedRunDerivePyploter.PyplotingShiftVariable)
 						]
 					)
 					'''
 
 					#Check
-					if ViewedRunDerivePyploter.PyplotingShiftVariable!=None:
+					if ViewedNetworkRunDerivePyploter.PyplotingShiftVariable!=None:
 
 						#copy
-						self.PyplotingShiftVariable=ViewedRunDerivePyploter.PyplotingShiftVariable[:]
+						self.PyplotingShiftVariable = ViewedNetworkRunDerivePyploter.PyplotingShiftVariable[:]
 
 					#Check
 					else:
@@ -2117,21 +2109,27 @@ class BrianerClass(BaseClass):
 					[
 						'We map manage each Chart in the network one',
 						'self.TeamDict["Charts"].ManagementDict.keys() is',
-						str(self.TeamDict['Charts'].ManagementDict.keys())
+						str(self.TeamDict["Charts"].ManagementDict.keys())
 					]
 				)
 				'''
 
 				#get
-				ViewedPopulationChartDerivePyplotersList=self.TeamDict['Charts'].ManagementDict.values()
+				ViewedPopulationRunChartDerivePyplotersList=self.TeamDict[
+					"Panels"
+				].ManagementDict[
+					"Run"
+				].TeamDict[
+					"Charts"
+				].ManagementDict.values()
 
 				#map
-				ViewedNetworkChartDerivePyplotersList=map(
-					lambda __ViewedPopulationChartDerivePyploter:
-					ViewedChartsManager.getManager(
-						self.ManagementTagStr+'_'+ __ViewedPopulationChartDerivePyploter.ManagementTagStr,
+				ViewedNetworkRunChartDerivePyplotersList=map(
+					lambda __ViewedPopulationRunChartDerivePyploter:
+					ViewedNetworkRunChartsManager.getManager(
+						self.ManagementTagStr+'_'+ __ViewedPopulationRunChartDerivePyploter.ManagementTagStr,
 					),
-					ViewedPopulationChartDerivePyplotersList
+					ViewedPopulationRunChartDerivePyplotersList
 				)
 
 				#debug
@@ -2162,15 +2160,15 @@ class BrianerClass(BaseClass):
 
 				#map
 				map(
-					lambda __ViewedNetworkChartDerivePyplotersList,__ViewedPopulationChartDerivePyploter:
-					__ViewedNetworkChartDerivePyplotersList.setAttr(
+					lambda __ViewedNetworkRunChartDerivePyplotersList,__ViewedPopulationRunChartDerivePyploter:
+					__ViewedNetworkRunChartDerivePyplotersList.setAttr(
 						'PyplotingLegendDict',
-						__ViewedPopulationChartDerivePyploter.PyplotingLegendDict
+						__ViewedPopulationRunChartDerivePyploter.PyplotingLegendDict
 					) 
-					if __ViewedNetworkChartDerivePyplotersList.PyplotingLegendDict==None
+					if __ViewedNetworkRunChartDerivePyplotersList.PyplotingLegendDict==None
 					else None,
-					ViewedNetworkChartDerivePyplotersList,
-					ViewedPopulationChartDerivePyplotersList
+					ViewedNetworkRunChartDerivePyplotersList,
+					ViewedPopulationRunChartDerivePyplotersList
 				)
 
 				#/################/#
@@ -2180,7 +2178,7 @@ class BrianerClass(BaseClass):
 				#map
 				map(
 					lambda __DeriveChartPyploter,__IndexInt:
-					ViewedChartsManager.getManager(
+					ViewedNetworkRunChartsManager.getManager(
 						self.ManagementTagStr+'_'+ __DeriveChartPyploter.ManagementTagStr,
 					).mapSetAttr(
 						{
@@ -2216,25 +2214,25 @@ class BrianerClass(BaseClass):
 							__DeriveChartPyploter.TeamDict['Draws'].ManagementDict.items()
 						)
 					),
-					ViewedPopulationChartDerivePyplotersList,
-					xrange(len(ViewedPopulationChartDerivePyplotersList))
+					ViewedPopulationRunChartDerivePyplotersList,
+					xrange(len(ViewedPopulationRunChartDerivePyplotersList))
 				)
 
 				#Set a gap
-				if len(ViewedChartsManager.ManagementDict)>0:
+				if len(ViewedNetworkRunChartsManager.ManagementDict)>0:
 
 					#set
-					ViewedChartsManager.ManagementDict.getValue(
+					ViewedNetworkRunChartsManager.ManagementDict.getValue(
 						0
 					).PyplotingShiftIntsTuple=[2,0]
 
-	def viewTrace(self):
+	def viewTraceOrEvent(self):
 
 		#debug
 		'''
 		self.debug(
 			[
-				'viewTrace',
+				'viewTraceOrEvent'
 			]
 		)
 		'''
@@ -2269,9 +2267,12 @@ class BrianerClass(BaseClass):
 				)
 				'''
 				
-				#set
-				self.BrianedParentPopulationDeriveBrianerVariable.BrianingViewNetworkBool=True
-				self.BrianedParentPopulationDeriveBrianerVariable.viewPopulation()
+				#Check
+				if self.BrianedParentPopulationDeriveBrianerVariable!=self.BrianedParentNetworkDeriveBrianerVariable:
+
+					#set
+					self.BrianedParentPopulationDeriveBrianerVariable.BrianingViewNetworkBool=True
+					self.BrianedParentPopulationDeriveBrianerVariable.viewPopulation()
 
 			#Check
 			if self.BrianedParentInteractionDeriveBrianerVariable!=None:
@@ -2903,7 +2904,7 @@ class BrianerClass(BaseClass):
 					if self.BrianedParentPopulationDeriveBrianerVariable.ManagementTagStr!="":
 						BrianedTitleStr=self.BrianedParentPopulationDeriveBrianerVariable.ManagementTagStr
 					else:
-						BrianedTitleStr='Population'
+						BrianedTitleStr="Population"
 
 					#add
 					self.PyplotingChartVariable+=[
@@ -2999,24 +3000,28 @@ class BrianerClass(BaseClass):
 		self.debug(
 			[
 				'Maybe we also update the view in the parent population',
-				"'Charts' in self.BrianedParentPopulationDeriveBrianerVariable.TeamDict is ",
-				str('Charts' in self.BrianedParentPopulationDeriveBrianerVariable.TeamDict)
+				""Charts" in self.BrianedParentPopulationDeriveBrianerVariable.TeamDict is ",
+				str("Charts" in self.BrianedParentPopulationDeriveBrianerVariable.TeamDict)
 			]
 		)
 		'''
 
 		#Check
-		if 'Charts' in self.BrianedParentPopulationDeriveBrianerVariable.TeamDict:
+		if "Panels" in self.BrianedParentPopulationDeriveBrianerVariable.TeamDict:
 
-			#get
-			BrianedChartsDeriveManager=self.BrianedParentPopulationDeriveBrianerVariable.TeamDict[
-				'Charts'
+			#set
+			BrianedRunPopulationChartsDeriveManager=self.BrianedParentPopulationDeriveBrianerVariable.TeamDict[
+				"Panels"
+			].ManagementDict[
+				"Run"
+			].TeamDict[
+				"Charts"
 			]
 
 			#manage
-			BrianedChartDerivePyploter=BrianedChartsDeriveManager.manage(
+			BrianedChartDerivePyploter=BrianedRunPopulationChartsDeriveManager.getManager(
 				self.BrianedParentDeriveRecorderVariable.ManagementTagStr
-			).ManagedValueVariable
+			)
 
 			#/####################/#
 			# set to True
@@ -3112,9 +3117,9 @@ class BrianerClass(BaseClass):
 			'''
 
 			#team
-			BrianedDrawDeriveManager=BrianedChartDerivePyploter.team(
+			BrianedDrawDeriveManager=BrianedChartDerivePyploter.getTeamer(
 				'Draws'
-			).TeamedValueVariable
+			)
 
 			#/####################/#
 			# Manage a new draw
@@ -3151,18 +3156,18 @@ class BrianerClass(BaseClass):
 		)-1:
 
 			#Check
-			'''
 			self.debug(
 				[
 					'This is the last Sample for this record',
-					'We viewTrace here'
+					'We viewTrace on the parent recorder (that will call viewPopulation)',
+					"self.BrianedParentDeriveRecorderVariable.BrianedViewTraceBool is "+str(
+						self.BrianedParentDeriveRecorderVariable.BrianedViewTraceBool
+					)
 				]
 			)
-			'''
 
 			#call
-			self.viewTrace()
-
+			self.BrianedParentDeriveRecorderVariable.viewTraceOrEvent()
 
 	def viewEvent(self):
 
@@ -3388,7 +3393,7 @@ class BrianerClass(BaseClass):
 			[
 				'Are we putting the events view in the charts population ?',
 				'"Charts" not in self.BrianedParentPopulationDeriveBrianerVariable is',
-				str('Charts' not in self.BrianedParentPopulationDeriveBrianerVariable.TeamDict),
+				str("Charts" not in self.BrianedParentPopulationDeriveBrianerVariable.TeamDict),
 				#('self.',self,[
 				#		'BrianedParentPopulationDeriveBrianerVariable'
 				#	])
@@ -3397,16 +3402,20 @@ class BrianerClass(BaseClass):
 		'''
 		
 		#Check
-		if 'Charts' not in self.BrianedParentPopulationDeriveBrianerVariable.TeamDict:
+		if "Panels" not in self.BrianedParentPopulationDeriveBrianerVariable.TeamDict:
 			return 
 
 		#get
-		BrianedChartDeriveManager=self.BrianedParentPopulationDeriveBrianerVariable.TeamDict[
-			'Charts'
+		BrianedRunPopulationChartDeriveManager=self.BrianedParentPopulationDeriveBrianerVariable.TeamDict[
+			"Panels"
+		].ManagementDict[
+			"Run"
+		].TeamDict[
+			"Charts"
 		]
 
 		#manage
-		BrianedChartDerivePyploter=BrianedChartDeriveManager.manage(
+		BrianedChartDerivePyploter=BrianedRunPopulationChartDeriveManager.manage(
 			self.ManagementTagStr
 		).ManagedValueVariable
 
@@ -3443,8 +3452,8 @@ class BrianerClass(BaseClass):
 		self.debug(
 			[
 				'Maybe we also update the view in the parent population',
-				"'Charts' in self.BrianedParentPopulationDeriveBrianerVariable.TeamDict is ",
-				str('Charts' in self.BrianedParentPopulationDeriveBrianerVariable.TeamDict)
+				""Charts" in self.BrianedParentPopulationDeriveBrianerVariable.TeamDict is ",
+				str("Charts" in self.BrianedParentPopulationDeriveBrianerVariable.TeamDict)
 			]
 		)
 		'''
@@ -3499,20 +3508,22 @@ class BrianerClass(BaseClass):
 
 		#Check
 		if self.ManagementIndexInt==len(
-			self.ParentDeriveTeamerVariable.ManagementDict)-1:
+			self.ParentDeriveTeamerVariable.ManagementDict
+		)-1:
 
 			#Check
-			'''
 			self.debug(
 				[
 					'This is the last Sample for this record',
-					'We viewTrace here (that will call viewPopulation again'
+					'We viewTraceOrEvent on this (that will call viewInteraction)',
+					"self.BrianedViewTraceBool is "+str(
+						self.BrianedViewTraceBool
+					)
 				]
 			)
-			'''
 
 			#call
-			self.viewTrace()
+			self.viewTraceOrEvent()
 
 	def mimic_simulate(self):
 
@@ -3550,6 +3561,8 @@ class BrianerClass(BaseClass):
 				]
 			)
 			'''
+
+		
 
 	def recordTrace(self):
 
@@ -3812,6 +3825,7 @@ BrianerClass.PrintingClassSkipKeyStrsList.extend(
 		'BrianedParentDeriveBrianerStr',
 		'BrianedStateDeriveBrianersList',
 		'BrianedSpikeDeriveBrianersList',
+		'BrianedViewTraceBool',
 		'BrianedParentSingularStr',
 		'BrianedParentNetworkDeriveBrianerVariable',
 		'BrianedParentPopulationDeriveBrianerVariable',

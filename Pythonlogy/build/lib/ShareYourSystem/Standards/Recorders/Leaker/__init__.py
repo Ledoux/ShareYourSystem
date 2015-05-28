@@ -99,6 +99,8 @@ class LeakerClass(BaseClass):
 			_LeakingThresholdMethodStr="",
 			_LeakingEigenBool=False,
 			_LeakingMaxBool=False,
+			_LeakingMinPhaseTimeVariable=None,
+			_LeakingMaxPhasesInt=2,
 			_LeakedStepTimeFloat=0.1,
 			_LeakedRecordSkipStrsList=None,
 			_LeakedQuantityVariable=None,
@@ -133,8 +135,11 @@ class LeakerClass(BaseClass):
 			_LeakedThresholdMethod=None,
 			_LeakedRandomFunction=None,
 			_LeakedInputKeyStrsList=None,
+			_LeakedPhaseList=None,
 			_LeakedMeanStateMonitorVariable=None,
 			_LeakedVarStateMonitorVariable=None,
+			_LeakedMaxSpikeMonitorVariable=None,
+			_LeakedMaxStateMonitorVariable=None,
 			**_KwargVariablesDict
 		):
 
@@ -931,7 +936,6 @@ class LeakerClass(BaseClass):
 			self.LeakedModelStr+=LeakedDiffStr
 
 			#debug
-			'''
 			self.debug(
 				[
 					'In the end of max model',
@@ -940,7 +944,6 @@ class LeakerClass(BaseClass):
 						])
 				]
 			)
-			'''
 
 			'''
 			LeakedPhaseNeuronGroup=brian2.NeuronGroup(
@@ -958,7 +961,21 @@ class LeakerClass(BaseClass):
 			#define the threshold
 			BrianingNeurongroupDict[
 				'threshold'
-			]='r_diff_max<0*mV'
+			]=self.LeakedSymbolStr+'_diff_max<0*mV'
+
+			#append
+			self.LeakedRecordSkipStrsList.extend(
+				map(
+					lambda __KeyStr:
+					self.LeakedSymbolStr+__KeyStr,
+					[
+						'_diff',
+						'_diff_max',
+						'_differenciater_0',
+						'_differenciater_1'
+					]
+				)
+			)
 
 
 		
@@ -2555,8 +2572,8 @@ class LeakerClass(BaseClass):
 			#
 
 			#set
-			BrianedCustomStr=self.LeakedSymbolStr+'_diff=(r-r_differenciater_0) \n'
-			BrianedCustomStr+=self.LeakedSymbolStr+'_diff_max=(1./'+self.LeakedDimensionStr+')*(r_differenciater_0-r_differenciater_1)*'+self.LeakedSymbolStr+'_diff*('+self.LeakedSymbolStr+'_diff<0.*mV'+') \n'
+			BrianedCustomStr=self.LeakedSymbolStr+'_diff=('+self.LeakedSymbolStr+'-'+self.LeakedSymbolStr+'_differenciater_0) \n'
+			BrianedCustomStr+=self.LeakedSymbolStr+'_diff_max=(1./'+self.LeakedDimensionStr+')*('+self.LeakedSymbolStr+'_differenciater_0-'+self.LeakedSymbolStr+'_differenciater_1)*'+self.LeakedSymbolStr+'_diff*('+self.LeakedSymbolStr+'_diff<0.*mV'+') \n'
 
 			#join
 			BrianedCustomStr+='\n'.join(
@@ -2603,27 +2620,31 @@ class LeakerClass(BaseClass):
 			from brian2 import SpikeMonitor
 
 			#init
-			self.LeakedMaxSpikeMonitor=SpikeMonitor(
+			self.LeakedMaxSpikeMonitorVariable=SpikeMonitor(
 				self.BrianedNeurongroupVariable
 			)
 
 			#add
 			self.BrianedParentNetworkDeriveBrianerVariable.BrianedNetworkVariable.add(
-				self.LeakedMaxSpikeMonitor
+				self.LeakedMaxSpikeMonitorVariable
 			)
 	
+			"""
 			#import
 			from brian2 import StateMonitor
 
 			#init
-			self.LeakedMaxStateMonitor=StateMonitor(self.BrianedNeurongroupVariable,'r_diff_max',True)
+			self.LeakedMaxStateMonitorVariable=StateMonitor(
+				self.BrianedNeurongroupVariable,
+				self.LeakedSymbolStr+'_diff_max',
+				True
+			)
 
 			#add
 			self.BrianedParentNetworkDeriveBrianerVariable.BrianedNetworkVariable.add(
-				self.LeakedMaxStateMonitor
+				self.LeakedMaxStateMonitorVariable
 			)
-
-			#def record
+			"""
 
 
 		#/###################/#
@@ -2835,6 +2856,14 @@ class LeakerClass(BaseClass):
 			)
 			self.BrianedParentNetworkDeriveBrianerVariable.BrianedNetworkVariable.add(
 				self.LeakedVarStateMonitorVariable
+			)
+
+			#append
+			self.LeakedRecordSkipStrsList.extend(
+				[
+					LeakedMeanGlobalSymbolStr,
+					LeakedVarGlobalSymbolStr
+				]
 			)
 
 		#/###################/#
@@ -5205,42 +5234,152 @@ class LeakerClass(BaseClass):
 					[
 						'We plot the max',
 						('self.',self,[
-								'LeakedMaxSpikeMonitor',
-								'LeakedMaxStateMonitor'
+								'LeakedMaxSpikeMonitorVariable',
+								'LeakedMaxStateMonitorVariable'
 							]),
-						'self.LeakedMaxSpikeMonitor.t is '+str(
-								self.LeakedMaxSpikeMonitor.t
-							),
-						'self.LeakedMaxStateMonitor.r_diff_max is '+str(
-								self.LeakedMaxStateMonitor.r_diff_max
+						'self.LeakedMaxSpikeMonitorVariable.t is '+str(
+								self.LeakedMaxSpikeMonitorVariable.t
 							)
 					]
 				)
 				'''
 
+				#Check
+				if self.LeakingMinPhaseTimeVariable==None:
+					self.LeakingMinPhaseTimeVariable=1.*self.BrianedParentNetworkDeriveBrianerVariable.SimulatingStopTimeFloat*self.BrianedParentNetworkDeriveBrianerVariable.BrianedTimeQuantityVariable/2.
+
+				#Check
+				#if self.LeakingMaxPhasesInt==None:
+				#	#self.LeakingMaxPhasesInt=len(self.LeakedMaxSpikeMonitorVariable.t)
+				#	self.LeakingMaxPhasesInt=2
+
+				#debug
+				self.debug(
+					[
+						('self.',self,[
+								'LeakingMinPhaseTimeVariable',
+								'LeakingMaxPhasesInt'
+							])
+					]
+				)
+
+				#init
+				self.LeakedPhaseList=[None]*self.LeakingUnitsInt
+
+				#loop
+				for __IndexInt,__NeuronInt in enumerate(
+					self.LeakedMaxSpikeMonitorVariable.i
+				):
+
+					#debug
+					'''
+					self.debug(
+						[
+							'[__IndexInt,__NeuronInt] is '+str(
+								[__IndexInt,__NeuronInt]
+							)
+						]
+					)
+					'''
+
+					#get
+					LeakedTimeVariable=self.LeakedMaxSpikeMonitorVariable.t[__IndexInt]
+
+					#Check
+					if LeakedTimeVariable>self.LeakingMinPhaseTimeVariable:
+
+						#init
+						if self.LeakedPhaseList[__NeuronInt]==None:
+							
+							#init
+							self.LeakedPhaseList[__NeuronInt]=[]
+
+						#init
+						LeakedAppendList=[
+							__IndexInt,
+							float(LeakedTimeVariable),
+							None
+						]
+
+						#len
+						LeakedLenghtInt=len(self.LeakedPhaseList[__NeuronInt])
+
+						#Check
+						if LeakedLenghtInt>0 and LeakedLenghtInt<self.LeakingMaxPhasesInt:
+
+							#debug
+							'''
+							self.debug(
+								[
+									'We scan the phase with the others'
+								]
+							)
+							'''
+
+							#import
+							#import brian2
+
+							#map
+							LeakedAppendList[-1]=map(	
+								lambda __OtherIndexInt:
+								[
+									int(self.LeakedMaxSpikeMonitorVariable.i[__OtherIndexInt]),
+									float(
+					LeakedTimeVariable-self.LeakedMaxSpikeMonitorVariable.t[__OtherIndexInt]
+										)
+								],
+								xrange(
+									self.LeakedPhaseList[__NeuronInt][-1][0]+1,
+									__IndexInt
+								)
+							)
+
+							#debug
+							'''
+							self.debug(
+								[
+									'LeakedAppendList is '+str(LeakedAppendList)
+								]
+							)	
+							'''
+
+						#Check
+						if LeakedLenghtInt<self.LeakingMaxPhasesInt:
+
+							#append
+							self.LeakedPhaseList[__NeuronInt].append(LeakedAppendList)
+
+				#debug
+				self.debug(
+					[
+						'In the end',
+						"np.shape(self.LeakedPhaseList) is "+str(np.shape(self.LeakedPhaseList)),
+						('self.',self,[
+								'LeakedPhaseList'
+							])
+					]
+				)
+
 				#add
 				ViewedPopulationDrawsDerivePyploter.getManager(
 						'Max'
 					).PyplotingDrawVariable=[
-						#
-						#(	
-						#	'plot',
-						#	{
-						#		'#liarg':[
-						#			self.LeakedSimulationStateMonitorVariable.t,
-						#			ViewedMeanFloatsArray
-						#		],
-						#		'#kwarg':dict(
-						#			{
-						#				'linestyle':'-',
-						#				'linewidth':3,
-						#				'color':'black',
-						#				#'label':'$<'+self.LeakedSymbolStr+'>$'
-						#				'label':'$mean('+self.LeakedSymbolStr+')$'
-						#			}
-						#		)
-						#	}	
-						#)
+						(	
+							'plot',
+							{
+								'#liarg':[
+									[0,1],
+									[0,1]
+								],
+								'#kwarg':dict(
+									{
+										'linestyle':'-',
+										'linewidth':3,
+										'color':'black'
+									}
+								)
+							}	
+						)
 					]
 
 				#Check
@@ -5250,7 +5389,7 @@ class LeakerClass(BaseClass):
 					ViewedNetworkDrawsDerivePyploter=self.BrianedParentNetworkDeriveBrianerVariable.getTeamer(
 						'Panels'
 					).getManager(
-						'Run'
+						'Stat'
 					).getTeamer(
 						'Charts'
 					).getManager(
@@ -5265,7 +5404,6 @@ class LeakerClass(BaseClass):
 					).PyplotingDrawVariable=ViewedPopulationDrawsDerivePyploter.ManagementDict[
 						'Max'
 					].PyplotingDrawVariable
-
 
 	def viewInteraction(self):
 
@@ -5745,6 +5883,8 @@ LeakerClass.PrintingClassSkipKeyStrsList.extend(
 		'LeakingThresholdMethodStr',
 		'LeakingEigenBool',
 		'LeakingMaxBool',
+		'LeakingMinPhaseTimeVariable',
+		'LeakingMaxPhasesInt',
 		'LeakedStepTimeFloat',
 		'LeakedRecordSkipStrsList',
 		'LeakedQuantityVariable',
@@ -5780,7 +5920,10 @@ LeakerClass.PrintingClassSkipKeyStrsList.extend(
 		'LeakedRandomFunction',
 		'LeakedInputKeyStrsList',
 		'LeakedMeanStateMonitorVariable',
-		'LeakedVarStateMonitorVariable'
+		'LeakedVarStateMonitorVariable',
+		'LeakedMaxSpikeMonitorVariable',
+		'LeakedMaxStateMonitorVariable',
+		'LeakedPhaseList'
 	]
 )
 #<DefinePrint>

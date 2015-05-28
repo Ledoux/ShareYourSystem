@@ -355,6 +355,7 @@ class PredicterClass(BaseClass):
 				self.PredictingSensorUnitsInt=len(self.PredictingCommandVariable[1])
 
 		#debug
+		'''
 		self.debug(
 			[
 				('self.',self,[
@@ -362,6 +363,7 @@ class PredicterClass(BaseClass):
 					])
 			]
 		)
+		'''
 
 		#/###################/#
 		# When Decoder matrix is already specified
@@ -426,6 +428,7 @@ class PredicterClass(BaseClass):
 		else:
 
 			#debug
+			'''
 			self.debug(
 				[
 					('self.',self,[
@@ -434,16 +437,19 @@ class PredicterClass(BaseClass):
 						])
 				]
 			)
+			'''
 
 			#Check
 			if self.PredictingAgentUnitsInt<self.PredictingSensorUnitsInt:
 
 				#debug
+				'''
 				self.debug(
 					[
 						'We need to make so many agents compared to the sensors at least'
 					]
 				)
+				'''
 
 				#set
 				self.PredictingAgentUnitsInt=self.PredictingSensorUnitsInt
@@ -982,6 +988,7 @@ class PredicterClass(BaseClass):
 		if self.PredictingStationaryBool:
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We check the stationary points',
@@ -990,6 +997,7 @@ class PredicterClass(BaseClass):
 						])
 				]
 			)
+			'''
 
 			#try:
 
@@ -1008,6 +1016,7 @@ class PredicterClass(BaseClass):
 			#	)
 
 			#debug
+			'''
 			self.debug(
 				[
 					('self.',self,[
@@ -1015,7 +1024,8 @@ class PredicterClass(BaseClass):
 						]
 					)
 				]
-			)
+			)	
+			'''
 
 	def predictPopulation(self):
 

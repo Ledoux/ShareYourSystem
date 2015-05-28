@@ -70,6 +70,7 @@ MyPredicter=SYS.PredicterClass(
 		#_DecoderVariable=[[0.,5.],[5.,0.]],
 		#_DecoderVariable=[[0.,5.],[5.,0.]],
 		_DecoderVariable=[[5.,1.],[1.5,5.]],
+		_AgentTimeFloat=1.,
 		_StationaryBool=True,
 		_InteractionStr="Rate"
 	).simulate(
@@ -86,7 +87,7 @@ MyPredicter.view(
 			'PyplotingFigureVariable':{
 				'figsize':(10,8)
 			},
-			'PyplotingGridIntsTuple':(30,30),
+			'PyplotingGridVariable':(30,30),
 			'-Panels':[
 				(
 					'|Run',
@@ -95,9 +96,19 @@ MyPredicter.view(
 							'-Charts',
 							[
 								(
+									'|Sensor_*U',
+									{
+										'PyplotingLegendDict':{
+											'fontsize':10,
+											'ncol':2
+										}
+									}
+								),
+								(
 									'|Agent_*U',
 									{
 										'PyplotingLegendDict':{
+											'fontsize':10,
 											'ncol':2
 										}
 									}
@@ -106,6 +117,7 @@ MyPredicter.view(
 									'|Decoder_*U',
 									{
 										'PyplotingLegendDict':{
+											'fontsize':10,
 											'ncol':2
 										}
 									}
@@ -119,8 +131,6 @@ MyPredicter.view(
 	).pyplot(
 	).show(
 	)
-
-print(MyPredicter['/-Panels/|Run/-Charts'])
 
 #/###################/#
 # Print

@@ -8,3 +8,6 @@ Coffeelogy/node_modules
 Scalogy/project
 Scalogy/target
 Scalogy/src/main/target
+.*pyc
+.class
+.so

@@ -51,10 +51,25 @@ MyBrianer=SYS.BrianerClass(
 			}
 		}	
 	).brian(
-	).simulate(
-		500.
 	)
 	
+#/###################/#
+# Do one simulation
+#
+
+MyBrianer.simulate(
+		500.
+	)
+
+#/###################/#
+# View
+#
+
+MyBrianer.view(
+	).pyplot(
+	).show(
+	)
+
 #/###################/#
 # Print
 #
@@ -63,10 +78,8 @@ MyBrianer=SYS.BrianerClass(
 print('MyBrianer is ')
 SYS._print(MyBrianer) 
 
-#/###################/#
-# Do one simulation
-#
 
+"""
 from matplotlib import pyplot
 pyplot.figure()
 ME=MyBrianer['/-Populations/|E/-Traces/|*v/-Samples/|Default'].BrianedStateMonitorVariable
@@ -79,3 +92,4 @@ MI=MyBrianer['/-Populations/|I/-Events/|Default'].BrianedSpikeMonitorVariable
 pyplot.plot(ME.t, ME.i,'.')
 pyplot.plot(MI.t, max(ME.i)+MI.i,'.',color='r')
 pyplot.show()
+"""

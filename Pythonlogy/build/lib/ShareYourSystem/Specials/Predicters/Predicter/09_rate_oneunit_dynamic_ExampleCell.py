@@ -74,7 +74,7 @@ MyPredicter.mapSet(
 			'PyplotingFigureVariable':{
 				'figsize':(10,8)
 			},
-			'PyplotingGridIntsTuple':(30,30),
+			'PyplotingGridVariable':(30,30),
 			'-Panels':[
 			]
 		}

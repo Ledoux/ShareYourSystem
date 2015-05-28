@@ -18,7 +18,7 @@ BrianingDebugVariable=0.1 if SimulationTimeFloat<0.5 else 25.
 MyPredicter=SYS.PredicterClass(
 	).mapSet(
 		{
-			'BrianingStepTimeFloat':0.05,
+			'BrianingStepTimeFloat':0.1,
 			'-Populations':[
 				('|Sensor',{
 					'RecordingLabelVariable':[0,1],
@@ -44,7 +44,7 @@ MyPredicter=SYS.PredicterClass(
 					#'BrianingDebugVariable':BrianingDebugVariable
 					'-Interactions':{
 						'|Slow':{
-							'BrianingDebugVariable':BrianingDebugVariable
+							#'BrianingDebugVariable':BrianingDebugVariable
 						}
 					}
 				})
@@ -61,7 +61,7 @@ MyPredicter=SYS.PredicterClass(
 		_CommandVariable="#custom:#clock:50*ms:1.*mV*int(t==50*ms)",#2.,
 		_DecoderVariable="#array",
 		_DecoderStdFloat=20.,
-		_AgentTimeFloat=0.01,
+		_AgentTimeFloat=1.,
 		#_DecoderNormalisationInt=1,
 		#_EncodPerturbStdFloat=5./100.,
 		#_FastPerturbStdFloat=0.01,
@@ -79,7 +79,7 @@ MyPredicter.mapSet(
 			'PyplotingFigureVariable':{
 				'figsize':(10,8)
 			},
-			'PyplotingGridIntsTuple':(30,30),
+			'PyplotingGridVariable':(30,30),
 			'-Panels':[
 			]
 		}
