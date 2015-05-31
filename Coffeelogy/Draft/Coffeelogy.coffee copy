@@ -143,4 +143,8 @@ console.log(
 )
 ###
 
+if typeof window != "undefined"
+	$.getScript('fs')
+	#file = document.getElementById('fileItem').files;
+	#console.log(file)
 

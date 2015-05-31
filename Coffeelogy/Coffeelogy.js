@@ -3,7 +3,7 @@
 /*/ */
 
 /*/ */
-var SYS, exports, run;
+var SYS, exports;
 
 SYS = {};
 
@@ -16,9 +16,37 @@ if (typeof window !== "undefined") {
    */
   SYS.SideStr = "client";
   exports = {};
-  run = function(_ScriptStr, _BackFunction) {
-    return require([_ScriptStr], function() {
-      _.extend(SYS, exports);
+  SYS.run = function(_BackFunction, _KeyStr, _PathStr) {
+
+    /*
+    		require(
+    			[__PathStr],
+    			->
+    				#first extend
+    				SYS[__KeyStr]=exports
+    
+    				#call
+    				_BackFunction()
+    		)
+     */
+    console.log(["_BackFunction is \n", _BackFunction, "_KeyStr is \n", _KeyStr, "_PathStr is \n", _PathStr]);
+    return $.getScript(_PathStr, function() {
+
+      /*
+      				console.log(
+      					[
+      						"l.67 Coffeelogy\n"
+      						"Call back \n",
+      						"__BackFunction is \n"
+      						__BackFunction,
+      						"__KeyStr is \n"
+      						__KeyStr,
+      						"__PathStr is \n"
+      						__PathStr,
+      					]
+      				)
+       */
+      SYS[_KeyStr] = eval(_KeyStr);
       return _BackFunction();
     });
   };
@@ -31,9 +59,22 @@ if (typeof window !== "undefined") {
    */
   SYS._ = require("underscore");
   SYS.SideStr = "server";
-  run = function(_ScriptStr, _BackFunction) {
+  SYS.run = function(_BackFunction, _KeyStr, _PathStr) {
+
+    /*
+    		console.log(
+    			[
+    				"_BackFunction is \n"
+    				_BackFunction,
+    				"_KeyStr is \n"
+    				_KeyStr,
+    				"_PathStr is \n"
+    				_PathStr,
+    			]
+    		)
+     */
     var ModuleObject;
-    ModuleObject = require(_ScriptStr);
+    ModuleObject = require(_PathStr);
 
     /*
     		console.log(
@@ -41,13 +82,22 @@ if (typeof window !== "undefined") {
     			ModuleObject
     		)
      */
-    SYS._.extend(SYS, ModuleObject);
+    SYS[_KeyStr] = ModuleObject;
     return _BackFunction();
   };
 }
 
-console.log("************************\n", "Welcome to Coffeelogy \n", "We are " + SYS.SideStr + " side ! \n");
+exports.SYS = SYS;
 
-run("./Teamer/src.js", function() {
-  return console.log("HHHH\n", SYS.TeamerClass);
-});
+
+/*
+console.log(
+	"************************\n"
+	"Welcome to Coffeelogy \n",
+	"We are " + SYS.SideStr + " side ! \n",
+	#"require function is ",
+	#require,
+	#"SYS is \n",
+	#SYS
+)
+ */
