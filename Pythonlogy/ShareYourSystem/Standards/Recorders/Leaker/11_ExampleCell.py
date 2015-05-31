@@ -20,10 +20,10 @@ MyLeaker=SYS.LeakerClass(
 					'LeakingSymbolPrefixStr':'V',
 					'-Inputs':{
 						'|Rest':{
-							'LeakingWeigthVariable':'#scalar:-60*mV'
+							'LeakingWeightVariable':'#scalar:-60*mV'
 						},
 						'|External':{
-							'LeakingWeigthVariable':'#scalar:11*mV'
+							'LeakingWeightVariable':'#scalar:11*mV'
 						}
 					},
 					'LeakingNoiseStdVariable':0.1,
@@ -40,7 +40,7 @@ MyLeaker=SYS.LeakerClass(
 					'-Interactions':{
 						'|/':{
 							'BrianingDebugVariable':100,
-							'LeakingWeigthVariable':[[0.,0.],[-2.,0.]],#[[0.,-0.01],[0.,0.]]
+							'LeakingWeightVariable':[[0.,0.],[-2.,0.]],#[[0.,-0.01],[0.,0.]]
 							'LeakingInteractionStr':"Spike"
 						}
 					},
@@ -50,7 +50,13 @@ MyLeaker=SYS.LeakerClass(
 			}
 		}
 	).leak(
-	).simulate(
+	)
+
+#/###################/#
+# Do one simulation
+#
+
+MyLeaker.simulate(
 		500.
 	)
 
@@ -58,7 +64,11 @@ MyLeaker=SYS.LeakerClass(
 # View
 #
 
-MyLeaker.view(
+MyLeaker.mapSet(
+		{
+			'PyplotingGridVariable':(20,20)
+		}
+	).view(
 	).pyplot(
 	).show(
 	)

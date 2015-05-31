@@ -27,14 +27,15 @@ MyLeaker=SYS.LeakerClass(
 	).simulate(
 		500.
 	)
-	
+
 #/###################/#
 # View
 #
 
 MyLeaker.view(
 	).pyplot(
-	).show()
+	).show(
+	)
 
 #/###################/#
 # Print

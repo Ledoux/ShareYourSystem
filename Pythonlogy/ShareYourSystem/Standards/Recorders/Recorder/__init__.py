@@ -24,7 +24,7 @@ SYS.addDo('Recorder','Record','Recording','Recorded')
 #</ImportSpecificModules>
 
 #<DefineLocals>
-RecordPrefixStr='*'
+RecordPrefixStr=""
 #</DefineLocals>
 
 #<DefineClass>
@@ -197,15 +197,15 @@ class RecorderClass(BaseClass):
 		#
 
 		#debug
-		'''
 		self.debug(
 				[
 					'This is the Traces level',
 					'First get the array to trace',
-					('self.',self,['RecordingKeyVariable'])
+					('self.',self,[
+						'RecordingKeyVariable'
+					])
 				]
 			)
-		'''
 
 		#get
 		RecordedTopDeriveRecorderVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
@@ -218,17 +218,18 @@ class RecorderClass(BaseClass):
 		if type(self.RecordingKeyVariable)==None.__class__:
 
 			#Check
-			if self.ManagementTagStr.startswith(RecordPrefixStr):
+			if RecordPrefixStr!="" and self.ManagementTagStr.startswith(RecordPrefixStr):
 
 				#debug
 				'''
 				self.debug(
 					[
-						('self.',self,['ManagementTagStr'])
+						('self.',self,['ManagementTagStr']),
+						'RecordedTopDeriveRecorderVariable is '+str(RecordedTopDeriveRecorderVariable)
 					]
 				)
 				'''
-
+				
 				#get
 				self.RecordedTraceFloatsArray=getattr(
 					RecordedTopDeriveRecorderVariable,

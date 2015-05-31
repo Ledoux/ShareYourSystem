@@ -22,7 +22,7 @@ MyLeaker=SYS.LeakerClass(
 					'-Interactions':{
 						'|/':{
 							#'BrianingDebugVariable':10,
-							'LeakingWeigthVariable':[[0.,-20.],[1.,0.]],
+							'LeakingWeightVariable':[[0.,-20.],[1.,0.]],
 							'LeakingDelayVariable':5.,
 							#'LeakingDelayVariable':[[2.,1.],0.5], #PRE-POST matrix
 							#'LeakingDelayPrepostBool':True,
@@ -35,7 +35,13 @@ MyLeaker=SYS.LeakerClass(
 			}
 		}
 	).leak(
-	).simulate(
+	)
+
+#/###################/#
+# Do one simulation
+#
+
+MyLeaker.simulate(
 		10.
 	)
 
@@ -43,9 +49,14 @@ MyLeaker=SYS.LeakerClass(
 # View
 #
 
-MyLeaker.view(
+MyLeaker.mapSet(
+		{
+			'PyplotingGridVariable':(20,20)
+		}
+	).view(
 	).pyplot(
-	).show()
+	).show(
+	)
 
 #/###################/#
 # Print

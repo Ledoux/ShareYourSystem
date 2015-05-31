@@ -24,7 +24,7 @@ MyBrianer=SYS.BrianerClass(
 				'reset':'v=-70*mV'
 			},
 			'-Traces':{
-				'|*v':{
+				'|v':{
 					'NumscipyingStdFloat':0.001,
 					'-Samples':{
 						'|Default':{

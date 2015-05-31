@@ -1,16 +1,90 @@
-phonecatApp = angular.module "phonecatApp", []
+###/#################/#
+# Define a require 
+# server or client side working
+###/###
 
-phonecatApp.controller "PhoneListCtrl", 
-		($scope)->
-			$scope.phones = [
-				name: "Nexus S",
-				snippet: "Fast just got faster with Nexus S.",
-				name: "Motorola XOOM™ with Wi-Fi",
-				snippet: "The Next, Next Generation tablet.",
-				name: "MOTOROLA XOOM™",
-				snippet: "The Next, Next Generation tablet."
-			]
+#init
+SYS = {}
 
-console.log(
-			{name:3, surname:{name:4,surname: 'u'}}
+#Check
+if typeof window!="undefined"
+
+	#debug
+	###
+	console.log(
+		"We are client side"
+	)
+	###
+
+	#set
+	SYS.SideStr = "client"
+
+	#set
+	exports = {}
+
+	#alias
+	run = (_ScriptStr,_BackFunction) ->
+		require(
+			[_ScriptStr],
+			->
+				#first extend
+				_.extend(SYS,exports)
+
+				#call
+				_BackFunction()
 		)
+
+	
+
+else
+
+	#debug
+	###
+	console.log(
+		"We are server side"
+	)
+	###
+
+	#require
+	SYS._ = require("underscore")
+
+	#set
+	SYS.SideStr = "server"
+
+	run = (_ScriptStr,_BackFunction) ->
+		
+		#require
+		ModuleObject = require(_ScriptStr)
+
+		#debug
+		###
+		console.log(
+			"ModuleObject is \n",
+			ModuleObject
+		)
+		###
+
+		#extend
+		SYS._.extend(SYS,ModuleObject)
+
+		#back call like...
+		_BackFunction()
+
+#debug
+console.log(
+	"************************\n"
+	"Welcome to Coffeelogy \n",
+	"We are " + SYS.SideStr + " side ! \n",
+	#"require function is ",
+	#require
+)
+
+#require
+run(
+	"./Teamer/src.js",
+	->
+		console.log(
+			"HHHH\n",
+			SYS.TeamerClass
+		)
+)

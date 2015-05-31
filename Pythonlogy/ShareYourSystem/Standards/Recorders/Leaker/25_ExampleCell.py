@@ -1,3 +1,5 @@
+
+
 #/###################/#
 # Import modules
 #
@@ -16,26 +18,23 @@ MyLeaker=SYS.LeakerClass(
 		{
 			'-Populations':{
 				'|P':{
-					'LeakingUnitsInt':3,
-					'LeakingSymbolPrefixStr':'V',
+					'LeakingUnitsInt':2,
+					'LeakingSymbolPrefixStr':'r',
 					'-Inputs':{
-						'|Rest':{
-							'LeakingWeightVariable':'#scalar:-60*mV'
-						},
 						'|External':{
-							'LeakingWeightVariable':'#scalar:11*mV'
+							'LeakingWeightVariable':'#custom:#clock:100*ms:1.*mV*(t==100.*ms)'
 						}
 					},
-					'LeakingThresholdVariable':'#scalar:V>-50*mV',
-					#'LeakingThresholdVariable':[-55.,-52.5],
-					#'LeakingThresholdVariable':{
-					#	'MethodsList':[
-					#		SYS.Leaker.detectThreshold
-					#	],
-					#	'ThresholdVariable':[-55.,-52.5,-50.]
-					#},
-					'LeakingResetVariable':'#scalar:V=-70*mV',
-					'BrianingMonitorIndexIntsList':[0,1,2],
+					'-Interactions':{
+						'|/':{
+							'LeakingWeightVariable':[
+								[1.5,-2.6],
+								[3.1,-0.9]
+							]
+						}
+					},
+					'LeakingMaxBool':True,
+					'RecordingLabelVariable':[0,1],
 					#'BrianingDebugVariable':100
 				}
 			}
@@ -48,7 +47,7 @@ MyLeaker=SYS.LeakerClass(
 #
 
 MyLeaker.simulate(
-		500.
+		300.
 	)
 
 #/###################/#
@@ -64,6 +63,9 @@ MyLeaker.mapSet(
 	).show(
 	)
 
+#print(MyLeaker['-Panels'])
+#print(MyLeaker['/-Populations/|P/-Traces'].ManagementDict.keys())
+
 #/###################/#
 # Print
 #
@@ -71,5 +73,6 @@ MyLeaker.mapSet(
 #print
 print('MyLeaker is ')
 SYS._print(MyLeaker) 
+
 
 

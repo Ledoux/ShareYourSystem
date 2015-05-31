@@ -690,11 +690,20 @@ def _filter(_Function,_List):
 		return list(filter(_Function,_List))
 
 def filterNone(_List):
+
+	#Debug
+	"""
+	print("List is")
+	print(_List)
+	print("")
+	"""
+
+	#return
 	return _filter(
-						lambda __ListedVariable:
-						__ListedVariable!=None,
-						_List
-					)
+		lambda __ListedVariable:
+		type(__ListedVariable)!=None.__class__,
+		_List
+	)
 
 def flip(_Dict):
 	return type(_Dict)(
@@ -949,12 +958,148 @@ def arrayify(_VariablesList,_ShapeIntsList=None):
 			ValueVariablesList
 		)
 
-
-	
-
 	#return
 	return VariablesArray
-	
+
+def split(_StartVariable=0,_StopInt=1,_SplitInt=2):
+
+	#import
+	import numpy as np
+
+	#Check
+	if type(_StartVariable)==int:
+
+		#set
+		CutIntsList=np.linspace(_StartVariable,_StopInt,_SplitInt+1,dtype=int)
+
+		#Debug
+		"""
+		print("SYS l 967 split")
+		print("CutIntsList is ")
+		print(CutIntsList)
+		print("")
+		"""
+
+		#map
+		return map(
+			lambda __IndexIntAndCutInt:
+			[CutIntsList[__IndexIntAndCutInt[0]],__IndexIntAndCutInt[1]],
+			enumerate(
+				CutIntsList[1:]
+			)
+		)
+
+	else:
+
+		#map
+		SplitIntsListsList=map(
+			lambda __ShapeInt:
+			split(0,__ShapeInt,_SplitInt),
+			np.shape(_StartVariable)
+		)
+
+		#Debug
+		print("SYS l 991 split")
+		print("SplitIntsListsList is ")
+		print(SplitIntsListsList)
+		print("")
+
+		#import
+		import itertools
+
+		#product
+		return map(
+			lambda __GetIntsListsTuple:
+			_StartVariable.__getitem__(
+				map(
+					lambda __GetIntsList:
+					slice(__GetIntsList[0],__GetIntsList[1]),
+					__GetIntsListsTuple
+				)	
+			),
+			list(itertools.product(*SplitIntsListsList))
+		)
+
+def getArray(_Array,_IndexIntsTuple,_LoopBool=True):
+
+	#Debug
+	"""
+	print("_IndexIntsTuple is ")
+	print(_IndexIntsTuple)
+	print("-1 in _IndexIntsTuple is "+str(-1 in _IndexIntsTuple))
+	print("")
+	"""
+
+	#Check
+	if _LoopBool==False:
+
+		#Check
+		if -1 in _IndexIntsTuple:
+
+			#return
+			return None
+
+	#try
+	try:
+
+		#return
+		return _Array.__getitem__(_IndexIntsTuple)
+	except:
+
+		#return
+		return None
+
+def contour(_GridBoolsArray,_ContourIntsList=None):
+
+	#import
+	import numpy as np
+
+	#get
+	LocalArray=getLocalArray(len(np.shape(_GridBoolsArray)))
+
+	#Debug
+	"""
+	print('LocalArray is ')
+	print(LocalArray)
+	print('')
+	"""
+
+	#map
+	return np.array(
+		map(
+			lambda __Tuple:
+			__Tuple[0],
+			_filter(
+				lambda __Tuple:
+				__Tuple[1],
+				map(
+					lambda __IndexIntsTupleAndValueVariableTuple:
+					(
+						__IndexIntsTupleAndValueVariableTuple[0],
+						any(
+							map(
+								lambda __Value:
+								__Value!=__IndexIntsTupleAndValueVariableTuple[1],
+								filterNone(
+									map(
+										lambda __IndexIntsArray:
+										getArray(_GridBoolsArray,tuple(__IndexIntsArray),_LoopBool=False),
+										map(
+											lambda __LocalArray:
+											np.array(__IndexIntsTupleAndValueVariableTuple[0])+__LocalArray,
+											LocalArray
+										)
+									)
+								)
+							)
+						)
+					),
+					np.ndenumerate(_GridBoolsArray)
+				)
+			)
+		)
+	)
+
 def where(_DictsList,_TuplesList,**_KwargsDict):
 
 	if 'IsInCheckingBool' in _KwargsDict and _KwargsDict['IsInCheckingBool']:
@@ -994,6 +1139,180 @@ def where(_DictsList,_TuplesList,**_KwargsDict):
 						else None,
 						_DictsList
 					)
+
+def find(_Array, _PredicateFunction, _ChunkSizeInt=1024):
+	"""
+	Find the indices of array elements that match the predicate.
+
+	Parameters
+	----------
+	_Array : array_like
+	    Input data, must be 1D.
+
+	_PredicateFunction : function
+	    A function which operates on sections of the given array, returning
+	    element-wise True or False for each data value.
+
+	_ChunkSizeInt : integer
+	    The length of the chunks to use when searching for matching indices.
+	    For high probability predicates, a smaller number will make this
+	    function quicker, similarly choose a larger number for low
+	    probabilities.
+
+	Returns
+	-------
+	index_generator : generator
+	    A generator of (indices, data value) tuples which make the predicate
+	    True.
+
+	See Also
+	--------
+	where, nonzero
+
+	Notes
+	-----
+	This function is best used for finding the first, or first few, data values
+	which match the predicate.
+
+	Examples
+	--------
+	>>> _Array = np.sin(np.linspace(0, np.pi, 200))
+	>>> result = find(_Array, lambda arr: arr > 0.9)
+	>>> next(result)
+	((71, ), 0.900479032457)
+	>>> np.where(_Array > 0.9)[0][0]
+	71
+
+	"""
+
+	#Check
+	if _Array.ndim != 1:
+		Array=_Array.flatten()
+		#raise ValueError('The array must be 1D, not {}.'.format(_Array.ndim))
+	else:
+		Array=_Array
+
+	#import
+	from itertools import chain, izip
+
+	#init
+	InitInt = 0
+	ChunkIndexIntsIterator = chain(
+		xrange(
+			_ChunkSizeInt, 
+			Array.size, 
+			_ChunkSizeInt
+		), 
+		[None]
+	)
+
+	#for
+	for _IndexInt in ChunkIndexIntsIterator:
+		ChunkArray = Array[InitInt:_IndexInt]
+		for __IndexList in izip(*_PredicateFunction(ChunkArray).nonzero()):
+			yield (__IndexList[0] + InitInt, ), ChunkArray[__IndexList]
+		InitInt = _IndexInt
+
+
+def getIsConstantBool(_BoolsArray):
+
+	#import
+	import numpy as np
+
+	#get
+	ConstantBool=_BoolsArray.__getitem__(tuple([0]*len(np.shape(_BoolsArray))))
+	OppositeBool=not ConstantBool
+
+	#Debug
+	'''
+	print("ConstantBool is ")
+	print(ConstantBool)
+	print("")
+	'''
+
+	#return
+	try:
+
+		#next
+		next(
+			find(
+				_BoolsArray,
+				lambda __Bool:__Bool==OppositeBool
+			)
+		)
+
+		#return True
+		return False
+
+	except StopIteration:
+
+		#return
+		return True
+
+def getFlattenedListWithVariablesList(_VariablesList):
+	return functools.reduce(
+		lambda x,y:
+			x+list(y) if type(y)==tuple 
+			else list(x)+[y] if type(x) in [list,tuple] 
+			else [x,y],_VariablesList
+	)
+
+def getPermutedIntsListWithCategoriesIntAndLengthInt(_CategoriesInt,_LengthInt):
+
+	#import
+	import itertools
+
+	#return
+	return functools.reduce(
+		lambda x,y:
+			map(
+					lambda __IntOrTuple:
+							getFlattenedListWithVariablesList(list(__IntOrTuple)) 
+							if type(__IntOrTuple)==tuple
+							else __IntOrTuple,
+							itertools.product(x,y)
+				),
+			map(lambda Int:xrange(_LengthInt),xrange(_CategoriesInt))
+	)
+
+def getLocalArray(_DimensionInt,_DiagonalBool=False):
+
+	#import
+	import numpy as np
+
+	#Check
+	if _DiagonalBool:
+		
+		#array
+		PositiveArray=np.array(
+			getPermutedIntsListWithCategoriesIntAndLengthInt(
+				_DimensionInt,
+				2
+			)
+		)
+
+		#return
+		return PositiveArray
+
+	else:
+
+		#diag
+		DiagonalArray=np.diag([1]*_DimensionInt)
+
+		#init
+		LocalArray=np.zeros((2*_DimensionInt,_DimensionInt),dtype=int)
+
+		#fill
+		LocalArray[:_DimensionInt,:]=DiagonalArray
+		LocalArray[_DimensionInt:,:]=-1.*DiagonalArray
+
+		#return
+		return LocalArray
+
+
+
+
+
 
 def translate(_TextStr,_TranslationVariable):
 
@@ -1396,10 +1715,10 @@ def chunk(_LimitStrsList,_TextStr,**_KwargVariablesDict):
 		_LimitStrsList[0],_LimitStrsList[1],ChunksInt,_TextStr,**_KwargVariablesDict)
 
 def deprefix(_WordStr,_PrefixStr):
-	return _PrefixStr.join(_WordStr.split(_PrefixStr)[1:])
+	return _PrefixStr.join(_WordStr.split(_PrefixStr)[1:]) if _PrefixStr!="" else _WordStr
 
 def desuffix(_WordStr,_SuffixStr):
-	return _SuffixStr.join(_WordStr.split(_SuffixStr)[:-1])
+	return _SuffixStr.join(_WordStr.split(_SuffixStr)[:-1]) if _SuffixStr!="" else _WordStr
 
 def groupby(_FunctionPointer,_List):
 	return getSplitListsListWithSplittedListAndFunctionPointer(_List,_FunctionPointer)
@@ -2802,6 +3121,48 @@ class ListDict(collections.OrderedDict):
 				),
 				xrange(len(ValueVariablesList))
 			)
+
+		#return
+		return self
+
+	def move(self,_OldIndexVariable,_NewIndexInt):
+
+		#get
+		if type(_OldIndexVariable)==int:
+			TempKeyVariable,TempValueVariable=self.getItem(_OldIndexVariable)
+		else:
+			TempKeyVariable=_OldIndexVariable
+			TempValueVariable=self[TempKeyVariable]
+			
+		#Debug
+		'''
+		print('move SYS l 2812')
+		print('TempKeyVariable,TempValueVariable')
+		print(TempKeyVariable,TempValueVariable)
+		print('_NewIndexInt is')
+		print(_NewIndexInt)
+		print('')
+		'''
+
+		#del
+		del self[TempKeyVariable]
+
+		#insert
+		self.insert(
+			_NewIndexInt,
+			TempValueVariable,
+			_KeyVariable=TempKeyVariable
+		)
+
+		#Debug
+		'''
+		print('self is')
+		print(self)
+		print('')
+		'''
+		
+		#return
+		return self
 
 
 class MethodDict(collections.OrderedDict):

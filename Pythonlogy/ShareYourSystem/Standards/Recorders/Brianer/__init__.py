@@ -634,20 +634,23 @@ class BrianerClass(BaseClass):
 		
 
 					#debug
-					'''
 					self.debug(
 						[
 							'We set the tracers',
-							('self.',self,['BrianedRecordKeyStrsList'])
+							('self.',self,['BrianedRecordKeyStrsList']),
+							#'Recorder.RecordPrefixStr is '+str(Recorder.RecordPrefixStr),
+							#'BrianedTracesManager is '+SYS._str(
+							#	BrianedTracesManager
+							#)
 						]
 					)
-					'''
-
+					
 					#map
 					self.BrianedTraceDeriveBrianersList=map(
 							lambda __ManagementKeyStr,__RecordKeyStr:
-							BrianedTracesManager.manage(
-									__ManagementKeyStr,
+							BrianedTracesManager.getManager(
+									__ManagementKeyStr
+								).mapSet(
 									{
 										'RecordingKeyVariable':getattr(
 											self.BrianedNeurongroupVariable,
@@ -655,17 +658,7 @@ class BrianerClass(BaseClass):
 										),
 										'RecordKeyStr':__RecordKeyStr
 									}
-								).ManagedValueVariable
-							if __ManagementKeyStr not in BrianedTracesManager.ManagementDict
-							else BrianedTracesManager.ManagementDict[__ManagementKeyStr].mapSet(
-								{
-									'RecordingKeyVariable':getattr(
-										self.BrianedNeurongroupVariable,
-										__RecordKeyStr
-									),
-									'RecordKeyStr':__RecordKeyStr
-								}
-							),
+								),
 							map(
 								lambda __BrianedRecordKeyStr:
 								Recorder.RecordPrefixStr+__BrianedRecordKeyStr,
@@ -1907,6 +1900,7 @@ class BrianerClass(BaseClass):
 	def viewPopulation(self):
 
 		#debug
+		'''
 		self.debug(
 			[
 				'we view population brian here',
@@ -1915,6 +1909,7 @@ class BrianerClass(BaseClass):
 					])
 			]
 		)
+		'''
 
 		#Check
 		if self.BrianingViewNetworkBool==False:
@@ -2104,24 +2099,38 @@ class BrianerClass(BaseClass):
 				# Manage each Chart
 				#
 
-				'''
-				self.debug(
-					[
-						'We map manage each Chart in the network one',
-						'self.TeamDict["Charts"].ManagementDict.keys() is',
-						str(self.TeamDict["Charts"].ManagementDict.keys())
-					]
-				)
-				'''
-
 				#get
-				ViewedPopulationRunChartDerivePyplotersList=self.TeamDict[
+				ViewedPopulationRunChartsDerivePyploter=self.TeamDict[
 					"Panels"
 				].ManagementDict[
 					"Run"
 				].TeamDict[
 					"Charts"
-				].ManagementDict.values()
+				]
+
+				#get
+				ViewedPopulationRunChartDerivePyplotersList=ViewedPopulationRunChartsDerivePyploter.ManagementDict.values()
+
+				#debug
+				LeakedTagVariable=map(
+					lambda __Variable:
+					(__Variable.ManagementIndexInt,
+					__Variable.ManagementTagStr),
+					ViewedPopulationRunChartDerivePyplotersList
+				)
+
+				'''
+				#debug
+				self.debug(
+					[
+						'We map manage each Chart in the network one',
+						'ViewedPopulationRunChartsDerivePyploter.ManagementDict.keys() is',
+						str(ViewedPopulationRunChartsDerivePyploter.ManagementDict.keys()
+							),
+						'LeakedTagVariable is '+str(LeakedTagVariable)
+					]
+				)
+				'''
 
 				#map
 				ViewedNetworkRunChartDerivePyplotersList=map(
@@ -3023,6 +3032,23 @@ class BrianerClass(BaseClass):
 				self.BrianedParentDeriveRecorderVariable.ManagementTagStr
 			)
 
+			#debug
+			'''
+			self.debug(
+				[
+					'We have managed this new Chart',
+					'self.BrianedParentDeriveRecorderVariable.ManagementTagStr is '+str(
+						self.BrianedParentDeriveRecorderVariable.ManagementTagStr),
+					'BrianedRunPopulationChartsDeriveManager.ManagementDict is '+str(
+						BrianedRunPopulationChartsDeriveManager.ManagementDict),
+					'BrianedRunPopulationChartsDeriveManager.ManagementDict.keys() is '+str(
+						BrianedRunPopulationChartsDeriveManager.ManagementDict.keys()
+					)
+				]
+			)
+			'''
+			
+
 			#/####################/#
 			# set to True
 			#
@@ -3156,6 +3182,7 @@ class BrianerClass(BaseClass):
 		)-1:
 
 			#Check
+			'''
 			self.debug(
 				[
 					'This is the last Sample for this record',
@@ -3165,6 +3192,7 @@ class BrianerClass(BaseClass):
 					)
 				]
 			)
+			'''
 
 			#call
 			self.BrianedParentDeriveRecorderVariable.viewTraceOrEvent()
@@ -3566,6 +3594,12 @@ class BrianerClass(BaseClass):
 
 	def recordTrace(self):
 
+		#set
+		#self.RecordedTraceFloatsArray=getattr(
+		#	self.BrianedParentPopulationDeriveBrianerVariable.BrianedNeurongroupVariable,
+		#	self.RecordKeyStr
+		#)
+
 		#base method
 		BaseClass.recordTrace(self)
 
@@ -3600,6 +3634,16 @@ class BrianerClass(BaseClass):
 		'''
 
 	def setBrianInit(self):
+
+		#debug
+		self.debug(
+			[
+				'we set brian init here',
+				('self.',self,[
+						'RecordedTraceFloatsArray'
+					])
+			]
+		)
 
 		#Check
 		if str(self.RecordedTraceFloatsArray.unit) in ['V']:

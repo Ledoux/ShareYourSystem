@@ -20,10 +20,10 @@ MyLeaker=SYS.LeakerClass(
 					'LeakingSymbolPrefixStr':'V',
 					'-Inputs':{
 						'|Rest':{
-							'LeakingWeigthVariable':'#scalar:-60*mV'
+							'LeakingWeightVariable':'#scalar:-60*mV'
 						},
 						'|External':{
-							'LeakingWeigthVariable':'#scalar:11*mV'
+							'LeakingWeightVariable':'#scalar:11*mV'
 						}
 					},
 					'LeakingNoiseStdVariable':0.1,
@@ -33,7 +33,7 @@ MyLeaker=SYS.LeakerClass(
 					'-Interactions':{
 						'|/':{
 							'BrianingDebugVariable':100,
-							'LeakingWeigthVariable':[[0.,0.],[0.,0.]],
+							'LeakingWeightVariable':[[0.,0.],[0.,0.]],
 							'LeakingInteractionStr':"Spike",
 							'LeakingPlasticVariable':"J+=(((V_post+60.*mV)/volt)+((1.+1.)/2.)*J)",
 							#'LeakingPlasticVariable':"J-=0.5*J",
@@ -46,23 +46,28 @@ MyLeaker=SYS.LeakerClass(
 			}
 		}
 	).leak(
-	).simulate(
-		200.
+	)
+
+#/###################/#
+# Do one simulation
+#
+
+MyLeaker.simulate(
+		500.
 	)
 
 #/###################/#
 # View
 #
 
-#MyLeaker.view(
-#	).pyplot(
-#	)
-
-MyLeaker['/-Populations/|P'].view(
+MyLeaker.mapSet(
+		{
+			'PyplotingGridVariable':(20,20)
+		}
+	).view(
 	).pyplot(
+	).show(
 	)
-
-SYS.matplotlib.pyplot.show()
 
 #/###################/#
 # Print

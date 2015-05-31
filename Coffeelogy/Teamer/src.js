@@ -3,7 +3,16 @@
 /*
 	Teamer Class
  */
-var bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+var SideStr,
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+
+if (typeof window === "undefined") {
+  SideStr = "server";
+} else {
+  SideStr = "client";
+}
+
+console.log("import Teamer \n", "Side is " + SideStr);
 
 exports.TeamerClass = (function() {
   var TeamObject, TeamedParentVariable;

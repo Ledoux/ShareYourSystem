@@ -2,11 +2,16 @@
 	Manager Class
 ###
 
+#debug
+console.log(
+	"import Manager \n"
+)
+
 #require
-Teamer = require('../Teamer/Teamer.js')
+Teamer = require('../Teamer/src.js')
 
 #define
-class exports.ManagerClass extends Teamer.TeamerClass
+class ManagerClass extends Teamer.TeamerClass
   	
   	#constructor:
 	ManagementObject = {}
@@ -35,3 +40,8 @@ class exports.ManagerClass extends Teamer.TeamerClass
 		#return
 		return this
 
+#Check
+if GLOBAL.SideStr == 'server'
+
+	#export
+	exports.ManagerClass = ManagerClass

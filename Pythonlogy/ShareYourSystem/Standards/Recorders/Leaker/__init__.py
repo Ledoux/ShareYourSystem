@@ -79,7 +79,7 @@ class LeakerClass(BaseClass):
 	def default_init(self,
 			_LeakingUnitsInt=0,
 			_LeakingTimeVariable='#scalar:10.*ms',
-			_LeakingWeigthVariable=None,
+			_LeakingWeightVariable=None,
 			_LeakingQuantityStr='mV',
 			_LeakingSymbolPrefixStr="",
 			_LeakingInteractionStr="Rate",
@@ -113,7 +113,7 @@ class LeakerClass(BaseClass):
 			_LeakedEquationStr="",
 			_LeakedClockStr="",
 			_LeakedTimeSymbolStr="",
-			_LeakedInteractionWeigthFloat=0.,
+			_LeakedInteractionWeightFloat=0.,
 			_LeakedParentSingularStr="",
 			_LeakedParentNetworkDeriveLeakerVariable=None,
 			_LeakedParentPopulationDeriveLeakerVariable=None,
@@ -618,20 +618,20 @@ class LeakerClass(BaseClass):
 				[
 					'Check if we add a weigth',
 					('self.',self,[
-							'LeakingWeigthVariable'
+							'LeakingWeightVariable'
 						])
 				]
 			)
 			'''
 
 			#type
-			LeakedType=type(self.LeakingWeigthVariable)
+			LeakedType=type(self.LeakingWeightVariable)
 
 			#Check
 			if LeakedType==str:
 
 				#Check
-				if self.LeakingWeigthVariable in ['0','0.0']:
+				if self.LeakingWeightVariable in ['0','0.0']:
 
 					#set the right
 					self.LeakedModelStr+='('
@@ -639,7 +639,7 @@ class LeakerClass(BaseClass):
 				else:
 
 					#set the right
-					self.LeakedModelStr+='(-'+self.LeakingWeigthVariable+'*'+self.LeakedSymbolStr
+					self.LeakedModelStr+='(-'+self.LeakingWeightVariable+'*'+self.LeakedSymbolStr
 
 			elif LeakedType in [list]:
 
@@ -648,11 +648,11 @@ class LeakerClass(BaseClass):
 					mu : 1
 				'''+self.LeakedModelStr
 
-			elif self.LeakingWeigthVariable!=None:
+			elif self.LeakingWeightVariable!=None:
 
 				#set the right
 				self.LeakedModelStr+='(-'+str(
-					self.LeakingWeigthVariable
+					self.LeakingWeightVariable
 				)+'*'+self.LeakedSymbolStr
 
 			else:
@@ -830,18 +830,18 @@ class LeakerClass(BaseClass):
 			).TeamedValueVariable
 
 		#manage
-		LeakedRecordDeriveLeaker=LeakedTracesDeriveManager.manage(
-				'*'+self.LeakedSymbolStr
-			).ManagedValueVariable
+		LeakedRecordDeriveLeaker=LeakedTracesDeriveManager.getManager(
+				Recorder.RecordPrefixStr+self.LeakedSymbolStr
+			)
 
 		#set
 		LeakedRecordDeriveLeaker.NumscipyingStdFloat=0.001
-		LeakedSamplesDeriveLeaker=LeakedRecordDeriveLeaker.team(
+		LeakedSamplesDeriveLeaker=LeakedRecordDeriveLeaker.getTeamer(
 				'Samples'
-			).TeamedValueVariable
-		LeakedDefaultDeriveLeaker=LeakedSamplesDeriveLeaker.manage(
+			)
+		LeakedDefaultDeriveLeaker=LeakedSamplesDeriveLeaker.getManager(
 				'Default'
-			).ManagedValueVariable
+			)
 
 		#/##################/#
 		# Look for what to monitor
@@ -913,11 +913,13 @@ class LeakerClass(BaseClass):
 		if self.LeakingMaxBool:
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We build a variable that tracks the max events'
 				]
 			)
+			'''
 
 			#add
 			self.LeakedModelStr+=self.LeakedSymbolStr+'_diff : '+self.LeakedDimensionStr+'\n'
@@ -936,6 +938,7 @@ class LeakerClass(BaseClass):
 			self.LeakedModelStr+=LeakedDiffStr
 
 			#debug
+			'''
 			self.debug(
 				[
 					'In the end of max model',
@@ -944,6 +947,7 @@ class LeakerClass(BaseClass):
 						])
 				]
 			)
+			'''
 
 			'''
 			LeakedPhaseNeuronGroup=brian2.NeuronGroup(
@@ -1400,16 +1404,19 @@ class LeakerClass(BaseClass):
 		'''
 
 		#type
-		LeakedWeigthVariable=type(self.LeakingWeigthVariable)
+		LeakedWeightVariable=type(self.LeakingWeightVariable)
 
 		#Check
-		if LeakedWeigthVariable!=None.__class__:
+		if LeakedWeightVariable!=None.__class__:
+
+			#init
+			self.LeakedClampStr="Variable"
 
 			#Check
-			if LeakedWeigthVariable==str:
+			if LeakedWeightVariable==str:
 
 				#Check
-				if self.LeakingWeigthVariable.startswith(
+				if self.LeakingWeightVariable.startswith(
 					LeakScalarPrefixStr
 				):
 
@@ -1418,7 +1425,7 @@ class LeakerClass(BaseClass):
 
 					#set
 					self.LeakedSymbolStr=SYS.deprefix(
-						self.LeakingWeigthVariable,
+						self.LeakingWeightVariable,
 						LeakScalarPrefixStr
 					)
 
@@ -1438,7 +1445,7 @@ class LeakerClass(BaseClass):
 						self.LeakedSymbolStr
 					)
 
-				elif self.LeakingWeigthVariable.startswith(
+				elif self.LeakingWeightVariable.startswith(
 					LeakEquationPrefixStr
 				):
 
@@ -1447,14 +1454,14 @@ class LeakerClass(BaseClass):
 
 					#set
 					self.LeakedOperationStr=SYS.deprefix(
-						self.LeakingWeigthVariable,
+						self.LeakingWeightVariable,
 						LeakEquationPrefixStr
 					)
 
 					#setOperation
 					self.setOperation()
 
-				elif self.LeakingWeigthVariable.startswith(
+				elif self.LeakingWeightVariable.startswith(
 					LeakCustomPrefixStr
 				):
 
@@ -1463,7 +1470,7 @@ class LeakerClass(BaseClass):
 
 					#set
 					self.LeakedOperationStr=SYS.deprefix(
-						self.LeakingWeigthVariable,
+						self.LeakingWeightVariable,
 						LeakCustomPrefixStr
 					)
 
@@ -1498,106 +1505,118 @@ class LeakerClass(BaseClass):
 				"""
 
 			#Check
-			elif LeakedWeigthVariable in [list,tuple]:
+			elif LeakedWeightVariable in [list,tuple]:
 
 				#Check
-				if self.LeakingWeigthVariable[0].startswith(LeakNetworkPrefixStr[:-1]):
-
-					#debug
-					'''
-					self.debug(
-						[
-							'It is a network operation',
-							('self.',self,[
-									'LeakingWeigthVariable'
-								])
-						]
-					)
-					'''
-
-					#set
-					self.LeakedClampStr='Network'
-
-					#set
-					self.LeakedOperationStr=SYS.deprefix(
-						self.LeakingWeigthVariable[0],
-						LeakNetworkPrefixStr
-					)
-
-					#setOperation
-					self.setOperation()
-
-				elif self.LeakingWeigthVariable[0].startswith(LeakCustomPrefixStr[:-1]):
-
-					#debug
-					'''
-					self.debug(
-						[
-							'It is a map of different input variables',
-							('self.',self,[
-									'LeakingWeigthVariable'
-								])
-						]
-					)
-					'''
-
-					#set
-					self.LeakedClampStr='Custom'	
-
-					#set
-					self.LeakedOperationStr=SYS.deprefix(
-						self.LeakingWeigthVariable[0],
-						LeakCustomPrefixStr[:-1]
-					)
-
-					#debug
-					'''
-					self.debug(
-						[
-							('self.',self,[
-									'LeakedOperationStr'
-								])
-						]
-					)
-					'''
+				if type(self.LeakingWeightVariable[0])==str:
 
 					#Check
-					if self.LeakedOperationStr[0]==':':
-						self.LeakedOperationStr=self.LeakedOperationStr[1:]+':'
+					if self.LeakingWeightVariable[0].startswith(LeakNetworkPrefixStr[:-1]):
 
-					#join
-					self.LeakedOperationStr+="+".join(
-							map(
-								lambda __IndexInt,__CustomOperationStr:
-								__CustomOperationStr+'*(i=='+str(
-									__IndexInt
-								)+')',
-								xrange(len(self.LeakingWeigthVariable[1])),
-								self.LeakingWeigthVariable[1]
-							)
+						#debug
+						'''
+						self.debug(
+							[
+								'It is a network operation',
+								('self.',self,[
+										'LeakingWeightVariable'
+									])
+							]
+						)
+						'''
+
+						#set
+						self.LeakedClampStr='Network'
+
+						#set
+						self.LeakedOperationStr=SYS.deprefix(
+							self.LeakingWeightVariable[0],
+							LeakNetworkPrefixStr
 						)
 
-					#setOperation
-					self.setOperation()
+						#setOperation
+						self.setOperation()
 
-			else:
+					elif self.LeakingWeightVariable[0].startswith(
+						LeakCustomPrefixStr[:-1]
+					):
 
-				#set
-				self.LeakedClampStr="Variable"
+						#debug
+						'''
+						self.debug(
+							[
+								'It is a map of different input variables',
+								('self.',self,[
+										'LeakingWeightVariable'
+									])
+							]
+						)
+						'''
+
+						#set
+						self.LeakedClampStr='Custom'	
+
+						#set
+						self.LeakedOperationStr=SYS.deprefix(
+							self.LeakingWeightVariable[0],
+							LeakCustomPrefixStr[:-1]
+						)
+
+						#debug
+						'''
+						self.debug(
+							[
+								('self.',self,[
+										'LeakedOperationStr'
+									])
+							]
+						)
+						'''
+
+						#Check
+						if self.LeakedOperationStr!="" and self.LeakedOperationStr[0]==':':
+							self.LeakedOperationStr=self.LeakedOperationStr[1:]+':'
+
+						#join
+						self.LeakedOperationStr+="+".join(
+								map(
+									lambda __IndexInt,__CustomOperationStr:
+									__CustomOperationStr+'*(i=='+str(
+										__IndexInt
+									)+')',
+									xrange(len(self.LeakingWeightVariable[1])),
+									self.LeakingWeightVariable[1]
+								)
+							)
+
+						#setOperation
+						self.setOperation()
+
+			#debug
+			self.debug(
+				[
+					'Is it a variable',
+					('self.',self,[
+							'LeakedClampStr'
+						])
+				]
+			)
+
+			#Check
+			if self.LeakedClampStr=="Variable":
 
 				#debug
-				'''
 				self.debug(
 					[
 						'It is a variable',
 						('self.',self,[
-								'LeakedSymbolStr'
+								'LeakedSymbolStr',
+								'LeakingRecordBool'
 							]),
 						'We append in the parent pop record skip',
 						'We define and add in the LeakedCurrentStr'
 					]
 				)
-				'''
 
 				#Check
 				if self.LeakingRecordBool==False:
@@ -1654,6 +1673,58 @@ class LeakerClass(BaseClass):
 			)
 			'''
 
+		#debug
+		'''
+		self.debug(
+			[
+				'Should we have to take care of a record later',
+				('self.',self,[
+						'LeakedClampStr'
+					])
+			]
+		)
+		'''
+
+		#Check
+		if self.LeakedClampStr not in ["Scalar","Variable"]:
+
+			#/###############/#
+			# Make sure that trace of input is before trace trace of activity
+			# Look for a RecordingVariable
+			#
+
+			#get
+			LeakedTraceDeriveLeaker=self.LeakedParentPopulationDeriveLeakerVariable.getTeamer(
+					"Traces"
+				).manage(
+					Recorder.RecordPrefixStr+self.LeakedSymbolStr,
+					_IndexInt=0
+				).ManagedValueVariable
+
+			#Check
+			if self.RecordingLabelVariable!=None:
+
+				#debug
+				'''
+				self.debug(
+					[
+						'In the input we set the recording label variable to the corresponding trace sample',
+						('self.',self,['RecordingLabelVariable'])
+					]
+				)
+				'''
+
+				#set
+				LeakedTraceDeriveLeaker.getTeamer(
+					"Samples"
+				).getManager(
+					"Default"
+				).setAttr(
+					"RecordingLabelVariable",
+					self.RecordingLabelVariable
+				)
+
+
 	def leakInteraction(self):
 
 		#/################/#
@@ -1666,7 +1737,7 @@ class LeakerClass(BaseClass):
 			[
 				'It is an Interaction level',
 				('self.',self,[
-						'LeakingWeigthVariable'
+						'LeakingWeightVariable'
 					])
 			]
 		)
@@ -1766,19 +1837,19 @@ class LeakerClass(BaseClass):
 		'''
 		self.debug(
 			[
-				'What is LeakingWeigthVariable',
+				'What is LeakingWeightVariable',
 				('self.',self,[
-						'LeakingWeigthVariable'
+						'LeakingWeightVariable'
 					])
 			]
 		)
 		'''
 		
 		#Check
-		if type(self.LeakingWeigthVariable)==None.__class__:
+		if type(self.LeakingWeightVariable)==None.__class__:
 
 			#set
-			self.LeakingWeigthVariable='#scalar:0.'
+			self.LeakingWeightVariable='#scalar:0.'
 
 			#debug
 			'''
@@ -1786,7 +1857,7 @@ class LeakerClass(BaseClass):
 				[
 					'We set a default J equal to scalar 0',
 					('self.',self,[
-							'LeakingWeigthVariable'
+							'LeakingWeightVariable'
 						])
 				]
 			)
@@ -1798,7 +1869,7 @@ class LeakerClass(BaseClass):
 			[
 				'We check the clamp of the interaction',
 				('self.',self,[
-					'LeakingWeigthVariable'
+					'LeakingWeightVariable'
 				])
 			]
 		)
@@ -1823,10 +1894,10 @@ class LeakerClass(BaseClass):
 		self.LeakedClampStr="Variable"
 
 		#Check
-		if type(self.LeakingWeigthVariable)==str:
+		if type(self.LeakingWeightVariable)==str:
 
 			#Check
-			if self.LeakingWeigthVariable.startswith(
+			if self.LeakingWeightVariable.startswith(
 				LeakScalarPrefixStr
 			):
 
@@ -2053,16 +2124,16 @@ class LeakerClass(BaseClass):
 				self.LeakedModelStr+=self.LeakedSymbolStr+"_post"
 
 				#deprefix
-				LeakedInteractionWeigthStr=SYS.deprefix(
-					self.LeakingWeigthVariable,
+				LeakedInteractionWeightStr=SYS.deprefix(
+					self.LeakingWeightVariable,
 					LeakScalarPrefixStr
 				)
 
 				#set
-				self.LeakedInteractionWeigthFloat=float(LeakedInteractionWeigthStr)
+				self.LeakedInteractionWeightFloat=float(LeakedInteractionWeightStr)
 
 				#add
-				self.LeakedModelStr+="="+LeakedInteractionWeigthStr+'*'+self.LeakedVariableStr+"_pre"
+				self.LeakedModelStr+="="+LeakedInteractionWeightStr+'*'+self.LeakedVariableStr+"_pre"
 
 			elif self.LeakedClampStr=="Variable":
 
@@ -2692,7 +2763,7 @@ class LeakerClass(BaseClass):
 			self.TeamDict[
 				'Traces'
 			].ManagementDict[
-				'*Threshold'
+				Recorder.RecordPrefixStr+'Threshold'
 			].BrianingRecordInitBool=False
 
 		#Check
@@ -2903,8 +2974,8 @@ class LeakerClass(BaseClass):
 			self.debug(
 				[
 					'We resort the inputs traces',
-					'self.TeamDict["Inputs"].ManagementDict.keys() is ',
-					str(self.TeamDict["Inputs"].ManagementDict.keys()),
+					#'self.TeamDict["Inputs"].ManagementDict.keys() is ',
+					#str(self.TeamDict["Inputs"].ManagementDict.keys()),
 					'BrianedTracesManager.ManagementDict.keys() is ',
 					str(BrianedTracesManager.ManagementDict.keys())
 
@@ -2923,21 +2994,15 @@ class LeakerClass(BaseClass):
 					)
 				)
 
-			#map
-			map(
-				lambda __IndexIntAndRecordKeyStr:
-				setattr(
-					BrianedTracesManager.ManagementDict[
-						__IndexIntAndRecordKeyStr[1]
-					],
-					'GetSortInt',
-					__IndexIntAndRecordKeyStr[0]
-				) if __IndexIntAndRecordKeyStr[1] in BrianedTracesManager.ManagementDict
-				else None,
-				enumerate(
-					self.LeakedInputKeyStrsList
-				)
+			#debug
+			'''
+			self.debug(
+				[
+
+					('self.',self,['LeakedInputKeyStrsList'])
+				]
 			)
+			'''
 
 	def brianInput(self):
 
@@ -2951,7 +3016,7 @@ class LeakerClass(BaseClass):
 		'''
 
 		#Check
-		if self.LeakingWeigthVariable!=None:
+		if self.LeakingWeightVariable!=None:
 
 			#Check
 			if self.LeakedClampStr=="Variable":
@@ -2971,11 +3036,23 @@ class LeakerClass(BaseClass):
 				)
 				'''
 
+				#import
+				import numpy as np
+
 				#set
 				setattr(
 					self.LeakedParentPopulationDeriveLeakerVariable.BrianedNeurongroupVariable,
 					self.LeakedSymbolStr,
-					self.LeakingWeigthVariable*Variable.unit
+					#self.LeakingWeightVariable*Variable.unit
+					self.LeakingWeightVariable*self.LeakedParentPopulationDeriveLeakerVariable.LeakedQuantityVariable
+					if type(self.LeakingWeightVariable) in [
+						np.float64,float
+					] else (
+						self.LeakingWeightVariable*self.LeakedParentPopulationDeriveLeakerVariable.LeakedQuantityVariable
+						if type(self.LeakingWeightVariable[0]) in [
+							np.float64,float
+						] else self.LeakingWeightVariable
+					)
 				)
 
 			elif self.LeakedClampStr=='Equation':
@@ -2999,7 +3076,7 @@ class LeakerClass(BaseClass):
 
 				#init
 				self.LeakedTimedArrayVariable=TimedArray(
-					self.LeakingWeigthVariable,
+					self.LeakingWeightVariable,
 					dt=self.LeakedParentPopulationDeriveLeakerVariable.BrianedNeurongroupVariable.clock.dt
 				)
 
@@ -3148,7 +3225,7 @@ class LeakerClass(BaseClass):
 					def updateInput():
 
 						#get set
-						BrianedInputQuantity[:]=self.LeakingWeigthVariable[1](
+						BrianedInputQuantity[:]=self.LeakingWeightVariable[1](
 							BrianedInputQuantity,
 							BrianedNeurongroupVariable.clock.t
 						)
@@ -3179,7 +3256,7 @@ class LeakerClass(BaseClass):
 					def updateInput():
 
 						#get set
-						BrianedInputQuantity[:]=self.LeakingWeigthVariable[1](
+						BrianedInputQuantity[:]=self.LeakingWeightVariable[1](
 							BrianedInputQuantity,
 							BrianedNeurongroupVariable.clock.t
 						)
@@ -3202,7 +3279,7 @@ class LeakerClass(BaseClass):
 				'We brianInteraction leak here',
 				'We call first the base method',
 				('self.',self,[
-						'LeakingWeigthVariable'
+						'LeakingWeightVariable'
 					])
 			]
 		)
@@ -3222,7 +3299,7 @@ class LeakerClass(BaseClass):
 		#get
 		BrianedRowsInt=self.BrianedSynapsesVariable.source.N
 		BrianedColsInt=self.BrianedSynapsesVariable.target.N
-		BrianedWeigthFloatsArray=None
+		BrianedWeightFloatsArray=None
 
 		#/##################/#
 		# Maybe we specify the connection
@@ -3248,13 +3325,13 @@ class LeakerClass(BaseClass):
 			self.debug(
 				[
 					'Look for a non nul connection',
-					('self.',self,['LeakedInteractionWeigthFloat'])
+					('self.',self,['LeakedInteractionWeightFloat'])
 				]
 			)
 			'''
 
 			#Check
-			if self.LeakedInteractionWeigthFloat!=0.:
+			if self.LeakedInteractionWeightFloat!=0.:
 
 				#debug
 				'''
@@ -3274,7 +3351,7 @@ class LeakerClass(BaseClass):
 		elif self.LeakedClampStr=="Variable":
 
 			#type
-			BrianedInteractionType=type(self.LeakingWeigthVariable)
+			BrianedInteractionType=type(self.LeakingWeightVariable)
 
 			#debug
 			'''
@@ -3282,7 +3359,7 @@ class LeakerClass(BaseClass):
 				[
 					'We have to set the connect variable',
 					('self.',self,[
-						'LeakingWeigthVariable'
+						'LeakingWeightVariable'
 					]),
 					'BrianedInteractionType is ',
 					str(BrianedInteractionType)
@@ -3303,14 +3380,14 @@ class LeakerClass(BaseClass):
 						'It is just one value',
 						'We set in the synapses if it is not null',
 						('self.',self,[
-								'LeakingWeigthVariable'
+								'LeakingWeightVariable'
 							])
 					]
 				)
 				'''
 
 				#Check
-				if self.LeakingWeigthVariable!=0.:
+				if self.LeakingWeightVariable!=0.:
 
 					#debug
 					'''
@@ -3318,7 +3395,7 @@ class LeakerClass(BaseClass):
 						[
 							'We are going to connect this Variable for each index',
 							('self.',self,[
-									'LeakingWeigthVariable'
+									'LeakingWeightVariable'
 								])
 						]
 					)
@@ -3333,7 +3410,7 @@ class LeakerClass(BaseClass):
 					getattr(
 						self.BrianedSynapsesVariable,
 						self.LeakingSymbolPrefixStr
-					)[:]=self.LeakingWeigthVariable
+					)[:]=self.LeakingWeightVariable
 					
 
 				#debug
@@ -3371,13 +3448,13 @@ class LeakerClass(BaseClass):
 					self.numscipy()
 
 					#alias
-					BrianedWeigthFloatsArray=self.NumscipiedValueFloatsArray
+					BrianedWeightFloatsArray=self.NumscipiedValueFloatsArray
 
 				else:
 
 					#shape
-					BrianedWeigthFloatsArray=getShapeArray(
-						self.LeakingWeigthVariable,
+					BrianedWeightFloatsArray=getShapeArray(
+						self.LeakingWeightVariable,
 						BrianedRowsInt,
 						BrianedColsInt
 					)
@@ -3389,7 +3466,7 @@ class LeakerClass(BaseClass):
 				#reshape
 				BrianedFloatsArray=np.reshape(
 					np.array(
-						BrianedWeigthFloatsArray
+						BrianedWeightFloatsArray
 					).T,
 					BrianedRowsInt*BrianedColsInt
 				)
@@ -3400,7 +3477,7 @@ class LeakerClass(BaseClass):
 					[
 						'It is an already defined array',
 						('self.',self,[
-								'LeakingWeigthVariable'
+								'LeakingWeightVariable'
 							]),
 						'self.BrianedSynapsesVariable.source.N is '+str(self.BrianedSynapsesVariable.source.N),
 						'self.BrianedSynapsesVariable.target.N is '+str(self.BrianedSynapsesVariable.target.N),
@@ -3565,8 +3642,6 @@ class LeakerClass(BaseClass):
 									__IndexInt
 								)+"="+LeakedSymbolStr+"_delayer_"+str(
 									__IndexInt-1
-
-
 								),
 								xrange(self.LeakedDelayTotalIntVariable[0]-1,0,-1)
 							)+[
@@ -4000,7 +4075,7 @@ class LeakerClass(BaseClass):
 			if self.LeakingEigenBool:
 
 				#set
-				self.NumscipyingValueVariable=BrianedWeigthFloatsArray
+				self.NumscipyingValueVariable=BrianedWeightFloatsArray
 				self.NumscipyingEigenvalueBool=True
 
 				#debug
@@ -4317,10 +4392,13 @@ class LeakerClass(BaseClass):
 		)
 		'''
 
-		#Check
-		if self.ManagementTagStr.split(
+		#set
+		LeakedWordStr=self.ManagementTagStr.split(
 			Recorder.RecordPrefixStr
-		)[1] in self.LeakedParentPopulationDeriveLeakerVariable.LeakedRecordSkipStrsList or (
+		)[1] if len(Recorder.RecordPrefixStr)>0 else self.ManagementTagStr
+
+		#Check
+		if LeakedWordStr in self.LeakedParentPopulationDeriveLeakerVariable.LeakedRecordSkipStrsList or (
 			self.LeakedParentPopulationDeriveLeakerVariable.LeakingTimeVariable in ['0',0.]
 		):
 
@@ -4348,7 +4426,7 @@ class LeakerClass(BaseClass):
 
 			#Check
 			if BrianedParentInteractionDeriveBrianerVariable.LeakingPlasticVariable!=None and type(
-				BrianedParentInteractionDeriveBrianerVariable.LeakingWeigthVariable
+				BrianedParentInteractionDeriveBrianerVariable.LeakingWeightVariable
 			)!=None.__class__:
 
 				#debug
@@ -4956,6 +5034,151 @@ class LeakerClass(BaseClass):
 				self.NumscipyingGlobalBool=self.LeakingTotalBool
 				self.numscipy()
 
+		#Check
+		if self.LeakingMaxBool:
+
+			#debug
+			'''
+			self.debug(
+				[
+					'We plot the max',
+					('self.',self,[
+							'LeakedMaxSpikeMonitorVariable',
+							'LeakedMaxStateMonitorVariable'
+						]),
+					'self.LeakedMaxSpikeMonitorVariable.t is '+str(
+							self.LeakedMaxSpikeMonitorVariable.t
+						)
+				]
+			)
+			'''
+
+			#Check
+			if self.LeakingMinPhaseTimeVariable==None:
+				self.LeakingMinPhaseTimeVariable=1.*self.BrianedParentNetworkDeriveBrianerVariable.SimulatingStopTimeFloat*self.BrianedParentNetworkDeriveBrianerVariable.BrianedTimeQuantityVariable/2.
+
+			#Check
+			#if self.LeakingMaxPhasesInt==None:
+			#	#self.LeakingMaxPhasesInt=len(self.LeakedMaxSpikeMonitorVariable.t)
+			#	self.LeakingMaxPhasesInt=2
+
+			#debug
+			self.debug(
+				[
+					('self.',self,[
+							'LeakingMinPhaseTimeVariable',
+							'LeakingMaxPhasesInt'
+						])
+				]
+			)
+
+			#init
+			self.LeakedPhaseList=[None]*self.LeakingUnitsInt
+
+			#loop
+			for __IndexInt,__NeuronInt in enumerate(
+				self.LeakedMaxSpikeMonitorVariable.i
+			):
+
+				#debug
+				'''
+				self.debug(
+					[
+						'[__IndexInt,__NeuronInt] is '+str(
+							[__IndexInt,__NeuronInt]
+						)
+					]
+				)
+				'''
+
+				#get
+				LeakedTimeVariable=self.LeakedMaxSpikeMonitorVariable.t[__IndexInt]
+
+				#Check
+				if LeakedTimeVariable>self.LeakingMinPhaseTimeVariable:
+
+					#init
+					if self.LeakedPhaseList[__NeuronInt]==None:
+						
+						#init
+						self.LeakedPhaseList[__NeuronInt]=[]
+
+					#init
+					LeakedAppendList=[
+						__IndexInt,
+						float(LeakedTimeVariable),
+						None
+					]
+
+					#len
+					LeakedLenghtInt=len(self.LeakedPhaseList[__NeuronInt])
+
+					#Check
+					if LeakedLenghtInt>0 and LeakedLenghtInt<self.LeakingMaxPhasesInt:
+
+						#debug
+						'''
+						self.debug(
+							[
+								'We scan the phase with the others'
+							]
+						)
+						'''
+
+						#import
+						#import brian2
+
+						#map
+						LeakedAppendList[-1]=map(	
+							lambda __OtherIndexInt:
+							[
+								int(self.LeakedMaxSpikeMonitorVariable.i[__OtherIndexInt]),
+								float(
+				LeakedTimeVariable-self.LeakedMaxSpikeMonitorVariable.t[__OtherIndexInt]
+									)
+							],
+							xrange(
+								self.LeakedPhaseList[__NeuronInt][-1][0]+1,
+								__IndexInt
+							)
+						)
+
+						#debug
+						'''
+						self.debug(
+							[
+								'LeakedAppendList is '+str(LeakedAppendList)
+							]
+						)	
+						'''
+
+					#Check
+					if LeakedLenghtInt<self.LeakingMaxPhasesInt:
+
+						#append
+						self.LeakedPhaseList[__NeuronInt].append(LeakedAppendList)
+
+			#debug
+			self.debug(
+				[
+					'In the end',
+					('self.',self,[
+							'LeakedPhaseList'
+						])
+				]
+			)
+
+			#/##################/#
+			# Build the phase compared to the weigths
+			#
+
+			#self.LeakedPhaseWeightFloatsArray=map(
+			#	lambda 
+			#
+			#)
+
+
+
 	#/######################/#
 	# Augment view
 	#
@@ -4976,7 +5199,7 @@ class LeakerClass(BaseClass):
 		'''
 
 		#Check
-		if self.ParentGrandManagementTagStr!="*J":
+		if self.ParentGrandManagementTagStr!=Recorder.RecordPrefixStr+"J":
 			self.ViewingXScaleFloat=1000.
 			self.ViewingYScaleFloat=1000.
 
@@ -4984,6 +5207,56 @@ class LeakerClass(BaseClass):
 		BaseClass.viewSample(self)
 
 	def viewPopulation(self):
+
+		#/##################/#
+		# Call all the view input methods
+		#
+
+		#debug
+		'''
+		self.debug(
+			[
+				'We have to resort the inputs first',
+				str(self.TeamDict['Traces'].ManagementDict.keys()),
+				('self.',self,[
+					'LeakedInputKeyStrsList',
+					'LeakedRecordSkipStrsList'
+				])
+			]
+		)
+		'''
+
+		#get
+		LeakedRunPopulationChartsDerivePyploter=self.getTeamer(
+				"Panels"
+			).getManager(
+				"Run"
+			).getTeamer(
+				'Charts'
+			)
+
+
+		#filter
+		LeakedInputKeyStrsList=SYS._filter(
+					lambda __KeyStr:
+					__KeyStr.split(
+						Recorder.RecordPrefixStr
+					)[1] not in self.LeakedRecordSkipStrsList,
+					self.LeakedInputKeyStrsList
+				) if len(Recorder.RecordPrefixStr)>0 else SYS._filter(
+					lambda __KeyStr:
+					__KeyStr not in self.LeakedRecordSkipStrsList,
+					self.LeakedInputKeyStrsList
+				)
+
+		#map
+		map(
+			lambda __LeakedInputKeyStr:
+			LeakedRunPopulationChartsDerivePyploter.getManager(
+				__LeakedInputKeyStr
+			),
+			LeakedInputKeyStrsList
+		)
 
 		#/##################/#
 		# base method
@@ -5005,19 +5278,17 @@ class LeakerClass(BaseClass):
 		'''
 		
 		#init
-		ViewedNetworkDrawsDerivePyploter=None
+		ViewedRunNetworkDrawsDerivePyploter=None
 		
 		#get
-		ViewedPopulationDrawsDerivePyploter=self.getTeamer(
-				'Charts'
-			).getManager(
+		ViewedPopulationRunDrawsDerivePyploter=LeakedRunPopulationChartsDerivePyploter.getManager(
 				Recorder.RecordPrefixStr+self.LeakedSymbolStr
 			).getTeamer(
 				'Draws'
 			)
 
 		#Check
-		if len(ViewedPopulationDrawsDerivePyploter.ManagementDict)>0:
+		if len(ViewedPopulationRunDrawsDerivePyploter.ManagementDict)>0:
 
 			#Check
 			if self.LeakingGlobalBool or self.LeakingTotalBool:
@@ -5085,7 +5356,7 @@ class LeakerClass(BaseClass):
 				'''
 				
 				#add
-				ViewedPopulationDrawsDerivePyploter.getManager(
+				ViewedPopulationRunDrawsDerivePyploter.getManager(
 						'Global'
 					).PyplotingDrawVariable=[
 						(	
@@ -5164,7 +5435,7 @@ class LeakerClass(BaseClass):
 				#
 
 				#alias
-				ViewedNetworkDrawsDerivePyploter=self.BrianedParentNetworkDeriveBrianerVariable.getTeamer(
+				ViewedRunNetworkDrawsDerivePyploter=self.BrianedParentNetworkDeriveBrianerVariable.getTeamer(
 					'Panels'
 				).getManager(
 					'Run'
@@ -5177,9 +5448,9 @@ class LeakerClass(BaseClass):
 				)
 
 				#get
-				ViewedNetworkDrawsDerivePyploter.getManager(
+				ViewedRunNetworkDrawsDerivePyploter.getManager(
 						'Global'
-					).PyplotingDrawVariable=ViewedPopulationDrawsDerivePyploter.ManagementDict[
+					).PyplotingDrawVariable=ViewedRunPopulationDrawsDerivePyploter.ManagementDict[
 						'Global'
 					].PyplotingDrawVariable
 
@@ -5228,142 +5499,64 @@ class LeakerClass(BaseClass):
 			#Check
 			if self.LeakingMaxBool:
 
-				#debug
-				'''
-				self.debug(
-					[
-						'We plot the max',
-						('self.',self,[
-								'LeakedMaxSpikeMonitorVariable',
-								'LeakedMaxStateMonitorVariable'
-							]),
-						'self.LeakedMaxSpikeMonitorVariable.t is '+str(
-								self.LeakedMaxSpikeMonitorVariable.t
-							)
-					]
-				)
-				'''
+				#/################/#
+				# Max in the traces
+				#
 
-				#Check
-				if self.LeakingMinPhaseTimeVariable==None:
-					self.LeakingMinPhaseTimeVariable=1.*self.BrianedParentNetworkDeriveBrianerVariable.SimulatingStopTimeFloat*self.BrianedParentNetworkDeriveBrianerVariable.BrianedTimeQuantityVariable/2.
-
-				#Check
-				#if self.LeakingMaxPhasesInt==None:
-				#	#self.LeakingMaxPhasesInt=len(self.LeakedMaxSpikeMonitorVariable.t)
-				#	self.LeakingMaxPhasesInt=2
-
-				#debug
-				self.debug(
-					[
-						('self.',self,[
-								'LeakingMinPhaseTimeVariable',
-								'LeakingMaxPhasesInt'
-							])
-					]
-				)
-
-				#init
-				self.LeakedPhaseList=[None]*self.LeakingUnitsInt
-
-				#loop
-				for __IndexInt,__NeuronInt in enumerate(
-					self.LeakedMaxSpikeMonitorVariable.i
-				):
-
-					#debug
-					'''
-					self.debug(
-						[
-							'[__IndexInt,__NeuronInt] is '+str(
-								[__IndexInt,__NeuronInt]
-							)
-						]
-					)
-					'''
-
-					#get
-					LeakedTimeVariable=self.LeakedMaxSpikeMonitorVariable.t[__IndexInt]
-
-					#Check
-					if LeakedTimeVariable>self.LeakingMinPhaseTimeVariable:
-
-						#init
-						if self.LeakedPhaseList[__NeuronInt]==None:
-							
-							#init
-							self.LeakedPhaseList[__NeuronInt]=[]
-
-						#init
-						LeakedAppendList=[
-							__IndexInt,
-							float(LeakedTimeVariable),
-							None
-						]
-
-						#len
-						LeakedLenghtInt=len(self.LeakedPhaseList[__NeuronInt])
-
-						#Check
-						if LeakedLenghtInt>0 and LeakedLenghtInt<self.LeakingMaxPhasesInt:
-
-							#debug
-							'''
-							self.debug(
-								[
-									'We scan the phase with the others'
-								]
-							)
-							'''
-
-							#import
-							#import brian2
-
-							#map
-							LeakedAppendList[-1]=map(	
-								lambda __OtherIndexInt:
-								[
-									int(self.LeakedMaxSpikeMonitorVariable.i[__OtherIndexInt]),
-									float(
-					LeakedTimeVariable-self.LeakedMaxSpikeMonitorVariable.t[__OtherIndexInt]
-										)
+				#add
+				ViewedPopulationRunDrawsDerivePyploter.getManager(
+						'Max'
+					).PyplotingDrawVariable=[
+						(	
+							'plot',
+							{
+								'#liarg':[
+									self.LeakedSimulationStateMonitorVariable.t,
+									ViewedMeanFloatsArray
 								],
-								xrange(
-									self.LeakedPhaseList[__NeuronInt][-1][0]+1,
-									__IndexInt
+								'#kwarg':dict(
+									{
+										'linestyle':'-',
+										'linewidth':3,
+										'color':'black',
+										#'label':'$<'+self.LeakedSymbolStr+'>$'
+										'label':'$mean('+self.LeakedSymbolStr+')$'
+									}
 								)
-							)
+							}	
+						)
+					]
 
-							#debug
-							'''
-							self.debug(
-								[
-									'LeakedAppendList is '+str(LeakedAppendList)
-								]
-							)	
-							'''
 
-						#Check
-						if LeakedLenghtInt<self.LeakingMaxPhasesInt:
 
-							#append
-							self.LeakedPhaseList[__NeuronInt].append(LeakedAppendList)
+				#/################/#
+				# Phase versus weights
+				#
 
 				#debug
 				self.debug(
 					[
-						'In the end',
-						"np.shape(self.LeakedPhaseList) is "+str(np.shape(self.LeakedPhaseList)),
-						('self.',self,[
-								'LeakedPhaseList'
-							])
+						'We build a view of the phase compared to J'
 					]
 				)
 
 				#add
-				ViewedPopulationDrawsDerivePyploter.getManager(
-						'Max'
-					).PyplotingDrawVariable=[
+				LeakedPhaseWeightPopulationDerivePyploter=self.getTeamer(
+					"Panels"
+				).getManager(
+					"Stat"
+				).getTeamer(
+					"Charts"
+				).getManager(
+					"PhaseWeight"
+				).getTeamer(
+					"Draws"
+				).getManager(
+					'0'
+				)
+
+				#set
+				LeakedPhaseWeightPopulationDerivePyploter.PyplotingDrawVariable=[
 						(	
 							'plot',
 							{
@@ -5382,28 +5575,21 @@ class LeakerClass(BaseClass):
 						)
 					]
 
-				#Check
-				if ViewedNetworkDrawsDerivePyploter==None:
+				#set
+				self.BrianedParentNetworkDeriveBrianerVariable.getTeamer(
+					"Panels"
+				).getManager(
+					"Stat"
+				).getTeamer(
+					"Charts"
+				).getManager(
+					"PhaseWeight"
+				).getTeamer(
+					"Draws"
+				).getManager(
+					"0"
+				).PyplotingDrawVariable=LeakedPhaseWeightPopulationDerivePyploter.PyplotingDrawVariable
 
-					#alias
-					ViewedNetworkDrawsDerivePyploter=self.BrianedParentNetworkDeriveBrianerVariable.getTeamer(
-						'Panels'
-					).getManager(
-						'Stat'
-					).getTeamer(
-						'Charts'
-					).getManager(
-						self.ManagementTagStr+'_'+Recorder.RecordPrefixStr+self.LeakedSymbolStr
-					).getTeamer(
-						'Draws'
-					)
-
-				#add
-				ViewedNetworkDrawsDerivePyploter.getManager(
-						'Max'
-					).PyplotingDrawVariable=ViewedPopulationDrawsDerivePyploter.ManagementDict[
-						'Max'
-					].PyplotingDrawVariable
 
 	def viewInteraction(self):
 
@@ -5866,7 +6052,7 @@ LeakerClass.PrintingClassSkipKeyStrsList.extend(
 		'LeakingTimeUnitStr',
 		'LeakingInteractionStr',
 		'LeakingSymbolPrefixStr',
-		'LeakingWeigthVariable',
+		'LeakingWeightVariable',
 		'LeakingTransferVariable',
 		'LeakingThresholdVariable',
 		'LeakingResetVariable',
@@ -5897,7 +6083,7 @@ LeakerClass.PrintingClassSkipKeyStrsList.extend(
 		'LeakedModelStr',
 		'LeakedCurrentStr',
 		'LeakedTimeSymbolStr',
-		'LeakedInteractionWeigthFloat',
+		'LeakedInteractionWeightFloat',
 		'LeakedParentSingularStr',
 		'LeakedParentNetworkDeriveLeakerVariable',
 		'LeakedParentPopulationDeriveLeakerVariable',

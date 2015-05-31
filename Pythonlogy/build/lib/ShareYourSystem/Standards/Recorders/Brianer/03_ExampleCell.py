@@ -25,7 +25,7 @@ MyBrianer=SYS.BrianerClass(
 						'reset':'v=-70*mV'
 					},
 					'-Traces':{
-						'|*v':{
+						'|v':{
 							'NumscipyingStdFloat':0.001
 						}
 					},
@@ -65,7 +65,11 @@ MyBrianer.simulate(
 # View
 #
 
-MyBrianer.view(
+MyBrianer.mapSet(
+		{
+			'PyplotingGridVariable':(30,20)
+		}
+	).view(
 	).pyplot(
 	).show(
 	)
@@ -77,19 +81,3 @@ MyBrianer.view(
 #Definition the AttestedStr
 print('MyBrianer is ')
 SYS._print(MyBrianer) 
-
-
-"""
-from matplotlib import pyplot
-pyplot.figure()
-ME=MyBrianer['/-Populations/|E/-Traces/|*v/-Samples/|Default'].BrianedStateMonitorVariable
-MI=MyBrianer['/-Populations/|I/-Traces/|*v/-Samples/|Default'].BrianedStateMonitorVariable
-pyplot.plot(ME.t, ME.v.T,color='b')
-pyplot.plot(MI.t, MI.v.T,color='r')
-pyplot.figure()
-ME=MyBrianer['/-Populations/|E/-Events/|Default'].BrianedSpikeMonitorVariable
-MI=MyBrianer['/-Populations/|I/-Events/|Default'].BrianedSpikeMonitorVariable
-pyplot.plot(ME.t, ME.i,'.')
-pyplot.plot(MI.t, max(ME.i)+MI.i,'.',color='r')
-pyplot.show()
-"""

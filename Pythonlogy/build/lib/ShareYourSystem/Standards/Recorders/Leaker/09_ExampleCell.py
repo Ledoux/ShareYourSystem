@@ -20,10 +20,10 @@ MyLeaker=SYS.LeakerClass(
 					'LeakingSymbolPrefixStr':'V',
 					'-Inputs':{
 						'|Rest':{
-							'LeakingWeigthVariable':'#scalar:-60*mV'
+							'LeakingWeightVariable':'#scalar:-60*mV'
 						},
 						'|External':{
-							'LeakingWeigthVariable':'#scalar:11*mV'
+							'LeakingWeightVariable':'#scalar:11*mV'
 						}
 					},
 					'LeakingThresholdVariable':'#scalar:V>-50*mV',
@@ -41,7 +41,13 @@ MyLeaker=SYS.LeakerClass(
 			}
 		}
 	).leak(
-	).simulate(
+	)
+
+#/###################/#
+# Do one simulation
+#
+
+MyLeaker.simulate(
 		500.
 	)
 
@@ -49,11 +55,14 @@ MyLeaker=SYS.LeakerClass(
 # View
 #
 
-MyLeaker['/-Populations/|P'].view(
+MyLeaker.mapSet(
+		{
+			'PyplotingGridVariable':(20,20)
+		}
+	).view(
 	).pyplot(
+	).show(
 	)
-#print(MyLeaker['/-Populations/|Default/-Interactions/|/'].BrianedSynapsesVariable.J[:])
-SYS.matplotlib.pyplot.show()
 
 #/###################/#
 # Print
@@ -64,27 +73,3 @@ print('MyLeaker is ')
 SYS._print(MyLeaker) 
 
 
-"""
-from brian2 import *
-from matplotlib import pyplot
-Vr=[0.5,0.6]
-G=NeuronGroup(2,'''Vr:1
-				dv/dt=(-v+1)/(1.*ms) : 1''',threshold='v>Vr',reset='v=0')
-M=StateMonitor(G,'v',[0,1])
-N=Network()
-N.add(G)
-N.add(M)
-print(G.Vr)
-G.Vr[:]=Vr
-N.run(5*ms)
-pyplot.plot(
-	M.t,M.v.T
-)
-pyplot.show()
-"""
-"""
-from brian2 import CodeObject
-
-print(help(CodeObject))
-
-"""

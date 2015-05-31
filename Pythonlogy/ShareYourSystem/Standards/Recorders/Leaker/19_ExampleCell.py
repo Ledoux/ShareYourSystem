@@ -19,7 +19,7 @@ MyLeaker=SYS.LeakerClass(
 					'LeakingTransferVariable':'mV*tanh((#CurrentStr)/mV)',
 					'-Interactions':{
 						'|/':{
-							'LeakingWeigthVariable':'#array',
+							'LeakingWeightVariable':'#array',
 							#'LeakingEigenBool':True
 						}
 					},
@@ -29,18 +29,29 @@ MyLeaker=SYS.LeakerClass(
 			}
 		}
 	).leak(
-	).simulate(
-		200.
+	)
+
+#/###################/#
+# Do one simulation
+#
+
+MyLeaker.simulate(
+		500.
 	)
 
 #/###################/#
 # View
 #
 
-MyLeaker.view(
+MyLeaker.mapSet(
+		{
+			'PyplotingGridVariable':(20,20)
+		}
+	).view(
 	).pyplot(
-	).show()
-
+	).show(
+	)
+	
 #/###################/#
 # Print
 #

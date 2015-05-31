@@ -1,0 +1,4 @@
+{
+	"cmd": ["/usr/local/bin/node","/Users/ledoux/Documents/ShareYourSystem/Coffeelogy/server.js"],   
+ 	"selector": "source.js" 
+}
