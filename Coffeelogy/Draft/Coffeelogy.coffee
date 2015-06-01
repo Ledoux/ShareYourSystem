@@ -3,8 +3,142 @@
 # server or client side working
 ###/###
 
-unique = require('uniq');
+#init
+SYS = {}
 
-data = [1, 2, 2, 3, 4, 5, 5, 5, 6];
+#Check
+if typeof window!="undefined"
 
-console.log(unique(data));
+	#debug
+	###
+	console.log(
+		"We are client side"
+	)
+	###
+
+	#set
+	SYS.SideStr = "client"
+
+	#set
+	exports = {}
+
+	#define
+	SYS.run = (_BackFunction,_KeyStr,_PathStr) ->
+		
+		#require
+		###
+		require(
+			[__PathStr],
+			->
+				#first extend
+				SYS[__KeyStr]=exports
+
+				#call
+				_BackFunction()
+		)
+		###
+
+		#Debug
+		console.log(
+			[
+				"_BackFunction is \n"
+				_BackFunction,
+				"_KeyStr is \n"
+				_KeyStr,
+				"_PathStr is \n"
+				_PathStr,
+			]
+		)
+
+		#get
+		$.getScript(
+			_PathStr,
+			-> 
+
+				#Debug
+				###
+				console.log(
+					[
+						"l.67 Coffeelogy\n"
+						"Call back \n",
+						"__BackFunction is \n"
+						__BackFunction,
+						"__KeyStr is \n"
+						__KeyStr,
+						"__PathStr is \n"
+						__PathStr,
+					]
+				)
+				###
+
+				#first extend
+				SYS[_KeyStr]=eval(_KeyStr)
+
+				#call
+				_BackFunction()
+		)
+
+else
+
+	#debug
+	###
+	console.log(
+		"We are server side"
+	)
+	###
+
+	#require
+	SYS._ = require("underscore")
+
+	#set
+	SYS.SideStr = "server"
+
+	#define
+	SYS.run = (_BackFunction,_KeyStr,_PathStr) ->
+		
+		#Debug
+		###
+		console.log(
+			[
+				"_BackFunction is \n"
+				_BackFunction,
+				"_KeyStr is \n"
+				_KeyStr,
+				"_PathStr is \n"
+				_PathStr,
+			]
+		)
+		###
+
+		#require
+		ModuleObject = require(_PathStr)
+
+		#Debug
+		###
+		console.log(
+			"ModuleObject is \n",
+			ModuleObject
+		)
+		###
+
+		#extend
+		SYS[_KeyStr]=ModuleObject
+
+		#back call like...
+		_BackFunction()
+
+#exports
+exports.SYS = SYS
+
+#debug
+console.log(
+	"************************\n"
+	"Welcome to Coffeelogy \n",
+	"We are " + SYS.SideStr + " side ! \n",
+	#"require function is ",
+	#require,
+	#"SYS is \n",
+	#SYS
+)
+
+
