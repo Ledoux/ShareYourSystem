@@ -7,31 +7,18 @@
 gulp = require 'gulp'
 gutil = require 'gulp-util'
 sass = require 'gulp-sass'
+watchify = require 'watchify'
+lodash = require 'lodash'
 browserify = require 'browserify'
 source = require 'vinyl-source-stream'
-#reactify = require 'reactify'
-#transform = require 'vinyl-transform'
 cjsx = require 'gulp-cjsx'
 coffee = require 'gulp-coffee'
 coffeeify = require 'coffeeify'
+cjsxfy = require 'coffee-reactify'
 connect = require 'gulp-connect'
 uglify = require 'gulp-uglify'
 concat = require 'gulp-concat'
-notify = require('gulp-notify')
-
-###
-
-  Handle error 
-
-###
-
-handleErrors = () ->
-    notify.onError({
-        title: 'Compile error'
-        message: '<%= error.message %>'
-    }).apply(this, Array.prototype.slice.call(arguments))
-    this.emit('end')
-
+importCss = require 'gulp-import-css'
 
 ###
 
@@ -39,24 +26,24 @@ handleErrors = () ->
 
 ###
 
-inputDir = 'scripts'
-outputTransformDir = 'transforms'
-outputFinalDir = 'assets'
-outputMainRequireFile = 'main_require.js'
-outputMainFile = 'main.js'
-outputEmptyFile = 'empty.js'
-outputVendorFile = 'vendor.js'
-outputRequirePath = outputFinalDir+'/'+outputMainRequireFile
-
-cjsxSources = [inputDir+'/*.cjsx']
-coffeeSources = [inputDir+'/*.coffee']
-jsSources = [outputTransformDir+'/*.js']
+#sources
+cssSources = ['styles/*.css']
 sassSources = ['styles/*.scss']
 htmlSources = ['**/*.html']
+scriptsSources = [
+					'scripts/**/*.cjsx',
+					'scripts/**/*.coffee',
+					'scripts/**/*.js'
+				]
+
+MainObject = {
+				entries : ['./scripts/main.js'],
+				extensions: ['.js', '.coffee', '.cjsx']
+			}
 
 ###
 
-  Define specific tasks
+  Define change tasks
 
 ###
 
@@ -68,21 +55,27 @@ gulp.task 'log',
 gulp.task 'copy',
 	-> 
 		gulp.src 'index.html'
-		.pipe gulp.dest outputFinalDir
+		.pipe gulp.dest assetsDir
 
 gulp.task 'sass',
 	->
 		gulp.src sassSources
 		.pipe sass(style: 'expanded')
 		.on 'error', gutil.log
-		.pipe gulp.dest outputFinalDir
+		.pipe gulp.dest 'assets'
 		.pipe connect.reload()
 
-gulp.task 'cjsx',
+gulp.task 'css', 
 	->
-		gulp.src cjsxSources
-    	.pipe cjsx({bare: true}).on('error', gutil.log)
-    	.pipe gulp.dest outputTransformDir
+		gulp.src cssSources
+    	.pipe importCss()
+    	.pipe gulp.dest 'assets'
+    	.pipe connect.reload()
+
+gulp.task 'html',
+	->
+		gulp.src htmlSources
+		.pipe connect.reload() 
 
 gulp.task 'coffeeGulp',
 	->
@@ -90,57 +83,74 @@ gulp.task 'coffeeGulp',
 		.pipe coffee({bare: true}).on('error', gutil.log)
 	    .pipe gulp.dest ""
 
-gulp.task 'coffee',
-	->
-		gulp.src coffeeSources
-		.pipe coffee({bare: true}).on('error', gutil.log)
-	    .pipe gulp.dest outputTransformDir
+#vendor treatment
 
-gulp.task 'js',
+gulp.task 'vendor_min',
 	->
-		gulp.src jsSources
+		gulp.src outputVendorPath
 		.pipe uglify() 
-		.pipe concat outputMainRequireFile
-		.pipe gulp.dest outputFinalDir
-		#.pipe connect.reload()
+		.pipe concat 'vendor.min.js'
+		.pipe gulp.dest 'assets'
 			
+gulp.task 'vendor_bundle', 
+	->
+		browserify [
+						'./node_modules/react/react.js',
+						'./node_modules/lodash/lodash.js'
+					]
+		.bundle()
+        .pipe source 'vendor.js'
+	    .pipe gulp.dest 'assets'
+
+#main treatment
+
+gulp.task 'main_bundle', 
+	->
+		#MainBrowserify = browserify MainObject
+		
+		MainBrowserify = browserify lodash.assign({}, watchify.args, MainObject)
+		MainWatchify = watchify MainBrowserify
+
+		.transform(cjsxfy)
+		#.transform(coffeeify)
+		#.exclude('react')
+		.bundle()
+        .pipe source 'buffer.js'
+	    .pipe gulp.dest 'assets'
+	    .pipe connect.reload()
+	    
+
+gulp.task 'main_min',
+	->
+		gulp.src ['assets/buffer.js']
+		.pipe uglify() 
+		.pipe concat 'main.min.js'
+		.pipe gulp.dest 'assets'
+		.pipe connect.reload()
+
+#all treatment
+
+###
+
+  Define watch connect
+
+###
+
 gulp.task 'watch',
 	->
-		gulp.watch cjsxSources, ['cjsx']
+		gulp.watch cssSources, ['css']
+		#gulp.watch ["gulpfile.coffee"], ['coffeeGulp','cjsx']
+		gulp.watch scriptsSources, ['main_bundle']
 		#gulp.watch coffeeSources, ['coffee']
-		gulp.watch ["gulpfile.coffee"], ['coffeeGulp']
-		gulp.watch jsSources, ['js']
-		gulp.watch [outputRequirePath], ['browserify']
-		gulp.watch sassSources, ['sass'] 
+		#gulp.watch [outputVendorPath], ['vendor_min']
+		#gulp.watch ['./assets/buffer.js'], ['main_min']
+		#gulp.watch sassSources, ['sass'] 
 		gulp.watch htmlSources, ['html'] 
-
-gulp.task 'vendor', 
-	->
-		browserify outputEmptyFile
-		.require('./node_modules/react/react.js')
-		.bundle()
-        .pipe source outputVendorFile
-	    .pipe gulp.dest outputFinalDir
-	    .pipe connect.reload()	
-
-gulp.task 'browserify', 
-	->
-		browserify outputRequirePath
-		#.external('react')
-		.bundle()
-        .pipe source outputMainFile
-	    .pipe gulp.dest outputFinalDir
-	    .pipe connect.reload()
 
 
 gulp.task 'connect', 	
 	->
 		connect.server root: '.',livereload: true
-
-gulp.task 'html',
-	->
-		gulp.src htmlSources
-		.pipe connect.reload() 
 
 ###
 
@@ -150,13 +160,13 @@ gulp.task 'html',
 
 gulp.task 'default',
 	[
+		#'vendor_bundle',
+		#'vendor_min',
 		'html', 
-		'cjsx',
-		#'coffee', 
-		'js', 
-		'vendor',
-		'browserify', 
-		'sass', 
+		'main_bundle',
+		#'main_min',
+		#'sass', 
+		'css',
 		'connect', 
 		'watch'
 	]

@@ -1,1 +1,0 @@
-console.log("ready"),window.addEventListener("load",function(){var e,n;return console.log("ready"),n=require("react"),console.log(n),e=n.createClass({render:function(){return n.createElement("div",null,"Hello ",this.props.name)}}),console.log(document.getElementById("example")),n.render(n.createElement(e,{name:"John"}),document.getElementById("example"))});

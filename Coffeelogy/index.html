@@ -2,20 +2,62 @@
 
 <head>
 	<meta charset="utf-8">
+
 	<title>My HTML File</title>
 
+	<link rel="stylesheet" type="text/css" href="../../node_modules/codemirror/lib/codemirror.css">
+
+	<script type="text/javascript" src="../../node_modules/codemirror/lib/codemirror.js">
+	</script>
+	<script type="text/javascript" src="../../node_modules/codemirror/mode/javascript/javascript.js">
+	</script>
+
 	<!--vendor-->
-	<script src="assets/vendor.js"></script>
+	<!--script src="assets/vendor.min.js"></script-->
 
 	<!--main-->
-	<script src="assets/main.js"></script>
+	<script src="assets/buffer.js"></script>
 
 
 </head>
 
 <body>
 
-	Salut
-	<div id="example"></div>
+	<table>
+
+		<tr>
+
+			<td  width="50%">
+
+				<table>
+
+					<tr>
+						<td>
+							<button id="run" onclick="run">Run</button>
+						</td>
+					</tr>
+
+					<tr>
+						<td>
+							<textarea id="editor"></textarea>
+						</td>
+					</tr>
+
+				</table>
+
+			</td>
+
+			<td width="50%">
+
+				<iframe id="result">
+
+				</iframe>
+
+			</td>
+
+		</tr>
+
+	</table>
+	
 
 </body>
