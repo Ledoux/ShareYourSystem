@@ -30,7 +30,7 @@ importCss = require 'gulp-import-css'
 cssSources = ['styles/*.css']
 sassSources = ['styles/*.scss']
 htmlSources = ['**/*.html']
-scriptsSources = [
+scriptSources = [
 					'scripts/**/*.cjsx',
 					'scripts/**/*.coffee',
 					'scripts/**/*.js'
@@ -72,6 +72,19 @@ gulp.task 'css',
     	.pipe gulp.dest 'assets'
     	.pipe connect.reload()
 
+
+cjsxDir = null
+findPath = (file, t) ->
+	cjsxDir = file.path
+	console.log(cssDir);
+
+gulp.task 'cjsx', 
+	->
+		gulp.src scriptSources
+    	.pipe( tap( findPath ) )
+    	.pipe(cjsx({bare: true}).on('error', gutil.log))
+    	.pipe(gulp.dest(cjsxDir));
+
 gulp.task 'html',
 	->
 		gulp.src htmlSources
@@ -106,11 +119,14 @@ gulp.task 'vendor_bundle',
 
 gulp.task 'main_bundle', 
 	->
+
+		#convert locally to js
+
+
+
 		#MainBrowserify = browserify MainObject
-		
 		MainBrowserify = browserify lodash.assign({}, watchify.args, MainObject)
 		MainWatchify = watchify MainBrowserify
-
 		.transform(cjsxfy)
 		#.transform(coffeeify)
 		#.exclude('react')
@@ -139,8 +155,11 @@ gulp.task 'main_min',
 gulp.task 'watch',
 	->
 		gulp.watch cssSources, ['css']
-		#gulp.watch ["gulpfile.coffee"], ['coffeeGulp','cjsx']
-		gulp.watch scriptsSources, ['main_bundle']
+		#gulp.watch ["gulpfile.coffee"], ['coffeeGulp']
+		gulp.watch scriptSources, [
+									'main_bundle',
+									#'cjsx'
+								]
 		#gulp.watch coffeeSources, ['coffee']
 		#gulp.watch [outputVendorPath], ['vendor_min']
 		#gulp.watch ['./assets/buffer.js'], ['main_min']
@@ -163,6 +182,7 @@ gulp.task 'default',
 		#'vendor_bundle',
 		#'vendor_min',
 		'html', 
+		#'cjsx',
 		'main_bundle',
 		#'main_min',
 		#'sass', 

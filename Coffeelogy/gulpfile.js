@@ -6,7 +6,7 @@
  */
 
 (function() {
-  var MainObject, browserify, cjsx, cjsxfy, coffee, coffeeify, concat, connect, cssSources, gulp, gutil, htmlSources, importCss, lodash, sass, sassSources, scriptsSources, source, uglify, watchify;
+  var MainObject, browserify, cjsx, cjsxDir, cjsxfy, coffee, coffeeify, concat, connect, cssSources, findPath, gulp, gutil, htmlSources, importCss, lodash, sass, sassSources, scriptSources, source, uglify, watchify;
 
   gulp = require('gulp');
 
@@ -50,7 +50,7 @@
 
   htmlSources = ['**/*.html'];
 
-  scriptsSources = ['scripts/**/*.cjsx', 'scripts/**/*.coffee', 'scripts/**/*.js'];
+  scriptSources = ['scripts/**/*.cjsx', 'scripts/**/*.coffee', 'scripts/**/*.js'];
 
   MainObject = {
     entries: ['./scripts/main.js'],
@@ -79,6 +79,19 @@
 
   gulp.task('css', function() {
     return gulp.src(cssSources).pipe(importCss()).pipe(gulp.dest('assets')).pipe(connect.reload());
+  });
+
+  cjsxDir = null;
+
+  findPath = function(file, t) {
+    cjsxDir = file.path;
+    return console.log(cssDir);
+  };
+
+  gulp.task('cjsx', function() {
+    return gulp.src(scriptSources).pipe(tap(findPath)).pipe(cjsx({
+      bare: true
+    }).on('error', gutil.log)).pipe(gulp.dest(cjsxDir));
   });
 
   gulp.task('html', function() {
@@ -117,7 +130,7 @@
 
   gulp.task('watch', function() {
     gulp.watch(cssSources, ['css']);
-    gulp.watch(scriptsSources, ['main_bundle']);
+    gulp.watch(scriptSources, ['main_bundle']);
     return gulp.watch(htmlSources, ['html']);
   });
 
