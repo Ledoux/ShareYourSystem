@@ -6,7 +6,9 @@
  */
 
 (function() {
-  var MainObject, browserify, cjsx, cjsxDir, cjsxfy, coffee, coffeeify, concat, connect, cssSources, findPath, gulp, gutil, htmlSources, importCss, lodash, sass, sassSources, scriptSources, source, uglify, watchify;
+  var MainObject, _, brequire, browserify, cjsx, cjsxDir, cjsxfy, coffee, coffeeify, concat, connect, cssSources, dev_vendorLibs, findPath, gulp, gutil, htmlSources, importCss, isProd, lodash, minifyCSS, ngAnnotate, path, prefix, rename, sass, sassSources, scriptSources, source, transform, uglify, watchify;
+
+  path = require('path');
 
   gulp = require('gulp');
 
@@ -21,6 +23,8 @@
   browserify = require('browserify');
 
   source = require('vinyl-source-stream');
+
+  transform = require('vinyl-transform');
 
   cjsx = require('gulp-cjsx');
 
@@ -37,6 +41,39 @@
   concat = require('gulp-concat');
 
   importCss = require('gulp-import-css');
+
+  minifyCSS = require('gulp-minify-css');
+
+  ngAnnotate = require('gulp-ng-annotate');
+
+  prefix = require('gulp-autoprefixer');
+
+  concat = require('gulp-concat');
+
+  _ = require('lodash');
+
+  rename = require('gulp-rename');
+
+
+  /*
+  
+    define the environment
+   */
+
+  isProd = gutil.env.type === 'prod';
+
+
+  /*
+  
+    define the vendor
+   */
+
+  dev_vendorLibs = [
+    {
+      name: 'lodash',
+      js: 'node_modules/lodash/lodash.js'
+    }
+  ];
 
 
   /*
@@ -68,7 +105,7 @@
   });
 
   gulp.task('copy', function() {
-    return gulp.src('index.html').pipe(gulp.dest(assetsDir));
+    return gulp.src('index.html').pipe(gulp.dest, assetsDir);
   });
 
   gulp.task('sass', function() {
@@ -104,12 +141,72 @@
     }).on('error', gutil.log)).pipe(gulp.dest(""));
   });
 
-  gulp.task('vendor_min', function() {
-    return gulp.src(outputVendorPath).pipe(uglify()).pipe(concat('vendor.min.js')).pipe(gulp.dest('assets'));
+
+  /*
+  gulp.task 'dev_vendor_bundle',
+  	->
+  		browserify(
+    				["./assets/empty.js"],
+    				{
+    					#debug: false,
+    					#extensions: ['.js', '.coffee', '.cjsx']
+    				}
+    		)
+    		.on('prebundle', (bundle) -> 
+    			vendorLibs.forEach(external) ->
+    				if external.expose?
+    					bundle.require(external.require, expose: external.expose)
+    				else
+    					bundle.require(external.require)
+    		)
+    		.bundle()
+    		.pipe(source('dev_vendor.js'))
+    		.pipe(gulp.dest("assets"))
+   */
+
+  brequire = function(pathname) {
+    var filename;
+    console.log('pathname is ' + pathname);
+    filename = pathname.split('/').slice(-1)[0];
+    console.log('filename is ' + filename);
+    return browserify(pathname).require(filename, {
+      expose: pathname
+    }).bundle();
+  };
+
+  gulp.task('dev_vendor_bundle', function() {
+    var assets, browserified, css, files, js, ref, type;
+    ref = (function() {
+      var i, len, ref, results;
+      ref = ['js', 'css', 'assets'];
+      results = [];
+      for (i = 0, len = ref.length; i < len; i++) {
+        type = ref[i];
+        files = _.filter(_.pluck(dev_vendorLibs, type));
+        files = _.map(files, function(t) {
+          if (_.isArray(t)) {
+            return t;
+          } else {
+            return [t];
+          }
+        });
+        results.push(_.reduce(files, function(t, acc) {
+          return t.concat(acc);
+        }));
+      }
+      return results;
+    })(), js = ref[0], css = ref[1], assets = ref[2];
+    if (js !== void 0 && js.length > 0) {
+      browserified = transform(brequire);
+      return gulp.src(js).pipe(isProd ? ngAnnotate() : gutil.noop()).pipe(isProd ? uglify() : gutil.noop()).pipe(browserified).pipe(concat('dev_vendor.js')).pipe(gulp.dest('assets'));
+    }
+    if (css !== void 0 && css.length > 0) {
+      return gulp.src(css).pipe(prefix("last 2 versions", "> 1%")).pipe(isProd ? minifyCSS() : gutil.noop()).pipe(concat('dev_vendor.css')).pipe(gulp.dest('assets'));
+    }
   });
 
-  gulp.task('vendor_bundle', function() {
-    return browserify(['./node_modules/react/react.js', './node_modules/lodash/lodash.js']).bundle().pipe(source('vendor.js')).pipe(gulp.dest('assets'));
+  gulp.task('iframe_vendor_bundle', function() {
+    return browserify(['./node_modules/react/react.js', './node_modules/lodash/lodash.js']).bundle().pipe(source('iframe_vendor.js')).pipe(gulp.dest('assets'));
   });
 
   gulp.task('main_bundle', function() {
@@ -147,6 +244,6 @@
     Define global tasks
    */
 
-  gulp.task('default', ['html', 'main_bundle', 'css', 'connect', 'watch']);
+  gulp.task('default', ['dev_vendor_bundle', 'html', 'main_bundle', 'css', 'connect', 'watch']);
 
 }).call(this);

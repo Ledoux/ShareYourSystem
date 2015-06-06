@@ -12,18 +12,30 @@
 	<script type="text/javascript" src="../../node_modules/codemirror/mode/javascript/javascript.js">
 	</script>
 
-	</script>
-
 	<!--vendor-->
-	<!--script src="assets/vendor.min.js"></script-->
+	<!--script src="assets/dev_vendor.min.js"></script-->
+	<!--script src="assets/dev_vendor.min.js"></script-->
 
 	<!--main-->
 	<script src="assets/buffer.js"></script>
+	<!--script src="assets/main.min.js"></script-->
 
 
 </head>
 
 <body>
+
+	<script>
+
+		//define
+		window.addEventListener("load",function(){
+
+			//Debug
+			console.log("From the dev frame ! ")
+			console.log("require is "+require)
+		})
+
+	</script>
 
 	<table>
 
@@ -45,15 +57,23 @@
 						</td>
 					</tr>
 
+					<tr>
+
+						<td>
+							<iframe id="result" src="iframe_index.html">
+							
+							</iframe>
+						</td>
+
+					</tr>
+
 				</table>
 
 			</td>
 
 			<td width="50%">
 
-				<iframe id="result">
-
-				</iframe>
+				<!--iframe id="result2"></iframe-->
 
 			</td>
 
