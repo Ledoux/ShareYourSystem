@@ -1,4 +1,4 @@
 {
-	"cmd": ["/usr/local/bin/coffee", "$file"],   
+	"cmd": ["/usr/local/bin/coffee", "-c", "$file"],   
  	"selector": "source.coffee" 
 }

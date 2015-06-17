@@ -634,6 +634,7 @@ class BrianerClass(BaseClass):
 		
 
 					#debug
+					"""
 					self.debug(
 						[
 							'We set the tracers',
@@ -644,7 +645,8 @@ class BrianerClass(BaseClass):
 							#)
 						]
 					)
-					
+					"""
+
 					#map
 					self.BrianedTraceDeriveBrianersList=map(
 							lambda __ManagementKeyStr,__RecordKeyStr:
@@ -1988,6 +1990,15 @@ class BrianerClass(BaseClass):
 			# Update the Run Panel in the Network
 			#
 
+			#debug
+			"""
+			self.debug(
+				[
+					"We look for a Panels in BrianedParentNetworkDeriveBrianerVariable"
+				]
+			)
+			"""
+			
 			#Check
 			if "Panels" in self.BrianedParentNetworkDeriveBrianerVariable.TeamDict:
 
@@ -2238,13 +2249,18 @@ class BrianerClass(BaseClass):
 	def viewTraceOrEvent(self):
 
 		#debug
-		'''
+		"""
 		self.debug(
 			[
-				'viewTraceOrEvent'
+				'We viewTraceOrEvent here',
+				('self.',self,['ManagementIndexInt']),
+				"len(self.ParentDeriveTeamerVariable.ManagementDict)-1 is ",
+				len(self.ParentDeriveTeamerVariable.ManagementDict)-1,
+				"self.ParentDeriveTeamerVariable.ManagementDict.keys() is ",
+				self.ParentDeriveTeamerVariable.ManagementDict.keys()
 			]
 		)
-		'''
+		"""
 
 		#Check
 		if self.ManagementIndexInt==len(
@@ -2252,16 +2268,16 @@ class BrianerClass(BaseClass):
 		)-1:
 
 			#debug
-			'''
+			"""
 			self.debug(
 				[
 					'Are we going to make the parent view',
 					('self.',self,[
-							'BrianedParentDeriveBrianerStr'
+							'BrianedParentPopulationDeriveBrianerVariable'
 						])
 				]
 			)
-			'''
+			"""
 
 			#Check
 			if self.BrianedParentPopulationDeriveBrianerVariable!=None:
@@ -2278,6 +2294,15 @@ class BrianerClass(BaseClass):
 				
 				#Check
 				if self.BrianedParentPopulationDeriveBrianerVariable!=self.BrianedParentNetworkDeriveBrianerVariable:
+
+					#debug
+					"""
+					self.debug(
+						[
+							"Yes we redo view in the parent population"
+						]
+					)
+					"""
 
 					#set
 					self.BrianedParentPopulationDeriveBrianerVariable.BrianingViewNetworkBool=True
@@ -2712,6 +2737,16 @@ class BrianerClass(BaseClass):
 		# maybe set for the Chart
 		#
 
+		#Debug
+		"""
+		self.debug(
+			[
+				"Should we init the PyplotingChartVariable",
+				('self.',self,['PyplotingChartVariable'])
+			]
+		)
+		"""
+
 		#init
 		self.PyplotingChartVariable=[
 		]
@@ -3009,7 +3044,7 @@ class BrianerClass(BaseClass):
 		self.debug(
 			[
 				'Maybe we also update the view in the parent population',
-				""Charts" in self.BrianedParentPopulationDeriveBrianerVariable.TeamDict is ",
+				" \"Panels\" in self.BrianedParentPopulationDeriveBrianerVariable.TeamDict is ",
 				str("Charts" in self.BrianedParentPopulationDeriveBrianerVariable.TeamDict)
 			]
 		)
@@ -3017,6 +3052,17 @@ class BrianerClass(BaseClass):
 
 		#Check
 		if "Panels" in self.BrianedParentPopulationDeriveBrianerVariable.TeamDict:
+
+			#debug
+			"""
+			self.debug(
+				[
+					"We update the parent neuron group view",
+					"self.BrianedParentDeriveRecorderVariable.ManagementTagStr is ",
+					self.BrianedParentDeriveRecorderVariable.ManagementTagStr
+				]
+			)
+			"""
 
 			#set
 			BrianedRunPopulationChartsDeriveManager=self.BrianedParentPopulationDeriveBrianerVariable.TeamDict[
@@ -3175,6 +3221,16 @@ class BrianerClass(BaseClass):
 		#/####################/#
 		# Update maybe the 
 		# network view
+
+		#debug
+		"""
+		self.debug(
+			[	
+				"self.ParentDeriveTeamerVariable.ManagementDict.keys() is ",
+				self.ParentDeriveTeamerVariable.ManagementDict.keys()
+			]
+		)
+		"""
 
 		#Check
 		if self.ManagementIndexInt==len(
@@ -3636,6 +3692,7 @@ class BrianerClass(BaseClass):
 	def setBrianInit(self):
 
 		#debug
+		"""
 		self.debug(
 			[
 				'we set brian init here',
@@ -3644,6 +3701,7 @@ class BrianerClass(BaseClass):
 					])
 			]
 		)
+		"""
 
 		#Check
 		if str(self.RecordedTraceFloatsArray.unit) in ['V']:

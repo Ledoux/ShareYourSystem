@@ -875,6 +875,10 @@ void CIntegrateAndFireTransferFunctionClass::setBrunelLifPerturbationRate(
 	/***** omega nul exception*****/
 	if(abs(omt)==0.)
 	{
+		//print
+		cout<<"BRUNEL omt=0 "<<endl;
+		
+		//compute
 		DoubleDict["PerturbationMean"]=getLifPerturbationNullRate();
 		DoubleDict["PerturbationNoise"]=getLifPerturbationNullRate("VoltageNoise");
 	}
@@ -902,6 +906,7 @@ void CIntegrateAndFireTransferFunctionClass::setBrunelLifPerturbationRate(
 		u01_yr=series;
 		indich=indicator;
 
+		//print
 		cout<<"BRUNEL u23_yt Complex "<<u23_yt.real()<<" "<<u23_yt.imag()<<" "<<endl;
 		cout<<"BRUNEL u23_yr Complex "<<u23_yr.real()<<" "<<u23_yr.imag()<<" "<<endl;
 		cout<<"BRUNEL u01_yt Complex "<<u01_yt.real()<<" "<<u01_yt.imag()<<" "<<endl;

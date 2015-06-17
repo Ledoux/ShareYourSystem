@@ -56,7 +56,7 @@ MyHopfer.mapSet(
 						'PyplotingShiftVariable':[0,4],
 						'PyplotingShapeVariable':[8,9],
 						'-Charts':{
-							'|Agent_*U':{
+							'|Agent_U':{
 								'PyplotingLegendDict':{
 									'fontsize':10,
 									'ncol':2

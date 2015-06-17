@@ -20,6 +20,7 @@ MyHopfer=SYS.HopferClass(
 		_SwitchWeigthFloat=0.5,
 		#_SymmetryFloat=-0.7,
 		_InteractionStr="Spike"
+	).leak(
 	)
 	#.simulate(
 	#	500.
@@ -35,7 +36,7 @@ MyHopfer.mapSet(
 			'PyplotingFigureVariable':{
 				'figsize':(10,8)
 			},
-			'PyplotingGridIntsTuple':(30,30),
+			'PyplotingGridVariable':(30,30),
 			'-Panels':[
 				(
 					'|Eigen',
@@ -56,7 +57,7 @@ MyHopfer.mapSet(
 						'PyplotingShiftVariable':[0,4],
 						'PyplotingShapeVariable':[8,9],
 						'-Charts':{
-							'|Agent_*U':{
+							'|Agent_U':{
 								'PyplotingLegendDict':{
 									'fontsize':10,
 									'ncol':2

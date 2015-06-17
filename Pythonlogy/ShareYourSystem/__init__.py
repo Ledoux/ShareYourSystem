@@ -850,15 +850,27 @@ def range_(*ArgsList):
 	else:
 		return range(*ArgsList)
 
-def unzip(_TuplesList,_IndexesList):
+def unzip(_TuplesList,_IndexesList,_ArrayBool=False):
+
+	#map
 	PickedList=map_(
 				lambda __Tuple:
 				map(__Tuple.__getitem__,_IndexesList),
 				_TuplesList
 			)
+
+	#Check
 	if len(_IndexesList)==1 and len(PickedList)>0:
-		return list(zip(*PickedList)[0])
-	return zip(*PickedList)
+		OutVariable=list(zip(*PickedList)[0])
+	else:
+		OutVariable=zip(*PickedList)
+
+	#Check
+	if _ArrayBool:
+		import numpy as np
+		return np.array(OutVariable)
+	else:
+		return OutVariable 
 
 def dictify(_TuplesList,_KeyIndexInt,_ValueIndexInt):
 	TuplesList=unzip(_TuplesList,[_KeyIndexInt,_ValueIndexInt])

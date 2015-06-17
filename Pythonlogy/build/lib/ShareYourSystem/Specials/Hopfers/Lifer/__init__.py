@@ -227,8 +227,15 @@ class LiferClass(BaseClass):
 			)
 
 			#unpack
-			self.LifedPerturbationMeanComplexVariable=self.LifedSwigVariable.ComplexDict["PerturbationMean"]
-			self.LifedPerturbationNoiseComplexVariable=self.LifedSwigVariable.ComplexDict["PerturbationNoise"]
+			if LifedPerturbationPreVariable==0.:
+
+				self.LifedPerturbationMeanComplexVariable=self.LifedSwigVariable.DoubleDict["PerturbationMean"]
+				self.LifedPerturbationNoiseComplexVariable=self.LifedSwigVariable.DoubleDict["PerturbationNoise"]
+
+			else:
+
+				self.LifedPerturbationMeanComplexVariable=self.LifedSwigVariable.ComplexDict["PerturbationMean"]
+				self.LifedPerturbationNoiseComplexVariable=self.LifedSwigVariable.ComplexDict["PerturbationNoise"]
 
 			#debug
 			'''

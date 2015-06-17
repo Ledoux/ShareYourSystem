@@ -197,6 +197,7 @@ class RecorderClass(BaseClass):
 		#
 
 		#debug
+		"""
 		self.debug(
 				[
 					'This is the Traces level',
@@ -206,7 +207,8 @@ class RecorderClass(BaseClass):
 					])
 				]
 			)
-
+		"""
+		
 		#get
 		RecordedTopDeriveRecorderVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
 

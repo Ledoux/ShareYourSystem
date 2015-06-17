@@ -71,6 +71,7 @@ class NumscipyerClass(BaseClass):
 			_NumscipyingContinuousStatStr="norm",
 			_NumscipyingDiagFloatsArray=None,
 			_NumscipyingSymmetryFloat=0.,
+			_NumscipyingMeanForceStr="None",
 			_NumscipiedIndexIntsTuplesList=None,
 			_NumscipiedNonNullIndexIntsTuplesList=None,
 			_NumscipiedNullIndexIntsListsList=None,
@@ -887,6 +888,57 @@ class NumscipyerClass(BaseClass):
 				np.diagonal(self.NumscipyingDiagFloatsArray)
 			) 
 
+
+		#/#################/#
+		# Force maybe the sum of the rows or the cols to be the same
+		# 
+
+		#Check
+		if self.NumscipyingMeanForceStr!="None":
+
+			#debug
+			"""
+			self.debug(
+				[
+					('We force the ' + self.NumscipyingMeanForceStr + ' to be the same'),
+					('self.',self,[
+						'NumscipyingMeanFloat',
+						'NumscipiedValueFloatsArray'
+					])
+				]
+			)
+			"""
+
+			#Check
+			if self.NumscipyingMeanForceStr=="rows":
+				SumAxisInt=1
+				SetAxisInt=0
+			elif self.NumscipyingMeanForceStr=="cols":
+				SumAxisInt=0
+				SetAxisInt=1
+
+			#compute
+			NumscipiedResiduFloatsArray = np.sum(
+					self.NumscipiedValueFloatsArray, 
+					axis = SumAxisInt,
+				) - self.NumscipyingMeanFloat
+
+			#debug
+			"""
+			self.debug(
+				[
+					"NumscipiedResiduFloatsArray is "+str(NumscipiedResiduFloatsArray)
+				]
+			)
+			"""
+
+			#set
+			SYS.setMatrixArray(
+				self.NumscipiedValueFloatsArray,
+				- NumscipiedResiduFloatsArray/float(self.NumscipyingColsInt),
+				_SetMethod=np.ndarray.__add__,
+				_AxisInt=SetAxisInt
+			)
 
 		#/#################/#
 		# Compute statistic
@@ -1727,6 +1779,7 @@ NumscipyerClass.PrintingClassSkipKeyStrsList.extend(
 		'NumscipyingContinuousStatStr',
 		'NumscipyingDiagFloatsArray',
 		'NumscipyingSymmetryFloat',
+		'NumscipyingMeanForceStr',
 		'NumscipyingSymmetryStr',
 		'NumscipyingSpecificTagVariablesArray',
 		'NumscipyingRowTagVariablesArray',

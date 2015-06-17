@@ -484,6 +484,7 @@ class PyploterClass(BaseClass):
 	def pyplotFigure(self,**_KwargVariablesDict):
 
 		#debug
+		"""
 		self.debug(
 			[
 				'We pyplot figure here',
@@ -493,7 +494,8 @@ class PyploterClass(BaseClass):
 					])
 			]
 		)
-
+		"""
+		
 		#Check
 		if self.PyplotedSingleBool==False:
 
