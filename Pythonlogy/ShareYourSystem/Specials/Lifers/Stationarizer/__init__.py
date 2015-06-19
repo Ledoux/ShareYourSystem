@@ -39,11 +39,13 @@ class StationarizerClass(BaseClass):
 			_StationarizingConstantTimeVariable = None, 
 			_StationarizingThresholdVariable = None, 
 			_StationarizingResetVariable = None, 
+			_StationarizingRateVariable = None, 
 			_StationarizingPopulationTagVariable = None, 
 			_StationarizingInteractionStr="Rate",
 			_StationarizedConstantTimeFloatsList = None,
 			_StationarizedThresholdFloatsList = None, 
 			_StationarizedResetFloatsList = None, 
+			_StationarizedRateFloatsList = None, 
 			_StationarizedPopulationTagStrsList = None,
 			_StationarizedParentSingularStr = "",
 			_StationarizedNetworkDeriveStationarizerVariable = None,
@@ -130,11 +132,11 @@ class StationarizerClass(BaseClass):
 			self.StationarizedNetworkDeriveStationarizerVariable=self
 
 			#/########################/#
-			# stationarizeBeforeNetwork
+			# stationarizeNetwork
 			# 
 
 			#stationarize
-			self.stationarizeBeforeNetwork()
+			self.stationarizeNetwork()
 
 			#/########################/#
 			# structure stationarize 
@@ -168,7 +170,7 @@ class StationarizerClass(BaseClass):
 			# 
 
 			#stationarize
-			self.stationarizeAfterNetwork()
+			self.stationarizeNetwork()
 
 			
 		else:
@@ -224,7 +226,7 @@ class StationarizerClass(BaseClass):
 				)
 				'''	
 	
-	def stationarizeBeforeNetwork(self):
+	def stationarizeNetwork(self):
 
 		#/###################/#
 		# Determine the weights
@@ -266,21 +268,24 @@ class StationarizerClass(BaseClass):
 			[
 				'ConstantTime',
 				'Threshold',
-				'Reset'
+				'Reset',
+				'Rate'
 			]
 		)
 
 		#debug
-		"""
+		'''
 		self.debug(
 			[
 				"Now ",
 				('self.',self,[
-						"DoUnitsInt"
+						"DoUnitsInt",
+						"StationarizedThresholdFloatsList",
+						"StationarizedResetFloatsList"
 					])
 			]
 		)
-		"""
+		'''
 
 		#Check
 		self.StationarizingUnitsInt=max(self.StationarizingUnitsInt,self.DoUnitsInt)
@@ -320,74 +325,115 @@ class StationarizerClass(BaseClass):
 			self.StationarizedPopulationTagStrsList,
 		)
 
-	def stationarizeAfterNetwork(self):
 
-		#/###################/#
-		# Determine the stationary solutions
-		# 
+	def stationarizePopulation(self):
 
 		#debug
-		"""
+		'''
 		self.debug(
 			[
-				'We compute the stationary solutions'
+				'We stationarize population here'
 			]
 		)
-		"""
+		'''
 
-		"""
-		if self.LeakingInteractionStr=="Spike":
+		#Determine parent
+		self.StationarizedNetworkDeriveStationarizerVariable = self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
 
-			#debug
-			'''
-			self.debug(
-				[
-					'But it is a spike interaction so we need first to build a lifers team'
-				]
+		#map
+		map(
+			lambda __TagStr,__NetworkVariable:
+			setattr(
+				self,
+				"Lifing"+__TagStr+"Float",
+				__NetworkVariable[self.ManagementIndexInt]
 			)
-			'''
+			if len(__NetworkVariable)>self.ManagementIndexInt and __NetworkVariable[self.ManagementIndexInt]!=None
+			else None,
+			*zip(
+				*(map(
+					lambda __TagStr:
+					(
+						__TagStr,
+						getattr(
+							self.StationarizedNetworkDeriveStationarizerVariable,
+							"Stationarized"+__TagStr+"FloatsList"
+						)
+					),
+					[
+						"ConstantTime",
+						"Threshold",
+						"Reset"
+					]
+				)+[
+						(
+							"StationaryRate",
+							getattr(
+									self.StationarizedNetworkDeriveStationarizerVariable,
+									"StationarizedRateFloatsList"
+								)
+						)
+					]
+				)
+			)
+		)
+
+		#debug
+		'''
+		self.debug(
+			[
+				('self.',self,[
+						'LifingConstantTimeFloat',
+						'LifingStationaryCurrentFloat',
+						'LifingStationaryRateFloat'
+					]
+				),
+			]
+		)
+		'''
+
+		#Check
+		if self.StationarizedNetworkDeriveStationarizerVariable.StationarizingInteractionStr=="Spike":
 
 			#set
-			self.LifingConstantTimeFloat = self.LeakingTimeVariable
-			self.LifingVoltageResetFloat = self.LeakingResetVariable
-			self.LifingVoltageThresholdFloat = self.LeakingThresholdVariable
-			self.LifingStationaryCurrentFloat = 0.
-		"""
+			self.LifingCurrentToFloatBool=self.LifingStationaryCurrentFloat!=None
 
+			#lif
+			self.lif()
 
-	def getStationaryRateRootFloat(self,_StationaryRateFloat):
+	def getStationaryRateRootFloat(self,_StationaryStationaryRateFloat):
 			
 		#return
 		return 0.
 
-	def getStationarySpikeRootFloat(self,_StationaryRateFloat):
+	def getStationarySpikeRootFloat(self,_StationaryStationaryRateFloat):
 			
 		#center
 		self.LifingStationaryCurrentFloat = 0.
 
 		#noise
-		self.LifingVoltageNoiseFloat = self.StationarizingStdWeightFloat *  self.StationarizingConstantTimeVariable * _StationaryRateFloat
+		self.LifingVoltageNoiseFloat = self.StationarizingStdWeightFloat *  self.StationarizingConstantTimeVariable * _StationaryStationaryRateFloat
 
 		#lif
 		self.lif()
 
 		#return
-		return self.LifedStationaryRateFloat
+		return self.LifedStationaryStationaryRateFloat
 
 	"""
-	def getStationarySpikeRootFloatsTuple(self,_StationaryRateFloatsTuple):
+	def getStationarySpikeRootFloatsTuple(self,_StationaryStationaryRateFloatsTuple):
 			
 		#center
-		LifingStationaryCurrentFloatsArray = np.dot(self.StationarizedLateralWeightFloatsArray,_StationaryRateFloatsTuple)
+		LifingStationaryCurrentFloatsArray = np.dot(self.StationarizedLateralWeightFloatsArray,_StationaryStationaryRateFloatsTuple)
 
 		#noise
-		LifingVoltageNoiseFloatsArray = self.StationarizingStdWeightFloat *  self.StationarizingConstantTimeVariable * _StationaryRateFloat
+		LifingVoltageNoiseFloatsArray = self.StationarizingStdWeightFloat *  self.StationarizingConstantTimeVariable * _StationaryStationaryRateFloat
 
 		#lif
 		self.lif()
 
 		#return
-		return self.LifedStationaryRateFloat
+		return self.LifedStationaryStationaryRateFloat
 	"""
 
 	#/######################/#
@@ -463,12 +509,14 @@ StationarizerClass.PrintingClassSkipKeyStrsList.extend(
 		'StationarizingConstantTimeVariable',
 		'StationarizingThresholdVariable',
 		'StationarizingResetVariable',
+		'StationarizingRateVariable',
 		'StationarizingPopulationTagVariable',
 		'StationarizingInteractionStr',
 		'StationarizingLateralWeightFloatsArray',
 		'StationarizedConstantTimeFloatsList',
 		'StationarizedThresholdFloatsList',
 		'StationarizedResetFloatsList',
+		'StationarizedRateFloatsList',
 		'StationarizedPopulationTagStrsList',
 		'StationarizedParentSingularStr',
 		'StationarizedNetworkDeriveStationarizerVariable'

@@ -5,7 +5,7 @@ import ShareYourSystem as SYS
 #Define
 MyHopfer=SYS.HopferClass(
 	).hopf(
-		_LateralWeigthVariable=[
+		_LateralWeightVariable=[
 			[0.5,-500.],
 			[500.,-10.]
 		],

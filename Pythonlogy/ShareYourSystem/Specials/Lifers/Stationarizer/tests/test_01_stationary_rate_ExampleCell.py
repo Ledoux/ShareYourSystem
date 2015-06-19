@@ -6,7 +6,8 @@ import ShareYourSystem as SYS
 MyStationarizer=SYS.StationarizerClass(
 	).stationarize(
 		_LateralWeightVariable=[[-1.]],
-		_ConstantTimeVariable=[20.,10.]
+		_ConstantTimeVariable=[0.02,0.01],
+		_RateVariable=[5.,15.]
 	)
 
 #print

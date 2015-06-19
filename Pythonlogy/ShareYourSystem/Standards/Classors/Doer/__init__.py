@@ -877,6 +877,42 @@ def addDo(*_DoStrsTuple):
 	DoneStrToDoingStrOrderedDict[_DoStrsTuple[3]]=_DoStrsTuple[2]
 SYS.addDo=addDo
 
+def setInitArray(_InstanceVariable,_DoStr,_TagStr):
+
+	#get
+	Variable=getattr(
+		_InstanceVariable,
+		DoStrToDoingStrOrderedDict[_DoStr]+_TagStr+'Variable'
+	)
+
+	#type
+	Type=type(Variable)
+
+	#import
+	import numpy as np
+
+	#Check
+	if Type in [list,np.array]:
+
+		#array
+		setattr(
+			_InstanceVariable,
+			DoStrToDoingStrOrderedDict[_DoStr]+_TagStr+'Variable',
+			np.array(
+				Variable
+			)
+		)
+
+	else:
+
+		#array
+		setattr(
+			_InstanceVariable,
+			DoStrToDoingStrOrderedDict[_DoStr]+_TagStr+'Variable',	
+			Variable
+		)
+SYS.setInitArray=setInitArray
+
 def setInitList(_InstanceVariable,_DoStr,_TagStr):
 
 	#get

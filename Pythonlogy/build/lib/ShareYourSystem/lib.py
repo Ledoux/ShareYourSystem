@@ -160,7 +160,7 @@ setup(
           'ShareYourSystem':[
           		'Package.json'
           ],
-          'ShareYourSystem.Specials.Hopfers.Lifer':[
+          'ShareYourSystem.Specials.Lifers.Lifer':[
           	'_CIntegrateAndFireTransferFunction.so'
           ]
 		},

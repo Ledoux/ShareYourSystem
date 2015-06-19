@@ -7,10 +7,9 @@ import ShareYourSystem as SYS
 
 #define
 MyLifer=SYS.LiferClass(
-	).setAttr(
-        'LifingTotalStationaryCurrentFloat',
-        -50.
-    ).lif(
+	).lif(
+    	_StationaryRateFloat=10.,
+    	_CurrentToFloatBool=False
 	)
 
 
