@@ -12,31 +12,18 @@ import ShareYourSystem as SYS
 
 #Define
 MyHopfer=SYS.HopferClass(
-	).mapSet(
-		{
-			'BrianingStepTimeFloat':0.1,
-			'-Populations':{
-				'|Agent':{
-					'LeakingGlobalBool':True,
-					'LeakingMaxBool':True,
-					'-Traces':{
-						'|U':{
-							'RecordingInitStdVariable':0.5
-						}
-					},
-					#'BrianingDebugVariable':100
-				}
-			}
-		}
 	).hopf(
 		_UnitsInt=100,
-		_StdWeightFloat=1.5,
-		_SymmetryFloat=-0.7
-	).leak(
-	).simulate(
-		200.
+		_MeanWeightFloat=1.,
+		_StdWeightFloat=0.,
+		_SparseWeigthFloat=0.2,
+		_SwitchWeigthFloat=0.5,
+		#_SymmetryFloat=-0.7,
+		_InteractionStr="Spike"
 	)
-
+	#.simulate(
+	#	500.
+	#)
 
 #/###################/#
 # View
@@ -57,9 +44,9 @@ MyHopfer.mapSet(
 						'PyplotingShapeVariable':[10,10],
 						'-Charts':{
 							'|Perturbation':{
-									'PyplotingShiftVariable':[4,0],
-								}
+								'PyplotingShiftVariable':[4,0],
 							}
+						}
 					}
 				),
 				(
@@ -67,12 +54,12 @@ MyHopfer.mapSet(
 					{
 						'PyplotingTextVariable':[-0.4,0.],
 						'PyplotingShiftVariable':[0,4],
-						'PyplotingShapeVariable':[8,12],
+						'PyplotingShapeVariable':[8,9],
 						'-Charts':{
 							'|Agent_U':{
 								'PyplotingLegendDict':{
 									'fontsize':10,
-									'ncol':1
+									'ncol':2
 								}
 							}
 						}

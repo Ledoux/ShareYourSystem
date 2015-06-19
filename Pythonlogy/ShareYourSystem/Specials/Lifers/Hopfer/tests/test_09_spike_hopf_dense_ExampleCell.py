@@ -2,6 +2,7 @@
 # Import modules
 #
 
+
 #ImportModules
 import ShareYourSystem as SYS
 
@@ -15,6 +16,17 @@ MyHopfer=SYS.HopferClass(
 		{	
 			'-Populations':{
 				'|Agent':{
+					'-Traces':{
+						'|U':{
+							'RecordingInitMeanVariable':-70.,
+							'RecordingInitStdVariable':5.,
+						}
+					},
+					'-Events':{
+						'|Default':{
+							'BrianingEventSelectVariable':range(0,30)
+						}
+					}
 					#'BrianingDebugVariable':100
 					#'LeakingNoiseStdVariable':10.,
 					#'LeakingThresholdVariable':'#scalar:U>-50*mV',
@@ -22,9 +34,9 @@ MyHopfer=SYS.HopferClass(
 			}
 		}
 	).hopf(
-		_UnitsInt=100,
-		_DelayTimeVariable=0.002,
-		_StdWeightFloat=1.2,
+		_UnitsInt=1000,
+		_StdWeightFloat=15.,
+		_SymmetryFloat=-0.7,
 		_InteractionStr="Spike"
 	).leak(
 	).simulate(
@@ -61,17 +73,6 @@ MyHopfer.mapSet(
 						'PyplotingTextVariable':[-0.4,0.],
 						'PyplotingShiftVariable':[0,4],
 						'PyplotingShapeVariable':[8,9],
-						'-Charts':{
-							'|Agent_I_Stimulation':{
-
-							},
-							'|Agent_U':{
-								'PyplotingLegendDict':{
-									'fontsize':10,
-									'ncol':2
-								}
-							}
-						}
 					}
 				),
 				(

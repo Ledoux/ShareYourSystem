@@ -2216,6 +2216,41 @@ def setRowArray(_SettedArray,_SettingVariable):
 	#return
 	return _SettedArray
 
+def setInitArray(_InstanceVariable,_KeyStr,_PrefixStr,_TagStr):
+
+	#get
+	Variable=getattr(
+		_InstanceVariable,
+		_PrefixStr+_KeyStr+_TagStr+'Variable'
+	)
+
+	#type
+	Type=type(Variable)
+
+	#import
+	import numpy as np
+
+	#Check
+	if Type in [list,np.array]:
+
+		#array
+		setattr(
+			_InstanceVariable,
+			_PrefixStr+_KeyStr+_TagStr+'Variable',
+			np.array(
+				Variable
+			)
+		)
+
+	else:
+
+		#array
+		setattr(
+			_InstanceVariable,
+			_PrefixStr+_KeyStr+_TagStr+'Variable',	
+			Variable
+		)
+		
 def setMatrixArray(
 		_SettedArray,
 		_SettingVariable,

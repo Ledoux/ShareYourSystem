@@ -41,6 +41,7 @@ class RecorderClass(BaseClass):
 			_RecordingKeyVariable=None,
 			_RecordingLabelVariable=None,
 			_RecordingColorStr="blue",
+			_RecordingInitMeanVariable=None,
 			_RecordingInitStdVariable=None,
 			_RecordedTraceFloatsArray=None,
 			_RecordedInitFloatsArray=None,
@@ -302,6 +303,18 @@ class RecorderClass(BaseClass):
 				#set
 				self.NumscipyingStdFloat=RecordedTopDeriveRecorderVariable.RecordingInitStdVariable
 
+			#Check
+			if self.RecordingInitMeanVariable!=None:
+		
+				#set
+				self.NumscipyingMeanFloat=self.RecordingInitMeanVariable
+
+			elif RecordedTopDeriveRecorderVariable.RecordingInitMeanVariable!=None:
+
+				#set
+				self.NumscipyingMeanFloat=RecordedTopDeriveRecorderVariable.RecordingInitMeanVariable
+
+
 
 			#matrix
 			self.RecordedInitFloatsArray=self.numscipy(
@@ -376,6 +389,7 @@ RecorderClass.PrintingClassSkipKeyStrsList.extend(
 		'RecordingKeyVariable',
 		'RecordingLabelVariable',
 		'RecordingColorStr',
+		'RecordingInitMeanVariable',
 		'RecordingInitStdVariable',
 		'RecordedTraceFloatsArray',
 		'RecordedInitFloatsArray',

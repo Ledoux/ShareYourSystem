@@ -755,7 +755,7 @@ class ParenterClass(BaseClass):
 					lambda __ItemTuple:
 					self.PrintingCopyVariable.TeamDict.__setitem__(
 						__ItemTuple[0],
-						Printer.getPointerStr(__ItemTuple[1])+" (Empy)"
+						Printer.getPointerStr(__ItemTuple[1])+" (Empty)"
 					) 
 					if hasattr(
 						__ItemTuple[1],'ManagementDict'

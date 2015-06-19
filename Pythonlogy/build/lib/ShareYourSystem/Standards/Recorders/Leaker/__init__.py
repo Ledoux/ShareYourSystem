@@ -763,6 +763,7 @@ class LeakerClass(BaseClass):
 					self.LeakedModelStr+=self.LeakedCurrentStr
 
 			#debug
+			"""
 			self.debug(
 				[
 					'We divide by the time',
@@ -773,6 +774,7 @@ class LeakerClass(BaseClass):
 					])
 				]
 			)
+			"""
 
 			#Check
 			if self.LeakingNoiseStdVariable!=None:
@@ -1276,7 +1278,6 @@ class LeakerClass(BaseClass):
 			)
 
 		#debug
-		'''
 		self.debug(
 			[
 				'We have aliased the BrianingNeurongroupDict',
@@ -1285,7 +1286,6 @@ class LeakerClass(BaseClass):
 					])
 			]
 		)
-		'''
 
 	def leakTrace(self):
 
@@ -1316,11 +1316,28 @@ class LeakerClass(BaseClass):
 		# If this a trace with a threshold
 		# then center the random pick around it
 
+		#debug
+		self.debug(
+			[
+				"Do we care to init under the threshold ?",
+				"self.LeakedParentPopulationDeriveLeakerVariable.BrianedNeurongroupVariable is ",
+				str(self.LeakedParentPopulationDeriveLeakerVariable.BrianedNeurongroupVariable)
+			]
+		)
+
 		#Check
-		if hasattr(
-			self.LeakedParentPopulationDeriveLeakerVariable.BrianedNeurongroupVariable,
-			'Threshold'
-		):
+		#if hasattr(
+		#	self.LeakedParentPopulationDeriveLeakerVariable.BrianedNeurongroupVariable,
+		#	'Threshold'
+		#):
+		if 'threshold' in self.LeakedParentPopulationDeriveLeakerVariable.BrianingNeurongroupDict:
+
+			#debug
+			self.debug(
+				[
+					"Yes, we care to init under the threshold ?"
+				]
+			)
 
 			#Check
 			if self.RecordKeyStr==self.LeakedParentPopulationDeriveLeakerVariable.LeakedSymbolStr:
@@ -1340,6 +1357,8 @@ class LeakerClass(BaseClass):
 				)
 				'''
 				
+
+
 				#type
 				LeakedThresholdType=type(
 					self.LeakedParentPopulationDeriveLeakerVariable.LeakingThresholdVariable
@@ -1351,8 +1370,20 @@ class LeakerClass(BaseClass):
 				#Check
 				if LeakedThresholdType in [float,np.float64]:
 					self.LeakedMaxFloat=self.LeakedParentPopulationDeriveLeakerVariable.LeakingThresholdVariable
+				elif LeakedThresholdType ==str:
+					self.LeakedMaxFloat=float(
+						"".join(
+							self.LeakedParentPopulationDeriveLeakerVariable.LeakingThresholdVariable.split('>')[1:]
+							).split("*")[0])
 				else:
 					self.LeakedMaxFloat=self.LeakedParentPopulationDeriveLeakerVariable.LeakingThresholdVariable.min()
+
+				#debug
+				self.debug(
+					[
+						('self.',self,['LeakedMaxFloat'])
+					]
+				)
 
 				#set
 				self.NumscipyingMeanFloat=self.LeakedMaxFloat
@@ -1378,6 +1409,7 @@ class LeakerClass(BaseClass):
 		#debug
 		'''
 		self.debug(
+
 			[
 				'It is an Input level',
 			]
@@ -2102,6 +2134,30 @@ class LeakerClass(BaseClass):
 						self.LeakedSymbolStr
 					)
 
+			else:
+
+				#get
+				self.ConnectedToVariable.getTeamer(
+					'Traces'
+				).getManager(
+					self.LeakedSymbolStr,
+					_IndexInt=0
+				).getTeamer(
+					'Samples'
+				).getManager(
+					'Default'
+				)
+
+				#debug
+				"""
+				self.debug(
+					[
+						'we build the trace already',
+						'self.ConnectedToVariable.TeamDict["Traces"].ManagementDict.keys() is ',
+						str(self.ConnectedToVariable.TeamDict["Traces"].ManagementDict.keys())
+					]
+				)	
+				"""
 
 			#debug
 			'''
@@ -4495,10 +4551,11 @@ class LeakerClass(BaseClass):
 		#
 
 		#Check
-		if hasattr(
-			self.LeakedParentPopulationDeriveLeakerVariable.BrianedNeurongroupVariable,
-			'Threshold'
-		):
+		#if hasattr(
+		#	self.LeakedParentPopulationDeriveLeakerVariable.BrianedNeurongroupVariable,
+		#	'Threshold'
+		#):
+		if 'threshold' in self.LeakedParentPopulationDeriveLeakerVariable.BrianingNeurongroupDict:
 
 			#Check
 			if self.RecordKeyStr==self.LeakedParentPopulationDeriveLeakerVariable.LeakedSymbolStr:
@@ -4562,7 +4619,7 @@ class LeakerClass(BaseClass):
 					]
 				)
 				'''
-
+				
 				#call
 				self.setBrianInit()
 
@@ -5098,6 +5155,7 @@ class LeakerClass(BaseClass):
 			#	self.LeakingMaxPhasesInt=2
 
 			#debug
+			"""
 			self.debug(
 				[
 					('self.',self,[
@@ -5106,6 +5164,7 @@ class LeakerClass(BaseClass):
 						])
 				]
 			)
+			"""
 
 			#init
 			self.LeakedPhaseList=[None]*self.LeakingUnitsInt
@@ -5420,12 +5479,14 @@ class LeakerClass(BaseClass):
 		if len(ViewedRunPopulationDrawsDerivePyploter.ManagementDict)>0:
 
 			#debug
+			"""
 			self.debug(
 				[
 					"Are we going to plot global traces ?",
 					('self.',self,['LeakingGlobalBool','LeakingTotalBool'])
 				]
 			)
+			"""
 
 			#Check
 			if self.LeakingGlobalBool or self.LeakingTotalBool:

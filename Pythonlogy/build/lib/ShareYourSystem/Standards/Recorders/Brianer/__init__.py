@@ -82,6 +82,8 @@ class BrianerClass(BaseClass):
 			_BrianingActivityStr="",
 			_BrianingPrintBool=True,
 			_BrianingMonitorIndexIntsList=None,
+			_BrianingEventSelectVariable=None,
+			_BrianedEventTraceVariable=None,
 			_BrianedTimeQuantityVariable=None,
 			_BrianedNetworkVariable=None,
 			_BrianedNeurongroupVariable=None,
@@ -601,7 +603,7 @@ class BrianerClass(BaseClass):
 				)
 
 				#debug
-				'''
+				"""
 				self.debug(
 					[
 						'We have setted the variable to record',
@@ -610,8 +612,8 @@ class BrianerClass(BaseClass):
 							'BrianedRecordKeyStrsList'
 						])
 					]
-				)
-				'''
+				)	
+				"""
 
 				#Check
 				if len(self.BrianedRecordKeyStrsList)>0:
@@ -669,6 +671,15 @@ class BrianerClass(BaseClass):
 							self.BrianedRecordKeyStrsList
 						)
 
+					#debug
+					"""
+					self.debug(
+						[
+							"BrianedTracesManager.ManagementDict.keys() is ",
+							str(BrianedTracesManager.ManagementDict.keys())
+						]
+					)
+					"""
 
 			#/##################/#
 			# add in the net
@@ -678,15 +689,6 @@ class BrianerClass(BaseClass):
 			self.BrianedParentNetworkDeriveBrianerVariable.BrianedNetworkVariable.add(
 				self.BrianedNeurongroupVariable
 			)
-
-			"""
-			#/####################/#
-			# maybe view a draw plot
-			#
-
-			#call
-			self.viewPopulation()
-			"""
 
 		#debug
 		'''
@@ -1210,7 +1212,7 @@ class BrianerClass(BaseClass):
 			BrianedRecordBool=False
 
 		#debug
-		'''
+		"""
 		self.debug(
 			[
 				'Ok it is a trace in...',
@@ -1221,7 +1223,7 @@ class BrianerClass(BaseClass):
 				str(BrianedRecordBool)
 			]
 		)
-		'''
+		"""
 
 		#Check
 		if BrianedRecordBool:
@@ -1280,9 +1282,10 @@ class BrianerClass(BaseClass):
 
 
 			#Check
-			if self.BrianedParentDeriveBrianerStr=="Population" and len(
-				self.BrianedParentPopulationDeriveBrianerVariable.BrianedRecordKeyStrsList
-			)==1:
+			if self.BrianedParentDeriveBrianerStr=="Population" :
+			#and len(
+			#	self.BrianedParentPopulationDeriveBrianerVariable.BrianedRecordKeyStrsList
+			#)==1:
 
 				#debug
 				'''
@@ -2673,7 +2676,7 @@ class BrianerClass(BaseClass):
 				)
 
 				#/###############/#
-				# So now we need to insert these plost between the plot traces
+				# So now we need to insert these plots between the plot traces
 				#
 
 				SpikeDict=dict(
@@ -2705,12 +2708,8 @@ class BrianerClass(BaseClass):
 				)
 				'''
 
-				#map
-				self.PyplotingDrawVariable=[
-					#add the null dashed line 
-					self.PyplotingDrawVariable[0]
-				]+SYS.sum(
-					map(
+				#sum
+				self.BrianedEventTraceVariable=map(
 						lambda __IndexInt:
 						[
 							self.PyplotingDrawVariable[__IndexInt+1]
@@ -2719,7 +2718,22 @@ class BrianerClass(BaseClass):
 						],
 						self.RecordingLabelVariable
 					)
+				
+
+				#link
+				BrianedDefaultDeriveBrianerVariable=self.BrianedParentPopulationDeriveBrianerVariable.getTeamer(
+					'Events'
+				).getManager(
+					'Default'
 				)
+				BrianedDefaultDeriveBrianerVariable.BrianedEventTraceVariable=self.BrianedEventTraceVariable
+				BrianedDefaultDeriveBrianerVariable.RecordingLabelVariable=self.RecordingLabelVariable
+
+				#map
+				self.PyplotingDrawVariable=[
+					#add the null dashed line 
+					self.PyplotingDrawVariable[0]
+				]+SYS.sum(self.BrianedEventTraceVariable)
 				
 				#debug
 				'''
@@ -2941,8 +2955,22 @@ class BrianerClass(BaseClass):
 			#Check
 			if self.BrianedParentInteractionDeriveBrianerVariable==None:
 
+				#debug
+				"""
+				self.debug(
+					[
+						"Do we print the title",
+						"self.BrianedParentDeriveRecorderVariable.ParentDeriveTeamerVariable.ManagementDict.keys() is ",
+						str(self.BrianedParentDeriveRecorderVariable.ParentDeriveTeamerVariable.ManagementDict.keys()),
+						"self.BrianedParentDeriveRecorderVariable.ManagementTagStr is ",str(
+							self.BrianedParentDeriveRecorderVariable.ManagementTagStr)
+					]
+				)
+				"""
+
 				#Check
-				if self.BrianedParentDeriveRecorderVariable.ManagementIndexInt==0:
+				if self.BrianedParentDeriveRecorderVariable.ParentDeriveTeamerVariable.ManagementDict.keys(
+					)[0]==self.BrianedParentDeriveRecorderVariable.ManagementTagStr:
 
 					#Check
 					if self.BrianedParentPopulationDeriveBrianerVariable.ManagementTagStr!="":
@@ -3238,7 +3266,7 @@ class BrianerClass(BaseClass):
 		)-1:
 
 			#Check
-			'''
+			"""
 			self.debug(
 				[
 					'This is the last Sample for this record',
@@ -3248,7 +3276,7 @@ class BrianerClass(BaseClass):
 					)
 				]
 			)
-			'''
+			"""
 
 			#call
 			self.BrianedParentDeriveRecorderVariable.viewTraceOrEvent()
@@ -3291,6 +3319,84 @@ class BrianerClass(BaseClass):
 
 		#divide
 		self.ViewingYVariable=np.array(self.BrianedSpikeMonitorVariable.i)
+
+		#get
+		BrianedSpikesListsList=[ [] for __IndexInt in xrange(
+			self.BrianedParentPopulationDeriveBrianerVariable.BrianedNeurongroupVariable.N
+			)
+		]
+
+		#import
+		import brian2
+
+		#get
+		BrianedTimeDimension=getattr(
+			brian2,
+			self.BrianedParentNetworkDeriveBrianerVariable.BrianingTimeQuantityStr
+		)
+
+		#debug
+		"""
+		self.debug(
+			[
+				"BrianedTimeDimension is ",str(BrianedTimeDimension),
+				('self.',self,['ViewingXScaleFloat']),
+				"self.BrianedSpikeMonitorVariable.i is "+str(self.BrianedSpikeMonitorVariable.i)
+			]
+		)
+		"""
+
+		#loop
+		for __IndexInt,__TimeUnit in zip(
+			self.BrianedSpikeMonitorVariable.i,
+			self.BrianedSpikeMonitorVariable.t
+		):
+
+			#append
+			BrianedSpikesListsList[__IndexInt].append(
+				__TimeUnit
+				#100.*__TimeUnit/BrianedTimeUnit
+				#float((1./self.ViewingXScaleFloat)*(__TimeUnit/BrianedTimeUnit))
+				#float(__TimeUnit/BrianedTimeDimension)
+			)
+
+		#debug
+		"""
+		self.debug(
+			[
+				"Maybe we select specific spikes",
+				('self.',self,['BrianingEventSelectVariable'])
+			]
+		)
+		"""
+
+		#select
+		if self.BrianingEventSelectVariable!=None:
+
+			#map
+			BrianedSpikesListsList=map(
+				lambda __BrianingEventNeuronInt:
+				BrianedSpikesListsList[__BrianingEventNeuronInt],
+				self.BrianingEventSelectVariable
+			)
+
+			#range
+			self.ViewingYVariable=range(len(self.BrianingEventSelectVariable))
+
+		#debug
+		"""
+		self.debug(
+			[
+				"view Event",
+				('self.',self,[
+						'ViewingYVariable'
+					]),
+				#{self.BrianedSpikeMonitorVariable.__dict__ is ",str(np.array(
+				#	self.BrianedSpikeMonitorVariable.__dict__)),
+				'BrianedSpikesListsList is '+str(BrianedSpikesListsList)
+			]
+		)
+		"""
 
 		#set
 		self.ViewingXLabelStr='$t\ ('+str(
@@ -3347,6 +3453,8 @@ class BrianerClass(BaseClass):
 							).replace('_','/')+'}'
 
 		#set
+		self.PyplotingDrawVariable=[]
+		"""
 		self.PyplotingDrawVariable=[
 			(
 				'plot',
@@ -3359,14 +3467,16 @@ class BrianerClass(BaseClass):
 						{
 							'label':ViewedLabelStr,
 							'linestyle':'',
-							'marker':'.',
-							'color':'b'
+							'marker':'o',
+							'color':'red',
+							'markersize':5
 						},
 						**self.BrianingPyplotDict
 					)
 				}
 			)
 		]
+		"""
 
 		#/####################/#
 		# maybe set global Chart also
@@ -3455,17 +3565,57 @@ class BrianerClass(BaseClass):
 		)
 
 		#debug
-		'''
+		"""
+		self.debug(
+			[
+				"Maybe there are the monitored trace inside",
+				("self.",self,[
+					'BrianedEventTraceVariable',
+					'RecordingLabelVariable'
+				])
+			]
+		)
+		"""
+
+		#map
+		self.PyplotingDrawVariable+=map(
+			lambda __NeuronIndexInt:
+			(
+				'plot',
+				{
+					'#liarg':[
+						BrianedSpikesListsList[__NeuronIndexInt],
+						[__NeuronIndexInt]*len(BrianedSpikesListsList[__NeuronIndexInt])
+					],
+					'#kwarg':dict(
+						{
+							#'label':ViewedLabelStr,
+							'linestyle':'',
+							'marker':'|',
+							'color':'black' if __NeuronIndexInt not in self.RecordingLabelVariable 
+								else self.BrianedEventTraceVariable[__NeuronIndexInt][0][1]['#kwarg']['color'],
+							'markersize':3 if __NeuronIndexInt not in self.RecordingLabelVariable else 5 
+						},
+						**self.BrianingPyplotDict
+					)
+				}
+			),
+			xrange(len(BrianedSpikesListsList))
+		)
+
+
+		#debug
+		"""
 		self.debug(
 			[
 				'After replace',
 				('self.',self,[
-					#'PyplotingDrawVariable',
-					'PyplotingChartVariable'
+					'PyplotingDrawVariable',
+					#'PyplotingChartVariable'
 				])
 			]
 		)
-		'''
+		"""
 
 		#/####################/#
 		# Update maybe the 
@@ -3702,7 +3852,7 @@ class BrianerClass(BaseClass):
 			]
 		)
 		"""
-
+		
 		#Check
 		if str(self.RecordedTraceFloatsArray.unit) in ['V']:
 
@@ -3913,6 +4063,8 @@ BrianerClass.PrintingClassSkipKeyStrsList.extend(
 		'BrianingActivityStr',
 		'BrianingPrintBool',
 		'BrianingMonitorIndexIntsList',
+		'BrianingEventSelectVariable',
+		'BrianedEventTraceVariable',
 		'BrianedTimeQuantityVariable',
 		'BrianedNetworkVariable',
 		'BrianedNeurongroupVariable',

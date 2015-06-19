@@ -20,15 +20,14 @@ MyLeaker=SYS.LeakerClass(
 					'LeakingSymbolPrefixStr':'V',
 					'-Inputs':{
 						'|Rest':{
-							'LeakingWeightVariable':'#scalar:-60*mV'
+							'LeakingWeightVariable':'#scalar:-70*mV'
 						},
 						'|External':{
-							'LeakingWeightVariable':'#scalar:100*mV'
+							'LeakingWeightVariable':'#scalar:50*mV'
 						}
 					},
-					'LeakingNoiseStdVariable':0.1,
 					'LeakingThresholdVariable':'#scalar:V>-50*mV',
-					'LeakingResetVariable':-70.,
+					'LeakingResetVariable':-60.,
 					'LeakingRefractoryVariable':2.,
 					#'BrianingDebugVariable':100
 				}

@@ -12,26 +12,18 @@ import ShareYourSystem as SYS
 
 #Define
 MyHopfer=SYS.HopferClass(
-	).mapSet(
-		{	
-			'-Populations':{
-				'|Agent':{
-					#'BrianingDebugVariable':100
-				}
-			}
-		}
 	).hopf(
 		_UnitsInt=100,
-		_MeanWeightFloat=2.5,
+		_MeanWeightFloat=1.,
 		_StdWeightFloat=0.,
 		_SparseWeigthFloat=0.2,
 		_SwitchWeigthFloat=0.5,
 		#_SymmetryFloat=-0.7,
 		_InteractionStr="Spike"
-	).leak(
-	).simulate(
-		500.
 	)
+	#.simulate(
+	#	500.
+	#)
 
 #/###################/#
 # View

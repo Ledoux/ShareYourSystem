@@ -654,6 +654,10 @@ class DoerClass(BaseClass):
 			else:
 				DoClass.DoMethodStrsList=[DoMethodStr]
 
+
+		#Check
+		DoClass.DoUnitsInt=-1
+
 		#Add to the KeyStrsList
 		DoClass.KeyStrsList+=[
 								'DoerStr',
@@ -670,7 +674,8 @@ class DoerClass(BaseClass):
 								'DoTempAttributeItemTuplesList',
 								'DoTempNotAttributeItemTupleItemsList',
 								'DoMethodStrsList',
-								'MroDoerClassesList'
+								'MroDoerClassesList',
+								'DoUnitsInt'
 						]
 						#No need to add the doing and done keys because they are already in the defaults keys
 						#+DoClass.DoingAttributeVariablesOrderedDict.keys(
@@ -871,5 +876,52 @@ def addDo(*_DoStrsTuple):
 	DoStrToDoneStrOrderedDict[_DoStrsTuple[1]]=_DoStrsTuple[3]
 	DoneStrToDoingStrOrderedDict[_DoStrsTuple[3]]=_DoStrsTuple[2]
 SYS.addDo=addDo
+
+def setInitList(_InstanceVariable,_DoStr,_TagStr):
+
+	#get
+	Variable=getattr(
+		_InstanceVariable,
+		DoStrToDoingStrOrderedDict[_DoStr]+_TagStr+'Variable'
+	)
+
+	#type
+	Type=type(Variable)
+
+	#import
+	import numpy as np
+
+	#set
+	SetKeyStr = DoStrToDoneStrOrderedDict[_DoStr]+_TagStr+'FloatsList'
+
+	#Check
+	if Type in [list,np.array]:
+
+		#array
+		setattr(
+			_InstanceVariable,
+			SetKeyStr,
+			list(
+				Variable
+			)
+		)
+
+	else:
+
+		#array
+		setattr(
+			_InstanceVariable,
+			SetKeyStr,	
+			[Variable]
+		)
+
+	#Check
+	NewDoUnitsInt = len(getattr(_InstanceVariable,SetKeyStr))
+
+	#Check
+	if _InstanceVariable.DoUnitsInt<NewDoUnitsInt:
+		_InstanceVariable.DoUnitsInt = NewDoUnitsInt
+
+SYS.setInitList=setInitList
 #</DefineLocals>
 

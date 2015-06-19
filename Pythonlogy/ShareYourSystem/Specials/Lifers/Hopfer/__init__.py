@@ -13,14 +13,14 @@
 #<DefineAugmentation>
 import ShareYourSystem as SYS
 import types
-BaseModuleStr="ShareYourSystem.Standards.Recorders.Leaker"
+BaseModuleStr="ShareYourSystem.Specials.Lifers.Lifer"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 SYS.addDo('Hopfer','Hopf','Hopfing','Hopfed')
 #</DefineAugmentation>
 
 #<ImportSpecificModules>
-Leaker=BaseModule
+from ShareYourSystem.Standards.Recorders import Leaker
 import scipy.stats
 import numpy as np
 #</ImportSpecificModules>
@@ -35,7 +35,7 @@ class HopferClass(BaseClass):
 	def default_init(self,
 			_HopfingUnitsInt = 1,
 			_HopfingLateralWeightVariable = None,
-			_HopfingConstantTimeVariable = 0.01, 
+			_HopfingConstantTimeVariable = 0.02, 
 			_HopfingDelayTimeVariable = 0.002,
 			_HopfingDecayTimeVariable = 0.,
 			_HopfingRiseTimeVariable = 0.,
@@ -46,12 +46,12 @@ class HopferClass(BaseClass):
 			_HopfingNormalisationInt= 0.5,
 			_HopfingSymmetryFloat = 0.0,
 			_HopfingPerturbationEnvelopBool=True,
-			_HopfingDoStationaryBool=False,
-			_HopfingDoStabilityBool=False,
+			_HopfingDoStationaryBool=True,
+			_HopfingDoStabilityBool=True,
 			_HopfingDoTransferBool=False,
 			_HopfingContourSamplesInt=50,
 			_HopfingInteractionStr="Rate",
-			_HopfingRestVariable=-49.,
+			_HopfingRestVariable=-48.,
 			_HopfingStabilityScanFrequencyVariable=None,
 			_HopfingTransferScanFrequencyVariable=None,
 			_HopfingTransferCurrentVariable=None,
@@ -63,14 +63,15 @@ class HopferClass(BaseClass):
 			_HopfedLateralHalfWidthFloat=0., 
 			_HopfedLateralContourComplexesArray=None,
 			_HopfedEigenComplex=None,
+			_HopfedEigenvalueComplexesArray=None,
 			_HopfedPerturbationContourRealFloatsArray = None,
 			_HopfedPerturbationContourImagFloatsArray = None,
 			_HopfedInstabilityIndexInt=-1,
-			_HopfedInstabilityContourIndexInt=-1,
-			_HopfedInstabilityContourComplex=None,
+			_HopfedInstabilityComplex=None,
 			_HopfedInstabilityLambdaFloatsTuple=None,
 			_HopfedInstabilityFrequencyFloat=0.,
 			_HopfedIsStableBool=True,
+			_HopfedInstablesInt=0,
 			_HopfedInstabilityStr="",
 			_HopfedStdSparseFloat=0.,
 			_HopfedParentSingularStr="",
@@ -326,7 +327,8 @@ class HopferClass(BaseClass):
 				#debug
 				self.debug(
 					[
-						"We have to modify the matrix G"
+						"We have to modify the matrix G",
+						"First we compute the stationary solution"
 					]
 				)
 
@@ -334,10 +336,22 @@ class HopferClass(BaseClass):
 				self.LifingVoltageResetFloat = -60.
 				self.LifingVoltageThresholdFloat = -50.
 				self.LifingVoltageRestFloat = -70.
-				self.LifingStationaryCurrentFloat = self.HopfingRestVariable-self.LifingVoltageRestFloat
+				
 
+				#self.LifingVoltageNoiseFloat = self.HopfingStdWeightFloat
+				#self.LifingStationaryCurrentFloat = self.HopfingRestVariable-self.LifingVoltageRestFloat
+
+
+				#debug
+				self.debug(
+					[
+						"We compute then the perturbations ",
+					]
+				)
+
+				
 				#lif
-				self.lif()
+				self.lif(_PerturbationLambdaVariable=0.)
 
 				#debug
 				self.debug(
@@ -346,11 +360,25 @@ class HopferClass(BaseClass):
 					]
 				)
 
-				#self.LifedPerturbationNullFloat
+				#set
+				self.HopfedTotalPerturbationComplexesArray=self.LifedPerturbationMeanComplexVariable*self.NumscipiedValueFloatsArray
+				self.HopfedTotalPerturbationComplexesArray+=(
+					self.LifedPerturbationNoiseComplexVariable/(2.*self.LifingVoltageNoiseFloat)
+				)*(self.NumscipiedValueFloatsArray**2)
+				self.HopfedTotalPerturbationComplexesArray*=self.HopfingConstantTimeVariable
+		
+				#import
+				import numpy as np
 
-				#self.HopfedTotalPerturbationComplexesArray=self.HopfingConstantTimeVariable*
-				#self.NumscipiedValueFloatsArray
+				#eigenvalues
+				self.HopfedEigenvalueComplexesArray = np.linalg.eigvals(
+					self.HopfedTotalPerturbationComplexesArray
+				)
 
+			else:
+
+				#alias
+				self.HopfedEigenvalueComplexesArray = self.NumscipiedEigenvalueComplexesArray
 
 			#alias
 			self.HopfedLateralWeightFloatsArray=self.NumscipiedValueFloatsArray
@@ -370,6 +398,8 @@ class HopferClass(BaseClass):
 				]
 			)
 			'''
+
+			
 
 			#Check
 			if self.HopfedMeanfieldWeightFloat==0.:
@@ -400,6 +430,8 @@ class HopferClass(BaseClass):
 			# Determine the contour properties
 			#
 
+
+
 			#debug
 			'''
 			self.debug(
@@ -424,10 +456,10 @@ class HopferClass(BaseClass):
 
 			#real and imag
 			self.HopfedRealLateralEigenFloatsArray=np.real(
-				self.NumscipiedEigenvalueComplexesArray
+				self.HopfedEigenvalueComplexesArray
 			)
 			self.HopfedImagLateralEigenFloatsArray=np.imag(
-				self.NumscipiedEigenvalueComplexesArray
+				self.HopfedEigenvalueComplexesArray
 			)
 
 			#debug
@@ -450,18 +482,30 @@ class HopferClass(BaseClass):
 			#Check
 			if self.HopfingPerturbationEnvelopBool:
 
+				#debug
+				"""
+				self.debug(
+					[
+						('self.',self,[
+								'NumscipiedEigenvalueComplexesArray'
+							])
+					]
+				)
+				"""
+
 				#map
 				HopfedPerturbationFloatsTuplesList=map(
 					lambda __NumscipiedEigenvalueComplex:
 					self.setAttr(
 						'HopfedEigenComplex',
 						__NumscipiedEigenvalueComplex
-					).getSolutionFloatsTuple(),
-					self.NumscipiedEigenvalueComplexesArray
+					).getPerturbationSolutionFloatsTuple(),
+					self.HopfedEigenvalueComplexesArray
 				)
 			
 			else:
 
+				"""
 				#Check
 				if self.HopfingDoStabilityBool:
 
@@ -472,8 +516,10 @@ class HopferClass(BaseClass):
 						self.HopfedInstabilityPerturbationComplex=self.setAttr(
 							'HopfedEigenComplex',
 							__NumscipiedEigenvalueComplex
-						).getSolutionFloatsTuple(
+						).getPerturbationSolutionFloatsTuple(
 						)
+				"""
+				pass
 
 
 			#unpack
@@ -536,6 +582,17 @@ class HopferClass(BaseClass):
 			# Compute for each eigen of the contour a possible solution
 			#
 
+			#debug
+			"""
+			self.debug(
+				[
+					('self.',self,[
+							'HopfingPerturbationEnvelopBool'
+						])
+				]
+			)
+			"""
+
 			#Check
 			if self.HopfingPerturbationEnvelopBool:
 
@@ -545,7 +602,7 @@ class HopferClass(BaseClass):
 					self.setAttr(
 						'HopfedEigenComplex',
 						__HopfedContourComplex
-					).getSolutionFloatsTuple(),
+					).getPerturbationSolutionFloatsTuple(),
 					self.HopfedLateralContourComplexesArray
 				)
 
@@ -560,46 +617,81 @@ class HopferClass(BaseClass):
 				self.HopfedPerturbationContourRealFloatsArray=np.array(HopfedPerturbationContourRealFloatsTuple)
 				self.HopfedPerturbationContourImagFloatsArray=np.array(HopfedPerturbationContourImagFloatsTuple)
 				
+				#debug
+				"""
+				self.debug(
+					[
+						('self.',self,[
+								'HopfingDoStabilityBool',
+							])
+					]
+				)
+				"""
 
 				#Check
 				if self.HopfingDoStabilityBool:
 
-					#get
-					self.HopfedInstabilityContourIndexInt = np.argmax(
-						self.HopfedPerturbationContourRealFloatsArray
+					#debug
+					"""
+					self.debug(
+						[
+							"We look for the max eigen",
+							('self.',self,[
+									'HopfedPerturbationRealFloatsArray',
+								])
+						]
 					)
+					"""
+
+					#get
+					self.HopfedInstabilityIndexInt = np.argmax(
+						self.HopfedPerturbationRealFloatsArray
+					)
+
+					#find
+					InstableEigenIndexIntsArray=np.where(self.HopfedPerturbationRealFloatsArray>0.)[0]
 				
-				#get	
-				self.HopfedInstabilityContourComplex=self.HopfedLateralContourComplexesArray[
-					self.HopfedInstabilityContourIndexInt
-				]
+					#debug
+					self.debug(
+						[
+							"InstableEigenIndexIntsArray is ",str(InstableEigenIndexIntsArray)
+						]
+					)
 
-				#set
-				self.HopfedIsStableBool=self.HopfedPerturbationContourRealFloatsArray[
-					self.HopfedInstabilityContourIndexInt
-				]<0.
+					#len
+					self.HopfedInstablesInt=len(InstableEigenIndexIntsArray)
 
-				#Check
-				if self.HopfedIsStableBool==False:
+					#get	
+					self.HopfedInstabilityComplex=self.HopfedPerturbationRealFloatsArray[
+						self.HopfedInstabilityIndexInt
+					]
 
 					#set
-					self.HopfedInstabilityStr='Rate' if self.HopfedPerturbationContourImagFloatsArray[
-						self.HopfedInstabilityContourIndexInt
-					]==0. else 'Hopf'
+					self.HopfedIsStableBool=self.HopfedPerturbationRealFloatsArray[
+						self.HopfedInstabilityIndexInt
+					]<0.
 
-				#debug
-				'''
-				self.debug(
-					[
-						('self.',self,[
-								'HopfedInstabilityContourIndexInt',
-								'HopfedInstabilityContourComplex',
-								'HopfedIsStableBool',
-								'HopfedInstabilityStr'
-							])
-					]
-				)
-				'''
+					#Check
+					if self.HopfedIsStableBool==False:
+
+						#set
+						self.HopfedInstabilityStr='Rate' if self.HopfedPerturbationImagFloatsArray[
+							self.HopfedInstabilityIndexInt
+						]==0. else 'Hopf'
+
+					#debug
+					'''
+					self.debug(
+						[
+							('self.',self,[
+									'HopfedInstabilityIndexInt',
+									'HopfedInstabilityComplex',
+									'HopfedIsStableBool',
+									'HopfedInstabilityStr'
+								])
+						]
+					)
+					'''
 
 			else:
 
@@ -613,7 +705,7 @@ class HopferClass(BaseClass):
 						self.setAttr(
 							'HopfedEigenComplex',
 							__HopfedContourComplex
-						).getSolutionFloatsTuple(
+						).getPerturbationSolutionFloatsTuple(
 						)
 
 			#debug
@@ -1662,11 +1754,11 @@ class HopferClass(BaseClass):
 					#set
 					self.LeakingTransferVariable='mV*tanh((#CurrentStr)/mV)'
 
-			#/###############/#
-			# Set the special spikes properties
-			#
-
 			else:
+
+				#/###############/#
+				# Set the special spikes properties
+				#
 
 				#/####################/#
 				# Check for Inputs
@@ -1701,8 +1793,8 @@ class HopferClass(BaseClass):
 				#set
 				self.LeakingThresholdVariable="#scalar:U>-50*mV"
 				self.LeakingResetVariable="#scalar:U=-60*mV"
-				self.LeakingRefractoryVariable=2.
-				self.LeakingNoiseStdVariable="0.1*mV"
+				self.LeakingRefractoryVariable=0.5
+				#self.LeakingNoiseStdVariable="0.1*mV"
 				#self.LeakingNoiseStdVariable=5.	
 
 			#/####################/#
@@ -1806,7 +1898,7 @@ class HopferClass(BaseClass):
 
 				#get
 				#self.LeakingWeightVariable='#scalar:-70*mV'
-				self.LeakingWeightVariable='#scalar:'+str(self.HopfingRestVariable)+'mV'
+				self.LeakingWeightVariable='#scalar:'+str(self.HopfingRestVariable)+'*mV'
 				
 
 		elif self.ManagementTagStr=="Stimulation":
@@ -1843,10 +1935,40 @@ class HopferClass(BaseClass):
 
 			
 	
-	def getStationaryRateRootFloatsTuple(self,_StationaryRateFloat):
+	def getStationaryRateRootFloat(self,_StationaryRateFloat):
 			
 		#return
 		return 0.
+
+	def getStationarySpikeRootFloat(self,_StationaryRateFloat):
+			
+		#center
+		self.LifingStationaryCurrentFloat = 0.
+
+		#noise
+		self.LifingVoltageNoiseFloat = self.HopfingStdWeightFloat *  self.HopfingConstantTimeVariable * _StationaryRateFloat
+
+		#lif
+		self.lif()
+
+		#return
+		return self.LifedStationaryRateFloat
+
+	"""
+	def getStationarySpikeRootFloatsTuple(self,_StationaryRateFloatsTuple):
+			
+		#center
+		LifingStationaryCurrentFloatsArray = np.dot(self.HopfedLateralWeightFloatsArray,_StationaryRateFloatsTuple)
+
+		#noise
+		LifingVoltageNoiseFloatsArray = self.HopfingStdWeightFloat *  self.HopfingConstantTimeVariable * _StationaryRateFloat
+
+		#lif
+		self.lif()
+
+		#return
+		return self.LifedStationaryRateFloat
+	"""
 
 	def getUniqueDelayPerturbationRootFloatsTuple(self,_PerturbationFloatsTuple):
 			
@@ -1885,7 +2007,7 @@ class HopferClass(BaseClass):
 		#return
 		return (FirstRootFloat,SecondRootFloat)
 
-	def getSolutionFloatsTuple(self):
+	def getPerturbationSolutionFloatsTuple(self):
 
 		#import
 		import scipy.optimize
@@ -1895,6 +2017,39 @@ class HopferClass(BaseClass):
 			self.getUniqueDelayPerturbationRootFloatsTuple, 
 			(0,0)
 		)
+
+
+	def leakInteraction(self):
+
+		#debug
+		"""
+		self.debug(
+			[
+				"We brian hopf here ",
+				('self.',self,['ManagementTagStr'])
+			]
+		)
+		"""
+		
+		#Check
+		if self.ManagementTagStr=="Autapse" and self.HopfedNetworkDeriveHopferVariable.HopfingInteractionStr=="Rate":
+
+			#debug
+			"""
+			self.debug(
+				[
+					"We brian hopf here "
+				]
+			)
+			"""
+
+			#self.Recorded
+			self.LeakingRecordBool=True
+
+
+		#call the base method
+		BaseClass.leakInteraction(self)	
+
 
 	#/######################/#
 	# Augment view
@@ -2370,14 +2525,16 @@ HopferClass.PrintingClassSkipKeyStrsList.extend(
 		'HopfedImagLateralEigenFloatsArray',
 		'HopfedLateralContourComplexesArray',
 		'HopfedEigenComplex',
+		'HopfedEigenvalueComplexesArray',
 		'HopfedPerturbationComplex',
 		'HopfedPerturbationRealFloatsArray',
 		'HopfedPerturbationImagFloatsArray',
 		'HopfedPerturbationContourRealFloatsArray',
 		'HopfedPerturbationContourImagFloatsArray',
 		'HopfedInstabilityIndexInt',
-		'HopfedInstabilityContourIndexInt',
-		'HopfedInstabilityContourComplex',
+		'HopfedInstabilityIndexInt',
+		'HopfedInstabilityComplex',
+		'HopfedInstablesInt',
 		'HopfedIsStableBool',
 		'HopfedInstabilityStr',
 		'HopfedStdSparseFloat',

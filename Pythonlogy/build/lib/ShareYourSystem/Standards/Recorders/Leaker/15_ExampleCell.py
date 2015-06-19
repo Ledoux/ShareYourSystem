@@ -28,6 +28,7 @@ MyLeaker=SYS.LeakerClass(
 							#'LeakingDelayPrepostBool':True,
 							#'LeakingDelayVariable':[[0.5,5.],[0.2,1.]],
 							#'LeakingDelayCustomBool':True
+							'LeakingRecordBool':True
 						}
 					},
 					'RecordingLabelVariable':[0,1]
@@ -64,7 +65,6 @@ MyLeaker.mapSet(
 
 #print
 print('MyLeaker is ')
-SYS._print(MyLeaker) 
-
+SYS._print(MyLeaker['/-Panels/|Run/-Charts'])
 
 
