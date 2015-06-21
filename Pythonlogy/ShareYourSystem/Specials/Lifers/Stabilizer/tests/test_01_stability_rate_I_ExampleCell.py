@@ -13,9 +13,9 @@ MyStabilizer=SYS.StabilizerClass(
 
 #Choose the parameters to print
 KeyStrsList=[
+			'StationarizingLateralWeightVariable',
 			'StabilizingConstantTimeVariable', #in ms
 			'StabilizingDelayTimeVariable',
-			'StabilizingLateralWeigthVariable',
 			'StabilizedTotalPerturbationComplexesArray', #matrix M
 			'StabilizedFlatTotalPerturbationComplexesArray', #matrix F
 			'StabilizedDeterminantFloatsTuple',  #If it has converged, then it has to be closed to (0,0)

@@ -72,8 +72,8 @@ class LiferClass(BaseClass):
 	def default_init(self, 
 			_LifingConstantTimeFloat=0.02, 
 			_LifingRefractoryPeriodFloat=0.,
-			_LifingStationaryCurrentFloat=None, 
-			_LifingStationaryRateFloat=None, 
+			_LifingStationaryCurrentFloat=-51., 
+			_LifingStationaryRateFloat=5., 
 			_LifingCurrentToFloatBool=True,
 			_LifingNoiseFloat=5., 
 			_LifingResetFloat=-60., 
@@ -82,10 +82,12 @@ class LiferClass(BaseClass):
 			_LifingPerturbationLambdaVariable=None,
 			_LifingPerturbationFrequencyFloat=None,
 			_LifingPerturbationMethodStr='Brunel',
+			_LifingComputeNoisePerturbationBool=False,
 			_LifedSwigVariable=None,
 			_LifedStationaryCurrentFloat=None,
 			_LifedStationaryRateFloat=None,
-			_LifedPerturbationNullFloat=0.,
+			_LifedPerturbationMeanNullFloat=0.,
+			_LifedPerturbationNoiseNullFloat=0.,
 			_LifedPerturbationMethodVariable=None,
 			_LifedPerturbationMeanComplexVariable=None,
 			_LifedPerturbationNoiseComplexVariable=None,
@@ -131,6 +133,16 @@ class LiferClass(BaseClass):
 		# Look if the stationary point was already computed
 		#
 
+		#debug
+		'''
+		self.debug(
+			[
+				"The stationary point was computed ?",
+				('self.',self,['LifingComputeStationaryBool'])
+			]
+		)
+		'''
+
 		#set
 		self.LifedSwigVariable.IntDict['ComputeStationary']=int(
 			self.LifingComputeStationaryBool
@@ -157,6 +169,20 @@ class LiferClass(BaseClass):
 			)
 			'''
 
+			#Set inside the Swig
+			self.LifedSwigVariable.setDicts(
+				*getCArgsFromDict(
+					getFilterDictByType(**{
+							'ConstantTime':self.LifingConstantTimeFloat,
+							'RefractoryPeriod':self.LifingRefractoryPeriodFloat,
+							'VoltageNoise':self.LifingNoiseFloat, 
+							'VoltageReset':self.LifingResetFloat, 
+							'VoltageThreshold':self.LifingThresholdFloat
+						}
+					)
+				)
+			)
+
 			#Check
 			if self.LifingCurrentToFloatBool:
 
@@ -176,17 +202,12 @@ class LiferClass(BaseClass):
 					]
 				)
 				"""
-				
+
 				#Set inside the Swig
 				self.LifedSwigVariable.setDicts(
 					*getCArgsFromDict(
 						getFilterDictByType(**{
-								'ConstantTime':self.LifingConstantTimeFloat,
-								'RefractoryPeriod':self.LifingRefractoryPeriodFloat,
-								'StationaryCurrent':self.LifingStationaryCurrentFloat, 
-								'VoltageNoise':self.LifingNoiseFloat, 
-								'VoltageReset':self.LifingResetFloat, 
-								'VoltageThreshold':self.LifingThresholdFloat
+								'StationaryCurrent':self.LifingStationaryCurrentFloat,
 							}
 						)
 					)
@@ -203,7 +224,7 @@ class LiferClass(BaseClass):
 			else:
 
 				#debug
-				"""
+				'''
 				self.debug(
 					[
 						"This is current from rate",
@@ -212,7 +233,7 @@ class LiferClass(BaseClass):
 							])
 					]
 				)
-				"""
+				'''
 
 				#temp
 				LifedTempRateFloat=self.LifingStationaryRateFloat
@@ -252,80 +273,173 @@ class LiferClass(BaseClass):
 				#set
 				self.LifedStationaryRateFloat = None
 
+				#Set inside the Swig
+				self.LifedSwigVariable.setDicts(
+					*getCArgsFromDict(
+						getFilterDictByType(**{
+								'StationaryCurrent':self.LifedStationaryCurrentFloat
+							}
+						)
+					)
+				)
+
+			#set
+			self.LifingComputeStationaryBool=False
+			self.LifedSwigVariable.IntDict['ComputeStationary']=0
+
+		#debug
+		'''
+		self.debug(
+			[
+				"In the end",
+				('self.',self,[
+					'LifingCurrentToFloatBool',
+					'LifingStationaryCurrentFloat',
+					'LifingStationaryRateFloat',
+					'LifedStationaryCurrentFloat',
+					'LifedStationaryRateFloat'
+				])
+			]
+		)
+		'''
+		
 		#/##################/#
 		# Compute a perturbaton
 		#
 
-		#Check
-		if self.LifingPerturbationFrequencyFloat!=0. or self.LifingPerturbationLambdaVariable!=None:
+		#debug
+		'''
+		self.debug(
+			[
+				"We compute a perturbation",
+				('self.',self,[
+						'LifingPerturbationFrequencyFloat',
+						'LifingPerturbationLambdaVariable'
+					])
+			]
+		)
+		'''
 
-			#/##################/#
-			# Get the method
-			#
+		#/##################/#
+		# Get the method
+		#
 
-			#get
-			self.LifedPerturbationMethodVariable=getattr(
-				self.LifedSwigVariable,
-				'set'+self.LifingPerturbationMethodStr+'LifPerturbationRate'
-			)
+		#get
+		self.LifedPerturbationMethodVariable=getattr(
+			self.LifedSwigVariable,
+			'set'+self.LifingPerturbationMethodStr+'LifPerturbationRate'
+		)
 
-			#get
-			self.LifedPerturbationNullFloat=self.LifedSwigVariable.getLifPerturbationNullRate(
-					'StationaryCurrent'
-				)
+		#/#################/#
+		# Check if it is real or complex
+		#
+
+		#Choose
+		if self.LifingPerturbationLambdaVariable!=None:
+
+			#set
+			LifedPerturbationPreVariable=self.LifingPerturbationLambdaVariable
+
+			
+		else:
+
+			#import
+			import numpy as np
+
+			#set
+			LifedPerturbationPreVariable=2.*np.pi*self.LifingPerturbationFrequencyFloat*1j
+
+
+		
+		#/#################/#
+		# Check if it null perturbation or complex
+		#
+
+		#unpack
+		if LifedPerturbationPreVariable==0.:
 
 			#debug
 			'''
 			self.debug(
 				[
+					"It is a get of real null perturbation"
+				]
+			)
+			'''
+
+			#get
+			self.LifedPerturbationMeanComplexVariable=self.LifedSwigVariable.getLifPerturbationNullRate(
+					'StationaryCurrent'
+				)
+
+			#set
+			self.LifedPerturbationMeanNullFloat=self.LifedPerturbationMeanComplexVariable
+
+			#Check
+			if self.LifingComputeNoisePerturbationBool:
+
+				#get
+				self.LifedPerturbationNoiseComplexVariable=self.LifedSwigVariable.getLifPerturbationNullRate(
+						'VoltageNoise'
+					)
+
+				#set
+				self.LifedPerturbationNoiseNullFloat=self.LifedPerturbationMeanComplexVariable
+
+
+		else:
+
+			#debug
+			'''
+			self.debug(
+				[
+					"It is a complex computation",
+					"LifedPerturbationPreVariable is "+str(
+						LifedPerturbationPreVariable
+					),
 					('self.',self,[
-							'LifedPerturbationNullFloat'
-						])
+								'LifingConstantTimeFloat',
+								'LifingRefractoryPeriodFloat',
+								'LifingStationaryCurrentFloat',
+								'LifingNoiseFloat',
+								'LifingResetFloat',
+								'LifingThresholdFloat',
+								'LifedStationaryCurrentFloat',
+								'LifedStationaryRateFloat',
+								'LifingCurrentToFloatBool'
+							])
 				]
 			)
 			'''
 			
-			#Choose
-			if self.LifingPerturbationFrequencyFloat!=0.:
-
-				#import
-				import numpy as np
-
-				#set
-				LifedPerturbationPreVariable=2.*np.pi*self.LifingPerturbationFrequencyFloat*1j
-
-			else:
-
-				#set
-				LifedPerturbationPreVariable=self.LifingPerturbationLambdaVariable
+			#set
+			self.LifedSwigVariable.IntDict['ComputeNoise']=int(
+				self.LifingComputeNoisePerturbationBool
+			)
 
 			#call
 			self.LifedPerturbationMethodVariable(
 				LifedPerturbationPreVariable
 			)
 
-			#unpack
-			if LifedPerturbationPreVariable==0.:
+			#get
+			self.LifedPerturbationMeanComplexVariable=self.LifedSwigVariable.ComplexDict["PerturbationMean"]
 
-				self.LifedPerturbationMeanComplexVariable=self.LifedSwigVariable.DoubleDict["PerturbationMean"]
-				self.LifedPerturbationNoiseComplexVariable=self.LifedSwigVariable.DoubleDict["PerturbationNoise"]
-
-			else:
-
-				self.LifedPerturbationMeanComplexVariable=self.LifedSwigVariable.ComplexDict["PerturbationMean"]
+			#Check			
+			if self.LifingComputeNoisePerturbationBool:
 				self.LifedPerturbationNoiseComplexVariable=self.LifedSwigVariable.ComplexDict["PerturbationNoise"]
 
-			#debug
-			'''
-			self.debug(
-				[
-					('self.',self,[
-							'LifedPerturbationMeanComplexVariable'
-						]),
-					'LifedPerturbationPreVariable is '+str(LifedPerturbationPreVariable)
-				]
-			)
-			'''
+		#debug
+		'''
+		self.debug(
+			[
+				('self.',self,[
+						'LifedPerturbationMeanComplexVariable'
+					]),
+				'LifedPerturbationPreVariable is '+str(LifedPerturbationPreVariable)
+			]
+		)
+		'''
 
 	def mimic__print(self,**_KwargVariablesDict):
 
@@ -358,7 +472,8 @@ class LiferClass(BaseClass):
 						'LifingPerturbationLambdaVariable',
 						'LifingPerturbationFrequencyFloat',
 						'LifingPerturbationMethodStr',
-						'LifedPerturbationNullFloat',
+						'LifedPerturbationMeanNullFloat',
+						'LifedPerturbationNoiseNullFloat',
 						'LifedPerturbationMeanComplexVariable',
 						'LifedPerturbationNoiseComplexVariable'
 					]+(['LifingStationaryCurrentFloat'] if self.LifingCurrentToFloatBool else [])
@@ -391,12 +506,14 @@ LiferClass.PrintingClassSkipKeyStrsList.extend(
 		'LifingPerturbationLambdaVariable',
 		'LifingPerturbationFrequencyFloat',
 		'LifingPerturbationMethodStr',
+		'LifingComputeNoisePerturbationBool',
 		'LifedSwigVariable',
 		'LifedStationaryCurrentFloat',
 		'LifedStationaryRateFloat',
-		'LifedPerturbationNullFloat',
+		'LifedPerturbationMeanNullFloat',
+		'LifedPerturbationNoiseNullFloat',
 		'LifedPerturbationMethodVariable',
-		'LifedPerturbationNullFloat=0.,',
+		'LifedPerturbationMeanNullFloat=0.,',
 		'LifedPerturbationMeanComplexVariable',
 		'LifedPerturbationNoiseComplexVariable',
 		'LifedInverseStationaryFunctionVariable'

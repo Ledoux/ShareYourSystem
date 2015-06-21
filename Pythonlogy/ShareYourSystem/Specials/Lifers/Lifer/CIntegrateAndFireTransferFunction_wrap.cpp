@@ -22696,6 +22696,37 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_CIntegrateAndFireTransferFunctionClass_myCsqrt(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  CIntegrateAndFireTransferFunctionClass *arg1 = (CIntegrateAndFireTransferFunctionClass *) 0 ;
+  std::complex< double > arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  std::complex< double > val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  std::complex< double > result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:CIntegrateAndFireTransferFunctionClass_myCsqrt",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_CIntegrateAndFireTransferFunctionClass, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "CIntegrateAndFireTransferFunctionClass_myCsqrt" "', argument " "1"" of type '" "CIntegrateAndFireTransferFunctionClass *""'"); 
+  }
+  arg1 = reinterpret_cast< CIntegrateAndFireTransferFunctionClass * >(argp1);
+  ecode2 = SWIG_AsVal_std_complex_Sl_double_Sg_(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "CIntegrateAndFireTransferFunctionClass_myCsqrt" "', argument " "2"" of type '" "std::complex< double >""'");
+  } 
+  arg2 = static_cast< std::complex< double > >(val2);
+  result = (arg1)->myCsqrt(arg2);
+  resultobj = SWIG_From_std_complex_Sl_double_Sg_(static_cast< std::complex<double> >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_CIntegrateAndFireTransferFunctionClass_Cexp(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   CIntegrateAndFireTransferFunctionClass *arg1 = (CIntegrateAndFireTransferFunctionClass *) 0 ;
@@ -24252,6 +24283,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"CIntegrateAndFireTransferFunctionClass_Cdiv", _wrap_CIntegrateAndFireTransferFunctionClass_Cdiv, METH_VARARGS, NULL},
 	 { (char *)"CIntegrateAndFireTransferFunctionClass_Conjg", _wrap_CIntegrateAndFireTransferFunctionClass_Conjg, METH_VARARGS, NULL},
 	 { (char *)"CIntegrateAndFireTransferFunctionClass_Csqrt", _wrap_CIntegrateAndFireTransferFunctionClass_Csqrt, METH_VARARGS, NULL},
+	 { (char *)"CIntegrateAndFireTransferFunctionClass_myCsqrt", _wrap_CIntegrateAndFireTransferFunctionClass_myCsqrt, METH_VARARGS, NULL},
 	 { (char *)"CIntegrateAndFireTransferFunctionClass_Cexp", _wrap_CIntegrateAndFireTransferFunctionClass_Cexp, METH_VARARGS, NULL},
 	 { (char *)"CIntegrateAndFireTransferFunctionClass_RCmul", _wrap_CIntegrateAndFireTransferFunctionClass_RCmul, METH_VARARGS, NULL},
 	 { (char *)"CIntegrateAndFireTransferFunctionClass_Cabs", _wrap_CIntegrateAndFireTransferFunctionClass_Cabs, METH_VARARGS, NULL},

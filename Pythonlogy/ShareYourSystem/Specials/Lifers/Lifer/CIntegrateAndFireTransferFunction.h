@@ -55,6 +55,7 @@ class CIntegrateAndFireTransferFunctionClass : public CToolClass
 		doublecomplex Cdiv(doublecomplex a, doublecomplex b); //defined in inline functions
 		doublecomplex Conjg(doublecomplex z); //defined in inline functions
 		doublecomplex Csqrt(doublecomplex z); //defined in inline functions
+		std::complex<double> myCsqrt(std::complex<double> z);
 		doublecomplex Cexp(doublecomplex a); //defined in inline functions
 		doublecomplex RCmul(double x, doublecomplex a); //defined in inline functions
 		double Cabs(doublecomplex z); //defined in inline functions

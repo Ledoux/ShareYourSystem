@@ -1470,6 +1470,9 @@ class CIntegrateAndFireTransferFunctionClass(CToolClass):
     def Csqrt(self, z):
         return _CIntegrateAndFireTransferFunction.CIntegrateAndFireTransferFunctionClass_Csqrt(self, z)
 
+    def myCsqrt(self, z):
+        return _CIntegrateAndFireTransferFunction.CIntegrateAndFireTransferFunctionClass_myCsqrt(self, z)
+
     def Cexp(self, a):
         return _CIntegrateAndFireTransferFunction.CIntegrateAndFireTransferFunctionClass_Cexp(self, a)
 

@@ -1278,6 +1278,7 @@ class LeakerClass(BaseClass):
 			)
 
 		#debug
+		'''
 		self.debug(
 			[
 				'We have aliased the BrianingNeurongroupDict',
@@ -1286,6 +1287,7 @@ class LeakerClass(BaseClass):
 					])
 			]
 		)
+		'''
 
 	def leakTrace(self):
 
@@ -1317,6 +1319,7 @@ class LeakerClass(BaseClass):
 		# then center the random pick around it
 
 		#debug
+		'''
 		self.debug(
 			[
 				"Do we care to init under the threshold ?",
@@ -1324,6 +1327,7 @@ class LeakerClass(BaseClass):
 				str(self.LeakedParentPopulationDeriveLeakerVariable.BrianedNeurongroupVariable)
 			]
 		)
+		'''
 
 		#Check
 		#if hasattr(
@@ -1333,11 +1337,13 @@ class LeakerClass(BaseClass):
 		if 'threshold' in self.LeakedParentPopulationDeriveLeakerVariable.BrianingNeurongroupDict:
 
 			#debug
+			'''
 			self.debug(
 				[
 					"Yes, we care to init under the threshold ?"
 				]
 			)
+			'''
 
 			#Check
 			if self.RecordKeyStr==self.LeakedParentPopulationDeriveLeakerVariable.LeakedSymbolStr:
@@ -1356,9 +1362,7 @@ class LeakerClass(BaseClass):
 					]
 				)
 				'''
-				
-
-
+			
 				#type
 				LeakedThresholdType=type(
 					self.LeakedParentPopulationDeriveLeakerVariable.LeakingThresholdVariable
@@ -1407,14 +1411,12 @@ class LeakerClass(BaseClass):
 		#
 
 		#debug
-		'''
 		self.debug(
 
 			[
 				'It is an Input level',
 			]
 		)
-		'''
 
 		#Check
 		if self.LeakingSymbolPrefixStr=="":
@@ -1463,16 +1465,26 @@ class LeakerClass(BaseClass):
 		'''
 
 		#type
-		LeakedWeightVariable=type(self.LeakingWeightVariable)
+		LeakedWeightType=type(self.LeakingWeightVariable)
+
+		#debug
+		'''
+		self.debug(
+			[
+				"The type of the input is specified ?",
+				"LeakedWeightType is "+str(LeakedWeightType)
+			]
+		)
+		'''
 
 		#Check
-		if LeakedWeightVariable!=None.__class__:
+		if LeakedWeightType!=None.__class__:
 
 			#init
 			self.LeakedClampStr="Variable"
 
 			#Check
-			if LeakedWeightVariable==str:
+			if LeakedWeightType==str:
 
 				#Check
 				if self.LeakingWeightVariable.startswith(
@@ -1564,7 +1576,7 @@ class LeakerClass(BaseClass):
 				"""
 
 			#Check
-			elif LeakedWeightVariable in [list,tuple]:
+			elif LeakedWeightType in [list,tuple]:
 
 				#Check
 				if type(self.LeakingWeightVariable[0])==str:
@@ -1652,7 +1664,7 @@ class LeakerClass(BaseClass):
 						self.setOperation()
 
 			#debug
-			"""
+			'''
 			self.debug(
 				[
 					'Is it a variable',
@@ -1661,13 +1673,12 @@ class LeakerClass(BaseClass):
 						])
 				]
 			)
-			"""
+			'''
 
 			#Check
 			if self.LeakedClampStr=="Variable":
 
 				#debug
-				"""
 				self.debug(
 					[
 						'It is a variable',
@@ -1679,20 +1690,19 @@ class LeakerClass(BaseClass):
 						'We define and add in the LeakedCurrentStr'
 					]
 				)
-				"""
 
 				#Check
 				if self.LeakingRecordBool==False:
 
 					#debug
-					"""
+					'''
 					self.debug(
 						[
 							'we skip record this input',
 							('self.',self,['LeakedSymbolStr'])
 						]
 					)
-					"""
+					'''
 
 					#append
 					if self.LeakedParentPopulationDeriveLeakerVariable.LeakedRecordSkipStrsList==None:
@@ -1958,6 +1968,18 @@ class LeakerClass(BaseClass):
 		#init
 		self.LeakedClampStr="Variable"
 
+		#debug
+		'''
+		self.debug(
+			[
+				"Look if it is a scalar interaction",
+				('self.',self,[
+						'LeakingWeightVariable'
+					])
+			]
+		)
+		'''
+
 		#Check
 		if type(self.LeakingWeightVariable)==str:
 
@@ -2092,6 +2114,16 @@ class LeakerClass(BaseClass):
 		# Say that the ConnectedToVariable has to record skip this variable
 		#
 
+		#debug
+		'''
+		self.debug(
+			[
+				"Do we have to record this interaction variable",
+				('self.',self,['LeakedClampStr'])
+			]
+		)
+		'''
+
 		#Check
 		if self.LeakedClampStr=="Variable":
 
@@ -2101,7 +2133,8 @@ class LeakerClass(BaseClass):
 				[
 					'It is a variable',
 					('self.',self,[
-							'LeakedSymbolStr'
+							'LeakedSymbolStr',
+							'LeakingRecordBool'
 						]),
 					'We append in the ConnectedToVariable',
 				]

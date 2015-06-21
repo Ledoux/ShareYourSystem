@@ -16,7 +16,7 @@ BrianingDebugVariable=25.
 MyPredicter=SYS.PredicterClass(
 	).mapSet(
 		{
-			'BrianingStepTimeFloat':0.05,
+			'BrianingStepTimeFloat':0.05, #(ms)
 			'-Populations':[
 				('|Sensor',{
 					#'BrianingDebugVariable':BrianingDebugVariable,
@@ -36,7 +36,7 @@ MyPredicter=SYS.PredicterClass(
 					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Fast':{
-							'BrianingDebugVariable':BrianingDebugVariable
+							#'BrianingDebugVariable':BrianingDebugVariable
 						}
 					},
 					'RecordingLabelVariable':[0,1]
@@ -52,12 +52,12 @@ MyPredicter=SYS.PredicterClass(
 		_AgentUnitsInt=2,
 		_JacobianVariable={
 			'ModeStr':"Track",
-			'ConstantTimeFloat':2. #(ms)
+			'ConstantTimeFloat':10. #(ms)
 		},
 		_CommandVariable=(
 			'#custom:#clock:25*ms',
 			[
-				"1.*mV*int(t==50*ms)",
+				"1.*mV*int(t>=25*ms)*int(t<75*ms)",
 				"-0.5*mV*int(t==25*ms)"
 				#"1.*mV",
 				#"-0.5*mV"
@@ -69,8 +69,8 @@ MyPredicter=SYS.PredicterClass(
 		#_DecoderVariable=[[5.,2.],[2.,5.]],
 		#_DecoderVariable=[[0.,5.],[5.,0.]],
 		#_DecoderVariable=[[0.,5.],[5.,0.]],
-		_DecoderVariable=[[5.,1.],[1.5,5.]],
-		_AgentTimeFloat=1.,
+		_DecoderVariable=[[7.,1.],[1.2,7.1]],
+		_AgentTimeFloat=10., #(ms)
 		_StationaryBool=True,
 		_InteractionStr="Rate"
 	).simulate(
@@ -96,7 +96,7 @@ MyPredicter.view(
 							'-Charts',
 							[
 								(
-									'|Sensor_*U',
+									'|Sensor_U',
 									{
 										'PyplotingLegendDict':{
 											'fontsize':10,
@@ -105,7 +105,7 @@ MyPredicter.view(
 									}
 								),
 								(
-									'|Agent_*U',
+									'|Agent_U',
 									{
 										'PyplotingLegendDict':{
 											'fontsize':10,
@@ -114,7 +114,7 @@ MyPredicter.view(
 									}
 								),
 								(
-									'|Decoder_*U',
+									'|Decoder_U',
 									{
 										'PyplotingLegendDict':{
 											'fontsize':10,

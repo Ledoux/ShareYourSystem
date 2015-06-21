@@ -636,7 +636,7 @@ class BrianerClass(BaseClass):
 		
 
 					#debug
-					"""
+					'''
 					self.debug(
 						[
 							'We set the tracers',
@@ -647,7 +647,7 @@ class BrianerClass(BaseClass):
 							#)
 						]
 					)
-					"""
+					'''
 
 					#map
 					self.BrianedTraceDeriveBrianersList=map(
@@ -1298,14 +1298,12 @@ class BrianerClass(BaseClass):
 				'''
 
 				#Check
-				if len(BrianedSamplesDeriveTeamer.ManagementDict)==0 or (
-					len(BrianedSamplesDeriveTeamer.ManagementDict)==1 and 'Default' in BrianedSamplesDeriveTeamer.ManagementDict
-				):
+				if 'Default' in BrianedSamplesDeriveTeamer.ManagementDict:
 
 					#manage
-					BrianedDefaultBrianer=BrianedSamplesDeriveTeamer.manage(
-						'Default',
-					).ManagedValueVariable
+					BrianedDefaultBrianer=BrianedSamplesDeriveTeamer.ManagementDict[
+						'Default'
+					]
 
 					#debug
 					'''
@@ -1601,6 +1599,21 @@ class BrianerClass(BaseClass):
 			#import
 			from brian2 import StateMonitor
 
+			#Check
+			if self.BrianedParentDeriveRecorderVariable.RecordKeyStr=="":
+				self.BrianedParentDeriveRecorderVariable.RecordKeyStr=self.BrianedParentDeriveRecorderVariable.ManagementTagStr
+
+			#debug
+			'''
+			self.debug(
+				[
+					"We init the StateMonitor",
+					"self.BrianedParentDeriveRecorderVariable.RecordKeyStr is "+str(
+						self.BrianedParentDeriveRecorderVariable.RecordKeyStr)
+				]
+			)
+			'''
+			
 			#init
 			self.BrianedStateMonitorVariable=StateMonitor(
 					self.BrianedParentPopulationDeriveBrianerVariable.BrianedNeurongroupVariable

@@ -110,8 +110,11 @@ double CIntegrateAndFireTransferFunctionClass::getLifStationaryRate()
 		intlowbound=DoubleDict["IntegralLowerBound"];
 
 		N=10000;
+
 		//algorithm integration
 		w=0.;
+
+		//Check
 		if(intuppbound<-100.&&intlowbound<-100.) 
 		{
 			w=log(intlowbound/intuppbound
@@ -222,6 +225,108 @@ double CIntegrateAndFireTransferFunctionClass::getLifPerturbationNullRate(
 }
 
 /***Brunel methods****/
+
+/*
+void new_u01(fcomplex lm, double y, fcomplex *seriesu, int *indic) {
+  fcomplex ah,sqom,series,deriv,asymptoty,asymptotom,ut;
+  double alpha;
+
+  ah=RCmul(0.5,lm);
+  sqom=RCmul(sqrt(2.),Csqrt(lm));
+  
+  if(Cabs(lm)<10.5 && y>-3.5) { 
+    *indic=1;
+    onefone(ah,HALF,Complex(y*y,0.),&series,&deriv);
+    ut=RCmul(0.5,Cmul(series,gsurg(ah,Cadd(HALF,ah))));
+    onefone(Cadd(HALF,ah),Cadd(ONE,HALF),Complex(y*y,0.),&series,&deriv);
+    ut=Cadd(ut,RCmul(y,series));
+    ut=RCmul(2.*SQPI,Cdiv(ut,gsurg(ah,ONE)));
+    *seriesu=ut;
+  }
+  else {
+    if(y<-3.5-0.15*(Cabs(lm)-10.5)) {
+      asymptoty=RCmul(pow(fabs(y),lm.r),Complex(cos(lm.i*log(fabs(y))),-sin(lm.i*log(fabs(y)))));
+      correctionlargey(ah,HALF,Complex(y*y,0.),&series);
+      asymptoty=Cmul(asymptoty,series);
+    }
+    if(y>-3.5-0.25*(Cabs(lm)-10.5)) { 
+      asymptotom=RCmul(y,sqom);
+      asymptotom=Cadd(asymptotom,RCmul(pow(y,3)/6.-y/2.,Cdiv(ONE,sqom)));
+      asymptotom=Cadd(asymptotom,RCmul(-0.24*pow(y,2),Cdiv(ONE,Cmul(sqom,sqom))));
+      asymptotom=Cadd(asymptotom,RCmul(-pow(y,5)/40.+pow(y,3)/12.+y/8.,Cdiv(ONE,Cmul(Cmul(sqom,sqom),sqom))));
+      asymptotom=Cadd(asymptotom,RCmul(pow(y,4)/8.-pow(y,2)/4.,Cdiv(ONE,Cmul(Cmul(sqom,sqom),Cmul(sqom,sqom)))));
+      asymptotom=RCmul(SQPI*exp(0.5*y*y),Cexp(asymptotom));
+      asymptotom=Cdiv(asymptotom,gsurg(Cadd(HALF,ah),ONE));
+    }
+    if(y<-3.5-0.25*(Cabs(lm)-10.5)) {
+      *indic=2;
+      *seriesu=asymptoty;
+    }
+    else if(y>-3.5-0.15*(Cabs(lm)-10.5)) { 
+      *indic=3;
+      *seriesu=asymptotom;
+    }
+    else {
+      *indic=4;
+      alpha=-((y+3.5)/(Cabs(lm)-10.5)+0.15)/0.1;
+      *seriesu=Cadd(RCmul(alpha,asymptoty),RCmul(1.-alpha,asymptotom));
+    }
+  }
+}
+
+void new_u23(fcomplex lm, double y, fcomplex *seriesu, int *indic) { 
+  fcomplex ah,sqom,series,deriv,asymptoty,asymptotom,ut,prefac;
+  double alpha;
+
+  ah=RCmul(0.5,lm);
+  sqom=RCmul(sqrt(2.),Csqrt(lm));
+  
+  if(Cabs(lm)<10.5 && y>-3.5) {
+    *indic=1;
+    onefone(Cadd(ONE,ah),Cadd(HALF,ONE),Complex(y*y,0.),&series,&deriv);
+    ut=Cmul(RCmul(y,lm),Cmul(series,gsurg(ah,Cadd(HALF,ah))));
+    onefone(Cadd(HALF,ah),HALF,Complex(y*y,0.),&series,&deriv);
+    ut=Cadd(ut,series);
+    ut=RCmul(2.*SQPI,Cdiv(ut,gsurg(ah,ONE)));
+    *seriesu=ut;
+  }
+  else {
+    if(y<-3.5-0.15*(Cabs(lm)-10.5)) { 
+      asymptoty=RCmul(pow(fabs(y),lm.r),Complex(cos(lm.i*log(fabs(y)))/fabs(y),-sin(lm.i*log(fabs(y)))/fabs(y)));
+      correctionlargey(Cadd(ah,ONE),Cadd(HALF,ONE),Complex(y*y,0.),&series);
+      asymptoty=Cmul(asymptoty,series);
+      asymptoty=Cmul(asymptoty,lm);
+    }
+    if(y>-3.5-0.25*(Cabs(lm)-10.5)) {
+      asymptotom=RCmul(y,sqom);
+      asymptotom=Cadd(asymptotom,RCmul(pow(y,3)/6.-y/2.,Cdiv(ONE,sqom)));
+      asymptotom=Cadd(asymptotom,RCmul(-0.24*pow(y,2),Cdiv(ONE,Cmul(sqom,sqom))));
+      asymptotom=Cadd(asymptotom,RCmul(-pow(y,5)/40.+pow(y,3)/12.+y/8.,Cdiv(ONE,Cmul(Cmul(sqom,sqom),sqom))));
+      asymptotom=Cadd(asymptotom,RCmul(pow(y,4)/8.-pow(y,2)/4.,Cdiv(ONE,Cmul(Cmul(sqom,sqom),Cmul(sqom,sqom)))));
+      asymptotom=RCmul(SQPI*exp(0.5*y*y),Cexp(asymptotom));
+      prefac=Cadd(sqom,Complex(y,0.));
+      prefac=Cadd(prefac,RCmul(0.5*y*y-0.5,Cdiv(ONE,sqom)));
+      prefac=Cadd(prefac,RCmul(-0.48*y,Cdiv(ONE,Cmul(sqom,sqom))));
+      prefac=Cadd(prefac,RCmul(-pow(y,4)/8.+pow(y,2)/4.+1./8.,Cdiv(ONE,Cmul(Cmul(sqom,sqom),sqom))));
+      prefac=Cadd(prefac,RCmul(pow(y,3)/2.-y/2.,Cdiv(ONE,Cmul(Cmul(sqom,sqom),Cmul(sqom,sqom)))));
+      asymptotom=Cdiv(Cmul(prefac,asymptotom),gsurg(Cadd(HALF,ah),ONE));
+    }
+    if(y<-3.5-0.25*(Cabs(lm)-10.5)) { 
+      *indic=2;
+      *seriesu=asymptoty;
+    }
+    else if(y>-3.5-0.15*(Cabs(lm)-10.5)) {
+      *indic=3;
+      *seriesu=asymptotom;
+    }
+    else { 
+      *indic=4;
+      alpha=-((y+3.5)/(Cabs(lm)-10.5)+0.15)/0.1;
+      *seriesu=Cadd(RCmul(alpha,asymptoty),RCmul(1.-alpha,asymptotom));
+    }
+  }
+}
+*/
 
 /***all complex function to compute RLIF***/
 doublecomplex CIntegrateAndFireTransferFunctionClass::old_gsurg(doublecomplex xx,doublecomplex yy) 
@@ -439,10 +544,6 @@ void CIntegrateAndFireTransferFunctionClass::old_correctionlargey(doublecomplex 
 	}
 }
 
-
-
-
-
 void CIntegrateAndFireTransferFunctionClass::correctionlargey(std::complex<double> a, std::complex<double> c, std::complex<double> z, std::complex<double> *series) 
 {
 	static int n;
@@ -471,15 +572,37 @@ void CIntegrateAndFireTransferFunctionClass::old_u01(double omc, double y, doubl
 	
 
 	//Debug
-	cout<<"Old Brunel omc "<<omc<<endl;
+	/*
+	cout<<"Old BRUNEL u01 omc "<<omc<<endl;
 	cout<<"ah is "<<ah.r<<" "<<ah.i<<endl;
+	cout<<"y is "<<y<<endl;
 	cout<<endl;
+	*/
 
+	//Check
 	if(omc<10.5 && y>-3.5) 
 	{
+
+		//Debug
+		/*
+		cout<<"old BRUNEL u01"<<endl;
+		cout<<"We use normal series"<<endl;
+		cout<<endl;
+		*/
+
 		*indic=1;
 		old_onefone(ah,HALF,Complex(y*y,0.),&series,&deriv);
 		ut=RCmul(0.5,Cmul(series,old_gsurg(ah,Cadd(HALF,ah))));
+
+		//Debug
+		/*
+		cout<<"BRUNEL u01 after first onefone"<<endl;
+		cout<<"series is "<<series.r<<" "<<series.i<<endl,
+		cout<<"ut is "<<ut.r<<" "<<ut.i<<endl;
+		cout<<endl;
+		*/
+
+		//compute
 		old_onefone(Cadd(HALF,ah),Cadd(ONE,HALF),Complex(y*y,0.),&series,&deriv);
 		ut=Cadd(ut,RCmul(y,series));
 		ut=RCmul(2.*SQPI,Cdiv(ut,old_gsurg(ah,ONE)));
@@ -489,20 +612,41 @@ void CIntegrateAndFireTransferFunctionClass::old_u01(double omc, double y, doubl
 	{
 		if(y<-3.5-0.15*(omc-10.5)) 
 		{ 
+			//compute
 			asymptoty=Complex(cos(omc*log(fabs(y))),-sin(omc*log(fabs(y))));
-			//cout<<"WTF real"<<asymptoty.r<<" "<<asymptoty.i<<endl;
+
+			//Debug
+			/*
+			cout<<"old BRUNEL u01 first part large y expansion"<<endl;
+			cout<<"asymptoty is "<<asymptoty.r<<" "<<asymptoty.i<<endl,
+			cout<<endl;
+			*/
+
+			//compute
 			old_correctionlargey(ah,HALF,Complex(y*y,0.),&series);
 			asymptoty=Cmul(asymptoty,series);
+
+			//Debug
+			/*
+			cout<<"old BRUNEL u01 second part large y expansion"<<endl;
+			cout<<"asymptoty is "<<asymptoty.r<<" "<<asymptoty.i<<endl,
+			cout<<endl;
+			*/
+
 		}
 		if(y>-3.5-0.25*(omc-10.5)) 
 		{
 			//set
-			sqom=Complex(sqrt(omc),sqrt(omc));
+			//sqom=RCmul(sqrt(2.),Complex(0.,omc));
+			sqom=RCmul(sqrt(2.),Csqrt(Complex(0.,omc)));
 
 			//Debug
-			cout<<"old Brunel sqom is "<<sqom.r<<" "<<sqom.i<<endl;
+			/*
+			cout<<"old BRUNEL u01 large omega expansion "<<endl;
+			cout<<"sqom is "<<sqom.r<<" "<<sqom.i<<endl;
 			cout<<endl;
-
+			*/
+			
 			//set
 			asymptotom=RCmul(y,sqom);
 			asymptotom=Cadd(asymptotom,RCmul(pow(y,3)/6.-y/2.,Cdiv(ONE,sqom)));
@@ -530,8 +674,9 @@ void CIntegrateAndFireTransferFunctionClass::old_u01(double omc, double y, doubl
 	}
 }
 
+
 void CIntegrateAndFireTransferFunctionClass::u01(
-	std::complex<double> omc, 
+	std::complex<double> lmt, 
 	double y, 
 	std::complex<double> *seriesu, 
 	int *indic
@@ -542,23 +687,30 @@ void CIntegrateAndFireTransferFunctionClass::u01(
   	static double alpha;
 
   	//Debug
-  	cout<<"omc is "<<omc.real()<<" "<<omc.imag()<<endl;
+  	/*
+  	cout<<"ERWAN u01 lmt is "<<lmt.real()<<" "<<lmt.imag()<<endl;
   	cout<<"y is "<<y<<" "<<endl;
   	cout<<endl;
+	*/
 
   	//set
-	//ah=getComplex(-0.5*omc.imag(),0.5*omc.real());
-	ah=0.5*omc;
+	//ah=getComplex(-0.5*lmt.imag(),0.5*lmt.real());
+	ah=0.5*lmt;
 	
 	//Debug
+	/*
+	cout<<"ERWAN u01 lmt "<<lmt.real()<<" "<<lmt.imag()<<endl;
   	cout<<"ah is "<<ah.real()<<" "<<ah.imag()<<endl;
+  	cout<<"y is "<<y<<endl;
   	cout<<endl;
+	*/
 
 	//Check
-	if(abs(omc)<10.5 && y>-3.5)
+	if(abs(lmt)<10.5 && y>-3.5)
 	{
 		//Debug
 		/*
+		cout<<"ERWAN u01"<<endl;
 		cout<<"We use normal series"<<endl;
 		cout<<endl;
 		*/
@@ -576,7 +728,7 @@ void CIntegrateAndFireTransferFunctionClass::u01(
 
 		//Debug
 		/*
-		cout<<"after first onefone"<<endl;
+		cout<<"ERWAN u01 after first onefone"<<endl;
 		cout<<"series is "<<series.real()<<" "<<series.imag()<<endl,
 		cout<<"ut is "<<ut.real()<<" "<<ut.imag()<<endl;
 		cout<<endl;
@@ -605,28 +757,60 @@ void CIntegrateAndFireTransferFunctionClass::u01(
 
 	}
 	else {
-		if(y<-3.5-0.15*(abs(omc)-10.5))
+
+
+		if(y<-3.5-0.15*(abs(lmt)-10.5))
 		{ 	
+
 			/****** large y expansion *****/
-			asymptoty=exp(-getComplex(0.,1.)*log(fabs(y))*omc);
+
+			//asymptoty=Complex(cos(lmt*log(fabs(y))),-sin(lmt*log(fabs(y))));
+			//asymptoty=exp(-getComplex(0.,1.)*log(fabs(y))*lmt);
+			asymptoty=pow(
+				fabs(y),lmt.real()
+			)*getComplex(
+				cos(lmt.imag()*log(fabs(y))),
+				-sin(lmt.imag()*log(fabs(y)))
+			);
+			
+			//Debug
+			/*
+			cout<<"ERWAN u01 first part large y expansion"<<endl;
+			cout<<"asymptoty is "<<asymptoty.real()<<" "<<asymptoty.imag()<<endl,
+			cout<<endl;
+			*/
+
+			//compute
 			correctionlargey(ah,0.5,std::complex<double>(y*y,0.),&series);
 			asymptoty*=series;
+
+			//Debug
+			/*
+			cout<<"ERWAN u01 second part large y expansion"<<endl;
+			cout<<"asymptoty is "<<asymptoty.real()<<" "<<asymptoty.imag()<<endl,
+			cout<<endl;
+			*/
 		}
-		if(y>-3.5-0.25*(abs(omc)-10.5))
+		if(y>-3.5-0.25*(abs(lmt)-10.5))
 		{ 
 
 			//Debug
-			cout<<"We use large omega expansion"<<endl;
-			cout<<endl;
+			//cout<<"We use large omega expansion"<<endl;
+			//cout<<endl;
 
 			//set
-			sqom=getComplex(sqrt(abs(omc)),sqrt(abs(omc)));
-			//sqom=sqrt(abs(omc))*exp(getComplex(0.,arg(omc)/2.));
+			//sqom=getComplex(sqrt(abs(lmt)),sqrt(abs(lmt)));
+			sqom=sqrt(2.)*myCsqrt(lmt);
+			//sqom=getComplex(sqrt(abs(lmt)),sqrt(abs(lmt)));
+			//sqom=sqrt(abs(lmt))*exp(getComplex(0.,arg(lmt)/2.));
 			//sqom=_sqom+getComplex(0.,1.)*_sqom;
 
 			//Debug
+			/*
+			cout<<"ERWAN u01 large omega expansion "<<endl;
 			cout<<"sqom is "<<sqom.real()<<" "<<sqom.imag()<<endl;
 			cout<<endl;
+			*/
 
 			/******* large omega expansion *********/
 			asymptotom=y*sqom;
@@ -637,13 +821,15 @@ void CIntegrateAndFireTransferFunctionClass::u01(
 			asymptotom=SQPI*exp(0.5*y*y)*exp(asymptotom);
 			asymptotom/=gsurg(0.5+ah,1.);
 		}
-		if(y<-3.5-0.25*(abs(omc)-10.5))
+
+
+		if(y<-3.5-0.25*(abs(lmt)-10.5))
 		{ 
 			/****** large y expansion *****/
 			*indic=2;
 			*seriesu=asymptoty;
 		}
-		else if(y>-3.5-0.15*(abs(omc)-10.5))
+		else if(y>-3.5-0.15*(abs(lmt)-10.5))
 		{
 			 /******* large omega expansion *********/
 			*indic=3;
@@ -652,7 +838,7 @@ void CIntegrateAndFireTransferFunctionClass::u01(
 		else { 
 			/****** interpolate between large y and large omega expansions ***/
 			*indic=4;
-			alpha=-((y+3.5)/(abs(omc)-10.5)+0.15)/0.1;
+			alpha=-((y+3.5)/(abs(lmt)-10.5)+0.15)/0.1;
 			*seriesu=alpha*asymptoty+(1.-alpha)*asymptotom;
 		}
 	}
@@ -663,7 +849,16 @@ void CIntegrateAndFireTransferFunctionClass::old_u23(double omc, double y, doubl
 	static doublecomplex ah,sqom,series,deriv,asymptoty,asymptotom,ut,prefac;
   	static double alpha;
 	ah=Complex(0.,0.5*omc);
-	sqom=Complex(sqrt(omc),sqrt(omc));	
+
+	//Debug
+	/*
+	cout<<"old BRUNEL u23 omc "<<omc<<endl;
+  	cout<<"ah is "<<ah.r<<" "<<ah.i<<endl;
+  	cout<<"y is "<<y<<endl;
+  	cout<<endl;
+  	*/
+
+  	//Check
 	if(omc<10.5 && y>-3.5)
  	{
 		*indic=1;
@@ -677,14 +872,31 @@ void CIntegrateAndFireTransferFunctionClass::old_u23(double omc, double y, doubl
 	else {
 		if(y<-3.5-0.15*(omc-10.5)) 
 		{
+			//compute
 			asymptoty=Complex(cos(omc*log(fabs(y)))/fabs(y),-sin(omc*log(fabs(y)))/fabs(y));
+			
+			//Debug
+			/*
+			cout<<"old BRUNEL u23 second part large y expansion"<<endl;
+			cout<<"asymptoty is "<<asymptoty.r<<" "<<asymptoty.i<<endl,
+			cout<<endl;
+			*/
+
 			old_correctionlargey(Cadd(ah,ONE),Cadd(HALF,ONE),Complex(y*y,0.),&series);
 			asymptoty=Cmul(asymptoty,series);
 			asymptoty=Cmul(asymptoty,Complex(0.,omc));
-			//cout<<"WTF u23 real"<<asymptoty.r<<" "<<asymptoty.i<<endl;
+
+			//Debug
+			/*
+			cout<<"old BRUNEL u23 second part large y expansion"<<endl;
+			cout<<"asymptoty is "<<asymptoty.r<<" "<<asymptoty.i<<endl,
+			cout<<endl;
+			*/
+
 		}
 		if(y>-3.5-0.25*(omc-10.5)) 
 		{ 
+			sqom=Complex(sqrt(omc),sqrt(omc));	
 			asymptotom=RCmul(y,sqom);
 			asymptotom=Cadd(asymptotom,RCmul(pow(y,3)/6.-y/2.,Cdiv(ONE,sqom)));
 			asymptotom=Cadd(asymptotom,RCmul(-0.24*pow(y,2),Cdiv(ONE,Cmul(sqom,sqom))));
@@ -716,19 +928,27 @@ void CIntegrateAndFireTransferFunctionClass::old_u23(double omc, double y, doubl
 	}
 }
 
-void CIntegrateAndFireTransferFunctionClass::u23(std::complex<double> omc, double y, std::complex<double> *seriesu, int *indic)
+void CIntegrateAndFireTransferFunctionClass::u23(std::complex<double> lmt, double y, std::complex<double> *seriesu, int *indic)
 { 	
 	static std::complex<double> ah,_sqom,sqom,series,deriv,asymptoty,asymptotom,ut,prefac;
   	static double alpha;
-	//ah=getComplex(-0.5*omc.imag(),0.5*omc.real());
-	ah=0.5*omc;
-	
-	if(abs(omc)<10.5 && y>-3.5)
+	//ah=getComplex(-0.5*lmt.imag(),0.5*lmt.real());
+	ah=0.5*lmt;
+
+	//Debug
+	/*
+	cout<<"ERWAN u23 lmt "<<lmt.real()<<" "<<lmt.imag()<<endl;
+  	cout<<"ah is "<<ah.real()<<" "<<ah.imag()<<endl;
+  	cout<<"y is "<<y<<endl;
+  	cout<<endl;
+	*/
+
+	if(abs(lmt)<10.5 && y>-3.5)
 	{
 	 	/***** use normal series ******/
 		*indic=1;
 		onefone(1.+ah,1.5,std::complex<double>(y*y,0.),&series,&deriv);
-		ut=y*omc*series*gsurg(ah,0.5+ah);
+		ut=y*lmt*series*gsurg(ah,0.5+ah);
 
 		onefone(0.5+ah,0.5,std::complex<double>(y*y,0.),&series,&deriv);
 		ut+=series;
@@ -737,7 +957,7 @@ void CIntegrateAndFireTransferFunctionClass::u23(std::complex<double> omc, doubl
 
 		/*
 		old_onefone(Cadd(ONE,ah),Cadd(HALF,ONE),Complex(y*y,0.),&series,&deriv);
-		ut=Cmul(Complex(0.,omc*y),Cmul(series,old_gsurg(ah,Cadd(HALF,ah))));
+		ut=Cmul(Complex(0.,lmt*y),Cmul(series,old_gsurg(ah,Cadd(HALF,ah))));
 		old_onefone(Cadd(HALF,ah),HALF,Complex(y*y,0.),&series,&deriv);
 		ut=Cadd(ut,series);
 		ut=RCmul(2.*SQPI,Cdiv(ut,old_gsurg(ah,ONE)));
@@ -745,20 +965,42 @@ void CIntegrateAndFireTransferFunctionClass::u23(std::complex<double> omc, doubl
 	}
 	else 
 	{
-		if(y<-3.5-0.15*(abs(omc)-10.5))
+		if(y<-3.5-0.15*(abs(lmt)-10.5))
  		{ 
 			/****** large y expansion *****/
-			asymptoty=exp(-getComplex(0.,1.)*log(fabs(y))*omc)/fabs(y);
+			asymptoty=pow(
+				fabs(y),lmt.real()
+			)*getComplex(
+				cos(lmt.imag()*log(fabs(y)))/fabs(y),
+				-sin(lmt.imag()*log(fabs(y)))/fabs(y)
+			);
+
+			//Debug
+			/*
+			cout<<"ERWAN u23 first part large y expansion"<<endl;
+			cout<<"asymptoty is "<<asymptoty.real()<<" "<<asymptoty.imag()<<endl,
+			cout<<endl;
+			*/
+
 			correctionlargey(ah+1.,1.5,std::complex<double>(y*y,0.),&series);
 			asymptoty*=series;
-			asymptoty*=std::complex<double>(0.,abs(omc));
+			asymptoty*=std::complex<double>(0.,abs(lmt));
+
+			//Debug
+			/*
+			cout<<"ERWAN u23 second part large y expansion"<<endl;
+			cout<<"asymptoty is "<<asymptoty.real()<<" "<<asymptoty.imag()<<endl,
+			cout<<endl;
+			*/
+
 		}
-		if(y>-3.5-0.25*(abs(omc)-10.5))
+		if(y>-3.5-0.25*(abs(lmt)-10.5))
 		{
 
 			//set
-			sqom=getComplex(sqrt(abs(omc)),sqrt(abs(omc)));
-			//_sqom=sqrt(abs(omc))*exp(getComplex(0.,arg(omc)/2.));
+			//sqom=getComplex(sqrt(abs(lmt)),sqrt(abs(lmt)));
+			sqom=sqrt(2.)*myCsqrt(lmt);
+			//_sqom=sqrt(abs(lmt))*exp(getComplex(0.,arg(lmt)/2.));
 			//sqom=_sqom+getComplex(0.,1.)*_sqom;
 
 			/******* large omega expansion *********/
@@ -775,12 +1017,12 @@ void CIntegrateAndFireTransferFunctionClass::u23(std::complex<double> omc, doubl
 			prefac+=(pow(y,3)/2.-y/2.)/(sqom*sqom*sqom*sqom);
 			asymptotom*=prefac/gsurg(0.5+ah,1.);
 		}
-		if(y<-3.5-0.25*(abs(omc)-10.5)) {
+		if(y<-3.5-0.25*(abs(lmt)-10.5)) {
 			 /****** large y expansion *****/
 			*indic=2;
 			*seriesu=asymptoty;
 		}
-		else if(y>-3.5-0.15*(abs(omc)-10.5)) {
+		else if(y>-3.5-0.15*(abs(lmt)-10.5)) {
 			/******* large omega expansion *********/
 			*indic=3;
 			*seriesu=asymptotom;
@@ -788,7 +1030,7 @@ void CIntegrateAndFireTransferFunctionClass::u23(std::complex<double> omc, doubl
 		else { 
 			/****** interpolate between large y and large omega expansions ***/
 			*indic=4;
-			alpha=-((y+3.5)/(abs(omc)-10.5)+0.15)/0.1;
+			alpha=-((y+3.5)/(abs(lmt)-10.5)+0.15)/0.1;
 			*seriesu=(alpha*asymptoty)+(1.-alpha)*asymptotom;
 		}
 	}
@@ -827,11 +1069,12 @@ doublecomplex CIntegrateAndFireTransferFunctionClass::RLIF(double _omega,int i)
 	denominator=Csub(u01_yt,u01_yr);
 
 	//Debug
+	/*
 	cout<<"old BRUNEL u23_yt Complex "<<u23_yt.r<<" "<<u23_yt.i<<" "<<endl;
 	cout<<"old BRUNEL u23_yr Complex "<<u23_yr.r<<" "<<u23_yr.i<<" "<<endl;
 	cout<<"old BRUNEL u01_yt Complex "<<u01_yt.r<<" "<<u01_yt.i<<" "<<endl;
 	cout<<"old BRUNEL u01_yr Complex "<<u01_yr.r<<" "<<u01_yr.i<<" "<<endl;
-		
+	*/
 
 	/****** LIF perturbation*****/
 	hypergeo=Cdiv(numerator,denominator);
@@ -847,8 +1090,10 @@ doublecomplex CIntegrateAndFireTransferFunctionClass::RLIF(double _omega,int i)
 	//cout<<"rlif CState Real "<<rlif.r<<" "<<rlif.i<<" "<<indich<<endl;
 
 	//Debug
+	/*
 	cout<<"old BRUNEL mean is "<<rlif.r<<" "<<rlif.i<<endl;
 	cout<<endl;
+	*/
 
 	//return
 	return rlif;
@@ -862,22 +1107,21 @@ void CIntegrateAndFireTransferFunctionClass::setBrunelLifPerturbationRate(
 )
 {
 	static std::complex<double> u01_yt,u01_yr,u23_yt,u23_yr;
-	static std::complex<double> omt,series,mean,noise;
+	static std::complex<double> lmt,series,mean,noise;
 	static double rate0,yup,ylow;
 	static int indicator,indict,indich;
 
-	//call the brunel old one
-	RLIF(lambda.imag(),0);
-
 	//set
-	omt=DoubleDict["ConstantTime"]*lambda;
+	lmt=DoubleDict["ConstantTime"]*lambda;
 		
 	/***** omega nul exception*****/
-	if(abs(omt)==0.)
+	if(abs(lmt)==0.)
 	{
 		//print
-		cout<<"BRUNEL omt=0 "<<endl;
-		
+		/*
+		cout<<"BRUNEL lmt=0 "<<endl;
+		*/
+
 		//compute
 		DoubleDict["PerturbationMean"]=getLifPerturbationNullRate();
 		DoubleDict["PerturbationNoise"]=getLifPerturbationNullRate("VoltageNoise");
@@ -885,40 +1129,45 @@ void CIntegrateAndFireTransferFunctionClass::setBrunelLifPerturbationRate(
 	else
 	{
 		//set
-		ylow=DoubleDict["IntegralLowerBound"];
 		yup=DoubleDict["IntegralUpperBound"];
+		ylow=DoubleDict["IntegralLowerBound"];
+
+		//call the brunel old one
+		RLIF(lambda.imag(),0);
 
 		/****** U23 numerators*****/
 
 		/***** numerator  numu *****/
-		u23(omt,yup,&series,&indicator);
+		u23(lmt,yup,&series,&indicator);
 		u23_yt=series;
 		indict=indicator;
-		u23(omt,ylow,&series,&indicator);
+		u23(lmt,ylow,&series,&indicator);
 		u23_yr=series;
 		indich=indicator;
 		
 		/****** U01 denominators*****/
-		u01(omt,yup,&series,&indicator);
+		u01(lmt,yup,&series,&indicator);
 		u01_yt=series;
 		indict=indicator;
-		u01(omt,ylow,&series,&indicator);
+		u01(lmt,ylow,&series,&indicator);
 		u01_yr=series;
 		indich=indicator;
 
 		//print
-		cout<<"BRUNEL u23_yt Complex "<<u23_yt.real()<<" "<<u23_yt.imag()<<" "<<endl;
-		cout<<"BRUNEL u23_yr Complex "<<u23_yr.real()<<" "<<u23_yr.imag()<<" "<<endl;
-		cout<<"BRUNEL u01_yt Complex "<<u01_yt.real()<<" "<<u01_yt.imag()<<" "<<endl;
-		cout<<"BRUNEL u01_yr Complex "<<u01_yr.real()<<" "<<u01_yr.imag()<<" "<<endl;
-			
+		/*
+		cout<<"ERWAN u23_yt Complex "<<u23_yt.real()<<" "<<u23_yt.imag()<<" "<<endl;
+		cout<<"ERWAN u23_yr Complex "<<u23_yr.real()<<" "<<u23_yr.imag()<<" "<<endl;
+		cout<<"ERWAN u01_yt Complex "<<u01_yt.real()<<" "<<u01_yt.imag()<<" "<<endl;
+		cout<<"ERWAN u01_yr Complex "<<u01_yr.real()<<" "<<u01_yr.imag()<<" "<<endl;
+		*/
+
 		/******* compute stationary maybe*************/
 		if(IntDict["ComputeStationary"]==1){
 			DoubleDict["StationaryRate"]=getLifStationaryRate();
 		}
 		
 		/******* build mean ***********/
-		mean=(u23_yt-u23_yr)/((1.+omt)*(u01_yt-u01_yr));
+		mean=(u23_yt-u23_yr)/((1.+lmt)*(u01_yt-u01_yr));
 
 		//normalize
 		mean*=DoubleDict[
@@ -928,25 +1177,34 @@ void CIntegrateAndFireTransferFunctionClass::setBrunelLifPerturbationRate(
 			];
 		
 		//Debug
+		/*
 		cout<<"BRUNEL mean is "<<mean.real()<<" "<<mean.imag()<<endl;
 		cout<<endl;
+		*/
 
-		/******* build noise ***********/
-		noise=yup*u23_yt-ylow*u23_yr;
-		noise/=u01_yt-u01_yr;
-		noise+=omt;
-		noise*=DoubleDict[
-			"StationaryRate"
-		]/(
-			DoubleDict["VoltageNoise"]*DoubleDict["VoltageNoise"]
-		);
-		noise/=(2.+omt);
-		//cout<<"BRUNEL rlif Complex "<<OutputDict["PerturbationMean"].real()<<" "<<OutputDict["PerturbationMean"].imag()<<" "<<indich<<endl;
-	
 		/*** set ****/
 		ComplexDict["PerturbationMean"]=mean;
-		ComplexDict["PerturbationNoise"]=noise;
 
+		/******* build noise ***********/
+		if(IntDict["ComputeNoise"]==1){
+
+			/*** compute ****/
+			noise=yup*u23_yt-ylow*u23_yr;
+			noise/=u01_yt-u01_yr;
+			noise+=lmt;
+			noise*=DoubleDict[
+				"StationaryRate"
+			]/(
+				DoubleDict["VoltageNoise"]*DoubleDict["VoltageNoise"]
+			);
+			noise/=(2.+lmt);
+			//cout<<"BRUNEL rlif Complex "<<OutputDict["PerturbationMean"].real()<<" "<<OutputDict["PerturbationMean"].imag()<<" "<<indich<<endl;
+		
+			/*** set ****/
+			ComplexDict["PerturbationNoise"]=noise;
+
+		}
+	
 	}
 	
 	//cout<<"BRUNEL rate Complex "<<mu_rate.real()<<" "<<mu_rate.imag()<<endl;
@@ -1103,25 +1361,28 @@ std::complex<double> CIntegrateAndFireTransferFunctionClass::phi_t_rka(double y,
 
 void CIntegrateAndFireTransferFunctionClass::setHakimLifPerturbationRate(std::complex<double> lambda){
 	
-	static std::complex<double> omt,mean,noise;
+	static std::complex<double> lmt,mean,noise;
 	static double rate0;
-	//omt=getComplex(0.,1.)*DoubleDict["ConstantTime"]*lambda;
-	omt=DoubleDict["ConstantTime"]*lambda;
+	//lmt=getComplex(0.,1.)*DoubleDict["ConstantTime"]*lambda;
+	lmt=DoubleDict["ConstantTime"]*lambda;
 
 	/****** hypergeo compute*****/
 	std::complex<double> u23_yt;
 	std::complex<double> u01_yt=phi_t_rka(
-		DoubleDict["IntegralUpperBound"],omt,u23_yt
+		DoubleDict["IntegralUpperBound"],lmt,u23_yt
 	);
 	std::complex<double> u23_yr;
 	std::complex<double> u01_yr=phi_t_rka(
-		DoubleDict["IntegralLowerBound"],omt,u23_yr
+		DoubleDict["IntegralLowerBound"],lmt,u23_yr
 	);
 
+	//print
+	/*
 	cout<<"HAKIM u23_yt Complex "<<u23_yt.real()<<" "<<u23_yt.imag()<<" "<<endl;
 	cout<<"HAKIM u23_yr Complex "<<u23_yr.real()<<" "<<u23_yr.imag()<<" "<<endl;
 	cout<<"HAKIM u01_yt Complex "<<u01_yt.real()<<" "<<u01_yt.imag()<<" "<<endl;
 	cout<<"HAKIM u01_yr Complex "<<u01_yr.real()<<" "<<u01_yr.imag()<<" "<<endl;
+	*/
 
 	/******* compute stationary*************/
 	if(IntDict["ComputeStationary"]==1){
@@ -1129,7 +1390,7 @@ void CIntegrateAndFireTransferFunctionClass::setHakimLifPerturbationRate(std::co
 	}
 
 	/**** build mean ***/
-	mean=(u23_yt-u23_yr)/((1.+omt)*(u01_yt-u01_yr));
+	mean=(u23_yt-u23_yr)/((1.+lmt)*(u01_yt-u01_yr));
 
 	//normalize
 	mean*=DoubleDict[
@@ -1139,20 +1400,30 @@ void CIntegrateAndFireTransferFunctionClass::setHakimLifPerturbationRate(std::co
 	];
 
 	//Debug
+	/*
 	cout<<"HAKIM mean is "<<mean.real()<<" "<<mean.imag()<<endl;
 	cout<<endl;
-
-	/*** build noise ***/
-	noise=((
-		DoubleDict["IntegralLowerBound"]*u23_yr-DoubleDict["IntegralUpperBound"]*u23_yt
-	)/(u01_yr-u01_yt)-2.)/(2.+omt)+1.;
-	noise*=DoubleDict["StationaryRate"]/(
-		DoubleDict["VoltageNoise"]*DoubleDict["VoltageNoise"]
-	);
-
+	*/
+	
 	/**** set ***/
 	ComplexDict["PerturbationMean"]=mean;
-	ComplexDict["PerturbationNoise"]=noise;
+
+	/*** build noise ***/
+	if(IntDict["ComputeNoise"]==1){
+
+		noise=((
+		DoubleDict["IntegralLowerBound"]*u23_yr-DoubleDict["IntegralUpperBound"]*u23_yt
+		)/(u01_yr-u01_yt)-2.)/(2.+lmt)+1.;
+		noise*=DoubleDict["StationaryRate"]/(
+			DoubleDict["VoltageNoise"]*DoubleDict["VoltageNoise"]
+		);
+
+		/**** set ***/
+		ComplexDict["PerturbationNoise"]=noise;
+	}
+	
+	
+	
 
 }
 
@@ -1382,8 +1653,40 @@ doublecomplex CIntegrateAndFireTransferFunctionClass::Csqrt(doublecomplex z) {
 		c.i=z.i/(2.0e0*w);
 	} 
 	else {
-		c.i=(z.i >= 0.0e0) ? w : -w;
 		c.r=z.i/(2.0e0*c.i);
+		c.i=(z.i >= 0.0e0) ? w : -w;
+		
+	}
+	return c;
+	}
+}
+
+std::complex<double> CIntegrateAndFireTransferFunctionClass::myCsqrt(std::complex<double> z) {
+	static std::complex<double> c;
+	static double x,y,w,r;
+	if ((z.real() == 0.0e0) && (z.imag() == 0.0e0)) {
+		c=std::complex<double>(0.,0.);
+		return c;
+	} 
+	else {
+		x=fabs(z.real());
+		y=fabs(z.imag());
+	if (x >= y) {
+		r=y/x;
+		w=sqrt(x)*sqrt(0.5e0*(1.0e0+sqrt(1.0e0+r*r)));
+	} 
+	else {
+		r=x/y;
+		w=sqrt(y)*sqrt(0.5e0*(r+sqrt(1.0e0+r*r)));
+	}
+	if (z.real() >= 0.0e0) {
+		c=std::complex<double>(w,z.imag()/(2.0e0*w));
+	} 
+	else {
+		c=std::complex<double>(
+			z.imag()/(2.0e0*c.imag()),
+			(z.imag() >= 0.0e0) ? w : -w
+		);
 	}
 	return c;
 	}

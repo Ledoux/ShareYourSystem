@@ -21,7 +21,6 @@ MyPredicter=SYS.PredicterClass(
 			'BrianingStepTimeFloat':0.05,
 			'-Populations':[
 				('|Sensor',{
-					'RecordingLabelVariable':[0],
 					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Encod':{
@@ -30,7 +29,6 @@ MyPredicter=SYS.PredicterClass(
 					}
 				}),
 				('|Agent',{
-					'RecordingLabelVariable':[0],
 					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Fast':{
@@ -38,28 +36,17 @@ MyPredicter=SYS.PredicterClass(
 						}
 					},
 					#'LeakingNoiseStdVariable':0.01
-				}),
-				('|Decoder',{
-					'RecordingLabelVariable':[0],
-					#'BrianingDebugVariable':BrianingDebugVariable
-					'-Interactions':{
-						'|Slow':{
-							#'BrianingDebugVariable':BrianingDebugVariable,
-							#'LeakingWeigthVariable':0.
-						}
-					}
 				})
 			]
 		}
 	).predict(
-		_AgentUnitsInt=1,
-		_DynamicBool=True,
+		_DynamicBool=False,
 		_JacobianVariable={
 			'ModeStr':"Track",
-			'ConstantTimeFloat':30. #(ms)
+			'ConstantTimeFloat':2. #(ms)
 		},
-		_CommandVariable="#custom:#clock:50*ms:1.*mV*int(t==50*ms)",
-		_DecoderVariable=[5.],
+		_CommandVariable="#custom:#clock:50*ms:1.*mV*int(t==50*ms)",#2.,
+		_DecoderVariable=[2.],
 		_InteractionStr="Rate"
 	).simulate(
 		SimulationTimeFloat
@@ -69,19 +56,9 @@ MyPredicter=SYS.PredicterClass(
 # View
 #
 
-MyPredicter.mapSet(
-		{
-			'PyplotingFigureVariable':{
-				'figsize':(10,8)
-			},
-			'PyplotingGridVariable':(30,30),
-			'-Panels':[
-			]
-		}
-	).view(
+MyPredicter.view(
 	).pyplot(
-	).show(
-	)
+	).show()
 
 
 #/###################/#
@@ -91,6 +68,8 @@ MyPredicter.mapSet(
 #Definition the AttestedStr
 print('MyPredicter is ')
 SYS._print(MyPredicter) 
+
+
 
 
 

@@ -897,7 +897,7 @@ def setInitArray(_InstanceVariable,_DoStr,_TagStr):
 		#array
 		setattr(
 			_InstanceVariable,
-			DoStrToDoingStrOrderedDict[_DoStr]+_TagStr+'Variable',
+			DoStrToDoneStrOrderedDict[_DoStr]+_TagStr+'Variable',
 			np.array(
 				Variable
 			)
@@ -908,7 +908,7 @@ def setInitArray(_InstanceVariable,_DoStr,_TagStr):
 		#array
 		setattr(
 			_InstanceVariable,
-			DoStrToDoingStrOrderedDict[_DoStr]+_TagStr+'Variable',	
+			DoStrToDoneStrOrderedDict[_DoStr]+_TagStr+'Variable',	
 			Variable
 		)
 SYS.setInitArray=setInitArray

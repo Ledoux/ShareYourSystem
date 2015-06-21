@@ -164,14 +164,6 @@ class StationarizerClass(BaseClass):
 						'stationarize'
 					]
 			)
-
-			#/########################/#
-			# stationarizeAfterNetwork
-			# 
-
-			#stationarize
-			self.stationarizeNetwork()
-
 			
 		else:
 
@@ -385,9 +377,9 @@ class StationarizerClass(BaseClass):
 				('self.',self,[
 						'LifingConstantTimeFloat',
 						'LifingStationaryCurrentFloat',
-						'LifingStationaryRateFloat'
+						'LifingStationaryRateFloat',
 					]
-				),
+				)
 			]
 		)
 		'''
@@ -400,6 +392,20 @@ class StationarizerClass(BaseClass):
 
 			#lif
 			self.lif()
+
+		#debug
+		'''
+		self.debug(
+			[
+				"After lif",
+				('self.',self,[
+						'LifedStationaryCurrentFloat',
+						'LifedStationaryRateFloat'
+					]
+				)
+			]
+		)
+		'''
 
 	def getStationaryRateRootFloat(self,_StationaryStationaryRateFloat):
 			
