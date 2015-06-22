@@ -253,7 +253,8 @@ class LiferClass(BaseClass):
 								{
 									'LifingStationaryCurrentFloat':__StationaryCurrentFloat,
 									'LifingStationaryRateFloat':None,
-									'LifingCurrentToFloatBool':True
+									'LifingCurrentToFloatBool':True,
+									'LifingComputeStationaryBool':True
 								}
 							).lif(
 							).LifedStationaryRateFloat
@@ -283,6 +284,19 @@ class LiferClass(BaseClass):
 					)
 				)
 
+				#debug
+				'''
+				self.debug(
+					[
+						"In the end of rateToCurrent",
+						('self.',self,[
+								'LifingStationaryRateFloat',
+								'LifedStationaryCurrentFloat'
+							])
+					]
+				)
+				'''
+				
 			#set
 			self.LifingComputeStationaryBool=False
 			self.LifedSwigVariable.IntDict['ComputeStationary']=0
@@ -411,7 +425,7 @@ class LiferClass(BaseClass):
 				]
 			)
 			'''
-			
+
 			#set
 			self.LifedSwigVariable.IntDict['ComputeNoise']=int(
 				self.LifingComputeNoisePerturbationBool
@@ -429,18 +443,17 @@ class LiferClass(BaseClass):
 			if self.LifingComputeNoisePerturbationBool:
 				self.LifedPerturbationNoiseComplexVariable=self.LifedSwigVariable.ComplexDict["PerturbationNoise"]
 
-		#debug
-		'''
-		self.debug(
-			[
-				('self.',self,[
-						'LifedPerturbationMeanComplexVariable'
-					]),
-				'LifedPerturbationPreVariable is '+str(LifedPerturbationPreVariable)
-			]
-		)
-		'''
-
+			#debug
+			'''
+			self.debug(
+				[
+					('self.',self,[
+							'LifedPerturbationMeanComplexVariable'
+						])
+				]
+			)
+			'''
+			
 	def mimic__print(self,**_KwargVariablesDict):
 
 		#/##################/#

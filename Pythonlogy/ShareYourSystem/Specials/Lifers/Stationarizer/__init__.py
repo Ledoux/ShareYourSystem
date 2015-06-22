@@ -388,8 +388,22 @@ class StationarizerClass(BaseClass):
 		if self.StationarizedNetworkDeriveStationarizerVariable.StationarizingInteractionStr=="Spike":
 
 			#set
-			self.LifingCurrentToFloatBool=self.LifingStationaryCurrentFloat!=None
+			self.LifingCurrentToFloatBool=type(
+				self.StationarizedNetworkDeriveStationarizerVariable.StationarizingRateVariable
+			)==None.__class__
 
+			#debug
+			'''
+			self.debug(
+				[
+					"Ok we are going to lif",
+					('self.',self,[
+							'LifingCurrentToFloatBool'
+						])
+				]
+			)
+			'''
+			
 			#lif
 			self.lif()
 

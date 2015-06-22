@@ -69,8 +69,8 @@ ShareYourSystem/Specials/Lifers/Lifer/tests/04_null_perturb_ExampleDoc.md
 ShareYourSystem/Specials/Lifers/Lifer/tests/05_null_perturb_ExampleCell.py
 ShareYourSystem/Specials/Lifers/Lifer/tests/06_perturb_ExampleDoc.md
 ShareYourSystem/Specials/Lifers/Lifer/tests/07_perturb_ExampleCell.py
-ShareYourSystem/Specials/Lifers/Lifer/tests/07_transfer_ExampleCell.py
 ShareYourSystem/Specials/Lifers/Lifer/tests/08_transfer_ExampleDoc.md
+ShareYourSystem/Specials/Lifers/Lifer/tests/09_transfer_ExampleCell.py
 ShareYourSystem/Specials/Lifers/Lifer/tests/10_transfer_plot_ExampleDoc.md
 ShareYourSystem/Specials/Lifers/Lifer/tests/11_transfer_plot_ExampleCell.py
 ShareYourSystem/Specials/Lifers/Stabilizer/__init__.py
@@ -85,8 +85,10 @@ ShareYourSystem/Specials/Lifers/Stabilizer/tests/test_07_stability_lif_EI_Exampl
 ShareYourSystem/Specials/Lifers/Stationarizer/__init__.py
 ShareYourSystem/Specials/Lifers/Stationarizer/tests/test_00_stationary_rate_ExampleDoc.md
 ShareYourSystem/Specials/Lifers/Stationarizer/tests/test_01_stationary_rate_ExampleCell.py
-ShareYourSystem/Specials/Lifers/Stationarizer/tests/test_02_stationary_lif_ExampleDoc.md
-ShareYourSystem/Specials/Lifers/Stationarizer/tests/test_03_stationary_lif_ExampleCell.py
+ShareYourSystem/Specials/Lifers/Stationarizer/tests/test_02_stationary_lif_currentToRate_ExampleDoc.md
+ShareYourSystem/Specials/Lifers/Stationarizer/tests/test_03_stationary_lif_currentToRate_ExampleCell.py
+ShareYourSystem/Specials/Lifers/Stationarizer/tests/test_04_stationary_lif_rateToCurrent_ExampleDoc.md
+ShareYourSystem/Specials/Lifers/Stationarizer/tests/test_05_stationary_lif_rateToCurrent_ExampleCell.py
 ShareYourSystem/Specials/Lifers/Transferer/__init__.py
 ShareYourSystem/Specials/Lifers/Transferer/tests/test_00_stationary_rate_ExampleDoc.md
 ShareYourSystem/Specials/Lifers/Transferer/tests/test_01_stationary_rate_ExampleCell.py

@@ -22,7 +22,7 @@ for __LateralWeightVariable in LateralWeightVariablesList:
             _DelayTimeVariable=0.001,
             #_DecayTimeVariable=0.005,
             #_RiseTimeVariable=0.0005,
-            #_ScanFrequencyVariable=[10.]
+            _ScanFrequencyVariable=[10.]
         )
 
     #Choose the parameters to print
@@ -30,8 +30,8 @@ for __LateralWeightVariable in LateralWeightVariablesList:
         'StationarizingLateralWeightVariable',
         'StabilizingConstantTimeVariable', #in ms
         'StabilizingDelayTimeVariable',
+        'StabilizedPerturbationComplex',
         'StabilizedTotalPerturbationComplexesArray', #matrix M
-        'StabilizedFlatTotalPerturbationComplexesArray', #matrix F
         'StabilizedDeterminantFloatsTuple',  #If it has converged, then it has to be closed to (0,0)
         'StabilizedBiggestLambdaFloatsTuple',
         'StabilizedInstabilityLambdaFloatsTuple',  # real part should be negative if stable,  (from this particular initial condition)

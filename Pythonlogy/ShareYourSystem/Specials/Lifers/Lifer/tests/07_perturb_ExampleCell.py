@@ -9,7 +9,7 @@ import ShareYourSystem as SYS
 #define
 MyLifer=SYS.LiferClass(
 	).lif(
-		_PerturbationLambdaVariable=0.1+10.*2.*SYS.numpy.pi*1j,
+		_PerturbationLambdaVariable=-2000+2000.*2.*SYS.numpy.pi*1j,
 		_PerturbationMethodStr='Brunel'
 	)
 
@@ -17,6 +17,7 @@ MyLifer=SYS.LiferClass(
 print('MyLifer is')
 SYS._print(MyLifer)
 
+"""
 #define
 MyLifer=SYS.LiferClass(
 	).lif(
@@ -27,3 +28,4 @@ MyLifer=SYS.LiferClass(
 #print
 print('MyLifer is')
 SYS._print(MyLifer)
+"""

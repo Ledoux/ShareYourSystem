@@ -16,7 +16,15 @@ typedef struct DOUBLECOMPLEX { double r, i; } doublecomplex;
 class CIntegrateAndFireTransferFunctionClass : public CToolClass
 {
 	public:
-	
+
+		/*
+		double JEE,JEI,JIE,JII;
+		double taumE,taumI;
+		double tauLEE,tauLEI,tauLIE,tauLII;
+		double tauLEE,tauREI,tauRIE,tauRII;
+		double tauDEE,tauDEI,tauDIE,tauDII;
+		*/
+
 		/*** COMPUTE METHODS ***/
 
 		/*** CONSTRUCTOR ***/
@@ -33,9 +41,41 @@ class CIntegrateAndFireTransferFunctionClass : public CToolClass
 		double getLifStationaryRate();
 		
 		/*** LINEAR PERTURBATIONS ***/
-
-
-
+		/*
+		doublecomplex new_Synapse(
+			doublecomplex lambda,
+			double tauL,
+			double tauR,
+			double tauD
+		);
+		doublecomplex new_gsurg(
+			doublecomplex xx,
+			doublecomplex yy
+		); 
+		void new_onefone(
+			doublecomplex a, 
+			doublecomplex c, 
+			doublecomplex z, 
+			doublecomplex *series, 
+			doublecomplex *deriv
+		);
+		void new_correctionlargey(
+			doublecomplex a, 
+			doublecomplex c, 
+			doublecomplex z, 
+			doublecomplex *series
+		);
+		void new_u01(
+			doublecomplex omc, 
+			double y, 
+			doublecomplex *seriesu, 
+			int *indic
+		);
+		void new_u23(
+			doublecomplex omc, double y, doublecomplex *seriesu, int *indic
+		);
+		doublecomplex Neuron(doublecomplex lambda);
+		*/
 		doublecomplex old_gsurg(doublecomplex xx,doublecomplex yy);
 		void old_onefone(doublecomplex a, doublecomplex c, 
 			doublecomplex z, doublecomplex *series, doublecomplex *deriv); 
@@ -47,6 +87,7 @@ class CIntegrateAndFireTransferFunctionClass : public CToolClass
 		void old_u23(
 			double omc, double y, doublecomplex *seriesu, int *indic
 		);
+		//doublecomplex Y(doublecomplex lambda);
 		doublecomplex RLIF(double _omega,int i); 
 		doublecomplex Complex(double re, double im); //defined in inline functions
 		doublecomplex Cadd(doublecomplex a, doublecomplex b); //defined in inline functions
@@ -60,8 +101,6 @@ class CIntegrateAndFireTransferFunctionClass : public CToolClass
 		doublecomplex RCmul(double x, doublecomplex a); //defined in inline functions
 		double Cabs(doublecomplex z); //defined in inline functions
 		double Carg(doublecomplex z); //defined in inline functions
-
-
 
 		/*** Lif perturbation at zero frequency***/
 		double getLifPerturbationNullRate(std::string DiffVariable);
