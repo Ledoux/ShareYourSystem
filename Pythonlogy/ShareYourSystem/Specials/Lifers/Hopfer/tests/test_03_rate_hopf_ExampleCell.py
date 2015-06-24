@@ -10,6 +10,9 @@ import ShareYourSystem as SYS
 # Build the model
 #
 
+#set
+StdWeightFloat=90.
+
 #Define
 MyHopfer=SYS.HopferClass(
 	).mapSet(
@@ -30,19 +33,24 @@ MyHopfer=SYS.HopferClass(
 		}
 	).hopf(
 		_UnitsInt=100,
-		_StdWeightFloat=1.3,
+		_StdWeightFloat=StdWeightFloat,
 		_SymmetryFloat=-0.7
 	)
 
+#loop
 CountInt=0
-while MyHopfer.HopfedInstablesInt!=2 and CountInt<10:
+while MyHopfer.HopfedInstablesInt!=2 and CountInt<100:
 	MyHopfer.hopf(
-		_StdWeightFloat=1.+0.5*SYS.scipy.stats.uniform.rvs(size=1)
+		_StdWeightFloat=StdWeightFloat-5.+10.*SYS.scipy.stats.uniform.rvs(size=1)
 	)
 	CountInt+=1
 
+#print
+print("MyHopfer.HopfedInstablesInt is "+str(MyHopfer.HopfedInstablesInt))
+
 #Check
 if MyHopfer.HopfedInstablesInt==2:
+#if MyHopfer.HopfedInstablesInt>-1:
 
 	#/###################/#
 	# Leak and simulate

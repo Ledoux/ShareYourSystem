@@ -9,6 +9,9 @@ import ShareYourSystem as SYS
 # Build the model
 #
 
+#set
+StdWeightFloat=15.
+
 #Define
 MyHopfer=SYS.HopferClass(
 	).mapSet(
@@ -35,12 +38,14 @@ MyHopfer=SYS.HopferClass(
 		}
 	).hopf(
 		_UnitsInt=1000,
-		_StdWeightFloat=20.,
+		_StdWeightFloat=StdWeightFloat,
+		_StationaryRateFloat=50.,
 		_InteractionStr="Spike"
 	).leak(
 	).simulate(
 		500.
 	)
+
 
 #/###################/#
 # View

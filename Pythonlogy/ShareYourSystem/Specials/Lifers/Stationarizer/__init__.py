@@ -37,12 +37,14 @@ class StationarizerClass(BaseClass):
 			_StationarizingUnitsInt = 1,
 			_StationarizingLateralWeightVariable = None,
 			_StationarizingConstantTimeVariable = None, 
+			_StationarizingNoiseVariable = None, 
 			_StationarizingThresholdVariable = None, 
 			_StationarizingResetVariable = None, 
 			_StationarizingRateVariable = None, 
 			_StationarizingPopulationTagVariable = None, 
 			_StationarizingInteractionStr="Rate",
 			_StationarizedConstantTimeFloatsList = None,
+			_StationarizedNoiseFloatsList = None, 
 			_StationarizedThresholdFloatsList = None, 
 			_StationarizedResetFloatsList = None, 
 			_StationarizedRateFloatsList = None, 
@@ -259,6 +261,7 @@ class StationarizerClass(BaseClass):
 			),
 			[
 				'ConstantTime',
+				'Noise',
 				'Threshold',
 				'Reset',
 				'Rate'
@@ -321,13 +324,12 @@ class StationarizerClass(BaseClass):
 	def stationarizePopulation(self):
 
 		#debug
-		'''
 		self.debug(
 			[
-				'We stationarize population here'
+				'We stationarize population here',
+				'First we get some parameters setted at the network level'
 			]
 		)
-		'''
 
 		#Determine parent
 		self.StationarizedNetworkDeriveStationarizerVariable = self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
@@ -354,6 +356,7 @@ class StationarizerClass(BaseClass):
 					),
 					[
 						"ConstantTime",
+						"Noise",
 						"Threshold",
 						"Reset"
 					]
@@ -371,18 +374,17 @@ class StationarizerClass(BaseClass):
 		)
 
 		#debug
-		'''
 		self.debug(
 			[
 				('self.',self,[
 						'LifingConstantTimeFloat',
+						'LifingNoiseFloat',
 						'LifingStationaryCurrentFloat',
 						'LifingStationaryRateFloat',
 					]
 				)
 			]
 		)
-		'''
 
 		#Check
 		if self.StationarizedNetworkDeriveStationarizerVariable.StationarizingInteractionStr=="Spike":
@@ -408,18 +410,17 @@ class StationarizerClass(BaseClass):
 			self.lif()
 
 		#debug
-		'''
 		self.debug(
 			[
 				"After lif",
 				('self.',self,[
+						'LifingCurrentToFloatBool',
 						'LifedStationaryCurrentFloat',
 						'LifedStationaryRateFloat'
 					]
 				)
 			]
 		)
-		'''
 
 	def getStationaryRateRootFloat(self,_StationaryStationaryRateFloat):
 			
@@ -528,6 +529,7 @@ StationarizerClass.PrintingClassSkipKeyStrsList.extend(
 		'StationarizingLateralWeightVariable',
 		'StationarizingConstantTimeVariable',
 		'StationarizingThresholdVariable',
+		'StationarizingNoiseVariable',
 		'StationarizingResetVariable',
 		'StationarizingRateVariable',
 		'StationarizingPopulationTagVariable',
@@ -535,6 +537,7 @@ StationarizerClass.PrintingClassSkipKeyStrsList.extend(
 		'StationarizingLateralWeightFloatsArray',
 		'StationarizedConstantTimeFloatsList',
 		'StationarizedThresholdFloatsList',
+		'StationarizedNoiseFloatsList',
 		'StationarizedResetFloatsList',
 		'StationarizedRateFloatsList',
 		'StationarizedPopulationTagStrsList',

@@ -354,7 +354,6 @@ class LiferClass(BaseClass):
 			#set
 			LifedPerturbationPreVariable=self.LifingPerturbationLambdaVariable
 
-			
 		else:
 
 			#import

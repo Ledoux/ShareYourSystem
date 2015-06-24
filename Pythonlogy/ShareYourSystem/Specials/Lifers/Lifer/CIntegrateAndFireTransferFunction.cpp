@@ -1455,10 +1455,10 @@ void CIntegrateAndFireTransferFunctionClass::setBrunelLifPerturbationRate(
 		
 		//Debug
     /*
-		cout<<"Erwan set rlif mean is "<<mean.real()<<" "<<mean.imag()<<endl;
+		cout<<"Erwan set PerturbationMean mean is "<<mean.real()<<" "<<mean.imag()<<endl;
 		cout<<endl;
     */
-
+    
 		/*** set ****/
 		ComplexDict["PerturbationMean"]=mean;
 

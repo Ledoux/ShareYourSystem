@@ -1334,7 +1334,9 @@ class LeakerClass(BaseClass):
 		#	self.LeakedParentPopulationDeriveLeakerVariable.BrianedNeurongroupVariable,
 		#	'Threshold'
 		#):
-		if 'threshold' in self.LeakedParentPopulationDeriveLeakerVariable.BrianingNeurongroupDict:
+		if type(
+			self.LeakedParentPopulationDeriveLeakerVariable.LeakingThresholdVariable
+		) != None.__class__ :
 
 			#debug
 			'''
@@ -5339,7 +5341,7 @@ class LeakerClass(BaseClass):
 		LeakedBrianWeightFloatsArray = self.LeakedBrianWeightFloatsArray
 
 		#debug
-		"""
+		'''
 		self.debug([
 				"We set weight versus phase here",
 				('self.',self,[
@@ -5348,27 +5350,30 @@ class LeakerClass(BaseClass):
 				"LeakedPhaseList is ",str(LeakedPhaseList)
 			]
 		)
-		"""
+		'''
 
 		#map
 		LeakedPeriodTimeFloatsList = map(
 			lambda __LeakedPostPhaseVariable:
-			__LeakedPostPhaseVariable[1][1]-__LeakedPostPhaseVariable[0][1],
+			__LeakedPostPhaseVariable[1][1]-__LeakedPostPhaseVariable[0][1]
+			if __LeakedPostPhaseVariable!=None and len(__LeakedPostPhaseVariable)>1
+			else None,
 			LeakedPhaseList
-		)
+		)  
 
 		#debug
-		"""
+		'''
 		self.debug(
 			[
 				"LeakedPeriodTimeFloatsList is "+str(LeakedPeriodTimeFloatsList)
 			]
 		)
-		"""
+		'''
 
 		#map
-		self.LeakedWeightPhaseList = map(
-				lambda __NeuronIndexInt,__LeakedPostPhaseVariable,LeakedPeriodTimeFloat :
+		self.LeakedWeightPhaseList = SYS.filterNone(
+			map(
+				lambda __NeuronIndexInt,__LeakedPostPhaseVariable,__LeakedPeriodTimeFloat :
 				map(
 					lambda __LeakedPrePhaseVariable:
 					(
@@ -5377,19 +5382,24 @@ class LeakerClass(BaseClass):
 							__NeuronIndexInt
 						],
 						((
-							(__LeakedPrePhaseVariable[1])/LeakedPeriodTimeFloat
+							(__LeakedPrePhaseVariable[1])/__LeakedPeriodTimeFloat
 						)-0.5)*360.
 						#__LeakedPrePhaseVariable[1]
-					),
+					)
+					if len(__LeakedPostPhaseVariable)>1
+					else None,
 					__LeakedPostPhaseVariable[1][2]
-				),
+				)
+				if __LeakedPeriodTimeFloat!=None
+				else None,
 				xrange(len(LeakedPhaseList)),
 				LeakedPhaseList,
 				LeakedPeriodTimeFloatsList
 			)
+		)
 	
 		#debug
-		"""
+		'''
 		self.debug(
 			[
 				"We setted the weight versus the leak",
@@ -5398,7 +5408,7 @@ class LeakerClass(BaseClass):
 					])
 			]
 		)
-		"""
+		'''
 
 	#/######################/#
 	# Augment view
@@ -5797,7 +5807,7 @@ class LeakerClass(BaseClass):
 	def plotPhaseWeight(self):
 
 		#debug
-		"""
+		'''
 		self.debug(
 			[
 				"We plot the phase and the weights",
@@ -5806,7 +5816,7 @@ class LeakerClass(BaseClass):
 					])
 			]
 		)
-		"""
+		'''
 
 		#set
 		ChartStr=str(self.ManagementTagStr)+"_PhaseWeight"
@@ -5832,11 +5842,11 @@ class LeakerClass(BaseClass):
 		LeakedFlatWeightPhaseList=SYS.sum(self.LeakedWeightPhaseList)
 
 		#debug
-		"""
+		'''
 		self.debug(
 			"LeakedFlatWeightPhaseList is "+SYS._str(LeakedFlatWeightPhaseList)
 		)
-		"""
+		'''
 		
 		#debug
 		[
@@ -5849,14 +5859,14 @@ class LeakerClass(BaseClass):
 		)
 
 		#debug
-		"""
+		'''
 		self.debug(
 			[
 				"LeakedWeightFloatsArray is ",str(LeakedWeightFloatsArray),
 				"LeakedPhaseFloatsArray is ",str(LeakedPhaseFloatsArray),
 			]
 		)
-		"""
+		'''
 
 		#/##################/#
 		# Think already on the max
