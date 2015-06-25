@@ -16,14 +16,14 @@ BrianingDebugVariable=25.
 MyPredicter=SYS.PredicterClass(
 	).mapSet(
 		{
-			'BrianingStepTimeFloat':0.05,
+			'BrianingStepTimeFloat':0.01,
 			'-Populations':[
 				('|Sensor',{
 					'LeakingMonitorIndexIntsList':[0],
 					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Encod':{
-							#'BrianingDebugVariable':BrianingDebugVariable
+							'BrianingDebugVariable':BrianingDebugVariable
 						}
 					}
 				}),
@@ -42,7 +42,7 @@ MyPredicter=SYS.PredicterClass(
 					#'BrianingDebugVariable':BrianingDebugVariable
 					'-Interactions':{
 						'|Slow':{
-							'BrianingDebugVariable':BrianingDebugVariable,
+							#'BrianingDebugVariable':BrianingDebugVariable,
 							#'LeakingWeigthVariable':0.
 						}
 					}
@@ -53,7 +53,8 @@ MyPredicter=SYS.PredicterClass(
 		_AgentUnitsInt=1,
 		_CommandVariable="#custom:#clock:20*ms:1.*mV+1.*mV*int(t==20*ms)",#2.,
 		_DecoderVariable=[2.],
-		_InteractionStr="Spike"
+		_InteractionStr="Spike",
+		#_AgentResetVariable=-70.,
 	).simulate(
 		50.
 	)
@@ -69,13 +70,61 @@ MyPredicter.mapSet(
 			},
 			'PyplotingGridVariable':(30,30),
 			'-Panels':[
+				(
+					'|Run',
+					[
+						(
+							'-Charts',
+							[
+								(
+									'|Sensor_I_Command',
+									{
+										'PyplotingLegendDict':{
+											'fontsize':10,
+											'ncol':2
+										}
+									}
+								),
+								(
+									'|Sensor_U',
+									{
+										'PyplotingLegendDict':{
+											'fontsize':10,
+											'ncol':2
+										}
+									}
+								),
+								(
+									'|Agent_U',
+									{
+										'PyplotingLegendDict':{
+											'fontsize':10,
+											'ncol':1
+										}
+									}
+								),
+								(
+									'|Agent_Default',{}
+								),
+								(
+									'|Decoder_U',
+									{
+										'PyplotingLegendDict':{
+											'fontsize':10,
+											'ncol':1
+										}
+									}
+								)
+							]
+						)
+					]
+				)
 			]
 		}
 	).view(
 	).pyplot(
 	).show(
 	)
-
 
 #/###################/#
 # Print

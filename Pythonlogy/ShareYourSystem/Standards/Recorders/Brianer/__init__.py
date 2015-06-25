@@ -83,6 +83,8 @@ class BrianerClass(BaseClass):
 			_BrianingPrintBool=True,
 			_BrianingMonitorIndexIntsList=None,
 			_BrianingEventSelectVariable=None,
+			_BrianingSpikeViewVariable = None,
+			_BrianingViewBool = True,
 			_BrianedEventTraceVariable=None,
 			_BrianedTimeQuantityVariable=None,
 			_BrianedNetworkVariable=None,
@@ -2482,6 +2484,7 @@ class BrianerClass(BaseClass):
 			)
 		]
 
+
 		#/##################/#
 		# add the traces
 		#
@@ -2621,7 +2624,7 @@ class BrianerClass(BaseClass):
 		# (only for population trace)
 
 		#Check
-		if self.BrianedParentInteractionDeriveBrianerVariable==None:
+		if self.BrianedParentInteractionDeriveBrianerVariable==None and ViewedMinFloat!=ViewedMaxFloat:
 
 			#Check
 			if "Events" in self.BrianedParentPopulationDeriveBrianerVariable.TeamDict:
@@ -2654,6 +2657,26 @@ class BrianerClass(BaseClass):
 				#import
 				import numpy as np
 
+				#Check
+				if self.BrianedParentPopulationDeriveBrianerVariable.BrianingSpikeViewVariable==None :
+
+					#set
+					self.BrianedParentPopulationDeriveBrianerVariable.BrianingSpikeViewVariable=[
+						ViewedMinFloat,ViewedMaxFloat
+					]
+
+				#debug
+				'''
+				self.debug(
+					[
+						"The size of the spikes to plot is ",
+						"ViewedMinFloat,ViewedMaxFloat is ",str([ViewedMinFloat,ViewedMaxFloat]),
+						"self.BrianedParentPopulationDeriveBrianerVariable.BrianingSpikeViewVariable is "+str(
+							self.BrianedParentPopulationDeriveBrianerVariable.BrianingSpikeViewVariable)
+					]
+				)
+				'''
+
 				#add
 				PyplotedSpikeTuplesList=SYS.filterNone(
 					map(
@@ -2665,9 +2688,7 @@ class BrianerClass(BaseClass):
 								{
 									'#liarg':[
 										[__FloatTime,__FloatTime],
-										[
-											ViewedMinFloat,ViewedMaxFloat
-										]
+										self.BrianedParentPopulationDeriveBrianerVariable.BrianingSpikeViewVariable
 									],
 									'#kwarg':dict(
 										{
@@ -3076,6 +3097,29 @@ class BrianerClass(BaseClass):
 		)
 		'''
 
+
+		#/####################/#
+		# Hook to escape 
+		#
+
+		#Check
+		if self.BrianingViewBool == False or self.BrianedParentDeriveRecorderVariable.BrianingViewBool == False:
+			
+			#debug
+			'''
+			self.debug(
+				[
+					"We dont have to view this sample",
+					('self.',self,[
+							'ManagementTagStr'
+						])
+				]
+			)
+			'''
+			
+			#return
+			return
+			
 		#/####################/#
 		# Update maybe the 
 		# parent neuron group
@@ -3759,6 +3803,7 @@ class BrianerClass(BaseClass):
 		)-1:
 
 			#Check
+			'''
 			self.debug(
 				[
 					'This is the last Sample for this record',
@@ -3768,6 +3813,7 @@ class BrianerClass(BaseClass):
 					)
 				]
 			)
+			'''
 
 			#call
 			self.viewTraceOrEvent()
@@ -4074,9 +4120,11 @@ BrianerClass.PrintingClassSkipKeyStrsList.extend(
 		'BrianingRecordSkipKeyStrsList',
 		'BrianingViewNetworkBool',
 		'BrianingActivityStr',
+		'BrianingViewBool', 
 		'BrianingPrintBool',
 		'BrianingMonitorIndexIntsList',
 		'BrianingEventSelectVariable',
+		'BrianingSpikeViewVariable',
 		'BrianedEventTraceVariable',
 		'BrianedTimeQuantityVariable',
 		'BrianedNetworkVariable',

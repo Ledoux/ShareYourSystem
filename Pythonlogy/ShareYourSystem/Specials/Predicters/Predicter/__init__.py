@@ -71,6 +71,7 @@ class PredicterClass(BaseClass):
 			_PredictingAgentThresholdVariable=10.,
 			_PredictingAgentRestVariable=None,
 			_PredictingAgentResetVariable=None,
+			_PredictingAgentNoiseVariable=None,
 			_PredictingAgentTimeFloat=10.,
 			_PredictingDecoderVariable=None,
 			_PredictingDecoderMeanFloat=1.,
@@ -506,6 +507,17 @@ class PredicterClass(BaseClass):
 				)
 			)
 
+			#debug
+			self.debug(
+				[
+					('self.',self,[
+						'PredictedDynamicDict',
+						'PredictedSensorJacobianFloatsArray'
+					])
+				]
+			)
+
+
 		elif self.PredictedDynamicDict["ModeStr"]=="Damp":
 
 			#Check
@@ -596,7 +608,10 @@ class PredicterClass(BaseClass):
 
 			#numscipy
 			self.NumscipyingSparseFloat=self.PredictingDecoderSparseFloat
-			self.NumscipyingStdFloat=self.PredictingDecoderStdFloat
+			self.NumscipyingStdFloat=self.PredictingDecoderStdFloat/np.sqrt(
+					self.PredictingAgentUnitsInt
+				)
+			self.NumscipyingMeanFloat=self.PredictingDecoderMeanFloat/self.PredictingAgentUnitsInt
 			self.NumscipyingRowsInt=self.PredictingSensorUnitsInt
 			self.NumscipyingColsInt=self.PredictingAgentUnitsInt
 			self.numscipy()
@@ -616,9 +631,6 @@ class PredicterClass(BaseClass):
 			]
 		)
 		'''
-
-		#norm
-		self.PredictedDecoderFloatsArray/=self.PredictingAgentUnitsInt**self.PredictingDecoderNormalisationInt
 
 		#/################/#
 		# Build the Fast Connection
@@ -792,6 +804,19 @@ class PredicterClass(BaseClass):
 					self.PredictingSensorUnitsInt
 				)
 			)
+
+			#debug
+			'''
+			self.debug(
+				[
+					'PredictedRightSlowFloatsArray is '+str(PredictedRightSlowFloatsArray),
+					('self.',self,[
+							'PredictedSensorJacobianFloatsArray',
+							'PredictingDecoderTimeFloat'
+						])
+				]
+			)
+			'''
 
 			#Check 
 			if (PredictedRightSlowFloatsArray==0.).all():
@@ -1262,11 +1287,40 @@ class PredicterClass(BaseClass):
 			'''
 
 			#Check
-			if self.LeakingInteractionStr=="Spike":
+			if self.LeakingInteractionStr == "Spike":
 				
+				#/####################/#
+				# Add a refractory period
+				#
+
+				#set
+				#self.LeakingRefractoryVariable=0.5
+
+
+				#/####################/#
+				# Add noise
+				#
+
+				#Check
+				if self.PredictedNetworkDerivePredicterVariable.PredictingAgentNoiseVariable!=None:
+
+					#set
+					self.LeakingNoiseStdVariable=self.PredictedNetworkDerivePredicterVariable.PredictingAgentNoiseVariable
+
 				#/####################/#
 				# Add a rest input
 				#
+
+				#debug
+				'''
+				self.debug(
+					[
+						"It is a spike model, we add a neuron like rest",
+						"self.PredictedNetworkDerivePredicterVariable.PredictingAgentRestVariable is "+str(
+							self.PredictedNetworkDerivePredicterVariable.PredictingAgentRestVariable)
+					]
+				)
+				'''
 
 				#Check
 				if self.PredictedNetworkDerivePredicterVariable.PredictingAgentRestVariable!=None:
@@ -1277,7 +1331,8 @@ class PredicterClass(BaseClass):
 				else:
 
 					#default
-					PredictedRestVariable=-0.06
+					#PredictedRestVariable=-0.06
+					PredictedRestVariable=-60.
 
 				#debug
 				'''
@@ -1313,7 +1368,8 @@ class PredicterClass(BaseClass):
 				'''
 
 				#Check
-				if self.LeakingUnitsInt>1 and self.PredictedNetworkDerivePredicterVariable.PredictingAgentResetVariable:
+				#if self.LeakingUnitsInt>1 and self.PredictedNetworkDerivePredicterVariable.PredictingAgentResetVariable:
+				if self.PredictedNetworkDerivePredicterVariable.PredictingAgentResetVariable:
 
 					#Check
 					self.LeakingResetVariable=self.PredictedNetworkDerivePredicterVariable.PredictingAgentResetVariable
@@ -1336,10 +1392,9 @@ class PredicterClass(BaseClass):
 				#
 
 				#alias
-				self.LeakingThresholdVariable=1000.*PredictedRestVariable+self.PredictedNetworkDerivePredicterVariable.PredictedThresholdFloatsArray
+				self.LeakingThresholdVariable=PredictedRestVariable+self.PredictedNetworkDerivePredicterVariable.PredictedThresholdFloatsArray
 
 				#debug
-				'''
 				self.debug(
 					[
 						'We have setted the LeakingThresholdVariable',
@@ -1352,7 +1407,6 @@ class PredicterClass(BaseClass):
 						str(self.PredictedNetworkDerivePredicterVariable.PredictedThresholdFloatsArray)
 					]
 				)
-				'''
 
 			else:
 
@@ -1832,6 +1886,16 @@ class PredicterClass(BaseClass):
 			#link
 			self.LeakingWeightVariable=self.PredictedNetworkDerivePredicterVariable.PredictedSensorJacobianFloatsArray
 
+			#debug
+			'''
+			self.debug(
+				[
+					"the weights in the sensors",
+					('self.',self,['LeakingWeightVariable'])
+				]
+			)
+			'''
+
 		#Check
 		elif self.ManagementTagStr=="Encod":
 
@@ -1919,7 +1983,13 @@ class PredicterClass(BaseClass):
 			'''
 			
 			#link
+			#self.LeakingWeightVariable=0.001*self.PredictedNetworkDerivePredicterVariable.PredictingAgentTimeFloat*self.PredictedNetworkDerivePredicterVariable.PredictedDecoderFloatsArray.T
 			self.LeakingWeightVariable=self.PredictedNetworkDerivePredicterVariable.PredictingAgentTimeFloat*self.PredictedNetworkDerivePredicterVariable.PredictedDecoderFloatsArray.T
+			#self.LeakingWeightVariable=0.
+
+			#/################/#
+			# Look for perturb
+			#
 
 			#debug
 			'''
@@ -1936,7 +2006,6 @@ class PredicterClass(BaseClass):
 			if self.PredictedNetworkDerivePredicterVariable.PredictingEncodPerturbStdFloat>0.:
 
 				#numscipy
-				self.NumscipyingStdFloat=0.
 				self.NumscipyingStdFloat=self.PredictedNetworkDerivePredicterVariable.PredictingEncodPerturbStdFloat
 				self.NumscipyingRowsInt=self.PredictedNetworkDerivePredicterVariable.PredictingAgentUnitsInt
 				self.NumscipyingColsInt=self.PredictedNetworkDerivePredicterVariable.PredictingSensorUnitsInt
@@ -1944,6 +2013,18 @@ class PredicterClass(BaseClass):
 
 				#link
 				self.LeakingWeightVariable+=self.NumscipiedValueFloatsArray
+				
+			#debug
+			'''
+			self.debug(
+				[
+					"In the end for the encod input",
+					('self.',self,[
+							'LeakingWeightVariable'
+						])
+				]
+			)	
+			'''
 
 			#/################/#
 			# Say that we want to record it
@@ -2592,7 +2673,6 @@ class PredicterClass(BaseClass):
 		#Call the base
 		BaseClass.brianPopulation(self)
 
-
 		#Check
 		if self.ManagementTagStr=='Sensor':
 
@@ -2704,7 +2784,27 @@ class PredicterClass(BaseClass):
 					self.PredictedStationaryStateMonitorVariable
 				)
 
+		"""
+		#Check
+		if self.ManagementTagStr=='Agent':
 
+			#debug
+			self.debug(
+				[
+					"We brian pop predict"
+				]
+			)
+
+			self.TeamDict[
+				'Traces'
+			].ManagementDict[
+				'J_EncodI_Command'
+			].TeamDict[
+				'Samples'
+			].ManagementDict[
+				''
+			]
+		"""
 
 	def brianTrace(self):
 
@@ -2716,7 +2816,10 @@ class PredicterClass(BaseClass):
 		'''
 		self.debug(
 			[
-				'We reduce the size of initial conditions'
+				'We reduce the size of initial conditions',
+				('self.',self,[
+						'ManagementTagStr'
+					])
 			]
 		)
 		'''
@@ -2823,6 +2926,12 @@ class PredicterClass(BaseClass):
 			#set
 			self.BrianingActivityStr="c"
 
+		#Check
+		elif self.ManagementTagStr=='J_EncodI_Command':
+
+			#set
+			self.BrianingViewBool=False
+
 
 		#/################/#
 		# brianTrace base
@@ -2841,6 +2950,37 @@ class PredicterClass(BaseClass):
 		#call the base
 		BaseClass.brianTrace(self)
 
+	"""
+	def brianSample(self):
+
+		#base method
+		BaseClass.brianSample(self)
+
+		#debug
+		'''
+		self.debug(
+			[
+				"We brian sample predict ",
+				('self.',self,[
+						'ManagementTagStr'
+					])
+			]
+		)
+		'''
+
+		#Check
+		if self.ManagementTagStr=="J_EncodI_Command":
+
+			#debug
+			'''
+			self.debug(
+				[
+					"We brian sample predict J_EncodI_Command here"
+				]
+			)
+			'''
+			pass
+	"""
 
 	#/######################/#
 	# Augment view
@@ -2871,81 +3011,99 @@ class PredicterClass(BaseClass):
 		#Check
 		if self.BrianedParentPopulationDeriveBrianerVariable.ManagementTagStr=="Agent":
 
-			#Check
-			if self.BrianedParentPopulationDeriveBrianerVariable.PredictedNetworkDerivePredicterVariable.PredictingDynamicBool:
-
-				#debug
-				self.debug(
-					[
-						"self.BrianedParentPopulationDeriveBrianerVariable.TeamDict['Traces'].ManagementDict.keys() is "+str(
-							self.BrianedParentPopulationDeriveBrianerVariable.TeamDict[
-							'Traces'].ManagementDict.keys())
-					]
-				)
-
-				#Check
-				ViewedCommandDerivePredicter=self.BrianedParentPopulationDeriveBrianerVariable.TeamDict[
-					'Traces'
-				].ManagementDict[
-					'J_EncodI_Command'
-				].TeamDict[
-					'Samples'
-				].ManagementDict[
-					'Default'
+			#debug
+			'''
+			self.debug(
+				[
+					"self.BrianedParentDeriveRecorderVariable.RecordKeyStr is "+str(self.BrianedParentDeriveRecorderVariable.RecordKeyStr),
+					"self.BrianedParentPopulationDeriveBrianerVariable.LeakedSymbolStr is "+str(self.BrianedParentPopulationDeriveBrianerVariable.LeakedSymbolStr)
 				]
+			)
+			'''
 
-				#debug
-				self.debug(
-					[
-						'We view Sample Agent here',
-						'We add also the view of the command',
-						#'ViewedSensorDerivePredicter is ',
-						#SYS._str(ViewedSensorDerivePredicter),
-						'ViewedCommandDerivePredicter.PyplotingDrawVariable is ',
-						SYS._str(ViewedCommandDerivePredicter.PyplotingDrawVariable)
+			#Check
+			if self.BrianedParentDeriveRecorderVariable.RecordKeyStr==self.BrianedParentPopulationDeriveBrianerVariable.LeakedSymbolStr:
+
+			
+				#Check
+				if self.BrianedParentPopulationDeriveBrianerVariable.PredictedNetworkDerivePredicterVariable.PredictingDynamicBool:
+
+					#debug
+					'''
+					self.debug(
+						[
+							"self.BrianedParentPopulationDeriveBrianerVariable.TeamDict['Traces'].ManagementDict.keys() is "+str(
+								self.BrianedParentPopulationDeriveBrianerVariable.TeamDict[
+								'Traces'].ManagementDict.keys())
+						]
+					)
+					'''
+
+					#Check
+					ViewedCommandDerivePredicter=self.BrianedParentPopulationDeriveBrianerVariable.TeamDict[
+						'Traces'
+					].ManagementDict[
+						'J_EncodI_Command'
+					].TeamDict[
+						'Samples'
+					].ManagementDict[
+						'Default'
 					]
-				)
 
-				#import 
-				import copy
+					#debug
+					'''
+					self.debug(
+						[
+							'We view Sample Agent here',
+							'We add also the view of the command',
+							#'ViewedSensorDerivePredicter is ',
+							#SYS._str(ViewedSensorDerivePredicter),
+							'ViewedCommandDerivePredicter.PyplotingDrawVariable is ',
+							SYS._str(ViewedCommandDerivePredicter.PyplotingDrawVariable)
+						]
+					)
+					'''
 
-				#copy
-				ViewedPyplotDrawVariable=copy.deepcopy(
-					ViewedSensorDerivePredicter.PyplotingDrawVariable
-				)
+					#import 
+					import copy
 
-				#set
-				map(
-					lambda __ItemTuple:
-					__ItemTuple[1][
-						'#kwarg'
-					].update(
-						{
-							'linestyle':'--',
-							'linewidth':1
-						}
-					),
-					ViewedPyplotDrawVariable
-					#self.PyplotingDrawVariable
-				)
+					#copy
+					ViewedPyplotDrawVariable=copy.deepcopy(
+						ViewedCommandDerivePredicter.PyplotingDrawVariable
+					)
 
-				#add
-				self.PyplotingDrawVariable.extend(
-					ViewedPyplotDrawVariable
-				)
+					#set
+					map(
+						lambda __ItemTuple:
+						__ItemTuple[1][
+							'#kwarg'
+						].update(
+							{
+								'linestyle':'--',
+								'linewidth':1
+							}
+						),
+						ViewedPyplotDrawVariable
+						#self.PyplotingDrawVariable
+					)
 
-				#debug
-				'''
-				self.debug(
-					[
-						'In the end',
-						('self.',self,[
-							'PyplotingDrawVariable'
-						])
-						
-					]
-				)
-				'''
+					#add
+					self.PyplotingDrawVariable.extend(
+						ViewedPyplotDrawVariable
+					)
+
+					#debug
+					'''
+					self.debug(
+						[
+							'In the end',
+							('self.',self,[
+								'PyplotingDrawVariable'
+							])
+							
+						]
+					)
+					'''
 
 		#/#################/#
 		# Special Decoder case
@@ -3246,9 +3404,9 @@ class PredicterClass(BaseClass):
 			'''
 
 			#add
-			self.PyplotingGridIntsTuple=(
-				self.PyplotingGridIntsTuple[0]+15,
-				self.PyplotingGridIntsTuple[1]
+			self.PyplotingGridVariable=(
+				self.PyplotingGridVariable[0]+15,
+				self.PyplotingGridVariable[1]
 			)
 
 		#call the base
@@ -3276,6 +3434,7 @@ PredicterClass.PrintingClassSkipKeyStrsList.extend(
 		'PredictingAgentThresholdVariable',
 		'PredictingAgentRestVariable',
 		'PredictingAgentResetVariable',
+		'PredictingAgentNoiseVariable',
 		'PredictingFastSymmetryFloat',
 		'PredictingSlowPerturbStdFloat',
 		'PredictingDecoderVariable',

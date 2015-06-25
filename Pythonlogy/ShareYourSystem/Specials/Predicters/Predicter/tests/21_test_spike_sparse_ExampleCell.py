@@ -2,7 +2,6 @@
 # Import modules
 #
 
-
 #ImportModules
 import ShareYourSystem as SYS
 
@@ -17,14 +16,14 @@ BrianingDebugVariable=25.
 MyPredicter=SYS.PredicterClass(
 	).mapSet(
 		{
-			'BrianingStepTimeFloat':0.05,
+			'BrianingStepTimeFloat':0.01,
 			'-Populations':[
 				('|Sensor',{
-					'LeakingMonitorIndexIntsList':[0],
+					'LeakingMonitorIndexIntsList':[0,1],
 					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Encod':{
-							'BrianingDebugVariable':BrianingDebugVariable
+							#'BrianingDebugVariable':BrianingDebugVariable
 						}
 					}
 				}),
@@ -37,10 +36,9 @@ MyPredicter=SYS.PredicterClass(
 						}
 					},
 					#'LeakingNoiseStdVariable':0.01
-					#'LeakingThresholdMethodStr':'filterSpikespace'
 				}),
 				('|Decoder',{
-					'LeakingMonitorIndexIntsList':[0],
+					'LeakingMonitorIndexIntsList':[0,1],
 					#'BrianingDebugVariable':BrianingDebugVariable
 					'-Interactions':{
 						'|Slow':{
@@ -56,8 +54,8 @@ MyPredicter=SYS.PredicterClass(
 		_CommandVariable="#custom:#clock:20*ms:1.*mV+1.*mV*int(t==20*ms)",#2.,
 		_DecoderVariable="#array",
 		_DecoderStdFloat=0.,
-		_DecoderMeanFloat=2.,
-		#_AgentResetVariable=-60.5
+		_DecoderSparseFloat=0.2,
+		#_AgentResetVariable=-60.,
 		_InteractionStr="Spike"
 	).simulate(
 		50.
@@ -67,20 +65,77 @@ MyPredicter=SYS.PredicterClass(
 # View
 #
 
-MyPredicter.mapSet(
+#mapSet
+MyPredicter.view(
+	).mapSet(
 		{
 			'PyplotingFigureVariable':{
 				'figsize':(10,8)
 			},
 			'PyplotingGridVariable':(30,30),
 			'-Panels':[
+				(
+					'|Run',
+					[
+						(
+							'-Charts',
+							[
+								(
+									'|Sensor_I_Command',
+									{
+										'PyplotingLegendDict':{
+											'fontsize':10,
+											'ncol':2
+										}
+									}
+								),
+								(
+									'|Sensor_U',
+									{
+										'PyplotingLegendDict':{
+											'fontsize':10,
+											'ncol':2
+										}
+									}
+								),
+								(
+									'|Agent_U',
+									{
+										'PyplotingLegendDict':{
+											'fontsize':10,
+											'ncol':1
+										}
+									}
+								),
+								(
+									'|Agent_Default',{}
+								),
+								(
+									'|Decoder_U',
+									{
+										'PyplotingLegendDict':{
+											'fontsize':10,
+											'ncol':2
+										}
+									}
+								)
+							]
+						)
+					]
+				),
+				(
+					'|Stat',
+					{
+						'PyplotingTextVariable':[-0.4,0.],
+						'PyplotingShiftVariable':[0,4],
+						'PyplotingShapeVariable':[5,9],
+					}
+				)
 			]
 		}
-	).view(
 	).pyplot(
 	).show(
 	)
-
 
 #/###################/#
 # Print

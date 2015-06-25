@@ -712,6 +712,12 @@ class HopferClass(BaseClass):
 			#Check
 			if self.HopfingPerturbationEnvelopBool:
 
+				#Check
+				if self.HopfingInteractionStr == "Spike":
+					HopfedContourInstabilityArray = self.HopfedContourPerturbationComplexesArray/self.HopfedAgentDeriveHopferVariable.LifedPerturbationMeanNullFloat
+				else:
+					HopfedContourInstabilityArray = self.HopfedContourPerturbationComplexesArray
+
 				#map
 				HopfedContourSolutionFloatsTuplesList=map(
 					lambda __HopfedContourComplex:
@@ -725,7 +731,7 @@ class HopferClass(BaseClass):
 							), 
 							(0,0)
 						),
-					self.HopfedContourPerturbationComplexesArray
+					HopfedContourInstabilityArray
 				)
 				
 
@@ -932,24 +938,26 @@ class HopferClass(BaseClass):
 				)
 
 				#get
-				HopfedInputsDeriveHopfer.getManager(
-					"Stimulation"
-				)
+				#HopfedInputsDeriveHopfer.getManager(
+				#	"Stimulation"
+				#)
 
 				#/####################/#
 				# Neuron properties
 				#
 
 				#debug
+				'''
 				self.debug(
 					[
 						"We set the spikes attributes"
 					]
 				)
+				'''
 
 				#set
-				self.LeakingThresholdVariable="#scalar:U>-50*mV"
-				self.LeakingResetVariable="#scalar:U=-60*mV"
+				self.LeakingThresholdVariable="#scalar:U>"+str(self.LifingThresholdFloat)+"*mV"
+				self.LeakingResetVariable="#scalar:U="+str(self.LifingResetFloat)+"*mV"
 				self.LeakingRefractoryVariable=0.5
 				#self.LeakingNoiseStdVariable="0.1*mV"
 				#self.LeakingNoiseStdVariable=5.	
@@ -1644,55 +1652,6 @@ class HopferClass(BaseClass):
 	# Other functions
 	#
 
-	"""
-	def getRatePerturbationSolutionFloatsTuple(self,_PerturbationFloatsTuple):
-			
-		#split
-		PerturbationRealFloat,PerturbationImagFloat = _PerturbationFloatsTuple
-
-		#compute
-		SynapticFloat=np.exp(
-				PerturbationRealFloat*self.HopfingDelayTimeVariable
-			)
-
-		#compute
-		CosFloat=np.cos(PerturbationImagFloat*self.HopfingDelayTimeVariable)
-		SinFloat=np.sin(PerturbationImagFloat*self.HopfingDelayTimeVariable)
-
-		#compute
-		NeuralFloat=(1.+self.HopfingConstantTimeVariable*PerturbationRealFloat)
-
-		#compute
-		FirstRootFloat = SynapticFloat*(
-			NeuralFloat*CosFloat-self.HopfingConstantTimeVariable*PerturbationImagFloat*SinFloat
-		)-self.HopfedEigenComplex.real
-
-		#multiply
-		FirstRootFloat/=self.HopfingConstantTimeVariable
-
-		#compute
-		SecondRootFloat = SynapticFloat*(
-			self.HopfingConstantTimeVariable*PerturbationImagFloat*CosFloat+NeuralFloat*SinFloat
-		)-self.HopfedEigenComplex.imag
-
-		#multiply
-		SecondRootFloat/=self.HopfingConstantTimeVariable
-		
-		#debug
-		'''
-		self.debug(
-			[
-				"In the end",
-				"FirstRootFloat is "+str(FirstRootFloat),
-				"SecondRootFloat is "+str(SecondRootFloat),
-			]
-		)
-		'''
-
-		#return
-		return (FirstRootFloat,SecondRootFloat)
-	"""
-
 	def getInverseSynapticComplex(self,_PerturbationComplex):
 
 		return np.exp(
@@ -1749,7 +1708,8 @@ class HopferClass(BaseClass):
 			self.getInverseSynapticComplex(
 				PerturbationComplex
 			)*(
-				1./self.HopfedAgentDeriveHopferVariable.LifedPerturbationMeanComplexVariable
+				#1./self.HopfedAgentDeriveHopferVariable.LifedPerturbationMeanComplexVariable
+				(1.+PerturbationComplex*self.HopfingConstantTimeVariable)/self.HopfedAgentDeriveHopferVariable.LifedPerturbationMeanNullFloat
 			)
 		) - self.HopfedEigenComplex
 

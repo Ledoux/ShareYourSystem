@@ -2,6 +2,7 @@
 # Import modules
 #
 
+
 #ImportModules
 import ShareYourSystem as SYS
 
@@ -10,16 +11,19 @@ import ShareYourSystem as SYS
 #
 
 #set
-BrianingDebugVariable=25.
+BrianingDebugVariable = 25.
+
+#set
+AgentUnitsInt = 1000
 
 #Define
 MyPredicter=SYS.PredicterClass(
 	).mapSet(
 		{
-			'BrianingStepTimeFloat':0.01,
+			'BrianingStepTimeFloat':0.05,
 			'-Populations':[
 				('|Sensor',{
-					'LeakingMonitorIndexIntsList':[0,1],
+					'LeakingMonitorIndexIntsList':[0],
 					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Encod':{
@@ -32,17 +36,18 @@ MyPredicter=SYS.PredicterClass(
 					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Fast':{
-							'BrianingDebugVariable':BrianingDebugVariable
+							#'BrianingDebugVariable':BrianingDebugVariable
 						}
 					},
 					#'LeakingNoiseStdVariable':0.01
+					#'LeakingThresholdMethodStr':'filterSpikespace'
 				}),
 				('|Decoder',{
-					'LeakingMonitorIndexIntsList':[0,1],
+					'LeakingMonitorIndexIntsList':[0],
 					#'BrianingDebugVariable':BrianingDebugVariable
 					'-Interactions':{
 						'|Slow':{
-							'BrianingDebugVariable':BrianingDebugVariable,
+							#'BrianingDebugVariable':BrianingDebugVariable,
 							#'LeakingWeigthVariable':0.
 						}
 					}
@@ -50,59 +55,36 @@ MyPredicter=SYS.PredicterClass(
 			]
 		}
 	).predict(
-		_AgentUnitsInt=100,
-		_CommandVariable="#custom:#clock:20*ms:1.*mV+1.*mV*int(t==20*ms)",#2.,
+		_AgentUnitsInt=AgentUnitsInt,
+		_CommandVariable="#custom:#clock:40*ms:1.*mV+1.*mV*int(t==40*ms)",#2.,
 		_DecoderVariable="#array",
-		_DecoderStdFloat=0.,
-		_DecoderSparseFloat=0.2,
-		#_AgentResetVariable=-60.,
-		_InteractionStr="Spike"
+		_DecoderStdFloat = SYS.numpy.sqrt(AgentUnitsInt) * 1., #need to make an individual PSP around 1 mV
+		_DecoderMeanFloat = 0., 
+		_AgentResetVariable = -70., #big cost to reset neurons and make the noise then decide who is going to spike next
+		_AgentNoiseVariable = 0.25, #noise to make neurons not spiking at the same timestep
+		_InteractionStr = "Spike"
 	).simulate(
-		50.
+		100.
 	)
 
 #/###################/#
 # View
 #
 
-#mapSet
-MyPredicter.view(
-	).mapSet(
+MyPredicter.mapSet(
 		{
 			'PyplotingFigureVariable':{
 				'figsize':(10,8)
 			},
 			'PyplotingGridVariable':(30,30),
 			'-Panels':[
-				(
-					'|Run',
-					{
-						#'PyplotingTextVariable':[-0.4,0.],
-						#'PyplotingShiftVariable':[0,4],
-						#'PyplotingShapeVariable':[8,9],
-						'-Charts':{
-							'|Decoder_*U':{
-								'PyplotingLegendDict':{
-									'fontsize':12,
-									'ncol':2
-								}
-							}
-						}
-					}
-				),
-				(
-					'|Stat',
-					{
-						'PyplotingTextVariable':[-0.4,0.],
-						'PyplotingShiftVariable':[0,4],
-						'PyplotingShapeVariable':[5,9],
-					}
-				)
 			]
 		}
+	).view(
 	).pyplot(
 	).show(
 	)
+
 
 #/###################/#
 # Print

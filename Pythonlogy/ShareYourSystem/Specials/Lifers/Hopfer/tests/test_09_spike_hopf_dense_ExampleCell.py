@@ -6,6 +6,9 @@
 #ImportModules
 import ShareYourSystem as SYS
 
+#set
+StdWeightFloat=15.
+
 #/###################/#
 # Build the model
 #
@@ -35,7 +38,8 @@ MyHopfer=SYS.HopferClass(
 		}
 	).hopf(
 		_UnitsInt=1000,
-		_StdWeightFloat=15.,
+		_StdWeightFloat=StdWeightFloat,
+		_StationaryRateFloat=50.,
 		_SymmetryFloat=-0.7,
 		_InteractionStr="Spike"
 	).leak(

@@ -1014,6 +1014,16 @@ class LeakerClass(BaseClass):
 			#type
 			LeakedType=type(self.LeakingThresholdVariable)
 
+			#debug
+			'''
+			self.debug(
+				[
+					"There is a threshold",
+					"LeakedType is "+str(LeakedType)
+				]
+			)
+			'''
+			
 			#Check
 			if LeakedType==str:
 
@@ -1034,6 +1044,17 @@ class LeakerClass(BaseClass):
 						self.LeakingThresholdVariable,
 						LeakScalarPrefixStr
 					)
+
+					#import
+					import brian2
+
+					#get
+					Dimension=getattr(brian2,self.LeakingQuantityStr)
+
+					#set
+					self.BrianingSpikeViewVariable=[(
+						float("".join(BrianingNeurongroupDict['threshold'].split('*')[0].split('>')[1:]))
+					)*Dimension,-10.*Dimension]
 
 			else:
 
@@ -1058,7 +1079,36 @@ class LeakerClass(BaseClass):
 
 					#set
 					BrianingNeurongroupDict['threshold']=self.LeakedSymbolStr+'>Threshold'
-					
+
+
+
+					#Check
+					if LeakedType in [float,np.float64]:
+
+						#set
+						BrianedThresholdFloat=self.LeakingThresholdVariable
+
+					else:
+
+						#set
+						BrianedThresholdFloat=np.array(
+							self.LeakingThresholdVariable
+						).min()
+
+					#import
+					import brian2
+
+					#get
+					Dimension=getattr(brian2,self.LeakingQuantityStr)
+
+					#set
+					self.BrianingSpikeViewVariable=[
+						BrianedThresholdFloat*Dimension,
+						-10.*Dimension
+					]
+
+				
+						
 		#Check
 		if self.LeakingThresholdMethodStr!="":
 	
@@ -1385,11 +1435,13 @@ class LeakerClass(BaseClass):
 					self.LeakedMaxFloat=self.LeakedParentPopulationDeriveLeakerVariable.LeakingThresholdVariable.min()
 
 				#debug
+				'''
 				self.debug(
 					[
 						('self.',self,['LeakedMaxFloat'])
 					]
 				)
+				'''
 
 				#set
 				self.NumscipyingMeanFloat=self.LeakedMaxFloat
@@ -1413,12 +1465,14 @@ class LeakerClass(BaseClass):
 		#
 
 		#debug
+		'''
 		self.debug(
 
 			[
 				'It is an Input level',
 			]
 		)
+		'''
 
 		#Check
 		if self.LeakingSymbolPrefixStr=="":
@@ -1681,6 +1735,7 @@ class LeakerClass(BaseClass):
 			if self.LeakedClampStr=="Variable":
 
 				#debug
+				'''
 				self.debug(
 					[
 						'It is a variable',
@@ -1692,6 +1747,7 @@ class LeakerClass(BaseClass):
 						'We define and add in the LeakedCurrentStr'
 					]
 				)
+				'''
 
 				#Check
 				if self.LeakingRecordBool==False:
