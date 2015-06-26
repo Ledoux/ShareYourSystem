@@ -37,16 +37,17 @@ RecordPrefixStr=""
 class RecorderClass(BaseClass):
 	
 	def default_init(self,
-			_RecordKeyStr="",
-			_RecordingKeyVariable=None,
-			_RecordingLabelVariable=None,
-			_RecordingColorStr="blue",
-			_RecordingInitMeanVariable=None,
-			_RecordingInitStdVariable=None,
-			_RecordedTraceFloatsArray=None,
-			_RecordedInitFloatsArray=None,
-			_RecordedParentSingularStr="",	
-			_RecordedColorTuplesList=None,	
+			_RecordKeyStr = "",
+			_RecordingKeyVariable = None,
+			_RecordingLabelVariable = None,
+			_RecordingInitFloatsArray = None,
+			_RecordingColorStr = "blue",
+			_RecordingInitMeanVariable = None,
+			_RecordingInitStdVariable = None,
+			_RecordedTraceFloatsArray = None,
+			_RecordedInitFloatsArray = None,
+			_RecordedParentSingularStr = "",	
+			_RecordedColorTuplesList = None,	
 			**_KwargVariablesDict
 		):
 
@@ -276,51 +277,69 @@ class RecorderClass(BaseClass):
 			# Prepare initial conditions
 			# with the Matrixer
 
-			#debug
-			'''
-			self.debug(
-				[
-					'We prepare the initial conditions',
-					'len(self.RecordedTraceFloatsArray) is ',
-					str(len(self.RecordedTraceFloatsArray)),
-					('self.',self,[
-							'NumscipyingStdFloat',
-							'NumscipyingMeanFloat',
-							'RecordedTraceFloatsArray'
-						])
-				]
-			)
-			'''
+			#Check
+			if type(self.RecordingInitFloatsArray)==None.__class__:
+
+				#debug
+				'''
+				self.debug(
+					[
+						'We prepare the initial conditions',
+						'len(self.RecordedTraceFloatsArray) is ',
+						str(len(self.RecordedTraceFloatsArray)),
+						('self.',self,[
+								'NumscipyingStdFloat',
+								'NumscipyingMeanFloat',
+								'RecordedTraceFloatsArray'
+							])
+					]
+				)
+				'''
+				
+				#Check
+				if self.RecordingInitStdVariable!=None:
 			
-			#Check
-			if self.RecordingInitStdVariable!=None:
-		
-				#set
-				self.NumscipyingStdFloat=self.RecordingInitStdVariable
+					#set
+					self.NumscipyingStdFloat=self.RecordingInitStdVariable
 
-			elif RecordedTopDeriveRecorderVariable.RecordingInitStdVariable!=None:
+				elif RecordedTopDeriveRecorderVariable.RecordingInitStdVariable!=None:
 
-				#set
-				self.NumscipyingStdFloat=RecordedTopDeriveRecorderVariable.RecordingInitStdVariable
+					#set
+					self.NumscipyingStdFloat=RecordedTopDeriveRecorderVariable.RecordingInitStdVariable
 
-			#Check
-			if self.RecordingInitMeanVariable!=None:
-		
-				#set
-				self.NumscipyingMeanFloat=self.RecordingInitMeanVariable
+				#Check
+				if self.RecordingInitMeanVariable!=None:
+			
+					#set
+					self.NumscipyingMeanFloat=self.RecordingInitMeanVariable
 
-			elif RecordedTopDeriveRecorderVariable.RecordingInitMeanVariable!=None:
+				elif RecordedTopDeriveRecorderVariable.RecordingInitMeanVariable!=None:
 
-				#set
-				self.NumscipyingMeanFloat=RecordedTopDeriveRecorderVariable.RecordingInitMeanVariable
+					#set
+					self.NumscipyingMeanFloat=RecordedTopDeriveRecorderVariable.RecordingInitMeanVariable
 
 
 
-			#matrix
-			self.RecordedInitFloatsArray=self.numscipy(
-					_SizeTuple=(len(self.RecordedTraceFloatsArray),1),
-					_StatBool=False
-				).NumscipiedValueFloatsArray[:,0]
+				#matrix
+				self.RecordedInitFloatsArray=self.numscipy(
+						_SizeTuple=(len(self.RecordedTraceFloatsArray),1),
+						_StatBool=False
+					).NumscipiedValueFloatsArray[:,0]
+
+			else:
+
+				#debug
+				self.debug(
+					[
+						"we init with a fix array",
+						('self.',self,[
+								'RecordingInitFloatsArray'
+							])
+					]
+				)
+
+				#alias
+				self.RecordedInitFloatsArray = self.RecordingInitFloatsArray
 
 			#debug
 			'''
@@ -333,7 +352,7 @@ class RecorderClass(BaseClass):
 				]
 			)
 			'''
-
+			
 	def recordSample(self):
 
 		#debug
@@ -388,6 +407,7 @@ RecorderClass.PrintingClassSkipKeyStrsList.extend(
 		'RecordKeyStr',
 		'RecordingKeyVariable',
 		'RecordingLabelVariable',
+		'RecordingInitFloatsArray',
 		'RecordingColorStr',
 		'RecordingInitMeanVariable',
 		'RecordingInitStdVariable',

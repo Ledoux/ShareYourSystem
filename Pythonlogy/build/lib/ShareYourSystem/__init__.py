@@ -3333,7 +3333,7 @@ def getExtremumFloat(_Variable,_MinOrMaxStr='min'):
 def getTickFloatsArray(_LimList,_SampleFloat):
 
 	#import
-	import numpy
+	import numpy as np
 
 	#Debug
 	'''
@@ -3346,15 +3346,21 @@ def getTickFloatsArray(_LimList,_SampleFloat):
 	print('')
 	'''
 	
+	#Check
+	LimList=[
+		_LimList[0] if np.isnan(_LimList[0])==False else -10.,
+		_LimList[1] if np.isnan(_LimList[1])==False else 10.
+	]
+	
 	#return
-	TickFloatsArray=numpy.array(
+	TickFloatsArray=np.array(
 		list(
-			numpy.arange(
-				_LimList[0],
-				_LimList[1],
-				(_LimList[1]-_LimList[0])/float(_SampleFloat)
+			np.arange(
+				LimList[0],
+				LimList[1],
+				(LimList[1]-LimList[0])/float(_SampleFloat)
 			)
-		)+[_LimList[1]]
+		)+[LimList[1]]
 	)
 
 	#Debug

@@ -10,21 +10,23 @@ import ShareYourSystem as SYS
 #
 
 #Simulation time
-BrianingDebugVariable=25.
+SimulationTimeFloat=100.
+#SimulationTimeFloat=0.2
+BrianingDebugVariable=0.1 if SimulationTimeFloat<0.5 else 25.
+
+#A - transition matrix
+JacobianTimeFloat = 10. #(ms)
+A =  (-1./float(JacobianTimeFloat)
+	)*SYS.numpy.array([[1.,0.],[0.,1.]])
 
 #Define
 MyPredicter=SYS.PredicterClass(
 	).mapSet(
 		{
-			'BrianingStepTimeFloat':0.05, #(ms)
+			'BrianingStepTimeFloat':0.02,
 			'-Populations':[
 				('|Sensor',{
 					#'BrianingDebugVariable':BrianingDebugVariable,
-					'-Inputs':{
-						'|Command':{
-							'RecordingLabelVariable':[0,1]
-						}
-					},
 					'-Interactions':{
 						'|Encod':{
 							#'BrianingDebugVariable':BrianingDebugVariable
@@ -49,32 +51,23 @@ MyPredicter=SYS.PredicterClass(
 		}
 	).predict(
 		_DynamicBool=False,
-		_AgentUnitsInt=2,
-		_JacobianVariable={
-			'ModeStr':"Track",
-			'ConstantTimeFloat':10. #(ms)
-		},
+		_JacobianVariable = A,
 		_CommandVariable=(
 			'#custom:#clock:25*ms',
 			[
-				"1.*mV*int(t>=25*ms)*int(t<75*ms)",
-				"-0.5*mV*int(t==25*ms)"
-				#"1.*mV",
-				#"-0.5*mV"
+				"(1./"+str(
+					JacobianTimeFloat
+				)+")*mV*(int(t==25*ms)+int(t==50*ms))",
+				"(-1./"+str(
+					JacobianTimeFloat
+				)+")*mV*(int(t==25*ms)+int(t==50*ms))"
 			]
 		),
-		#_DecoderVariable="#array",
-		#_DecoderMeanFloat=2.,
-		#_DecoderStdFloat=0.,
-		#_DecoderVariable=[[5.,2.],[2.,5.]],
-		#_DecoderVariable=[[0.,5.],[5.,0.]],
-		#_DecoderVariable=[[0.,5.],[5.,0.]],
-		_DecoderVariable=[[7.,1.],[1.2,7.1]],
-		_AgentTimeFloat=10., #(ms)
-		_StationaryBool=True,
-		_InteractionStr="Rate"
+		#_AgentTimeFloat = 10.,
+		_DecoderVariable = SYS.numpy.array([[7.,1.],[1.2,7.1]]),
+		_InteractionStr = "Rate"
 	).simulate(
-		100
+		SimulationTimeFloat
 	)
 
 #/###################/#
@@ -129,8 +122,7 @@ MyPredicter.view(
 			]
 		}
 	).pyplot(
-	).show(
-	)
+	).show()
 
 #/###################/#
 # Print

@@ -605,7 +605,7 @@ class BrianerClass(BaseClass):
 				)
 
 				#debug
-				"""
+				'''
 				self.debug(
 					[
 						'We have setted the variable to record',
@@ -615,8 +615,8 @@ class BrianerClass(BaseClass):
 						])
 					]
 				)	
-				"""
-
+				'''
+				
 				#Check
 				if len(self.BrianedRecordKeyStrsList)>0:
 
@@ -3917,6 +3917,16 @@ class BrianerClass(BaseClass):
 
 			#import
 			import brian2
+
+			#debug
+			self.debug(
+				[
+					"We set the initial conditions with the good dimensions",
+					('self.',self,[
+							'BrianingActivityQuantityStr'
+						])
+				]
+			)
 
 			#alias
 			self.RecordedTraceFloatsArray[

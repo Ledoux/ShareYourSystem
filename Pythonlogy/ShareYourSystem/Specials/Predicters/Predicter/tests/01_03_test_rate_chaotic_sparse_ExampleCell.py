@@ -57,7 +57,7 @@ MyPredicter=SYS.PredicterClass(
 				'10.'
 			),
 		_DecoderVariable='#array',
-		_DecoderStdFloat=80.,
+		_DecoderStdFloat=8.,
 		_DecoderNormalisationInt=1,
 		_InteractionStr="Rate",
 		#_EncodPerturbStdFloat=5./100.,

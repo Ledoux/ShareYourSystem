@@ -72,6 +72,7 @@ class NumscipyerClass(BaseClass):
 			_NumscipyingDiagFloatsArray=None,
 			_NumscipyingSymmetryFloat=0.,
 			_NumscipyingMeanForceStr="None",
+			_NumscipyingSeedVariable = None,
 			_NumscipiedIndexIntsTuplesList=None,
 			_NumscipiedNonNullIndexIntsTuplesList=None,
 			_NumscipiedNullIndexIntsListsList=None,
@@ -215,12 +216,36 @@ class NumscipyerClass(BaseClass):
 			)
 			'''
 
+
 		#/#################/#
 		# Build maybe
 		#
 
 		#Check
 		if type(self.NumscipyingValueVariable)==None.__class__:
+
+
+			#/#################/#
+			# Set maybe the seed
+			#
+	
+			#check
+			if self.NumscipyingSeedVariable!=None:
+
+				#seed
+				np.random.seed(self.NumscipyingSeedVariable)
+
+				#debug
+				'''
+				self.debug(
+					[
+						"We have fixed a seed",
+						('self.',self,[
+								'NumscipyingSeedVariable'
+							])
+					]
+				)
+				'''
 
 			#/#################/#
 			# Get the continuous stat
@@ -240,7 +265,6 @@ class NumscipyerClass(BaseClass):
 					self.NumscipyingMeanFloat,
 					self.NumscipyingStdFloat
 				).rvs
-
 
 			#/#################/#
 			# Get the discrete stat
@@ -473,8 +497,9 @@ class NumscipyerClass(BaseClass):
 						'NumscipyingMeanFloat'
 					])
 			]
-		)
+		)	
 		'''
+		
 
 		#/#################/#
 		# Normalize maybe 
@@ -1780,6 +1805,7 @@ NumscipyerClass.PrintingClassSkipKeyStrsList.extend(
 		'NumscipyingDiagFloatsArray',
 		'NumscipyingSymmetryFloat',
 		'NumscipyingMeanForceStr',
+		'NumscipyingSeedVariable',
 		'NumscipyingSymmetryStr',
 		'NumscipyingSpecificTagVariablesArray',
 		'NumscipyingRowTagVariablesArray',

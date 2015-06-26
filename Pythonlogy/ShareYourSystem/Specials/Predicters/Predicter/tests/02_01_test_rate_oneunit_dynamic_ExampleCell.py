@@ -10,9 +10,14 @@ import ShareYourSystem as SYS
 #
 
 #Simulation time
-SimulationTimeFloat=150.
+SimulationTimeFloat=1000.
 #SimulationTimeFloat=0.2
 BrianingDebugVariable=0.1 if SimulationTimeFloat<0.5 else 25.
+
+#A - transition matrix
+JacobianTimeFloat = 30. #(ms)
+A =  (-1./float(JacobianTimeFloat)
+	)*SYS.numpy.array([[1.]])
 
 #Define
 MyPredicter=SYS.PredicterClass(
@@ -21,6 +26,7 @@ MyPredicter=SYS.PredicterClass(
 			'BrianingStepTimeFloat':0.05,
 			'-Populations':[
 				('|Sensor',{
+					'RecordingLabelVariable':[0],
 					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Encod':{
@@ -29,6 +35,7 @@ MyPredicter=SYS.PredicterClass(
 					}
 				}),
 				('|Agent',{
+					'RecordingLabelVariable':[0],
 					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Fast':{
@@ -36,17 +43,28 @@ MyPredicter=SYS.PredicterClass(
 						}
 					},
 					#'LeakingNoiseStdVariable':0.01
+				}),
+				('|Decoder',{
+					'RecordingLabelVariable':[0],
+					#'BrianingDebugVariable':BrianingDebugVariable
+					'-Interactions':{
+						'|Slow':{
+							#'BrianingDebugVariable':BrianingDebugVariable,
+							#'LeakingWeigthVariable':0.
+						}
+					}
 				})
 			]
 		}
 	).predict(
-		_DynamicBool=False,
-		_JacobianVariable={
-			'ModeStr':"Track",
-			'ConstantTimeFloat':2. #(ms)
-		},
-		_CommandVariable="#custom:#clock:50*ms:1.*mV*int(t==50*ms)",#2.,
-		_DecoderVariable=[2.],
+		_AgentUnitsInt=1,
+		_DynamicBool=True,
+		_JacobianVariable=A,
+		_CommandVariable="#custom:#clock:250*ms:(0.5/"+str(
+			JacobianTimeFloat
+		)+")*mV*(int(t==250*ms)+int(t==500*ms))",
+		_AgentTimeFloat = 10.,
+		_DecoderVariable=[5.],
 		_InteractionStr="Rate"
 	).simulate(
 		SimulationTimeFloat
@@ -56,9 +74,19 @@ MyPredicter=SYS.PredicterClass(
 # View
 #
 
-MyPredicter.view(
+MyPredicter.mapSet(
+		{
+			'PyplotingFigureVariable':{
+				'figsize':(10,8)
+			},
+			'PyplotingGridVariable':(30,30),
+			'-Panels':[
+			]
+		}
+	).view(
 	).pyplot(
-	).show()
+	).show(
+	)
 
 
 #/###################/#
@@ -68,8 +96,6 @@ MyPredicter.view(
 #Definition the AttestedStr
 print('MyPredicter is ')
 SYS._print(MyPredicter) 
-
-
 
 
 

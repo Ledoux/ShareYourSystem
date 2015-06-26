@@ -10,9 +10,14 @@ import ShareYourSystem as SYS
 #
 
 #Simulation time
-SimulationTimeFloat=150.
+SimulationTimeFloat=1000.
 #SimulationTimeFloat=0.2
 BrianingDebugVariable=0.1 if SimulationTimeFloat<0.5 else 25.
+
+#A - transition matrix
+JacobianTimeFloat = 10. #(ms)
+A =  (-1./float(JacobianTimeFloat)
+	)*SYS.numpy.array([[1.]])
 
 #Define
 MyPredicter=SYS.PredicterClass(
@@ -32,6 +37,12 @@ MyPredicter=SYS.PredicterClass(
 				('|Agent',{
 					'RecordingLabelVariable':[0,1,2],
 					#'BrianingDebugVariable':BrianingDebugVariable,
+					'-Traces':{
+						'|U':{
+							'RecordingInitMeanVariable':0.,
+							'RecordingInitStdVariable':0.1,
+						}
+					},
 					'-Interactions':{
 						'|Fast':{
 							#'BrianingDebugVariable':BrianingDebugVariable
@@ -47,18 +58,16 @@ MyPredicter=SYS.PredicterClass(
 	).predict(
 		_AgentUnitsInt=100,
 		_DynamicBool=False,
-		_JacobianVariable={
-			'ModeStr':"Track",
-			'ConstantTimeFloat':2. #(ms)
-		},
-		_CommandVariable="#custom:#clock:50*ms:1.*mV*int(t==50*ms)",#2.,
+		_JacobianVariable=A,
+		_CommandVariable = "#custom:#clock:250*ms:(0.5/"+str(
+			JacobianTimeFloat
+		)+")*mV*(int(t==250*ms)+int(t==500*ms))",
 		_RateTransferVariable='(1./<ThresFloat>)*mV*tanh((<ThresFloat>*(#CurrentStr))/(1.*mV))'.replace(
 				'<ThresFloat>',
 				'10.'
 			),
 		_DecoderVariable='#array',
-		_DecoderStdFloat=70.,
-		_DecoderNormalisationInt=1,
+		_DecoderStdFloat=7.,
 		_InteractionStr="Rate",
 		#_EncodPerturbStdFloat=5./100.,
 		_FastPerturbStdFloat=0.04
@@ -71,6 +80,48 @@ MyPredicter=SYS.PredicterClass(
 #
 
 MyPredicter.view(
+	).mapSet(
+		{
+			'-Panels':[
+					(
+						'|Run',
+						[
+							(
+								'-Charts',
+								[
+									(
+										'|Sensor_U',
+										{
+											'PyplotingLegendDict':{
+												'fontsize':10,
+												'ncol':2
+											}
+										}
+									),
+									(
+										'|Agent_U',
+										{
+											'PyplotingLegendDict':{
+												'fontsize':10,
+												'ncol':2
+											}
+										}
+									),
+									(
+										'|Decoder_U',
+										{
+											'PyplotingLegendDict':{
+												'fontsize':10,
+												'ncol':2
+											}
+										}
+									)
+								]
+							)
+						]
+					)
+				]
+		}
 	).pyplot(
 	).show()
 

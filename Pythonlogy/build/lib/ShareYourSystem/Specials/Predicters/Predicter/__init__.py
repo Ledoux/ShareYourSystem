@@ -59,26 +59,26 @@ class DynamicDict(dict):
 class PredicterClass(BaseClass):
 	
 	def default_init(self,
-			_PredictingSensorUnitsInt=1,
-			_PredictingAgentUnitsInt=1,
-			_PredictingDaleBool=False,
-			_PredictingDynamicBool=True,
-			_PredictingJacobianVariable=None,
-			_PredictingCommandVariable=None,
-			_PredictingEncodPerturbStdFloat=0.,
-			_PredictingRateCostVariable=None,
-			_PredictingRateTransferVariable=None,
-			_PredictingAgentThresholdVariable=10.,
-			_PredictingAgentRestVariable=None,
-			_PredictingAgentResetVariable=None,
-			_PredictingAgentNoiseVariable=None,
+			_PredictingSensorUnitsInt = 1,
+			_PredictingAgentUnitsInt = 1,
+			_PredictingDaleBool = False,
+			_PredictingDynamicBool = True,
+			_PredictingJacobianVariable = None,
+			_PredictingCommandVariable = None,
+			_PredictingEncodPerturbStdFloat = 0.,
+			_PredictingRateCostVariable = None,
+			_PredictingRateTransferVariable = None,
+			_PredictingAgentRestVariable = None,
+			_PredictingAgentResetVariable = None,
+			_PredictingAgentNoiseVariable = None,
+			_PredictingAgentThresholdVariable = None,
+			_PredictingAgentRefractoryVariable = None,
 			_PredictingAgentTimeFloat=10.,
 			_PredictingDecoderVariable=None,
 			_PredictingDecoderMeanFloat=1.,
 			_PredictingDecoderStdFloat=1.,
 			_PredictingDecoderSparseFloat=0.,
 			_PredictingDecoderTimeFloat=PredictSlowTimeFloat,
-			_PredictingDecoderNormalisationInt=1,
 			_PredictingFastPerturbStdFloat=0.,
 			_PredictingFastSymmetryFloat=1.,
 			_PredictingSlowPerturbStdFloat=0.,
@@ -479,86 +479,99 @@ class PredicterClass(BaseClass):
 		# Build the Jacobian
 		#
 
-		#init
-		self.PredictedDynamicDict=DynamicDict(
-				self.PredictingJacobianVariable
-			) if self.PredictingJacobianVariable!=None else DynamicDict()
-
-		#alias
-		PredictedConstantTimeFloat=self.PredictedDynamicDict['ConstantTimeFloat']
+		#set
+		JacobianType = type(self.PredictingJacobianVariable)
 
 		#Check
-		if self.PredictedDynamicDict["ModeStr"]=="Track":
+		if JacobianType in [dict,None.__class__]:
 
-			
-			#debug
-			'''
-			self.debug(
-				[
-					'We set a sensor variable leaking at'+str(PredictedConstantTimeFloat)
-				]
-			)
-			'''
+			#init
+			self.PredictedDynamicDict = DynamicDict(
+					self.PredictingJacobianVariable
+				) if self.PredictingJacobianVariable!=None else DynamicDict()
 
-			#diag
-			self.PredictedSensorJacobianFloatsArray=-(1./PredictedConstantTimeFloat)*np.diag(
-				np.ones(
-					self.PredictingSensorUnitsInt
-				)
-			)
-
-			#debug
-			self.debug(
-				[
-					('self.',self,[
-						'PredictedDynamicDict',
-						'PredictedSensorJacobianFloatsArray'
-					])
-				]
-			)
-
-
-		elif self.PredictedDynamicDict["ModeStr"]=="Damp":
+			#alias
+			PredictedConstantTimeFloat = self.PredictedDynamicDict['ConstantTimeFloat']
 
 			#Check
-			if self.PredictedDynamicDict["LoopIntsList"]==[1.]:
-				self.PredictingSensorUnitsInt=2
-			if self.PredictedDynamicDict["LoopIntsList"]==[1.,2.]:
-				self.PredictingSensorUnitsInt=6
+			if self.PredictedDynamicDict["ModeStr"]=="Track":
 
-			#debug
-			'''
-			self.debug(
-				[
-					'We build the oscillatory jacobian matrix',
-					('self.',self,[
-							'PredictingSensorUnitsInt'
+				
+				#debug
+				'''
+				self.debug(
+					[
+						'We set a sensor variable leaking at'+str(PredictedConstantTimeFloat)
+					]
+				)
+				'''
+
+				#diag
+				self.PredictedSensorJacobianFloatsArray =- (1./PredictedConstantTimeFloat)*np.diag(
+					np.ones(
+						self.PredictingSensorUnitsInt
+					)
+				)
+
+				#debug
+				self.debug(
+					[
+						('self.',self,[
+							'PredictedDynamicDict',
+							'PredictedSensorJacobianFloatsArray'
 						])
-				]
-			)
-			'''
-
-			#diag
-			self.PredictedSensorJacobianFloatsArray=-np.diag(
-				(1./PredictedConstantTimeFloat)*np.ones(
-					self.PredictingSensorUnitsInt
+					]
 				)
-			)
 
-			#set
-			self.PredictedSensorJacobianFloatsArray[0,0]+=(1.5/PredictedConstantTimeFloat)
-			self.PredictedSensorJacobianFloatsArray[1,0]+=-(3.7/PredictedConstantTimeFloat)
-			self.PredictedSensorJacobianFloatsArray[0,1]+=(3.7/PredictedConstantTimeFloat)
-			self.PredictedSensorJacobianFloatsArray[1,1]+=-(1./PredictedConstantTimeFloat)
 
-			#Check
-			if self.PredictedDynamicDict["LoopIntsList"]==[1.,2.]:
+			elif self.PredictedDynamicDict["ModeStr"]=="Damp":
+
+				#Check
+				if self.PredictedDynamicDict["LoopIntsList"]==[1]:
+					self.PredictingSensorUnitsInt=2
+				if self.PredictedDynamicDict["LoopIntsList"]==[1,2]:
+					self.PredictingSensorUnitsInt=6
+
+				#debug
+				'''
+				self.debug(
+					[
+						'We build the oscillatory jacobian matrix',
+						('self.',self,[
+								'PredictingSensorUnitsInt'
+							])
+					]
+				)
+				'''
+
+				#diag
+				self.PredictedSensorJacobianFloatsArray=-np.diag(
+					(1./PredictedConstantTimeFloat)*np.ones(
+						self.PredictingSensorUnitsInt
+					)
+				)
 
 				#set
-				self.PredictedSensorJacobianFloatsArray[2,3]+=(1./PredictedConstantTimeFloat)
-				self.PredictedSensorJacobianFloatsArray[3,4]+=-(1.2/PredictedConstantTimeFloat)
-				self.PredictedSensorJacobianFloatsArray[4,5]+=-(1.4/PredictedConstantTimeFloat)
-				self.PredictedSensorJacobianFloatsArray[5,2]+=-(1.6/PredictedConstantTimeFloat)
+				self.PredictedSensorJacobianFloatsArray[0,0]+=(1.5/PredictedConstantTimeFloat)
+				self.PredictedSensorJacobianFloatsArray[1,0]+=-(3.7/PredictedConstantTimeFloat)
+				self.PredictedSensorJacobianFloatsArray[0,1]+=(3.7/PredictedConstantTimeFloat)
+				self.PredictedSensorJacobianFloatsArray[1,1]+=-(1./PredictedConstantTimeFloat)
+
+				#Check
+				if self.PredictedDynamicDict["LoopIntsList"]==[1,2]:
+
+					#set
+					self.PredictedSensorJacobianFloatsArray[2,3]+=(1./PredictedConstantTimeFloat)
+					self.PredictedSensorJacobianFloatsArray[3,4]+=-(1.2/PredictedConstantTimeFloat)
+					self.PredictedSensorJacobianFloatsArray[4,5]+=-(1.4/PredictedConstantTimeFloat)
+					self.PredictedSensorJacobianFloatsArray[5,2]+=-(1.6/PredictedConstantTimeFloat)
+
+		else:
+
+			#alias
+			self.PredictedSensorJacobianFloatsArray = self.PredictingJacobianVariable
+			self.PredictingSensorUnitsInt = np.shape(
+				self.PredictedSensorJacobianFloatsArray)[0]
 
 		#debug
 		'''
@@ -583,6 +596,10 @@ class PredicterClass(BaseClass):
 
 			#Check
 			if self.PredictingDecoderSparseFloat>0.:
+
+				#Check
+				if type(self.PredictingAgentThresholdVariable)==None.__class__:
+					self.PredictingAgentThresholdVariable = 10.
 
 				#sqrt
 				self.NumscipyingMeanFloat=np.sqrt(
@@ -614,23 +631,35 @@ class PredicterClass(BaseClass):
 			self.NumscipyingMeanFloat=self.PredictingDecoderMeanFloat/self.PredictingAgentUnitsInt
 			self.NumscipyingRowsInt=self.PredictingSensorUnitsInt
 			self.NumscipyingColsInt=self.PredictingAgentUnitsInt
+
+			#debug
+			self.debug(
+				[
+					"We numscipy the decoder weights here",
+					('self.',self,[
+							'NumscipyingStdFloat',
+							'NumscipyingMeanFloat',
+							'NumscipyingSeedVariable'
+						])
+				]
+			)
+
+
+			#call
 			self.numscipy()
 
 			#Check
-			self.PredictedDecoderFloatsArray=self.NumscipiedValueFloatsArray
+			self.PredictedDecoderFloatsArray=1.*self.NumscipiedValueFloatsArray
 
 		#debug
-		'''
 		self.debug(
 			[
 				'We normalize the PredictedDecoderFloatsArray',
 				('self.',self,[
-						'PredictedDecoderFloatsArray',
-						'PredictingDecoderNormalisationInt'
+						'PredictedDecoderFloatsArray'
 					])
 			]
 		)
-		'''
 
 		#/################/#
 		# Build the Fast Connection
@@ -703,7 +732,7 @@ class PredicterClass(BaseClass):
 
 			#numscipy
 			self.NumscipyingMeanFloat=0.
-			self.NumscipyingStdFloat=self.PredictingFastPerturbStdFloat
+			self.NumscipyingStdFloat=self.PredictingFastPerturbStdFloat/np.sqrt(self.PredictingAgentUnitsInt)
 			self.NumscipyingSizeTuple=(self.PredictingAgentUnitsInt,self.PredictingAgentUnitsInt)
 			self.numscipy()
 
@@ -798,7 +827,8 @@ class PredicterClass(BaseClass):
 
 			#diag
 			PredictedRightSlowFloatsArray=self.PredictedSensorJacobianFloatsArray+(
-				1./self.PredictingDecoderTimeFloat
+				1./(self.PredictingDecoderTimeFloat)
+				#1.
 			)*np.diag(
 				np.ones(
 					self.PredictingSensorUnitsInt
@@ -871,6 +901,8 @@ class PredicterClass(BaseClass):
 				)
 				'''
 
+
+
 			#/################/#
 			# Perturb maybe
 			#
@@ -939,13 +971,14 @@ class PredicterClass(BaseClass):
 			'''
 
 			#set
-			self.PredictedFastFloatsArray*=self.PredictingAgentTimeFloat
+			self.PredictedFastFloatsArray = self.PredictingAgentTimeFloat*self.PredictedFastFloatsArray
+			#self.PredictedFastFloatsArray = self.PredictingAgentTimeFloat*self.PredictedFastFloatsArray
 
 		#Check
-		if type(self.PredictedSlowFloatsArray)!=None.__class__:
+		if type(self.PredictedSlowFloatsArray) != None.__class__:
 
 			#mul
-			self.PredictedSlowFloatsArray*=self.PredictingAgentTimeFloat
+			self.PredictedSlowFloatsArray = self.PredictingAgentTimeFloat*self.PredictedSlowFloatsArray
 
 		#/###############/#
 		# Consider the sum of Antileak
@@ -989,7 +1022,7 @@ class PredicterClass(BaseClass):
 			)
 
 			#remove diag
-			self.PredictedDelayFloatsArray-=np.diag(
+			self.PredictedDelayFloatsArray -= np.diag(
 				np.diagonal(
 					self.PredictedDelayFloatsArray
 					)
@@ -1293,9 +1326,12 @@ class PredicterClass(BaseClass):
 				# Add a refractory period
 				#
 
-				#set
-				#self.LeakingRefractoryVariable=0.5
+				if type(
+					self.PredictedNetworkDerivePredicterVariable.PredictingAgentRefractoryVariable
+				) != None.__class__ :
 
+					#set
+					self.LeakingRefractoryVariable = self.PredictedNetworkDerivePredicterVariable.PredictingAgentRefractoryVariable
 
 				#/####################/#
 				# Add noise
@@ -1391,8 +1427,19 @@ class PredicterClass(BaseClass):
 				# Set a threshold
 				#
 
-				#alias
-				self.LeakingThresholdVariable=PredictedRestVariable+self.PredictedNetworkDerivePredicterVariable.PredictedThresholdFloatsArray
+				#Check
+				if type(
+					self.PredictedNetworkDerivePredicterVariable.PredictingAgentThresholdVariable
+				) ==  None.__class__:
+
+					#alias
+					self.LeakingThresholdVariable = PredictedRestVariable+self.PredictedNetworkDerivePredicterVariable.PredictedThresholdFloatsArray
+
+				else:
+
+					#alias
+					self.LeakingThresholdVariable = self.PredictedNetworkDerivePredicterVariable.PredictingAgentThresholdVariable
+
 
 				#debug
 				self.debug(
@@ -1969,7 +2016,7 @@ class PredicterClass(BaseClass):
 			'''
 			self.debug(
 				[
-					'We set the weigths in the Encod',
+					'We set the weights in the Encod',
 					'self.PredictedNetworkDerivePredicterVariable.PredictedDecoderFloatsArray is ',
 					str(
 						self.PredictedNetworkDerivePredicterVariable.PredictedDecoderFloatsArray
@@ -2031,10 +2078,10 @@ class PredicterClass(BaseClass):
 			#
 
 			#Check
-			if self.PredictedNetworkDerivePredicterVariable.PredictingInteractionStr=="Spike":
+			#if self.PredictedNetworkDerivePredicterVariable.PredictingInteractionStr=="Spike":
 				
-				#set
-				self.LeakingRecordBool=True
+			#set
+			self.LeakingRecordBool=True
 
 		elif self.ManagementTagStr=="Decod":
 
@@ -2080,7 +2127,7 @@ class PredicterClass(BaseClass):
 			'''
 			self.debug(
 				[
-					'We set the weigths in the Decod',
+					'We set the weights in the Decod',
 					'self.PredictedNetworkDerivePredicterVariable.PredictedDecoderFloatsArray is ',
 					str(self.PredictedNetworkDerivePredicterVariable.PredictedDecoderFloatsArray)
 				]
@@ -2088,7 +2135,7 @@ class PredicterClass(BaseClass):
 			'''
 
 			#link
-			self.LeakingWeightVariable=self.PredictedNetworkDerivePredicterVariable.PredictedDecoderFloatsArray.T
+			self.LeakingWeightVariable = 1.*self.PredictedNetworkDerivePredicterVariable.PredictedDecoderFloatsArray
 
 			#Check
 			if self.PredictedNetworkDerivePredicterVariable.PredictingDynamicBool:
@@ -2100,13 +2147,15 @@ class PredicterClass(BaseClass):
 					'''
 					self.debug(
 						[
-							'We have to rescale with the time constant of the decoder'
+							'We have to rescale with the time constant of the decoder',
+							"self.PredictedNetworkDerivePredicterVariable.PredictingDecoderTimeFloat is ",
+							str(self.PredictedNetworkDerivePredicterVariable.PredictingDecoderTimeFloat)
 						]
 					)
 					'''
 
 					#set
-					self.LeakingWeightVariable*=self.PredictedNetworkDerivePredicterVariable.PredictingDecoderTimeFloat
+					self.LeakingWeightVariable = self.PredictedNetworkDerivePredicterVariable.PredictingDecoderTimeFloat*self.LeakingWeightVariable
 
 			#debug
 			'''
@@ -2160,7 +2209,7 @@ class PredicterClass(BaseClass):
 			'''
 			self.debug(
 				[
-					'We set the weigths in the Fast',
+					'We set the weights in the Fast',
 					'self.PredictedNetworkDerivePredicterVariable.PredictedFastFloatsArray is ',
 					str(self.PredictedNetworkDerivePredicterVariable.PredictedFastFloatsArray)
 				]
@@ -2214,7 +2263,7 @@ class PredicterClass(BaseClass):
 			'''
 			self.debug(
 				[
-					'We set the weigths in the Slow',
+					'We set the weights in the Slow',
 					'self.PredictedNetworkDerivePredicterVariable.PredictedSlowFloatsArray is ',
 					str(self.PredictedNetworkDerivePredicterVariable.PredictedSlowFloatsArray)
 				]
@@ -2927,7 +2976,7 @@ class PredicterClass(BaseClass):
 			self.BrianingActivityStr="c"
 
 		#Check
-		elif self.ManagementTagStr=='J_EncodI_Command':
+		elif self.ManagementTagStr in ['J_EncodU','J_EncodI_Command']:
 
 			#set
 			self.BrianingViewBool=False
@@ -3039,71 +3088,77 @@ class PredicterClass(BaseClass):
 					)
 					'''
 
-					#Check
-					ViewedCommandDerivePredicter=self.BrianedParentPopulationDeriveBrianerVariable.TeamDict[
+					#get
+					ViewedTracesDerivePredicter=ViewedCommandDerivePredicter=self.BrianedParentPopulationDeriveBrianerVariable.TeamDict[
 						'Traces'
-					].ManagementDict[
-						'J_EncodI_Command'
-					].TeamDict[
-						'Samples'
-					].ManagementDict[
-						'Default'
 					]
 
-					#debug
-					'''
-					self.debug(
-						[
-							'We view Sample Agent here',
-							'We add also the view of the command',
-							#'ViewedSensorDerivePredicter is ',
-							#SYS._str(ViewedSensorDerivePredicter),
-							'ViewedCommandDerivePredicter.PyplotingDrawVariable is ',
-							SYS._str(ViewedCommandDerivePredicter.PyplotingDrawVariable)
+					#Check
+					if 'J_EncodI_Command' in ViewedTracesDerivePredicter:
+
+						#Check
+						ViewedCommandDerivePredicter=ViewedTracesDerivePredicter.ManagementDict[
+							'J_EncodI_Command'
+						].TeamDict[
+							'Samples'
+						].ManagementDict[
+							'Default'
 						]
-					)
-					'''
 
-					#import 
-					import copy
+						#debug
+						'''
+						self.debug(
+							[
+								'We view Sample Agent here',
+								'We add also the view of the command',
+								#'ViewedSensorDerivePredicter is ',
+								#SYS._str(ViewedSensorDerivePredicter),
+								'ViewedCommandDerivePredicter.PyplotingDrawVariable is ',
+								SYS._str(ViewedCommandDerivePredicter.PyplotingDrawVariable)
+							]
+						)
+						'''
 
-					#copy
-					ViewedPyplotDrawVariable=copy.deepcopy(
-						ViewedCommandDerivePredicter.PyplotingDrawVariable
-					)
+						#import 
+						import copy
 
-					#set
-					map(
-						lambda __ItemTuple:
-						__ItemTuple[1][
-							'#kwarg'
-						].update(
-							{
-								'linestyle':'--',
-								'linewidth':1
-							}
-						),
-						ViewedPyplotDrawVariable
-						#self.PyplotingDrawVariable
-					)
+						#copy
+						ViewedPyplotDrawVariable=copy.deepcopy(
+							ViewedCommandDerivePredicter.PyplotingDrawVariable
+						)
 
-					#add
-					self.PyplotingDrawVariable.extend(
-						ViewedPyplotDrawVariable
-					)
+						#set
+						map(
+							lambda __ItemTuple:
+							__ItemTuple[1][
+								'#kwarg'
+							].update(
+								{
+									'linestyle':'--',
+									'linewidth':1
+								}
+							),
+							ViewedPyplotDrawVariable
+							#self.PyplotingDrawVariable
+						)
 
-					#debug
-					'''
-					self.debug(
-						[
-							'In the end',
-							('self.',self,[
-								'PyplotingDrawVariable'
-							])
-							
-						]
-					)
-					'''
+						#add
+						self.PyplotingDrawVariable.extend(
+							ViewedPyplotDrawVariable
+						)
+
+						#debug
+						'''
+						self.debug(
+							[
+								'In the end',
+								('self.',self,[
+									'PyplotingDrawVariable'
+								])
+								
+							]
+						)
+						'''
 
 		#/#################/#
 		# Special Decoder case
@@ -3435,6 +3490,7 @@ PredicterClass.PrintingClassSkipKeyStrsList.extend(
 		'PredictingAgentRestVariable',
 		'PredictingAgentResetVariable',
 		'PredictingAgentNoiseVariable',
+		'PredictingAgentRefractoryVariable',
 		'PredictingFastSymmetryFloat',
 		'PredictingSlowPerturbStdFloat',
 		'PredictingDecoderVariable',
@@ -3442,7 +3498,6 @@ PredicterClass.PrintingClassSkipKeyStrsList.extend(
 		'PredictingDecoderStdFloat',
 		'PredictingDecoderSparseFloat',
 		'PredictingDecoderTimeFloat',
-		'PredictingDecoderNormalisationInt',
 		'PredictingEncodPlasticBool',
 		'PredictingFastPerturbStdFloat',
 		'PredictingInteractionStr',

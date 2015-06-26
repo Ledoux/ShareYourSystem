@@ -816,7 +816,63 @@ class LeakerClass(BaseClass):
 				self.LeakedModelStr+='/('+self.LeakedTimeSymbolStr+')'
 
 			#set the dimension
-			self.LeakedModelStr+=' : '+self.LeakedDimensionStr+"\n"
+			self.LeakedModelStr+=' : '+self.LeakedDimensionStr
+
+		#/##################/#
+		# Init the Neurongroup dict
+		#
+
+		#init
+		BrianingNeurongroupDict={
+				}
+
+		#/##################/#
+		# Look for a refractory period 
+		#
+
+		#type
+		LeakedRefractoryType=type(self.LeakingRefractoryVariable)
+
+		#Check
+		if LeakedRefractoryType!=None.__class__:
+
+			#import
+			import numpy as np
+
+			#Check
+			if LeakedRefractoryType in [float,np.float64]:
+
+				#import
+				import brian2
+
+				#set
+				BrianingNeurongroupDict[
+					'refractory'
+				]=self.LeakingRefractoryVariable*getattr(
+					brian2,
+					self.BrianingTimeQuantityStr
+				)
+			
+			#/###############/#
+			# Add in the model
+			#
+
+			#debug
+			'''
+			self.debug(
+				[
+					('self.',self,[
+							'LeakedModelStr'
+						])
+				]
+			)
+			'''
+
+			#add
+			self.LeakedModelStr+=' (unless refractory)'
+
+		#add
+		self.LeakedModelStr+="\n"
 
 		#debug
 		'''
@@ -907,13 +963,7 @@ class LeakerClass(BaseClass):
 			LeakedDefaultDeriveLeaker.RecordingLabelVariable=self.BrianingMonitorIndexIntsList[:]
 
 
-		#/##################/#
-		# Init the Neurongroup dict
-		#
-
-		#init
-		BrianingNeurongroupDict={
-				}
+		
 
 		#/##################/#
 		# Look for a Max pick 
@@ -1248,50 +1298,7 @@ class LeakerClass(BaseClass):
 			)
 			"""
 			
-		#/##################/#
-		# Look for a refractory period 
-		#
-
-		#type
-		LeakedRefractoryType=type(self.LeakingRefractoryVariable)
-
-		#Check
-		if LeakedRefractoryType!=None.__class__:
-
-			#import
-			import numpy as np
-
-			#Check
-			if LeakedRefractoryType in [float,np.float64]:
-
-				#import
-				import brian2
-
-				#set
-				BrianingNeurongroupDict[
-					'refractory'
-				]=self.LeakingRefractoryVariable*getattr(
-					brian2,
-					self.BrianingTimeQuantityStr
-				)
-			
-			#/###############/#
-			# Add in the model
-			#
-
-			#debug
-			'''
-			self.debug(
-				[
-					('self.',self,[
-							'LeakedModelStr'
-						])
-				]
-			)
-			'''
-
-			#add
-			self.LeakedModelStr+=' (unless refractory)'
+		
 
 		#/##################/#
 		# Set the neurongroup dict

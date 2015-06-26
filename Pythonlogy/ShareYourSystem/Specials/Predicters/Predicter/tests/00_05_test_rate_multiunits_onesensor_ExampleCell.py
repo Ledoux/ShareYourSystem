@@ -4,66 +4,91 @@
 
 #ImportModules
 import ShareYourSystem as SYS
+import scipy.stats
+import numpy
+numpy.random.seed(4)
 
 #/###################/#
 # Build the model
 #
 
-#set
+#Simulation time
 BrianingDebugVariable=25.
+
+#Simulation time
+SimulationTimeFloat=1000.
+
+#set
+AgentUnitsInt = 100
+
+#A - transition matrix
+JacobianTimeFloat = 10. #(ms)
+A =  (-1./float(JacobianTimeFloat)
+	)*SYS.numpy.array([[1.]])
 
 #Define
 MyPredicter=SYS.PredicterClass(
 	).mapSet(
 		{
-			'BrianingStepTimeFloat':0.01,
+			'NumscipyingSeedVariable':4,
+			'BrianingStepTimeFloat':0.02, #(ms)
 			'-Populations':[
 				('|Sensor',{
-					'LeakingMonitorIndexIntsList':[0],
 					#'BrianingDebugVariable':BrianingDebugVariable,
+					'-Inputs':{
+						'|Command':{
+							'RecordingLabelVariable':[0,1]
+						}
+					},
 					'-Interactions':{
 						'|Encod':{
-							'BrianingDebugVariable':BrianingDebugVariable
+							#'BrianingDebugVariable':BrianingDebugVariable
 						}
-					}
+					},
+					'RecordingLabelVariable':[0,1]
 				}),
 				('|Agent',{
-					'LeakingMonitorIndexIntsList':[0],
 					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Fast':{
-							'BrianingDebugVariable':BrianingDebugVariable
+							#'BrianingDebugVariable':BrianingDebugVariable
 						}
 					},
-					#'LeakingNoiseStdVariable':0.01
+					'-Traces':{
+						'|U':{
+							'RecordingInitFloatsArray':scipy.stats.norm(0.,0.01).rvs(size=AgentUnitsInt)
+						}
+					},
+					'RecordingLabelVariable':[0,1,2]
 				}),
 				('|Decoder',{
-					'LeakingMonitorIndexIntsList':[0],
-					#'BrianingDebugVariable':BrianingDebugVariable
-					'-Interactions':{
-						'|Slow':{
-							#'BrianingDebugVariable':BrianingDebugVariable,
-							#'LeakingWeigthVariable':0.
-						}
-					}
+					#'BrianingDebugVariable':BrianingDebugVariable,
+					'RecordingLabelVariable':[0,1]
 				})
 			]
 		}
 	).predict(
-		_AgentUnitsInt=1,
-		_CommandVariable="#custom:#clock:20*ms:1.*mV+1.*mV*int(t==20*ms)",#2.,
-		_DecoderVariable=[2.],
-		_InteractionStr="Spike",
-		#_AgentResetVariable=-70.,
+		_DynamicBool = False,
+		_JacobianVariable = A,
+		 _CommandVariable = "#custom:#clock:250*ms:(0.5/"+str(
+			JacobianTimeFloat
+		)+")*mV*(int(t==250*ms)+int(t==500*ms))",
+		#_AgentTimeFloat = 10.,
+		_DecoderVariable = "#array",
+		_DecoderMeanFloat = 0.,
+		_DecoderStdFloat = 20./SYS.numpy.sqrt(AgentUnitsInt),
+		_AgentUnitsInt =  AgentUnitsInt,
+		_InteractionStr = "Rate"
 	).simulate(
-		50.
+		SimulationTimeFloat
 	)
 
 #/###################/#
 # View
 #
 
-MyPredicter.mapSet(
+MyPredicter.view(
+	).mapSet(
 		{
 			'PyplotingFigureVariable':{
 				'figsize':(10,8)
@@ -76,15 +101,6 @@ MyPredicter.mapSet(
 						(
 							'-Charts',
 							[
-								(
-									'|Sensor_I_Command',
-									{
-										'PyplotingLegendDict':{
-											'fontsize':10,
-											'ncol':2
-										}
-									}
-								),
 								(
 									'|Sensor_U',
 									{
@@ -99,19 +115,16 @@ MyPredicter.mapSet(
 									{
 										'PyplotingLegendDict':{
 											'fontsize':10,
-											'ncol':1
+											'ncol':2
 										}
 									}
-								),
-								(
-									'|Agent_Default',{}
 								),
 								(
 									'|Decoder_U',
 									{
 										'PyplotingLegendDict':{
 											'fontsize':10,
-											'ncol':1
+											'ncol':2
 										}
 									}
 								)
@@ -121,7 +134,6 @@ MyPredicter.mapSet(
 				)
 			]
 		}
-	).view(
 	).pyplot(
 	).show(
 	)
@@ -133,4 +145,8 @@ MyPredicter.mapSet(
 #Definition the AttestedStr
 print('MyPredicter is ')
 SYS._print(MyPredicter) 
+
+
+
+
 

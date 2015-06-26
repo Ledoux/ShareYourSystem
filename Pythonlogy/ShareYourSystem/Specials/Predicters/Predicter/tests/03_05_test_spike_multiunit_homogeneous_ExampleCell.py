@@ -11,16 +11,16 @@ import ShareYourSystem as SYS
 #
 
 #set
-BrianingDebugVariable = 25.
+BrianingDebugVariable=25.
 
-#set
+#
 AgentUnitsInt = 1000
 
 #Define
 MyPredicter=SYS.PredicterClass(
 	).mapSet(
 		{
-			'BrianingStepTimeFloat':0.05,
+			'BrianingStepTimeFloat':0.02,
 			'-Populations':[
 				('|Sensor',{
 					'LeakingMonitorIndexIntsList':[0],
@@ -39,7 +39,6 @@ MyPredicter=SYS.PredicterClass(
 							#'BrianingDebugVariable':BrianingDebugVariable
 						}
 					},
-					#'LeakingNoiseStdVariable':0.01
 					#'LeakingThresholdMethodStr':'filterSpikespace'
 				}),
 				('|Decoder',{
@@ -55,13 +54,15 @@ MyPredicter=SYS.PredicterClass(
 			]
 		}
 	).predict(
-		_AgentUnitsInt=AgentUnitsInt,
-		_CommandVariable="#custom:#clock:40*ms:1.*mV+1.*mV*int(t==40*ms)",#2.,
-		_DecoderVariable="#array",
-		_DecoderStdFloat = SYS.numpy.sqrt(AgentUnitsInt) * 1., #need to make an individual PSP around 1 mV
-		_DecoderMeanFloat = 0., 
+		_AgentUnitsInt = AgentUnitsInt,
+		_CommandVariable = "#custom:#clock:40*ms:5.*(1.*mV+1.*mV*int(t==40*ms))",#2.,
+		_DecoderVariable = "#array",
+		_DecoderStdFloat = 0.,
+		_DecoderMeanFloat = AgentUnitsInt * 0.5, #need to make an individual PSP around 1 mV
 		_AgentResetVariable = -70., #big cost to reset neurons and make the noise then decide who is going to spike next
-		_AgentNoiseVariable = 0.25, #noise to make neurons not spiking at the same timestep
+		_AgentNoiseVariable = 1., #noise to make neurons not spiking at the same timestep
+		#_AgentThresholdVariable = -53., #increase the threshold in order to have a linear cost
+		_AgentRefractoryVariable=0.5,
 		_InteractionStr = "Spike"
 	).simulate(
 		100.
