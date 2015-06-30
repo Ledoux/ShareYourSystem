@@ -1157,6 +1157,14 @@ class LeakerClass(BaseClass):
 						-10.*Dimension
 					]
 
+					#append
+					if self.LeakedRecordSkipStrsList==None:
+						self.LeakedRecordSkipStrsList=['Threshold']
+					else:
+						self.LeakedRecordSkipStrsList.append(
+							'Threshold'
+						)
+
 				
 						
 		#Check
@@ -1872,7 +1880,6 @@ class LeakerClass(BaseClass):
 		#
 
 		#debug
-		'''
 		self.debug(
 			[
 				'It is an Interaction level',
@@ -1881,8 +1888,7 @@ class LeakerClass(BaseClass):
 					])
 			]
 		)
-		'''
-
+		
 		#/####################/#
 		# Determine the parent
 		#
@@ -2274,7 +2280,7 @@ class LeakerClass(BaseClass):
 		#
 
 		#debug
-		"""
+		'''
 		self.debug(
 			[
 				'First we set the model in the synapse',
@@ -2284,7 +2290,7 @@ class LeakerClass(BaseClass):
 				])
 			]
 		)
-		"""
+		'''
 
 		#Check
 		if self.LeakedClampStr=="Variable":
@@ -2599,7 +2605,7 @@ class LeakerClass(BaseClass):
 			]
 		)	
 		'''
-
+		
 		#/##################/#
 		# Look for plasticity in the rate
 		#
@@ -2657,6 +2663,26 @@ class LeakerClass(BaseClass):
 				)
 				'''
 
+		else:
+
+			#debug
+			self.debug(
+				[
+					"We add in the not record",
+					('self.',self,[
+							'LeakedRecordSkipStrsList',
+							'BrianingRecordSkipKeyStrsList'
+						])
+				]
+			)
+
+			#Check
+			if self.BrianingRecordSkipKeyStrsList==None:
+				self.BrianingRecordSkipKeyStrsList=[self.LeakingSymbolPrefixStr]
+			else:
+				self.BrianingRecordSkipKeyStrsList.append(self.LeakingSymbolPrefixStr)
+
+
 		#/##################/#
 		# Update in the Synapses dict
 		#
@@ -2677,20 +2703,24 @@ class LeakerClass(BaseClass):
 		#Check
 		if self.LeakingInteractionStr=="Spike":
 
+			#add
+			self.BrianingSynapsesDict['pre']=self.ConnectedToVariable.LeakedSymbolStr+'_post+='+self.LeakingSymbolPrefixStr+'*'+str(
+				self.LeakedParentPopulationDeriveLeakerVariable.LeakedQuantityVariable
+			)
+
 			#debug
-			'''
 			self.debug(
 				[
 					'It is a spike interaction add int the BrianingSynapsesDict pre',
 					'self.ConnectedToVariable.LeakedSymbolStr is ',
-					self.ConnectedToVariable.LeakedSymbolStr
+					self.ConnectedToVariable.LeakedSymbolStr,
+					('self.',self,[
+							'LeakedModelStr'
+						]),
+					"self.BrianingSynapsesDict['pre'] is "+str(
+						self.BrianingSynapsesDict['pre']
+					)
 				]
-			)
-			'''
-
-			#add
-			self.BrianingSynapsesDict['pre']=self.ConnectedToVariable.LeakedSymbolStr+'_post+='+self.LeakingSymbolPrefixStr+'*'+str(
-				self.LeakedParentPopulationDeriveLeakerVariable.LeakedQuantityVariable
 			)
 
 			#/##################/#
@@ -2954,12 +2984,15 @@ class LeakerClass(BaseClass):
 			)
 			'''
 
-			#set in the Threshold Trace to not record
-			self.TeamDict[
-				'Traces'
-			].ManagementDict[
-				Recorder.RecordPrefixStr+'Threshold'
-			].BrianingRecordInitBool=False
+			#Check
+			if 'Threshold' not in self.BrianingRecordSkipKeyStrsList:
+
+				#set in the Threshold Trace to not record
+				self.TeamDict[
+					'Traces'
+				].ManagementDict[
+					Recorder.RecordPrefixStr+'Threshold'
+				].BrianingRecordInitBool=False
 
 		#Check
 		if self.LeakedThresholdMethod!=None:
@@ -2989,7 +3022,7 @@ class LeakerClass(BaseClass):
 			self.getTeamer(
 					"Events"
 				).getManager(
-					"Default"
+					"Default_Events"
 				)
 
 		#/###################/#
@@ -5867,6 +5900,36 @@ class LeakerClass(BaseClass):
 					self.TeamDict['Interactions'].ManagementDict.values()
 				)
 
+
+	def plotCorrelogramm(self):
+
+		#debug
+		'''
+		self.debug(
+			[
+				"We plot the spike correlogramm",
+				('self.',self,[
+						"LeakedWeightPhaseList"
+					])
+			]
+		)
+		'''
+
+		#set
+		ChartStr=str(self.ManagementTagStr)+"_Correlogramm"
+
+		#add
+		LeakedPhaseWeightPopulationChartDerivePyploter = self.LeakedParentPopulationDeriveLeakerVariable.getTeamer(
+			"Panels"
+		).getManager(
+			"Stat"
+		).getTeamer(
+			"Charts"
+		).getManager(
+			ChartStr
+		)
+
+
 	def plotPhaseWeight(self):
 
 		#debug
@@ -6217,7 +6280,8 @@ class LeakerClass(BaseClass):
 				_YVariable=ViewedLimFloatsArray
 			)
 
-
+		#call the base method
+		BaseClass.viewInteraction(self)
 
 
 	#/###################/#

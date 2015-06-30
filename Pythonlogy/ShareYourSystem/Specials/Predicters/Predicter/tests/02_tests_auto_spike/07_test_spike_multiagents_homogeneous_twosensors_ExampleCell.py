@@ -12,6 +12,9 @@ import ShareYourSystem as SYS
 #set
 BrianingDebugVariable=25.
 
+#set
+AgentUnitsInt=1000
+
 #Define
 MyPredicter=SYS.PredicterClass(
 	).mapSet(
@@ -19,7 +22,7 @@ MyPredicter=SYS.PredicterClass(
 			'BrianingStepTimeFloat':0.01,
 			'-Populations':[
 				('|Sensor',{
-					'LeakingMonitorIndexIntsList':[0],
+					'RecordingLabelVariable':[0,1],
 					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Encod':{
@@ -28,7 +31,7 @@ MyPredicter=SYS.PredicterClass(
 					}
 				}),
 				('|Agent',{
-					'LeakingMonitorIndexIntsList':[0],
+					'RecordingLabelVariable':[0,1],
 					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Fast':{
@@ -38,7 +41,7 @@ MyPredicter=SYS.PredicterClass(
 					#'LeakingNoiseStdVariable':0.01
 				}),
 				('|Decoder',{
-					'LeakingMonitorIndexIntsList':[0],
+					'RecordingLabelVariable':[0,1],
 					#'BrianingDebugVariable':BrianingDebugVariable
 					'-Interactions':{
 						'|Slow':{
@@ -50,15 +53,24 @@ MyPredicter=SYS.PredicterClass(
 			]
 		}
 	).predict(
-		_AgentUnitsInt=1,
-		_CommandVariable="#custom:#clock:20*ms:1.*mV+1.*mV*int(t==20*ms)",#2.,
-		_DecoderVariable=[2.],
-		_InteractionStr="Spike",
-		#_AgentResetVariable=-70.,
-		#_AgentThresholdVariable=-50.
-		#_AgentRefractoryVariable=0.5 BE CAREFUL NOT WORKING BECAUSE auto IPSP is then not inducted
+		_AgentUnitsInt = AgentUnitsInt,
+		_CommandVariable = (
+			'#custom:#clock:25*ms',
+			[
+				"2.*(1.*mV+0.5*mV*(int(t==25*ms)+int(t==50*ms)))",
+				"2.*(1.*mV-0.5*mV*(int(t==25*ms)+int(t==50*ms)))"
+			]
+		),
+		_DecoderVariable = "#array",
+		_DecoderStdFloat = 1./SYS.numpy.sqrt(AgentUnitsInt),
+		_DecoderMeanFloat = AgentUnitsInt * 0.5, #need to make an individual PSP around 1 mV
+		_AgentResetVariable = -70., #big cost to reset neurons and make the noise then decide who is going to spike next
+		_AgentNoiseVariable = 1., #noise to make neurons not spiking at the same timestep
+		#_AgentThresholdVariable = -53., #increase the threshold in order to have a linear cost
+		_AgentRefractoryVariable=0.5,
+		_InteractionStr = "Spike"
 	).simulate(
-		50.
+		100.
 	)
 
 #/###################/#
@@ -106,7 +118,7 @@ MyPredicter.mapSet(
 									}
 								),
 								(
-									'|Agent_Default',{}
+									'|Agent_Default_Events',{}
 								),
 								(
 									'|Decoder_U',

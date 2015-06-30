@@ -19,7 +19,7 @@ MyPredicter=SYS.PredicterClass(
 			'BrianingStepTimeFloat':0.01,
 			'-Populations':[
 				('|Sensor',{
-					'LeakingMonitorIndexIntsList':[0,1],
+					'RecordingLabelVariable':[0,1],
 					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Encod':{
@@ -28,7 +28,7 @@ MyPredicter=SYS.PredicterClass(
 					}
 				}),
 				('|Agent',{
-					'LeakingMonitorIndexIntsList':[0,1],
+					'RecordingLabelVariable':[0,1],
 					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Fast':{
@@ -38,7 +38,7 @@ MyPredicter=SYS.PredicterClass(
 					#'LeakingNoiseStdVariable':0.01
 				}),
 				('|Decoder',{
-					'LeakingMonitorIndexIntsList':[0,1],
+					'RecordingLabelVariable':[0,1],
 					#'BrianingDebugVariable':BrianingDebugVariable
 					'-Interactions':{
 						'|Slow':{
@@ -108,7 +108,7 @@ MyPredicter.view(
 									}
 								),
 								(
-									'|Agent_Default',{}
+									'|Agent_Default_Events',{}
 								),
 								(
 									'|Decoder_U',

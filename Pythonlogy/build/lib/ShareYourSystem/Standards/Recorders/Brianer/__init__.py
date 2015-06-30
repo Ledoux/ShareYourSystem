@@ -52,6 +52,7 @@ BrianViewKeyStrsList=[
 			('Trace','Traces'),
 			('Sample','Samples'),
 			('Event','Events'),
+			('Rate','Rates'),
 			('Interactome','Interactomes'),
 			('Interaction','Interactions')
 		]
@@ -85,6 +86,7 @@ class BrianerClass(BaseClass):
 			_BrianingEventSelectVariable=None,
 			_BrianingSpikeViewVariable = None,
 			_BrianingViewBool = True,
+			_BrianingWindowFloat = 2.,
 			_BrianedEventTraceVariable=None,
 			_BrianedTimeQuantityVariable=None,
 			_BrianedNetworkVariable=None,
@@ -92,6 +94,7 @@ class BrianerClass(BaseClass):
 			_BrianedSynapsesVariable=None,
 			_BrianedStateMonitorVariable=None,
 			_BrianedSpikeMonitorVariable=None,
+			_BrianedRateMonitorVariable=None,
 			_BrianedClockVariable=None,
 			_BrianedParentSingularStr="",
 			_BrianedRecordKeyStrsList=None,
@@ -193,6 +196,7 @@ class BrianerClass(BaseClass):
 			'Traces',
 			'Samples',
 			'Events',
+			'Rates',
 			'Interactomes',
 			'Interactions'
 		]) and self.BrianedParentSingularStr!="Population":
@@ -268,6 +272,7 @@ class BrianerClass(BaseClass):
 					'Populations',
 					'Traces',
 					'Events',
+					'Rates',
 					'Samples',
 					'Interactomes',
 					'Interactions'
@@ -987,6 +992,17 @@ class BrianerClass(BaseClass):
 			# team States first all the brian variables
 			#
 
+			#debug
+			'''
+			self.debug(
+				[
+					('self.',self,[
+							'BrianingRecordSkipKeyStrsList'
+						])
+				]
+			)
+			'''
+
 			#Check
 			self.BrianedRecordKeyStrsList=filter(
 				lambda __BrianedRecordKeyStr:
@@ -997,7 +1013,6 @@ class BrianerClass(BaseClass):
 			)
 
 			#debug
-			'''
 			self.debug(
 				[
 					'We have setted the variable to record',
@@ -1007,7 +1022,6 @@ class BrianerClass(BaseClass):
 					])
 				]
 			)
-			'''
 
 			#Check
 			if len(self.BrianedRecordKeyStrsList)>0:
@@ -1023,7 +1037,9 @@ class BrianerClass(BaseClass):
 				'''
 
 				#Check
-				BrianedTracesManager=self.getTeamer('Traces')
+				BrianedTracesManager=self.getTeamer(
+					'Traces'
+				)
 
 	
 				#debug
@@ -1066,6 +1082,38 @@ class BrianerClass(BaseClass):
 						),
 						self.BrianedRecordKeyStrsList
 					)
+
+				#debug
+				self.debug(
+					[
+						"Now ",
+						('self.',self,[
+								'BrianedTraceDeriveBrianersList'
+							])
+					]
+				)
+
+				#Check
+				for BrianedTraceDeriveBrianer in self.BrianedTraceDeriveBrianersList:
+
+					#set
+					BrianedSamplesDeriveBrianer=BrianedTraceDeriveBrianer.getTeamer(
+						"Samples"
+					)
+
+					#Check
+					if len(BrianedSamplesDeriveBrianer.ManagementDict)==0:
+
+						#debug
+						self.debug(
+							[
+								"We build a default Sample for ",
+								str(BrianedSamplesDeriveBrianer)
+							]
+						)
+
+						#get
+						BrianedSamplesDeriveBrianer.getManager('Default')
 
 	def setDebugNeurongroup(self):
 
@@ -1188,13 +1236,11 @@ class BrianerClass(BaseClass):
 		elif BrianedParentDeriveBrianer.BrianedSynapsesVariable!=None:
 
 			#debug
-			'''
 			self.debug(
 				[
 					'It is a trace in a synapses'
 				]
 			)
-			'''
 
 			#get
 			self.BrianedParentInteractionDeriveBrianerVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
@@ -1267,6 +1313,10 @@ class BrianerClass(BaseClass):
 
 			#Check
 			BrianedSamplesDeriveTeamer=self.getTeamer('Samples')
+
+			#Check
+			if len(BrianedSamplesDeriveTeamer.ManagementDict)==0:
+				BrianedSamplesDeriveTeamer.getManager('Default')
 
 			#debug
 			'''
@@ -1354,6 +1404,8 @@ class BrianerClass(BaseClass):
 						]
 					)
 					'''
+
+
 
 			elif self.BrianedParentDeriveBrianerStr=="Interaction":
 
@@ -1563,7 +1615,6 @@ class BrianerClass(BaseClass):
 			#
 		
 			#debug
-			'''
 			self.debug(
 				[
 					'We set the state monitor',
@@ -1581,16 +1632,32 @@ class BrianerClass(BaseClass):
 					)
 				]
 			)
-			'''
+
+			#get
+			BrianedBrianVariable=self.BrianedParentPopulationDeriveBrianerVariable.BrianedNeurongroupVariable if self.BrianedParentDeriveRecorderVariable.BrianedParentDeriveBrianerStr=="Population" else self.BrianedParentInteractionDeriveBrianerVariable.BrianedSynapsesVariable
+
+			#get
+			BrianArrayVariable=getattr(
+				BrianedBrianVariable,
+				self.BrianedParentDeriveRecorderVariable.RecordKeyStr
+			)
+
+			#debug
+			self.debug(
+				[
+					'BrianedBrianVariable is '+str(BrianedBrianVariable),
+					'BrianArrayVariable is '+str(BrianArrayVariable)
+				]
+			)
 
 			#Check
 			if len(
 				self.BrianingMonitorIndexIntsList
-			)>self.BrianedParentPopulationDeriveBrianerVariable.BrianedNeurongroupVariable.N:
+			)>len(BrianArrayVariable):
 			
 				#cut
 				BrianedMonitorIndexIntsList=self.BrianingMonitorIndexIntsList[
-					:self.BrianedParentPopulationDeriveBrianerVariable.BrianedNeurongroupVariable.N
+					:len(BrianArrayVariable)
 				]
 			else:
 
@@ -1618,9 +1685,7 @@ class BrianerClass(BaseClass):
 			
 			#init
 			self.BrianedStateMonitorVariable=StateMonitor(
-					self.BrianedParentPopulationDeriveBrianerVariable.BrianedNeurongroupVariable
-					if self.BrianedParentDeriveRecorderVariable.BrianedParentDeriveBrianerStr=="Population"
-					else self.BrianedParentInteractionDeriveBrianerVariable.BrianedSynapsesVariable,
+					BrianedBrianVariable,
 					self.BrianedParentDeriveRecorderVariable.RecordKeyStr,
 					BrianedMonitorIndexIntsList
 				)
@@ -1732,6 +1797,51 @@ class BrianerClass(BaseClass):
 				self.BrianedSpikeMonitorVariable
 			)
 
+
+	def brianRate(self):
+
+		#debug
+		self.debug(
+			[
+				'It is a Rate Moniter level',
+				('self.',self,[
+							])
+			]
+		)
+
+		#/####################/#
+		# Set the BrianedParentPopulationDeriveBrianerVariable
+		#
+
+		#get
+		self.BrianedParentPopulationDeriveBrianerVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
+
+		#get
+		self.BrianedParentNetworkDeriveBrianerVariable=self.BrianedParentPopulationDeriveBrianerVariable.BrianedParentNetworkDeriveBrianerVariable
+
+
+		#/####################/#
+		# Check for a rate monitor
+		#
+
+		#import
+		from brian2 import PopulationRateMonitor
+
+		#init
+		self.BrianedRateMonitorVariable=PopulationRateMonitor(
+			self.BrianedParentPopulationDeriveBrianerVariable.BrianedNeurongroupVariable,
+		)
+
+
+		#/####################/#
+		# add to the structure
+		#
+
+		#add
+		self.BrianedParentNetworkDeriveBrianerVariable.BrianedNetworkVariable.add(
+			self.BrianedRateMonitorVariable
+		)
+
 	def mimic_view(self):
 
 		#/########################/#
@@ -1744,6 +1854,7 @@ class BrianerClass(BaseClass):
 			'Traces',
 			'Samples',
 			'Events',
+			'Rates',
 			'Interactomes',
 			'Interactions'
 		]) and self.BrianedParentSingularStr!="Population":
@@ -1840,6 +1951,7 @@ class BrianerClass(BaseClass):
 					'Populations',
 					'Traces',
 					'Events',
+					'Rates',
 					'Samples',
 					'Interactomes',
 					'Interactions'
@@ -2264,10 +2376,55 @@ class BrianerClass(BaseClass):
 						0
 					).PyplotingShiftIntsTuple=[2,0]
 
+	def viewInteraction(self):
+
+		#debug
+		'''
+		self.debug(
+			[
+				'we view interaction brian here',
+				('self.',self,[
+						'BrianingViewNetworkBool'
+					])
+			]
+		)
+		'''
+
+		#Check
+		if self.BrianingViewNetworkBool==False:
+
+			#/################/#
+			# Build the Panels Charts to welcome the axes
+			#
+
+			#debug
+			'''
+			self.debug(
+				[
+					'viewInteraction',
+					'We complete a view so first fill the draw',
+					('self.',self,[
+							'StructureTopDeriveStructurerRigidVariable',
+							'StructuringManagerCommandSetList'
+						])
+				]
+			)
+			'''
+
+		#Check
+		#print(self.BrianedParentPopulationDeriveBrianerVariable['/-Panels/|Run/-Charts'])
+		
+		#/################/#
+		# Just rerender the view Population
+		#
+
+		#call
+		self.BrianedParentPopulationDeriveBrianerVariable.viewPopulation()
+
 	def viewTraceOrEvent(self):
 
 		#debug
-		"""
+		'''
 		self.debug(
 			[
 				'We viewTraceOrEvent here',
@@ -2278,7 +2435,7 @@ class BrianerClass(BaseClass):
 				self.ParentDeriveTeamerVariable.ManagementDict.keys()
 			]
 		)
-		"""
+		'''
 
 		#Check
 		if self.ManagementIndexInt==len(
@@ -2286,19 +2443,24 @@ class BrianerClass(BaseClass):
 		)-1:
 
 			#debug
-			"""
+			'''
 			self.debug(
 				[
 					'Are we going to make the parent view',
-					('self.',self,[
-							'BrianedParentPopulationDeriveBrianerVariable'
-						])
+					"self.BrianedParentPopulationDeriveBrianerVariable==None is "+str(
+						self.BrianedParentPopulationDeriveBrianerVariable==None),
+					"self.BrianedParentInteractionDeriveBrianerVariable==None is "+str(
+						self.BrianedParentInteractionDeriveBrianerVariable==None),
 				]
 			)
-			"""
+			'''
 
 			#Check
-			if self.BrianedParentPopulationDeriveBrianerVariable!=None:
+			#if self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable.BrianedSynapsesVariable!=None:
+			#	self.BrianedParentInteractionDeriveBrianerVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
+
+			#Check
+			if self.BrianedParentInteractionDeriveBrianerVariable==None and self.BrianedParentPopulationDeriveBrianerVariable!=None:
 
 				#Check
 				'''
@@ -2314,13 +2476,13 @@ class BrianerClass(BaseClass):
 				if self.BrianedParentPopulationDeriveBrianerVariable!=self.BrianedParentNetworkDeriveBrianerVariable:
 
 					#debug
-					"""
+					'''
 					self.debug(
 						[
 							"Yes we redo view in the parent population"
 						]
 					)
-					"""
+					'''
 
 					#set
 					self.BrianedParentPopulationDeriveBrianerVariable.BrianingViewNetworkBool=True
@@ -2334,11 +2496,13 @@ class BrianerClass(BaseClass):
 				self.debug(
 					[
 						'This is the last Recorder for this interaction in this sample',
-						'We redo viewInteraction in the Population'
+						'We redo viewInteraction in the Population',
+						"self.BrianedParentInteractionDeriveBrianerVariable.viewInteraction is "+str(
+							self.BrianedParentInteractionDeriveBrianerVariable.viewInteraction)
 					]
 				)
 				'''
-				
+
 				#set
 				self.BrianedParentInteractionDeriveBrianerVariable.BrianingViewNetworkBool=True
 				self.BrianedParentInteractionDeriveBrianerVariable.viewInteraction()
@@ -2356,18 +2520,29 @@ class BrianerClass(BaseClass):
 				'self.BrianedParentPopulationDeriveBrianerVariable.BrianedRecordKeyStrsList is ',
 				str(self.BrianedParentPopulationDeriveBrianerVariable.BrianedRecordKeyStrsList),
 				'self.BrianedParentDeriveRecorderVariable.ManagementTagStr is ',
-				str(self.BrianedParentDeriveRecorderVariable.ManagementTagStr)
+				str(self.BrianedParentDeriveRecorderVariable.ManagementTagStr),
+				'self.BrianedParentInteractionDeriveBrianerVariable!=None is ',
+				str(self.BrianedParentInteractionDeriveBrianerVariable!=None)
 			]
 		)
 		'''
 
 		#Check
 		if self.BrianedParentInteractionDeriveBrianerVariable!=None:
-			ViewedRecordKeyStrsList=self.BrianedParentInteractionDeriveBrianerVariable.BrianedRecordKeyStrsList
-			ViewedBrianVariable=self.BrianedParentInteractionDeriveBrianerVariable.BrianedSynapsesVariable
+			ViewedRecordKeyStrsList = self.BrianedParentInteractionDeriveBrianerVariable.BrianedRecordKeyStrsList
+			ViewedBrianVariable = self.BrianedParentInteractionDeriveBrianerVariable.BrianedSynapsesVariable
 		else:
-			ViewedRecordKeyStrsList=self.BrianedParentPopulationDeriveBrianerVariable.BrianedRecordKeyStrsList
-			ViewedBrianVariable=self.BrianedParentPopulationDeriveBrianerVariable.BrianedNeurongroupVariable
+			ViewedRecordKeyStrsList = self.BrianedParentPopulationDeriveBrianerVariable.BrianedRecordKeyStrsList
+			ViewedBrianVariable = self.BrianedParentPopulationDeriveBrianerVariable.BrianedNeurongroupVariable
+
+		#debug
+		'''
+		self.debug(
+			[
+				'ViewedRecordKeyStrsList is '+str(ViewedRecordKeyStrsList)
+			]
+		)
+		'''
 
 		#Check
 		if SYS.deprefix(
@@ -2517,7 +2692,6 @@ class BrianerClass(BaseClass):
 		)
 
 		#debug
-		'''
 		self.debug(
 			[
 				('self.',self,[
@@ -2526,13 +2700,19 @@ class BrianerClass(BaseClass):
 				'BrianedMonitorsInt is '+str(BrianedMonitorsInt)
 			]
 		)
-		'''
 
 		#Check
 		if len(self.RecordingLabelVariable)>BrianedMonitorsInt:
 			RecordedLabelVariable=self.RecordingLabelVariable[:BrianedMonitorsInt]
 		else:
 			RecordedLabelVariable=self.RecordingLabelVariable
+
+		#debug
+		self.debug(
+			[
+				"RecordedLabelVariable is "+str(RecordedLabelVariable)
+			]
+		)
 
 		#set
 		self.PyplotingDrawVariable+=map(
@@ -2633,7 +2813,7 @@ class BrianerClass(BaseClass):
 				BrianedSpikeMonitorVariable=self.BrianedParentPopulationDeriveBrianerVariable.TeamDict[
 					"Events"
 				].ManagementDict[
-					"Default"
+					"Default_Events"
 				].BrianedSpikeMonitorVariable
 
 				#debug
@@ -2758,7 +2938,7 @@ class BrianerClass(BaseClass):
 				BrianedDefaultDeriveBrianerVariable=self.BrianedParentPopulationDeriveBrianerVariable.getTeamer(
 					'Events'
 				).getManager(
-					'Default'
+					'Default_Events'
 				)
 				BrianedDefaultDeriveBrianerVariable.BrianedEventTraceVariable=self.BrianedEventTraceVariable
 				BrianedDefaultDeriveBrianerVariable.RecordingLabelVariable=self.RecordingLabelVariable
@@ -2910,7 +3090,7 @@ class BrianerClass(BaseClass):
 		'''
 
 		#/####################/#
-		# Set the Chart globally and look if we have to finish
+		# Set the Chart globaly and look if we have to finish
 		#
 
 		#Check
@@ -3139,7 +3319,7 @@ class BrianerClass(BaseClass):
 		if "Panels" in self.BrianedParentPopulationDeriveBrianerVariable.TeamDict:
 
 			#debug
-			"""
+			'''
 			self.debug(
 				[
 					"We update the parent neuron group view",
@@ -3147,7 +3327,7 @@ class BrianerClass(BaseClass):
 					self.BrianedParentDeriveRecorderVariable.ManagementTagStr
 				]
 			)
-			"""
+			'''
 
 			#set
 			BrianedRunPopulationChartsDeriveManager=self.BrianedParentPopulationDeriveBrianerVariable.TeamDict[
@@ -3622,7 +3802,7 @@ class BrianerClass(BaseClass):
 		)
 
 		#debug
-		"""
+		'''
 		self.debug(
 			[
 				"Maybe there are the monitored trace inside",
@@ -3632,7 +3812,7 @@ class BrianerClass(BaseClass):
 				])
 			]
 		)
-		"""
+		'''
 
 		#map
 		self.PyplotingDrawVariable+=map(
@@ -3662,7 +3842,7 @@ class BrianerClass(BaseClass):
 
 
 		#debug
-		"""
+		'''
 		self.debug(
 			[
 				'After replace',
@@ -3672,7 +3852,7 @@ class BrianerClass(BaseClass):
 				])
 			]
 		)
-		"""
+		'''
 
 		#/####################/#
 		# Update maybe the 
@@ -3818,6 +3998,208 @@ class BrianerClass(BaseClass):
 			#call
 			self.viewTraceOrEvent()
 
+	def viewRate(self):
+
+		#/################/#
+		# prepare the view
+		#
+
+		#get
+		BrianedStateMonitorVariable=self.BrianedParentPopulationDeriveBrianerVariable.TeamDict[
+			'Traces'
+		].ManagementDict.getValue(
+			0
+		).TeamDict[
+			'Samples'
+		].ManagementDict.getValue(
+			0
+		).BrianedStateMonitorVariable
+
+		#get
+		BrianedTimeUnit=BrianedStateMonitorVariable.t.unit
+
+		#debug
+		'''
+		self.debug(
+			[
+				'BrianedStateMonitorVariable is ',
+				str(BrianedStateMonitorVariable)
+			]
+		)
+		'''
+
+		#import
+		import brian2
+		import numpy as np
+
+		#set bins
+		WindowLengthInt = int(
+			self.BrianingWindowFloat*brian2.ms/self.BrianedParentPopulationDeriveBrianerVariable.BrianedNeurongroupVariable.clock.dt
+		)
+
+		#cumsum
+		CumsumArray = np.cumsum(
+			np.insert(
+				self.BrianedRateMonitorVariable.rate,0,0
+			)
+		)
+
+		#set
+		BinRateArray = (CumsumArray[WindowLengthInt:] - CumsumArray[:-WindowLengthInt]) / WindowLengthInt
+		
+		#set
+		self.ViewingXVariable = self.BrianedRateMonitorVariable.t[WindowLengthInt-1:]/brian2.ms
+		self.ViewingYVariable = BinRateArray
+
+		#debug
+		self.debug(
+			[
+				('self.',self,[
+						'ViewingXVariable',
+						'ViewingYVariable'
+					])
+			]
+		)
+
+		#set
+		self.PyplotingDrawVariable=[
+			(
+				'plot',
+				{
+					'#liarg':[
+						self.ViewingXVariable,
+						self.ViewingYVariable
+					],
+					'#kwarg':{
+						'linestyle':'-',
+						'linewidth':3
+					}
+				}
+
+
+			)
+		]
+
+		#/####################/#
+		# Update maybe the 
+		# parent corresponding Chart Population
+
+		#debug
+		'''
+		self.debug(
+			[
+				'Are we putting the rates view in the charts population ?',
+				'"Charts" not in self.BrianedParentPopulationDeriveBrianerVariable is',
+				str("Charts" not in self.BrianedParentPopulationDeriveBrianerVariable.TeamDict),
+				#('self.',self,[
+				#		'BrianedParentPopulationDeriveBrianerVariable'
+				#	])
+			]
+		)
+		'''
+		
+		#Check
+		if "Panels" not in self.BrianedParentPopulationDeriveBrianerVariable.TeamDict:
+			return 
+
+		#get
+		BrianedRunPopulationChartDeriveManager=self.BrianedParentPopulationDeriveBrianerVariable.TeamDict[
+			"Panels"
+		].ManagementDict[
+			"Run"
+		].TeamDict[
+			"Charts"
+		]
+
+		#manage
+		BrianedChartDerivePyploter=BrianedRunPopulationChartDeriveManager.manage(
+			self.ManagementTagStr
+		).ManagedValueVariable
+
+		#debug
+		'''
+		self.debug(
+			[
+				'We update in the parent neurongroup chart',
+				'BrianedChartDerivePyploter is ',
+				SYS._str(BrianedChartDerivePyploter),
+			]
+		)
+		'''
+
+		#Check
+		if BrianedChartDerivePyploter.PyplotingChartVariable==None:
+
+			#alias
+			BrianedChartDerivePyploter.PyplotingChartVariable=self.PyplotingChartVariable
+		else:
+
+			#update
+			SYS.update(
+				BrianedChartDerivePyploter.PyplotingChartVariable,
+				self.PyplotingChartVariable
+			) 
+		
+		#/####################/#
+		# Update maybe the 
+		# parent neuron group
+
+		#debug
+		'''
+		self.debug(
+			[
+				'Maybe we also update the view in the parent population',
+				""Charts" in self.BrianedParentPopulationDeriveBrianerVariable.TeamDict is ",
+				str("Charts" in self.BrianedParentPopulationDeriveBrianerVariable.TeamDict)
+			]
+		)
+		'''
+
+		#update the view
+		map(
+			lambda __KeyStr:
+			BrianedChartDerivePyploter.setAttr(
+				__KeyStr,
+				getattr(
+					self,
+					__KeyStr
+				)
+			),
+			BrianViewKeyStrsList
+		)
+		BrianedChartDerivePyploter.view()
+
+		#/####################/#
+		# team a Draws inside and manage a draw inside
+		#
+
+		#team
+		BrianedDrawDeriveManager=BrianedChartDerivePyploter.team(
+			'Draws'
+		).TeamedValueVariable
+
+		#debug
+		'''
+		self.debug(
+			[
+				'We manage a new draw',
+				('self.',self,[
+						'ManagementIndexInt',
+						'PyplotingDrawVariable'
+					])
+			]
+		)
+		'''
+
+		#manage
+		BrianedDrawDeriveManager.manage(
+			str(self.ManagementIndexInt),
+			{
+				'PyplotingDrawVariable':self.PyplotingDrawVariable
+			}
+		)
+
+
 	def mimic_simulate(self):
 
 		#parent method
@@ -3919,6 +4301,7 @@ class BrianerClass(BaseClass):
 			import brian2
 
 			#debug
+			'''
 			self.debug(
 				[
 					"We set the initial conditions with the good dimensions",
@@ -3927,6 +4310,7 @@ class BrianerClass(BaseClass):
 						])
 				]
 			)
+			'''
 
 			#alias
 			self.RecordedTraceFloatsArray[
@@ -4135,6 +4519,7 @@ BrianerClass.PrintingClassSkipKeyStrsList.extend(
 		'BrianingMonitorIndexIntsList',
 		'BrianingEventSelectVariable',
 		'BrianingSpikeViewVariable',
+		'BrianingWindowFloat',
 		'BrianedEventTraceVariable',
 		'BrianedTimeQuantityVariable',
 		'BrianedNetworkVariable',
@@ -4142,6 +4527,7 @@ BrianerClass.PrintingClassSkipKeyStrsList.extend(
 		'BrianedSynapsesVariable',
 		'BrianedStateMonitorVariable',
 		'BrianedSpikeMonitorVariable',
+		'BrianedRateMonitorVariable',
 		'BrianedClockVariable',
 		'BrianedRecordKeyStrsList',
 		'BrianedUnitsInt',

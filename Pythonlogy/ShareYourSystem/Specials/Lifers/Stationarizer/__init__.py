@@ -461,6 +461,112 @@ class StationarizerClass(BaseClass):
 	# Augment view
 	#
 	
+	def mimic_view(self):
+
+		#Check
+		if self.StationarizedNetworkDeriveStationarizerVariable==self:
+
+			#get the Panels
+			ViewedPanelsDerivePyploter=self.getTeamer(
+				'Panels'
+			)
+
+			#/################/#
+			# Build an Eigen Panel with Charts
+			#
+
+			#get
+			ViewedChartDerivePyploter = ViewedPanelsDerivePyploter.getManager(
+				'Transfer',
+				_IndexInt=1
+			).getTeamer(
+				'Charts'
+			).getManager(
+				'Isolate'
+			)
+
+			ViewedDrawDerivePyploter=ViewedChartDerivePyploter.getTeamer(
+				'Draws'
+			).getManager(
+				'Default'
+			)
+
+			#map
+			StationarizedFrequencyFloatsArray=SYS.numpy.array(
+			    [
+			        0.
+			     ]+list(
+			        SYS.numpy.logspace(0,3,100)
+			       #[130.]
+			    )
+			);
+
+			#get
+			StationarizedAgentLifer=self.TeamDict['Populations'].ManagementDict.getValue(0) 
+
+			#set
+			StationarizedAgentLifer.LifingPerturbationMethodStr="Brunel"
+			StationarizedAgentLifer.LifingPerturbationLambdaVariable=None
+
+			#map
+			LifedPerturbationMeanComplexesArray=SYS.numpy.array(
+				map(
+					lambda __StationarizedFrequencyFloat:
+					StationarizedAgentLifer.lif(   
+						_PerturbationFrequencyFloat=__StationarizedFrequencyFloat
+					).LifedPerturbationMeanComplexVariable,
+					StationarizedFrequencyFloatsArray
+				)
+			)
+
+			#debug
+			self.debug(
+				[
+					"abs(LifedPerturbationMeanComplexesArray) is "+str(
+						abs(LifedPerturbationMeanComplexesArray)
+					)
+				]
+			)
+
+			#set
+			ViewedDrawDerivePyploter.PyplotingDrawVariable=[
+				(	
+					'plot',
+					{
+						'#liarg':[
+							StationarizedFrequencyFloatsArray,
+							abs(LifedPerturbationMeanComplexesArray)
+						],
+						'#kwarg':{
+							'linestyle':'-',
+							'linewidth':5,
+							'color':"blue"
+						}
+					}
+				)
+			]
+
+			ViewedChartDerivePyploter.PyplotingChartVariable=[
+				(
+					'plot',
+					{
+						'#liarg':[
+							[1.,100.],
+			   				[StationarizedAgentLifer.LifedPerturbationMeanNullFloat]*2,
+						],
+						'#kwarg':{
+							'linestyle':'--',
+							'linewidth':3,
+							'color':"blue"
+						}
+					}
+				),
+				('set_xscale','log')
+			]	
+
+		#call the base method
+		BaseClass.view(self)
+
 	def mimic__print(self,**_KwargVariablesDict):
 
 		#/##################/#

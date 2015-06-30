@@ -64,7 +64,8 @@ MyPredicter=SYS.PredicterClass(
 			JacobianTimeFloat
 		)+")*mV*(int(t==250*ms)+int(t==500*ms))",
 		_AgentTimeFloat = 10.,
-		_DecoderVariable=[5.],
+		_DecoderVariable = [5.],
+		_DecoderTimeFloat = 10.,
 		_InteractionStr="Rate"
 	).simulate(
 		SimulationTimeFloat

@@ -338,11 +338,28 @@ class LiferClass(BaseClass):
 		# Get the method
 		#
 
-		#get
-		self.LifedPerturbationMethodVariable=getattr(
-			self.LifedSwigVariable,
-			'set'+self.LifingPerturbationMethodStr+'LifPerturbationRate'
-		)
+		#Check
+		if self.LifingPerturbationMethodStr == "Rate":
+
+			#alias
+			self.LifedPerturbationMethodVariable = self.setRatePerturbationRate
+
+			#Check
+			if self.LifedPerturbationMeanNullFloat==0.:
+
+				#set
+				self.LifedPerturbationMeanNullFloat=self.LifedSwigVariable.getLifPerturbationNullRate(
+					'StationaryCurrent'
+				)
+
+		else:
+
+			#get
+			self.LifedPerturbationMethodVariable = getattr(
+				self.LifedSwigVariable,
+				'set'+self.LifingPerturbationMethodStr+'LifPerturbationRate'
+			)
+
 
 		#/#################/#
 		# Check if it is real or complex
@@ -362,8 +379,6 @@ class LiferClass(BaseClass):
 			#set
 			LifedPerturbationPreVariable=2.*np.pi*self.LifingPerturbationFrequencyFloat*1j
 
-
-		
 		#/#################/#
 		# Check if it null perturbation or complex
 		#
@@ -425,10 +440,24 @@ class LiferClass(BaseClass):
 			)
 			'''
 
-			#set
-			self.LifedSwigVariable.IntDict['ComputeNoise']=int(
-				self.LifingComputeNoisePerturbationBool
+			#get
+			if self.LifingPerturbationMethodStr != "Rate":
+				
+				#set
+				self.LifedSwigVariable.IntDict['ComputeNoise']=int(
+					self.LifingComputeNoisePerturbationBool
+				)
+
+
+			#debug
+			'''
+			self.debug(
+				[
+					"Ok we call",
+					"LifedPerturbationPreVariable is "+str(LifedPerturbationPreVariable)
+				]
 			)
+			'''
 
 			#call
 			self.LifedPerturbationMethodVariable(
@@ -436,11 +465,14 @@ class LiferClass(BaseClass):
 			)
 
 			#get
-			self.LifedPerturbationMeanComplexVariable=self.LifedSwigVariable.ComplexDict["PerturbationMean"]
+			if self.LifingPerturbationMethodStr != "Rate":
+				
+				#get
+				self.LifedPerturbationMeanComplexVariable=self.LifedSwigVariable.ComplexDict["PerturbationMean"]
 
-			#Check			
-			if self.LifingComputeNoisePerturbationBool:
-				self.LifedPerturbationNoiseComplexVariable=self.LifedSwigVariable.ComplexDict["PerturbationNoise"]
+				#Check			
+				if self.LifingComputeNoisePerturbationBool:
+					self.LifedPerturbationNoiseComplexVariable=self.LifedSwigVariable.ComplexDict["PerturbationNoise"]
 
 			#debug
 			'''
@@ -453,6 +485,26 @@ class LiferClass(BaseClass):
 			)
 			'''
 			
+	def setRatePerturbationRate(self,_PerturbationComplex):
+
+		#set
+		self.LifedPerturbationMeanComplexVariable = self.LifedPerturbationMeanNullFloat/(
+			1.+self.LifingConstantTimeFloat*_PerturbationComplex
+		)
+
+		#debug
+		'''
+		self.debug(
+			[
+				'_PerturbationComplex is '+str(_PerturbationComplex),
+				('self.',self,[
+						'LifedPerturbationMeanComplexVariable',
+						'LifedPerturbationMeanNullFloat'
+					])
+			]
+		)
+		'''
+
 	def mimic__print(self,**_KwargVariablesDict):
 
 		#/##################/#

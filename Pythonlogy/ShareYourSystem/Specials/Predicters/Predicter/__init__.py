@@ -23,7 +23,7 @@ SYS.addDo('Predicter','Predict','Predicting','Predicted')
 from ShareYourSystem.Standards.Recorders import Recorder,Leaker
 import scipy.stats
 import numpy as np
-PredictSlowTimeFloat=5.
+PredictSlowTimeFloat=10.
 #</ImportSpecificModules>
 
 #<DefineLocals>
@@ -73,12 +73,12 @@ class PredicterClass(BaseClass):
 			_PredictingAgentNoiseVariable = None,
 			_PredictingAgentThresholdVariable = None,
 			_PredictingAgentRefractoryVariable = None,
-			_PredictingAgentTimeFloat=10.,
+			_PredictingAgentTimeFloat = 10.,
 			_PredictingDecoderVariable=None,
 			_PredictingDecoderMeanFloat=1.,
 			_PredictingDecoderStdFloat=1.,
 			_PredictingDecoderSparseFloat=0.,
-			_PredictingDecoderTimeFloat=PredictSlowTimeFloat,
+			_PredictingDecoderTimeFloat = PredictSlowTimeFloat,
 			_PredictingFastPerturbStdFloat=0.,
 			_PredictingFastSymmetryFloat=1.,
 			_PredictingSlowPerturbStdFloat=0.,
@@ -803,6 +803,14 @@ class PredicterClass(BaseClass):
 		# PredictingDynamicBool Case
 		#
 
+		#debug
+		self.debug(
+			[
+				"Do we have to build a dynamic slow connection",
+				('self.',self,['PredictingDynamicBool'])
+			]
+		)
+
 		#Check
 		if self.PredictingDynamicBool:
 
@@ -811,7 +819,6 @@ class PredicterClass(BaseClass):
 			#
 
 			#debug
-			'''
 			self.debug(
 				[
 					'We build the PredictedSlowFloatsArray',
@@ -823,11 +830,10 @@ class PredicterClass(BaseClass):
 					'AND ALSO here Slow is D.T(A+lambdaI) just (not D.T(A+lambdaI)D)'
 				]
 			)
-			'''
 
 			#diag
-			PredictedRightSlowFloatsArray=self.PredictedSensorJacobianFloatsArray+(
-				1./(self.PredictingDecoderTimeFloat)
+			PredictedRightSlowFloatsArray=1000.*self.PredictedSensorJacobianFloatsArray+(
+				1./(0.001*self.PredictingDecoderTimeFloat)
 				#1.
 			)*np.diag(
 				np.ones(
@@ -836,7 +842,6 @@ class PredicterClass(BaseClass):
 			)
 
 			#debug
-			'''
 			self.debug(
 				[
 					'PredictedRightSlowFloatsArray is '+str(PredictedRightSlowFloatsArray),
@@ -846,7 +851,6 @@ class PredicterClass(BaseClass):
 						])
 				]
 			)
-			'''
 
 			#Check 
 			if (PredictedRightSlowFloatsArray==0.).all():
@@ -869,25 +873,20 @@ class PredicterClass(BaseClass):
 			else:
 
 				#debug
-				'''
 				self.debug(
 					[
 						'In intermediate values',
-						('self.',self,[
-								'PredictedSlowFloatsArray'
-							])
+						'PredictedRightSlowFloatsArray is '+str(PredictedRightSlowFloatsArray)
 					]
 				)
-				'''
 
 				#link
-				self.PredictedSlowFloatsArray=np.dot(
+				self.PredictedSlowFloatsArray = np.dot(
 					self.PredictedDecoderFloatsArray.T,
 					PredictedRightSlowFloatsArray
 				)
 
 				#debug
-				'''
 				self.debug(
 					[
 						'We have built the slow connection',
@@ -899,9 +898,10 @@ class PredicterClass(BaseClass):
 							])
 					]
 				)
-				'''
 
-
+				#renormalize in s
+				#self.PredictedSlowFloatsArray = 0.001 * self.PredictedSlowFloatsArray
+ 
 
 			#/################/#
 			# Perturb maybe
@@ -1442,6 +1442,7 @@ class PredicterClass(BaseClass):
 
 
 				#debug
+				'''
 				self.debug(
 					[
 						'We have setted the LeakingThresholdVariable',
@@ -1454,6 +1455,7 @@ class PredicterClass(BaseClass):
 						str(self.PredictedNetworkDerivePredicterVariable.PredictedThresholdFloatsArray)
 					]
 				)
+				'''
 
 			else:
 
@@ -1747,7 +1749,7 @@ class PredicterClass(BaseClass):
 			else:
 
 				#set
-				self.LeakingTimeVariable=self.PredictingDecoderTimeFloat
+				self.LeakingTimeVariable = self.PredictingDecoderTimeFloat
 
 
 			#/###################/#
@@ -2031,7 +2033,37 @@ class PredicterClass(BaseClass):
 			
 			#link
 			#self.LeakingWeightVariable=0.001*self.PredictedNetworkDerivePredicterVariable.PredictingAgentTimeFloat*self.PredictedNetworkDerivePredicterVariable.PredictedDecoderFloatsArray.T
-			self.LeakingWeightVariable=self.PredictedNetworkDerivePredicterVariable.PredictingAgentTimeFloat*self.PredictedNetworkDerivePredicterVariable.PredictedDecoderFloatsArray.T
+			
+			if self.PredictedNetworkDerivePredicterVariable.PredictingDynamicBool==False:
+
+				#/###############/#
+				# This is directly the x
+				#
+
+				#set
+				self.LeakingWeightVariable=self.PredictedNetworkDerivePredicterVariable.PredictingAgentTimeFloat*self.PredictedNetworkDerivePredicterVariable.PredictedDecoderFloatsArray.T
+				#self.LeakingWeightVariable=self.PredictedNetworkDerivePredicterVariable.PredictingAgentTimeFloat*self.PredictedNetworkDerivePredicterVariable.PredictedDecoderFloatsArray.T
+			
+
+			else:
+
+				#/###############/#
+				# This is the c
+				#
+
+				#Check
+				if self.PredictedNetworkDerivePredicterVariable.PredictingInteractionStr == "Rate":
+				
+					#set
+					self.LeakingWeightVariable=1000.*self.PredictedNetworkDerivePredicterVariable.PredictingAgentTimeFloat*self.PredictedNetworkDerivePredicterVariable.PredictedDecoderFloatsArray.T
+					#self.LeakingWeightVariable=self.PredictedNetworkDerivePredicterVariable.PredictingAgentTimeFloat*self.PredictedNetworkDerivePredicterVariable.PredictedDecoderFloatsArray.T
+
+				else:
+
+					#set
+					self.LeakingWeightVariable=self.PredictedNetworkDerivePredicterVariable.PredictingAgentTimeFloat*self.PredictedNetworkDerivePredicterVariable.PredictedDecoderFloatsArray.T
+			
+
 			#self.LeakingWeightVariable=0.
 
 			#/################/#
@@ -2134,8 +2166,16 @@ class PredicterClass(BaseClass):
 			)
 			'''
 
-			#link
-			self.LeakingWeightVariable = 1.*self.PredictedNetworkDerivePredicterVariable.PredictedDecoderFloatsArray
+			if self.PredictedNetworkDerivePredicterVariable.PredictingInteractionStr=="Rate":
+
+				#set
+				self.LeakingWeightVariable = 1.*self.PredictedNetworkDerivePredicterVariable.PredictedDecoderFloatsArray
+
+			else:
+
+				#set
+				self.LeakingWeightVariable = 1.*self.PredictedNetworkDerivePredicterVariable.PredictedDecoderFloatsArray
+
 
 			#Check
 			if self.PredictedNetworkDerivePredicterVariable.PredictingDynamicBool:
@@ -2155,7 +2195,16 @@ class PredicterClass(BaseClass):
 					'''
 
 					#set
-					self.LeakingWeightVariable = self.PredictedNetworkDerivePredicterVariable.PredictingDecoderTimeFloat*self.LeakingWeightVariable
+					self.LeakingWeightVariable = (
+						0.001*self.PredictedNetworkDerivePredicterVariable.PredictingDecoderTimeFloat
+					)*self.LeakingWeightVariable
+
+				else:
+
+					#set
+					#self.LeakingWeightVariable = 0.001*self.LeakingWeightVariable
+					#self.LeakingWeightVariable = self.PredictedNetworkDerivePredicterVariable.PredictingDecoderTimeFloat*self.LeakingWeightVariable
+					self.LeakingWeightVariable = self.LeakingWeightVariable
 
 			#debug
 			'''
@@ -2260,21 +2309,29 @@ class PredicterClass(BaseClass):
 			#
 
 			#debug
-			'''
 			self.debug(
 				[
 					'We set the weights in the Slow',
 					'self.PredictedNetworkDerivePredicterVariable.PredictedSlowFloatsArray is ',
-					str(self.PredictedNetworkDerivePredicterVariable.PredictedSlowFloatsArray)
+					str(self.PredictedNetworkDerivePredicterVariable.PredictedSlowFloatsArray),
+					('self.',self,['LeakingWeightVariable']),
+					"self.PredictedNetworkDerivePredicterVariable.LeakingInteractionStr is "+str(
+						self.PredictedNetworkDerivePredicterVariable.LeakingInteractionStr)
 				]
 			)
-			'''
 
 			#Check
-			if type(self.LeakingWeightVariable)==None.__class__:
+			if type(self.LeakingWeightVariable) == None.__class__:
 
-				#link
-				self.LeakingWeightVariable=self.PredictedNetworkDerivePredicterVariable.PredictedSlowFloatsArray
+				#Check
+				if self.PredictedNetworkDerivePredicterVariable.PredictingInteractionStr == "Spike":
+
+					#set
+					self.PredictedNetworkDerivePredicterVariable.PredictedSlowFloatsArray
+
+					#link
+					self.LeakingWeightVariable = 0.001 * self.PredictedNetworkDerivePredicterVariable.PredictedSlowFloatsArray
+
 
 			#/################/#
 			# Consider maybe delay
@@ -2289,7 +2346,6 @@ class PredicterClass(BaseClass):
 			"""
 
 			#debug
-			'''
 			self.debug(
 				[
 					'In the end slow is ',
@@ -2298,7 +2354,6 @@ class PredicterClass(BaseClass):
 						])
 				]
 			)
-			'''
 
 		"""
 		elif self.ManagementTagStr=="Antileak":
@@ -2447,7 +2502,6 @@ class PredicterClass(BaseClass):
 				)
 				'''
 
-
 	def leakInteraction(self):
 
 		#Check
@@ -2470,7 +2524,7 @@ class PredicterClass(BaseClass):
 				'''
 
 				#Check
-				if self.LeakingInteractionStr=="Rate":
+				if self.PredictedNetworkDerivePredicterVariable.PredictingInteractionStr=="Rate":
 					
 					#debug
 					'''
@@ -2610,15 +2664,15 @@ class PredicterClass(BaseClass):
 					#
 
 					#set
-					self.PredictedAgentDerivePredicterVariable.LeakingThresholdVariable=-50.
+					#self.PredictedAgentDerivePredicterVariable.LeakingThresholdVariable=-50.
 
 					#/################/#
 					# Build the plastic rule
 					#
 
 					#set
-					self.LeakingPlasticVariable=self.LeakingSymbolPrefixStr+'+=(('+self.PredictedAgentDerivePredicterVariable.LeakedSymbolStr+'_post'
-					
+					LeakedPlasticStr='(('+self.PredictedAgentDerivePredicterVariable.LeakedSymbolStr+'_post'
+				
 					#Check
 					if 'Rest' in self.PredictedAgentDerivePredicterVariable.TeamDict[
 						'Inputs'
@@ -2656,21 +2710,37 @@ class PredicterClass(BaseClass):
 								PredictedRestVariable
 							)
 
+							#debug
+							self.debug(
+								[
+									"PredictedRestStr is "+str(PredictedRestStr)
+								]
+							)
+
+
+							#Check
 							if PredictedRestStr[0]=='-':
 
 								#add
-								self.LeakingPlasticVariable+='+'+PredictedRestStr[1:]+'*volt)/mV)+((1.+alpha)/2.)*'+self.LeakingSymbolPrefixStr
+								LeakedPlasticStr+='+'+PredictedRestStr[1:]+'*mV)/mV)'
 						
 							else:
 
 								#add
-								self.LeakingPlasticVariable+='-'+PredictedRestStr+'*volt)/mV)+((1.+alpha)/2.)*'+self.LeakingSymbolPrefixStr
+								LeakedPlasticStr+='-'+PredictedRestStr+'*mV)/mV)'
 						
-
 					else:
 
 						#add
-						self.LeakingPlasticVariable+=')/mV)+((1.+alpha)/2.)*'+self.LeakingSymbolPrefixStr
+						LeakedPlasticStr+=')/mV)'
+					
+					#add
+					LeakedPlasticStr+='+((1.+alpha)/2.)*'+self.LeakingSymbolPrefixStr
+
+					#add
+					#self.LeakingPlasticVariable=self.LeakingSymbolPrefixStr+'+='+LeakedPlasticStr
+					self.LeakedModelStr+="W="+LeakedPlasticStr+" : 1\n"
+
 
 					#add in the model
 					self.LeakedModelStr+="alpha : 1"

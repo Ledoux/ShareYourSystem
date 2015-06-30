@@ -12,6 +12,11 @@ import ShareYourSystem as SYS
 #set
 BrianingDebugVariable=25.
 
+#A - transition matrix
+JacobianTimeFloat = 30. #(ms)
+A =  (-1./float(JacobianTimeFloat)
+	)*SYS.numpy.array([[1.]])
+
 #Define
 MyPredicter=SYS.PredicterClass(
 	).mapSet(
@@ -19,16 +24,16 @@ MyPredicter=SYS.PredicterClass(
 			'BrianingStepTimeFloat':0.01,
 			'-Populations':[
 				('|Sensor',{
-					'LeakingMonitorIndexIntsList':[0],
+					'RecordingLabelVariable':[0,1],
 					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Encod':{
-							'BrianingDebugVariable':BrianingDebugVariable
+							#'BrianingDebugVariable':BrianingDebugVariable
 						}
 					}
 				}),
 				('|Agent',{
-					'LeakingMonitorIndexIntsList':[0],
+					'RecordingLabelVariable':[0,1],
 					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Fast':{
@@ -38,11 +43,11 @@ MyPredicter=SYS.PredicterClass(
 					#'LeakingNoiseStdVariable':0.01
 				}),
 				('|Decoder',{
-					'LeakingMonitorIndexIntsList':[0],
+					'RecordingLabelVariable':[0,1],
 					#'BrianingDebugVariable':BrianingDebugVariable
 					'-Interactions':{
 						'|Slow':{
-							#'BrianingDebugVariable':BrianingDebugVariable,
+							'BrianingDebugVariable':BrianingDebugVariable,
 							#'LeakingWeigthVariable':0.
 						}
 					}
@@ -50,19 +55,24 @@ MyPredicter=SYS.PredicterClass(
 			]
 		}
 	).predict(
-		_AgentUnitsInt=1,
+		_AgentUnitsInt=100,
 		_CommandVariable="#custom:#clock:20*ms:1.*mV+1.*mV*int(t==20*ms)",#2.,
-		_DecoderVariable=[2.],
+		_DecoderVariable="#array",
+		_DecoderStdFloat=0.,
+		_DecoderSparseFloat=0.2,
+		#_AgentResetVariable=-60.,
 		_InteractionStr="Spike"
 	).simulate(
-		20.
+		50.
 	)
 
 #/###################/#
 # View
 #
 
-MyPredicter.mapSet(
+#mapSet
+MyPredicter.view(
+	).mapSet(
 		{
 			'PyplotingFigureVariable':{
 				'figsize':(10,8)
@@ -103,24 +113,31 @@ MyPredicter.mapSet(
 									}
 								),
 								(
-									'|Agent_Default',{}
+									'|Agent_Default_Events',{}
 								),
 								(
 									'|Decoder_U',
 									{
 										'PyplotingLegendDict':{
 											'fontsize':10,
-											'ncol':1
+											'ncol':2
 										}
 									}
 								)
 							]
 						)
 					]
+				),
+				(
+					'|Stat',
+					{
+						'PyplotingTextVariable':[-0.4,0.],
+						'PyplotingShiftVariable':[0,4],
+						'PyplotingShapeVariable':[5,9],
+					}
 				)
 			]
 		}
-	).view(
 	).pyplot(
 	).show(
 	)

@@ -4,6 +4,10 @@
 
 #ImportModules
 import ShareYourSystem as SYS
+import scipy.stats
+import numpy
+numpy.random.seed(4)
+
 
 #/###################/#
 # Build the model
@@ -18,8 +22,12 @@ BrianingDebugVariable=0.1 if SimulationTimeFloat<0.5 else 25.
 JacobianTimeFloat = 10. #(ms)
 E_I = SYS.numpy.array([[-3., 6.],
                 [-4., 4.]])
-A = SYS.numpy.zeros((2, 2))
+I_I = SYS.numpy.array([[0.2, 0.4, 0.],
+               [0., 0.1, 0.3],
+                [0.3, 0., 0.2]])
+A = SYS.numpy.zeros((5, 5))
 A[:2,:2] = E_I
+A[2:,2:] = I_I
 A = (-1./float(JacobianTimeFloat))*A
 
 #set
@@ -29,10 +37,11 @@ AgentUnitsInt=100
 MyPredicter=SYS.PredicterClass(
 	).mapSet(
 		{
-			'BrianingStepTimeFloat':0.05,
+			'NumscipyingSeedVariable':4,
+			'BrianingStepTimeFloat':0.02,
 			'-Populations':[
 				('|Sensor',{
-					'RecordingLabelVariable':[0,1],
+					'RecordingLabelVariable':[0,1,2,3,4],
 					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Encod':{
@@ -48,10 +57,17 @@ MyPredicter=SYS.PredicterClass(
 							#'BrianingDebugVariable':BrianingDebugVariable
 						}
 					},
+					'-Traces':{
+						'|U':{
+							'RecordingInitFloatsArray':scipy.stats.norm(
+								0.,0.01
+							).rvs(size=AgentUnitsInt)
+						}
+					}
 					#'LeakingNoiseStdVariable':0.01
 				}),
 				('|Decoder',{
-					'RecordingLabelVariable':[0,1],
+					'RecordingLabelVariable':[0,1,2,3,4],
 					#'BrianingDebugVariable':BrianingDebugVariable
 					'-Interactions':{
 						'|Slow':{
@@ -68,11 +84,11 @@ MyPredicter=SYS.PredicterClass(
 			JacobianTimeFloat
 		)+")*mV*(int(t==250*ms)+int(t==500*ms))",
 		_DecoderVariable = "#array",
-		_DecoderTimeFloat = 10.,
-		_DecoderMeanFloat = 0.,
+		_DecoderTimeFloat = 10., #(ms)
+		_DecoderMeanFloat = 0., 
 		_DecoderStdFloat = 80./SYS.numpy.sqrt(AgentUnitsInt),
 		_AgentUnitsInt = AgentUnitsInt,
-		_AgentTimeFloat = 10.,
+		_AgentTimeFloat = 10., #(ms)
 		_InteractionStr="Rate"
 	).simulate(
 		SimulationTimeFloat

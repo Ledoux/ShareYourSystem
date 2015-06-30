@@ -18,6 +18,7 @@ MyBrianer=SYS.BrianerClass(
 				'set':{
 					'#liarg:#lambda':{
 						'|#NeuronStr':{
+							'BrianingRecordSkipKeyStrsList':['ge','gi'],
 							'#copy:BrianingNeurongroupDict':{
 								'N':'#UnitsInt',
 								'model':
@@ -75,7 +76,7 @@ MyBrianer=SYS.BrianerClass(
 								}
 							},
 							'-Events':{
-								'|Default':{
+								'|Default_Events':{
 								}
 							},
 						}
@@ -107,7 +108,7 @@ MyBrianer.simulate(
 
 MyBrianer.mapSet(
 		{
-			'PyplotingGridVariable':(30,20)
+			'PyplotingGridVariable':[30,20]
 		}
 	).view(
 	).pyplot(

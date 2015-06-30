@@ -15,7 +15,7 @@ MyBrianer=SYS.BrianerClass(
 	).mapSet(
 		{
 			'BrianingNeurongroupDict':{
-				'N':10,
+				'N':100,
 				'model':
 				'''
 					dv/dt = (-(v+60*mV)+11*mV + 5.*mV*sqrt(20.*ms)*xi)/(20*ms) : volt
@@ -25,7 +25,8 @@ MyBrianer=SYS.BrianerClass(
 			},
 			'-Traces':{
 				'|v':{
-					'NumscipyingStdFloat':0.001,
+					'RecordingInitMeanVariable':-70.,
+					'RecordingInitStdVariable':5.,
 					'-Samples':{
 						'|Default':{
 							'RecordingLabelVariable':[0,1],
@@ -36,7 +37,12 @@ MyBrianer=SYS.BrianerClass(
 				}
 			},
 			'-Events':{
-				'|Default':{
+				'|Default_Events':{
+				}
+			},
+			'-Rates':{
+				'|Default_Rates':{
+					'BrianingWindowFloat':10. #(ms)
 				}
 			}
 		}	

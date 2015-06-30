@@ -30,7 +30,7 @@ MyBrianer=SYS.BrianerClass(
 						}
 					},
 					'-Events':{
-						'|Default':{
+						'|Default_Events':{
 						}
 					}
 				},
@@ -67,7 +67,7 @@ MyBrianer.simulate(
 
 MyBrianer.mapSet(
 		{
-			'PyplotingGridVariable':(30,20)
+			'PyplotingGridVariable':[35,20]
 		}
 	).view(
 	).pyplot(

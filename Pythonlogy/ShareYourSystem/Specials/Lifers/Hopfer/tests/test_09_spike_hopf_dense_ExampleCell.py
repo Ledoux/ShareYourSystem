@@ -29,6 +29,10 @@ MyHopfer=SYS.HopferClass(
 						'|Default':{
 							'BrianingEventSelectVariable':range(0,30)
 						}
+					},
+					'-Rates':{
+						'|Default':{
+						}
 					}
 					#'BrianingDebugVariable':100
 					#'LeakingNoiseStdVariable':10.,
@@ -37,7 +41,7 @@ MyHopfer=SYS.HopferClass(
 			}
 		}
 	).hopf(
-		_UnitsInt=1000,
+		_UnitsInt=100,
 		_StdWeightFloat=StdWeightFloat,
 		_StationaryRateFloat=50.,
 		_SymmetryFloat=-0.7,

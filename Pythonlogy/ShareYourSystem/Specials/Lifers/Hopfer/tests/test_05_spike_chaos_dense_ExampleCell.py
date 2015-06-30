@@ -37,14 +37,16 @@ MyHopfer=SYS.HopferClass(
 			}
 		}
 	).hopf(
-		_UnitsInt=1000,
-		_StdWeightFloat=StdWeightFloat,
-		_StationaryRateFloat=50.,
-		_InteractionStr="Spike"
+		_UnitsInt = 1000,
+		_StdWeightFloat = StdWeightFloat,
+		_StationaryRateFloat = 50.,
+		_ExternalNoiseFloat = 5.,
+		_InteractionStr = "Spike"
 	).leak(
 	).simulate(
 		500.
 	)
+
 
 
 #/###################/#
@@ -57,7 +59,7 @@ MyHopfer.mapSet(
 			'PyplotingFigureVariable':{
 				'figsize':(10,8)
 			},
-			'PyplotingGridVariable':(30,30),
+			'PyplotingGridVariable':(45,45),
 			'-Panels':[
 				(
 					'|Eigen',
@@ -66,7 +68,19 @@ MyHopfer.mapSet(
 						'PyplotingShapeVariable':[10,10],
 						'-Charts':{
 							'|Perturbation':{
-								'PyplotingShiftVariable':[4,0],
+								'PyplotingShiftVariable':[6,0],
+							}
+						}
+					}
+				),
+				(
+					'|Transfer',
+					{
+						'PyplotingTextVariable':[-0.5,-1.],
+						'PyplotingShapeVariable':[10,10],
+						'-Charts':{
+							'|Isolate':{
+								'PyplotingShiftVariable':[6,0],
 							}
 						}
 					}
@@ -74,15 +88,23 @@ MyHopfer.mapSet(
 				(
 					'|Run',
 					{
-						'PyplotingTextVariable':[-0.4,0.],
-						'PyplotingShiftVariable':[0,4],
-						'PyplotingShapeVariable':[8,9],
+						'PyplotingTextVariable':[0.,0.1],
+						'PyplotingShiftVariable':[["top",1],6],
+						'PyplotingShapeVariable':[8,18],
+						'-Charts':{
+								'|Agent_U':{
+									'PyplotingLegendDict':{
+										'fontsize':10,
+										'ncol':1
+									}
+								}
+							}
 					}
 				),
 				(
 					'|Stat',
 					{
-						'PyplotingTextVariable':[-0.4,0.],
+						'PyplotingTextVariable':[0.,0.],
 						'PyplotingShiftVariable':[4,0],
 						'PyplotingShapeVariable':[5,9],
 					}
@@ -101,3 +123,80 @@ MyHopfer.mapSet(
 #print
 print('MyHopfer is ')
 SYS._print(MyHopfer) 
+
+"""
+from matplotlib import pyplot
+pyplot.figure()
+axes=pyplot.axes()
+for _List in SYS.TempList[:100]:
+
+	axes.plot(
+		_List[0].imag/(2.*SYS.numpy.pi),
+		abs(_List[1]),
+		'.',
+		color="r"
+	)
+	axes.plot(
+		_List[0].imag/(2.*SYS.numpy.pi),
+		abs(_List[2]),
+		'.',
+		color="b"
+	)
+axes.set_xscale('log')
+pyplot.show()
+"""
+
+"""
+#print
+print("DEBUG CHECK THE TRANSFER FUNCTION")
+
+#map
+PerturbationFrequencyFloatsArray=SYS.numpy.array(
+    [
+        0.
+     ]+list(
+        SYS.numpy.logspace(0,3,100)
+       #[130.]
+    )
+);
+
+
+
+
+MyLifer=MyHopfer.HopfedAgentDeriveHopferVariable
+
+#set
+MyLifer.LifingPerturbationMethodStr="Brunel"
+MyLifer.LifingPerturbationLambdaVariable=None
+
+#map
+LifedPerturbationMeanComplexesArray=SYS.numpy.array(
+	map(
+		lambda __PerturbationFrequencyFloat:
+		MyLifer.lif(   
+			_PerturbationFrequencyFloat=__PerturbationFrequencyFloat
+		).LifedPerturbationMeanComplexVariable,
+		PerturbationFrequencyFloatsArray
+	)
+)
+
+#plot
+SYS.plot(
+	PerturbationFrequencyFloatsArray,
+	abs(LifedPerturbationMeanComplexesArray),
+	'-',
+	linewidth=10,
+	color="blue"
+);
+    
+#init figure
+SYS.plot(
+    [1.,100.],
+    [MyLifer.LifedPerturbationMeanNullFloat]*2,
+    '--',linewidth=3,markersize=25,color="black"
+);
+SYS.Axes.set_xscale('log')
+SYS.Axes.legend()
+
+SYS.show()
+"""

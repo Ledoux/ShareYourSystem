@@ -31,7 +31,7 @@ MyLeaker=SYS.LeakerClass(
 					'LeakingResetVariable':'#scalar:V=-70*mV',
 					'-Interactions':{
 						'|/':{
-							'BrianingDebugVariable':100,
+							#'BrianingDebugVariable':100,
 							'LeakingWeightVariable':[[0.,-1.],[-2.,0.]],
 							'LeakingInteractionStr':"Spike",
 							#'LeakingDelayVariable':5., #ms

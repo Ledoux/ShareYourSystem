@@ -32,12 +32,12 @@ MyLeaker=SYS.LeakerClass(
 					'LeakingResetVariable':'#scalar:V=-70*mV',
 					'-Interactions':{
 						'|/':{
-							'BrianingDebugVariable':100,
+							#'BrianingDebugVariable':100,
 							'LeakingWeightVariable':[[0.,0.],[0.,0.]],
 							'LeakingInteractionStr':"Spike",
-							'LeakingPlasticVariable':"J+=(((V_post+60.*mV)/volt)+((1.+1.)/2.)*J)",
+							'LeakingPlasticVariable':"J-=(((V_post+60.*mV)/mV)+((1.+0.)/2.)*J)*(int(i!=j))",
 							#'LeakingPlasticVariable':"J-=0.5*J",
-							'RecordingLabelVariable':[1,2]
+							'RecordingLabelVariable':[0,1,2,3]
 						}
 					},
 					'RecordingLabelVariable':[0,1],
@@ -63,6 +63,22 @@ MyLeaker.simulate(
 MyLeaker.mapSet(
 		{
 			'PyplotingGridVariable':(20,20)
+		}
+	).mapSet(
+		{
+			'-Panels':{
+				'|Run':{
+					'-Charts':{
+						'|P_J':{
+							'PyplotingLegendDict':{
+									'fontsize':10,
+									'ncol':2
+								}
+							}
+					}
+				}
+			}
+
 		}
 	).view(
 	).pyplot(

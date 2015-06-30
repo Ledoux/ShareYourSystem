@@ -89,7 +89,7 @@ class PyploterClass(BaseClass):
 						_PyplotedPreviousAnchorIntsList=[0,0],
 						_PyplotedPreviousShapeIntsList=[0,0],
 						_PyplotedAnchorIntsList=None,
-						_PyplotedShiftIntsList=None,
+						_PyplotedShiftVariablesList=None,
 						_PyplotedHitIntsList=None,
 						_PyplotedPanelShapeIntsList=None,
 						_PyplotedShapeIntsList=[5,5],
@@ -971,6 +971,9 @@ class PyploterClass(BaseClass):
 			'Viewing'+_AxeStr+'LabelStr'
 		)
 
+		#init
+		ViewedShiftVariablesList=[1,0]
+
 		#Check
 		if ViewingLabelStr!="":
 
@@ -980,9 +983,6 @@ class PyploterClass(BaseClass):
 			#/################/#
 			# Determine the next possible shift
  			#
-
-			#init
-			ViewedShiftIntsList=[1,0]
 
 			#Check
 			if len(self.ParentDeriveTeamerVariable.ManagementDict)>(self.ManagementIndexInt+1):
@@ -996,14 +996,14 @@ class PyploterClass(BaseClass):
 				if type(ViewedNextDerivePyploter.PyplotingShiftVariable)==list:
 
 					#copy
-					ViewedShiftIntsList=ViewedNextDerivePyploter.PyplotingShiftVariable[:]
+					ViewedShiftVariablesList=ViewedNextDerivePyploter.PyplotingShiftVariable[:]
 
 			#debug
 			'''
 			self.debug(
 				[
 					'We have looked to a maybe next plot to see if wee print the label on axes',
-					'ViewedShiftIntsList is '+str(ViewedShiftIntsList)
+					'ViewedShiftVariablesList is '+str(ViewedShiftVariablesList)
 				]
 			)
 			'''
@@ -1028,9 +1028,9 @@ class PyploterClass(BaseClass):
 
 				#Check
 				if (
-						_AxeStr=='X' and ViewedShiftIntsList[0]>0
+						_AxeStr=='X' and ViewedShiftVariablesList[0]>0
 					) or (
-						_AxeStr=='Y' and ViewedShiftIntsList[1]>0
+						_AxeStr=='Y' and ViewedShiftVariablesList[1]>0
 					):
 
 					#Check
@@ -1149,7 +1149,7 @@ class PyploterClass(BaseClass):
 			self.debug(
 				[
 					'_AxeStr is '+str(_AxeStr),
-					'ViewedShiftIntsList is '+str(ViewedShiftIntsList),
+					'ViewedShiftVariablesList is '+str(ViewedShiftVariablesList),
 					'ViewedSkipTickBool is '+str(ViewedSkipTickBool),
 					('self.',self,[
 							'ManagementIndexInt'
@@ -1161,7 +1161,7 @@ class PyploterClass(BaseClass):
 			'''
 
 			#Check
-			if ViewedShiftIntsList!=None:
+			if ViewedShiftVariablesList!=None:
 
 				#/################/#
 				# Simplify the ticklabels to print 
@@ -1173,9 +1173,9 @@ class PyploterClass(BaseClass):
 
 					#Check
 					if (
-							_AxeStr=='X' and ViewedShiftIntsList[0]>0
+							_AxeStr=='X' and ViewedShiftVariablesList[0]>0
 						) or (
-							_AxeStr=='Y' and ViewedShiftIntsList[1]>0
+							_AxeStr=='Y' and ViewedShiftVariablesList[1]>0
 						):
 
 						#Check
@@ -1384,7 +1384,7 @@ class PyploterClass(BaseClass):
 			[
 				('self.',self,[
 						'PyplotingShiftVariable',
-						'PyplotedShiftIntsList',
+						'PyplotedShiftVariablesList',
 						'PyplotedAnchorIntsList',
 				])
 			]
@@ -1449,7 +1449,7 @@ class PyploterClass(BaseClass):
 						'self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridVariable is',
 						str(self.PyplotedParentFigureDerivePyploterVariable.PyplotingGridVariable),
 						('self.',self,[
-								'PyplotedShiftIntsList'
+								'PyplotedShiftVariablesList'
 							])
 					]
 				)
@@ -1496,23 +1496,23 @@ class PyploterClass(BaseClass):
 					if PyplotedNextChartDerivePyloter.PyplotingShiftVariable!=None:
 
 						#copy
-						PyplotedShiftIntsList=PyplotedNextChartDerivePyloter.PyplotingShiftVariable[:]
+						PyplotedShiftVariablesList=PyplotedNextChartDerivePyloter.PyplotingShiftVariable[:]
 					else:
 
 						#default
-						PyplotedShiftIntsList=[1,0]
+						PyplotedShiftVariablesList=[1,0]
 
 				else:
 
 					#set
-					PyplotedShiftIntsList=[1,0]
+					PyplotedShiftVariablesList=[1,0]
 
 				#/################/#
 				# Then divide the shape 
 				# given the number of charts
 
 				#Check
-				if PyplotedShiftIntsList[0]>0:
+				if PyplotedShiftVariablesList[0]>0:
 
 					#divide
 					self.PyplotedShapeIntsList[0]/=len(
@@ -1768,7 +1768,7 @@ class PyploterClass(BaseClass):
 			]
 		)
 		'''
-
+		
 		#map
 		self.PyplotedHitIntsList=map(
 			lambda __PyplotedAnchorInt,__PyplotedShapeInt:
@@ -2508,15 +2508,18 @@ class PyploterClass(BaseClass):
 				if self.PyplotingShiftVariable!=None:
 
 					#list
-					self.PyplotedShiftIntsList=list(self.PyplotingShiftVariable)
+					self.PyplotedShiftVariablesList=list(
+						self.PyplotingShiftVariable
+					)
+
 				elif self.PyplotedParentPanelDerivePyploterVariable.PyplotingShiftVariable!=None:
 
 					#copy
-					self.PyplotedShiftIntsList=self.PyplotedParentPanelDerivePyploterVariable.PyplotingShiftVariable[:]
+					self.PyplotedShiftVariablesList=self.PyplotedParentPanelDerivePyploterVariable.PyplotingShiftVariable[:]
 				else:
 
 					#default
-					self.PyplotedShiftIntsList=[1,0]
+					self.PyplotedShiftVariablesList=[1,0]
 
 			else:
 
@@ -2537,11 +2540,11 @@ class PyploterClass(BaseClass):
 				if self.PyplotingShiftVariable!=None:
 
 					#list
-					self.PyplotedShiftIntsList=list(self.PyplotingShiftVariable)
+					self.PyplotedShiftVariablesList=list(self.PyplotingShiftVariable)
 				else:
 
 					#default
-					self.PyplotedShiftIntsList=[0,0]		
+					self.PyplotedShiftVariablesList=[0,0]		
 		else:
 
 			#debug
@@ -2590,11 +2593,11 @@ class PyploterClass(BaseClass):
 			if self.PyplotingShiftVariable!=None:
 
 				#list
-				self.PyplotedShiftIntsList=list(self.PyplotingShiftVariable)
+				self.PyplotedShiftVariablesList=list(self.PyplotingShiftVariable)
 			else:
 
 				#init
-				self.PyplotedShiftIntsList=[1,0]
+				self.PyplotedShiftVariablesList=[1,0]
 
 		#/###################/#
 		# Compute the anchor
@@ -2602,10 +2605,16 @@ class PyploterClass(BaseClass):
 
 		#map
 		PyplotedTrueShiftIntsList=map(
-			lambda __PyplotedShiftInt:
-			__PyplotedShiftInt-1 if __PyplotedShiftInt>0
-			else 0,
-			self.PyplotedShiftIntsList
+			lambda __PyplotedShiftVariable:
+			__PyplotedShiftVariable 
+			if type(__PyplotedShiftVariable)==list
+			else
+			(
+				__PyplotedShiftVariable-1 
+				if __PyplotedShiftVariable>0
+				else 0
+			),
+			self.PyplotedShiftVariablesList
 		)
 
 		#debug
@@ -2615,7 +2624,7 @@ class PyploterClass(BaseClass):
 				'We compute the anchor compared to the previous',
 				('self.',self,[
 						'PyplotedPreviousAnchorIntsList',
-						'PyplotedShiftIntsList',
+						'PyplotedShiftVariablesList',
 						'PyplotedPreviousShapeIntsList',
 					]),
 				'PyplotedTrueShiftIntsList is '+str(PyplotedTrueShiftIntsList)
@@ -2625,10 +2634,17 @@ class PyploterClass(BaseClass):
 		
 		#set
 		self.PyplotedAnchorIntsList=map(
-			lambda __PyplotedPreviousAnchorInt,__PyplotedShiftInt,__PyplotedTrueShiftInt,__PyplotedPreviousShapeInt:
-			__PyplotedPreviousAnchorInt+__PyplotedTrueShiftInt+int(__PyplotedShiftInt>0)*__PyplotedPreviousShapeInt,
+			lambda __PyplotedPreviousAnchorInt,__PyplotedShiftVariable,__PyplotedTrueShiftInt,__PyplotedPreviousShapeInt:
+			__PyplotedPreviousAnchorInt+__PyplotedTrueShiftInt+int(
+				__PyplotedShiftVariable>0
+			)*__PyplotedPreviousShapeInt
+			if type(__PyplotedShiftVariable)==int else (
+				__PyplotedShiftVariable[1]
+				if __PyplotedShiftVariable[0]=='top'
+				else 0
+			),
 			self.PyplotedPreviousAnchorIntsList,
-			self.PyplotedShiftIntsList,
+			self.PyplotedShiftVariablesList,
 			PyplotedTrueShiftIntsList,
 			self.PyplotedPreviousShapeIntsList
 		)
@@ -2693,7 +2709,7 @@ PyploterClass.PrintingClassSkipKeyStrsList.extend(
 		'PyplotedPreviousAnchorIntsList',
 		'PyplotedPreviousShapeIntsList',
 		'PyplotedAnchorIntsList',
-		'PyplotedShiftIntsList',
+		'PyplotedShiftVariablesList',
 		'PyplotedHitIntsList',
 		'PyplotedPanelShapeIntsList',
 		'PyplotedShapeIntsList',

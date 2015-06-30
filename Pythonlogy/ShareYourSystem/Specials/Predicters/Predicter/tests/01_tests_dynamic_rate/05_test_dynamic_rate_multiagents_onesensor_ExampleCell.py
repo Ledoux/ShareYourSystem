@@ -2,28 +2,39 @@
 # Import modules
 #
 
-
 #ImportModules
 import ShareYourSystem as SYS
+import scipy.stats
+import numpy
+numpy.random.seed(4)
 
 #/###################/#
 # Build the model
 #
 
-#set
-BrianingDebugVariable=25.
+#Simulation time
+SimulationTimeFloat=1000.
 
-#
-AgentUnitsInt = 1000
+#set
+AgentUnitsInt = 100
+
+#SimulationTimeFloat=0.2
+BrianingDebugVariable=0.1 if SimulationTimeFloat<0.5 else 25.
+
+#A - transition matrix
+JacobianTimeFloat = 30. #(ms)
+A =  (-1./float(JacobianTimeFloat)
+	)*SYS.numpy.array([[1.]])
 
 #Define
 MyPredicter=SYS.PredicterClass(
 	).mapSet(
 		{
-			'BrianingStepTimeFloat':0.02,
+			'NumscipyingSeedVariable':4,
+			'BrianingStepTimeFloat':0.05,
 			'-Populations':[
 				('|Sensor',{
-					'LeakingMonitorIndexIntsList':[0],
+					'RecordingLabelVariable':[0],
 					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Encod':{
@@ -32,17 +43,22 @@ MyPredicter=SYS.PredicterClass(
 					}
 				}),
 				('|Agent',{
-					'LeakingMonitorIndexIntsList':[0,1],
+					'RecordingLabelVariable':[0,1,2],
 					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Fast':{
 							#'BrianingDebugVariable':BrianingDebugVariable
 						}
 					},
-					#'LeakingThresholdMethodStr':'filterSpikespace'
+					'-Traces':{
+						'|U':{
+							'RecordingInitFloatsArray':scipy.stats.norm(0.,0.01).rvs(size=AgentUnitsInt)
+						}
+					}
+					#'LeakingNoiseStdVariable':0.01
 				}),
 				('|Decoder',{
-					'LeakingMonitorIndexIntsList':[0],
+					'RecordingLabelVariable':[0],
 					#'BrianingDebugVariable':BrianingDebugVariable
 					'-Interactions':{
 						'|Slow':{
@@ -54,18 +70,19 @@ MyPredicter=SYS.PredicterClass(
 			]
 		}
 	).predict(
+		_DynamicBool=True,
+		_JacobianVariable=A,
+		_CommandVariable="#custom:#clock:250*ms:(0.5/"+str(
+			JacobianTimeFloat
+		)+")*mV*(int(t==250*ms)+int(t==500*ms))",
+		_AgentTimeFloat = 10.,
 		_AgentUnitsInt = AgentUnitsInt,
-		_CommandVariable = "#custom:#clock:40*ms:5.*(1.*mV+1.*mV*int(t==40*ms))",#2.,
 		_DecoderVariable = "#array",
-		_DecoderStdFloat = 0.,
-		_DecoderMeanFloat = AgentUnitsInt * 0.5, #need to make an individual PSP around 1 mV
-		_AgentResetVariable = -70., #big cost to reset neurons and make the noise then decide who is going to spike next
-		_AgentNoiseVariable = 1., #noise to make neurons not spiking at the same timestep
-		#_AgentThresholdVariable = -53., #increase the threshold in order to have a linear cost
-		_AgentRefractoryVariable=0.5,
-		_InteractionStr = "Spike"
+		_DecoderMeanFloat = 0.,
+		_DecoderStdFloat = 20./SYS.numpy.sqrt(AgentUnitsInt),
+		_InteractionStr = "Rate"
 	).simulate(
-		100.
+		SimulationTimeFloat
 	)
 
 #/###################/#
@@ -94,4 +111,6 @@ MyPredicter.mapSet(
 #Definition the AttestedStr
 print('MyPredicter is ')
 SYS._print(MyPredicter) 
+
+
 
