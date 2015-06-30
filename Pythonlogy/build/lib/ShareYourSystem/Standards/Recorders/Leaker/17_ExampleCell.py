@@ -35,7 +35,7 @@ MyLeaker=SYS.LeakerClass(
 							#'BrianingDebugVariable':100,
 							'LeakingWeightVariable':[[0.,0.],[0.,0.]],
 							'LeakingInteractionStr':"Spike",
-							'LeakingPlasticVariable':"J-=(((V_post+60.*mV)/mV)+((1.+1.)/2.)*J)*(int(i!=j))",
+							'LeakingPlasticVariable':"J-=(((V_post+60.*mV)/mV)+((1.+0.)/2.)*J)*(int(i!=j))",
 							#'LeakingPlasticVariable':"J-=0.5*J",
 							'RecordingLabelVariable':[0,1,2,3]
 						}
@@ -69,7 +69,7 @@ MyLeaker.mapSet(
 			'-Panels':{
 				'|Run':{
 					'-Charts':{
-						'|P_J':{
+						'|P_/_J':{
 							'PyplotingLegendDict':{
 									'fontsize':10,
 									'ncol':2

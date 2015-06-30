@@ -69,7 +69,7 @@ MyLeaker.mapSet(
 			'-Panels':{
 				'|Run':{
 					'-Charts':{
-						'|P_J':{
+						'|P_/_J':{
 							'PyplotingLegendDict':{
 									'fontsize':10,
 									'ncol':2

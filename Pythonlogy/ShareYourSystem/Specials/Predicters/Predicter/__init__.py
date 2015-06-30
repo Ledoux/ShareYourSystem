@@ -2735,13 +2735,18 @@ class PredicterClass(BaseClass):
 						LeakedPlasticStr+=')/mV)'
 					
 					#add
-					LeakedPlasticStr+='+((1.+alpha)/2.)*'+self.LeakingSymbolPrefixStr
+					LeakedPlasticStr+='-((1.+alpha)/2.)*'+self.LeakingSymbolPrefixStr
 
 					#add
-					#self.LeakingPlasticVariable=self.LeakingSymbolPrefixStr+'+='+LeakedPlasticStr
-					self.LeakedModelStr+="W="+LeakedPlasticStr+" : 1\n"
-
-
+					self.LeakingPlasticVariable=""
+					
+					#NOT DEBUG
+					self.LeakingPlasticVariable+=self.LeakingSymbolPrefixStr+'-='+LeakedPlasticStr
+					
+					#DEBUG
+					#self.LeakedModelStr+="DeltaJ : 1\n"
+					#self.LeakingPlasticVariable+="DeltaJ="+LeakedPlasticStr
+					
 					#add in the model
 					self.LeakedModelStr+="alpha : 1"
 

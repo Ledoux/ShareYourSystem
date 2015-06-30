@@ -997,8 +997,10 @@ class BrianerClass(BaseClass):
 			self.debug(
 				[
 					('self.',self,[
-							'BrianingRecordSkipKeyStrsList'
-						])
+							'BrianingRecordSkipKeyStrsList',
+						]),
+					'self.BrianedSynapsesVariable.equations._equations.keys() is ',
+					str(self.BrianedSynapsesVariable.equations._equations.keys())
 				]
 			)
 			'''
@@ -1013,6 +1015,7 @@ class BrianerClass(BaseClass):
 			)
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We have setted the variable to record',
@@ -1022,6 +1025,7 @@ class BrianerClass(BaseClass):
 					])
 				]
 			)
+			'''
 
 			#Check
 			if len(self.BrianedRecordKeyStrsList)>0:
@@ -1077,7 +1081,7 @@ class BrianerClass(BaseClass):
 						),
 						map(
 							lambda __BrianedRecordKeyStr:
-							Recorder.RecordPrefixStr+__BrianedRecordKeyStr,
+							self.ManagementTagStr+'_'+Recorder.RecordPrefixStr+__BrianedRecordKeyStr,
 							self.BrianedRecordKeyStrsList
 						),
 						self.BrianedRecordKeyStrsList
@@ -1113,7 +1117,15 @@ class BrianerClass(BaseClass):
 						)
 
 						#get
-						BrianedSamplesDeriveBrianer.getManager('Default')
+						BrianedSamplesDeriveBrianer.getManager(
+							'Default'
+						).setAttr(
+							'ViewingYScaleFloat',
+							1000.
+						)
+
+
+						
 
 	def setDebugNeurongroup(self):
 
@@ -1468,6 +1480,10 @@ class BrianerClass(BaseClass):
 		'''
 	
 		#Check
+		if _RecordKeyStr.startswith("Delta"):
+			return True
+
+		#Check
 		if 'pre' in self.BrianingSynapsesDict:
 
 			#map
@@ -1615,6 +1631,7 @@ class BrianerClass(BaseClass):
 			#
 		
 			#debug
+			'''
 			self.debug(
 				[
 					'We set the state monitor',
@@ -1632,6 +1649,7 @@ class BrianerClass(BaseClass):
 					)
 				]
 			)
+			'''
 
 			#get
 			BrianedBrianVariable=self.BrianedParentPopulationDeriveBrianerVariable.BrianedNeurongroupVariable if self.BrianedParentDeriveRecorderVariable.BrianedParentDeriveBrianerStr=="Population" else self.BrianedParentInteractionDeriveBrianerVariable.BrianedSynapsesVariable
@@ -1643,12 +1661,14 @@ class BrianerClass(BaseClass):
 			)
 
 			#debug
+			'''
 			self.debug(
 				[
 					'BrianedBrianVariable is '+str(BrianedBrianVariable),
 					'BrianArrayVariable is '+str(BrianArrayVariable)
 				]
 			)
+			'''
 
 			#Check
 			if len(
@@ -2529,9 +2549,17 @@ class BrianerClass(BaseClass):
 
 		#Check
 		if self.BrianedParentInteractionDeriveBrianerVariable!=None:
-			ViewedRecordKeyStrsList = self.BrianedParentInteractionDeriveBrianerVariable.BrianedRecordKeyStrsList
+
+			#map
+			ViewedRecordKeyStrsList = map(
+				lambda __BrianedRecordKeyStr:
+				self.BrianedParentInteractionDeriveBrianerVariable.ManagementTagStr+'_'+__BrianedRecordKeyStr,
+				self.BrianedParentInteractionDeriveBrianerVariable.BrianedRecordKeyStrsList
+			)
 			ViewedBrianVariable = self.BrianedParentInteractionDeriveBrianerVariable.BrianedSynapsesVariable
 		else:
+
+			#set
 			ViewedRecordKeyStrsList = self.BrianedParentPopulationDeriveBrianerVariable.BrianedRecordKeyStrsList
 			ViewedBrianVariable = self.BrianedParentPopulationDeriveBrianerVariable.BrianedNeurongroupVariable
 
@@ -2692,6 +2720,7 @@ class BrianerClass(BaseClass):
 		)
 
 		#debug
+		'''
 		self.debug(
 			[
 				('self.',self,[
@@ -2700,6 +2729,7 @@ class BrianerClass(BaseClass):
 				'BrianedMonitorsInt is '+str(BrianedMonitorsInt)
 			]
 		)
+		'''
 
 		#Check
 		if len(self.RecordingLabelVariable)>BrianedMonitorsInt:
@@ -2708,11 +2738,63 @@ class BrianerClass(BaseClass):
 			RecordedLabelVariable=self.RecordingLabelVariable
 
 		#debug
+		'''
 		self.debug(
 			[
 				"RecordedLabelVariable is "+str(RecordedLabelVariable)
 			]
 		)
+		'''
+
+		#/####################/#
+		# maybe set scale
+		#
+
+		#get
+		ViewingYVariable=getattr(
+						self.BrianedStateMonitorVariable,
+						self.BrianedParentDeriveRecorderVariable.RecordKeyStr
+				)
+
+		#split
+		BrianedActivityUnit=getattr(
+				ViewedBrianVariable,
+				self.BrianedParentDeriveRecorderVariable.RecordKeyStr
+			).unit
+
+		#divide
+		self.ViewingYVariable=ViewingYVariable/(
+			BrianedActivityUnit
+		)
+
+		#self.ViewingYVariable=ViewingYVariable
+		self.ViewingYVariable=self.ViewingYVariable[:]
+
+		#Check
+		if str(BrianedActivityUnit)=='1':
+			self.ViewingYVariable=self.ViewingYVariable/self.ViewingYScaleFloat
+
+
+		#debug
+		'''
+		self.debug(
+			[
+				'ViewingYVariable is '+str(ViewingYVariable)
+			]
+		)
+		'''
+
+		#max
+		ViewedMinFloat=self.ViewingYVariable.max()-(
+			abs(self.ViewingYVariable.max()-self.ViewingYVariable.min())/2.
+			)
+		ViewedMaxFloat=self.ViewingYVariable.max()+abs(
+			self.ViewingYVariable.max()-self.ViewingYVariable.min()
+		)
+
+		#/####################/#
+		# define the plot
+		#
 
 		#set
 		self.PyplotingDrawVariable+=map(
@@ -2722,7 +2804,9 @@ class BrianerClass(BaseClass):
 				{
 					'#liarg:#map@get':[
 						'#IdGetStr.BrianedStateMonitorVariable.t',
-						'>>SYS.IdDict[#IdStr].BrianedStateMonitorVariable.'+self.BrianedParentDeriveRecorderVariable.RecordKeyStr+'['+str(
+						#'>>SYS.IdDict[#IdStr].BrianedStateMonitorVariable.'+self.BrianedParentDeriveRecorderVariable.RecordKeyStr+'['+str(
+						#	__IndexInt)+',:]'
+						'>>SYS.IdDict[#IdStr].ViewingYVariable['+str(
 							__IndexInt)+',:]'
 					],
 					'#kwarg':dict(
@@ -2759,45 +2843,7 @@ class BrianerClass(BaseClass):
 		)
 		'''
 
-		#/####################/#
-		# maybe set spikes
-		#
 
-		#get
-		ViewingYVariable=getattr(
-						self.BrianedStateMonitorVariable,
-						self.BrianedParentDeriveRecorderVariable.RecordKeyStr
-				)
-
-		#split
-		BrianedActivityUnit=getattr(
-				ViewedBrianVariable,
-				self.BrianedParentDeriveRecorderVariable.RecordKeyStr
-			).unit
-
-		#divide
-		self.ViewingYVariable=ViewingYVariable/(
-			BrianedActivityUnit
-		)
-		#self.ViewingYVariable=ViewingYVariable
-		self.ViewingYVariable=self.ViewingYVariable[:]
-
-		#debug
-		'''
-		self.debug(
-			[
-				'ViewingYVariable is '+str(ViewingYVariable)
-			]
-		)
-		'''
-
-		#max
-		ViewedMinFloat=self.ViewingYVariable.max()-(
-			abs(self.ViewingYVariable.max()-self.ViewingYVariable.min())/2.
-			)
-		ViewedMaxFloat=self.ViewingYVariable.max()+abs(
-			self.ViewingYVariable.max()-self.ViewingYVariable.min()
-		)
 
 		#/################/#
 		# Add the event on the traces
@@ -3051,6 +3097,17 @@ class BrianerClass(BaseClass):
 			) 
 		)
 
+		#debug
+		self.debug(
+			[
+				"We scale the Y ",
+				('self.',self,[
+						'ViewingYScaleFloat'
+					]),
+				"BrianedActivityUnit is "+str(BrianedActivityUnit)
+			]
+		)
+
 		#str
 		ViewedDimensionStr=str(
 			(1./self.ViewingYScaleFloat)*BrianedActivityUnit
@@ -3059,6 +3116,7 @@ class BrianerClass(BaseClass):
 		#Check
 		if str(BrianedActivityUnit)=='1':
 			ViewedDimensionStr='1'
+			#ViewedDimensionStr=str((1./self.ViewingYScaleFloat))
 
 		#debug
 		'''

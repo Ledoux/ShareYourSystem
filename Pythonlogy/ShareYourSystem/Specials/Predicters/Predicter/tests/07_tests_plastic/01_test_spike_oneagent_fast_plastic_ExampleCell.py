@@ -32,7 +32,8 @@ MyPredicter=SYS.PredicterClass(
 					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Fast':{
-							#'BrianingDebugVariable':BrianingDebugVariable
+							#'BrianingDebugVariable':BrianingDebugVariable,
+
 						}
 					},
 					#'LeakingNoiseStdVariable':0.01
@@ -107,6 +108,15 @@ MyPredicter.mapSet(
 									}
 								),
 								(
+									'|Agent_Fast_J',
+									{
+										'PyplotingLegendDict':{
+											'fontsize':10,
+											'ncol':1
+										}
+									}
+								),
+								(
 									'|Agent_Default_Events',{}
 								),
 								(
@@ -129,7 +139,7 @@ MyPredicter.mapSet(
 	).show(
 	)
 
-
+print(MyPredicter['/-Panels/|Run/-Charts/'])
 
 #/###################/#
 # Print

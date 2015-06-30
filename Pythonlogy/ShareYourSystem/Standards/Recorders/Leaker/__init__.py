@@ -1473,6 +1473,19 @@ class LeakerClass(BaseClass):
 				)
 				'''
 
+		#Check
+		if self.ManagementTagStr.startswith("Delta"):
+
+			#debug
+			self.debug(
+				[
+					'Special case of a Delta record variable'
+				]
+			)
+
+			#set
+			self.BrianingRecordInitBool=False
+
 	def leakInput(self):
 
 		#/################/#
@@ -1880,6 +1893,7 @@ class LeakerClass(BaseClass):
 		#
 
 		#debug
+		'''
 		self.debug(
 			[
 				'It is an Interaction level',
@@ -1888,7 +1902,8 @@ class LeakerClass(BaseClass):
 					])
 			]
 		)
-		
+		'''
+
 		#/####################/#
 		# Determine the parent
 		#
@@ -2666,6 +2681,7 @@ class LeakerClass(BaseClass):
 		else:
 
 			#debug
+			'''
 			self.debug(
 				[
 					"We add in the not record",
@@ -2675,6 +2691,7 @@ class LeakerClass(BaseClass):
 						])
 				]
 			)
+			'''
 
 			#Check
 			if self.BrianingRecordSkipKeyStrsList==None:
@@ -2709,6 +2726,7 @@ class LeakerClass(BaseClass):
 			)
 
 			#debug
+			'''
 			self.debug(
 				[
 					'It is a spike interaction add int the BrianingSynapsesDict pre',
@@ -2722,6 +2740,7 @@ class LeakerClass(BaseClass):
 					)
 				]
 			)
+			'''
 
 			#/##################/#
 			# Look for plasticity in the spike
