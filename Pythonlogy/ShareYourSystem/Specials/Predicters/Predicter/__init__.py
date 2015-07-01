@@ -66,6 +66,7 @@ class PredicterClass(BaseClass):
 			_PredictingJacobianVariable = None,
 			_PredictingCommandVariable = None,
 			_PredictingEncodPerturbStdFloat = 0.,
+			_PredictingEncodWeightVariable = None,
 			_PredictingRateCostVariable = None,
 			_PredictingRateTransferVariable = None,
 			_PredictingAgentRestVariable = None,
@@ -85,6 +86,7 @@ class PredicterClass(BaseClass):
 			_PredictingInteractionStr="Rate",
 			_PredictingEncodPlasticBool=False,
 			_PredictingFastPlasticBool=False,
+			_PredictingFastLearnRateFloat=0.01,
 			_PredictingDelayFloat=0.,
 			_PredictingStationaryBool=False,
 			_PredictedDynamicDict=None,
@@ -2030,7 +2032,11 @@ class PredicterClass(BaseClass):
 				]
 			)
 			'''
-			
+				
+			#type
+			PredictedEncodType=type(self.PredictedNetworkDerivePredicterVariable.PredictingEncodWeightVariable)
+
+
 			#link
 			#self.LeakingWeightVariable=0.001*self.PredictedNetworkDerivePredicterVariable.PredictingAgentTimeFloat*self.PredictedNetworkDerivePredicterVariable.PredictedDecoderFloatsArray.T
 			
@@ -2040,12 +2046,21 @@ class PredicterClass(BaseClass):
 				# This is directly the x
 				#
 
-				#set
-				self.LeakingWeightVariable=self.PredictedNetworkDerivePredicterVariable.PredictingAgentTimeFloat*self.PredictedNetworkDerivePredicterVariable.PredictedDecoderFloatsArray.T
-				#self.LeakingWeightVariable=self.PredictedNetworkDerivePredicterVariable.PredictingAgentTimeFloat*self.PredictedNetworkDerivePredicterVariable.PredictedDecoderFloatsArray.T
+				#Check
+				if PredictedEncodType == None.__class__:
+
+					#set
+					self.LeakingWeightVariable=self.PredictedNetworkDerivePredicterVariable.PredictingAgentTimeFloat*self.PredictedNetworkDerivePredicterVariable.PredictedDecoderFloatsArray.T
+					#self.LeakingWeightVariable=self.PredictedNetworkDerivePredicterVariable.PredictingAgentTimeFloat*self.PredictedNetworkDerivePredicterVariable.PredictedDecoderFloatsArray.T
 			
+				else:
+
+					#set
+					self.LeakingWeightVariable = self.PredictedNetworkDerivePredicterVariable.PredictingAgentTimeFloat*self.PredictedNetworkDerivePredicterVariable.PredictingEncodWeightVariable
 
 			else:
+
+
 
 				#/###############/#
 				# This is the c
@@ -2054,14 +2069,31 @@ class PredicterClass(BaseClass):
 				#Check
 				if self.PredictedNetworkDerivePredicterVariable.PredictingInteractionStr == "Rate":
 				
-					#set
-					self.LeakingWeightVariable=1000.*self.PredictedNetworkDerivePredicterVariable.PredictingAgentTimeFloat*self.PredictedNetworkDerivePredicterVariable.PredictedDecoderFloatsArray.T
-					#self.LeakingWeightVariable=self.PredictedNetworkDerivePredicterVariable.PredictingAgentTimeFloat*self.PredictedNetworkDerivePredicterVariable.PredictedDecoderFloatsArray.T
+					#Check
+					if PredictedEncodType == None.__class__:
+
+						#set
+						self.LeakingWeightVariable=1000.*self.PredictedNetworkDerivePredicterVariable.PredictingAgentTimeFloat*self.PredictedNetworkDerivePredicterVariable.PredictedDecoderFloatsArray.T
+						#self.LeakingWeightVariable=self.PredictedNetworkDerivePredicterVariable.PredictingAgentTimeFloat*self.PredictedNetworkDerivePredicterVariable.PredictedDecoderFloatsArray.T
+
+					else:
+
+						#set
+						self.LeakingWeightVariable = 1000.*self.PredictedNetworkDerivePredicterVariable.PredictingAgentTimeFloat*self.PredictedNetworkDerivePredicterVariable.PredictingEncodWeightVariable
+
 
 				else:
 
-					#set
-					self.LeakingWeightVariable=self.PredictedNetworkDerivePredicterVariable.PredictingAgentTimeFloat*self.PredictedNetworkDerivePredicterVariable.PredictedDecoderFloatsArray.T
+					#Check
+					if PredictedEncodType == None.__class__:
+
+						#set
+						self.LeakingWeightVariable=self.PredictedNetworkDerivePredicterVariable.PredictingAgentTimeFloat*self.PredictedNetworkDerivePredicterVariable.PredictedDecoderFloatsArray.T
+			
+					else:
+
+						#set
+						self.LeakingWeightVariable=self.PredictedNetworkDerivePredicterVariable.PredictingAgentTimeFloat*self.PredictedNetworkDerivePredicterVariable.PredictingEncodWeightVariable
 			
 
 			#self.LeakingWeightVariable=0.
@@ -2512,7 +2544,7 @@ class PredicterClass(BaseClass):
 
 				#Check
 				if self.LeakingSymbolPrefixStr=="":
-					self.LeakingSymbolPrefixStr=LeakActivityPrefixStr
+					self.LeakingSymbolPrefixStr="J"
 
 				#debug
 				'''
@@ -2522,6 +2554,9 @@ class PredicterClass(BaseClass):
 					]
 				)
 				'''
+
+				#set
+				LeakedPlasticStr=""
 
 				#Check
 				if self.PredictedNetworkDerivePredicterVariable.PredictingInteractionStr=="Rate":
@@ -2574,8 +2609,12 @@ class PredicterClass(BaseClass):
 					'''
 
 					#set
-					self.LeakingPlasticVariable='\n'+self.LeakingSymbolPrefixStr+'+=0.*('+self.PredictedDecoderDerivePredicterVariable.LeakedSymbolStr+'_post'
-					self.LeakingPlasticVariable+='/mV)-'+self.LeakingSymbolPrefixStr
+					LeakedPlasticStr+='\n'+self.LeakingSymbolPrefixStr+'+=0.*('+self.PredictedDecoderDerivePredicterVariable.LeakedSymbolStr+'_post'
+					LeakedPlasticStr+='/mV)-'+self.LeakingSymbolPrefixStr
+
+					#set
+					self.LeakingPlasticVariable=LeakedPlasticStr
+
 
 					#debug
 					'''
@@ -2609,6 +2648,9 @@ class PredicterClass(BaseClass):
 							])
 					]
 				)
+
+				#init
+				LeakedPlasticStr='('
 
 				#Check
 				if self.LeakingInteractionStr=="Rate":
@@ -2671,7 +2713,7 @@ class PredicterClass(BaseClass):
 					#
 
 					#set
-					LeakedPlasticStr='(('+self.PredictedAgentDerivePredicterVariable.LeakedSymbolStr+'_post'
+					LeakedPlasticStr+='(('+self.PredictedAgentDerivePredicterVariable.LeakedSymbolStr+'_post'
 				
 					#Check
 					if 'Rest' in self.PredictedAgentDerivePredicterVariable.TeamDict[
@@ -2735,13 +2777,15 @@ class PredicterClass(BaseClass):
 						LeakedPlasticStr+=')/mV)'
 					
 					#add
-					LeakedPlasticStr+='-((1.+alpha)/2.)*'+self.LeakingSymbolPrefixStr
+					LeakedPlasticStr+='-((1.+alpha)/2.)*'+self.LeakingSymbolPrefixStr+')'
 
 					#add
 					self.LeakingPlasticVariable=""
 					
 					#NOT DEBUG
-					self.LeakingPlasticVariable+=self.LeakingSymbolPrefixStr+'-='+LeakedPlasticStr
+					self.LeakingPlasticVariable+=self.LeakingSymbolPrefixStr+'+='+str(
+						self.PredictedNetworkDerivePredicterVariable.PredictingFastLearnRateFloat
+					)+'*'+LeakedPlasticStr
 					
 					#DEBUG
 					#self.LeakedModelStr+="DeltaJ : 1\n"
@@ -3577,6 +3621,7 @@ PredicterClass.PrintingClassSkipKeyStrsList.extend(
 		'PredictingFastPerturbStdFloat',
 		'PredictingInteractionStr',
 		'PredictingFastPlasticBool',
+		'PredictingFastLearnRateFloat',
 		'PredictingDelayFloat',
 		'PredictingStationaryBool',
 		'PredictedDynamicDict',

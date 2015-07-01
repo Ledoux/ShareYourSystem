@@ -16,10 +16,10 @@ BrianingDebugVariable=25.
 MyPredicter=SYS.PredicterClass(
 	).mapSet(
 		{
-			'BrianingStepTimeFloat':0.02,
+			'BrianingStepTimeFloat':0.01,
 			'-Populations':[
 				('|Sensor',{
-					'RecordingLabelVariable':[0,1],
+					'RecordingLabelVariable':[0],
 					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Encod':{
@@ -28,21 +28,22 @@ MyPredicter=SYS.PredicterClass(
 					}
 				}),
 				('|Agent',{
-					'RecordingLabelVariable':[0,1],
+					'RecordingLabelVariable':[0],
 					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Fast':{
-							'BrianingDebugVariable':BrianingDebugVariable
+							#'BrianingDebugVariable':BrianingDebugVariable,
+
 						}
 					},
 					#'LeakingNoiseStdVariable':0.01
 				}),
 				('|Decoder',{
-					'RecordingLabelVariable':[0,1],
+					'RecordingLabelVariable':[0],
 					#'BrianingDebugVariable':BrianingDebugVariable
 					'-Interactions':{
 						'|Slow':{
-							'BrianingDebugVariable':BrianingDebugVariable,
+							#'BrianingDebugVariable':BrianingDebugVariable,
 							#'LeakingWeigthVariable':0.
 						}
 					}
@@ -50,13 +51,15 @@ MyPredicter=SYS.PredicterClass(
 			]
 		}
 	).predict(
-		_AgentUnitsInt=100,
-		_CommandVariable="#custom:#clock:200*ms:1.*mV+1.*mV*int(t==200*ms)",#2.,
-		_DecoderVariable="#array",
-		_DecoderStdFloat=0.,
-		_DecoderSparseFloat=0.2,
-		#_AgentResetVariable=-60.,
-		_InteractionStr="Spike"
+		_AgentUnitsInt = 1,
+		_CommandVariable = "#custom:#clock:50*ms:1.*mV+1.*mV*(int(t==50*ms)+int(t==150*ms))",#2.,
+		_DecoderVariable = [2.],
+		_InteractionStr = "Spike",
+		#_AgentResetVariable=-70.,
+		#_AgentThresholdVariable=-55.,
+		#_AgentRefractoryVariable=0.5 BE CAREFUL NOT WORKING BECAUSE auto IPSP is then not inducted
+		_FastPlasticBool = True,
+		#_EncodPlasticBool = True
 	).simulate(
 		500.
 	)
@@ -65,9 +68,7 @@ MyPredicter=SYS.PredicterClass(
 # View
 #
 
-#mapSet
-MyPredicter.view(
-	).mapSet(
+MyPredicter.mapSet(
 		{
 			'PyplotingFigureVariable':{
 				'figsize':(10,8)
@@ -108,6 +109,15 @@ MyPredicter.view(
 									}
 								),
 								(
+									'|Agent_Fast_J',
+									{
+										'PyplotingLegendDict':{
+											'fontsize':10,
+											'ncol':1
+										}
+									}
+								),
+								(
 									'|Agent_Default_Events',{}
 								),
 								(
@@ -115,27 +125,22 @@ MyPredicter.view(
 									{
 										'PyplotingLegendDict':{
 											'fontsize':10,
-											'ncol':2
+											'ncol':1
 										}
 									}
 								)
 							]
 						)
 					]
-				),
-				(
-					'|Stat',
-					{
-						'PyplotingTextVariable':[-0.4,0.],
-						'PyplotingShiftVariable':[0,4],
-						'PyplotingShapeVariable':[5,9],
-					}
 				)
 			]
 		}
+	).view(
 	).pyplot(
 	).show(
 	)
+
+print(MyPredicter['/-Panels/|Run/-Charts/'])
 
 #/###################/#
 # Print
@@ -144,4 +149,5 @@ MyPredicter.view(
 #Definition the AttestedStr
 print('MyPredicter is ')
 SYS._print(MyPredicter) 
+
 
