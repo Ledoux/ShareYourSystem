@@ -105,6 +105,7 @@ class BrianerClass(BaseClass):
 			_BrianedStateDeriveBrianersList=None,
 			_BrianedSpikeDeriveBrianersList=None,
 			_BrianedViewTraceBool=False,
+			_BrianedTitleBool=False,
 			_BrianedParentNetworkDeriveBrianerVariable=None,
 			_BrianedParentPopulationDeriveBrianerVariable=None,
 			_BrianedParentInteractomeDeriveBrianerVariable=None,
@@ -1248,12 +1249,14 @@ class BrianerClass(BaseClass):
 		elif BrianedParentDeriveBrianer.BrianedSynapsesVariable!=None:
 
 			#debug
+			'''
 			self.debug(
 				[
-					'It is a trace in a synapses'
+					'It is a trace in synapses'
 				]
 			)
-
+			'''
+			
 			#get
 			self.BrianedParentInteractionDeriveBrianerVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
 
@@ -1640,8 +1643,8 @@ class BrianerClass(BaseClass):
 							'RecordingLabelVariable',
 							'BrianingMonitorIndexIntsList'
 						]),
-					#'self.BrianedParentDeriveRecorderVariable.RecordKeyStr is ',
-					#str(self.BrianedParentDeriveRecorderVariable.RecordKeyStr)
+					'self.BrianedParentDeriveRecorderVariable.RecordKeyStr is ',
+					str(self.BrianedParentDeriveRecorderVariable.RecordKeyStr),
 					#'self.ParentedTotalManagementOrderedDict.keys() is ',
 					#str(self.ParentedTotalManagementOrderedDict.keys()),
 					'self.BrianedParentPopulationDeriveBrianerVariable.BrianedNeurongroupVariable.N is '+str(
@@ -1650,6 +1653,10 @@ class BrianerClass(BaseClass):
 				]
 			)
 			'''
+
+			#Check
+			if self.BrianedParentDeriveRecorderVariable.RecordKeyStr=="":
+				self.BrianedParentDeriveRecorderVariable.RecordKeyStr=self.ParentGrandManagementTagStr
 
 			#get
 			BrianedBrianVariable=self.BrianedParentPopulationDeriveBrianerVariable.BrianedNeurongroupVariable if self.BrianedParentDeriveRecorderVariable.BrianedParentDeriveBrianerStr=="Population" else self.BrianedParentInteractionDeriveBrianerVariable.BrianedSynapsesVariable
@@ -3098,6 +3105,7 @@ class BrianerClass(BaseClass):
 		)
 
 		#debug
+		'''
 		self.debug(
 			[
 				"We scale the Y ",
@@ -3107,6 +3115,7 @@ class BrianerClass(BaseClass):
 				"BrianedActivityUnit is "+str(BrianedActivityUnit)
 			]
 		)
+		'''
 
 		#str
 		ViewedDimensionStr=str(
@@ -3157,6 +3166,8 @@ class BrianerClass(BaseClass):
 			#Check
 			if self.PyplotingLegendDict==None:
 				self.PyplotingLegendDict={
+					#'fontsize':10,
+					#'ncol':2
 				}
 
 			#Check
@@ -3216,66 +3227,7 @@ class BrianerClass(BaseClass):
 
 		#call 
 		BaseClass.view(self)
-
-		#/################/#
-		# Set a title if it is the first Chart
-		#
-
-		#Check
-		if self.ManagementIndexInt==0:
-
-			#Check
-			if self.BrianedParentInteractionDeriveBrianerVariable==None:
-
-				#debug
-				"""
-				self.debug(
-					[
-						"Do we print the title",
-						"self.BrianedParentDeriveRecorderVariable.ParentDeriveTeamerVariable.ManagementDict.keys() is ",
-						str(self.BrianedParentDeriveRecorderVariable.ParentDeriveTeamerVariable.ManagementDict.keys()),
-						"self.BrianedParentDeriveRecorderVariable.ManagementTagStr is ",str(
-							self.BrianedParentDeriveRecorderVariable.ManagementTagStr)
-					]
-				)
-				"""
-
-				#Check
-				if self.BrianedParentDeriveRecorderVariable.ParentDeriveTeamerVariable.ManagementDict.keys(
-					)[0]==self.BrianedParentDeriveRecorderVariable.ManagementTagStr:
-
-					#Check
-					if self.BrianedParentPopulationDeriveBrianerVariable.ManagementTagStr!="":
-						BrianedTitleStr=self.BrianedParentPopulationDeriveBrianerVariable.ManagementTagStr
-					else:
-						BrianedTitleStr="Population"
-
-					#add
-					self.PyplotingChartVariable+=[
-						('set_title',
-							{
-								'#liarg':[
-					'$'+BrianedTitleStr+'$'
-								],
-								'#kwarg':{
-									'fontsize':20
-								}
-							}
-						)
-					]
-
-					#debug
-					'''
-					self.debug(
-						[
-							'We have setted the title',
-							('self.',self,[
-								'PyplotingChartVariable'
-							])
-						]
-					)
-					'''
-				
+		
 		#/####################/#
 		# maybe replace Chart also
 		#
@@ -3417,6 +3369,52 @@ class BrianerClass(BaseClass):
 			)
 			'''
 			
+			#/################/#
+			# Set a title if it is the first Chart
+			#
+
+			#Check
+			if self.BrianedParentPopulationDeriveBrianerVariable.ManagementTagStr!="":
+
+				#debug
+				self.debug(
+					[
+						"Do we print the title",
+						('self.',self,[
+								'ManagementIndexInt',
+								'PyplotingChartVariable',
+								'BrianingViewBool'
+							]),
+						"self.BrianedParentPopulationDeriveBrianerVariable.BrianedTitleBool is "+str(
+							self.BrianedParentPopulationDeriveBrianerVariable.BrianedTitleBool),
+
+					]
+				)
+
+				#Check
+				if self.BrianedParentPopulationDeriveBrianerVariable.BrianedTitleBool==False:
+
+					#Check
+					if BrianedChartDerivePyploter.PyplotingChartVariable==None:
+						BrianedChartDerivePyploter.PyplotingChartVariable=[]
+
+					#set
+					BrianedChartDerivePyploter.PyplotingChartVariable += [
+						('set_title',
+									{
+										'#liarg':[
+											'$'+self.BrianedParentPopulationDeriveBrianerVariable.ManagementTagStr+'$'
+										],
+										'#kwarg':{
+											'fontsize':20
+										}
+									}
+								)
+					]
+
+					#set
+					self.BrianedParentPopulationDeriveBrianerVariable.BrianedTitleBool=True
+
 
 			#/####################/#
 			# set to True
@@ -4595,6 +4593,7 @@ BrianerClass.PrintingClassSkipKeyStrsList.extend(
 		'BrianedStateDeriveBrianersList',
 		'BrianedSpikeDeriveBrianersList',
 		'BrianedViewTraceBool',
+		'BrianedTitleBool',
 		'BrianedParentSingularStr',
 		'BrianedParentNetworkDeriveBrianerVariable',
 		'BrianedParentPopulationDeriveBrianerVariable',

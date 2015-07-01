@@ -87,6 +87,7 @@ class PredicterClass(BaseClass):
 			_PredictingEncodPlasticBool=False,
 			_PredictingFastPlasticBool=False,
 			_PredictingFastLearnRateFloat=0.01,
+			_PredictingFastWeightVariable=None,
 			_PredictingDelayFloat=0.,
 			_PredictingStationaryBool=False,
 			_PredictedDynamicDict=None,
@@ -668,91 +669,101 @@ class PredicterClass(BaseClass):
 		#
 
 		#Check
-		if self.PredictingFastSymmetryFloat>0.:
+		if type(self.PredictingFastWeightVariable)!=None.__class__:
 
-			#debug
-			'''
-			self.debug(
-				[
-					'We build a symmetry fast connectivity',
-					('self.',self,[
-							'PredictingFastSymmetryFloat',
-							'PredictedDecoderFloatsArray'
-						])
-				]
-			)
-			'''
-
-			#diag
-			self.PredictedFastFloatsArray=-self.PredictingFastSymmetryFloat*np.dot(
-				self.PredictedDecoderFloatsArray.T,
-				self.PredictedDecoderFloatsArray
+			#array
+			self.PredictedFastFloatsArray=np.array(
+				self.PredictingFastWeightVariable
 			)
 
 		else:
 
-			#debug
-			'''
-			self.debug(
-				[
-					'PredictingFastSymmetryFloat is null'
-				]
-			)
-			'''
+			#Check
+			if self.PredictingFastSymmetryFloat>0.:
 
-			#pinv
-			self.PredictedDecoderFloatsArray=self.PredictingRateCostVariable*np.linalg.pinv(
-				self.PredictedDecoderFloatsArray.T
-			)
+				#debug
+				'''
+				self.debug(
+					[
+						'We build a symmetry fast connectivity',
+						('self.',self,[
+								'PredictingFastSymmetryFloat',
+								'PredictedDecoderFloatsArray'
+							])
+					]
+				)
+				'''
 
-		#debug
-		'''
-		self.debug(
-			[
-				'Look if we have to perturb',
-				'self.PredictingFastPerturbStdFloat is ',
-				str(self.PredictingFastPerturbStdFloat)
-			]
-		)
-		'''
+				#diag
+				self.PredictedFastFloatsArray=-self.PredictingFastSymmetryFloat*np.dot(
+					self.PredictedDecoderFloatsArray.T,
+					self.PredictedDecoderFloatsArray
+				)
 
-		#Check
-		if self.PredictingFastPerturbStdFloat>0.:
+			else:
 
-			#debug
-			'''
-			self.debug(
-				[
-					'before setting the perturb fast matrix',
-					('self.',self,[
-							'NumscipyingMeanFloat',
-							'NumscipyingStdFloat'
-						])
-				]
-			)
-			'''
+				#debug
+				'''
+				self.debug(
+					[
+						'PredictingFastSymmetryFloat is null'
+					]
+				)
+				'''
 
-			#numscipy
-			self.NumscipyingMeanFloat=0.
-			self.NumscipyingStdFloat=self.PredictingFastPerturbStdFloat/np.sqrt(self.PredictingAgentUnitsInt)
-			self.NumscipyingSizeTuple=(self.PredictingAgentUnitsInt,self.PredictingAgentUnitsInt)
-			self.numscipy()
+				#pinv
+				self.PredictedDecoderFloatsArray=self.PredictingRateCostVariable*np.linalg.pinv(
+					self.PredictedDecoderFloatsArray.T
+				)
 
 			#debug
 			'''
 			self.debug(
 				[
-					'We are going to add this perturbation to fast',
-					('self.',self,[
-							'NumscipiedValueFloatsArray',
-							'PredictedFastFloatsArray'
-						])
+					'Look if we have to perturb',
+					'self.PredictingFastPerturbStdFloat is ',
+					str(self.PredictingFastPerturbStdFloat)
 				]
 			)
 			'''
 
-			#link
-			self.PredictedFastFloatsArray+=self.NumscipiedValueFloatsArray
+			#Check
+			if self.PredictingFastPerturbStdFloat>0.:
+
+				#debug
+				'''
+				self.debug(
+					[
+						'before setting the perturb fast matrix',
+						('self.',self,[
+								'NumscipyingMeanFloat',
+								'NumscipyingStdFloat'
+							])
+					]
+				)
+				'''
+
+				#numscipy
+				self.NumscipyingMeanFloat=0.
+				self.NumscipyingStdFloat=self.PredictingFastPerturbStdFloat/np.sqrt(self.PredictingAgentUnitsInt)
+				self.NumscipyingSizeTuple=(self.PredictingAgentUnitsInt,self.PredictingAgentUnitsInt)
+				self.numscipy()
+
+				#debug
+				'''
+				self.debug(
+					[
+						'We are going to add this perturbation to fast',
+						('self.',self,[
+								'NumscipiedValueFloatsArray',
+								'PredictedFastFloatsArray'
+							])
+					]
+				)
+				'''
+
+				#link
+				self.PredictedFastFloatsArray+=self.NumscipiedValueFloatsArray
 
 		#debug
 		'''
@@ -2358,24 +2369,14 @@ class PredicterClass(BaseClass):
 				#Check
 				if self.PredictedNetworkDerivePredicterVariable.PredictingInteractionStr == "Spike":
 
-					#set
-					self.PredictedNetworkDerivePredicterVariable.PredictedSlowFloatsArray
-
 					#link
 					self.LeakingWeightVariable = 0.001 * self.PredictedNetworkDerivePredicterVariable.PredictedSlowFloatsArray
 
+				else:
 
-			#/################/#
-			# Consider maybe delay
-			#
+					#link
+					self.LeakingWeightVariable = 1. * self.PredictedNetworkDerivePredicterVariable.PredictedSlowFloatsArray
 
-			"""
-			#Check
-			if self.PredictedNetworkDerivePredicterVariable.PredictingDelayFloat!=0.:
-			
-				#set
-				self.LeakingDelayVariable=self.PredictedNetworkDerivePredicterVariable.PredictingDelayFloat
-			"""
 
 			#debug
 			self.debug(
@@ -2386,71 +2387,6 @@ class PredicterClass(BaseClass):
 						])
 				]
 			)
-
-		"""
-		elif self.ManagementTagStr=="Antileak":
-
-			#debug
-			'''
-			self.debug(
-				[
-					'We predict in the Antileak interaction',
-					('self.',self,[
-						])
-				]
-			)
-			'''
-
-			#/################/#
-			# Determine the relations
-			#
-
-			#set
-			self.PredictedAgentDerivePredicterVariable=self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
-
-			#set
-			self.PredictedDecoderDerivePredicterVariable=self.PredictedAgentDerivePredicterVariable.ParentDeriveTeamerVariable.ManagementDict["Decoder"]
-
-			#set
-			self.PredictedNetworkDerivePredicterVariable=self.PredictedAgentDerivePredicterVariable.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
-
-			#/################/#
-			# set LeakingWeightVariable
-			#
-
-			#debug
-			'''
-			self.debug(
-				[
-					'We have setted the LeakingWeightVariable in the antileak'
-				]
-			)
-			'''
-
-			#set
-			#self.LeakingWeightVariable='#scalar:1.'
-			self.LeakingWeightVariable=np.diag(
-				np.ones(
-					self.PredictedAgentDerivePredicterVariable.LeakingUnitsInt
-				)
-			)
-
-			#Check
-			if self.PredictedNetworkDerivePredicterVariable.PredictingRateCostVariable!=None:
-
-				#debug
-				'''
-				self.debug(
-					[
-						'There is a cost'
-					]
-				)
-				'''
-
-				#mul
-				self.LeakingWeightVariable*=self.PredictedNetworkDerivePredicterVariable.PredictingRateCostVariable
-		"""
-
 
 	#/######################/#
 	# Augment leak
@@ -2576,10 +2512,10 @@ class PredicterClass(BaseClass):
 					'''
 
 					#set
-					self.LeakingPlasticVariable='beta : 1'
-					self.LeakingPlasticVariable+='\nlambda : 1'
-					self.LeakingPlasticVariable+='\nd'+self.LeakingSymbolPrefixStr+'/dt=beta*('
-					self.LeakingPlasticVariable+='I_Command_post-lambda*'+self.LeakingSymbolPrefixStr+')'	
+					self.LeakingPlasticRuleVariable='beta : 1'
+					self.LeakingPlasticRuleVariable+='\nlambda : 1'
+					self.LeakingPlasticRuleVariable+='\nd'+self.LeakingSymbolPrefixStr+'/dt=beta*('
+					self.LeakingPlasticRuleVariable+='I_Command_post-lambda*'+self.LeakingSymbolPrefixStr+')'	
 
 					#debug
 					'''
@@ -2587,7 +2523,7 @@ class PredicterClass(BaseClass):
 						[
 							'after update of the model',
 							('self.',self,[
-									'LeakingPlasticVariable'
+									'LeakingPlasticRuleVariable'
 								])
 						]
 					)
@@ -2613,7 +2549,7 @@ class PredicterClass(BaseClass):
 					LeakedPlasticStr+='/mV)-'+self.LeakingSymbolPrefixStr
 
 					#set
-					self.LeakingPlasticVariable=LeakedPlasticStr
+					self.LeakingPlasticRuleVariable=LeakedPlasticStr
 
 
 					#debug
@@ -2622,7 +2558,7 @@ class PredicterClass(BaseClass):
 						[
 							'after update of the model',
 							('self.',self,[
-									'LeakingPlasticVariable'
+									'LeakingPlasticRuleVariable'
 								])
 						]
 					)
@@ -2669,10 +2605,10 @@ class PredicterClass(BaseClass):
 					'''
 
 					#set
-					self.LeakingPlasticVariable='epsilon : 1'
-					self.LeakingPlasticVariable+='\nalpha : 1'
-					self.LeakingPlasticVariable+='\nd'+self.LeakingSymbolPrefixStr+'/dt=epsilon*('
-					self.LeakingPlasticVariable+='dot(I_Command_post,'+self.PredictedAgentDerivePredicterVariable.LeakedSymbolStr+'_post)-alpha*'+self.LeakingSymbolPrefixStr+')'	
+					self.LeakingPlasticRuleVariable='epsilon : 1'
+					self.LeakingPlasticRuleVariable+='\nalpha : 1'
+					self.LeakingPlasticRuleVariable+='\nd'+self.LeakingSymbolPrefixStr+'/dt=epsilon*('
+					self.LeakingPlasticRuleVariable+='dot(I_Command_post,'+self.PredictedAgentDerivePredicterVariable.LeakedSymbolStr+'_post)-alpha*'+self.LeakingSymbolPrefixStr+')'	
 
 					#debug
 					'''
@@ -2680,7 +2616,7 @@ class PredicterClass(BaseClass):
 						[
 							'after update of the model',
 							('self.',self,[
-									'LeakingPlasticVariable'
+									'LeakingPlasticRuleVariable'
 								])
 						]
 					)
@@ -2759,37 +2695,43 @@ class PredicterClass(BaseClass):
 								]
 							)
 
-
 							#Check
 							if PredictedRestStr[0]=='-':
 
 								#add
-								LeakedPlasticStr+='+'+PredictedRestStr[1:]+'*mV)/mV)'
+								LeakedPlasticStr+='+'+PredictedRestStr[1:]
 						
 							else:
 
 								#add
-								LeakedPlasticStr+='-'+PredictedRestStr+'*mV)/mV)'
-						
+								LeakedPlasticStr+='-'+PredictedRestStr[1:]
+
+							#add
+							LeakedPlasticStr+='*mV'
+
+							#add
+							LeakedPlasticStr+=')/mV)'
+
 					else:
 
 						#add
 						LeakedPlasticStr+=')/mV)'
 					
 					#add
-					LeakedPlasticStr+='-((1.+alpha)/2.)*'+self.LeakingSymbolPrefixStr+')'
+					LeakedPlasticStr+='+((1.+alpha)/2.)*'+self.LeakingSymbolPrefixStr
+					LeakedPlasticStr+=')'
 
 					#add
-					self.LeakingPlasticVariable=""
+					self.LeakingPlasticRuleVariable=""
 					
 					#NOT DEBUG
-					self.LeakingPlasticVariable+=self.LeakingSymbolPrefixStr+'+='+str(
+					self.LeakingPlasticRuleVariable+=self.LeakingSymbolPrefixStr+'-='+str(
 						self.PredictedNetworkDerivePredicterVariable.PredictingFastLearnRateFloat
 					)+'*'+LeakedPlasticStr
 					
 					#DEBUG
-					#self.LeakedModelStr+="DeltaJ : 1\n"
-					#self.LeakingPlasticVariable+="DeltaJ="+LeakedPlasticStr
+					#self.LeakedModelStr+="\nDeltaJ : 1\n"
+					#self.LeakingPlasticRuleVariable+="DeltaJ="+LeakedPlasticStr
 					
 					#add in the model
 					self.LeakedModelStr+="alpha : 1"
@@ -2800,7 +2742,7 @@ class PredicterClass(BaseClass):
 						[
 							'after update of the model',
 							('self.',self,[
-									'LeakingPlasticVariable'
+									'LeakingPlasticRuleVariable'
 								])
 						]
 					)
@@ -3601,6 +3543,7 @@ PredicterClass.PrintingClassSkipKeyStrsList.extend(
 		'PredictingDynamicBool',
 		'PredictingJacobianVariable',
 		'PredictingEncodPerturbStdFloat',
+		'PredictingEncodWeightVariable',
 		'PredictingCommandVariable',
 		'PredictingRateCostVariable',
 		'PredictingRateTransferVariable',
@@ -3622,6 +3565,7 @@ PredicterClass.PrintingClassSkipKeyStrsList.extend(
 		'PredictingInteractionStr',
 		'PredictingFastPlasticBool',
 		'PredictingFastLearnRateFloat',
+		'PredictingFastWeightVariable',
 		'PredictingDelayFloat',
 		'PredictingStationaryBool',
 		'PredictedDynamicDict',

@@ -16,7 +16,7 @@ BrianingDebugVariable=25.
 MyPredicter=SYS.PredicterClass(
 	).mapSet(
 		{
-			'BrianingStepTimeFloat':0.01,
+			'BrianingStepTimeFloat':0.02,
 			'-Populations':[
 				('|Sensor',{
 					'RecordingLabelVariable':[0],
@@ -52,17 +52,17 @@ MyPredicter=SYS.PredicterClass(
 		}
 	).predict(
 		_AgentUnitsInt=1,
-		_CommandVariable="#custom:#clock:20*ms:1.*mV+1.*mV*int(t==20*ms)",#2.,
+		_CommandVariable="#custom:#clock:20*ms:0.5*(1.*mV+1.*mV*(int(t==20*ms)+int(t==80*ms)))",#2.,
 		_DecoderVariable=[2.],
+		#_FastWeightVariable=[-3.],#too weak
+		_FastWeightVariable=[-5.],#too strong
 		_InteractionStr="Spike",
 		#_AgentResetVariable=-70.,
-		#_AgentThresholdVariable=-57.,#above the th T |weight| should then decrease
-		_AgentThresholdVariable=-59.,#under the th T, |weight| should then increase
 		#_AgentRefractoryVariable=0.5 BE CAREFUL NOT WORKING BECAUSE auto IPSP is then not inducted
 		_FastPlasticBool=True,
-		_FastLearnRateFloat=0.01
+		_FastLearnRateFloat=0.1
 	).simulate(
-		50.
+		150.
 	)
 
 #/###################/#

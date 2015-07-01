@@ -36,6 +36,12 @@ MyPredicter=SYS.PredicterClass(
 
 						}
 					},
+					'-Traces':{
+						#'|U':{
+						#	'RecordingInitMeanVariable':-70.,
+						#	'RecordingInitStdVariable':0.,
+						#}
+					}
 					#'LeakingNoiseStdVariable':0.01
 				}),
 				('|Decoder',{
@@ -52,15 +58,15 @@ MyPredicter=SYS.PredicterClass(
 		}
 	).predict(
 		_AgentUnitsInt=1,
-		_CommandVariable="#custom:#clock:20*ms:1.*mV+1.*mV*int(t==20*ms)",#2.,
+		_CommandVariable="#custom:#clock:20*ms:0.5*(1.*mV+1.*mV*(int(t==20*ms)+int(t==80*ms)))",#2.,
 		_DecoderVariable=[2.],
 		_InteractionStr="Spike",
 		#_AgentResetVariable=-70.,
-		#_AgentThresholdVariable=-50.,
 		#_AgentRefractoryVariable=0.5 BE CAREFUL NOT WORKING BECAUSE auto IPSP is then not inducted
-		_FastPlasticBool=True
+		_FastPlasticBool=True,
+		_FastLearnRateFloat=0.1
 	).simulate(
-		50.
+		150.
 	)
 
 #/###################/#
@@ -138,8 +144,6 @@ MyPredicter.mapSet(
 	).pyplot(
 	).show(
 	)
-
-print(MyPredicter['/-Panels/|Run/-Charts/'])
 
 #/###################/#
 # Print

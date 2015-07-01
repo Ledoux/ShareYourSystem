@@ -93,7 +93,8 @@ class LeakerClass(BaseClass):
 			_LeakingDelayVariable=None,
 			_LeakingDelayCustomBool=False,
 			_LeakingDelayPrepostBool=False,
-			_LeakingPlasticVariable=None,
+			_LeakingPlasticRuleVariable=None,
+			_LeakingPlasticPreBool=True,
 			_LeakingGlobalBool=False,
 			_LeakingTotalBool=False,
 			_LeakingThresholdMethodStr="",
@@ -2630,7 +2631,7 @@ class LeakerClass(BaseClass):
 		self.debug(
 			[
 				('self.',self,[
-						'LeakingPlasticVariable',
+						'LeakingPlasticRuleVariable',
 						'LeakingInteractionStr'
 					])
 			]
@@ -2638,7 +2639,7 @@ class LeakerClass(BaseClass):
 		'''
 
 		#Check
-		if self.LeakingPlasticVariable!=None:
+		if self.LeakingPlasticRuleVariable!=None:
 
 			#Check
 			if self.LeakingInteractionStr=="Rate":
@@ -2664,7 +2665,7 @@ class LeakerClass(BaseClass):
 				#BrianedModelStr+='I_Command_post-lambda*'+self.LeakingSymbolPrefixStr+')'	
 
 				#add
-				self.LeakedModelStr+="\n"+self.LeakingPlasticVariable
+				self.LeakedModelStr+="\n"+self.LeakingPlasticRuleVariable
 
 				#debug
 				'''
@@ -2747,7 +2748,7 @@ class LeakerClass(BaseClass):
 			#
 
 			#Check
-			if self.LeakingPlasticVariable!=None:
+			if self.LeakingPlasticRuleVariable!=None:
 
 				#debug
 				'''
@@ -2756,14 +2757,25 @@ class LeakerClass(BaseClass):
 						'It is a spike model',
 						('self.',self,[
 								'LeakedSymbolStr',
-								'LeakingPlasticVariable'
+								'LeakingPlasticRuleVariable'
 							])
 					]
 				)
 				'''
 				
 				#add
-				self.BrianingSynapsesDict['pre']+='\n'+self.LeakingPlasticVariable
+				if self.LeakingPlasticPreBool:
+
+					#/##############/#
+					# BE CAREFUL the update needs to be before the update of the voltage for autapses
+					#
+
+					#set
+					self.BrianingSynapsesDict['pre']=self.LeakingPlasticRuleVariable+'\n'+self.BrianingSynapsesDict['pre']
+				else:
+
+					#set
+					self.BrianingSynapsesDict['post']+='\n'+self.LeakingPlasticRuleVariable
 
 				#debug
 				'''
@@ -4664,7 +4676,7 @@ class LeakerClass(BaseClass):
 		if BrianedParentInteractionDeriveBrianerVariable.BrianedSynapsesVariable!=None:
 
 			#Check
-			if BrianedParentInteractionDeriveBrianerVariable.LeakingPlasticVariable!=None and type(
+			if BrianedParentInteractionDeriveBrianerVariable.LeakingPlasticRuleVariable!=None and type(
 				BrianedParentInteractionDeriveBrianerVariable.LeakingWeightVariable
 			)!=None.__class__:
 
@@ -6589,7 +6601,8 @@ LeakerClass.PrintingClassSkipKeyStrsList.extend(
 		'LeakingDelayVariable',
 		'LeakingDelayCustomBool',
 		'LeakingDelayPrepostBool',
-		'LeakingPlasticVariable',
+		'LeakingPlasticRuleVariable',
+		'LeakingPlasticPreBool',
 		'LeakingGlobalBool',
 		'LeakingTotalBool',
 		'LeakingThresholdMethodStr',

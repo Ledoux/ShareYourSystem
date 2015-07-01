@@ -77,6 +77,7 @@ class PyploterClass(BaseClass):
 						_PyplotingYSkipTickBool=False,
 						_PyplotingMarkerVariable=None,
 						_PyplotingColorVariable=None,
+						_PyplotingFontVariable =None,
 						_PyplotedSingleBool=False,
 						_PyplotedTeamTagStr="",
 						_PyplotedParentFigureDerivePyploterVariable=None,
@@ -2366,7 +2367,8 @@ class PyploterClass(BaseClass):
 			SYS.complete(
 				self.PyplotingLegendDict,
 				{
-					'fontsize':20,
+					'fontsize':self.PyplotedParentFigureDerivePyploterVariable.PyplotingFontVariable 
+					if self.PyplotedParentFigureDerivePyploterVariable.PyplotingFontVariable!=None else 15,
 					'shadow':True,
 					'fancybox':True,
 					'loc':2,
@@ -2695,6 +2697,7 @@ PyploterClass.PrintingClassSkipKeyStrsList.extend(
 		'PyplotingYSkipTickBool',
 		'PyplotingMarkerVariable',
 		'PyplotingColorVariable',
+		'PyplotingFontVariable',
 		'PyplotingSubplotInt',
 		'PyplotingCloseBool',
 		'PyplotedSingleBool',

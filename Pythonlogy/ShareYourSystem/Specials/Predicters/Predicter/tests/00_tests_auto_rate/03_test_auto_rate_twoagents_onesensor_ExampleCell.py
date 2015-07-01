@@ -51,7 +51,7 @@ MyPredicter=SYS.PredicterClass(
 		}
 	).predict(
 		_DynamicBool=False,
-		_JacobianVariable = A,
+		#_JacobianVariable = A,
 		_CommandVariable=(
 			'#custom:#clock:25*ms',
 			[
