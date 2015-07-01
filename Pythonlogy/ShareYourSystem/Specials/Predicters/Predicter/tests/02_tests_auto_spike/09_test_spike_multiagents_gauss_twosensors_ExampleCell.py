@@ -19,23 +19,23 @@ AgentUnitsInt=1000
 MyPredicter=SYS.PredicterClass(
 	).mapSet(
 		{
-			'BrianingStepTimeFloat':0.01,
+			'BrianingStepTimeFloat':0.02,
 			'-Populations':[
 				('|Sensor',{
 					'RecordingLabelVariable':[0,1],
 					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Encod':{
-							'BrianingDebugVariable':BrianingDebugVariable
+							#'BrianingDebugVariable':BrianingDebugVariable
 						}
 					}
 				}),
 				('|Agent',{
-					'RecordingLabelVariable':[0,1],
+					'RecordingLabelVariable':[0,1,2],
 					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Fast':{
-							'BrianingDebugVariable':BrianingDebugVariable
+							#'BrianingDebugVariable':BrianingDebugVariable
 						}
 					},
 					#'LeakingNoiseStdVariable':0.01
@@ -54,13 +54,20 @@ MyPredicter=SYS.PredicterClass(
 		}
 	).predict(
 		_AgentUnitsInt=AgentUnitsInt,
-		_CommandVariable="#custom:#clock:40*ms:2.5*(1.*mV+1.*mV*int(t==40*ms))",#2.,
+		_CommandVariable = (
+            '#custom:#clock:25*ms',
+            [
+                "1.*mV+0.3*mV*(int(t==25*ms)+int(t==50*ms))",
+                "1.*mV-0.5*mV*(int(t==25*ms)+int(t==50*ms))"
+            ]
+        ),
 		_DecoderVariable="#array",
-		_DecoderStdFloat = SYS.numpy.sqrt(AgentUnitsInt) * 0.4, #need to make an individual PSP around 1 mV
-		_DecoderMeanFloat = AgentUnitsInt * 0.5, 
+		_DecoderStdFloat = 200./SYS.numpy.sqrt(AgentUnitsInt), #need to make an individual PSP around 1 mV
+		_DecoderMeanFloat = 200./AgentUnitsInt, 
 		_AgentResetVariable = -70., #big cost to reset neurons and make the noise then decide who is going to spike next
 		_AgentNoiseVariable = 1., #noise to make neurons not spiking at the same timestep
 		#_AgentThresholdVariable = -56.,
+		_SpikeRecordVariable = range(0,30),
 		_AgentRefractoryVariable=0.5,
 		_InteractionStr = "Spike"
 	).simulate(

@@ -13,11 +13,6 @@ import ShareYourSystem as SYS
 #set
 BrianingDebugVariable = 25.
 
-#A - transition matrix
-JacobianTimeFloat = 30. #(ms)
-A =  (-1./float(JacobianTimeFloat)
-	)*SYS.numpy.array([[1.]])
-
 #set
 AgentUnitsInt = 1000
 
@@ -67,15 +62,18 @@ MyPredicter=SYS.PredicterClass(
 		}
 	).predict(
 		_AgentUnitsInt=AgentUnitsInt,
-		_JacobianVariable=A,
-		_CommandVariable="#custom:#clock:50*ms:2.5*(1.*mV+1.*mV*(int(t==50*ms)+int(t==100*ms)))",#2.,
+		_JacobianVariable = (
+            -1./float(30.) #(ms)
+        )*SYS.numpy.array([[1.]]), #A matrix
+		_CommandVariable="#custom:#clock:40*ms:1.*(1.*mV+1.*mV*int(t==40*ms))",#2.,
 		_DecoderVariable="#array",
-		_DecoderStdFloat = SYS.numpy.sqrt(AgentUnitsInt) * 0.4, #need to make an individual PSP around 1 mV
-		_DecoderMeanFloat = AgentUnitsInt * 0.5, 
-		_AgentResetVariable = -75., #big cost to reset neurons and make the noise then decide who is going to spike next
-		_AgentNoiseVariable = 1., #noise to make neurons not spiking at the same timestep
-		#_AgentThresholdVariable = -56.,
-		_AgentRefractoryVariable=0.5,
+		_DecoderStdFloat = 300./SYS.numpy.sqrt(AgentUnitsInt), #need to make an individual PSP around 1 mV
+		_DecoderMeanFloat = 0./AgentUnitsInt, 
+		_AgentResetVariable = -61., #big cost to reset neurons and make the noise then decide who is going to spike next
+		_AgentNoiseVariable = 2., #noise to make neurons not spiking at the same timestep
+		_AgentThresholdVariable = -59.,
+		_SpikeRecordVariable = range(0,100),
+		#_AgentRefractoryVariable=0.5,
 		_InteractionStr = "Spike"
 	).simulate(
 		200.

@@ -74,12 +74,14 @@ class PredicterClass(BaseClass):
 			_PredictingAgentNoiseVariable = None,
 			_PredictingAgentThresholdVariable = None,
 			_PredictingAgentRefractoryVariable = None,
+			_PredictingAgentRecordVariable = None,
 			_PredictingAgentTimeFloat = 10.,
 			_PredictingDecoderVariable=None,
 			_PredictingDecoderMeanFloat=1.,
 			_PredictingDecoderStdFloat=1.,
 			_PredictingDecoderSparseFloat=0.,
 			_PredictingDecoderTimeFloat = PredictSlowTimeFloat,
+			_PredictingDecoderRecordVariable = None,
 			_PredictingFastPerturbStdFloat=0.,
 			_PredictingFastSymmetryFloat=1.,
 			_PredictingSlowPerturbStdFloat=0.,
@@ -90,6 +92,7 @@ class PredicterClass(BaseClass):
 			_PredictingFastWeightVariable=None,
 			_PredictingDelayFloat=0.,
 			_PredictingStationaryBool=False,
+			_PredictingSpikeRecordVariable=None,
 			_PredictedDynamicDict=None,
 			_PredictedSensorJacobianFloatsArray=None,
 			_PredictedDecoderFloatsArray=None,
@@ -1172,6 +1175,16 @@ class PredicterClass(BaseClass):
 			if self.PredictedNetworkDerivePredicterVariable.PredictingSensorUnitsInt>-1:
 				self.LeakingUnitsInt=self.PredictedNetworkDerivePredicterVariable.PredictingSensorUnitsInt
 
+			#/####################/#
+			# Set the record
+			#
+
+			#Check
+			if self.PredictedNetworkDerivePredicterVariable.PredictingDecoderRecordVariable !=None:
+
+				#set
+				self.RecordingLabelVariable = self.PredictedNetworkDerivePredicterVariable.PredictingDecoderRecordVariable
+
 			#/###################/#
 			# Check for Inputs in the Sensor
 			#
@@ -1283,6 +1296,16 @@ class PredicterClass(BaseClass):
 				]
 			)
 			'''
+
+			#/####################/#
+			# Set label to record
+			#
+
+			#Check
+			if self.PredictedNetworkDerivePredicterVariable.PredictingAgentRecordVariable!=None:
+
+				#set
+				self.RecordingLabelVariable = self.PredictedNetworkDerivePredicterVariable.PredictingAgentRecordVariable
 
 			#/####################/#
 			# Set the time constant
@@ -1470,6 +1493,23 @@ class PredicterClass(BaseClass):
 				)
 				'''
 
+				#/####################/#
+				# Look for events to record
+				#
+
+				#Check
+				if self.PredictedNetworkDerivePredicterVariable.PredictingSpikeRecordVariable!=None:
+
+					#get
+					self.getTeamer(
+						'Events'
+					).getManager(
+						'Default_Events'
+					).setAttr(
+						'BrianingEventSelectVariable',
+						self.PredictedNetworkDerivePredicterVariable.PredictingSpikeRecordVariable
+					)
+	
 			else:
 
 				#debug
@@ -1738,6 +1778,16 @@ class PredicterClass(BaseClass):
 			if self.PredictedNetworkDerivePredicterVariable.PredictingSensorUnitsInt>-1:
 				self.LeakingUnitsInt=self.PredictedNetworkDerivePredicterVariable.PredictingSensorUnitsInt
 
+
+			#/####################/#
+			# Set the record
+			#
+
+			#Check
+			if self.PredictedNetworkDerivePredicterVariable.PredictingDecoderRecordVariable !=None:
+
+				#set
+				self.RecordingLabelVariable = self.PredictedNetworkDerivePredicterVariable.PredictingDecoderRecordVariable
 
 			#/####################/#
 			# The Decoder
@@ -3226,7 +3276,7 @@ class PredicterClass(BaseClass):
 		#
 
 		#Check
-		elif self.BrianedParentPopulationDeriveBrianerVariable.ManagementTagStr=="Decoder":
+		elif self.BrianedParentPopulationDeriveBrianerVariable.ManagementTagStr == "Decoder":
 
 			#
 			ViewedSensorDerivePredicter=self.BrianedParentPopulationDeriveBrianerVariable.PredictedSensorDerivePredicterVariable.TeamDict[
@@ -3560,7 +3610,9 @@ PredicterClass.PrintingClassSkipKeyStrsList.extend(
 		'PredictingDecoderStdFloat',
 		'PredictingDecoderSparseFloat',
 		'PredictingDecoderTimeFloat',
+		'PredictingDecoderRecordVariable',
 		'PredictingEncodPlasticBool',
+		'PredictingSpikeRecordVariable',
 		'PredictingFastPerturbStdFloat',
 		'PredictingInteractionStr',
 		'PredictingFastPlasticBool',

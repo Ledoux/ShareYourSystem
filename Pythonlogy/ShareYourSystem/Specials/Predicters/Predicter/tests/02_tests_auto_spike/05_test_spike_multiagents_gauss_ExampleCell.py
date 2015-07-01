@@ -62,14 +62,15 @@ MyPredicter=SYS.PredicterClass(
 		}
 	).predict(
 		_AgentUnitsInt=AgentUnitsInt,
-		_CommandVariable="#custom:#clock:40*ms:2.5*(1.*mV+1.*mV*int(t==40*ms))",#2.,
+		_CommandVariable="#custom:#clock:40*ms:1.*(1.*mV+1.*mV*int(t==40*ms))",#2.,
 		_DecoderVariable="#array",
-		_DecoderStdFloat = SYS.numpy.sqrt(AgentUnitsInt) * 0.4, #need to make an individual PSP around 1 mV
-		_DecoderMeanFloat = AgentUnitsInt * 0.5, 
-		_AgentResetVariable = -70., #big cost to reset neurons and make the noise then decide who is going to spike next
-		_AgentNoiseVariable = 1., #noise to make neurons not spiking at the same timestep
-		#_AgentThresholdVariable = -56.,
-		_AgentRefractoryVariable=0.5,
+		_DecoderStdFloat = 200./SYS.numpy.sqrt(AgentUnitsInt), #need to make an individual PSP around 1 mV
+		_DecoderMeanFloat = 0./AgentUnitsInt, 
+		_AgentResetVariable = -61., #big cost to reset neurons and make the noise then decide who is going to spike next
+		_AgentNoiseVariable = 2., #noise to make neurons not spiking at the same timestep
+		_AgentThresholdVariable = -59.,
+		_SpikeRecordVariable = range(0,100),
+		#_AgentRefractoryVariable=0.5,
 		_InteractionStr = "Spike"
 	).simulate(
 		100.

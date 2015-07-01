@@ -32,7 +32,7 @@ MyPredicter=SYS.PredicterClass(
 					#'BrianingDebugVariable':BrianingDebugVariable,
 					'-Interactions':{
 						'|Fast':{
-							'BrianingDebugVariable':BrianingDebugVariable
+							#'BrianingDebugVariable':BrianingDebugVariable
 						}
 					},
 					#'LeakingNoiseStdVariable':0.01
@@ -42,7 +42,7 @@ MyPredicter=SYS.PredicterClass(
 					#'BrianingDebugVariable':BrianingDebugVariable
 					'-Interactions':{
 						'|Slow':{
-							'BrianingDebugVariable':BrianingDebugVariable,
+							#'BrianingDebugVariable':BrianingDebugVariable,
 							#'LeakingWeigthVariable':0.
 						}
 					}
@@ -53,6 +53,7 @@ MyPredicter=SYS.PredicterClass(
 		_AgentUnitsInt=100,
 		_CommandVariable="#custom:#clock:200*ms:1.*mV+1.*mV*int(t==200*ms)",#2.,
 		_DecoderVariable="#array",
+		_DecoderMeanFloat=1.,
 		_DecoderStdFloat=0.,
 		_DecoderSparseFloat=0.2,
 		#_AgentResetVariable=-60.,
