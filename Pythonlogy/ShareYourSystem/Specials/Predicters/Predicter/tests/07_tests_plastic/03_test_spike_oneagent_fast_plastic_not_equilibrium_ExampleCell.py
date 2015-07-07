@@ -74,7 +74,7 @@ MyPredicter.mapSet(
 			'PyplotingFigureVariable':{
 				'figsize':(10,8)
 			},
-			'PyplotingGridVariable':(30,30),
+			'PyplotingGridVariable':(45,30),
 			'-Panels':[
 				(
 					'|Run',
@@ -140,8 +140,6 @@ MyPredicter.mapSet(
 	).pyplot(
 	).show(
 	)
-
-print(MyPredicter['/-Panels/|Run/-Charts/'])
 
 #/###################/#
 # Print

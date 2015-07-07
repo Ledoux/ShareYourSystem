@@ -16,7 +16,7 @@ BrianingDebugVariable=25.
 MyPredicter=SYS.PredicterClass(
 	).mapSet(
 		{
-			'BrianingStepTimeFloat':0.01,
+			'BrianingStepTimeFloat':0.1,
 			'-Populations':[
 				('|Sensor',{
 					'RecordingLabelVariable':[0],
@@ -51,14 +51,14 @@ MyPredicter=SYS.PredicterClass(
 		}
 	).predict(
 		_AgentUnitsInt=1,
-		_CommandVariable="#custom:#clock:20*ms:1.*mV+1.*mV*int(t==20*ms)",#2.,
+		_CommandVariable="#custom:#clock:25*ms:1.*mV+1.*mV*(int(t==25*ms)+int(t==50*ms))",#2.,
 		_DecoderVariable=[2.],
 		_InteractionStr="Spike",
 		#_AgentResetVariable=-70.,
 		#_AgentThresholdVariable=-50.
 		#_AgentRefractoryVariable=0.5 BE CAREFUL NOT WORKING BECAUSE auto IPSP is then not inducted
 	).simulate(
-		50.
+		100.
 	)
 
 #/###################/#
@@ -70,7 +70,7 @@ MyPredicter.mapSet(
 			'PyplotingFigureVariable':{
 				'figsize':(10,8)
 			},
-			'PyplotingGridVariable':(30,30),
+			'PyplotingGridVariable':(40,30),
 			'-Panels':[
 				(
 					'|Run',
@@ -127,8 +127,6 @@ MyPredicter.mapSet(
 	).pyplot(
 	).show(
 	)
-
-print(MyPredicter['/-Panels/|Run/-Charts'])
 
 #/###################/#
 # Print

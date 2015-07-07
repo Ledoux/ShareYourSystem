@@ -2215,6 +2215,9 @@ class PyploterClass(BaseClass):
 		#show
 		pyplot.show()
 
+		#return
+		return self
+
 	def mimic__print(self,**_KwargVariablesDict):
 
 		#/##################/#

@@ -69,6 +69,7 @@ def getShapeArray(_Variable,_RowsInt,_ColsInt):
 			('Trace','Traces'),
 			('Sample','Samples'),
 			('Event','Events'),
+			('Rate','Rates'),
 			('Interactome','Interactomes'),
 			('Interaction','Interactions'),
 			('Input','Inputs')
@@ -353,6 +354,7 @@ class LeakerClass(BaseClass):
 					'Traces',
 					'Samples',
 					'Events',
+					'Rates',
 					'Interactomes',
 					'Interactions',
 				],
@@ -934,7 +936,6 @@ class LeakerClass(BaseClass):
 		else:
 
 			#debug
-			'''
 			self.debug(
 				[
 					'Check the monitor indexes',
@@ -944,7 +945,6 @@ class LeakerClass(BaseClass):
 						])
 				]
 			)
-			'''
 
 			#Check
 			if self.BrianingMonitorIndexIntsList==None or len(self.BrianingMonitorIndexIntsList
@@ -962,9 +962,6 @@ class LeakerClass(BaseClass):
 
 			#set
 			LeakedDefaultDeriveLeaker.RecordingLabelVariable=self.BrianingMonitorIndexIntsList[:]
-
-
-		
 
 		#/##################/#
 		# Look for a Max pick 
@@ -1354,6 +1351,43 @@ class LeakerClass(BaseClass):
 			]
 		)
 		'''
+
+		#/###################/#
+		# Specify maybe records of the events and rates
+		#
+
+		#Check
+		if type(self.LeakingThresholdVariable)!=None.__class__:
+
+			#debug
+			'''
+			self.debug(
+				[
+					'We add a record of the events'
+				]
+			)
+			'''
+
+			#get
+			self.getTeamer(
+					"Events"
+				).getManager(
+					"Default_Events"
+				)
+
+			#debug
+			self.debug(
+				[
+					'We add a record of the rates'
+				]
+			)
+
+			#get
+			self.getTeamer(
+					"Rates"
+				).getManager(
+					"Default_Rates"
+			)
 
 	def leakTrace(self):
 
@@ -3033,29 +3067,8 @@ class LeakerClass(BaseClass):
 				self.LeakedThresholdMethod
 			)
 
-		#/###################/#
-		# Specify a plot of the events
-		#
-
-		#Check
-		if type(self.LeakingThresholdVariable)!=None.__class__:
-
-			#debug
-			'''
-			self.debug(
-				[
-					'We add a record of the events'
-				]
-			)
-			'''
-
-			#get
-			self.getTeamer(
-					"Events"
-				).getManager(
-					"Default_Events"
-				)
-
+		
+			
 		#/###################/#
 		# Reference the transfer function
 		#

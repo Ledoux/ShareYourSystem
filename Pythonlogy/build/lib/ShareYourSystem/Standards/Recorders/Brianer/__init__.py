@@ -86,7 +86,7 @@ class BrianerClass(BaseClass):
 			_BrianingEventSelectVariable=None,
 			_BrianingSpikeViewVariable = None,
 			_BrianingViewBool = True,
-			_BrianingWindowFloat = 2.,
+			_BrianingWindowFloat = 10.,
 			_BrianedEventTraceVariable=None,
 			_BrianedTimeQuantityVariable=None,
 			_BrianedNetworkVariable=None,
@@ -1832,6 +1832,7 @@ class BrianerClass(BaseClass):
 			[
 				'It is a Rate Moniter level',
 				('self.',self,[
+								'ManagementTagStr'
 							])
 			]
 		)
@@ -2752,7 +2753,7 @@ class BrianerClass(BaseClass):
 			]
 		)
 		'''
-
+		
 		#/####################/#
 		# maybe set scale
 		#
@@ -2983,7 +2984,7 @@ class BrianerClass(BaseClass):
 						]+SpikeDict[
 							__IndexInt
 						],
-						self.RecordingLabelVariable
+						RecordedLabelVariable
 					)
 				
 
@@ -3377,6 +3378,7 @@ class BrianerClass(BaseClass):
 			if self.BrianedParentPopulationDeriveBrianerVariable.ManagementTagStr!="":
 
 				#debug
+				'''
 				self.debug(
 					[
 						"Do we print the title",
@@ -3390,6 +3392,7 @@ class BrianerClass(BaseClass):
 
 					]
 				)
+				'''
 
 				#Check
 				if self.BrianedParentPopulationDeriveBrianerVariable.BrianedTitleBool==False:
@@ -3870,6 +3873,10 @@ class BrianerClass(BaseClass):
 		)
 		'''
 
+		#Check
+		if self.RecordingLabelVariable==None:
+			self.RecordingLabelVariable=[0]
+
 		#map
 		self.PyplotingDrawVariable+=map(
 			lambda __NeuronIndexInt:
@@ -4108,6 +4115,7 @@ class BrianerClass(BaseClass):
 		self.ViewingYVariable = BinRateArray
 
 		#debug
+		'''
 		self.debug(
 			[
 				('self.',self,[
@@ -4116,7 +4124,8 @@ class BrianerClass(BaseClass):
 					])
 			]
 		)
-
+		'''
+		
 		#set
 		self.PyplotingDrawVariable=[
 			(

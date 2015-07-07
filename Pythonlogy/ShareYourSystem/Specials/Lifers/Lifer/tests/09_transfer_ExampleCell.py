@@ -14,8 +14,8 @@ MyLifer=SYS.LiferClass(
     )
 
 #print
-#print('MyLifer is')
-#SYS._print(MyLifer)
+print('MyLifer is')
+SYS._print(MyLifer)
 
 #define
 MyLifer=SYS.LiferClass(
@@ -25,5 +25,5 @@ MyLifer=SYS.LiferClass(
     )
 
 #print
-#print('MyLifer is')
-#SYS._print(MyLifer)
+print('MyLifer is')
+SYS._print(MyLifer)

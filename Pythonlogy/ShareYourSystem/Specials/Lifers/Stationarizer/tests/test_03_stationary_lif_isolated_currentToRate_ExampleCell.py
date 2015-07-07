@@ -6,7 +6,8 @@ import ShareYourSystem as SYS
 MyStationarizer=SYS.StationarizerClass(
 	).stationarize(
 		_ConstantTimeVariable=[0.02,0.01],
-		_RateVariable=[5.,15.],
+		_ExternalCurrentMeanVariable=[15.,15.],
+		_ExternalCurrentNoiseVariable=[5.,5.],
 		_InteractionStr="Spike"
 	)
 

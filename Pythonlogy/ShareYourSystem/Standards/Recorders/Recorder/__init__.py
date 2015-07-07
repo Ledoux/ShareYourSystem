@@ -329,6 +329,7 @@ class RecorderClass(BaseClass):
 			else:
 
 				#debug
+				'''
 				self.debug(
 					[
 						"we init with a fix array",
@@ -337,7 +338,8 @@ class RecorderClass(BaseClass):
 							])
 					]
 				)
-
+				'''
+				
 				#alias
 				self.RecordedInitFloatsArray = self.RecordingInitFloatsArray
 

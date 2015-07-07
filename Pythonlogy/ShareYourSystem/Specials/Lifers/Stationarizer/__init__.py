@@ -35,19 +35,30 @@ class StationarizerClass(BaseClass):
 	
 	def default_init(self,
 			_StationarizingUnitsInt = 1,
-			_StationarizingLateralWeightVariable = None,
 			_StationarizingConstantTimeVariable = None, 
-			_StationarizingNoiseVariable = None, 
 			_StationarizingThresholdVariable = None, 
-			_StationarizingResetVariable = None, 
+			_StationarizingResetVariable = None,
+			_StationarizingExternalCurrentMeanVariable = None,
+			_StationarizingExternalCurrentNoiseVariable = None, 
+			_StationarizingMeanWeightVariable = None,
+			_StationarizingNoiseWeightVariable = None,
 			_StationarizingRateVariable = None, 
 			_StationarizingPopulationTagVariable = None, 
 			_StationarizingInteractionStr="Rate",
 			_StationarizedConstantTimeFloatsList = None,
-			_StationarizedNoiseFloatsList = None, 
 			_StationarizedThresholdFloatsList = None, 
 			_StationarizedResetFloatsList = None, 
+			_StationarizedExternalCurrentMeanFloatsList = None,
+			_StationarizedExternalCurrentNoiseFloatsList = None, 
 			_StationarizedRateFloatsList = None, 
+			_StationarizedMeanWeightFloatsList = None,
+			_StationarizedNoiseWeightFloatsList = None,
+			_StationarizedMeanWeightFloatsArray = None,
+			_StationarizedNoiseWeightFloatsArray = None,
+			_StationarizedSquareWeightFloatsArray = None,
+			_StationarizedRateFloatsArraysList = None,
+			_StationarizedTotalCurrentMeanFloatsListsList = None,
+			_StationarizedTotalCurrentNoiseFloatsListsList = None,
 			_StationarizedPopulationTagStrsList = None,
 			_StationarizedParentSingularStr = "",
 			_StationarizedNetworkDeriveStationarizerVariable = None,
@@ -166,6 +177,130 @@ class StationarizerClass(BaseClass):
 						'stationarize'
 					]
 			)
+
+			#/###################/#
+			# Maybe it is a current to rate computation
+			# 
+
+			#Check
+			if type(self.StationarizingExternalCurrentMeanVariable)!=None.__class__:
+
+				#debug
+				self.debug(
+					[
+						'We compute the non linear system to solve stationary rates',
+						('self.',self,[
+								'StationarizingExternalCurrentMeanVariable'
+							])
+					]
+				)
+
+				#/###################/#
+				# We dont want to compute perturbation here
+				# 
+
+				#map
+				map(
+					lambda __PopulationVariable:
+					__PopulationVariable.setAttr(
+						'LifingComputePerturbationBool',
+						False
+					),
+					self.TeamDict['Populations'].ManagementDict.values(),
+				)
+
+				#import
+				import scipy.optimize
+
+				#init
+				self.StationarizedRateFloatsArraysList=[]
+				self.StationarizedTotalCurrentMeanFloatsListsList=[]
+				self.StationarizedTotalCurrentNoiseFloatsListsList=[]
+
+				#import
+				import itertools
+
+				#set
+				StabilizedInitRateFloatsList=[1.,100.]
+
+				#for
+				for __InitRateFloatsList in itertools.product(
+					*[
+						StabilizedInitRateFloatsList for Int in xrange(self.StationarizingUnitsInt)
+					]
+				):
+
+					#Get the solve of the ScipyOptimizeRoot
+					StabilizedOptimizeRoot=scipy.optimize.root(
+							self.getStationarySpikeRateFloatsTuple,
+							__InitRateFloatsList,
+							#method='lm',
+							#tol=0.001
+							options={
+										#'maxiter':1000,
+										#'ftol':0.001,
+										#'direc':np.array([-0.1,0.1])
+									},
+						)
+
+					#set
+					StabilizedErrorFloat = np.sum(StabilizedOptimizeRoot.fun**2)
+
+					#debug
+					'''
+					self.debug(
+						[
+							'StabilizedOptimizeRoot is ',
+							str(StabilizedOptimizeRoot),
+							"StabilizedErrorFloat is ",
+							str(StabilizedErrorFloat)
+						]
+					)
+					'''
+
+					#Check
+					if StabilizedOptimizeRoot.success and StabilizedErrorFloat<0.001:
+
+						#debug
+						self.debug(
+							[
+								"It is a sucess !"
+							]
+						)
+
+						#append
+						self.StationarizedRateFloatsArraysList.append(
+							StabilizedOptimizeRoot.x
+						)
+
+						self.StationarizedTotalCurrentMeanFloatsListsList.append(
+							map(
+								lambda __PopulationVariable:
+								__PopulationVariable.LifingStationaryExternalCurrentMeanFloat,
+								self.TeamDict['Populations'].ManagementDict.values()
+							)
+						)
+
+						self.StationarizedTotalCurrentNoiseFloatsListsList.append(
+							map(
+								lambda __PopulationVariable:
+								__PopulationVariable.LifingStationaryExternalCurrentNoiseFloat,
+								self.TeamDict['Populations'].ManagementDict.values()
+							)
+						)
+
+
+				#debug
+				self.debug(
+					[
+						"In the end ",
+						('self.',self,[
+								'StationarizedRateFloatsArraysList',
+								'StationarizedTotalCurrentMeanFloatsListsList',
+								'StationarizedTotalCurrentNoiseFloatsListsList'
+							])
+					]
+				)
 			
 		else:
 
@@ -239,18 +374,18 @@ class StationarizerClass(BaseClass):
 		import numpy as np
 
 		#Check
-		if type(self.StationarizingLateralWeightVariable) != None.__class__:
+		if type(self.StationarizingMeanWeightVariable) != None.__class__:
 
 			#alias
-			self.StationarizedLateralWeightFloatsArray=np.array(
-				self.StationarizingLateralWeightVariable
+			self.StationarizedMeanWeightFloatsList=np.array(
+				self.StationarizingWeightVariable
 			)
 
 			#set
-			self.StationarizingUnitsInt=len(self.StationarizedLateralWeightFloatsArray)
+			self.StationarizingUnitsInt=len(self.StationarizedMeanWeightFloatsList)
 
 		#/###################/#
-		# Determine the time constant structure
+		# Determine the structures
 		# 
 
 		#map
@@ -261,10 +396,13 @@ class StationarizerClass(BaseClass):
 			),
 			[
 				'ConstantTime',
-				'Noise',
 				'Threshold',
 				'Reset',
-				'Rate'
+				'Rate',
+				'ExternalCurrentMean',
+				'ExternalCurrentNoise',
+				'MeanWeight',
+				'NoiseWeight'
 			]
 		)
 
@@ -276,7 +414,9 @@ class StationarizerClass(BaseClass):
 				('self.',self,[
 						"DoUnitsInt",
 						"StationarizedThresholdFloatsList",
-						"StationarizedResetFloatsList"
+						"StationarizedResetFloatsList",
+						"StationarizedMeanWeightFloatsList",
+						"StationarizedExternalCurrentMeanFloatsList"
 					])
 			]
 		)
@@ -320,16 +460,17 @@ class StationarizerClass(BaseClass):
 			self.StationarizedPopulationTagStrsList,
 		)
 
-
 	def stationarizePopulation(self):
 
 		#debug
+		'''
 		self.debug(
 			[
 				'We stationarize population here',
 				'First we get some parameters setted at the network level'
 			]
 		)
+		'''
 
 		#Determine parent
 		self.StationarizedNetworkDeriveStationarizerVariable = self.ParentDeriveTeamerVariable.ParentDeriveTeamerVariable
@@ -356,7 +497,6 @@ class StationarizerClass(BaseClass):
 					),
 					[
 						"ConstantTime",
-						"Noise",
 						"Threshold",
 						"Reset"
 					]
@@ -376,86 +516,269 @@ class StationarizerClass(BaseClass):
 		#debug
 		self.debug(
 			[
-				('self.',self,[
-						'LifingConstantTimeFloat',
-						'LifingNoiseFloat',
-						'LifingStationaryCurrentFloat',
-						'LifingStationaryRateFloat',
-					]
-				)
+				"self.StationarizedNetworkDeriveStationarizerVariable.StationarizedMeanWeightFloatsList is ",
+				str(self.StationarizedNetworkDeriveStationarizerVariable.StationarizedMeanWeightFloatsList)
 			]
 		)
 
-		#Check
-		if self.StationarizedNetworkDeriveStationarizerVariable.StationarizingInteractionStr=="Spike":
+		#/#############/#
+		# Get the mean of the weights
+		#
+
+		#set
+		if len(
+			self.StationarizedNetworkDeriveStationarizerVariable.StationarizedMeanWeightFloatsList
+		)>self.ManagementIndexInt and self.StationarizedNetworkDeriveStationarizerVariable.StationarizedMeanWeightFloatsList[self.ManagementIndexInt]!=None:
 
 			#set
-			self.LifingCurrentToFloatBool=type(
-				self.StationarizedNetworkDeriveStationarizerVariable.StationarizingRateVariable
-			)==None.__class__
-
-			#debug
-			'''
-			self.debug(
-				[
-					"Ok we are going to lif",
-					('self.',self,[
-							'LifingCurrentToFloatBool'
-						])
+			self.StationarizedMeanWeightFloatsArray = np.array(
+				self.StationarizedNetworkDeriveStationarizerVariable.StationarizedMeanWeightFloatsList[
+					self.ManagementIndexInt
 				]
 			)
-			'''
-			
-			#lif
-			self.lif()
+		else:
+
+			#set
+			self.StationarizedMeanWeightFloatsArray = np.zeros(
+				self.StationarizedNetworkDeriveStationarizerVariable.StationarizingUnitsInt,
+				dtype=float
+			)
 
 		#debug
 		self.debug(
 			[
+				"Now",
+				('self.',self,[
+						'StationarizedMeanWeightFloatsArray'
+					])
+			]
+		)
+
+		#/#############/#
+		# Get the std of the weights
+		#
+
+		#set
+		if len(
+			self.StationarizedNetworkDeriveStationarizerVariable.StationarizedNoiseWeightFloatsList
+		)>self.ManagementIndexInt and self.StationarizedNetworkDeriveStationarizerVariable.StationarizedNoiseWeightFloatsList[self.ManagementIndexInt]!=None:
+
+			#set
+			self.StationarizedNoiseWeightFloatsArray = np.array(
+				self.StationarizedNetworkDeriveStationarizerVariable.StationarizedNoiseWeightFloatsList[
+					self.ManagementIndexInt
+				]
+			)
+		else:
+
+			#set
+			self.StationarizedNoiseWeightFloatsArray = np.zeros(
+				self.StationarizedNetworkDeriveStationarizerVariable.StationarizingUnitsInt,
+				dtype=float
+			)
+
+		#set
+		self.StationarizedSquareWeightFloatsArray=self.StationarizedNoiseWeightFloatsArray**2
+
+		#debug
+		'''
+		self.debug(
+			[
+				"Now",
+				('self.',self,[
+						'StationarizedNoiseWeightFloatsArray',
+						'StationarizedSquareWeightFloatsArray'
+					])
+			]
+		)
+		'''
+
+		#/#############/#
+		# Look the type of computation
+		#
+
+		#set
+		self.LifingMeanToRateBool=type(
+			self.StationarizedNetworkDeriveStationarizerVariable.StationarizingRateVariable
+		)==None.__class__
+
+		#debug
+		'''
+		self.debug(
+			[
+				('self.',self,[
+						'LifingMeanToRateBool'
+					])
+			]
+		)
+		'''
+
+		#Check
+		if self.LifingMeanToRateBool==False:
+
+			#Check
+			if self.StationarizedNetworkDeriveStationarizerVariable.StationarizingInteractionStr=="Spike":
+
+				#debug
+				'''
+				self.debug(
+					[
+						"Ok we are going maybe to lif",
+						('self.',self,[
+								'LifingMeanToRateBool'
+							])
+					]
+				)
+				'''
+
+				#
+				#self.Lifing
+
+				#lif
+				self.lif()
+
+		else:
+
+			#Check
+			if self.StationarizedNetworkDeriveStationarizerVariable.StationarizingInteractionStr=="Rate":
+
+				#set
+				self.LifedStationaryTotalFloat = self.LifedStationaryRateFloat
+
+		#debug
+		'''
+		self.debug(
+			[
 				"After lif",
 				('self.',self,[
-						'LifingCurrentToFloatBool',
-						'LifedStationaryCurrentFloat',
+						'LifingMeanToRateBool',
+						'LifedStationaryTotalFloat',
 						'LifedStationaryRateFloat'
 					]
 				)
 			]
 		)
+		'''
 
-	def getStationaryRateRootFloat(self,_StationaryStationaryRateFloat):
+	def getStationaryRateFloat(self,_StationaryRateFloatsArray):
 			
 		#return
 		return 0.
 
-	def getStationarySpikeRootFloat(self,_StationaryStationaryRateFloat):
+	def getStationarySpikeRateFloatsTuple(self,_StationaryRateFloatsArray):
 			
-		#center
-		self.LifingStationaryCurrentFloat = 0.
+		#debug
+		self.debug(
+			[
+				"pre rate are ",
+				"_StationaryRateFloatsArray is "+str(_StationaryRateFloatsArray),
+				#('self.',self,[
+				#		'StationarizedExternalCurrentMeanFloatsList',
+				#		'StationarizedExternalCurrentNoiseFloatsList',
+				#		'StationarizedMeanWeightFloatsList',
+				#		'StationarizedNoiseWeightFloatsList'
+				#	])
+			]
+		)
 
-		#noise
-		self.LifingVoltageNoiseFloat = self.StationarizingStdWeightFloat *  self.StationarizingConstantTimeVariable * _StationaryStationaryRateFloat
+		#init
+		LifedStationaryRateFloatsList=[0. for __Int in xrange(len(self.TeamDict['Populations'].ManagementDict))]
 
-		#lif
-		self.lif()
+		#debug
+		for __PopulationVariable in self.TeamDict['Populations'].ManagementDict.values():
+			
+
+			__PopulationVariable.LifingStationaryExternalCurrentMeanFloat=self.StationarizedExternalCurrentMeanFloatsList[
+				__PopulationVariable.ManagementIndexInt
+			] +np.sum(
+						(
+							#self.StationarizingUnitsInt*__PopulationVariable.LifingConstantTimeFloat*_StationaryRateFloatsArray)*__PopulationVariable.StationarizedMeanWeightFloatsArray
+							__PopulationVariable.LifingConstantTimeFloat*_StationaryRateFloatsArray
+						)*__PopulationVariable.StationarizedMeanWeightFloatsArray
+					)
+
+			__PopulationVariable.LifingStationaryExternalCurrentNoiseFloat=np.sqrt(
+						(
+							self.StationarizedExternalCurrentNoiseFloatsList[
+								__PopulationVariable.ManagementIndexInt
+							]**2
+							if self.StationarizedExternalCurrentNoiseFloatsList[
+								__PopulationVariable.ManagementIndexInt
+							]!=None
+							else 0.
+						)+np.sum(
+							(
+								#self.StationarizingUnitsInt*__PopulationVariable.LifingConstantTimeFloat*_StationaryRateFloatsArray
+								__PopulationVariable.LifingConstantTimeFloat*_StationaryRateFloatsArray
+							)*__PopulationVariable.StationarizedSquareWeightFloatsArray
+						)
+					)
+
+			__PopulationVariable.LifingComputeStationaryBool=True
+			__PopulationVariable.lif()
+
+
+			LifedStationaryRateFloatsList[__PopulationVariable.ManagementIndexInt
+			]=__PopulationVariable.LifedStationaryRateFloat
+
+			#debug
+			'''
+			self.debug(
+				[
+					('__PopulationVariable.',__PopulationVariable,[
+							'LifingStationaryExternalCurrentMeanFloat',
+							'LifingStationaryExternalCurrentNoiseFloat',
+							'LifedStationaryRateFloat'
+
+						])
+
+				]
+			)
+			'''
+
+		'''
+		#map
+		LifedStationaryRateFloatsList = map(
+			lambda __PopulationVariable,__StationarizedExternalCurrentMeanFloat,__StationarizedExternalCurrentNoiseFloat:
+			__PopulationVariable.mapSetAttr(
+				{
+					'LifingStationaryExternalCurrentMeanFloat':__StationarizedExternalCurrentMeanFloat+np.sum(
+						(__PopulationVariable.LifingConstantTimeFloat*_StationaryRateFloatsArray)*__PopulationVariable.StationarizedMeanWeightFloatsArray
+					),
+					'LifingStationaryExternalCurrentNoiseFloat':np.sqrt(
+						(
+							__StationarizedExternalCurrentNoiseFloat**2
+							if __StationarizedExternalCurrentNoiseFloat!=None
+							else 0.
+						)+np.sum(
+							(
+								__PopulationVariable.LifingConstantTimeFloat*_StationaryRateFloatsArray
+							)*__PopulationVariable.StationarizedNoiseWeightFloatsArray
+						)
+					),
+					'LifingComputeStationaryBool':True
+				}
+			).lif(
+			).LifedStationaryRateFloat,
+			self.TeamDict['Populations'].ManagementDict.values(),
+			self.StationarizedExternalCurrentMeanFloatsList,
+			self.StationarizedExternalCurrentNoiseFloatsList
+		)
+		'''
+
+
+		#debug
+		'''
+		self.debug(
+			[
+				"post rate are ",
+				"LifedStationaryRateFloatsList is "+str(LifedStationaryRateFloatsList)
+			]
+		)
+		'''
 
 		#return
-		return self.LifedStationaryStationaryRateFloat
-
-	"""
-	def getStationarySpikeRootFloatsTuple(self,_StationaryStationaryRateFloatsTuple):
-			
-		#center
-		LifingStationaryCurrentFloatsArray = np.dot(self.StationarizedLateralWeightFloatsArray,_StationaryStationaryRateFloatsTuple)
-
-		#noise
-		LifingVoltageNoiseFloatsArray = self.StationarizingStdWeightFloat *  self.StationarizingConstantTimeVariable * _StationaryStationaryRateFloat
-
-		#lif
-		self.lif()
-
-		#return
-		return self.LifedStationaryStationaryRateFloat
-	"""
+		return LifedStationaryRateFloatsList-_StationaryRateFloatsArray
 
 	#/######################/#
 	# Augment view
@@ -520,6 +843,7 @@ class StationarizerClass(BaseClass):
 			)
 
 			#debug
+			'''
 			self.debug(
 				[
 					"abs(LifedPerturbationMeanComplexesArray) is "+str(
@@ -527,6 +851,7 @@ class StationarizerClass(BaseClass):
 					)
 				]
 			)
+			'''
 
 			#set
 			ViewedDrawDerivePyploter.PyplotingDrawVariable=[
@@ -632,20 +957,33 @@ Leaker.LeakersStructurerClass.ManagingValueClass=StationarizerClass
 StationarizerClass.PrintingClassSkipKeyStrsList.extend(
 	[
 		'StationarizingUnitsInt',
-		'StationarizingLateralWeightVariable',
+		'StationarizingWeightVariable',
 		'StationarizingConstantTimeVariable',
 		'StationarizingThresholdVariable',
-		'StationarizingNoiseVariable',
 		'StationarizingResetVariable',
+		'StationarizingExternalCurrentNoiseVariable',
+		'StationarizingExternalCurrentMeanVariable',
+		'StationarizingMeanWeightVariable',
+		'StationarizingNoiseWeightVariable',
 		'StationarizingRateVariable',
 		'StationarizingPopulationTagVariable',
 		'StationarizingInteractionStr',
-		'StationarizingLateralWeightFloatsArray',
+		'StationarizingWeightFloatsArray',
 		'StationarizedConstantTimeFloatsList',
 		'StationarizedThresholdFloatsList',
-		'StationarizedNoiseFloatsList',
+		'StationarizedExternalNoiseFloatsList',
 		'StationarizedResetFloatsList',
+		'StationarizedExternalCurrentMeanFloatsList',
+		'StationarizedExternalCurrentNoiseFloatsList',
 		'StationarizedRateFloatsList',
+		'StationarizedTotalCurrentMeanFloatsListsList',
+		'StationarizedTotalCurrentNoiseFloatsListsList',
+		'StationarizedMeanWeightFloatsList',
+		'StationarizedNoiseWeightFloatsList',
+		'StationarizedMeanWeightFloatsArray',
+		'StationarizedNoiseWeightFloatsArray',
+		'StationarizedSquareWeightFloatsArray',
+		'StationarizedRateFloatsArraysList',
 		'StationarizedPopulationTagStrsList',
 		'StationarizedParentSingularStr',
 		'StationarizedNetworkDeriveStationarizerVariable'

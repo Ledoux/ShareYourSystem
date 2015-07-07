@@ -8,7 +8,8 @@ import ShareYourSystem as SYS
 #define
 MyLifer=SYS.LiferClass(
 	).lif(
-    	_StationaryCurrentFloat=-55.
+    	_StationaryExternalCurrentMeanFloat=15.,
+    	_StationaryExternalCurrentNoiseFloat=21.
 	)
 
 

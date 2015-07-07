@@ -26,14 +26,14 @@ MyHopfer=SYS.HopferClass(
 						}
 					},
 					'-Events':{
-						'|Default':{
+						'|Default_Events':{
 							'BrianingEventSelectVariable':range(0,30)
 						}
 					},
-					'-Rates':{
-						'|Default':{
-						}
-					}
+					#'-Rates':{
+					#	'|Default_Rates':{
+					#	}
+					#}
 					#'BrianingDebugVariable':100
 					#'LeakingNoiseStdVariable':10.,
 					#'LeakingThresholdVariable':'#scalar:U>-50*mV',
@@ -41,9 +41,10 @@ MyHopfer=SYS.HopferClass(
 			}
 		}
 	).hopf(
-		_UnitsInt=100,
+		_UnitsInt=1000,
 		_StdWeightFloat=StdWeightFloat,
 		_StationaryRateFloat=50.,
+		_ExternalNoiseFloat = 5.,
 		_SymmetryFloat=-0.7,
 		_InteractionStr="Spike"
 	).leak(
@@ -61,7 +62,7 @@ MyHopfer.mapSet(
 			'PyplotingFigureVariable':{
 				'figsize':(10,8)
 			},
-			'PyplotingGridVariable':(30,30),
+			'PyplotingGridVariable':(45,45),
 			'-Panels':[
 				(
 					'|Eigen',
@@ -70,7 +71,19 @@ MyHopfer.mapSet(
 						'PyplotingShapeVariable':[10,10],
 						'-Charts':{
 							'|Perturbation':{
-								'PyplotingShiftVariable':[4,0],
+								'PyplotingShiftVariable':[6,0],
+							}
+						}
+					}
+				),
+				(
+					'|Transfer',
+					{
+						'PyplotingTextVariable':[-0.5,-1.],
+						'PyplotingShapeVariable':[10,10],
+						'-Charts':{
+							'|Isolate':{
+								'PyplotingShiftVariable':[6,0],
 							}
 						}
 					}
@@ -78,15 +91,23 @@ MyHopfer.mapSet(
 				(
 					'|Run',
 					{
-						'PyplotingTextVariable':[-0.4,0.],
-						'PyplotingShiftVariable':[0,4],
-						'PyplotingShapeVariable':[8,9],
+						'PyplotingTextVariable':[0.,0.1],
+						'PyplotingShiftVariable':[["top",1],6],
+						'PyplotingShapeVariable':[8,18],
+						'-Charts':{
+								'|Agent_U':{
+									'PyplotingLegendDict':{
+										'fontsize':10,
+										'ncol':1
+									}
+								}
+							}
 					}
 				),
 				(
 					'|Stat',
 					{
-						'PyplotingTextVariable':[-0.4,0.],
+						'PyplotingTextVariable':[0.,0.],
 						'PyplotingShiftVariable':[4,0],
 						'PyplotingShapeVariable':[5,9],
 					}
@@ -97,6 +118,7 @@ MyHopfer.mapSet(
 	).pyplot(
 	).show(
 	)
+
 
 #/###################/#
 # Print

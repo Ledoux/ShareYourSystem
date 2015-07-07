@@ -271,7 +271,7 @@ class NumscipyerClass(BaseClass):
 			#
 
 			#Check
-			if self.NumscipyingSparseFloat>0.:
+			if self.NumscipyingSparseFloat>0. and self.NumscipyingSparseFloat<1.:
 
 				#debug
 				'''
@@ -312,6 +312,15 @@ class NumscipyerClass(BaseClass):
 				#/#################/#
 				# Maybe set a continuous stat for non zero values
 				#
+
+				#debug
+				self.debug(
+					[
+						('self.',self,[
+								'NumscipiedContinuousStatRigidFunction'
+							])
+					]
+				)
 
 				#map
 				if self.NumscipiedContinuousStatRigidFunction!=None:

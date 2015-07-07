@@ -9,7 +9,7 @@ import ShareYourSystem as SYS
 MyLifer=SYS.LiferClass(
 	).lif(
     	_StationaryRateFloat=10.,
-    	_CurrentToFloatBool=False
+    	_MeanToRateBool=False
 	)
 
 

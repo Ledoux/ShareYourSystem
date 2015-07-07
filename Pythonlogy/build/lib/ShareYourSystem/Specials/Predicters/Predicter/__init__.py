@@ -76,9 +76,9 @@ class PredicterClass(BaseClass):
 			_PredictingAgentRefractoryVariable = None,
 			_PredictingAgentRecordVariable = None,
 			_PredictingAgentTimeFloat = 10.,
-			_PredictingDecoderVariable=None,
-			_PredictingDecoderMeanFloat=1.,
-			_PredictingDecoderStdFloat=1.,
+			_PredictingDecoderVariable = None,
+			_PredictingDecoderMeanVariable = None,
+			_PredictingDecoderStdFloat = 1.,
 			_PredictingDecoderSparseFloat=0.,
 			_PredictingDecoderTimeFloat = PredictSlowTimeFloat,
 			_PredictingDecoderRecordVariable = None,
@@ -600,8 +600,28 @@ class PredicterClass(BaseClass):
 			# Maybe be we want to scale the weights in order to build realistic neuron threshold
 			#
 
+			#debug
+			self.debug(
+				[
+					"Do we have already a Mean float for decoder",
+					('self.',self,[
+							'PredictingDecoderMeanVariable'
+						])
+				]
+			)
+
 			#Check
-			if self.PredictingDecoderSparseFloat>0.:
+			if self.PredictingDecoderSparseFloat>0. and self.PredictingDecoderMeanVariable==None:
+
+				#debug
+				self.debug(
+					[
+						"Look if we have a Threshold",
+						('self.',self,[
+								'PredictingAgentThresholdVariable'
+							])
+					]
+				)
 
 				#Check
 				if type(self.PredictingAgentThresholdVariable)==None.__class__:
@@ -611,13 +631,14 @@ class PredicterClass(BaseClass):
 				self.NumscipyingMeanFloat=np.sqrt(
 					2.*self.PredictingAgentUnitsInt*self.PredictingAgentThresholdVariable/self.PredictingDecoderSparseFloat
 				)
+
+
 			else:
 
 				#set
-				self.NumscipyingMeanFloat=self.PredictingDecoderMeanFloat
+				self.NumscipyingMeanFloat=self.PredictingDecoderMeanVariable/self.PredictingAgentUnitsInt
 
 			#debug
-			'''
 			self.debug(
 				[
 					'We have setted the mean of the decoder to have neuron threshold',
@@ -627,14 +648,12 @@ class PredicterClass(BaseClass):
 						])
 				]
 			)
-			'''
 
 			#numscipy
 			self.NumscipyingSparseFloat=self.PredictingDecoderSparseFloat
 			self.NumscipyingStdFloat=self.PredictingDecoderStdFloat/np.sqrt(
 					self.PredictingAgentUnitsInt
 				)
-			self.NumscipyingMeanFloat=self.PredictingDecoderMeanFloat/self.PredictingAgentUnitsInt
 			self.NumscipyingRowsInt=self.PredictingSensorUnitsInt
 			self.NumscipyingColsInt=self.PredictingAgentUnitsInt
 
@@ -658,6 +677,7 @@ class PredicterClass(BaseClass):
 			self.PredictedDecoderFloatsArray=1.*self.NumscipiedValueFloatsArray
 
 		#debug
+		'''
 		self.debug(
 			[
 				'We normalize the PredictedDecoderFloatsArray',
@@ -665,7 +685,9 @@ class PredicterClass(BaseClass):
 						'PredictedDecoderFloatsArray'
 					])
 			]
-		)
+		)	
+		'''
+
 
 		#/################/#
 		# Build the Fast Connection
@@ -1173,7 +1195,20 @@ class PredicterClass(BaseClass):
 
 			#set
 			if self.PredictedNetworkDerivePredicterVariable.PredictingSensorUnitsInt>-1:
-				self.LeakingUnitsInt=self.PredictedNetworkDerivePredicterVariable.PredictingSensorUnitsInt
+
+				#Check
+				if self.PredictedNetworkDerivePredicterVariable.PredictingDecoderSparseFloat==0.:
+					self.LeakingUnitsInt=self.PredictedNetworkDerivePredicterVariable.PredictingSensorUnitsInt
+
+			#debug
+			self.debug(
+				[
+					('self.',self,[
+							'LeakingUnitsInt'
+						])
+
+				]
+			)
 
 			#/####################/#
 			# Set the record
@@ -1995,8 +2030,20 @@ class PredicterClass(BaseClass):
 			)
 			'''
 
-			#link
-			self.LeakingWeightVariable=self.PredictedNetworkDerivePredicterVariable.PredictedSensorJacobianFloatsArray
+			#Check
+			if self.PredictedNetworkDerivePredicterVariable.PredictingDecoderSparseFloat>0.:
+
+				#link
+				self.LeakingWeightVariable=[
+					[
+					self.PredictedNetworkDerivePredicterVariable.PredictedSensorJacobianFloatsArray[0,0]
+					]
+				]
+
+			else:
+
+				#link
+				self.LeakingWeightVariable=self.PredictedNetworkDerivePredicterVariable.PredictedSensorJacobianFloatsArray
 
 			#debug
 			'''
@@ -2156,6 +2203,12 @@ class PredicterClass(BaseClass):
 						#set
 						self.LeakingWeightVariable=self.PredictedNetworkDerivePredicterVariable.PredictingAgentTimeFloat*self.PredictedNetworkDerivePredicterVariable.PredictingEncodWeightVariable
 			
+
+				#Check
+				if self.PredictedNetworkDerivePredicterVariable.PredictingDecoderSparseFloat>0.:
+
+					#set
+					self.LeakingWeightVariable=[[self.LeakingWeightVariable[0]]]
 
 			#self.LeakingWeightVariable=0.
 
@@ -2370,6 +2423,22 @@ class PredicterClass(BaseClass):
 				
 				#set
 				self.LeakingDelayVariable=self.PredictedNetworkDerivePredicterVariable.PredictedDelayFloatsArray
+
+			#/################/#
+			# Consider if we need to record J
+			#
+
+			#Check
+			if self.PredictedNetworkDerivePredicterVariable.PredictingFastPlasticBool:
+
+				#set
+				self.RecordingLabelVariable=range(
+					min(
+						self.PredictedNetworkDerivePredicterVariable.PredictingAgentUnitsInt**2,
+						4
+					)
+				)
+
 
 		elif self.ManagementTagStr=="Slow":
 
@@ -3543,6 +3612,7 @@ class PredicterClass(BaseClass):
 				
 			"""
 
+	"""
 	def pyplotFigure(self):
 
 		#debug
@@ -3553,6 +3623,7 @@ class PredicterClass(BaseClass):
 			]
 		)
 		'''
+
 
 		#Check
 		if self.PredictedNetworkDerivePredicterVariable.PredictingInteractionStr=="Spike":
@@ -3577,6 +3648,7 @@ class PredicterClass(BaseClass):
 
 		#call the base
 		BaseClass.pyplotFigure(self)
+	"""
 
 #</DefineClass>
 
@@ -3606,7 +3678,7 @@ PredicterClass.PrintingClassSkipKeyStrsList.extend(
 		'PredictingFastSymmetryFloat',
 		'PredictingSlowPerturbStdFloat',
 		'PredictingDecoderVariable',
-		'PredictingDecoderMeanFloat',
+		'PredictingDecoderMeanVariable',
 		'PredictingDecoderStdFloat',
 		'PredictingDecoderSparseFloat',
 		'PredictingDecoderTimeFloat',

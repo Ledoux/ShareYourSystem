@@ -16,7 +16,7 @@ BrianingDebugVariable=25.
 MyPredicter=SYS.PredicterClass(
 	).mapSet(
 		{
-			'BrianingStepTimeFloat':0.02,
+			#'BrianingStepTimeFloat':0.05,
 			'-Populations':[
 				('|Sensor',{
 					'RecordingLabelVariable':[0,1],
@@ -35,6 +35,11 @@ MyPredicter=SYS.PredicterClass(
 							#'BrianingDebugVariable':BrianingDebugVariable
 						}
 					},
+					'-Traces':{
+						'|U':{
+							#'RecordingInitFloatsArray':-65.+SYS.scipy.stats.norm(0.,0.01).rvs(size=AgentUnitsInt)
+						}
+					}
 					#'LeakingNoiseStdVariable':0.01
 				}),
 				('|Decoder',{
@@ -50,16 +55,32 @@ MyPredicter=SYS.PredicterClass(
 			]
 		}
 	).predict(
-		_AgentUnitsInt=100,
-		_CommandVariable="#custom:#clock:200*ms:1.*mV+1.*mV*int(t==200*ms)",#2.,
-		_DecoderVariable="#array",
-		_DecoderMeanFloat=1.,
-		_DecoderStdFloat=0.,
-		_DecoderSparseFloat=0.2,
-		#_AgentResetVariable=-60.,
-		_InteractionStr="Spike"
+		_CommandVariable="#custom:#clock:25*ms:1.*(1.*mV+1.*mV*(int(t==25.*ms)+int(t==50.*ms)))",#2., 
+        _AgentUnitsInt = 100,
+        _AgentRecordVariable = [0,1,2],
+        _DecoderVariable="#array",
+        
+        #100
+        _DecoderStdFloat = 50./SYS.numpy.sqrt(100.), #need to make an individual PSP around 1 mV
+        _DecoderMeanVariable = 10., 
+        _DecoderSparseFloat = 1.,
+        _AgentResetVariable = -65., #cost to reset neurons and make the noise then decide who is going to spike next
+        _AgentNoiseVariable = 2., #noise (mV) to make neurons not spiking at the same timestep
+        _AgentThresholdVariable = -55., #set the threshold the same for everybody
+        #1000
+        #_DecoderStdFloat = 50./SYS.numpy.sqrt(1000.), #need to make an individual PSP around 1 mV
+        #_DecoderMeanVariable = 1., 
+        #_DecoderSparseFloat = 1.,
+        #_AgentResetVariable = -65., #cost to reset neurons and make the noise then decide who is going to spike next
+        #_AgentNoiseVariable = 2., #noise (mV) to make neurons not spiking at the same timestep
+        #_AgentThresholdVariable = -55., #set the threshold the same for everybody
+
+        #
+        _SpikeRecordVariable = range(0,100),
+        _AgentRefractoryVariable=0.5,
+        _InteractionStr = "Spike"
 	).simulate(
-		500.
+		100.
 	)
 
 #/###################/#
@@ -68,75 +89,11 @@ MyPredicter=SYS.PredicterClass(
 
 #mapSet
 MyPredicter.view(
-	).mapSet(
-		{
-			'PyplotingFigureVariable':{
-				'figsize':(10,8)
-			},
-			'PyplotingGridVariable':(30,30),
-			'-Panels':[
-				(
-					'|Run',
-					[
-						(
-							'-Charts',
-							[
-								(
-									'|Sensor_I_Command',
-									{
-										'PyplotingLegendDict':{
-											'fontsize':10,
-											'ncol':2
-										}
-									}
-								),
-								(
-									'|Sensor_U',
-									{
-										'PyplotingLegendDict':{
-											'fontsize':10,
-											'ncol':2
-										}
-									}
-								),
-								(
-									'|Agent_U',
-									{
-										'PyplotingLegendDict':{
-											'fontsize':10,
-											'ncol':1
-										}
-									}
-								),
-								(
-									'|Agent_Default_Events',{}
-								),
-								(
-									'|Decoder_U',
-									{
-										'PyplotingLegendDict':{
-											'fontsize':10,
-											'ncol':2
-										}
-									}
-								)
-							]
-						)
-					]
-				),
-				(
-					'|Stat',
-					{
-						'PyplotingTextVariable':[-0.4,0.],
-						'PyplotingShiftVariable':[0,4],
-						'PyplotingShapeVariable':[5,9],
-					}
-				)
-			]
-		}
 	).pyplot(
-	).show(
-	)
+        _FigureVariable={'figsize':(15,10)},
+        _GridVariable=(40,30)
+    ).show(
+    )
 
 #/###################/#
 # Print
