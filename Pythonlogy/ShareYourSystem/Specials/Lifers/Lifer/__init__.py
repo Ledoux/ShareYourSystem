@@ -314,15 +314,14 @@ class LiferClass(BaseClass):
 					'LifingMeanToRateBool',
 					'LifingRestFloat',
 					'LifingStationaryRateFloat',
-					'LifedStationaryExternalFloat',
-					'LifedStationaryRestFloat',
 					'LifedStationaryTotalFloat',
-					'LifedStationaryRateFloat'
+					'LifedStationaryRateFloat',
+					'LifingComputePerturbationBool'
 				])
 			]
 		)
 		'''
-		
+
 		#Check
 		if self.LifingComputePerturbationBool:
 
@@ -528,33 +527,40 @@ class LiferClass(BaseClass):
 			# Print things if they are computed
 			#
 
-			#map
-			map(
-					lambda __KeyStr:
-					self.forcePrint(
-						[__KeyStr],
-						'LiferClass'
+			#Check
+			if (
+				self.ParentDeriveTeamerVariable==None and 'Populations' not in self.TeamDict
+			) or (
+				self.ParentDeriveTeamerVariable!=None and self.ParentDeriveTeamerVariable.TeamTagStr=="Populations"
+			):
+
+				#map
+				map(
+						lambda __KeyStr:
+						self.forcePrint(
+							[__KeyStr],
+							'LiferClass'
+						)
+						if getattr(self.PrintingCopyVariable,__KeyStr) not in [None,0.]
+						else None,
+						[
+							'LifingConstantTimeFloat', 
+							'LifingRefractoryPeriodFloat',
+							'LifingStationaryExternalCurrentNoiseFloat', 
+							'LifingResetFloat', 
+							'LifingThresholdFloat',
+							'LifingPerturbationLambdaVariable',
+							'LifingPerturbationFrequencyFloat',
+							'LifingPerturbationMethodStr',
+							'LifedPerturbationMeanNullFloat',
+							'LifedPerturbationNoiseNullFloat',
+							'LifedPerturbationMeanComplexVariable',
+							'LifedPerturbationNoiseComplexVariable',
+						]+(['LifingStationaryExternalCurrentMeanFloat'] if self.LifingMeanToRateBool else [])
+						+(['LifingStationaryRateFloat'] if self.LifingMeanToRateBool==False else [])
+						+(['LifedStationaryTotalFloat'] if self.LifingMeanToRateBool==False else [])
+						+(['LifedStationaryRateFloat'] if self.LifingMeanToRateBool else [])
 					)
-					if getattr(self.PrintingCopyVariable,__KeyStr) not in [None,0.]
-					else None,
-					[
-						'LifingConstantTimeFloat', 
-						'LifingRefractoryPeriodFloat',
-						'LifingStationaryExternalCurrentNoiseFloat', 
-						'LifingResetFloat', 
-						'LifingThresholdFloat',
-						'LifingPerturbationLambdaVariable',
-						'LifingPerturbationFrequencyFloat',
-						'LifingPerturbationMethodStr',
-						'LifedPerturbationMeanNullFloat',
-						'LifedPerturbationNoiseNullFloat',
-						'LifedPerturbationMeanComplexVariable',
-						'LifedPerturbationNoiseComplexVariable',
-					]+(['LifingStationaryExternalCurrentMeanFloat'] if self.LifingMeanToRateBool else [])
-					+(['LifingStationaryRateFloat'] if self.LifingMeanToRateBool==False else [])
-					+(['LifedStationaryTotalFloat'] if self.LifingMeanToRateBool==False else [])
-					+(['LifedStationaryRateFloat'] if self.LifingMeanToRateBool else [])
-				)
 
 		#/##################/#
 		# Call the base method
@@ -574,6 +580,7 @@ LiferClass.PrintingClassSkipKeyStrsList.extend(
 		'LifingStationaryRateFloat',
 		'LifingMeanToRateBool',
 		'LifingNoiseToRateBool',
+		'LifingStationaryExternalCurrentMeanFloat',
 		'LifingStationaryExternalCurrentNoiseFloat', 
 		'LifingResetFloat', 
 		'LifingThresholdFloat',

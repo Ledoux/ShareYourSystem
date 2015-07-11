@@ -1828,6 +1828,7 @@ class BrianerClass(BaseClass):
 	def brianRate(self):
 
 		#debug
+		'''
 		self.debug(
 			[
 				'It is a Rate Moniter level',
@@ -1836,7 +1837,8 @@ class BrianerClass(BaseClass):
 							])
 			]
 		)
-
+		'''
+		
 		#/####################/#
 		# Set the BrianedParentPopulationDeriveBrianerVariable
 		#
@@ -2673,6 +2675,10 @@ class BrianerClass(BaseClass):
 		#
 
 		#list
+		if len(self.BrianedStateMonitorVariable.t)==0:
+			return 
+
+		#check
 		self.PyplotingDrawVariable=[
 			(
 				'plot',
@@ -3876,6 +3882,10 @@ class BrianerClass(BaseClass):
 		#Check
 		if self.RecordingLabelVariable==None:
 			self.RecordingLabelVariable=[0]
+
+		#Check
+		if self.BrianedEventTraceVariable==None:
+			return
 
 		#map
 		self.PyplotingDrawVariable+=map(

@@ -12,11 +12,11 @@ import ShareYourSystem as SYS
 #Define
 MyHopfer=SYS.HopferClass(
 	).hopf(
-		_PerturbationAllBool=False,
-		_PerturbationEnvelopBool=False,
+		#_PerturbationAllBool = False,
+		#_PerturbationEnvelopBool = False,
 		_UnitsInt = 1000,
 		_StdWeightFloat = 15.,
-		_StationaryExternalCurrentVariable = 15.,
+		_StationaryExternalMeanVariable = 15.,
 		_InteractionStr = "Spike"
 	).leak(
 	).simulate(

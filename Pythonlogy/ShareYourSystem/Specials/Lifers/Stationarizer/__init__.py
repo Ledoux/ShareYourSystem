@@ -668,6 +668,7 @@ class StationarizerClass(BaseClass):
 	def getStationarySpikeRateFloatsTuple(self,_StationaryRateFloatsArray):
 			
 		#debug
+		'''
 		self.debug(
 			[
 				"pre rate are ",
@@ -680,7 +681,8 @@ class StationarizerClass(BaseClass):
 				#	])
 			]
 		)
-
+		'''
+		
 		#init
 		LifedStationaryRateFloatsList=[0. for __Int in xrange(len(self.TeamDict['Populations'].ManagementDict))]
 
@@ -830,6 +832,7 @@ class StationarizerClass(BaseClass):
 			#set
 			StationarizedAgentLifer.LifingPerturbationMethodStr="Brunel"
 			StationarizedAgentLifer.LifingPerturbationLambdaVariable=None
+			StationarizedAgentLifer.LifingComputePerturbationBool=True
 
 			#map
 			LifedPerturbationMeanComplexesArray=SYS.numpy.array(
@@ -846,8 +849,8 @@ class StationarizerClass(BaseClass):
 			'''
 			self.debug(
 				[
-					"abs(LifedPerturbationMeanComplexesArray) is "+str(
-						abs(LifedPerturbationMeanComplexesArray)
+					"LifedPerturbationMeanComplexesArray is "+str(
+						LifedPerturbationMeanComplexesArray
 					)
 				]
 			)
@@ -944,7 +947,8 @@ class StationarizerClass(BaseClass):
 		#
 
 		#call
-		Leaker.LeakerClass._print(self,**_KwargVariablesDict)
+		#Leaker.LeakerClass._print(self,**_KwargVariablesDict)
+		BaseClass._print(self,**_KwargVariablesDict)
 
 
 #</DefineClass>

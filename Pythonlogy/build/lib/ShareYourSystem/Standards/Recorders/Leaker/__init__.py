@@ -936,6 +936,7 @@ class LeakerClass(BaseClass):
 		else:
 
 			#debug
+			'''
 			self.debug(
 				[
 					'Check the monitor indexes',
@@ -945,7 +946,8 @@ class LeakerClass(BaseClass):
 						])
 				]
 			)
-
+			'''
+			
 			#Check
 			if self.BrianingMonitorIndexIntsList==None or len(self.BrianingMonitorIndexIntsList
 				)==0:
@@ -1376,12 +1378,14 @@ class LeakerClass(BaseClass):
 				)
 
 			#debug
+			'''
 			self.debug(
 				[
 					'We add a record of the rates'
 				]
 			)
-
+			'''
+			
 			#get
 			self.getTeamer(
 					"Rates"

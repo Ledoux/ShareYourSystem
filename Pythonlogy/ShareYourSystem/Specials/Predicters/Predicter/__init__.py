@@ -2839,6 +2839,11 @@ class PredicterClass(BaseClass):
 					#add
 					LeakedPlasticStr+='+((1.+alpha)/2.)*'+self.LeakingSymbolPrefixStr
 					LeakedPlasticStr+=')'
+					LeakedPlasticStr+='*int(i!=j)'
+					#LeakedPlasticStr+='*int('+self.PredictedAgentDerivePredicterVariable.LeakedSymbolStr+'_post>-61*mV)'
+					LeakedPlasticStr+='*(int('+self.LeakingSymbolPrefixStr+'>0.1)'
+					LeakedPlasticStr+='+int('+self.LeakingSymbolPrefixStr+'<-0.1)'
+					LeakedPlasticStr+=')'
 
 					#add
 					self.LeakingPlasticRuleVariable=""
