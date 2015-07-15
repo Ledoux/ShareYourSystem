@@ -688,6 +688,7 @@ class HopferClass(BaseClass):
 							)
 
 				#debug
+				'''
 				self.debug(
 					[
 						"self.HopfedAgentDeriveHopferVariable.LifedPerturbationMeanNullFloat is "+str(self.HopfedAgentDeriveHopferVariable.LifedPerturbationMeanNullFloat),
@@ -697,7 +698,8 @@ class HopferClass(BaseClass):
 						)
 					]
 				)
-
+				'''
+				
 				#map
 				HopfedSolutionFloatsTuplesList=map(
 							lambda __HopfedPerturbationComplex:

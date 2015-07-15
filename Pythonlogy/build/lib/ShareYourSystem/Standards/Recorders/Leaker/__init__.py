@@ -59,6 +59,43 @@ def getShapeArray(_Variable,_RowsInt,_ColsInt):
 		
 		#alias
 		return _Variable
+
+# Second-order statistics
+def correlogram(T1,T2,width,bin,T=None):
+	'''
+		Returns a cross-correlogram with lag in [-width,width] and given bin size.
+		T is the total duration (optional) and should be greater than the duration of T1 and T2.
+		The result is in Hz (rate of coincidences in each bin).
+		
+		N.B.: units are discarded.
+		TODO: optimise?
+	'''
+	#import
+	import numpy as np 
+	# Remove units
+	width=float(width)
+	T1=np.array(T1)
+	T2=np.array(T2)
+	i=0
+	j=0
+	n=int(np.ceil(width/bin)) # Histogram length
+	l=[]
+	for t in T1:
+		while i<len(T2) and T2[i]<t-width: # other possibility use searchsorted
+			i+=1
+		while j<len(T2) and T2[j]<t+width:
+			j+=1
+		l.extend(T2[i:j]-t)
+	H,_=np.histogram(l,bins=np.arange(2*n+1)*bin-n*bin)
+
+	# Divide by time to get rate
+	if T is None:
+		T=max(T1[-1],T2[-1])-min(T1[0],T2[0])
+	# Windowing function (triangle)
+	W=np.zeros(2*n)
+	W[:n]=T-bin*np.arange(n-1,-1,-1)
+	W[n:]=T-bin*np.arange(n)
+	return H/W
 #</DefineLocals>
 
 #<DefineClass>
@@ -103,6 +140,7 @@ class LeakerClass(BaseClass):
 			_LeakingMaxBool=False,
 			_LeakingMinPhaseTimeVariable=None,
 			_LeakingMaxPhasesInt=2,
+			_LeakingAutoCorrelationBool=False,
 			_LeakedStepTimeFloat=0.1,
 			_LeakedRecordSkipStrsList=None,
 			_LeakedQuantityVariable=None,
@@ -5478,6 +5516,65 @@ class LeakerClass(BaseClass):
 				)
 			"""
 
+	def simulateEvent(self):
+
+		#BaseClass
+		BaseClass.simulateEvent(self)
+
+		#Check
+		if self.BrianedParentPopulationDeriveBrianerVariable.LeakingAutoCorrelationBool:
+
+			#debug
+			self.debug(
+				[
+					"We compute autocorrelation"
+				]
+			)
+
+			#import
+			import brian2
+			import numpy as np
+			
+			#set
+			BrianedTotalArray=self.BrianedSpikeMonitorVariable.t/brian2.ms
+
+			BrianedWidthFloat=20.;
+			BrianedBinFloat=0.5;
+			self.LeakedAutoTimeArray=np.arange(-BrianedWidthFloat,BrianedWidthFloat,BrianedBinFloat);
+
+			#corre
+			self.LeakedAutoValueArray=correlogram(
+					BrianedTotalArray,
+					BrianedTotalArray,
+					width=BrianedWidthFloat,#*brian2.ms,
+					bin=BrianedBinFloat,#*brian2.ms,
+					T=200.
+				)
+
+			#map
+			BrianedCorrelogrammArraysList = map(
+				lambda __FirstInt:
+				correlogram(
+					self.BrianedSpikesListsList[__FirstInt]/brian2.ms,
+					self.BrianedSpikesListsList[__FirstInt]/brian2.ms,
+					width=BrianedWidthFloat,#*brian2.ms,
+					bin=BrianedBinFloat,#*brian2.ms,
+					T=200.
+				),
+				xrange(len(self.BrianedSpikesListsList))
+			)
+
+			#debug
+			self.debug(
+				[
+					('self.',self,[
+							'LeakedAutoTimeArray',
+							'LeakedAutoValueArray'
+						])
+					#'BrianedCorrelogrammArraysList is '+str(BrianedCorrelogrammArraysList)
+				]
+			)
+
 	def setPhaseWeightArray(self):
 
 		#set
@@ -5632,6 +5729,71 @@ class LeakerClass(BaseClass):
 			),
 			LeakedInputKeyStrsList
 		)
+
+
+		#/##################/#
+		# Do we plot spike correlation
+		#
+
+		#Check
+		if self.LeakingAutoCorrelationBool:
+
+			#debug
+			self.debug(
+				[
+					'we plot autocorrelation here'
+				]
+			)
+
+			#get
+			LeakedAutoPopulationChartDerivePyploter=self.getTeamer(
+					"Panels"
+				).getManager(
+					"Stat"
+				).getTeamer(
+					'Charts'
+				).getManager(
+					'Auto'
+				).getTeamer(
+					'Draws'
+				).getManager(
+					'0'
+				)
+
+			LeakedAutoPopulationChartDerivePyploter.PyplotingDrawVariable=map(
+				lambda __EventVariable:
+				(
+					'plot',
+					{
+							'#liarg':[
+								__EventVariable.LeakedAutoTimeArray,
+								__EventVariable.LeakedAutoValueArray
+							],
+							'#kwarg':dict(
+								{
+									'linestyle':'-',
+									'linewidth':3
+								}
+							)
+					}	
+				),
+				self.TeamDict['Events'].ManagementDict.values()
+			)
+
+			LeakedAutoNetworkChartDerivePyploter=self.BrianedParentNetworkDeriveBrianerVariable.getTeamer(
+					"Panels"
+				).getManager(
+					"Stat"
+				).getTeamer(
+					'Charts'
+				).getManager(
+					self.ManagementTagStr+'_Auto'
+				).getTeamer(
+					'Draws'
+				).getManager(
+					'0'
+				)
+			LeakedAutoNetworkChartDerivePyploter.PyplotingDrawVariable = LeakedAutoPopulationChartDerivePyploter.PyplotingDrawVariable
 
 		#/##################/#
 		# base method
@@ -6627,6 +6789,7 @@ LeakerClass.PrintingClassSkipKeyStrsList.extend(
 		'LeakingMaxBool',
 		'LeakingMinPhaseTimeVariable',
 		'LeakingMaxPhasesInt',
+		'LeakingAutoCorrelationBool',
 		'LeakedStepTimeFloat',
 		'LeakedRecordSkipStrsList',
 		'LeakedQuantityVariable',

@@ -106,6 +106,7 @@ class BrianerClass(BaseClass):
 			_BrianedSpikeDeriveBrianersList=None,
 			_BrianedViewTraceBool=False,
 			_BrianedTitleBool=False,
+			_BrianedSpikesListsList=None,
 			_BrianedParentNetworkDeriveBrianerVariable=None,
 			_BrianedParentPopulationDeriveBrianerVariable=None,
 			_BrianedParentInteractomeDeriveBrianerVariable=None,
@@ -3583,6 +3584,29 @@ class BrianerClass(BaseClass):
 			#call
 			self.BrianedParentDeriveRecorderVariable.viewTraceOrEvent()
 
+	def simulateEvent(self):
+
+		#get
+		self.BrianedSpikesListsList=[ [] for __IndexInt in xrange(
+			self.BrianedParentPopulationDeriveBrianerVariable.BrianedNeurongroupVariable.N
+			)
+		]
+
+		#loop
+		for __IndexInt,__TimeUnit in zip(
+			self.BrianedSpikeMonitorVariable.i,
+			self.BrianedSpikeMonitorVariable.t
+		):
+
+			#append
+			self.BrianedSpikesListsList[__IndexInt].append(
+				__TimeUnit
+				#100.*__TimeUnit/BrianedTimeUnit
+				#float((1./self.ViewingXScaleFloat)*(__TimeUnit/BrianedTimeUnit))
+				#float(__TimeUnit/BrianedTimeDimension)
+			)
+
+
 	def viewEvent(self):
 
 		#/################/#
@@ -3622,12 +3646,6 @@ class BrianerClass(BaseClass):
 		#divide
 		self.ViewingYVariable=np.array(self.BrianedSpikeMonitorVariable.i)
 
-		#get
-		BrianedSpikesListsList=[ [] for __IndexInt in xrange(
-			self.BrianedParentPopulationDeriveBrianerVariable.BrianedNeurongroupVariable.N
-			)
-		]
-
 		#import
 		import brian2
 
@@ -3648,19 +3666,7 @@ class BrianerClass(BaseClass):
 		)
 		"""
 
-		#loop
-		for __IndexInt,__TimeUnit in zip(
-			self.BrianedSpikeMonitorVariable.i,
-			self.BrianedSpikeMonitorVariable.t
-		):
-
-			#append
-			BrianedSpikesListsList[__IndexInt].append(
-				__TimeUnit
-				#100.*__TimeUnit/BrianedTimeUnit
-				#float((1./self.ViewingXScaleFloat)*(__TimeUnit/BrianedTimeUnit))
-				#float(__TimeUnit/BrianedTimeDimension)
-			)
+		
 
 		#debug
 		"""
@@ -3678,12 +3684,14 @@ class BrianerClass(BaseClass):
 			#map
 			BrianedSpikesListsList=map(
 				lambda __BrianingEventNeuronInt:
-				BrianedSpikesListsList[__BrianingEventNeuronInt],
+				self.BrianedSpikesListsList[__BrianingEventNeuronInt],
 				self.BrianingEventSelectVariable
 			)
 
 			#range
 			self.ViewingYVariable=range(len(self.BrianingEventSelectVariable))
+		else:
+			BrianedSpikesListsList=self.BrianedSpikesListsList
 
 		#debug
 		"""
@@ -3695,7 +3703,7 @@ class BrianerClass(BaseClass):
 					]),
 				#{self.BrianedSpikeMonitorVariable.__dict__ is ",str(np.array(
 				#	self.BrianedSpikeMonitorVariable.__dict__)),
-				'BrianedSpikesListsList is '+str(BrianedSpikesListsList)
+				'self.BrianedSpikesListsList is '+str(self.BrianedSpikesListsList)
 			]
 		)
 		"""
@@ -3895,7 +3903,7 @@ class BrianerClass(BaseClass):
 				{
 					'#liarg':[
 						BrianedSpikesListsList[__NeuronIndexInt],
-						[__NeuronIndexInt]*len(BrianedSpikesListsList[__NeuronIndexInt])
+						[__NeuronIndexInt]*len(self.BrianedSpikesListsList[__NeuronIndexInt])
 					],
 					'#kwarg':dict(
 						{
@@ -4612,6 +4620,7 @@ BrianerClass.PrintingClassSkipKeyStrsList.extend(
 		'BrianedStateDeriveBrianersList',
 		'BrianedSpikeDeriveBrianersList',
 		'BrianedViewTraceBool',
+		'BrianedSpikesListsList',
 		'BrianedTitleBool',
 		'BrianedParentSingularStr',
 		'BrianedParentNetworkDeriveBrianerVariable',
