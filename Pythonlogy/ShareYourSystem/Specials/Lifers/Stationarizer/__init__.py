@@ -186,6 +186,7 @@ class StationarizerClass(BaseClass):
 			if type(self.StationarizingExternalCurrentMeanVariable)!=None.__class__:
 
 				#debug
+				'''
 				self.debug(
 					[
 						'We compute the non linear system to solve stationary rates',
@@ -194,6 +195,7 @@ class StationarizerClass(BaseClass):
 							])
 					]
 				)
+				'''
 
 				#/###################/#
 				# We dont want to compute perturbation here
@@ -262,11 +264,13 @@ class StationarizerClass(BaseClass):
 					if StabilizedOptimizeRoot.success and StabilizedErrorFloat<0.001:
 
 						#debug
+						'''
 						self.debug(
 							[
 								"It is a sucess !"
 							]
 						)
+						'''
 
 						#append
 						self.StationarizedRateFloatsArraysList.append(
@@ -291,6 +295,7 @@ class StationarizerClass(BaseClass):
 
 
 				#debug
+				'''
 				self.debug(
 					[
 						"In the end ",
@@ -301,7 +306,8 @@ class StationarizerClass(BaseClass):
 							])
 					]
 				)
-			
+				'''
+
 		else:
 
 			#/########################/#
@@ -378,7 +384,7 @@ class StationarizerClass(BaseClass):
 
 			#alias
 			self.StationarizedMeanWeightFloatsList=np.array(
-				self.StationarizingWeightVariable
+				self.StationarizingMeanWeightVariable
 			)
 
 			#set
@@ -441,6 +447,11 @@ class StationarizerClass(BaseClass):
 
 			#set
 			self.StationarizedPopulationTagStrsList=self.StationarizingPopulationTagVariable
+
+		#set
+		self.StationarizedMeanWeightFloatsArray = np.array(
+				self.StationarizingMeanWeightVariable
+			)
 
 		#/###################/#
 		# Check for Populations
@@ -514,12 +525,14 @@ class StationarizerClass(BaseClass):
 		)
 
 		#debug
+		'''
 		self.debug(
 			[
 				"self.StationarizedNetworkDeriveStationarizerVariable.StationarizedMeanWeightFloatsList is ",
 				str(self.StationarizedNetworkDeriveStationarizerVariable.StationarizedMeanWeightFloatsList)
 			]
 		)
+		'''
 
 		#/#############/#
 		# Get the mean of the weights
@@ -545,6 +558,7 @@ class StationarizerClass(BaseClass):
 			)
 
 		#debug
+		'''
 		self.debug(
 			[
 				"Now",
@@ -553,6 +567,7 @@ class StationarizerClass(BaseClass):
 					])
 			]
 		)
+		'''
 
 		#/#############/#
 		# Get the std of the weights
@@ -797,24 +812,8 @@ class StationarizerClass(BaseClass):
 			)
 
 			#/################/#
-			# Build an Eigen Panel with Charts
+			# Build a plot of the isolate transfer
 			#
-
-			#get
-			ViewedChartDerivePyploter = ViewedPanelsDerivePyploter.getManager(
-				'Transfer',
-				_IndexInt=1
-			).getTeamer(
-				'Charts'
-			).getManager(
-				'Isolate'
-			)
-
-			ViewedDrawDerivePyploter=ViewedChartDerivePyploter.getTeamer(
-				'Draws'
-			).getManager(
-				'Default'
-			)
 
 			#map
 			StationarizedFrequencyFloatsArray=SYS.numpy.array(
@@ -856,8 +855,30 @@ class StationarizerClass(BaseClass):
 			)
 			'''
 
+			#get
+			ViewedChartsDerivePyploter = ViewedPanelsDerivePyploter.getManager(
+				'NeuralFunction',
+				_IndexInt=1
+			).getTeamer(
+				'Charts'
+			)
+
+			#
+			# Amplitude
+			#
+
+			ViewedAmplitudeChartDerivePyploter=ViewedChartsDerivePyploter.getManager(
+				'Amplitude'
+			)
+
+			ViewedAmplitudeDrawDerivePyploter=ViewedAmplitudeChartDerivePyploter.getTeamer(
+				'Draws'
+			).getManager(
+				'Default'
+			)
+
 			#set
-			ViewedDrawDerivePyploter.PyplotingDrawVariable=[
+			ViewedAmplitudeDrawDerivePyploter.PyplotingDrawVariable=[
 				(	
 					'plot',
 					{
@@ -874,7 +895,7 @@ class StationarizerClass(BaseClass):
 				)
 			]
 
-			ViewedChartDerivePyploter.PyplotingChartVariable=[
+			ViewedAmplitudeChartDerivePyploter.PyplotingChartVariable=[
 				(
 					'plot',
 					{
@@ -890,7 +911,43 @@ class StationarizerClass(BaseClass):
 					}
 				),
 				('set_xscale','log')
-			]	
+			]
+
+			#
+			# Phase
+			#
+
+			ViewedPhaseChartDerivePyploter=ViewedChartsDerivePyploter.getManager(
+				'Phase'
+			)
+
+			ViewedPhaseDrawDerivePyploter=ViewedPhaseChartDerivePyploter.getTeamer(
+				'Draws'
+			).getManager(
+				'Default'
+			)
+
+			#set
+			ViewedPhaseDrawDerivePyploter.PyplotingDrawVariable=[
+				(	
+					'plot',
+					{
+						'#liarg':[
+							StationarizedFrequencyFloatsArray,
+							SYS.getArgumentVariable(LifedPerturbationMeanComplexesArray)
+						],
+						'#kwarg':{
+							'linestyle':'-',
+							'linewidth':5,
+							'color':"blue"
+						}
+					}
+				)
+			]
+
+			ViewedPhaseChartDerivePyploter.PyplotingChartVariable=[
+				('set_xscale','log')
+			]
 
 		#call the base method
 		BaseClass.view(self)

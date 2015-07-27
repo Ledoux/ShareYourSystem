@@ -13,7 +13,7 @@
 #<DefineAugmentation>
 import ShareYourSystem as SYS
 import types
-BaseModuleStr="ShareYourSystem.Standards.Recorders.Leaker"
+BaseModuleStr="ShareYourSystem.Specials.Lifers.Stabilizer"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 SYS.addDo('Transferer','Transfer','Transfering','Transfered')
@@ -33,62 +33,19 @@ import numpy as np
 class TransfererClass(BaseClass):
 	
 	def default_init(self,
-			_TransferingUnitsInt = 1,
-			_TransferingLateralWeightVariable = None,
-			_TransferingConstantTimeVariable = 0.02, 
-			_TransferingDelayTimeVariable = 0.002,
-			_TransferingDecayTimeVariable = 0.,
-			_TransferingRiseTimeVariable = 0.,
-			_TransferingNormalisationInt= 0.5,
-			_TransferingPerturbationEnvelopBool=True,
-			_TransferingDoStationaryBool=True,
-			_TransferingDoStabilityBool=True,
-			_TransferingDoTransferBool=False,
-			_TransferingInteractionStr="Rate",
-			_TransferingRestVariable=-48.,
-			_TransferingStabilityScanFrequencyVariable=None,
-			_TransferingTransferScanFrequencyVariable=None,
-			_TransferingTransferCurrentVariable=None,
-			_TransferedLateralWeightFloatsArray=None,
-			_TransferedMeanfieldWeightFloat=0.,
-			_TransferedHalfHeightFloat=0.,
-			_TransferedLateralHalfWidthFloat=0., 
-			_TransferedLateralContourComplexesArray=None,
-			_TransferedEigenComplex=None,
-			_TransferedEigenvalueComplexesArray=None,
-			_TransferedInstabilityIndexInt=-1,
-			_TransferedInstabilityComplex=None,
-			_TransferedInstabilityLambdaFloatsTuple=None,
-			_TransferedInstabilityFrequencyFloat=0.,
-			_TransferedIsStableBool=True,
-			_TransferedInstablesInt=0,
-			_TransferedInstabilityStr="",
-			_TransferedStdSparseFloat=0.,
-			_TransferedParentSingularStr="",
-			_TransferedIndexIntsTuplesList=None,
-			_TransferedPerturbationNullVariable=None,
-			_TransferedPerturbationWeightFloatsArray=None,
-			_TransferedConstantTimeVariable=None,
-			_TransferedDelayTimeVariable=None,
-			_TransferedDecayTimeVariable=None,
-			_TransferedRiseTimeVariable=None,
-			_TransferedPerturbationComplex=None,
-			_TransferedNeuralPerturbationComplex=None,
-			_TransferedSynapticPerturbationComplexesArray=None,
-			_TransferedSynapticPerturbationMethodVariable=None,
-			_TransferedNeuralPerturbationMethodVariable=None,
-			_TransferedTotalPerturbationComplexesArray=None,
-			_TransferedFlatTotalPerturbationComplexesArray=None,
-			_TransferedDeterminantFunctionVariable=None,
-			_TransferedDeterminantFloatsTuple=None,
-			_TransferedStabilityScanFrequencyFloatsArray=None,
-			_TransferedOptimizeRoot=None,
-			_TransferedTransferScanFrequencyFloatsArray=None,
-			_TransferedTransferCurrentFloatsArray=None,
-			_TransferedTransferRateComplexesArray=None,
-			_TransferedTransferRateAmplitudeFloatsArray=None,
-			_TransferedTransferRatePhaseFloatsArray=None,
-			_TransferedAgentDeriveTransfererVariable=None,
+			_TransferingCurrentVariable = None,
+			_TransferingScanFrequencyVariable = None,
+			_TransferingSampleInt = 100,
+			_TransferingColorStrsList = None,
+			_TransferingLabelStrsList = None,
+			_TransferedCurrentFloatsArray = None,
+			_TransferedScanFrequencyFloatsArray = None,
+			_TransferedRateComplexesArray = None,
+			_TransferedRateAmplitudeFloatsArray = None,
+			_TransferedRatePhaseFloatsArray = None,
+			_TransferedNormRateAmplitudeFloatsArray = None,
+			_TransferedNormRatePhaseFloatsArray = None,
+			_TransferedParentSingularStr = "",
 			_TransferedNetworkDeriveTransfererVariable=None,
 			**_KwargVariablesDict
 		):
@@ -97,7 +54,6 @@ class TransfererClass(BaseClass):
 		#Call the parent init method
 		BaseClass.__init__(self,**_KwargVariablesDict)
 
-	
 	def do_transfer(self):
 
 		#/#################/#
@@ -261,1016 +217,584 @@ class TransfererClass(BaseClass):
 	
 	def transferNetwork(self):
 
-		#/###################/#
-		# Check for Populations
-		# 
-
-		#get
-		TransferedPopulationsDeriveManager=self.getTeamer(
-			"Populations"
-		)
-
 		#debug
 		'''
 		self.debug(
 			[
-				'We predict network here',
-			]
-		)
-		'''
-
-		#/###############/#
-		# Set implication
-		#
-
-		#set
-		self.TransferingDoStabilityBool=True
-
-
-		#debug
-		'''
-		self.debug(
-			[
-				'We know already the weigth matrix'
-			]
-		)
-		'''
-
-		#import
-		import numpy as np
-
-		#alias
-		self.TransferedLateralWeightFloatsArray=np.array(
-			self.TransferingLateralWeightVariable
-		)
-
-		#set
-		self.TransferingUnitsInt=len(self.TransferedLateralWeightFloatsArray)
-
-		#/###################/#
-		# Determine the time constant structure
-		# 
-
-		#map
-		map(
-			lambda __TimeStr:
-			self.setTimeFloatsArray(
-				__TimeStr
-			),
-			[
-				'Constant',
-				'Delay',
-				'Decay',
-				'Rise'
-			]
-		)
-
-		#/###################/#
-		# Determine the stationary solutions
-		# 
-
-		#Check
-		if self.TransferingDoStationaryBool:
-
-			#debug
-			"""
-			self.debug(
-				[
-					'We compute the stationary solutions'
-				]
-			)
-			"""
-
-		#/###################/#
-		# Determine the perturb solutions
-		# 
-
-		#Check
-		if self.TransferingDoStabilityBool:
-
-			#Check
-			if self.TransferingInteractionStr=="Rate":
-
-				#ones
-				#self.TransferedPerturbationNullVariable=np.ones(
-				#	self.TransferingUnitsInt
-				#)
-
-				self.TransferedPerturbationNullVariable=1.
-
-			elif self.LeakingInteractionStr=="Spike":
-
-				#set
-				self.LifingConstantTimeFloat = self.LeakingTimeVariable
-				self.LifingVoltageResetFloat = self.LeakingResetVariable
-				self.LifingVoltageThresholdFloat = self.LeakingThresholdVariable
-				self.LifingStationaryCurrentFloat = 0.
-				#self.LifingVoltageNoiseFloat = self.Transfering
-				#self.Lifing
-
-			#debug
-			'''
-			self.debug(
-				[
-					'We compute the TransferedPerturbationWeightFloatsArray',
-					('self.',self,[
-							'TransferedLateralWeightFloatsArray',
-							'TransferedPerturbationNullVariable',
-							'TransferedConstantTimeVariable'
-						])
-				]
-			)
-			'''
-
-			#set
-			self.TransferedPerturbationWeightFloatsArray=self.TransferedLateralWeightFloatsArray[
-				:
-			]
-
-			#mul
-			SYS.setMatrixArray(
-				self.TransferedPerturbationWeightFloatsArray,
-				self.TransferedPerturbationNullVariable,
-				np.ndarray.__mul__
-			)
-
-			#mul
-			SYS.setMatrixArray(
-				self.TransferedPerturbationWeightFloatsArray,
-				self.TransferedConstantTimeVariable,
-				np.ndarray.__mul__
-			)
-
-			#debug
-			'''
-			self.debug(
-				[
-					'In the end',
-					('self.',self,[
-							'TransferedPerturbationWeightFloatsArray'
-						])
-				]
-			)
-			'''
-
-			#Check
-			if SYS.getIsNullBool(
-				self.TransferedRiseTimeVariable
-			):
-
-				#Check
-				if SYS.getIsNullBool(
-					self.TransferedDecayTimeVariable
-				):
-					
-					#Check
-					if SYS.getIsNullBool(
-						self.TransferedDelayTimeVariable
-					):
-
-						#set
-						self.TransferedSynapticPerturbationMethodVariable=None
-
-					else:
-
-						#set
-						self.TransferedSynapticPerturbationMethodVariable=self.getSynapticDelayPerturbationVariable
-
-				else:
-
-					#set
-					self.TransferedSynapticPerturbationMethodVariable=self.getSynapticDecayPerturbationVariable
-
-			else:
-
-				#set
-				self.TransferedSynapticPerturbationMethodVariable=self.getSynapticRisePerturbationVariable
-
-			#get
-			self.TransferedNeuralPerturbationMethodVariable=getattr(
-				self,
-				'get'+self.TransferingInteractionStr+'NeuralPerturbationComplex'
-			)
-
-			#import 
-			import itertools
-
-			#list
-			self.TransferedIndexIntsTuplesList=list(
-				itertools.product(
-					xrange(self.TransferingUnitsInt),
-					xrange(self.TransferingUnitsInt)
-				)
-			)
-
-			#debug
-			'''
-			self.debug(
-				[
-					'We set a one root get',
-					('self.',self,[
-							'TransferedIndexIntsTuplesList'
-						])	
-				]
-			)
-			self.getGlobalPerturbationRootFloatsTuple(
-								(0.1,2.*np.pi*1.)
-							)
-			'''
-
-			#import
-			from numpy import linalg
-
-			#set
-			self.TransferedDeterminantFunctionVariable=linalg.det
-
-			#/################/#
-			# Look for a rate instability
-			#
-
-			TransferedRateDetermintantFloatsTuple=self.getGlobalPerturbationRootFloatsTuple(
-				(0.,0.)
-			)
-
-			#get
-			self.TransferedIsStableBool=TransferedRateDetermintantFloatsTuple[0]>0.
-
-			#debug
-			""""
-			self.debug(
-				[
-					'Is it rate instable ?',
-					"TransferedRateDetermintantFloatsTuple is "+str(TransferedRateDetermintantFloatsTuple),
-					('self.',self,[
-							'TransferedTotalPerturbationComplexesArray',
-							'TransferedFlatTotalPerturbationComplexesArray',
-							'TransferedIsStableBool'
-						])
-				]
-			)
-			"""
-
-			#Check
-			if self.TransferedIsStableBool:
-
-				#import 
-				import scipy.optimize
-
-				#debug
-				"""
-				self.debug(
-					[
-						"There is no rate instability so we do a Hopf scan analysis",
-						('self.',self,['TransferingStabilityScanFrequencyVariable'])
-					]
-				)
-				"""
-
-				#type
-				TransferedScanType=type(self.TransferingStabilityScanFrequencyVariable)
-
-				#Check
-				if TransferedScanType==None.__class__:
-
-					#Check
-					self.TransferedStabilityScanFrequencyFloatsArray=np.logspace(0,3,10)
-
-				elif TransferedScanType in [np.float64,float]:
-
-					#Check
-					self.TransferedStabilityScanFrequencyFloatsArray=np.array(
-						[self.TransferingStabilityScanFrequencyVariable]
-					)
-
-				else:
-
-					#Check
-					self.TransferedStabilityScanFrequencyFloatsArray=np.array(
-						self.TransferingStabilityScanFrequencyVariable
-					)
-
-				#debug
-				"""
-				self.debug(
-					[
-						('self.',self,['TransferedStabilityScanFrequencyFloatsArray'])
-					]
-				)
-				"""
-
-				#loop
-				for __ScanFrequencyFloat in self.TransferedStabilityScanFrequencyFloatsArray:
-				#for __ScanFrequencyFloat in [100.]:
-
-					#debug
-					'''
-					self.debug(
-						[
-							'We try to find an instability around '+str(__ScanFrequencyFloat)+'Hz'
-						]
-					)
-					'''
-
-					#Get the solve of the ScipyOptimizeRoot
-					TransferedOptimizeRoot=scipy.optimize.root(
-							self.getGlobalPerturbationRootFloatsTuple,
-							(-0.1,2.*np.pi*__ScanFrequencyFloat),
-							#method='lm',
-							#tol=0.001
-							options={
-										#'maxiter':1000,
-										#'ftol':0.001,
-										#'direc':np.array([-0.1,0.1])
-									},
-						)
-
-					#debug
-					"""
-					self.debug(
-						[
-							'TransferedOptimizeRoot is ',
-							str(TransferedOptimizeRoot)
-						]
-					)
-					"""
-
-					#set
-					self.TransferedOptimizeRoot=TransferedOptimizeRoot
-
-					#Check
-					if TransferedOptimizeRoot.success:
-
-						#Check
-						if TransferedOptimizeRoot.x[0]>0.:
-
-							#set
-							self.TransferedIsStableBool=False
-
-							#set
-							self.TransferedInstabilityStr="Hopf"
-
-							#set
-							self.TransferedInstabilityLambdaFloatsTuple=tuple(
-								TransferedOptimizeRoot.x
-							)
-
-							#set
-							self.TransferedInstabilityFrequencyFloat=self.TransferedInstabilityLambdaFloatsTuple[1]/(
-								2.*np.pi
-							)
-
-							#break
-							break
-
-
-				#/################/#
-				# Do tranfer maybe
-				#
-
-				#Check
-				if self.TransferingDoTransferBool:
-
-					#debug
-					'''
-					self.debug(
-						[
-							"We compute transfer here",
-							('self.',self,[
-									'TransferingTransferCurrentVariable'
-								])
-						]
-					)
-					'''
-
-					#type
-					TransferedTransferCurrentType=type(
-						self.TransferingTransferCurrentVariable
-					)
-
-					#Check
-					if TransferedTransferCurrentType==None.__class__:
-
-						#array
-						self.TransferedTransferCurrentFloatsArray=[1.]*self.TransferingUnitsInt
-
-					elif TransferedTransferCurrentType in [np.float64,float]:
-
-						#array
-						self.TransferedTransferCurrentFloatsArray=[
-								self.TransferingTransferCurrentVariable
-							]*self.TransferingUnitsInt
-
-					else:
-
-						#array
-						self.TransferedTransferCurrentFloatsArray=self.TransferingTransferCurrentVariable
-
-					#array
-					self.TransferedTransferCurrentFloatsArray=np.array(
-						self.TransferedTransferCurrentFloatsArray
-					)
-
-					#import 
-					import scipy.linalg
-
-					#debug
-					"""
-					self.debug(
-						[
-							"we do a transfer scan analysis",
-							('self.',self,['TransferingTransferScanFrequencyVariable'])
-						]
-					)
-					"""
-
-					#type
-					TransferedScanType=type(self.TransferingTransferScanFrequencyVariable)
-
-					#Check
-					if TransferedScanType==None.__class__:
-
-						#Check
-						self.TransferedTransferScanFrequencyFloatsArray=np.logspace(0,3,10)
-
-					elif TransferedScanType in [np.float64,float]:
-
-						#Check
-						self.TransferedTransferScanFrequencyFloatsArray=np.array(
-							[self.TransferingTransferScanFrequencyVariable]
-						)
-
-					else:
-
-						#Check
-						self.TransferedTransferScanFrequencyFloatsArray=np.array(
-							self.TransferingTransferScanFrequencyVariable
-						)
-
-					#debug
-					"""
-					self.debug(
-						[
-							('self.',self,['TransferedTransferScanFrequencyFloatsArray'])
-						]
-					)
-					"""
-
-					#init
-					self.TransferedTransferRateComplexesArray=np.zeros(
-							(
-								self.TransferingUnitsInt,
-								len(self.TransferedTransferScanFrequencyFloatsArray)
-							),
-							dtype=complex
-						)
-					self.TransferedTransferRateAmplitudeFloatsArray=np.zeros(
-							(
-								self.TransferingUnitsInt,
-								len(self.TransferedTransferScanFrequencyFloatsArray)
-							),
-							dtype=float
-						)
-					self.TransferedTransferRatePhaseFloatsArray=np.zeros(
-							(
-								self.TransferingUnitsInt,
-								len(self.TransferedTransferScanFrequencyFloatsArray)
-							),
-							dtype=float
-						)
-
-					#loop
-					for __IndexInt,__ScanFrequencyFloat in enumerate(
-						self.TransferedTransferScanFrequencyFloatsArray
-					):
-
-						#set
-						self.TransferedPerturbationComplex=1j*2.*np.pi*__ScanFrequencyFloat
-
-						#set
-						self.setTransferedTotalPerturbationComplexesArray()
-
-						#solve
-						TransferedTransferRateComplexesArray = scipy.linalg.solve(
-							self.TransferedTotalPerturbationComplexesArray,
-							self.TransferedTransferCurrentFloatsArray
-						)
-
-						#lu
-						self.TransferedTransferRateComplexesArray[
-							:,
-							__IndexInt
-						]=TransferedTransferRateComplexesArray
-
-						#amp and phase
-						self.TransferedTransferRateAmplitudeFloatsArray[
-							:,
-							__IndexInt
-						]=np.abs(
-							TransferedTransferRateComplexesArray
-						)
-						self.TransferedTransferRatePhaseFloatsArray[
-							:,
-							__IndexInt
-						]=np.angle(
-							TransferedTransferRateComplexesArray
-						)
-
-					#debug
-					'''
-					self.debug(
-						[
-							'after the solve decomposition',
-							('self.',self,[
-								'TransferedTransferCurrentFloatsArray',
-								'TransferedTransferRateComplexesArray',
-								'TransferedTransferRateAmplitudeFloatsArray',
-								'TransferedTransferRatePhaseFloatsArray'
-							])	
-						]
-					)
-					'''
-
-					#find the Extremum
-					self.NumscipiedFourierFrequencyFloatsArray=self.TransferedTransferScanFrequencyFloatsArray
-					self.NumscipiedFourierAmplitudeFloatsArray=self.TransferedTransferRateAmplitudeFloatsArray
-					self.NumscipiedFourierPhaseFloatsArray=self.TransferedTransferRatePhaseFloatsArray
-					self.setExtremum()
-
-					#debug
-					self.debug(
-						[
-							('self.',self,[ 
-									'NumscipiedFourierMaxTupleFloatsArray',
-									'NumscipiedFourierMaxCrossPhaseFloatsArray'
-								])
-						]
-					)
-
-			else:
-
-				#set
-				self.TransferedInstabilityStr="Rate"
-
-			#debug
-			'''
-			self.debug(
-				[
-					'In the end ',
-					('self.',self,[
-						'TransferedTotalPerturbationComplexesArray',
-						'TransferedDeterminantFloatsTuple',
-						'TransferedIsStableBool',
-						'TransferedInstabilityStr',
-						'TransferedInstabilityLambdaFloatsTuple',
-						'TransferedInstabilityFrequencyFloat'
+				"We compute transfer here",
+				('self.',self,[
+						'TransferingCurrentVariable'
 					])
-				]
-			)
-			'''
-				
-	def setTimeFloatsArray(self,_KeyStr):
-
-		#get
-		TransferingTimeVariable=getattr(
-			self,
-			'Transfering'+_KeyStr+'TimeVariable'
+			]
 		)
+		'''
 
 		#type
-		TransferedTimeType=type(TransferingTimeVariable)
+		TransferedCurrentType=type(
+			self.TransferingCurrentVariable
+		)
 
 		#Check
-		if TransferedTimeType in [list,np.array]:
+		if TransferedCurrentType==None.__class__:
 
 			#array
-			setattr(
-				self,
-				'Transfered'+_KeyStr+'TimeVariable',
-				np.array(
-					TransferingTimeVariable
-				)
-			)
+			self.TransferedCurrentFloatsArray=[1.]*self.StationarizingUnitsInt
+
+		elif TransferedCurrentType in [np.float64,float]:
+
+			#array
+			self.TransferedCurrentFloatsArray=[
+					self.TransferingCurrentVariable
+				]*self.StationarizingUnitsInt
 
 		else:
 
 			#array
-			setattr(
-				self,
-				'Transfered'+_KeyStr+'TimeVariable',
-				#np.array(
-					#[TransferingTimeVariable]*self.TransferingUnitsInt
-				#)	
-				TransferingTimeVariable
-			)
+			self.TransferedCurrentFloatsArray=self.TransferingCurrentVariable
 
-	def getSynapticDelayPerturbationVariable(self,_PerturbationComplex):
-
-		#debug
-		'''
-		self.debug(
-			[
-				('self.',self,[
-						'TransferedDelayTimeVariable'
-					]),
-				'_PerturbationComplex is '+str(_PerturbationComplex)
-			]
+		#array
+		self.TransferedCurrentFloatsArray=np.array(
+			self.TransferedCurrentFloatsArray
 		)
-		'''
 
-		#return
-		return SYS.setMatrixArray(
-					np.ones(
-								(self.TransferingUnitsInt,self.TransferingUnitsInt),
-								dtype=complex
-							),
-					np.exp(
-						-self.TransferedDelayTimeVariable*_PerturbationComplex
-					),
-					np.ndarray.__mul__,
-					_AxisInt=1
-				)
-
-
-	def getSynapticDecayPerturbationVariable(self,_PerturbationComplex):
-
-		#debug
-		'''
-		self.debug(
-			[
-				('self.',self,[
-						'TransferedDecayTimeVariable',
-					]),
-				'_PerturbationComplex is '+str(_PerturbationComplex)
-			]
-		)
-		'''
-
-		#return
-		return SYS.setMatrixArray(
-					SYS.setMatrixArray(
-						self.getSynapticDelayPerturbationVariable(_PerturbationComplex),
-						1.+self.TransferedDecayTimeVariable*_PerturbationComplex,
-						np.ndarray.__div__,
-						_AxisInt=1
-					),
-					1.+self.TransferedRiseTimeVariable*_PerturbationComplex,
-					np.ndarray.__div__,
-					_AxisInt=1
-				)
-
-	def getSynapticRisePerturbationVariable(self,_PerturbationComplex):
-
-		#debug
-		'''
-		self.debug(
-			[
-				('self.',self,[
-						'TransferedRiseTimeVariable'
-					]),
-				'_PerturbationComplex is '+str(_PerturbationComplex)
-			]
-		)
-		'''
-
-		#return
-		return SYS.setMatrixArray(
-					self.getSynapticRisePerturbationVariable(_PerturbationComplex),
-					1.+self.TransferedRiseTimeVariable*_PerturbationComplex,
-					np.ndarray.__div__,
-					_AxisInt=1
-				)			
-
-	def getSynapticPerturbationVariable(self,_PerturbationComplex):
-
-		#debug
-		'''
-		self.debug(
-			[
-				('self.',self,[
-						'TransferedDelayTimeVariable',
-						'TransferedDecayTimeVariable',
-						'TransferedRiseTimeVariable'
-					]),
-				'_PerturbationComplex is '+str(_PerturbationComplex)
-			]
-		)
-		'''
-
-		#return
-		return SYS.setMatrixArray(
-					SYS.setMatrixArray(
-						SYS.setMatrixArray(
-							np.ones(
-										(self.TransferingUnitsInt,self.TransferingUnitsInt),
-										dtype=complex
-									),
-							np.exp(
-								-self.TransferedDelayTimeVariable*_PerturbationComplex
-							),
-							np.ndarray.__mul__,
-							_AxisInt=1
-						),
-						1.+self.TransferedDecayTimeVariable*_PerturbationComplex,
-						np.ndarray.__div__,
-						_AxisInt=1
-					),
-					1.+self.TransferedRiseTimeVariable*_PerturbationComplex,
-					np.ndarray.__div__,
-					_AxisInt=1
-				)
-
-	def getRateNeuralPerturbationComplex(self,_PerturbationComplex):
+		#import 
+		import scipy.linalg
 
 		#debug
 		"""
 		self.debug(
 			[
-				('self.',self,[
-						'TransferedPerturbationNullVariable',
-					]),
-				'_PerturbationComplex is '+str(_PerturbationComplex)
+				"we do a transfer scan analysis",
+				('self.',self,['TransferingScanFrequencyVariable'])
 			]
 		)
 		"""
 
-		#return
-		return self.TransferedPerturbationNullVariable/(
-			1.+_PerturbationComplex*self.TransferedConstantTimeVariable
-		)
-
-	def getLeakNeuralPerturbationComplex(self,_PerturbationComplex):
-
-		#debug
-		'''
-		self.debug(
-			[
-				('self.',self,[
-						'TransferedConstantTimeVariable'
-					]),
-				'_PerturbationComplex is '+str(_PerturbationComplex)
-			]
-		)
-		'''
-
-		#return
-		return 1.+_PerturbationComplex*self.TransferedConstantTimeVariable
-
-	def getSpikeNeuralPerturbationComplex(self,_PulsationVariable):
-
-		#debug
-		self.debug(
-			[
-				'We call the lif perturb function'
-			]
-		)
-
-		#lif
-		self.lif(
-			_PerturbationLambdaVariable=_PulsationVariable,
-			_PerturbationMethodStr='Brunel'
-		)
-
-		#return
-		return self.LifedPerturbationMeanComplexVariable
-
-	def setTransferedTotalPerturbationComplexesArray(self):
-
-		#/###############/#
-		# Prepare the complex pulsation perturbation
-		# init TransferedTotalPerturbationComplexesArray
-
-		#alias
-		PerturbationComplex=self.TransferedPerturbationComplex
-
-		#copy
-		self.TransferedTotalPerturbationComplexesArray=-np.array(
-			self.TransferedPerturbationWeightFloatsArray[:],
-			dtype=complex
-		)
-
-		#/###############/#
-		# Synaptic coupling
-		#
-
-		"""
-		#exp
-		self.TransferedSynapticPerturbationVariable=self.getSynapticPerturbationVariable(
-				PerturbationComplex
-			)
-
-		#debug
-		self.debug(
-			[
-				('self.',self,[
-						'TransferedSynapticPerturbationVariable'
-					])
-			]
-		)
-		"""
+		#type
+		TransferedScanType=type(self.TransferingScanFrequencyVariable)
 
 		#Check
-		if self.TransferedSynapticPerturbationMethodVariable!=None:
+		if TransferedScanType==None.__class__:
 
-			#mul
-			SYS.setMatrixArray(
-				self.TransferedTotalPerturbationComplexesArray,
-				self.TransferedSynapticPerturbationMethodVariable(
-					PerturbationComplex
-				),
-				np.ndarray.__mul__
+
+
+			#Check
+			self.TransferedScanFrequencyFloatsArray=np.logspace(
+				0,
+				3,
+				self.TransferingSampleInt
+			)
+
+		elif TransferedScanType in [np.float64,float]:
+
+			#Check
+			self.TransferedScanFrequencyFloatsArray=np.array(
+				[self.TransferingScanFrequencyVariable]
+			)
+
+		else:
+
+			#Check
+			self.TransferedScanFrequencyFloatsArray=np.array(
+				self.TransferingScanFrequencyVariable
 			)
 
 		#debug
-		'''
-		self.debug(
-			[
-				'Ok we have mul the synaptic coupling',
-				('self.',self,[
-						'TransferedTotalPerturbationComplexesArray'
-					])
-			]
-		)
-		'''
-
-		#/###############/#
-		# Neural response coupling
-		#
-
-		#exp
-		self.TransferedNeuralPerturbationComplex=self.TransferedNeuralPerturbationMethodVariable(
-			PerturbationComplex
-		)
-
-		#debug
 		"""
 		self.debug(
 			[
-				('self.',self,[
-						'TransferedNeuralPerturbationComplex',
-						'TransferedNeuralPerturbationMethodVariable'
-					])
+				('self.',self,['TransferedScanFrequencyFloatsArray'])
 			]
 		)
 		"""
 
-		#mul
-		SYS.setMatrixArray(
-			self.TransferedTotalPerturbationComplexesArray,
-			self.TransferedNeuralPerturbationMethodVariable(
-				PerturbationComplex
-			),
-			np.ndarray.__mul__
+		#init
+		self.TransferedRateComplexesArray=np.zeros(
+				(
+					self.StationarizingUnitsInt,
+					len(self.TransferedScanFrequencyFloatsArray)
+				),
+				dtype=complex
+			)
+		self.TransferedRateAmplitudeFloatsArray=np.zeros(
+				(
+					self.StationarizingUnitsInt,
+					len(self.TransferedScanFrequencyFloatsArray)
+				),
+				dtype=float
+			)
+		self.TransferedRatePhaseFloatsArray=np.zeros(
+				(
+					self.StationarizingUnitsInt,
+					len(self.TransferedScanFrequencyFloatsArray)
+				),
+				dtype=float
+			)
+
+		#get
+		self.StabilizedNeuralPerturbationMethodVariable=getattr(
+			self,
+			'get'+self.StationarizingInteractionStr+'NeuralPerturbationVariable'
+		)
+
+		#map
+		map(
+			lambda __IndexInt,__ScanFrequencyFloat:
+			self.setTransfer(__IndexInt,__ScanFrequencyFloat),
+			xrange(len(self.TransferedScanFrequencyFloatsArray)),
+			self.TransferedScanFrequencyFloatsArray
 		)
 
 		#debug
 		'''
 		self.debug(
 			[
-				'Ok we have mul the neural coupling',
+				'after the solve decomposition',
 				('self.',self,[
-						'TransferedTotalPerturbationComplexesArray'
-					])
+					'TransferedScanFrequencyFloatsArray',
+					'TransferedCurrentFloatsArray',
+					'TransferedRateComplexesArray',
+					#'TransferedRateAmplitudeFloatsArray',
+					#'TransferedRatePhaseFloatsArray'
+				])	
 			]
 		)
 		'''
 
-		#/###############/#
-		# fill diagonal with also the leak identity term
-		#
-
-		"""
-		#fill
-		np.fill_diagonal(
-			self.TransferedTotalPerturbationComplexesArray,
-			self.getLeakNeuralPerturbationComplex(
-					PerturbationComplex
-				)+np.diag(
-					self.TransferedTotalPerturbationComplexesArray
-				)
-		)
-		"""
-
-		#fill
-		np.fill_diagonal(
-			self.TransferedTotalPerturbationComplexesArray,
-			1.+np.diag(
-					self.TransferedTotalPerturbationComplexesArray
-				)
-		)
-
-
-		#/###############/#
-		# multiply all by the LeakNeuralPerturbationVariable
-		#
-
-		#get the numerator leak term
-		TransferedLeakNeuralPerturbationVariable=self.getLeakNeuralPerturbationComplex(PerturbationComplex)
-
-		#mul
-		self.TransferedFlatTotalPerturbationComplexesArray=SYS.setMatrixArray(
-			self.TransferedTotalPerturbationComplexesArray.T,
-			TransferedLeakNeuralPerturbationVariable,
-			np.ndarray.__mul__
-		).T
+		#find the Extremum
+		self.NumscipiedFourierFrequencyFloatsArray = self.TransferedScanFrequencyFloatsArray
+		self.NumscipiedFourierAmplitudeFloatsArray = self.TransferedRateAmplitudeFloatsArray
+		self.NumscipiedFourierPhaseFloatsArray = self.TransferedRatePhaseFloatsArray
+		self.setCrossPhase()
+		self.setExtremum()
 
 		#debug
-		"""
 		self.debug(
 			[
-				"PerturbationComplex is "+str(PerturbationComplex),
-				"TransferedLeakNeuralPerturbationVariable is "+str(TransferedLeakNeuralPerturbationVariable),
-				('self.',self,[
-						'TransferedTotalPerturbationComplexesArray',
-						'TransferedFlatTotalPerturbationComplexesArray'
+				('self.',self,[ 
+						'NumscipiedFourierMaxTupleFloatsArray',
+						'NumscipiedFourierMaxCrossPhaseFloatsArray'
 					])
 			]
 		)
-		"""
 
-	def getGlobalPerturbationRootFloatsTuple(self,_PerturbationFloatsTuple):
+	def setTransfer(self,__IndexInt,__ScanFrequencyFloat):
 
-		#pack
-		self.TransferedPerturbationComplex=_PerturbationFloatsTuple[
-			0
-		]+1j*_PerturbationFloatsTuple[
-			1
-		]
-
-		#set
-		self.setTransferedTotalPerturbationComplexesArray()
-
-		#/###############/#
-		# compute det
-		#
-
-		#det
-		TransferedDeterminantComplex=self.TransferedDeterminantFunctionVariable(
-			self.TransferedTotalPerturbationComplexesArray
-		)
-	
 		#debug
 		'''
 		self.debug(
 			[
-				'In the end ',
-				('self.',self,[
-						'TransferedTotalPerturbationComplexesArray'
-					]),
-				'PerturbationComplex is '+str(PerturbationComplex),
-				'TransferedDeterminantComplex is '+str(TransferedDeterminantComplex)
+				"We set transfer here",
+				'__ScanFrequencyFloat is '+str(__ScanFrequencyFloat)
 			]
 		)
 		'''
 
 		#set
-		self.TransferedDeterminantFloatsTuple=(
-			TransferedDeterminantComplex.real,
-			TransferedDeterminantComplex.imag
+		self.StabilizedPerturbationComplex=1j*2.*np.pi*__ScanFrequencyFloat
+
+		#debug
+		'''
+		self.debug(
+			[
+				"We set transfer here",
+				('self.',self,['StabilizedPerturbationComplex'])
+			]
+		)
+		'''
+
+		#set
+		self.setStabilizedTotalPerturbationComplexesArray()
+
+		#debug
+		'''
+		self.debug(
+			[
+				"We have setted the StabilizedTotalPerturbationComplexesArray",
+				('self.',self,[
+					'StabilizedTotalPerturbationComplexesArray',
+					'StabilizedNeuralPerturbationMethodVariable'
+				])
+			]
+		)
+		'''
+
+		#Set
+		TransferedNeuralCurrentFloatsArray=self.StabilizedNeuralPerturbationComplexesArray*self.TransferedCurrentFloatsArray
+
+		#solve
+		TransferedRateComplexesArray = scipy.linalg.solve(
+			self.StabilizedTotalPerturbationComplexesArray,
+			TransferedNeuralCurrentFloatsArray
 		)
 
-		#return
-		return self.TransferedDeterminantFloatsTuple
+		#lu
+		self.TransferedRateComplexesArray[
+			:,
+			__IndexInt
+		]=TransferedRateComplexesArray
 
+		#amp and phase
+		self.TransferedRateAmplitudeFloatsArray[
+			:,
+			__IndexInt
+		]=np.abs(
+			TransferedRateComplexesArray
+		)
+		self.TransferedRatePhaseFloatsArray[
+			:,
+			__IndexInt
+		]=np.angle(
+			TransferedRateComplexesArray
+		)
 
-	def getStationaryRateRootFloat(self,_StationaryRateFloat):
-			
-		#return
-		return 0.
+		#debug
+		'''
+		self.debug(
+			[
+				"In the end",
+				('self.',self,[])
+			]
+		)
+		'''
 
-	def getStationarySpikeRootFloat(self,_StationaryRateFloat):
-			
-		#center
-		self.LifingStationaryCurrentFloat = 0.
+		#set
+		self.TransferedNormRateAmplitudeFloatsArray = np.copy(self.TransferedRateAmplitudeFloatsArray)
+		for IndexInt in xrange(len(self.TeamDict['Populations'].ManagementDict)):
+			self.TransferedNormRateAmplitudeFloatsArray[IndexInt,:]/=self.StationarizingRateVariable[IndexInt]
 
-		#noise
-		self.LifingVoltageNoiseFloat = self.TransferingStdWeightFloat *  self.TransferingConstantTimeVariable * _StationaryRateFloat
+		#set
+		self.TransferedNormRatePhaseFloatsArray = np.copy(self.TransferedRatePhaseFloatsArray)
+		for IndexInt in xrange(len(self.TeamDict['Populations'].ManagementDict)):
+			self.TransferedNormRatePhaseFloatsArray[IndexInt,:]*=(180./np.pi)
 
-		#lif
-		self.lif()
-
-		#return
-		return self.LifedStationaryRateFloat
-
-	"""
-	def getStationarySpikeRootFloatsTuple(self,_StationaryRateFloatsTuple):
-			
-		#center
-		LifingStationaryCurrentFloatsArray = np.dot(self.TransferedLateralWeightFloatsArray,_StationaryRateFloatsTuple)
-
-		#noise
-		LifingVoltageNoiseFloatsArray = self.TransferingStdWeightFloat *  self.TransferingConstantTimeVariable * _StationaryRateFloat
-
-		#lif
-		self.lif()
-
-		#return
-		return self.LifedStationaryRateFloat
-	"""
 
 	#/######################/#
 	# Augment view
 	#
 	
+	def viewNetwork(self):
+
+		#
+		# Maybe erase
+		#
+
+		del self.TeamDict['Panels']
+
+
+		#
+		# Plot the transfer functions
+		#
+
+		#Check 
+		if len(self.TransferingColorStrsList)!=self.StationarizingUnitsInt:
+
+			#set
+			self.TransferingColorStrsList = SYS.getColorTuplesList(
+					_FromColorStr='blue',
+					_ToColorStr='black',
+					_SampleInt=self.StationarizingUnitsInt,
+					_PlotBool=False
+				)
+
+		#Check
+		if len(self.TransferingLabelStrsList)!=self.StationarizingUnitsInt:
+
+			#set
+			self.TransferingLabelStrsList=map(
+				lambda _Variable:
+				_Variable.ManagementTagStr,
+				self.TeamDict['Populations'].ManagementDict.values()
+			)
+
+		#Debug
+		self.debug(
+			[
+				('self.',self,[
+						'TransferingColorStrsList',
+						'TransferingLabelStrsList'
+					])
+			]
+		)
+
+		#debug
+		'''
+		self.debug(
+			[
+				"We transfer view network here"
+			]
+		)
+		'''
+
+		#call
+		ViewedTransferVariable = self.getTeamer(
+				'Panels'
+			).getManager(
+				'Transfer'
+			)
+
+		ViewedChartsVariable=ViewedTransferVariable.getTeamer(
+				'Charts'
+			)
+
+		#xlim
+		xlimList =  [self.TransferedScanFrequencyFloatsArray[0],self.TransferedScanFrequencyFloatsArray[-1]]
+
+		#
+		# Amplitude
+		#
+
+		#plot
+		ViewedAmplitudeChartVariable = ViewedChartsVariable.getManager('Amplitude')
+
+		#get
+		ViewedAmplitudeDrawVariable = ViewedAmplitudeChartVariable.getTeamer(
+				'Draws'
+			).getManager('0')
+
+
+		#debug
+		self.debug(
+			[
+				('self.',self,[
+						'StationarizedRateFloatsArraysList',
+						'StationarizingRateVariable'
+					])
+			]
+		)
+
+		#set
+		yLimAmplitudeList=[
+			self.TransferedNormRateAmplitudeFloatsArray.min(),
+			self.TransferedNormRateAmplitudeFloatsArray.max()
+		]
+		yTickAmplitudeList=[0.,0.5,1.]
+
+		#map
+		ViewedAmplitudeDrawVariable.PyplotingDrawVariable = map(
+			lambda __IndexInt:
+			('plot',{
+					'#liarg':[
+						self.TransferedScanFrequencyFloatsArray,
+						self.TransferedNormRateAmplitudeFloatsArray[__IndexInt,:]
+					],
+					'#kwarg':{
+							'linestyle':'-',
+							'linewidth':5,
+							'color':self.TransferingColorStrsList[__IndexInt],
+							'label':self.TransferingLabelStrsList[__IndexInt]
+						}
+				}),
+			xrange(len(self.TeamDict['Populations'].ManagementDict))
+		)
+
+		#set log
+		ViewedAmplitudeChartVariable.PyplotingChartVariable=[
+				('set_xscale','log'),
+				('set_xlim',xlimList),
+				('set_xticklabels',[]),
+				('set_yticks',yTickAmplitudeList),
+				('set_yticklabels',map(lambda __Float:'$'+str(__Float)+'$',yTickAmplitudeList)),
+				('set_ylabel',"$amplitude\ r_{a1}/r_{a0}$")
+			]
+
+		ViewedAmplitudeChartVariable.PyplotingLegendDict={
+			'fontsize':10,
+			'ncol':2 if self.StationarizingUnitsInt>3 else 1
+		}
+
+		#
+		# Phase
+		#
+
+		#plot
+		ViewedPhaseChartVariable = ViewedChartsVariable.getManager('Phase')
+
+		#get
+		ViewedPhaseDrawVariable = ViewedPhaseChartVariable.getTeamer(
+				'Draws'
+			).getManager('0')
+
+		#set
+		#yLimPhaseList=[TransferedNormRatePhaseFloatsArray.min(),TransferedNormRatePhaseFloatsArray.max()]
+		yLimPhaseList=[-180.,180.]
+		yTickPhaseList=[-180,-90,0,90,180]
+
+		#map
+		ViewedPhaseDrawVariable.PyplotingDrawVariable = map(
+			lambda __IndexInt:
+			('plot',{
+					'#liarg':[
+						self.TransferedScanFrequencyFloatsArray,
+						#(180./np.pi)*np.array(map(
+						#	SYS.getArgumentVariable,
+						#	self.TransferedRateComplexesArray[__IndexInt,:]
+						#))
+						self.TransferedNormRatePhaseFloatsArray[__IndexInt,:]
+					],
+					'#kwarg':{
+							'linestyle':'-',
+							'linewidth':5,
+							'color':self.TransferingColorStrsList[__IndexInt]
+						}
+				}),
+			range(len(self.TeamDict['Populations'].ManagementDict))[1:]
+		)+[
+			('plot',{
+					'#liarg':[
+						self.TransferedScanFrequencyFloatsArray,
+						#(180./np.pi)*np.array(map(
+						#	SYS.getArgumentVariable,
+						#	self.TransferedRateComplexesArray[__IndexInt,:]
+						#))
+						self.TransferedNormRatePhaseFloatsArray[0,:]
+					],
+					'#kwarg':{
+							'linestyle':'--',
+							'linewidth':3,
+							'color':self.TransferingColorStrsList[0]
+						}
+				})
+		]
+
+		#set log
+		ViewedPhaseChartVariable.PyplotingChartVariable=[
+				('plot',{
+					'#liarg':[	
+							xlimList,
+							[0.,0.]
+						],
+					'#kwarg':{
+							'linestyle':'--',
+							'linewidth':1,
+							'color':"black"
+						}
+					}
+
+				),
+				('set_xscale','log'),
+				('set_xlim',xlimList),
+				('set_xlabel',"$frequency (Hz)$"),
+				('set_ylim',yLimPhaseList),
+				('set_ylabel',"$phase$"),
+				('set_yticks',yTickPhaseList),
+				('set_yticklabels',map(lambda __Float:'$'+str(__Float)+'$',yTickPhaseList))
+			]
+
+		#
+		# Plot max but just (for the first)
+		#
+
+		#map
+		ViewedAmplitudeDrawVariable.PyplotingDrawVariable += SYS.sum(map(
+			lambda __IndexInt:
+			map(
+				lambda __FourierMaxTuple:
+				('plot',{
+					'#liarg':[
+						[__FourierMaxTuple[0]]*2,
+						yLimAmplitudeList
+					],
+					'#kwarg':{
+							'linestyle':'--',
+							'linewidth':1,
+							#'color':self.TransferingColorStrsList[__IndexInt]
+							'color':"black"
+						}
+				}),
+				self.NumscipiedFourierMaxTupleFloatsArray[__IndexInt]
+			),
+			range(len(self.TeamDict['Populations'].ManagementDict))[:1]
+		))
+
+		#map
+		'''
+		ViewedPhaseDrawVariable.PyplotingDrawVariable += SYS.sum(map(
+			lambda __IndexInt:
+			map(
+				lambda __FourierMaxTuple:
+				('plot',{
+					'#liarg':[
+						[__FourierMaxTuple[0]]*2,
+						yLimPhaseList
+					],
+					'#kwarg':{
+							'linestyle':'--',
+							'linewidth':1,
+							#'color':self.TransferingColorStrsList[__IndexInt]
+							'color':"black"
+						}
+				}),
+				self.NumscipiedFourierMaxTupleFloatsArray[__IndexInt]
+			),
+			range(len(self.TeamDict['Populations'].ManagementDict))[:1]
+		))	
+		'''
+
+		#map
+		ViewedPhaseDrawVariable.PyplotingDrawVariable += SYS.sum(map(
+			lambda __IndexInt:
+			SYS.sum(map(
+				lambda __FourierMaxTuple:
+				map(
+					lambda __PhaseFloat,_IndInt:
+					('plot',{
+						'#liarg':[
+							__FourierMaxTuple[0],
+							__PhaseFloat
+						],
+						'#kwarg':{
+								'linestyle':'',
+								'marker':"o",
+								'markersize':5,
+								'color':self.TransferingColorStrsList[_IndInt]
+								#'color':"black"
+							}
+					}),
+					__FourierMaxTuple[1][1:],
+					xrange(len(__FourierMaxTuple[1][1:]))
+				),
+				self.NumscipiedFourierMaxCrossPhaseFloatsArray[__IndexInt]
+			)),
+			range(len(self.TeamDict['Populations'].ManagementDict))[:1]
+		))	
+
+		#
+		# Recapepete
+		#
+
+		#mapSet
+		self.mapSet(
+			{
+				'PyplotingFigureVariable':{
+					'figsize':(10,10)
+				},
+				'PyplotingGridVariable':(40,30),
+				'-Panels':[
+					(
+						'|Transfer',
+						{
+							'PyplotingTextVariable':[-0.6,0.],
+							'PyplotingShapeVariable':[10,10],
+							'-Charts':{
+								'|Amplitude':{
+								},
+								'|Phase':{
+									'PyplotingShiftVariable':[2,0]
+								}
+							}
+						}
+					)
+				]
+			}
+		)
+
+
+
+
+		#base
+		BaseClass.viewNetwork(self)
+
 	def mimic__print(self,**_KwargVariablesDict):
 
 		#/##################/#
@@ -1285,7 +809,7 @@ class TransfererClass(BaseClass):
 			#
 
 			#Check
-			if self.TransferingDoStabilityBool:
+			if self.TransferedNetworkDeriveTransfererVariable==self:
 
 				#map
 				map(
@@ -1300,13 +824,6 @@ class TransfererClass(BaseClass):
 						) not in [None,0.,""]
 						else None,
 						[
-							'TransferingConstantTimeVariable',
-							'TransferingDelayTimeVariable',
-							'TransferingDecayTimeVariable',
-							'TransferingRiseTimeVariable',
-							'TransferedInstabilityStr',
-							'TransferedInstabilityFrequencyFloat',
-							'TransferedIsStableBool'
 						]
 					)
 
@@ -1326,65 +843,19 @@ Leaker.LeakersStructurerClass.ManagingValueClass=TransfererClass
 #</DefinePrint>
 TransfererClass.PrintingClassSkipKeyStrsList.extend(
 	[
-		'TransferingUnitsInt',
-		'TransferingLateralWeightVariable',
-		'TransferingConstantTimeVariable',
-		'TransferingDelayTimeVariable',
-		'TransferingDecayTimeVariable',
-		'TransferingRiseTimeVariable',
-		'TransferingMeanWeightFloat',
-		'TransferingNormalisationInt',
-		'TransferingSymmetryFloat',
-		'TransferingDoStationaryBool',
-		'TransferingDoStabilityBool',
-		'TransferingDoTransferBool',
-		'TransferingInteractionStr',
-		'TransferingRestVariable',
-		'TransferingStabilityScanFrequencyVariable',
-		'TransferingTransferScanFrequencyVariable',
-		'TransferingTransferCurrentVariable',
-		'TransferedLateralWeightFloatsArray',
-		'TransferedHalfHeightFloat',
-		'TransferedLateralHalfWidthFloat',
-		'TransferedMeanfieldWeightFloat',
-		'TransferedEigenComplex',
-		'TransferedEigenvalueComplexesArray',
-		'TransferedPerturbationComplex',
-		'TransferedPerturbationRealFloatsArray',
-		'TransferedPerturbationImagFloatsArray',
-		'TransferedInstabilityIndexInt',
-		'TransferedInstabilityIndexInt',
-		'TransferedInstabilityComplex',
-		'TransferedInstablesInt',
-		'TransferedIsStableBool',
-		'TransferedInstabilityStr',
-		'TransferedStdSparseFloat',
+		'TransferingCurrentVariable',
+		'TransferingScanFrequencyVariable',
+		'TransferingSampleInt',
+		'TransferingColorStrsList',
+		'TransferingLabelStrsList',
+		'TransferedCurrentFloatsArray',
+		'TransferedScanFrequencyFloatsArray',
+		'TransferedRateComplexesArray',
+		'TransferedRateAmplitudeFloatsArray',
+		'TransferedRatePhaseFloatsArray',
+		'TransferedNormRateAmplitudeFloatsArray',
+		'TransferedNormRatePhaseFloatsArray',
 		'TransferedParentSingularStr',
-		'TransferedIndexIntsTuplesList',
-		'TransferedPerturbationNullVariable',
-		'TransferedPerturbationWeightFloatsArray',
-		'TransferedConstantTimeVariable',
-		'TransferedDelayTimeVariable',
-		'TransferedDecayTimeVariable',
-		'TransferedRiseTimeVariable',
-		'TransferedPerturbationComplex',
-		'TransferedNeuralPerturbationComplex',
-		'TransferedSynapticPerturbationComplexesArray',
-		'TransferedSynapticPerturbationMethodVariable',
-		'TransferedNeuralPerturbationMethodVariable',
-		'TransferedTotalPerturbationComplexesArray',
-		'TransferedFlatTotalPerturbationComplexesArray',
-		'TransferedInstabilityLambdaFloatsTuple',
-		'TransferedInstabilityFrequencyFloat',
-		'TransferedDeterminantFunctionVariable',
-		'TransferedDeterminantFloatsTuple',
-		'TransferedStabilityScanFrequencyFloatsArray',
-		'TransferedOptimizeRoot',
-		'TransferedTransferScanFrequencyFloatsArray',
-		'TransferedTransferCurrentFloatsArray',
-		'TransferedTransferRateComplexesArray',
-		'TransferedTransferRateAmplitudeFloatsArray',
-		'TransferedTransferRatePhaseFloatsArray',
 		'TransferedNetworkDeriveTransfererVariable'
 	]
 )

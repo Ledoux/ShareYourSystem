@@ -86,6 +86,7 @@ setup(
 			 		'ShareYourSystem.Standards.Itemizers.Setter',
 			 		'ShareYourSystem.Standards.Itemizers.Executer',
 			 		'ShareYourSystem.Standards.Itemizers.Conditioner',
+			 		'ShareYourSystem.Standards.Itemizers.Explorer',
 			 		'ShareYourSystem.Standards.Itemizers.Arrayer',
 			 		'ShareYourSystem.Standards.Itemizers.Pather',
 			 		'ShareYourSystem.Standards.Itemizers.Commander',
@@ -150,9 +151,7 @@ setup(
 			 		'ShareYourSystem.Specials.Predicters',
 			 		'ShareYourSystem.Specials.Oldpredicters',
 			 		'ShareYourSystem.Standards',
-			 		'ShareYourSystem.Specials',
-			 		
-			 		
+			 		'ShareYourSystem.Specials'
 			 	]
 			 ,
 

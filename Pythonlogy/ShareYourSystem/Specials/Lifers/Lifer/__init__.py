@@ -61,6 +61,33 @@ def getCArgsFromDict(Dict):
         CArgs.append(Dict[Key]);
     return CArgs;
 SYS.getCArgsFromDict=getCArgsFromDict
+def getArgumentVariable(_ComplexVariable):
+
+	#Debug
+	'''
+	print('l 31 Numscipier')
+	print('_ComplexVariable is ')
+	print(_ComplexVariable)
+	print('')
+	'''
+
+	#import
+	import numpy as np
+
+	#return
+	return 2.*np.arctan(
+	np.imag(_ComplexVariable)/(
+	        np.sqrt(
+	            np.imag(
+	                _ComplexVariable
+	            )**2+np.real(
+	                _ComplexVariable
+	            )**2)+np.real(
+	                _ComplexVariable
+	            )
+	    )
+	);
+SYS.getArgumentVariable=getArgumentVariable
 #</DefineLocals>
 
 #</DefineLocals>
@@ -391,6 +418,16 @@ class LiferClass(BaseClass):
 			# Check if it null perturbation or complex
 			#
 
+			#debug
+			'''
+			self.debug(
+				[
+					'LifedPerturbationPreVariable is ',str(
+						LifedPerturbationPreVariable)
+				]
+			)
+			'''
+
 			#unpack
 			if LifedPerturbationPreVariable==0.:
 
@@ -463,11 +500,14 @@ class LiferClass(BaseClass):
 				self.debug(
 					[
 						"Ok we call",
-						"LifedPerturbationPreVariable is "+str(LifedPerturbationPreVariable)
+						"LifedPerturbationPreVariable is "+str(LifedPerturbationPreVariable),
+						('self.',self,[
+								'LifedPerturbationMethodVariable'
+							])
 					]
 				)
 				'''
-
+				
 				#call
 				self.LifedPerturbationMethodVariable(
 					LifedPerturbationPreVariable

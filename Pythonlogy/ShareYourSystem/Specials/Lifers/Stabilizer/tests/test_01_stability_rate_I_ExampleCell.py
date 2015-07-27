@@ -5,7 +5,7 @@ import ShareYourSystem as SYS
 #Define
 MyStabilizer=SYS.StabilizerClass(
 	).stationarize(
-		_LateralWeightVariable=[[-1700.]]
+		_MeanWeightVariable=[[-1700.]]
 	).stabilize(
 		_DelayTimeVariable=0.001,
 		_ScanFrequencyVariable=[10.]
@@ -13,11 +13,10 @@ MyStabilizer=SYS.StabilizerClass(
 
 #Choose the parameters to print
 KeyStrsList=[
-			'StationarizingLateralWeightVariable',
+			'StationarizingMeanWeightVariable',
 			'StabilizingConstantTimeVariable', #in ms
 			'StabilizingDelayTimeVariable',
 			'StabilizedTotalPerturbationComplexesArray', #matrix M
-			'StabilizedFlatTotalPerturbationComplexesArray', #matrix F
 			'StabilizedDeterminantFloatsTuple',  #If it has converged, then it has to be closed to (0,0)
 			'StabilizedInstabilityLambdaFloatsTuple',  # real part should be negative if stable,  (from this particular initial condition)
 			'StabilizedInstabilityFrequencyFloat'

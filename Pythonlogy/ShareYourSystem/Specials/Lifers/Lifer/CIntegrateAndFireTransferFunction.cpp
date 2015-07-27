@@ -654,6 +654,7 @@ std::complex<double> CIntegrateAndFireTransferFunctionClass::gsurg(std::complex<
 	return(nano);
 }
 
+
 void CIntegrateAndFireTransferFunctionClass::old_onefone(doublecomplex a, doublecomplex c, doublecomplex z, doublecomplex *series, doublecomplex *deriv) 
 {	
 	static int n;
@@ -1380,7 +1381,11 @@ void CIntegrateAndFireTransferFunctionClass::setBrunelLifPerturbationRate(
 
 	//set
 	lmt=DoubleDict["ConstantTime"]*lambda;
-		
+	
+  //print
+  //cout<<"BRUNEL "<<abs(lmt)<<endl;
+  //cout<<"DoubleDict['ConstantTime'] is "<<DoubleDict["ConstantTime"]<<endl;
+
 	/***** omega nul exception*****/
 	if(abs(lmt)==0.)
 	{
@@ -1454,10 +1459,8 @@ void CIntegrateAndFireTransferFunctionClass::setBrunelLifPerturbationRate(
 			];
 		
 		//Debug
-    /*
-		cout<<"Erwan set PerturbationMean mean is "<<mean.real()<<" "<<mean.imag()<<endl;
-		cout<<endl;
-    */
+		//cout<<"Erwan set PerturbationMean mean is "<<mean.real()<<" "<<mean.imag()<<endl;
+		//cout<<endl;
     
 		/*** set ****/
 		ComplexDict["PerturbationMean"]=mean;

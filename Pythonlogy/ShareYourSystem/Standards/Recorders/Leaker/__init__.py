@@ -5537,32 +5537,37 @@ class LeakerClass(BaseClass):
 			
 			#set
 			BrianedTotalArray=self.BrianedSpikeMonitorVariable.t/brian2.ms
-
 			BrianedWidthFloat=20.;
 			BrianedBinFloat=0.5;
-			self.LeakedAutoTimeArray=np.arange(-BrianedWidthFloat,BrianedWidthFloat,BrianedBinFloat);
+			self.LeakedAutoTimeArray=np.arange(
+				-BrianedWidthFloat,
+				BrianedWidthFloat,
+				BrianedBinFloat
+			);
 
 			#corre
-			self.LeakedAutoValueArray=correlogram(
-					BrianedTotalArray,
-					BrianedTotalArray,
-					width=BrianedWidthFloat,#*brian2.ms,
-					bin=BrianedBinFloat,#*brian2.ms,
-					T=200.
-				)
+			self.LeakedGlobalAutoValueArray = correlogram(
+				BrianedTotalArray,
+				BrianedTotalArray,
+				width=BrianedWidthFloat,#*brian2.ms,
+				bin=BrianedBinFloat,#*brian2.ms,
+			)
 
 			#map
-			BrianedCorrelogrammArraysList = map(
+			self.LeakedAutoValueArraysArray = map(
 				lambda __FirstInt:
 				correlogram(
 					self.BrianedSpikesListsList[__FirstInt]/brian2.ms,
 					self.BrianedSpikesListsList[__FirstInt]/brian2.ms,
 					width=BrianedWidthFloat,#*brian2.ms,
 					bin=BrianedBinFloat,#*brian2.ms,
-					T=200.
 				),
 				xrange(len(self.BrianedSpikesListsList))
 			)
+
+			#mean
+			self.LeakedMeanAutoValueArray=np.mean(self.LeakedAutoValueArraysArray)
+			self.LeakedStdAutoValueArray=np.sd(self.LeakedAutoValueArraysArray)
 
 			#debug
 			self.debug(
@@ -5571,7 +5576,7 @@ class LeakerClass(BaseClass):
 							'LeakedAutoTimeArray',
 							'LeakedAutoValueArray'
 						])
-					#'BrianedCorrelogrammArraysList is '+str(BrianedCorrelogrammArraysList)
+					#'self.LeakedAutoValueArraysArray is '+str(self.LeakedAutoValueArraysArray)
 				]
 			)
 
@@ -5707,6 +5712,14 @@ class LeakerClass(BaseClass):
 				'Charts'
 			)
 
+		if self.LeakedInputKeyStrsList==None:
+			#/##################/#
+			# base method
+			#
+
+			#base
+			BaseClass.viewPopulation(self)
+			return
 
 		#filter
 		LeakedInputKeyStrsList=SYS._filter(

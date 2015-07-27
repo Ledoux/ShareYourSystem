@@ -1905,8 +1905,8 @@ class BrianerClass(BaseClass):
 			# 
 
 			#Check
-			if self.BrianedNetworkVariable==None:
-				return
+			#if self.BrianedNetworkVariable==None:
+			#	return
 
 			#/########################/#
 			# Special Network level
@@ -2002,6 +2002,12 @@ class BrianerClass(BaseClass):
 			)	
 			'''
 
+			#Check
+			if 'Populations' in self.TeamDict:
+
+				#set
+				self.viewNetwork()
+
 		elif self.BrianedParentSingularStr!="":
 
 			#set
@@ -2059,6 +2065,9 @@ class BrianerClass(BaseClass):
 			]
 		)
 		'''
+
+	def viewNetwork(self):
+		pass
 
 	def viewPopulation(self):
 

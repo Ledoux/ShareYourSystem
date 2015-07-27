@@ -14,7 +14,7 @@ for __LateralWeightVariable in LateralWeightVariablesList:
     #Define
     MyStabilizer=SYS.StabilizerClass(
         ).stationarize(
-            _LateralWeightVariable=__LateralWeightVariable,
+            _MeanWeightVariable=__LateralWeightVariable,
             _ConstantTimeVariable=[0.01],
             _RateVariable=[15.],
             _InteractionStr="Spike"
@@ -27,7 +27,7 @@ for __LateralWeightVariable in LateralWeightVariablesList:
 
     #Choose the parameters to print
     KeyStrsList=[
-        'StationarizingLateralWeightVariable',
+        'StationarizingMeanWeightVariable',
         'StabilizingConstantTimeVariable', #in ms
         'StabilizingDelayTimeVariable',
         'StabilizedPerturbationComplex',

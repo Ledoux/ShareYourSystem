@@ -13,7 +13,7 @@ Arrayer instances
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Itemizers.Conditioner"
+BaseModuleStr="ShareYourSystem.Standards.Itemizers.Explorer"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>

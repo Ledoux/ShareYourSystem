@@ -333,7 +333,6 @@ class HopferClass(BaseClass):
 				self.HopfedLateralWeightFloatsArray = 1.*self.NumscipiedValueFloatsArray
 
 			#debug
-			'''
 			self.debug(
 				[
 					"Ok the Js are ",
@@ -342,7 +341,6 @@ class HopferClass(BaseClass):
 						])
 				]
 			)
-			'''
 
 			#Check
 			if self.HopfingInteractionStr=="Spike":
@@ -702,46 +700,46 @@ class HopferClass(BaseClass):
 				
 				#map
 				HopfedSolutionFloatsTuplesList=map(
-							lambda __HopfedPerturbationComplex:
-							sorted(
-								map(
-									lambda __PerturbationTuple:
-									self.setAttr(
-										'HopfedEigenComplex',
-										__HopfedPerturbationComplex
-									).optimize.fsolve(
-										getattr(
-											self,
-											'get'+self.HopfingInteractionStr+'PerturbationSolutionFloatsTuple'
-										), 
-										#(0.,0.)
-										#(-1.+__HopfedPerturbationComplex.real,__HopfedPerturbationComplex.imag)
-										__PerturbationTuple
+					lambda __HopfedPerturbationComplex:
+					sorted(
+						map(
+							lambda __PerturbationTuple:
+							self.setAttr(
+								'HopfedEigenComplex',
+								__HopfedPerturbationComplex
+							).optimize.fsolve(
+								getattr(
+									self,
+									'get'+self.HopfingInteractionStr+'PerturbationSolutionFloatsTuple'
+								), 
+								#(0.,0.)
+								#(-1.+__HopfedPerturbationComplex.real,__HopfedPerturbationComplex.imag)
+								__PerturbationTuple
 
-									),
-									#[0.01,0.1,10.]
-									#[10.]
-									#[
-									#	#(0.,1.),
-									#	(-100.,10.),
-									#	#(-200.,1.)
-									#],
-									#[
-									#	
-									#	1000.*np.array([
-									#			-1.+__HopfedPerturbationComplex.real,
-									#			__HopfedPerturbationComplex.imag
-									#		]
-									#	)
-									#	#/(self.HopfingConstantTimeVariable*self.HopfedAgentDeriveHopferVariable.LifedPerturbationMeanNullFloat)
-									#		
-									#]
-								),
-								key = lambda __ComplexTuple:__ComplexTuple[0]
-							)[-1],
-							#self.HopfedPerturbationComplexesArray
-							HopfedEigenComplexesArray
-						)
+							),
+							#[0.01,0.1,10.]
+							#[10.]
+							#[
+							#	#(0.,1.),
+							#	(-100.,10.),
+							#	#(-200.,1.)
+							#],
+							#[
+							#	
+							#	1000.*np.array([
+							#			-1.+__HopfedPerturbationComplex.real,
+							#			__HopfedPerturbationComplex.imag
+							#		]
+							#	)
+							#	#/(self.HopfingConstantTimeVariable*self.HopfedAgentDeriveHopferVariable.LifedPerturbationMeanNullFloat)
+							#		
+							#]
+						),
+						key = lambda __ComplexTuple:__ComplexTuple[0]
+					)[-1],
+					#self.HopfedPerturbationComplexesArray
+					HopfedEigenComplexesArray
+				)
 
 				#debug
 				'''

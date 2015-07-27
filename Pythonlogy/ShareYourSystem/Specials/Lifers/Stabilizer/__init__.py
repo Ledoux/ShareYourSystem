@@ -38,6 +38,7 @@ class StabilizerClass(BaseClass):
 			_StabilizingDecayTimeVariable = 0.,
 			_StabilizingRiseTimeVariable = 0.,
 			_StabilizingScanFrequencyVariable = None,
+			_StabilizingComputeBool = True,
 			_StabilizedConstantTimeVariable = None,
 			_StabilizedDelayTimeVariable = None,
 			_StabilizedDecayTimeVariable = None,
@@ -52,8 +53,16 @@ class StabilizerClass(BaseClass):
 			_StabilizedSynapticPerturbationComplexesArray = None,
 			_StabilizedNeuralPerturbationComplexesArray = None,
 			_StabilizedBiggestLambdaFloatsTuple = None,
+			_StabilizedPerturbationComplex = None,
+			_StabilizedPerturbationWeightFloatsArray = None,
+			_StabilizedInstabilityStr = "",
+			_StabilizedIndexIntsTuplesList = None,
+			_StabilizedSynapticPerturbationMethodVariable = None,
+			_StabilizedMeanPerturbationNullFloatsList = None,
+			_StabilizedNeuralPerturbationMethodVariable = None,
+			_StabilizedDeterminantFunctionVariable = None,
 			_StabilizedParentSingularStr = "",
-			_StabilizedNetworkDeriveStationarizerVariable = None,
+			_StabilizedNetworkDeriveStabilizerVariable = None,
 			**_KwargVariablesDict
 		):
 		""" """		
@@ -276,7 +285,7 @@ class StabilizerClass(BaseClass):
 				'We init the computations the StabilizedPerturbationWeightFloatsArray',
 				('self.',self,[
 						'StationarizingConstantTimeVariable',
-						'StationarizedLateralWeightFloatsArray',
+						'StationarizedMeanWeightFloatsArray',
 						'StabilizedConstantTimeVariable'
 					])
 			]
@@ -284,7 +293,7 @@ class StabilizerClass(BaseClass):
 		'''
 
 		#set
-		self.StabilizedPerturbationWeightFloatsArray=self.StationarizedLateralWeightFloatsArray[
+		self.StabilizedPerturbationWeightFloatsArray=self.StationarizedMeanWeightFloatsArray[
 			:
 		]
 
@@ -432,228 +441,231 @@ class StabilizerClass(BaseClass):
 			]
 		)
 		'''
-
-		#get
-		self.StabilizedNeuralPerturbationMethodVariable=getattr(
-			self,
-			'getNeuralNullPerturbationVariable'
+			
+		#set
+		self.StabilizedNeuralPerturbationComplexesArrayesArray=np.zeros(
+			self.StationarizingUnitsInt,
+			dtype=complex
 		)
-
-		#get
-		StabilizedRateDetermintantFloatsTuple=self.getGlobalPerturbationRootFloatsTuple(
-			(0.,0.)
-		)
-
-		#get
-		self.StabilizedIsStableBool=StabilizedRateDetermintantFloatsTuple[0]>0.
-		self.StabilizedRateInstabilityBool=not self.StabilizedIsStableBool
-
-		#debug
-		'''
-		self.debug(
-			[
-				'Is it rate instable ?',
-				"StabilizedRateDetermintantFloatsTuple is "+str(StabilizedRateDetermintantFloatsTuple),
-				('self.',self,[
-						'StabilizedTotalPerturbationComplexesArray',
-						'StabilizedIsStableBool'
-					])
-			]
-		)
-		'''
-
-		#/################/#
-		# Look for a hopf instability
-		#
-
+					
 		#Check
-		if self.StabilizedIsStableBool:
-
-			#import 
-			import scipy.optimize
-
+		if self.StabilizingComputeBool:
 
 			#get
 			self.StabilizedNeuralPerturbationMethodVariable=getattr(
 				self,
-				'get'+self.StationarizingInteractionStr+'NeuralPerturbationVariable'
+				'getNeuralNullPerturbationVariable'
 			)
 
-			#set
-			self.StabilizedNeuralPerturbationComplexesArrayesArray=np.zeros(
-				self.StationarizingUnitsInt,
-				dtype=complex
+			#get
+			StabilizedRateDetermintantFloatsTuple=self.getGlobalPerturbationRootFloatsTuple(
+				(0.,0.)
 			)
+
+			#get
+			self.StabilizedIsStableBool=StabilizedRateDetermintantFloatsTuple[0]>0.
+			self.StabilizedRateInstabilityBool=not self.StabilizedIsStableBool
 
 			#debug
 			'''
 			self.debug(
 				[
-					"There is no rate instability so we do a Hopf scan analysis",
-					('self.',self,['StabilizingScanFrequencyVariable'])
+					'Is it rate instable ?',
+					"StabilizedRateDetermintantFloatsTuple is "+str(StabilizedRateDetermintantFloatsTuple),
+					('self.',self,[
+							'StabilizedTotalPerturbationComplexesArray',
+							'StabilizedIsStableBool'
+						])
 				]
 			)
 			'''
 
-			#type
-			StabilizedScanType=type(self.StabilizingScanFrequencyVariable)
+			#/################/#
+			# Look for a hopf instability
+			#
 
 			#Check
-			if StabilizedScanType==None.__class__:
+			if self.StabilizedIsStableBool:
 
-				#Check
-				StabilizedFirstList=list(np.logspace(0,3,10))
-				StabilizedSecondList=StabilizedFirstList[:]
-				StabilizedSecondList.reverse()
-				StabilizedSecondList=map(lambda __Variable:-__Variable,StabilizedSecondList)
+				#import 
+				import scipy.optimize
 
-				#set
-				self.StabilizedStabilityScanFrequencyFloatsArray=np.array(
-					StabilizedSecondList+StabilizedFirstList
+
+				#get
+				self.StabilizedNeuralPerturbationMethodVariable=getattr(
+					self,
+					'get'+self.StationarizingInteractionStr+'NeuralPerturbationVariable'
 				)
-
-			elif StabilizedScanType in [np.float64,float]:
-
-				#Check
-				self.StabilizedStabilityScanFrequencyFloatsArray=np.array(
-					[self.StabilizingScanFrequencyVariable]
-				)
-
-			else:
-
-				#Check
-				self.StabilizedStabilityScanFrequencyFloatsArray=np.array(
-					self.StabilizingScanFrequencyVariable
-				)
-
-			#debug
-			'''
-			self.debug(
-				[
-					('self.',self,['StabilizedStabilityScanFrequencyFloatsArray'])
-				]
-			)
-			'''
-
-
-			#check
-			'''
-			if len(self.StabilizedStabilityScanFrequencyFloatsArray)==1:
-
-				#debug
-				self.debug(
-					[
-						"We just debug here"
-					]
-				)
-
-				#try just the first
-				self.getGlobalPerturbationRootFloatsTuple(
-					(-0.1,2.*np.pi*self.StabilizedStabilityScanFrequencyFloatsArray[0])
-				)
-			'''
-
-			#debug
-			'''
-			self.debug(
-				[
-					"Ok now we gradient"
-				]
-			)
-			'''
-
-			#loop
-			for __ScanFrequencyFloat in self.StabilizedStabilityScanFrequencyFloatsArray:
-			#for __ScanFrequencyFloat in [100.]:
 
 				#debug
 				'''
 				self.debug(
 					[
-						'We try to find an instability around '+str(__ScanFrequencyFloat)+'Hz'
+						"There is no rate instability so we do a Hopf scan analysis",
+						('self.',self,['StabilizingScanFrequencyVariable'])
 					]
 				)
 				'''
 
-				#Get the solve of the ScipyOptimizeRoot
-				StabilizedOptimizeRoot=scipy.optimize.root(
-						self.getGlobalPerturbationRootFloatsTuple,
-						(-0.1,2.*np.pi*__ScanFrequencyFloat),
-						#method='lm',
-						#tol=0.001
-						options={
-									#'maxiter':1000,
-									#'ftol':0.001,
-									#'direc':np.array([-0.1,0.1])
-								},
+				#type
+				StabilizedScanType=type(self.StabilizingScanFrequencyVariable)
+
+				#Check
+				if StabilizedScanType==None.__class__:
+
+					#Check
+					StabilizedFirstList=list(np.logspace(0,3,10))
+					StabilizedSecondList=StabilizedFirstList[:]
+					StabilizedSecondList.reverse()
+					StabilizedSecondList=map(lambda __Variable:-__Variable,StabilizedSecondList)
+
+					#set
+					self.StabilizedStabilityScanFrequencyFloatsArray=np.array(
+						StabilizedSecondList+StabilizedFirstList
 					)
 
-				#set
-				StabilizedErrorFloat=np.sum(StabilizedOptimizeRoot.fun**2)
+				elif StabilizedScanType in [np.float64,float]:
+
+					#Check
+					self.StabilizedStabilityScanFrequencyFloatsArray=np.array(
+						[self.StabilizingScanFrequencyVariable]
+					)
+
+				else:
+
+					#Check
+					self.StabilizedStabilityScanFrequencyFloatsArray=np.array(
+						self.StabilizingScanFrequencyVariable
+					)
 
 				#debug
 				'''
 				self.debug(
 					[
-						'StabilizedOptimizeRoot is ',
-						str(StabilizedOptimizeRoot),
-						"StabilizedErrorFloat is ",
-						str(StabilizedErrorFloat)
+						('self.',self,['StabilizedStabilityScanFrequencyFloatsArray'])
 					]
 				)
 				'''
 
-				#set
-				self.StabilizedOptimizeRoot=StabilizedOptimizeRoot
 
-				#Check
-				if StabilizedOptimizeRoot.success and StabilizedErrorFloat<0.001:
+				#check
+				'''
+				if len(self.StabilizedStabilityScanFrequencyFloatsArray)==1:
+
+					#debug
+					self.debug(
+						[
+							"We just debug here"
+						]
+					)
+
+					#try just the first
+					self.getGlobalPerturbationRootFloatsTuple(
+						(-0.1,2.*np.pi*self.StabilizedStabilityScanFrequencyFloatsArray[0])
+					)
+				'''
+
+				#debug
+				'''
+				self.debug(
+					[
+						"Ok now we gradient"
+					]
+				)
+				'''
+
+				#loop
+				for __ScanFrequencyFloat in self.StabilizedStabilityScanFrequencyFloatsArray:
+				#for __ScanFrequencyFloat in [100.]:
 
 					#debug
 					'''
 					self.debug(
 						[
-							"It is a success",
-							('self.',self,[
-									'StabilizedBiggestLambdaFloatsTuple',
-								]),
-							"StabilizedOptimizeRoot.x is "+str(StabilizedOptimizeRoot.x)
+							'We try to find an instability around '+str(__ScanFrequencyFloat)+'Hz'
 						]
 					)
 					'''
 
+					#Get the solve of the ScipyOptimizeRoot
+					StabilizedOptimizeRoot=scipy.optimize.root(
+							self.getGlobalPerturbationRootFloatsTuple,
+							(-0.1,2.*np.pi*__ScanFrequencyFloat),
+							#method='lm',
+							#tol=0.001
+							options={
+										#'maxiter':1000,
+										#'ftol':0.001,
+										#'direc':np.array([-0.1,0.1])
+									},
+						)
+
+					#set
+					StabilizedErrorFloat=np.sum(StabilizedOptimizeRoot.fun**2)
+
+					#debug
+					'''
+					self.debug(
+						[
+							'StabilizedOptimizeRoot is ',
+							str(StabilizedOptimizeRoot),
+							"StabilizedErrorFloat is ",
+							str(StabilizedErrorFloat)
+						]
+					)
+					'''
+
+					#set
+					self.StabilizedOptimizeRoot=StabilizedOptimizeRoot
+
 					#Check
-					if StabilizedOptimizeRoot.x[0]>0.:
+					if StabilizedOptimizeRoot.success and StabilizedErrorFloat<0.001:
 
-						#set
-						self.StabilizedIsStableBool=False
-
-						#set
-						self.StabilizedInstabilityStr="Hopf"
-
-						#set
-						self.StabilizedInstabilityLambdaFloatsTuple=tuple(
-							StabilizedOptimizeRoot.x
+						#debug
+						'''
+						self.debug(
+							[
+								"It is a success",
+								('self.',self,[
+										'StabilizedBiggestLambdaFloatsTuple',
+									]),
+								"StabilizedOptimizeRoot.x is "+str(StabilizedOptimizeRoot.x)
+							]
 						)
-
-						self.StabilizedBiggestLambdaFloatsTuple=self.StabilizedInstabilityLambdaFloatsTuple
-
-						#set
-						self.StabilizedInstabilityFrequencyFloat=self.StabilizedInstabilityLambdaFloatsTuple[1]/(
-							2.*np.pi
-						)
-
-						#break
-						break
-
-					elif len(
-						self.StabilizedBiggestLambdaFloatsTuple
-					)==0 or StabilizedOptimizeRoot.x[0]>self.StabilizedBiggestLambdaFloatsTuple[0]:
+						'''
 
 						#Check
-						self.StabilizedBiggestLambdaFloatsTuple=tuple(
-							StabilizedOptimizeRoot.x
-						)
+						if StabilizedOptimizeRoot.x[0]>0.:
+
+							#set
+							self.StabilizedIsStableBool=False
+
+							#set
+							self.StabilizedInstabilityStr="Hopf"
+
+							#set
+							self.StabilizedInstabilityLambdaFloatsTuple=tuple(
+								StabilizedOptimizeRoot.x
+							)
+
+							self.StabilizedBiggestLambdaFloatsTuple=self.StabilizedInstabilityLambdaFloatsTuple
+
+							#set
+							self.StabilizedInstabilityFrequencyFloat=self.StabilizedInstabilityLambdaFloatsTuple[1]/(
+								2.*np.pi
+							)
+
+							#break
+							break
+
+						elif len(
+							self.StabilizedBiggestLambdaFloatsTuple
+						)==0 or StabilizedOptimizeRoot.x[0]>self.StabilizedBiggestLambdaFloatsTuple[0]:
+
+							#Check
+							self.StabilizedBiggestLambdaFloatsTuple=tuple(
+								StabilizedOptimizeRoot.x
+							)
 
 
 	def getSynapticDelayPerturbationVariable(self,_PerturbationComplex):
@@ -849,10 +861,10 @@ class StabilizerClass(BaseClass):
 		# init StabilizedTotalPerturbationComplexesArray
 
 		#alias
-		PerturbationComplex=self.StabilizedPerturbationComplex
+		PerturbationComplex = self.StabilizedPerturbationComplex
 
 		#copy
-		self.StabilizedTotalPerturbationComplexesArray=-np.array(
+		self.StabilizedTotalPerturbationComplexesArray =- np.array(
 			self.StabilizedPerturbationWeightFloatsArray[:],
 			dtype=complex
 		)
@@ -861,21 +873,21 @@ class StabilizerClass(BaseClass):
 		# Synaptic coupling
 		#
 
-		'''
 		#exp
-		self.StabilizedSynapticPerturbationVariable=self.getSynapticPerturbationVariable(
-				PerturbationComplex
-			)
+		#self.StabilizedSynapticPerturbationVariable=self.getSynapticPerturbationVariable(
+		#		PerturbationComplex
+		#	)
 
 		#debug
-		self.debug(
-			[
-				('self.',self,[
-						'StabilizedSynapticPerturbationVariable'
-					])
-			]
-		)
-		'''
+		#self.debug(
+		#	[
+		#		('self.',self,[
+		#				'StabilizedSynapticPerturbationVariable',
+		#				'getSynapticPerturbationVariable',
+		#				'StabilizedSynapticPerturbationMethodVariable'
+		#			])
+		#	]
+		#)
 
 		#Check
 		if self.StabilizedSynapticPerturbationMethodVariable!=None:
@@ -913,10 +925,11 @@ class StabilizerClass(BaseClass):
 					"Just after the synaptic set",
 					('self.',self,[
 						'StabilizedPerturbationComplex',
-						'StabilizedTotalPerturbationComplexesArray'
+						'StabilizedTotalPerturbationComplexesArray',
+						'StabilizedSynapticPerturbationComplexesArray'
 					])
 				]
-			)
+			)	
 			'''
 
 		#debug
@@ -966,12 +979,13 @@ class StabilizerClass(BaseClass):
 			[
 				'Ok we have mul the neural coupling',
 				('self.',self,[
-						'StabilizedTotalPerturbationComplexesArray'
+						'StabilizedTotalPerturbationComplexesArray',
+						'StabilizedNeuralPerturbationComplexesArray'
 					])
 			]
 		)
 		'''
-
+		
 		#/###############/#
 		# fill diagonal with also the leak identity term
 		#
@@ -1118,7 +1132,7 @@ class StabilizerClass(BaseClass):
 			#
 
 			#Check
-			if self.StationarizingDoStabilityBool:
+			if self.StabilizedNetworkDeriveStabilizerVariable == self:
 
 				#map
 				map(
@@ -1132,11 +1146,7 @@ class StabilizerClass(BaseClass):
 							__KeyStr
 						) not in [None,0.,""]
 						else None,
-						[
-							'StationarizingConstantTimeVariable',
-							'StationarizingDelayTimeVariable',
-							'StationarizingDecayTimeVariable',
-							'StationarizingRiseTimeVariable',
+						[	
 							'StabilizedInstabilityStr',
 							'StabilizedInstabilityFrequencyFloat',
 							'StabilizedIsStableBool'
@@ -1163,6 +1173,7 @@ StabilizerClass.PrintingClassSkipKeyStrsList.extend(
 		'StabilizingDecayTimeVariable',
 		'StabilizingRiseTimeVariable',
 		'StabilizingScanFrequencyVariable',
+		'StabilizingComputeBool',
 		'StabilizedIsStableBool',
 		'StabilizedRateInstabilityBool',
 		'StabilizedTotalPerturbationComplexesArray',
@@ -1170,6 +1181,15 @@ StabilizerClass.PrintingClassSkipKeyStrsList.extend(
 		'StabilizedSynapticPerturbationComplexesArray'
 		'StabilizedNeuralPerturbationComplexesArray',
 		'StabilizedBiggestLambdaFloatsTuple',
+		'StabilizedPerturbationComplex',
+		'StabilizedPerturbationWeightFloatsArray',
+		'StabilizedTotalPerturbationComplexesArray',
+		'StabilizedInstabilityStr',
+		'StabilizedIndexIntsTuplesList',
+		'StabilizedSynapticPerturbationMethodVariable',
+		'StabilizedMeanPerturbationNullFloatsList',
+		'StabilizedNeuralPerturbationMethodVariable',
+		'StabilizedDeterminantFunctionVariable',
 		'StabilizedParentSingularStr',
 		'StabilizedNetworkDeriveStationarizerVariable'
 	]

@@ -1331,84 +1331,8 @@ class NumscipyerClass(BaseClass):
 					)
 				)
 
-			#import
-			import itertools
-
-			#list
-			NumscipiedCrossIndexIntsTuplesList=list(
-				itertools.product(
-					xrange(len(self.NumscipiedFourierPhaseFloatsArray)),
-					xrange(len(self.NumscipiedFourierPhaseFloatsArray))
-				)
-			)
-
-			#debug
-			'''
-			self.debug(
-				[
-					'NumscipiedCrossIndexIntsTuplesList is ',
-					str(NumscipiedCrossIndexIntsTuplesList)
-				]
-			)
-			'''
-
-			#init
-			NumscipiedNoneArray=np.array(
-				[None]*len(self.NumscipiedFourierFrequencyFloatsArray)
-			)
-			NumscipiedNullArray=np.array(
-				[0]*len(self.NumscipiedFourierFrequencyFloatsArray)
-			)
-
-			#cross phase
-			NumscipiedFourierCrossPhaseTuplesList=map(
-				lambda __NumscipiedCrossIndexIntsTuple:
-				(
-					__NumscipiedCrossIndexIntsTuple,
-					self.NumscipiedFourierPhaseFloatsArray[
-						__NumscipiedCrossIndexIntsTuple[0],
-						:
-					]-self.NumscipiedFourierPhaseFloatsArray[
-						__NumscipiedCrossIndexIntsTuple[1],
-						:
-					]
-				) 
-				if __NumscipiedCrossIndexIntsTuple[1]>__NumscipiedCrossIndexIntsTuple[0]
-				else (
-						__NumscipiedCrossIndexIntsTuple,
-						NumscipiedNullArray
-					)
-					if __NumscipiedCrossIndexIntsTuple[1]==__NumscipiedCrossIndexIntsTuple[0]
-					else
-					(
-						__NumscipiedCrossIndexIntsTuple,
-						NumscipiedNoneArray
-					),	
-				NumscipiedCrossIndexIntsTuplesList
-			)
-
-			#Debug
-			'''
-			print('NumscipiedFourierCrossPhaseTuplesList is ')
-			print(NumscipiedFourierCrossPhaseTuplesList)
-			print('')
-			'''
-
-			#arrayify
-			self.NumscipiedFourierCrossPhaseFloatsArray=SYS.arrayify(
-				NumscipiedFourierCrossPhaseTuplesList
-			)
-
-			#debug
-			'''
-			self.debug(
-				[
-					('self.',self,[ 
-							'NumscipiedFourierCrossPhaseFloatsArray'
-						])
-				]
-			)
-			'''
+			#setCrossPhase
+			self.setCrossPhase()
 
 			#setExtremum
 			self.setExtremum()
@@ -1522,6 +1446,89 @@ class NumscipyerClass(BaseClass):
 		self.NumscipiedDiscreteStatRigidFunction=None
 		self.NumscipiedContinuousStatRigidFunction=None
 
+
+	def setCrossPhase(self):
+			
+			#import
+			import itertools
+
+			#list
+			NumscipiedCrossIndexIntsTuplesList=list(
+				itertools.product(
+					xrange(len(self.NumscipiedFourierPhaseFloatsArray)),
+					xrange(len(self.NumscipiedFourierPhaseFloatsArray))
+				)
+			)
+
+			#debug
+			'''
+			self.debug(
+				[
+					'NumscipiedCrossIndexIntsTuplesList is ',
+					str(NumscipiedCrossIndexIntsTuplesList)
+				]
+			)
+			'''
+
+			#init
+			NumscipiedNoneArray=np.array(
+				[None]*len(self.NumscipiedFourierFrequencyFloatsArray)
+			)
+			NumscipiedNullArray=np.array(
+				[0]*len(self.NumscipiedFourierFrequencyFloatsArray)
+			)
+
+			#cross phase
+			NumscipiedFourierCrossPhaseTuplesList=map(
+				lambda __NumscipiedCrossIndexIntsTuple:
+				(
+					__NumscipiedCrossIndexIntsTuple,
+					self.NumscipiedFourierPhaseFloatsArray[
+						__NumscipiedCrossIndexIntsTuple[0],
+						:
+					]-self.NumscipiedFourierPhaseFloatsArray[
+						__NumscipiedCrossIndexIntsTuple[1],
+						:
+					]
+				) 
+				if __NumscipiedCrossIndexIntsTuple[1]>__NumscipiedCrossIndexIntsTuple[0]
+				else (
+						__NumscipiedCrossIndexIntsTuple,
+						NumscipiedNullArray
+					)
+					if __NumscipiedCrossIndexIntsTuple[1]==__NumscipiedCrossIndexIntsTuple[0]
+					else
+					(
+						__NumscipiedCrossIndexIntsTuple,
+						NumscipiedNoneArray
+					),	
+				NumscipiedCrossIndexIntsTuplesList
+			)
+
+			#Debug
+			'''
+			print('NumscipiedFourierCrossPhaseTuplesList is ')
+			print(NumscipiedFourierCrossPhaseTuplesList)
+			print('')
+			'''
+
+			#arrayify
+			self.NumscipiedFourierCrossPhaseFloatsArray=SYS.arrayify(
+				NumscipiedFourierCrossPhaseTuplesList
+			)
+
+			#debug
+			'''
+			self.debug(
+				[
+					('self.',self,[ 
+							'NumscipiedFourierCrossPhaseFloatsArray'
+						])
+				]
+			)
+			'''
+
+
 	def setExtremum(self):
 
 		#/###############/#
@@ -1540,17 +1547,15 @@ class NumscipyerClass(BaseClass):
 		)
 
 		#debug
-		'''
 		self.debug(
 			[
 				('self.',self,[
-						'NumscipiedFourierAmplitudeFloatsArray', 
-						'NumscipiedFourierFrequencyFloatsArray',
+						#'NumscipiedFourierAmplitudeFloatsArray', 
+						#'NumscipiedFourierFrequencyFloatsArray',
 						'NumscipiedFourierMaxAmplitudeIndexIntsArray'
 					])
 			]
 		)
-		'''
 
 		#tuple freq and amp at max
 		self.NumscipiedFourierMaxTupleFloatsArray=np.array(
