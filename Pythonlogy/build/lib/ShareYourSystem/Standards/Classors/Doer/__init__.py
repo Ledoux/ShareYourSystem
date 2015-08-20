@@ -457,7 +457,7 @@ class DoerClass(BaseClass):
 				'''
 
 				#Get
-				DoWrapMethod=getattr(
+				DoWrapMethod = getattr(
 						DoClass,
 						DoWrapMethodStr
 					)
@@ -470,7 +470,10 @@ class DoerClass(BaseClass):
 				'''
 
 				#Definition of a default function
-				DoWrapMethod=DefaultDoFunction
+				DoWrapMethod = DefaultDoFunction
+
+				#set
+				setattr(DoClass,DoWrapMethodStr,DoWrapMethod)
 
 
 			#debug

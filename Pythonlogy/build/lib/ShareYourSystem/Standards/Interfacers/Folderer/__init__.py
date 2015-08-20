@@ -15,7 +15,7 @@ at a specified directory or in the current one by default
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Itemizers.Structurer"
+BaseModuleStr="ShareYourSystem.Standards.Itemizers.Explorer"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 #</DefineAugmentation>
