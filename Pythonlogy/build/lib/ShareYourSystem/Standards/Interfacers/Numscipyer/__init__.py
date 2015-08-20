@@ -314,7 +314,6 @@ class NumscipyerClass(BaseClass):
 				#
 
 				#debug
-				'''
 				self.debug(
 					[
 						('self.',self,[
@@ -322,7 +321,6 @@ class NumscipyerClass(BaseClass):
 							])
 					]
 				)
-				'''
 
 				#map
 				if self.NumscipiedContinuousStatRigidFunction!=None:
@@ -1549,7 +1547,6 @@ class NumscipyerClass(BaseClass):
 		)
 
 		#debug
-		'''
 		self.debug(
 			[
 				('self.',self,[
@@ -1559,8 +1556,7 @@ class NumscipyerClass(BaseClass):
 					])
 			]
 		)
-		'''
-		
+
 		#tuple freq and amp at max
 		self.NumscipiedFourierMaxTupleFloatsArray=np.array(
 			map(

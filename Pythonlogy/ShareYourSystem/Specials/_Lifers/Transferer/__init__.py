@@ -36,6 +36,8 @@ class TransfererClass(BaseClass):
 			_TransferingCurrentVariable = None,
 			_TransferingScanFrequencyVariable = None,
 			_TransferingSampleInt = 100,
+			_TransferingColorStrsList = None,
+			_TransferingLabelStrsList = None,
 			_TransferedCurrentFloatsArray = None,
 			_TransferedScanFrequencyFloatsArray = None,
 			_TransferedRateComplexesArray = None,
@@ -43,8 +45,6 @@ class TransfererClass(BaseClass):
 			_TransferedRatePhaseFloatsArray = None,
 			_TransferedNormRateAmplitudeFloatsArray = None,
 			_TransferedNormRatePhaseFloatsArray = None,
-			_TransferedPeakVariable = None,
-			_TransferedPhaseVariable = None,
 			_TransferedParentSingularStr = "",
 			_TransferedNetworkDeriveTransfererVariable=None,
 			**_KwargVariablesDict
@@ -369,7 +369,6 @@ class TransfererClass(BaseClass):
 		self.setExtremum()
 
 		#debug
-		'''
 		self.debug(
 			[
 				('self.',self,[ 
@@ -378,27 +377,6 @@ class TransfererClass(BaseClass):
 					])
 			]
 		)
-		'''
-
-		self.TransferedPeakVariable = self.NumscipiedFourierMaxTupleFloatsArray
-		self.TransferedPhaseVariable = self.NumscipiedFourierMaxCrossPhaseFloatsArray
-
-		#
-		# norm
-		#
-
-		#set
-		self.TransferedNormRateAmplitudeFloatsArray = np.copy(self.TransferedRateAmplitudeFloatsArray)
-		for IndexInt in xrange(len(self.TeamDict['Populations'].ManagementDict)):
-			self.TransferedNormRateAmplitudeFloatsArray[IndexInt,:]/=self.StationarizingRateVariable[IndexInt]
-
-		#set
-		self.TransferedNormRatePhaseFloatsArray = np.copy(self.TransferedRatePhaseFloatsArray)
-		for IndexInt in xrange(len(self.TeamDict['Populations'].ManagementDict)):
-			self.TransferedNormRatePhaseFloatsArray[IndexInt,:]*=(180./np.pi)
-
-
-
 
 	def setTransfer(self,__IndexInt,__ScanFrequencyFloat):
 
@@ -480,6 +458,16 @@ class TransfererClass(BaseClass):
 		)
 		'''
 
+		#set
+		self.TransferedNormRateAmplitudeFloatsArray = np.copy(self.TransferedRateAmplitudeFloatsArray)
+		for IndexInt in xrange(len(self.TeamDict['Populations'].ManagementDict)):
+			self.TransferedNormRateAmplitudeFloatsArray[IndexInt,:]/=self.StationarizingRateVariable[IndexInt]
+
+		#set
+		self.TransferedNormRatePhaseFloatsArray = np.copy(self.TransferedRatePhaseFloatsArray)
+		for IndexInt in xrange(len(self.TeamDict['Populations'].ManagementDict)):
+			self.TransferedNormRatePhaseFloatsArray[IndexInt,:]*=(180./np.pi)
+
 
 	#/######################/#
 	# Augment view
@@ -499,10 +487,10 @@ class TransfererClass(BaseClass):
 		#
 
 		#Check 
-		if len(self.ViewingColorStrsList)!=self.StationarizingUnitsInt:
+		if len(self.TransferingColorStrsList)!=self.StationarizingUnitsInt:
 
 			#set
-			self.ViewingColorStrsList = SYS.getColorTuplesList(
+			self.TransferingColorStrsList = SYS.getColorTuplesList(
 					_FromColorStr='blue',
 					_ToColorStr='black',
 					_SampleInt=self.StationarizingUnitsInt,
@@ -510,26 +498,24 @@ class TransfererClass(BaseClass):
 				)
 
 		#Check
-		if len(self.ViewingLabelStrsList)!=self.StationarizingUnitsInt:
+		if len(self.TransferingLabelStrsList)!=self.StationarizingUnitsInt:
 
 			#set
-			self.ViewingLabelStrsList=map(
+			self.TransferingLabelStrsList=map(
 				lambda _Variable:
 				_Variable.ManagementTagStr,
 				self.TeamDict['Populations'].ManagementDict.values()
 			)
 
 		#Debug
-		'''
 		self.debug(
 			[
 				('self.',self,[
-						'ViewingColorStrsList',
-						'ViewingLabelStrsList'
+						'TransferingColorStrsList',
+						'TransferingLabelStrsList'
 					])
 			]
 		)
-		'''
 
 		#debug
 		'''
@@ -595,8 +581,8 @@ class TransfererClass(BaseClass):
 					'#kwarg':{
 							'linestyle':'-',
 							'linewidth':5,
-							'color':self.ViewingColorStrsList[__IndexInt],
-							'label':self.ViewingLabelStrsList[__IndexInt]
+							'color':self.TransferingColorStrsList[__IndexInt],
+							'label':self.TransferingLabelStrsList[__IndexInt]
 						}
 				}),
 			xrange(len(self.TeamDict['Populations'].ManagementDict))
@@ -649,7 +635,7 @@ class TransfererClass(BaseClass):
 					'#kwarg':{
 							'linestyle':'-',
 							'linewidth':5,
-							'color':self.ViewingColorStrsList[__IndexInt]
+							'color':self.TransferingColorStrsList[__IndexInt]
 						}
 				}),
 			range(len(self.TeamDict['Populations'].ManagementDict))[1:]
@@ -666,7 +652,7 @@ class TransfererClass(BaseClass):
 					'#kwarg':{
 							'linestyle':'--',
 							'linewidth':3,
-							'color':self.ViewingColorStrsList[0]
+							'color':self.TransferingColorStrsList[0]
 						}
 				})
 		]
@@ -712,11 +698,11 @@ class TransfererClass(BaseClass):
 					'#kwarg':{
 							'linestyle':'--',
 							'linewidth':1,
-							#'color':self.ViewingColorStrsList[__IndexInt]
+							#'color':self.TransferingColorStrsList[__IndexInt]
 							'color':"black"
 						}
 				}),
-				self.TransferedPeakVariable[__IndexInt]
+				self.NumscipiedFourierMaxTupleFloatsArray[__IndexInt]
 			),
 			range(len(self.TeamDict['Populations'].ManagementDict))[:1]
 		))
@@ -735,7 +721,7 @@ class TransfererClass(BaseClass):
 					'#kwarg':{
 							'linestyle':'--',
 							'linewidth':1,
-							#'color':self.ViewingColorStrsList[__IndexInt]
+							#'color':self.TransferingColorStrsList[__IndexInt]
 							'color':"black"
 						}
 				}),
@@ -761,14 +747,14 @@ class TransfererClass(BaseClass):
 								'linestyle':'',
 								'marker':"o",
 								'markersize':5,
-								'color':self.ViewingColorStrsList[_IndInt]
+								'color':self.TransferingColorStrsList[_IndInt]
 								#'color':"black"
 							}
 					}),
 					__FourierMaxTuple[1][1:],
 					xrange(len(__FourierMaxTuple[1][1:]))
 				),
-				self.TransferedPhaseVariable[__IndexInt]
+				self.NumscipiedFourierMaxCrossPhaseFloatsArray[__IndexInt]
 			)),
 			range(len(self.TeamDict['Populations'].ManagementDict))[:1]
 		))	
@@ -860,6 +846,8 @@ TransfererClass.PrintingClassSkipKeyStrsList.extend(
 		'TransferingCurrentVariable',
 		'TransferingScanFrequencyVariable',
 		'TransferingSampleInt',
+		'TransferingColorStrsList',
+		'TransferingLabelStrsList',
 		'TransferedCurrentFloatsArray',
 		'TransferedScanFrequencyFloatsArray',
 		'TransferedRateComplexesArray',
@@ -867,8 +855,6 @@ TransfererClass.PrintingClassSkipKeyStrsList.extend(
 		'TransferedRatePhaseFloatsArray',
 		'TransferedNormRateAmplitudeFloatsArray',
 		'TransferedNormRatePhaseFloatsArray',
-		'TransferedPeakVariable',
-		'TransferedPhaseVariable',
 		'TransferedParentSingularStr',
 		'TransferedNetworkDeriveTransfererVariable'
 	]

@@ -288,5 +288,6 @@ class ClasserClass(BaseClass):
 					ClassesDict
 				)
 
+
 #</DefineClass>
 

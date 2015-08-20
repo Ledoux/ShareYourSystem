@@ -457,7 +457,7 @@ class DoerClass(BaseClass):
 				'''
 
 				#Get
-				DoWrapMethod = getattr(
+				DoWrapMethod=getattr(
 						DoClass,
 						DoWrapMethodStr
 					)

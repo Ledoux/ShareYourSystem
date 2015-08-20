@@ -13,7 +13,7 @@
 
 #<DefineAugmentation>
 import ShareYourSystem as SYS
-BaseModuleStr="ShareYourSystem.Standards.Itemizers.Conditioner"
+BaseModuleStr="ShareYourSystem.Standards.Itemizers.Coordinater"
 DecorationModuleStr="ShareYourSystem.Standards.Classors.Classer"
 SYS.setSubModule(globals())
 SYS.addDo('Explorer','Explore','Exploring','Explored')
@@ -43,7 +43,9 @@ class ExplorerClass(BaseClass):
 					_ExploredKeepStrsList = None,	
 					_ExploredStoreTuplesListsList = None,
 					_ExploredTrialsInt = 0,
-					_ExploredSucessesInt = 0,											
+					_ExploredSucessesInt = 0,
+					_ExploredManagersVariable = None,
+					_ExploredMethodStr="",											
 					**_KwargVariablesDict
 				):
 
@@ -85,6 +87,53 @@ class ExplorerClass(BaseClass):
 				)
 
 			#
+			# Prepare Children
+			#
+
+			#Check
+			if self.ExploredManagersVariable == None:
+
+				#debug
+				self.debug(
+					[
+						('self.',self,[
+								'TeamingClassesDict'
+							])
+					]
+				)
+
+				#sum
+				self.ExploredManagersVariable = SYS.sum(
+					SYS.filterNone(
+						map(
+							lambda __TeamStr:
+							self.TeamDict[__TeamStr].ManagementDict.values()
+							if __TeamStr in self.TeamDict
+							else None,
+							self.TeamingClassesDict.keys()
+						)
+					)
+				)
+
+				#Check
+				if self.ParentDeriveTeamerVariable == None:
+
+					#coordinate one first time
+					self.coordinate(self.ExploringMethodStr)
+
+					#set
+					ExploredTopMethodStr=self.ExploringMethodStr+"Top"
+
+					#Check
+					if hasattr(self,ExploredTopMethodStr):
+
+						#set
+						self.ExploredMethodStr = ExploredTopMethodStr
+
+			if self.ExploredMethodStr=="":
+				self.ExploredMethodStr = self.ExploringMethodStr
+
+			#
 			# Pick
 			#
 
@@ -106,6 +155,10 @@ class ExplorerClass(BaseClass):
 				)
 				'''
 
+				#
+				# Init
+				#
+
 				#init the ranges
 				map(
 					lambda __TuplesList:
@@ -118,11 +171,55 @@ class ExplorerClass(BaseClass):
 				)
 
 				#
+				# Check Children
+				#
+
+				#debug
+				self.debug(
+					[
+						"We first check the children"
+					]
+				)
+
+				#map
+				map(
+					lambda __Manager:
+					__Manager.explore(
+						_MethodStr = self.ExploringMethodStr,
+						_ConditionVariable = SYS.update(
+							self.ExploringConditionVariable,
+							{
+								"explore":getattr(
+									self.__class__,
+									self.ExploringMethodStr+__Manager.CoordinatedParentSingularStr
+								)
+							}
+						) if hasattr(__Manager,self.ExploringMethodStr+__Manager.CoordinatedParentSingularStr)
+						else self.ExploringConditionVariable,
+						_SuccessesInt=1
+					)
+					if __Manager.ExploredCheckBool==False
+					else None,
+					self.ExploredManagersVariable
+				)
+
+				#
 				# Test
 				#
 
+				#debug
+				self.debug(
+					[
+						"Now we do the local test",
+						('self.',self,[
+								'ExploringMethodStr',
+								'ExploredMethodStr'
+							])
+					]
+				)
+
 				#call
-				getattr(self,self.ExploringMethodStr)()
+				getattr(self,self.ExploredMethodStr)()
 
 				#
 				# Each Check
@@ -227,9 +324,11 @@ ExplorerClass.PrintingClassSkipKeyStrsList.extend(
 		'ExploredParameterStrsList',
 		'ExploredKeepStrsList',
 		'ExploredCheckBool',
+		'ExploredManagersVariable',
 		'ExploredStoreTuplesListsList',
 		'ExploredTrialsInt',
-		'ExploredSucessesInt'
+		'ExploredSucessesInt',
+		'ExploredMethodStr'
 	]
 )
 #<DefinePrint>

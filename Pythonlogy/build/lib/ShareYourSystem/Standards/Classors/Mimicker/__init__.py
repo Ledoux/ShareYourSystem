@@ -106,24 +106,12 @@ def mimic(_InstanceVariable,*_LiargVariablesList,**_KwargVariablesDict):
 	
 	#call the Mimicked function
 	if len(MimicKwargDict)>0:
-
-		#Debug
-		'''
-		print('MimicUnBoundMethod is ',MimicUnBoundMethod)
-		print('_LiargVariablesList is ',_LiargVariablesList)
-		print('MimicKwargDict is ',MimicKwargDict)
-		print('')
-		'''
-		
-		#call
 		MimicOutputVariable=MimicUnBoundMethod(
 							_InstanceVariable,
 							*_LiargVariablesList,
 							**MimicKwargDict
 						)
 	else:
-
-		#call
 		MimicOutputVariable=MimicUnBoundMethod(
 				_InstanceVariable,
 				*_LiargVariablesList
@@ -230,7 +218,7 @@ class MimickerClass(BaseClass):
 				'Do'+MimickedBaseClass.NameStr+'ExecStr'
 			)
 
-			#Debug
+			#debug
 			'''
 			print('l 206 Mimicker')
 			print('MimickedDoExecStr is ')
