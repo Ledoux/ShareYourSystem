@@ -116,6 +116,4 @@ MyPredicter.view(
 
 #Definition the AttestedStr
 print('MyPredicter is ')
-SYS._print(MyPredicter) 
-
-
+SYS._print(MyPredicter)

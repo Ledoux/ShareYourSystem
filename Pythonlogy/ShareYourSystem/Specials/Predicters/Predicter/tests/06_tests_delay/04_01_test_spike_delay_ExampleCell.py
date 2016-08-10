@@ -58,7 +58,7 @@ MyPredicter=SYS.PredicterClass(
 		_DecoderSparseFloat=0.2,
 		#_AgentResetVariable=-60.,
 		_InteractionStr="Spike",
-		_DelayFloat=1.,
+		_DelayFloat=0.,
 	).simulate(
 		50.
 	)
@@ -112,5 +112,4 @@ MyPredicter.view(
 
 #Definition the AttestedStr
 print('MyPredicter is ')
-SYS._print(MyPredicter) 
-
+SYS._print(MyPredicter)

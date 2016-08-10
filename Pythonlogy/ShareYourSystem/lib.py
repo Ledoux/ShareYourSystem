@@ -31,7 +31,7 @@ class InstallClass(install):
 
 				#import
 				importlib.import_module(__RequirePackageModuleStr)
-				
+
 			except:
 
 				#print
@@ -161,10 +161,9 @@ setup(
           'ShareYourSystem':[
           		'Package.json'
           ],
-          'ShareYourSystem.Specials.Lifers.Lifer':[
-          	'_CIntegrateAndFireTransferFunction.so'
-          ]
+          #'ShareYourSystem.Specials.Lifers.Lifer':[
+          #	'_CIntegrateAndFireTransferFunction.so'
+          #]
 		},
 
     )
-

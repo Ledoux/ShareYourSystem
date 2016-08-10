@@ -11,3 +11,8 @@ Scalogy/src/main/target
 .*pyc
 .class
 .so
+*local.ns
+*local.0
+*Thing.0
+*Sums.0
+*Modulus.0

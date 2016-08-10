@@ -68,7 +68,7 @@ MyPredicter=SYS.PredicterClass(
 		_CommandVariable = "#custom:#clock:200*ms:5.*(1.*mV+1.*mV*int(t==200*ms))",#2.,
 		_DecoderVariable = "#array",
 		_DecoderStdFloat = SYS.numpy.sqrt(AgentUnitsInt) * 0.3, #need to make an individual PSP around 1 mV
-		_DecoderMeanFloat = AgentUnitsInt * 1.5, 
+		_DecoderMeanFloat = AgentUnitsInt * 1.5,
 		_AgentResetVariable = -80., #big cost to reset neurons and make the noise then decide who is going to spike next
 		_AgentNoiseVariable = 0.01, #noise to make neurons not spiking at the same timestep
 		_AgentThresholdVariable = -40.,
@@ -127,6 +127,4 @@ MyPredicter.view(
 
 #Definition the AttestedStr
 print('MyPredicter is ')
-SYS._print(MyPredicter) 
-
-
+SYS._print(MyPredicter)

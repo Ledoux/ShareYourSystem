@@ -2,6 +2,7 @@
 #ImportModules
 import ShareYourSystem as SYS
 
+#print SYS.PoolerClass()
 #Definition a Pooler
 MyPooler=SYS.PoolerClass().pool(7,12)
 
@@ -15,6 +16,6 @@ SYS._attest(
 			'RepresentingAlineaIsBool':False
 		}
 		)]
-) 
+)
 
 #Print
