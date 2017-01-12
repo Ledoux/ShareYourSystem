@@ -2,9 +2,7 @@
 
 ShareYourSystem is a scientific data-mining application based on a Python-Javascript hierarchic MVCframework (still under construction)
 
-It proposes a meta object syntax for making a source code and classes ontology
-
-more directly human-readable, [http://shareyoursystem.ouvaton.org/site/LibraryReference/Databasers](Model) objects for synchronising mongo and hdf5 databases client and server-side, Viewer objects for their interactive UML repre-
+It proposes a meta object syntax for making a source code and classes ontology more directly human-readable, **[http://shareyoursystem.ouvaton.org/site/LibraryReference/Databasers](Model)** objects for synchronising mongo and hdf5 databases client and server-side, Viewer objects for their interactive UML repre-
 sentation through a Meteor patch, Controller objects for establishing the inter-
 face between models and views, communication between python and js instances and the scope level for defining parameter and result variables characterising your scientific system. Applications to research by wrapping scientific tools like Brian
 for python neural networks simulations, vexflow/music21 for music analysis.
